@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/MagneticLayersBuilder.h"
+#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Multilayer/Layer.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Particle/Particle.h"
 
 MagneticSubstrateZeroFieldBuilder::MagneticSubstrateZeroFieldBuilder()
     : m_sphere_radius(5 * Units::nanometer)

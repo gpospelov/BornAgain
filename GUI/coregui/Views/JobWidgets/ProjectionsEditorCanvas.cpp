@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/JobWidgets/ProjectionsEditorCanvas.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
-#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
-#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsView.h"
 #include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/PlotStatusLabel.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlotEvent.h"
-#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsView.h"
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
 

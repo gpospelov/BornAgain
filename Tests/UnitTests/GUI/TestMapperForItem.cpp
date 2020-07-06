@@ -3,8 +3,8 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 using SessionItemUtils::ParentRow;

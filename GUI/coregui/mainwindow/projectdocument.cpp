@@ -14,11 +14,11 @@
 
 #include "GUI/coregui/mainwindow/projectdocument.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/JobModel.h"
-#include "GUI/coregui/utils/MessageService.h"
 #include "GUI/coregui/mainwindow/OutputDataIOService.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/MessageService.h"
 #include <QDir>
 #include <QElapsedTimer>
 #include <QXmlStreamReader>

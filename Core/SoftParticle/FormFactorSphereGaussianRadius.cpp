@@ -14,9 +14,9 @@
 
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Fit/Tools/RealLimits.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
+#include "Fit/Tools/RealLimits.h"
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
     : m_mean(mean), m_sigma(sigma), m_mean_r3(0.0)

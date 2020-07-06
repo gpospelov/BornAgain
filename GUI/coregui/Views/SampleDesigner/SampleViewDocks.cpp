@@ -19,9 +19,9 @@
 #include "GUI/coregui/Views/SampleDesigner/SampleDesigner.h"
 #include "GUI/coregui/Views/SampleDesigner/SamplePropertyWidget.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleTreeWidget.h"
-#include "GUI/coregui/Views/SampleView.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleWidgetBox.h"
 #include "GUI/coregui/Views/SampleDesigner/ScriptPanel.h"
+#include "GUI/coregui/Views/SampleView.h"
 #include <QAction>
 #include <QDockWidget>
 #include <QTreeView>

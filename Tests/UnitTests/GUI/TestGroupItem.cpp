@@ -1,11 +1,11 @@
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupInfo.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/UnitTests/GUI/test_utils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestGroupItem : public ::testing::Test
 {

@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataView.h"
-#include "GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.h"
 #include "GUI/coregui/Models/RealDataModel.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.h"
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorWidget.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"

@@ -23,19 +23,25 @@
 //! Wraps a parameter of type ISample.
 //! @ingroup tools_internal
 
-class BA_CORE_API_ ComponentParameter : public IParameter<ISample> {
+class BA_CORE_API_ ComponentParameter : public IParameter<ISample>
+{
 public:
-    ComponentParameter(
-        const std::string& name, volatile ISample* par,
-        const std::string& parent_name, const std::function<void()>& onChange)
-    : IParameter<ISample>(name, par, parent_name, onChange) {}
+    ComponentParameter(const std::string& name, volatile ISample* par,
+                       const std::string& parent_name, const std::function<void()>& onChange)
+        : IParameter<ISample>(name, par, parent_name, onChange)
+    {
+    }
 
-    ComponentParameter* clone( const std::string& new_name="" ) const {
-        return new ComponentParameter(
-            new_name=="" ? getName() : new_name, m_data, m_parent_name, m_onChange); }
+    ComponentParameter* clone(const std::string& new_name = "") const
+    {
+        return new ComponentParameter(new_name == "" ? getName() : new_name, m_data, m_parent_name,
+                                      m_onChange);
+    }
 
-    bool operator==(const ComponentParameter& other) const {
-        return *static_cast<const IParameter*>(this)==*static_cast<const IParameter*>(&other); }
+    bool operator==(const ComponentParameter& other) const
+    {
+        return *static_cast<const IParameter*>(this) == *static_cast<const IParameter*>(&other);
+    }
 
 protected:
 };

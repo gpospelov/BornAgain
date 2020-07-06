@@ -3,13 +3,13 @@
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DataProperties.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/utils/MessageService.h"
 #include "GUI/coregui/Models/RealDataModel.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "Tests/UnitTests/utilities/google_test.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/MessageService.h"
 #include "Tests/UnitTests/GUI/test_utils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestDataItemViews : public ::testing::Test
 {

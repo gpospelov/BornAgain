@@ -14,10 +14,10 @@
 
 #include "GUI/coregui/Views/PropertyEditor/ComponentTreeView.h"
 #include "GUI/coregui/Models/ComponentProxyModel.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentTreeActions.h"
-#include "GUI/coregui/utils/CustomEventFilters.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/SessionModelDelegate.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentTreeActions.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QBoxLayout>
 #include <QStandardItemModel>

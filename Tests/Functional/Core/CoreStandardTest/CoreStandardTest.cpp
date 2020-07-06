@@ -15,9 +15,9 @@
 #include "Tests/Functional/Core/CoreStandardTest/CoreStandardTest.h"
 #include "BABuild.h"
 #include "BATesting.h"
-#include "Core/Tools/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Simulation/Simulation.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 
 bool CoreStandardTest::runTest()

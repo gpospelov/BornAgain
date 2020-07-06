@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IDetector2D.h"
-#include "Core/Beam/Beam.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Beam/Beam.h"
 #include "Core/Instrument/DetectorContext.h"
 #include "Core/Instrument/DetectorFunctions.h"
-#include "Core/Mask/InfinitePlane.h"
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Instrument/SimulationArea.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Mask/InfinitePlane.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/SimulationElement/SimulationElement.h"
 
 IDetector2D::IDetector2D() = default;
 

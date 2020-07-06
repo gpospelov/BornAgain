@@ -29,7 +29,6 @@
 #include "GUI/coregui/Models/FitSuiteItem.h"
 #include "GUI/coregui/Models/FootprintItems.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
@@ -65,6 +64,7 @@
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
 #include "GUI/coregui/Models/TransformationItem.h"
 #include "GUI/coregui/Models/VectorItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 ItemCatalogue::ItemCatalogue()
 {

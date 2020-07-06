@@ -15,8 +15,8 @@
 #ifndef FORMFACTORCRYSTAL_H
 #define FORMFACTORCRYSTAL_H
 
-#include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/Lattice/Lattice.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a MesoCrystal.
 //! @ingroup formfactors

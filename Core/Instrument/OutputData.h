@@ -18,9 +18,9 @@
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Instrument/LLData.h"
 #include "Core/Instrument/OutputDataIterator.h"
+#include "Core/Parametrization/ThreadInfo.h"
 #include "Core/Tools/PyObject.h"
 #include "Core/Tools/SafePointerVector.h"
-#include "Core/Parametrization/ThreadInfo.h"
 #include <cassert>
 #include <sstream>
 

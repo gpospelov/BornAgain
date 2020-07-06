@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/InterferenceFunctionViews.h"
-#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 
 InterferenceFunction1DLatticeView::InterferenceFunction1DLatticeView(QGraphicsItem* parent)
     : ConnectableView(parent)

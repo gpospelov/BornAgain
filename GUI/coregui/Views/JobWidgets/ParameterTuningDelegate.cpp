@@ -16,9 +16,9 @@
 #include "GUI/coregui/Models/ModelPath.h"
 #include "GUI/coregui/Models/ParameterTreeItems.h"
 #include "GUI/coregui/Models/ParameterTuningModel.h"
-#include "GUI/coregui/Views/JobWidgets/ScientificSpinBox.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/JobWidgets/ScientificSpinBox.h"
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QHBoxLayout>

@@ -16,8 +16,8 @@
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Tools/MathFunctions.h"
 
 const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true},
                                                        {{0, 1, 7, 6}, false},

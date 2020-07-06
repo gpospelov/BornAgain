@@ -16,8 +16,8 @@
 #define BASEMATERIALIMPL_H_
 
 #include "Core/Basics/Complex.h"
-#include "Core/Vector/EigenCore.h"
 #include "Core/Basics/INamed.h"
+#include "Core/Vector/EigenCore.h"
 #include "Core/Vector/Vectors3D.h"
 
 class Transform3D;

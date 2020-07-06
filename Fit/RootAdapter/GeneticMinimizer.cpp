@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Fit/RootAdapter/GeneticMinimizer.h"
-#include "Math/GeneticMinimizer.h"
-#include "Fit/Minimizer/MinimizerConstants.h"
 #include "Fit/Kernel/Parameter.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
+#include "Math/GeneticMinimizer.h"
 
 namespace
 {

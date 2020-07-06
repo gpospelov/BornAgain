@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.h"
+#include "Core/Simulation/Simulation.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
@@ -20,7 +21,6 @@
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "Core/Simulation/Simulation.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 
 namespace

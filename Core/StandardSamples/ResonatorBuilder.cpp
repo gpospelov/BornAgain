@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/ResonatorBuilder.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Units.h"
 #include <memory>

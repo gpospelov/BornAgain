@@ -1,9 +1,9 @@
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Core/includeIncludes/HardParticles.h"
-#include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Scattering/Rotations.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/includeIncludes/HardParticles.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class FormFactorBasicTest : public ::testing::Test
@@ -128,11 +128,11 @@ TEST_F(FormFactorBasicTest, Box)
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
     EXPECT_EQ(height, particle.topZ(RotationZ()));
 
-    EXPECT_EQ(0., particle.bottomZ(RotationZ(17*Units::degree)));
-    EXPECT_EQ(height, particle.topZ(RotationZ(39*Units::degree)));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(17 * Units::degree)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(39 * Units::degree)));
 
-    EXPECT_NEAR(-width/2, particle.bottomZ(RotationX(90*Units::degree)), 1e-12);
-    EXPECT_NEAR(-length/2, particle.bottomZ(RotationY(90*Units::degree)), 1e-12);
+    EXPECT_NEAR(-width / 2, particle.bottomZ(RotationX(90 * Units::degree)), 1e-12);
+    EXPECT_NEAR(-length / 2, particle.bottomZ(RotationY(90 * Units::degree)), 1e-12);
 
     test_ff(&particle);
 }
@@ -204,7 +204,7 @@ TEST_F(FormFactorBasicTest, Cuboctahedron)
     EXPECT_EQ(alpha, particle.getAlpha());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height*(1+height_ratio), particle.topZ(RotationZ()));
+    EXPECT_EQ(height * (1 + height_ratio), particle.topZ(RotationZ()));
 
     test_ff(&particle);
 }
@@ -225,18 +225,18 @@ TEST_F(FormFactorBasicTest, Cylinder)
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
     EXPECT_EQ(height, particle.topZ(RotationZ()));
 
-    EXPECT_NEAR(-radius, particle.bottomZ(RotationX(90*Units::degree)), 1e-13);
-    EXPECT_NEAR(+radius, particle.topZ   (RotationX(90*Units::degree)), 1e-13);
-    EXPECT_NEAR(-radius, particle.bottomZ(RotationY(90*Units::degree)), 1e-13);
-    EXPECT_NEAR(+radius, particle.topZ   (RotationY(90*Units::degree)), 1e-13);
+    EXPECT_NEAR(-radius, particle.bottomZ(RotationX(90 * Units::degree)), 1e-13);
+    EXPECT_NEAR(+radius, particle.topZ(RotationX(90 * Units::degree)), 1e-13);
+    EXPECT_NEAR(-radius, particle.bottomZ(RotationY(90 * Units::degree)), 1e-13);
+    EXPECT_NEAR(+radius, particle.topZ(RotationY(90 * Units::degree)), 1e-13);
 
-    EXPECT_NEAR(-height, particle.bottomZ(RotationY(180*Units::degree)), 1e-13);
-    EXPECT_NEAR(0,       particle.topZ   (RotationY(180*Units::degree)), 1e-13);
+    EXPECT_NEAR(-height, particle.bottomZ(RotationY(180 * Units::degree)), 1e-13);
+    EXPECT_NEAR(0, particle.topZ(RotationY(180 * Units::degree)), 1e-13);
 
-    for (double gamma: { 1.123, -2.34, 7.5, -9. })
+    for (double gamma : {1.123, -2.34, 7.5, -9.})
         // 7.5deg is worst case for 24-vertex circle
-        EXPECT_NEAR(-radius, particle.bottomZ(
-                        RotationEuler(0, 90*Units::degree, gamma*Units::degree)),
+        EXPECT_NEAR(-radius,
+                    particle.bottomZ(RotationEuler(0, 90 * Units::degree, gamma * Units::degree)),
                     3e-2); // TODO decrease epsilon after replacement of vertex-based approximation
 
     test_ff(&particle);
@@ -252,8 +252,8 @@ TEST_F(FormFactorBasicTest, Dodecahedron)
     EXPECT_EQ(edge, particle.getEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_NEAR(2*1.11352*edge, particle.topZ(RotationZ()), 1e-4);
-       // height=2*inradius from web ressource
+    EXPECT_NEAR(2 * 1.11352 * edge, particle.topZ(RotationZ()), 1e-4);
+    // height=2*inradius from web ressource
 
     test_ff(&particle);
 }
@@ -305,7 +305,7 @@ TEST_F(FormFactorBasicTest, FullSphere)
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(2*radius, particle.topZ(RotationZ()));
+    EXPECT_EQ(2 * radius, particle.topZ(RotationZ()));
 
     test_ff(&particle);
 }
@@ -339,8 +339,8 @@ TEST_F(FormFactorBasicTest, Icosahedron)
     EXPECT_EQ(edge, particle.getEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_NEAR(2*0.755761*edge, particle.topZ(RotationZ()), 1e-4);
-       // height=2*inradius from web ressource
+    EXPECT_NEAR(2 * 0.755761 * edge, particle.topZ(RotationZ()), 1e-4);
+    // height=2*inradius from web ressource
 
     test_ff(&particle);
 }

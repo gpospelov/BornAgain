@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskGraphicsProxy.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include "GUI/coregui/Views/MaskWidgets/ColorMapSceneAdaptor.h"
-#include "GUI/coregui/Models/IntensityDataItem.h"
 #include <QGraphicsSceneMouseEvent>
 
 MaskGraphicsProxy::MaskGraphicsProxy()

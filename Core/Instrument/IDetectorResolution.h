@@ -16,8 +16,8 @@
 #define IDETECTORRESOLUTION_H
 
 #include "Core/Basics/ICloneable.h"
-#include "Core/Parametrization/INode.h"
 #include "Core/Instrument/OutputData.h"
+#include "Core/Parametrization/INode.h"
 
 //! Interface for detector resolution algorithms
 //! @ingroup algorithms_internal

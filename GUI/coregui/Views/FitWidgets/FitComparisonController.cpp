@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitComparisonController.h"
-#include "GUI/coregui/Models/AxesItems.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
+#include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobItem.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.h"
 
 namespace
 {

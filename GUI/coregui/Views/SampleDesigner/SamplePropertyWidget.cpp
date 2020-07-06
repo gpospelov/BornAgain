@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/SamplePropertyWidget.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QItemSelection>
 #include <QModelIndexList>
 #include <QSortFilterProxyModel>

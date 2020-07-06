@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitComparisonViewController.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/JobItem.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.h"
 
 namespace
 {

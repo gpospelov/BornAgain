@@ -13,17 +13,17 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/RipplesBuilder.h"
+#include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
+#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/HardParticle/FormFactorRipple1.h"
 #include "Core/HardParticle/FormFactorRipple2.h"
-#include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
-#include "Core/Multilayer/Layer.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Particle/Particle.h"
 
 CosineRippleBuilder::CosineRippleBuilder() {}
 

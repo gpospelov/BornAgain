@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/SpecularDataItem.h"
-#include "GUI/coregui/Models/AxesItems.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";

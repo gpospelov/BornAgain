@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Computation/ProfileHelper.h"
-#include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Computation/ProcessedSample.h"
+#include "Core/Multilayer/LayerRoughness.h"
 
 namespace
 {

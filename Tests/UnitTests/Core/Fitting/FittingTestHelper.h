@@ -1,13 +1,13 @@
 #ifndef FITTINGTESTHELPER_H
 #define FITTINGTESTHELPER_H
 
-#include "Core/Simulation/GISASSimulation.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Instrument/OutputData.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Fit/Kernel/Parameters.h"
 #include <memory>
 
 //! Helper class to simplify testing of SimDataPair and FitObjective

@@ -17,8 +17,8 @@
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
-#include "GUI/coregui/Views/JobWidgets/ProjectionsEditor.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/JobWidgets/ProjectionsEditor.h"
 #include <QVBoxLayout>
 
 IntensityDataProjectionsWidget::IntensityDataProjectionsWidget(QWidget* parent)

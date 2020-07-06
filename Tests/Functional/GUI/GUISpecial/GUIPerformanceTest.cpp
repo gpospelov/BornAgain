@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUISpecial/GUIPerformanceTest.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "Tests/Functional/TestMachinery/Benchmark.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
 #include "GUI/coregui/Models/FitParameterHelper.h"
-#include "Core/Simulation/GISASSimulation.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
@@ -28,11 +28,11 @@
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/ModelPath.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include "GUI/coregui/Models/ParameterTreeItems.h"
 #include "GUI/coregui/Models/ParameterTreeUtils.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Tests/Functional/TestMachinery/Benchmark.h"
 #include <QCoreApplication>
 #include <QDebug>
 #include <QElapsedTimer>

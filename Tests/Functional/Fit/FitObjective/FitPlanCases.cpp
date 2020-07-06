@@ -14,19 +14,19 @@
 
 #include "Tests/Functional/Fit/FitObjective/FitPlanCases.h"
 #include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Aggregate/InterferenceFunction2DLattice.h"
+#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
-#include "Core/Simulation/GISASSimulation.h"
-#include "Core/Aggregate/InterferenceFunction2DLattice.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Fit/Kernel/Parameters.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Mask/Rectangle.h"
 #include "Core/Instrument/RectangularDetector.h"
+#include "Core/Mask/Rectangle.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Fit/Kernel/Parameters.h"
 
 using namespace Fit;
 

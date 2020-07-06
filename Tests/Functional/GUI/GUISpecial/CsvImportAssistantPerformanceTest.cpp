@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUISpecial/CsvImportAssistantPerformanceTest.h"
-#include "Core/Instrument/ArrayUtils.h"
-#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include "Core/InputOutput/OutputDataReadFactory.h"
 #include "Core/InputOutput/OutputDataWriteFactory.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include <ctime>
 #include <iostream>
 

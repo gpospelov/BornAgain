@@ -14,10 +14,10 @@
 
 #include "GUI/coregui/Views/FitWidgets/GUIFitObserver.h"
 #include "Core/Fitting/FitObjective.h"
-#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "Fit/Kernel/MinimizerResult.h"
 #include "Fit/Tools/MinimizerUtils.h"
+#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 GUIFitObserver::GUIFitObserver(QObject* parent)
     : QObject(parent), m_block_update_plots(false), m_update_interval(1)

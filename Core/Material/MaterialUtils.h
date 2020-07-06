@@ -16,8 +16,8 @@
 #define MATERIALUTILS_H_
 
 #include "Core/Basics/Complex.h"
-#include "Core/Vector/EigenCore.h"
 #include "Core/Material/Material.h"
+#include "Core/Vector/EigenCore.h"
 #include "Core/Vector/Vectors3D.h"
 
 //! A number of materials-related helper functions for internal use

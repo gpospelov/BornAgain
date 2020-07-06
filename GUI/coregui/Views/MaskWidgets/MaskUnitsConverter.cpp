@@ -14,11 +14,11 @@
 
 #include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 MaskUnitsConverter::MaskUnitsConverter() : mp_data(nullptr), m_direction(UNDEFINED) {}
 

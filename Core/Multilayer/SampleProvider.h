@@ -15,8 +15,8 @@
 #ifndef SAMPLEPROVIDER_H
 #define SAMPLEPROVIDER_H
 
-#include "Core/Parametrization/INode.h"
 #include "Core/Multilayer/SampleBuilderNode.h"
+#include "Core/Parametrization/INode.h"
 
 class MultiLayer;
 

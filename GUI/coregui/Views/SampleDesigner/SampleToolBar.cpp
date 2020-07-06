@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/SampleToolBar.h"
-#include "GUI/coregui/Views/SampleDesigner/DesignerView.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerView.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleViewActions.h"
 #include <QAction>
 #include <QButtonGroup>

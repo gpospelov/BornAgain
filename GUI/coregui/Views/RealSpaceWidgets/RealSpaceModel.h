@@ -15,8 +15,8 @@
 #ifndef REALSPACEMODEL_H
 #define REALSPACEMODEL_H
 
-#include "Wrap/WinDllMacros.h"
 #include "GUI/ba3d/model/model.h"
+#include "Wrap/WinDllMacros.h"
 
 class RealSpaceModel : public RealSpace::Model
 {

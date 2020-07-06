@@ -1,10 +1,10 @@
-#include "Core/Instrument/AngularSpecScan.h"
-#include "Core/Binning/FixedBinAxis.h"
 #include "Core/Beam/FootprintFactorGaussian.h"
+#include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
+#include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Instrument/ScanResolution.h"
+#include "Core/Parametrization/RangedDistributions.h"
 #include "Core/SimulationElement/SpecularSimulationElement.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 

@@ -1,10 +1,10 @@
-#include "GUI/coregui/Models/AxesItems.h"
 #include "Core/Binning/FixedBinAxis.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Core/Binning/VariableBinAxis.h"
+#include "Core/Parametrization/Units.h"
+#include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/PropertyItem.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
-#include "Core/Parametrization/Units.h"
-#include "Core/Binning/VariableBinAxis.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class TestAxesItems : public ::testing::Test

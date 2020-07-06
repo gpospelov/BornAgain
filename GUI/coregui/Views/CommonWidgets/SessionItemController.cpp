@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemController.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 SessionItemController::SessionItemController(QObject* prt)
     : QObject(prt), m_item(nullptr), m_parent_subscribed(false)

@@ -14,11 +14,11 @@
 
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QPainter>
 #include <QtGlobal>
 #include <cmath>
 #include <iostream>
-#include "GUI/coregui/utils/StyleUtils.h"
 
 namespace
 {
@@ -214,17 +214,17 @@ QPixmap DesignerHelper::getMimePixmap(const QString& name)
 
 int DesignerHelper::getHeaderFontSize()
 {
-    return StyleUtils::SystemPointSize()*1.5;
+    return StyleUtils::SystemPointSize() * 1.5;
 }
 
 int DesignerHelper::layerWidth()
 {
-    return StyleUtils::SizeOfLetterM().width()*18;
+    return StyleUtils::SizeOfLetterM().width() * 18;
 }
 
 int DesignerHelper::layerHeight()
 {
-    return StyleUtils::SizeOfLetterM().height()*2;
+    return StyleUtils::SizeOfLetterM().height() * 2;
 }
 
 QColor DesignerHelper::getDefaultLayerColor()
@@ -274,17 +274,17 @@ QColor DesignerHelper::getDefaultMaterialColor()
 
 int DesignerHelper::getSectionFontSize()
 {
-    return StyleUtils::SystemPointSize()*1.2;
+    return StyleUtils::SystemPointSize() * 1.2;
 }
 
 int DesignerHelper::getLabelFontSize()
 {
-    return StyleUtils::SystemPointSize()*0.9;
+    return StyleUtils::SystemPointSize() * 0.9;
 }
 
 int DesignerHelper::getPortFontSize()
 {
-    return StyleUtils::SystemPointSize()*0.7;
+    return StyleUtils::SystemPointSize() * 0.7;
 }
 
 int DesignerHelper::getPythonEditorFontSize()

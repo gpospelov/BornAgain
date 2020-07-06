@@ -1,6 +1,6 @@
 #include "Core/Instrument/SimulationResult.h"
-#include "Core/Simulation/GISASSimulation.h"
 #include "Core/Instrument/OutputData.h"
+#include "Core/Simulation/GISASSimulation.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class SimulationResultTest : public ::testing::Test

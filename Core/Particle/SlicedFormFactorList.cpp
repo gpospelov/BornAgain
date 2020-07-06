@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Particle/SlicedFormFactorList.h"
-#include "Core/Particle/IParticle.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Scattering/Rotations.h"
 #include "Core/Computation/Slice.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Particle/IParticle.h"
+#include "Core/Scattering/Rotations.h"
 #include <utility>
 
 namespace

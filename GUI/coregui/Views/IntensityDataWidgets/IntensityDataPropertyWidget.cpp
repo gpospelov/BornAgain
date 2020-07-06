@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QAction>
 #include <QVBoxLayout>
@@ -43,12 +43,12 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
 
 QSize IntensityDataPropertyWidget::sizeHint() const
 {
-    return QSize(StyleUtils::PropertyPanelWidth()*1.2, StyleUtils::PropertyPanelWidth()*2);
+    return QSize(StyleUtils::PropertyPanelWidth() * 1.2, StyleUtils::PropertyPanelWidth() * 2);
 }
 
 QSize IntensityDataPropertyWidget::minimumSizeHint() const
 {
-    return QSize(StyleUtils::PropertyPanelWidth()*1.2, StyleUtils::PropertyPanelWidth());
+    return QSize(StyleUtils::PropertyPanelWidth() * 1.2, StyleUtils::PropertyPanelWidth());
 }
 
 QList<QAction*> IntensityDataPropertyWidget::actionList()

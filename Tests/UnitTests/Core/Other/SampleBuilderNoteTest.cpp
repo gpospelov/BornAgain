@@ -1,7 +1,7 @@
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/ParameterPool.h"
 #include "Core/Multilayer/SampleBuilderNode.h"
+#include "Core/Parametrization/ParameterPool.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <iostream>
 #include <memory>

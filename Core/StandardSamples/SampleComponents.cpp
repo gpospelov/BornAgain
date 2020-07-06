@@ -14,8 +14,8 @@
 
 #include "Core/StandardSamples/SampleComponents.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Core/includeIncludes/HardParticles.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/includeIncludes/HardParticles.h"
 
 // ************************************************************************** //
 FTDistribution2DComponents::FTDistribution2DComponents()
@@ -37,8 +37,8 @@ FormFactorComponents::FormFactorComponents()
 
     add(BornAgain::FFBoxType, new FormFactorBox(10.0, 20.0, 5.0));
 
-//  TODO: activate this when supported by GUI
-//    add("CantellatedCube", new FormFactorCantellatedCube(15.0, 6.0));
+    //  TODO: activate this when supported by GUI
+    //    add("CantellatedCube", new FormFactorCantellatedCube(15.0, 6.0));
 
     add(BornAgain::FFConeType, new FormFactorCone(5.0, 6.0, Units::deg2rad(54.73)));
 

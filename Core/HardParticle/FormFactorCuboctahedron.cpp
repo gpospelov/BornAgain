@@ -15,10 +15,10 @@
 #include "Core/HardParticle/FormFactorCuboctahedron.h"
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/HardParticle/FormFactorPyramid.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Core/HardParticle/FormFactorPyramid.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Tools/MathFunctions.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {{{{3, 2, 1, 0}, true},
                                                                {{0, 1, 5, 4}, false},

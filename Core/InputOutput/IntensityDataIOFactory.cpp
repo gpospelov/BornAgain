@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Tools/FileSystemUtils.h"
-#include "Core/Instrument/IHistogram.h"
 #include "Core/InputOutput/OutputDataReadFactory.h"
 #include "Core/InputOutput/OutputDataWriteFactory.h"
+#include "Core/Instrument/IHistogram.h"
 #include "Core/Instrument/SimulationResult.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include <fstream>
 #include <memory>
 

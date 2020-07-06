@@ -16,10 +16,10 @@
 #include "Core/Binning/Bin.h"
 #include "Core/Tools/Numeric.h"
 
-#include <limits>
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/linestring.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
+#include <limits>
 
 using namespace boost::geometry;
 typedef model::d2::point_xy<double> point_t;

@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitActivityPanel.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Views/FitWidgets/FitSessionManager.h"
 #include "GUI/coregui/Views/FitWidgets/FitSessionWidget.h"
-#include "GUI/coregui/Models/JobItem.h"
-#include "GUI/coregui/Views/JobWidgets/JobMessagePanel.h"
-#include "GUI/coregui/Models/JobModel.h"
-#include "GUI/coregui/Views/JobWidgets/JobRealTimeWidget.h"
 #include "GUI/coregui/Views/FitWidgets/RunFitControlWidget.h"
+#include "GUI/coregui/Views/JobWidgets/JobMessagePanel.h"
+#include "GUI/coregui/Views/JobWidgets/JobRealTimeWidget.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QPushButton>
 #include <QVBoxLayout>

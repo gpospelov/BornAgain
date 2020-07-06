@@ -14,8 +14,8 @@
 
 #include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Vector/WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)

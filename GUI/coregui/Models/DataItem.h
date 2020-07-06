@@ -16,8 +16,8 @@
 #define DATAITEM_H
 
 #include "Core/Instrument/OutputData.h"
-#include "GUI/coregui/mainwindow/SaveLoadInterface.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/mainwindow/SaveLoadInterface.h"
 #include <QDateTime>
 #include <mutex>
 

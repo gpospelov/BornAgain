@@ -1,12 +1,12 @@
 #include "Core/Instrument/UnitConverter1D.h"
+#include "Core/Basics/MathConstants.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Instrument/OutputData.h"
 #include "Core/Binning/PointwiseAxis.h"
+#include "Core/Binning/VariableBinAxis.h"
+#include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/QSpecScan.h"
 #include "Core/Parametrization/Units.h"
-#include "Core/Binning/VariableBinAxis.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test

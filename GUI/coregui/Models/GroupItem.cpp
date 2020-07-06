@@ -14,8 +14,8 @@
 
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItemController.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 const QString GroupItem::T_ITEMS = "Item tag";
 

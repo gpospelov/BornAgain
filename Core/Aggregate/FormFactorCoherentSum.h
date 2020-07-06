@@ -15,9 +15,9 @@
 #ifndef FORMFACTORCOHERENTSUM_H
 #define FORMFACTORCOHERENTSUM_H
 
+#include "Core/Aggregate/FormFactorCoherentPart.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Vector/EigenCore.h"
-#include "Core/Aggregate/FormFactorCoherentPart.h"
 #include <vector>
 
 class SimulationElement;

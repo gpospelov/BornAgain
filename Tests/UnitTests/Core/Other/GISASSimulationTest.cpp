@@ -1,10 +1,10 @@
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Beam/Beam.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Instrument/OutputData.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Instrument/OutputData.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <cmath>
 #include <memory>

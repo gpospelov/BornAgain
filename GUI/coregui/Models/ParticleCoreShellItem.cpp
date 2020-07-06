@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleCoreShellItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/Models/ModelPath.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleCoreShell.h"
+#include "GUI/coregui/Models/ModelPath.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

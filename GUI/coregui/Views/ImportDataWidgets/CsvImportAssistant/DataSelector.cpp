@@ -14,10 +14,10 @@
 
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/DataSelector.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportTable.h"
-#include "GUI/coregui/utils/ImportDataInfo.h"
-#include "GUI/coregui/utils/StyleUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/TableContextMenu.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
+#include "GUI/coregui/utils/ImportDataInfo.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QFileDialog>
 #include <QFormLayout>
 #include <QGroupBox>

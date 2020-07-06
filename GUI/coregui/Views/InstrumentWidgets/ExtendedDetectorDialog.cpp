@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InstrumentWidgets/ExtendedDetectorDialog.h"
-#include "GUI/coregui/utils/CustomEventFilters.h"
 #include "GUI/coregui/Views/InstrumentWidgets/DetectorMaskDelegate.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
 #include <QPushButton>
 #include <QSettings>
 #include <QVBoxLayout>

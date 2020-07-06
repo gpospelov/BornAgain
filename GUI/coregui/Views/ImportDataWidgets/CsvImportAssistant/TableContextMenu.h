@@ -15,8 +15,8 @@
 #ifndef TABLECONTEXTMENU_H
 #define TABLECONTEXTMENU_H
 
-#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
 #include "Core/Instrument/IUnitConverter.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
 #include <QMenu>
 #include <QStringList>
 #include <QTableWidget>

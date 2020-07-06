@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SimulationWidgets/SimulationSetupWidget.h"
-#include "GUI/coregui/mainwindow/AppSvc.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
@@ -23,6 +22,7 @@
 #include "GUI/coregui/Views/SimulationWidgets/SimulationDataSelectorWidget.h"
 #include "GUI/coregui/Views/SimulationWidgets/SimulationOptionsWidget.h"
 #include "GUI/coregui/Views/SimulationWidgets/SimulationSetupAssistant.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
 #include "GUI/coregui/mainwindow/projectmanager.h"
 #include <QMessageBox>
 #include <QPushButton>

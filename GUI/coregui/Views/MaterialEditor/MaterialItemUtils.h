@@ -15,8 +15,8 @@
 #ifndef MATERIALITEMUTILS_H
 #define MATERIALITEMUTILS_H
 
-#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include <QColor>
 #include <QString>
 #include <memory>

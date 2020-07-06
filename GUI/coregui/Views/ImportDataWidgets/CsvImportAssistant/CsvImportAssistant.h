@@ -15,9 +15,9 @@
 #ifndef CSVIMPORTASSISTANT_H
 #define CSVIMPORTASSISTANT_H
 
+#include "Core/InputOutput/DataFormatUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvReader.h"
-#include "Core/InputOutput/DataFormatUtils.h"
 #include "GUI/coregui/utils/ImportDataInfo.h"
 #include "Wrap/WinDllMacros.h"
 #include <QStringList>

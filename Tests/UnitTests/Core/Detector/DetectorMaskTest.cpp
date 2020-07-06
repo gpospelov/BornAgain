@@ -1,6 +1,6 @@
 #include "Core/Instrument/DetectorMask.h"
-#include "Core/Mask/Polygon.h"
 #include "Core/Instrument/SphericalDetector.h"
+#include "Core/Mask/Polygon.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 

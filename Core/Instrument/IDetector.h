@@ -15,13 +15,13 @@
 #ifndef IDETECTOR_H_
 #define IDETECTOR_H_
 
-#include "Core/Instrument/DetectionProperties.h"
-#include "Core/Binning/IAxis.h"
 #include "Core/Basics/ICloneable.h"
-#include "Core/Parametrization/INode.h"
+#include "Core/Binning/IAxis.h"
+#include "Core/Instrument/DetectionProperties.h"
 #include "Core/Instrument/IUnitConverter.h"
-#include "Core/Tools/SafePointerVector.h"
 #include "Core/Instrument/SimulationAreaIterator.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Tools/SafePointerVector.h"
 
 class Beam;
 class DetectorMask;

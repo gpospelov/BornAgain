@@ -20,11 +20,10 @@ using duration_unit = std::chrono::seconds;
 
 //! Internal state of a WallclockTimer object.
 
-struct WallclockTimerState
-{
+struct WallclockTimerState {
     std::chrono::time_point<clock_used> m_start_time;
     std::chrono::time_point<clock_used> m_end_time;
-    bool m_is_running {false};
+    bool m_is_running{false};
 };
 
 WallclockTimer::WallclockTimer() : m_state(new WallclockTimerState) {}
@@ -47,8 +46,8 @@ double WallclockTimer::runTime() const
     duration_unit diff =
         m_state->m_is_running
             ? std::chrono::duration_cast<duration_unit>(clock_used::now() - m_state->m_start_time)
-            : std::chrono::duration_cast<duration_unit>(
-                m_state->m_end_time - m_state->m_start_time);
+            : std::chrono::duration_cast<duration_unit>(m_state->m_end_time
+                                                        - m_state->m_start_time);
 
     return diff.count();
 }

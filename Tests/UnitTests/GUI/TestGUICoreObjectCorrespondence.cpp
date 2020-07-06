@@ -1,9 +1,9 @@
-#include "GUI/coregui/Models/FormFactorItems.h"
-#include "Core/includeIncludes/FormFactors.h"
-#include "GUI/coregui/Models/InterferenceFunctionItems.h"
-#include "Core/includeIncludes/InterferenceFunctions.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/includeIncludes/FormFactors.h"
+#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class TestGUICoreObjectCorrespondence : public ::testing::Test

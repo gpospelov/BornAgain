@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceTest.h"
-#include "Core/Simulation/GISASSimulation.h"
-#include "Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceBuilder.h"
 #include "Core/Instrument/RectangularDetector.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceBuilder.h"
 #include <iostream>
 
 namespace

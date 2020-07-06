@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DataViewUtils.h"
+#include "Core/Instrument/UnitConverterUtils.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
-#include "Core/Instrument/UnitConverterUtils.h"
 
 namespace
 {

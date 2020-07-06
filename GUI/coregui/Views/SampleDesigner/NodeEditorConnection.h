@@ -21,8 +21,8 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
-#include "Wrap/WinDllMacros.h"
 #include "GUI/coregui/Views/SampleDesigner/ViewTypes.h"
+#include "Wrap/WinDllMacros.h"
 #include <QGraphicsPathItem>
 
 class NodeEditorPort;

@@ -13,16 +13,16 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
-#include "GUI/coregui/Models/FTDecayFunctionItems.h"
 #include "Core/Aggregate/FTDecayFunctions.h"
-#include "GUI/coregui/Models/FTDistributionItems.h"
 #include "Core/Aggregate/FTDistributions2D.h"
-#include "GUI/coregui/Models/GroupItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/Units.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
+#include "GUI/coregui/Models/FTDecayFunctionItems.h"
+#include "GUI/coregui/Models/FTDistributionItems.h"
+#include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/ModelPath.h"
-#include "Core/Parametrization/Units.h"
 
 namespace
 {

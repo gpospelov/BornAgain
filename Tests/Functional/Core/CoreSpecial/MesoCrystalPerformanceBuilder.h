@@ -15,8 +15,8 @@
 #ifndef MESOCRYSTALPERFORMANCEBUILDER_H
 #define MESOCRYSTALPERFORMANCEBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Material/Material.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class MesoCrystal;
 class IFormFactor;

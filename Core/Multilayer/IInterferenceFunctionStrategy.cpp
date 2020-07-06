@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
-#include "Core/Basics/Exceptions.h"
 #include "Core/Aggregate/FormFactorCoherentSum.h"
-#include "Core/Tools/IntegratorMCMiser.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
+#include "Core/Basics/Exceptions.h"
 #include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Tools/IntegratorMCMiser.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)

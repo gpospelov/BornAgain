@@ -15,14 +15,14 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "Core/Parametrization/DistributionHandler.h"
-#include "Core/Instrument/IDetector2D.h"
-#include "Core/Parametrization/INode.h"
-#include "Core/Instrument/Instrument.h"
 #include "Core/Computation/ProgressHandler.h"
-#include "Core/Multilayer/SampleProvider.h"
-#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
+#include "Core/Multilayer/SampleProvider.h"
+#include "Core/Parametrization/DistributionHandler.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Parametrization/SimulationOptions.h"
 
 template <class T> class OutputData;
 class IBackground;

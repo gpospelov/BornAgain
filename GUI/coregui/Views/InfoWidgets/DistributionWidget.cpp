@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InfoWidgets/DistributionWidget.h"
-#include "GUI/coregui/Models/DistributionItems.h"
 #include "Core/Parametrization/Distributions.h"
+#include "GUI/coregui/Models/DistributionItems.h"
 #include "GUI/coregui/Models/RealLimitsItems.h"
 #include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
 #include "qcustomplot.h"

@@ -15,8 +15,8 @@
 #ifndef DETECTORCONTEXT_H
 #define DETECTORCONTEXT_H
 
-#include "Core/Vector/EigenCore.h"
 #include "Core/Binning/IPixel.h"
+#include "Core/Vector/EigenCore.h"
 #include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <vector>

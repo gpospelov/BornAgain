@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SimulationWidgets/SimulationOptionsWidget.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentFlatView.h"
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentFlatView.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 

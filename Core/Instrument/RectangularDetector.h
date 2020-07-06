@@ -15,8 +15,8 @@
 #ifndef RECTANGULARDETECTOR_H
 #define RECTANGULARDETECTOR_H
 
-#include "Core/Instrument/IDetector2D.h"
 #include "Core/Binning/IPixel.h"
+#include "Core/Instrument/IDetector2D.h"
 
 //! A pixel in a RectangularDetector.
 

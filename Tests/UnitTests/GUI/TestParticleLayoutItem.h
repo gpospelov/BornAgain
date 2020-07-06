@@ -1,6 +1,6 @@
+#include "Core/Basics/MathConstants.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
-#include "Core/Basics/MathConstants.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"

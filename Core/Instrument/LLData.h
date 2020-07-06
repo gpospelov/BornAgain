@@ -15,8 +15,8 @@
 #ifndef LLDATA_H
 #define LLDATA_H
 
-#include "Core/Vector/EigenCore.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/Vector/EigenCore.h"
 #include <algorithm>
 #include <limits>
 #include <numeric>

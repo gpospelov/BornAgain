@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction3DLattice.h"
+#include "Core/Aggregate/IPeakShape.h"
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Aggregate/IPeakShape.h"
 #include <algorithm>
 
 InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& lattice)

@@ -16,10 +16,10 @@
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/MaterialModel.h"
-#include "GUI/coregui/Views/CommonWidgets/ModelTreeView.h"
 #include "GUI/coregui/Models/RealDataModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionModelDelegate.h"
+#include "GUI/coregui/Views/CommonWidgets/ModelTreeView.h"
 #include "GUI/coregui/Views/TestView.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QToolBar>

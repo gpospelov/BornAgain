@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularPlotCanvas.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/FontScalingEvent.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/PlotStatusLabel.h"
-#include "GUI/coregui/Models/SpecularDataItem.h"
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularPlot.h"
 #include <QVBoxLayout>
 

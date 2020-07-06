@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h"
-#include "GUI/coregui/mainwindow/AppSvc.h"
 #include "GUI/coregui/Models/FilterPropertyProxy.h"
-#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.h"
-#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
-#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceView.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceView.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
 #include "GUI/coregui/mainwindow/projectmanager.h"
 #include <QApplication>
 #include <QFileDialog>

@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/Layer.h"
+#include "Core/Aggregate/ILayout.h"
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Aggregate/ILayout.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 

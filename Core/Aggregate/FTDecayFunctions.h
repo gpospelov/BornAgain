@@ -16,8 +16,8 @@
 #define FTDECAYFUNCTIONS_H
 
 #include "Core/Basics/ICloneable.h"
-#include "Core/Parametrization/INode.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/INode.h"
 #include <utility>
 
 //! Interface for a one-dimensional decay function,

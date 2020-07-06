@@ -13,22 +13,22 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/InstrumentItems.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Instrument/Instrument.h"
+#include "Core/Instrument/UnitConverter1D.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DetectorItems.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItem.h"
-#include "Core/Instrument/IDetector2D.h"
-#include "Core/Instrument/Instrument.h"
 #include "GUI/coregui/Models/ItemFileNameUtils.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "Core/Instrument/UnitConverter1D.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

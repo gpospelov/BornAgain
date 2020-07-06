@@ -15,9 +15,9 @@
 #ifndef INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 #define INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
-#include "Core/Basics/Complex.h"
 #include "Core/Aggregate/FTDistributions1D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Basics/Complex.h"
 #include <memory>
 
 //! Interference function of radial paracrystal.

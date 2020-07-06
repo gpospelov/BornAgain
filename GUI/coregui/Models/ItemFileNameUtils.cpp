@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ItemFileNameUtils.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

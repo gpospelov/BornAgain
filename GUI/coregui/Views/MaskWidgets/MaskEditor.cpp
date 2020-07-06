@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorActions.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorCanvas.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorPropertyPanel.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorToolBar.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
-#include "GUI/coregui/Models/SessionModel.h"
 #include "minisplitter.h"
 #include <QBoxLayout>
 #include <QContextMenuEvent>

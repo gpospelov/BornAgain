@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
-#include "GUI/coregui/mainwindow/AppSvc.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/ItemFileNameUtils.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
 #include "GUI/coregui/mainwindow/projectmanager.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>

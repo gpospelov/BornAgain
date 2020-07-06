@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
 #include "GUI/coregui/mainwindow/SplashScreen.h"
-#include "GUI/main/appoptions.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/utils/hostosinfo.h"
+#include "GUI/main/appoptions.h"
 #include <QApplication>
 #include <QLocale>
 #include <QMetaType>

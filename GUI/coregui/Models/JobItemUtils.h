@@ -15,8 +15,8 @@
 #ifndef JOBITEMUTILS_H
 #define JOBITEMUTILS_H
 
-#include "GUI/coregui/Models/ComboProperty.h"
 #include "Core/Instrument/IDetector.h"
+#include "GUI/coregui/Models/ComboProperty.h"
 #include <QMap>
 
 class DataItem;

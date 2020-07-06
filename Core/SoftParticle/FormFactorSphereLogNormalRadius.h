@@ -15,8 +15,8 @@
 #ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
 #define FORMFACTORSPHERELOGNORMALRADIUS_H
 
-#include "Core/Parametrization/Distributions.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/Parametrization/Distributions.h"
 #include "Core/Tools/SafePointerVector.h"
 #include <memory>
 

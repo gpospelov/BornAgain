@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/JobWidgets/ProjectionsEditorActions.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/SaveProjectionsAssistant.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/SaveProjectionsAssistant.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QModelIndexList>

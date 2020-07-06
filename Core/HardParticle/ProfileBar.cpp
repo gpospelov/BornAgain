@@ -16,10 +16,10 @@
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
-#include "Fit/Tools/RealLimits.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h" // from Shapes/
+#include "Core/Tools/MathFunctions.h"
+#include "Fit/Tools/RealLimits.h"
 
 //! @brief Constructor of elongated bar
 //! @param length: length of the rectangular base in nanometers
@@ -61,8 +61,8 @@ complex_t ProfileBar::factor_yz(complex_t qy, complex_t qz) const
     const complex_t qyWdiv2 = m_width * qy / 2.0;
     const complex_t qzHdiv2 = m_height * qz / 2.0;
 
-    return m_height * m_width * exp_I(qzHdiv2)
-           * MathFunctions::sinc(qyWdiv2) * MathFunctions::sinc(qzHdiv2);
+    return m_height * m_width * exp_I(qzHdiv2) * MathFunctions::sinc(qyWdiv2)
+           * MathFunctions::sinc(qzHdiv2);
 }
 
 void ProfileBar::onChange()

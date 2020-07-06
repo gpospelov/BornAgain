@@ -13,18 +13,18 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Instrument/ArrayUtils.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/ArrayUtils.h"
 #include "Core/Instrument/ConvolutionDetectorResolution.h"
 #include "Core/Instrument/DetectorFunctions.h"
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Instrument/IDetector.h"
 #include "Core/Instrument/IHistogram.h"
 #include "Core/Instrument/Instrument.h"
-#include "Core/Tools/Numeric.h"
-#include "Core/Simulation/Simulation.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/Tools/Numeric.h"
 #include <math.h>
 
 //! Returns sum of relative differences between each pair of elements:

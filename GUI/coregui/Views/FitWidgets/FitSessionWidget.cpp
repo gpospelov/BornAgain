@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitSessionWidget.h"
+#include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Views/FitWidgets/FitParameterWidget.h"
 #include "GUI/coregui/Views/FitWidgets/FitResultsWidget.h"
 #include "GUI/coregui/Views/FitWidgets/FitSessionController.h"
-#include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Views/FitWidgets/MinimizerSettingsWidget.h"
 #include "GUI/coregui/Views/FitWidgets/RunFitControlWidget.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"

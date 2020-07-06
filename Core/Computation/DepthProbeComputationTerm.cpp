@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "Core/Computation/DepthProbeComputationTerm.h"
-#include "Core/Computation/DelayedProgressCounter.h"
-#include "Core/SimulationElement/DepthProbeElement.h"
 #include "Core/Binning/IAxis.h"
+#include "Core/Computation/DelayedProgressCounter.h"
+#include "Core/Computation/ProcessedSample.h"
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
-#include "Core/Computation/ProcessedSample.h"
+#include "Core/SimulationElement/DepthProbeElement.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)
     : mp_sample{p_sample}

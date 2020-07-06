@@ -13,8 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskViewFactory.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/MaskWidgets/EllipseView.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 #include "GUI/coregui/Views/MaskWidgets/IntensityDataView.h"
 #include "GUI/coregui/Views/MaskWidgets/LineViews.h"
@@ -24,8 +25,7 @@
 #include "GUI/coregui/Views/MaskWidgets/PolygonView.h"
 #include "GUI/coregui/Views/MaskWidgets/RectangleView.h"
 #include "GUI/coregui/Views/MaskWidgets/RegionOfInterestView.h"
-#include "GUI/coregui/Models/SessionItem.h"
-#include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 IShape2DView* MaskViewFactory::createMaskView(SessionItem* item, ISceneAdaptor* adaptor)
 {

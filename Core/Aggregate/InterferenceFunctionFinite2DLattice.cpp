@@ -16,8 +16,8 @@
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Tools/MathFunctions.h"
 
 #include <limits>
 

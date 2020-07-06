@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/LayoutStrategyBuilder.h"
-#include "Core/Multilayer/DecouplingApproximationStrategy.h"
-#include "Core/Basics/Exceptions.h"
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
+#include "Core/Basics/Exceptions.h"
 #include "Core/Computation/ProcessedLayout.h"
+#include "Core/Multilayer/DecouplingApproximationStrategy.h"
 #include "Core/Multilayer/SSCApproximationStrategy.h"
 
 LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout* p_layout,

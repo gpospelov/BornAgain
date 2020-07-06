@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Fit/Minimizer/FunctionTestPlanCases.h"
-#include "Tests/Functional/TestMachinery/ObjectiveTestFunctions.h"
 #include "Fit/Kernel/Parameter.h"
+#include "Tests/Functional/TestMachinery/ObjectiveTestFunctions.h"
 
 namespace
 {

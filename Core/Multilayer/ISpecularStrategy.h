@@ -15,8 +15,8 @@
 #ifndef ISPECULARSTRATEGY_H
 #define ISPECULARSTRATEGY_H
 
-#include "Core/Multilayer/ILayerRTCoefficients.h"
 #include "Core/Computation/Slice.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
 
 //! Interface for the Fresnel computations, both in the scalar and magnetic case
 //!

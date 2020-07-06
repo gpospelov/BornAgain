@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/UpdateNotifier.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QtNetwork>
 
 UpdateNotifier::UpdateNotifier(QObject* parent)

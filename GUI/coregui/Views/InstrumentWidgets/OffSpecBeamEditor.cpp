@@ -15,10 +15,10 @@
 #include "GUI/coregui/Views/InstrumentWidgets/OffSpecBeamEditor.h"
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 #include "GUI/coregui/Models/BeamItems.h"
-#include "GUI/coregui/Views/CommonWidgets/ColumnResizer.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
-#include "GUI/coregui/Views/InfoWidgets/DistributionDialog.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Views/CommonWidgets/ColumnResizer.h"
+#include "GUI/coregui/Views/InfoWidgets/DistributionDialog.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QGridLayout>
 #include <QGroupBox>
 

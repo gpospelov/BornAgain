@@ -14,8 +14,8 @@
 
 #include "GUI/coregui/Views/InstrumentWidgets/RectangularDetectorEditor.h"
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Models/RectangularDetectorItem.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QGridLayout>
 
 RectangularDetectorEditor::RectangularDetectorEditor(QWidget* parent)

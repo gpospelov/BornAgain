@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Export/ExportToPython.h"
-#include "Core/Simulation/GISASSimulation.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Export/SimulationToPython.h"
+#include "Core/Simulation/GISASSimulation.h"
 
 namespace
 {

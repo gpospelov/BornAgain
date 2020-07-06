@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitSessionManager.h"
+#include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Views/FitWidgets/FitLog.h"
 #include "GUI/coregui/Views/FitWidgets/FitSessionController.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Views/JobWidgets/JobMessagePanel.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 FitSessionManager::FitSessionManager(QObject* parent)
     : QObject(parent), m_activeController(nullptr), m_jobMessagePanel(nullptr)

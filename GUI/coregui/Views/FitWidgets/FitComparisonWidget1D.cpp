@@ -14,16 +14,16 @@
 
 #include "GUI/coregui/Views/FitWidgets/FitComparisonWidget1D.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
-#include "GUI/coregui/Views/FitWidgets/FitComparisonViewController.h"
-#include "GUI/coregui/Views/FitWidgets/FitFlowWidget.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.h"
 #include "GUI/coregui/Models/JobItem.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/Plot1D.h"
-#include "GUI/coregui/Views/SpecularDataWidgets/Plot1DCanvas.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/PlotStatusLabel.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/FitWidgets/FitComparisonViewController.h"
+#include "GUI/coregui/Views/FitWidgets/FitFlowWidget.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/Plot1D.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotStatusLabel.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/Plot1DCanvas.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QVBoxLayout>

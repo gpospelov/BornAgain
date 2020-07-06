@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Parametrization/Distributions.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
 
 ParameterDistribution::ParameterDistribution(const std::string& par_name,

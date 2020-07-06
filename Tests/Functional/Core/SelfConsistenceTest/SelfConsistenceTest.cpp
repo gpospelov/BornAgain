@@ -14,9 +14,9 @@
 
 #include "Tests/Functional/Core/SelfConsistenceTest/SelfConsistenceTest.h"
 #include "BATesting.h"
-#include "Core/Tools/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Simulation/Simulation.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 
 namespace

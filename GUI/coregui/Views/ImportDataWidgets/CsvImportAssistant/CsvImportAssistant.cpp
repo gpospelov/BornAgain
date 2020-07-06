@@ -15,9 +15,9 @@
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include "DataFormatUtils.cpp"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/DataSelector.h"
+#include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/utils/ImportDataInfo.h"
 #include "GUI/coregui/utils/StyleUtils.h"
-#include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QFileDialog>
 #include <QFormLayout>
 #include <QMenu>

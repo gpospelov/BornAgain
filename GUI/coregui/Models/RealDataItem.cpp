@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/RealDataItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/utils/ImportDataInfo.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/ItemFileNameUtils.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/ImportDataInfo.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";

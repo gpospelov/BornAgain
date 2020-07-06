@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/SampleViewFactory.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/SampleDesigner/InterferenceFunctionViews.h"
 #include "GUI/coregui/Views/SampleDesigner/LayerView.h"
 #include "GUI/coregui/Views/SampleDesigner/MesoCrystalView.h"
@@ -23,7 +24,6 @@
 #include "GUI/coregui/Views/SampleDesigner/ParticleLayoutView.h"
 #include "GUI/coregui/Views/SampleDesigner/ParticleView.h"
 #include "GUI/coregui/Views/SampleDesigner/TransformationView.h"
-#include "GUI/coregui/Models/item_constants.h"
 
 QStringList SampleViewFactory::m_valid_item_names =
     QStringList() << Constants::MultiLayerType << Constants::LayerType

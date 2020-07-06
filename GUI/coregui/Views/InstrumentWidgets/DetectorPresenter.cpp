@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InstrumentWidgets/DetectorPresenter.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/Views/InstrumentWidgets/RectangularDetectorEditor.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/InstrumentWidgets/RectangularDetectorEditor.h"
 #include "GUI/coregui/Views/InstrumentWidgets/SphericalDetectorEditor.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ItemFactory.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/ItemCatalogue.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

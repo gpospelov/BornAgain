@@ -30,7 +30,7 @@ MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent
         ->setToolTip(QStringLiteral("Connect basis particles"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*2.5;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 2.5;
 }
 
 void MesoCrystalView::addView(IView* childView, int /* row */)

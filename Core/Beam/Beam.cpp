@@ -16,8 +16,8 @@
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Parametrization/RealParameter.h"
 
 // Allow for 90 degrees by adding a relatively small constant to pi/2

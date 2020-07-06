@@ -16,10 +16,10 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "Core/Instrument/AxisNames.h"
-#include "Core/Beam/Beam.h"
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Instrument/AxisNames.h"
 #include "Core/Instrument/RectangularDetector.h"
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Instrument/SimpleUnitConverters.h"

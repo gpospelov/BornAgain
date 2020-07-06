@@ -1,8 +1,8 @@
 #include "Core/Particle/ParticleComposition.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Basics/MathConstants.h"
 #include "Core/Particle/Particle.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 

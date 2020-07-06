@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Fit/RootAdapter/MinimizerResultUtils.h"
-#include "Fit/Tools/MinimizerUtils.h"
 #include "Fit/Kernel/Parameters.h"
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
+#include "Fit/Tools/MinimizerUtils.h"
 #include <boost/format.hpp>
 #include <iomanip>
 #include <sstream>

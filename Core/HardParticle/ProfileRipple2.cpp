@@ -16,10 +16,10 @@
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
-#include "Fit/Tools/RealLimits.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/RippleSawtooth.h" // from Shapes/
+#include "Core/Tools/MathFunctions.h"
+#include "Fit/Tools/RealLimits.h"
 
 //! @brief Constructor of triangular ripple.
 //! @param length: length of the rectangular base in nanometers

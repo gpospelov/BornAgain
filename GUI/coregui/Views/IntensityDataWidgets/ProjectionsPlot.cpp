@@ -13,16 +13,16 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/ProjectionsPlot.h"
-#include "GUI/coregui/Models/AxesItems.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
 #include "Core/Instrument/Histogram1D.h"
 #include "Core/Instrument/Histogram2D.h"
+#include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ModelMapper.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
 #include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Views/FitWidgets/plot_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
 #include "qcustomplot.h"
 
 ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
@@ -35,8 +35,10 @@ ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
 
-    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
-    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->xAxis->setTickLabelFont(
+        QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->yAxis->setTickLabelFont(
+        QFont(QFont().family(), Constants::plot_tick_label_size()));
 
     ColorMapUtils::setDefaultMargins(m_customPlot);
 }

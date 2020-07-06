@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Computation/SpecularComputation.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Computation/ProgressHandler.h"
-#include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularStrategyBuilder.h"
+#include "Core/SimulationElement/SpecularSimulationElement.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");

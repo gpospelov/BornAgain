@@ -15,11 +15,11 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include "Core/Scattering/ISample.h"
 #include "Core/Multilayer/RoughnessModels.h"
+#include "Core/Particle/ZLimits.h"
+#include "Core/Scattering/ISample.h"
 #include "Core/Tools/SafePointerVector.h"
 #include "Core/Vector/Vectors3D.h"
-#include "Core/Particle/ZLimits.h"
 
 #include <functional>
 

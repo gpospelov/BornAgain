@@ -14,10 +14,10 @@
 
 #include "GUI/coregui/Models/ParameterTranslators.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/MesoCrystalItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/VectorItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

@@ -13,23 +13,23 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/MesoCrystalBuilder.h"
+#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Core/Particle/Crystal.h"
+#include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
-#include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Core/Lattice/ISelectionRule.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Particle/MesoCrystal.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Particle/ParticleComposition.h"
-#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Particle/Crystal.h"
+#include "Core/Particle/MesoCrystal.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Particle/ParticleComposition.h"
+#include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 
 MesoCrystalBuilder::MesoCrystalBuilder() {}
 

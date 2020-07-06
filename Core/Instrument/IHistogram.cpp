@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
+#include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/Histogram1D.h"
 #include "Core/Instrument/Histogram2D.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Tools/Numeric.h"
 #include <memory>
 

@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Material/MagneticMaterialImpl.h"
-#include "Core/Material/MaterialUtils.h"
 #include "Core/Basics/PhysicalConstants.h"
+#include "Core/Material/MaterialUtils.h"
 #include "Core/Vector/Transform3D.h"
 #include "Core/Vector/WavevectorInfo.h"
 #include <memory>

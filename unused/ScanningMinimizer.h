@@ -25,8 +25,8 @@
 
 class BA_CORE_API_ ScanningMinimizer : public IMinimizer
 {
- public:
-    ScanningMinimizer(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins) { }
+public:
+    ScanningMinimizer(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins) {}
     virtual ~ScanningMinimizer() { delete m_fcnvalues_map; }
 
     virtual void minimize();
@@ -49,14 +49,13 @@ class BA_CORE_API_ ScanningMinimizer : public IMinimizer
 
     virtual std::vector<double> getValueOfVariablesAtMinimum() const;
 
- private:
-
+private:
     void construct_fcnvalues_map();
     void set_parvalues_to_minimum();
 
     //! values of minimized function on the grid, axes are limited parameters
     OutputData<double>* m_fcnvalues_map;
-    size_t m_nbins; //! number of bins per one parameter
+    size_t m_nbins;                  //! number of bins per one parameter
     FitSuiteParameters m_parameters; //! minimizer parameters
     function_chi2_t m_fcn;
 };

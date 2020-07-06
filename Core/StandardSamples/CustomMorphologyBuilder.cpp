@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/CustomMorphologyBuilder.h"
-#include "Core/HardParticle/FormFactorBox.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/HardParticle/FormFactorBox.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Particle/Particle.h"
 
 MultiLayer* CustomMorphologyBuilder::buildSample() const
 {

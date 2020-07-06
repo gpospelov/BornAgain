@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Core/CoreSpecial/BatchSimulation.h"
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/Simulation/Simulation.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <iostream>
 #include <memory>
 

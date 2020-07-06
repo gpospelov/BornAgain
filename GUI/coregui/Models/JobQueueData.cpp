@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobQueueData.h"
-#include "GUI/coregui/Models/DomainSimulationBuilder.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/DomainSimulationBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/JobWorker.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QThread>
 
 namespace

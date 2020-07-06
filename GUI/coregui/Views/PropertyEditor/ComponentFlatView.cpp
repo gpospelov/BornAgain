@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/PropertyEditor/ComponentFlatView.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentUtils.h"
-#include "GUI/coregui/utils/LayoutUtils.h"
-#include "GUI/coregui/Views/PropertyEditor/PropertyEditorFactory.h"
-#include "GUI/coregui/Views/PropertyEditor/PropertyWidgetItem.h"
 #include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentUtils.h"
+#include "GUI/coregui/Views/PropertyEditor/PropertyEditorFactory.h"
+#include "GUI/coregui/Views/PropertyEditor/PropertyWidgetItem.h"
+#include "GUI/coregui/utils/LayoutUtils.h"
 #include <QComboBox>
 #include <QDataWidgetMapper>
 #include <QGridLayout>

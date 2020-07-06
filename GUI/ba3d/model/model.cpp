@@ -57,9 +57,9 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R)
     case EShape::None:
         return nullptr;
     case EShape::BarGauss:
-        return new BarGauss(D, D, 5*D);
+        return new BarGauss(D, D, 5 * D);
     case EShape::BarLorentz:
-        return new BarLorentz(D, D, 5*D);
+        return new BarLorentz(D, D, 5 * D);
     case EShape::Box:
         return new Box(D, D, D);
     case EShape::FullSphere:

@@ -14,8 +14,8 @@
 
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Core/includeIncludes/FormFactors.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/includeIncludes/FormFactors.h"
 
 /* ------------------------------------------------ */
 
@@ -60,8 +60,8 @@ BarGaussItem::BarGaussItem() : FormFactorItem(Constants::BarGaussType)
 std::unique_ptr<IFormFactor> BarGaussItem::createFormFactor() const
 {
     return std::make_unique<FormFactorBarGauss>(getItemValue(P_LENGTH).toDouble(),
-                                           getItemValue(P_WIDTH).toDouble(),
-                                           getItemValue(P_HEIGHT).toDouble());
+                                                getItemValue(P_WIDTH).toDouble(),
+                                                getItemValue(P_HEIGHT).toDouble());
 }
 
 /* ------------------------------------------------ */
@@ -81,8 +81,8 @@ BarLorentzItem::BarLorentzItem() : FormFactorItem(Constants::BarLorentzType)
 std::unique_ptr<IFormFactor> BarLorentzItem::createFormFactor() const
 {
     return std::make_unique<FormFactorBarLorentz>(getItemValue(P_LENGTH).toDouble(),
-                                           getItemValue(P_WIDTH).toDouble(),
-                                           getItemValue(P_HEIGHT).toDouble());
+                                                  getItemValue(P_WIDTH).toDouble(),
+                                                  getItemValue(P_HEIGHT).toDouble());
 }
 
 /* ------------------------------------------------ */
@@ -222,8 +222,8 @@ const QString DotItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
 DotItem::DotItem() : FormFactorItem(Constants::DotType)
 {
     setToolTip(QStringLiteral("A dot, with constant formfactor F(q)=4pi/3 R^3"));
-    addProperty(P_RADIUS, 8.0)->setToolTip(QStringLiteral(
-                                               "Radius of reference sphere in nanometers"));
+    addProperty(P_RADIUS, 8.0)
+        ->setToolTip(QStringLiteral("Radius of reference sphere in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> DotItem::createFormFactor() const
@@ -439,8 +439,8 @@ Ripple1GaussItem::Ripple1GaussItem() : FormFactorItem(Constants::Ripple1GaussTyp
 std::unique_ptr<IFormFactor> Ripple1GaussItem::createFormFactor() const
 {
     return std::make_unique<FormFactorRipple1Gauss>(getItemValue(P_LENGTH).toDouble(),
-                                                  getItemValue(P_WIDTH).toDouble(),
-                                                  getItemValue(P_HEIGHT).toDouble());
+                                                    getItemValue(P_WIDTH).toDouble(),
+                                                    getItemValue(P_HEIGHT).toDouble());
 }
 
 /* ------------------------------------------------ */
@@ -462,8 +462,8 @@ Ripple1LorentzItem::Ripple1LorentzItem() : FormFactorItem(Constants::Ripple1Lore
 std::unique_ptr<IFormFactor> Ripple1LorentzItem::createFormFactor() const
 {
     return std::make_unique<FormFactorRipple1Lorentz>(getItemValue(P_LENGTH).toDouble(),
-                                                  getItemValue(P_WIDTH).toDouble(),
-                                                  getItemValue(P_HEIGHT).toDouble());
+                                                      getItemValue(P_WIDTH).toDouble(),
+                                                      getItemValue(P_HEIGHT).toDouble());
 }
 
 /* ------------------------------------------------ */

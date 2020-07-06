@@ -1,15 +1,15 @@
-#include "GUI/coregui/Models/FTDistributionItems.h"
 #include "Core/Aggregate/FTDistributions2D.h"
 #include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
-#include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "Core/Lattice/Lattice2D.h"
+#include "Core/Parametrization/Units.h"
+#include "GUI/coregui/Models/FTDistributionItems.h"
+#include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
-#include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestParaCrystalItems : public ::testing::Test
 {

@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/SessionModelDelegate.h"
-#include "GUI/coregui/Views/PropertyEditor/CustomEditors.h"
-#include "GUI/coregui/utils/CustomEventFilters.h"
-#include "GUI/coregui/Views/PropertyEditor/PropertyEditorFactory.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/PropertyEditor/CustomEditors.h"
+#include "GUI/coregui/Views/PropertyEditor/PropertyEditorFactory.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
 #include <QApplication>
 
 namespace

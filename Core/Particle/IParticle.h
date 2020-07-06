@@ -16,11 +16,11 @@
 #define IPARTICLE_H
 
 #include "Core/Particle/IAbstractParticle.h"
+#include "Core/Particle/SlicedParticle.h"
+#include "Core/Particle/ZLimits.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Tools/SafePointerVector.h"
-#include "Core/Particle/SlicedParticle.h"
 #include "Core/Vector/Vectors3D.h"
-#include "Core/Particle/ZLimits.h"
 #include <memory>
 
 //! Vertical extension of a particle, specified by bottom and top z coordinate.

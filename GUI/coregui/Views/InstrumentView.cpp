@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InstrumentView.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Views/InstrumentWidgets/ExtendedDetectorDialog.h"
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentEditorWidget.h"
-#include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentSelectorWidget.h"
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentViewActions.h"
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentViewToolBar.h"

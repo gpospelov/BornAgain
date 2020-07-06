@@ -13,23 +13,23 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Instrument/UnitConverter1D.h"
+#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Parametrization/Units.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DepthProbeInstrumentItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "Core/Instrument/IDetector2D.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/ParticleDistributionItem.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
 #include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
-#include "Core/Instrument/UnitConverter1D.h"
-#include "Core/Instrument/UnitConverterUtils.h"
-#include "Core/Parametrization/Units.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item)
 {

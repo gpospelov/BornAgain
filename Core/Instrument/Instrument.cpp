@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/Instrument.h"
-#include "Core/Beam/Beam.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Beam/Beam.h"
 #include "Core/Instrument/DetectorFunctions.h"
 #include "Core/Instrument/Histogram2D.h"
 #include "Core/Instrument/IResolutionFunction2D.h"
-#include "Core/SimulationElement/SimulationElement.h"
 #include "Core/Instrument/SphericalDetector.h"
+#include "Core/SimulationElement/SimulationElement.h"
 
 Instrument::Instrument() : mP_detector(new SphericalDetector)
 {

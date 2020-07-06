@@ -15,8 +15,8 @@
 #ifndef SIMULATION2D_H
 #define SIMULATION2D_H
 
-#include "Core/Simulation/Simulation.h"
 #include "Core/Instrument/SimulationResult.h"
+#include "Core/Simulation/Simulation.h"
 
 class DetectorContext;
 

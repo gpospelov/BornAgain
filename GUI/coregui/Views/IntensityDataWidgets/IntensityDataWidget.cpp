@@ -14,11 +14,11 @@
 
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h"
 #include "GUI/coregui/Models/DataItemUtils.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataCanvas.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataFFTPresenter.h"
-#include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.h"
-#include "GUI/coregui/Models/JobItem.h"
 #include <QBoxLayout>
 #include <QMenu>
 

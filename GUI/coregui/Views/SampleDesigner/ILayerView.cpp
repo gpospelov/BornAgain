@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/ILayerView.h"
-#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
-#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
-#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/LayerItem.h"
-#include "GUI/coregui/Views/SampleDesigner/MultiLayerView.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
+#include "GUI/coregui/Views/SampleDesigner/MultiLayerView.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QGraphicsSceneMouseEvent>
 
 QLineF MultiLayerCandidate::getInterfaceToScene()
@@ -227,8 +227,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
 
     QRectF layerRect = mapRectToScene(boundingRect());
     for (auto item : scene()->items()) {
-        if (item->type() == ViewTypes::MULTILAYER && item != this
-            && !childItems().contains(item)) {
+        if (item->type() == ViewTypes::MULTILAYER && item != this && !childItems().contains(item)) {
             MultiLayerView* multilayer = qgraphicsitem_cast<MultiLayerView*>(item);
             if (multilayer->mapRectToScene(multilayer->boundingRect()).intersects(layerRect)) {
                 MultiLayerCandidate candidate;

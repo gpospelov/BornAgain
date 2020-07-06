@@ -13,14 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
-#include "GUI/coregui/mainwindow/AppSvc.h"
-#include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/Models/LayerItem.h"
 #include "Core/Material/Material.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
-#include "GUI/coregui/Views/MaterialEditor/MaterialEditorDialog.h"
 #include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Models/MaterialItemContainer.h"
 #include "GUI/coregui/Models/MaterialModel.h"
@@ -30,6 +26,10 @@
 #include "GUI/coregui/Models/ParticleDistributionItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialEditorDialog.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QColorDialog>
 
 namespace

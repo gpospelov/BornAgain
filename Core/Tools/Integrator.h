@@ -15,8 +15,8 @@
 #ifndef INTEGRATOR_H
 #define INTEGRATOR_H
 
-#include "Wrap/WinDllMacros.h"
 #include "Core/Basics/Complex.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <gsl/gsl_integration.h>
 

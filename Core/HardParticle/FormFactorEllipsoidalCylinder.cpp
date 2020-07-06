@@ -14,10 +14,10 @@
 
 #include "Core/HardParticle/FormFactorEllipsoidalCylinder.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Core/Shapes/DoubleEllipse.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Shapes/DoubleEllipse.h"
+#include "Core/Tools/MathFunctions.h"
 
 //! Constructor of a cylinder with an ellipse cross section.
 //! @param radius_x: radius of the ellipse base in the x-direction, in nanometers

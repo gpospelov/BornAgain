@@ -15,8 +15,8 @@
 #ifndef MATERIAL_H_
 #define MATERIAL_H_
 
-#include "Core/Material/BaseMaterialImpl.h"
 #include "Core/Basics/Complex.h"
+#include "Core/Material/BaseMaterialImpl.h"
 #include "Core/Vector/EigenCore.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>

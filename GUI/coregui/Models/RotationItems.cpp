@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/RotationItems.h"
-#include "Core/Scattering/Rotations.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Scattering/Rotations.h"
 
 // ----------------------------------------------------------------------------
 

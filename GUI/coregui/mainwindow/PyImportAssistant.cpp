@@ -13,19 +13,19 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/PyImportAssistant.h"
-#include "GUI/coregui/mainwindow/AppSvc.h"
 #include "BABuild.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "GUI/coregui/Views/InfoWidgets/ComboSelectorDialog.h"
-#include "GUI/coregui/Views/InfoWidgets/DetailedMessageBox.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "Core/Tools/PyImport.h"
 #include "Core/Tools/SysUtils.h"
+#include "GUI/coregui/Models/GUIObjectBuilder.h"
+#include "GUI/coregui/Views/InfoWidgets/ComboSelectorDialog.h"
+#include "GUI/coregui/Views/InfoWidgets/DetailedMessageBox.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/mainwindow/projectmanager.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QApplication>
 #include <QDebug>
 #include <QFileDialog>

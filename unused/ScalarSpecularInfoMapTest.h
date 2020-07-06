@@ -1,16 +1,16 @@
 #ifndef SCALARSPECULARINFOMAPTEST_H
 #define SCALARSPECULARINFOMAPTEST_H
 
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/ScalarRTCoefficients.h"
-#include "ScalarSpecularInfoMap.h"
 #include "Core/SimulationElement/SimulationElement.h"
+#include "ScalarSpecularInfoMap.h"
 #include <memory>
 
-class ScalarSpecularInfoMapTest : public ::testing :: Test
+class ScalarSpecularInfoMapTest : public ::testing ::Test
 {
 protected:
     ScalarSpecularInfoMapTest();
@@ -36,9 +36,9 @@ ScalarSpecularInfoMapTest::ScalarSpecularInfoMapTest()
 TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
 {
     ScalarSpecularInfoMap map(mp_multilayer, 0);
-    SimulationElement sim_element(M_TWOPI, 1.0, 1.0, SphericalPixel::createZeroSizePixel(0,0));
+    SimulationElement sim_element(M_TWOPI, 1.0, 1.0, SphericalPixel::createZeroSizePixel(0, 0));
     std::unique_ptr<const ScalarRTCoefficients> P_rt_coeffs(
-        (ScalarRTCoefficients*) map.getOutCoefficients(sim_element));
+        (ScalarRTCoefficients*)map.getOutCoefficients(sim_element));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);
     EXPECT_TRUE(nullptr != P_rt_coeffs.get());
@@ -47,7 +47,7 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
     EXPECT_EQ(0.0, P_rt_coeffs->T1plus()(1));
 
     EXPECT_EQ(0.0, P_rt_coeffs->T1min()(0));
-    EXPECT_EQ(complex_t(1.0,0.0), P_rt_coeffs->T1min()(1).real());
+    EXPECT_EQ(complex_t(1.0, 0.0), P_rt_coeffs->T1min()(1).real());
 
     EXPECT_NEAR(1.0, P_rt_coeffs->T2plus()(0).real(), 1e-6);
     EXPECT_NEAR(0.0, P_rt_coeffs->T2plus()(0).imag(), 1e-6);

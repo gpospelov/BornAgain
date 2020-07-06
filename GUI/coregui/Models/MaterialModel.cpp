@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/MaterialModel.h"
-#include "GUI/coregui/mainwindow/AppSvc.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {

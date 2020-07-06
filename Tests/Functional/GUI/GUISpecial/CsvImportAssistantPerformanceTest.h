@@ -15,8 +15,8 @@
 #ifndef CSVIMPORTASSISTANTPERFORMANCETEST_H
 #define CSVIMPORTASSISTANTPERFORMANCETEST_H
 
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QString>
 #include <memory>
 

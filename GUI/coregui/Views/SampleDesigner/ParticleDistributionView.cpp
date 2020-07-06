@@ -28,7 +28,7 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : Conn
         ->setToolTip(QStringLiteral("Connect particle to this port. It will be a prototype \n"
                                     "for parametric distribution."));
 
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
 void ParticleDistributionView::addView(IView* childView, int /* row */)

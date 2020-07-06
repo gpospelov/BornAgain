@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SimulationWidgets/SimulationSetupAssistant.h"
-#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SampleValidator.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include <QMessageBox>
 
 //! Returns true if given setup is valid for submitting the job

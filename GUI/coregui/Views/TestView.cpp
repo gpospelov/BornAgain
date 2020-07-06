@@ -13,21 +13,21 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/TestView.h"
-#include "GUI/coregui/Views/AccordionWidget/AccordionWidget.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
-#include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
-#include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
 #include "GUI/coregui/Models/MinimizerItem.h"
-#include "GUI/coregui/Views/FitWidgets/MinimizerSettingsWidget.h"
-#include "GUI/coregui/Views/SpecularDataWidgets/Plot1DCanvas.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/Views/AccordionWidget/AccordionWidget.h"
+#include "GUI/coregui/Views/FitWidgets/MinimizerSettingsWidget.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
 #include "GUI/coregui/Views/PropertyEditor/TestComponentView.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/Plot1DCanvas.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QTreeView>
 

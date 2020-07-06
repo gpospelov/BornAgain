@@ -13,23 +13,23 @@
 // ************************************************************************** //
 
 #include "Core/Export/SimulationToPython.h"
-#include "Core/Computation/ConstantBackground.h"
-#include "Core/Instrument/ConvolutionDetectorResolution.h"
 #include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Beam/FootprintFactorSquare.h"
-#include "Core/Simulation/GISASSimulation.h"
-#include "Core/Export/INodeUtils.h"
-#include "Core/Instrument/ISpecularScan.h"
-#include "Core/Simulation/OffSpecSimulation.h"
-#include "Core/Parametrization/ParameterUtils.h"
+#include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
+#include "Core/Export/INodeUtils.h"
 #include "Core/Export/PythonFormatting.h"
+#include "Core/Export/SampleToPython.h"
+#include "Core/Instrument/ConvolutionDetectorResolution.h"
+#include "Core/Instrument/ISpecularScan.h"
 #include "Core/Instrument/RectangularDetector.h"
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Instrument/ResolutionFunction2DGaussian.h"
-#include "Core/Export/SampleToPython.h"
-#include "Core/Simulation/SpecularSimulation.h"
 #include "Core/Instrument/SphericalDetector.h"
+#include "Core/Parametrization/ParameterUtils.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/SpecularSimulation.h"
 #include <iomanip>
 
 using namespace PythonFormatting;

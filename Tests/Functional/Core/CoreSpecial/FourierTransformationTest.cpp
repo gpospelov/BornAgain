@@ -14,10 +14,10 @@
 
 #include "Tests/Functional/Core/CoreSpecial/FourierTransformationTest.h"
 #include "BATesting.h"
-#include "Core/Tools/FileSystemUtils.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Instrument/OutputData.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <iostream>
 #include <memory>

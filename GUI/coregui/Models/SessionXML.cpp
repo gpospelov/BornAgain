@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/GroupItemController.h"
 #include "GUI/coregui/Models/ItemFactory.h"
-#include "GUI/coregui/utils/MessageService.h"
 #include "GUI/coregui/Models/SessionItemTags.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/MessageService.h"
 #include <QtCore/QXmlStreamWriter>
 
 namespace

@@ -14,10 +14,10 @@
 
 #include "GUI/coregui/utils/ImportDataInfo.h"
 #include "Core/Instrument/AxisNames.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
-#include "GUI/coregui/Models/JobItemUtils.h"
 #include "Core/Instrument/OutputData.h"
+#include "GUI/coregui/Models/JobItemUtils.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

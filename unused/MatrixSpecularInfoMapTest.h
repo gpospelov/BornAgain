@@ -1,22 +1,20 @@
 #ifndef MATRIXSPECULARINFOMAPTEST_H
 #define MATRIXSPECULARINFOMAPTEST_H
 
-#include "Core/Multilayer/Layer.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/MatrixRTCoefficients.h"
-#include "MatrixMLFresnelMap.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MatrixRTCoefficients.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/SimulationElement/SimulationElement.h"
+#include "MatrixMLFresnelMap.h"
 #include <memory>
 
-class MatrixSpecularInfoMapTest : public ::testing :: Test
+class MatrixSpecularInfoMapTest : public ::testing ::Test
 {
 protected:
     MatrixSpecularInfoMapTest();
-    virtual ~MatrixSpecularInfoMapTest() {
-        delete mp_multilayer;
-    }
+    virtual ~MatrixSpecularInfoMapTest() { delete mp_multilayer; }
     MultiLayer* mp_multilayer;
 };
 
@@ -39,7 +37,7 @@ TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
     MatrixSpecularInfoMap map(mp_multilayer, 0);
     SimulationElement sim_element(M_TWOPI, 1.0, 1.0, nullptr);
     std::unique_ptr<const MatrixRTCoefficients> P_rt_coeffs(
-                (MatrixRTCoefficients*) map.getOutCoefficients(sim_element));
+        (MatrixRTCoefficients*)map.getOutCoefficients(sim_element));
     complex_t R0 = complex_t(0.1750375, -0.0222467);
     complex_t lambda0 = complex_t(0.841471, 0.0);
     (void)R0;

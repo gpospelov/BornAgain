@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/HomogeneousMultilayerBuilder.h"
-#include "Core/Multilayer/Layer.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 
 HomogeneousMultilayerBuilder::HomogeneousMultilayerBuilder()

@@ -15,8 +15,8 @@
 #ifndef FTDISTRIBUTIONS1D_H
 #define FTDISTRIBUTIONS1D_H
 
-#include "Core/Basics/ICloneable.h"
 #include "Core/Aggregate/IDistribution1DSampler.h"
+#include "Core/Basics/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that

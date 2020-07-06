@@ -2,7 +2,6 @@
 #include "Tests/UnitTests/Numeric/FormFactorTest.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
-
 //! Compare form factor for particle shapes A and B, where A is given special
 //! parameter values so that it coincides with the more symmetric B.
 
@@ -11,8 +10,8 @@ class FFSpecializationTest : public testing::Test
 protected:
     void run_test(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps, double qmag1, double qmag2)
     {
-        formFactorTest::run_test_for_many_q(
-            [&](cvector_t q) { test_ff_eq(q, p0, p1, eps); }, qmag1, qmag2);
+        formFactorTest::run_test_for_many_q([&](cvector_t q) { test_ff_eq(q, p0, p1, eps); }, qmag1,
+                                            qmag2);
     }
 
 private:

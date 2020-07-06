@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/JobWidgets/ProjectionsWidget.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/ProjectionsPlot.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ProjectionsPlot.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
 

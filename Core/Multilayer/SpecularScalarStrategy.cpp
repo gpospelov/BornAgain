@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/SpecularScalarStrategy.h"
+#include "Core/Computation/Slice.h"
 #include "Core/Multilayer/KzComputation.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Computation/Slice.h"
 #include <Eigen/Dense>
 #include <stdexcept>
 

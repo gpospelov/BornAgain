@@ -17,8 +17,8 @@
 
 #include "GUI/ba3d/model/object.h"
 #include "GUI/ba3d/model/particles.h"
-#include <QVector>
 #include "GUI/ba3d/view/camera.h"
+#include <QVector>
 
 namespace RealSpace
 {

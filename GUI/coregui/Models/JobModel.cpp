@@ -15,7 +15,6 @@
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
@@ -28,6 +27,7 @@
 #include "GUI/coregui/Models/ParameterTreeUtils.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 JobModel::JobModel(QObject* parent)
     : SessionModel(SessionXML::JobModelTag, parent), m_queue_data(nullptr)

@@ -1,6 +1,6 @@
 #include "Core/Binning/FixedBinAxis.h"
-#include "Core/InputOutput/DataFormatUtils.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/InputOutput/DataFormatUtils.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <iostream>
 

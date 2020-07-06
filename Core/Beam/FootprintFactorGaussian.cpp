@@ -14,8 +14,8 @@
 
 #include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
 #include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/MathFunctions.h"
 
 FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio) : IFootprintFactor(width_ratio)
 {

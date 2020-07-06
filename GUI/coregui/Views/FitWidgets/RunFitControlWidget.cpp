@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/RunFitControlWidget.h"
-#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QFont>
 #include <QHBoxLayout>

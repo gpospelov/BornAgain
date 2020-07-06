@@ -1,10 +1,10 @@
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/ModelMapper.h"
 #include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class TestLayerItems : public ::testing::Test

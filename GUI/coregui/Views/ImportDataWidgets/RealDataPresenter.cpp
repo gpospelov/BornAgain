@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataPresenter.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataMaskWidget.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataProjectionsWidget.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h"
-#include "GUI/coregui/Models/RealDataItem.h"
-#include "GUI/coregui/Views/ImportDataWidgets/RealDataMaskWidget.h"
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularDataWidget.h"
-#include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QAction>
 #include <cassert>
 

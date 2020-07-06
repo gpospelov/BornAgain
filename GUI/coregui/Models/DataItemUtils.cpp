@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DataItemUtils.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

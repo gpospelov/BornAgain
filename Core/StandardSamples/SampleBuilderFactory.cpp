@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Core/Parametrization/RealParameter.h"
 #include "Core/StandardSamples/BoxCompositionBuilder.h"
 #include "Core/StandardSamples/BoxesSquareLatticeBuilder.h"
 #include "Core/StandardSamples/CoreShellParticleBuilder.h"
@@ -35,7 +36,6 @@
 #include "Core/StandardSamples/ParticleInTheAirBuilder.h"
 #include "Core/StandardSamples/PercusYevickBuilder.h"
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/StandardSamples/ResonatorBuilder.h"
 #include "Core/StandardSamples/RipplesBuilder.h"
 #include "Core/StandardSamples/RotatedPyramidsBuilder.h"

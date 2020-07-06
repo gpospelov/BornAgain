@@ -13,21 +13,21 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTestComponents.h"
-#include "Core/StandardSamples/CylindersBuilder.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Simulation/GISASSimulation.h"
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
-#include "Core/Multilayer/Layer.h"
+#include "Core/Aggregate/ParticleLayout.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Mask/Rectangle.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
+#include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
-#include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Mask/Rectangle.h"
-#include "Core/Instrument/RectangularDetector.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/StandardSamples/CylindersBuilder.h"
 
 namespace
 {

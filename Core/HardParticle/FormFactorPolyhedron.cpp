@@ -17,10 +17,10 @@
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
 #include "Core/HardParticle/FormFactorPolyhedron.h"
-#include "Core/Tools/MathFunctions.h"
-#include "Core/Tools/Precomputed.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Scattering/Rotations.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Tools/Precomputed.h"
 #include <iomanip>
 #include <stdexcept> // need overlooked by g++ 5.4
 
@@ -426,7 +426,7 @@ void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, dou
                                          const std::vector<kvector_t>& vertices)
 {
     m_vertices.clear();
-    for (const kvector_t& vertex: vertices)
+    for (const kvector_t& vertex : vertices)
         m_vertices.push_back(vertex - kvector_t{0, 0, z_bottom});
 
     try {
@@ -603,7 +603,7 @@ void FormFactorPolyhedron::assert_platonic() const
 void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices)
 {
     m_vertices.clear();
-    for (const kvector_t& vertex: vertices) {
+    for (const kvector_t& vertex : vertices) {
         m_vertices.push_back(vertex);
         m_vertices.push_back(vertex + kvector_t{0, 0, m_height});
     }

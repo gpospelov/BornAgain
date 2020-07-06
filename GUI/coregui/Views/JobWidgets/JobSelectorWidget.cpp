@@ -14,15 +14,15 @@
 
 #include "GUI/coregui/Views/JobWidgets/JobSelectorWidget.h"
 #include "GUI/coregui/Models/JobItem.h"
-#include "GUI/coregui/Views/JobWidgets/JobListWidget.h"
 #include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Views/JobWidgets/JobListWidget.h"
 #include "GUI/coregui/Views/JobWidgets/JobPropertiesWidget.h"
 #include "GUI/coregui/Views/JobWidgets/JobSelectorActions.h"
 #include "GUI/coregui/Views/JobWidgets/JobSelectorToolBar.h"
 #include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
-#include "minisplitter.h"
 #include "GUI/coregui/utils/StyleUtils.h"
+#include "minisplitter.h"
 #include <QHBoxLayout>
 
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
@@ -68,7 +68,7 @@ void JobSelectorWidget::setModel(JobModel* jobModel)
 
 QSize JobSelectorWidget::sizeHint() const
 {
-    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth() * 2);
 }
 
 QSize JobSelectorWidget::minimumSizeHint() const

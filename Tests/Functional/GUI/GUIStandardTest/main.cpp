@@ -20,7 +20,7 @@
 
 int main(int argc, char** argv)
 {
-    bool ok =  StandardTestService<GUIStandardTest>().execute(argc, argv);
+    bool ok = StandardTestService<GUIStandardTest>().execute(argc, argv);
     if (!ok)
         std::cout << "\n"
                   << "hint: If this test fails while all other form-factor related tests\n"

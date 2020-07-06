@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InstrumentWidgets/SpecularInstrumentEditor.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Views/CommonWidgets/ColumnResizer.h"
 #include "GUI/coregui/Views/InstrumentWidgets/EnvironmentEditor.h"
-#include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Views/InstrumentWidgets/PolarizationAnalysisEditor.h"
 #include "GUI/coregui/Views/InstrumentWidgets/SpecularBeamEditor.h"
 #include "GUI/coregui/utils/StyleUtils.h"

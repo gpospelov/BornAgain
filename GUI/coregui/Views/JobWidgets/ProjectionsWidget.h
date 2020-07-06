@@ -15,8 +15,8 @@
 #ifndef PROJECTIONSWIDGET_H
 #define PROJECTIONSWIDGET_H
 
-#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 
 class ProjectionsPlot;
 class QTabWidget;

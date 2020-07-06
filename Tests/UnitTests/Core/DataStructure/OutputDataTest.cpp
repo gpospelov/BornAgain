@@ -1,8 +1,8 @@
 #include "Core/Instrument/OutputData.h"
 #include "Core/Binning/FixedBinAxis.h"
+#include "Core/Binning/VariableBinAxis.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Parametrization/ThreadInfo.h"
-#include "Core/Binning/VariableBinAxis.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <algorithm>
 

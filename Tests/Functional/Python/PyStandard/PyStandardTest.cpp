@@ -15,9 +15,9 @@
 #include "Tests/Functional/Python/PyStandard/PyStandardTest.h"
 #include "BATesting.h"
 #include "Core/Export/ExportToPython.h"
-#include "Core/Tools/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Simulation/Simulation.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <fstream>
 #include <iostream>

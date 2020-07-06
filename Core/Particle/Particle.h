@@ -17,8 +17,8 @@
 
 #include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
 #include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
-#include "Core/Particle/IParticle.h"
 #include "Core/Material/Material.h"
+#include "Core/Particle/IParticle.h"
 
 //! A particle with a form factor and refractive index.
 //! @ingroup samples

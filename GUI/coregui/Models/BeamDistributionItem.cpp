@@ -14,11 +14,11 @@
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 #include "Core/Parametrization/Distributions.h"
-#include "GUI/coregui/Models/GroupItem.h"
 #include "Core/Parametrization/ParameterDistribution.h"
+#include "Core/Parametrization/Units.h"
+#include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"
 #include "GUI/coregui/Models/RealLimitsItems.h"
-#include "Core/Parametrization/Units.h"
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 

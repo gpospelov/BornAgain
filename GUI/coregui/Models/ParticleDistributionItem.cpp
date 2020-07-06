@@ -13,17 +13,17 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleDistributionItem.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Parametrization/ParameterUtils.h"
+#include "Core/Parametrization/Units.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DistributionItems.h"
-#include "Core/Parametrization/Distributions.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/ParameterTreeUtils.h"
-#include "Core/Parametrization/ParameterUtils.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/RealLimitsItems.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
-#include "Core/Parametrization/Units.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

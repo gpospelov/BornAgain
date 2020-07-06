@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 
 using gradient_map_t = QMap<QString, QCPColorGradient::GradientPreset>;
@@ -54,10 +54,10 @@ QCPRange qcpRange(double xmin, double xmax, int nbins)
 QMargins defaultMargins(const QWidget& widget)
 {
     auto base_size = StyleUtils::SizeOfLetterM(&widget);
-    int left = static_cast<int>(base_size.width()*6.0);
+    int left = static_cast<int>(base_size.width() * 6.0);
     int top = static_cast<int>(base_size.height() * 1.5);
     int right = static_cast<int>(base_size.width() * 1.2);
-    int bottom = static_cast<int>(base_size.height()* 4.5);
+    int bottom = static_cast<int>(base_size.height() * 4.5);
     return QMargins(left, top, right, bottom);
 }
 

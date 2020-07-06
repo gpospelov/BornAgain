@@ -15,12 +15,12 @@
 #ifndef FITOBJECTIVE_H
 #define FITOBJECTIVE_H
 
-#include "Core/Instrument/ArrayUtils.h"
 #include "Core/Fitting/FitTypes.h"
 #include "Core/Fitting/IterationInfo.h"
-#include "Fit/Kernel/MinimizerResult.h"
-#include "Core/Instrument/OutputData.h"
 #include "Core/Fitting/SimDataPair.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Instrument/OutputData.h"
+#include "Fit/Kernel/MinimizerResult.h"
 
 class FitStatus;
 class IChiSquaredModule;

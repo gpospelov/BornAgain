@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
-#include "Core/Instrument/IUnitConverter.h"
-#include "GUI/coregui/Models/InstrumentItems.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Instrument/OutputData.h"
 #include "Core/Binning/PointwiseAxis.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Instrument/OutputData.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
 
 namespace
 {

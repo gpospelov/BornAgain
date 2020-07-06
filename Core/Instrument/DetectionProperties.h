@@ -15,8 +15,8 @@
 #ifndef DETECTIONPROPERTIES_H
 #define DETECTIONPROPERTIES_H
 
-#include "Core/Vector/EigenCore.h"
 #include "Core/Parametrization/INode.h"
+#include "Core/Vector/EigenCore.h"
 #include "Core/Vector/Vectors3D.h"
 #include "Wrap/WinDllMacros.h"
 

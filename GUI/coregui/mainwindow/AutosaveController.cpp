@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/AutosaveController.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
-#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QDir>
 
 namespace

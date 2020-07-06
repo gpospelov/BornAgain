@@ -14,8 +14,8 @@
 
 #include "GUI/coregui/Views/SampleDesigner/ParticleCoreShellView.h"
 #include "GUI/coregui/Models/ParticleCoreShellItem.h"
-#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 
 ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem* parent) : ConnectableView(parent)
@@ -32,7 +32,7 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem* parent) : Connectabl
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
 
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
 void ParticleCoreShellView::addView(IView* childView, int /* row */)

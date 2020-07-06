@@ -15,10 +15,10 @@
 #include "GUI/coregui/Models/FitParameterProxyModel.h"
 #include "GUI/coregui/Models/FitParameterHelper.h"
 #include "GUI/coregui/Models/FitParameterItems.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/ModelPath.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QMimeData>
 
 using SessionItemUtils::ParentRow;

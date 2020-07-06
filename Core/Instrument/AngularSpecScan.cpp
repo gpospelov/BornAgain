@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/AngularSpecScan.h"
-#include "Core/Binning/FixedBinAxis.h"
 #include "Core/Beam/IFootprintFactor.h"
-#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/Export/PythonFormatting.h"
-#include "Core/Parametrization/RangedDistributions.h"
-#include "Fit/Tools/RealLimits.h"
 #include "Core/Instrument/ScanResolution.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Parametrization/RangedDistributions.h"
 #include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Fit/Tools/RealLimits.h"
 
 namespace
 {

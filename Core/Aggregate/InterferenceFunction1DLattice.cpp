@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
+#include "Core/Aggregate/FTDecayFunctions.h"
 #include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Aggregate/FTDecayFunctions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <algorithm>

@@ -29,7 +29,7 @@ ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : Connec
         ->setToolTip(QStringLiteral("Connect particles"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
 void ParticleCompositionView::addView(IView* childView, int /* row */)

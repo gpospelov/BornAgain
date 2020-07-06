@@ -20,9 +20,9 @@
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
-#include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
     : QObject(parent), m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this)),

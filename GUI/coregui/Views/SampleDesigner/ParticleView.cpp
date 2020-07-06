@@ -14,10 +14,10 @@
 
 #include "GUI/coregui/Views/SampleDesigner/ParticleView.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QObject>
 #include <QPainter>
@@ -32,7 +32,7 @@ ParticleView::ParticleView(QGraphicsItem* parent) : ConnectableView(parent)
         ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
 void ParticleView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)

@@ -13,17 +13,17 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/LatticeBuilder.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Aggregate/FTDecayFunctions.h"
-#include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/HardParticle/FormFactorCylinder.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Particle/Particle.h"
 
 Lattice1DBuilder::Lattice1DBuilder()
     : m_length(20.0 * Units::nanometer), m_xi(10.0 * Units::deg),

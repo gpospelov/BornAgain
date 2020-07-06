@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/SessionModel.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/ItemFactory.h"
 #include "GUI/coregui/Models/SessionItemTags.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QFile>
 #include <QMimeData>
 #include <QtCore/QXmlStreamWriter>

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitParameterWidget.h"
-#include "GUI/coregui/utils/CustomEventFilters.h"
 #include "GUI/coregui/Models/FilterPropertyProxy.h"
 #include "GUI/coregui/Models/FitParameterHelper.h"
 #include "GUI/coregui/Models/FitParameterItems.h"
@@ -21,11 +20,12 @@
 #include "GUI/coregui/Models/FitSuiteItem.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
-#include "GUI/coregui/Views/InfoWidgets/OverlayLabelController.h"
 #include "GUI/coregui/Models/ParameterTreeItems.h"
-#include "GUI/coregui/Views/JobWidgets/ParameterTuningWidget.h"
 #include "GUI/coregui/Models/SessionModelDelegate.h"
+#include "GUI/coregui/Views/InfoWidgets/OverlayLabelController.h"
+#include "GUI/coregui/Views/JobWidgets/ParameterTuningWidget.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
 #include <QAction>
 #include <QMenu>
 #include <QTreeView>

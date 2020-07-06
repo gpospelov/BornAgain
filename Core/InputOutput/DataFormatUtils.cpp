@@ -15,9 +15,9 @@
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Core/Binning/ConstKBinAxis.h"
 #include "Core/Binning/CustomBinAxis.h"
-#include "Core/Tools/FileSystemUtils.h"
-#include "Core/Instrument/OutputData.h"
 #include "Core/Binning/PointwiseAxis.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iostream>
 #include <iterator>

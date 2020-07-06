@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Views/CommonWidgets/ColumnResizer.h"
 #include "GUI/coregui/Views/InstrumentWidgets/EnvironmentEditor.h"
 #include "GUI/coregui/Views/InstrumentWidgets/GISASBeamEditor.h"
 #include "GUI/coregui/Views/InstrumentWidgets/GISASDetectorEditor.h"
-#include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Views/InstrumentWidgets/PolarizationAnalysisEditor.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QVBoxLayout>

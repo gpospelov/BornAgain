@@ -77,7 +77,7 @@ public slots:
     void onLockViewAction(bool view_locked);
     void onChangeLayerSizeAction(double layer_size_scale);
     void onSavePictureAction();
-    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last);
 
 private slots:
     void onDataChanged(const QModelIndex& index);

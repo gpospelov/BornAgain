@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentEditorWidget.h"
-#include "GUI/coregui/Views/CommonWidgets/AdjustingScrollArea.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Views/CommonWidgets/AdjustingScrollArea.h"
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentPresenter.h"
 #include <QBoxLayout>
 #include <QGroupBox>

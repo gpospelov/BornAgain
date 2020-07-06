@@ -16,12 +16,10 @@
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/ItemFileNameUtils.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
-#include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
 #include "GUI/coregui/Models/MaterialItemContainer.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/ParameterTreeItems.h"
@@ -29,6 +27,8 @@
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
 #include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";

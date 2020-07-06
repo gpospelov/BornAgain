@@ -14,8 +14,8 @@
 
 #include "Core/HardParticle/FormFactorBox.h"
 #include "Core/Basics/BornAgainNamespace.h"
-#include "Core/Tools/MathFunctions.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Tools/MathFunctions.h"
 
 //! Constructor of a rectangular cuboid.
 //! @param length: length of the base in nanometers
@@ -49,8 +49,8 @@ IFormFactor* FormFactorBox::sliceFormFactor(ZLimits limits, const IRotation& rot
 
 void FormFactorBox::onChange()
 {
-    double a = m_length/2;
-    double b = m_width/2;
+    double a = m_length / 2;
+    double b = m_width / 2;
     std::vector<kvector_t> V{{a, b, 0.}, {-a, b, 0.}, {-a, -b, 0.}, {a, -b, 0}};
     setPrism(true, V);
 }

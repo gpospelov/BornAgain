@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularDataCanvas.h"
-#include "GUI/coregui/mainwindow/AppSvc.h"
-#include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
-#include "GUI/coregui/Views/SpecularDataWidgets/SpecularPlotCanvas.h"
 #include "GUI/coregui/Views/FitWidgets/plot_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/SpecularPlotCanvas.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
 #include "GUI/coregui/mainwindow/projectmanager.h"
 #include "qcustomplot.h"
 

@@ -15,12 +15,12 @@
 #include "GUI/coregui/Views/ImportDataWidgets/LinkInstrumentManager.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/DetectorItems.h"
-#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/RealDataModel.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include <QMessageBox>
 #include <QPushButton>
 

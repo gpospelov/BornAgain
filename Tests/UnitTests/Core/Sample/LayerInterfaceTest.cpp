@@ -1,8 +1,8 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 

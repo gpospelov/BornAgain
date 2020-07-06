@@ -1,7 +1,7 @@
 #include <mpi.h>
 
-#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"

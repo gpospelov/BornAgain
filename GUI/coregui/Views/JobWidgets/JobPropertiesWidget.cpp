@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/JobWidgets/JobPropertiesWidget.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QTabBar>

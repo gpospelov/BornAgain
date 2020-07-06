@@ -16,9 +16,9 @@
 #define REALSPACEBUILDERUTILS_H
 
 #include "Core/Scattering/Rotations.h"
+#include "Core/Vector/Vectors3D.h"
 #include "Wrap/WinDllMacros.h"
 #include <QVector3D>
-#include "Core/Vector/Vectors3D.h"
 #include <memory>
 #include <utility>
 

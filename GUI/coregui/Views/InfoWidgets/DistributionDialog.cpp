@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InfoWidgets/DistributionDialog.h"
-#include "GUI/coregui/Views/InfoWidgets/DistributionEditor.h"
 #include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/InfoWidgets/DistributionEditor.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QHBoxLayout>
 #include <QPushButton>

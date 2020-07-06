@@ -13,24 +13,24 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUISpecial/GUISaveLoadProject.h"
-#include "GUI/coregui/Models/ApplicationModels.h"
 #include "BATesting.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Core/Tools/FileSystemUtils.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"
-#include "Core/Tools/FileSystemUtils.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
-#include "GUI/coregui/utils/MessageService.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "GUI/coregui/mainwindow/ProjectUtils.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/MessageService.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>

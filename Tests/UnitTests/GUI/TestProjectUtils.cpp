@@ -1,5 +1,5 @@
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <QDir>
 #include <QFile>

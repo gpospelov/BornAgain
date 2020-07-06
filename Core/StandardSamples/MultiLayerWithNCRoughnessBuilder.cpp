@@ -14,9 +14,9 @@
 
 #include "Core/StandardSamples/MultiLayerWithNCRoughnessBuilder.h"
 #include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/Units.h"

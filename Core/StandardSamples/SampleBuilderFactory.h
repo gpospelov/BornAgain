@@ -15,8 +15,8 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
-#include "Core/StandardSamples/IFactory.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/StandardSamples/IFactory.h"
 
 class MultiLayer;
 

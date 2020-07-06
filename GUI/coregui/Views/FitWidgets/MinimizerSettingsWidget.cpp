@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/MinimizerSettingsWidget.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/MinimizerItem.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 

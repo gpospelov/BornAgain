@@ -13,16 +13,15 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobModelFunctions.h"
+#include "Core/Instrument/DetectorFunctions.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Instrument/Instrument.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"
-#include "Core/Instrument/DetectorFunctions.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItem.h"
-#include "Core/Instrument/IDetector2D.h"
-#include "Core/Instrument/Instrument.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/ItemFileNameUtils.h"
@@ -30,12 +29,13 @@
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/MaskItems.h"
-#include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
 #include "GUI/coregui/Models/MaterialItemContainer.h"
-#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
 #include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <map>
 
 namespace

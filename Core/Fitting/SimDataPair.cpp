@@ -14,10 +14,10 @@
 
 #include "Core/Fitting/SimDataPair.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Tools/Numeric.h"
 #include "Core/Instrument/OutputData.h"
-#include "Core/Simulation/Simulation.h"
 #include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/Tools/Numeric.h"
 
 namespace
 {

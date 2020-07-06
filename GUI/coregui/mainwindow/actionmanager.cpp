@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/actionmanager.h"
-#include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "Core/Tools/SysUtils.h"
+#include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "GUI/coregui/mainwindow/UpdateNotifier.h"
 #include "GUI/coregui/mainwindow/aboutapplicationdialog.h"
-#include "GUI/coregui/utils/hostosinfo.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/mainwindow/projectmanager.h"
+#include "GUI/coregui/utils/hostosinfo.h"
 #include "GUI/coregui/utils/qstringutils.h"
 #include <QDir>
 #include <QMenuBar>

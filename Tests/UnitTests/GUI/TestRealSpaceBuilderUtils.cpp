@@ -3,17 +3,17 @@
 
 #ifdef BORNAGAIN_OPENGL
 
-#include "GUI/coregui/Models/ApplicationModels.h"
-#include "Core/Scattering/IFormFactor.h"
 #include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
 #include "Core/Particle/Particle.h"
-#include "GUI/coregui/Views/RealSpaceWidgets/Particle3DContainer.h"
+#include "Core/Scattering/IFormFactor.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/Particle3DContainer.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
-#include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <QObject>

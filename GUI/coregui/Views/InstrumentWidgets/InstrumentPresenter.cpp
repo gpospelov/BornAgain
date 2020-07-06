@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentPresenter.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/InstrumentWidgets/DepthProbeInstrumentEditor.h"
 #include "GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Views/InstrumentWidgets/OffSpecInstrumentEditor.h"
-#include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Views/InstrumentWidgets/SpecularInstrumentEditor.h"
-#include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

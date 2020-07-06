@@ -16,8 +16,8 @@
 #define SCALARRTCOEFFICIENTS_H
 
 #include "Core/Basics/Complex.h"
-#include "Core/Vector/EigenCore.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Vector/EigenCore.h"
 
 //! Specular reflection and transmission coefficients in a layer in case
 //! of scalar interactions between the layers and the scattered particle.

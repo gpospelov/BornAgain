@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/ItemFactory.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"
@@ -20,6 +19,7 @@
 #include "GUI/coregui/Models/SessionItemTags.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 const QString SessionItem::P_NAME = "Name";
 

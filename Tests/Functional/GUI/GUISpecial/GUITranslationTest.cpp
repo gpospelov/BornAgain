@@ -13,12 +13,16 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUISpecial/GUITranslationTest.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Core/StandardSamples/SimulationFactory.h"
+#include "Fit/Tools/StringUtils.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/FitParameterHelper.h"
-#include "Core/Simulation/GISASSimulation.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
@@ -26,17 +30,13 @@
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Models/ModelPath.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
-#include "Core/Parametrization/ParameterPool.h"
 #include "GUI/coregui/Models/ParameterTreeItems.h"
 #include "GUI/coregui/Models/ParameterTreeUtils.h"
 #include "GUI/coregui/Models/RectangularDetectorItem.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "Core/StandardSamples/SimulationFactory.h"
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
-#include "Fit/Tools/StringUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QStack>
 
 namespace

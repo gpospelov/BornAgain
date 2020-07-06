@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
-#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
-#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
-#include "GUI/coregui/Views/MaterialEditor/MaterialEditorToolBar.h"
 #include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/SessionDecorationModel.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialEditorToolBar.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>

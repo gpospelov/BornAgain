@@ -16,30 +16,30 @@
 #define ALGORITHMS_H
 
 #include <algorithm>
+#include <cassert>
 #include <functional>
 #include <vector>
-#include <cassert>
 
 //! Some additions to standard library algorithms.
 
-namespace algo {
+namespace algo
+{
 
 //! Returns the minimum value of function evaluate as applied to the elements of an iterator range.
-template<typename Evaluator, typename Iterator>
+template <typename Evaluator, typename Iterator>
 double min_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate);
 
 //! Returns the maximum value of function evaluate as applied to the elements of an iterator range.
-template<typename Evaluator, typename Iterator>
+template <typename Evaluator, typename Iterator>
 double max_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate);
 
 } // namespace algo
-
 
 // ************************************************************************** //
 // Implementation
 // ************************************************************************** //
 
-template<typename Evaluator, typename Iterator>
+template <typename Evaluator, typename Iterator>
 double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate)
 {
     assert(begin != end);
@@ -50,7 +50,7 @@ double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluat
     return ret;
 }
 
-template<typename Evaluator, typename Iterator>
+template <typename Evaluator, typename Iterator>
 double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate)
 {
     assert(begin != end);
@@ -60,6 +60,5 @@ double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluat
         ret = std::max(ret, evaluate(*it));
     return ret;
 }
-
 
 #endif // ALGORITHMS_H

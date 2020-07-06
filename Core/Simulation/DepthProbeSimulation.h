@@ -15,10 +15,10 @@
 #ifndef DEPTHPROBESIMULATION_H
 #define DEPTHPROBESIMULATION_H
 
-#include "Core/SimulationElement/DepthProbeElement.h"
-#include "Core/Multilayer/ILayerRTCoefficients.h"
 #include "Core/Instrument/OutputData.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
 #include "Core/Simulation/Simulation.h"
+#include "Core/SimulationElement/DepthProbeElement.h"
 
 #include <vector>
 

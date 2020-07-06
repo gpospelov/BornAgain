@@ -15,8 +15,8 @@
 #include "GUI/coregui/Views/SampleDesigner/SampleTreeWidget.h"
 #include "GUI/coregui/Models/FilterPropertyProxy.h"
 #include "GUI/coregui/Models/ItemFactory.h"
-#include "GUI/coregui/Views/SampleDesigner/ItemTreeView.h"
 #include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Views/SampleDesigner/ItemTreeView.h"
 #include <QAction>
 #include <QMenu>
 #include <QVBoxLayout>

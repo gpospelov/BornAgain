@@ -14,9 +14,9 @@
 
 #include "Tests/Functional/Core/CoreSpecial/CoreIOPathTest.h"
 #include "BATesting.h"
-#include "Core/Tools/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/OutputData.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <boost/filesystem.hpp>
 #include <iostream>

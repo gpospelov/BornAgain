@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Computation/Slice.h"
-#include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Material/MaterialUtils.h"
+#include "Core/Multilayer/LayerRoughness.h"
 
 Slice::Slice(double thickness, const Material& material)
     : m_thickness{thickness}, m_material{material}, m_B_field{}, mP_top_roughness{nullptr}

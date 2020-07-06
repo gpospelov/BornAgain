@@ -19,8 +19,8 @@
 // class FormFactorRipple2Box
 // ************************************************************************** //
 
-FormFactorRipple2Box::FormFactorRipple2Box(
-    double length, double width, double height, double asymmetry)
+FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height,
+                                           double asymmetry)
     : ProfileRipple2{length, width, height, asymmetry}
 {
     setName(BornAgain::FFRipple2BoxType);
@@ -45,8 +45,8 @@ complex_t FormFactorRipple2Box::factor_x(complex_t qx) const
 // class FormFactorRipple2Gauss
 // ************************************************************************** //
 
-FormFactorRipple2Gauss::FormFactorRipple2Gauss(
-    double length, double width, double height, double asymmetry)
+FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height,
+                                               double asymmetry)
     : ProfileRipple2{length, width, height, asymmetry}
 {
     setName(BornAgain::FFRipple2GaussType);
@@ -71,8 +71,8 @@ complex_t FormFactorRipple2Gauss::factor_x(complex_t qx) const
 // class FormFactorRipple2Lorentz
 // ************************************************************************** //
 
-FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(
-    double length, double width, double height, double asymmetry)
+FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height,
+                                                   double asymmetry)
     : ProfileRipple2{length, width, height, asymmetry}
 {
     setName(BornAgain::FFRipple2LorentzType);

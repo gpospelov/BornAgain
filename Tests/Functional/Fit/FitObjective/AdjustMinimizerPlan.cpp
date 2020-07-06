@@ -14,10 +14,10 @@
 
 #include "Tests/Functional/Fit/FitObjective/AdjustMinimizerPlan.h"
 #include "Core/Fitting/FitObjective.h"
+#include "Core/Parametrization/Units.h"
 #include "Fit/Kernel/KernelTypes.h"
 #include "Fit/Kernel/Minimizer.h"
 #include "Fit/Kernel/Parameters.h"
-#include "Core/Parametrization/Units.h"
 #include <iostream>
 
 namespace

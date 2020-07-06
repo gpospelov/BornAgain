@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Fit/RootAdapter/SimAnMinimizer.h"
-#include "Fit/RootAdapter/GSLMultiMinimizer.h"
 #include "Fit/Minimizer/MinimizerConstants.h"
+#include "Fit/RootAdapter/GSLMultiMinimizer.h"
 
 #ifdef _WIN32
 #pragma warning(push)

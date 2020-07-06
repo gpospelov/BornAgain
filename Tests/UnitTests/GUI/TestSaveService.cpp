@@ -1,17 +1,17 @@
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "GUI/coregui/mainwindow/AutosaveController.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
-#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/RealDataModel.h"
+#include "GUI/coregui/mainwindow/AutosaveController.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/SaveService.h"
-#include "Tests/UnitTests/utilities/google_test.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/UnitTests/GUI/test_utils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <QSignalSpy>
 
 class TestSaveService : public ::testing::Test

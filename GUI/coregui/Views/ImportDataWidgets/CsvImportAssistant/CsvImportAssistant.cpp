@@ -13,7 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
-#include "DataFormatUtils.cpp"
+#include "Core/InputOutput/DataFormatUtils.cpp"
+// TODO avoid importing a cpp file
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/DataSelector.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/utils/ImportDataInfo.h"

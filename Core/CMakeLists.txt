@@ -28,8 +28,6 @@ set(include_dirs
     ${BornAgainFit_INCLUDE_DIRS}
     )
 
-include_directories(${include_dirs})
-
 file(GLOB source_files "*/*.cpp")
 file(GLOB include_files "*/*.h")
 
@@ -147,7 +145,7 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 # exposing library name and list of include directories outside
-set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
+set(${library_name}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
@@ -161,10 +159,11 @@ if(BORNAGAIN_TIFF_SUPPORT)
     target_link_libraries(${library_name} ${TIFF_LIBRARIES})
 endif()
 
-target_include_directories(${library_name} PUBLIC ${include_dirs})
-target_include_directories(${library_name} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
-target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR}
-    ${GSL_INCLUDE_DIR} ${tspectrum_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
+target_include_directories(${library_name}
+    PUBLIC ${CMAKE_SOURCE_DIR} ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR} ${GSL_INCLUDE_DIR}
+    ${tspectrum_INCLUDE_DIR}
+    SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR}
+    PRIVATE ${Faddeeva_INCLUDE_DIR})
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY} ${tspectrum_LIBRARY})
 

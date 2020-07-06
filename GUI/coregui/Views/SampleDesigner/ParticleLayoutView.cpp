@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ParticleLayoutView.h"
-#include "DesignerHelper.h"
-#include "GUIHelpers.h"
-#include "ParticleView.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleLayoutView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleView.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(parent)
 {

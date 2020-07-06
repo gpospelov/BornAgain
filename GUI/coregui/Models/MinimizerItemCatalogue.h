@@ -15,7 +15,7 @@
 #ifndef MINIMIZERITEMCATALOGUE_H
 #define MINIMIZERITEMCATALOGUE_H
 
-#include "ComboProperty.h"
+#include "GUI/coregui/Models/ComboProperty.h"
 
 class MinimizerItem;
 

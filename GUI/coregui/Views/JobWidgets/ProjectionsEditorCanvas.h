@@ -15,8 +15,8 @@
 #ifndef PROJECTIONSEDITORCANVAS_H
 #define PROJECTIONSEDITORCANVAS_H
 
-#include "MaskEditorFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
+#include "Wrap/WinDllMacros.h"
 #include <QModelIndex>
 #include <QWidget>
 

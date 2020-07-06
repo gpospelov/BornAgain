@@ -15,7 +15,7 @@
 #ifndef BEAMWAVELENGTHITEM_H
 #define BEAMWAVELENGTHITEM_H
 
-#include "BeamDistributionItem.h"
+#include "GUI/coregui/Models/BeamDistributionItem.h"
 
 class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem
 {

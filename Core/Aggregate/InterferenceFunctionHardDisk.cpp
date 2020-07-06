@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunctionHardDisk.h"
-#include "BornAgainNamespace.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/Aggregate/InterferenceFunctionHardDisk.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <cmath>
 
 namespace

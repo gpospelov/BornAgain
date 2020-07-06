@@ -15,7 +15,7 @@
 #ifndef GUIDOMAINSAMPLEVISITOR_H
 #define GUIDOMAINSAMPLEVISITOR_H
 
-#include "INodeVisitor.h"
+#include "Core/Parametrization/INodeVisitor.h"
 #include <QMap>
 #include <QString>
 

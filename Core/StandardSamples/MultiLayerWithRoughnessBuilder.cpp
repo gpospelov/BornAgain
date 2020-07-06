@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerWithRoughnessBuilder.h"
-#include "BornAgainNamespace.h"
-#include "Layer.h"
-#include "LayerRoughness.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "RealParameter.h"
-#include "Units.h"
+#include "Core/StandardSamples/MultiLayerWithRoughnessBuilder.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/LayerRoughness.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Parametrization/Units.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     : m_thicknessA(2.5 * Units::nanometer), m_thicknessB(5.0 * Units::nanometer),

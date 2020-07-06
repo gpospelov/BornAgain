@@ -28,7 +28,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "ClickableFrame.h"
+#include "GUI/coregui/Views/AccordionWidget/ClickableFrame.h"
 #include <QStyleOption>
 
 ClickableFrame::ClickableFrame(QString header, QWidget* parent, Qt::WindowFlags f)

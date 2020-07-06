@@ -15,7 +15,7 @@
 #ifndef DATAITEM1DVIEW_H
 #define DATAITEM1DVIEW_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class AmplitudeAxisItem;
 class BasicAxisItem;

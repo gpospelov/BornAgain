@@ -15,7 +15,7 @@
 #ifndef FORMFACTORDOT_H
 #define FORMFACTORDOT_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 //! @ingroup hardParticle

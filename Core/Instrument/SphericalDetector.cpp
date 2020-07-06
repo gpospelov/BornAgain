@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "SphericalDetector.h"
-#include "Beam.h"
-#include "BornAgainNamespace.h"
-#include "IDetectorResolution.h"
-#include "IPixel.h"
-#include "MathConstants.h"
-#include "SimulationElement.h"
-#include "Units.h"
+#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/IDetectorResolution.h"
+#include "Core/Binning/IPixel.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Parametrization/Units.h"
 
 SphericalDetector::SphericalDetector()
 {

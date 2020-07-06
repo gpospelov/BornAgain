@@ -15,7 +15,7 @@
 #ifndef FOURIERTRANSFORMATIONTEST_H
 #define FOURIERTRANSFORMATIONTEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Transforms GISAS image and compares results against reference file.
 

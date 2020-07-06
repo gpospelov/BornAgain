@@ -15,7 +15,7 @@
 #ifndef UPDATENOTIFIERWIDGET_H
 #define UPDATENOTIFIERWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class UpdateNotifier;

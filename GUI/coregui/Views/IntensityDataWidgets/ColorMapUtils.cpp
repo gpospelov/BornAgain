@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "ColorMapUtils.h"
-#include "ColorMap.h"
-#include "GUIHelpers.h"
-#include "IntensityDataItem.h"
-#include "item_constants.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 using gradient_map_t = QMap<QString, QCPColorGradient::GradientPreset>;
 

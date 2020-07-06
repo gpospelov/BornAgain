@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "JobItemUtils.h"
-#include "ComboProperty.h"
-#include "DataItem.h"
-#include "DomainObjectBuilder.h"
-#include "GUIHelpers.h"
-#include "InstrumentItems.h"
-#include "JobItem.h"
-#include "RealDataItem.h"
-#include "Simulation.h"
-#include "UnitConverterUtils.h"
+#include "GUI/coregui/Models/JobItemUtils.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/Models/DomainObjectBuilder.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/Instrument/UnitConverterUtils.h"
 #include <QDebug>
 #include <QFileInfo>
 

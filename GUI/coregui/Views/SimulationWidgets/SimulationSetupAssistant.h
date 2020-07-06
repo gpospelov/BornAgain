@@ -15,7 +15,7 @@
 #ifndef SIMULATIONSETUPASSISTANT_H
 #define SIMULATIONSETUPASSISTANT_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QStringList>
 
 class MultiLayerItem;

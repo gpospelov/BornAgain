@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FitObjectiveTestFactory.h"
-#include "FitObjectiveTestCases.h"
+#include "Tests/Functional/Fit/FitObjective/FitObjectiveTestFactory.h"
+#include "Tests/Functional/Fit/FitObjective/FitObjectiveTestCases.h"
 
 FitObjectiveTestFactory::FitObjectiveTestFactory()
 {

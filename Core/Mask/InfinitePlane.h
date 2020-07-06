@@ -15,7 +15,7 @@
 #ifndef INFINITEPLANE_H
 #define INFINITEPLANE_H
 
-#include "IShape2D.h"
+#include "Core/Mask/IShape2D.h"
 
 //! The infinite plane is used for masking everything once and forever.
 //! @ingroup tools

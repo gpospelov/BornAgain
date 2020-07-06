@@ -15,7 +15,7 @@
 #ifndef INSTRUMENTSELECTORWIDGET_H
 #define INSTRUMENTSELECTORWIDGET_H
 
-#include "ItemSelectorWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.h"
 
 class InstrumentModel;
 

@@ -15,7 +15,7 @@
 #ifndef INTENSITYDATAPROJECTIONSWIDGET_H
 #define INTENSITYDATAPROJECTIONSWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ProjectionsEditor;
 class IntensityDataItem;

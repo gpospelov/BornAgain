@@ -1,6 +1,6 @@
-#include "LLData.h"
-#include "Complex.h"
-#include "google_test.h"
+#include "Core/Instrument/LLData.h"
+#include "Core/Basics/Complex.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <algorithm>
 
 class LLDataTest : public ::testing::Test

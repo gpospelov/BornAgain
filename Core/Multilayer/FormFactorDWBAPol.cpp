@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDWBAPol.h"
-#include "BornAgainNamespace.h"
-#include "ILayerRTCoefficients.h"
-#include "WavevectorInfo.h"
+#include "Core/Multilayer/FormFactorDWBAPol.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Vector/WavevectorInfo.h"
 
 namespace
 {

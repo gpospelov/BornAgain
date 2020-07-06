@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "ParameterUtils.h"
-#include "BornAgainNamespace.h"
-#include "ParameterDistribution.h"
-#include "ParameterPool.h"
-#include "Particle.h"
-#include "ParticleDistribution.h"
-#include "RealParameter.h"
+#include "Core/Parametrization/ParameterUtils.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/ParameterDistribution.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Particle/ParticleDistribution.h"
+#include "Core/Parametrization/RealParameter.h"
 
 namespace
 {

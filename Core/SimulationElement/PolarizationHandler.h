@@ -15,8 +15,8 @@
 #ifndef POLARIZATIONHANDLER_H_
 #define POLARIZATIONHANDLER_H_
 
-#include "EigenCore.h"
-#include "WinDllMacros.h"
+#include "Core/Vector/EigenCore.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Convenience class for handling polarization density matrix and polarization analyzer operator
 //! @ingroup simulation

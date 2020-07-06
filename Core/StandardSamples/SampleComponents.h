@@ -15,8 +15,8 @@
 #ifndef SAMPLECOMPONENTS_H
 #define SAMPLECOMPONENTS_H
 
-#include "FTDistributions2D.h"
-#include "IRegistry.h"
+#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/StandardSamples/IRegistry.h"
 
 //! @class FTDistribution2DComponents
 //! @brief Predefined Fourier transformed distributions for functional tests.

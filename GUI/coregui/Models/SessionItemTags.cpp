@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "SessionItemTags.h"
-#include "GUIHelpers.h"
+#include "GUI/coregui/Models/SessionItemTags.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 SessionItemTags::TagInfo::TagInfo() : min(0), max(-1), childCount(0) {}
 

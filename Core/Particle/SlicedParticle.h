@@ -15,8 +15,8 @@
 #ifndef SLICEDPARTICLE_H
 #define SLICEDPARTICLE_H
 
-#include "HomogeneousRegion.h"
-#include "IFormFactor.h"
+#include "Core/Particle/HomogeneousRegion.h"
+#include "Core/Scattering/IFormFactor.h"
 #include <memory>
 
 //! Struct that contains information on a sliced particle.

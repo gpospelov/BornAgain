@@ -15,7 +15,7 @@
 #ifndef COMPONENTUTILS_H
 #define COMPONENTUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QList>
 #include <QStringList>
 

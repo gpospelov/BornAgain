@@ -15,7 +15,7 @@
 #ifndef BEAMITEM_H
 #define BEAMITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BasicAxisItem;
 class Beam;

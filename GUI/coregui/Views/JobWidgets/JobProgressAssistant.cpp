@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "JobProgressAssistant.h"
-#include "JobModel.h"
-#include "JobQueueData.h"
-#include "mainwindow.h"
+#include "GUI/coregui/Views/JobWidgets/JobProgressAssistant.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Models/JobQueueData.h"
+#include "GUI/coregui/mainwindow/mainwindow.h"
 #include "progressbar.h"
 
 JobProgressAssistant::JobProgressAssistant(MainWindow* mainWindow)

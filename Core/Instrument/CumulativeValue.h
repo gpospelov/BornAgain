@@ -15,7 +15,7 @@
 #ifndef CUMULATIVEVALUE_H
 #define CUMULATIVEVALUE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! The cumulative value with average and rms on-the-flight calculations.
 //! @ingroup tools

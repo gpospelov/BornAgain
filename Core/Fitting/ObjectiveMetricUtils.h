@@ -15,7 +15,7 @@
 #ifndef OBJECTIVEMETRICUTILS_H
 #define OBJECTIVEMETRICUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <memory>
 #include <string>

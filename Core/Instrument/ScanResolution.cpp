@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "ScanResolution.h"
-#include "PythonFormatting.h"
-#include "RangedDistributions.h"
+#include "Core/Instrument/ScanResolution.h"
+#include "Core/Export/PythonFormatting.h"
+#include "Core/Parametrization/RangedDistributions.h"
 
 namespace
 {

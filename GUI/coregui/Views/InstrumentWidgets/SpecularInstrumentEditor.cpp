@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "SpecularInstrumentEditor.h"
-#include "ColumnResizer.h"
-#include "EnvironmentEditor.h"
-#include "InstrumentItems.h"
-#include "PolarizationAnalysisEditor.h"
-#include "SpecularBeamEditor.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/InstrumentWidgets/SpecularInstrumentEditor.h"
+#include "GUI/coregui/Views/CommonWidgets/ColumnResizer.h"
+#include "GUI/coregui/Views/InstrumentWidgets/EnvironmentEditor.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Views/InstrumentWidgets/PolarizationAnalysisEditor.h"
+#include "GUI/coregui/Views/InstrumentWidgets/SpecularBeamEditor.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QVBoxLayout>
 
 SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)

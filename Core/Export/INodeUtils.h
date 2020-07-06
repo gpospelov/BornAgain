@@ -15,7 +15,7 @@
 #ifndef INODEUTILS_H
 #define INODEUTILS_H
 
-#include "INode.h"
+#include "Core/Parametrization/INode.h"
 
 namespace INodeUtils
 {

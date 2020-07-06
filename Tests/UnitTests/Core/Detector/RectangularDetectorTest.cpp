@@ -1,8 +1,8 @@
-#include "RectangularDetector.h"
-#include "GISASSimulation.h"
-#include "Numeric.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Tools/Numeric.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <iostream>
 #include <memory>
 

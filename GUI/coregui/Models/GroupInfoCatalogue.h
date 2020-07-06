@@ -15,7 +15,7 @@
 #ifndef GROUPINFOCATALOGUE_H
 #define GROUPINFOCATALOGUE_H
 
-#include "GroupInfo.h"
+#include "GUI/coregui/Models/GroupInfo.h"
 
 //! Catalogue to hold info for GroupProperty creation.
 

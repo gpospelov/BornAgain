@@ -15,7 +15,7 @@
 #ifndef PROGRESSHANDLER_H
 #define PROGRESSHANDLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 
 class MultiLayer;

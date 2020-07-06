@@ -15,7 +15,7 @@
 #ifndef TESTSERVICE_H
 #define TESTSERVICE_H
 
-#include "ITestService.h"
+#include "Tests/Functional/TestMachinery/ITestService.h"
 #include <boost/format.hpp>
 #include <iostream>
 #include <string>

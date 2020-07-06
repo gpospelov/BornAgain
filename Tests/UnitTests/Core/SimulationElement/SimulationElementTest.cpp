@@ -1,8 +1,8 @@
-#include "SimulationElement.h"
-#include "Bin.h"
-#include "SphericalDetector.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/Bin.h"
+#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 namespace

@@ -15,7 +15,7 @@
 #ifndef PROJECTIONSPLOT_H
 #define PROJECTIONSPLOT_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include "qcustomplot.h"
 #include <QMap>
 #include <memory>

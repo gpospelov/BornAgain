@@ -15,7 +15,7 @@
 #ifndef PROPERTYREPEATER_H
 #define PROPERTYREPEATER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QObject>
 #include <QVector>

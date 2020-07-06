@@ -15,7 +15,7 @@
 #ifndef JOBSELECTORACTIONS_H
 #define JOBSELECTORACTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QModelIndex>
 #include <QObject>
 

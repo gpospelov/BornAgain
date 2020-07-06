@@ -15,7 +15,7 @@
 #ifndef HOMOGENEOUSREGION_H
 #define HOMOGENEOUSREGION_H
 
-#include "Material.h"
+#include "Core/Material/Material.h"
 
 //! Struct that contains information on a single homogeneous region of a particle inside
 //! a single layer.

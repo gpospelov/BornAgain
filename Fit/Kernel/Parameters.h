@@ -15,8 +15,8 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
-#include "Parameter.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameter.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 namespace Fit

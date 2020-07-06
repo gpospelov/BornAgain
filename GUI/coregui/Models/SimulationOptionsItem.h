@@ -15,7 +15,7 @@
 #ifndef SIMULATIONOPTIONSITEM_H
 #define SIMULATIONOPTIONSITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <QMap>
 
 //! The SimulationOptionsItem class holds simulation status (run policy, number of threads,

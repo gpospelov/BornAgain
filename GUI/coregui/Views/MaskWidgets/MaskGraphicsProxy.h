@@ -15,7 +15,7 @@
 #ifndef MASKGRAPHICSPROXY_H
 #define MASKGRAPHICSPROXY_H
 
-#include "MaskEditorHelper.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h"
 #include <QGraphicsProxyWidget>
 
 class SessionItem;

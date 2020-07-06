@@ -15,8 +15,8 @@
 #ifndef SCANRESOLUTIONS_H
 #define SCANRESOLUTIONS_H
 
-#include "ICloneable.h"
-#include "ParameterSample.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/ParameterSample.h"
 #include <memory>
 #include <string>
 #include <vector>

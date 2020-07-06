@@ -15,7 +15,7 @@
 #ifndef DOUBLEELLIPSE_H
 #define DOUBLEELLIPSE_H
 
-#include "IShape.h"
+#include "Core/Shapes/IShape.h"
 
 class DoubleEllipse : public IShape
 {

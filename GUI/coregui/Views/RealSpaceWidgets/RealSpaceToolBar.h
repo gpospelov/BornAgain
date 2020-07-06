@@ -15,7 +15,7 @@
 #ifndef REALSPACETOOLBAR_H
 #define REALSPACETOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class QToolButton;
 class QCheckBox;

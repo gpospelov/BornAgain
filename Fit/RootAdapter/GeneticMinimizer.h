@@ -15,7 +15,7 @@
 #ifndef GENETICMINIMIZER_H
 #define GENETICMINIMIZER_H
 
-#include "RootMinimizerAdapter.h"
+#include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
 namespace ROOT
 {

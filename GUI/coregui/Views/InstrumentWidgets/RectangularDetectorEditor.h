@@ -15,7 +15,7 @@
 #ifndef RECTANGULARDETECTOREDITOR_H
 #define RECTANGULARDETECTOREDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 class RectangularDetectorItem;
 class ComponentEditor;
 class QGridLayout;

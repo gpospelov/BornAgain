@@ -15,8 +15,8 @@
 #ifndef RECTANGLEBASEVIEW_H
 #define RECTANGLEBASEVIEW_H
 
-#include "IShape2DView.h"
-#include "SizeHandleElement.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/SizeHandleElement.h"
 #include <QMap>
 
 //! Base view for all rectangular-like masks.

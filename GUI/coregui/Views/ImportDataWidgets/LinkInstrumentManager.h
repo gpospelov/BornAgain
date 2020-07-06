@@ -15,7 +15,7 @@
 #ifndef LINKINSTRUMENTMANAGER_H
 #define LINKINSTRUMENTMANAGER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QList>
 #include <QObject>
 #include <QStringList>

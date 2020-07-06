@@ -15,7 +15,7 @@
 #ifndef MESOCRYSTALVIEW_H
 #define MESOCRYSTALVIEW_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 //! Class representing view of a meso crystal item
 class BA_CORE_API_ MesoCrystalView : public ConnectableView

@@ -15,7 +15,7 @@
 #ifndef DWBASINGLECOMPUTATION_H
 #define DWBASINGLECOMPUTATION_H
 
-#include "HomogeneousRegion.h"
+#include "Core/Particle/HomogeneousRegion.h"
 #include <map>
 #include <memory>
 #include <vector>

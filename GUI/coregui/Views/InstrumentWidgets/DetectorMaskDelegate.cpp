@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "DetectorMaskDelegate.h"
-#include "AxesItems.h"
-#include "ComboProperty.h"
-#include "DetectorItems.h"
-#include "InstrumentItems.h"
-#include "InstrumentModel.h"
-#include "IntensityDataItem.h"
-#include "JobItemUtils.h"
-#include "MaskEditor.h"
-#include "MaskItems.h"
-#include "ModelPath.h"
+#include "GUI/coregui/Views/InstrumentWidgets/DetectorMaskDelegate.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/DetectorItems.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobItemUtils.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/ModelPath.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
     : QObject(parent), m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this)),

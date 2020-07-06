@@ -15,7 +15,7 @@
 #ifndef COLORMAP_H
 #define COLORMAP_H
 
-#include "ScientificPlot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include "qcustomplot.h"
 #include <QMap>
 #include <QPoint>

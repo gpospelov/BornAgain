@@ -15,7 +15,7 @@
 #ifndef COMPONENTPROXYSTRATEGY_H
 #define COMPONENTPROXYSTRATEGY_H
 
-#include "ProxyModelStrategy.h"
+#include "GUI/coregui/Models/ProxyModelStrategy.h"
 
 //! Strategy for ComponentProxyModel which hides extra level of GroupProperty.
 

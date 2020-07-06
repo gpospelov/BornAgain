@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "RealParameter.h"
-#include "BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Basics/BornAgainNamespace.h"
 #include <sstream>
 
 RealParameter::RealParameter(const std::string& name, double* par, const std::string& parent_name,

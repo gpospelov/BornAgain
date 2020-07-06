@@ -15,7 +15,7 @@
 #ifndef GROUPITEMCONTROLLER_H
 #define GROUPITEMCONTROLLER_H
 
-#include "GroupInfo.h"
+#include "GUI/coregui/Models/GroupInfo.h"
 #include <QStringList>
 #include <QVariant>
 

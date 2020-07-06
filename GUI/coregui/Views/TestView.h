@@ -15,7 +15,7 @@
 #ifndef TESTVIEW_H
 #define TESTVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;

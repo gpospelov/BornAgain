@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "StandardTestService.h"
-#include "BornAgainNamespace.h"
-#include "IFunctionalTest.h"
-#include "IMultiLayerBuilder.h"
-#include "MultiLayer.h"
-#include "SampleBuilderFactory.h"
-#include "Simulation.h"
-#include "SimulationFactory.h"
-#include "StandardTestCatalogue.h"
-#include "TestUtils.h"
+#include "Tests/Functional/TestMachinery/StandardTestService.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/StandardSamples/SimulationFactory.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
+#include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <iostream>
 
 namespace

@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "SimulationArea.h"
-#include "BornAgainNamespace.h"
-#include "DetectorMask.h"
-#include "Exceptions.h"
-#include "IDetector.h"
-#include "IntensityDataFunctions.h"
-#include "Rectangle.h"
-#include "RegionOfInterest.h"
+#include "Core/Instrument/SimulationArea.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/DetectorMask.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Instrument/IDetector.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Core/Mask/Rectangle.h"
+#include "Core/Instrument/RegionOfInterest.h"
 #include <sstream>
 
 SimulationArea::SimulationArea(const IDetector* detector) : m_detector(detector), m_max_index(0)

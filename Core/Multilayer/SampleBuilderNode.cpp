@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "SampleBuilderNode.h"
-#include "IMultiLayerBuilder.h"
-#include "MultiLayer.h"
-#include "ParameterPool.h"
+#include "Core/Multilayer/SampleBuilderNode.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/ParameterPool.h"
 #include <stdexcept>
 
 namespace

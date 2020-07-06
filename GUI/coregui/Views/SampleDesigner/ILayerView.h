@@ -15,7 +15,7 @@
 #ifndef ILAYERVIEW_H
 #define ILAYERVIEW_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 class MultiLayerView;
 class MultiLayerCandidate;

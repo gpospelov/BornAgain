@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <iostream>
 
 IFunctionalTest::~IFunctionalTest() = default;

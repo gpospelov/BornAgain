@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Line.h"
-#include "Bin.h"
-#include "Numeric.h"
+#include "Core/Mask/Line.h"
+#include "Core/Binning/Bin.h"
+#include "Core/Tools/Numeric.h"
 
 #include <limits>
 #include <boost/geometry.hpp>

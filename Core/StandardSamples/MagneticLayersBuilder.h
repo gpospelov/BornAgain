@@ -15,7 +15,7 @@
 #ifndef MAGNETICLAYERSBUILDER_H
 #define MAGNETICLAYERSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

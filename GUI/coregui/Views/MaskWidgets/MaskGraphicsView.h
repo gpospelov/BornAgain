@@ -15,7 +15,7 @@
 #ifndef MASKGRAPHICSVIEW_H
 #define MASKGRAPHICSVIEW_H
 
-#include "MaskEditorFlags.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include <QGraphicsView>
 
 class QWheelEvent;

@@ -1,8 +1,8 @@
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "ParticleLayout.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class LayerTest : public ::testing::Test
 {

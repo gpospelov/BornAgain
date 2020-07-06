@@ -15,16 +15,16 @@
 #ifndef TRANSFORMTODOMAIN_H
 #define TRANSFORMTODOMAIN_H
 
-#include "Beam.h"
-#include "Distributions.h" // for IDistribution1D
-#include "IInterferenceFunction.h"
-#include "IParticle.h"
-#include "Instrument.h"
-#include "Layer.h"
-#include "LayerRoughness.h"
-#include "MultiLayer.h"
-#include "ParticleDistribution.h"
-#include "ParticleLayout.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Parametrization/Distributions.h" // for IDistribution1D
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Particle/IParticle.h"
+#include "Core/Instrument/Instrument.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/LayerRoughness.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Particle/ParticleDistribution.h"
+#include "Core/Aggregate/ParticleLayout.h"
 #include <memory>
 
 class AngularSpecScan;

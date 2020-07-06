@@ -15,7 +15,7 @@
 #ifndef GUIMESSAGE_H
 #define GUIMESSAGE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 
 class QObject;

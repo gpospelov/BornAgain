@@ -15,8 +15,8 @@
 #ifndef MATHFUNCTIONS_H
 #define MATHFUNCTIONS_H
 
-#include "Complex.h"
-#include "WinDllMacros.h"
+#include "Core/Basics/Complex.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 //! Various mathematical functions.

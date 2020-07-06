@@ -15,7 +15,7 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include "IShape2D.h"
+#include "Core/Mask/IShape2D.h"
 
 //! A line segment.
 //! @ingroup mask

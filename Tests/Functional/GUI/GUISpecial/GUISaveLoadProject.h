@@ -15,7 +15,7 @@
 #ifndef GUISAVELOADPROJECT_H
 #define GUISAVELOADPROJECT_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QMap>
 #include <QString>
 #include <QVector>

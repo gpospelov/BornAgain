@@ -15,7 +15,7 @@
 #ifndef MODELUTILS_H
 #define MODELUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <functional>
 

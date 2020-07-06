@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerView.h"
-#include "DesignerHelper.h"
-#include "DesignerMimeData.h"
-#include "DesignerScene.h"
-#include "LayerView.h"
-#include "SampleModel.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/MultiLayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerMimeData.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
+#include "GUI/coregui/Views/SampleDesigner/LayerView.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>

@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "ParticleDistributionItem.h"
-#include "ComboProperty.h"
-#include "DistributionItems.h"
-#include "Distributions.h"
-#include "GUIHelpers.h"
-#include "ParameterTreeUtils.h"
-#include "ParameterUtils.h"
-#include "ParticleItem.h"
-#include "RealLimitsItems.h"
-#include "TransformFromDomain.h"
-#include "TransformToDomain.h"
-#include "Units.h"
+#include "GUI/coregui/Models/ParticleDistributionItem.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/DistributionItems.h"
+#include "Core/Parametrization/Distributions.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/ParameterTreeUtils.h"
+#include "Core/Parametrization/ParameterUtils.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/RealLimitsItems.h"
+#include "GUI/coregui/Models/TransformFromDomain.h"
+#include "GUI/coregui/Models/TransformToDomain.h"
+#include "Core/Parametrization/Units.h"
 
 namespace
 {

@@ -15,7 +15,7 @@
 #ifndef SESSIONDECORATIONMODEL_H
 #define SESSIONDECORATIONMODEL_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QIdentityProxyModel>
 
 class SessionModel;

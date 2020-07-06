@@ -15,7 +15,7 @@
 #ifndef MULTILAYERVIEW_H
 #define MULTILAYERVIEW_H
 
-#include "ILayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/ILayerView.h"
 
 class DesignerMimeData;
 class QGraphicsSceneDragDropEvent;

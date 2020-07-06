@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IIntensityFunction.h"
+#include "Core/Instrument/IIntensityFunction.h"
 #include <cmath>
 #include <limits>
 

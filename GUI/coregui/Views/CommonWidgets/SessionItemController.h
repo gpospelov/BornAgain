@@ -15,7 +15,7 @@
 #ifndef SESSIONITEMCONTROLLER_H
 #define SESSIONITEMCONTROLLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <functional>
 

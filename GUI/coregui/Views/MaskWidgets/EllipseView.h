@@ -15,7 +15,7 @@
 #ifndef ELLIPSEVIEW_H
 #define ELLIPSEVIEW_H
 
-#include "RectangleBaseView.h"
+#include "GUI/coregui/Views/MaskWidgets/RectangleBaseView.h"
 
 //! This is a View of ellipse mask (represented by EllipseItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.

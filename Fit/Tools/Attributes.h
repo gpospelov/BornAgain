@@ -15,7 +15,7 @@
 #ifndef ATTRIBUTES_H
 #define ATTRIBUTES_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <ostream>
 
 //! Attributes for a fit parameter. Currently, the only attribute is fixed/free.

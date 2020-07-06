@@ -1,7 +1,7 @@
-#include "SimulationResult.h"
-#include "GISASSimulation.h"
-#include "OutputData.h"
-#include "google_test.h"
+#include "Core/Instrument/SimulationResult.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Instrument/OutputData.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class SimulationResultTest : public ::testing::Test
 {

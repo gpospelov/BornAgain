@@ -15,8 +15,8 @@
 #ifndef RANGEDDISTRIBUTIONS_H
 #define RANGEDDISTRIBUTIONS_H
 
-#include "ICloneable.h"
-#include "RealLimits.h"
+#include "Core/Basics/ICloneable.h"
+#include "Fit/Tools/RealLimits.h"
 #include <memory>
 #include <vector>
 

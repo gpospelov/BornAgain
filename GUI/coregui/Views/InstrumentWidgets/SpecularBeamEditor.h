@@ -15,7 +15,7 @@
 #ifndef SPECULARBEAMEDITOR_H_
 #define SPECULARBEAMEDITOR_H_
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class BeamItem;
 class ColumnResizer;

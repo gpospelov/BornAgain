@@ -15,7 +15,7 @@
 #ifndef PLOT_CONSTANTS_H
 #define PLOT_CONSTANTS_H
 
-#include "StyleUtils.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QSize>
 
 namespace Constants

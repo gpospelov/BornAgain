@@ -15,7 +15,7 @@
 #ifndef DESIGNERHELPER_H
 #define DESIGNERHELPER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QColor>
 #include <QGradient>
 #include <QGraphicsItem>

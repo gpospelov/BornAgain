@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "IView.h"
-#include "ModelMapper.h"
-#include "SessionGraphicsItem.h"
+#include "GUI/coregui/Views/SampleDesigner/IView.h"
+#include "GUI/coregui/Models/ModelMapper.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 #include <QString>
 
 IView::IView(QGraphicsItem* parent) : QGraphicsObject(parent), m_item(0)

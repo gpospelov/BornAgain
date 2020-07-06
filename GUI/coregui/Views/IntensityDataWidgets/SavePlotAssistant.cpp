@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "SavePlotAssistant.h"
-#include "ColorMap.h"
-#include "IntensityDataIOFactory.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
 #include <QFileDialog>
 #include <QMessageBox>
 

@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "projectdocument.h"
-#include "ApplicationModels.h"
-#include "GUIHelpers.h"
-#include "JobModel.h"
-#include "MessageService.h"
-#include "OutputDataIOService.h"
-#include "ProjectUtils.h"
+#include "GUI/coregui/mainwindow/projectdocument.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/utils/MessageService.h"
+#include "GUI/coregui/mainwindow/OutputDataIOService.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include <QDir>
 #include <QElapsedTimer>
 #include <QXmlStreamReader>

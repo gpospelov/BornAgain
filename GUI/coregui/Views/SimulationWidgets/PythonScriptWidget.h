@@ -15,7 +15,7 @@
 #ifndef PYTHONSCRIPTWIDGET_H
 #define PYTHONSCRIPTWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDialog>
 
 class QToolBar;

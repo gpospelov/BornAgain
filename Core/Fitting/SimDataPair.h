@@ -15,8 +15,8 @@
 #ifndef SIMDATAPAIR_H
 #define SIMDATAPAIR_H
 
-#include "FitTypes.h"
-#include "SimulationResult.h"
+#include "Core/Fitting/FitTypes.h"
+#include "Core/Instrument/SimulationResult.h"
 
 template <class T> class OutputData;
 

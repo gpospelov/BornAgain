@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "def.h"
+#include "GUI/ba3d/def.h"
 
 static_assert(QT_VERSION >= QT_VERSION_CHECK(5, 5, 1),
               "requires Qt >= 5.5.1, have " QT_VERSION_STR);

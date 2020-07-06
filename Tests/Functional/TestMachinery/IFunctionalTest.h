@@ -15,7 +15,7 @@
 #ifndef IFUNCTIONALTEST_H
 #define IFUNCTIONALTEST_H
 
-#include "INamed.h"
+#include "Core/Basics/INamed.h"
 #include <map>
 
 //! Base class for all functional tests.

@@ -15,8 +15,8 @@
 #ifndef FORMFACTORDECORATORROTATION_H
 #define FORMFACTORDECORATORROTATION_H
 
-#include "IFormFactorDecorator.h"
-#include "Rotations.h"
+#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Scattering/Rotations.h"
 
 //! Equips a form factor with a rotation.
 //! @ingroup formfactors_internal

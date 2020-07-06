@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Rotations.h"
-#include "BornAgainNamespace.h"
-#include "RealParameter.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
 
 IRotation* IRotation::createRotation(const Transform3D& transform)
 {

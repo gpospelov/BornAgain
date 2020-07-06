@@ -15,9 +15,9 @@
 #ifndef SIMULATIONRESULT_H
 #define SIMULATIONRESULT_H
 
-#include "IUnitConverter.h"
-#include "PyObject.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Tools/PyObject.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <vector>
 

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "IMultiLayerBuilder.h"
-#include "BornAgainNamespace.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Basics/BornAgainNamespace.h"
 
 IMultiLayerBuilder::IMultiLayerBuilder()
 {

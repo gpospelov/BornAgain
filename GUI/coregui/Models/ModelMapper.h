@@ -15,7 +15,7 @@
 #ifndef MODELMAPPER_H
 #define MODELMAPPER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QModelIndex>
 #include <functional>
 

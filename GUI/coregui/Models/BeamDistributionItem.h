@@ -15,7 +15,7 @@
 #ifndef BEAMDISTRIBUTIONITEM_H
 #define BEAMDISTRIBUTIONITEM_H
 
-#include "DistributionItems.h"
+#include "GUI/coregui/Models/DistributionItems.h"
 
 class ParameterDistribution;
 

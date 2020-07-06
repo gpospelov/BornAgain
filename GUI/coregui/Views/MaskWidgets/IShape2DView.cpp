@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "IShape2DView.h"
-#include "ISceneAdaptor.h"
-#include "MaskItems.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/ISceneAdaptor.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <QAction>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>

@@ -15,8 +15,8 @@
 #ifndef SESSIONITEMUTILS_H
 #define SESSIONITEMUTILS_H
 
-#include "Vectors3D.h"
-#include "WinDllMacros.h"
+#include "Core/Vector/Vectors3D.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <QVariant>
 

@@ -15,7 +15,7 @@
 #ifndef ISELECTIONRULE_H
 #define ISELECTIONRULE_H
 
-#include "Vectors3D.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! Pure virtual base class for selection rules.
 //! @ingroup samples_internal

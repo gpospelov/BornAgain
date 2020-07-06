@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "SSCAHelper.h"
-#include "Exceptions.h"
-#include "FormFactorCoherentSum.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
+#include "Core/Multilayer/SSCAHelper.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Aggregate/FormFactorCoherentSum.h"
+#include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 
 SSCAHelper::SSCAHelper(double kappa) : m_kappa(kappa), m_mean_radius{} {}
 

@@ -15,7 +15,7 @@
 #ifndef FORMFACTOREDGETRUNCATEDCUBE_H
 #define FORMFACTOREDGETRUNCATEDCUBE_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A cube, with truncation of all edges and corners, as in Croset (2017) Fig 7
 //! @ingroup hardParticle

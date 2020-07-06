@@ -15,7 +15,7 @@
 #ifndef SESSIONMODELDELEGATE_H
 #define SESSIONMODELDELEGATE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QStyledItemDelegate>
 
 //! The SessionModelDelegate class presents the content of SessionModel items in

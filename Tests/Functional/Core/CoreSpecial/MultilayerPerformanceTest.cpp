@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "MultilayerPerformanceTest.h"
-#include "MultiLayer.h"
-#include "PlainMultiLayerBySLDBuilder.h"
-#include "SpecularSimulation.h"
-#include "StandardSimulations.h"
+#include "Tests/Functional/Core/CoreSpecial/MultilayerPerformanceTest.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
+#include "Core/Simulation/SpecularSimulation.h"
+#include "Core/StandardSamples/StandardSimulations.h"
 #include <chrono>
 
 using Results = std::vector<std::pair<int, long>>;

@@ -15,8 +15,8 @@
 #ifndef MESOCRYSTALITEM_H
 #define MESOCRYSTALITEM_H
 
-#include "Lattice.h"
-#include "SessionGraphicsItem.h"
+#include "Core/Lattice/Lattice.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class IFormFactor;
 class IParticle;

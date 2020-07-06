@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "SampleWidgetBox.h"
+#include "GUI/coregui/Views/SampleDesigner/SampleWidgetBox.h"
 #include "styledbar.h"
-#include "widgetbox.h"
+#include "GUI/coregui/Views/widgetbox/widgetbox.h"
 #include <QVBoxLayout>
 
 #if QT_VERSION < 0x050000

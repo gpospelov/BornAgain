@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDodecahedron.h"
-#include "BornAgainNamespace.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorDodecahedron.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorDodecahedron::topology = {{// bottom:
                                                               {{0, 4, 3, 2, 1}, false},

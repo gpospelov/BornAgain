@@ -1,9 +1,9 @@
-#include "Beam.h"
-#include "SimpleUnitConverters.h"
-#include "SphericalDetector.h"
-#include "Units.h"
-#include "Vectors3D.h"
-#include "google_test.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Parametrization/Units.h"
+#include "Core/Vector/Vectors3D.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class OffSpecularConverterTest : public ::testing::Test
 {

@@ -15,7 +15,7 @@
 #ifndef ZLIMITS_H
 #define ZLIMITS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <iostream>
 
 //! Helper class that represents a onesided limit

@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "RoughMultiLayerComputation.h"
+#include "Core/Computation/RoughMultiLayerComputation.h"
 #include "Faddeeva.hh"
-#include "IFresnelMap.h"
-#include "ILayerRTCoefficients.h"
-#include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ProcessedSample.h"
-#include "SimulationElement.h"
-#include "Slice.h"
+#include "Core/Multilayer/IFresnelMap.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/LayerInterface.h"
+#include "Core/Multilayer/LayerRoughness.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Computation/Slice.h"
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)

@@ -15,7 +15,7 @@
 #ifndef PARAMETERPATTERN_H
 #define PARAMETERPATTERN_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 //! Helper class for constructing parameter patterns.

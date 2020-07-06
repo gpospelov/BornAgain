@@ -15,7 +15,7 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include "IShape.h"
+#include "Core/Shapes/IShape.h"
 
 class Box : public IShape
 {

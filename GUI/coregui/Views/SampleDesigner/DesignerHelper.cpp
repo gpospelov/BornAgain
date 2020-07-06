@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "DesignerHelper.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QPainter>
 #include <QtGlobal>
 #include <cmath>
 #include <iostream>
-#include "StyleUtils.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 namespace
 {

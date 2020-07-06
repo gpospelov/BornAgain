@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "RealLimitsItems.h"
+#include "GUI/coregui/Models/RealLimitsItems.h"
 
 namespace
 {

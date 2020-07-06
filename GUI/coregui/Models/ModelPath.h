@@ -15,8 +15,8 @@
 #ifndef MODELPATH_H
 #define MODELPATH_H
 
-#include "ParameterTranslators.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Models/ParameterTranslators.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <vector>
 

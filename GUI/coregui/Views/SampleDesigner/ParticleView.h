@@ -15,7 +15,7 @@
 #ifndef PARTICLEVIEW_H
 #define PARTICLEVIEW_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 #include <QPixmap>
 
 //! Class representing view of Particle item

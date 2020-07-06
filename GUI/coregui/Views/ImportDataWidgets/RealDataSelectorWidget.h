@@ -15,7 +15,7 @@
 #ifndef REALDATASELECTORWIDGET_H
 #define REALDATASELECTORWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class RealDataPropertiesWidget;

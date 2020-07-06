@@ -15,9 +15,9 @@
 #ifndef IKZCOMPUTATION_H
 #define IKZCOMPUTATION_H
 
-#include "Complex.h"
-#include "ICloneable.h"
-#include "Vectors3D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Vector/Vectors3D.h"
 #include <vector>
 
 class Slice;

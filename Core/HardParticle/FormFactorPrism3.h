@@ -14,7 +14,7 @@
 
 #ifndef FORMFACTORPRISM3_H
 #define FORMFACTORPRISM3_H
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A prism based on an equilateral triangle.
 //! @ingroup hardParticle

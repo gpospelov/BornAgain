@@ -15,7 +15,7 @@
 #ifndef MATERIALEDITOR_H
 #define MATERIALEDITOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class MaterialModel;

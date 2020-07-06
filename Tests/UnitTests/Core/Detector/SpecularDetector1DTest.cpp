@@ -1,11 +1,11 @@
-#include "SpecularDetector1D.h"
-#include "Beam.h"
-#include "BornAgainNamespace.h"
-#include "FixedBinAxis.h"
-#include "OutputData.h"
-#include "SimulationArea.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Instrument/SpecularDetector1D.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Instrument/SimulationArea.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 class SpecularDetectorTest : public ::testing::Test

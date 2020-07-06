@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "geometry_inc.h"
+#include "GUI/ba3d/model/geometry_inc.h"
 #include <cmath>
 #include <functional>
 

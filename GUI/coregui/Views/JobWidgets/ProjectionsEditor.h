@@ -15,7 +15,7 @@
 #ifndef PROJECTIONSEDITOR_H
 #define PROJECTIONSEDITOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMainWindow>
 
 class SessionModel;

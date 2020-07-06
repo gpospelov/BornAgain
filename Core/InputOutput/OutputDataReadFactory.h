@@ -15,7 +15,7 @@
 #ifndef OUTPUTDATAREADFACTORY_H
 #define OUTPUTDATAREADFACTORY_H
 
-#include "OutputDataReader.h"
+#include "Core/InputOutput/OutputDataReader.h"
 
 //! Creates reader appropariate for given type of files.
 //! @ingroup input_output_internal

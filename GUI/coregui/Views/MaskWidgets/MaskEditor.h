@@ -15,7 +15,7 @@
 #ifndef MASKEDITOR_H
 #define MASKEDITOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMainWindow>
 #include <QModelIndex>
 #include <QWidget>

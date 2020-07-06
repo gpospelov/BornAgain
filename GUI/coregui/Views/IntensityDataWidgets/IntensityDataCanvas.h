@@ -15,8 +15,8 @@
 #ifndef INTENSITYDATACANVAS_H
 #define INTENSITYDATACANVAS_H
 
-#include "OutputData.h"
-#include "SessionItemWidget.h"
+#include "Core/Instrument/OutputData.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <memory>
 
 class SessionItem;

@@ -15,7 +15,7 @@
 #ifndef BOXESSQUARELATTICEBUILDER_H
 #define BOXESSQUARELATTICEBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

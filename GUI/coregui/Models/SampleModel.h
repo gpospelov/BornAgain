@@ -15,7 +15,7 @@
 #ifndef SAMPLEMODEL_H
 #define SAMPLEMODEL_H
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 class MultiLayerItem;
 

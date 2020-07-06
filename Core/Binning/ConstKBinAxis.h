@@ -15,7 +15,7 @@
 #ifndef CONSTKBINAXIS_H
 #define CONSTKBINAXIS_H
 
-#include "VariableBinAxis.h"
+#include "Core/Binning/VariableBinAxis.h"
 
 //! Axis with fixed bin size in sin(angle) space.
 //! @ingroup tools

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorAnisoPyramid.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorAnisoPyramid.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorAnisoPyramid::topology = {{{{3, 2, 1, 0}, true},
                                                               {{0, 1, 5, 4}, false},

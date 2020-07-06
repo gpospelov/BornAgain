@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "ResolutionFunctionItems.h"
-#include "BornAgainNamespace.h"
-#include "ResolutionFunction2DGaussian.h"
+#include "GUI/coregui/Models/ResolutionFunctionItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/ResolutionFunction2DGaussian.h"
 
 ResolutionFunctionItem::ResolutionFunctionItem(const QString& name) : SessionItem(name) {}
 

@@ -1,8 +1,8 @@
-#include "FixedBinAxis.h"
-#include "OutputData.h"
-#include "OutputDataReadStrategy.h"
-#include "OutputDataWriteStrategy.h"
-#include "google_test.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/InputOutput/OutputDataReadStrategy.h"
+#include "Core/InputOutput/OutputDataWriteStrategy.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class IOStrategyTest : public ::testing::Test
 {

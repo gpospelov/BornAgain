@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerInfo.h"
-#include "MinimizerConstants.h"
+#include "Fit/Minimizer/MinimizerInfo.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
 #include <sstream>
 #include <stdexcept>
 

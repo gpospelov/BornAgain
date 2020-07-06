@@ -15,7 +15,7 @@
 #ifndef DOCUMENTMODEL_H
 #define DOCUMENTMODEL_H
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 class SimulationOptionsItem;
 

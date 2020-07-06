@@ -15,8 +15,8 @@
 #ifndef RECTANGULARDETECTORITEM_H
 #define RECTANGULARDETECTORITEM_H
 
-#include "DetectorItems.h"
-#include "Vectors3D.h"
+#include "GUI/coregui/Models/DetectorItems.h"
+#include "Core/Vector/Vectors3D.h"
 
 class BA_CORE_API_ RectangularDetectorItem : public DetectorItem
 {

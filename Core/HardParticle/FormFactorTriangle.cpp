@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorTriangle.h"
-#include "BornAgainNamespace.h"
-#include "RealLimits.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorTriangle.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Core/Parametrization/RealParameter.h"
 
 FormFactorTriangle::FormFactorTriangle(const double base_edge) : m_base_edge(base_edge)
 {

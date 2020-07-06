@@ -15,7 +15,7 @@
 #ifndef DEPTHPROBEINSTRUMENTITEM_H
 #define DEPTHPROBEINSTRUMENTITEM_H
 
-#include "InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
 
 class DepthProbeSimulation;
 

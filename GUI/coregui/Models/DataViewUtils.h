@@ -15,7 +15,7 @@
 #ifndef DATAVIEWUTILS_H
 #define DATAVIEWUTILS_H
 
-#include "IUnitConverter.h"
+#include "Core/Instrument/IUnitConverter.h"
 #include <QString>
 #include <memory>
 

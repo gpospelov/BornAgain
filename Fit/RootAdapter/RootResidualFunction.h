@@ -15,7 +15,7 @@
 #ifndef ROOTRESIDUALFUNCTION_H
 #define ROOTRESIDUALFUNCTION_H
 
-#include "KernelTypes.h"
+#include "Fit/Kernel/KernelTypes.h"
 
 #ifdef _WIN32
 #include "Math/FitMethodFunction.h"

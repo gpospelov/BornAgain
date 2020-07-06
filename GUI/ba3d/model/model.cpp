@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "model.h"
-#include "geometry.h"
+#include "GUI/ba3d/model/model.h"
+#include "GUI/ba3d/model/geometry.h"
 
 namespace RealSpace
 {

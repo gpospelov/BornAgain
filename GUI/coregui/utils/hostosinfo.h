@@ -15,7 +15,7 @@
 #ifndef HOSTOSINFO_H
 #define HOSTOSINFO_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 
 namespace GUI_OS_Utils

@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "CumulativeValue.h"
+#include "Core/Instrument/CumulativeValue.h"
 #include <cmath>
 
 double CumulativeValue::getRMS() const

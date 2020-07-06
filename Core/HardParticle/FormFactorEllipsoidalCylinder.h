@@ -15,7 +15,7 @@
 #ifndef FORMFACTORELLIPSOIDALCYLINDER_H
 #define FORMFACTORELLIPSOIDALCYLINDER_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A cylinder with elliptical base.
 //! @ingroup hardParticle

@@ -1,11 +1,11 @@
-#include "Beam.h"
-#include "BornAgainNamespace.h"
-#include "FootprintFactorGaussian.h"
-#include "FootprintFactorSquare.h"
-#include "MathConstants.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
-#include "google_test.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Beam/FootprintFactorGaussian.h"
+#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 #include <memory>
 #include <typeinfo>

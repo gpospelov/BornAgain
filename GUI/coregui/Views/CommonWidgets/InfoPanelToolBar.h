@@ -15,7 +15,7 @@
 #ifndef INFOPANELTOOLBAR_H
 #define INFOPANELTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class QAction;
 

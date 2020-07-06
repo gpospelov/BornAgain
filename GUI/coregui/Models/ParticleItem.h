@@ -15,7 +15,7 @@
 #ifndef PARTICLEITEM_H
 #define PARTICLEITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class Particle;
 

@@ -16,16 +16,16 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "AxisNames.h"
-#include "Beam.h"
-#include "BornAgainNamespace.h"
-#include "MathConstants.h"
-#include "RectangularDetector.h"
-#include "RegionOfInterest.h"
-#include "SimpleUnitConverters.h"
-#include "SphericalDetector.h"
-#include "UnitConverterUtils.h"
-#include "Units.h"
+#include "Core/Instrument/AxisNames.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Parametrization/Units.h"
 
 namespace
 {

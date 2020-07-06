@@ -15,8 +15,8 @@
 #ifndef FITPARAMETERITEMS_H
 #define FITPARAMETERITEMS_H
 
-#include "AttLimits.h"
-#include "SessionItem.h"
+#include "Fit/Tools/AttLimits.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.
 

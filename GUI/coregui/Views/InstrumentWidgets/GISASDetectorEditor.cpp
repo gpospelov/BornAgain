@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "GISASDetectorEditor.h"
-#include "ComponentEditor.h"
-#include "DetectorItems.h"
-#include "DetectorPresenter.h"
-#include "GroupItem.h"
-#include "InstrumentItems.h"
+#include "GUI/coregui/Views/InstrumentWidgets/GISASDetectorEditor.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
+#include "GUI/coregui/Models/DetectorItems.h"
+#include "GUI/coregui/Views/InstrumentWidgets/DetectorPresenter.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
 #include <QVBoxLayout>
 
 GISASDetectorEditor::GISASDetectorEditor(QWidget* parent)

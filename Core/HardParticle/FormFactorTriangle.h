@@ -14,7 +14,7 @@
 
 #ifndef FORMFACTORTRIANGLE_H
 #define FORMFACTORTRIANGLE_H
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A planar equilateral triangle, for testing form factor computations.
 

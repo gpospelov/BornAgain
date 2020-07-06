@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "ComponentProxyStrategy.h"
-#include "ComponentProxyModel.h"
-#include "ComponentUtils.h"
-#include "GroupItem.h"
-#include "ModelPath.h"
-#include "SessionItem.h"
-#include "SessionItemUtils.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/ComponentProxyStrategy.h"
+#include "GUI/coregui/Models/ComponentProxyModel.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentUtils.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
 {

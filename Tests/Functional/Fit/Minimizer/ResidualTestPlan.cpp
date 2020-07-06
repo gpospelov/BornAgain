@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ResidualTestPlan.h"
-#include "FixedBinAxis.h"
-#include "Minimizer.h"
-#include "Parameters.h"
+#include "Tests/Functional/Fit/Minimizer/ResidualTestPlan.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Fit/Kernel/Minimizer.h"
+#include "Fit/Kernel/Parameters.h"
 #include <iostream>
 #include <sstream>
 

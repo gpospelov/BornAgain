@@ -15,7 +15,7 @@
 #ifndef COMBOSELECTORDIALOG_H
 #define COMBOSELECTORDIALOG_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDialog>
 #include <QString>
 

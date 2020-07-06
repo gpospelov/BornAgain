@@ -15,7 +15,7 @@
 #ifndef REALDATASELECTORHBAR_H
 #define REALDATASELECTORHBAR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QToolBar>
 
 class RealDataSelectorActions;

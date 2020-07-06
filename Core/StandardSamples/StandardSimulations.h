@@ -15,7 +15,7 @@
 #ifndef STANDARDSIMULATIONS_H
 #define STANDARDSIMULATIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class DepthProbeSimulation;
 class GISASSimulation;

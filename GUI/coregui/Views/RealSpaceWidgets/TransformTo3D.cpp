@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "TransformTo3D.h"
-#include "ExternalProperty.h"
-#include "FormFactorItems.h"
-#include "GUIDomainSampleVisitor.h"
-#include "HardParticles.h"
-#include "LayerItem.h"
-#include "MultiLayerItem.h"
-#include "ParticleComposition.h"
-#include "ParticleCompositionItem.h"
-#include "ParticleItem.h"
-#include "RealSpaceCanvas.h"
-#include "SessionItem.h"
-#include "Units.h"
-#include "VectorItem.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
+#include "Core/includeIncludes/HardParticles.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "Core/Particle/ParticleComposition.h"
+#include "GUI/coregui/Models/ParticleCompositionItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "Core/Parametrization/Units.h"
+#include "GUI/coregui/Models/VectorItem.h"
 
 namespace
 {

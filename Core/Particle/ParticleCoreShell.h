@@ -15,7 +15,7 @@
 #ifndef PARTICLECORESHELL_H
 #define PARTICLECORESHELL_H
 
-#include "IParticle.h"
+#include "Core/Particle/IParticle.h"
 
 class Particle;
 

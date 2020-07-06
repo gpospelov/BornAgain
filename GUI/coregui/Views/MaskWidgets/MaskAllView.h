@@ -15,7 +15,7 @@
 #ifndef MASKALLVIEW_H
 #define MASKALLVIEW_H
 
-#include "IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 
 //! This is a view of MaskAllItem which covers whole detector plane with mask value=true.
 

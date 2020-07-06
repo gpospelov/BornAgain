@@ -15,7 +15,7 @@
 #ifndef REALSPACEPOSITIONBUILDER_H
 #define REALSPACEPOSITIONBUILDER_H
 
-#include "INodeVisitor.h"
+#include "Core/Parametrization/INodeVisitor.h"
 #include <memory>
 #include <vector>
 

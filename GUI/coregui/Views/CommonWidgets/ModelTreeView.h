@@ -15,7 +15,7 @@
 #ifndef MODELTREEVIEW_H
 #define MODELTREEVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class QTreeView;

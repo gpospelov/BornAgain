@@ -15,7 +15,7 @@
 #ifndef FITSESSIONMANAGEER_H
 #define FITSESSIONMANAGEER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QObject>
 

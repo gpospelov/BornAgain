@@ -15,7 +15,7 @@
 #ifndef PARTICLELAYOUTCOMPUTATION_H
 #define PARTICLELAYOUTCOMPUTATION_H
 
-#include "HomogeneousRegion.h"
+#include "Core/Particle/HomogeneousRegion.h"
 #include <map>
 #include <memory>
 #include <vector>

@@ -1,8 +1,8 @@
-#include "FitParameterItems.h"
-#include "FitParameterProxyModel.h"
-#include "FitSuiteItem.h"
-#include "JobModel.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "GUI/coregui/Models/FitParameterProxyModel.h"
+#include "GUI/coregui/Models/FitSuiteItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestFitParameterModel : public ::testing::Test
 {

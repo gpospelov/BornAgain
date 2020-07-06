@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataCanvas.h"
-#include "AppSvc.h"
-#include "ColorMap.h"
-#include "ColorMapCanvas.h"
-#include "ComboProperty.h"
-#include "IntensityDataFFTPresenter.h"
-#include "IntensityDataItem.h"
-#include "SavePlotAssistant.h"
-#include "projectmanager.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataCanvas.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapCanvas.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataFFTPresenter.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
 #include <QAction>
 #include <QMouseEvent>
 #include <QSettings>

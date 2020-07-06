@@ -15,7 +15,7 @@
 #ifndef FONTSCALINGEVENT_H
 #define FONTSCALINGEVENT_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QFont>
 #include <QMap>
 #include <QObject>

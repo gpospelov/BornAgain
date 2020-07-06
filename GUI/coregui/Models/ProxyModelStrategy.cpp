@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ProxyModelStrategy.h"
-#include "ComponentProxyModel.h"
-#include "ModelUtils.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/ProxyModelStrategy.h"
+#include "GUI/coregui/Models/ComponentProxyModel.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 ProxyModelStrategy::ProxyModelStrategy() : m_source(nullptr), m_proxy(nullptr) {}
 

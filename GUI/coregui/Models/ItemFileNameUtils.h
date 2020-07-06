@@ -15,7 +15,7 @@
 #ifndef JOBITEMFUNCTIONS_H
 #define JOBITEMFUNCTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 
 class InstrumentItem;

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ParticleDistributionView.h"
-#include "SessionItem.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleDistributionView.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : ConnectableView(parent)
 {

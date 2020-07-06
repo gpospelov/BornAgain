@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "LayerView.h"
-#include "LayerItem.h"
-#include "MultiLayerView.h"
-#include "ParticleLayoutView.h"
-#include "SessionItem.h"
-#include "tooltipdatabase.h"
-#include "DesignerHelper.h"
+#include "GUI/coregui/Views/SampleDesigner/LayerView.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Views/SampleDesigner/MultiLayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleLayoutView.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/mainwindow/tooltipdatabase.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 

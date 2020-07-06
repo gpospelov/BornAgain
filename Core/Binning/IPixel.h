@@ -15,8 +15,8 @@
 #ifndef IPIXEL_H
 #define IPIXEL_H
 
-#include "Vectors3D.h"
-#include "WinDllMacros.h"
+#include "Core/Vector/Vectors3D.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 //! @ingroup detector

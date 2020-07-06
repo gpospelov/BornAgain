@@ -15,7 +15,7 @@
 #ifndef PROJECTUTILS_H
 #define PROJECTUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 
 //! Defines convenience function for project manager and document.

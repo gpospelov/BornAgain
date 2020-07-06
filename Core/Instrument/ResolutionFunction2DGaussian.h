@@ -15,7 +15,7 @@
 #ifndef RESOLUTIONFUNCTION2DGAUSSIAN_H
 #define RESOLUTIONFUNCTION2DGAUSSIAN_H
 
-#include "IResolutionFunction2D.h"
+#include "Core/Instrument/IResolutionFunction2D.h"
 
 //! Simple gaussian two-dimensional resolution function.
 //! @ingroup algorithms_internal

@@ -15,7 +15,7 @@
 #ifndef GUISPECIALTESTFACTORY_H
 #define GUISPECIALTESTFACTORY_H
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 //! @class GUISpecialTestFactory
 //! @brief Collection of special tests for GUI library.

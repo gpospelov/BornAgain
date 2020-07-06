@@ -15,7 +15,7 @@
 #ifndef PYARRAYIMPORTUTILS_H
 #define PYARRAYIMPORTUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 template <class T> class OutputData;

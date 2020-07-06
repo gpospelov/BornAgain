@@ -15,7 +15,7 @@
 #ifndef MASKUNITSCONVERTER_H
 #define MASKUNITSCONVERTER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class IntensityDataItem;
 class SessionItem;

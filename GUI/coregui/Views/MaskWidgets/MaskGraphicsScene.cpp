@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "MaskGraphicsScene.h"
-#include "ColorMapSceneAdaptor.h"
-#include "GUIHelpers.h"
-#include "ISceneAdaptor.h"
-#include "IShape2DView.h"
-#include "IntensityDataItem.h"
-#include "MaskEditorFlags.h"
-#include "MaskGraphicsProxy.h"
-#include "MaskItems.h"
-#include "MaskViewFactory.h"
-#include "PolygonView.h"
-#include "SessionItem.h"
-#include "SessionModel.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
+#include "GUI/coregui/Views/MaskWidgets/ColorMapSceneAdaptor.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Views/MaskWidgets/ISceneAdaptor.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsProxy.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskViewFactory.h"
+#include "GUI/coregui/Views/MaskWidgets/PolygonView.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QGraphicsItem>
 #include <QGraphicsSceneMoveEvent>
 #include <QItemSelection>

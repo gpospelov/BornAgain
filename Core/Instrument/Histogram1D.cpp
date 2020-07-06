@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Histogram1D.h"
-#include "ArrayUtils.h"
-#include "VariableBinAxis.h"
+#include "Core/Instrument/Histogram1D.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Binning/VariableBinAxis.h"
 #include <memory>
 
 Histogram1D::Histogram1D(int nbinsx, double xlow, double xup)

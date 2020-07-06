@@ -15,7 +15,7 @@
 #ifndef PARAMETERUTILS_H
 #define PARAMETERUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class ParameterDistribution;

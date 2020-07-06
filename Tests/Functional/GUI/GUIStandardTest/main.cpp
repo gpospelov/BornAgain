@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "GUIStandardTest.h"
-#include "StandardTestService.h"
+#include "Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.h"
+#include "Tests/Functional/TestMachinery/StandardTestService.h"
 #include <iostream>
 
 //! Runs GUIStandardTest on a standard simulation indicated by argv[1].

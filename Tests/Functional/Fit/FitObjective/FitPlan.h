@@ -15,7 +15,7 @@
 #ifndef FITPLAN_H
 #define FITPLAN_H
 
-#include "MinimizerTestPlan.h"
+#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
 #include <memory>
 
 namespace Fit

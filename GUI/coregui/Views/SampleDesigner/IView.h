@@ -15,8 +15,8 @@
 #ifndef IVIEW_H
 #define IVIEW_H
 
-#include "WinDllMacros.h"
-#include "ViewTypes.h"
+#include "Wrap/WinDllMacros.h"
+#include "GUI/coregui/Views/SampleDesigner/ViewTypes.h"
 #include <QGraphicsObject>
 #include <memory>
 

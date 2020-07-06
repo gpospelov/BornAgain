@@ -15,7 +15,7 @@
 #ifndef PLANEMULTILAYERBYSLDBUILDER_H_
 #define PLANEMULTILAYERBYSLDBUILDER_H_
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate.
 //! Ti is 70 angstroms thick, Ni is 30 angstroms thick.

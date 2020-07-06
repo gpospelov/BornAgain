@@ -15,7 +15,7 @@
 #ifndef REALDATASELECTORTOOLBAR_H
 #define REALDATASELECTORTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class RealDataSelectorActions;
 class QToolButton;

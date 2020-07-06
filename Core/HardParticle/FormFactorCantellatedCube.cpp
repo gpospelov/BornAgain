@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCantellatedCube.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorCantellatedCube.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorCantellatedCube::topology = {
     {

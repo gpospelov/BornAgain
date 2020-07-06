@@ -15,8 +15,8 @@
 #ifndef SIMPLEUNITCONVERTERS_H
 #define SIMPLEUNITCONVERTERS_H
 
-#include "IUnitConverter.h"
-#include "Vectors3D.h"
+#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Vector/Vectors3D.h"
 
 class Beam;
 class IDetector;

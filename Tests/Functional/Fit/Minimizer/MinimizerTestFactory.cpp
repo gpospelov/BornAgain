@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerTestFactory.h"
-#include "MinimizerTestCases.h"
+#include "Tests/Functional/Fit/Minimizer/MinimizerTestFactory.h"
+#include "Tests/Functional/Fit/Minimizer/MinimizerTestCases.h"
 
 MinimizerTestFactory::MinimizerTestFactory()
 {

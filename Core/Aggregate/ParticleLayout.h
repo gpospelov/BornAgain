@@ -15,9 +15,9 @@
 #ifndef PARTICLELAYOUT_H
 #define PARTICLELAYOUT_H
 
-#include "ILayout.h"
-#include "Rotations.h"
-#include "Vectors3D.h"
+#include "Core/Aggregate/ILayout.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Vector/Vectors3D.h"
 #include <memory>
 
 class IAbstractParticle;

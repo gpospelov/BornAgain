@@ -14,9 +14,9 @@
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "OutputData.h"
-#include "CumulativeValue.h"
-#include "PythonCore.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Instrument/CumulativeValue.h"
+#include "Core/Tools/PythonCore.h"
 
 template <> PyObject* OutputData<double>::getArray() const
 {

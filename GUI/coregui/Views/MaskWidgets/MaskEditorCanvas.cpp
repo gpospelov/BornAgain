@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "MaskEditorCanvas.h"
-#include "AppSvc.h"
-#include "ColorMap.h"
-#include "IntensityDataItem.h"
-#include "MaskGraphicsScene.h"
-#include "MaskGraphicsView.h"
-#include "MaskItems.h"
-#include "MaskResultsPresenter.h"
-#include "PlotStatusLabel.h"
-#include "SavePlotAssistant.h"
-#include "projectmanager.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorCanvas.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsView.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskResultsPresenter.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotStatusLabel.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
 #include <QVBoxLayout>
 
 MaskEditorCanvas::MaskEditorCanvas(QWidget* parent)

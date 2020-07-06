@@ -15,8 +15,8 @@
 #ifndef ILAYOUT_H
 #define ILAYOUT_H
 
-#include "ISample.h"
-#include "SafePointerVector.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Tools/SafePointerVector.h"
 
 class IAbstractParticle;
 class IInterferenceFunction;

@@ -15,8 +15,8 @@
 #ifndef FTDECAYFUNCTIONITEMS_H
 #define FTDECAYFUNCTIONITEMS_H
 
-#include "FTDecayFunctions.h"
-#include "SessionItem.h"
+#include "Core/Aggregate/FTDecayFunctions.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ FTDecayFunction1DItem : public SessionItem
 {

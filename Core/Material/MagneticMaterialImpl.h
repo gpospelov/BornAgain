@@ -15,10 +15,10 @@
 #ifndef MAGNETICMATERIALIMPL_H_
 #define MAGNETICMATERIALIMPL_H_
 
-#include "BaseMaterialImpl.h"
-#include "Complex.h"
-#include "EigenCore.h"
-#include "Vectors3D.h"
+#include "Core/Material/BaseMaterialImpl.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Vector/Vectors3D.h"
 
 class Transform3D;
 class WavevectorInfo;

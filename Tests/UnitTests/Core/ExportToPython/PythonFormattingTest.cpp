@@ -1,12 +1,12 @@
-#include "PythonFormatting.h"
-#include "BornAgainNamespace.h"
-#include "Distributions.h"
-#include "FixedBinAxis.h"
-#include "ParameterDistribution.h"
-#include "PointwiseAxis.h"
-#include "RealLimits.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Export/PythonFormatting.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Parametrization/ParameterDistribution.h"
+#include "Core/Binning/PointwiseAxis.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class PythonFormattingTest : public ::testing::Test
 {

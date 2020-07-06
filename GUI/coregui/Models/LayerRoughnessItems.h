@@ -15,7 +15,7 @@
 #ifndef LAYERROUGHNESSITEMS_H
 #define LAYERROUGHNESSITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
 {

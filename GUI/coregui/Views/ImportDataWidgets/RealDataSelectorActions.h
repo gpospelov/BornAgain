@@ -15,7 +15,7 @@
 #ifndef REALDATASELECTORACTIONS_H
 #define REALDATASELECTORACTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class RealDataModel;

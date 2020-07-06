@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "SphericalDetectorEditor.h"
-#include "ComponentEditor.h"
-#include "SphericalDetectorItem.h"
+#include "GUI/coregui/Views/InstrumentWidgets/SphericalDetectorEditor.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
+#include "GUI/coregui/Models/SphericalDetectorItem.h"
 #include <QGridLayout>
 
 namespace

@@ -15,7 +15,7 @@
 #ifndef REALDATAITEM_H
 #define REALDATAITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class DataItem;
 class InstrumentItem;

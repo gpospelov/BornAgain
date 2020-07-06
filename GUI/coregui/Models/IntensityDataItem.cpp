@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataItem.h"
-#include "AxesItems.h"
-#include "BornAgainNamespace.h"
-#include "ComboProperty.h"
-#include "GUIHelpers.h"
-#include "ImportDataUtils.h"
-#include "JobItemUtils.h"
-#include "MaskItems.h"
-#include "MaskUnitsConverter.h"
-#include "ProjectionItems.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
+#include "GUI/coregui/Models/JobItemUtils.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
+#include "GUI/coregui/Models/ProjectionItems.h"
 
 namespace
 {

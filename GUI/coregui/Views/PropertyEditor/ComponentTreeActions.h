@@ -15,7 +15,7 @@
 #ifndef COMPONENTREEACTIONS_H
 #define COMPONENTREEACTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class SessionItem;

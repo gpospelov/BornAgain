@@ -15,7 +15,7 @@
 #ifndef FILESYSTEMUTILS_H
 #define FILESYSTEMUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 #include <vector>
 

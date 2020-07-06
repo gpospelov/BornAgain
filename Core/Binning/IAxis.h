@@ -15,7 +15,7 @@
 #ifndef IAXIS_H
 #define IAXIS_H
 
-#include "Bin.h"
+#include "Core/Binning/Bin.h"
 #include <vector>
 
 //! Interface for one-dimensional axes.

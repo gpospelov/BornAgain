@@ -15,11 +15,11 @@
 #ifndef FTDISTRIBUTIONS2D_H
 #define FTDISTRIBUTIONS2D_H
 
-#include "ICloneable.h"
-#include "IDistribution2DSampler.h"
-#include "INode.h"
-#include "Integrator.h"
-#include "MathConstants.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Aggregate/IDistribution2DSampler.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Tools/Integrator.h"
+#include "Core/Basics/MathConstants.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal

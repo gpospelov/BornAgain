@@ -15,7 +15,7 @@
 #ifndef MULTIPLELAYOUTBUILDER_H
 #define MULTIPLELAYOUTBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

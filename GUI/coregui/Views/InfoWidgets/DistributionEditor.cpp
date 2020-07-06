@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "DistributionEditor.h"
-#include "ComponentFlatView.h"
-#include "DistributionItems.h"
-#include "DistributionWidget.h"
-#include "GroupItem.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Views/InfoWidgets/DistributionEditor.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentFlatView.h"
+#include "GUI/coregui/Models/DistributionItems.h"
+#include "GUI/coregui/Views/InfoWidgets/DistributionWidget.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <QBoxLayout>
 
 namespace

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "JobViewStatusBar.h"
-#include "JobViewActivities.h"
-#include "mainwindow.h"
+#include "GUI/coregui/Views/JobWidgets/JobViewStatusBar.h"
+#include "GUI/coregui/Views/JobWidgets/JobViewActivities.h"
+#include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QComboBox>
 #include <QHBoxLayout>
 #include <QStatusBar>

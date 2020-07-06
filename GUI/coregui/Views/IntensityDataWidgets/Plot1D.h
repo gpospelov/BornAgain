@@ -15,7 +15,7 @@
 #ifndef PLOT1D_H
 #define PLOT1D_H
 
-#include "ScientificPlot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include "qcustomplot.h"
 
 class BasicAxisItem;

@@ -15,7 +15,7 @@
 #ifndef ISHAPE_H
 #define ISHAPE_H
 
-#include "Vectors3D.h"
+#include "Core/Vector/Vectors3D.h"
 #include <vector>
 
 //! Pure virtual base class for different shapes.

@@ -15,11 +15,11 @@
 #ifndef IFRESNELMAP_H
 #define IFRESNELMAP_H
 
-#include "ILayerRTCoefficients.h"
-#include "ISpecularStrategy.h"
-#include "Slice.h"
-#include "Vectors3D.h"
-#include "WinDllMacros.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Multilayer/ISpecularStrategy.h"
+#include "Core/Computation/Slice.h"
+#include "Core/Vector/Vectors3D.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <vector>
 

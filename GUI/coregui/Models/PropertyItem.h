@@ -15,7 +15,7 @@
 #ifndef PROPERTYITEM_H
 #define PROPERTYITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ PropertyItem : public SessionItem
 {

@@ -15,7 +15,7 @@
 #ifndef PROXYMODELSTRATEGY_H
 #define PROXYMODELSTRATEGY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QPersistentModelIndex>
 
 class SessionModel;

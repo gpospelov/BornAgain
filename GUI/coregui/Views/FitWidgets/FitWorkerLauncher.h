@@ -15,7 +15,7 @@
 #ifndef FITWORKERLAUNCHER_H
 #define FITWORKERLAUNCHER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <atomic>
 #include <memory>

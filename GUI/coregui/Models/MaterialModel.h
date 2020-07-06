@@ -15,7 +15,7 @@
 #ifndef MATERIALMODEL_H
 #define MATERIALMODEL_H
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 class MaterialItem;
 class ExternalProperty;

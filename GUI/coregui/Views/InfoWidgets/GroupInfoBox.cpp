@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "GroupInfoBox.h"
-#include "hostosinfo.h"
+#include "GUI/coregui/Views/InfoWidgets/GroupInfoBox.h"
+#include "GUI/coregui/utils/hostosinfo.h"
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPainter>

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "RealSpacePanel.h"
+#include "GUI/coregui/Views/SampleDesigner/RealSpacePanel.h"
 #ifdef BORNAGAIN_OPENGL
-#include "RealSpaceWidget.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceWidget.h"
 #endif
 #include <QVBoxLayout>
 

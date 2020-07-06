@@ -15,8 +15,8 @@
 #ifndef GSLMULTIMINIMIZER_H
 #define GSLMULTIMINIMIZER_H
 
-#include "MinimizerConstants.h"
-#include "RootMinimizerAdapter.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
+#include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
 namespace ROOT
 {

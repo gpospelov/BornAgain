@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "ParticleItem.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorItems.h"
-#include "MaterialItemUtils.h"
-#include "ModelPath.h"
-#include "Particle.h"
-#include "ParticleCoreShellItem.h"
-#include "SessionItemUtils.h"
-#include "SessionModel.h"
-#include "TransformToDomain.h"
-#include "VectorItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "Core/Particle/Particle.h"
+#include "GUI/coregui/Models/ParticleCoreShellItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Models/TransformToDomain.h"
+#include "GUI/coregui/Models/VectorItem.h"
 
 using SessionItemUtils::SetVectorItem;
 

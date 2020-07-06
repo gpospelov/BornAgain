@@ -15,9 +15,9 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "ISample.h"
-#include "Material.h"
-#include "SafePointerVector.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Material/Material.h"
+#include "Core/Tools/SafePointerVector.h"
 
 class ILayout;
 

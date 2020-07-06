@@ -15,7 +15,7 @@
 #ifndef DESIGNERVIEW_H
 #define DESIGNERVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QGraphicsView>
 
 class QGraphicsView;

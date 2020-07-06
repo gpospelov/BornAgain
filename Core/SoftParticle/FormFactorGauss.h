@@ -15,7 +15,7 @@
 #ifndef FORMFACTORGAUSS_H
 #define FORMFACTORGAUSS_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a gaussian.
 //! @ingroup softParticle

@@ -15,8 +15,8 @@
 #ifndef GROUPITEM_H
 #define GROUPITEM_H
 
-#include "GroupInfo.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Models/GroupInfo.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <memory>
 
 class GroupInfo;

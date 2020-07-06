@@ -1,6 +1,6 @@
-#include "Exceptions.h"
-#include "SoftParticles.h"
-#include "google_test.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/includeIncludes/SoftParticles.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class FormFactorSoftParticleTest : public ::testing::Test
 {

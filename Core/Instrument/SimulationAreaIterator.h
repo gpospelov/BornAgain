@@ -15,7 +15,7 @@
 #ifndef SIMULATIONAREAITERATOR_H
 #define SIMULATIONAREAITERATOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <cstdlib>
 class SimulationArea;
 

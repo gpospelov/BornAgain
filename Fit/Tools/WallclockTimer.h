@@ -15,7 +15,7 @@
 #ifndef TIMEINTERVAL_H
 #define TIMEINTERVAL_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 struct WallclockTimerState;

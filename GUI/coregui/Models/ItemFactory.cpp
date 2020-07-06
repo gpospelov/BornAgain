@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ItemFactory.h"
-#include "GUIHelpers.h"
-#include "ItemCatalogue.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Models/ItemFactory.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/ItemCatalogue.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 namespace
 {

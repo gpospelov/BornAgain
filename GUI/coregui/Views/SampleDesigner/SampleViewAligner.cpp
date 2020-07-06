@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "SampleViewAligner.h"
-#include "DesignerScene.h"
-#include "IView.h"
-#include "SampleModel.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/SampleViewAligner.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
+#include "GUI/coregui/Views/SampleDesigner/IView.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QModelIndex>
 
 namespace {

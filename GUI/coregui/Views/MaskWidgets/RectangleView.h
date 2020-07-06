@@ -15,7 +15,7 @@
 #ifndef RECTANGLEVIEW_H
 #define RECTANGLEVIEW_H
 
-#include "RectangleBaseView.h"
+#include "GUI/coregui/Views/MaskWidgets/RectangleBaseView.h"
 
 //! This is a View of rectangular mask (represented by RectangleItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.

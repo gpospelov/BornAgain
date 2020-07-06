@@ -15,8 +15,8 @@
 #ifndef IFOOTPRINTFACTOR_H_
 #define IFOOTPRINTFACTOR_H_
 
-#include "ICloneable.h"
-#include "INode.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 
 class MultiLayer;
 class Beam;

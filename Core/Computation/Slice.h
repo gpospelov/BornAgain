@@ -15,7 +15,7 @@
 #ifndef SLICE_H
 #define SLICE_H
 
-#include "Material.h"
+#include "Core/Material/Material.h"
 #include <memory>
 
 class LayerRoughness;

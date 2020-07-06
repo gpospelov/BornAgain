@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "IFormFactorBorn.h"
-#include "Algorithms.h"
-#include "Exceptions.h"
-#include "Rotations.h"
-#include "WavevectorInfo.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Basics/Algorithms.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Vector/WavevectorInfo.h"
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {

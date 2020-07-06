@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorIcosahedron.h"
-#include "BornAgainNamespace.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorIcosahedron.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorIcosahedron::topology = {{// bottom:
                                                              {{0, 2, 1}, false},

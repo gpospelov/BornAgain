@@ -15,7 +15,7 @@
 #ifndef JOBVIEWFLAGS_H
 #define JOBVIEWFLAGS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 //! The JobViewFlags class is a namespace for various flags used in JobView.

@@ -15,10 +15,10 @@
 #ifndef MINIMIZER_H
 #define MINIMIZER_H
 
-#include "KernelTypes.h"
-#include "MinimizerResult.h"
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <memory>
 #include <string>

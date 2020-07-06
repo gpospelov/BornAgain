@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "MultiThreadPerformanceTest.h"
-#include "CylindersBuilder.h"
-#include "Distributions.h"
-#include "GISASSimulation.h"
-#include "MultiLayer.h"
-#include "MultiThreadPerformanceTestComponents.h"
-#include "ParaCrystalBuilder.h"
-#include "ParameterPattern.h"
-#include "Units.h"
+#include "Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTest.h"
+#include "Core/StandardSamples/CylindersBuilder.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTestComponents.h"
+#include "Core/StandardSamples/ParaCrystalBuilder.h"
+#include "Core/Parametrization/ParameterPattern.h"
+#include "Core/Parametrization/Units.h"
 #include <algorithm>
 #include <boost/format.hpp>
 #include <chrono>

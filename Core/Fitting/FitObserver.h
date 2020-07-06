@@ -15,7 +15,7 @@
 #ifndef FITOBSERVER_H
 #define FITOBSERVER_H
 
-#include "FitTypes.h"
+#include "Core/Fitting/FitTypes.h"
 #include <functional>
 #include <vector>
 

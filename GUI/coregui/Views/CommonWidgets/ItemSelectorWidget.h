@@ -15,7 +15,7 @@
 #ifndef ITEMSELECTORWIDGET_H
 #define ITEMSELECTORWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QItemSelectionModel>
 #include <QWidget>
 #include <memory>

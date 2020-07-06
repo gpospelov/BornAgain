@@ -15,7 +15,7 @@
 #ifndef RESONATORBUILDER_H
 #define RESONATORBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds sample: multilayer with Ti/Pt layers sequence.
 //! @ingroup standard_samples

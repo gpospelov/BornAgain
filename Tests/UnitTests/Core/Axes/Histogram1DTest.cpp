@@ -1,6 +1,6 @@
-#include "Histogram1D.h"
-#include "Exceptions.h"
-#include "google_test.h"
+#include "Core/Instrument/Histogram1D.h"
+#include "Core/Basics/Exceptions.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 class Histogram1DTest : public ::testing::Test

@@ -15,7 +15,7 @@
 #ifndef FITOBJECTIVEBUILDER_H
 #define FITOBJECTIVEBUILDER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 class JobItem;

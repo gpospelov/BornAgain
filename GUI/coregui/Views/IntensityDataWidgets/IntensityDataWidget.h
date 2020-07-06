@@ -15,7 +15,7 @@
 #ifndef INTENSITYDATAWIDGET_H
 #define INTENSITYDATAWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <memory>
 
 class SessionItem;

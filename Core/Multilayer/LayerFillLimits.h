@@ -15,8 +15,8 @@
 #ifndef LAYERFILLLIMITS_H
 #define LAYERFILLLIMITS_H
 
-#include "IParticle.h"
-#include "ZLimits.h"
+#include "Core/Particle/IParticle.h"
+#include "Core/Particle/ZLimits.h"
 #include <cstddef>
 #include <utility>
 #include <vector>

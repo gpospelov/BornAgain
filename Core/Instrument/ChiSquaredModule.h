@@ -15,7 +15,7 @@
 #ifndef CHISQUAREDMODULE_H
 #define CHISQUAREDMODULE_H
 
-#include "IChiSquaredModule.h"
+#include "Core/Instrument/IChiSquaredModule.h"
 
 //! Calculation of chi2 between two data sets.
 //! @ingroup fitting

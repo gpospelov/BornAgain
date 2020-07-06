@@ -15,8 +15,8 @@
 #ifndef OPTIONCONTAINER_H
 #define OPTIONCONTAINER_H
 
-#include "MultiOption.h"
-#include "WinDllMacros.h"
+#include "Fit/Tools/MultiOption.h"
+#include "Wrap/WinDllMacros.h"
 #include <map>
 #include <memory>
 #include <stdexcept>

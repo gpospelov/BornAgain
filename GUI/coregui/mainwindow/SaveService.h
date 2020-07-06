@@ -15,7 +15,7 @@
 #ifndef SAVESERVICE_H
 #define SAVESERVICE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <QQueue>
 

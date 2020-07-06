@@ -15,9 +15,9 @@
 #ifndef SESSIONMODEL_H
 #define SESSIONMODEL_H
 
-#include "SessionFlags.h"
-#include "SessionItem.h"
-#include "SessionXML.h"
+#include "GUI/coregui/Models/SessionFlags.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/SessionXML.h"
 #include <QStringList>
 
 class BA_CORE_API_ SessionModel : public QAbstractItemModel

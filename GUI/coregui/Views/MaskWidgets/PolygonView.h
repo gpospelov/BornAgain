@@ -15,7 +15,7 @@
 #ifndef POLYGONVIEW_H
 #define POLYGONVIEW_H
 
-#include "IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 #include <QPolygonF>
 
 //! This is a View of polygon mask (represented by PolygonItem) on GraphicsScene.

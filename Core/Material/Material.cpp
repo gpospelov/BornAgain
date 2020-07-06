@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Material.h"
-#include "BaseMaterialImpl.h"
-#include "Exceptions.h"
-#include "Transform3D.h"
-#include "WavevectorInfo.h"
+#include "Core/Material/Material.h"
+#include "Core/Material/BaseMaterialImpl.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Vector/Transform3D.h"
+#include "Core/Vector/WavevectorInfo.h"
 #include <typeinfo>
 
 Material::Material(const Material& material)

@@ -15,8 +15,8 @@
 #ifndef BA3D_MODEL_H
 #define BA3D_MODEL_H
 
-#include "object.h"
-#include "particles.h"
+#include "GUI/ba3d/model/object.h"
+#include "GUI/ba3d/model/particles.h"
 #include <QVector>
 #include "GUI/ba3d/view/camera.h"
 

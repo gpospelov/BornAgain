@@ -15,7 +15,7 @@
 #ifndef LATTICE1DPARAMETERS_H
 #define LATTICE1DPARAMETERS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Basic parameters of a one-dimensional lattice.
 //! @ingroup samples

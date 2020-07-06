@@ -15,8 +15,8 @@
 #ifndef INTERFERENCEFUNCTIONHARDDISK_H
 #define INTERFERENCEFUNCTIONHARDDISK_H
 
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Tools/Integrator.h"
 
 //! Percus-Yevick hard disk interference function.
 //!

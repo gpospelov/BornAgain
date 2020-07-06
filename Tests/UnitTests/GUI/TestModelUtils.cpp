@@ -1,9 +1,9 @@
-#include "LayerItem.h"
-#include "ModelUtils.h"
-#include "SessionModel.h"
-#include "VectorItem.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Models/VectorItem.h"
+#include "Tests/UnitTests/utilities/google_test.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QVector>
 
 class TestModelUtils : public ::testing::Test

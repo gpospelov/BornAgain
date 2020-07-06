@@ -15,8 +15,8 @@
 #ifndef LATTICEUTILS_H
 #define LATTICEUTILS_H
 
-#include "Lattice.h"
-#include "Vectors3D.h"
+#include "Core/Lattice/Lattice.h"
+#include "Core/Vector/Vectors3D.h"
 
 class ILatticeOrientation;
 

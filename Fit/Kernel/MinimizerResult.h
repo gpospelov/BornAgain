@@ -15,8 +15,8 @@
 #ifndef MINIMIZERRESULT_H
 #define MINIMIZERRESULT_H
 
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 namespace Fit

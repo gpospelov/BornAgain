@@ -15,7 +15,7 @@
 #ifndef SPECULARPLOTCANVAS_H
 #define SPECULARPLOTCANVAS_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class FontScalingEvent;
 class PlotStatusLabel;

@@ -15,7 +15,7 @@
 #ifndef STYLEUTILS_H
 #define STYLEUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QFont>
 #include <QString>
 

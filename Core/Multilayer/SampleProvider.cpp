@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "SampleProvider.h"
-#include "MultiLayer.h"
+#include "Core/Multilayer/SampleProvider.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include <cassert>
 
 SampleProvider::SampleProvider() {}

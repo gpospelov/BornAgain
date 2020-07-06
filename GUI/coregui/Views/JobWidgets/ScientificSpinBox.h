@@ -15,7 +15,7 @@
 #ifndef SCIENTIFICSPINBOX_H
 #define SCIENTIFICSPINBOX_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QAbstractSpinBox>
 
 class BA_CORE_API_ ScientificSpinBox : public QAbstractSpinBox

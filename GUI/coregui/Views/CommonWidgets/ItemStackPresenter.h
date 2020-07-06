@@ -15,7 +15,7 @@
 #ifndef ITEMSTACKPRESENTER_H
 #define ITEMSTACKPRESENTER_H
 
-#include "ItemStackWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemStackWidget.h"
 #include <QDebug>
 #include <QMap>
 #include <QStackedWidget>

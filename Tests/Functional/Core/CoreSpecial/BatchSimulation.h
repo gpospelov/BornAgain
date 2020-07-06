@@ -15,7 +15,7 @@
 #ifndef BATCHSIMULATION_H
 #define BATCHSIMULATION_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Special test for simulation running in batch mode.
 

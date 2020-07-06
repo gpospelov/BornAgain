@@ -15,7 +15,7 @@
 #ifndef SPECULARDETECTOR1D_H_
 #define SPECULARDETECTOR1D_H_
 
-#include "IDetector.h"
+#include "Core/Instrument/IDetector.h"
 
 class SpecularSimulationElement;
 

@@ -15,7 +15,7 @@
 #ifndef COLORMAPUTILS_H
 #define COLORMAPUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include "qcustomplot.h"
 #include <QMap>
 #include <QMargins>

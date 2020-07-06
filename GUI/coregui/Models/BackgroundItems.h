@@ -15,7 +15,7 @@
 #ifndef BACKGROUNDITEMS_H
 #define BACKGROUNDITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IBackground;
 

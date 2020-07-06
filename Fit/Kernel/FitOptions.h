@@ -15,7 +15,7 @@
 #ifndef FITOPTIONS_H
 #define FITOPTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! General fitting options.
 

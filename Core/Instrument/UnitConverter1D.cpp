@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "UnitConverter1D.h"
-#include "AngularSpecScan.h"
-#include "AxisNames.h"
-#include "Beam.h"
-#include "FixedBinAxis.h"
-#include "MathConstants.h"
-#include "OutputData.h"
-#include "PointwiseAxis.h"
-#include "QSpecScan.h"
-#include "UnitConverterUtils.h"
-#include "Units.h"
+#include "Core/Instrument/UnitConverter1D.h"
+#include "Core/Instrument/AngularSpecScan.h"
+#include "Core/Instrument/AxisNames.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Instrument/QSpecScan.h"
+#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Parametrization/Units.h"
 
 namespace
 {

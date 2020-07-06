@@ -16,9 +16,9 @@
 #ifndef IINTENSITYNORMALIZER_H
 #define IINTENSITYNORMALIZER_H
 
-#include "ICloneable.h"
-#include "INode.h"
-#include "OutputData.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Instrument/OutputData.h"
 
 //! Interface to OutputData normalizers.
 //! @ingroup algorithms_internal

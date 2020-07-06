@@ -15,7 +15,7 @@
 #ifndef IOBSERVER_H
 #define IOBSERVER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <list>
 #include <memory>
 

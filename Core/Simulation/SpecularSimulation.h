@@ -15,9 +15,9 @@
 #ifndef SPECULARSIMULATION_H
 #define SPECULARSIMULATION_H
 
-#include "ILayerRTCoefficients.h"
-#include "OutputData.h"
-#include "Simulation.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Simulation/Simulation.h"
 
 class IAxis;
 class IComputation;

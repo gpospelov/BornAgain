@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "Beam.h"
-#include "BornAgainNamespace.h"
-#include "Complex.h"
-#include "Exceptions.h"
-#include "FootprintFactorGaussian.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Beam/FootprintFactorGaussian.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
 
 // Allow for 90 degrees by adding a relatively small constant to pi/2
 static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;

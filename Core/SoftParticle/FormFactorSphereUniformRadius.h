@@ -15,7 +15,7 @@
 #ifndef FORMFACTORSPHEREUNIFORMRADIUS_H
 #define FORMFACTORSPHEREUNIFORMRADIUS_H
 
-#include "FormFactorFullSphere.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
 
 //! Integrated full sphere form factor over a uniform distribution of radii.
 //! @ingroup softParticle

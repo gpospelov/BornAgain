@@ -15,8 +15,8 @@
 #ifndef SAMPLELABELHANDLER_H
 #define SAMPLELABELHANDLER_H
 
-#include "Exceptions.h"
-#include "OrderedMap.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Tools/OrderedMap.h"
 
 class Crystal;
 class IAbstractParticle;

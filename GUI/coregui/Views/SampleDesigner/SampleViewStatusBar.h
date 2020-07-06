@@ -15,7 +15,7 @@
 #ifndef SAMPLEVIEWSTATUSBAR_H
 #define SAMPLEVIEWSTATUSBAR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;

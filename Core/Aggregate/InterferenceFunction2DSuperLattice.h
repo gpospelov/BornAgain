@@ -15,9 +15,9 @@
 #ifndef INTERFERENCEFUNCTION2DSUPERLATTICE_H
 #define INTERFERENCEFUNCTION2DSUPERLATTICE_H
 
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
-#include "Lattice2D.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Tools/Integrator.h"
+#include "Core/Lattice/Lattice2D.h"
 
 //! Interference function of a 2D superlattice with a configurable interference function for
 //! each lattice site.

@@ -15,7 +15,7 @@
 #ifndef SAMPLETREEWIDGET_H
 #define SAMPLETREEWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QWidget>
 

@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "Plot1D.h"
-#include "AxesItems.h"
-#include "ColorMapUtils.h"
-#include "Data1DViewItem.h"
-#include "DataItem.h"
-#include "DataProperties.h"
-#include "DataPropertyContainer.h"
-#include "MathConstants.h"
-#include "PlotEventInfo.h"
-#include "UpdateTimer.h"
-#include "plot_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/Plot1D.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
+#include "GUI/coregui/Models/Data1DViewItem.h"
+#include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/Models/DataProperties.h"
+#include "GUI/coregui/Models/DataPropertyContainer.h"
+#include "Core/Basics/MathConstants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
+#include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
+#include "GUI/coregui/Views/FitWidgets/plot_constants.h"
 
 namespace
 {

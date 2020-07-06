@@ -15,7 +15,7 @@
 #ifndef FITSUITEITEM_H
 #define FITSUITEITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class FitParameterContainerItem;
 class MinimizerContainerItem;

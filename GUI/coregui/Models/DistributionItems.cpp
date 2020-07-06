@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "DistributionItems.h"
-#include "BornAgainNamespace.h"
-#include "Distributions.h"
-#include "RangedDistributions.h"
-#include "RealLimitsItems.h"
+#include "GUI/coregui/Models/DistributionItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Parametrization/RangedDistributions.h"
+#include "GUI/coregui/Models/RealLimitsItems.h"
 #include <cmath>
 
 namespace

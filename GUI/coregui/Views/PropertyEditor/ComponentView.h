@@ -15,7 +15,7 @@
 #ifndef COMPONENTVIEW_H
 #define COMPONENTVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class SessionItem;

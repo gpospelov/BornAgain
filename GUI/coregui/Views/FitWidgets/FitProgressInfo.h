@@ -15,7 +15,7 @@
 #ifndef FITPROGRESSINFO_H
 #define FITPROGRESSINFO_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 #include <vector>
 

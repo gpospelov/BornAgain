@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Lattice2D.h"
-#include "BornAgainNamespace.h"
-#include "MathConstants.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
+#include "Core/Lattice/Lattice2D.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <cmath>
 
 Lattice2D::Lattice2D(double rotation_angle) : m_xi(rotation_angle) {}

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorBox.h"
-#include "BornAgainNamespace.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorBox.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 //! Constructor of a rectangular cuboid.
 //! @param length: length of the base in nanometers

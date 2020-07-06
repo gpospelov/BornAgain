@@ -15,7 +15,7 @@
 #ifndef TRANSFORMATIONITEM_H
 #define TRANSFORMATIONITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class BA_CORE_API_ TransformationItem : public SessionGraphicsItem
 {

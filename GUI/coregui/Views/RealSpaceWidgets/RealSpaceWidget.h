@@ -15,7 +15,7 @@
 #ifndef REALSPACEWIDGET_H
 #define REALSPACEWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 #include <QTreeView>

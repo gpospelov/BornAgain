@@ -1,8 +1,8 @@
-#include "FormFactorItems.h"
-#include "FormFactors.h"
-#include "Numeric.h"
-#include "Units.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "Core/includeIncludes/FormFactors.h"
+#include "Core/Tools/Numeric.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestFormFactorItems : public ::testing::Test
 {

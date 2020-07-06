@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "CoreStandardTest.h"
+#include "Tests/Functional/Core/CoreStandardTest/CoreStandardTest.h"
 #include "BABuild.h"
 #include "BATesting.h"
-#include "FileSystemUtils.h"
-#include "IntensityDataIOFactory.h"
-#include "Simulation.h"
-#include "TestUtils.h"
+#include "Core/Tools/FileSystemUtils.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Simulation/Simulation.h"
+#include "Tests/Functional/TestMachinery/TestUtils.h"
 
 bool CoreStandardTest::runTest()
 {

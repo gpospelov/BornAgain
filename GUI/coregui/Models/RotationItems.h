@@ -15,8 +15,8 @@
 #ifndef ROTATIONITEMS_H
 #define ROTATIONITEMS_H
 
-#include "SessionItem.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "Wrap/WinDllMacros.h"
 
 class IRotation;
 

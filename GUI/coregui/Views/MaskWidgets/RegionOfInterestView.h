@@ -15,7 +15,7 @@
 #ifndef REGIONOFINTERESTVIEW_H
 #define REGIONOFINTERESTVIEW_H
 
-#include "RectangleView.h"
+#include "GUI/coregui/Views/MaskWidgets/RectangleView.h"
 
 //! The RegionOfInterest class represent view of RegionOfInterestItem on graphics scene.
 

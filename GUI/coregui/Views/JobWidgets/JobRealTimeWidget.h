@@ -15,7 +15,7 @@
 #ifndef JOBREALTIMEWIDGET_H
 #define JOBREALTIMEWIDGET_H
 
-#include "ItemStackPresenter.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h"
 
 class JobModel;
 class JobItem;

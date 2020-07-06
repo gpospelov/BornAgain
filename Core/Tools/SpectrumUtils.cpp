@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "SpectrumUtils.h"
-#include "ArrayUtils.h"
+#include "Core/Tools/SpectrumUtils.h"
+#include "Core/Instrument/ArrayUtils.h"
 #include "tspectrum.h"
 #include <cmath>
 

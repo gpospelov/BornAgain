@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "JobSelectorToolBar.h"
-#include "JobSelectorActions.h"
+#include "GUI/coregui/Views/JobWidgets/JobSelectorToolBar.h"
+#include "GUI/coregui/Views/JobWidgets/JobSelectorActions.h"
 #include <QToolButton>
 
 JobSelectorToolBar::JobSelectorToolBar(JobSelectorActions* actions, QWidget* parent)

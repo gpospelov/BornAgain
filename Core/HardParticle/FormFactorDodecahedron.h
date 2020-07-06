@@ -15,7 +15,7 @@
 #ifndef FORMFACTORDODECAHEDRON_H
 #define FORMFACTORDODECAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A regular dodecahedron.
 //! @ingroup hardParticle

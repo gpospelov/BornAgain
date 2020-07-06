@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorFullSphere.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorTruncatedSphere.h"
-#include "FormFactorWeighted.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
-#include "Rotations.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/HardParticle/FormFactorTruncatedSphere.h"
+#include "Core/Particle/FormFactorWeighted.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Scattering/Rotations.h"
 
 //! Constructor of a full sphere.
 //! @param radius: radius of the sphere in nanometers

@@ -53,7 +53,7 @@
 #ifndef SHARED_ENUMS_P_H
 #define SHARED_ENUMS_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
 QT_BEGIN_NAMESPACE
 

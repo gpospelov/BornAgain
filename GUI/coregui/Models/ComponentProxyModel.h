@@ -15,8 +15,8 @@
 #ifndef COMPONENTPROXYMODEL_H
 #define COMPONENTPROXYMODEL_H
 
-#include "ProxyModelStrategy.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Models/ProxyModelStrategy.h"
+#include "Wrap/WinDllMacros.h"
 #include <QAbstractProxyModel>
 #include <QMap>
 #include <QPersistentModelIndex>

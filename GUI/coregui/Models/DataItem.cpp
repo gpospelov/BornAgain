@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "DataItem.h"
-#include "BornAgainNamespace.h"
-#include "ComboProperty.h"
-#include "GUIHelpers.h"
-#include "ImportDataInfo.h"
-#include "IntensityDataIOFactory.h"
+#include "GUI/coregui/Models/DataItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/ImportDataInfo.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
 
 const QString DataItem::P_FILE_NAME = "FileName";
 const QString DataItem::P_AXES_UNITS = "Axes Units";

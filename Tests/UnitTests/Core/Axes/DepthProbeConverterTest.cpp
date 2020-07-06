@@ -1,9 +1,9 @@
-#include "Beam.h"
-#include "FixedBinAxis.h"
-#include "MathConstants.h"
-#include "SimpleUnitConverters.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class DepthProbeConverterTest : public ::testing::Test
 {

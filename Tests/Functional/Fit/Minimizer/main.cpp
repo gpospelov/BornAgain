@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerTestFactory.h"
-#include "TestService.h"
+#include "Tests/Functional/Fit/Minimizer/MinimizerTestFactory.h"
+#include "Tests/Functional/TestMachinery/TestService.h"
 
 //! Runs functional tests.
 

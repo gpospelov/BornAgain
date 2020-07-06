@@ -53,7 +53,7 @@
 #ifndef SHEET_DELEGATE_P_H
 #define SHEET_DELEGATE_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
 //#include <QtWidgets/QItemDelegate>
 //#include <QtWidgets/QTreeView>

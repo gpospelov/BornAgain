@@ -15,7 +15,7 @@
 #ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H
 #define FORMFACTORSPHEREGAUSSIANRADIUS_H
 
-#include "FormFactorFullSphere.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
 #include <memory>
 
 //! A sphere with gaussian radius distribution.

@@ -15,7 +15,7 @@
 #ifndef ROTATEDPYRAMIDSBUILDER_H
 #define ROTATEDPYRAMIDSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds sample: Pyramids, rotated pyramids on top of substrate (IsGISAXS example #9)
 //! @ingroup standard_samples

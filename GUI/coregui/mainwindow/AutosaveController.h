@@ -15,7 +15,7 @@
 #ifndef AUTOSAVECONTROLLER_H
 #define AUTOSAVECONTROLLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class ProjectDocument;

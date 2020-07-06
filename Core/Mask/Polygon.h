@@ -15,7 +15,7 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 
-#include "IShape2D.h"
+#include "Core/Mask/IShape2D.h"
 #include <vector>
 
 class PolygonPrivate;

@@ -15,8 +15,8 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "DetectorMask.h"
-#include "IDetector.h"
+#include "Core/Instrument/DetectorMask.h"
+#include "Core/Instrument/IDetector.h"
 #include <memory>
 
 class Beam;

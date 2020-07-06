@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "ProfileRipple2.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealLimits.h"
-#include "RealParameter.h"
-#include "RippleSawtooth.h" // from Shapes/
+#include "Core/HardParticle/ProfileRipple2.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Shapes/RippleSawtooth.h" // from Shapes/
 
 //! @brief Constructor of triangular ripple.
 //! @param length: length of the rectangular base in nanometers

@@ -15,8 +15,8 @@
 #ifndef IMPORTDATAUTILS_H
 #define IMPORTDATAUTILS_H
 
-#include "ImportDataInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/utils/ImportDataInfo.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <memory>
 #include <vector>

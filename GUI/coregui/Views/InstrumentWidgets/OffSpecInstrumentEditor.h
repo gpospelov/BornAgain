@@ -15,7 +15,7 @@
 #ifndef OFFSPECINSTRUMENTEDITOR_H
 #define OFFSPECINSTRUMENTEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class OffSpecInstrumentItem;
 class OffSpecBeamEditor;

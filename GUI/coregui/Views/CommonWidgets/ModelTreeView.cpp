@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ModelTreeView.h"
-#include "GUIHelpers.h"
-#include "SessionDecorationModel.h"
-#include "SessionModel.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/CommonWidgets/ModelTreeView.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/SessionDecorationModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QTreeView>
 #include <QVBoxLayout>
 

@@ -15,8 +15,8 @@
 #ifndef IMPORTDATAINFO_H
 #define IMPORTDATAINFO_H
 
-#include "IUnitConverter.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/IUnitConverter.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <memory>
 

@@ -1,13 +1,13 @@
-#include "ComboProperty.h"
-#include "ConvolutionDetectorResolution.h"
-#include "DetectorItems.h"
-#include "IDetector2D.h"
-#include "InstrumentItems.h"
-#include "InstrumentModel.h"
-#include "RectangularDetectorItem.h"
-#include "ResolutionFunction2DGaussian.h"
-#include "Units.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "Core/Instrument/ConvolutionDetectorResolution.h"
+#include "GUI/coregui/Models/DetectorItems.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
+#include "GUI/coregui/Models/RectangularDetectorItem.h"
+#include "Core/Instrument/ResolutionFunction2DGaussian.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestDetectorItems : public ::testing::Test
 {

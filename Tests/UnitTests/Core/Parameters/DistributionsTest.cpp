@@ -1,10 +1,10 @@
-#include "Distributions.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "ParameterSample.h"
-#include "RealParameter.h"
-#include "google_test.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <cmath>
 #include <memory>
 

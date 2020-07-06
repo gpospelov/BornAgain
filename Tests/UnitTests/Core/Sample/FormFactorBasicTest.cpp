@@ -1,10 +1,10 @@
-#include "BornAgainNamespace.h"
-#include "HardParticles.h"
-#include "IFormFactorBorn.h"
-#include "MathConstants.h"
-#include "Rotations.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/includeIncludes/HardParticles.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class FormFactorBasicTest : public ::testing::Test
 {

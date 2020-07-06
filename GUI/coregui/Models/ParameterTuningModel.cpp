@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ParameterTuningModel.h"
-#include "FitParameterHelper.h"
-#include "ParameterTreeItems.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/ParameterTuningModel.h"
+#include "GUI/coregui/Models/FitParameterHelper.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QMimeData>
 
 ParameterTuningModel::ParameterTuningModel(QObject* parent) : FilterPropertyProxy(2, parent) {}

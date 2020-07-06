@@ -15,7 +15,7 @@
 #ifndef PARTICLEINTHEAIRBUILDER_H
 #define PARTICLEINTHEAIRBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include <memory>
 
 class IFormFactor;

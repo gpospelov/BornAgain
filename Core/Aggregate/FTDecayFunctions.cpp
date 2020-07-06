@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FTDecayFunctions.h"
-#include "BornAgainNamespace.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
+#include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <algorithm>
 
 //===============1D======================

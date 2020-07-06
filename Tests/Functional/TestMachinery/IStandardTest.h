@@ -15,7 +15,7 @@
 #ifndef ISTANDARDTEST_H
 #define ISTANDARDTEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <memory>
 #include <string>
 

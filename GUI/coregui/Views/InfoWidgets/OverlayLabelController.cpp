@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "OverlayLabelController.h"
-#include "OverlayLabelWidget.h"
+#include "GUI/coregui/Views/InfoWidgets/OverlayLabelController.h"
+#include "GUI/coregui/Views/InfoWidgets/OverlayLabelWidget.h"
 #include <QAbstractScrollArea>
 #include <QEvent>
 #include <QRect>

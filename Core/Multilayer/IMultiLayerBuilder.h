@@ -15,7 +15,7 @@
 #ifndef IMULTILAYERBUILDER_H
 #define IMULTILAYERBUILDER_H
 
-#include "IParameterized.h"
+#include "Core/Parametrization/IParameterized.h"
 
 class MultiLayer;
 

@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "BoxesSquareLatticeBuilder.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorBox.h"
-#include "InterferenceFunction2DLattice.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
-#include "RealParameter.h"
-#include "Units.h"
+#include "Core/StandardSamples/BoxesSquareLatticeBuilder.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/HardParticle/FormFactorBox.h"
+#include "Core/Aggregate/InterferenceFunction2DLattice.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Parametrization/Units.h"
 
 // -----------------------------------------------------------------------------
 // Boxes in square lattice

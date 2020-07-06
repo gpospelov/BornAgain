@@ -15,7 +15,7 @@
 #ifndef MINIMIZERTESTFACTORY_H
 #define MINIMIZERTESTFACTORY_H
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 //! Factory to generate standalone fit tests.
 

@@ -15,7 +15,7 @@
 #ifndef SESSIONITEMTAGS_H
 #define SESSIONITEMTAGS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <QStringList>
 #include <QVector>

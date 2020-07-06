@@ -15,7 +15,7 @@
 #ifndef JOBPROPERTIESWIDGET_H
 #define JOBPROPERTIESWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class JobItem;
 class QTextEdit;

@@ -15,8 +15,8 @@
 #ifndef JOBRESULTSPRESENTER_H
 #define JOBRESULTSPRESENTER_H
 
-#include "ItemComboWidget.h"
-#include "JobViewFlags.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemComboWidget.h"
+#include "GUI/coregui/Views/JobWidgets/JobViewFlags.h"
 
 //! Presents results of job (JobItem) using stack of different widgets and combo box in the
 //! right top corner of JobView, to switch between widgets.

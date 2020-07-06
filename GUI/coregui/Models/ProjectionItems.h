@@ -15,7 +15,7 @@
 #ifndef PROJECTIONITEMS_H
 #define PROJECTIONITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 //! A container to hold ProjectionItems, intended to store projections of color map on X, Y axes.
 

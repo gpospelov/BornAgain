@@ -15,7 +15,7 @@
 #ifndef PARAMETERTUNINGDELEGATE_H
 #define PARAMETERTUNINGDELEGATE_H
 
-#include "RealLimits.h"
+#include "Fit/Tools/RealLimits.h"
 #include <QItemDelegate>
 #include <memory>
 

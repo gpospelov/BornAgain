@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "GSLLevenbergMarquardtMinimizer.h"
-#include "AttLimits.h"
-#include "GSLMultiMinimizer.h"
-#include "MinimizerUtils.h"
-#include "StringUtils.h"
+#include "Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.h"
+#include "Fit/Tools/AttLimits.h"
+#include "Fit/RootAdapter/GSLMultiMinimizer.h"
+#include "Fit/Tools/MinimizerUtils.h"
+#include "Fit/Tools/StringUtils.h"
 #include <stdexcept>
 
 #ifdef _WIN32

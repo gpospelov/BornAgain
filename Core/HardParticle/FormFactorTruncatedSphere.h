@@ -15,8 +15,8 @@
 #ifndef FORMFACTORTRUNCATEDSPHERE_H
 #define FORMFACTORTRUNCATEDSPHERE_H
 
-#include "IFormFactorBorn.h"
-#include "Integrator.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Tools/Integrator.h"
 
 //! A truncated Sphere.
 //! @ingroup hardParticle

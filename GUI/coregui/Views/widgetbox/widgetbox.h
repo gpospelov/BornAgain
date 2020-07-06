@@ -42,8 +42,8 @@
 #ifndef WIDGETBOX_H
 #define WIDGETBOX_H
 
-#include "widgetbox_global.h"
-#include <qdesigner_widgetbox_p.h>
+#include "GUI/coregui/Views/widgetbox/widgetbox_global.h"
+#include "GUI/coregui/Views/widgetbox/qdesigner_widgetbox_p.h"
 
 QT_BEGIN_NAMESPACE
 

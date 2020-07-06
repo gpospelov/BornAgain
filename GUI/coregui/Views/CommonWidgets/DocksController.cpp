@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "DocksController.h"
-#include "GUIHelpers.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "fancymainwindow.h"
 #include <QAbstractItemView>
 #include <QAction>

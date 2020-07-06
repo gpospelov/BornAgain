@@ -15,8 +15,8 @@
 #ifndef FUNCTIONALTESTFACTORY_H
 #define FUNCTIONALTESTFACTORY_H
 
-#include "IFactory.h"
-#include "IFunctionalTest.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Simple factory to hold packs of functional tests.
 

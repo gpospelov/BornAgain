@@ -15,9 +15,9 @@
 #ifndef SPECULARSCALARSTRATEGY_H
 #define SPECULARSCALARSTRATEGY_H
 
-#include "ISpecularStrategy.h"
-#include "ScalarRTCoefficients.h"
-#include "Vectors3D.h"
+#include "Core/Multilayer/ISpecularStrategy.h"
+#include "Core/Multilayer/ScalarRTCoefficients.h"
+#include "Core/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>
 

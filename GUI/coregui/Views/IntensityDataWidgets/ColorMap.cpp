@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "ColorMap.h"
-#include "AxesItems.h"
-#include "ColorMapUtils.h"
-#include "IntensityDataItem.h"
-#include "MathConstants.h"
-#include "PlotEventInfo.h"
-#include "UpdateTimer.h"
-#include "StyleUtils.h"
-#include "plot_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "Core/Basics/MathConstants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
+#include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
+#include "GUI/coregui/utils/StyleUtils.h"
+#include "GUI/coregui/Views/FitWidgets/plot_constants.h"
 
 namespace
 {

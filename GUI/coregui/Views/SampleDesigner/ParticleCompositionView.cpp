@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCompositionView.h"
-#include "ParticleItem.h"
-#include "SessionItem.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleCompositionView.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : ConnectableView(parent)
 {

@@ -15,8 +15,8 @@
 #ifndef DETECTORFUNCTIONS_H
 #define DETECTORFUNCTIONS_H
 
-#include "IDetector.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/IDetector.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <memory>
 #include <string>

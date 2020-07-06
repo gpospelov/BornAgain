@@ -15,7 +15,7 @@
 #ifndef TRANSFORMATIONSBUILDER_H
 #define TRANSFORMATIONSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Rotated box in 3 layers system.
 //! @ingroup standard_samples

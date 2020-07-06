@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDot.h"
-#include "BornAgainNamespace.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorDot.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
 
 //! Constructor.
 //! @param rscat: radius of a sphere with same forward scattering power, in nanometers

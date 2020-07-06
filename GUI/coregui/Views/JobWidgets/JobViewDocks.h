@@ -15,7 +15,7 @@
 #ifndef JOBVIEWDOCKS_H
 #define JOBVIEWDOCKS_H
 
-#include "DocksController.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
 
 class JobView;
 class JobSelectorWidget;

@@ -15,8 +15,8 @@
 #ifndef LATTICE_H
 #define LATTICE_H
 
-#include "INode.h"
-#include "Vectors3D.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Vector/Vectors3D.h"
 #include <vector>
 
 class ISelectionRule;

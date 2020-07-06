@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "MesoCrystalView.h"
-#include "MesoCrystalItem.h"
-#include "ParticleItem.h"
-#include "SessionItem.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/MesoCrystalView.h"
+#include "GUI/coregui/Models/MesoCrystalItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent)
 {

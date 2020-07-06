@@ -15,8 +15,8 @@
 #ifndef IRESOLUTIONFUNCTION2D_H
 #define IRESOLUTIONFUNCTION2D_H
 
-#include "ICloneable.h"
-#include "INode.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 
 //! Interface providing two-dimensional resolution function.
 //! @ingroup algorithms_internal

@@ -12,19 +12,19 @@
 //
 // ************************************************************************** //
 
-#include "RealDataSelectorActions.h"
-#include "AppSvc.h"
-#include "GUIHelpers.h"
-#include "ImportDataInfo.h"
-#include "ImportDataUtils.h"
-#include "IntensityDataFunctions.h"
-#include "IntensityDataItem.h"
-#include "MaskItems.h"
-#include "OutputData.h"
-#include "ProjectionItems.h"
-#include "RealDataItem.h"
-#include "RealDataModel.h"
-#include "projectmanager.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorActions.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/ImportDataInfo.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "Core/Instrument/OutputData.h"
+#include "GUI/coregui/Models/ProjectionItems.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/RealDataModel.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
 #include <QAction>
 #include <QApplication>
 #include <QFileDialog>

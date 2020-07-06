@@ -15,7 +15,7 @@
 #ifndef FORMFACTORWEIGHTED_H
 #define FORMFACTORWEIGHTED_H
 
-#include "IFormFactor.h"
+#include "Core/Scattering/IFormFactor.h"
 
 //! Coherent sum of different scalar IFormFactor's with different weights.
 //!

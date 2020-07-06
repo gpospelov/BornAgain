@@ -1,5 +1,5 @@
-#include "FormFactorTest.h"
-#include "google_test.h" // tests segfault under Linux/clang-9.0.1 if this include is missing
+#include "Tests/UnitTests/Numeric/FormFactorTest.h"
+#include "Tests/UnitTests/utilities/google_test.h" // tests segfault under Linux/clang-9.0.1 if this include is missing
 
 using ::testing::Combine;
 using ::testing::Values;

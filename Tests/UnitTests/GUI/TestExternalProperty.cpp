@@ -1,7 +1,7 @@
-#include "Comparators.h"
-#include "ExternalProperty.h"
-#include "google_test.h"
-#include "test_utils.h"
+#include "Tests/UnitTests/GUI/Comparators.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/UnitTests/GUI/test_utils.h"
 
 class TestExternalProperty : public ::testing::Test
 {

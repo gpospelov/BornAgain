@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "LayerRoughnessItems.h"
-#include "BornAgainNamespace.h"
+#include "GUI/coregui/Models/LayerRoughnessItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
 
 namespace
 {

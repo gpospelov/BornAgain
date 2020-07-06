@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "BeamWavelengthItem.h"
+#include "GUI/coregui/Models/BeamWavelengthItem.h"
 
 namespace
 {

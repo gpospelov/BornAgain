@@ -15,7 +15,7 @@
 #ifndef PYEMBEDDEDTESTFACTORY_H
 #define PYEMBEDDEDTESTFACTORY_H
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 //! @class PyEmbeddedTestFactory
 //! @brief Collection of tests for embedded Python.

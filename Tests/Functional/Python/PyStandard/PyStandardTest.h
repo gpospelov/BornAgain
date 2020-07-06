@@ -15,7 +15,7 @@
 #ifndef PYSTANDARDTEST_H
 #define PYSTANDARDTEST_H
 
-#include "IStandardTest.h"
+#include "Tests/Functional/TestMachinery/IStandardTest.h"
 
 //! Tests Python scripts generation from Core objects.
 //! Performs core standard simulation and checks it against simulation via generated Python script.

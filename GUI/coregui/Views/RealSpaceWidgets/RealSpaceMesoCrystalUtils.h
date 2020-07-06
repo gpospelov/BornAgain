@@ -15,8 +15,8 @@
 #ifndef REALSPACEMESOCRYSTALUTILS_H
 #define REALSPACEMESOCRYSTALUTILS_H
 
-#include "Rotations.h"
-#include "WinDllMacros.h"
+#include "Core/Scattering/Rotations.h"
+#include "Wrap/WinDllMacros.h"
 #include <QVector3D>
 
 class Particle;

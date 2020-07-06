@@ -15,7 +15,7 @@
 #ifndef COMPONENTTREEVIEW_H
 #define COMPONENTTREEVIEW_H
 
-#include "ComponentView.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentView.h"
 #include <memory>
 
 class QTreeView;

@@ -1,7 +1,7 @@
-#include "ConstKBinAxis.h"
-#include "DataFormatUtils.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Binning/ConstKBinAxis.h"
+#include "Core/InputOutput/DataFormatUtils.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <vector>
 
 class ConstKBinAxisTest : public ::testing::Test

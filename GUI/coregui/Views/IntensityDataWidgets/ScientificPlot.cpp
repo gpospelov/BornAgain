@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "ScientificPlot.h"
-#include "ScientificPlotEvent.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlotEvent.h"
 #include <qcustomplot.h>
 
 ScientificPlot::ScientificPlot(QWidget* parent, PLOT_TYPE plot_type)

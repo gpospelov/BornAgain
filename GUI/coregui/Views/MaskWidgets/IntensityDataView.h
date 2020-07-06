@@ -15,8 +15,8 @@
 #ifndef INTENSITYDATAVIEW_H
 #define INTENSITYDATAVIEW_H
 
-#include "IShape2DView.h"
-#include "SizeHandleElement.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/SizeHandleElement.h"
 #include <QMap>
 
 //! The IntensityDataView is nothing move than just transparent rectangle to cover axes area

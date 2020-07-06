@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "RectangularDetectorItem.h"
-#include "AxesItems.h"
-#include "ComboProperty.h"
-#include "GUIHelpers.h"
-#include "RectangularDetector.h"
-#include "ResolutionFunctionItems.h"
-#include "VectorItem.h"
+#include "GUI/coregui/Models/RectangularDetectorItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Core/Instrument/RectangularDetector.h"
+#include "GUI/coregui/Models/ResolutionFunctionItems.h"
+#include "GUI/coregui/Models/VectorItem.h"
 
 namespace
 {

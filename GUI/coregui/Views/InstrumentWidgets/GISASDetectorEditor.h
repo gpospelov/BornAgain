@@ -15,7 +15,7 @@
 #ifndef GISASDETECTOREDITOR_H
 #define GISASDETECTOREDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ComponentEditor;
 class DetectorPresenter;

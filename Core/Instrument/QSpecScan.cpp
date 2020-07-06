@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "QSpecScan.h"
-#include "BornAgainNamespace.h"
-#include "FixedBinAxis.h"
-#include "ParameterSample.h"
-#include "PointwiseAxis.h"
-#include "PythonFormatting.h"
-#include "RangedDistributions.h"
-#include "RealLimits.h"
-#include "ScanResolution.h"
-#include "SpecularSimulationElement.h"
+#include "Core/Instrument/QSpecScan.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Export/PythonFormatting.h"
+#include "Core/Parametrization/RangedDistributions.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Core/Instrument/ScanResolution.h"
+#include "Core/SimulationElement/SpecularSimulationElement.h"
 
 namespace
 {

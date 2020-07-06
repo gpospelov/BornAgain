@@ -15,7 +15,7 @@
 #ifndef STRINGUTILS_H
 #define STRINGUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <iomanip>
 #include <sstream>
 #include <string>

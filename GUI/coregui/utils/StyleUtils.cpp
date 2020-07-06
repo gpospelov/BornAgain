@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "StyleUtils.h"
-#include "DesignerHelper.h"
-#include "detailswidget.h"
-#include "hostosinfo.h"
+#include "GUI/coregui/utils/StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/Views/CommonWidgets/detailswidget.h"
+#include "GUI/coregui/utils/hostosinfo.h"
 #include <QApplication>
 #include <QBoxLayout>
 #include <QDialog>

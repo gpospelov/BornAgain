@@ -31,7 +31,7 @@
 #ifndef CLICKABLEFRAME_H
 #define CLICKABLEFRAME_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QFrame>
 #include <QGraphicsView>
 #include <QHBoxLayout>

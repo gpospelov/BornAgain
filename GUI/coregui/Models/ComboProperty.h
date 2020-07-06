@@ -15,7 +15,7 @@
 #ifndef COMBOPROPERTY_H
 #define COMBOPROPERTY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QStringList>
 #include <QVariant>
 #include <QVector>

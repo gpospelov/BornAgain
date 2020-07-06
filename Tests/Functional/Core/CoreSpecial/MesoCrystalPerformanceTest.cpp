@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "MesoCrystalPerformanceTest.h"
-#include "GISASSimulation.h"
-#include "MesoCrystalPerformanceBuilder.h"
-#include "RectangularDetector.h"
-#include "Units.h"
+#include "Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceTest.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceBuilder.h"
+#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Parametrization/Units.h"
 #include <iostream>
 
 namespace

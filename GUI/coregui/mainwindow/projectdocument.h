@@ -15,8 +15,8 @@
 #ifndef PROJECTDOCUMENT_H
 #define PROJECTDOCUMENT_H
 
-#include "ProjectFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/mainwindow/ProjectFlags.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class QIODevice;

@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "SpecularBeamInclinationItem.h"
-#include "AxesItems.h"
-#include "GroupItem.h"
-#include "PointwiseAxisItem.h"
-#include "Units.h"
+#include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/PointwiseAxisItem.h"
+#include "Core/Parametrization/Units.h"
 
 namespace
 {

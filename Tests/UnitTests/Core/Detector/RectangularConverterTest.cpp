@@ -1,9 +1,9 @@
-#include "Beam.h"
-#include "RectangularDetector.h"
-#include "SimpleUnitConverters.h"
-#include "Units.h"
-#include "Vectors3D.h"
-#include "google_test.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Parametrization/Units.h"
+#include "Core/Vector/Vectors3D.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <cmath>
 
 namespace

@@ -15,7 +15,7 @@
 #ifndef FITOBJECTIVETEST_H
 #define FITOBJECTIVETEST_H
 
-#include "IMinimizerTest.h"
+#include "Tests/Functional/TestMachinery/IMinimizerTest.h"
 
 //! Collection of standalone tests for fitting library.
 

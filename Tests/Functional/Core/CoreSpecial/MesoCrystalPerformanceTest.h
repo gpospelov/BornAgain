@@ -15,7 +15,7 @@
 #ifndef MESOCRYSTALPERFORMANCETEST_H
 #define MESOCRYSTALPERFORMANCETEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Runs heavy mesocrystal simulation to investigate where it spends time.
 

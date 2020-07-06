@@ -17,7 +17,7 @@
 
 #include <valarray>
 
-#include "Vectors3D.h"
+#include "Core/Vector/Vectors3D.h"
 
 class IAxis;
 

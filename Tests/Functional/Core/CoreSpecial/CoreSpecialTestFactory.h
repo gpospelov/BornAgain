@@ -15,7 +15,7 @@
 #ifndef CORESPECIALTESTFACTORY_H
 #define CORESPECIALTESTFACTORY_H
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 //! @class CoreSpecialTestFactory
 //! @brief Collection of special case for Core library.

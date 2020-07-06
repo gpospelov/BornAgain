@@ -14,7 +14,7 @@
 #ifndef JOBMODEL_H
 #define JOBMODEL_H
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 class JobQueueData;
 class JobItem;
 class MultiLayerItem;

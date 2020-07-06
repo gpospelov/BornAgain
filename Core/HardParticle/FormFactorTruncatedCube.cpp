@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorTruncatedCube.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorTruncatedCube.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {{{0, 1, 7, 6, 9, 10, 4, 3}, true},

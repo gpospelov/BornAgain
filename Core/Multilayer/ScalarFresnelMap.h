@@ -15,9 +15,9 @@
 #ifndef SCALARFRESNELMAP_H
 #define SCALARFRESNELMAP_H
 
-#include "IFresnelMap.h"
-#include "ISpecularStrategy.h"
-#include "ScalarRTCoefficients.h"
+#include "Core/Multilayer/IFresnelMap.h"
+#include "Core/Multilayer/ISpecularStrategy.h"
+#include "Core/Multilayer/ScalarRTCoefficients.h"
 #include <cstddef>
 #include <unordered_map>
 #include <utility>

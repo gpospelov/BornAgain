@@ -15,8 +15,8 @@
 #ifndef ITERATIONINFO_H
 #define ITERATIONINFO_H
 
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Wrap/WinDllMacros.h"
 #include <map>
 #include <string>
 

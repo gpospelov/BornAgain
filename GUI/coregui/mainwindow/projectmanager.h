@@ -15,7 +15,7 @@
 #ifndef PROJECTMANAGER_H
 #define PROJECTMANAGER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <QStringList>
 

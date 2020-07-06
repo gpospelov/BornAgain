@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "Data1DViewItem.h"
-#include "AxesItems.h"
-#include "BornAgainNamespace.h"
-#include "ComboProperty.h"
-#include "DataItem.h"
-#include "DataProperties.h"
-#include "DataPropertyContainer.h"
-#include "DataViewUtils.h"
-#include "GUIHelpers.h"
-#include "JobItem.h"
+#include "GUI/coregui/Models/Data1DViewItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/Models/DataProperties.h"
+#include "GUI/coregui/Models/DataPropertyContainer.h"
+#include "GUI/coregui/Models/DataViewUtils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/JobItem.h"
 
 namespace
 {

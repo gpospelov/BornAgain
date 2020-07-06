@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "SampleValidator.h"
-#include "LayerItem.h"
-#include "MultiLayerItem.h"
-#include "ParticleCompositionItem.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleDistributionItem.h"
-#include "ParticleLayoutItem.h"
+#include "GUI/coregui/Models/SampleValidator.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/ParticleCompositionItem.h"
+#include "GUI/coregui/Models/ParticleCoreShellItem.h"
+#include "GUI/coregui/Models/ParticleDistributionItem.h"
+#include "GUI/coregui/Models/ParticleLayoutItem.h"
 
 SampleValidator::SampleValidator() : m_valid_sample(true) {}
 

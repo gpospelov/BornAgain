@@ -15,9 +15,9 @@
 #ifndef PROFILEHELPER_H
 #define PROFILEHELPER_H
 
-#include "Complex.h"
-#include "Material.h"
-#include "WinDllMacros.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Material/Material.h"
+#include "Wrap/WinDllMacros.h"
 #include <utility>
 #include <vector>
 

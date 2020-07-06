@@ -15,8 +15,8 @@
 #ifndef PYCALLBACK_H
 #define PYCALLBACK_H
 
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,

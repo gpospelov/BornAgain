@@ -15,7 +15,7 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-#include "INodeVisitor.h"
+#include "Core/Parametrization/INodeVisitor.h"
 #include <QMap>
 #include <QString>
 

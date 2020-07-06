@@ -15,7 +15,7 @@
 #ifndef PARTICLECOMPOSITION_H
 #define PARTICLECOMPOSITION_H
 
-#include "IParticle.h"
+#include "Core/Particle/IParticle.h"
 #include <memory>
 
 //! A composition of particles at fixed positions

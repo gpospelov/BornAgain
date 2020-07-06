@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ResolutionFunction2DGaussian.h"
-#include "BornAgainNamespace.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/Instrument/ResolutionFunction2DGaussian.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
     : m_sigma_x(sigma_x), m_sigma_y(sigma_y)

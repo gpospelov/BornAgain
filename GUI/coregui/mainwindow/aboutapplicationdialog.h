@@ -15,7 +15,7 @@
 #ifndef ABOUTAPPLICATIONDIALOG_H
 #define ABOUTAPPLICATIONDIALOG_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDialog>
 
 class QBoxLayout;

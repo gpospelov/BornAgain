@@ -15,7 +15,7 @@
 #ifndef TESTCOMPONENTVIEW_H
 #define TESTCOMPONENTVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;

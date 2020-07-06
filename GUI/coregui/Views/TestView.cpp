@@ -12,27 +12,27 @@
 //
 // ************************************************************************** //
 
-#include "TestView.h"
-#include "AccordionWidget.h"
-#include "ApplicationModels.h"
-#include "Data1DViewItem.h"
-#include "DataPropertyContainer.h"
-#include "JobItem.h"
-#include "JobModel.h"
-#include "MaskEditor.h"
-#include "MaterialEditor.h"
-#include "MinimizerItem.h"
-#include "MinimizerSettingsWidget.h"
-#include "Plot1DCanvas.h"
-#include "RealDataItem.h"
-#include "SampleModel.h"
-#include "SpecularDataItem.h"
-#include "TestComponentView.h"
-#include "mainwindow.h"
+#include "GUI/coregui/Views/TestView.h"
+#include "GUI/coregui/Views/AccordionWidget/AccordionWidget.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
+#include "GUI/coregui/Models/Data1DViewItem.h"
+#include "GUI/coregui/Models/DataPropertyContainer.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
+#include "GUI/coregui/Models/MinimizerItem.h"
+#include "GUI/coregui/Views/FitWidgets/MinimizerSettingsWidget.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/Plot1DCanvas.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/Views/PropertyEditor/TestComponentView.h"
+#include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QTreeView>
 
 #ifdef BORNAGAIN_OPENGL
-#include "RealSpaceWidget.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceWidget.h"
 #endif
 
 #include <QCheckBox>

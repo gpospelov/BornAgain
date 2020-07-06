@@ -15,8 +15,8 @@
 #ifndef PYEMBEDDEDUTILS_H
 #define PYEMBEDDEDUTILS_H
 
-#include "PyObject.h"
-#include "WinDllMacros.h"
+#include "Core/Tools/PyObject.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 #include <vector>

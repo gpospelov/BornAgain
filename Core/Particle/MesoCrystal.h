@@ -15,7 +15,7 @@
 #ifndef MESOCRYSTAL_H
 #define MESOCRYSTAL_H
 
-#include "IParticle.h"
+#include "Core/Particle/IParticle.h"
 
 class IClusteredParticles;
 

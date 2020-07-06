@@ -15,7 +15,7 @@
 #ifndef DATAPROPERTIES_H
 #define DATAPROPERTIES_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class DataItem;
 

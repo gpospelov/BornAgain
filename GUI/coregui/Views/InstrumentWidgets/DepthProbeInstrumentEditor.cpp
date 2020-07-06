@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "DepthProbeInstrumentEditor.h"
-#include "BeamDistributionItem.h"
-#include "BeamItems.h"
-#include "ComponentEditor.h"
-#include "DepthProbeInstrumentItem.h"
-#include "DistributionDialog.h"
-#include "LayoutUtils.h"
-#include "SpecularBeamInclinationItem.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/InstrumentWidgets/DepthProbeInstrumentEditor.h"
+#include "GUI/coregui/Models/BeamDistributionItem.h"
+#include "GUI/coregui/Models/BeamItems.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
+#include "GUI/coregui/Models/DepthProbeInstrumentItem.h"
+#include "GUI/coregui/Views/InfoWidgets/DistributionDialog.h"
+#include "GUI/coregui/utils/LayoutUtils.h"
+#include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
 

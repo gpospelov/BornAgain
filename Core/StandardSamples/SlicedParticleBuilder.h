@@ -15,7 +15,7 @@
 #ifndef SLICEDPARTICLEBUILDER_H
 #define SLICEDPARTICLEBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds sample: spherical composition made of top+bottom spherical cups
 //! @ingroup standard_samples

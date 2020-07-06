@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataIOFactory.h"
-#include "FileSystemUtils.h"
-#include "IHistogram.h"
-#include "OutputDataReadFactory.h"
-#include "OutputDataWriteFactory.h"
-#include "SimulationResult.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Tools/FileSystemUtils.h"
+#include "Core/Instrument/IHistogram.h"
+#include "Core/InputOutput/OutputDataReadFactory.h"
+#include "Core/InputOutput/OutputDataWriteFactory.h"
+#include "Core/Instrument/SimulationResult.h"
 #include <fstream>
 #include <memory>
 

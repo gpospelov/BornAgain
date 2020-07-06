@@ -1,9 +1,9 @@
-#include "BornAgainNamespace.h"
-#include "FTDistributions1D.h"
-#include "FTDistributions2D.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
-#include "google_test.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Aggregate/FTDistributions1D.h"
+#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 class FTDistributionsTest : public ::testing::Test

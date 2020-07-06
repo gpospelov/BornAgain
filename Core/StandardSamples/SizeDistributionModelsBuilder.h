@@ -15,7 +15,7 @@
 #ifndef SIZEDISTRIBUTIONMODELSBUILDER_H
 #define SIZEDISTRIBUTIONMODELSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Creates the sample demonstrating size distribution model in decoupling approximation.
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py

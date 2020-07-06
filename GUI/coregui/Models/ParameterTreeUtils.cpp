@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "ParameterTreeUtils.h"
-#include "FitParameterHelper.h"
-#include "GUIHelpers.h"
-#include "GroupItem.h"
-#include "JobItem.h"
-#include "ModelPath.h"
-#include "MultiLayerItem.h"
-#include "ParameterTreeItems.h"
-#include "SampleModel.h"
+#include "GUI/coregui/Models/ParameterTreeUtils.h"
+#include "GUI/coregui/Models/FitParameterHelper.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
+#include "GUI/coregui/Models/SampleModel.h"
 #include <QStack>
 
 namespace

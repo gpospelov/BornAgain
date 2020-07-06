@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "PyEmbeddedTestFactory.h"
-#include "TestCases.h"
+#include "Tests/Functional/Python/PyEmbedded/PyEmbeddedTestFactory.h"
+#include "Tests/Functional/Python/PyEmbedded/TestCases.h"
 
 PyEmbeddedTestFactory::PyEmbeddedTestFactory()
 {

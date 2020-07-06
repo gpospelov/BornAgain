@@ -15,7 +15,7 @@
 #ifndef FORMFACTORBAR_H
 #define FORMFACTORBAR_H
 
-#include "ProfileBar.h"
+#include "Core/HardParticle/ProfileBar.h"
 
 //! The form factor of an elongated bar, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating

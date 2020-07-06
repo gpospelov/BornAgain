@@ -15,7 +15,7 @@
 #ifndef SIMANMINIMIZER_H
 #define SIMANMINIMIZER_H
 
-#include "RootMinimizerAdapter.h"
+#include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
 namespace ROOT
 {

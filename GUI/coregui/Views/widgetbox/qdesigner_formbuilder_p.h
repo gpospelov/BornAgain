@@ -53,8 +53,8 @@
 #ifndef QDESIGNER_FORMBUILDER_P_H
 #define QDESIGNER_FORMBUILDER_P_H
 
-#include "deviceprofile_p.h"
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/deviceprofile_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
 #include <QtDesigner/formbuilder.h>
 

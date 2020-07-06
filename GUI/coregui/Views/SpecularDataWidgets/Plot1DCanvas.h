@@ -15,7 +15,7 @@
 #ifndef PLOT1DCANVAS_H
 #define PLOT1DCANVAS_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class FontScalingEvent;
 class PlotStatusLabel;

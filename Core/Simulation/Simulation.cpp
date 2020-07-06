@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "Simulation.h"
-#include "IBackground.h"
-#include "IComputation.h"
-#include "IMultiLayerBuilder.h"
-#include "MPISimulation.h"
-#include "MultiLayer.h"
-#include "MultiLayerUtils.h"
-#include "ParameterPool.h"
-#include "ParameterSample.h"
-#include "StringUtils.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/Computation/IBackground.h"
+#include "Core/Computation/IComputation.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Simulation/MPISimulation.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Computation/MultiLayerUtils.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Fit/Tools/StringUtils.h"
 #include <gsl/gsl_errno.h>
 #include <iomanip>
 #include <iostream>

@@ -15,7 +15,7 @@
 #ifndef ROOTSCALARFUNCTION_H
 #define ROOTSCALARFUNCTION_H
 
-#include "KernelTypes.h"
+#include "Fit/Kernel/KernelTypes.h"
 
 #ifdef _WIN32
 #include "Math/Functor.h"

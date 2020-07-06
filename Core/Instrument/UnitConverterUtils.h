@@ -15,7 +15,7 @@
 #ifndef UNITCONVERTERUTILS_H
 #define UNITCONVERTERUTILS_H
 
-#include "IUnitConverter.h"
+#include "Core/Instrument/IUnitConverter.h"
 
 class Instrument;
 class Simulation;

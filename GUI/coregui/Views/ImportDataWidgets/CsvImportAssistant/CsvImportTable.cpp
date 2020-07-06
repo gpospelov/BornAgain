@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "CsvImportTable.h"
-#include "ScientificSpinBox.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportTable.h"
+#include "GUI/coregui/Views/JobWidgets/ScientificSpinBox.h"
 
 namespace
 {

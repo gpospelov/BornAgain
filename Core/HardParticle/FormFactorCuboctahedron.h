@@ -15,7 +15,7 @@
 #ifndef FORMFACTORCUBOCTAHEDRON_H
 #define FORMFACTORCUBOCTAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A truncated bifrustum with quadratic base.
 //! @ingroup hardParticle

@@ -15,7 +15,7 @@
 #ifndef MINIMIZERITEM_H
 #define MINIMIZERITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IMinimizer;
 class ObjectiveMetric;

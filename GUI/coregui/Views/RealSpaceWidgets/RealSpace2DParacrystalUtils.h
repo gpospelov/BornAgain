@@ -15,7 +15,7 @@
 #ifndef REALSPACE2DPARACRYSTALUTILS_H
 #define REALSPACE2DPARACRYSTALUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 class InterferenceFunction2DParaCrystal;

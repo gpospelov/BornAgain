@@ -15,7 +15,7 @@
 #ifndef PROJECTIONSEDITORACTIONS_H
 #define PROJECTIONSEDITORACTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QList>
 #include <QModelIndex>
 #include <QObject>

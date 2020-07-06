@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "SessionItemUtils.h"
-#include "ExternalProperty.h"
-#include "GUIHelpers.h"
-#include "GroupInfoCatalogue.h"
-#include "MaterialItem.h"
-#include "SessionGraphicsItem.h"
-#include "SessionItem.h"
-#include "VectorItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/GroupInfoCatalogue.h"
+#include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include <QColor>
 #include <QIcon>
 #include <QPixmap>

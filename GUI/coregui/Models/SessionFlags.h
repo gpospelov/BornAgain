@@ -15,7 +15,7 @@
 #ifndef SESSIONFLAGS_H
 #define SESSIONFLAGS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <qnamespace.h>
 
 //! Collection of flags for SessionModel and SessionItem.

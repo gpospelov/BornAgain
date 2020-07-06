@@ -15,7 +15,7 @@
 #ifndef SPECULARSCALARNCSTRATEGY_H
 #define SPECULARSCALARNCSTRATEGY_H
 
-#include "SpecularScalarStrategy.h"
+#include "Core/Multilayer/SpecularScalarStrategy.h"
 
 class Slice;
 

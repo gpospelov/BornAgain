@@ -1,11 +1,11 @@
-#include "ArrayUtils.h"
-#include "AxisNames.h"
-#include "CsvImportAssistant.h"
-#include "JobItemUtils.h"
-#include "OutputDataReadFactory.h"
-#include "OutputDataWriteFactory.h"
-#include "SpecularDataItem.h"
-#include "google_test.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Instrument/AxisNames.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
+#include "GUI/coregui/Models/JobItemUtils.h"
+#include "Core/InputOutput/OutputDataReadFactory.h"
+#include "Core/InputOutput/OutputDataWriteFactory.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <vector>
 
 class TestCsvImportAssistant : public ::testing::Test

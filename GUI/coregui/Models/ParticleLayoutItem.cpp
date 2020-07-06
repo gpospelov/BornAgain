@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ParticleLayoutItem.h"
-#include "BornAgainNamespace.h"
-#include "ComboProperty.h"
-#include "InterferenceFunctionItems.h"
-#include "Lattice2DItems.h"
+#include "GUI/coregui/Models/ParticleLayoutItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/InterferenceFunctionItems.h"
+#include "GUI/coregui/Models/Lattice2DItems.h"
 #include <QDebug>
 
 namespace

@@ -15,9 +15,9 @@
 #ifndef MAINCOMPUTATION_H
 #define MAINCOMPUTATION_H
 
-#include "DWBASingleComputation.h"
-#include "IComputation.h"
-#include "SimulationOptions.h"
+#include "Core/Computation/DWBASingleComputation.h"
+#include "Core/Computation/IComputation.h"
+#include "Core/Parametrization/SimulationOptions.h"
 
 class MultiLayer;
 class SimulationElement;

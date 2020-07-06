@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorPyramid.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorPyramid.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorPyramid::topology = {{
                                                             {{3, 2, 1, 0}, true}, // TODO -> true

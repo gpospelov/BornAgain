@@ -15,7 +15,7 @@
 #ifndef DETECTORMASKDELEGATE_H
 #define DETECTORMASKDELEGATE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QModelIndex>
 #include <QObject>
 

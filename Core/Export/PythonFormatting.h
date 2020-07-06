@@ -15,7 +15,7 @@
 #ifndef PYTHONFORMATTING_H
 #define PYTHONFORMATTING_H
 
-#include "Vectors3D.h"
+#include "Core/Vector/Vectors3D.h"
 #include <functional>
 #include <string>
 

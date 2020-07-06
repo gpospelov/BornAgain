@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Parameters.h"
+#include "Fit/Kernel/Parameters.h"
 #include <cmath>
 #include <sstream>
 #include <stdexcept>

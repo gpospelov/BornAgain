@@ -15,7 +15,7 @@
 #ifndef SPECULARBEAMINCLINATIONITEM_H
 #define SPECULARBEAMINCLINATIONITEM_H
 
-#include "BeamDistributionItem.h"
+#include "GUI/coregui/Models/BeamDistributionItem.h"
 
 //! BeamInclinationAxisItem contains inclination angle axis for specular/off-specular
 //! simulations and also provides distribution functionality.

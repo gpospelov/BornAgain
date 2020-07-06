@@ -15,8 +15,8 @@
 #ifndef OBJECTIVEFUNCTIONADAPTER_H
 #define OBJECTIVEFUNCTIONADAPTER_H
 
-#include "KernelTypes.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 class RootScalarFunction;

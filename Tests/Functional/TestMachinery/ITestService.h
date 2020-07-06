@@ -15,7 +15,7 @@
 #ifndef ITESTSERVICE_H
 #define ITESTSERVICE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! @class ITestService
 //! @ingroup standard_samples

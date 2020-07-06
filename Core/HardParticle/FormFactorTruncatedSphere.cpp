@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorTruncatedSphere.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealLimits.h"
-#include "RealParameter.h"
-#include "TruncatedEllipsoid.h"
+#include "Core/HardParticle/FormFactorTruncatedSphere.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
 //! Constructor of a spherical dome.

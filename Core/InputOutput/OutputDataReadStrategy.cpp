@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataReadStrategy.h"
-#include "ArrayUtils.h"
-#include "DataFormatUtils.h"
-#include "OutputData.h"
-#include "PointwiseAxis.h"
-#include "TiffHandler.h"
+#include "Core/InputOutput/OutputDataReadStrategy.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "Core/InputOutput/DataFormatUtils.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Binning/PointwiseAxis.h"
+#include "Core/InputOutput/TiffHandler.h"
 #include <map>
 #include <stdexcept> // need overlooked by g++ 5.4
 

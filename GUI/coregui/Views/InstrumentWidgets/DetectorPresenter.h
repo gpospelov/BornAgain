@@ -15,7 +15,7 @@
 #ifndef DETECTORPRESENTER_H
 #define DETECTORPRESENTER_H
 
-#include "ItemComboWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemComboWidget.h"
 
 //! Contains stack of detector editors and the logic to show proper editor for certain type
 //! of detector item (SphericalDetectorEditor or RectangularDetectorEditor).

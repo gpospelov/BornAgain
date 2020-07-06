@@ -15,7 +15,7 @@
 #ifndef DISTRIBUTIONEDITOR_H
 #define DISTRIBUTIONEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class QGroupBox;
 class GroupItem;

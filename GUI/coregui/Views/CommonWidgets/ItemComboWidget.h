@@ -15,9 +15,9 @@
 #ifndef ITEMCOMBOWIDGET_H
 #define ITEMCOMBOWIDGET_H
 
-#include "IFactory.h"
-#include "SessionItemWidget.h"
-#include "WinDllMacros.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QString>
 #include <QWidget>

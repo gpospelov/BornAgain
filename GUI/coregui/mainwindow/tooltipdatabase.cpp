@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "tooltipdatabase.h"
-#include "GUIHelpers.h"
-#include "item_constants.h"
+#include "GUI/coregui/mainwindow/tooltipdatabase.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QFile>
 #include <QXmlStreamReader>
 

@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterWidget.h"
-#include "CustomEventFilters.h"
-#include "FilterPropertyProxy.h"
-#include "FitParameterHelper.h"
-#include "FitParameterItems.h"
-#include "FitParameterProxyModel.h"
-#include "FitSuiteItem.h"
-#include "JobItem.h"
-#include "JobModel.h"
-#include "OverlayLabelController.h"
-#include "ParameterTreeItems.h"
-#include "ParameterTuningWidget.h"
-#include "SessionModelDelegate.h"
-#include "mainwindow_constants.h"
+#include "GUI/coregui/Views/FitWidgets/FitParameterWidget.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
+#include "GUI/coregui/Models/FilterPropertyProxy.h"
+#include "GUI/coregui/Models/FitParameterHelper.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "GUI/coregui/Models/FitParameterProxyModel.h"
+#include "GUI/coregui/Models/FitSuiteItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Views/InfoWidgets/OverlayLabelController.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
+#include "GUI/coregui/Views/JobWidgets/ParameterTuningWidget.h"
+#include "GUI/coregui/Models/SessionModelDelegate.h"
+#include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QAction>
 #include <QMenu>
 #include <QTreeView>

@@ -15,7 +15,7 @@
 #ifndef PRECOMPUTED_H
 #define PRECOMPUTED_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <array>
 #include <utility>
 #include <vector>

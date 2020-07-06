@@ -15,7 +15,7 @@
 #ifndef OUTPUTDATAWRITEFACTORY_H
 #define OUTPUTDATAWRITEFACTORY_H
 
-#include "OutputDataWriter.h"
+#include "Core/InputOutput/OutputDataWriter.h"
 
 //! Creates writer appropariate for given type of files.
 //! @ingroup input_output_internal

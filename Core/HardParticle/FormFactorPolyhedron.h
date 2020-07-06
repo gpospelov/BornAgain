@@ -15,7 +15,7 @@
 #ifndef FORMFACTORPOLYHEDRON_H
 #define FORMFACTORPOLYHEDRON_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
 
 //! For internal use in PolyhedralFace.

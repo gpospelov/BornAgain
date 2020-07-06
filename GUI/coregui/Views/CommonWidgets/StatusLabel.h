@@ -15,7 +15,7 @@
 #ifndef STATUSLABEL_H
 #define STATUSLABEL_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QFrame>
 
 class QPaintEvent;

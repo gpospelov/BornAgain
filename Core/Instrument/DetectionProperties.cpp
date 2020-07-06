@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "DetectionProperties.h"
-#include "Complex.h"
-#include "Exceptions.h"
-#include "RealParameter.h"
+#include "Core/Instrument/DetectionProperties.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 DetectionProperties::DetectionProperties()
     : m_direction{}, m_efficiency{}, m_total_transmission{1.0}

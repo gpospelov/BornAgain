@@ -15,9 +15,9 @@
 #ifndef SESSIONITEM_H
 #define SESSIONITEM_H
 
-#include "ModelMapper.h"
-#include "RealLimits.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/ModelMapper.h"
+#include "Fit/Tools/RealLimits.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QStringList>
 #include <memory>
 

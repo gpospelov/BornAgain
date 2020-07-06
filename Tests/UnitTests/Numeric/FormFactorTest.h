@@ -1,5 +1,5 @@
-#include "Complex.h"
-#include "Vectors3D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Vector/Vectors3D.h"
 #include <functional>
 
 //! Facilities for FormFactorSpecializationTest and FormFactorSymmetryTest.

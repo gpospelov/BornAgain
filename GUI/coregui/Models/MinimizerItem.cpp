@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerItem.h"
-#include "GSLLevenbergMarquardtMinimizer.h"
-#include "GSLMultiMinimizer.h"
-#include "GeneticMinimizer.h"
-#include "MinimizerConstants.h"
-#include "MinimizerItemCatalogue.h"
-#include "Minuit2Minimizer.h"
-#include "ObjectiveMetric.h"
-#include "ObjectiveMetricUtils.h"
-#include "SimAnMinimizer.h"
-#include "TestMinimizer.h"
+#include "GUI/coregui/Models/MinimizerItem.h"
+#include "Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.h"
+#include "Fit/RootAdapter/GSLMultiMinimizer.h"
+#include "Fit/RootAdapter/GeneticMinimizer.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
+#include "GUI/coregui/Models/MinimizerItemCatalogue.h"
+#include "Fit/RootAdapter/Minuit2Minimizer.h"
+#include "Core/Fitting/ObjectiveMetric.h"
+#include "Core/Fitting/ObjectiveMetricUtils.h"
+#include "Fit/RootAdapter/SimAnMinimizer.h"
+#include "Fit/Minimizer/TestMinimizer.h"
 
 MinimizerItem::MinimizerItem(const QString& model_type) : SessionItem(model_type) {}
 

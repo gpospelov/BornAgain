@@ -15,7 +15,7 @@
 #ifndef RUNFITCONTROLWIDGET_H
 #define RUNFITCONTROLWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QWidget>
 
 class JobItem;

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FootprintFactorSquare.h"
-#include "MathConstants.h"
-#include "PythonFormatting.h"
+#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Export/PythonFormatting.h"
 #include <algorithm>
 #include <stdexcept>
 

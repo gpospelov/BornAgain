@@ -16,11 +16,11 @@
 //! by Joachim Wuttke, entitled
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
-#include "FormFactorPolyhedron.h"
-#include "MathFunctions.h"
-#include "Precomputed.h"
-#include "RealParameter.h"
-#include "Rotations.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Tools/Precomputed.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Scattering/Rotations.h"
 #include <iomanip>
 #include <stdexcept> // need overlooked by g++ 5.4
 

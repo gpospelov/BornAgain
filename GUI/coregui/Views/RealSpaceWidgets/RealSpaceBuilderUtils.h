@@ -15,10 +15,10 @@
 #ifndef REALSPACEBUILDERUTILS_H
 #define REALSPACEBUILDERUTILS_H
 
-#include "Rotations.h"
-#include "WinDllMacros.h"
+#include "Core/Scattering/Rotations.h"
+#include "Wrap/WinDllMacros.h"
 #include <QVector3D>
-#include <Vectors3D.h>
+#include "Core/Vector/Vectors3D.h"
 #include <memory>
 #include <utility>
 

@@ -15,7 +15,7 @@
 #ifndef SPECULARCOMPUTATIONTERM_H_
 #define SPECULARCOMPUTATIONTERM_H_
 
-#include "ISpecularStrategy.h"
+#include "Core/Multilayer/ISpecularStrategy.h"
 
 #include <memory>
 #include <vector>

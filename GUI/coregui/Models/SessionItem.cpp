@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "GUIHelpers.h"
-#include "GroupItem.h"
-#include "ItemFactory.h"
-#include "ParameterTranslators.h"
-#include "SessionItemData.h"
-#include "SessionItemTags.h"
-#include "SessionItemUtils.h"
-#include "SessionModel.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/ItemFactory.h"
+#include "GUI/coregui/Models/ParameterTranslators.h"
+#include "GUI/coregui/Models/SessionItemData.h"
+#include "GUI/coregui/Models/SessionItemTags.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 const QString SessionItem::P_NAME = "Name";
 

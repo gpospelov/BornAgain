@@ -15,9 +15,9 @@
 #ifndef PARTICLEDISTRIBUTION_H
 #define PARTICLEDISTRIBUTION_H
 
-#include "IAbstractParticle.h"
-#include "ParameterDistribution.h"
-#include "SafePointerVector.h"
+#include "Core/Particle/IAbstractParticle.h"
+#include "Core/Parametrization/ParameterDistribution.h"
+#include "Core/Tools/SafePointerVector.h"
 
 class IParticle;
 

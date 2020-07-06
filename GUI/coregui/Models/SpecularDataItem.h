@@ -15,7 +15,7 @@
 #ifndef SPECULARDATAITEM_H
 #define SPECULARDATAITEM_H
 
-#include "DataItem.h"
+#include "GUI/coregui/Models/DataItem.h"
 
 class AmplitudeAxisItem;
 class BasicAxisItem;

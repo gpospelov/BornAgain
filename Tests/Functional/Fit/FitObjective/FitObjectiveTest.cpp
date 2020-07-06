@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FitObjectiveTest.h"
-#include "FitPlanFactory.h"
+#include "Tests/Functional/Fit/FitObjective/FitObjectiveTest.h"
+#include "Tests/Functional/Fit/FitObjective/FitPlanFactory.h"
 
 FitObjectiveTest::FitObjectiveTest(const std::string& minimizer_name,
                                    const std::string& algorithm_name,

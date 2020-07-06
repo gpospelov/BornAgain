@@ -15,7 +15,7 @@
 #ifndef FITCOMPARISONWIDGET1D_NEW_H
 #define FITCOMPARISONWIDGET1D_NEW_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class Data1DViewItem;
 class FitComparison1DViewController;

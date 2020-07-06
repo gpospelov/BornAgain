@@ -15,8 +15,8 @@
 #ifndef INTERFERENCEFUNCTION3DLATTICE_H
 #define INTERFERENCEFUNCTION3DLATTICE_H
 
-#include "IInterferenceFunction.h"
-#include "Lattice.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Lattice/Lattice.h"
 
 class IPeakShape;
 

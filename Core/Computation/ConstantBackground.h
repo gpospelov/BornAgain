@@ -15,7 +15,7 @@
 #ifndef CONSTANTBACKGROUND_H
 #define CONSTANTBACKGROUND_H
 
-#include "IBackground.h"
+#include "Core/Computation/IBackground.h"
 
 //! Class representing a constant background signal
 //!

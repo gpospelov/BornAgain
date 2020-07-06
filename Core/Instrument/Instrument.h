@@ -15,9 +15,9 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
-#include "Beam.h"
-#include "IDetector.h"
-#include "INode.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Instrument/IDetector.h"
+#include "Core/Parametrization/INode.h"
 #include <memory>
 
 template <class T> class OutputData;

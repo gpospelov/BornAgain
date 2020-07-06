@@ -15,7 +15,7 @@
 #ifndef WAVEVECTORINFO_H
 #define WAVEVECTORINFO_H
 
-#include "Vectors3D.h"
+#include "Core/Vector/Vectors3D.h"
 
 class Transform3D;
 

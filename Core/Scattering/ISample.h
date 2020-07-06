@@ -15,8 +15,8 @@
 #ifndef ISAMPLE_H
 #define ISAMPLE_H
 
-#include "ICloneable.h"
-#include "INode.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 #include <vector>
 
 class Material;

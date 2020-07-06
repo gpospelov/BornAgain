@@ -15,7 +15,7 @@
 #ifndef INFOPANEL_H
 #define INFOPANEL_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QFrame>
 
 class QStackedWidget;

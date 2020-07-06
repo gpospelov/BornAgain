@@ -15,7 +15,7 @@
 #ifndef NODEUTILS_H
 #define NODEUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class INode;

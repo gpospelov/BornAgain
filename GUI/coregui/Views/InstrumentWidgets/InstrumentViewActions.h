@@ -15,7 +15,7 @@
 #ifndef INSTRUMENTVIEWACTIONS_H
 #define INSTRUMENTVIEWACTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QObject>
 

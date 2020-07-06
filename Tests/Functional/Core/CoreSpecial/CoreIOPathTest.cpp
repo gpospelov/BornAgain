@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "CoreIOPathTest.h"
+#include "Tests/Functional/Core/CoreSpecial/CoreIOPathTest.h"
 #include "BATesting.h"
-#include "FileSystemUtils.h"
-#include "IntensityDataIOFactory.h"
-#include "OutputData.h"
-#include "TestUtils.h"
+#include "Core/Tools/FileSystemUtils.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/OutputData.h"
+#include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <boost/filesystem.hpp>
 #include <iostream>
 #include <memory>

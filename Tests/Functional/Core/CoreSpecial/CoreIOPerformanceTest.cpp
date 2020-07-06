@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "CoreIOPerformanceTest.h"
-#include "Benchmark.h"
-#include "IntensityDataIOFactory.h"
-#include "Numeric.h"
+#include "Tests/Functional/Core/CoreSpecial/CoreIOPerformanceTest.h"
+#include "Tests/Functional/TestMachinery/Benchmark.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Tools/Numeric.h"
 #include <boost/format.hpp>
 #include <cassert>
 #include <iomanip>

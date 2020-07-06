@@ -15,7 +15,7 @@
 #ifndef JOBSELECTORTOOLBAR_H
 #define JOBSELECTORTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class QAction;
 class QToolButton;

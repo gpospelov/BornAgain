@@ -15,7 +15,7 @@
 #ifndef INTERFERENCEFUNCTIONTWIN_H
 #define INTERFERENCEFUNCTIONTWIN_H
 
-#include "IInterferenceFunction.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
 
 //! Interference function for two particles at a mean distance and given standard deviation
 //! from each other in a given direction.

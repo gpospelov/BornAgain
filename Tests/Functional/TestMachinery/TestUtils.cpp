@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "TestUtils.h"
+#include "Tests/Functional/TestMachinery/TestUtils.h"
 #include "BABuild.h"
-#include "IntensityDataFunctions.h"
-#include "StandardTestCatalogue.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
 #include <cstdlib>
 #include <iostream>
 

@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCompositionItem.h"
-#include "MesoCrystal.h"
-#include "MesoCrystalItem.h"
-#include "ModelPath.h"
-#include "Particle.h"
-#include "ParticleCoreShell.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleItem.h"
-#include "SessionItemUtils.h"
-#include "TransformToDomain.h"
+#include "GUI/coregui/Models/ParticleCompositionItem.h"
+#include "Core/Particle/MesoCrystal.h"
+#include "GUI/coregui/Models/MesoCrystalItem.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Particle/ParticleCoreShell.h"
+#include "GUI/coregui/Models/ParticleCoreShellItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/TransformToDomain.h"
 
 namespace
 {

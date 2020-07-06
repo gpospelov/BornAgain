@@ -15,7 +15,7 @@
 #ifndef DOMAINOBJECTBUILDER_H
 #define DOMAINOBJECTBUILDER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 class MultiLayer;

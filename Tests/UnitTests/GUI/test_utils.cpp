@@ -13,14 +13,14 @@
 //
 // ************************************************************************** //
 
-#include "test_utils.h"
-#include "GUIHelpers.h"
-#include "IntensityDataFunctions.h"
-#include "IntensityDataIOFactory.h"
-#include "OutputData.h"
-#include "ProjectUtils.h"
-#include "RealDataItem.h"
-#include "SessionModel.h"
+#include "Tests/UnitTests/GUI/test_utils.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/OutputData.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 namespace
 {

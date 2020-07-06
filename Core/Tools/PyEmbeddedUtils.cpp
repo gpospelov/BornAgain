@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "PyEmbeddedUtils.h"
-#include "MultiLayer.h"
-#include "PythonCore.h"
-#include "PythonFormatting.h"
-#include "SysUtils.h"
+#include "Core/Tools/PyEmbeddedUtils.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Tools/PythonCore.h"
+#include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/SysUtils.h"
 #include <iostream>
 #include <stdexcept>
 

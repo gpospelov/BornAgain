@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "KzComputation.h"
-#include "Layer.h"
-#include "MultiLayer.h"
-#include "Slice.h"
-#include "Units.h"
+#include "Core/Multilayer/KzComputation.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Computation/Slice.h"
+#include "Core/Parametrization/Units.h"
 
 namespace
 {

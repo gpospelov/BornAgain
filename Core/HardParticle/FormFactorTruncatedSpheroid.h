@@ -15,8 +15,8 @@
 #ifndef FORMFACTORTRUNCATEDSPHEROID_H
 #define FORMFACTORTRUNCATEDSPHEROID_H
 
-#include "IFormFactorBorn.h"
-#include "Integrator.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Tools/Integrator.h"
 
 //! A truncated spheroid.
 //! An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.

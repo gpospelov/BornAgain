@@ -15,12 +15,12 @@
 #ifndef DATASELECTOR_H
 #define DATASELECTOR_H
 
-#include "CsvDataColumn.h"
-#include "CsvImportAssistant.h"
-#include "CsvImportTable.h"
-#include "CsvNamespace.h"
-#include "ImportDataInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportTable.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
+#include "GUI/coregui/utils/ImportDataInfo.h"
+#include "Wrap/WinDllMacros.h"
 #include <QAction>
 #include <QComboBox>
 #include <QDialog>

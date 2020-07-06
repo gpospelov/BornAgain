@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "DepthProbeSimulation.h"
-#include "DepthProbeComputation.h"
-#include "Distributions.h"
-#include "Histogram1D.h"
-#include "IBackground.h"
-#include "IFootprintFactor.h"
-#include "IMultiLayerBuilder.h"
-#include "MaterialUtils.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
-#include "SimpleUnitConverters.h"
-#include "SpecularDetector1D.h"
+#include "Core/Simulation/DepthProbeSimulation.h"
+#include "Core/Computation/DepthProbeComputation.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Instrument/Histogram1D.h"
+#include "Core/Computation/IBackground.h"
+#include "Core/Beam/IFootprintFactor.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Material/MaterialUtils.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Instrument/SpecularDetector1D.h"
 
 namespace
 {

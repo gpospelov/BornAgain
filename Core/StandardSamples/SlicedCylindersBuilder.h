@@ -15,7 +15,7 @@
 #ifndef SLICEDCYLINDERSBUILDER_H
 #define SLICEDCYLINDERSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds sample: cylinders on a silicon substrate
 //! @ingroup standard_samples

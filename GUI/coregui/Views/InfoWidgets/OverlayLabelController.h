@@ -15,7 +15,7 @@
 #ifndef OVERLAYLABELCONTROLLER_H
 #define OVERLAYLABELCONTROLLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <QString>
 

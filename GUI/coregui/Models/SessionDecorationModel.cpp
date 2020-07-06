@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "SessionDecorationModel.h"
-#include "MaterialItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionDecorationModel.h"
+#include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QColor>
 #include <QIcon>
 #include <QPixmap>

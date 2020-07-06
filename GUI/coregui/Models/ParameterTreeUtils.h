@@ -15,7 +15,7 @@
 #ifndef PARAMETERTREEUTILS_H
 #define PARAMETERTREEUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QPair>
 #include <QString>
 #include <functional>

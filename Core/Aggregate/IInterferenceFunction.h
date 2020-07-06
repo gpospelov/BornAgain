@@ -15,8 +15,8 @@
 #ifndef IINTERFERENCEFUNCTION_H
 #define IINTERFERENCEFUNCTION_H
 
-#include "ISample.h"
-#include "Vectors3D.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! Pure virtual base class of interference functions.
 //! @ingroup distribution_internal

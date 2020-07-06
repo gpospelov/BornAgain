@@ -15,7 +15,7 @@
 #ifndef SIMULATIONTOPYTHON_H
 #define SIMULATIONTOPYTHON_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 

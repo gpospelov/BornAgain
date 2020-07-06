@@ -15,7 +15,7 @@
 #ifndef ADJUSTINGSCROLLAREA_H
 #define ADJUSTINGSCROLLAREA_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QScrollArea>
 
 //! Modification of standard scroll area, which makes widget with dynamic layout ocuupy whole

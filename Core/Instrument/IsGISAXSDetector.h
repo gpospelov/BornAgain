@@ -15,7 +15,7 @@
 #ifndef ISGISAXSDETECTOR_H
 #define ISGISAXSDETECTOR_H
 
-#include "SphericalDetector.h"
+#include "Core/Instrument/SphericalDetector.h"
 
 //! A spherical detector used for validation with IsGISAXS results.
 //! @ingroup detector

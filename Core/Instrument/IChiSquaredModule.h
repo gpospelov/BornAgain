@@ -15,7 +15,7 @@
 #ifndef ICHISQUAREDMODULE_H
 #define ICHISQUAREDMODULE_H
 
-#include "ICloneable.h"
+#include "Core/Basics/ICloneable.h"
 #include <memory>
 
 class IVarianceFunction;

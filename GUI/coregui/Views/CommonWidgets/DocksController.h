@@ -15,8 +15,8 @@
 #ifndef DOCKSCONTROLLER_H
 #define DOCKSCONTROLLER_H
 
-#include "DockWidgetInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/CommonWidgets/DockWidgetInfo.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <QSize>
 #include <map>

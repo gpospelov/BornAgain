@@ -15,7 +15,7 @@
 #ifndef SESSIONITEMWIDGET_H
 #define SESSIONITEMWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class SessionItem;

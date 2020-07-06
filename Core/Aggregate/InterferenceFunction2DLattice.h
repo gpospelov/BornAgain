@@ -15,10 +15,10 @@
 #ifndef INTERFERENCEFUNCTION2DLATTICE_H
 #define INTERFERENCEFUNCTION2DLATTICE_H
 
-#include "FTDecayFunctions.h"
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
-#include "Lattice2D.h"
+#include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Tools/Integrator.h"
+#include "Core/Lattice/Lattice2D.h"
 
 //! Interference function of a 2D lattice.
 //! @ingroup interference

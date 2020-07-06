@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerOptions.h"
-#include "StringUtils.h"
+#include "Fit/Minimizer/MinimizerOptions.h"
+#include "Fit/Tools/StringUtils.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

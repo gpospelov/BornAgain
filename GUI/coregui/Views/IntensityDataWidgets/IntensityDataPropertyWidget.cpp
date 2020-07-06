@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataPropertyWidget.h"
-#include "ComponentEditor.h"
-#include "IntensityDataItem.h"
-#include "JobModel.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QAction>
 #include <QVBoxLayout>
 

@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataIOService.h"
-#include "ApplicationModels.h"
-#include "IntensityDataIOFactory.h"
-#include "JobItem.h"
-#include "MessageService.h"
-#include "ModelPath.h"
-#include "ProjectUtils.h"
-#include "SaveLoadInterface.h"
-#include "item_constants.h"
+#include "GUI/coregui/mainwindow/OutputDataIOService.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/utils/MessageService.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/mainwindow/SaveLoadInterface.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 namespace
 {

@@ -19,7 +19,7 @@
 //! then reworked beyond recongnition. Removed split of point and vector semantics.
 //! Transforms are relegated to a separate class Transform3D.
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <complex>
 
 //! Three-dimensional vector template, for use with integer, double, or complex components.

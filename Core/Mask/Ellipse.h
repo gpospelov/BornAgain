@@ -15,7 +15,7 @@
 #ifndef ELLIPSE_H
 #define ELLIPSE_H
 
-#include "IShape2D.h"
+#include "Core/Mask/IShape2D.h"
 
 //! Ellipse shape.
 //! @ingroup tools

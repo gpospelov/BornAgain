@@ -15,8 +15,8 @@
 #ifndef FORMFACTORDECORATORPOSITIONFACTOR_H
 #define FORMFACTORDECORATORPOSITIONFACTOR_H
 
-#include "IFormFactorDecorator.h"
-#include "Vectors3D.h"
+#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! Decorates a form factor with a position dependent phase factor.
 //! @ingroup formfactors_internal

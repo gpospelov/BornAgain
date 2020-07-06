@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "projectmanager.h"
-#include "AppSvc.h"
-#include "ApplicationModels.h"
-#include "GUIHelpers.h"
-#include "MessageService.h"
-#include "ProjectLoadWarningDialog.h"
-#include "ProjectUtils.h"
-#include "SaveService.h"
-#include "mainwindow.h"
-#include "mainwindow_constants.h"
-#include "newprojectdialog.h"
-#include "projectdocument.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/MessageService.h"
+#include "GUI/coregui/Views/InfoWidgets/ProjectLoadWarningDialog.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/mainwindow/SaveService.h"
+#include "GUI/coregui/mainwindow/mainwindow.h"
+#include "GUI/coregui/mainwindow/mainwindow_constants.h"
+#include "GUI/coregui/mainwindow/newprojectdialog.h"
+#include "GUI/coregui/mainwindow/projectdocument.h"
 #include <QApplication>
 #include <QDateTime>
 #include <QFileDialog>

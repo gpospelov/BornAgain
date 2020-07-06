@@ -15,7 +15,7 @@
 #ifndef SIMULATIONVIEW_H
 #define SIMULATIONVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;

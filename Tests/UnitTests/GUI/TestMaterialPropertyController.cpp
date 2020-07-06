@@ -1,11 +1,11 @@
-#include "ExternalProperty.h"
-#include "LayerItem.h"
-#include "MaterialItem.h"
-#include "MaterialItemUtils.h"
-#include "MaterialModel.h"
-#include "MaterialPropertyController.h"
-#include "SampleModel.h"
-#include "google_test.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/Models/MaterialModel.h"
+#include "GUI/coregui/Models/MaterialPropertyController.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <QtTest>
 
 class TestMaterialPropertyController : public ::testing::Test

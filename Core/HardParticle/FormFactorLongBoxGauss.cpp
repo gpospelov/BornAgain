@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorLongBoxGauss.h"
-#include "BornAgainNamespace.h"
-#include "Box.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorLongBoxGauss.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Shapes/Box.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)

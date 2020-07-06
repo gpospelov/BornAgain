@@ -15,7 +15,7 @@
 #ifndef GUITRANSLATIONTEST_H
 #define GUITRANSLATIONTEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <map>
 #include <memory>
 #include <string>

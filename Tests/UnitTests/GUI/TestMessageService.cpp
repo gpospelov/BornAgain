@@ -1,8 +1,8 @@
-#include "GUIHelpers.h"
-#include "GUIMessage.h"
-#include "MessageService.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/utils/GUIMessage.h"
+#include "GUI/coregui/utils/MessageService.h"
+#include "Tests/UnitTests/utilities/google_test.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QObject>
 #include <QString>
 

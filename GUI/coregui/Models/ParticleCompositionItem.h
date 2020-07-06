@@ -15,8 +15,8 @@
 #ifndef PARTICLECOMPOSITIONITEM_H
 #define PARTICLECOMPOSITIONITEM_H
 
-#include "ParticleComposition.h"
-#include "SessionGraphicsItem.h"
+#include "Core/Particle/ParticleComposition.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem
 {

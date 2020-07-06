@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "SimulationDataSelectorWidget.h"
-#include "ApplicationModels.h"
-#include "InstrumentItems.h"
-#include "InstrumentModel.h"
-#include "ModelUtils.h"
-#include "MultiLayerItem.h"
-#include "RealDataItem.h"
-#include "RealDataModel.h"
-#include "SampleModel.h"
+#include "GUI/coregui/Views/SimulationWidgets/SimulationDataSelectorWidget.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/RealDataModel.h"
+#include "GUI/coregui/Models/SampleModel.h"
 #include <QComboBox>
 #include <QFileDialog>
 #include <QGroupBox>

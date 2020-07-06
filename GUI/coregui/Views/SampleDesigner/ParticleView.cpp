@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "ParticleView.h"
-#include "FormFactorItems.h"
-#include "GUIHelpers.h"
-#include "GroupItem.h"
-#include "ParticleItem.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleView.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>

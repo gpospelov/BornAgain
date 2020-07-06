@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorGauss.h"
-#include "BornAgainNamespace.h"
-#include "Box.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
+#include "Core/SoftParticle/FormFactorGauss.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Shapes/Box.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <limits>
 
 FormFactorGauss::FormFactorGauss(double length) : FormFactorGauss(length, length) {}

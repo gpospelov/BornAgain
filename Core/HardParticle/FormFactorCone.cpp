@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCone.h"
-#include "BornAgainNamespace.h"
-#include "DoubleEllipse.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorCone.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Shapes/DoubleEllipse.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <limits>
 
 //! Constructor of a truncated cone with circular base.

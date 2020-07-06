@@ -15,7 +15,7 @@
 #ifndef BA3D_WIDGET_H
 #define BA3D_WIDGET_H
 
-#include "def.h"
+#include "GUI/ba3d/def.h"
 #include <QWidget>
 
 namespace RealSpace

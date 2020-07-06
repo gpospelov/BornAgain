@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterProxyModel.h"
-#include "FitParameterHelper.h"
-#include "FitParameterItems.h"
-#include "GUIHelpers.h"
-#include "JobModel.h"
-#include "ModelPath.h"
-#include "SessionItemUtils.h"
+#include "GUI/coregui/Models/FitParameterProxyModel.h"
+#include "GUI/coregui/Models/FitParameterHelper.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
 #include <QMimeData>
 
 using SessionItemUtils::ParentRow;

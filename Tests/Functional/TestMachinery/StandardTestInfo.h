@@ -15,7 +15,7 @@
 #ifndef STANDARDTESTINFO_H
 #define STANDARDTESTINFO_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 #include <vector>
 

@@ -15,7 +15,7 @@
 #ifndef IFORMFACTORDECORATOR_H
 #define IFORMFACTORDECORATOR_H
 
-#include "IFormFactor.h"
+#include "Core/Scattering/IFormFactor.h"
 
 //! Encapsulates another formfactor and adds extra functionality
 //! (a scalar factor, a position-dependent phase factor, ...).

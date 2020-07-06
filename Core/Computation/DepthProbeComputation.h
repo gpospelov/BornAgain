@@ -15,9 +15,9 @@
 #ifndef DEPTHPROBECOMPUTATION_H
 #define DEPTHPROBECOMPUTATION_H
 
-#include "DepthProbeComputationTerm.h"
-#include "IComputation.h"
-#include "SimulationOptions.h"
+#include "Core/Computation/DepthProbeComputationTerm.h"
+#include "Core/Computation/IComputation.h"
+#include "Core/Parametrization/SimulationOptions.h"
 
 class MultiLayer;
 

@@ -15,7 +15,7 @@
 #ifndef REALSPACEPANEL_H
 #define REALSPACEPANEL_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class SampleModel;

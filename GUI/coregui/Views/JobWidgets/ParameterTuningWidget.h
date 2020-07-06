@@ -15,7 +15,7 @@
 #ifndef PARAMETERTUNINGWIDGET_H
 #define PARAMETERTUNINGWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class JobRealTimeToolBar;
 class JobModel;

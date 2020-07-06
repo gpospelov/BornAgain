@@ -15,9 +15,9 @@
 #ifndef IFORMFACTORBORN_H
 #define IFORMFACTORBORN_H
 
-#include "IFormFactor.h"
-#include "IShape.h"
-#include "Vectors3D.h"
+#include "Core/Scattering/IFormFactor.h"
+#include "Core/Shapes/IShape.h"
+#include "Core/Vector/Vectors3D.h"
 
 struct SlicingEffects;
 

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "PyImport.h"
-#include "MultiLayer.h"
-#include "PyEmbeddedUtils.h"
-#include "PythonCore.h"
+#include "Core/Tools/PyImport.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Tools/PyEmbeddedUtils.h"
+#include "Core/Tools/PythonCore.h"
 
 namespace
 {

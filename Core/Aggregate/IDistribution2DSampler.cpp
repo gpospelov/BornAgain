@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IDistribution2DSampler.h"
+#include "Core/Aggregate/IDistribution2DSampler.h"
 #include <random>
 
 namespace

@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "FourierTransformationTest.h"
+#include "Tests/Functional/Core/CoreSpecial/FourierTransformationTest.h"
 #include "BATesting.h"
-#include "FileSystemUtils.h"
-#include "IntensityDataFunctions.h"
-#include "IntensityDataIOFactory.h"
-#include "OutputData.h"
-#include "TestUtils.h"
+#include "Core/Tools/FileSystemUtils.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/OutputData.h"
+#include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <iostream>
 #include <memory>
 #include <vector>

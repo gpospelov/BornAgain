@@ -15,8 +15,8 @@
 #ifndef SAMPLEDESIGNER_H
 #define SAMPLEDESIGNER_H
 
-#include "DesignerScene.h"
-#include "DesignerView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerView.h"
 #include <QObject>
 #include <QStackedWidget>
 

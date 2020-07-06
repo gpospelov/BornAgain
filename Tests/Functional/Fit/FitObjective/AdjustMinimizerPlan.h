@@ -15,7 +15,7 @@
 #ifndef ADJUSTMINIMIZERPLAN_H
 #define ADJUSTMINIMIZERPLAN_H
 
-#include "FitPlan.h"
+#include "Tests/Functional/Fit/FitObjective/FitPlan.h"
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Parameters are made far from their original values, Genetic+Minuit used in pair.

@@ -15,8 +15,8 @@
 #ifndef CSVDATACOLUMN_H
 #define CSVDATACOLUMN_H
 
-#include "CsvNamespace.h"
-#include "IUnitConverter.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
+#include "Core/Instrument/IUnitConverter.h"
 
 class CsvIntensityColumn
 {

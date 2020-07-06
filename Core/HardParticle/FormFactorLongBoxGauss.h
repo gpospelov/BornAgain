@@ -15,7 +15,7 @@
 #ifndef FORMFACTORLONGBOXGAUSS_H
 #define FORMFACTORLONGBOXGAUSS_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor for a long rectangular box.
 //! @ingroup legacyGrating

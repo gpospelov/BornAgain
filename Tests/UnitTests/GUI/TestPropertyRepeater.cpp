@@ -1,9 +1,9 @@
-#include "AxesItems.h"
-#include "IntensityDataItem.h"
-#include "PropertyRepeater.h"
-#include "SessionModel.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "Tests/UnitTests/utilities/google_test.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 namespace
 {

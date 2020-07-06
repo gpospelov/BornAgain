@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "RealSpaceView.h"
-#include "RealSpaceModel.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceView.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
 #include <QVBoxLayout>
 #include "GUI/ba3d/widget.h"
 

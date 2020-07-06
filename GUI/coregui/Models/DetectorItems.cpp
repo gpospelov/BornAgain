@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "DetectorItems.h"
-#include "IDetector2D.h"
-#include "MaskItems.h"
-#include "ParameterTranslators.h"
-#include "ResolutionFunction2DGaussian.h"
-#include "ResolutionFunctionItems.h"
-#include "SessionItemUtils.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/DetectorItems.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/ParameterTranslators.h"
+#include "Core/Instrument/ResolutionFunction2DGaussian.h"
+#include "GUI/coregui/Models/ResolutionFunctionItems.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 using SessionItemUtils::GetVectorItem;
 

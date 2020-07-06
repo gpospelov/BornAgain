@@ -1,8 +1,8 @@
-#include "AxesItems.h"
-#include "SessionItemController.h"
-#include "SessionModel.h"
-#include "TestSessionItemControllerHelper.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemController.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "Tests/UnitTests/GUI/TestSessionItemControllerHelper.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <QObject>
 
 class TestSessionItemController : public ::testing::Test

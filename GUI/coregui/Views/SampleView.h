@@ -15,7 +15,7 @@
 #ifndef SAMPLEVIEW_H
 #define SAMPLEVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include "fancymainwindow.h"
 
 class MainWindow;

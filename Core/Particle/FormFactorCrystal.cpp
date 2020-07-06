@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCrystal.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "WavevectorInfo.h"
+#include "Core/Particle/FormFactorCrystal.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Vector/WavevectorInfo.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
                                      const IFormFactor& meso_form_factor, double position_variance)

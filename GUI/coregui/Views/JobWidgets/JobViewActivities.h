@@ -15,8 +15,8 @@
 #ifndef JOBVIEWACTIVITIES_H
 #define JOBVIEWACTIVITIES_H
 
-#include "JobViewFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/JobWidgets/JobViewFlags.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QStringList>
 #include <QVector>

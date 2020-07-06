@@ -15,9 +15,9 @@
 #ifndef SPECULARSIMULATIONELEMENT_H
 #define SPECULARSIMULATIONELEMENT_H
 
-#include "Complex.h"
-#include "PolarizationHandler.h"
-#include "Vectors3D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/SimulationElement/PolarizationHandler.h"
+#include "Core/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>
 

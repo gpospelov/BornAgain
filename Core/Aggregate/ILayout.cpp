@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ILayout.h"
+#include "Core/Aggregate/ILayout.h"
 
 ILayout::ILayout() : m_weight(1.0) {}
 

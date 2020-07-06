@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ParameterTreeItems.h"
-#include "FitParameterHelper.h"
-#include "ModelPath.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
+#include "GUI/coregui/Models/FitParameterHelper.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 // ----------------------------------------------------------------------------
 

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FontScalingEvent.h"
-#include "ColorMap.h"
-#include "ScientificPlot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/FontScalingEvent.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include "qcustomplot.h"
 #include <QResizeEvent>
 

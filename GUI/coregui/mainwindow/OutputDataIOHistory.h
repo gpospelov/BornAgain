@@ -15,7 +15,7 @@
 #ifndef OUTPUTDATAIOHISTORY_H
 #define OUTPUTDATAIOHISTORY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDateTime>
 #include <QMap>
 #include <QVector>

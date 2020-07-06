@@ -15,7 +15,7 @@
 #ifndef DESIGNERMIMEDATA_H
 #define DESIGNERMIMEDATA_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMimeData>
 
 class QDrag;

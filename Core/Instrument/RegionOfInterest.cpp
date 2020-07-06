@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "RegionOfInterest.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "IDetector2D.h"
-#include "Rectangle.h"
+#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Mask/Rectangle.h"
 
 RegionOfInterest::RegionOfInterest(const IDetector2D& detector, double xlow, double ylow,
                                    double xup, double yup)

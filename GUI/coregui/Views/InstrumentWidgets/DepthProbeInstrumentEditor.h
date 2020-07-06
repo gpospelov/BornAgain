@@ -15,7 +15,7 @@
 #ifndef DEPTHPROBEINSTRUMENTEDITOR_H
 #define DEPTHPROBEINSTRUMENTEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ComponentEditor;
 class QGridLayout;

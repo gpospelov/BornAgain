@@ -15,7 +15,7 @@
 #ifndef CUSTOMBINAXIS_H
 #define CUSTOMBINAXIS_H
 
-#include "VariableBinAxis.h"
+#include "Core/Binning/VariableBinAxis.h"
 
 //! Axis with fixed bin size in sin(angle) space used for numerical comparison with IsGisaxs.
 //! The main feature of the axis is that it produces zero bin sizes.

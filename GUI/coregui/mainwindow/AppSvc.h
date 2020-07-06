@@ -15,8 +15,8 @@
 #ifndef APPSVC_H
 #define APPSVC_H
 
-#include "ISingleton.h"
-#include "WinDllMacros.h"
+#include "Core/Basics/ISingleton.h"
+#include "Wrap/WinDllMacros.h"
 
 class ProjectManager;
 class MaterialModel;

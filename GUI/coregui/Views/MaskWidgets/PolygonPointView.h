@@ -15,7 +15,7 @@
 #ifndef POLYGONPOINTVIEW_H
 #define POLYGONPOINTVIEW_H
 
-#include "IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 
 //! This is a View of polygon point for PolygonMaskItem
 

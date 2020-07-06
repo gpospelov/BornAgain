@@ -15,8 +15,8 @@
 #ifndef INTERFERENCEFUNCTIONFINITE3DLATTICE_H
 #define INTERFERENCEFUNCTIONFINITE3DLATTICE_H
 
-#include "IInterferenceFunction.h"
-#include "Lattice.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Lattice/Lattice.h"
 
 //! Interference function of a finite 3D lattice.
 //! @ingroup interference

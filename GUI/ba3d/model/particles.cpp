@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "particles.h"
+#include "GUI/ba3d/model/particles.h"
 #include <cmath>
 
 namespace RealSpace

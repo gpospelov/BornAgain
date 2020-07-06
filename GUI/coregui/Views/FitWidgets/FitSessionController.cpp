@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "FitSessionController.h"
-#include "FitLog.h"
-#include "FitObjectiveBuilder.h"
-#include "FitParameterItems.h"
-#include "FitProgressInfo.h"
-#include "FitSuiteItem.h"
-#include "FitWorkerLauncher.h"
-#include "GUIFitObserver.h"
-#include "GUIHelpers.h"
-#include "IntensityDataItem.h"
-#include "JobItem.h"
+#include "GUI/coregui/Views/FitWidgets/FitSessionController.h"
+#include "GUI/coregui/Views/FitWidgets/FitLog.h"
+#include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
+#include "GUI/coregui/Models/FitSuiteItem.h"
+#include "GUI/coregui/Views/FitWidgets/FitWorkerLauncher.h"
+#include "GUI/coregui/Views/FitWidgets/GUIFitObserver.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobItem.h"
 
 namespace
 {

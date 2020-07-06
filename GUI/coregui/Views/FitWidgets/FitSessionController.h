@@ -15,7 +15,7 @@
 #ifndef FITSESSIONCONTROLLER_H
 #define FITSESSIONCONTROLLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <memory>
 

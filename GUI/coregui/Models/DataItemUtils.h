@@ -15,7 +15,7 @@
 #ifndef DATAITEMUTILS_H
 #define DATAITEMUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class IntensityDataItem;
 class SessionItem;

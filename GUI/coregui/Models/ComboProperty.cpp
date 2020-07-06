@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "ComboProperty.h"
-#include "GUIHelpers.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {

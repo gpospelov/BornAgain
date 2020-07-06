@@ -15,8 +15,8 @@
 #ifndef INODE_H
 #define INODE_H
 
-#include "INodeVisitor.h"
-#include "IParameterized.h"
+#include "Core/Parametrization/INodeVisitor.h"
+#include "Core/Parametrization/IParameterized.h"
 #include <memory>
 #include <vector>
 

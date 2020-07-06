@@ -15,7 +15,7 @@
 #ifndef FORMFACTORDEBYEBUECHE_H
 #define FORMFACTORDEBYEBUECHE_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
 //! @ingroup softParticle

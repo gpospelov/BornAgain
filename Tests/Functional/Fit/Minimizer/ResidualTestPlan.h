@@ -15,8 +15,8 @@
 #ifndef RESIDUALTESTPLAN_H
 #define RESIDUALTESTPLAN_H
 
-#include "KernelTypes.h"
-#include "MinimizerTestPlan.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
 
 class ResidualTestPlan : public MinimizerTestPlan
 {

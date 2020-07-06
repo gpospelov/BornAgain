@@ -15,7 +15,7 @@
 #ifndef SPECULARINSTRUMENTEDITOR_H_
 #define SPECULARINSTRUMENTEDITOR_H_
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class SpecularInstrumentItem;
 class SpecularBeamEditor;

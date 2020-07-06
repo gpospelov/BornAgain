@@ -15,7 +15,7 @@
 #ifndef LAYERSWITHABSORPTIONBYSLDBUILDER_H
 #define LAYERSWITHABSORPTIONBYSLDBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! The LayersWithAbsorptionBySLDBuilder class generates a multilayer with 3 layers with
 //! absorption (refractive index has imaginary part). //! The middle layer is populated with

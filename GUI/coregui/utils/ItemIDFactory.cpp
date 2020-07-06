@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ItemIDFactory.h"
+#include "GUI/coregui/utils/ItemIDFactory.h"
 
 ItemIDFactory& ItemIDFactory::instance()
 {

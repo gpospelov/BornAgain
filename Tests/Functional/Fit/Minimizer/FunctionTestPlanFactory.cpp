@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FunctionTestPlanFactory.h"
-#include "FunctionTestPlanCases.h"
+#include "Tests/Functional/Fit/Minimizer/FunctionTestPlanFactory.h"
+#include "Tests/Functional/Fit/Minimizer/FunctionTestPlanCases.h"
 
 FunctionTestPlanFactory::FunctionTestPlanFactory()
 {

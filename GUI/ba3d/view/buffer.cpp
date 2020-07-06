@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "buffer.h"
+#include "GUI/ba3d/view/buffer.h"
 #include "../model/geometry.h"
 
 namespace

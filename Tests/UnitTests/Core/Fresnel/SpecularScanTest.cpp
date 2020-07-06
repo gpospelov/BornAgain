@@ -1,12 +1,12 @@
-#include "AngularSpecScan.h"
-#include "FixedBinAxis.h"
-#include "FootprintFactorGaussian.h"
-#include "PointwiseAxis.h"
-#include "QSpecScan.h"
-#include "RangedDistributions.h"
-#include "ScanResolution.h"
-#include "SpecularSimulationElement.h"
-#include "google_test.h"
+#include "Core/Instrument/AngularSpecScan.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Beam/FootprintFactorGaussian.h"
+#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Instrument/QSpecScan.h"
+#include "Core/Parametrization/RangedDistributions.h"
+#include "Core/Instrument/ScanResolution.h"
+#include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class SpecularScanTest : public ::testing::Test
 {

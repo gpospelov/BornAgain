@@ -15,7 +15,7 @@
 #ifndef LAYOUTUTILS_H
 #define LAYOUTUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class QLayout;
 class QGridLayout;

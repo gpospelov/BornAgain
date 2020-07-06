@@ -12,22 +12,22 @@
 //
 // ************************************************************************** //
 
-#include "JobModel.h"
-#include "AxesItems.h"
-#include "FitSuiteItem.h"
-#include "GUIHelpers.h"
-#include "GroupItem.h"
-#include "InstrumentItems.h"
-#include "IntensityDataItem.h"
-#include "JobItem.h"
-#include "JobItemUtils.h"
-#include "JobModelFunctions.h"
-#include "JobQueueData.h"
-#include "MultiLayerItem.h"
-#include "ParameterTreeItems.h"
-#include "ParameterTreeUtils.h"
-#include "RealDataItem.h"
-#include "SimulationOptionsItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/FitSuiteItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobItemUtils.h"
+#include "GUI/coregui/Models/JobModelFunctions.h"
+#include "GUI/coregui/Models/JobQueueData.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
+#include "GUI/coregui/Models/ParameterTreeUtils.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/SimulationOptionsItem.h"
 
 JobModel::JobModel(QObject* parent)
     : SessionModel(SessionXML::JobModelTag, parent), m_queue_data(nullptr)

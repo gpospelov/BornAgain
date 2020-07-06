@@ -12,6 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "ITestService.h"
+#include "Tests/Functional/TestMachinery/ITestService.h"
 
 ITestService::~ITestService() = default;

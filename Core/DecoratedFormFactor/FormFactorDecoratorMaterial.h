@@ -15,8 +15,8 @@
 #ifndef FORMFACTORDECORATORMATERIAL_H
 #define FORMFACTORDECORATORMATERIAL_H
 
-#include "IFormFactorDecorator.h"
-#include "Material.h"
+#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Material/Material.h"
 #include <memory>
 
 //! Decorates a scalar formfactor with the correct factor for the material's

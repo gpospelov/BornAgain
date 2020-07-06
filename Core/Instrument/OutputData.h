@@ -15,12 +15,12 @@
 #ifndef OUTPUTDATA_H
 #define OUTPUTDATA_H
 
-#include "FixedBinAxis.h"
-#include "LLData.h"
-#include "OutputDataIterator.h"
-#include "PyObject.h"
-#include "SafePointerVector.h"
-#include "ThreadInfo.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Instrument/LLData.h"
+#include "Core/Instrument/OutputDataIterator.h"
+#include "Core/Tools/PyObject.h"
+#include "Core/Tools/SafePointerVector.h"
+#include "Core/Parametrization/ThreadInfo.h"
 #include <cassert>
 #include <sstream>
 

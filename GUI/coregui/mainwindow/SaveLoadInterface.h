@@ -15,7 +15,7 @@
 #ifndef SAVELOADINTERFACE_H
 #define SAVELOADINTERFACE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 #include <QDateTime>
 #include <QString>

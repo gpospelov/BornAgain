@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Particle.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorDecoratorPositionFactor.h"
-#include "MaterialFactoryFuncs.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
 
 Particle::Particle() : m_material(HomogeneousMaterial())
 {

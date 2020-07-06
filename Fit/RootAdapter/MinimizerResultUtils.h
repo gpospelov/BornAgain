@@ -15,7 +15,7 @@
 #ifndef MINIMIZERRESULTSHELPER_H
 #define MINIMIZERRESULTSHELPER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class RootMinimizerAdapter;

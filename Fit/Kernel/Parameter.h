@@ -15,8 +15,8 @@
 #ifndef PARAMETER_H
 #define PARAMETER_H
 
-#include "AttLimits.h"
-#include "WinDllMacros.h"
+#include "Fit/Tools/AttLimits.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 namespace Fit

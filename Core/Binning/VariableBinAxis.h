@@ -15,7 +15,7 @@
 #ifndef VARIABLEBINAXIS_H
 #define VARIABLEBINAXIS_H
 
-#include "IAxis.h"
+#include "Core/Binning/IAxis.h"
 
 //! Axis with variable bin size.
 //! @ingroup tools

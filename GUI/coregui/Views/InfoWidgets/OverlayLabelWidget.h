@@ -15,7 +15,7 @@
 #ifndef OVERLAYLABELWIDGET_H
 #define OVERLAYLABELWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QRect>
 #include <QString>
 #include <QWidget>

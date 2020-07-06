@@ -15,8 +15,8 @@
 #ifndef IMPORTDATAVIEW_H
 #define IMPORTDATAVIEW_H
 
-#include "ItemStackPresenter.h"
-#include "RealDataPresenter.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataPresenter.h"
 
 class RealDataModel;
 class RealDataSelectorWidget;

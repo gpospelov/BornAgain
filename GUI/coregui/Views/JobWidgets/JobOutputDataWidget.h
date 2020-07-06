@@ -15,7 +15,7 @@
 #ifndef JOBOUTPUTDATAWIDGET_H
 #define JOBOUTPUTDATAWIDGET_H
 
-#include "ItemStackPresenter.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h"
 
 class JobResultsPresenter;
 class JobModel;

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "DataProperties.h"
-#include "ComboProperty.h"
-#include "DataItem.h"
-#include "GUIHelpers.h"
-#include "ModelPath.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/DataProperties.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 namespace
 {

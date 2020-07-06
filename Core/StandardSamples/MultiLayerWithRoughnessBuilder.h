@@ -15,7 +15,7 @@
 #ifndef MULTILAYERWITHROUGHNESSBUILDER_H
 #define MULTILAYERWITHROUGHNESSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

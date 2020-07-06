@@ -15,9 +15,9 @@
 #ifndef SPECULARCOMPUTATION_H_
 #define SPECULARCOMPUTATION_H_
 
-#include "IComputation.h"
-#include "SimulationOptions.h"
-#include "SpecularComputationTerm.h"
+#include "Core/Computation/IComputation.h"
+#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/Computation/SpecularComputationTerm.h"
 
 class MultiLayer;
 class SpecularSimulationElement;

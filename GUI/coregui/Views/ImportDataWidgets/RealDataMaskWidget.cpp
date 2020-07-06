@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "RealDataMaskWidget.h"
-#include "IntensityDataItem.h"
-#include "MaskEditor.h"
-#include "MaskItems.h"
-#include "RealDataItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataMaskWidget.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QAction>
 #include <QBoxLayout>
 

@@ -15,7 +15,7 @@
 #ifndef PROJECTFLAGS_H
 #define PROJECTFLAGS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QFlags>
 
 class BA_CORE_API_ ProjectFlags

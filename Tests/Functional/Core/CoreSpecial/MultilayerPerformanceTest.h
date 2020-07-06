@@ -15,7 +15,7 @@
 #ifndef MULTILAYERPERFORMANCETEST_H
 #define MULTILAYERPERFORMANCETEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Functional test for measuring simulation performance on samples with different number of layers.
 

@@ -21,7 +21,7 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class QGraphicsScene;

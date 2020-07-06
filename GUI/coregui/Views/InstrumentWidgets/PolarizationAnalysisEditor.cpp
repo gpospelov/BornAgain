@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "PolarizationAnalysisEditor.h"
-#include "BeamItems.h"
-#include "ColumnResizer.h"
-#include "ComponentEditor.h"
-#include "DetectorItems.h"
-#include "InstrumentItems.h"
-#include "LayoutUtils.h"
+#include "GUI/coregui/Views/InstrumentWidgets/PolarizationAnalysisEditor.h"
+#include "GUI/coregui/Models/BeamItems.h"
+#include "GUI/coregui/Views/CommonWidgets/ColumnResizer.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
+#include "GUI/coregui/Models/DetectorItems.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/utils/LayoutUtils.h"
 #include <QGridLayout>
 #include <QSpacerItem>
 

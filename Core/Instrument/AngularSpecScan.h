@@ -15,7 +15,7 @@
 #ifndef ANGULARSPECSCAN_H
 #define ANGULARSPECSCAN_H
 
-#include "ISpecularScan.h"
+#include "Core/Instrument/ISpecularScan.h"
 #include <memory>
 
 class ParameterSample;

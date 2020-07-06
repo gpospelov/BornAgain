@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "FitObjective.h"
-#include "ArrayUtils.h"
-#include "ChiSquaredModule.h"
-#include "FitStatus.h"
-#include "MinimizerResult.h"
-#include "ObjectiveMetric.h"
-#include "ObjectiveMetricUtils.h"
-#include "Parameters.h"
-#include "PyFittingCallbacks.h"
-#include "Simulation.h"
+#include "Core/Fitting/FitObjective.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Instrument/ChiSquaredModule.h"
+#include "Core/Fitting/FitStatus.h"
+#include "Fit/Kernel/MinimizerResult.h"
+#include "Core/Fitting/ObjectiveMetric.h"
+#include "Core/Fitting/ObjectiveMetricUtils.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Core/Fitting/PyFittingCallbacks.h"
+#include "Core/Simulation/Simulation.h"
 #include <stdexcept>
 
 class IMetricWrapper

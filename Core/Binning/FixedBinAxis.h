@@ -15,7 +15,7 @@
 #ifndef FIXEDBINAXIS_H
 #define FIXEDBINAXIS_H
 
-#include "IAxis.h"
+#include "Core/Binning/IAxis.h"
 
 //! Axis with fixed bin size.
 //! @ingroup tools

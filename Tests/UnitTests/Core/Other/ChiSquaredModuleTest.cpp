@@ -1,8 +1,8 @@
-#include "ChiSquaredModule.h"
-#include "BornAgainNamespace.h"
-#include "OutputData.h"
-#include "VarianceFunctions.h"
-#include "google_test.h"
+#include "Core/Instrument/ChiSquaredModule.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Instrument/VarianceFunctions.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 // TODO revise test
 

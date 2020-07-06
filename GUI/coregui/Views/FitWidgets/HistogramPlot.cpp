@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "HistogramPlot.h"
-#include "StyleUtils.h"
-#include "plot_constants.h"
+#include "GUI/coregui/Views/FitWidgets/HistogramPlot.h"
+#include "GUI/coregui/utils/StyleUtils.h"
+#include "GUI/coregui/Views/FitWidgets/plot_constants.h"
 
 HistogramPlot::HistogramPlot(QWidget* parent) : QWidget(parent), m_customPlot(new QCustomPlot)
 

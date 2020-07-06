@@ -15,7 +15,7 @@
 #ifndef GUIEXAMPLESFACTORY_H
 #define GUIEXAMPLESFACTORY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 
 class SessionItem;

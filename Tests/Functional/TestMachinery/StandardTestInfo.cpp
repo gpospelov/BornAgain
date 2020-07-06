@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "StandardTestInfo.h"
+#include "Tests/Functional/TestMachinery/StandardTestInfo.h"
 #include <stdexcept>
 
 StandardTestInfo::StandardTestInfo() : m_threshold(0.0) {}

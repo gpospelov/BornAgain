@@ -15,7 +15,7 @@
 #ifndef JOBLISTWIDGET_H
 #define JOBLISTWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QModelIndexList>
 #include <QWidget>
 

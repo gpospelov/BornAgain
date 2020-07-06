@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "SaveProjectionsAssistant.h"
-#include "GUIHelpers.h"
-#include "Histogram1D.h"
-#include "Histogram2D.h"
-#include "IntensityDataItem.h"
-#include "MaskItems.h"
-#include "ProjectUtils.h"
-#include "ProjectionItems.h"
-#include "PythonFormatting.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/SaveProjectionsAssistant.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Core/Instrument/Histogram1D.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/Models/ProjectionItems.h"
+#include "Core/Export/PythonFormatting.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QFileDialog>
 #include <QTextStream>
 

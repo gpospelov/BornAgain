@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "JobResultsPresenter.h"
-#include "FitComparisonWidget.h"
-#include "FitComparisonWidget1D.h"
-#include "GUIHelpers.h"
-#include "IntensityDataProjectionsWidget.h"
-#include "IntensityDataWidget.h"
-#include "JobItem.h"
-#include "SpecularDataWidget.h"
+#include "GUI/coregui/Views/JobWidgets/JobResultsPresenter.h"
+#include "GUI/coregui/Views/FitWidgets/FitComparisonWidget.h"
+#include "GUI/coregui/Views/FitWidgets/FitComparisonWidget1D.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataProjectionsWidget.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/SpecularDataWidget.h"
 
 namespace
 {

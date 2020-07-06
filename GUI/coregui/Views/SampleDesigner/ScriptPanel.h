@@ -15,7 +15,7 @@
 #ifndef SCRIPTPANEL_H
 #define SCRIPTPANEL_H
 
-#include "InfoPanel.h"
+#include "GUI/coregui/Views/CommonWidgets/InfoPanel.h"
 
 class SampleModel;
 class InstrumentModel;

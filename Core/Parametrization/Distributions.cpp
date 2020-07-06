@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "Distributions.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "ParameterPool.h"
-#include "ParameterSample.h"
-#include "RealParameter.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>

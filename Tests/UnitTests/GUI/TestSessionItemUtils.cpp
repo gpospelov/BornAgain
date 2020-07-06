@@ -1,11 +1,11 @@
-#include "ComboProperty.h"
-#include "ExternalProperty.h"
-#include "SessionItem.h"
-#include "SessionItemUtils.h"
-#include "SessionModel.h"
-#include "VectorItem.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Models/VectorItem.h"
+#include "Tests/UnitTests/utilities/google_test.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 class TestSessionItemUtils : public ::testing::Test
 {

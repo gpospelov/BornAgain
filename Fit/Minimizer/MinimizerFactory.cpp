@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerFactory.h"
-#include "GSLLevenbergMarquardtMinimizer.h"
-#include "GSLMultiMinimizer.h"
-#include "GeneticMinimizer.h"
-#include "MinimizerCatalogue.h"
-#include "Minuit2Minimizer.h"
-#include "SimAnMinimizer.h"
-#include "TestMinimizer.h"
+#include "Fit/Minimizer/MinimizerFactory.h"
+#include "Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.h"
+#include "Fit/RootAdapter/GSLMultiMinimizer.h"
+#include "Fit/RootAdapter/GeneticMinimizer.h"
+#include "Fit/Minimizer/MinimizerCatalogue.h"
+#include "Fit/RootAdapter/Minuit2Minimizer.h"
+#include "Fit/RootAdapter/SimAnMinimizer.h"
+#include "Fit/Minimizer/TestMinimizer.h"
 #include <boost/format.hpp>
 #include <iomanip>
 #include <iostream>

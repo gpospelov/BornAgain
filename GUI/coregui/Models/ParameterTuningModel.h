@@ -15,7 +15,7 @@
 #ifndef PARAMETERTUNINGMODEL_H
 #define PARAMETERTUNINGMODEL_H
 
-#include "FilterPropertyProxy.h"
+#include "GUI/coregui/Models/FilterPropertyProxy.h"
 
 class ParameterItem;
 

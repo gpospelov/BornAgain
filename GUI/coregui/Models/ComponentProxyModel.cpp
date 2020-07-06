@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ComponentProxyModel.h"
-#include "ComponentProxyStrategy.h"
-#include "ModelUtils.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/ComponentProxyModel.h"
+#include "GUI/coregui/Models/ComponentProxyStrategy.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QSet>
 #include <functional>
 

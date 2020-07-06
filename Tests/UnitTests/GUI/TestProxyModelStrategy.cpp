@@ -1,13 +1,13 @@
-#include "ComponentProxyModel.h"
-#include "ComponentProxyStrategy.h"
-#include "FormFactorItems.h"
-#include "ModelUtils.h"
-#include "ParticleItem.h"
-#include "ProxyModelStrategy.h"
-#include "SessionModel.h"
-#include "VectorItem.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/ComponentProxyModel.h"
+#include "GUI/coregui/Models/ComponentProxyStrategy.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/ProxyModelStrategy.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Models/VectorItem.h"
+#include "Tests/UnitTests/utilities/google_test.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 class TestProxyModelStrategy : public ::testing::Test
 {

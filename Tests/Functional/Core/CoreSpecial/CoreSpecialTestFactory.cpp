@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "CoreSpecialTestFactory.h"
-#include "BatchSimulation.h"
-#include "CoreIOPathTest.h"
-#include "CoreIOPerformanceTest.h"
-#include "FourierTransformationTest.h"
-#include "MesoCrystalPerformanceTest.h"
-#include "MultiThreadPerformanceTest.h"
-#include "MultilayerPerformanceTest.h"
+#include "Tests/Functional/Core/CoreSpecial/CoreSpecialTestFactory.h"
+#include "Tests/Functional/Core/CoreSpecial/BatchSimulation.h"
+#include "Tests/Functional/Core/CoreSpecial/CoreIOPathTest.h"
+#include "Tests/Functional/Core/CoreSpecial/CoreIOPerformanceTest.h"
+#include "Tests/Functional/Core/CoreSpecial/FourierTransformationTest.h"
+#include "Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceTest.h"
+#include "Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTest.h"
+#include "Tests/Functional/Core/CoreSpecial/MultilayerPerformanceTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {

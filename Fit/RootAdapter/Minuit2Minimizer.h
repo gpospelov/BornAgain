@@ -15,8 +15,8 @@
 #ifndef MINUIT2MINIMIZER_H
 #define MINUIT2MINIMIZER_H
 
-#include "MinimizerConstants.h"
-#include "RootMinimizerAdapter.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
+#include "Fit/RootAdapter/RootMinimizerAdapter.h"
 #include <memory>
 
 namespace ROOT

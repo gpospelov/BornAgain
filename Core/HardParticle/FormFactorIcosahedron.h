@@ -15,7 +15,7 @@
 #ifndef FORMFACTORICOSAHEDRON_H
 #define FORMFACTORICOSAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A regular icosahedron.
 //! @ingroup hardParticle

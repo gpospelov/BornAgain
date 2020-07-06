@@ -15,7 +15,7 @@
 #ifndef SIZEHANDLEELEMENT_H
 #define SIZEHANDLEELEMENT_H
 
-#include "MaskEditorHelper.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h"
 #include <QCursor>
 #include <QGraphicsObject>
 #include <QMap>

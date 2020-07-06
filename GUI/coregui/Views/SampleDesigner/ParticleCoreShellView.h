@@ -15,7 +15,7 @@
 #ifndef PARTICLECORESHELLVIEW_H
 #define PARTICLECORESHELLVIEW_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 //! Class representing view of Particle item
 class BA_CORE_API_ ParticleCoreShellView : public ConnectableView

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "PlotEventInfo.h"
-#include "GUIHelpers.h"
-#include "PythonFormatting.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Core/Export/PythonFormatting.h"
 
 PlotEventInfo::PlotEventInfo(PLOT_TYPE type)
     : m_in_axes_range(false), m_log_valued_axis(false), m_x(0.0), m_y(0.0), m_value(0.0), m_nx(0),

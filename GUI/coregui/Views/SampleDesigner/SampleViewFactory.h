@@ -15,7 +15,7 @@
 #ifndef SAMPLEVIEWFACTORY_H
 #define SAMPLEVIEWFACTORY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QStringList>
 

@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "FTDistributions2D.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
+#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <limits>
 
 //! Constructor of two-dimensional probability distribution.

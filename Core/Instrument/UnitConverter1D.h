@@ -15,7 +15,7 @@
 #ifndef UNITCONVERTER1D_H
 #define UNITCONVERTER1D_H
 
-#include "IUnitConverter.h"
+#include "Core/Instrument/IUnitConverter.h"
 
 #include <functional>
 

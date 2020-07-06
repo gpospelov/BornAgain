@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "GUIStandardTest.h"
-#include "DocumentModel.h"
-#include "DomainSimulationBuilder.h"
-#include "GUIObjectBuilder.h"
-#include "InstrumentItems.h"
-#include "InstrumentModel.h"
-#include "MaterialModel.h"
-#include "SampleModel.h"
-#include "Simulation.h"
-#include "TestUtils.h"
+#include "Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.h"
+#include "GUI/coregui/Models/DocumentModel.h"
+#include "GUI/coregui/Models/DomainSimulationBuilder.h"
+#include "GUI/coregui/Models/GUIObjectBuilder.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
+#include "GUI/coregui/Models/MaterialModel.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "Core/Simulation/Simulation.h"
+#include "Tests/Functional/TestMachinery/TestUtils.h"
 
 namespace
 {

@@ -15,7 +15,7 @@
 #ifndef CYLINDERSBUILDER_H
 #define CYLINDERSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

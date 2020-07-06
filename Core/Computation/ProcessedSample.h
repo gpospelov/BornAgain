@@ -15,9 +15,9 @@
 #ifndef PROCESSEDSAMPLE_H
 #define PROCESSEDSAMPLE_H
 
-#include "Material.h"
-#include "Slice.h"
-#include "Vectors3D.h"
+#include "Core/Material/Material.h"
+#include "Core/Computation/Slice.h"
+#include "Core/Vector/Vectors3D.h"
 #include <map>
 #include <memory>
 #include <vector>

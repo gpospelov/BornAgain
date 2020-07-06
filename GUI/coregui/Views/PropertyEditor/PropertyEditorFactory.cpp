@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "PropertyEditorFactory.h"
-#include "ComboProperty.h"
-#include "CustomEditors.h"
-#include "CustomEventFilters.h"
-#include "ExternalProperty.h"
-#include "GroupItemController.h"
-#include "MultiComboPropertyEditor.h"
-#include "RealLimits.h"
-#include "ScientificSpinBox.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Views/PropertyEditor/PropertyEditorFactory.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Views/PropertyEditor/CustomEditors.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Models/GroupItemController.h"
+#include "GUI/coregui/Views/PropertyEditor/MultiComboPropertyEditor.h"
+#include "Fit/Tools/RealLimits.h"
+#include "GUI/coregui/Views/JobWidgets/ScientificSpinBox.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QSpinBox>

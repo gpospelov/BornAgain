@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerCatalogue.h"
-#include "MinimizerUtils.h"
+#include "Fit/Minimizer/MinimizerCatalogue.h"
+#include "Fit/Tools/MinimizerUtils.h"
 #include <boost/format.hpp>
 #include <sstream>
 

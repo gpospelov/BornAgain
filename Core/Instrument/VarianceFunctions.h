@@ -15,7 +15,7 @@
 #ifndef VARIANCEFUNCTIONS_H
 #define VARIANCEFUNCTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Variance function interface.
 //! @ingroup fitting_internal

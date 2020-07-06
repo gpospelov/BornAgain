@@ -15,8 +15,8 @@
 #ifndef OFFSPECSIMULATION_H
 #define OFFSPECSIMULATION_H
 
-#include "Simulation2D.h"
-#include "SimulationElement.h"
+#include "Core/Simulation/Simulation2D.h"
+#include "Core/SimulationElement/SimulationElement.h"
 
 class Histogram2D;
 

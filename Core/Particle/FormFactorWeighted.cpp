@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorWeighted.h"
-#include "Algorithms.h"
-#include "BornAgainNamespace.h"
+#include "Core/Particle/FormFactorWeighted.h"
+#include "Core/Basics/Algorithms.h"
+#include "Core/Basics/BornAgainNamespace.h"
 
 FormFactorWeighted::FormFactorWeighted()
 {

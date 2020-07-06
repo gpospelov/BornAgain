@@ -15,9 +15,9 @@
 #ifndef IPEAKSHAPE_H
 #define IPEAKSHAPE_H
 
-#include "ISample.h"
-#include "Integrator.h"
-#include "Vectors3D.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Tools/Integrator.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! Pure virtual interface class that defines the peak shape of a Bragg peak.
 //!

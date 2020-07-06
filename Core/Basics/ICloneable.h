@@ -15,7 +15,7 @@
 #ifndef ICLONEABLE_H
 #define ICLONEABLE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Interface for polymorphic classes that should not be copied, except by explicit cloning.
 //!

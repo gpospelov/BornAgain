@@ -1,5 +1,5 @@
-#include "MinimizerOptions.h"
-#include "google_test.h"
+#include "Fit/Minimizer/MinimizerOptions.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <exception>
 
 class MinimizerOptionsTest : public ::testing::Test

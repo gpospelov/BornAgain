@@ -15,8 +15,8 @@
 #ifndef OUTPUTDATAIOSERVICE_H
 #define OUTPUTDATAIOSERVICE_H
 
-#include "OutputDataIOHistory.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/mainwindow/OutputDataIOHistory.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class ApplicationModels;

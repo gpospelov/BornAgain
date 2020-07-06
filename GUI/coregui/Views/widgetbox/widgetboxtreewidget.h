@@ -42,7 +42,7 @@
 #ifndef WIDGETBOXTREEWIDGET_H
 #define WIDGETBOXTREEWIDGET_H
 
-#include "qdesigner_widgetbox_p.h"
+#include "GUI/coregui/Views/widgetbox/qdesigner_widgetbox_p.h"
 
 #include <QHash>
 #include <QIcon>

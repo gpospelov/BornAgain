@@ -15,7 +15,7 @@
 #ifndef IREGISTRY_H
 #define IREGISTRY_H
 
-#include "Exceptions.h"
+#include "Core/Basics/Exceptions.h"
 #include <map>
 #include <memory>
 #include <string>

@@ -1,6 +1,6 @@
-#include "GUIHelpers.h"
-#include "ProjectUtils.h"
-#include "google_test.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <QDir>
 #include <QFile>
 #include <QTextStream>

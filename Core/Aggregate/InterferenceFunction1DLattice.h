@@ -15,8 +15,8 @@
 #ifndef INTERFERENCEFUNCTION1DLATTICE_H
 #define INTERFERENCEFUNCTION1DLATTICE_H
 
-#include "IInterferenceFunction.h"
-#include "Lattice1DParameters.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Lattice/Lattice1DParameters.h"
 
 class IFTDecayFunction1D;
 

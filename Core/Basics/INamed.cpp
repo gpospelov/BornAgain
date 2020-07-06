@@ -12,6 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "INamed.h"
+#include "Core/Basics/INamed.h"
 
 INamed::~INamed() = default;

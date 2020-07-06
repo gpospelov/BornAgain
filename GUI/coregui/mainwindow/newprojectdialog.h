@@ -15,7 +15,7 @@
 #ifndef NEWPROJECTDIALOG_H
 #define NEWPROJECTDIALOG_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDialog>
 #include <QLineEdit>
 

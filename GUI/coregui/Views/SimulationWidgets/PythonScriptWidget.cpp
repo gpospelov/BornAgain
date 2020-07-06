@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "PythonScriptWidget.h"
-#include "DesignerHelper.h"
-#include "DomainSimulationBuilder.h"
-#include "ExportToPython.h"
-#include "GISASSimulation.h"
-#include "InstrumentItems.h"
-#include "PythonSyntaxHighlighter.h"
-#include "StyleUtils.h"
-#include "WarningSign.h"
+#include "GUI/coregui/Views/SimulationWidgets/PythonScriptWidget.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/Models/DomainSimulationBuilder.h"
+#include "Core/Export/ExportToPython.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Views/InfoWidgets/PythonSyntaxHighlighter.h"
+#include "GUI/coregui/utils/StyleUtils.h"
+#include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPushButton>

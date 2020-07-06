@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Kernel.h"
-#include "IMinimizer.h"
-#include "MinimizerFactory.h"
+#include "Fit/Kernel/Kernel.h"
+#include "Fit/Minimizer/IMinimizer.h"
+#include "Fit/Minimizer/MinimizerFactory.h"
 
 using namespace Fit;
 

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "MaskEditorToolBar.h"
-#include "MaskEditorActions.h"
-#include "mainwindow_constants.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorToolBar.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorActions.h"
+#include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QButtonGroup>
 #include <QLabel>
 #include <QRadioButton>

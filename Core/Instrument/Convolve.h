@@ -15,7 +15,7 @@
 #ifndef CONVOLVE_H
 #define CONVOLVE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <fftw3.h>
 #include <vector>
 

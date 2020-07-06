@@ -15,7 +15,7 @@
 #ifndef IPARAMETER_H
 #define IPARAMETER_H
 
-#include "INamed.h"
+#include "Core/Basics/INamed.h"
 #include <functional>
 #include <stdexcept>
 #include <string>

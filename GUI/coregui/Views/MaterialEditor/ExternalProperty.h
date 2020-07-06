@@ -15,7 +15,7 @@
 #ifndef EXTERNALPROPERTY_H
 #define EXTERNALPROPERTY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QColor>
 #include <QMetaType>
 #include <QPixmap>

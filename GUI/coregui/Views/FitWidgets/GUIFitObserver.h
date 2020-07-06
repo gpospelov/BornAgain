@@ -15,7 +15,7 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "FitProgressInfo.h"
+#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
 #include <QObject>
 #include <condition_variable>
 #include <mutex>

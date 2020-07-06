@@ -15,7 +15,7 @@
 #ifndef LATTICEBUILDER_H
 #define LATTICEBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

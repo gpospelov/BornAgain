@@ -15,7 +15,7 @@
 #ifndef SPECULARPLOT_H
 #define SPECULARPLOT_H
 
-#include "ScientificPlot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include "qcustomplot.h"
 #include <memory>
 

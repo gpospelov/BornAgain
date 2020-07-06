@@ -15,7 +15,7 @@
 #ifndef PARTICLEDISTRIBUTIONSBUILDER_H
 #define PARTICLEDISTRIBUTIONSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 //! @ingroup standard_samples

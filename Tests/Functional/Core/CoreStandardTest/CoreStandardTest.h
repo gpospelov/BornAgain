@@ -15,7 +15,7 @@
 #ifndef CORESTANDARDTEST_H
 #define CORESTANDARDTEST_H
 
-#include "IStandardTest.h"
+#include "Tests/Functional/TestMachinery/IStandardTest.h"
 
 class Simulation;
 

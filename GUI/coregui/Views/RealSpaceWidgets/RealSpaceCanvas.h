@@ -15,7 +15,7 @@
 #ifndef REALSPACECANVAS_H
 #define REALSPACECANVAS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QItemSelectionModel>
 #include <QModelIndex>
 #include <QWidget>

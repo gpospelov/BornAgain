@@ -15,8 +15,8 @@
 #ifndef SIMULATIONAREA_H
 #define SIMULATIONAREA_H
 
-#include "SimulationAreaIterator.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/SimulationAreaIterator.h"
+#include "Wrap/WinDllMacros.h"
 
 class IDetector;
 

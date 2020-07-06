@@ -15,7 +15,7 @@
 #ifndef STANDARDTESTSERVICE_H
 #define STANDARDTESTSERVICE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 class IFunctionalTest;

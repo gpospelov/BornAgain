@@ -15,7 +15,7 @@
 #ifndef LAYERSWITHABSORPTIONBUILDER_H
 #define LAYERSWITHABSORPTIONBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include <memory>
 
 class FormFactorComponents;

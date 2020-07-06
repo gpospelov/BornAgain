@@ -12,4 +12,4 @@
 //
 // ************************************************************************** //
 
-#include "SlicedParticle.h"
+#include "Core/Particle/SlicedParticle.h"

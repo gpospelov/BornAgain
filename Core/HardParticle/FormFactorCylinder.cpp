@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCylinder.h"
-#include "BornAgainNamespace.h"
-#include "DoubleEllipse.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorCylinder.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Shapes/DoubleEllipse.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 //! Constructor of a cylinder with a circular base.
 //! @param radius: radius of the circular base in nanometers

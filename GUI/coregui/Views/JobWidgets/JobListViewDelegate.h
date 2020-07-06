@@ -15,7 +15,7 @@
 #ifndef JOBLISTVIEWDELEGATE_H
 #define JOBLISTVIEWDELEGATE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QItemDelegate>
 #include <QMap>
 #include <QRect>

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "InstrumentModel.h"
-#include "InstrumentItems.h"
-#include "SpecularBeamInclinationItem.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
 
 InstrumentModel::InstrumentModel(QObject* parent)
     : SessionModel(SessionXML::InstrumentModelTag, parent)

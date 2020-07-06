@@ -15,8 +15,8 @@
 #ifndef IINTERFERENCEFUNCTIONSTRATEGY_H
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
-#include "Complex.h"
-#include "SimulationOptions.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Parametrization/SimulationOptions.h"
 #include <memory>
 #include <vector>
 

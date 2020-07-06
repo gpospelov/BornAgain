@@ -15,10 +15,10 @@
 #ifndef SIMULATIONELEMENT_H
 #define SIMULATIONELEMENT_H
 
-#include "Complex.h"
-#include "IPixel.h"
-#include "PolarizationHandler.h"
-#include "Vectors3D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Binning/IPixel.h"
+#include "Core/SimulationElement/PolarizationHandler.h"
+#include "Core/Vector/Vectors3D.h"
 #include <memory>
 
 class IPixel;

@@ -15,7 +15,7 @@
 #ifndef IDISTRIBUTION1DSAMPLER_H
 #define IDISTRIBUTION1DSAMPLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class BA_CORE_API_ IDistribution1DSampler
 {

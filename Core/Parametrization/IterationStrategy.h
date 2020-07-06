@@ -15,7 +15,7 @@
 #ifndef ITERATIONSTRATEGY_H
 #define ITERATIONSTRATEGY_H
 
-#include "ISample.h"
+#include "Core/Scattering/ISample.h"
 
 class IteratorMemento;
 

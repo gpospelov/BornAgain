@@ -15,8 +15,8 @@
 #ifndef LAYERROUGHNESS_H
 #define LAYERROUGHNESS_H
 
-#include "ISample.h"
-#include "Vectors3D.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! A roughness of interface between two layers.
 //!

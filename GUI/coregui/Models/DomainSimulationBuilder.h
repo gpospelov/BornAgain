@@ -15,7 +15,7 @@
 #ifndef DOMAINSIMULATIONBUILDER_H
 #define DOMAINSIMULATIONBUILDER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 class Simulation;

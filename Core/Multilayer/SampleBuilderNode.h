@@ -15,7 +15,7 @@
 #ifndef SAMPLEBUILDERNODE_H
 #define SAMPLEBUILDERNODE_H
 
-#include "INode.h"
+#include "Core/Parametrization/INode.h"
 #include <memory>
 
 class IMultiLayerBuilder;

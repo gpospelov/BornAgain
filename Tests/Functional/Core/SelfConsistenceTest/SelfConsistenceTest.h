@@ -15,7 +15,7 @@
 #ifndef CORESELFCONSISTENCYTEST_H
 #define CORESELFCONSISTENCYTEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <memory>
 #include <vector>
 

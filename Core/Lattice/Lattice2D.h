@@ -15,8 +15,8 @@
 #ifndef LATTICE2D_H
 #define LATTICE2D_H
 
-#include "ICloneable.h"
-#include "INode.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 
 class BA_CORE_API_ Lattice2D : public ICloneable, public INode
 {

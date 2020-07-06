@@ -15,8 +15,8 @@
 #ifndef MINIMIZERFACTORY_H
 #define MINIMIZERFACTORY_H
 
-#include "MinimizerCatalogue.h"
-#include "WinDllMacros.h"
+#include "Fit/Minimizer/MinimizerCatalogue.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class IMinimizer;

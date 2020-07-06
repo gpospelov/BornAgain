@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "StatusLabel.h"
+#include "GUI/coregui/Views/CommonWidgets/StatusLabel.h"
 #include <QColor>
 #include <QFont>
 #include <QPainter>
-#include "StyleUtils.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 namespace
 {

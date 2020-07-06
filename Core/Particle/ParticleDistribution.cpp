@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "ParticleDistribution.h"
-#include "BornAgainNamespace.h"
-#include "Distributions.h"
-#include "Exceptions.h"
-#include "IParticle.h"
-#include "ParameterPool.h"
-#include "ParameterSample.h"
-#include "RealParameter.h"
+#include "Core/Particle/ParticleDistribution.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Particle/IParticle.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <map>
 
 ParticleDistribution::ParticleDistribution(const IParticle& prototype,

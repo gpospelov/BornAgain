@@ -53,7 +53,7 @@
 #ifndef QDESIGNER_WIDGETBOX_P_H
 #define QDESIGNER_WIDGETBOX_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 #include <QtDesigner/QDesignerWidgetBoxInterface>
 
 QT_BEGIN_NAMESPACE

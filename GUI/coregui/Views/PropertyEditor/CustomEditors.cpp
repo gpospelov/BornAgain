@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "CustomEditors.h"
-#include "ComboProperty.h"
-#include "CustomEventFilters.h"
-#include "ExternalProperty.h"
-#include "GUIHelpers.h"
-#include "GroupItemController.h"
-#include "MaterialItemUtils.h"
-#include "ScientificSpinBox.h"
+#include "GUI/coregui/Views/PropertyEditor/CustomEditors.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/GroupItemController.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/Views/JobWidgets/ScientificSpinBox.h"
 #include <QApplication>
 #include <QBoxLayout>
 #include <QCheckBox>

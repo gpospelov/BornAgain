@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "TwoLayerRoughnessBuilder.h"
-#include "BornAgainNamespace.h"
-#include "Layer.h"
-#include "LayerRoughness.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "RealParameter.h"
-#include "Units.h"
+#include "Core/StandardSamples/TwoLayerRoughnessBuilder.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/LayerRoughness.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Parametrization/Units.h"
 
 TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
     : m_sigma(1.0 * Units::nanometer), m_hurst(0.3), m_lateralCorrLength(5.0 * Units::nanometer)

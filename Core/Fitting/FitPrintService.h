@@ -15,8 +15,8 @@
 #ifndef FITPRINTSERVICE_H
 #define FITPRINTSERVICE_H
 
-#include "WallclockTimer.h"
-#include "WinDllMacros.h"
+#include "Fit/Tools/WallclockTimer.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class FitObjective;

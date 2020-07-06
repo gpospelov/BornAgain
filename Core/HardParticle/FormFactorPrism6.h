@@ -14,7 +14,7 @@
 
 #ifndef FORMFACTORPRISM6_H
 #define FORMFACTORPRISM6_H
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A prism based on a regular hexagonal.
 //! @ingroup hardParticle

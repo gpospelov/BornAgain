@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "SampleComponents.h"
-#include "BornAgainNamespace.h"
-#include "HardParticles.h"
-#include "Units.h"
+#include "Core/StandardSamples/SampleComponents.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/includeIncludes/HardParticles.h"
+#include "Core/Parametrization/Units.h"
 
 // ************************************************************************** //
 FTDistribution2DComponents::FTDistribution2DComponents()

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterHelper.h"
-#include "FitParameterItems.h"
-#include "JobItem.h"
-#include "JobModel.h"
-#include "ModelPath.h"
-#include "ParameterTreeItems.h"
+#include "GUI/coregui/Models/FitParameterHelper.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
 
 //! Creates fit parameter from given ParameterItem, sets starting value to the value
 //! of ParameterItem, copies link.

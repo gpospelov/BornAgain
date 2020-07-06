@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "ModelPath.h"
-#include "JobItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 QString ModelPath::getPathFromIndex(const QModelIndex& index)
 {

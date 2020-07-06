@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCoherentPart.h"
-#include "IFormFactor.h"
-#include "IFresnelMap.h"
-#include "ILayerRTCoefficients.h"
-#include "SimulationElement.h"
-#include "WavevectorInfo.h"
+#include "Core/Aggregate/FormFactorCoherentPart.h"
+#include "Core/Scattering/IFormFactor.h"
+#include "Core/Multilayer/IFresnelMap.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Vector/WavevectorInfo.h"
 
 FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff) : mP_ff(p_ff) {}
 

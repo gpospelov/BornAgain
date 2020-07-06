@@ -1,11 +1,11 @@
-#include "ParticleCompositionItem.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleDistributionItem.h"
-#include "ParticleItem.h"
-#include "SampleModel.h"
-#include "SessionItemUtils.h"
-#include "VectorItem.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/ParticleCompositionItem.h"
+#include "GUI/coregui/Models/ParticleCoreShellItem.h"
+#include "GUI/coregui/Models/ParticleDistributionItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/VectorItem.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <QtTest>
 
 using namespace SessionItemUtils;

@@ -15,7 +15,7 @@
 #ifndef INTERFERENCEFUNCTIONNONE_H
 #define INTERFERENCEFUNCTIONNONE_H
 
-#include "IInterferenceFunction.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
 
 //! Default interference function (i.e. absence of any interference).
 //! @ingroup interference

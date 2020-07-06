@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "TranslationCases.h"
+#include "Tests/Functional/GUI/GUISpecial/TranslationCases.h"
 
 BasicTranslationTest::BasicTranslationTest()
     : GUITranslationTest("BasicGISAS", "CylindersAndPrismsBuilder")

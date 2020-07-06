@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FitObjectiveTestFactory.h"
-#include "TestService.h"
+#include "Tests/Functional/Fit/FitObjective/FitObjectiveTestFactory.h"
+#include "Tests/Functional/TestMachinery/TestService.h"
 
 //! Runs functional tests.
 

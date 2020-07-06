@@ -15,7 +15,7 @@
 #ifndef JOBMODELFUNCTIONS_H
 #define JOBMODELFUNCTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class InstrumentItem;
 class JobItem;

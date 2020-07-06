@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "ProjectionsPlot.h"
-#include "AxesItems.h"
-#include "ColorMapUtils.h"
-#include "Histogram1D.h"
-#include "Histogram2D.h"
-#include "IntensityDataItem.h"
-#include "MaskItems.h"
-#include "ModelMapper.h"
-#include "ProjectionItems.h"
-#include "SessionItem.h"
-#include "plot_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ProjectionsPlot.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
+#include "Core/Instrument/Histogram1D.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/ModelMapper.h"
+#include "GUI/coregui/Models/ProjectionItems.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/FitWidgets/plot_constants.h"
 #include "qcustomplot.h"
 
 ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)

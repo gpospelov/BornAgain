@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "NodeEditorPort.h"
-#include "NodeEditorConnection.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorPort.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorConnection.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QPen>

@@ -15,7 +15,7 @@
 #ifndef LAYERINTERFACE_H
 #define LAYERINTERFACE_H
 
-#include "ISample.h"
+#include "Core/Scattering/ISample.h"
 #include <memory>
 
 class LayerRoughness;

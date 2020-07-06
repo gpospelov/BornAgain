@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Minuit2Minimizer.h"
+#include "Fit/RootAdapter/Minuit2Minimizer.h"
 #include "Minuit2/Minuit2Minimizer.h"
-#include "StringUtils.h"
+#include "Fit/Tools/StringUtils.h"
 
 namespace
 {

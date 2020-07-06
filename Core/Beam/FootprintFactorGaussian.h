@@ -15,7 +15,7 @@
 #ifndef FOOTPRINTFACTORGAUSSIAN_H
 #define FOOTPRINTFACTORGAUSSIAN_H
 
-#include "IFootprintFactor.h"
+#include "Core/Beam/IFootprintFactor.h"
 
 //! Calculates footprint coefficient for a gaussian beam
 //! Beam width is interpreted as the full width on the level

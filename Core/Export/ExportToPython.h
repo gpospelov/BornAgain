@@ -15,7 +15,7 @@
 #ifndef EXPORTTOPYTHON_H
 #define EXPORTTOPYTHON_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class MultiLayer;

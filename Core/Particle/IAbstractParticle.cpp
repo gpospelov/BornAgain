@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IAbstractParticle.h"
+#include "Core/Particle/IAbstractParticle.h"
 
 IAbstractParticle::IAbstractParticle() : m_abundance(1.0) {}
 

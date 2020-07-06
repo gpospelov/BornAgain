@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "IFormFactor.h"
-#include "Exceptions.h"
-#include "FormFactorDecoratorPositionFactor.h"
-#include "FormFactorDecoratorRotation.h"
-#include "ILayerRTCoefficients.h"
-#include "Rotations.h"
-#include "WavevectorInfo.h"
+#include "Core/Scattering/IFormFactor.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Vector/WavevectorInfo.h"
 #include <memory>
 #include <utility>
 

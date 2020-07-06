@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataFFTPresenter.h"
-#include "GUIHelpers.h"
-#include "IntensityDataFunctions.h"
-#include "IntensityDataItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataFFTPresenter.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QAction>
 #include <QApplication>
 #include <QWidget>

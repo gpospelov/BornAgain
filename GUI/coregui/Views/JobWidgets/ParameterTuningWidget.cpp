@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "ParameterTuningWidget.h"
-#include "GUIHelpers.h"
-#include "IntensityDataItem.h"
-#include "JobItem.h"
-#include "JobModel.h"
-#include "JobRealTimeToolBar.h"
-#include "ParameterTreeItems.h"
-#include "ParameterTuningDelegate.h"
-#include "ParameterTuningModel.h"
-#include "SliderSettingsWidget.h"
-#include "WarningSign.h"
+#include "GUI/coregui/Views/JobWidgets/ParameterTuningWidget.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Views/JobWidgets/JobRealTimeToolBar.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
+#include "GUI/coregui/Views/JobWidgets/ParameterTuningDelegate.h"
+#include "GUI/coregui/Models/ParameterTuningModel.h"
+#include "GUI/coregui/Views/JobWidgets/SliderSettingsWidget.h"
+#include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
 #include <QTreeView>
 #include <QVBoxLayout>
 

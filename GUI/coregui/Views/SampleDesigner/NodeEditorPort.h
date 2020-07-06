@@ -21,8 +21,8 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
-#include "WinDllMacros.h"
-#include "ViewTypes.h"
+#include "Wrap/WinDllMacros.h"
+#include "GUI/coregui/Views/SampleDesigner/ViewTypes.h"
 #include <QGraphicsPathItem>
 #include <QString>
 

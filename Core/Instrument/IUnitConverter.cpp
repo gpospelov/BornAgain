@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "IUnitConverter.h"
-#include "OutputData.h"
-#include "UnitConverterUtils.h"
+#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Instrument/UnitConverterUtils.h"
 
 namespace
 {

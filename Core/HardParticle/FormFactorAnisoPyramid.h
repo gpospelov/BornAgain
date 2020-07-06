@@ -15,7 +15,7 @@
 #ifndef FORMFACTORANISOPYRAMID_H
 #define FORMFACTORANISOPYRAMID_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A frustum (truncated pyramid) with rectangular base.
 //! @ingroup hardParticle

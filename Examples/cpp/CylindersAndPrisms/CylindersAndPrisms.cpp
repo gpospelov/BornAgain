@@ -13,18 +13,18 @@
 //
 // ********************************************************************************************** //
 
-#include "FormFactorCylinder.h"
-#include "FormFactorPrism3.h"
-#include "GISASSimulation.h"
-#include "Histogram2D.h"
-#include "IntensityDataIOFactory.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
-#include "Simulation.h"
-#include "Units.h"
+#include "Core/HardParticle/FormFactorCylinder.h"
+#include "Core/HardParticle/FormFactorPrism3.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/Parametrization/Units.h"
 
 int main()
 {

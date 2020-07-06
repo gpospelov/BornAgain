@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorItems.h"
-#include "BornAgainNamespace.h"
-#include "FormFactors.h"
-#include "Units.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/includeIncludes/FormFactors.h"
+#include "Core/Parametrization/Units.h"
 
 /* ------------------------------------------------ */
 

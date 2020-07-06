@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 std::unique_ptr<IFunctionalTest> FunctionalTestFactory::createTest(std::string& test_name)
 {

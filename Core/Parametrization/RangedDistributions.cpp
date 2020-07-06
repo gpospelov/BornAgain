@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "RangedDistributions.h"
-#include "Distributions.h"
-#include "ParameterSample.h"
-#include "PythonFormatting.h"
+#include "Core/Parametrization/RangedDistributions.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Export/PythonFormatting.h"
 #include <limits>
 
 namespace

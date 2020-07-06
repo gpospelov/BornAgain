@@ -15,7 +15,7 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include "IShape2D.h"
+#include "Core/Mask/IShape2D.h"
 
 //! The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
 //! @ingroup mask

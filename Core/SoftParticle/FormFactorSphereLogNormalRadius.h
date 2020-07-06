@@ -15,9 +15,9 @@
 #ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
 #define FORMFACTORSPHERELOGNORMALRADIUS_H
 
-#include "Distributions.h"
-#include "FormFactorFullSphere.h"
-#include "SafePointerVector.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/Tools/SafePointerVector.h"
 #include <memory>
 
 //! A sphere with log normal radius distribution.

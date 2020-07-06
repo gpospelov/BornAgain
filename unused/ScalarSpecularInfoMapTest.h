@@ -1,13 +1,13 @@
 #ifndef SCALARSPECULARINFOMAPTEST_H
 #define SCALARSPECULARINFOMAPTEST_H
 
-#include "MultiLayer.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MathConstants.h"
-#include "ScalarRTCoefficients.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Multilayer/ScalarRTCoefficients.h"
 #include "ScalarSpecularInfoMap.h"
-#include "SimulationElement.h"
+#include "Core/SimulationElement/SimulationElement.h"
 #include <memory>
 
 class ScalarSpecularInfoMapTest : public ::testing :: Test

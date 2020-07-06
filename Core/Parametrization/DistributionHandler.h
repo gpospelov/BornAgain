@@ -15,7 +15,7 @@
 #ifndef DISTRIBUTIONHANDLER_H
 #define DISTRIBUTIONHANDLER_H
 
-#include "ParameterDistribution.h"
+#include "Core/Parametrization/ParameterDistribution.h"
 #include <vector>
 
 //! Provides the functionality to average over parameter distributions with weights.

@@ -15,8 +15,8 @@
 #ifndef PLOTEVENTINFO_H
 #define PLOTEVENTINFO_H
 
-#include "ScientificPlot.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 
 class ColorMap;

@@ -15,7 +15,7 @@
 #ifndef DISTRIBUTIONITEMS_H
 #define DISTRIBUTIONITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IDistribution1D;
 class RangedDistribution;

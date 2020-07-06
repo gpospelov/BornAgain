@@ -15,8 +15,8 @@
 #ifndef FITSESSIONWIDGET_H
 #define FITSESSIONWIDGET_H
 
-#include "FitProgressInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class QTabWidget;

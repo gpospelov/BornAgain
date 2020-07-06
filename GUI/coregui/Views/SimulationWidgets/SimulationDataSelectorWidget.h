@@ -15,7 +15,7 @@
 #ifndef SIMULATIONDATASELECTORWIDGET_H
 #define SIMULATIONDATASELECTORWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class ApplicationModels;

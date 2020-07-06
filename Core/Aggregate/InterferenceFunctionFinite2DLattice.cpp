@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunctionFinite2DLattice.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
+#include "Core/Aggregate/InterferenceFunctionFinite2DLattice.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 #include <limits>
 

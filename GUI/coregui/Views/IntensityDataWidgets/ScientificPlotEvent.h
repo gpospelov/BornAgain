@@ -15,8 +15,8 @@
 #ifndef SCIENTIFICPLOTEVENT_H
 #define SCIENTIFICPLOTEVENT_H
 
-#include "PlotEventInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <memory>
 

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "StandardTestCatalogue.h"
-#include "StringUtils.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
+#include "Fit/Tools/StringUtils.h"
 #include <iostream>
 
 StandardTestCatalogue::StandardTestCatalogue()

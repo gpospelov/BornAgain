@@ -15,8 +15,8 @@
 #ifndef HISTOGRAM2D_H
 #define HISTOGRAM2D_H
 
-#include "ArrayUtils.h"
-#include "IHistogram.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Instrument/IHistogram.h"
 
 //! Two dimensional histogram.
 //! @ingroup tools

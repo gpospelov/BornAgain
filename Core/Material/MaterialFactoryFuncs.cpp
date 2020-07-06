@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "MaterialFactoryFuncs.h"
-#include "HomogeneousRegion.h"
-#include "MaterialBySLDImpl.h"
-#include "MaterialUtils.h"
-#include "RefractiveMaterialImpl.h"
-#include "Units.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Particle/HomogeneousRegion.h"
+#include "Core/Material/MaterialBySLDImpl.h"
+#include "Core/Material/MaterialUtils.h"
+#include "Core/Material/RefractiveMaterialImpl.h"
+#include "Core/Parametrization/Units.h"
 #include <functional>
 
 namespace

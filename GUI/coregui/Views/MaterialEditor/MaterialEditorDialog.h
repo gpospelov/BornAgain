@@ -15,7 +15,7 @@
 #ifndef MATERIALEDITORDIALOG_H
 #define MATERIALEDITORDIALOG_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDialog>
 #include <memory>
 

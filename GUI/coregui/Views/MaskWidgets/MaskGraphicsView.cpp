@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "MaskGraphicsView.h"
-#include "MaskGraphicsProxy.h"
-#include "MaskGraphicsScene.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsView.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsProxy.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
 #include <QGraphicsScene>
 #include <QScrollBar>
 #include <QTransform>

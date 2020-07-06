@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "ItemTreeView.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/SampleDesigner/ItemTreeView.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QDragMoveEvent>
 #include <QMimeData>
 #include <QtCore/QXmlStreamWriter>

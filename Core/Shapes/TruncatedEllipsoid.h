@@ -15,7 +15,7 @@
 #ifndef TRUNCATEDELLIPSOID_H
 #define TRUNCATEDELLIPSOID_H
 
-#include "IShape.h"
+#include "Core/Shapes/IShape.h"
 
 class TruncatedEllipsoid : public IShape
 {

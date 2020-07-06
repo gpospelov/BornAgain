@@ -16,7 +16,7 @@
 #define BA3D_GEOMETRY_H
 
 #include "../def.h"
-#include "geometry_inc.h"
+#include "GUI/ba3d/model/geometry_inc.h"
 #include <QObject>
 #include <QVector>
 #include <unordered_map>

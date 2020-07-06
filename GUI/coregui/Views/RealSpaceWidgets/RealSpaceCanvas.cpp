@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "RealSpaceCanvas.h"
-#include "AppSvc.h"
-#include "FilterPropertyProxy.h"
-#include "RealSpaceBuilder.h"
-#include "RealSpaceModel.h"
-#include "RealSpaceView.h"
-#include "SampleModel.h"
-#include "SessionItemUtils.h"
-#include "WarningSign.h"
-#include "projectmanager.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/Models/FilterPropertyProxy.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceView.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
 #include <QApplication>
 #include <QFileDialog>
 #include <QMessageBox>

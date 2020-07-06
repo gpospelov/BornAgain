@@ -15,7 +15,7 @@
 #ifndef RESOLUTIONFUNCTIONITEMS_H
 #define RESOLUTIONFUNCTIONITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <memory>
 
 class IResolutionFunction2D;

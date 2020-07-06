@@ -15,8 +15,8 @@
 #ifndef TRANSFORMTO3D_H
 #define TRANSFORMTO3D_H
 
-#include "WinDllMacros.h"
-#include <Vectors3D.h>
+#include "Wrap/WinDllMacros.h"
+#include "Core/Vector/Vectors3D.h"
 #include "GUI/ba3d/model/layer.h"
 #include "GUI/ba3d/model/particles.h"
 #include <memory>

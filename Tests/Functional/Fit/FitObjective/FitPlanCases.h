@@ -15,7 +15,7 @@
 #ifndef FITPLANCASES_H
 #define FITPLANCASES_H
 
-#include "FitPlan.h"
+#include "Tests/Functional/Fit/FitObjective/FitPlan.h"
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 

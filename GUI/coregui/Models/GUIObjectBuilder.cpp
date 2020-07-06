@@ -12,22 +12,22 @@
 //
 // ************************************************************************** //
 
-#include "GUIObjectBuilder.h"
-#include "BeamItems.h"
-#include "DocumentModel.h"
-#include "GISASSimulation.h"
-#include "GUIDomainSampleVisitor.h"
-#include "GUIHelpers.h"
-#include "InstrumentItems.h"
-#include "InstrumentModel.h"
-#include "MultiLayer.h"
-#include "OffSpecSimulation.h"
-#include "SampleModel.h"
-#include "Simulation.h"
-#include "SimulationOptionsItem.h"
-#include "SpecularSimulation.h"
-#include "TransformFromDomain.h"
-#include "Units.h"
+#include "GUI/coregui/Models/GUIObjectBuilder.h"
+#include "GUI/coregui/Models/BeamItems.h"
+#include "GUI/coregui/Models/DocumentModel.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "Core/Simulation/Simulation.h"
+#include "GUI/coregui/Models/SimulationOptionsItem.h"
+#include "Core/Simulation/SpecularSimulation.h"
+#include "GUI/coregui/Models/TransformFromDomain.h"
+#include "Core/Parametrization/Units.h"
 
 namespace
 {

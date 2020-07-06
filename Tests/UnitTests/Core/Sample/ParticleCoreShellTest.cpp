@@ -1,12 +1,12 @@
-#include "ParticleCoreShell.h"
-#include "BornAgainNamespace.h"
-#include "HardParticles.h"
-#include "MaterialFactoryFuncs.h"
-#include "MathConstants.h"
-#include "Particle.h"
-#include "Rotations.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Particle/ParticleCoreShell.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/includeIncludes/HardParticles.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class ParticleCoreShellTest : public ::testing::Test
 {

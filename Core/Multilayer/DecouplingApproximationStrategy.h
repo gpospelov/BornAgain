@@ -15,7 +15,7 @@
 #ifndef DECOUPLINGAPPROXIMATIONSTRATEGY_H
 #define DECOUPLINGAPPROXIMATIONSTRATEGY_H
 
-#include "IInterferenceFunctionStrategy.h"
+#include "Core/Multilayer/IInterferenceFunctionStrategy.h"
 
 class SimulationElement;
 

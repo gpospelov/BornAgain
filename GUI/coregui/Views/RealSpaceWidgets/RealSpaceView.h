@@ -15,7 +15,7 @@
 #ifndef REALSPACEVIEW_H
 #define REALSPACEVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class RealSpaceModel;

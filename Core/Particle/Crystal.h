@@ -15,9 +15,9 @@
 #ifndef CRYSTAL_H
 #define CRYSTAL_H
 
-#include "IClusteredParticles.h"
-#include "Lattice.h"
-#include "Vectors3D.h"
+#include "Core/Particle/IClusteredParticles.h"
+#include "Core/Lattice/Lattice.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! A crystal structure with a ParticleComposition as a basis.
 //! Used in MesoCrystal, where it is given an outer shape.

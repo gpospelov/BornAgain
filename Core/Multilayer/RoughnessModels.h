@@ -17,7 +17,7 @@
 
 #include <string>
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 // workaround for SWIG (instead of just writing enum class RoughnessModel ...)
 struct BA_CORE_API_ RoughnessModelWrap {

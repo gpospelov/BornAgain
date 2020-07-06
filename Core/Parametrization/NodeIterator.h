@@ -15,7 +15,7 @@
 #ifndef NODEITERATOR_H
 #define NODEITERATOR_H
 
-#include "INode.h"
+#include "Core/Parametrization/INode.h"
 #include <ostream>
 #include <stack>
 #include <vector>

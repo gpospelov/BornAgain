@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "INode.h"
-#include "Exceptions.h"
-#include "IterationStrategy.h"
-#include "NodeIterator.h"
-#include "NodeUtils.h"
-#include "ParameterPool.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/IterationStrategy.h"
+#include "Core/Parametrization/NodeIterator.h"
+#include "Core/Parametrization/NodeUtils.h"
+#include "Core/Parametrization/ParameterPool.h"
 #include <algorithm>
 
 INode::INode() : m_parent(nullptr) {}

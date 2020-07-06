@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
+#include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <limits>
 
 //! Constructor of interference function of radial paracrystal.

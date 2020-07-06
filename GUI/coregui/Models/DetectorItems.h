@@ -15,7 +15,7 @@
 #ifndef DETECTORITEMS_H
 #define DETECTORITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class MaskContainerItem;
 class IDetector2D;

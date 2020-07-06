@@ -1,9 +1,9 @@
-#include "OutputData.h"
-#include "FixedBinAxis.h"
-#include "IntensityDataFunctions.h"
-#include "ThreadInfo.h"
-#include "VariableBinAxis.h"
-#include "google_test.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Core/Parametrization/ThreadInfo.h"
+#include "Core/Binning/VariableBinAxis.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <algorithm>
 
 class OutputDataTest : public ::testing::Test

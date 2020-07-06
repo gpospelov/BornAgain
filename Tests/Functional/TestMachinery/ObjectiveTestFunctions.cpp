@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ObjectiveTestFunctions.h"
+#include "Tests/Functional/TestMachinery/ObjectiveTestFunctions.h"
 #include <cmath>
 #include <iostream>
 #include <stdexcept>

@@ -15,7 +15,7 @@
 #ifndef BA3D_PARTICLES_H
 #define BA3D_PARTICLES_H
 
-#include "object.h"
+#include "GUI/ba3d/model/object.h"
 
 namespace RealSpace
 {

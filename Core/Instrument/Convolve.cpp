@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Convolve.h"
-#include "Exceptions.h"
+#include "Core/Instrument/Convolve.h"
+#include "Core/Basics/Exceptions.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept> // need overlooked by g++ 5.4

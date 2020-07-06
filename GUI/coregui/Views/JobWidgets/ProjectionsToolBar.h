@@ -15,8 +15,8 @@
 #ifndef PROJECTIONSTOOLBAR_H
 #define PROJECTIONSTOOLBAR_H
 
-#include "MaskEditorFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
+#include "Wrap/WinDllMacros.h"
 #include <QToolBar>
 
 class ProjectionsEditorActions;

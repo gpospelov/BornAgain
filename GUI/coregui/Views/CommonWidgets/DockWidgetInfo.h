@@ -15,7 +15,7 @@
 #ifndef DOCKWIDGETINFO_H
 #define DOCKWIDGETINFO_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <qnamespace.h>
 
 class QDockWidget;

@@ -1,5 +1,5 @@
-#include "LayerFillLimits.h"
-#include "google_test.h"
+#include "Core/Multilayer/LayerFillLimits.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <stdexcept>
 
 class LayerFillLimitsTest : public ::testing::Test

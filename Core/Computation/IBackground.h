@@ -15,8 +15,8 @@
 #ifndef IBACKGROUND_H
 #define IBACKGROUND_H
 
-#include "ICloneable.h"
-#include "INode.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 
 //! Interface for a simulating the background signal
 //!

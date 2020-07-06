@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "GISASSimulation.h"
-#include "BornAgainNamespace.h"
-#include "DWBAComputation.h"
-#include "Histogram2D.h"
-#include "IBackground.h"
-#include "IMultiLayerBuilder.h"
-#include "MultiLayer.h"
-#include "SimulationElement.h"
-#include "UnitConverterUtils.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Computation/DWBAComputation.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/Computation/IBackground.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Instrument/UnitConverterUtils.h"
 
 GISASSimulation::GISASSimulation()
 {

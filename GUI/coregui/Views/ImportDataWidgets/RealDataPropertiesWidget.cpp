@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "RealDataPropertiesWidget.h"
-#include "LinkInstrumentManager.h"
-#include "RealDataItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataPropertiesWidget.h"
+#include "GUI/coregui/Views/ImportDataWidgets/LinkInstrumentManager.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QComboBox>
 #include <QDataWidgetMapper>
 #include <QLabel>

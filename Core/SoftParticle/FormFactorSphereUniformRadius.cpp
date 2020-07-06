@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorSphereUniformRadius.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
-#include "TruncatedEllipsoid.h"
+#include "Core/SoftParticle/FormFactorSphereUniformRadius.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double full_width)

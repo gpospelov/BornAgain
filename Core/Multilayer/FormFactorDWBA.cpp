@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDWBA.h"
-#include "BornAgainNamespace.h"
-#include "ILayerRTCoefficients.h"
-#include "WavevectorInfo.h"
+#include "Core/Multilayer/FormFactorDWBA.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Vector/WavevectorInfo.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor) : mP_form_factor(form_factor.clone())
 {

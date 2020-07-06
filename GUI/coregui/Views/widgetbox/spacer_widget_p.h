@@ -53,7 +53,7 @@
 #ifndef SPACER_WIDGET_P_H
 #define SPACER_WIDGET_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
 //#include <QtWidgets/QWidget>
 //#include <QtWidgets/QSizePolicy>

@@ -15,11 +15,11 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-#include "KernelTypes.h"
-#include "MinimizerResult.h"
-#include "Parameters.h"
-#include "WallclockTimer.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Fit/Tools/WallclockTimer.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <memory>
 #include <vector>

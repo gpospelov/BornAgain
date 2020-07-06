@@ -15,8 +15,8 @@
 #ifndef SLICEDFORMFACTORLIST_H
 #define SLICEDFORMFACTORLIST_H
 
-#include "HomogeneousRegion.h"
-#include "IFormFactor.h"
+#include "Core/Particle/HomogeneousRegion.h"
+#include "Core/Scattering/IFormFactor.h"
 #include <map>
 #include <memory>
 

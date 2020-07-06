@@ -15,10 +15,10 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorRotation.h"
-#include "IParticle.h"
-#include "Material.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
+#include "Core/Particle/IParticle.h"
+#include "Core/Material/Material.h"
 
 //! A particle with a form factor and refractive index.
 //! @ingroup samples

@@ -15,7 +15,7 @@
 #ifndef CORESHELLPARTICLEBUILDER_H
 #define CORESHELLPARTICLEBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

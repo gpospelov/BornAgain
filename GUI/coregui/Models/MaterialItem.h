@@ -15,7 +15,7 @@
 #ifndef MATERIALITEM_H
 #define MATERIALITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class Material;
 

@@ -15,7 +15,7 @@
 #ifndef INTENSITYDATAFUNCTIONS_H
 #define INTENSITYDATAFUNCTIONS_H
 
-#include "OutputData.h"
+#include "Core/Instrument/OutputData.h"
 #include <memory>
 
 class IHistogram;

@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "SpecularPlot.h"
-#include "AxesItems.h"
-#include "ColorMapUtils.h"
-#include "MathConstants.h"
-#include "PlotEventInfo.h"
-#include "SpecularDataItem.h"
-#include "UpdateTimer.h"
-#include "plot_constants.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/SpecularPlot.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
+#include "Core/Basics/MathConstants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
+#include "GUI/coregui/Views/FitWidgets/plot_constants.h"
 
 namespace
 {

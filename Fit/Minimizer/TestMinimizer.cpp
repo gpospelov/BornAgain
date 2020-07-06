@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "TestMinimizer.h"
-#include "MinimizerConstants.h"
-#include "Parameters.h"
+#include "Fit/Minimizer/TestMinimizer.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
+#include "Fit/Kernel/Parameters.h"
 #include <sstream>
 
 using namespace Fit;

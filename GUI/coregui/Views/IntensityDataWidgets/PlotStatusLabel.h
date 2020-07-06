@@ -15,7 +15,7 @@
 #ifndef PLOTSTATUSLABEL_H
 #define PLOTSTATUSLABEL_H
 
-#include "StatusLabel.h"
+#include "GUI/coregui/Views/CommonWidgets/StatusLabel.h"
 #include <QList>
 
 class ScientificPlot;

@@ -15,7 +15,7 @@
 #ifndef OBJECTIVETESTFUNCTIONS_G
 #define OBJECTIVETESTFUNCTIONS_G
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 //! @class StandaloneFitTest

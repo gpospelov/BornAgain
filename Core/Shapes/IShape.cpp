@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IShape.h"
+#include "Core/Shapes/IShape.h"
 
 #include <cmath>
 

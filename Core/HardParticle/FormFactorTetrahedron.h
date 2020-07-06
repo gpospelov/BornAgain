@@ -15,7 +15,7 @@
 #ifndef FORMFACTORTETRAHEDRON_H
 #define FORMFACTORTETRAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A frustum with equilateral trigonal base.
 //! @ingroup hardParticle

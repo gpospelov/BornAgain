@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "widget.h"
+#include "GUI/ba3d/widget.h"
 #include "model/model.h"
 #include "view/camera.h"
 #include "view/canvas.h"

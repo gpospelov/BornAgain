@@ -1,6 +1,6 @@
-#include "Histogram2D.h"
-#include "SpectrumUtils.h"
-#include "google_test.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/Tools/SpectrumUtils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include "tspectrum.h"
 #include <iostream>
 

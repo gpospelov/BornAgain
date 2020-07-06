@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "AxisNames.h"
+#include "Core/Instrument/AxisNames.h"
 #include <map>
 
 namespace AxisNames

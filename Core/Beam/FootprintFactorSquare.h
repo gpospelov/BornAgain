@@ -15,7 +15,7 @@
 #ifndef FOOTPRINTFACTORSQUARE_H_
 #define FOOTPRINTFACTORSQUARE_H_
 
-#include "IFootprintFactor.h"
+#include "Core/Beam/IFootprintFactor.h"
 
 //! Calculates footprint coefficient for a square beam
 //! @ingroup beam

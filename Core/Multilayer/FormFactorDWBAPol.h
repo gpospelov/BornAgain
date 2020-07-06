@@ -15,7 +15,7 @@
 #ifndef FORMFACTORDWBAPOL_H
 #define FORMFACTORDWBAPOL_H
 
-#include "IFormFactor.h"
+#include "Core/Scattering/IFormFactor.h"
 #include <memory>
 
 class ILayerRTCoefficients;

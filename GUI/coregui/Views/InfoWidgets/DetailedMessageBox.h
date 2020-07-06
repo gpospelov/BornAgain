@@ -15,7 +15,7 @@
 #ifndef DETAILEDMESSAGEBOX_H
 #define DETAILEDMESSAGEBOX_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDialog>
 #include <QString>
 

@@ -15,8 +15,8 @@
 #ifndef POINTWISEAXISITEM_H
 #define POINTWISEAXISITEM_H
 
-#include "AxesItems.h"
-#include "SaveLoadInterface.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/mainwindow/SaveLoadInterface.h"
 
 class PointwiseAxis;
 class SpecularInstrumentItem;

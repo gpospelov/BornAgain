@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorSphereLogNormalRadius.h"
-#include "BornAgainNamespace.h"
-#include "Distributions.h"
-#include "ParameterSample.h"
-#include "RealParameter.h"
-#include "TruncatedEllipsoid.h"
+#include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Shapes/TruncatedEllipsoid.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param,
                                                                  size_t n_samples)

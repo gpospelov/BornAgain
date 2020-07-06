@@ -15,8 +15,8 @@
 #ifndef MINIMIZERTESTPLAN_H
 #define MINIMIZERTESTPLAN_H
 
-#include "ParameterPlan.h"
-#include "WinDllMacros.h"
+#include "Tests/Functional/TestMachinery/ParameterPlan.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 namespace Fit

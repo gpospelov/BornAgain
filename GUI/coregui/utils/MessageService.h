@@ -15,7 +15,7 @@
 #ifndef MESSAGESERVICE_H
 #define MESSAGESERVICE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QStringList>
 

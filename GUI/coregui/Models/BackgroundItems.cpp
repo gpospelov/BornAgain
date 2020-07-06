@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "BackgroundItems.h"
-#include "BornAgainNamespace.h"
-#include "ConstantBackground.h"
-#include "PoissonNoiseBackground.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/BackgroundItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Computation/ConstantBackground.h"
+#include "Core/Computation/PoissonNoiseBackground.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 BackgroundItem::BackgroundItem(const QString& model_type) : SessionItem(model_type) {}
 

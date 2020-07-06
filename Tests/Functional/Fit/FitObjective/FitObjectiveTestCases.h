@@ -17,7 +17,7 @@
 
 //! Collection of FitObjective tests.
 
-#include "FitObjectiveTest.h"
+#include "Tests/Functional/Fit/FitObjective/FitObjectiveTest.h"
 
 class MigradCylindersInBA : public FitObjectiveTest
 {

@@ -31,9 +31,9 @@
 #ifndef CONTENTPANE_H
 #define CONTENTPANE_H
 
-#include "AccordionWidget.h"
-#include "ClickableFrame.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/AccordionWidget/AccordionWidget.h"
+#include "GUI/coregui/Views/AccordionWidget/ClickableFrame.h"
+#include "Wrap/WinDllMacros.h"
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QPainter>

@@ -15,7 +15,7 @@
 #ifndef MATERIALPROPERTYCONTROLLER_H
 #define MATERIALPROPERTYCONTROLLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class MaterialModel;

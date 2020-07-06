@@ -15,7 +15,7 @@
 #ifndef SPHERICALDETECTORITEM_H
 #define SPHERICALDETECTORITEM_H
 
-#include "DetectorItems.h"
+#include "GUI/coregui/Models/DetectorItems.h"
 
 class BA_CORE_API_ SphericalDetectorItem : public DetectorItem
 {

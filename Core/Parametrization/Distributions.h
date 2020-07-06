@@ -15,9 +15,9 @@
 #ifndef DISTRIBUTIONS_H
 #define DISTRIBUTIONS_H
 
-#include "ICloneable.h"
-#include "INode.h"
-#include "RealLimits.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
+#include "Fit/Tools/RealLimits.h"
 #include <vector>
 
 class ParameterSample;

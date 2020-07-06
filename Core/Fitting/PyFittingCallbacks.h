@@ -17,8 +17,8 @@
 
 //! Collection of wrapper classes to call Python callable from C++.
 
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Wrap/WinDllMacros.h"
 
 class Simulation;
 

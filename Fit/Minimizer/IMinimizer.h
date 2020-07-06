@@ -15,9 +15,9 @@
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
 
-#include "KernelTypes.h"
-#include "MinimizerResult.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Kernel/MinimizerResult.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 namespace Fit

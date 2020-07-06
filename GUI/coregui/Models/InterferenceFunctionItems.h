@@ -15,7 +15,7 @@
 #ifndef INTERFERENCEFUNCTIONITEMS_H
 #define INTERFERENCEFUNCTIONITEMS_H
 
-#include "SessionGraphicsItem.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 class IInterferenceFunction;
 
 class BA_CORE_API_ InterferenceFunctionItem : public SessionGraphicsItem

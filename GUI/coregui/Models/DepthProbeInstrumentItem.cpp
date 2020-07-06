@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "DepthProbeInstrumentItem.h"
-#include "AxesItems.h"
-#include "BeamDistributionItem.h"
-#include "BeamWavelengthItem.h"
-#include "DepthProbeSimulation.h"
-#include "SimpleUnitConverters.h"
-#include "SpecularBeamInclinationItem.h"
-#include "TransformToDomain.h"
-#include "Units.h"
+#include "GUI/coregui/Models/DepthProbeInstrumentItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/BeamDistributionItem.h"
+#include "GUI/coregui/Models/BeamWavelengthItem.h"
+#include "Core/Simulation/DepthProbeSimulation.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
+#include "GUI/coregui/Models/TransformToDomain.h"
+#include "Core/Parametrization/Units.h"
 
 const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
 const QString DepthProbeInstrumentItem::P_ZAXIS = "Z axis";

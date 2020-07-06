@@ -15,7 +15,7 @@
 #ifndef TRANSFORMATIONVIEW_H
 #define TRANSFORMATIONVIEW_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 class TransformationView : public ConnectableView
 {

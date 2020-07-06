@@ -15,9 +15,9 @@
 #ifndef MATERIALBYSLDIMPL_H_
 #define MATERIALBYSLDIMPL_H_
 
-#include "MagneticMaterialImpl.h"
-#include "Material.h"
-#include "MaterialFactoryFuncs.h"
+#include "Core/Material/MagneticMaterialImpl.h"
+#include "Core/Material/Material.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
 
 //! Material implementation based on wavelength-independent data (valid for a range of wavelengths)
 //! @ingroup materials

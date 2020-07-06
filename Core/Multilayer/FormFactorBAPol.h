@@ -15,7 +15,7 @@
 #ifndef FORMFACTORBAPOL_H
 #define FORMFACTORBAPOL_H
 
-#include "IFormFactor.h"
+#include "Core/Scattering/IFormFactor.h"
 #include <memory>
 
 //! Evaluates the matrix BA term in a polarized IFormFactor.

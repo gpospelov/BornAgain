@@ -1,10 +1,10 @@
-#include "InterferenceFunctionItems.h"
-#include "Lattice2DItems.h"
-#include "MathConstants.h"
-#include "ParticleLayoutItem.h"
-#include "SampleModel.h"
-#include "SessionItemUtils.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/InterferenceFunctionItems.h"
+#include "GUI/coregui/Models/Lattice2DItems.h"
+#include "Core/Basics/MathConstants.h"
+#include "GUI/coregui/Models/ParticleLayoutItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestParticleLayoutItem : public ::testing::Test
 {

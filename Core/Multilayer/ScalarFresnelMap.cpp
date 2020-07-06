@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ScalarFresnelMap.h"
-#include "ScalarRTCoefficients.h"
-#include "SimulationElement.h"
-#include "Slice.h"
-#include "Vectors3D.h"
+#include "Core/Multilayer/ScalarFresnelMap.h"
+#include "Core/Multilayer/ScalarRTCoefficients.h"
+#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Computation/Slice.h"
+#include "Core/Vector/Vectors3D.h"
 #include <functional>
 
 ScalarFresnelMap::ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)

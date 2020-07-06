@@ -15,7 +15,7 @@
 #ifndef WARNINGSIGN_H
 #define WARNINGSIGN_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class WarningSignWidget;

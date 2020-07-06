@@ -39,13 +39,13 @@
 **
 ****************************************************************************/
 
-#include "widgetboxtreewidget.h"
-#include "widgetboxcategorylistview.h"
+#include "GUI/coregui/Views/widgetbox/widgetboxtreewidget.h"
+#include "GUI/coregui/Views/widgetbox/widgetboxcategorylistview.h"
 
 // shared
-#include <qdesigner_utils_p.h>
-#include <sheet_delegate_p.h>
-#include <ui4_p.h>
+#include "GUI/coregui/Views/widgetbox/qdesigner_utils_p.h"
+#include "GUI/coregui/Views/widgetbox/sheet_delegate_p.h"
+#include "GUI/coregui/Views/widgetbox/ui4_p.h"
 
 // sdk
 #include <QtDesigner/QDesignerDnDItemInterface>

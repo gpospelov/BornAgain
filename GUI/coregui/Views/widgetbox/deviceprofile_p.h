@@ -53,7 +53,7 @@
 #ifndef DEVICEPROFILE_P_H
 #define DEVICEPROFILE_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
 #include <QtCore/QSharedDataPointer>
 #include <QtCore/QString>

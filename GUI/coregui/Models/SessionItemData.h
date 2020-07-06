@@ -15,7 +15,7 @@
 #ifndef SESSIONITEMDATA_H
 #define SESSIONITEMDATA_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QVariant>
 #include <QVector>
 

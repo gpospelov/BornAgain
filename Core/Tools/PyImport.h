@@ -15,7 +15,7 @@
 #ifndef PYIMPORT_H
 #define PYIMPORT_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 #include <vector>

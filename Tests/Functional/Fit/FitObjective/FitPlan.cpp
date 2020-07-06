@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "FitPlan.h"
-#include "FitObjective.h"
-#include "KernelTypes.h"
-#include "Minimizer.h"
-#include "MultiLayer.h"
-#include "Parameters.h"
-#include "SampleBuilderFactory.h"
-#include "SimulationFactory.h"
+#include "Tests/Functional/Fit/FitObjective/FitPlan.h"
+#include "Core/Fitting/FitObjective.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Kernel/Minimizer.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Core/StandardSamples/SimulationFactory.h"
 
 FitPlan::FitPlan(const std::string& name, bool residual_based)
     : MinimizerTestPlan(name), m_residual_based(residual_based)

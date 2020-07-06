@@ -15,7 +15,7 @@
 #ifndef PARTICLELAYOUTITEM_H
 #define PARTICLELAYOUTITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
 {

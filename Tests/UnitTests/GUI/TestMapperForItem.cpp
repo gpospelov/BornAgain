@@ -1,10 +1,10 @@
-#include "LayerItem.h"
-#include "MultiLayerItem.h"
-#include "SampleModel.h"
-#include "SessionItem.h"
-#include "SessionItemUtils.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <memory>
 
 using SessionItemUtils::ParentRow;

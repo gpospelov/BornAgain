@@ -16,8 +16,8 @@
 #ifndef COMPONENTPARAMETER_H
 #define COMPONENTPARAMETER_H
 
-#include "IParameter.h"
-#include "ISample.h"
+#include "Core/Parametrization/IParameter.h"
+#include "Core/Scattering/ISample.h"
 #include <string>
 
 //! Wraps a parameter of type ISample.

@@ -15,7 +15,7 @@
 #ifndef FANCYLABEL_H
 #define FANCYLABEL_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QLabel>
 
 //! The FancyLabel class is QLabel-like class with trivail animation, when text slowly

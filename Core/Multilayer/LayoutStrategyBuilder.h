@@ -15,7 +15,7 @@
 #ifndef LAYOUTSTRATEGYBUILDER_H
 #define LAYOUTSTRATEGYBUILDER_H
 
-#include "SimulationOptions.h"
+#include "Core/Parametrization/SimulationOptions.h"
 #include <memory>
 
 class IInterferenceFunction;

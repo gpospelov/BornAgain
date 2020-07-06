@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "PyStandardTest.h"
+#include "Tests/Functional/Python/PyStandard/PyStandardTest.h"
 #include "BATesting.h"
-#include "ExportToPython.h"
-#include "FileSystemUtils.h"
-#include "IntensityDataIOFactory.h"
-#include "Simulation.h"
-#include "TestUtils.h"
+#include "Core/Export/ExportToPython.h"
+#include "Core/Tools/FileSystemUtils.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Simulation/Simulation.h"
+#include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <fstream>
 #include <iostream>
 

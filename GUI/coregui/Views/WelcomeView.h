@@ -15,7 +15,7 @@
 #ifndef WELCOMEVIEW_H
 #define WELCOMEVIEW_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class QPushButton;

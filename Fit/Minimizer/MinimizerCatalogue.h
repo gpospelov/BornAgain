@@ -15,8 +15,8 @@
 #ifndef MINIMIZERCATALOGUE_H
 #define MINIMIZERCATALOGUE_H
 
-#include "MinimizerInfo.h"
-#include "WinDllMacros.h"
+#include "Fit/Minimizer/MinimizerInfo.h"
+#include "Wrap/WinDllMacros.h"
 #include <map>
 
 //! Hard-coded information about all minimizers available.

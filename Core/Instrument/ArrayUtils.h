@@ -15,8 +15,8 @@
 #ifndef ARRAYUTILS_H
 #define ARRAYUTILS_H
 
-#include "OutputData.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/OutputData.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <stdexcept>
 #include <vector>

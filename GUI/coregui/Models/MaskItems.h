@@ -15,7 +15,7 @@
 #ifndef MASKITEMS_H
 #define MASKITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IShape2D;
 

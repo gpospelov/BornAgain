@@ -15,7 +15,7 @@
 #ifndef FORMFACTORPYRAMID_H
 #define FORMFACTORPYRAMID_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A frustum with a quadratic base.
 //! @ingroup hardParticle

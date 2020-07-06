@@ -15,7 +15,7 @@
 #ifndef REALDATAPROPERTIESWIDGET_H
 #define REALDATAPROPERTIESWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class LinkInstrumentManager;

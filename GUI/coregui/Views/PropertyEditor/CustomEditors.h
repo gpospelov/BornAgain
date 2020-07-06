@@ -15,7 +15,7 @@
 #ifndef CUSTOMEDITORS_H
 #define CUSTOMEDITORS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QVariant>
 #include <QWidget>
 

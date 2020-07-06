@@ -1,5 +1,5 @@
-#include "Algorithms.h"
-#include "google_test.h"
+#include "Core/Basics/Algorithms.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <cmath>
 
 class MinMaxValueTest : public ::testing::Test

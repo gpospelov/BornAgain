@@ -15,7 +15,7 @@
 #ifndef FORMFACTORRIPPLE1_H
 #define FORMFACTORRIPPLE1_H
 
-#include "ProfileRipple1.h"
+#include "Core/HardParticle/ProfileRipple1.h"
 
 //! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating

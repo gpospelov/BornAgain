@@ -15,7 +15,7 @@
 #ifndef FOOTPRINTITEMS_H
 #define FOOTPRINTITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IFootprintFactor;
 

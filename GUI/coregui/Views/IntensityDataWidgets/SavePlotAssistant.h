@@ -15,7 +15,7 @@
 #ifndef SAVEPLOTASSISTANT_H
 #define SAVEPLOTASSISTANT_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <QVector>
 

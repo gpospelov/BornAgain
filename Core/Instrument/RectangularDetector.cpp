@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "RectangularDetector.h"
-#include "Beam.h"
-#include "BornAgainNamespace.h"
-#include "IDetectorResolution.h"
-#include "MathConstants.h"
-#include "RegionOfInterest.h"
-#include "SimulationElement.h"
-#include "Units.h"
+#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/IDetectorResolution.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Parametrization/Units.h"
 
 RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
     : m_u0(0.0), m_v0(0.0), m_direction(kvector_t(0.0, -1.0, 0.0)), m_distance(0.0),

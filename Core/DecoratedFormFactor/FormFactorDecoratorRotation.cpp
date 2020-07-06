@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDecoratorRotation.h"
-#include "BornAgainNamespace.h"
-#include "WavevectorInfo.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Vector/WavevectorInfo.h"
 #include <memory>
 
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& form_factor,

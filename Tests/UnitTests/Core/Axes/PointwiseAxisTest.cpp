@@ -1,7 +1,7 @@
-#include "PointwiseAxis.h"
-#include "DataFormatUtils.h"
-#include "FixedBinAxis.h"
-#include "google_test.h"
+#include "Core/Binning/PointwiseAxis.h"
+#include "Core/InputOutput/DataFormatUtils.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <iostream>
 
 class PointwiseAxisTest : public ::testing::Test

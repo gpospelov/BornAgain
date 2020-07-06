@@ -15,7 +15,7 @@
 #ifndef WARNINGSIGNWIDGET_H
 #define WARNINGSIGNWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QPixmap>
 #include <QString>
 #include <QWidget>

@@ -15,7 +15,7 @@
 #ifndef INSTRUMENTVIEWTOOLBAR_H
 #define INSTRUMENTVIEWTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include <QList>
 
 class QAction;

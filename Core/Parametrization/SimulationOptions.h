@@ -15,7 +15,7 @@
 #ifndef SIMULATIONOPTIONS_H
 #define SIMULATIONOPTIONS_H
 
-#include "ThreadInfo.h"
+#include "Core/Parametrization/ThreadInfo.h"
 #include <cstddef>
 
 using std::size_t;

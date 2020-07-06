@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "TransformationView.h"
-#include "DesignerHelper.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/SampleDesigner/TransformationView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 TransformationView::TransformationView(QGraphicsItem* parent) : ConnectableView(parent)
 {

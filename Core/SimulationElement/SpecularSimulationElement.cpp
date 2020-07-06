@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "SpecularSimulationElement.h"
-#include "KzComputation.h"
-#include "Layer.h"
-#include "MultiLayer.h"
+#include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Core/Multilayer/KzComputation.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
 
 SpecularSimulationElement::SpecularSimulationElement(double kz)
     : m_intensity(0.0), m_calculation_flag(true),

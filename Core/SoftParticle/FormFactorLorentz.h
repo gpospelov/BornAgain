@@ -15,7 +15,7 @@
 #ifndef FORMFACTORLORENTZ_H
 #define FORMFACTORLORENTZ_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a lorentzian.
 //! @ingroup softParticle

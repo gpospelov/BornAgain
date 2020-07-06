@@ -1,8 +1,8 @@
-#include "Beam.h"
-#include "FootprintFactorGaussian.h"
-#include "FootprintFactorSquare.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Beam/Beam.h"
+#include "Core/Beam/FootprintFactorGaussian.h"
+#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 #include <limits>
 #include <memory>

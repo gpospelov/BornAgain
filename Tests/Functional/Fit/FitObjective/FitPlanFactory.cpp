@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FitPlanFactory.h"
-#include "AdjustMinimizerPlan.h"
-#include "FitPlanCases.h"
+#include "Tests/Functional/Fit/FitObjective/FitPlanFactory.h"
+#include "Tests/Functional/Fit/FitObjective/AdjustMinimizerPlan.h"
+#include "Tests/Functional/Fit/FitObjective/FitPlanCases.h"
 
 FitPlanFactory::FitPlanFactory()
 {

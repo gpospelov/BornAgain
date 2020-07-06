@@ -15,8 +15,8 @@
 #ifndef BOXCOMPOSITIONBUILDER_H
 #define BOXCOMPOSITIONBUILDER_H
 
-#include "IMultiLayerBuilder.h"
-#include "Material.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Material/Material.h"
 
 class MultiLayer;
 class ParticleComposition;

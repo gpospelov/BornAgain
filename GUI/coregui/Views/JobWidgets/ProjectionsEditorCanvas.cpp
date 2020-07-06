@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "ProjectionsEditorCanvas.h"
-#include "ColorMap.h"
-#include "IntensityDataItem.h"
-#include "MaskGraphicsScene.h"
-#include "MaskGraphicsView.h"
-#include "MaskItems.h"
-#include "PlotStatusLabel.h"
-#include "ScientificPlotEvent.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/JobWidgets/ProjectionsEditorCanvas.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskGraphicsView.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/PlotStatusLabel.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlotEvent.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
 

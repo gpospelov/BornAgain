@@ -15,7 +15,7 @@
 #ifndef INTERFERENCEFUNCTIONVIEWS_H
 #define INTERFERENCEFUNCTIONVIEWS_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 class BA_CORE_API_ InterferenceFunction1DLatticeView : public ConnectableView
 {

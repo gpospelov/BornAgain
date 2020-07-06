@@ -15,7 +15,7 @@
 #ifndef TESTCASES_H
 #define TESTCASES_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Checks system path for embedded enterpreter.
 

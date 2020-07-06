@@ -15,7 +15,7 @@
 #ifndef FORMFACTORITEMS_H
 #define FORMFACTORITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IFormFactor;
 

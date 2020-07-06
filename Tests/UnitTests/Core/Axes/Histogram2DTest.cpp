@@ -1,6 +1,6 @@
-#include "Histogram2D.h"
-#include "Histogram1D.h"
-#include "google_test.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/Instrument/Histogram1D.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 class Histogram2DTest : public ::testing::Test

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "MaterialItemContainer.h"
-#include "GUIHelpers.h"
-#include "MaterialItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/MaterialItemContainer.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 const QString MaterialItemContainer::T_MATERIALS = "MaterialVector";
 

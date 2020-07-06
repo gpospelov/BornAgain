@@ -15,8 +15,8 @@
 #ifndef FORMFACTORHEMIELLIPSOID_H
 #define FORMFACTORHEMIELLIPSOID_H
 
-#include "IFormFactorBorn.h"
-#include "Integrator.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Tools/Integrator.h"
 
 //! An hemi ellipsoid,
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.

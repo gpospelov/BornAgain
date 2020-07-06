@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDecoratorPositionFactor.h"
-#include "BornAgainNamespace.h"
-#include "Rotations.h"
-#include "WavevectorInfo.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Vector/WavevectorInfo.h"
 
 FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor& form_factor,
                                                                      const kvector_t& position)

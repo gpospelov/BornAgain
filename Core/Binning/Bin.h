@@ -15,7 +15,7 @@
 #ifndef BIN_H
 #define BIN_H
 
-#include "Vectors3D.h"
+#include "Core/Vector/Vectors3D.h"
 
 struct BA_CORE_API_ Bin1D {
     Bin1D() : m_lower(0), m_upper(0) {}

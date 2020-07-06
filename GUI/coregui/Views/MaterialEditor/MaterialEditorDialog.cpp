@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "MaterialEditorDialog.h"
-#include "ExternalProperty.h"
-#include "MaterialEditor.h"
-#include "MaterialItem.h"
-#include "MaterialItemUtils.h"
-#include "MaterialModel.h"
-#include "StyleUtils.h"
-#include "mainwindow_constants.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialEditorDialog.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
+#include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/Models/MaterialModel.h"
+#include "GUI/coregui/utils/StyleUtils.h"
+#include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QAction>
 #include <QPushButton>
 #include <QSettings>

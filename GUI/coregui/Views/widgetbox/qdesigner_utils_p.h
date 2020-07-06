@@ -53,7 +53,7 @@
 #ifndef QDESIGNER_UTILS_P_H
 #define QDESIGNER_UTILS_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
 #include <QtDesigner/QDesignerFormWindowInterface>
 

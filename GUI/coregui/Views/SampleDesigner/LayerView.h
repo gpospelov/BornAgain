@@ -15,7 +15,7 @@
 #ifndef LAYERVIEW_H
 #define LAYERVIEW_H
 
-#include "ILayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/ILayerView.h"
 
 //! Class that represents view of Layer
 class BA_CORE_API_ LayerView : public ILayerView

@@ -15,7 +15,7 @@
 #ifndef DATAFORMATUTILS_H
 #define DATAFORMATUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 #include <vector>

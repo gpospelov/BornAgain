@@ -1,10 +1,10 @@
-#include "Particle.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorFullSphere.h"
-#include "MaterialFactoryFuncs.h"
-#include "MathConstants.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class ParticleTest : public ::testing::Test
 {

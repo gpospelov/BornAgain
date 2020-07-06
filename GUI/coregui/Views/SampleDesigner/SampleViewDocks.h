@@ -15,7 +15,7 @@
 #ifndef SAMPLEVIEWDOCKS_H
 #define SAMPLEVIEWDOCKS_H
 
-#include "DocksController.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
 
 class SampleView;
 class SampleWidgetBox;

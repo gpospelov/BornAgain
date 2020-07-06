@@ -15,8 +15,8 @@
 #ifndef MULTILAYERFUNCS_H_
 #define MULTILAYERFUNCS_H_
 
-#include "Complex.h"
-#include "WinDllMacros.h"
+#include "Core/Basics/Complex.h"
+#include "Wrap/WinDllMacros.h"
 #include <utility>
 #include <vector>
 

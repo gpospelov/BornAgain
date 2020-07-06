@@ -15,7 +15,7 @@
 #ifndef MULTIOPTION_H
 #define MULTIOPTION_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <boost/variant.hpp>
 #include <string>
 

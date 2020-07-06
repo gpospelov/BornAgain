@@ -15,9 +15,9 @@
 #ifndef SPECULARSTRATEGYBUILDER_H
 #define SPECULARSTRATEGYBUILDER_H
 
-#include "ISpecularStrategy.h"
-#include "MultiLayer.h"
-#include "RoughnessModels.h"
+#include "Core/Multilayer/ISpecularStrategy.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Multilayer/RoughnessModels.h"
 
 class SpecularStrategyBuilder
 {

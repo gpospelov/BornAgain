@@ -15,7 +15,7 @@
 #ifndef INAMED_H
 #define INAMED_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 //! Interface for named objects.

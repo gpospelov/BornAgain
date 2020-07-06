@@ -15,8 +15,8 @@
 #ifndef CSVIMPORTTABLE_H
 #define CSVIMPORTTABLE_H
 
-#include "CsvDataColumn.h"
-#include "CsvNamespace.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
 #include <QTableWidget>
 #include <set>
 

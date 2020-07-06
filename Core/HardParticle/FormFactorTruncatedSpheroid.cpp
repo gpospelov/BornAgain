@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorTruncatedSpheroid.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "RealParameter.h"
-#include "TruncatedEllipsoid.h"
+#include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
 //! Constructor of a spheroidal dome.

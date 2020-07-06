@@ -15,7 +15,7 @@
 #ifndef SAMPLETOOLBAR_H
 #define SAMPLETOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include <QTreeView>
 
 class QAction;

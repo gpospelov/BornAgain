@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SpecularDetector1D.h"
+#include "Core/Instrument/SpecularDetector1D.h"
 
 SpecularDetector1D::SpecularDetector1D(const IAxis& axis)
 {

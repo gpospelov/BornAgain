@@ -15,7 +15,7 @@
 #ifndef PARTICLECOMPOSITIONBUILDER_H
 #define PARTICLECOMPOSITIONBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds sample: two layers of spheres at hex lattice.
 //! @ingroup standard_samples

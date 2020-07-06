@@ -15,10 +15,10 @@
 #ifndef MATERIALUTILS_H_
 #define MATERIALUTILS_H_
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "Material.h"
-#include "Vectors3D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Material/Material.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! A number of materials-related helper functions for internal use
 //! @ingroup materials

@@ -15,7 +15,7 @@
 #ifndef FITCOMPARISONCONTROLLER_H
 #define FITCOMPARISONCONTROLLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class DataItem;

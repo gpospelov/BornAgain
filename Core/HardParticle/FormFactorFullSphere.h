@@ -15,7 +15,7 @@
 #ifndef FORMFACTORFULLSPHERE_H
 #define FORMFACTORFULLSPHERE_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A full sphere.
 //! @ingroup hardParticle

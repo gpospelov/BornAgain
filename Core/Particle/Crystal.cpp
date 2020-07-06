@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Crystal.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorCrystal.h"
-#include "Particle.h"
-#include "ParticleComposition.h"
+#include "Core/Particle/Crystal.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Particle/FormFactorCrystal.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Particle/ParticleComposition.h"
 
 Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_position_variance(0.0)

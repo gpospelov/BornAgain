@@ -15,7 +15,7 @@
 #ifndef SPECULARDATAHANDLER_H
 #define SPECULARDATAHANDLER_H
 
-#include "ICloneable.h"
+#include "Core/Basics/ICloneable.h"
 
 #include <sstream>
 #include <string>

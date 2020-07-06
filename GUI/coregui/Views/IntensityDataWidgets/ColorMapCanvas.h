@@ -15,7 +15,7 @@
 #ifndef COLORMAPCANVAS_H
 #define COLORMAPCANVAS_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ColorMap;
 class FontScalingEvent;

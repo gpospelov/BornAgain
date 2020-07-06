@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "PoissonNoiseBackground.h"
-#include "MathFunctions.h"
+#include "Core/Computation/PoissonNoiseBackground.h"
+#include "Core/Tools/MathFunctions.h"
 
 PoissonNoiseBackground::PoissonNoiseBackground()
 {

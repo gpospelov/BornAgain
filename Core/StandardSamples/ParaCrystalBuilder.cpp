@@ -12,19 +12,19 @@
 //
 // ************************************************************************** //
 
-#include "ParaCrystalBuilder.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorCylinder.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "Particle.h"
-#include "ParticleLayout.h"
-#include "RealParameter.h"
-#include "SampleComponents.h"
-#include "Units.h"
+#include "Core/StandardSamples/ParaCrystalBuilder.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/HardParticle/FormFactorCylinder.h"
+#include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
+#include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/StandardSamples/SampleComponents.h"
+#include "Core/Parametrization/Units.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0 * Units::nanometer), m_corr_width(7 * Units::nanometer),

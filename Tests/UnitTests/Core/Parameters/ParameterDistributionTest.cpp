@@ -1,10 +1,10 @@
-#include "ParameterDistribution.h"
-#include "Distributions.h"
-#include "Exceptions.h"
-#include "IParameterized.h"
-#include "ParameterSample.h"
-#include "ParameterUtils.h"
-#include "google_test.h"
+#include "Core/Parametrization/ParameterDistribution.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/IParameterized.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Parametrization/ParameterUtils.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <cmath>
 
 class ParameterDistributionTest : public ::testing::Test

@@ -15,7 +15,7 @@
 #ifndef HISTOGRAM1D_H
 #define HISTOGRAM1D_H
 
-#include "IHistogram.h"
+#include "Core/Instrument/IHistogram.h"
 
 //! One dimensional histogram.
 //! @ingroup tools

@@ -15,7 +15,7 @@
 #ifndef PROPERTYEDITORFACTORY_H
 #define PROPERTYEDITORFACTORY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 
 class QModelIndex;

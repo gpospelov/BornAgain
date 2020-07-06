@@ -15,7 +15,7 @@
 #ifndef ISCENEADAPTOR_H
 #define ISCENEADAPTOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <QRectF>
 

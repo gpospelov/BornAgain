@@ -15,11 +15,11 @@
 #ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H
 #define INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
-#include "Complex.h"
-#include "FTDistributions2D.h"
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
-#include "Lattice2D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Tools/Integrator.h"
+#include "Core/Lattice/Lattice2D.h"
 #include <memory>
 
 class IFTDistribution2D;

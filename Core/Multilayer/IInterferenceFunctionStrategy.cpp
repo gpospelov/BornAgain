@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "IInterferenceFunctionStrategy.h"
-#include "Exceptions.h"
-#include "FormFactorCoherentSum.h"
-#include "IntegratorMCMiser.h"
-#include "InterferenceFunctionNone.h"
-#include "SimulationElement.h"
+#include "Core/Multilayer/IInterferenceFunctionStrategy.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Aggregate/FormFactorCoherentSum.h"
+#include "Core/Tools/IntegratorMCMiser.h"
+#include "Core/Aggregate/InterferenceFunctionNone.h"
+#include "Core/SimulationElement/SimulationElement.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)

@@ -15,8 +15,8 @@
 #ifndef SPECULARDATACANVAS_H
 #define SPECULARDATACANVAS_H
 
-#include "SessionItemWidget.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class SpecularDataItem;

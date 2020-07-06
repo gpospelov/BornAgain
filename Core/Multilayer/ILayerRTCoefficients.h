@@ -15,9 +15,9 @@
 #ifndef ILAYERRTCOEFFICIENTS_H
 #define ILAYERRTCOEFFICIENTS_H
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "Exceptions.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Basics/Exceptions.h"
 
 //! Interface to access reflection/transmission coefficients.
 //! @ingroup algorithms_internal

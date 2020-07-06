@@ -15,7 +15,7 @@
 #ifndef GUIPERFORMANCETEST_H
 #define GUIPERFORMANCETEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QString>
 #include <memory>
 

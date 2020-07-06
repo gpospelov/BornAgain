@@ -15,7 +15,7 @@
 #ifndef REALDATAMASKWIDGET_H
 #define REALDATAMASKWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class SessionItem;
 class MaskEditor;

@@ -15,9 +15,9 @@
 #ifndef BEAM_H
 #define BEAM_H
 
-#include "EigenCore.h"
-#include "INode.h"
-#include "Vectors3D.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Vector/Vectors3D.h"
 
 class IFootprintFactor;
 

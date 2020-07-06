@@ -15,7 +15,7 @@
 #ifndef AXESITEMS_H
 #define AXESITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <memory>
 
 class IAxis;

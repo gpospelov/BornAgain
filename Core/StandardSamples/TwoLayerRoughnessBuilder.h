@@ -15,7 +15,7 @@
 #ifndef TWOLAYERROUGHNESSBUILDER_H
 #define TWOLAYERROUGHNESSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

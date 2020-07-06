@@ -15,8 +15,8 @@
 #ifndef SPHERICALDETECTOR_H
 #define SPHERICALDETECTOR_H
 
-#include "IDetector2D.h"
-#include "IPixel.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Binning/IPixel.h"
 
 //! A pixel in a SphericalDetector
 

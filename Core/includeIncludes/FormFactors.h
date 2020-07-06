@@ -15,11 +15,11 @@
 #ifndef FORMFACTORS_H
 #define FORMFACTORS_H
 
-#include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorPositionFactor.h"
-#include "FormFactorDecoratorRotation.h"
-#include "FormFactorWeighted.h"
-#include "HardParticles.h"
-#include "SoftParticles.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
+#include "Core/Particle/FormFactorWeighted.h"
+#include "Core/includeIncludes/HardParticles.h"
+#include "Core/includeIncludes/SoftParticles.h"
 
 #endif // FORMFACTORS_H

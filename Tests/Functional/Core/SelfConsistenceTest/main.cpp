@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SelfConsistenceTestService.h"
+#include "Tests/Functional/Core/SelfConsistenceTest/SelfConsistenceTestService.h"
 
 //! Runs CoreStandardTest on a standard simulation indicated by argv[1].
 

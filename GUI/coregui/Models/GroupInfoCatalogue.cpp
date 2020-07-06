@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "GroupInfoCatalogue.h"
-#include "GUIHelpers.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/GroupInfoCatalogue.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 GroupInfoCatalogue::GroupInfoCatalogue()
 {

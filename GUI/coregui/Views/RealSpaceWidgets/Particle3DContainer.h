@@ -15,7 +15,7 @@
 #ifndef PARTICLE3DCONTAINER_H
 #define PARTICLE3DCONTAINER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <memory>
 #include <vector>

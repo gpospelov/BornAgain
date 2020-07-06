@@ -15,8 +15,8 @@
 #ifndef IABSTRACTPARTICLE_H
 #define IABSTRACTPARTICLE_H
 
-#include "ISample.h"
-#include "Vectors3D.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Vector/Vectors3D.h"
 
 class IRotation;
 

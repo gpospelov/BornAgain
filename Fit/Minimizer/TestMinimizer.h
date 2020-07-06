@@ -15,7 +15,7 @@
 #ifndef TESTMINIMIZER_H
 #define TESTMINIMIZER_H
 
-#include "IMinimizer.h"
+#include "Fit/Minimizer/IMinimizer.h"
 
 //! A trivial minimizer that calls the objective function once. Used to test the whole chain.
 

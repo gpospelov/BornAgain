@@ -15,7 +15,7 @@
 #ifndef SIMULATIONOPTIONSWIDGET_H
 #define SIMULATIONOPTIONSWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class SimulationOptionsItem;

@@ -15,7 +15,7 @@
 #ifndef SAVEPROJECTIONSASSISTANT_H
 #define SAVEPROJECTIONSASSISTANT_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <QVector>
 #include <memory>

@@ -15,8 +15,8 @@
 #ifndef SIMULATIONFACTORY_H
 #define SIMULATIONFACTORY_H
 
-#include "GISASSimulation.h"
-#include "IFactory.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/StandardSamples/IFactory.h"
 #include <string>
 
 //! Registry to create standard pre-defined simulations.

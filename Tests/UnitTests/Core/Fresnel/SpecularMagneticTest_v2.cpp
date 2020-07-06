@@ -1,12 +1,12 @@
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "ProcessedSample.h"
-#include "SimulationOptions.h"
-#include "SpecularMagneticStrategy.h"
-#include "SpecularScalarTanhStrategy.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/Multilayer/SpecularMagneticStrategy.h"
+#include "Core/Multilayer/SpecularScalarTanhStrategy.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 constexpr double eps = 1e-10;
 

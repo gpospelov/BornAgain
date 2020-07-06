@@ -15,8 +15,8 @@
 #ifndef VECTORITEM_H
 #define VECTORITEM_H
 
-#include "SessionItem.h"
-#include "Vectors3D.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "Core/Vector/Vectors3D.h"
 
 class BA_CORE_API_ VectorItem : public SessionItem
 {

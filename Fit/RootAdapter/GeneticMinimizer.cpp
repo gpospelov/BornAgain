@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "GeneticMinimizer.h"
+#include "Fit/RootAdapter/GeneticMinimizer.h"
 #include "Math/GeneticMinimizer.h"
-#include "MinimizerConstants.h"
-#include "Parameter.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
+#include "Fit/Kernel/Parameter.h"
 
 namespace
 {

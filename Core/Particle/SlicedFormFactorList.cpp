@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "SlicedFormFactorList.h"
-#include "IParticle.h"
-#include "MultiLayer.h"
-#include "Rotations.h"
-#include "Slice.h"
+#include "Core/Particle/SlicedFormFactorList.h"
+#include "Core/Particle/IParticle.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Computation/Slice.h"
 #include <utility>
 
 namespace

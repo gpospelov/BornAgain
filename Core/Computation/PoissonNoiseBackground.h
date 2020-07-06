@@ -15,7 +15,7 @@
 #ifndef POISSONNOISEBACKGROUND_H
 #define POISSONNOISEBACKGROUND_H
 
-#include "IBackground.h"
+#include "Core/Computation/IBackground.h"
 
 //! Class representing Poisson noise on top of the scattered intensity
 //!

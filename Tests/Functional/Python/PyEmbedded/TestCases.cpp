@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "TestCases.h"
+#include "Tests/Functional/Python/PyEmbedded/TestCases.h"
 #include "BABuild.h"
 #include "BAVersion.h"
-#include "BornAgainNamespace.h"
-#include "ExportToPython.h"
-#include "MultiLayer.h"
-#include "PyEmbeddedUtils.h"
-#include "PyImport.h"
-#include "PythonCore.h"
-#include "PythonFormatting.h"
-#include "SampleBuilderFactory.h"
-#include "SysUtils.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Export/ExportToPython.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Tools/PyEmbeddedUtils.h"
+#include "Core/Tools/PyImport.h"
+#include "Core/Tools/PythonCore.h"
+#include "Core/Export/PythonFormatting.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Core/Tools/SysUtils.h"
 #include <iostream>
 #include <sstream>
 

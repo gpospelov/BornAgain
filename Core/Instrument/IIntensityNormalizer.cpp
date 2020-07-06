@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IIntensityNormalizer.h"
+#include "Core/Instrument/IIntensityNormalizer.h"
 
 void IntensityNormalizer::init_parameters()
 {

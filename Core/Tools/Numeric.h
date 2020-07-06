@@ -15,7 +15,7 @@
 #ifndef NUMERIC_H
 #define NUMERIC_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <limits>
 
 //! Floating-point epsilon, tolerances, almost-equal.

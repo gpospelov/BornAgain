@@ -15,9 +15,9 @@
 #ifndef CONNECTABLEVIEW_H
 #define CONNECTABLEVIEW_H
 
-#include "IView.h"
-#include "NodeEditorPort.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/SampleDesigner/IView.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorPort.h"
+#include "Wrap/WinDllMacros.h"
 
 class QPainter;
 class QStyleOptionGraphicsItem;

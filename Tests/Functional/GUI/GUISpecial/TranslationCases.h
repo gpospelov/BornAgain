@@ -15,7 +15,7 @@
 #ifndef TRANSLATIONCASES_H
 #define TRANSLATIONCASES_H
 
-#include "GUITranslationTest.h"
+#include "Tests/Functional/GUI/GUISpecial/GUITranslationTest.h"
 
 //! Collection of classes for various translation tests.
 

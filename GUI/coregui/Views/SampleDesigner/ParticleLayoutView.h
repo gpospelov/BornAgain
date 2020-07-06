@@ -15,7 +15,7 @@
 #ifndef PARTICLELAYOUTVIEW_H
 #define PARTICLELAYOUTVIEW_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 class BA_CORE_API_ ParticleLayoutView : public ConnectableView
 {

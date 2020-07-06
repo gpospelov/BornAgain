@@ -15,7 +15,7 @@
 #ifndef SAMPLEVIEWACTIONS_H
 #define SAMPLEVIEWACTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class SampleModel;

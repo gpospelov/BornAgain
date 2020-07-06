@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "OffSpecSimulation.h"
-#include "BornAgainNamespace.h"
-#include "DWBAComputation.h"
-#include "Distributions.h"
-#include "Histogram2D.h"
-#include "IMultiLayerBuilder.h"
-#include "MultiLayer.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
-#include "SimpleUnitConverters.h"
-#include "SimulationElement.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Computation/DWBAComputation.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/SimulationElement/SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
 {

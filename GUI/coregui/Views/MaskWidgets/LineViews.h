@@ -15,7 +15,7 @@
 #ifndef LINEVIEWS_H
 #define LINEVIEWS_H
 
-#include "IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 
 //! This is a view of VerticalLineItem mask
 

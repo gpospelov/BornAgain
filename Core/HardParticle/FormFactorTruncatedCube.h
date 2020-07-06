@@ -15,7 +15,7 @@
 #ifndef FORMFACTORTRUNCATEDCUBE_H
 #define FORMFACTORTRUNCATEDCUBE_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A cube, with tetrahedral truncation of all corners
 //! @ingroup hardParticle

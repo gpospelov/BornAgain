@@ -15,8 +15,8 @@
 #ifndef MASKRESULTSPRESENTER_H
 #define MASKRESULTSPRESENTER_H
 
-#include "MaskEditorFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
+#include "Wrap/WinDllMacros.h"
 #include <QModelIndex>
 #include <QObject>
 #include <memory>

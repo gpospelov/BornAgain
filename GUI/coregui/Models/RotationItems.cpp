@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "RotationItems.h"
-#include "Rotations.h"
-#include "Units.h"
+#include "GUI/coregui/Models/RotationItems.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Parametrization/Units.h"
 
 // ----------------------------------------------------------------------------
 

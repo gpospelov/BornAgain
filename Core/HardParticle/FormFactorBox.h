@@ -15,7 +15,7 @@
 #ifndef FORMFACTORBOX_H
 #define FORMFACTORBOX_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A rectangular prism (parallelepiped).
 //! @ingroup hardParticle

@@ -15,7 +15,7 @@
 #ifndef MULTILAYERUTILS_H
 #define MULTILAYERUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <cstddef>
 #include <vector>
 

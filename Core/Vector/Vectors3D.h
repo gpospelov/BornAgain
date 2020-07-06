@@ -15,7 +15,7 @@
 #ifndef VECTORS3D_H
 #define VECTORS3D_H
 
-#include "BasicVector3D.h"
+#include "Core/Vector/BasicVector3D.h"
 
 typedef BasicVector3D<int> ivector_t;
 typedef BasicVector3D<double> kvector_t;

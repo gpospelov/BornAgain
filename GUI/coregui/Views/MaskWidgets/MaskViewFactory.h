@@ -15,7 +15,7 @@
 #ifndef MASKVIEWFACTORY_H
 #define MASKVIEWFACTORY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 
 class IShape2DView;

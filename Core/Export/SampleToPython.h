@@ -15,7 +15,7 @@
 #ifndef SAMPLETOPYTHON_H
 #define SAMPLETOPYTHON_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 

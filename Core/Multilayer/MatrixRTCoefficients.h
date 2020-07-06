@@ -15,7 +15,7 @@
 #ifndef MATRIXRTCOEFFICIENTS_H
 #define MATRIXRTCOEFFICIENTS_H
 
-#include "ILayerRTCoefficients.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
 
 //! Specular reflection and transmission coefficients in a layer in case
 //! of 2x2 matrix interactions between the layers and the scattered particle.

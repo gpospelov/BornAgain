@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "RealDataSelectorToolBar.h"
-#include "RealDataSelectorActions.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorToolBar.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorActions.h"
 #include <QToolButton>
 
 RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent)

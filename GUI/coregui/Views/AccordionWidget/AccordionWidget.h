@@ -31,9 +31,9 @@
 #ifndef ACCORDIONWIDGET_H
 #define ACCORDIONWIDGET_H
 
-#include "ClickableFrame.h"
-#include "ContentPane.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/AccordionWidget/ClickableFrame.h"
+#include "GUI/coregui/Views/AccordionWidget/ContentPane.h"
+#include "Wrap/WinDllMacros.h"
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QPainter>

@@ -15,7 +15,7 @@
 #ifndef SESSIONGRAPHICSITEM_H
 #define SESSIONGRAPHICSITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ SessionGraphicsItem : public SessionItem
 {

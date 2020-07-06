@@ -15,8 +15,8 @@
 #ifndef REALLIMITSITEMS_H
 #define REALLIMITSITEMS_H
 
-#include "RealLimits.h"
-#include "SessionItem.h"
+#include "Fit/Tools/RealLimits.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ RealLimitsItem : public SessionItem
 {

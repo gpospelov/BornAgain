@@ -15,7 +15,7 @@
 #ifndef TWODIMLATTICEBUILDER_H
 #define TWODIMLATTICEBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds sample: 2D lattice with arbitrary angle and different lattice length_1 and length_2.
 //! @ingroup standard_samples

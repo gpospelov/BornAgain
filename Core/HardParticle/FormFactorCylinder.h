@@ -15,7 +15,7 @@
 #ifndef FORMFACTORCYLINDER_H
 #define FORMFACTORCYLINDER_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A circular cylinder.
 //! @ingroup hardParticle

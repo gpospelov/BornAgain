@@ -15,7 +15,7 @@
 #ifndef JOBITEM_H
 #define JOBITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class DataItem;
 class Data1DViewItem;

@@ -15,7 +15,7 @@
 #ifndef MINIMIZERUTILS_H
 #define MINIMIZERUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <map>
 #include <string>
 #include <vector>

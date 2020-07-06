@@ -15,8 +15,8 @@
 #ifndef STANDARDTESTCATALOGUE_H
 #define STANDARDTESTCATALOGUE_H
 
-#include "StandardTestInfo.h"
-#include "WinDllMacros.h"
+#include "Tests/Functional/TestMachinery/StandardTestInfo.h"
+#include "Wrap/WinDllMacros.h"
 #include <map>
 
 //! @class StandardTestCatalogue

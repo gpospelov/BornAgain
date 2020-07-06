@@ -15,7 +15,7 @@
 #ifndef MINIMIZERTEST_H
 #define MINIMIZERTEST_H
 
-#include "IMinimizerTest.h"
+#include "Tests/Functional/TestMachinery/IMinimizerTest.h"
 
 //! Collection of standalone tests for fitting library.
 

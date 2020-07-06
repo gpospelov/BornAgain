@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "PolygonView.h"
-#include "MaskItems.h"
-#include "PolygonPointView.h"
+#include "GUI/coregui/Views/MaskWidgets/PolygonView.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Views/MaskWidgets/PolygonPointView.h"
 #include <QCursor>
 #include <QPainter>
 

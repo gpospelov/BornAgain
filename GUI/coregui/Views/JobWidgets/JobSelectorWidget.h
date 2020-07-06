@@ -15,7 +15,7 @@
 #ifndef JOBSELECTORWIDGET_H
 #define JOBSELECTORWIDGET_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class JobModel;

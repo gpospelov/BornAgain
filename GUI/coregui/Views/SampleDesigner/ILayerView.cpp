@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "ILayerView.h"
-#include "DesignerHelper.h"
-#include "DesignerScene.h"
-#include "ExternalProperty.h"
-#include "GUIHelpers.h"
-#include "LayerItem.h"
-#include "MultiLayerView.h"
-#include "SampleModel.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/ILayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Views/SampleDesigner/MultiLayerView.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItem.h"
 #include <QGraphicsSceneMouseEvent>
 
 QLineF MultiLayerCandidate::getInterfaceToScene()

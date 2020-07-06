@@ -1,6 +1,6 @@
-#include "FTDistributionItems.h"
-#include "FTDistributions1D.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/FTDistributionItems.h"
+#include "Core/Aggregate/FTDistributions1D.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestFTDistributionItems : public ::testing::Test
 {

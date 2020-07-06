@@ -17,7 +17,7 @@
 
 //! Collection of minimizer tests.
 
-#include "MinimizerTest.h"
+#include "Tests/Functional/Fit/Minimizer/MinimizerTest.h"
 
 class MinuitTestV1 : public MinimizerTest
 {

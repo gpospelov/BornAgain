@@ -15,9 +15,9 @@
 #ifndef ATTLIMITS_H
 #define ATTLIMITS_H
 
-#include "Attributes.h"
-#include "RealLimits.h"
-#include "WinDllMacros.h"
+#include "Fit/Tools/Attributes.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 //! Attributes and limits of a fit parameter, and coupling between these properties.

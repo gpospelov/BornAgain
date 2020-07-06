@@ -15,9 +15,9 @@
 #ifndef ICLUSTEREDPARTICLES_H
 #define ICLUSTEREDPARTICLES_H
 
-#include "HomogeneousRegion.h"
-#include "ISample.h"
-#include "Vectors3D.h"
+#include "Core/Particle/HomogeneousRegion.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Vector/Vectors3D.h"
 
 class IFormFactor;
 class IRotation;

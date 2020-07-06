@@ -1,5 +1,5 @@
-#include "CumulativeValue.h"
-#include "google_test.h"
+#include "Core/Instrument/CumulativeValue.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class CumulativeValueTest : public ::testing::Test
 {

@@ -15,7 +15,7 @@
 #ifndef CUSTOMMORPHOLOGYBUILDER_H
 #define CUSTOMMORPHOLOGYBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class ISample;
 

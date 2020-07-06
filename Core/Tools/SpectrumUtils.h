@@ -15,8 +15,8 @@
 #ifndef SPECTRUMUTILS_H
 #define SPECTRUMUTILS_H
 
-#include "Histogram2D.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 #include <vector>
 

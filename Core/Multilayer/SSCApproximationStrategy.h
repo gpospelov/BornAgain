@@ -15,8 +15,8 @@
 #ifndef SSCAPPROXIMATIONSTRATEGY_H
 #define SSCAPPROXIMATIONSTRATEGY_H
 
-#include "IInterferenceFunctionStrategy.h"
-#include "SSCAHelper.h"
+#include "Core/Multilayer/IInterferenceFunctionStrategy.h"
+#include "Core/Multilayer/SSCAHelper.h"
 
 class SimulationElement;
 

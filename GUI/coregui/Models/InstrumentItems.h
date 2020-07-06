@@ -15,7 +15,7 @@
 #ifndef INSTRUMENTITEMS_H
 #define INSTRUMENTITEMS_H
 
-#include "BeamItems.h"
+#include "GUI/coregui/Models/BeamItems.h"
 
 class BackgroundItem;
 class DataItem;

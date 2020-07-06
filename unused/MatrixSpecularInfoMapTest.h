@@ -1,13 +1,13 @@
 #ifndef MATRIXSPECULARINFOMAPTEST_H
 #define MATRIXSPECULARINFOMAPTEST_H
 
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MatrixRTCoefficients.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MatrixRTCoefficients.h"
 #include "MatrixMLFresnelMap.h"
-#include "MultiLayer.h"
-#include "MathConstants.h"
-#include "SimulationElement.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/SimulationElement/SimulationElement.h"
 #include <memory>
 
 class MatrixSpecularInfoMapTest : public ::testing :: Test

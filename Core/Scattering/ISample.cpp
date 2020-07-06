@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "ISample.h"
-#include "Exceptions.h"
-#include "ParameterPool.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/ParameterPool.h"
 #include <algorithm>
 #include <sstream>
 

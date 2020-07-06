@@ -15,8 +15,8 @@
 #ifndef MULTILAYERWITHNCROUGHNESSBUILDER_H
 #define MULTILAYERWITHNCROUGHNESSBUILDER_H
 
-#include "IMultiLayerBuilder.h"
-#include "MultiLayerWithRoughnessBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/StandardSamples/MultiLayerWithRoughnessBuilder.h"
 
 class ISample;
 

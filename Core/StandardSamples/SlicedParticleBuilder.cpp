@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "SlicedParticleBuilder.h"
-#include "FormFactorFullSphere.h"
-#include "FormFactorTruncatedSphere.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "Particle.h"
-#include "ParticleComposition.h"
-#include "ParticleLayout.h"
-#include "Transform3D.h"
-#include "Units.h"
+#include "Core/StandardSamples/SlicedParticleBuilder.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/HardParticle/FormFactorTruncatedSphere.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Particle/ParticleComposition.h"
+#include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Vector/Transform3D.h"
+#include "Core/Parametrization/Units.h"
 
 MultiLayer* SlicedCompositionBuilder::buildSample() const
 {

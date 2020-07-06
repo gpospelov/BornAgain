@@ -15,7 +15,7 @@
 #ifndef THICKABSORPTIVESAMPLEBUILDER_H
 #define THICKABSORPTIVESAMPLEBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class BA_CORE_API_ ThickAbsorptiveSampleBuilder : public IMultiLayerBuilder
 {

@@ -15,8 +15,8 @@
 #ifndef MASKGRAPHICSSCENE_H
 #define MASKGRAPHICSSCENE_H
 
-#include "MaskDrawingContext.h"
-#include "MaskEditorHelper.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskDrawingContext.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h"
 #include <QGraphicsScene>
 #include <QMap>
 #include <QModelIndex>

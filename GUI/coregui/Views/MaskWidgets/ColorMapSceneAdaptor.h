@@ -15,7 +15,7 @@
 #ifndef COLORMAPSCENEADAPTOR_H
 #define COLORMAPSCENEADAPTOR_H
 
-#include "ISceneAdaptor.h"
+#include "GUI/coregui/Views/MaskWidgets/ISceneAdaptor.h"
 class ColorMap;
 
 //! Performs conversion of MaskItems coordinates between ColorMap and GraphicsScene.

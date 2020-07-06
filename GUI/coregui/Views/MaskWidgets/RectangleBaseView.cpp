@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "RectangleBaseView.h"
+#include "GUI/coregui/Views/MaskWidgets/RectangleBaseView.h"
 
 namespace
 {

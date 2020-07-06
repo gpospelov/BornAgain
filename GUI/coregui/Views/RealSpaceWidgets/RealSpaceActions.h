@@ -15,7 +15,7 @@
 #ifndef REALSPACEACTIONS_H
 #define REALSPACEACTIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 //! Collection of actions for RealSpaceWidget.

@@ -15,7 +15,7 @@
 #ifndef INTENSITYDATAFFTPRESENTER_H
 #define INTENSITYDATAFFTPRESENTER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class SessionModel;

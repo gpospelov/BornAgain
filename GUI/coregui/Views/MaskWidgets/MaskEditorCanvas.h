@@ -15,7 +15,7 @@
 #ifndef MASKEDITORCANVAS_H
 #define MASKEDITORCANVAS_H
 
-#include "MaskEditorFlags.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include <QWidget>
 
 class MaskGraphicsScene;

@@ -15,7 +15,7 @@
 #ifndef OUTPUTDATAWRITESTRATEGY_H
 #define OUTPUTDATAWRITESTRATEGY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <istream>
 
 template <class T> class OutputData;

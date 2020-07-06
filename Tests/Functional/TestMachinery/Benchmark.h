@@ -15,9 +15,9 @@
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
 
-#include "OrderedMap.h"
-#include "WallclockTimer.h"
-#include "WinDllMacros.h"
+#include "Core/Tools/OrderedMap.h"
+#include "Fit/Tools/WallclockTimer.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <map>
 #include <string>

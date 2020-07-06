@@ -1,7 +1,7 @@
-#include "CustomBinAxis.h"
-#include "DataFormatUtils.h"
-#include "MathConstants.h"
-#include "google_test.h"
+#include "Core/Binning/CustomBinAxis.h"
+#include "Core/InputOutput/DataFormatUtils.h"
+#include "Core/Basics/MathConstants.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <vector>
 
 class CusomBinAxisTest : public ::testing::Test

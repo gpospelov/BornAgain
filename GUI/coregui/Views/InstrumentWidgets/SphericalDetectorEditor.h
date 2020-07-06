@@ -15,7 +15,7 @@
 #ifndef SPHERICALDETECTOREDITOR_H
 #define SPHERICALDETECTOREDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 class SphericalDetectorItem;
 class ComponentEditor;
 class QGridLayout;

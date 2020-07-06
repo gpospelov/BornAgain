@@ -15,7 +15,7 @@
 #ifndef FITTYPES_H
 #define FITTYPES_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <memory>
 

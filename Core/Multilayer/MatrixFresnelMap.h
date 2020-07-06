@@ -15,10 +15,10 @@
 #ifndef MATRIXFRESNELMAP_H
 #define MATRIXFRESNELMAP_H
 
-#include "IFresnelMap.h"
-#include "MatrixRTCoefficients.h"
-#include "MatrixRTCoefficients_v2.h"
-#include "SpecularMagneticStrategy.h"
+#include "Core/Multilayer/IFresnelMap.h"
+#include "Core/Multilayer/MatrixRTCoefficients.h"
+#include "Core/Multilayer/MatrixRTCoefficients_v2.h"
+#include "Core/Multilayer/SpecularMagneticStrategy.h"
 #include <cstddef>
 #include <memory>
 #include <unordered_map>

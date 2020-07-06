@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "ILayout.h"
-#include "Layer.h"
-#include "LayerFillLimits.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
-#include "MaterialUtils.h"
-#include "MultiLayerUtils.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Aggregate/ILayout.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/LayerFillLimits.h"
+#include "Core/Multilayer/LayerInterface.h"
+#include "Core/Multilayer/LayerRoughness.h"
+#include "Core/Material/MaterialUtils.h"
+#include "Core/Computation/MultiLayerUtils.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
 {

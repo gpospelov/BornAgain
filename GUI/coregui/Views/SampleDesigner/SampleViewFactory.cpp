@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "SampleViewFactory.h"
-#include "InterferenceFunctionViews.h"
-#include "LayerView.h"
-#include "MesoCrystalView.h"
-#include "MultiLayerView.h"
-#include "ParticleCompositionView.h"
-#include "ParticleCoreShellView.h"
-#include "ParticleDistributionView.h"
-#include "ParticleLayoutView.h"
-#include "ParticleView.h"
-#include "TransformationView.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/SampleDesigner/SampleViewFactory.h"
+#include "GUI/coregui/Views/SampleDesigner/InterferenceFunctionViews.h"
+#include "GUI/coregui/Views/SampleDesigner/LayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/MesoCrystalView.h"
+#include "GUI/coregui/Views/SampleDesigner/MultiLayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleCompositionView.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleCoreShellView.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleDistributionView.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleLayoutView.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleView.h"
+#include "GUI/coregui/Views/SampleDesigner/TransformationView.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 QStringList SampleViewFactory::m_valid_item_names =
     QStringList() << Constants::MultiLayerType << Constants::LayerType

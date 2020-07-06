@@ -15,7 +15,7 @@
 #ifndef SAMPLEVIEWALIGNER_H
 #define SAMPLEVIEWALIGNER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QModelIndex>
 #include <QPointF>

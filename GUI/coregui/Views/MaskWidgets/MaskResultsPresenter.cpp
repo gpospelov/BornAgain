@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "MaskResultsPresenter.h"
-#include "DetectorMask.h"
-#include "IShape2D.h"
-#include "IntensityDataItem.h"
-#include "MaskItems.h"
-#include "OutputData.h"
-#include "RegionOfInterest.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskResultsPresenter.h"
+#include "Core/Instrument/DetectorMask.h"
+#include "Core/Mask/IShape2D.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Instrument/RegionOfInterest.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QVBoxLayout>
 
 MaskResultsPresenter::MaskResultsPresenter(QWidget* parent)

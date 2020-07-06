@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "canvas.h"
+#include "GUI/ba3d/view/canvas.h"
 #include "../model/geometry.h"
 #include "../model/model.h"
-#include "buffer.h"
-#include "camera.h"
-#include "program.h"
+#include "GUI/ba3d/view/buffer.h"
+#include "GUI/ba3d/view/camera.h"
+#include "GUI/ba3d/view/program.h"
 
 #include <QMouseEvent>
 #include <QSysInfo>

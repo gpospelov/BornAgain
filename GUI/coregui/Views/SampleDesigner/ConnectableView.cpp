@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "ConnectableView.h"
-#include "DesignerHelper.h"
-#include "GUIHelpers.h"
-#include "NodeEditorConnection.h"
-#include "NodeEditorPort.h"
-#include "SessionItem.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorConnection.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorPort.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>

@@ -15,7 +15,7 @@
 #ifndef PROPERTYWIDGETITEM_H
 #define PROPERTYWIDGETITEM_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class QLabel;

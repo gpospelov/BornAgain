@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FootprintFactorGaussian.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "PythonFormatting.h"
+#include "Core/Beam/FootprintFactorGaussian.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
+#include "Core/Export/PythonFormatting.h"
 
 FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio) : IFootprintFactor(width_ratio)
 {

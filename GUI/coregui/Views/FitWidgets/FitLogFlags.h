@@ -15,7 +15,7 @@
 #ifndef FITLOGFLAGS_H
 #define FITLOGFLAGS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QColor>
 #include <QFlags>
 

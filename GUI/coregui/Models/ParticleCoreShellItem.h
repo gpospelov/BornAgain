@@ -15,7 +15,7 @@
 #ifndef PARTICLECORESHELLITEM_H
 #define PARTICLECORESHELLITEM_H
 
-#include "SessionGraphicsItem.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class ParticleCoreShell;
 

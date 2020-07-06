@@ -15,7 +15,7 @@
 #ifndef FORMFACTORDWBA_H
 #define FORMFACTORDWBA_H
 
-#include "IFormFactor.h"
+#include "Core/Scattering/IFormFactor.h"
 #include <memory>
 
 class ILayerRTCoefficients;

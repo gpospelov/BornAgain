@@ -15,7 +15,7 @@
 #ifndef FITCOMPARISONWIDGET_H
 #define FITCOMPARISONWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QMap>
 
 class JobItem;

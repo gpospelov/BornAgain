@@ -15,7 +15,7 @@
 #ifndef GSLLEVENBERGMARQUARDTMINIMIZER_H
 #define GSLLEVENBERGMARQUARDTMINIMIZER_H
 
-#include "RootMinimizerAdapter.h"
+#include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
 namespace ROOT
 {

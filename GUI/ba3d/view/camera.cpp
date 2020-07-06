@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "camera.h"
+#include "GUI/ba3d/view/camera.h"
 
 namespace RealSpace
 {

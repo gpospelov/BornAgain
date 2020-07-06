@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "ComponentUtils.h"
-#include "SessionItem.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentUtils.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 namespace
 {

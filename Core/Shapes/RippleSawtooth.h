@@ -15,7 +15,7 @@
 #ifndef RIPPLESAWTOOTH_H
 #define RIPPLESAWTOOTH_H
 
-#include "IShape.h"
+#include "Core/Shapes/IShape.h"
 
 class RippleSawtooth : public IShape
 {

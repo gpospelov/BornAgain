@@ -15,7 +15,7 @@
 #ifndef REGIONOFINTEREST_H
 #define REGIONOFINTEREST_H
 
-#include "ICloneable.h"
+#include "Core/Basics/ICloneable.h"
 #include <memory>
 #include <vector>
 

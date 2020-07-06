@@ -15,9 +15,9 @@
 #ifndef TESTUTILS_H
 #define TESTUTILS_H
 
-#include "OutputData.h"
-#include "StandardTestInfo.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/OutputData.h"
+#include "Tests/Functional/TestMachinery/StandardTestInfo.h"
+#include "Wrap/WinDllMacros.h"
 
 namespace TestUtils
 {

@@ -15,7 +15,7 @@
 #ifndef PARACRYSTALBUILDER_H
 #define PARACRYSTALBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include <memory>
 
 class IFTDistribution2D;

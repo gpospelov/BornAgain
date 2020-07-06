@@ -15,8 +15,8 @@
 #ifndef REFRACTIVEMATERIALIMPL_H_
 #define REFRACTIVEMATERIALIMPL_H_
 
-#include "MagneticMaterialImpl.h"
-#include "Material.h"
+#include "Core/Material/MagneticMaterialImpl.h"
+#include "Core/Material/Material.h"
 
 //! Material implementation based on refractive coefficiencts (valid for one wavelength value only)
 //! @ingroup materials

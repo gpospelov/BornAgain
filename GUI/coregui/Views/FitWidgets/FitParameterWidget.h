@@ -15,7 +15,7 @@
 #ifndef FITPARAMETERWIDGET_H
 #define FITPARAMETERWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <memory>
 
 class JobItem;

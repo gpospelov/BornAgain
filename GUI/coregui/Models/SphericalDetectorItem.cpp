@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "SphericalDetectorItem.h"
-#include "AxesItems.h"
-#include "SphericalDetector.h"
-#include "Units.h"
+#include "GUI/coregui/Models/SphericalDetectorItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Parametrization/Units.h"
 
 const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";

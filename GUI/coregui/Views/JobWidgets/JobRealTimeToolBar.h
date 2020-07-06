@@ -15,7 +15,7 @@
 #ifndef JOBREALTIMETOOLBAR_H
 #define JOBREALTIMETOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class QToolButton;
 

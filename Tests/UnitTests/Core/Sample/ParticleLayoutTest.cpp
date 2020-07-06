@@ -1,13 +1,13 @@
-#include "ParticleLayout.h"
-#include "BornAgainNamespace.h"
-#include "IAbstractParticle.h"
-#include "INodeUtils.h"
-#include "InterferenceFunction1DLattice.h"
-#include "InterferenceFunctionNone.h"
-#include "MaterialFactoryFuncs.h"
-#include "Particle.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Particle/IAbstractParticle.h"
+#include "Core/Export/INodeUtils.h"
+#include "Core/Aggregate/InterferenceFunction1DLattice.h"
+#include "Core/Aggregate/InterferenceFunctionNone.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Parametrization/Units.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class ParticleLayoutTest : public ::testing::Test
 {

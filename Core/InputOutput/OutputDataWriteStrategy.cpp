@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataWriteStrategy.h"
-#include "ArrayUtils.h"
-#include "BornAgainNamespace.h"
-#include "OutputData.h" // needed by some compilers
-#include "TiffHandler.h"
+#include "Core/InputOutput/OutputDataWriteStrategy.h"
+#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/OutputData.h" // needed by some compilers
+#include "Core/InputOutput/TiffHandler.h"
 #include <cmath>
 #include <iomanip>
 

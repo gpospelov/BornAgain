@@ -15,7 +15,7 @@
 #ifndef PROJECTLOADWARNINGDIALOG_H
 #define PROJECTLOADWARNINGDIALOG_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QDialog>
 #include <QStringList>
 

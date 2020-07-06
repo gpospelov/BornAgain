@@ -15,7 +15,7 @@
 #ifndef IFUNCTIONADAPTER_H
 #define IFUNCTIONADAPTER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 namespace Fit
 {

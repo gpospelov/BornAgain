@@ -15,7 +15,7 @@
 #ifndef LATTICE2DITEMS_H
 #define LATTICE2DITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 class Lattice2D;
 
 class BA_CORE_API_ Lattice2DItem : public SessionItem

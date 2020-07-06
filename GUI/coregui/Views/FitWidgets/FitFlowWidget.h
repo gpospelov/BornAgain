@@ -15,7 +15,7 @@
 #ifndef FITFLOWWIDGET_H
 #define FITFLOWWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class HistogramPlot;
 class FitSuiteItem;

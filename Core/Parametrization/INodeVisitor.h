@@ -15,7 +15,7 @@
 #ifndef INODEVISITOR_H
 #define INODEVISITOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class BasicLattice;
 class Beam;

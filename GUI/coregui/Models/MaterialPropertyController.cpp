@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "MaterialPropertyController.h"
-#include "MaterialItemUtils.h"
-#include "MaterialModel.h"
-#include "ModelPath.h"
-#include "ModelUtils.h"
-#include "SampleModel.h"
+#include "GUI/coregui/Models/MaterialPropertyController.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/Models/MaterialModel.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/SampleModel.h"
 #include <QVector>
 
 MaterialPropertyController::MaterialPropertyController(QObject* parent)

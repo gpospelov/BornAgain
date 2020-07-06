@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "IsGISAXSDetector.h"
-#include "BornAgainNamespace.h"
-#include "CustomBinAxis.h"
+#include "Core/Instrument/IsGISAXSDetector.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Binning/CustomBinAxis.h"
 
 IsGISAXSDetector::IsGISAXSDetector()
 {

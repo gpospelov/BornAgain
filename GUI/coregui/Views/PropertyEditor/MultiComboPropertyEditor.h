@@ -15,7 +15,7 @@
 #ifndef MULTICOMBOPROPERTYEDITOR_H
 #define MULTICOMBOPROPERTYEDITOR_H
 
-#include "CustomEditors.h"
+#include "GUI/coregui/Views/PropertyEditor/CustomEditors.h"
 #include <QStyledItemDelegate>
 #include <memory>
 

@@ -15,9 +15,9 @@
 #ifndef IHISTOGRAM_H
 #define IHISTOGRAM_H
 
-#include "CumulativeValue.h"
-#include "OutputData.h"
-#include "PyObject.h"
+#include "Core/Instrument/CumulativeValue.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Tools/PyObject.h"
 
 class Histogram1D;
 

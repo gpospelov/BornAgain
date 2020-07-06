@@ -15,7 +15,7 @@
 #ifndef HISTOGRAMPLOT_H
 #define HISTOGRAMPLOT_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include "qcustomplot.h"
 #include <QWidget>
 

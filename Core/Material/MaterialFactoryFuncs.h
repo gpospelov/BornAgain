@@ -15,7 +15,7 @@
 #ifndef MATERIALFACTORYFUNCS_H_
 #define MATERIALFACTORYFUNCS_H_
 
-#include "Material.h"
+#include "Core/Material/Material.h"
 
 struct HomogeneousRegion;
 

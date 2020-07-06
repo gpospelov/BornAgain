@@ -15,7 +15,7 @@
 #ifndef CUSTOMEVENTFILTERS_H
 #define CUSTOMEVENTFILTERS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 //! Filter out space bar key events, which is special case for dialog windows.

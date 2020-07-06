@@ -15,7 +15,7 @@
 #ifndef MATERIALDATAITEMS_H
 #define MATERIALDATAITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ MaterialDataItem : public SessionItem
 {

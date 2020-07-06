@@ -15,7 +15,7 @@
 #ifndef INSTRUMENTMODEL_H
 #define INSTRUMENTMODEL_H
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 class InstrumentItem;
 

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "SimulationResult.h"
-#include "FixedBinAxis.h"
-#include "Histogram2D.h"
-#include "OutputData.h"
+#include "Core/Instrument/SimulationResult.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/Instrument/OutputData.h"
 
 SimulationResult::SimulationResult(const OutputData<double>& data,
                                    const IUnitConverter& unit_converter)

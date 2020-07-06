@@ -1,12 +1,12 @@
-#include "Exceptions.h"
-#include "HomogeneousRegion.h"
-#include "MaterialBySLDImpl.h"
-#include "MaterialFactoryFuncs.h"
-#include "RefractiveMaterialImpl.h"
-#include "Rotations.h"
-#include "Units.h"
-#include "WavevectorInfo.h"
-#include "google_test.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Particle/HomogeneousRegion.h"
+#include "Core/Material/MaterialBySLDImpl.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Material/RefractiveMaterialImpl.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Parametrization/Units.h"
+#include "Core/Vector/WavevectorInfo.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class MaterialTest : public ::testing::Test
 {

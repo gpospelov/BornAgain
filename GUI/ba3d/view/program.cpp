@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "program.h"
-#include "camera.h"
+#include "GUI/ba3d/view/program.h"
+#include "GUI/ba3d/view/camera.h"
 #include <QMatrix4x4>
 #include <stdexcept>
 

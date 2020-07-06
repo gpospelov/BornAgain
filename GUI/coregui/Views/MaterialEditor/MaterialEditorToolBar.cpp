@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "MaterialEditorToolBar.h"
-#include "MaterialItem.h"
-#include "MaterialModel.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialEditorToolBar.h"
+#include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Models/MaterialModel.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QListView>

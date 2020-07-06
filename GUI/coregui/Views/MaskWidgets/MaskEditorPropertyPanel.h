@@ -15,7 +15,7 @@
 #ifndef MASKEDITORPROPERTYPANEL_H
 #define MASKEDITORPROPERTYPANEL_H
 
-#include "MaskEditorFlags.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include <QModelIndex>
 #include <QWidget>
 

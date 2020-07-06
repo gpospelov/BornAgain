@@ -53,7 +53,7 @@
 #ifndef QSIMPLERESOURCE_P_H
 #define QSIMPLERESOURCE_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 //#include "abstractformbuilder.h"
 #include <QtCore/QStringList>
 #include <QtDesigner/abstractformbuilder.h>

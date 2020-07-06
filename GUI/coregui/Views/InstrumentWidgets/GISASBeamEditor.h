@@ -15,7 +15,7 @@
 #ifndef GISASBEAMEDITOR_H
 #define GISASBEAMEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ComponentEditor;
 class QGridLayout;

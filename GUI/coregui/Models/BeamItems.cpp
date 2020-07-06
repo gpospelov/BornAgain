@@ -12,22 +12,22 @@
 //
 // ************************************************************************** //
 
-#include "BeamItems.h"
-#include "AxesItems.h"
-#include "Beam.h"
-#include "BeamAngleItems.h"
-#include "BeamDistributionItem.h"
-#include "BeamWavelengthItem.h"
-#include "BornAgainNamespace.h"
-#include "FootprintItems.h"
-#include "GUIHelpers.h"
-#include "GroupItem.h"
-#include "IAxis.h"
-#include "ParameterTranslators.h"
-#include "PointwiseAxisItem.h"
-#include "SessionItemUtils.h"
-#include "SpecularBeamInclinationItem.h"
-#include "Units.h"
+#include "GUI/coregui/Models/BeamItems.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "Core/Beam/Beam.h"
+#include "GUI/coregui/Models/BeamAngleItems.h"
+#include "GUI/coregui/Models/BeamDistributionItem.h"
+#include "GUI/coregui/Models/BeamWavelengthItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/FootprintItems.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "Core/Binning/IAxis.h"
+#include "GUI/coregui/Models/ParameterTranslators.h"
+#include "GUI/coregui/Models/PointwiseAxisItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
+#include "Core/Parametrization/Units.h"
 #include <cmath>
 
 using SessionItemUtils::GetVectorItem;

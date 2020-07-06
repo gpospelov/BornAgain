@@ -15,7 +15,7 @@
 #ifndef RIPPLECOSINE_H
 #define RIPPLECOSINE_H
 
-#include "IShape.h"
+#include "Core/Shapes/IShape.h"
 
 class RippleCosine : public IShape
 {

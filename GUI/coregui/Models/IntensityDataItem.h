@@ -15,7 +15,7 @@
 #ifndef INTENSITYDATAITEM_H
 #define INTENSITYDATAITEM_H
 
-#include "DataItem.h"
+#include "GUI/coregui/Models/DataItem.h"
 
 class BasicAxisItem;
 class MaskContainerItem;

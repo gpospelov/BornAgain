@@ -15,7 +15,7 @@
 #ifndef FORMFACTORCONE6_H
 #define FORMFACTORCONE6_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A frustum (truncated pyramid) with regular hexagonal base.
 //! @ingroup hardParticle

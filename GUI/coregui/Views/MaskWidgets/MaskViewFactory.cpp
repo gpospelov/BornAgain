@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "MaskViewFactory.h"
-#include "EllipseView.h"
-#include "GUIHelpers.h"
-#include "IShape2DView.h"
-#include "IntensityDataView.h"
-#include "LineViews.h"
-#include "MaskAllView.h"
-#include "MaskContainerView.h"
-#include "PolygonPointView.h"
-#include "PolygonView.h"
-#include "RectangleView.h"
-#include "RegionOfInterestView.h"
-#include "SessionItem.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskViewFactory.h"
+#include "GUI/coregui/Views/MaskWidgets/EllipseView.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/IntensityDataView.h"
+#include "GUI/coregui/Views/MaskWidgets/LineViews.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskAllView.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskContainerView.h"
+#include "GUI/coregui/Views/MaskWidgets/PolygonPointView.h"
+#include "GUI/coregui/Views/MaskWidgets/PolygonView.h"
+#include "GUI/coregui/Views/MaskWidgets/RectangleView.h"
+#include "GUI/coregui/Views/MaskWidgets/RegionOfInterestView.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 IShape2DView* MaskViewFactory::createMaskView(SessionItem* item, ISceneAdaptor* adaptor)
 {

@@ -15,8 +15,8 @@
 #ifndef PARAMETERPLAN_H
 #define PARAMETERPLAN_H
 
-#include "Parameter.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameter.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Defines initial settings of single fit parameter and the final value which has to be found
 //! in the course of the fit.

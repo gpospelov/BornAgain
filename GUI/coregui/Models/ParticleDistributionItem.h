@@ -15,8 +15,8 @@
 #ifndef PARTICLEDISTRIBUTIONITEM_H
 #define PARTICLEDISTRIBUTIONITEM_H
 
-#include "ParticleDistribution.h"
-#include "SessionGraphicsItem.h"
+#include "Core/Particle/ParticleDistribution.h"
+#include "GUI/coregui/Models/SessionGraphicsItem.h"
 #include <string>
 #include <vector>
 

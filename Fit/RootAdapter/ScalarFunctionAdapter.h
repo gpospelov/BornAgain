@@ -15,9 +15,9 @@
 #ifndef SCALARFUNCTIONADAPTER_H
 #define SCALARFUNCTIONADAPTER_H
 
-#include "IFunctionAdapter.h"
-#include "KernelTypes.h"
-#include "Parameters.h"
+#include "Fit/Kernel/IFunctionAdapter.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Kernel/Parameters.h"
 #include <functional>
 #include <memory>
 #include <vector>

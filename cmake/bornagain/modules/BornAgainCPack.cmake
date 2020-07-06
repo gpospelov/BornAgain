@@ -50,10 +50,10 @@ set(CPACK_SOURCE_IGNORE_FILES
     ${CPACK_SOURCE_IGNORE_FILES} # first take the default parameters
     "/Doc/FFCatalog/"
     "/Doc/PhysicsManual/"
-    "/dev-tools/edit-scripts/"
-    "/dev-tools/packaging/"
-    "/dev-tools/tmp-examples/"
-    "/dev-tools/tmp-unsorted/"
+    "/devtools/edit-scripts/"
+    "/devtools/packaging/"
+    "/devtools/tmp-examples/"
+    "/devtools/tmp-unsorted/"
     "/XCode_BornAgain.xcodeproj/"
     "~$"
     "/.git/"
@@ -72,8 +72,8 @@ set(CPACK_SOURCE_IGNORE_FILES
     "\\\\.obj"
     "CMakeLists.txt.user"
     "/bin/release.sh.in" # user will not need it
-    "/dev-tools/git-utils/cl_lines_of_code.py"
-    "/dev-tools/git-utils/qqq.png" # remove this line when unneeded
+    "/devtools/git-utils/cl_lines_of_code.py"
+    "/devtools/git-utils/qqq.png" # remove this line when unneeded
     ".pro$"
     ".pro.user$"
     ".pri$"

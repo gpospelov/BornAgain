@@ -23,7 +23,7 @@ header_top = [
     u"//                                                                              "
     ]
 header_center = [
-    u"//! @file      dev-tools/edit/update-sourcecode-header.py                       "
+    u"//! @file      dev-tools/code-tools/update-sourcecode-header.py                       "
     u"//! @brief     Defines class Beam                                               "
     ]
 header_bottom = [

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/showcase/modelLayers.h
+//! @file      dev-tools/sandboxes/realSpace/demo2/modelLayers.h
 //! @brief     Defines ModelLayers class
 //!
 //! @homepage  http://www.bornagainproject.org

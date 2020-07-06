@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/Algorithms
+//! @file      Core/Basics/Algorithms.h
 //! @brief     Defines and implements namespace algo with some algorithms
 //!
 //! @homepage  http://www.bornagainproject.org

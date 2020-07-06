@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/demo/mainwindow.h
+//! @file      dev-tools/sandboxes/realSpace/demo1/mainwindow.h
 //! @brief     Defines MainWin class
 //!
 //! @homepage  http://www.bornagainproject.org

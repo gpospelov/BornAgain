@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/demo/lattice.cpp
+//! @file      dev-tools/sandboxes/realSpace/demo1/lattice.cpp
 //! @brief     Implements Lattice class
 //!
 //! @homepage  http://www.bornagainproject.org

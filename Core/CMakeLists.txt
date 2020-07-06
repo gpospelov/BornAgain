@@ -2,6 +2,8 @@
 # CMakeLists.txt file for building libBornAgainCore library
 ############################################################################
 
+message(STATUS "Configuring BornAgain GUI")
+
 set(library_name BornAgainCore)
 
 if(BORNAGAIN_TIDY)
@@ -161,9 +163,9 @@ endif()
 
 target_include_directories(${library_name} PUBLIC ${include_dirs})
 target_include_directories(${library_name} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
-target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
+target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR} ${tspectrum_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
-target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES}
+target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY} ${tspectrum_LIBRARY})
 
 if(BORNAGAIN_MPI)
@@ -235,10 +237,16 @@ if(WIN32)
     install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
-    install(FILES
-        ${FFTW_LIBRARY_DLL}
-        ${TIFF_LIBRARY_DLL}
-        DESTINATION ${destination_lib} COMPONENT Libraries)
+    set(DLL_MSG "")
+    foreach(LIB IN LISTS FFTW3_LIBRARIES TIFF_LIBRARIES)
+        string(REPLACE ".lib" ".dll" DLL "${LIB}")
+        if (NOT EXISTS ${DLL})
+            message(FATAL_ERROR "Dynamic load library ${DLL} (derived from ${LIB}) does not exist")
+        endif()
+        install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
+        string(APPEND DLL_MSG " ${DLL}")
+    endforeach()
+    message(STATUS "Other dlls: ${DLL_MSG}")
 
 else()
     # Install thisbornagain.sh.

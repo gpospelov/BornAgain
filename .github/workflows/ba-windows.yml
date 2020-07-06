@@ -167,7 +167,7 @@ jobs:
       run: |
         cd ${{github.workspace}}\build
         set PATH=${{github.workspace}}\nsis-3.04;%PATH%
-        cpack -c Release
+        cpack --debug -c Release
 
     - name: Upload CPack log
       uses: actions/upload-artifact@v2

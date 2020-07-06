@@ -1,7 +1,7 @@
 # Search for installed software required by BornAgain
 
 find_package(Threads REQUIRED)
-find_package(FFTW REQUIRED)
+find_package(FFTW3 REQUIRED)
 find_package(GSL REQUIRED)
 
 # --- Eigen3 is a git submodule; throw an error if submodule is not initialized ---
@@ -44,7 +44,7 @@ endif()
 # --- Tiff ---
 if(BORNAGAIN_TIFF_SUPPORT)
     message(STATUS "Looking for libtiff (use -DBORNAGAIN_TIFF_SUPPORT=OFF to disable)")
-    find_package(TIFF 4.0.2 REQUIRED)
+    find_package(TIFF 4.0.2 REQUIRED COMPONENTS CXX)
 endif()
 
 # --- Python ---

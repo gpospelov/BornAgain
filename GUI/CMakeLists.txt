@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 
 if(BORNAGAIN_OPENGL)
     message(STATUS "Configuring BornAgain OpenGL")
-    add_subdirectory(ba3d/ba3d)
+    add_subdirectory(ba3d)
 endif()
 
 add_subdirectory(coregui)

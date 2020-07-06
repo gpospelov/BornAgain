@@ -25,7 +25,6 @@ set(include_dirs
     ${BUILD_INC_DIR}
     ${CMAKE_SOURCE_DIR}/Wrap
     ${CORE_SOURCE_DIRS}
-    ${BornAgainFit_INCLUDE_DIRS}
     )
 
 file(GLOB source_files "*/*.cpp")

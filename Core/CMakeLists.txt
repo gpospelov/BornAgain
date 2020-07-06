@@ -59,11 +59,9 @@ if(BORNAGAIN_PYTHON)
         endforeach()
         set(swig_dependencies ${swig_dependencies} ${AUTO_DIR}/doxygen_core.i)
 
-        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainCore_wrap.cpp;-outdir;${TMP_DIR}")
+        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainCore_wrap.cpp;-outdir;${TMP_DIR}"
+                               ";-I${CMAKE_SOURCE_DIR};-I${CMAKE_BINARY_DIR}/inc")
         set(SWIG_RUNTIME_FLAGS "-c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h")
-        foreach(dir ${include_dirs})
-            list(APPEND SWIG_FLAGS "-I${dir}")
-        endforeach(dir)
 
         add_custom_command (
             OUTPUT ${AUTO_DIR}/libBornAgainCore.py

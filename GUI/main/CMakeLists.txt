@@ -37,7 +37,7 @@ endif()
 # -----------------------------------------------------------------------------
 add_executable(${executable_name}
                ${executable_options}
-               ${source_files} ${include_files}
+               ${source_files}
                ${system_addons})
 
 

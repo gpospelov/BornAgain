@@ -85,11 +85,7 @@ endif()
 
 # --- making library ---------
 
-add_library(
-    ${library_name}
-    SHARED
-    ${source_files} ${RC_SRCS} ${include_files}
-)
+add_library(${library_name} SHARED ${source_files} ${RC_SRCS} ${include_files})
 set_target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 # exposing library name and list of include directories outside
@@ -101,7 +97,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 if(BORNAGAIN_OPENGL)
 target_compile_definitions(${library_name} PUBLIC -DBORNAGAIN_OPENGL)
 endif()
-target_include_directories(${library_name} PUBLIC ${QtAddOn_INCLUDE_DIRS} ${ba3d_INCLUDE_DIRS})
+target_include_directories(${library_name} PUBLIC ${QtAddOn_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR})
 target_include_directories(${library_name} PUBLIC ${include_dirs})
 target_link_libraries(${library_name} ${QtAddOn_LIBRARIES} ${BornAgainCore_LIBRARY} ${ba3d_LIBRARY})
 target_link_libraries(${library_name}

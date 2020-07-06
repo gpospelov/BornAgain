@@ -15,7 +15,7 @@
 #ifndef REALSPACEBUILDER_H
 #define REALSPACEBUILDER_H
 
-#include "../../ba3d/view/camera.h"
+#include "GUI/ba3d/view/camera.h"
 #include "WinDllMacros.h"
 #include <QVector3D>
 #include <QWidget>

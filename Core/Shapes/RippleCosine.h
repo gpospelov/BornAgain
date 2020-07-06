@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RIPPLECOSINE_H
-#define RIPPLECOSINE_H
+#ifndef BORNAGAIN_CORE_SHAPES_RIPPLECOSINE_H
+#define BORNAGAIN_CORE_SHAPES_RIPPLECOSINE_H
 
 #include "Core/Shapes/IShape.h"
 
@@ -24,4 +24,4 @@ public:
     ~RippleCosine();
 };
 
-#endif // RIPPLECOSINE_H
+#endif // BORNAGAIN_CORE_SHAPES_RIPPLECOSINE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ICHISQUAREDMODULE_H
-#define ICHISQUAREDMODULE_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_ICHISQUAREDMODULE_H
+#define BORNAGAIN_CORE_INSTRUMENT_ICHISQUAREDMODULE_H
 
 #include "Core/Basics/ICloneable.h"
 #include <memory>
@@ -55,4 +55,4 @@ protected:
     std::unique_ptr<IIntensityFunction> mp_intensity_function;
 };
 
-#endif // ICHISQUAREDMODULE_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_ICHISQUAREDMODULE_H

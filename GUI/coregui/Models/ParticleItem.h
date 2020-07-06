@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLEITEM_H
-#define PARTICLEITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARTICLEITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PARTICLEITEM_H
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
@@ -39,4 +39,4 @@ private:
     bool parentIsParticleLayout() const;
 };
 
-#endif // PARTICLEITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PARTICLEITEM_H

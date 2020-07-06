@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUISPECIALTESTFACTORY_H
-#define GUISPECIALTESTFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISPECIALTESTFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISPECIALTESTFACTORY_H
 
 #include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
@@ -26,4 +26,4 @@ public:
     GUISpecialTestFactory();
 };
 
-#endif // GUISPECIALTESTFACTORY_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISPECIALTESTFACTORY_H

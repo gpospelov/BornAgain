@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDOT_H
-#define FORMFACTORDOT_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -44,4 +44,4 @@ private:
     double m_radius;
 };
 
-#endif // FORMFACTORDOT_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H

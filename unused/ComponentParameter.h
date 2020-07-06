@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTPARAMETER_H
-#define COMPONENTPARAMETER_H
+#ifndef BORNAGAIN_UNUSED_COMPONENTPARAMETER_H
+#define BORNAGAIN_UNUSED_COMPONENTPARAMETER_H
 
 #include "Core/Parametrization/IParameter.h"
 #include "Core/Scattering/ISample.h"
@@ -46,4 +46,4 @@ public:
 protected:
 };
 
-#endif // COMPONENTPARAMETER_H
+#endif // BORNAGAIN_UNUSED_COMPONENTPARAMETER_H

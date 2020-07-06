@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCYLINDER_H
-#define FORMFACTORCYLINDER_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -49,4 +49,4 @@ private:
     double m_height;
 };
 
-#endif // FORMFACTORCYLINDER_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MESOCRYSTALITEM_H
-#define MESOCRYSTALITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MESOCRYSTALITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MESOCRYSTALITEM_H
 
 #include "Core/Lattice/Lattice.h"
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
@@ -43,4 +43,4 @@ public:
     std::unique_ptr<IFormFactor> getOuterShape() const;
 };
 
-#endif // MESOCRYSTALITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MESOCRYSTALITEM_H

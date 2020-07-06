@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARCOMPUTATIONTERM_H_
-#define SPECULARCOMPUTATIONTERM_H_
+#ifndef BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
+#define BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
 
 #include "Core/Multilayer/ISpecularStrategy.h"
 
@@ -88,4 +88,4 @@ protected:
                      ISpecularStrategy::single_coeff_t& coeff) const;
 };
 
-#endif /* SPECULARCOMPUTATIONTERM_H_ */
+#endif // BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H

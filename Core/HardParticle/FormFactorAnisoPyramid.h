@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORANISOPYRAMID_H
-#define FORMFACTORANISOPYRAMID_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORANISOPYRAMID_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORANISOPYRAMID_H
 
 #include "Core/HardParticle/FormFactorPolyhedron.h"
 
@@ -51,4 +51,4 @@ private:
     double m_alpha;
 };
 
-#endif // FORMFACTORANISOPYRAMID_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORANISOPYRAMID_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONMODEL_H
-#define SESSIONMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODEL_H
 
 #include "GUI/coregui/Models/SessionFlags.h"
 #include "GUI/coregui/Models/SessionItem.h"
@@ -154,4 +154,4 @@ inline void SessionModel::setDraggedItemType(const QString& type)
     m_dragged_item_type = type;
 }
 
-#endif // SESSIONMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODEL_H

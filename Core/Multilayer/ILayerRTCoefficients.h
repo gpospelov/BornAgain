@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ILAYERRTCOEFFICIENTS_H
-#define ILAYERRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_ILAYERRTCOEFFICIENTS_H
+#define BORNAGAIN_CORE_MULTILAYER_ILAYERRTCOEFFICIENTS_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Exceptions.h"
@@ -62,4 +62,4 @@ public:
     }
 };
 
-#endif // ILAYERRTCOEFFICIENTS_H
+#endif // BORNAGAIN_CORE_MULTILAYER_ILAYERRTCOEFFICIENTS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ELLIPSE_H
-#define ELLIPSE_H
+#ifndef BORNAGAIN_CORE_MASK_ELLIPSE_H
+#define BORNAGAIN_CORE_MASK_ELLIPSE_H
 
 #include "Core/Mask/IShape2D.h"
 
@@ -39,4 +39,4 @@ private:
     double m_xc, m_yc, m_xr, m_yr, m_theta;
 };
 
-#endif // ELLIPSE_H
+#endif // BORNAGAIN_CORE_MASK_ELLIPSE_H

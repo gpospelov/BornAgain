@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONELEMENT_H
-#define SIMULATIONELEMENT_H
+#ifndef BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
+#define BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Binning/IPixel.h"
@@ -97,4 +97,4 @@ private:
     bool m_is_specular;
 };
 
-#endif // SIMULATIONELEMENT_H
+#endif // BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H

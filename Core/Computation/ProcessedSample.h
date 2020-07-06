@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROCESSEDSAMPLE_H
-#define PROCESSEDSAMPLE_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
+#define BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
 
 #include "Core/Computation/Slice.h"
 #include "Core/Material/Material.h"
@@ -79,4 +79,4 @@ private:
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
-#endif // PROCESSEDSAMPLE_H
+#endif // BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H

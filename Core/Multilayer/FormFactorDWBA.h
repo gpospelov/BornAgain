@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDWBA_H
-#define FORMFACTORDWBA_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBA_H
+#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBA_H
 
 #include "Core/Scattering/IFormFactor.h"
 #include <memory>
@@ -62,4 +62,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> mp_out_coeffs;
 };
 
-#endif // FORMFACTORDWBA_H
+#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBA_H

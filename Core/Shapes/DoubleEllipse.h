@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DOUBLEELLIPSE_H
-#define DOUBLEELLIPSE_H
+#ifndef BORNAGAIN_CORE_SHAPES_DOUBLEELLIPSE_H
+#define BORNAGAIN_CORE_SHAPES_DOUBLEELLIPSE_H
 
 #include "Core/Shapes/IShape.h"
 
@@ -24,4 +24,4 @@ public:
     ~DoubleEllipse();
 };
 
-#endif // DOUBLEELLIPSE_H
+#endif // BORNAGAIN_CORE_SHAPES_DOUBLEELLIPSE_H

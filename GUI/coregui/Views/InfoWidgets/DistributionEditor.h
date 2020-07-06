@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONEDITOR_H
-#define DISTRIBUTIONEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONEDITOR_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -49,4 +49,4 @@ private:
     QGroupBox* m_box;
 };
 
-#endif // DISTRIBUTIONEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONEDITOR_H

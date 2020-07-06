@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PLOT1D_H
-#define PLOT1D_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOT1D_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOT1D_H
 
 #include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include "qcustomplot.h"
@@ -113,4 +113,4 @@ private:
     bool m_block_update;
 };
 
-#endif // PLOT1D_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOT1D_H

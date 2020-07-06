@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYEMBEDDEDTESTFACTORY_H
-#define PYEMBEDDEDTESTFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_PYEMBEDDEDTESTFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_PYEMBEDDEDTESTFACTORY_H
 
 #include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
@@ -26,4 +26,4 @@ public:
     PyEmbeddedTestFactory();
 };
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_PYEMBEDDEDTESTFACTORY_H

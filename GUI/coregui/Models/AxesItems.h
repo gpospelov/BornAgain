@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef AXESITEMS_H
-#define AXESITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_AXESITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_AXESITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 #include <memory>
@@ -50,4 +50,4 @@ private:
     void setMinMaxEditor(const QString& editorType);
 };
 
-#endif // AXESITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_AXESITEMS_H

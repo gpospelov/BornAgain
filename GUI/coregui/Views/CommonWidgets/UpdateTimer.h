@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef UPDATETIMER_H
-#define UPDATETIMER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_UPDATETIMER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_UPDATETIMER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -51,4 +51,4 @@ private:
     QTimer* m_timer;
 };
 
-#endif // UPDATETIMER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_UPDATETIMER_H

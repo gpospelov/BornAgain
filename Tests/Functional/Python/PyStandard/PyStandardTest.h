@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYSTANDARDTEST_H
-#define PYSTANDARDTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYSTANDARD_PYSTANDARDTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYSTANDARD_PYSTANDARDTEST_H
 
 #include "Tests/Functional/TestMachinery/IStandardTest.h"
 
@@ -28,4 +28,4 @@ public:
     bool runTest() final;
 };
 
-#endif // PYSTANDARDTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYSTANDARD_PYSTANDARDTEST_H

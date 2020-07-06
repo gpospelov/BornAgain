@@ -28,8 +28,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef ACCORDIONWIDGET_H
-#define ACCORDIONWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_ACCORDIONWIDGET_ACCORDIONWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_ACCORDIONWIDGET_ACCORDIONWIDGET_H
 
 #include "GUI/coregui/Views/AccordionWidget/ClickableFrame.h"
 #include "GUI/coregui/Views/AccordionWidget/ContentPane.h"
@@ -382,4 +382,4 @@ protected:
     void paintEvent(ATTR_UNUSED QPaintEvent* event);
 };
 
-#endif // ACCORDIONWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_ACCORDIONWIDGET_ACCORDIONWIDGET_H

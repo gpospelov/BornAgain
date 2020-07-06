@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIMESSAGE_H
-#define GUIMESSAGE_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_GUIMESSAGE_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_GUIMESSAGE_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -43,4 +43,4 @@ private:
     QString m_messageDescription;
 };
 
-#endif // GUIMESSAGE_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_GUIMESSAGE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYER_H
-#define MULTILAYER_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
+#define BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
 
 #include "Core/Multilayer/RoughnessModels.h"
 #include "Core/Particle/ZLimits.h"
@@ -116,4 +116,4 @@ private:
     RoughnessModel m_roughness_model;
 };
 
-#endif // MULTILAYER_H
+#endif // BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H

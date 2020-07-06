@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSESSIONCONTROLLER_H
-#define FITSESSIONCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONCONTROLLER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -67,4 +67,4 @@ private:
     bool m_block_progress_update;
 };
 
-#endif // FITSESSIONCONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONCONTROLLER_H

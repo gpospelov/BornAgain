@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROXYMODELSTRATEGY_H
-#define PROXYMODELSTRATEGY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PROXYMODELSTRATEGY_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PROXYMODELSTRATEGY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QPersistentModelIndex>
@@ -62,4 +62,4 @@ protected:
     bool processSourceIndex(const QModelIndex& index);
 };
 
-#endif // ProxyModelStrategy
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PROXYMODELSTRATEGY_H

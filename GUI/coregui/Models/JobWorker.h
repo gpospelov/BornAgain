@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBWORKER_H
-#define JOBWORKER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_JOBWORKER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_JOBWORKER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -59,4 +59,4 @@ private:
     int m_simulation_duration;
 };
 
-#endif // JOBWORKER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_JOBWORKER_H

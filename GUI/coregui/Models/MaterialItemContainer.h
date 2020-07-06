@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALITEMCONTAINER_H
-#define MATERIALITEMCONTAINER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MATERIALITEMCONTAINER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MATERIALITEMCONTAINER_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -34,4 +34,4 @@ public:
     MaterialItem* findMaterialById(QString id);
 };
 
-#endif // MATERIALITEMCONTAINER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MATERIALITEMCONTAINER_H

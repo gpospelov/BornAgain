@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IHISTOGRAM_H
-#define IHISTOGRAM_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IHISTOGRAM_H
+#define BORNAGAIN_CORE_INSTRUMENT_IHISTOGRAM_H
 
 #include "Core/Instrument/CumulativeValue.h"
 #include "Core/Instrument/OutputData.h"
@@ -211,4 +211,4 @@ protected:
     OutputData<CumulativeValue> m_data;
 };
 
-#endif // IHISTOGRAM_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_IHISTOGRAM_H

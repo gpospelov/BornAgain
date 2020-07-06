@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REGIONOFINTEREST_H
-#define REGIONOFINTEREST_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_REGIONOFINTEREST_H
+#define BORNAGAIN_CORE_INSTRUMENT_REGIONOFINTEREST_H
 
 #include "Core/Basics/ICloneable.h"
 #include <memory>
@@ -87,4 +87,4 @@ inline size_t RegionOfInterest::ycoord(size_t index, const std::vector<size_t>& 
     return index % dims[1];
 }
 
-#endif // REGIONOFINTEREST_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_REGIONOFINTEREST_H

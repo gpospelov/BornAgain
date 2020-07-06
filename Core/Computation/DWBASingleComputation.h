@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DWBASINGLECOMPUTATION_H
-#define DWBASINGLECOMPUTATION_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_DWBASINGLECOMPUTATION_H
+#define BORNAGAIN_CORE_COMPUTATION_DWBASINGLECOMPUTATION_H
 
 #include "Core/Particle/HomogeneousRegion.h"
 #include <map>
@@ -59,4 +59,4 @@ private:
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
-#endif // DWBASINGLECOMPUTATION_H
+#endif // BORNAGAIN_CORE_COMPUTATION_DWBASINGLECOMPUTATION_H

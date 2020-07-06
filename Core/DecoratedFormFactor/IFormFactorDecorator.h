@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFORMFACTORDECORATOR_H
-#define IFORMFACTORDECORATOR_H
+#ifndef BORNAGAIN_CORE_DECORATEDFORMFACTOR_IFORMFACTORDECORATOR_H
+#define BORNAGAIN_CORE_DECORATEDFORMFACTOR_IFORMFACTORDECORATOR_H
 
 #include "Core/Scattering/IFormFactor.h"
 
@@ -55,4 +55,4 @@ protected:
     IFormFactor* mp_form_factor;
 };
 
-#endif // IFORMFACTORDECORATOR_H
+#endif // BORNAGAIN_CORE_DECORATEDFORMFACTOR_IFORMFACTORDECORATOR_H

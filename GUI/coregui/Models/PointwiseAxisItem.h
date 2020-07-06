@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef POINTWISEAXISITEM_H
-#define POINTWISEAXISITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_POINTWISEAXISITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_POINTWISEAXISITEM_H
 
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/mainwindow/SaveLoadInterface.h"
@@ -58,4 +58,4 @@ private:
     QDateTime m_last_modified;
 };
 
-#endif // POINTWISEAXISITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_POINTWISEAXISITEM_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DATAITEM1DVIEW_H
-#define DATAITEM1DVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_DATA1DVIEWITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_DATA1DVIEWITEM_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -93,4 +93,4 @@ private:
     JobItem* m_job_item;
 };
 
-#endif // DATAITEM1DVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_DATA1DVIEWITEM_H

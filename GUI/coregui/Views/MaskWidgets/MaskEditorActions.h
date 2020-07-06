@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORACTIONS_H
-#define MASKEDITORACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORACTIONS_H
 
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include "Wrap/WinDllMacros.h"
@@ -80,4 +80,4 @@ private:
     QItemSelectionModel* m_selectionModel;
 };
 
-#endif // MASKEDITORACTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORACTIONS_H

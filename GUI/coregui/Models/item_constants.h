@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEM_CONSTANTS_H
-#define ITEM_CONSTANTS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEM_CONSTANTS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_ITEM_CONSTANTS_H
 
 #include <QString>
 
@@ -312,4 +312,4 @@ const QString MultiSelectionComboEditorType = "MultiSelectionComboEditor";
 
 } // namespace Constants
 
-#endif // ITEM_CONSTANTS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_ITEM_CONSTANTS_H

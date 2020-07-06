@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATAMODEL_H
-#define REALDATAMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_REALDATAMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_REALDATAMODEL_H
 
 #include "GUI/coregui/Models/SessionModel.h"
 
@@ -30,4 +30,4 @@ public:
     QVector<SessionItem*> nonXMLData() const override;
 };
 
-#endif // REALDATAMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_REALDATAMODEL_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBVIEWFLAGS_H
-#define JOBVIEWFLAGS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWFLAGS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWFLAGS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -43,4 +43,4 @@ public:
 Q_DECLARE_OPERATORS_FOR_FLAGS(JobViewFlags::Dock)
 Q_DECLARE_OPERATORS_FOR_FLAGS(JobViewFlags::Activity)
 
-#endif // JOBVIEWFLAGS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWFLAGS_H

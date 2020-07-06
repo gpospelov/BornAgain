@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORFULLSPHERE_H
-#define FORMFACTORFULLSPHERE_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORFULLSPHERE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORFULLSPHERE_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -54,4 +54,4 @@ private:
     bool m_position_at_center;
 };
 
-#endif // FORMFACTORFULLSPHERE_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORFULLSPHERE_H

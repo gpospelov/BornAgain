@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFOOTPRINTFACTOR_H_
-#define IFOOTPRINTFACTOR_H_
+#ifndef BORNAGAIN_CORE_BEAM_IFOOTPRINTFACTOR_H
+#define BORNAGAIN_CORE_BEAM_IFOOTPRINTFACTOR_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Parametrization/INode.h"
@@ -56,4 +56,4 @@ inline std::ostream& operator<<(std::ostream& os, const IFootprintFactor& f_fact
     return os << f_factor.print();
 }
 
-#endif /* IFOOTPRINTFACTOR_H_ */
+#endif // BORNAGAIN_CORE_BEAM_IFOOTPRINTFACTOR_H

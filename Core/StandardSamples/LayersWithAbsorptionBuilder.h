@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERSWITHABSORPTIONBUILDER_H
-#define LAYERSWITHABSORPTIONBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include <memory>
@@ -43,4 +43,4 @@ private:
     std::unique_ptr<IFormFactor> m_ff;
 };
 
-#endif // LAYERSWITHABSORPTIONBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBUILDER_H

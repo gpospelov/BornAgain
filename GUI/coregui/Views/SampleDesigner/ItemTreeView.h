@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMTREEVIEW_H
-#define ITEMTREEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_ITEMTREEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_ITEMTREEVIEW_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QTreeView>
@@ -31,4 +31,4 @@ protected:
 #endif
 };
 
-#endif // ITEMTREEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_ITEMTREEVIEW_H

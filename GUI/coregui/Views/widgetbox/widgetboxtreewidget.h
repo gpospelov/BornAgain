@@ -39,8 +39,8 @@
 **
 ****************************************************************************/
 
-#ifndef WIDGETBOXTREEWIDGET_H
-#define WIDGETBOXTREEWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOXTREEWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOXTREEWIDGET_H
 
 #include "GUI/coregui/Views/widgetbox/qdesigner_widgetbox_p.h"
 
@@ -150,4 +150,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // WIDGETBOXTREEWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOXTREEWIDGET_H

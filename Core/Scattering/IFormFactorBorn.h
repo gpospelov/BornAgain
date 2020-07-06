@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFORMFACTORBORN_H
-#define IFORMFACTORBORN_H
+#ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
+#define BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
 
 #include "Core/Scattering/IFormFactor.h"
 #include "Core/Shapes/IShape.h"
@@ -109,4 +109,4 @@ public:
 };
 #endif
 
-#endif // IFORMFACTORBORN_H
+#endif // BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H

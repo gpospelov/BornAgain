@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FANCYLABEL_H
-#define FANCYLABEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_FANCYLABEL_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_FANCYLABEL_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QLabel>
@@ -41,4 +41,4 @@ private:
     int m_current_index;
 };
 
-#endif // FANCYLABEL_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_FANCYLABEL_H

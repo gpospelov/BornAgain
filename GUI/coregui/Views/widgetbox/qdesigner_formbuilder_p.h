@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QDESIGNER_FORMBUILDER_P_H
-#define QDESIGNER_FORMBUILDER_P_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_FORMBUILDER_P_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_FORMBUILDER_P_H
 
 #include "GUI/coregui/Views/widgetbox/deviceprofile_p.h"
 #include "GUI/coregui/Views/widgetbox/shared_global_p.h"
@@ -180,4 +180,4 @@ protected:
 
 QT_END_NAMESPACE
 
-#endif // QDESIGNER_FORMBUILDER_P_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_FORMBUILDER_P_H

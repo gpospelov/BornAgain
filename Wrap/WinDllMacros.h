@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef WINDLLMACROS_H
-#define WINDLLMACROS_H
+#ifndef BORNAGAIN_WRAP_WINDLLMACROS_H
+#define BORNAGAIN_WRAP_WINDLLMACROS_H
 
 #ifdef _WIN32
 
@@ -31,4 +31,4 @@
 #define BA_CORE_API_
 #endif
 
-#endif // WINDLLMACROS_H
+#endif // BORNAGAIN_WRAP_WINDLLMACROS_H

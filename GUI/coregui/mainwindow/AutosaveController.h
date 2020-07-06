@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef AUTOSAVECONTROLLER_H
-#define AUTOSAVECONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_AUTOSAVECONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_AUTOSAVECONTROLLER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -56,4 +56,4 @@ private:
     UpdateTimer* m_timer;
 };
 
-#endif // AUTOSAVECONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_AUTOSAVECONTROLLER_H

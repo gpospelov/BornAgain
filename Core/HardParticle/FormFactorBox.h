@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORBOX_H
-#define FORMFACTORBOX_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H
 
 #include "Core/HardParticle/FormFactorPolyhedron.h"
 
@@ -50,4 +50,4 @@ private:
     double m_width;
 };
 
-#endif // FORMFACTORBOX_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H

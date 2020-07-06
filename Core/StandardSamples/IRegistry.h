@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IREGISTRY_H
-#define IREGISTRY_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_IREGISTRY_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_IREGISTRY_H
 
 #include "Core/Basics/Exceptions.h"
 #include <map>
@@ -60,4 +60,4 @@ private:
     std::map<std::string, std::unique_ptr<ValueType>> m_data;
 };
 
-#endif // IREGISTRY_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_IREGISTRY_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFUNCTIONADAPTER_H
-#define IFUNCTIONADAPTER_H
+#ifndef BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -39,4 +39,4 @@ protected:
 
 } // namespace Fit
 
-#endif //  IFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H

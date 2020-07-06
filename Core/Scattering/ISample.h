@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLE_H
-#define ISAMPLE_H
+#ifndef BORNAGAIN_CORE_SCATTERING_ISAMPLE_H
+#define BORNAGAIN_CORE_SCATTERING_ISAMPLE_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Parametrization/INode.h"
@@ -37,4 +37,4 @@ public:
     std::vector<const Material*> containedMaterials() const;
 };
 
-#endif // ISAMPLE_H
+#endif // BORNAGAIN_CORE_SCATTERING_ISAMPLE_H

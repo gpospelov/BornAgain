@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BEAMDISTRIBUTIONITEM_H
-#define BEAMDISTRIBUTIONITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_BEAMDISTRIBUTIONITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_BEAMDISTRIBUTIONITEM_H
 
 #include "GUI/coregui/Models/DistributionItems.h"
 
@@ -43,4 +43,4 @@ protected:
     virtual std::unique_ptr<IDistribution1D> createDistribution1D() const;
 };
 
-#endif // BEAMDISTRIBUTIONITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_BEAMDISTRIBUTIONITEM_H

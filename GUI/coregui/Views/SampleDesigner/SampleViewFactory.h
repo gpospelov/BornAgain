@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEWFACTORY_H
-#define SAMPLEVIEWFACTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWFACTORY_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWFACTORY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMap>
@@ -33,4 +33,4 @@ private:
     static QStringList m_valid_item_names;
 };
 
-#endif // SAMPLEVIEWFACTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWFACTORY_H

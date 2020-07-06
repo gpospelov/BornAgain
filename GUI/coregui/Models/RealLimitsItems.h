@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALLIMITSITEMS_H
-#define REALLIMITSITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_REALLIMITSITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_REALLIMITSITEMS_H
 
 #include "Fit/Tools/RealLimits.h"
 #include "GUI/coregui/Models/SessionItem.h"
@@ -70,4 +70,4 @@ public:
     RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
-#endif // REALLIMITSITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_REALLIMITSITEMS_H

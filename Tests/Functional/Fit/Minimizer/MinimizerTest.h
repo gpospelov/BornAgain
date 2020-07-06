@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERTEST_H
-#define MINIMIZERTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTEST_H
 
 #include "Tests/Functional/TestMachinery/IMinimizerTest.h"
 
@@ -29,4 +29,4 @@ protected:
     std::unique_ptr<MinimizerTestPlan> createPlan() const;
 };
 
-#endif // MINIMIZERTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTEST_H

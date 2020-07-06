@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECOMPOSITIONITEM_H
-#define PARTICLECOMPOSITIONITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECOMPOSITIONITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECOMPOSITIONITEM_H
 
 #include "Core/Particle/ParticleComposition.h"
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
@@ -26,4 +26,4 @@ public:
     std::unique_ptr<ParticleComposition> createParticleComposition() const;
 };
 
-#endif // PARTICLECOMPOSITIONITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECOMPOSITIONITEM_H

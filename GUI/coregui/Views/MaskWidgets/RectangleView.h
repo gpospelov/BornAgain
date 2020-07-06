@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RECTANGLEVIEW_H
-#define RECTANGLEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_RECTANGLEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_RECTANGLEVIEW_H
 
 #include "GUI/coregui/Views/MaskWidgets/RectangleBaseView.h"
 
@@ -47,4 +47,4 @@ protected:
     qreal bottom() const;
 };
 
-#endif // RECTANGLEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_RECTANGLEVIEW_H

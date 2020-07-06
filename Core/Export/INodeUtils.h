@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INODEUTILS_H
-#define INODEUTILS_H
+#ifndef BORNAGAIN_CORE_EXPORT_INODEUTILS_H
+#define BORNAGAIN_CORE_EXPORT_INODEUTILS_H
 
 #include "Core/Parametrization/INode.h"
 
@@ -50,4 +50,4 @@ template <typename T> std::vector<const T*> AllDescendantsOfType(const INode& no
 }
 } // namespace INodeUtils
 
-#endif // INODEUTILS_H
+#endif // BORNAGAIN_CORE_EXPORT_INODEUTILS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALUTILS_H_
-#define MATERIALUTILS_H_
+#ifndef BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H
+#define BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Material/Material.h"
@@ -50,4 +50,4 @@ BA_CORE_API_ MATERIAL_TYPES checkMaterialTypes(const std::vector<const Material*
 
 } // namespace MaterialUtils
 
-#endif /* MATERIALUTILS_H_ */
+#endif // BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H

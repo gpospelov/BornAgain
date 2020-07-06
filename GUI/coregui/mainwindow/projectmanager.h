@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTMANAGER_H
-#define PROJECTMANAGER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTMANAGER_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTMANAGER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -87,4 +87,4 @@ private:
     SaveService* m_saveService;
 };
 
-#endif // PROJECTMANAGER_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTMANAGER_H

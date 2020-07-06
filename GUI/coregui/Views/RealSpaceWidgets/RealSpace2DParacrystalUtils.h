@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACE2DPARACRYSTALUTILS_H
-#define REALSPACE2DPARACRYSTALUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACE2DPARACRYSTALUTILS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACE2DPARACRYSTALUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <vector>
@@ -26,4 +26,4 @@ std::vector<std::vector<double>>
 Compute2DParacrystalLatticePositions(const InterferenceFunction2DParaCrystal*, double layer_size);
 };
 
-#endif // REALSPACE2DPARACRYSTALUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACE2DPARACRYSTALUTILS_H

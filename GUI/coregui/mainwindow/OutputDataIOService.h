@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAIOSERVICE_H
-#define OUTPUTDATAIOSERVICE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOSERVICE_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOSERVICE_H
 
 #include "GUI/coregui/mainwindow/OutputDataIOHistory.h"
 #include "Wrap/WinDllMacros.h"
@@ -51,4 +51,4 @@ private:
     ApplicationModels* m_applicationModels;
 };
 
-#endif // OUTPUTDATAIOSERVICE_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOSERVICE_H

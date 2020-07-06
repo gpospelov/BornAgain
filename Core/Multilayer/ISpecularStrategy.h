@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISPECULARSTRATEGY_H
-#define ISPECULARSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
 
 #include "Core/Computation/Slice.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
@@ -38,4 +38,4 @@ public:
                              const std::vector<complex_t>& kz) const = 0;
 };
 
-#endif // ISPECULARSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H

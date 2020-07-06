@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITRESULTSWIDGET_H
-#define FITRESULTSWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITRESULTSWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITRESULTSWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -28,4 +28,4 @@ public:
     FitResultsWidget(QWidget* parent = 0);
 };
 
-#endif // FITRESULTSWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITRESULTSWIDGET_H

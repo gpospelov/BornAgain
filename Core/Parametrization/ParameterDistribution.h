@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERDISTRIBUTION_H
-#define PARAMETERDISTRIBUTION_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
 
 #include "Core/Parametrization/IParameterized.h"
 #include "Core/Parametrization/ParameterSample.h"
@@ -77,4 +77,4 @@ private:
     double m_xmax;
 };
 
-#endif // PARAMETERDISTRIBUTION_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H

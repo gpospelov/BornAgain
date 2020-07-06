@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLELAYOUT_H
-#define PARTICLELAYOUT_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_PARTICLELAYOUT_H
+#define BORNAGAIN_CORE_AGGREGATE_PARTICLELAYOUT_H
 
 #include "Core/Aggregate/ILayout.h"
 #include "Core/Scattering/Rotations.h"
@@ -67,4 +67,4 @@ private:
     double m_total_particle_density;
 };
 
-#endif // PARTICLELAYOUT_H
+#endif // BORNAGAIN_CORE_AGGREGATE_PARTICLELAYOUT_H

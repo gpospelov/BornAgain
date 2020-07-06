@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARFRESNELMAP_H
-#define SCALARFRESNELMAP_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SCALARFRESNELMAP_H
+#define BORNAGAIN_CORE_MULTILAYER_SCALARFRESNELMAP_H
 
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/Multilayer/ISpecularStrategy.h"
@@ -57,4 +57,4 @@ private:
         m_cache;
 };
 
-#endif // SCALARFRESNELMAP_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SCALARFRESNELMAP_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORPOLYHEDRON_H
-#define FORMFACTORPOLYHEDRON_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPOLYHEDRON_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPOLYHEDRON_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
@@ -170,4 +170,4 @@ protected:
     std::unique_ptr<PolyhedralFace> m_base;
 };
 
-#endif // FORMFACTORPOLYHEDRON_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPOLYHEDRON_H

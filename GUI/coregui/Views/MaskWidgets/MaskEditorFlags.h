@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORFLAGS_H
-#define MASKEDITORFLAGS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORFLAGS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORFLAGS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -52,4 +52,4 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::Stacking)
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::MaskValue)
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::PresentationType)
 
-#endif // MASKEDITORFLAGS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORFLAGS_H

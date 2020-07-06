@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCUBOCTAHEDRON_H
-#define FORMFACTORCUBOCTAHEDRON_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCUBOCTAHEDRON_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCUBOCTAHEDRON_H
 
 #include "Core/HardParticle/FormFactorPolyhedron.h"
 
@@ -51,4 +51,4 @@ private:
     double m_alpha;
 };
 
-#endif // FORMFACTORCUBOCTAHEDRON_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCUBOCTAHEDRON_H

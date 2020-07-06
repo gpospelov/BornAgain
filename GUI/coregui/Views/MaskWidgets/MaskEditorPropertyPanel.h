@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORPROPERTYPANEL_H
-#define MASKEDITORPROPERTYPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORPROPERTYPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORPROPERTYPANEL_H
 
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include <QModelIndex>
@@ -68,4 +68,4 @@ private:
     IntensityDataItem* m_intensityDataItem;
 };
 
-#endif // MASKEDITORPROPERTYPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORPROPERTYPANEL_H

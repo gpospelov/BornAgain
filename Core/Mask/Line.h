@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LINE_H
-#define LINE_H
+#ifndef BORNAGAIN_CORE_MASK_LINE_H
+#define BORNAGAIN_CORE_MASK_LINE_H
 
 #include "Core/Mask/IShape2D.h"
 
@@ -69,4 +69,4 @@ private:
     double m_y;
 };
 
-#endif // LINE_H
+#endif // BORNAGAIN_CORE_MASK_LINE_H

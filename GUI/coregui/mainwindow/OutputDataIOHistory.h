@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAIOHISTORY_H
-#define OUTPUTDATAIOHISTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOHISTORY_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOHISTORY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QDateTime>
@@ -84,4 +84,4 @@ private:
     QMap<QString, OutputDataDirHistory> m_dir_history;
 };
 
-#endif // OUTPUTDATAIOHISTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOHISTORY_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef APPSVC_H
-#define APPSVC_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_APPSVC_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_APPSVC_H
 
 #include "Core/Basics/ISingleton.h"
 #include "Wrap/WinDllMacros.h"
@@ -49,4 +49,4 @@ private:
     MaterialModel* m_materialModel;
 };
 
-#endif // APPSVC_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_APPSVC_H

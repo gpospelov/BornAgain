@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DOMAINOBJECTBUILDER_H
-#define DOMAINOBJECTBUILDER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_DOMAINOBJECTBUILDER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_DOMAINOBJECTBUILDER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <memory>
@@ -41,4 +41,4 @@ BA_CORE_API_ std::unique_ptr<IUnitConverter>
 createUnitConverter(const InstrumentItem* instrumentItem);
 }; // namespace DomainObjectBuilder
 
-#endif // DOMAINOBJECTBUILDER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_DOMAINOBJECTBUILDER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef EXCEPTIONS_H
-#define EXCEPTIONS_H
+#ifndef BORNAGAIN_CORE_BASICS_EXCEPTIONS_H
+#define BORNAGAIN_CORE_BASICS_EXCEPTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <stdexcept>
@@ -119,4 +119,4 @@ void LogExceptionMessage(const std::string& message);
 #endif
 #endif
 
-#endif // EXCEPTIONS_H
+#endif // BORNAGAIN_CORE_BASICS_EXCEPTIONS_H

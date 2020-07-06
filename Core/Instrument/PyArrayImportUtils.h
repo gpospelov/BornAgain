@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYARRAYIMPORTUTILS_H
-#define PYARRAYIMPORTUTILS_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H
+#define BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <vector>
@@ -34,4 +34,4 @@ importArrayToOutputData(const std::vector<std::vector<double>>& vec);
 
 } // namespace PyArrayImport
 
-#endif // PYARRAYIMPORTUTILS_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H

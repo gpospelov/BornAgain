@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ENVIRONMENTEDITOR_H
-#define ENVIRONMENTEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_ENVIRONMENTEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_ENVIRONMENTEDITOR_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -43,4 +43,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif // ENVIRONMENTEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_ENVIRONMENTEDITOR_H

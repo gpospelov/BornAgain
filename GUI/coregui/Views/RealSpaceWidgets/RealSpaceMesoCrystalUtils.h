@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEMESOCRYSTALUTILS_H
-#define REALSPACEMESOCRYSTALUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H
 
 #include "Core/Scattering/Rotations.h"
 #include "Wrap/WinDllMacros.h"
@@ -40,4 +40,4 @@ private:
     QVector3D m_origin;
 };
 
-#endif // REALSPACEMESOCRYSTALUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H

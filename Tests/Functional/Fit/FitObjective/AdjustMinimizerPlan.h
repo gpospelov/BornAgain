@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ADJUSTMINIMIZERPLAN_H
-#define ADJUSTMINIMIZERPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_ADJUSTMINIMIZERPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_ADJUSTMINIMIZERPLAN_H
 
 #include "Tests/Functional/Fit/FitObjective/FitPlan.h"
 
@@ -28,4 +28,4 @@ public:
     bool checkMinimizer(Fit::Minimizer& minimizer);
 };
 
-#endif //  ADJUSTMINIMIZERPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_ADJUSTMINIMIZERPLAN_H

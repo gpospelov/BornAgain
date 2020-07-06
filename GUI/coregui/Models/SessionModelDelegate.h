@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONMODELDELEGATE_H
-#define SESSIONMODELDELEGATE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODELDELEGATE_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODELDELEGATE_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QStyledItemDelegate>
@@ -51,4 +51,4 @@ private:
                           const QModelIndex& index, const QString& text) const;
 };
 
-#endif // SESSIONMODELDELEGATE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODELDELEGATE_H

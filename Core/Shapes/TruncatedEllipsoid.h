@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRUNCATEDELLIPSOID_H
-#define TRUNCATEDELLIPSOID_H
+#ifndef BORNAGAIN_CORE_SHAPES_TRUNCATEDELLIPSOID_H
+#define BORNAGAIN_CORE_SHAPES_TRUNCATEDELLIPSOID_H
 
 #include "Core/Shapes/IShape.h"
 
@@ -24,4 +24,4 @@ public:
     ~TruncatedEllipsoid();
 };
 
-#endif // TRUNCATEDELLIPSOID_H
+#endif // BORNAGAIN_CORE_SHAPES_TRUNCATEDELLIPSOID_H

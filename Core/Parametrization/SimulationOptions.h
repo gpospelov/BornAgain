@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONOPTIONS_H
-#define SIMULATIONOPTIONS_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_SIMULATIONOPTIONS_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_SIMULATIONOPTIONS_H
 
 #include "Core/Parametrization/ThreadInfo.h"
 #include <cstddef>
@@ -71,4 +71,4 @@ private:
     ThreadInfo m_thread_info;
 };
 
-#endif // SIMULATIONOPTIONS_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_SIMULATIONOPTIONS_H

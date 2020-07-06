@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONTOPYTHON_H
-#define SIMULATIONTOPYTHON_H
+#ifndef BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
+#define BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
 
 #include "Wrap/WinDllMacros.h"
 #include <memory>
@@ -62,4 +62,4 @@ private:
     std::string defineMain(EMainType mainType = RUN_SIMULATION);
 };
 
-#endif // SIMULATIONTOPYTHON_H
+#endif // BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H

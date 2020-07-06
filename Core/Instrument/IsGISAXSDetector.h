@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXSDETECTOR_H
-#define ISGISAXSDETECTOR_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H
+#define BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H
 
 #include "Core/Instrument/SphericalDetector.h"
 
@@ -43,4 +43,4 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-#endif // ISGISAXSDETECTOR_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H

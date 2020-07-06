@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSPLOT_H
-#define PROJECTIONSPLOT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROJECTIONSPLOT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROJECTIONSPLOT_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include "qcustomplot.h"
@@ -76,4 +76,4 @@ private:
     bool m_block_plot_update;
 };
 
-#endif // PROJECTIONSPLOT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROJECTIONSPLOT_H

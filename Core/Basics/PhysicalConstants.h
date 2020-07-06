@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PHYSICALCONSTANTS_H_
-#define PHYSICALCONSTANTS_H_
+#ifndef BORNAGAIN_CORE_BASICS_PHYSICALCONSTANTS_H
+#define BORNAGAIN_CORE_BASICS_PHYSICALCONSTANTS_H
 
 namespace PhysConsts
 {
@@ -27,4 +27,4 @@ constexpr double gamma_n = 1.91304272;     //!< \f$\gamma\f$ factor for neutron 
 constexpr double g_factor_n = -3.82608545; //!< neutron g-factor
 } // namespace PhysConsts
 
-#endif /* PHYSICALCONSTANTS_H_ */
+#endif // BORNAGAIN_CORE_BASICS_PHYSICALCONSTANTS_H

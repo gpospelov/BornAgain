@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCOHERENTPART_H
-#define FORMFACTORCOHERENTPART_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTPART_H
+#define BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTPART_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Vector/EigenCore.h"
@@ -51,4 +51,4 @@ private:
     size_t m_layer_index;
 };
 
-#endif // FORMFACTORCOHERENTPART_H
+#endif // BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTPART_H

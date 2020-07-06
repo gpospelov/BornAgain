@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MODELUTILS_H
-#define MODELUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MODELUTILS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MODELUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -39,4 +39,4 @@ BA_CORE_API_ void iterate_if(const QModelIndex& index, const QAbstractItemModel*
 
 } // namespace ModelUtils
 
-#endif //  MODELUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MODELUTILS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IUNITCONVERTER_H
-#define IUNITCONVERTER_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IUNITCONVERTER_H
+#define BORNAGAIN_CORE_INSTRUMENT_IUNITCONVERTER_H
 
 #include "Core/Basics/ICloneable.h"
 #include <map>
@@ -78,4 +78,4 @@ private:
     virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const = 0;
 };
 
-#endif // IUNITCONVERTER_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_IUNITCONVERTER_H

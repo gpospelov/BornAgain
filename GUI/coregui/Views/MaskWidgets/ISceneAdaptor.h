@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISCENEADAPTOR_H
-#define ISCENEADAPTOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ISCENEADAPTOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ISCENEADAPTOR_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -58,4 +58,4 @@ public:
     qreal fromSceneY(qreal value) const { return value; }
 };
 
-#endif // ISCENEADAPTOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ISCENEADAPTOR_H

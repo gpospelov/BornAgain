@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ROTATIONS_H
-#define ROTATIONS_H
+#ifndef BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
+#define BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 
 #include "Core/Scattering/ISample.h"
 #include "Core/Vector/Transform3D.h"
@@ -145,4 +145,4 @@ protected:
     double m_alpha, m_beta, m_gamma;
 };
 
-#endif // ROTATIONS_H
+#endif // BORNAGAIN_CORE_SCATTERING_ROTATIONS_H

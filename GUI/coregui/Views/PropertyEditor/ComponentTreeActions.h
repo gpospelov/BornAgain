@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTREEACTIONS_H
-#define COMPONENTREEACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEACTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -32,4 +32,4 @@ public slots:
     void onCustomContextMenuRequested(const QPoint& point, SessionItem& item);
 };
 
-#endif // COMPONENTREEACTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEACTIONS_H

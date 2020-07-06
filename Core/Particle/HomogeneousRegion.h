@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef HOMOGENEOUSREGION_H
-#define HOMOGENEOUSREGION_H
+#ifndef BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
+#define BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
 
 #include "Core/Material/Material.h"
 
@@ -29,4 +29,4 @@ struct HomogeneousRegion {
     Material m_material;
 };
 
-#endif // HOMOGENEOUSREGION_H
+#endif // BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H

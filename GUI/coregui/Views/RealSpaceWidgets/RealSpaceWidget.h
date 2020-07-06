@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEWIDGET_H
-#define REALSPACEWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -47,4 +47,4 @@ private:
     QItemSelectionModel* m_selectionModel;
 };
 
-#endif // REALSPACEWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEWIDGET_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IMPORTDATAVIEW_H
-#define IMPORTDATAVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAVIEW_H
 
 #include "GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h"
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataPresenter.h"
@@ -46,4 +46,4 @@ private:
     RealDataModel* m_realDataModel;
 };
 
-#endif // IMPORTDATAVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAVIEW_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERITEM_H
-#define MULTILAYERITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MULTILAYERITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MULTILAYERITEM_H
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
@@ -31,4 +31,4 @@ private:
     void updateLayers();
 };
 
-#endif // MULTILAYERITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MULTILAYERITEM_H

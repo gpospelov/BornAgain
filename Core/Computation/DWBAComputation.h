@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MAINCOMPUTATION_H
-#define MAINCOMPUTATION_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_DWBACOMPUTATION_H
+#define BORNAGAIN_CORE_COMPUTATION_DWBACOMPUTATION_H
 
 #include "Core/Computation/DWBASingleComputation.h"
 #include "Core/Computation/IComputation.h"
@@ -45,4 +45,4 @@ private:
     DWBASingleComputation m_single_computation;
 };
 
-#endif // MAINCOMPUTATION_H
+#endif // BORNAGAIN_CORE_COMPUTATION_DWBACOMPUTATION_H

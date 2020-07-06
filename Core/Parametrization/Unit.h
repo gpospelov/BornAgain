@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef UNIT_H
-#define UNIT_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H
 
 #include "Core/Basics/INamed.h"
 #include <string>
@@ -27,4 +27,4 @@ public:
     void setUnit(const std::string& name);
 };
 
-#endif // UNIT_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H

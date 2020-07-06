@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECORESHELLVIEW_H
-#define PARTICLECORESHELLVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLECORESHELLVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLECORESHELLVIEW_H
 
 #include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
@@ -30,4 +30,4 @@ public:
     void addView(IView* childView, int row = 0);
 };
 
-#endif // PARTICLECORESHELLVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLECORESHELLVIEW_H

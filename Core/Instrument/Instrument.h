@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENT_H
-#define INSTRUMENT_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H
+#define BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H
 
 #include "Core/Beam/Beam.h"
 #include "Core/Instrument/IDetector.h"
@@ -103,4 +103,4 @@ protected:
     Beam m_beam;
 };
 
-#endif // INSTRUMENT_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H

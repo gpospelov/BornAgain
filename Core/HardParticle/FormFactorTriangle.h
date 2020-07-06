@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORTRIANGLE_H
-#define FORMFACTORTRIANGLE_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRIANGLE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRIANGLE_H
 #include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A planar equilateral triangle, for testing form factor computations.
@@ -35,4 +35,4 @@ private:
     double m_base_edge;
 };
 
-#endif // FORMFACTORTRIANGLE_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRIANGLE_H

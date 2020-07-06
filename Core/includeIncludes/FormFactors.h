@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORS_H
-#define FORMFACTORS_H
+#ifndef BORNAGAIN_CORE_INCLUDEINCLUDES_FORMFACTORS_H
+#define BORNAGAIN_CORE_INCLUDEINCLUDES_FORMFACTORS_H
 
 #include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
 #include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
@@ -22,4 +22,4 @@
 #include "Core/includeIncludes/HardParticles.h"
 #include "Core/includeIncludes/SoftParticles.h"
 
-#endif // FORMFACTORS_H
+#endif // BORNAGAIN_CORE_INCLUDEINCLUDES_FORMFACTORS_H

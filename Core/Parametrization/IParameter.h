@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IPARAMETER_H
-#define IPARAMETER_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H
 
 #include "Core/Basics/INamed.h"
 #include <functional>
@@ -72,4 +72,4 @@ template <class T> bool IParameter<T>::hasSameData(const IParameter<T>& other)
     return &getData() == &other.getData();
 }
 
-#endif // IPARAMETER_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H

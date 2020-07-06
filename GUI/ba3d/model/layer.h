@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_LAYER_H
-#define BA3D_LAYER_H
+#ifndef BORNAGAIN_GUI_BA3D_MODEL_LAYER_H
+#define BORNAGAIN_GUI_BA3D_MODEL_LAYER_H
 
 #include "GUI/ba3d/model/object.h"
 
@@ -27,4 +27,4 @@ public:
     Layer(VectorRange);
 };
 } // namespace RealSpace
-#endif // BA3D_LAYER_H
+#endif // BORNAGAIN_GUI_BA3D_MODEL_LAYER_H

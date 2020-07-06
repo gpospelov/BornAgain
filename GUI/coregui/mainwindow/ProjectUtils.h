@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTUTILS_H
-#define PROJECTUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTUTILS_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -69,4 +69,4 @@ BA_CORE_API_ QString userExportDir();
 
 } // namespace ProjectUtils
 
-#endif // PROJECTUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTUTILS_H

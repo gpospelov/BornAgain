@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERROUGHNESS_H
-#define LAYERROUGHNESS_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H
+#define BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H
 
 #include "Core/Scattering/ISample.h"
 #include "Core/Vector/Vectors3D.h"
@@ -70,4 +70,4 @@ private:
     void initialize();
 };
 
-#endif // LAYERROUGHNESS_H
+#endif // BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H

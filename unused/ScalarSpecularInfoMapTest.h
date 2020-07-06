@@ -1,5 +1,5 @@
-#ifndef SCALARSPECULARINFOMAPTEST_H
-#define SCALARSPECULARINFOMAPTEST_H
+#ifndef BORNAGAIN_UNUSED_SCALARSPECULARINFOMAPTEST_H
+#define BORNAGAIN_UNUSED_SCALARSPECULARINFOMAPTEST_H
 
 #include "Core/Basics/MathConstants.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -83,4 +83,4 @@ TEST_F(ScalarSpecularInfoMapTest, getCoefficients)
     EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getScalarKz().imag(), 1e-6);
 }
 
-#endif // SCALARSPECULARINFOMAPTEST_H
+#endif // BORNAGAIN_UNUSED_SCALARSPECULARINFOMAPTEST_H

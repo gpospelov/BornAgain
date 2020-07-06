@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAIOFACTORY_H
-#define INTENSITYDATAIOFACTORY_H
+#ifndef BORNAGAIN_CORE_INPUTOUTPUT_INTENSITYDATAIOFACTORY_H
+#define BORNAGAIN_CORE_INPUTOUTPUT_INTENSITYDATAIOFACTORY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <string>
@@ -64,4 +64,4 @@ public:
     static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);
 };
 
-#endif // INTENSITYDATAIOFACTORY_H
+#endif // BORNAGAIN_CORE_INPUTOUTPUT_INTENSITYDATAIOFACTORY_H

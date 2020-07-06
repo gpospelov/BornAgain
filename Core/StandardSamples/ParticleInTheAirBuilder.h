@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLEINTHEAIRBUILDER_H
-#define PARTICLEINTHEAIRBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEINTHEAIRBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEINTHEAIRBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include <memory>
@@ -41,4 +41,4 @@ protected:
     std::unique_ptr<IFormFactor> m_ff;
 };
 
-#endif // PARTICLEINTHEAIRBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEINTHEAIRBUILDER_H

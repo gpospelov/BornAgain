@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DATASELECTOR_H
-#define DATASELECTOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H
 
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
@@ -92,4 +92,4 @@ private:
     QPushButton* m_cancelButton;
     QLabel* m_errorLabel;
 };
-#endif // DATASELECTOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H

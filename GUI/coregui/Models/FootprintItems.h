@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FOOTPRINTITEMS_H
-#define FOOTPRINTITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_FOOTPRINTITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_FOOTPRINTITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -57,4 +57,4 @@ public:
     std::unique_ptr<IFootprintFactor> createFootprint() const override;
 };
 
-#endif // FOOTPRINTITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_FOOTPRINTITEMS_H

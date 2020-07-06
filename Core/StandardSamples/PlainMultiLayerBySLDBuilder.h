@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PLANEMULTILAYERBYSLDBUILDER_H_
-#define PLANEMULTILAYERBYSLDBUILDER_H_
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PLAINMULTILAYERBYSLDBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_PLAINMULTILAYERBYSLDBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -40,4 +40,4 @@ protected:
     double m_thick_ni; //!< thickness of Ni layer
 };
 
-#endif /* PLANEMULTILAYERBYSLDBUILDER_H_ */
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_PLAINMULTILAYERBYSLDBUILDER_H

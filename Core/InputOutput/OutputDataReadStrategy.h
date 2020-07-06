@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAREADSTRATEGY_H
-#define OUTPUTDATAREADSTRATEGY_H
+#ifndef BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADSTRATEGY_H
+#define BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADSTRATEGY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <istream>
@@ -76,4 +76,4 @@ private:
 };
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-#endif // OUTPUTDATAREADSTRATEGY_H
+#endif // BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADSTRATEGY_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACECANVAS_H
-#define REALSPACECANVAS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACECANVAS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACECANVAS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QItemSelectionModel>
@@ -102,4 +102,4 @@ private:
     void savePicture(const QPixmap& pixmap);
 };
 
-#endif // REALSPACESCENE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACECANVAS_H

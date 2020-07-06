@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTIOPTION_H
-#define MULTIOPTION_H
+#ifndef BORNAGAIN_FIT_TOOLS_MULTIOPTION_H
+#define BORNAGAIN_FIT_TOOLS_MULTIOPTION_H
 
 #include "Wrap/WinDllMacros.h"
 #include <boost/variant.hpp>
@@ -76,4 +76,4 @@ template <typename T> T MultiOption::getDefault() const
     return boost::get<T>(m_default_value);
 }
 
-#endif // MULTIOPTION_H
+#endif // BORNAGAIN_FIT_TOOLS_MULTIOPTION_H

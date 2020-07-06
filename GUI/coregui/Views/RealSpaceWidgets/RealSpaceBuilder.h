@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEBUILDER_H
-#define REALSPACEBUILDER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDER_H
 
 #include "GUI/ba3d/view/camera.h"
 #include "Wrap/WinDllMacros.h"
@@ -62,4 +62,4 @@ public:
                                             const QVector3D& lattice_position = QVector3D()) const;
 };
 
-#endif // REALSPACEBUILDER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAINNAMESPACE_H
-#define BORNAGAINNAMESPACE_H
+#ifndef BORNAGAIN_CORE_BASICS_BORNAGAINNAMESPACE_H
+#define BORNAGAIN_CORE_BASICS_BORNAGAINNAMESPACE_H
 
 #include <string>
 
@@ -258,4 +258,4 @@ const std::string UnitsNm2 = "nm^2";
 const std::string UnitsNone = "";
 } // namespace BornAgain
 
-#endif // BORNAGAINNAMESPACE_H
+#endif // BORNAGAIN_CORE_BASICS_BORNAGAINNAMESPACE_H

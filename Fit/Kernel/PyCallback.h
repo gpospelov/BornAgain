@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYCALLBACK_H
-#define PYCALLBACK_H
+#ifndef BORNAGAIN_FIT_KERNEL_PYCALLBACK_H
+#define BORNAGAIN_FIT_KERNEL_PYCALLBACK_H
 
 #include "Fit/Kernel/Parameters.h"
 #include "Wrap/WinDllMacros.h"
@@ -46,4 +46,4 @@ private:
     CallbackType m_callback_type;
 };
 
-#endif // PYCALLBACK_H
+#endif // BORNAGAIN_FIT_KERNEL_PYCALLBACK_H

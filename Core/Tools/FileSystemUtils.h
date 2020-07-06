@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FILESYSTEMUTILS_H
-#define FILESYSTEMUTILS_H
+#ifndef BORNAGAIN_CORE_TOOLS_FILESYSTEMUTILS_H
+#define BORNAGAIN_CORE_TOOLS_FILESYSTEMUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <string>
@@ -66,4 +66,4 @@ BA_CORE_API_ bool IsFileExists(const std::string& str);
 
 } // namespace FileSystemUtils
 
-#endif // FILESYSTEMUTILS_H
+#endif // BORNAGAIN_CORE_TOOLS_FILESYSTEMUTILS_H

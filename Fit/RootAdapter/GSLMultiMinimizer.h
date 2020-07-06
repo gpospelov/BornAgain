@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GSLMULTIMINIMIZER_H
-#define GSLMULTIMINIMIZER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H
 
 #include "Fit/Minimizer/MinimizerConstants.h"
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
@@ -55,4 +55,4 @@ private:
     std::unique_ptr<ROOT::Math::GSLMinimizer> m_gsl_minimizer;
 };
 
-#endif // GSLMULTIMINIMIZER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H

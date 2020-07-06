@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GSLLEVENBERGMARQUARDTMINIMIZER_H
-#define GSLLEVENBERGMARQUARDTMINIMIZER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H
 
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
@@ -64,4 +64,4 @@ private:
     std::unique_ptr<ROOT::Math::GSLNLSMinimizer> m_gsl_minimizer;
 };
 
-#endif // GSLLEVENBERGMARQUARDTMINIMIZER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONVIEW_H
-#define SIMULATIONVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONVIEW_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -42,4 +42,4 @@ private:
     StyledToolBar* m_toolBar;
 };
 
-#endif // SIMULATIONVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONVIEW_H

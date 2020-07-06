@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CSVDATACOLUMN_H
-#define CSVDATACOLUMN_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVDATACOLUMN_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVDATACOLUMN_H
 
 #include "Core/Instrument/IUnitConverter.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
@@ -66,4 +66,4 @@ private:
     csv::ColumnType m_name;
 };
 
-#endif // CSVDATACOLUMN_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVDATACOLUMN_H

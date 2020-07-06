@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONNONE_H
-#define INTERFERENCEFUNCTIONNONE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 
@@ -34,4 +34,4 @@ private:
     InterferenceFunctionNone(const InterferenceFunctionNone& other);
 };
 
-#endif // INTERFERENCEFUNCTIONNONE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H

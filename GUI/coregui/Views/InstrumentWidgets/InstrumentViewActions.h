@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTVIEWACTIONS_H
-#define INSTRUMENTVIEWACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWACTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMap>
@@ -60,4 +60,4 @@ private:
     QItemSelectionModel* m_selectionModel;
 };
 
-#endif // INSTRUMENTVIEWACTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWACTIONS_H

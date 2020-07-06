@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CONVOLVE_H
-#define CONVOLVE_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_CONVOLVE_H
+#define BORNAGAIN_CORE_INSTRUMENT_CONVOLVE_H
 
 #include "Wrap/WinDllMacros.h"
 #include <fftw3.h>
@@ -120,4 +120,4 @@ private:
     std::vector<size_t> m_implemented_factors; // favorite factorization terms of fftw3
 };
 
-#endif // CONVOLVE_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_CONVOLVE_H

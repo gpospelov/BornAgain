@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSCALARSTRATEGY_H
-#define SPECULARSCALARSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
 
 #include "Core/Multilayer/ISpecularStrategy.h"
 #include "Core/Multilayer/ScalarRTCoefficients.h"
@@ -56,4 +56,4 @@ private:
                               size_t slice_index) const;
 };
 
-#endif // SPECULARSCALARSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H

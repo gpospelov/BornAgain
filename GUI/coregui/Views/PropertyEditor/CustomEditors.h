@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CUSTOMEDITORS_H
-#define CUSTOMEDITORS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_CUSTOMEDITORS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_CUSTOMEDITORS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QVariant>
@@ -198,4 +198,4 @@ private:
     QCheckBox* m_checkBox;
 };
 
-#endif //  CUSTOMEDITORS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_CUSTOMEDITORS_H

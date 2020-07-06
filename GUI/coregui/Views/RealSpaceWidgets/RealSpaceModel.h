@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEMODEL_H
-#define REALSPACEMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMODEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMODEL_H
 
 #include "GUI/ba3d/model/model.h"
 #include "Wrap/WinDllMacros.h"
@@ -23,4 +23,4 @@ class RealSpaceModel : public RealSpace::Model
 public:
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMODEL_H

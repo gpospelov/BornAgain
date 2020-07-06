@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GROUPINFOCATALOGUE_H
-#define GROUPINFOCATALOGUE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H
 
 #include "GUI/coregui/Models/GroupInfo.h"
 
@@ -33,4 +33,4 @@ private:
     QVector<GroupInfo> m_groups;
 };
 
-#endif // GROUPINFOCATALOGUE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H

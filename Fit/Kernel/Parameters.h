@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERS_H
-#define PARAMETERS_H
+#ifndef BORNAGAIN_FIT_KERNEL_PARAMETERS_H
+#define BORNAGAIN_FIT_KERNEL_PARAMETERS_H
 
 #include "Fit/Kernel/Parameter.h"
 #include "Wrap/WinDllMacros.h"
@@ -70,4 +70,4 @@ private:
 
 } // namespace Fit
 
-#endif // PARAMETERS_H
+#endif // BORNAGAIN_FIT_KERNEL_PARAMETERS_H

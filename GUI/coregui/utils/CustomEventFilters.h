@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CUSTOMEVENTFILTERS_H
-#define CUSTOMEVENTFILTERS_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_CUSTOMEVENTFILTERS_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_CUSTOMEVENTFILTERS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -112,4 +112,4 @@ protected:
     QWidget* m_parent;
 };
 
-#endif // CUSTOMEVENTFILTERS_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_CUSTOMEVENTFILTERS_H

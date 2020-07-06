@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMDATAPAIR_H
-#define SIMDATAPAIR_H
+#ifndef BORNAGAIN_CORE_FITTING_SIMDATAPAIR_H
+#define BORNAGAIN_CORE_FITTING_SIMDATAPAIR_H
 
 #include "Core/Fitting/FitTypes.h"
 #include "Core/Instrument/SimulationResult.h"
@@ -120,4 +120,4 @@ private:
     std::unique_ptr<OutputData<double>> m_raw_user_weights;
 };
 
-#endif // SIMDATAPAIR_H
+#endif // BORNAGAIN_CORE_FITTING_SIMDATAPAIR_H

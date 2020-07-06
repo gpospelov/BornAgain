@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INODE_H
-#define INODE_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
 
 #include "Core/Parametrization/INodeVisitor.h"
 #include "Core/Parametrization/IParameterized.h"
@@ -101,4 +101,4 @@ inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
     return v_node;
 }
 
-#endif // INODE_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_INODE_H

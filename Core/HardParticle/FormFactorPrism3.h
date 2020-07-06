@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORPRISM3_H
-#define FORMFACTORPRISM3_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM3_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM3_H
 #include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A prism based on an equilateral triangle.
@@ -42,4 +42,4 @@ private:
     double m_base_edge;
 };
 
-#endif // FORMFACTORPRISM3_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM3_H

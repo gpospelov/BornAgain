@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef HARDPARTICLES_H
-#define HARDPARTICLES_H
+#ifndef BORNAGAIN_CORE_INCLUDEINCLUDES_HARDPARTICLES_H
+#define BORNAGAIN_CORE_INCLUDEINCLUDES_HARDPARTICLES_H
 
 #include "Core/HardParticle/FormFactorAnisoPyramid.h"
 #include "Core/HardParticle/FormFactorBar.h"
@@ -42,4 +42,4 @@
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
 
-#endif // HARDPARTICLES_H
+#endif // BORNAGAIN_CORE_INCLUDEINCLUDES_HARDPARTICLES_H

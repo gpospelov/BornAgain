@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef KERNEL_H
-#define KERNEL_H
+#ifndef BORNAGAIN_FIT_KERNEL_KERNEL_H
+#define BORNAGAIN_FIT_KERNEL_KERNEL_H
 
 #include "Fit/Kernel/KernelTypes.h"
 #include "Fit/Kernel/MinimizerResult.h"
@@ -56,4 +56,4 @@ private:
 
 } // namespace Fit
 
-#endif // KERNEL_H
+#endif // BORNAGAIN_FIT_KERNEL_KERNEL_H

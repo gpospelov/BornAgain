@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GROUPITEMCONTROLLER_H
-#define GROUPITEMCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GROUPITEMCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GROUPITEMCONTROLLER_H
 
 #include "GUI/coregui/Models/GroupInfo.h"
 #include <QStringList>
@@ -53,4 +53,4 @@ private:
     GroupInfo m_groupInfo;
 };
 
-#endif // GROUPITEMCONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GROUPITEMCONTROLLER_H

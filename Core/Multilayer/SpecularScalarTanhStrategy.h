@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSCALARTANHSTRATEGY_H
-#define SPECULARSCALARTANHSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARTANHSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARTANHSTRATEGY_H
 
 #include "Core/Multilayer/SpecularScalarStrategy.h"
 
@@ -35,4 +35,4 @@ private:
                                         const Eigen::Vector2cd& t_r1) const override;
 };
 
-#endif // SPECULARSCALARTANHSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARTANHSTRATEGY_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_WIDGET_H
-#define BA3D_WIDGET_H
+#ifndef BORNAGAIN_GUI_BA3D_WIDGET_H
+#define BORNAGAIN_GUI_BA3D_WIDGET_H
 
 #include "GUI/ba3d/def.h"
 #include <QWidget>
@@ -51,4 +51,4 @@ private:
 
 //------------------------------------------------------------------------------
 } // namespace RealSpace
-#endif
+#endif // BORNAGAIN_GUI_BA3D_WIDGET_H

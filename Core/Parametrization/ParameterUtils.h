@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERUTILS_H
-#define PARAMETERUTILS_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERUTILS_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <string>
@@ -36,4 +36,4 @@ BA_CORE_API_ std::string poolParameterUnits(const IParameterized& node, const st
 
 } // namespace ParameterUtils
 
-#endif // PARAMETERPATTERN_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERUTILS_H

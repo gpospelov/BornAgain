@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_CAMERA_H
-#define BA3D_CAMERA_H
+#ifndef BORNAGAIN_GUI_BA3D_VIEW_CAMERA_H
+#define BORNAGAIN_GUI_BA3D_VIEW_CAMERA_H
 
 #include "../def.h"
 #include <QColor>
@@ -83,4 +83,4 @@ private:
 };
 
 } // namespace RealSpace
-#endif // BA3D_CAMERA_H
+#endif // BORNAGAIN_GUI_BA3D_VIEW_CAMERA_H

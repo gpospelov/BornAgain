@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FOOTPRINTFACTORGAUSSIAN_H
-#define FOOTPRINTFACTORGAUSSIAN_H
+#ifndef BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORGAUSSIAN_H
+#define BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORGAUSSIAN_H
 
 #include "Core/Beam/IFootprintFactor.h"
 
@@ -44,4 +44,4 @@ private:
     void initialize();
 };
 
-#endif /* FOOTPRINTFACTORGAUSSIAN_H */
+#endif // BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORGAUSSIAN_H

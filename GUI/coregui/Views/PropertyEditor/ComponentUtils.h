@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTUTILS_H
-#define COMPONENTUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTUTILS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QList>
@@ -34,4 +34,4 @@ BA_CORE_API_ QList<const SessionItem*> componentItems(const SessionItem& item);
 
 } // namespace ComponentUtils
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTUTILS_H

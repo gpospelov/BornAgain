@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTDOCUMENT_H
-#define PROJECTDOCUMENT_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTDOCUMENT_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTDOCUMENT_H
 
 #include "GUI/coregui/mainwindow/ProjectFlags.h"
 #include "Wrap/WinDllMacros.h"
@@ -108,4 +108,4 @@ private:
     OutputDataIOService* m_dataService;
 };
 
-#endif // PROJECTDOCUMENT_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTDOCUMENT_H

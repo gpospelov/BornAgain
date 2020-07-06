@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCIENTIFICSPINBOX_H
-#define SCIENTIFICSPINBOX_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SCIENTIFICSPINBOX_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SCIENTIFICSPINBOX_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QAbstractSpinBox>
@@ -68,4 +68,4 @@ private:
     QDoubleValidator m_validator;
 };
 
-#endif // SCIENTIFICSPINBOX_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SCIENTIFICSPINBOX_H

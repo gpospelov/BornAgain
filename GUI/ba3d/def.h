@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_DEF_H
-#define BA3D_DEF_H
+#ifndef BORNAGAIN_GUI_BA3D_DEF_H
+#define BORNAGAIN_GUI_BA3D_DEF_H
 
 #if defined(__GNUC__) && !defined(__APPLE__)
 #pragma GCC diagnostic ignored "-Wswitch-enum"
@@ -86,4 +86,4 @@ struct VectorRange {
 
 //------------------------------------------------------------------------------
 } // namespace RealSpace
-#endif
+#endif // BORNAGAIN_GUI_BA3D_DEF_H

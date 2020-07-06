@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLEVIEW_H
-#define PARTICLEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEVIEW_H
 
 #include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 #include <QPixmap>
@@ -44,4 +44,4 @@ private:
     QPixmap m_pixmap;
 };
 
-#endif // PARTICLEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEVIEW_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ALGORITHMS_H
-#define ALGORITHMS_H
+#ifndef BORNAGAIN_CORE_BASICS_ALGORITHMS_H
+#define BORNAGAIN_CORE_BASICS_ALGORITHMS_H
 
 #include <algorithm>
 #include <cassert>
@@ -61,4 +61,4 @@ double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluat
     return ret;
 }
 
-#endif // ALGORITHMS_H
+#endif // BORNAGAIN_CORE_BASICS_ALGORITHMS_H

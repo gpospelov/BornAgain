@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTLOADWARNINGDIALOG_H
-#define PROJECTLOADWARNINGDIALOG_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_PROJECTLOADWARNINGDIALOG_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_PROJECTLOADWARNINGDIALOG_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QDialog>
@@ -54,4 +54,4 @@ private:
     QString m_projectDocumentVersion;
 };
 
-#endif // PROJECTLOADWARNINGDIALOG_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_PROJECTLOADWARNINGDIALOG_H

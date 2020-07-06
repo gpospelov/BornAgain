@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERSCAN_H
-#define MINIMIZERSCAN_H
+#ifndef BORNAGAIN_UNUSED_SCANNINGMINIMIZER_H
+#define BORNAGAIN_UNUSED_SCANNINGMINIMIZER_H
 
 #include "Fit/Minimizer/IMinimizer.h"
 #include "FitSuiteParameters.h"
@@ -60,4 +60,4 @@ private:
     function_chi2_t m_fcn;
 };
 
-#endif // MINIMIZERSCAN_H
+#endif // BORNAGAIN_UNUSED_SCANNINGMINIMIZER_H

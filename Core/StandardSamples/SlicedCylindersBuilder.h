@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SLICEDCYLINDERSBUILDER_H
-#define SLICEDCYLINDERSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCYLINDERSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCYLINDERSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -59,4 +59,4 @@ private:
     double m_par_surf_density;
 };
 
-#endif // SLICEDCYLINDERSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCYLINDERSBUILDER_H

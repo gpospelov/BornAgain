@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKALLVIEW_H
-#define MASKALLVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKALLVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKALLVIEW_H
 
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 
@@ -35,4 +35,4 @@ protected:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
-#endif // MASKALLVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKALLVIEW_H

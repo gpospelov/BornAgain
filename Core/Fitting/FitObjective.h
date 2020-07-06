@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVE_H
-#define FITOBJECTIVE_H
+#ifndef BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H
+#define BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H
 
 #include "Core/Fitting/FitTypes.h"
 #include "Core/Fitting/IterationInfo.h"
@@ -146,4 +146,4 @@ private:
     std::unique_ptr<FitStatus> m_fit_status;
 };
 
-#endif // FITOBJECTIVE_H
+#endif // BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H

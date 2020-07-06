@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ZLIMITS_H
-#define ZLIMITS_H
+#ifndef BORNAGAIN_CORE_PARTICLE_ZLIMITS_H
+#define BORNAGAIN_CORE_PARTICLE_ZLIMITS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <iostream>
@@ -62,4 +62,4 @@ BA_CORE_API_ bool operator!=(const ZLimits& left, const ZLimits& right);
 
 BA_CORE_API_ std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits);
 
-#endif // ZLIMITS_H
+#endif // BORNAGAIN_CORE_PARTICLE_ZLIMITS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVETESTCASES_H
-#define FITOBJECTIVETESTCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTCASES_H
 
 //! Collection of FitObjective tests.
 
@@ -107,4 +107,4 @@ public:
     OffSpecFitTest();
 };
 
-#endif //   MINIMIZERTESTCASES_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTCASES_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION3DLATTICE_H
-#define INTERFERENCEFUNCTION3DLATTICE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION3DLATTICE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION3DLATTICE_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Lattice/Lattice.h"
@@ -52,4 +52,4 @@ private:
     double m_rec_radius; //!< radius in reciprocal space defining the nearest q vectors to use
 };
 
-#endif // INTERFERENCEFUNCTION3DLATTICE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION3DLATTICE_H

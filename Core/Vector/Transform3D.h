@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRANSFORM3D_H
-#define TRANSFORM3D_H
+#ifndef BORNAGAIN_CORE_VECTOR_TRANSFORM3D_H
+#define BORNAGAIN_CORE_VECTOR_TRANSFORM3D_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Vector/EigenCore.h"
@@ -113,4 +113,4 @@ private:
 #endif
 };
 
-#endif // TRANSFORM3D_H
+#endif // BORNAGAIN_CORE_VECTOR_TRANSFORM3D_H

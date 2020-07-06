@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef HOMOGENEOUSMULTILAYERBUILDER_H_
-#define HOMOGENEOUSMULTILAYERBUILDER_H_
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_HOMOGENEOUSMULTILAYERBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_HOMOGENEOUSMULTILAYERBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -37,4 +37,4 @@ private:
     double m_thick_ni;
 };
 
-#endif /* HOMOGENEOUSMULTILAYERBUILDER_H_ */
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_HOMOGENEOUSMULTILAYERBUILDER_H

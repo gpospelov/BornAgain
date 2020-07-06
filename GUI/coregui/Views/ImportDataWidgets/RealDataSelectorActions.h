@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATASELECTORACTIONS_H
-#define REALDATASELECTORACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORACTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -54,4 +54,4 @@ private:
     QItemSelectionModel* m_selectionModel;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORACTIONS_H

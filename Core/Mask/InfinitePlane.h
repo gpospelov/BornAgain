@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INFINITEPLANE_H
-#define INFINITEPLANE_H
+#ifndef BORNAGAIN_CORE_MASK_INFINITEPLANE_H
+#define BORNAGAIN_CORE_MASK_INFINITEPLANE_H
 
 #include "Core/Mask/IShape2D.h"
 
@@ -30,4 +30,4 @@ public:
     bool contains(const Bin1D&, const Bin1D&) const { return true; }
 };
 
-#endif // INFINITEPLANE_H
+#endif // BORNAGAIN_CORE_MASK_INFINITEPLANE_H

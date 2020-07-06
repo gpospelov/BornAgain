@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAWRITESTRATEGY_H
-#define OUTPUTDATAWRITESTRATEGY_H
+#ifndef BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITESTRATEGY_H
+#define BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITESTRATEGY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <istream>
@@ -70,4 +70,4 @@ private:
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-#endif // OUTPUTDATAWRITESTRATEGY_H
+#endif // BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITESTRATEGY_H

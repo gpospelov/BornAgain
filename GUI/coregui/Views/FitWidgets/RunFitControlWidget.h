@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RUNFITCONTROLWIDGET_H
-#define RUNFITCONTROLWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_RUNFITCONTROLWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_RUNFITCONTROLWIDGET_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QWidget>
@@ -68,4 +68,4 @@ private:
     WarningSign* m_warningSign;
 };
 
-#endif // RUNFITCONTROLWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_RUNFITCONTROLWIDGET_H

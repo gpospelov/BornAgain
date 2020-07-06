@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOPTIONS_H
-#define FITOPTIONS_H
+#ifndef BORNAGAIN_FIT_KERNEL_FITOPTIONS_H
+#define BORNAGAIN_FIT_KERNEL_FITOPTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -35,4 +35,4 @@ private:
     double m_step_factor;   //!< default relative parameter step
 };
 
-#endif // FITOPTIONS_H
+#endif // BORNAGAIN_FIT_KERNEL_FITOPTIONS_H

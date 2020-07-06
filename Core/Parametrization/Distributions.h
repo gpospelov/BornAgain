@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONS_H
-#define DISTRIBUTIONS_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Parametrization/INode.h"
@@ -314,4 +314,4 @@ private:
     double m_right;
 };
 
-#endif // DISTRIBUTIONS_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H

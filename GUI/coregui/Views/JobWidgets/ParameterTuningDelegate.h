@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTUNINGDELEGATE_H
-#define PARAMETERTUNINGDELEGATE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PARAMETERTUNINGDELEGATE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PARAMETERTUNINGDELEGATE_H
 
 #include "Fit/Tools/RealLimits.h"
 #include <QItemDelegate>
@@ -88,4 +88,4 @@ private:
     bool m_isReadOnly;
 };
 
-#endif // PARAMETERTUNINGDELEGATE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PARAMETERTUNINGDELEGATE_H

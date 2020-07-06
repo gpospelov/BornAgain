@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DATAITEMVIEW_H
-#define DATAITEMVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_DATAPROPERTYCONTAINER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_DATAPROPERTYCONTAINER_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -41,4 +41,4 @@ protected:
     DataItem* dataItem(size_t i) const;
 };
 
-#endif // DATAITEMVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_DATAPROPERTYCONTAINER_H

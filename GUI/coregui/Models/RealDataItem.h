@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATAITEM_H
-#define REALDATAITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_REALDATAITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_REALDATAITEM_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -68,4 +68,4 @@ private:
     const InstrumentItem* m_linkedInstrument;
 };
 
-#endif // REALDATAITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_REALDATAITEM_H

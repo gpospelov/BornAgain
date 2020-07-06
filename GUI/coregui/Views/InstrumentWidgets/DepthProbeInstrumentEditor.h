@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DEPTHPROBEINSTRUMENTEDITOR_H
-#define DEPTHPROBEINSTRUMENTEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DEPTHPROBEINSTRUMENTEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DEPTHPROBEINSTRUMENTEDITOR_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -42,4 +42,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DEPTHPROBEINSTRUMENTEDITOR_H

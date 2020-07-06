@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef STYLEUTILS_H
-#define STYLEUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_STYLEUTILS_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_STYLEUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QFont>
@@ -62,4 +62,4 @@ BA_CORE_API_ int PropertyPanelWidth();
 
 } // namespace StyleUtils
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_STYLEUTILS_H

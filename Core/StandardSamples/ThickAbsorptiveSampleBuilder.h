@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef THICKABSORPTIVESAMPLEBUILDER_H
-#define THICKABSORPTIVESAMPLEBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_THICKABSORPTIVESAMPLEBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_THICKABSORPTIVESAMPLEBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -24,4 +24,4 @@ public:
     MultiLayer* buildSample() const override;
 };
 
-#endif // THICKABSORPTIVESAMPLEBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_THICKABSORPTIVESAMPLEBUILDER_H

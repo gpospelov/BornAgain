@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BOXCOMPOSITIONBUILDER_H
-#define BOXCOMPOSITIONBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_BOXCOMPOSITIONBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_BOXCOMPOSITIONBUILDER_H
 
 #include "Core/Material/Material.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
@@ -90,4 +90,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // BOXCOMPOSITIONBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_BOXCOMPOSITIONBUILDER_H

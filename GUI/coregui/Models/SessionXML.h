@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONXML_H
-#define SESSIONXML_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONXML_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONXML_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QVariant>
@@ -62,4 +62,4 @@ BA_CORE_API_ QString readProperty(QXmlStreamReader* reader, SessionItem* item,
                                   MessageService* messageService = nullptr);
 } // namespace SessionXML
 
-#endif // SESSIONXML_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONXML_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAVIEW_H
-#define INTENSITYDATAVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_INTENSITYDATAVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_INTENSITYDATAVIEW_H
 
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 #include "GUI/coregui/Views/MaskWidgets/SizeHandleElement.h"
@@ -39,4 +39,4 @@ protected:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
-#endif // INTENSITYDATAVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_INTENSITYDATAVIEW_H

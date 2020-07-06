@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef STANDARDTESTCATALOGUE_H
-#define STANDARDTESTCATALOGUE_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOGUE_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOGUE_H
 
 #include "Tests/Functional/TestMachinery/StandardTestInfo.h"
 #include "Wrap/WinDllMacros.h"
@@ -46,4 +46,4 @@ private:
     std::map<std::string, StandardTestInfo> m_catalogue;
 };
 
-#endif // STANDARDTESTCATALOGUE_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOGUE_H

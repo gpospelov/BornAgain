@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZEROPTIONS_H
-#define MINIMIZEROPTIONS_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZEROPTIONS_H
+#define BORNAGAIN_FIT_MINIMIZER_MINIMIZEROPTIONS_H
 
 #include "Fit/Tools/OptionContainer.h"
 
@@ -33,4 +33,4 @@ private:
     void processCommand(const std::string& command);
 };
 
-#endif // MINIMIZEROPTIONS_H
+#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZEROPTIONS_H

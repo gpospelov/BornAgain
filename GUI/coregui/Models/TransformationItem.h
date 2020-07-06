@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRANSFORMATIONITEM_H
-#define TRANSFORMATIONITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMATIONITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMATIONITEM_H
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
@@ -24,4 +24,4 @@ public:
     TransformationItem();
 };
 
-#endif // TRANSFORMATIONITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMATIONITEM_H

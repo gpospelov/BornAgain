@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERPATTERN_H
-#define PARAMETERPATTERN_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPATTERN_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPATTERN_H
 
 #include "Wrap/WinDllMacros.h"
 #include <string>
@@ -36,4 +36,4 @@ private:
     std::string m_pattern;
 };
 
-#endif // PARAMETERPATTERN_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPATTERN_H

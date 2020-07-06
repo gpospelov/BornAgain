@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRANSFORMTO3D_H
-#define TRANSFORMTO3D_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_TRANSFORMTO3D_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_TRANSFORMTO3D_H
 
 #include "Core/Vector/Vectors3D.h"
 #include "GUI/ba3d/model/layer.h"
@@ -47,4 +47,4 @@ createParticlefromIFormFactor(const IFormFactor* ff);
 
 } // namespace TransformTo3D
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_TRANSFORMTO3D_H

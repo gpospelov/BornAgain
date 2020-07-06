@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TIFFHANDLER_H
-#define TIFFHANDLER_H
+#ifndef BORNAGAIN_CORE_INPUTOUTPUT_TIFFHANDLER_H
+#define BORNAGAIN_CORE_INPUTOUTPUT_TIFFHANDLER_H
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
@@ -52,4 +52,4 @@ private:
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-#endif // TIFFHANDLER_H
+#endif // BORNAGAIN_CORE_INPUTOUTPUT_TIFFHANDLER_H

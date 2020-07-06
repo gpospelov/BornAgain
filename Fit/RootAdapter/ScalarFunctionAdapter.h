@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARFUNCTIONADAPTER_H
-#define SCALARFUNCTIONADAPTER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H
 
 #include "Fit/Kernel/IFunctionAdapter.h"
 #include "Fit/Kernel/KernelTypes.h"
@@ -48,4 +48,4 @@ private:
 
 } //  namespace Fit
 
-#endif // SCALARFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDECAYFUNCTIONITEMS_H
-#define FTDECAYFUNCTIONITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_FTDECAYFUNCTIONITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_FTDECAYFUNCTIONITEMS_H
 
 #include "Core/Aggregate/FTDecayFunctions.h"
 #include "GUI/coregui/Models/SessionItem.h"
@@ -99,4 +99,4 @@ public:
     std::unique_ptr<IFTDecayFunction2D> createFTDecayFunction() const;
 };
 
-#endif // FTDECAYFUNCTIONITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_FTDECAYFUNCTIONITEMS_H

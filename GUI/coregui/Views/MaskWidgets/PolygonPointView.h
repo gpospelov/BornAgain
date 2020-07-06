@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef POLYGONPOINTVIEW_H
-#define POLYGONPOINTVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONPOINTVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONPOINTVIEW_H
 
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 
@@ -50,4 +50,4 @@ private:
     bool m_on_hover;
 };
 
-#endif // POLYGONPOINTVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONPOINTVIEW_H

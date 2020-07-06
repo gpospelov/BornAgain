@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DEPTHPROBECOMPUTATION_H
-#define DEPTHPROBECOMPUTATION_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
+#define BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
 
 #include "Core/Computation/DepthProbeComputationTerm.h"
 #include "Core/Computation/IComputation.h"
@@ -44,4 +44,4 @@ private:
     DepthProbeComputationTerm m_computation_term;
 };
 
-#endif // DEPTHPROBECOMPUTATION_H
+#endif // BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H

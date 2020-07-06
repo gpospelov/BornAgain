@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBQUEUEDATA_H
-#define JOBQUEUEDATA_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_JOBQUEUEDATA_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_JOBQUEUEDATA_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMap>
@@ -69,4 +69,4 @@ private:
     JobModel* m_jobModel;
 };
 
-#endif // JOBQUEUEDATA_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_JOBQUEUEDATA_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBLISTVIEWDELEGATE_H
-#define JOBLISTVIEWDELEGATE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTVIEWDELEGATE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTVIEWDELEGATE_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QItemDelegate>
@@ -50,4 +50,4 @@ private:
     QMap<QString, QColor> m_status_to_color;
 };
 
-#endif // JOBLISTVIEWDELEGATE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTVIEWDELEGATE_H

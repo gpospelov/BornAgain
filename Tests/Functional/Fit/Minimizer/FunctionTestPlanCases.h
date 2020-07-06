@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONTESTPLANCASES_H
-#define FUNCTIONTESTPLANCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANCASES_H
 
 #include "Tests/Functional/Fit/Minimizer/ResidualTestPlan.h"
 #include "Tests/Functional/Fit/Minimizer/ScalarTestPlan.h"
@@ -77,4 +77,4 @@ public:
     TestMinimizerPlan();
 };
 
-#endif //  FUNCTIONTESTPLANCASES_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANCASES_H

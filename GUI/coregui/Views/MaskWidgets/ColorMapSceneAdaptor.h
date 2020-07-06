@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COLORMAPSCENEADAPTOR_H
-#define COLORMAPSCENEADAPTOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_COLORMAPSCENEADAPTOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_COLORMAPSCENEADAPTOR_H
 
 #include "GUI/coregui/Views/MaskWidgets/ISceneAdaptor.h"
 class ColorMap;
@@ -43,4 +43,4 @@ private:
     ColorMap* m_plot;
 };
 
-#endif // COLORMAPSCENEADAPTOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_COLORMAPSCENEADAPTOR_H

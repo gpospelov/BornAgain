@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONTWIN_H
-#define INTERFERENCEFUNCTIONTWIN_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONTWIN_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONTWIN_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 
@@ -44,4 +44,4 @@ private:
     double m_std_dev;
 };
 
-#endif // INTERFERENCEFUNCTIONTWIN_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONTWIN_H

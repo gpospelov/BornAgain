@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYIMPORT_H
-#define PYIMPORT_H
+#ifndef BORNAGAIN_CORE_TOOLS_PYIMPORT_H
+#define BORNAGAIN_CORE_TOOLS_PYIMPORT_H
 
 #include "Wrap/WinDllMacros.h"
 #include <memory>
@@ -43,4 +43,4 @@ BA_CORE_API_ std::vector<std::string> listOfFunctions(const std::string& script,
                                                       const std::string& path = std::string());
 } // namespace PyImport
 
-#endif
+#endif // BORNAGAIN_CORE_TOOLS_PYIMPORT_H

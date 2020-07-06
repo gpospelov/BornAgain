@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ADJUSTINGSCROLLAREA_H
-#define ADJUSTINGSCROLLAREA_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ADJUSTINGSCROLLAREA_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ADJUSTINGSCROLLAREA_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QScrollArea>
@@ -35,4 +35,4 @@ private:
     bool eventFilter(QObject* obj, QEvent* ev);
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ADJUSTINGSCROLLAREA_H

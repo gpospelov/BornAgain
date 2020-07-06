@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIZEDISTRIBUTIONMODELSBUILDER_H
-#define SIZEDISTRIBUTIONMODELSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SIZEDISTRIBUTIONMODELSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_SIZEDISTRIBUTIONMODELSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -60,4 +60,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // SIZEDISTRIBUTIONMODELSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SIZEDISTRIBUTIONMODELSBUILDER_H

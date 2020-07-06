@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GISASSIMULATION_H
-#define GISASSIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H
 
 #include "Core/Simulation/Simulation2D.h"
 #include "Core/SimulationElement/SimulationElement.h"
@@ -59,4 +59,4 @@ private:
     void initialize();
 };
 
-#endif // GISASSIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H

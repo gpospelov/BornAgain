@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORHELPER_H
-#define MASKEDITORHELPER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORHELPER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORHELPER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QGraphicsItem>
@@ -51,4 +51,4 @@ public:
     static QRectF getMarkerRectangle(const QPointF& pos);
 };
 
-#endif // MASKEDITORHELPER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORHELPER_H

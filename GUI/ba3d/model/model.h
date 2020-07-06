@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_MODEL_H
-#define BA3D_MODEL_H
+#ifndef BORNAGAIN_GUI_BA3D_MODEL_MODEL_H
+#define BORNAGAIN_GUI_BA3D_MODEL_MODEL_H
 
 #include "GUI/ba3d/model/object.h"
 #include "GUI/ba3d/model/particles.h"
@@ -66,4 +66,4 @@ private:
 };
 
 } // namespace RealSpace
-#endif // BA3D_MODEL_H
+#endif // BORNAGAIN_GUI_BA3D_MODEL_MODEL_H

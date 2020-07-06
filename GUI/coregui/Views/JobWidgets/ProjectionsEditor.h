@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSEDITOR_H
-#define PROJECTIONSEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITOR_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMainWindow>
@@ -63,4 +63,4 @@ private:
     QSplitter* m_bottomSplitter;
 };
 
-#endif // PROJECTIONSEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITOR_H

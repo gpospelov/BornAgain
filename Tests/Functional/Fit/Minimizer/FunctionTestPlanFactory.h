@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONTESTPLANFACTORY_H
-#define FUNCTIONTESTPLANFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANFACTORY_H
 
 #include "Core/StandardSamples/IFactory.h"
 #include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
@@ -26,4 +26,4 @@ public:
     FunctionTestPlanFactory();
 };
 
-#endif //   FUNCTIONTESTPLANFACTORY_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANFACTORY_H

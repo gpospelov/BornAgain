@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTORPRESENTER_H
-#define DETECTORPRESENTER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DETECTORPRESENTER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DETECTORPRESENTER_H
 
 #include "GUI/coregui/Views/CommonWidgets/ItemComboWidget.h"
 
@@ -33,4 +33,4 @@ protected:
     QStringList activePresentationList(SessionItem* item) override;
 };
 
-#endif // DETECTORPRESENTER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DETECTORPRESENTER_H

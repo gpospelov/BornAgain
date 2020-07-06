@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef NODEEDITORPORT_H
-#define NODEEDITORPORT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_NODEEDITORPORT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_NODEEDITORPORT_H
 
 /*
  * Node editor: original code is taken from
@@ -97,4 +97,4 @@ inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
     return m_port_type;
 }
 
-#endif // NODEEDITORPORT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_NODEEDITORPORT_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BASEMATERIALIMPL_H_
-#define BASEMATERIALIMPL_H_
+#ifndef BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
+#define BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/INamed.h"
@@ -74,4 +74,4 @@ public:
     virtual void print(std::ostream& ostr) const = 0;
 };
 
-#endif /* BASEMATERIALIMPL_H_ */
+#endif // BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H

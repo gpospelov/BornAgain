@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CYLINDERSANDPRISMSBUILDER_H
-#define CYLINDERSANDPRISMSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSANDPRISMSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSANDPRISMSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -29,4 +29,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // CYLINDERSANDPRISMSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSANDPRISMSBUILDER_H

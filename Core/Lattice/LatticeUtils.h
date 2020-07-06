@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICEUTILS_H
-#define LATTICEUTILS_H
+#ifndef BORNAGAIN_CORE_LATTICE_LATTICEUTILS_H
+#define BORNAGAIN_CORE_LATTICE_LATTICEUTILS_H
 
 #include "Core/Lattice/Lattice.h"
 #include "Core/Vector/Vectors3D.h"
@@ -28,4 +28,4 @@ BA_CORE_API_ Lattice CreateHCPLattice(double a, double c, const ILatticeOrientat
 BA_CORE_API_ Lattice CreateBCTLattice(double a, double c, const ILatticeOrientation& orientation);
 } // namespace LatticeUtils
 
-#endif // LATTICEUTILS_H
+#endif // BORNAGAIN_CORE_LATTICE_LATTICEUTILS_H

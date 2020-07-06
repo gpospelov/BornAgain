@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CORESELFCONSISTENCYTEST_H
-#define CORESELFCONSISTENCYTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETEST_H
 
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <memory>
@@ -38,4 +38,4 @@ private:
     double m_threshold;
 };
 
-#endif // CORESELFCONSISTENCYTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETEST_H

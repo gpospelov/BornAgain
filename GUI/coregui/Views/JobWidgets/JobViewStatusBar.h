@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBVIEWSTATUSBAR_H
-#define JOBVIEWSTATUSBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWSTATUSBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWSTATUSBAR_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -48,4 +48,4 @@ private:
     MainWindow* m_mainWindow;
 };
 
-#endif // JOBVIEWSTATUSBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWSTATUSBAR_H

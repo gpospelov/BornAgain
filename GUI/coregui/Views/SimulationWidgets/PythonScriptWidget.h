@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYTHONSCRIPTWIDGET_H
-#define PYTHONSCRIPTWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_PYTHONSCRIPTWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_PYTHONSCRIPTWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QDialog>
@@ -50,4 +50,4 @@ private:
     QString m_outputDir;
 };
 
-#endif // PYTHONSCRIPTWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_PYTHONSCRIPTWIDGET_H

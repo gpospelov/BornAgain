@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLELABELHANDLER_H
-#define SAMPLELABELHANDLER_H
+#ifndef BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
+#define BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 
 #include "Core/Basics/Exceptions.h"
 #include "Core/Tools/OrderedMap.h"
@@ -124,4 +124,4 @@ private:
     roughnesses_t m_LayerRoughnessLabel;
 };
 
-#endif // SAMPLELABELHANDLER_H
+#endif // BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H

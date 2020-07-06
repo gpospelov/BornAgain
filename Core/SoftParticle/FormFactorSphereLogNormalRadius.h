@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
-#define FORMFACTORSPHERELOGNORMALRADIUS_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
 
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Parametrization/Distributions.h"
@@ -52,4 +52,4 @@ private:
     std::vector<double> m_probabilities;
 };
 
-#endif // FORMFACTORSPHERELOGNORMALRADIUS_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H

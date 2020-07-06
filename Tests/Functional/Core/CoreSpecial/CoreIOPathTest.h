@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COREIOPATHTEST_H
-#define COREIOPATHTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPATHTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPATHTEST_H
 
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
@@ -27,4 +27,4 @@ public:
     bool runTest();
 };
 
-#endif // COREIOPATHTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPATHTEST_H

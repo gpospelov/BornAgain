@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CUSTOMBINAXIS_H
-#define CUSTOMBINAXIS_H
+#ifndef BORNAGAIN_CORE_BINNING_CUSTOMBINAXIS_H
+#define BORNAGAIN_CORE_BINNING_CUSTOMBINAXIS_H
 
 #include "Core/Binning/VariableBinAxis.h"
 
@@ -49,4 +49,4 @@ protected:
     std::vector<double> m_bin_centers;
 };
 
-#endif // CUSTOMBINAXIS_H
+#endif // BORNAGAIN_CORE_BINNING_CUSTOMBINAXIS_H

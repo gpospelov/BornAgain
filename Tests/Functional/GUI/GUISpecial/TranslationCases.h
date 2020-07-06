@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRANSLATIONCASES_H
-#define TRANSLATIONCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_TRANSLATIONCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_TRANSLATIONCASES_H
 
 #include "Tests/Functional/GUI/GUISpecial/GUITranslationTest.h"
 
@@ -131,4 +131,4 @@ public:
     ~MagneticSpheresTranslationTest();
 };
 
-#endif // TRANSLATIONCASES_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_TRANSLATIONCASES_H

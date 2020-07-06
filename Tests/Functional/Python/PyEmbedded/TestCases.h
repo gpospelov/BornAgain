@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTCASES_H
-#define TESTCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_TESTCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_TESTCASES_H
 
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
@@ -89,4 +89,4 @@ protected:
     bool runTest();
 };
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_TESTCASES_H

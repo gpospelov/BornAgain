@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CORESTANDARDTEST_H
-#define CORESTANDARDTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESTANDARDTEST_CORESTANDARDTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESTANDARDTEST_CORESTANDARDTEST_H
 
 #include "Tests/Functional/TestMachinery/IStandardTest.h"
 
@@ -30,4 +30,4 @@ public:
     bool runTest() final;
 };
 
-#endif // CORESTANDARDTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESTANDARDTEST_CORESTANDARDTEST_H

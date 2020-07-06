@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_PROGRAM_H
-#define BA3D_PROGRAM_H
+#ifndef BORNAGAIN_GUI_BA3D_VIEW_PROGRAM_H
+#define BORNAGAIN_GUI_BA3D_VIEW_PROGRAM_H
 
 #include "../def.h"
 #include <QOpenGLShaderProgram>
@@ -48,4 +48,4 @@ private:
 };
 
 } // namespace RealSpace
-#endif // BA3D_PROGRAM_H
+#endif // BORNAGAIN_GUI_BA3D_VIEW_PROGRAM_H

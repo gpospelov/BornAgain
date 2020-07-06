@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TWODIMLATTICEBUILDER_H
-#define TWODIMLATTICEBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_TWODIMLATTICEBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_TWODIMLATTICEBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -77,4 +77,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // TWODIMLATTICEBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_TWODIMLATTICEBUILDER_H

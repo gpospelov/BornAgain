@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORLONGBOXGAUSS_H
-#define FORMFACTORLONGBOXGAUSS_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORLONGBOXGAUSS_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORLONGBOXGAUSS_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -54,4 +54,4 @@ private:
     double m_height;
 };
 
-#endif // FORMFACTORLONGBOXGAUSS_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORLONGBOXGAUSS_H

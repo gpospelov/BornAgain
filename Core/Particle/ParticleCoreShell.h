@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECORESHELL_H
-#define PARTICLECORESHELL_H
+#ifndef BORNAGAIN_CORE_PARTICLE_PARTICLECORESHELL_H
+#define BORNAGAIN_CORE_PARTICLE_PARTICLECORESHELL_H
 
 #include "Core/Particle/IParticle.h"
 
@@ -60,4 +60,4 @@ inline const Particle* ParticleCoreShell::shellParticle() const
     return mp_shell.get();
 }
 
-#endif // PARTICLECORESHELL_H
+#endif // BORNAGAIN_CORE_PARTICLE_PARTICLECORESHELL_H

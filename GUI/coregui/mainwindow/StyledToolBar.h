@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef STYLEDTOOLBAR_H
-#define STYLEDTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_STYLEDTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_STYLEDTOOLBAR_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QToolBar>
@@ -34,4 +34,4 @@ protected:
     void contextMenuEvent(QContextMenuEvent*);
 };
 
-#endif // STYLEDTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_STYLEDTOOLBAR_H

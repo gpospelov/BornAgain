@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef WARNINGSIGNWIDGET_H
-#define WARNINGSIGNWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_WARNINGSIGNWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_WARNINGSIGNWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QPixmap>
@@ -42,4 +42,4 @@ private:
     QString m_warning_message;
 };
 
-#endif // WARNINGSIGNWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_WARNINGSIGNWIDGET_H

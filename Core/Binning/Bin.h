@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BIN_H
-#define BIN_H
+#ifndef BORNAGAIN_CORE_BINNING_BIN_H
+#define BORNAGAIN_CORE_BINNING_BIN_H
 
 #include "Core/Vector/Vectors3D.h"
 
@@ -61,4 +61,4 @@ public:
     cvector_t m_q_upper; //!< upper bound of the bin
 };
 
-#endif // BIN_H
+#endif // BORNAGAIN_CORE_BINNING_BIN_H

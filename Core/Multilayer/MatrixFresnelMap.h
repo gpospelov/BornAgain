@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATRIXFRESNELMAP_H
-#define MATRIXFRESNELMAP_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_MATRIXFRESNELMAP_H
+#define BORNAGAIN_CORE_MULTILAYER_MATRIXFRESNELMAP_H
 
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/Multilayer/MatrixRTCoefficients.h"
@@ -72,4 +72,4 @@ private:
                                                                 CoefficientHash& hash_table) const;
 };
 
-#endif // MATRIXFRESNELMAP_H
+#endif // BORNAGAIN_CORE_MULTILAYER_MATRIXFRESNELMAP_H

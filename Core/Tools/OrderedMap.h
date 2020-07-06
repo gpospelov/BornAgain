@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ORDEREDMAP_H
-#define ORDEREDMAP_H
+#ifndef BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H
+#define BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H
 
 #include <cassert>
 #include <iostream>
@@ -108,4 +108,4 @@ private:
     list_t m_list;
 };
 
-#endif
+#endif // BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H

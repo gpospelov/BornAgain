@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONITEMS_H
-#define PROJECTIONITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PROJECTIONITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PROJECTIONITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -25,4 +25,4 @@ public:
     ProjectionContainerItem();
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PROJECTIONITEMS_H

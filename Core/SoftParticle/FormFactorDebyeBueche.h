@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDEBYEBUECHE_H
-#define FORMFACTORDEBYEBUECHE_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORDEBYEBUECHE_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORDEBYEBUECHE_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -40,4 +40,4 @@ private:
     double m_xi;
 };
 
-#endif // FORMFACTORDEBYEBUECHE_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORDEBYEBUECHE_H

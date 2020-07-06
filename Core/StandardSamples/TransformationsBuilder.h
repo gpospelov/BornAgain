@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRANSFORMATIONSBUILDER_H
-#define TRANSFORMATIONSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_TRANSFORMATIONSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_TRANSFORMATIONSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -27,4 +27,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // TRANSFORMATIONSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_TRANSFORMATIONSBUILDER_H

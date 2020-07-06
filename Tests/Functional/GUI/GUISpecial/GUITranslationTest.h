@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUITRANSLATIONTEST_H
-#define GUITRANSLATIONTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H
 
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <map>
@@ -63,4 +63,4 @@ private:
     std::string m_simulationName, m_sampleName;
 };
 
-#endif // GUITRANSLATIONTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H

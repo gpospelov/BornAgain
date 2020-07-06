@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERWITHNCROUGHNESSBUILDER_H
-#define MULTILAYERWITHNCROUGHNESSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHNCROUGHNESSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHNCROUGHNESSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/StandardSamples/MultiLayerWithRoughnessBuilder.h"
@@ -32,4 +32,4 @@ public:
 private:
 };
 
-#endif // MULTILAYERWITHNCROUGHNESSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHNCROUGHNESSBUILDER_H

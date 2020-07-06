@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDECAYFUNCTIONS_H
-#define FTDECAYFUNCTIONS_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_FTDECAYFUNCTIONS_H
+#define BORNAGAIN_CORE_AGGREGATE_FTDECAYFUNCTIONS_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Basics/MathConstants.h"
@@ -187,4 +187,4 @@ protected:
     double m_eta;
 };
 
-#endif // FTDECAYFUNCTIONS_H
+#endif // BORNAGAIN_CORE_AGGREGATE_FTDECAYFUNCTIONS_H

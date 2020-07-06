@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALMODEL_H
-#define MATERIALMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MATERIALMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MATERIALMODEL_H
 
 #include "GUI/coregui/Models/SessionModel.h"
 
@@ -43,4 +43,4 @@ private:
     MaterialItem* createMaterial(const QString& name);
 };
 
-#endif // MATERIALMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MATERIALMODEL_H

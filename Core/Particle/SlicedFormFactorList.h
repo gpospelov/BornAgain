@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SLICEDFORMFACTORLIST_H
-#define SLICEDFORMFACTORLIST_H
+#ifndef BORNAGAIN_CORE_PARTICLE_SLICEDFORMFACTORLIST_H
+#define BORNAGAIN_CORE_PARTICLE_SLICEDFORMFACTORLIST_H
 
 #include "Core/Particle/HomogeneousRegion.h"
 #include "Core/Scattering/IFormFactor.h"
@@ -52,4 +52,4 @@ private:
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
-#endif // SLICEDFORMFACTORLIST_H
+#endif // BORNAGAIN_CORE_PARTICLE_SLICEDFORMFACTORLIST_H

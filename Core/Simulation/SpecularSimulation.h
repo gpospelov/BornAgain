@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSIMULATION_H
-#define SPECULARSIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 
 #include "Core/Instrument/OutputData.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
@@ -116,4 +116,4 @@ private:
     std::vector<double> m_cache;
 };
 
-#endif // SPECULARSIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALEDITOR_H
-#define MATERIALEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITOR_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -65,4 +65,4 @@ private:
     bool m_model_was_modified;
 };
 
-#endif // MATERIALEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITOR_H

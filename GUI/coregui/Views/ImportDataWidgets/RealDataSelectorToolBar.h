@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATASELECTORTOOLBAR_H
-#define REALDATASELECTORTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORTOOLBAR_H
 
 #include "GUI/coregui/mainwindow/StyledToolBar.h"
 
@@ -35,4 +35,4 @@ private:
     QToolButton* m_removeDataButton;
 };
 
-#endif // REALDATASELECTORTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORTOOLBAR_H

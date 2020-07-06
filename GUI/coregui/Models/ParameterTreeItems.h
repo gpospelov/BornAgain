@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTREEITEMS_H
-#define PARAMETERTREEITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTREEITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTREEITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -54,4 +54,4 @@ public:
     ParameterContainerItem();
 };
 
-#endif // PARAMETERTREEITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTREEITEMS_H

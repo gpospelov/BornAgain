@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARACRYSTALBUILDER_H
-#define PARACRYSTALBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include <memory>
@@ -87,4 +87,4 @@ public:
     virtual MultiLayer* buildSample() const;
 };
 
-#endif // PARACRYSTALBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMPLEUNITCONVERTERS_H
-#define SIMPLEUNITCONVERTERS_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_SIMPLEUNITCONVERTERS_H
+#define BORNAGAIN_CORE_INSTRUMENT_SIMPLEUNITCONVERTERS_H
 
 #include "Core/Instrument/IUnitConverter.h"
 #include "Core/Vector/Vectors3D.h"
@@ -165,4 +165,4 @@ private:
     void checkUnits(AxesUnits units_type) const;
 };
 
-#endif // SIMPLEUNITCONVERTERS_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_SIMPLEUNITCONVERTERS_H

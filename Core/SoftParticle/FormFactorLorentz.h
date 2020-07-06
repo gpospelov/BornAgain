@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORLORENTZ_H
-#define FORMFACTORLORENTZ_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORLORENTZ_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORLORENTZ_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -48,4 +48,4 @@ private:
     void initialize();
 };
 
-#endif // FORMFACTORLORENTZ_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORLORENTZ_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE2DITEMS_H
-#define LATTICE2DITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_LATTICE2DITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_LATTICE2DITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 class Lattice2D;
@@ -53,4 +53,4 @@ public:
     std::unique_ptr<Lattice2D> createLattice() const;
 };
 
-#endif // LATTICE2DITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_LATTICE2DITEMS_H

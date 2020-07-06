@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RESONATORBUILDER_H
-#define RESONATORBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_RESONATORBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_RESONATORBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -30,4 +30,4 @@ private:
     double m_l_ti; // titanium layer thickness
 };
 
-#endif // RESONATORBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_RESONATORBUILDER_H

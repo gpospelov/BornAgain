@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ATTRIBUTES_H
-#define ATTRIBUTES_H
+#ifndef BORNAGAIN_FIT_TOOLS_ATTRIBUTES_H
+#define BORNAGAIN_FIT_TOOLS_ATTRIBUTES_H
 
 #include "Wrap/WinDllMacros.h"
 #include <ostream>
@@ -59,4 +59,4 @@ inline void Attributes::print(std::ostream& ostr) const
         ostr << "free";
 }
 
-#endif // ATTRIBUTES_H
+#endif // BORNAGAIN_FIT_TOOLS_ATTRIBUTES_H

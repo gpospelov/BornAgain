@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CRYSTAL_H
-#define CRYSTAL_H
+#ifndef BORNAGAIN_CORE_PARTICLE_CRYSTAL_H
+#define BORNAGAIN_CORE_PARTICLE_CRYSTAL_H
 
 #include "Core/Lattice/Lattice.h"
 #include "Core/Particle/IClusteredParticles.h"
@@ -53,4 +53,4 @@ private:
     double m_position_variance;
 };
 
-#endif // CRYSTAL_H
+#endif // BORNAGAIN_CORE_PARTICLE_CRYSTAL_H

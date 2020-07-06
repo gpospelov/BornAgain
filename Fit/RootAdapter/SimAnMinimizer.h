@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMANMINIMIZER_H
-#define SIMANMINIMIZER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H
 
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
@@ -77,4 +77,4 @@ private:
     std::unique_ptr<ROOT::Math::GSLSimAnMinimizer> m_siman_minimizer;
 };
 
-#endif // SIMANMINIMIZER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H

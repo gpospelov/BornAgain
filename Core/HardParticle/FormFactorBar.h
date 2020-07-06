@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORBAR_H
-#define FORMFACTORBAR_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H
 
 #include "Core/HardParticle/ProfileBar.h"
 
@@ -43,4 +43,4 @@ private:
     complex_t factor_x(complex_t qx) const override final;
 };
 
-#endif // FORMFACTORBAR_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H

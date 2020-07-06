@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef EXTERNALPROPERTY_H
-#define EXTERNALPROPERTY_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_EXTERNALPROPERTY_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_EXTERNALPROPERTY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QColor>
@@ -57,4 +57,4 @@ private:
 
 Q_DECLARE_METATYPE(ExternalProperty)
 
-#endif // EXTERNALPROPERTY_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_EXTERNALPROPERTY_H

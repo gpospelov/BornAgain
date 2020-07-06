@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAREADER_H
-#define OUTPUTDATAREADER_H
+#ifndef BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADER_H
+#define BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADER_H
 
 #include "Core/InputOutput/OutputDataReadStrategy.h"
 #include <memory>
@@ -40,4 +40,4 @@ private:
     std::unique_ptr<IOutputDataReadStrategy> m_read_strategy;
 };
 
-#endif // OUTPUTDATAREADER_H
+#endif // BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADER_H

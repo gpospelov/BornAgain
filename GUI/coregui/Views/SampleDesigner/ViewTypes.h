@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef VIEWTYPES_H
-#define VIEWTYPES_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_VIEWTYPES_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_VIEWTYPES_H
 
 #include <QGraphicsItem>
 
@@ -43,4 +43,4 @@ enum EWidgetTypes {
 
 }
 
-#endif // VIEWTYPES_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_VIEWTYPES_H

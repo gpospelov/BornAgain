@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALDATAITEMS_H
-#define MATERIALDATAITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MATERIALDATAITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MATERIALDATAITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -41,4 +41,4 @@ public:
     MaterialSLDDataItem();
 };
 
-#endif // MATERIALDATAITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MATERIALDATAITEMS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SSCAHELPER_H
-#define SSCAHELPER_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SSCAHELPER_H
+#define BORNAGAIN_CORE_MULTILAYER_SSCAHELPER_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
@@ -50,4 +50,4 @@ private:
     double m_mean_radius;
 };
 
-#endif // SSCAHELPER_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SSCAHELPER_H

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FOURIERTRANSFORM_H
-#define FOURIERTRANSFORM_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_FOURIERTRANSFORM_H
+#define BORNAGAIN_CORE_INSTRUMENT_FOURIERTRANSFORM_H
 
 #include "Wrap/WinDllMacros.h"
 #include <fftw3.h>
@@ -92,4 +92,4 @@ private:
     Workspace ws;
 };
 
-#endif // FOURIERTRANSFORM_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_FOURIERTRANSFORM_H

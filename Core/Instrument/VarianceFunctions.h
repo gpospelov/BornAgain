@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef VARIANCEFUNCTIONS_H
-#define VARIANCEFUNCTIONS_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
+#define BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -56,4 +56,4 @@ private:
     double m_epsilon;
 };
 
-#endif // VARIANCEFUNCTIONS_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H

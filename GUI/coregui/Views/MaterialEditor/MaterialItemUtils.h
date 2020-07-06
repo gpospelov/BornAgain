@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALITEMUTILS_H
-#define MATERIALITEMUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALITEMUTILS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALITEMUTILS_H
 
 #include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
@@ -58,4 +58,4 @@ selectColorProperty(const ExternalProperty& previous = ExternalProperty());
 BA_CORE_API_ QVector<SessionItem*> materialPropertyItems(SessionItem* item);
 } // namespace MaterialItemUtils
 
-#endif // MATERIALITEMUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALITEMUTILS_H

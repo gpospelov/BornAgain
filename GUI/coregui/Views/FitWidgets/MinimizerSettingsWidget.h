@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERSETTINGSWIDGET_H
-#define MINIMIZERSETTINGSWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_MINIMIZERSETTINGSWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_MINIMIZERSETTINGSWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -43,4 +43,4 @@ private:
     ComponentEditor* m_componentEditor;
 };
 
-#endif // MINIMIZERSETTINGSWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_MINIMIZERSETTINGSWIDGET_H

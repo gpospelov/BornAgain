@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MESOCRYSTALBUILDER_H
-#define MESOCRYSTALBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MESOCRYSTALBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_MESOCRYSTALBUILDER_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
@@ -33,4 +33,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // MESOCRYSTALBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_MESOCRYSTALBUILDER_H

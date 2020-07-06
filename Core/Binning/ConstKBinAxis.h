@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CONSTKBINAXIS_H
-#define CONSTKBINAXIS_H
+#ifndef BORNAGAIN_CORE_BINNING_CONSTKBINAXIS_H
+#define BORNAGAIN_CORE_BINNING_CONSTKBINAXIS_H
 
 #include "Core/Binning/VariableBinAxis.h"
 
@@ -45,4 +45,4 @@ protected:
     double m_end;
 };
 
-#endif // CONSTKBINAXIS_H
+#endif // BORNAGAIN_CORE_BINNING_CONSTKBINAXIS_H

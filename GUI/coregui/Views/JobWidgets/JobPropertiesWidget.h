@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBPROPERTIESWIDGET_H
-#define JOBPROPERTIESWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBPROPERTIESWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBPROPERTIESWIDGET_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -53,4 +53,4 @@ private:
     bool m_block_update;
 };
 
-#endif // JOBPROPERTIESWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBPROPERTIESWIDGET_H

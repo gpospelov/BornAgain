@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONMODELVIEW_H
-#define SESSIONMODELVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SESSIONMODELVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SESSIONMODELVIEW_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -55,4 +55,4 @@ private:
     QVector<ModelTreeView*> m_content;
 };
 
-#endif // SESSIONMODELVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SESSIONMODELVIEW_H

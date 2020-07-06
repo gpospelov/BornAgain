@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONITEMCONTROLLER_H
-#define SESSIONITEMCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_SESSIONITEMCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_SESSIONITEMCONTROLLER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -55,4 +55,4 @@ private:
     bool m_parent_subscribed;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_SESSIONITEMCONTROLLER_H

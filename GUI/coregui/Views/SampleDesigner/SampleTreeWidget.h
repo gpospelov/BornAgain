@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLETREEWIDGET_H
-#define SAMPLETREEWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLETREEWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLETREEWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMap>
@@ -51,4 +51,4 @@ private:
     SampleModel* m_sampleModel;
 };
 
-#endif // SAMPLETREEWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLETREEWIDGET_H

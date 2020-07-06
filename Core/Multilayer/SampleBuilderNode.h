@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEBUILDERNODE_H
-#define SAMPLEBUILDERNODE_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SAMPLEBUILDERNODE_H
+#define BORNAGAIN_CORE_MULTILAYER_SAMPLEBUILDERNODE_H
 
 #include "Core/Parametrization/INode.h"
 #include <memory>
@@ -50,4 +50,4 @@ private:
     builder_t m_sample_builder;
 };
 
-#endif // SAMPLEBUILDERNODE_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SAMPLEBUILDERNODE_H

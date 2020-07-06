@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONFACTORY_H
-#define SIMULATIONFACTORY_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SIMULATIONFACTORY_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_SIMULATIONFACTORY_H
 
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/IFactory.h"
@@ -29,4 +29,4 @@ public:
     SimulationFactory();
 };
 
-#endif // SIMULATIONFACTORY_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SIMULATIONFACTORY_H

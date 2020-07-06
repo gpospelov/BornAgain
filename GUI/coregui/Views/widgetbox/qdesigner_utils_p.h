@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QDESIGNER_UTILS_P_H
-#define QDESIGNER_UTILS_P_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_UTILS_P_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_UTILS_P_H
 
 #include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
@@ -519,4 +519,4 @@ inline bool isCentralWidget(QDesignerFormWindowInterface* fw, QWidget* widget)
 
 QT_END_NAMESPACE
 
-#endif // QDESIGNER_UTILS_P_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_UTILS_P_H

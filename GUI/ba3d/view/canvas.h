@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_CANVAS_H
-#define BA3D_CANVAS_H
+#ifndef BORNAGAIN_GUI_BA3D_VIEW_CANVAS_H
+#define BORNAGAIN_GUI_BA3D_VIEW_CANVAS_H
 
 #include "../def.h"
 #include <QHash>
@@ -100,4 +100,4 @@ private:
 };
 
 } // namespace RealSpace
-#endif // BA3D_CANVAS_H
+#endif // BORNAGAIN_GUI_BA3D_VIEW_CANVAS_H

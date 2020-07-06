@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTMINIMIZER_H
-#define TESTMINIMIZER_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H
+#define BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H
 
 #include "Fit/Minimizer/IMinimizer.h"
 
@@ -35,4 +35,4 @@ private:
     scalar_function_t m_fcn;
 };
 
-#endif // TESTMINIMIZER_H
+#endif // BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CYLINDERSBUILDER_H
-#define CYLINDERSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -75,4 +75,4 @@ private:
     double m_radius;
 };
 
-#endif // CYLINDERSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSBUILDER_H

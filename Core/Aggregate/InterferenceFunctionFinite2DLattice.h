@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONFINITE2DLATTICE_H
-#define INTERFERENCEFUNCTIONFINITE2DLATTICE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONFINITE2DLATTICE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONFINITE2DLATTICE_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Lattice/Lattice2D.h"
@@ -68,4 +68,4 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-#endif // INTERFERENCEFUNCTIONFINITE2DLATTICE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONFINITE2DLATTICE_H

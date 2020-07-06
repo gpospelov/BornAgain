@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATION2D_H
-#define SIMULATION2D_H
+#ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
+#define BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Simulation/Simulation.h"
@@ -103,4 +103,4 @@ private:
     void setRawResults(const std::vector<double>& raw_data) override;
 };
 
-#endif // SIMULATION2D_H
+#endif // BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H

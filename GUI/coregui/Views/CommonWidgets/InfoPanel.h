@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INFOPANEL_H
-#define INFOPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANEL_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QFrame>
@@ -54,4 +54,4 @@ protected:
     int m_cached_height;
 };
 
-#endif // INFOPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANEL_H

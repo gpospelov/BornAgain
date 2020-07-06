@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef HISTOGRAMPLOT_H
-#define HISTOGRAMPLOT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_HISTOGRAMPLOT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_HISTOGRAMPLOT_H
 
 #include "Wrap/WinDllMacros.h"
 #include "qcustomplot.h"
@@ -37,4 +37,4 @@ private:
     QCustomPlot* m_customPlot;
 };
 
-#endif // HISTOGRAMPLOT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_HISTOGRAMPLOT_H

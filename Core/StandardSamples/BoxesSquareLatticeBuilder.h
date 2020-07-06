@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BOXESSQUARELATTICEBUILDER_H
-#define BOXESSQUARELATTICEBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_BOXESSQUARELATTICEBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_BOXESSQUARELATTICEBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -33,4 +33,4 @@ private:
     double m_height;
 };
 
-#endif // BOXESSQUARELATTICEBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_BOXESSQUARELATTICEBUILDER_H

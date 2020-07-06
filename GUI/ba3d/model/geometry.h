@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_GEOMETRY_H
-#define BA3D_GEOMETRY_H
+#ifndef BORNAGAIN_GUI_BA3D_MODEL_GEOMETRY_H
+#define BORNAGAIN_GUI_BA3D_MODEL_GEOMETRY_H
 
 #include "../def.h"
 #include "GUI/ba3d/model/geometry_inc.h"
@@ -114,4 +114,4 @@ private:
 GeometryStore& geometryStore(); // simpleton
 
 } // namespace RealSpace
-#endif
+#endif // BORNAGAIN_GUI_BA3D_MODEL_GEOMETRY_H

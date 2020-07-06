@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEBUILDERFACTORY_H
-#define SAMPLEBUILDERFACTORY_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/StandardSamples/IFactory.h"
@@ -30,4 +30,4 @@ public:
     MultiLayer* createSample(const std::string& name);
 };
 
-#endif // SAMPLEBUILDERFACTORY_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARDATAITEM_H
-#define SPECULARDATAITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SPECULARDATAITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SPECULARDATAITEM_H
 
 #include "GUI/coregui/Models/DataItem.h"
 
@@ -89,4 +89,4 @@ private:
     void updateAxesZoomLevel();
 };
 
-#endif // SPECULARDATAITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SPECULARDATAITEM_H

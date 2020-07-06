@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORGAUSS_H
-#define FORMFACTORGAUSS_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -46,4 +46,4 @@ private:
     void initialize();
 };
 
-#endif // FORMFACTORGAUSS_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H

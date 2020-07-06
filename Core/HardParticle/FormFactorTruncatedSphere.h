@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORTRUNCATEDSPHERE_H
-#define FORMFACTORTRUNCATEDSPHERE_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHERE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHERE_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/Tools/Integrator.h"
@@ -57,4 +57,4 @@ private:
     mutable ComplexIntegrator m_integrator;
 };
 
-#endif // FORMFACTORTRUNCATEDSPHERE_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHERE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBITEMFUNCTIONS_H
-#define JOBITEMFUNCTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEMFILENAMEUTILS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_ITEMFILENAMEUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -43,4 +43,4 @@ BA_CORE_API_ QStringList nonXMLFileNameFilters();
 
 } // namespace ItemFileNameUtils
 
-#endif // JOBITEMFUNCTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_ITEMFILENAMEUTILS_H

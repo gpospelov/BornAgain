@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAVELOADINTERFACE_H
-#define SAVELOADINTERFACE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVELOADINTERFACE_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVELOADINTERFACE_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -50,4 +50,4 @@ public:
     QString fileName(const QString& projectDir) const;
 };
 
-#endif // SAVELOADINTERFACE_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVELOADINTERFACE_H

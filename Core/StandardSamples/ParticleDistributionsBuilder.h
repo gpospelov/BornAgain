@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLEDISTRIBUTIONSBUILDER_H
-#define PARTICLEDISTRIBUTIONSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEDISTRIBUTIONSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEDISTRIBUTIONSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -95,4 +95,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // PARTICLEDISTRIBUTIONSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEDISTRIBUTIONSBUILDER_H

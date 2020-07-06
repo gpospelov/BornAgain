@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDISTRIBUTIONITEMS_H
-#define FTDISTRIBUTIONITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_FTDISTRIBUTIONITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_FTDISTRIBUTIONITEMS_H
 
 #include "Core/Aggregate/FTDistributions1D.h"
 #include "Core/Aggregate/FTDistributions2D.h"
@@ -128,4 +128,4 @@ public:
     std::unique_ptr<IFTDistribution2D> createFTDistribution() const;
 };
 
-#endif // FTDISTRIBUTIONITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_FTDISTRIBUTIONITEMS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTPROXYSTRATEGY_H
-#define COMPONENTPROXYSTRATEGY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYSTRATEGY_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYSTRATEGY_H
 
 #include "GUI/coregui/Models/ProxyModelStrategy.h"
 
@@ -40,4 +40,4 @@ private:
     int parentVisibleRow(const SessionItem& item);
 };
 
-#endif //  COMPONENTPROXYSTRATEGY_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYSTRATEGY_H

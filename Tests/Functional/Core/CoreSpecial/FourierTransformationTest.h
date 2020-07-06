@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FOURIERTRANSFORMATIONTEST_H
-#define FOURIERTRANSFORMATIONTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_FOURIERTRANSFORMATIONTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_FOURIERTRANSFORMATIONTEST_H
 
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
@@ -28,4 +28,4 @@ private:
     bool test_fft(const std::string& input_image_name, const std::string& reference_fft_name);
 };
 
-#endif // FOURIERTRANSFORMATIONTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_FOURIERTRANSFORMATIONTEST_H

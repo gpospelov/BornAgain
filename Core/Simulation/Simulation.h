@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATION_H
-#define SIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_SIMULATION_H
 
 #include "Core/Computation/ProgressHandler.h"
 #include "Core/Instrument/IDetector2D.h"
@@ -157,4 +157,4 @@ private:
     virtual void setRawResults(const std::vector<double>& raw_data) = 0;
 };
 
-#endif // SIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_SIMULATION_H

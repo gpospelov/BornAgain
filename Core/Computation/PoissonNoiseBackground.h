@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef POISSONNOISEBACKGROUND_H
-#define POISSONNOISEBACKGROUND_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H
+#define BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H
 
 #include "Core/Computation/IBackground.h"
 
@@ -33,4 +33,4 @@ public:
     double addBackGround(double intensity) const override final;
 };
 
-#endif // POISSONNOISEBACKGROUND_H
+#endif // BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H

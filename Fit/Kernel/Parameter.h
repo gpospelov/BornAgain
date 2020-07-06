@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETER_H
-#define PARAMETER_H
+#ifndef BORNAGAIN_FIT_KERNEL_PARAMETER_H
+#define BORNAGAIN_FIT_KERNEL_PARAMETER_H
 
 #include "Fit/Tools/AttLimits.h"
 #include "Wrap/WinDllMacros.h"
@@ -64,4 +64,4 @@ private:
 
 } // namespace Fit
 
-#endif // PARAMETER_H
+#endif // BORNAGAIN_FIT_KERNEL_PARAMETER_H

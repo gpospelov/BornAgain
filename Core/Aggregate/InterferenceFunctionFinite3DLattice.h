@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONFINITE3DLATTICE_H
-#define INTERFERENCEFUNCTIONFINITE3DLATTICE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONFINITE3DLATTICE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONFINITE3DLATTICE_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Lattice/Lattice.h"
@@ -51,4 +51,4 @@ private:
     unsigned m_N_1, m_N_2, m_N_3; //!< Size of the finite lattice in lattice units
 };
 
-#endif // INTERFERENCEFUNCTIONFINITE3DLATTICE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONFINITE3DLATTICE_H

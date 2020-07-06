@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLEDISTRIBUTIONVIEW_H
-#define PARTICLEDISTRIBUTIONVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEDISTRIBUTIONVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEDISTRIBUTIONVIEW_H
 
 #include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
@@ -30,4 +30,4 @@ public:
     void addView(IView* childView, int row = 0);
 };
 
-#endif // PARTICLEDISTRIBUTIONVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEDISTRIBUTIONVIEW_H

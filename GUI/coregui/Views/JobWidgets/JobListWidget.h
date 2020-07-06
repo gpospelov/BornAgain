@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBLISTWIDGET_H
-#define JOBLISTWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QModelIndexList>
@@ -60,4 +60,4 @@ private:
     JobModel* m_jobModel;
 };
 
-#endif // JOBLISTWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTWIDGET_H

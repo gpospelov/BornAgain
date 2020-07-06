@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SOFTPARTICLES_H
-#define SOFTPARTICLES_H
+#ifndef BORNAGAIN_CORE_INCLUDEINCLUDES_SOFTPARTICLES_H
+#define BORNAGAIN_CORE_INCLUDEINCLUDES_SOFTPARTICLES_H
 
 #include "Core/SoftParticle/FormFactorDebyeBueche.h"
 #include "Core/SoftParticle/FormFactorGauss.h"
@@ -24,4 +24,4 @@
 #include "Core/SoftParticle/FormFactorSphereUniformRadius.h"
 #include "Core/includeIncludes/SoftParticles.h"
 
-#endif // SOFTPARTICLES_H
+#endif // BORNAGAIN_CORE_INCLUDEINCLUDES_SOFTPARTICLES_H

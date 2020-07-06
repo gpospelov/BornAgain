@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKGRAPHICSSCENE_H
-#define MASKGRAPHICSSCENE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSSCENE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSSCENE_H
 
 #include "GUI/coregui/Views/MaskWidgets/MaskDrawingContext.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h"
@@ -123,4 +123,4 @@ private:
     MaskDrawingContext m_context;
 };
 
-#endif // MASKGRAPHICSSCENE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSSCENE_H

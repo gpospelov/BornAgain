@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALITEM_H
-#define MATERIALITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MATERIALITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MATERIALITEM_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -37,4 +37,4 @@ public:
     std::unique_ptr<Material> createMaterial() const;
 };
 
-#endif // MATERIALITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MATERIALITEM_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SELFCONSISTENCETESTSERVICE_H
-#define SELFCONSISTENCETESTSERVICE_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETESTSERVICE_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETESTSERVICE_H
 
 //! @class SelfConsistenceTestService
 //! @brief Contains static method to run self-consistence functional test from standalone
@@ -25,4 +25,4 @@ public:
     static bool execute(int argc, char** argv);
 };
 
-#endif // SELFCONSISTENCETESTSERVICE_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETESTSERVICE_H

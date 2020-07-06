@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALEDITORDIALOG_H
-#define MATERIALEDITORDIALOG_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITORDIALOG_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITORDIALOG_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QDialog>
@@ -55,4 +55,4 @@ private:
     MaterialEditor* m_materialEditor;
 };
 
-#endif // MATERIALEDITORDIALOG_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITORDIALOG_H

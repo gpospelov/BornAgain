@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ELLIPSEVIEW_H
-#define ELLIPSEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ELLIPSEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ELLIPSEVIEW_H
 
 #include "GUI/coregui/Views/MaskWidgets/RectangleBaseView.h"
 
@@ -47,4 +47,4 @@ private:
     qreal bottom() const;
 };
 
-#endif // ELLIPSEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ELLIPSEVIEW_H

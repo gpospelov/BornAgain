@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITACTIVITYPANEL_H
-#define FITACTIVITYPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITACTIVITYPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITACTIVITYPANEL_H
 
 #include "GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h"
 #include <QWidget>
@@ -55,4 +55,4 @@ private:
     FitSessionManager* m_fitSessionManager;
 };
 
-#endif // FITACTIVITYPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITACTIVITYPANEL_H

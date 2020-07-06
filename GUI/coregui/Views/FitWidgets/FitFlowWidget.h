@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITFLOWWIDGET_H
-#define FITFLOWWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITFLOWWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITFLOWWIDGET_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -41,4 +41,4 @@ private:
     QVector<double> m_y;
 };
 
-#endif // FITFLOWWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITFLOWWIDGET_H

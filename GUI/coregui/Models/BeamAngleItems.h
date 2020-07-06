@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BEAMANGLEITEMS_H
-#define BEAMANGLEITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_BEAMANGLEITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_BEAMANGLEITEMS_H
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 
@@ -43,4 +43,4 @@ private:
     static const bool m_show_mean = true;
 };
 
-#endif // BEAMANGLEITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_BEAMANGLEITEMS_H

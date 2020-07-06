@@ -9,8 +9,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FP_EXCEPTION_GLIBC_EXTENSION_H
-#define FP_EXCEPTION_GLIBC_EXTENSION_H
+#ifndef BORNAGAIN_CORE_TOOLS_FP_EXCEPTION_GLIBC_EXTENSION_H
+#define BORNAGAIN_CORE_TOOLS_FP_EXCEPTION_GLIBC_EXTENSION_H
 
 //#include <fenv.h>
 #ifdef __cplusplus
@@ -58,4 +58,4 @@ void fhdl(int sig, siginfo_t* sip, ucontext_t* scp);
 }
 #endif
 
-#endif // FP_EXCEPTION_GLIBC_EXTENSION_H
+#endif // BORNAGAIN_CORE_TOOLS_FP_EXCEPTION_GLIBC_EXTENSION_H

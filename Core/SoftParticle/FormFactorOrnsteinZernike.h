@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORORNSTEINZERNIKE_H
-#define FORMFACTORORNSTEINZERNIKE_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORORNSTEINZERNIKE_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORORNSTEINZERNIKE_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
@@ -41,4 +41,4 @@ private:
     double m_xi_z;
 };
 
-#endif // FORMFACTORORNSTEINZERNIKE_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORORNSTEINZERNIKE_H

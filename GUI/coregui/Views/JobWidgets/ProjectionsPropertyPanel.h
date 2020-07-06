@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSPROPERTYPANEL_H
-#define PROJECTIONSPROPERTYPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSPROPERTYPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSPROPERTYPANEL_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -37,4 +37,4 @@ private:
     ComponentEditor* m_componentEditor;
 };
 
-#endif // PROJECTIONSPROPERTYPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSPROPERTYPANEL_H

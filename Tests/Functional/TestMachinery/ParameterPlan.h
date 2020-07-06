@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERPLAN_H
-#define PARAMETERPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_PARAMETERPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_PARAMETERPLAN_H
 
 #include "Fit/Kernel/Parameter.h"
 #include "Wrap/WinDllMacros.h"
@@ -41,4 +41,4 @@ private:
     Fit::Parameter m_parameter; //!< initial parameter settings
 };
 
-#endif // PARAMETERPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_PARAMETERPLAN_H

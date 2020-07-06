@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTVIEWTOOLBAR_H
-#define INSTRUMENTVIEWTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWTOOLBAR_H
 
 #include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include <QList>
@@ -42,4 +42,4 @@ private:
     QMenu* m_addInstrumentMenu;
 };
 
-#endif // INSTRUMENTVIEWTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWTOOLBAR_H

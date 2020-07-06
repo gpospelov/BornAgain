@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLE_H
-#define PARTICLE_H
+#ifndef BORNAGAIN_CORE_PARTICLE_PARTICLE_H
+#define BORNAGAIN_CORE_PARTICLE_PARTICLE_H
 
 #include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
 #include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
@@ -52,4 +52,4 @@ private:
     void initialize();
 };
 
-#endif // PARTICLE_H
+#endif // BORNAGAIN_CORE_PARTICLE_PARTICLE_H

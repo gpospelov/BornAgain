@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef WELCOMEVIEW_H
-#define WELCOMEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WELCOMEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WELCOMEVIEW_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -65,4 +65,4 @@ private:
     UpdateNotifierWidget* m_notifierWidget;
 };
 
-#endif // WELCOMEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WELCOMEVIEW_H

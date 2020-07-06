@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SSCAPPROXIMATIONSTRATEGY_H
-#define SSCAPPROXIMATIONSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SSCAPPROXIMATIONSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_SSCAPPROXIMATIONSTRATEGY_H
 
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
 #include "Core/Multilayer/SSCAHelper.h"
@@ -36,4 +36,4 @@ private:
     SSCAHelper m_helper;
 };
 
-#endif // SSCAPPROXIMATIONSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SSCAPPROXIMATIONSTRATEGY_H

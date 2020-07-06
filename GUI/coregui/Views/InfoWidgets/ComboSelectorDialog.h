@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMBOSELECTORDIALOG_H
-#define COMBOSELECTORDIALOG_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_COMBOSELECTORDIALOG_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_COMBOSELECTORDIALOG_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QDialog>
@@ -47,4 +47,4 @@ private:
     QLabel* m_bottomLabel;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_COMBOSELECTORDIALOG_H

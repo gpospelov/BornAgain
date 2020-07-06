@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCOMBOWIDGET_H
-#define ITEMCOMBOWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H
 
 #include "Core/StandardSamples/IFactory.h"
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
@@ -70,4 +70,4 @@ private:
     QMap<QString, SessionItemWidget*> m_presentationTypeToWidget;
 };
 
-#endif // ITEMCOMBOWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H

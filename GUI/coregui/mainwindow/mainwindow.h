@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
 
 #include "Wrap/WinDllMacros.h"
 #include "fancymainwindow.h"
@@ -101,4 +101,4 @@ private:
     SessionModelView* m_sessionModelView;
 };
 
-#endif // MAINWINDOW_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H

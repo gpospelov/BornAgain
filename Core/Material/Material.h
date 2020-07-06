@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIAL_H_
-#define MATERIAL_H_
+#ifndef BORNAGAIN_CORE_MATERIAL_MATERIAL_H
+#define BORNAGAIN_CORE_MATERIAL_MATERIAL_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Material/BaseMaterialImpl.h"
@@ -108,4 +108,4 @@ BA_CORE_API_ bool operator==(const Material& left, const Material& right);
 //! Comparison operator for material wrapper (inequality check)
 BA_CORE_API_ bool operator!=(const Material& left, const Material& right);
 
-#endif /* MATERIAL_H_ */
+#endif // BORNAGAIN_CORE_MATERIAL_MATERIAL_H

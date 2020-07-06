@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBITEM_H
-#define JOBITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_JOBITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_JOBITEM_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -112,4 +112,4 @@ private:
     const SimulationOptionsItem* simulationOptionsItem() const;
 };
 
-#endif // JOBITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_JOBITEM_H

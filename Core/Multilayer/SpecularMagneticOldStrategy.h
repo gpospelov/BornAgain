@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARMAGNETICOLDSTRATEGY_H
-#define SPECULARMAGNETICOLDSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICOLDSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICOLDSTRATEGY_H
 
 #include "Core/Multilayer/ISpecularStrategy.h"
 #include "Core/Multilayer/MatrixRTCoefficients.h"
@@ -38,4 +38,4 @@ public:
 
 }; // class SpecularMagneticOldStrategy
 
-#endif // SPECULARMAGNETICOLDSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICOLDSTRATEGY_H

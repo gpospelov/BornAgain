@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef HOSTOSINFO_H
-#define HOSTOSINFO_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_HOSTOSINFO_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_HOSTOSINFO_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -117,4 +117,4 @@ BA_CORE_API_ bool HostOsInfo::isAnyUnixHost()
 
 } // namespace GUI_OS_Utils
 
-#endif // HOSTOSINFO_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_HOSTOSINFO_H

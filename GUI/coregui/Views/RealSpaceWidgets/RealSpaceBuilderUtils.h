@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEBUILDERUTILS_H
-#define REALSPACEBUILDERUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDERUTILS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDERUTILS_H
 
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/Vectors3D.h"
@@ -97,4 +97,4 @@ BA_CORE_API_ Particle3DContainer mesoCrystal3DContainer(const MesoCrystalItem& m
 
 } // namespace RealSpaceBuilderUtils
 
-#endif // REALSPACEBUILDERUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDERUTILS_H

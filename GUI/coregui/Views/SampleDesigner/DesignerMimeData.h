@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DESIGNERMIMEDATA_H
-#define DESIGNERMIMEDATA_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERMIMEDATA_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERMIMEDATA_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMimeData>
@@ -46,4 +46,4 @@ private:
     QString m_classname;
 };
 
-#endif // DESIGNERMIMEDATA_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERMIMEDATA_H

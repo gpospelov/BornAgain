@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BACKGROUNDITEMS_H
-#define BACKGROUNDITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_BACKGROUNDITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_BACKGROUNDITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -50,4 +50,4 @@ public:
     std::unique_ptr<IBackground> createBackground() const;
 };
 
-#endif // BACKGROUNDITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_BACKGROUNDITEMS_H

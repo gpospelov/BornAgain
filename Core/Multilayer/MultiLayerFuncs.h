@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERFUNCS_H_
-#define MULTILAYERFUNCS_H_
+#ifndef BORNAGAIN_CORE_MULTILAYER_MULTILAYERFUNCS_H
+#define BORNAGAIN_CORE_MULTILAYER_MULTILAYERFUNCS_H
 
 #include "Core/Basics/Complex.h"
 #include "Wrap/WinDllMacros.h"
@@ -34,4 +34,4 @@ BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiL
 //! Generate z values (equidistant) for use in MaterialProfile
 BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max);
 
-#endif // MULTILAYERFUNCS_H_
+#endif // BORNAGAIN_CORE_MULTILAYER_MULTILAYERFUNCS_H

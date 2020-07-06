@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUISTANDARDTEST_H
-#define GUISTANDARDTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISTANDARDTEST_GUISTANDARDTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISTANDARDTEST_GUISTANDARDTEST_H
 
 #include "Tests/Functional/TestMachinery/IStandardTest.h"
 
@@ -29,4 +29,4 @@ public:
     bool runTest() final;
 };
 
-#endif // GUISTANDARDTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISTANDARDTEST_GUISTANDARDTEST_H

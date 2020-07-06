@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBSELECTORTOOLBAR_H
-#define JOBSELECTORTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORTOOLBAR_H
 
 #include "GUI/coregui/mainwindow/StyledToolBar.h"
 
@@ -35,4 +35,4 @@ private:
     QToolButton* m_removeJobButton;
 };
 
-#endif // INSTRUMENTVIEWTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORTOOLBAR_H

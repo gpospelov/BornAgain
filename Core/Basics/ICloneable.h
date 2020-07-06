@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ICLONEABLE_H
-#define ICLONEABLE_H
+#ifndef BORNAGAIN_CORE_BASICS_ICLONEABLE_H
+#define BORNAGAIN_CORE_BASICS_ICLONEABLE_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -36,4 +36,4 @@ public:
     virtual void transferToCPP() {} //!< Used for Python overriding of clone (see swig/tweaks.py)
 };
 
-#endif // ICLONEABLE_H
+#endif // BORNAGAIN_CORE_BASICS_ICLONEABLE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONSETUPWIDGET_H
-#define SIMULATIONSETUPWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_SIMULATIONSETUPWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_SIMULATIONSETUPWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -53,4 +53,4 @@ private:
     SimulationOptionsWidget* m_simOptionsWidget;
 };
 
-#endif // SIMULATIONSETUPWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_SIMULATIONSETUPWIDGET_H

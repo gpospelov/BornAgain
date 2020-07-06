@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERROUGHNESSITEMS_H
-#define LAYERROUGHNESSITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_LAYERROUGHNESSITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_LAYERROUGHNESSITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -32,4 +32,4 @@ public:
     LayerBasicRoughnessItem();
 };
 
-#endif // LAYERROUGHNESSITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_LAYERROUGHNESSITEMS_H

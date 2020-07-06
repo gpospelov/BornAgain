@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RESOLUTIONFUNCTIONITEMS_H
-#define RESOLUTIONFUNCTIONITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_RESOLUTIONFUNCTIONITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_RESOLUTIONFUNCTIONITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 #include <memory>
@@ -49,4 +49,4 @@ public:
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction(double scale = 1.0) const;
 };
 
-#endif // RESOLUTIONFUNCTIONITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_RESOLUTIONFUNCTIONITEMS_H

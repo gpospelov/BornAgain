@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKCONTAINERVIEW_H
-#define MASKCONTAINERVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKCONTAINERVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKCONTAINERVIEW_H
 
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 #include "GUI/coregui/Views/MaskWidgets/SizeHandleElement.h"
@@ -41,4 +41,4 @@ protected:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
-#endif // MASKCONTAINERVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKCONTAINERVIEW_H

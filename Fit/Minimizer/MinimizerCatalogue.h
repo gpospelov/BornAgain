@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERCATALOGUE_H
-#define MINIMIZERCATALOGUE_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOGUE_H
+#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOGUE_H
 
 #include "Fit/Minimizer/MinimizerInfo.h"
 #include "Wrap/WinDllMacros.h"
@@ -54,4 +54,4 @@ private:
     std::vector<MinimizerInfo> m_minimizers;
 };
 
-#endif // MINIMIZERCATALOGUE_H
+#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOGUE_H

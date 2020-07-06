@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYEMBEDDEDUTILS_H
-#define PYEMBEDDEDUTILS_H
+#ifndef BORNAGAIN_CORE_TOOLS_PYEMBEDDEDUTILS_H
+#define BORNAGAIN_CORE_TOOLS_PYEMBEDDEDUTILS_H
 
 #include "Core/Tools/PyObject.h"
 #include "Wrap/WinDllMacros.h"
@@ -46,4 +46,4 @@ BA_CORE_API_ std::string pythonRuntimeInfo();
 BA_CORE_API_ std::string pythonStackTrace();
 } // namespace PyEmbeddedUtils
 
-#endif
+#endif // BORNAGAIN_CORE_TOOLS_PYEMBEDDEDUTILS_H

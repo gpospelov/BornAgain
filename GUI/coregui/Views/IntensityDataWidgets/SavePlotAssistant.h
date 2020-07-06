@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAVEPLOTASSISTANT_H
-#define SAVEPLOTASSISTANT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPLOTASSISTANT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPLOTASSISTANT_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -51,4 +51,4 @@ private:
     static QVector<Format> m_formats;
 };
 
-#endif // SAVEPLOTASSISTANT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPLOTASSISTANT_H

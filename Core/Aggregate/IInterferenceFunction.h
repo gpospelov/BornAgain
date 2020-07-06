@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IINTERFERENCEFUNCTION_H
-#define IINTERFERENCEFUNCTION_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H
+#define BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H
 
 #include "Core/Scattering/ISample.h"
 #include "Core/Vector/Vectors3D.h"
@@ -63,4 +63,4 @@ private:
     double m_position_var;
 };
 
-#endif // IINTERFERENCEFUNCTION_H
+#endif // BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H

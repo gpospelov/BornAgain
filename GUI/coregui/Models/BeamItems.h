@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BEAMITEM_H
-#define BEAMITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_BEAMITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_BEAMITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -86,4 +86,4 @@ public:
     double getInclinationAngle() const override;
 };
 
-#endif // BEAMITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_BEAMITEMS_H

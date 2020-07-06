@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARDATAWIDGET_H
-#define SPECULARDATAWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARDATAWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARDATAWIDGET_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -42,4 +42,4 @@ private:
     IntensityDataPropertyWidget* m_property_widget;
 };
 
-#endif // SPECULARDATAWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARDATAWIDGET_H

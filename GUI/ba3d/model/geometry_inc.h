@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_GEOMETRY_INC_H
-#define BA3D_GEOMETRY_INC_H
+#ifndef BORNAGAIN_GUI_BA3D_MODEL_GEOMETRY_INC_H
+#define BORNAGAIN_GUI_BA3D_MODEL_GEOMETRY_INC_H
 
 #include "../def.h"
 #include <memory>
@@ -68,4 +68,4 @@ struct KeyHash {
 } // namespace GeometricID
 } // namespace RealSpace
 
-#endif // BA3D_GEOMETRY_INC_H
+#endif // BORNAGAIN_GUI_BA3D_MODEL_GEOMETRY_INC_H

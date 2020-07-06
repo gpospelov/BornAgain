@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISHAPE2D_H
-#define ISHAPE2D_H
+#ifndef BORNAGAIN_CORE_MASK_ISHAPE2D_H
+#define BORNAGAIN_CORE_MASK_ISHAPE2D_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Basics/INamed.h"
@@ -47,4 +47,4 @@ protected:
     virtual void print(std::ostream& ostr) const { ostr << getName(); }
 };
 
-#endif // ISHAPE2D_H
+#endif // BORNAGAIN_CORE_MASK_ISHAPE2D_H

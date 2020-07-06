@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEWSTATUSBAR_H
-#define SAMPLEVIEWSTATUSBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWSTATUSBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWSTATUSBAR_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -40,4 +40,4 @@ private:
     MainWindow* m_mainWindow;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWSTATUSBAR_H

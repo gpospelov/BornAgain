@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONITEM_H
-#define SESSIONITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEM_H
 
 #include "Fit/Tools/RealLimits.h"
 #include "GUI/coregui/Models/ModelMapper.h"
@@ -153,4 +153,4 @@ template <typename T> T& SessionItem::groupItem(const QString& groupName) const
     return *t;
 }
 
-#endif // SESSIONITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEM_H

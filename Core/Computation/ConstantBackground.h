@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CONSTANTBACKGROUND_H
-#define CONSTANTBACKGROUND_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_CONSTANTBACKGROUND_H
+#define BORNAGAIN_CORE_COMPUTATION_CONSTANTBACKGROUND_H
 
 #include "Core/Computation/IBackground.h"
 
@@ -40,4 +40,4 @@ private:
     double m_background_value;
 };
 
-#endif // CONSTANTBACKGROUND_H
+#endif // BORNAGAIN_CORE_COMPUTATION_CONSTANTBACKGROUND_H

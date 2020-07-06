@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCIENTIFICPLOTEVENT_H
-#define SCIENTIFICPLOTEVENT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SCIENTIFICPLOTEVENT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SCIENTIFICPLOTEVENT_H
 
 #include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
 #include "Wrap/WinDllMacros.h"
@@ -55,4 +55,4 @@ private:
     PlotEventInfo m_prevPos;
 };
 
-#endif // SCIENTIFICPLOTEVENT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SCIENTIFICPLOTEVENT_H

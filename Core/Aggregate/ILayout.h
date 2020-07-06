@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ILAYOUT_H
-#define ILAYOUT_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_ILAYOUT_H
+#define BORNAGAIN_CORE_AGGREGATE_ILAYOUT_H
 
 #include "Core/Scattering/ISample.h"
 #include "Core/Tools/SafePointerVector.h"
@@ -63,4 +63,4 @@ protected:
     double m_weight;
 };
 
-#endif // ILAYOUT_H
+#endif // BORNAGAIN_CORE_AGGREGATE_ILAYOUT_H

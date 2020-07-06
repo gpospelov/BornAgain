@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERFACTORY_H
-#define MINIMIZERFACTORY_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H
+#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H
 
 #include "Fit/Minimizer/MinimizerCatalogue.h"
 #include "Wrap/WinDllMacros.h"
@@ -40,4 +40,4 @@ public:
     static const MinimizerCatalogue& catalogue();
 };
 
-#endif // MINIMIZERFACTORY_H
+#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H

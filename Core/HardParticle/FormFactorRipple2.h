@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORRIPPLE2_H
-#define FORMFACTORRIPPLE2_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H
 
 #include "Core/HardParticle/ProfileRipple2.h"
 
@@ -56,4 +56,4 @@ private:
     complex_t factor_x(complex_t qx) const override final;
 };
 
-#endif // FORMFACTORRIPPLE2_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ATTLIMITS_H
-#define ATTLIMITS_H
+#ifndef BORNAGAIN_FIT_TOOLS_ATTLIMITS_H
+#define BORNAGAIN_FIT_TOOLS_ATTLIMITS_H
 
 #include "Fit/Tools/Attributes.h"
 #include "Fit/Tools/RealLimits.h"
@@ -65,4 +65,4 @@ private:
     Attributes m_att_fixed;
 };
 
-#endif // ATTLIMITS_H
+#endif // BORNAGAIN_FIT_TOOLS_ATTLIMITS_H

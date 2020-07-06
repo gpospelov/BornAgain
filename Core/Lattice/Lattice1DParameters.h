@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE1DPARAMETERS_H
-#define LATTICE1DPARAMETERS_H
+#ifndef BORNAGAIN_CORE_LATTICE_LATTICE1DPARAMETERS_H
+#define BORNAGAIN_CORE_LATTICE_LATTICE1DPARAMETERS_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -32,4 +32,4 @@ public:
     double m_xi;
 };
 
-#endif // LATTICE1DPARAMETERS_H
+#endif // BORNAGAIN_CORE_LATTICE_LATTICE1DPARAMETERS_H

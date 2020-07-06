@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERUTILS_H
-#define MINIMIZERUTILS_H
+#ifndef BORNAGAIN_FIT_TOOLS_MINIMIZERUTILS_H
+#define BORNAGAIN_FIT_TOOLS_MINIMIZERUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <map>
@@ -38,4 +38,4 @@ BA_CORE_API_ std::string sectionString(const std::string& sectionName = "",
 
 } // namespace MinimizerUtils
 
-#endif
+#endif // BORNAGAIN_FIT_TOOLS_MINIMIZERUTILS_H

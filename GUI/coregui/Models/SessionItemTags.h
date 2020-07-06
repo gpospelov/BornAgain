@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONITEMTAGS_H
-#define SESSIONITEMTAGS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEMTAGS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEMTAGS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -66,4 +66,4 @@ private:
     QVector<TagInfo> m_tags;
 };
 
-#endif //  SESSIONITEMTAGS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEMTAGS_H

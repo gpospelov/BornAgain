@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef UNITCONVERTER1D_H
-#define UNITCONVERTER1D_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTER1D_H
+#define BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTER1D_H
 
 #include "Core/Instrument/IUnitConverter.h"
 
@@ -129,4 +129,4 @@ protected:
 
     std::unique_ptr<IAxis> m_axis; //!< qz values (in inv. nm).
 };
-#endif // UNITCONVERTER1D_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTER1D_H

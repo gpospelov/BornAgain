@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef NEWPROJECTDIALOG_H
-#define NEWPROJECTDIALOG_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_NEWPROJECTDIALOG_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_NEWPROJECTDIALOG_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QDialog>
@@ -60,4 +60,4 @@ private:
     bool m_valid_projectPath;
 };
 
-#endif // NEWPROJECTDIALOG_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_NEWPROJECTDIALOG_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COLORMAPCANVAS_H
-#define COLORMAPCANVAS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAPCANVAS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAPCANVAS_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
@@ -50,4 +50,4 @@ private:
     PlotStatusLabel* m_statusLabel;
 };
 
-#endif // COLORMAPCANVAS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAPCANVAS_H

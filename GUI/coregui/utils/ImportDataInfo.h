@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IMPORTDATAINFO_H
-#define IMPORTDATAINFO_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_IMPORTDATAINFO_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_IMPORTDATAINFO_H
 
 #include "Core/Instrument/IUnitConverter.h"
 #include "Wrap/WinDllMacros.h"
@@ -47,4 +47,4 @@ private:
     AxesUnits m_units;
 };
 
-#endif // IMPORTDATAINFO_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_IMPORTDATAINFO_H

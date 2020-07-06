@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef UPDATENOTIFIERWIDGET_H
-#define UPDATENOTIFIERWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_UPDATENOTIFIERWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_UPDATENOTIFIERWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -43,4 +43,4 @@ private:
     bool m_check_for_updates;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_UPDATENOTIFIERWIDGET_H

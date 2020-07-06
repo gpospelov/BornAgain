@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef VECTORITEM_H
-#define VECTORITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_VECTORITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_VECTORITEM_H
 
 #include "Core/Vector/Vectors3D.h"
 #include "GUI/coregui/Models/SessionItem.h"
@@ -33,4 +33,4 @@ private:
     void updateLabel();
 };
 
-#endif // VECTORITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_VECTORITEM_H

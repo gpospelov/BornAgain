@@ -1,5 +1,5 @@
-#ifndef MATRIXSPECULARINFOMAPTEST_H
-#define MATRIXSPECULARINFOMAPTEST_H
+#ifndef BORNAGAIN_UNUSED_MATRIXSPECULARINFOMAPTEST_H
+#define BORNAGAIN_UNUSED_MATRIXSPECULARINFOMAPTEST_H
 
 #include "Core/Basics/MathConstants.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -79,4 +79,4 @@ TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
     EXPECT_NEAR(lambda0.imag(), P_rt_coeffs->getKz()(1).imag(), 1e-6);
 }
 
-#endif // MATRIXSPECULARINFOMAPTEST_H
+#endif // BORNAGAIN_UNUSED_MATRIXSPECULARINFOMAPTEST_H

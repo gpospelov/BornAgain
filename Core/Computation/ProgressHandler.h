@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROGRESSHANDLER_H
-#define PROGRESSHANDLER_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H
+#define BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <functional>
@@ -61,4 +61,4 @@ private:
     bool defaultMonitorExec(int);
 };
 
-#endif // PROGRESSHANDLER_H
+#endif // BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H

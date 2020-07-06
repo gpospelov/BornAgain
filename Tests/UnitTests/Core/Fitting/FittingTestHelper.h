@@ -1,5 +1,5 @@
-#ifndef FITTINGTESTHELPER_H
-#define FITTINGTESTHELPER_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H
+#define BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H
 
 #include "Core/Instrument/OutputData.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -52,4 +52,4 @@ public:
     size_t size() const { return m_nx * m_ny; }
 };
 
-#endif // FITTINGTESTHELPER_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H

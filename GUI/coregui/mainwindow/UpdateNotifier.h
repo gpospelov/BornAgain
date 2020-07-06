@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef UPDATENOTIFIER_H
-#define UPDATENOTIFIER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_UPDATENOTIFIER_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_UPDATENOTIFIER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
@@ -44,4 +44,4 @@ private:
     QNetworkAccessManager* m_networkAccessManager;
 };
 
-#endif // UPDATENOTIFIER_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_UPDATENOTIFIER_H

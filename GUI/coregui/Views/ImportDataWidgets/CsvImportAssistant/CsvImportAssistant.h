@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CSVIMPORTASSISTANT_H
-#define CSVIMPORTASSISTANT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H
 
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
@@ -86,4 +86,4 @@ private:
     AxesUnits m_units;
     bool m_dataAvailable;
 };
-#endif // CSVIMPORTASSISTANT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H

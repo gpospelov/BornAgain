@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COREIOPERFORMANCETEST_H
-#define COREIOPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPERFORMANCETEST_H
 
 #include "Core/Instrument/OutputData.h"
 #include "Tests/Functional/TestMachinery/Benchmark.h"
@@ -51,4 +51,4 @@ private:
     std::vector<TestResults> m_test_results;
 };
 
-#endif // COREIOPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPERFORMANCETEST_H

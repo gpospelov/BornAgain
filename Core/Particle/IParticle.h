@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IPARTICLE_H
-#define IPARTICLE_H
+#ifndef BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
+#define BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
 
 #include "Core/Particle/IAbstractParticle.h"
 #include "Core/Particle/SlicedParticle.h"
@@ -102,4 +102,4 @@ protected:
     std::unique_ptr<IRotation> mP_rotation;
 };
 
-#endif // IPARTICLE_H
+#endif // BORNAGAIN_CORE_PARTICLE_IPARTICLE_H

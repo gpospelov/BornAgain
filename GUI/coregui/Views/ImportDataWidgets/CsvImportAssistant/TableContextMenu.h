@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TABLECONTEXTMENU_H
-#define TABLECONTEXTMENU_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_TABLECONTEXTMENU_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_TABLECONTEXTMENU_H
 
 #include "Core/Instrument/IUnitConverter.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
@@ -47,4 +47,4 @@ private:
     QAction* m_discardRow;
 };
 
-#endif // TABLECONTEXTMENU_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_TABLECONTEXTMENU_H

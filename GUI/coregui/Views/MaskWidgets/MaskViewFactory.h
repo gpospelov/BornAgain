@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKVIEWFACTORY_H
-#define MASKVIEWFACTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKVIEWFACTORY_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKVIEWFACTORY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QString>
@@ -30,4 +30,4 @@ public:
     static IShape2DView* createMaskView(SessionItem* item, ISceneAdaptor* adaptor = 0);
 };
 
-#endif // MASKVIEWFACTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKVIEWFACTORY_H

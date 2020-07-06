@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
-#define INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
 #include "Core/Aggregate/FTDistributions1D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
@@ -63,4 +63,4 @@ private:
     double m_domain_size; //!< Size of coherence domain
 };
 
-#endif // INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H

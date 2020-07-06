@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef POLYGONVIEW_H
-#define POLYGONVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONVIEW_H
 
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 #include <QPolygonF>
@@ -56,4 +56,4 @@ private:
     bool m_close_polygon_request;
 };
 
-#endif // POLYGONVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONVIEW_H

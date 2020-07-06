@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTIVEFUNCTIONADAPTER_H
-#define OBJECTIVEFUNCTIONADAPTER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_OBJECTIVEFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_OBJECTIVEFUNCTIONADAPTER_H
 
 #include "Fit/Kernel/KernelTypes.h"
 #include "Wrap/WinDllMacros.h"
@@ -51,4 +51,4 @@ private:
 
 } // namespace Fit
 
-#endif //  OBJECTIVEFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_OBJECTIVEFUNCTIONADAPTER_H

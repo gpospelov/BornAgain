@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef STRINGUTILS_H
-#define STRINGUTILS_H
+#ifndef BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
+#define BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <iomanip>
@@ -59,4 +59,4 @@ template <typename T> std::string StringUtils::scientific(const T value, int n)
     return out.str();
 }
 
-#endif // STRINGUTILS_H
+#endif // BORNAGAIN_FIT_TOOLS_STRINGUTILS_H

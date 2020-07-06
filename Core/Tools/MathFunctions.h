@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATHFUNCTIONS_H
-#define MATHFUNCTIONS_H
+#ifndef BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H
+#define BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H
 
 #include "Core/Basics/Complex.h"
 #include "Wrap/WinDllMacros.h"
@@ -106,4 +106,4 @@ BA_CORE_API_ double GeneratePoissonRandom(double average);
 
 } // Namespace MathFunctions
 
-#endif // MATHFUNCTIONS_H
+#endif // BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H

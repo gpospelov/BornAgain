@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSESSIONMANAGEER_H
-#define FITSESSIONMANAGEER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONMANAGER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONMANAGER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMap>
@@ -49,4 +49,4 @@ private:
     QMap<SessionItem*, FitSessionController*> m_item_to_controller;
 };
 
-#endif // FITSESSIONMANAGEER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONMANAGER_H

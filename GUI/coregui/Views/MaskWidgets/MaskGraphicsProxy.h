@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKGRAPHICSPROXY_H
-#define MASKGRAPHICSPROXY_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSPROXY_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSPROXY_H
 
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h"
 #include <QGraphicsProxyWidget>
@@ -54,4 +54,4 @@ private:
     bool m_send_signals_to_colormap;
 };
 
-#endif // MASKGRAPHICSPROXY_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSPROXY_H

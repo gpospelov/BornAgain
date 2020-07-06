@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONHANDLER_H
-#define DISTRIBUTIONHANDLER_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONHANDLER_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONHANDLER_H
 
 #include "Core/Parametrization/ParameterDistribution.h"
 #include <vector>
@@ -57,4 +57,4 @@ private:
     std::vector<std::vector<ParameterSample>> m_cached_samples;
 };
 
-#endif // DISTRIBUTIONHANDLER_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONHANDLER_H

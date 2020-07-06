@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTORMASKDELEGATE_H
-#define DETECTORMASKDELEGATE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DETECTORMASKDELEGATE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DETECTORMASKDELEGATE_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QModelIndex>
@@ -48,4 +48,4 @@ private:
     IntensityDataItem* m_intensityItem;
 };
 
-#endif // DETECTORMASKDELEGATE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_DETECTORMASKDELEGATE_H

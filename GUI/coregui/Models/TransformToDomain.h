@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TRANSFORMTODOMAIN_H
-#define TRANSFORMTODOMAIN_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMTODOMAIN_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMTODOMAIN_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Aggregate/ParticleLayout.h"
@@ -60,4 +60,4 @@ BA_CORE_API_ void setPositionInfo(IParticle* result, const SessionItem& item);
 BA_CORE_API_ void setRotationInfo(IParticle* result, const SessionItem& item);
 } // namespace TransformToDomain
 
-#endif // TRANSFORMTODOMAIN_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMTODOMAIN_H

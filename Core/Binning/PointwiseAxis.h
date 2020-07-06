@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef POINTWISEAXIS_H
-#define POINTWISEAXIS_H
+#ifndef BORNAGAIN_CORE_BINNING_POINTWISEAXIS_H
+#define BORNAGAIN_CORE_BINNING_POINTWISEAXIS_H
 
 #include "Core/Binning/IAxis.h"
 
@@ -85,4 +85,4 @@ private:
     std::vector<double> m_coordinates;
 };
 
-#endif // POINTWISEAXIS_H
+#endif // BORNAGAIN_CORE_BINNING_POINTWISEAXIS_H

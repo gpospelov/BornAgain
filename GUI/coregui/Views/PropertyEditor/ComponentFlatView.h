@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTFLATVIEW_H
-#define COMPONENTFLATVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTFLATVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTFLATVIEW_H
 
 #include "GUI/coregui/Views/PropertyEditor/ComponentView.h"
 #include <memory>
@@ -63,4 +63,4 @@ private:
     QVector<const SessionItem*> m_topItems;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTFLATVIEW_H

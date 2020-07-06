@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_BUFFER_H
-#define BA3D_BUFFER_H
+#ifndef BORNAGAIN_GUI_BA3D_VIEW_BUFFER_H
+#define BORNAGAIN_GUI_BA3D_VIEW_BUFFER_H
 
 #include "../def.h"
 #include <QOpenGLBuffer>
@@ -52,4 +52,4 @@ private:
 };
 
 } // namespace RealSpace
-#endif // BA3D_BUFFER_H
+#endif // BORNAGAIN_GUI_BA3D_VIEW_BUFFER_H

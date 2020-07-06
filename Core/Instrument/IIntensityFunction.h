@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IINTENSITYFUNCTION_H
-#define IINTENSITYFUNCTION_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IINTENSITYFUNCTION_H
+#define BORNAGAIN_CORE_INSTRUMENT_IINTENSITYFUNCTION_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -49,4 +49,4 @@ public:
     virtual double evaluate(double value) const;
 };
 
-#endif // IINTENSITYFUNCTION_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_IINTENSITYFUNCTION_H

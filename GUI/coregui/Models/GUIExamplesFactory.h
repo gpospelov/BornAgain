@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIEXAMPLESFACTORY_H
-#define GUIEXAMPLESFACTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GUIEXAMPLESFACTORY_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GUIEXAMPLESFACTORY_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QMap>
@@ -38,4 +38,4 @@ private:
     //!< correspondance of GUI example name and name from StandardSamples registry
 };
 
-#endif // GUIEXAMPLESFACTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GUIEXAMPLESFACTORY_H

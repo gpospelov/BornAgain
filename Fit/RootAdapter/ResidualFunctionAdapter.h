@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RESIDUALFUNCTIONADAPTER_H
-#define RESIDUALFUNCTIONADAPTER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
 
 #include "Fit/Kernel/IFunctionAdapter.h"
 #include "Fit/Kernel/KernelTypes.h"
@@ -58,4 +58,4 @@ private:
 
 } //  namespace Fit
 
-#endif // RESIDUALFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATA_H
-#define OUTPUTDATA_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
+#define BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
 
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Instrument/LLData.h"
@@ -627,4 +627,4 @@ template <class T> bool OutputData<T>::axisNameExists(const std::string& axis_na
     return false;
 }
 
-#endif // OUTPUTDATA_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H

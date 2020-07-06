@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONGRAPHICSITEM_H
-#define SESSIONGRAPHICSITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONGRAPHICSITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONGRAPHICSITEM_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -28,4 +28,4 @@ protected:
     explicit SessionGraphicsItem(const QString& model_type = QString());
 };
 
-#endif // SESSIONGRAPHICSITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONGRAPHICSITEM_H

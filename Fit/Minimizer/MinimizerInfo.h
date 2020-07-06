@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERINFO_H
-#define MINIMIZERINFO_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERINFO_H
+#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERINFO_H
 
 #include "Wrap/WinDllMacros.h"
 #include <string>
@@ -69,4 +69,4 @@ private:
     std::string m_current_algorithm;
 };
 
-#endif // MINIMIZERINFO_H
+#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERINFO_H

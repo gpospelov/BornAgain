@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVEBUILDER_H
-#define FITOBJECTIVEBUILDER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITOBJECTIVEBUILDER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITOBJECTIVEBUILDER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <memory>
@@ -60,4 +60,4 @@ private:
     std::unique_ptr<FitObjective> m_fit_objective;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITOBJECTIVEBUILDER_H

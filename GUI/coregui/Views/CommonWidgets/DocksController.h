@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DOCKSCONTROLLER_H
-#define DOCKSCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H
 
 #include "GUI/coregui/Views/CommonWidgets/DockWidgetInfo.h"
 #include "Wrap/WinDllMacros.h"
@@ -68,4 +68,4 @@ private:
     DockSizeInfo m_dock_info;
 };
 
-#endif //  DOCKSCONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H

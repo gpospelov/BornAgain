@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARMAGNETICSTRATEGY_H
-#define SPECULARMAGNETICSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICSTRATEGY_H
 
 #include "Core/Multilayer/ISpecularStrategy.h"
 #include "Core/Multilayer/MatrixRTCoefficients_v2.h"
@@ -70,4 +70,4 @@ public:
                                   const Eigen::Matrix2cd& weights);
 };
 
-#endif // SPECULARMAGNETICSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICSTRATEGY_H

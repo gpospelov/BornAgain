@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTIVEMETRICUTILS_H
-#define OBJECTIVEMETRICUTILS_H
+#ifndef BORNAGAIN_CORE_FITTING_OBJECTIVEMETRICUTILS_H
+#define BORNAGAIN_CORE_FITTING_OBJECTIVEMETRICUTILS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <functional>
@@ -52,4 +52,4 @@ BA_CORE_API_ std::string defaultNormName();
 BA_CORE_API_ std::string defaultMetricName();
 } // namespace ObjectiveMetricUtils
 
-#endif // OBJECTIVEMETRICUTILS_H
+#endif // BORNAGAIN_CORE_FITTING_OBJECTIVEMETRICUTILS_H

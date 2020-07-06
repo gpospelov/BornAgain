@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSWIDGET_H
-#define PROJECTIONSWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSWIDGET_H
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
@@ -51,4 +51,4 @@ private:
     QTabWidget* m_tabWidget;
 };
 
-#endif // PROJECTIONSWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSWIDGET_H

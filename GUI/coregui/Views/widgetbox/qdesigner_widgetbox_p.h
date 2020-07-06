@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QDESIGNER_WIDGETBOX_P_H
-#define QDESIGNER_WIDGETBOX_P_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_WIDGETBOX_P_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_WIDGETBOX_P_H
 
 #include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 #include <QtDesigner/QDesignerWidgetBoxInterface>
@@ -98,4 +98,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // QDESIGNER_WIDGETBOX_P_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_WIDGETBOX_P_H

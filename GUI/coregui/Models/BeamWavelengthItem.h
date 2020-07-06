@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BEAMWAVELENGTHITEM_H
-#define BEAMWAVELENGTHITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_BEAMWAVELENGTHITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_BEAMWAVELENGTHITEM_H
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 
@@ -36,4 +36,4 @@ public:
     void setToRange(const RealLimits& limits);
 };
 
-#endif // BEAMWAVELENGTHITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_BEAMWAVELENGTHITEM_H

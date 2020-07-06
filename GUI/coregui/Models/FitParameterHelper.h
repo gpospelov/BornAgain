@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERHELPER_H
-#define FITPARAMETERHELPER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERHELPER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERHELPER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QStringList>
@@ -45,4 +45,4 @@ public:
                                            const QString& link);
 };
 
-#endif // FITPARAMETERHELPER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERHELPER_H

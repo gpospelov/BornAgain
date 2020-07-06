@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLECORESHELLITEM_H
-#define PARTICLECORESHELLITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECORESHELLITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECORESHELLITEM_H
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
@@ -29,4 +29,4 @@ public:
     QVector<SessionItem*> materialPropertyItems();
 };
 
-#endif // PARTICLECORESHELLITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECORESHELLITEM_H

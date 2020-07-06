@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IPEAKSHAPE_H
-#define IPEAKSHAPE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_IPEAKSHAPE_H
+#define BORNAGAIN_CORE_AGGREGATE_IPEAKSHAPE_H
 
 #include "Core/Scattering/ISample.h"
 #include "Core/Tools/Integrator.h"
@@ -195,4 +195,4 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-#endif // IPEAKSHAPE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_IPEAKSHAPE_H

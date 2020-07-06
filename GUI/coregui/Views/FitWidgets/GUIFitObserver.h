@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIFITOBSERVER_H
-#define GUIFITOBSERVER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_GUIFITOBSERVER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_GUIFITOBSERVER_H
 
 #include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
 #include <QObject>
@@ -58,4 +58,4 @@ private:
     FitProgressInfo m_iteration_info;
 };
 
-#endif // GUIFITOBSERVER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_GUIFITOBSERVER_H

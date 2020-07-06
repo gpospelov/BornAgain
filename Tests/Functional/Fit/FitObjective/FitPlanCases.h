@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPLANCASES_H
-#define FITPLANCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANCASES_H
 
 #include "Tests/Functional/Fit/FitObjective/FitPlan.h"
 
@@ -95,4 +95,4 @@ public:
     ~OffSpecFitPlan() override = default;
 };
 
-#endif //  FITPLANCASES_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANCASES_H

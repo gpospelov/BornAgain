@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARRTCOEFFICIENTS_H
-#define SCALARRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SCALARRTCOEFFICIENTS_H
+#define BORNAGAIN_CORE_MULTILAYER_SCALARRTCOEFFICIENTS_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
@@ -139,4 +139,4 @@ inline complex_t ScalarRTCoefficients::getScalarT() const
     return t_r(0);
 }
 
-#endif // SCALARRTCOEFFICIENTS_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SCALARRTCOEFFICIENTS_H

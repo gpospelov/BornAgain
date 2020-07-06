@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTPROXYMODEL_H
-#define COMPONENTPROXYMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYMODEL_H
 
 #include "GUI/coregui/Models/ProxyModelStrategy.h"
 #include "Wrap/WinDllMacros.h"
@@ -70,4 +70,4 @@ private:
     std::unique_ptr<ProxyModelStrategy> m_proxyStrategy;
 };
 
-#endif // COMPONENTPROXYMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYMODEL_H

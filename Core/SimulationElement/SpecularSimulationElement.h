@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSIMULATIONELEMENT_H
-#define SPECULARSIMULATIONELEMENT_H
+#ifndef BORNAGAIN_CORE_SIMULATIONELEMENT_SPECULARSIMULATIONELEMENT_H
+#define BORNAGAIN_CORE_SIMULATIONELEMENT_SPECULARSIMULATIONELEMENT_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/SimulationElement/PolarizationHandler.h"
@@ -67,4 +67,4 @@ private:
     std::function<std::vector<complex_t>(const std::vector<Slice>&)> m_kz_computation;
 };
 
-#endif // SPECULARSIMULATIONELEMENT_H
+#endif // BORNAGAIN_CORE_SIMULATIONELEMENT_SPECULARSIMULATIONELEMENT_H

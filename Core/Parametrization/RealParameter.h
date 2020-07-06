@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALPARAMETER_H
-#define REALPARAMETER_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H
 
 #include "Core/Parametrization/IParameter.h"
 #include "Core/Parametrization/Unit.h"
@@ -61,4 +61,4 @@ protected:
     Unit m_unit;
 };
 
-#endif // REALPARAMETER_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H

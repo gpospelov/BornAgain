@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTVIEW_H
-#define COMPONENTVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTVIEW_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -33,4 +33,4 @@ public:
     virtual void addItem(SessionItem*) {}
 };
 
-#endif // COMPONENTVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTVIEW_H

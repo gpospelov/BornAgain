@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFRESNELMAP_H
-#define IFRESNELMAP_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H
+#define BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H
 
 #include "Core/Computation/Slice.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
@@ -64,4 +64,4 @@ protected:
     std::unique_ptr<ISpecularStrategy> m_Strategy;
 };
 
-#endif // IFRESNELMAP_H
+#endif // BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFACTORY_H
-#define IFACTORY_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
 
 #include "Core/Basics/Exceptions.h"
 #include <functional>
@@ -109,4 +109,4 @@ template <class T> T* create_new()
     return new T();
 }
 
-#endif // IFACTORY_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H

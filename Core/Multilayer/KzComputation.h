@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IKZCOMPUTATION_H
-#define IKZCOMPUTATION_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H
+#define BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H
 
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/ICloneable.h"
@@ -50,4 +50,4 @@ BA_CORE_API_ std::vector<complex_t> computeKzFromRefIndices(const std::vector<Sl
                                                             kvector_t k);
 } // namespace KzComputation
 
-#endif // IKZCOMPUTATION_H
+#endif // BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H

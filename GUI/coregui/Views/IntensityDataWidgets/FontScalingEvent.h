@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FONTSCALINGEVENT_H
-#define FONTSCALINGEVENT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_FONTSCALINGEVENT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_FONTSCALINGEVENT_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QFont>
@@ -46,4 +46,4 @@ private:
     QMap<QString, QFont> m_fonts;
 };
 
-#endif // FONTSCALINGEVENT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_FONTSCALINGEVENT_H

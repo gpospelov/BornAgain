@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SLIDERSETTINGSWIDGET_H
-#define SLIDERSETTINGSWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SLIDERSETTINGSWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SLIDERSETTINGSWIDGET_H
 
 #include "Wrap/WinDllMacros.h"
 #include <QWidget>
@@ -44,4 +44,4 @@ private:
     QCheckBox* m_lockzCheckBox;
 };
 
-#endif // SLIDERSETTINGSWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SLIDERSETTINGSWIDGET_H

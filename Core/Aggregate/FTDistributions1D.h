@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDISTRIBUTIONS1D_H
-#define FTDISTRIBUTIONS1D_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
+#define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
 
 #include "Core/Aggregate/IDistribution1DSampler.h"
 #include "Core/Basics/ICloneable.h"
@@ -175,4 +175,4 @@ protected:
     double m_eta;
 };
 
-#endif // FTDISTRIBUTIONS1D_H
+#endif // BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H

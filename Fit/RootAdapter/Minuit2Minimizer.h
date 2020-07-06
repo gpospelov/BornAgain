@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINUIT2MINIMIZER_H
-#define MINUIT2MINIMIZER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
 
 #include "Fit/Minimizer/MinimizerConstants.h"
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
@@ -85,4 +85,4 @@ private:
     std::unique_ptr<ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;
 };
 
-#endif // MINUIT2MINIMIZER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H

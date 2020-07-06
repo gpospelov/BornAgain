@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DOMAINSIMULATIONBUILDER_H
-#define DOMAINSIMULATIONBUILDER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_DOMAINSIMULATIONBUILDER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_DOMAINSIMULATIONBUILDER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <memory>
@@ -35,4 +35,4 @@ createSimulation(const MultiLayerItem* sampleItem, const InstrumentItem* instrum
                  const SimulationOptionsItem* optionsItem = nullptr);
 }; // namespace DomainSimulationBuilder
 
-#endif // DOMAINSIMULATIONBUILDER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_DOMAINSIMULATIONBUILDER_H

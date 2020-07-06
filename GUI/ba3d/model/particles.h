@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BA3D_PARTICLES_H
-#define BA3D_PARTICLES_H
+#ifndef BORNAGAIN_GUI_BA3D_MODEL_PARTICLES_H
+#define BORNAGAIN_GUI_BA3D_MODEL_PARTICLES_H
 
 #include "GUI/ba3d/model/object.h"
 
@@ -259,4 +259,4 @@ public:
 };
 } // namespace Particles
 } // namespace RealSpace
-#endif // BA3D_PARTICLES_H
+#endif // BORNAGAIN_GUI_BA3D_MODEL_PARTICLES_H

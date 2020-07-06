@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SLICEDPARTICLE_H
-#define SLICEDPARTICLE_H
+#ifndef BORNAGAIN_CORE_PARTICLE_SLICEDPARTICLE_H
+#define BORNAGAIN_CORE_PARTICLE_SLICEDPARTICLE_H
 
 #include "Core/Particle/HomogeneousRegion.h"
 #include "Core/Scattering/IFormFactor.h"
@@ -30,4 +30,4 @@ struct SlicedParticle {
     std::vector<HomogeneousRegion> m_regions;
 };
 
-#endif // SLICEDPARTICLE_H
+#endif // BORNAGAIN_CORE_PARTICLE_SLICEDPARTICLE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKITEMS_H
-#define MASKITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MASKITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MASKITEMS_H
 
 #include "GUI/coregui/Models/SessionItem.h"
 
@@ -111,4 +111,4 @@ public:
     virtual std::unique_ptr<IShape2D> createShape(double scale) const;
 };
 
-#endif // MASKITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MASKITEMS_H

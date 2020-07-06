@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTRANSLATORS_H
-#define PARAMETERTRANSLATORS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTRANSLATORS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTRANSLATORS_H
 
 #include <QStringList>
 
@@ -112,4 +112,4 @@ private:
     QStringList m_additional_names;
 };
 
-#endif // PARAMETERTRANSLATORS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTRANSLATORS_H

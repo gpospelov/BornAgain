@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INODEVISITOR_H
-#define INODEVISITOR_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -295,4 +295,4 @@ private:
 BA_CORE_API_ void VisitNodesPreorder(const INode& node, INodeVisitor& visitor);
 BA_CORE_API_ void VisitNodesPostorder(const INode& node, INodeVisitor& visitor);
 
-#endif // ISAMPLEVISITOR_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H

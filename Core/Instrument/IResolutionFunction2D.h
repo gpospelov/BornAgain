@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IRESOLUTIONFUNCTION2D_H
-#define IRESOLUTIONFUNCTION2D_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IRESOLUTIONFUNCTION2D_H
+#define BORNAGAIN_CORE_INSTRUMENT_IRESOLUTIONFUNCTION2D_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Parametrization/INode.h"
@@ -30,4 +30,4 @@ public:
     virtual IResolutionFunction2D* clone() const = 0;
 };
 
-#endif // IRESOLUTIONFUNCTION2D_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_IRESOLUTIONFUNCTION2D_H

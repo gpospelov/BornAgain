@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCRYSTAL_H
-#define FORMFACTORCRYSTAL_H
+#ifndef BORNAGAIN_CORE_PARTICLE_FORMFACTORCRYSTAL_H
+#define BORNAGAIN_CORE_PARTICLE_FORMFACTORCRYSTAL_H
 
 #include "Core/Lattice/Lattice.h"
 #include "Core/Scattering/IFormFactorBorn.h"
@@ -64,4 +64,4 @@ private:
     double m_max_rec_length;
 };
 
-#endif // FORMFACTORCRYSTAL_H
+#endif // BORNAGAIN_CORE_PARTICLE_FORMFACTORCRYSTAL_H

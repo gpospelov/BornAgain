@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ROTATEDPYRAMIDSBUILDER_H
-#define ROTATEDPYRAMIDSBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_ROTATEDPYRAMIDSBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_ROTATEDPYRAMIDSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
@@ -33,4 +33,4 @@ private:
     double m_zangle;
 };
 
-#endif // ROTATEDPYRAMIDSBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_ROTATEDPYRAMIDSBUILDER_H

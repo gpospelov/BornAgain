@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FOOTPRINTFACTORSQUARE_H_
-#define FOOTPRINTFACTORSQUARE_H_
+#ifndef BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORSQUARE_H
+#define BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORSQUARE_H
 
-#include "IFootprintFactor.h"
+#include "Core/Beam/IFootprintFactor.h"
 
 //! Calculates footprint coefficient for a square beam
 //! @ingroup beam
@@ -42,4 +42,4 @@ private:
     void initialize();
 };
 
-#endif /* FOOTPRINTFACTORSQUARE_H_ */
+#endif // BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORSQUARE_H

@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "MaterialDataItems.h"
+#include "GUI/coregui/Models/MaterialDataItems.h"
 
 MaterialDataItem::MaterialDataItem(const QString& modelType) : SessionItem(modelType)
 {

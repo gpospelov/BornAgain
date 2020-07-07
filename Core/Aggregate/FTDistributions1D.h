@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDISTRIBUTIONS1D_H
-#define FTDISTRIBUTIONS1D_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
+#define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
 
-#include "ICloneable.h"
-#include "IDistribution1DSampler.h"
-#include "INode.h"
+#include "Core/Aggregate/IDistribution1DSampler.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
@@ -175,4 +175,4 @@ protected:
     double m_eta;
 };
 
-#endif // FTDISTRIBUTIONS1D_H
+#endif // BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H

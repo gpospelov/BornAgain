@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "SimulationOptionsItem.h"
-#include "ComboProperty.h"
+#include "GUI/coregui/Models/SimulationOptionsItem.h"
+#include "GUI/coregui/Models/ComboProperty.h"
 #include <thread>
 
 namespace

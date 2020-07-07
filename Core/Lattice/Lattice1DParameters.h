@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE1DPARAMETERS_H
-#define LATTICE1DPARAMETERS_H
+#ifndef BORNAGAIN_CORE_LATTICE_LATTICE1DPARAMETERS_H
+#define BORNAGAIN_CORE_LATTICE_LATTICE1DPARAMETERS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Basic parameters of a one-dimensional lattice.
 //! @ingroup samples
@@ -32,4 +32,4 @@ public:
     double m_xi;
 };
 
-#endif // LATTICE1DPARAMETERS_H
+#endif // BORNAGAIN_CORE_LATTICE_LATTICE1DPARAMETERS_H

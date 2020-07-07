@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MATRIXRTCOEFFICIENTS_H
-#define MATRIXRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_H
+#define BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_H
 
-#include "ILayerRTCoefficients.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
 
 //! Specular reflection and transmission coefficients in a layer in case
 //! of 2x2 matrix interactions between the layers and the scattered particle.
@@ -67,4 +67,4 @@ public:
                                      //!< lambda=0
 };
 
-#endif // MATRIXRTCOEFFICIENTS_H
+#endif // BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ITESTSERVICE_H
-#define ITESTSERVICE_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ITESTSERVICE_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ITESTSERVICE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! @class ITestService
 //! @ingroup standard_samples
@@ -30,4 +30,4 @@ public:
     virtual bool execute(int argc, char** argv) = 0;
 };
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ITESTSERVICE_H

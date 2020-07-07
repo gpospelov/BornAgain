@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorOrnsteinZernike.h"
-#include "BornAgainNamespace.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
+#include "Core/SoftParticle/FormFactorOrnsteinZernike.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <limits>
 
 FormFactorOrnsteinZernike::FormFactorOrnsteinZernike(double I0, double xi_xy, double xi_z)

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLEDISTRIBUTION_H
-#define PARTICLEDISTRIBUTION_H
+#ifndef BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H
+#define BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H
 
-#include "IAbstractParticle.h"
-#include "ParameterDistribution.h"
-#include "SafePointerVector.h"
+#include "Core/Parametrization/ParameterDistribution.h"
+#include "Core/Particle/IAbstractParticle.h"
+#include "Core/Tools/SafePointerVector.h"
 
 class IParticle;
 
@@ -53,4 +53,4 @@ private:
     ParameterDistribution m_par_distribution;
 };
 
-#endif // PARTICLEDISTRIBUTION_H
+#endif // BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H

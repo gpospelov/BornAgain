@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORPOSITIONFACTOR_H
-#define FORMFACTORDECORATORPOSITIONFACTOR_H
+#ifndef BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORPOSITIONFACTOR_H
+#define BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORPOSITIONFACTOR_H
 
-#include "IFormFactorDecorator.h"
-#include "Vectors3D.h"
+#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Vector/Vectors3D.h"
 
 //! Decorates a form factor with a position dependent phase factor.
 //! @ingroup formfactors_internal
@@ -48,4 +48,4 @@ private:
     kvector_t m_position;
 };
 
-#endif // FORMFACTORDECORATORPOSITIONFACTOR_H
+#endif // BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORPOSITIONFACTOR_H

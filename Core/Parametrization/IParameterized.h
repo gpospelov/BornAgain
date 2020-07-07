@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef IPARAMETERIZED_H
-#define IPARAMETERIZED_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
 
-#include "BornAgainNamespace.h"
-#include "INamed.h"
-#include "Vectors3D.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/INamed.h"
+#include "Core/Vector/Vectors3D.h"
 
 class RealLimits;
 class ParameterPool;
@@ -70,4 +70,4 @@ private:
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 
-#endif // IPARAMETERIZED_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef IMULTILAYERBUILDER_H
-#define IMULTILAYERBUILDER_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_IMULTILAYERBUILDER_H
+#define BORNAGAIN_CORE_MULTILAYER_IMULTILAYERBUILDER_H
 
-#include "IParameterized.h"
+#include "Core/Parametrization/IParameterized.h"
 
 class MultiLayer;
 
@@ -41,4 +41,4 @@ public:
     virtual size_t size() { return 1; }
 };
 
-#endif // IMULTILAYERBUILDER_H
+#endif // BORNAGAIN_CORE_MULTILAYER_IMULTILAYERBUILDER_H

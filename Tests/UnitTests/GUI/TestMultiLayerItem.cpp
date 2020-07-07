@@ -1,8 +1,8 @@
-#include "LayerItem.h"
-#include "MultiLayerItem.h"
-#include "SampleModel.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/item_constants.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestMultiLayerItem : public ::testing::Test
 {

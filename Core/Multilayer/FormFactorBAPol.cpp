@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorBAPol.h"
-#include "BornAgainNamespace.h"
-#include "WavevectorInfo.h"
+#include "Core/Multilayer/FormFactorBAPol.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Vector/WavevectorInfo.h"
 #include <stdexcept>
 
 FormFactorBAPol::FormFactorBAPol(const IFormFactor& form_factor)

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONITEMDATA_H
-#define SESSIONITEMDATA_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEMDATA_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEMDATA_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QVariant>
 #include <QVector>
 
@@ -43,4 +43,4 @@ private:
     QVector<ItemData> m_values;
 };
 
-#endif //   SESSIONITEMDATA_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEMDATA_H

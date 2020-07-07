@@ -39,8 +39,8 @@
 **
 ****************************************************************************/
 
-#include "widgetboxcategorylistview.h"
-#include "tooltipdatabase.h"
+#include "GUI/coregui/Views/widgetbox/widgetboxcategorylistview.h"
+#include "GUI/coregui/mainwindow/tooltipdatabase.h"
 
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerWidgetDataBaseInterface>

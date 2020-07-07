@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef IABSTRACTPARTICLE_H
-#define IABSTRACTPARTICLE_H
+#ifndef BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H
+#define BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H
 
-#include "ISample.h"
-#include "Vectors3D.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Vector/Vectors3D.h"
 
 class IRotation;
 
@@ -53,4 +53,4 @@ protected:
     double m_abundance;
 };
 
-#endif // IABSTRACTPARTICLE_H
+#endif // BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H

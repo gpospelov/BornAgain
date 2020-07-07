@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCONE_H
-#define FORMFACTORCONE_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE_H
 
-#include "IFormFactorBorn.h"
-#include "Integrator.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Tools/Integrator.h"
 
 //! A conical frustum (cone truncated parallel to the base) with circular base.
 //! @ingroup hardParticle
@@ -57,4 +57,4 @@ private:
     mutable ComplexIntegrator m_integrator;
 };
 
-#endif // FORMFACTORCONE_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITCOMPARISONVIEWCONTROLLER_H
-#define FITCOMPARISONVIEWCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITCOMPARISONVIEWCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITCOMPARISONVIEWCONTROLLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class DataItem;
@@ -66,4 +66,4 @@ private:
     PropertyRepeater* m_xAxisRepeater;
 };
 
-#endif // FITCOMPARISONVIEWCONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITCOMPARISONVIEWCONTROLLER_H

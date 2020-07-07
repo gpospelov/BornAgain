@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "WarningSignWidget.h"
+#include "GUI/coregui/Views/InfoWidgets/WarningSignWidget.h"
 #include <QMessageBox>
 #include <QPainter>
 #include <QRect>

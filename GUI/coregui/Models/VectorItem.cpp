@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "VectorItem.h"
+#include "GUI/coregui/Models/VectorItem.h"
 
 const QString VectorItem::P_X = "X";
 const QString VectorItem::P_Y = "Y";

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSCALARSTRATEGY_H
-#define SPECULARSCALARSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
 
-#include "ISpecularStrategy.h"
-#include "ScalarRTCoefficients.h"
-#include "Vectors3D.h"
+#include "Core/Multilayer/ISpecularStrategy.h"
+#include "Core/Multilayer/ScalarRTCoefficients.h"
+#include "Core/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>
 
@@ -56,4 +56,4 @@ private:
                               size_t slice_index) const;
 };
 
-#endif // SPECULARSCALARSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H

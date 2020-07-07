@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "JobListViewDelegate.h"
-#include "JobItem.h"
-#include "JobModel.h"
-#include "hostosinfo.h"
+#include "GUI/coregui/Views/JobWidgets/JobListViewDelegate.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/utils/hostosinfo.h"
 #include "progressbar.h"
 #include <QApplication>
 #include <QMouseEvent>

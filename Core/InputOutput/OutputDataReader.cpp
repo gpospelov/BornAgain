@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "OutputDataReader.h"
-#include "DataFormatUtils.h"
-#include "OutputData.h"
+#include "Core/InputOutput/OutputDataReader.h"
+#include "Core/InputOutput/DataFormatUtils.h"
+#include "Core/Instrument/OutputData.h"
 #ifdef _WIN32
 #pragma warning(push)
 #pragma warning(disable : 4244 4275)
-#include "boost_streams.h"
+#include "Core/InputOutput/boost_streams.h"
 #pragma warning(pop)
 #else
-#include "boost_streams.h"
+#include "Core/InputOutput/boost_streams.h"
 #endif
-#include "FileSystemUtils.h"
+#include "Core/Tools/FileSystemUtils.h"
 #include <fstream>
 
 OutputDataReader::OutputDataReader(const std::string& file_name) : m_file_name(file_name) {}

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERTESTCASES_H
-#define MINIMIZERTESTCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTCASES_H
 
 //! Collection of minimizer tests.
 
-#include "MinimizerTest.h"
+#include "Tests/Functional/Fit/Minimizer/MinimizerTest.h"
 
 class MinuitTestV1 : public MinimizerTest
 {
@@ -139,4 +139,4 @@ public:
     TestMinimizerV1();
 };
 
-#endif //   MINIMIZERTESTCASES_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTCASES_H

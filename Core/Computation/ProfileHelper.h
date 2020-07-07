@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef PROFILEHELPER_H
-#define PROFILEHELPER_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_PROFILEHELPER_H
+#define BORNAGAIN_CORE_COMPUTATION_PROFILEHELPER_H
 
-#include "Complex.h"
-#include "Material.h"
-#include "WinDllMacros.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Material/Material.h"
+#include "Wrap/WinDllMacros.h"
 #include <utility>
 #include <vector>
 
@@ -45,4 +45,4 @@ private:
     std::vector<double> m_sigmas;
 };
 
-#endif // PROFILEHELPER_H
+#endif // BORNAGAIN_CORE_COMPUTATION_PROFILEHELPER_H

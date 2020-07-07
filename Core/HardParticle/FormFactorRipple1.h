@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORRIPPLE1_H
-#define FORMFACTORRIPPLE1_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE1_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE1_H
 
-#include "ProfileRipple1.h"
+#include "Core/HardParticle/ProfileRipple1.h"
 
 //! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating
@@ -56,4 +56,4 @@ private:
     complex_t factor_x(complex_t qx) const override final;
 };
 
-#endif // FORMFACTORRIPPLE1_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE1_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCONE6_H
-#define FORMFACTORCONE6_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE6_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE6_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A frustum (truncated pyramid) with regular hexagonal base.
 //! @ingroup hardParticle
@@ -48,4 +48,4 @@ private:
     double m_alpha;
 };
 
-#endif // FORMFACTORCONE6_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE6_H

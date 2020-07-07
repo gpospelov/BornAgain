@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORFULLSPHEROID_H
-#define FORMFACTORFULLSPHEROID_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORFULLSPHEROID_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORFULLSPHEROID_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
 //! @ingroup hardParticle
@@ -49,4 +49,4 @@ private:
     double m_height;
 };
 
-#endif // FORMFACTORFULLSPHEROID_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORFULLSPHEROID_H

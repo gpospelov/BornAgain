@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef BATCHSIMULATION_H
-#define BATCHSIMULATION_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_BATCHSIMULATION_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_BATCHSIMULATION_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Special test for simulation running in batch mode.
 
@@ -25,4 +25,4 @@ protected:
     bool runTest();
 };
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_BATCHSIMULATION_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef AXISNAMES_H
-#define AXISNAMES_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_AXISNAMES_H
+#define BORNAGAIN_CORE_INSTRUMENT_AXISNAMES_H
 
-#include "IUnitConverter.h"
+#include "Core/Instrument/IUnitConverter.h"
 #include <map>
 
 //! Contains functions to create maps that give the right axis names for different
@@ -35,4 +35,4 @@ BA_CORE_API_ std::map<AxesUnits, std::string> InitSpecAxisQ();
 BA_CORE_API_ std::map<AxesUnits, std::string> InitSampleDepthAxis();
 } // namespace AxisNames
 
-#endif // AXISNAMES_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_AXISNAMES_H

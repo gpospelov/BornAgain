@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef IPARTICLE_H
-#define IPARTICLE_H
+#ifndef BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
+#define BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
 
-#include "IAbstractParticle.h"
-#include "Rotations.h"
-#include "SafePointerVector.h"
-#include "SlicedParticle.h"
-#include "Vectors3D.h"
-#include "ZLimits.h"
+#include "Core/Particle/IAbstractParticle.h"
+#include "Core/Particle/SlicedParticle.h"
+#include "Core/Particle/ZLimits.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Tools/SafePointerVector.h"
+#include "Core/Vector/Vectors3D.h"
 #include <memory>
 
 //! Vertical extension of a particle, specified by bottom and top z coordinate.
@@ -102,4 +102,4 @@ protected:
     std::unique_ptr<IRotation> mP_rotation;
 };
 
-#endif // IPARTICLE_H
+#endif // BORNAGAIN_CORE_PARTICLE_IPARTICLE_H

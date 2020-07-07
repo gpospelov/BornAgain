@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERPLAN_H
-#define PARAMETERPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_PARAMETERPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_PARAMETERPLAN_H
 
-#include "Parameter.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameter.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Defines initial settings of single fit parameter and the final value which has to be found
 //! in the course of the fit.
@@ -25,7 +25,9 @@ class BA_CORE_API_ ParameterPlan
 {
 public:
     ParameterPlan(const Fit::Parameter& param, double expected_value, double tolerance = 0.01)
-     : m_expected_value(expected_value), m_tolerance(tolerance), m_parameter(param) {}
+        : m_expected_value(expected_value), m_tolerance(tolerance), m_parameter(param)
+    {
+    }
 
     Fit::Parameter fitParameter() const { return m_parameter; }
     double expectedValue() const { return m_expected_value; }
@@ -39,4 +41,4 @@ private:
     Fit::Parameter m_parameter; //!< initial parameter settings
 };
 
-#endif // PARAMETERPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_PARAMETERPLAN_H

@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerTestCases.h"
+#include "Tests/Functional/Fit/Minimizer/MinimizerTestCases.h"
 
 MinuitTestV1::MinuitTestV1() : MinimizerTest("Minuit2", "Migrad", "RosenbrockPlan") {}
 

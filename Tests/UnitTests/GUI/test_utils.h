@@ -16,8 +16,8 @@
 #ifndef TEST_UTILS
 #define TEST_UTILS
 
-#include "PropertyItem.h"
-#include "SessionXML.h"
+#include "GUI/coregui/Models/PropertyItem.h"
+#include "GUI/coregui/Models/SessionXML.h"
 #include <QString>
 #include <QXmlStreamWriter>
 

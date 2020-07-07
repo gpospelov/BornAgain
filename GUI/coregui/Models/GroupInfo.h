@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GROUPINFO_H
-#define GROUPINFO_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFO_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFO_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <QStringList>
 #include <QVector>
@@ -58,4 +58,4 @@ private:
     QVector<TypeAndLabel> m_info;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFO_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "GUIHelpers.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include "BAVersion.h"
-#include "JobItem.h"
-#include "RealDataItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/RealDataItem.h"
 #include <QApplication>
 #include <QDateTime>
 #include <QDir>

@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATION_H
-#define SIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_SIMULATION_H
 
-#include "DistributionHandler.h"
-#include "IDetector2D.h"
-#include "INode.h"
-#include "Instrument.h"
-#include "ProgressHandler.h"
-#include "SampleProvider.h"
-#include "SimulationOptions.h"
-#include "SimulationResult.h"
+#include "Core/Computation/ProgressHandler.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Instrument/Instrument.h"
+#include "Core/Instrument/SimulationResult.h"
+#include "Core/Multilayer/SampleProvider.h"
+#include "Core/Parametrization/DistributionHandler.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Parametrization/SimulationOptions.h"
 
 template <class T> class OutputData;
 class IBackground;
@@ -157,4 +157,4 @@ private:
     virtual void setRawResults(const std::vector<double>& raw_data) = 0;
 };
 
-#endif // SIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_SIMULATION_H

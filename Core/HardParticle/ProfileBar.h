@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef PROFILEBAR_H
-#define PROFILEBAR_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_PROFILEBAR_H
+#define BORNAGAIN_CORE_HARDPARTICLE_PROFILEBAR_H
 
-#include "IFormFactorBorn.h"
-#include "Integrator.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Tools/Integrator.h"
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
@@ -50,4 +50,4 @@ private:
     mutable ComplexIntegrator m_integrator;
 };
 
-#endif // PROFILEBAR_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_PROFILEBAR_H

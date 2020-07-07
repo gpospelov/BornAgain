@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSCALARNCSTRATEGY_H
-#define SPECULARSCALARNCSTRATEGY_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARNCSTRATEGY_H
+#define BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARNCSTRATEGY_H
 
-#include "SpecularScalarStrategy.h"
+#include "Core/Multilayer/SpecularScalarStrategy.h"
 
 class Slice;
 
@@ -39,4 +39,4 @@ private:
                                         const Eigen::Vector2cd& t_r1) const override;
 };
 
-#endif // SPECULARSCALARNCSTRATEGY_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARNCSTRATEGY_H

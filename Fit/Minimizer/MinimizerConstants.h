@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERCONSTANTS_H
-#define MINIMIZERCONSTANTS_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERCONSTANTS_H
+#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERCONSTANTS_H
 
 #include <string>
 
@@ -74,4 +74,4 @@ const std::string BoltzmannTmin = "t_min";
 
 } // namespace OptionNames
 
-#endif // MINIMIZERCONSTANTS_H
+#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERCONSTANTS_H

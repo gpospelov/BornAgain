@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
-#define FORMFACTORSPHERELOGNORMALRADIUS_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
 
-#include "Distributions.h"
-#include "FormFactorFullSphere.h"
-#include "SafePointerVector.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Tools/SafePointerVector.h"
 #include <memory>
 
 //! A sphere with log normal radius distribution.
@@ -52,4 +52,4 @@ private:
     std::vector<double> m_probabilities;
 };
 
-#endif // FORMFACTORSPHERELOGNORMALRADIUS_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H

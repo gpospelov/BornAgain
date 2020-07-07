@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORORNSTEINZERNIKE_H
-#define FORMFACTORORNSTEINZERNIKE_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORORNSTEINZERNIKE_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORORNSTEINZERNIKE_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
 //! @ingroup softParticle
@@ -41,4 +41,4 @@ private:
     double m_xi_z;
 };
 
-#endif // FORMFACTORORNSTEINZERNIKE_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORORNSTEINZERNIKE_H

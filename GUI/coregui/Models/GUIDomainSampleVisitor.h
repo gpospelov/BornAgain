@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIDOMAINSAMPLEVISITOR_H
-#define GUIDOMAINSAMPLEVISITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GUIDOMAINSAMPLEVISITOR_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GUIDOMAINSAMPLEVISITOR_H
 
-#include "INodeVisitor.h"
+#include "Core/Parametrization/INodeVisitor.h"
 #include <QMap>
 #include <QString>
 
@@ -111,4 +111,4 @@ private:
     MaterialModel* m_materialModel;
 };
 
-#endif //  GUIDOMAINSAMPLEVISITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GUIDOMAINSAMPLEVISITOR_H

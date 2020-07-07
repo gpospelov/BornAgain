@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/SampleProvider.h
+//! @file      Core/Multilayer/SampleProvider.h
 //! @brief     Defines class SampleProvider.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEPROVIDER_H
-#define SAMPLEPROVIDER_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SAMPLEPROVIDER_H
+#define BORNAGAIN_CORE_MULTILAYER_SAMPLEPROVIDER_H
 
-#include "INode.h"
-#include "SampleBuilderNode.h"
+#include "Core/Multilayer/SampleBuilderNode.h"
+#include "Core/Parametrization/INode.h"
 
 class MultiLayer;
 
@@ -53,4 +53,4 @@ private:
     SampleBuilderNode m_sample_builder;
 };
 
-#endif // SAMPLEPROVIDER_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SAMPLEPROVIDER_H

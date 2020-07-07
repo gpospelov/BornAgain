@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCOHERENTPART_H
-#define FORMFACTORCOHERENTPART_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTPART_H
+#define BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTPART_H
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "WinDllMacros.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Vector/EigenCore.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 class IFresnelMap;
@@ -51,4 +51,4 @@ private:
     size_t m_layer_index;
 };
 
-#endif // FORMFACTORCOHERENTPART_H
+#endif // BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTPART_H

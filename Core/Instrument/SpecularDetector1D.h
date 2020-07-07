@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARDETECTOR1D_H_
-#define SPECULARDETECTOR1D_H_
+#ifndef BORNAGAIN_CORE_INSTRUMENT_SPECULARDETECTOR1D_H
+#define BORNAGAIN_CORE_INSTRUMENT_SPECULARDETECTOR1D_H
 
-#include "IDetector.h"
+#include "Core/Instrument/IDetector.h"
 
 class SpecularSimulationElement;
 
@@ -52,4 +52,4 @@ protected:
     void initialize();
 };
 
-#endif /* SPECULARDETECTOR1D_H_ */
+#endif // BORNAGAIN_CORE_INSTRUMENT_SPECULARDETECTOR1D_H

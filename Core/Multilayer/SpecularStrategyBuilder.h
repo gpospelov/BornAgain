@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSTRATEGYBUILDER_H
-#define SPECULARSTRATEGYBUILDER_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSTRATEGYBUILDER_H
+#define BORNAGAIN_CORE_MULTILAYER_SPECULARSTRATEGYBUILDER_H
 
-#include "ISpecularStrategy.h"
-#include "MultiLayer.h"
-#include "RoughnessModels.h"
+#include "Core/Multilayer/ISpecularStrategy.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Multilayer/RoughnessModels.h"
 
 class SpecularStrategyBuilder
 {
@@ -26,4 +26,4 @@ public:
     static std::unique_ptr<ISpecularStrategy> build(const MultiLayer& sample, const bool magnetic);
 };
 
-#endif // SPECULARSTRATEGYBUILDER_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSTRATEGYBUILDER_H

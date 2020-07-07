@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#ifndef IINTENSITYFUNCTION_H
-#define IINTENSITYFUNCTION_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IINTENSITYFUNCTION_H
+#define BORNAGAIN_CORE_INSTRUMENT_IINTENSITYFUNCTION_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Interface for applying arbitrary function to the measured intensity.
 //! @ingroup algorithms_internal
@@ -49,4 +49,4 @@ public:
     virtual double evaluate(double value) const;
 };
 
-#endif // IINTENSITYFUNCTION_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_IINTENSITYFUNCTION_H

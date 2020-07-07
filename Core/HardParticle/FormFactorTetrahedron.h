@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORTETRAHEDRON_H
-#define FORMFACTORTETRAHEDRON_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTETRAHEDRON_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTETRAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A frustum with equilateral trigonal base.
 //! @ingroup hardParticle
@@ -48,4 +48,4 @@ private:
     double m_alpha;
 };
 
-#endif // FORMFACTORTETRAHEDRON_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTETRAHEDRON_H

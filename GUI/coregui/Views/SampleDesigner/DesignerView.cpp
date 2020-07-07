@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "DesignerView.h"
-#include "DesignerMimeData.h"
-#include "DesignerScene.h"
-#include "GUIHelpers.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerMimeData.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QDragEnterEvent>
 #include <QGraphicsScene>
 #include <QGraphicsView>

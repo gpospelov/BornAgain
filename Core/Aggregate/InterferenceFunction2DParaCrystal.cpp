@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunction2DParaCrystal.h"
-#include "BornAgainNamespace.h"
-#include "Exceptions.h"
-#include "MathConstants.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
+#include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <limits>
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D& lattice,

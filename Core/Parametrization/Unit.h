@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef UNIT_H
-#define UNIT_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H
 
-#include "INamed.h"
+#include "Core/Basics/INamed.h"
 #include <string>
 
 //! A physical unit.
@@ -27,4 +27,4 @@ public:
     void setUnit(const std::string& name);
 };
 
-#endif // UNIT_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H

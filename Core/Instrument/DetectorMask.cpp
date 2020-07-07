@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "BornAgainNamespace.h"
-#include "Histogram2D.h"
-#include "IDetector2D.h"
-#include "RegionOfInterest.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/Instrument/IDetector2D.h"
+#include "Core/Instrument/RegionOfInterest.h"
 
 DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}
 

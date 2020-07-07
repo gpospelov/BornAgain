@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDECORATORMATERIAL_H
-#define FORMFACTORDECORATORMATERIAL_H
+#ifndef BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORMATERIAL_H
+#define BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORMATERIAL_H
 
-#include "IFormFactorDecorator.h"
-#include "Material.h"
+#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Material/Material.h"
 #include <memory>
 
 //! Decorates a scalar formfactor with the correct factor for the material's
@@ -53,4 +53,4 @@ private:
     Material m_ambient_material;
 };
 
-#endif // FORMFACTORDECORATORMATERIAL_H
+#endif // BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORMATERIAL_H

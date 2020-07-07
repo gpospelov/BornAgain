@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTORFUNCTIONS_H
-#define DETECTORFUNCTIONS_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_DETECTORFUNCTIONS_H
+#define BORNAGAIN_CORE_INSTRUMENT_DETECTORFUNCTIONS_H
 
-#include "IDetector.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/IDetector.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <memory>
 #include <string>
@@ -45,4 +45,4 @@ BA_CORE_API_ std::string axesToString(const OutputData<double>& data);
 
 } // namespace DetectorFunctions
 
-#endif // DETECTORFUNCTIONS_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_DETECTORFUNCTIONS_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCOMBOTOOLBAR_H
-#define ITEMCOMBOTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include <QList>
 
 class QAction;
@@ -52,4 +52,4 @@ private:
     QAction* m_comboBoxAction;
 };
 
-#endif // ITEMCOMBOTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOTOOLBAR_H

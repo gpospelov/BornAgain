@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVETEST_H
-#define FITOBJECTIVETEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETEST_H
 
-#include "IMinimizerTest.h"
+#include "Tests/Functional/TestMachinery/IMinimizerTest.h"
 
 //! Collection of standalone tests for fitting library.
 
@@ -29,4 +29,4 @@ protected:
     std::unique_ptr<MinimizerTestPlan> createPlan() const;
 };
 
-#endif // FITOBJECTIVETEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETEST_H

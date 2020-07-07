@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSUITEITEM_H
-#define FITSUITEITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_FITSUITEITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_FITSUITEITEM_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class FitParameterContainerItem;
 class MinimizerContainerItem;
@@ -35,4 +35,4 @@ public:
     MinimizerContainerItem* minimizerContainerItem();
 };
 
-#endif // FITSUITEITEM_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_FITSUITEITEM_H

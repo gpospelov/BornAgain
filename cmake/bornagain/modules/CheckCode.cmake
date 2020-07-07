@@ -11,6 +11,6 @@ if(NOT MSVC)
 
     add_test(NAME "CodeLineLength"
         COMMAND ${Python_EXECUTABLE}
-        ${CMAKE_SOURCE_DIR}/dev-tools/analyze/check-line-length.py ${SRC_LEN_LIM}
+        ${CMAKE_SOURCE_DIR}/devtools/analyze/check-line-length.py ${SRC_LEN_LIM}
         ${SRC1} ${SRC2})
 endif()

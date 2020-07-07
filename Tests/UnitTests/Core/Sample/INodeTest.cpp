@@ -1,9 +1,9 @@
-#include "INode.h"
-#include "Exceptions.h"
-#include "NodeUtils.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
-#include "google_test.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/NodeUtils.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 namespace

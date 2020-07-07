@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef ICLUSTEREDPARTICLES_H
-#define ICLUSTEREDPARTICLES_H
+#ifndef BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
+#define BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
 
-#include "HomogeneousRegion.h"
-#include "ISample.h"
-#include "Vectors3D.h"
+#include "Core/Particle/HomogeneousRegion.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Vector/Vectors3D.h"
 
 class IFormFactor;
 class IRotation;
@@ -42,4 +42,4 @@ public:
     virtual std::vector<HomogeneousRegion> homogeneousRegions() const = 0;
 };
 
-#endif // ICLUSTEREDPARTICLES_H
+#endif // BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H

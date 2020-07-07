@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GROUPINFOCATALOGUE_H
-#define GROUPINFOCATALOGUE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H
 
-#include "GroupInfo.h"
+#include "GUI/coregui/Models/GroupInfo.h"
 
 //! Catalogue to hold info for GroupProperty creation.
 
@@ -33,4 +33,4 @@ private:
     QVector<GroupInfo> m_groups;
 };
 
-#endif // GROUPINFOCATALOGUE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H

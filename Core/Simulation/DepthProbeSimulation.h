@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef DEPTHPROBESIMULATION_H
-#define DEPTHPROBESIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H
 
-#include "DepthProbeElement.h"
-#include "ILayerRTCoefficients.h"
-#include "OutputData.h"
-#include "Simulation.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/SimulationElement/DepthProbeElement.h"
 
 #include <vector>
 
@@ -126,4 +126,4 @@ private:
     std::vector<std::valarray<double>> m_cache;
 };
 
-#endif // DEPTHPROBESIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H

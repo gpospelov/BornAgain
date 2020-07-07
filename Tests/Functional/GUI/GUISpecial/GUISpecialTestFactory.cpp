@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "GUISpecialTestFactory.h"
-#include "CsvImportAssistantPerformanceTest.h"
-#include "GUIPerformanceTest.h"
-#include "GUISaveLoadProject.h"
-#include "TranslationCases.h"
+#include "Tests/Functional/GUI/GUISpecial/GUISpecialTestFactory.h"
+#include "Tests/Functional/GUI/GUISpecial/CsvImportAssistantPerformanceTest.h"
+#include "Tests/Functional/GUI/GUISpecial/GUIPerformanceTest.h"
+#include "Tests/Functional/GUI/GUISpecial/GUISaveLoadProject.h"
+#include "Tests/Functional/GUI/GUISpecial/TranslationCases.h"
 
 GUISpecialTestFactory::GUISpecialTestFactory()
 {

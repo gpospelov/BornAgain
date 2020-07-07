@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MESSAGESERVICE_H
-#define MESSAGESERVICE_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_MESSAGESERVICE_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_MESSAGESERVICE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QStringList>
 
@@ -51,4 +51,4 @@ private:
     QList<GUIMessage*> m_messages;
 };
 
-#endif // MESSAGESERVICE_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_MESSAGESERVICE_H

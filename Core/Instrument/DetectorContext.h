@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTORCONTEXT_H
-#define DETECTORCONTEXT_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_DETECTORCONTEXT_H
+#define BORNAGAIN_CORE_INSTRUMENT_DETECTORCONTEXT_H
 
-#include "EigenCore.h"
-#include "IPixel.h"
-#include "WinDllMacros.h"
+#include "Core/Binning/IPixel.h"
+#include "Core/Vector/EigenCore.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <vector>
 
@@ -48,4 +48,4 @@ private:
     std::vector<size_t> active_indices; //! The sequence of detector bin indices (unmasked, in ROI)
 };
 
-#endif // DETECTORCONTEXT_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_DETECTORCONTEXT_H

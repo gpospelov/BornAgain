@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef ILAYERRTCOEFFICIENTS_H
-#define ILAYERRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_ILAYERRTCOEFFICIENTS_H
+#define BORNAGAIN_CORE_MULTILAYER_ILAYERRTCOEFFICIENTS_H
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "Exceptions.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Vector/EigenCore.h"
 
 //! Interface to access reflection/transmission coefficients.
 //! @ingroup algorithms_internal
@@ -62,4 +62,4 @@ public:
     }
 };
 
-#endif // ILAYERRTCOEFFICIENTS_H
+#endif // BORNAGAIN_CORE_MULTILAYER_ILAYERRTCOEFFICIENTS_H

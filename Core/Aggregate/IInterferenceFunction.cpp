@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "IInterferenceFunction.h"
-#include "BornAgainNamespace.h"
-#include "RealParameter.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <algorithm>
 #include <stdexcept>
 

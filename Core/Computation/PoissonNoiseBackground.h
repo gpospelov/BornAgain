@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef POISSONNOISEBACKGROUND_H
-#define POISSONNOISEBACKGROUND_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H
+#define BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H
 
-#include "IBackground.h"
+#include "Core/Computation/IBackground.h"
 
 //! Class representing Poisson noise on top of the scattered intensity
 //!
@@ -33,4 +33,4 @@ public:
     double addBackGround(double intensity) const override final;
 };
 
-#endif // POISSONNOISEBACKGROUND_H
+#endif // BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H

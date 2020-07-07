@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION2DLATTICE_H
-#define INTERFERENCEFUNCTION2DLATTICE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H
 
-#include "FTDecayFunctions.h"
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
-#include "Lattice2D.h"
+#include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Lattice/Lattice2D.h"
+#include "Core/Tools/Integrator.h"
 
 //! Interference function of a 2D lattice.
 //! @ingroup interference
@@ -86,4 +86,4 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-#endif // INTERFERENCEFUNCTION2DLATTICE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H

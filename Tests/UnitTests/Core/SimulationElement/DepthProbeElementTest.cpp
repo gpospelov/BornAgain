@@ -1,6 +1,6 @@
-#include "DepthProbeElement.h"
-#include "FixedBinAxis.h"
-#include "google_test.h"
+#include "Core/SimulationElement/DepthProbeElement.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class DepthProbeElementTest : public ::testing::Test
 {

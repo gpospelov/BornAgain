@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORPRISM6_H
-#define FORMFACTORPRISM6_H
-#include "FormFactorPolyhedron.h"
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A prism based on a regular hexagonal.
 //! @ingroup hardParticle
@@ -42,4 +42,4 @@ private:
     double m_base_edge;
 };
 
-#endif // FORMFACTORPRISM6_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H

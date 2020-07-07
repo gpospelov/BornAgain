@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H
-#define FORMFACTORSPHEREGAUSSIANRADIUS_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
 
-#include "FormFactorFullSphere.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
 #include <memory>
 
 //! A sphere with gaussian radius distribution.
@@ -49,4 +49,4 @@ private:
     std::unique_ptr<FormFactorFullSphere> P_ff_sphere;
 };
 
-#endif // FORMFACTORSPHEREGAUSSIANRADIUS_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H

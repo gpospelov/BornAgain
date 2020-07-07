@@ -1,8 +1,8 @@
-#include "DistributionHandler.h"
-#include "Distributions.h"
-#include "IParameterized.h"
-#include "ParameterPool.h"
-#include "google_test.h"
+#include "Core/Parametrization/DistributionHandler.h"
+#include "Core/Parametrization/Distributions.h"
+#include "Core/Parametrization/IParameterized.h"
+#include "Core/Parametrization/ParameterPool.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <cmath>
 
 class DistributionHandlerTest : public ::testing::Test

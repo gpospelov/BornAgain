@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ITERATIONSTRATEGY_H
-#define ITERATIONSTRATEGY_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H
 
-#include "ISample.h"
+#include "Core/Scattering/ISample.h"
 
 class IteratorMemento;
 
@@ -63,4 +63,4 @@ public:
     virtual bool isDone(IteratorMemento& iterator_stack) const;
 };
 
-#endif // ITERATIONSTRATEGY_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H

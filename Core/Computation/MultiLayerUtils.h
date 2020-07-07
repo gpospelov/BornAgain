@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERUTILS_H
-#define MULTILAYERUTILS_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_MULTILAYERUTILS_H
+#define BORNAGAIN_CORE_COMPUTATION_MULTILAYERUTILS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <cstddef>
 #include <vector>
 
@@ -51,4 +51,4 @@ BA_CORE_API_ std::vector<ZLimits> ParticleRegions(const MultiLayer& multilayer, 
 BA_CORE_API_ bool hasRoughness(const MultiLayer& sample);
 } // namespace MultiLayerUtils
 
-#endif // MULTILAYERUTILS_H
+#endif // BORNAGAIN_CORE_COMPUTATION_MULTILAYERUTILS_H

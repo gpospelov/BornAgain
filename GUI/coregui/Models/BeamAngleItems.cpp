@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "BeamAngleItems.h"
-#include "Units.h"
+#include "GUI/coregui/Models/BeamAngleItems.h"
+#include "Core/Parametrization/Units.h"
 
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     : BeamDistributionItem(Constants::BeamAzimuthalAngleType, m_show_mean)

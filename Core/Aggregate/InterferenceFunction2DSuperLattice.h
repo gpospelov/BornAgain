@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION2DSUPERLATTICE_H
-#define INTERFERENCEFUNCTION2DSUPERLATTICE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DSUPERLATTICE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DSUPERLATTICE_H
 
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
-#include "Lattice2D.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Lattice/Lattice2D.h"
+#include "Core/Tools/Integrator.h"
 
 //! Interference function of a 2D superlattice with a configurable interference function for
 //! each lattice site.
@@ -73,4 +73,4 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-#endif // INTERFERENCEFUNCTION2DSUPERLATTICE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DSUPERLATTICE_H

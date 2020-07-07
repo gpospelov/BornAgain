@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALFACTORYFUNCS_H_
-#define MATERIALFACTORYFUNCS_H_
+#ifndef BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H
+#define BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H
 
-#include "Material.h"
+#include "Core/Material/Material.h"
 
 struct HomogeneousRegion;
 
@@ -73,4 +73,4 @@ BA_CORE_API_ Material CreateAveragedMaterial(const Material& layer_mat,
 
 #endif // SWIG
 
-#endif /* MATERIALFACTORYFUNCS_H_ */
+#endif // BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H

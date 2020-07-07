@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "UpdateTimer.h"
+#include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
 #include <QTimer>
 
 UpdateTimer::UpdateTimer(int timerInterval, QObject* parent)

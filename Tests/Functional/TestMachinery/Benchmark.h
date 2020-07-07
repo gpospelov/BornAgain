@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef BENCHMARK_H
-#define BENCHMARK_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_BENCHMARK_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_BENCHMARK_H
 
-#include "OrderedMap.h"
-#include "WallclockTimer.h"
-#include "WinDllMacros.h"
+#include "Core/Tools/OrderedMap.h"
+#include "Fit/Tools/WallclockTimer.h"
+#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <map>
 #include <string>
@@ -62,4 +62,4 @@ private:
     BenchmarkMap m_data;
 };
 
-#endif // COREIOTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_BENCHMARK_H

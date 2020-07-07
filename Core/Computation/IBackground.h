@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef IBACKGROUND_H
-#define IBACKGROUND_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
+#define BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
 
-#include "ICloneable.h"
-#include "INode.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 
 //! Interface for a simulating the background signal
 //!
@@ -31,4 +31,4 @@ public:
     virtual double addBackGround(double element) const = 0;
 };
 
-#endif // IBACKGROUND_H
+#endif // BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H

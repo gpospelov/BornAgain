@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ProjectionItems.h"
+#include "GUI/coregui/Models/ProjectionItems.h"
 
 ProjectionContainerItem::ProjectionContainerItem() : SessionItem(Constants::ProjectionContainerType)
 {

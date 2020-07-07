@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "IterationStrategy.h"
-#include "Exceptions.h"
-#include "NodeIterator.h"
+#include "Core/Parametrization/IterationStrategy.h"
+#include "Core/Basics/Exceptions.h"
+#include "Core/Parametrization/NodeIterator.h"
 
 PreorderStrategy::PreorderStrategy() {}
 

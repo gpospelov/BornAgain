@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerUtils.h"
+#include "Fit/Tools/MinimizerUtils.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>

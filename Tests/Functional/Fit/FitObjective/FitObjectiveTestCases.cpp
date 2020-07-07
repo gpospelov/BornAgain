@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "FitObjectiveTestCases.h"
+#include "Tests/Functional/Fit/FitObjective/FitObjectiveTestCases.h"
 
 MigradCylindersInBA::MigradCylindersInBA()
     : FitObjectiveTest("Minuit2", "Migrad", "CylindersInBAPlan")

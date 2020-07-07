@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef BASEMATERIALIMPL_H_
-#define BASEMATERIALIMPL_H_
+#ifndef BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
+#define BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "INamed.h"
-#include "Vectors3D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Basics/INamed.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Vector/Vectors3D.h"
 
 class Transform3D;
 class WavevectorInfo;
@@ -74,4 +74,4 @@ public:
     virtual void print(std::ostream& ostr) const = 0;
 };
 
-#endif /* BASEMATERIALIMPL_H_ */
+#endif // BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCYLINDER_H
-#define FORMFACTORCYLINDER_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A circular cylinder.
 //! @ingroup hardParticle
@@ -49,4 +49,4 @@ private:
     double m_height;
 };
 
-#endif // FORMFACTORCYLINDER_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H

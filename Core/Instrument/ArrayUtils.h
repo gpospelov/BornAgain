@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef ARRAYUTILS_H
-#define ARRAYUTILS_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H
+#define BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H
 
-#include "OutputData.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/OutputData.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <stdexcept>
 #include <vector>
@@ -170,4 +170,4 @@ template <class T> decltype(auto) ArrayUtils::createVector2D(const T& data)
     return result;
 }
 
-#endif // ARRAYUTILS_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H

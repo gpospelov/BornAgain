@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERITEMCATALOGUE_H
-#define MINIMIZERITEMCATALOGUE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOGUE_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOGUE_H
 
-#include "ComboProperty.h"
+#include "GUI/coregui/Models/ComboProperty.h"
 
 class MinimizerItem;
 
@@ -32,4 +32,4 @@ private:
     static QStringList algorithmDescriptions(const QString& minimizerType);
 };
 
-#endif // MINIMIZERITEMCATALOGUE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOGUE_H

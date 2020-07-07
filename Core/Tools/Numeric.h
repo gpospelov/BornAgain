@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef NUMERIC_H
-#define NUMERIC_H
+#ifndef BORNAGAIN_CORE_TOOLS_NUMERIC_H
+#define BORNAGAIN_CORE_TOOLS_NUMERIC_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <limits>
 
 //! Floating-point epsilon, tolerances, almost-equal.
@@ -33,4 +33,4 @@ double BA_CORE_API_ GetLogDifference(double a, double b);
 
 } // namespace Numeric
 
-#endif // NUMERIC_H
+#endif // BORNAGAIN_CORE_TOOLS_NUMERIC_H

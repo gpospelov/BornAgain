@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "TransformationItem.h"
+#include "GUI/coregui/Models/TransformationItem.h"
 
 const QString TransformationItem::P_ROT = "Rotation type";
 

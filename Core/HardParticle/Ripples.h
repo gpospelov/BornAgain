@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Complex.h"
+#include "Core/Basics/Complex.h"
 
 //! Computations for elongated particles.
 namespace ripples

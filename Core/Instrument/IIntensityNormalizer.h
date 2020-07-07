@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#ifndef IINTENSITYNORMALIZER_H
-#define IINTENSITYNORMALIZER_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IINTENSITYNORMALIZER_H
+#define BORNAGAIN_CORE_INSTRUMENT_IINTENSITYNORMALIZER_H
 
-#include "ICloneable.h"
-#include "INode.h"
-#include "OutputData.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Parametrization/INode.h"
 
 //! Interface to OutputData normalizers.
 //! @ingroup algorithms_internal
@@ -95,4 +95,4 @@ public:
     }
 };
 
-#endif // IINTENSITYNORMALIZER_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_IINTENSITYNORMALIZER_H

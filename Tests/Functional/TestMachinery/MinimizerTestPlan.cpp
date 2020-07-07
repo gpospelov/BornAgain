@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerTestPlan.h"
-#include "Numeric.h"
-#include "Parameters.h"
+#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Core/Tools/Numeric.h"
+#include "Fit/Kernel/Parameters.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>

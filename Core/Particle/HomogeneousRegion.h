@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef HOMOGENEOUSREGION_H
-#define HOMOGENEOUSREGION_H
+#ifndef BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
+#define BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
 
-#include "Material.h"
+#include "Core/Material/Material.h"
 
 //! Struct that contains information on a single homogeneous region of a particle inside
 //! a single layer.
@@ -29,4 +29,4 @@ struct HomogeneousRegion {
     Material m_material;
 };
 
-#endif // HOMOGENEOUSREGION_H
+#endif // BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H

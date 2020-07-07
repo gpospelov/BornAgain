@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef IFORMFACTORDECORATOR_H
-#define IFORMFACTORDECORATOR_H
+#ifndef BORNAGAIN_CORE_DECORATEDFORMFACTOR_IFORMFACTORDECORATOR_H
+#define BORNAGAIN_CORE_DECORATEDFORMFACTOR_IFORMFACTORDECORATOR_H
 
-#include "IFormFactor.h"
+#include "Core/Scattering/IFormFactor.h"
 
 //! Encapsulates another formfactor and adds extra functionality
 //! (a scalar factor, a position-dependent phase factor, ...).
@@ -55,4 +55,4 @@ protected:
     IFormFactor* mp_form_factor;
 };
 
-#endif // IFORMFACTORDECORATOR_H
+#endif // BORNAGAIN_CORE_DECORATEDFORMFACTOR_IFORMFACTORDECORATOR_H

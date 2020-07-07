@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION1DLATTICE_H
-#define INTERFERENCEFUNCTION1DLATTICE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
 
-#include "IInterferenceFunction.h"
-#include "Lattice1DParameters.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Lattice/Lattice1DParameters.h"
 
 class IFTDecayFunction1D;
 
@@ -49,4 +49,4 @@ private:
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
 
-#endif // INTERFERENCEFUNCTION1DLATTICE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H

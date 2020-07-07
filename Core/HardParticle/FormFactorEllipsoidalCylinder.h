@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORELLIPSOIDALCYLINDER_H
-#define FORMFACTORELLIPSOIDALCYLINDER_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORELLIPSOIDALCYLINDER_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORELLIPSOIDALCYLINDER_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A cylinder with elliptical base.
 //! @ingroup hardParticle
@@ -51,4 +51,4 @@ private:
     double m_height;
 };
 
-#endif // FORMFACTORELLIPSOIDALCYLINDER_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORELLIPSOIDALCYLINDER_H

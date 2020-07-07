@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef CUMULATIVEVALUE_H
-#define CUMULATIVEVALUE_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_CUMULATIVEVALUE_H
+#define BORNAGAIN_CORE_INSTRUMENT_CUMULATIVEVALUE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! The cumulative value with average and rms on-the-flight calculations.
 //! @ingroup tools
@@ -45,4 +45,4 @@ private:
 BA_CORE_API_ bool operator<(const CumulativeValue& lhs, const CumulativeValue& rhs);
 BA_CORE_API_ bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs);
 
-#endif // CUMULATIVEVALUE_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_CUMULATIVEVALUE_H

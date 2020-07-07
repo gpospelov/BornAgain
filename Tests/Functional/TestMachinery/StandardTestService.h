@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef STANDARDTESTSERVICE_H
-#define STANDARDTESTSERVICE_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTSERVICE_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTSERVICE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 class IFunctionalTest;
@@ -52,4 +52,4 @@ private:
     }
 };
 
-#endif // STANDARDTESTSERVICE_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTSERVICE_H

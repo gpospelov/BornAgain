@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORANISOPYRAMID_H
-#define FORMFACTORANISOPYRAMID_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORANISOPYRAMID_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORANISOPYRAMID_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A frustum (truncated pyramid) with rectangular base.
 //! @ingroup hardParticle
@@ -51,4 +51,4 @@ private:
     double m_alpha;
 };
 
-#endif // FORMFACTORANISOPYRAMID_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORANISOPYRAMID_H

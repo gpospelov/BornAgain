@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorBar.h"
-#include "Ripples.h"
+#include "Core/HardParticle/FormFactorBar.h"
+#include "Core/HardParticle/Ripples.h"
 
 // ************************************************************************** //
 // class FormFactorBarGauss

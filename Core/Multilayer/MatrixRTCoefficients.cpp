@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "MatrixRTCoefficients.h"
+#include "Core/Multilayer/MatrixRTCoefficients.h"
 
 MatrixRTCoefficients* MatrixRTCoefficients::clone() const
 {

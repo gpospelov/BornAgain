@@ -12,22 +12,22 @@
 //
 // ************************************************************************** //
 
-#include "MesoCrystalItem.h"
-#include "BornAgainNamespace.h"
-#include "ComboProperty.h"
-#include "Crystal.h"
-#include "FormFactorItems.h"
-#include "GUIHelpers.h"
-#include "MesoCrystal.h"
-#include "ModelPath.h"
-#include "Particle.h"
-#include "ParticleCompositionItem.h"
-#include "ParticleCoreShell.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleItem.h"
-#include "SessionItemUtils.h"
-#include "TransformToDomain.h"
-#include "VectorItem.h"
+#include "GUI/coregui/Models/MesoCrystalItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Particle/Crystal.h"
+#include "Core/Particle/MesoCrystal.h"
+#include "Core/Particle/Particle.h"
+#include "Core/Particle/ParticleCoreShell.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/ParticleCompositionItem.h"
+#include "GUI/coregui/Models/ParticleCoreShellItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/TransformToDomain.h"
+#include "GUI/coregui/Models/VectorItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 using SessionItemUtils::GetVectorItem;
 

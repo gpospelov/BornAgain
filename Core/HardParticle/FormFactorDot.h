@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORDOT_H
-#define FORMFACTORDOT_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 //! @ingroup hardParticle
@@ -44,4 +44,4 @@ private:
     double m_radius;
 };
 
-#endif // FORMFACTORDOT_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H

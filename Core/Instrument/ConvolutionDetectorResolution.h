@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef CONVOLUTIONDETECTORRESOLUTION_H
-#define CONVOLUTIONDETECTORRESOLUTION_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_CONVOLUTIONDETECTORRESOLUTION_H
+#define BORNAGAIN_CORE_INSTRUMENT_CONVOLUTIONDETECTORRESOLUTION_H
 
-#include "IDetectorResolution.h"
-#include "IResolutionFunction2D.h"
+#include "Core/Instrument/IDetectorResolution.h"
+#include "Core/Instrument/IResolutionFunction2D.h"
 
 //! Convolutes the intensity in 1 or 2 dimensions with a resolution function.
 //! @ingroup detector
@@ -69,4 +69,4 @@ inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolution
     return mp_res_function_2d.get();
 }
 
-#endif // CONVOLUTIONDETECTORRESOLUTION_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_CONVOLUTIONDETECTORRESOLUTION_H

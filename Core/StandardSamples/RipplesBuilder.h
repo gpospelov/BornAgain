@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef RIPPLESBUILDER_H
-#define RIPPLESBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 //! Builds sample: cosine ripple within the 1D-paracrystal model.
 //! @ingroup standard_samples
@@ -49,4 +49,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // RIPPLESBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SLICE_H
-#define SLICE_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_SLICE_H
+#define BORNAGAIN_CORE_COMPUTATION_SLICE_H
 
-#include "Material.h"
+#include "Core/Material/Material.h"
 #include <memory>
 
 class LayerRoughness;
@@ -64,4 +64,4 @@ private:
     std::unique_ptr<LayerRoughness> mP_top_roughness;
 };
 
-#endif // SLICE_H
+#endif // BORNAGAIN_CORE_COMPUTATION_SLICE_H

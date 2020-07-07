@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATA_H
-#define OUTPUTDATA_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
+#define BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
 
-#include "FixedBinAxis.h"
-#include "LLData.h"
-#include "OutputDataIterator.h"
-#include "PyObject.h"
-#include "SafePointerVector.h"
-#include "ThreadInfo.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Instrument/LLData.h"
+#include "Core/Instrument/OutputDataIterator.h"
+#include "Core/Parametrization/ThreadInfo.h"
+#include "Core/Tools/PyObject.h"
+#include "Core/Tools/SafePointerVector.h"
 #include <cassert>
 #include <sstream>
 
@@ -627,4 +627,4 @@ template <class T> bool OutputData<T>::axisNameExists(const std::string& axis_na
     return false;
 }
 
-#endif // OUTPUTDATA_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H

@@ -1,7 +1,7 @@
-#include "Lattice.h"
-#include "MathConstants.h"
-#include "Transform3D.h"
-#include "google_test.h"
+#include "Core/Lattice/Lattice.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Vector/Transform3D.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class LatticeTest : public ::testing::Test
 {

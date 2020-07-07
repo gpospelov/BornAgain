@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEWALIGNER_H
-#define SAMPLEVIEWALIGNER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWALIGNER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWALIGNER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QModelIndex>
 #include <QPointF>
@@ -50,4 +50,4 @@ private:
     QMap<IView*, QPointF> m_viewToPos;
 };
 
-#endif // SAMPLEVIEWALIGNER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWALIGNER_H

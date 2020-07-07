@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterItems.h"
-#include "ComboProperty.h"
-#include "GUIHelpers.h"
-#include "JobItem.h"
-#include "ModelPath.h"
-#include "Parameter.h"
-#include "ParameterTreeItems.h"
-#include "Parameters.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "Fit/Kernel/Parameter.h"
+#include "Fit/Kernel/Parameters.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/ParameterTreeItems.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <cmath>
 
 namespace

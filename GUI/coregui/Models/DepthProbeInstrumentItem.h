@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef DEPTHPROBEINSTRUMENTITEM_H
-#define DEPTHPROBEINSTRUMENTITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_DEPTHPROBEINSTRUMENTITEM_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_DEPTHPROBEINSTRUMENTITEM_H
 
-#include "InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
 
 class DepthProbeSimulation;
 
@@ -42,4 +42,4 @@ public:
     std::unique_ptr<IUnitConverter> createUnitConverter() const;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_DEPTHPROBEINSTRUMENTITEM_H

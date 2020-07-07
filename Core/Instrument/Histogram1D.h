@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef HISTOGRAM1D_H
-#define HISTOGRAM1D_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H
+#define BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H
 
-#include "IHistogram.h"
+#include "Core/Instrument/IHistogram.h"
 
 //! One dimensional histogram.
 //! @ingroup tools
@@ -69,4 +69,4 @@ public:
     Histogram1D* crop(double xmin, double xmax);
 };
 
-#endif // HISTOGRAM1D_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H

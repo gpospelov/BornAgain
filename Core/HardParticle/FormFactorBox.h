@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORBOX_H
-#define FORMFACTORBOX_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A rectangular prism (parallelepiped).
 //! @ingroup hardParticle
@@ -35,7 +35,7 @@ public:
     double getLength() const { return m_length; }
     double getWidth() const { return m_width; }
 
-    double volume() const override final { return m_length*m_height*m_width; }
+    double volume() const override final { return m_length * m_height * m_width; }
     double radialExtension() const override final { return m_length / 2.0; }
     complex_t evaluate_for_q(cvector_t q) const override final;
 
@@ -50,4 +50,4 @@ private:
     double m_width;
 };
 
-#endif // FORMFACTORBOX_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H

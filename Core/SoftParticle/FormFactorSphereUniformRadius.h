@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORSPHEREUNIFORMRADIUS_H
-#define FORMFACTORSPHEREUNIFORMRADIUS_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREUNIFORMRADIUS_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREUNIFORMRADIUS_H
 
-#include "FormFactorFullSphere.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
 
 //! Integrated full sphere form factor over a uniform distribution of radii.
 //! @ingroup softParticle
@@ -44,4 +44,4 @@ private:
     double m_full_width; //!< This is the full width of the radius distribution
 };
 
-#endif // FORMFACTORSPHEREUNIFORMRADIUS_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREUNIFORMRADIUS_H

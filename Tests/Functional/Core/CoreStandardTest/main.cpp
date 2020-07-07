@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "CoreStandardTest.h"
-#include "StandardTestService.h"
+#include "Tests/Functional/Core/CoreStandardTest/CoreStandardTest.h"
+#include "Tests/Functional/TestMachinery/StandardTestService.h"
 
 //! Runs CoreStandardTest on a standard simulation indicated by argv[1].
 

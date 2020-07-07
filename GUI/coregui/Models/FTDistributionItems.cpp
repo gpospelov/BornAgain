@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FTDistributionItems.h"
-#include "BornAgainNamespace.h"
-#include "Units.h"
+#include "GUI/coregui/Models/FTDistributionItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/Units.h"
 
 const QString FTDistribution1DItem::P_OMEGA = QString::fromStdString(BornAgain::Omega);
 

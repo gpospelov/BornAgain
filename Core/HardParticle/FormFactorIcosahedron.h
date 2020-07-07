@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORICOSAHEDRON_H
-#define FORMFACTORICOSAHEDRON_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORICOSAHEDRON_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORICOSAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A regular icosahedron.
 //! @ingroup hardParticle
@@ -41,4 +41,4 @@ private:
     double m_edge;
 };
 
-#endif // FORMFACTORICOSAHEDRON_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORICOSAHEDRON_H

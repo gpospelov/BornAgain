@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorPrism3.h"
-#include "BornAgainNamespace.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorPrism3.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <iostream>
 
 //! Constructor of a prism with an equilaterial triangle base.

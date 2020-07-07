@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYTHONCORE_H
-#define PYTHONCORE_H
+#ifndef BORNAGAIN_CORE_TOOLS_PYTHONCORE_H
+#define BORNAGAIN_CORE_TOOLS_PYTHONCORE_H
 
 #ifdef BORNAGAIN_PYTHON
 
@@ -37,4 +37,4 @@
 
 #endif // BORNAGAIN_PYTHON
 
-#endif // PYTHONCORE_H
+#endif // BORNAGAIN_CORE_TOOLS_PYTHONCORE_H

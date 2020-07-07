@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORTRUNCATEDSPHEROID_H
-#define FORMFACTORTRUNCATEDSPHEROID_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHEROID_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHEROID_H
 
-#include "IFormFactorBorn.h"
-#include "Integrator.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Tools/Integrator.h"
 
 //! A truncated spheroid.
 //! An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
@@ -61,4 +61,4 @@ private:
     mutable ComplexIntegrator m_integrator;
 };
 
-#endif // FORMFACTORTRUNCATEDSPHEROID_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHEROID_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Lattice2DItems.h"
-#include "BornAgainNamespace.h"
-#include "Lattice2D.h"
-#include "Units.h"
+#include "GUI/coregui/Models/Lattice2DItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Lattice/Lattice2D.h"
+#include "Core/Parametrization/Units.h"
 
 namespace
 {

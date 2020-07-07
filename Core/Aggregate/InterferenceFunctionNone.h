@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONNONE_H
-#define INTERFERENCEFUNCTIONNONE_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
 
-#include "IInterferenceFunction.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
 
 //! Default interference function (i.e. absence of any interference).
 //! @ingroup interference
@@ -34,4 +34,4 @@ private:
     InterferenceFunctionNone(const InterferenceFunctionNone& other);
 };
 
-#endif // INTERFERENCEFUNCTIONNONE_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H

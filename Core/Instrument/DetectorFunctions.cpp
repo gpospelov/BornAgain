@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "DetectorFunctions.h"
-#include "Instrument.h"
-#include "OutputData.h"
-#include "SimulationArea.h"
-#include "SimulationAreaIterator.h"
-#include "StringUtils.h"
+#include "Core/Instrument/DetectorFunctions.h"
+#include "Core/Instrument/Instrument.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Instrument/SimulationArea.h"
+#include "Core/Instrument/SimulationAreaIterator.h"
+#include "Fit/Tools/StringUtils.h"
 #include <algorithm>
 #include <cctype>
 #include <map>

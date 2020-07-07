@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MODELMAPPER_H
-#define MODELMAPPER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MODELMAPPER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MODELMAPPER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QModelIndex>
 #include <functional>
 
@@ -115,4 +115,4 @@ template <class U> inline void ModelMapper::clean_container(U& v, const void* ca
             v.end());
 }
 
-#endif // MODELMAPPER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MODELMAPPER_H

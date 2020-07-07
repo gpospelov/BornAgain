@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYER_H
-#define MULTILAYER_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
+#define BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
 
-#include "ISample.h"
-#include "RoughnessModels.h"
-#include "SafePointerVector.h"
-#include "Vectors3D.h"
-#include "ZLimits.h"
+#include "Core/Multilayer/RoughnessModels.h"
+#include "Core/Particle/ZLimits.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Tools/SafePointerVector.h"
+#include "Core/Vector/Vectors3D.h"
 
 #include <functional>
 
@@ -116,4 +116,4 @@ private:
     RoughnessModel m_roughness_model;
 };
 
-#endif // MULTILAYER_H
+#endif // BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H

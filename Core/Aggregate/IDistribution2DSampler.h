@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef IDISTRIBUTION2DSAMPLER_H
-#define IDISTRIBUTION2DSAMPLER_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_IDISTRIBUTION2DSAMPLER_H
+#define BORNAGAIN_CORE_AGGREGATE_IDISTRIBUTION2DSAMPLER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <utility>
 
 class BA_CORE_API_ IDistribution2DSampler
@@ -79,4 +79,4 @@ private:
     double m_omega_x, m_omega_y;
 };
 
-#endif // IDISTRIBUTION2DSAMPLER_H
+#endif // BORNAGAIN_CORE_AGGREGATE_IDISTRIBUTION2DSAMPLER_H

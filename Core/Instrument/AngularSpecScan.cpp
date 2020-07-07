@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "AngularSpecScan.h"
-#include "FixedBinAxis.h"
-#include "IFootprintFactor.h"
-#include "ParameterSample.h"
-#include "PointwiseAxis.h"
-#include "PythonFormatting.h"
-#include "RangedDistributions.h"
-#include "RealLimits.h"
-#include "ScanResolution.h"
-#include "SpecularSimulationElement.h"
+#include "Core/Instrument/AngularSpecScan.h"
+#include "Core/Beam/IFootprintFactor.h"
+#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Export/PythonFormatting.h"
+#include "Core/Instrument/ScanResolution.h"
+#include "Core/Parametrization/ParameterSample.h"
+#include "Core/Parametrization/RangedDistributions.h"
+#include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Fit/Tools/RealLimits.h"
 
 namespace
 {

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORLONGBOXLORENTZ_H
-#define FORMFACTORLONGBOXLORENTZ_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORLONGBOXLORENTZ_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORLONGBOXLORENTZ_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor for a long rectangular box.
 //! @ingroup legacyGrating
@@ -55,4 +55,4 @@ private:
     double m_height;
 };
 
-#endif // FORMFACTORLONGBOXLORENTZ_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORLONGBOXLORENTZ_H

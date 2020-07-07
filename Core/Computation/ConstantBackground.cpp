@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "ConstantBackground.h"
-#include "RealParameter.h"
+#include "Core/Computation/ConstantBackground.h"
+#include "Core/Parametrization/RealParameter.h"
 
 ConstantBackground::ConstantBackground(double background_value)
     : m_background_value(background_value)

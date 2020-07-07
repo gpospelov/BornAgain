@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORHEMIELLIPSOID_H
-#define FORMFACTORHEMIELLIPSOID_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHEMIELLIPSOID_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHEMIELLIPSOID_H
 
-#include "IFormFactorBorn.h"
-#include "Integrator.h"
+#include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/Tools/Integrator.h"
 
 //! An hemi ellipsoid,
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
@@ -55,4 +55,4 @@ private:
     mutable ComplexIntegrator m_integrator;
 };
 
-#endif // FORMFACTORHEMIELLIPSOID_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHEMIELLIPSOID_H

@@ -39,11 +39,11 @@
 **
 ****************************************************************************/
 
-#ifndef WIDGETBOX_H
-#define WIDGETBOX_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOX_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOX_H
 
-#include "widgetbox_global.h"
-#include <qdesigner_widgetbox_p.h>
+#include "GUI/coregui/Views/widgetbox/qdesigner_widgetbox_p.h"
+#include "GUI/coregui/Views/widgetbox/widgetbox_global.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -111,4 +111,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // WIDGETBOX_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOX_H

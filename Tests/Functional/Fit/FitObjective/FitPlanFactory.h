@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPLANFACTORY_H
-#define FITPLANFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANFACTORY_H
 
-#include "IFactory.h"
-#include "MinimizerTestPlan.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
 
 //! Factory to generate plans for fitting with FitObjective.
 
@@ -26,4 +26,4 @@ public:
     FitPlanFactory();
 };
 
-#endif //   FITPLANFACTORY_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANFACTORY_H

@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 ModelMapper::ModelMapper(QObject* parent)
     : QObject(parent), m_active(true), m_model(nullptr), m_item(nullptr)

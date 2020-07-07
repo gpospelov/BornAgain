@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "InstrumentViewActions.h"
-#include "GroupItem.h"
-#include "InstrumentItems.h"
-#include "ModelUtils.h"
-#include "PointwiseAxisItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/InstrumentWidgets/InstrumentViewActions.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/PointwiseAxisItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QAction>
 #include <QDebug>
 #include <QItemSelectionModel>

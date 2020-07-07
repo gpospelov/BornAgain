@@ -1,6 +1,6 @@
-#include "Lattice2D.h"
-#include "BornAgainNamespace.h"
-#include "google_test.h"
+#include "Core/Lattice/Lattice2D.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class Lattice2DTest : public ::testing::Test
 {

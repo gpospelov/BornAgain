@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef TIFFHANDLER_H
-#define TIFFHANDLER_H
+#ifndef BORNAGAIN_CORE_INPUTOUTPUT_TIFFHANDLER_H
+#define BORNAGAIN_CORE_INPUTOUTPUT_TIFFHANDLER_H
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include "OutputData.h"
+#include "Core/Instrument/OutputData.h"
 #include <memory>
 #include <tiffio.h>
 
@@ -52,4 +52,4 @@ private:
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-#endif // TIFFHANDLER_H
+#endif // BORNAGAIN_CORE_INPUTOUTPUT_TIFFHANDLER_H

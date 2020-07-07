@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORGAUSS_H
-#define FORMFACTORGAUSS_H
+#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H
+#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H
 
-#include "IFormFactorBorn.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a gaussian.
 //! @ingroup softParticle
@@ -46,4 +46,4 @@ private:
     void initialize();
 };
 
-#endif // FORMFACTORGAUSS_H
+#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H

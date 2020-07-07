@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorCoreShell.h"
-#include "BornAgainNamespace.h"
+#include "Core/Particle/FormFactorCoreShell.h"
+#include "Core/Basics/BornAgainNamespace.h"
 
 FormFactorCoreShell::FormFactorCoreShell(IFormFactor* core, IFormFactor* shell)
     : mP_core(core), mP_shell(shell)

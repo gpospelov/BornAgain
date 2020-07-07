@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "StandardTestCatalogue.h"
-#include "StringUtils.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
+#include "Fit/Tools/StringUtils.h"
 #include <iostream>
 
 StandardTestCatalogue::StandardTestCatalogue()
@@ -21,9 +21,8 @@ StandardTestCatalogue::StandardTestCatalogue()
     add("FormFactors", "Test of all form factors defined", "MiniGISAS", "ParticleInTheAirBuilder",
         2e-10);
 
-    add("FormFactorsWithAbsorption",
-        "Test of all form factors defined, absorption case", "MiniGISAS_v2",
-        "LayersWithAbsorptionBuilder", 2e-10);
+    add("FormFactorsWithAbsorption", "Test of all form factors defined, absorption case",
+        "MiniGISAS_v2", "LayersWithAbsorptionBuilder", 2e-10);
 
     add("GISASAbsorptiveSLDLayers", "Test for SLD material in GISAS simulations", "MiniGISAS",
         "LayersWithAbsorptionBySLDBuilder", 2e-10);

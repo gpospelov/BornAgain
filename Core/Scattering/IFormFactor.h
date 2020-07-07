@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef IFORMFACTOR_H
-#define IFORMFACTOR_H
+#ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
+#define BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "ISample.h"
-#include "Material.h"
-#include "Vectors3D.h"
-#include "ZLimits.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Material/Material.h"
+#include "Core/Particle/ZLimits.h"
+#include "Core/Scattering/ISample.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Vector/Vectors3D.h"
 
 class ILayerRTCoefficients;
 class IRotation;
@@ -90,4 +90,4 @@ protected:
 IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
                                          kvector_t translation);
 
-#endif // IFORMFACTOR_H
+#endif // BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H

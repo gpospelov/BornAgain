@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef VECTORS3D_H
-#define VECTORS3D_H
+#ifndef BORNAGAIN_CORE_VECTOR_VECTORS3D_H
+#define BORNAGAIN_CORE_VECTOR_VECTORS3D_H
 
-#include "BasicVector3D.h"
+#include "Core/Vector/BasicVector3D.h"
 
 typedef BasicVector3D<int> ivector_t;
 typedef BasicVector3D<double> kvector_t;
 typedef BasicVector3D<std::complex<double>> cvector_t;
 
-#endif // VECTORS3D_H
+#endif // BORNAGAIN_CORE_VECTOR_VECTORS3D_H

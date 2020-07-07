@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "WarningSign.h"
-#include "WarningSignWidget.h"
+#include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
+#include "GUI/coregui/Views/InfoWidgets/WarningSignWidget.h"
 #include <QAbstractScrollArea>
 #include <QEvent>
 #include <QScrollBar>

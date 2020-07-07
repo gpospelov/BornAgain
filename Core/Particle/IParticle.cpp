@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "IParticle.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorDecoratorPositionFactor.h"
-#include "MultiLayer.h"
-#include "RealParameter.h"
+#include "Core/Particle/IParticle.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/RealParameter.h"
 
 IFormFactor* IParticle::createFormFactor() const
 {

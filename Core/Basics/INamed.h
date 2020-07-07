@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef INAMED_H
-#define INAMED_H
+#ifndef BORNAGAIN_CORE_BASICS_INAMED_H
+#define BORNAGAIN_CORE_BASICS_INAMED_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 //! Interface for named objects.
@@ -36,4 +36,4 @@ private:
     std::string m_name;
 };
 
-#endif // INAMED_H
+#endif // BORNAGAIN_CORE_BASICS_INAMED_H

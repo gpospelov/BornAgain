@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISINGLETON_H
-#define ISINGLETON_H
+#ifndef BORNAGAIN_CORE_BASICS_ISINGLETON_H
+#define BORNAGAIN_CORE_BASICS_ISINGLETON_H
 
 #include <iostream>
 #include <mutex>
@@ -60,4 +60,4 @@ private:
 template <class T> T* ISingleton<T>::m_instance = nullptr;
 template <class T> bool ISingleton<T>::m_destroyed = false;
 
-#endif // ISINGLETON_H
+#endif // BORNAGAIN_CORE_BASICS_ISINGLETON_H

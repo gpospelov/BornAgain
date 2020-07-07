@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef BEAM_H
-#define BEAM_H
+#ifndef BORNAGAIN_CORE_BEAM_BEAM_H
+#define BORNAGAIN_CORE_BEAM_BEAM_H
 
-#include "EigenCore.h"
-#include "INode.h"
-#include "Vectors3D.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Vector/Vectors3D.h"
 
 class IFootprintFactor;
 
@@ -83,4 +83,4 @@ private:
     kvector_t m_bloch_vector; //!< Bloch vector encoding the beam's polarization
 };
 
-#endif // BEAM_H
+#endif // BORNAGAIN_CORE_BEAM_BEAM_H

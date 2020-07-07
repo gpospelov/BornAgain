@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "JobSelectorActions.h"
-#include "IntensityDataItem.h"
-#include "JobItem.h"
-#include "JobModel.h"
-#include "StyledToolBar.h"
+#include "GUI/coregui/Views/JobWidgets/JobSelectorActions.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QMenu>

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXSDETECTOR_H
-#define ISGISAXSDETECTOR_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H
+#define BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H
 
-#include "SphericalDetector.h"
+#include "Core/Instrument/SphericalDetector.h"
 
 //! A spherical detector used for validation with IsGISAXS results.
 //! @ingroup detector
@@ -43,4 +43,4 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-#endif // ISGISAXSDETECTOR_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H

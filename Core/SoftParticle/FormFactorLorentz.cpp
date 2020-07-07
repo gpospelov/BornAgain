@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorLorentz.h"
-#include "BornAgainNamespace.h"
-#include "Box.h"
-#include "MathConstants.h"
-#include "RealLimits.h"
-#include "RealParameter.h"
+#include "Core/SoftParticle/FormFactorLorentz.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
+#include "Core/Shapes/Box.h"
+#include "Fit/Tools/RealLimits.h"
 
 FormFactorLorentz::FormFactorLorentz(double width, double height)
 {

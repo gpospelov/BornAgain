@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "LayerRoughness.h"
-#include "BornAgainNamespace.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
+#include "Core/Multilayer/LayerRoughness.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
 
 LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_lateralCorrLength(0)
 {

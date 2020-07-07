@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIOBJECTBUILDER_H
-#define GUIOBJECTBUILDER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GUIOBJECTBUILDER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GUIOBJECTBUILDER_H
 
-#include "INodeVisitor.h"
+#include "Core/Parametrization/INodeVisitor.h"
 #include <QMap>
 #include <QString>
 
@@ -49,4 +49,4 @@ BA_CORE_API_ SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
                                                 const Simulation& simulation);
 }; // namespace GUIObjectBuilder
 
-#endif // GUIOBJECTBUILDER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GUIOBJECTBUILDER_H

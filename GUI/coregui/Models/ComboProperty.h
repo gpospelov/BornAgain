@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef COMBOPROPERTY_H
-#define COMBOPROPERTY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_COMBOPROPERTY_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_COMBOPROPERTY_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QStringList>
 #include <QVariant>
 #include <QVector>
@@ -75,4 +75,4 @@ private:
 
 Q_DECLARE_METATYPE(ComboProperty)
 
-#endif // COMBOPROPERTY_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_COMBOPROPERTY_H

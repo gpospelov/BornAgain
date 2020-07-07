@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "ConvolutionDetectorResolution.h"
-#include "Convolve.h"
+#include "Core/Instrument/ConvolutionDetectorResolution.h"
+#include "Core/Instrument/Convolve.h"
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d)
     : m_dimension(1), m_res_function_1d(res_function_1d)

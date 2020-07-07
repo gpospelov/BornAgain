@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERTESTFACTORY_H
-#define MINIMIZERTESTFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTFACTORY_H
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 //! Factory to generate standalone fit tests.
 
@@ -25,4 +25,4 @@ public:
     MinimizerTestFactory();
 };
 
-#endif // MINIMIZERTESTFACTORY_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTFACTORY_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ICLONEABLE_H
-#define ICLONEABLE_H
+#ifndef BORNAGAIN_CORE_BASICS_ICLONEABLE_H
+#define BORNAGAIN_CORE_BASICS_ICLONEABLE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 //! Interface for polymorphic classes that should not be copied, except by explicit cloning.
 //!
@@ -36,4 +36,4 @@ public:
     virtual void transferToCPP() {} //!< Used for Python overriding of clone (see swig/tweaks.py)
 };
 
-#endif // ICLONEABLE_H
+#endif // BORNAGAIN_CORE_BASICS_ICLONEABLE_H

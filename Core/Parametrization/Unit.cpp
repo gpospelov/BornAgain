@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Unit.h"
-#include "BornAgainNamespace.h"
+#include "Core/Parametrization/Unit.h"
+#include "Core/Basics/BornAgainNamespace.h"
 #include <stdexcept>
 
 void Unit::setUnit(const std::string& name)

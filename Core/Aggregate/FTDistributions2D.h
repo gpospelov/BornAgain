@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef FTDISTRIBUTIONS2D_H
-#define FTDISTRIBUTIONS2D_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
+#define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
 
-#include "ICloneable.h"
-#include "IDistribution2DSampler.h"
-#include "INode.h"
-#include "Integrator.h"
-#include "MathConstants.h"
+#include "Core/Aggregate/IDistribution2DSampler.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Tools/Integrator.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
@@ -158,4 +158,4 @@ protected:
     double m_eta;
 };
 
-#endif // FTDISTRIBUTIONS2D_H
+#endif // BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H

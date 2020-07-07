@@ -1,5 +1,5 @@
-#include "ZLimits.h"
-#include "google_test.h"
+#include "Core/Particle/ZLimits.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <stdexcept>
 
 class ZLimitsTest : public ::testing::Test

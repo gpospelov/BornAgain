@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "IFootprintFactor.h"
-#include "RealParameter.h"
+#include "Core/Beam/IFootprintFactor.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <stdexcept>
 
 IFootprintFactor::IFootprintFactor(double width_ratio) : m_width_ratio(width_ratio)

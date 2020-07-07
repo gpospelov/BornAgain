@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCoreShell.h"
-#include "BornAgainNamespace.h"
-#include "FormFactorCoreShell.h"
-#include "Particle.h"
+#include "Core/Particle/ParticleCoreShell.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Particle/FormFactorCoreShell.h"
+#include "Core/Particle/Particle.h"
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core,
                                      kvector_t relative_core_position)

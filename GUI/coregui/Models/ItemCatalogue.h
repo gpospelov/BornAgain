@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCATALOGUE_H
-#define ITEMCATALOGUE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOGUE_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOGUE_H
 
-#include "IFactory.h"
-#include "WinDllMacros.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Wrap/WinDllMacros.h"
 #include <QStringList>
 #include <memory>
 
@@ -43,4 +43,4 @@ private:
     QStringList m_valid_top_item_types;
 };
 
-#endif // ITEMCATALOGUE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOGUE_H

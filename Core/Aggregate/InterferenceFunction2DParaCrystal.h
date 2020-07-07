@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H
-#define INTERFERENCEFUNCTION2DPARACRYSTAL_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
-#include "Complex.h"
-#include "FTDistributions2D.h"
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
-#include "Lattice2D.h"
+#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Lattice/Lattice2D.h"
+#include "Core/Tools/Integrator.h"
 #include <memory>
 
 class IFTDistribution2D;
@@ -96,4 +96,4 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-#endif // INTERFERENCEFUNCTION2DPARACRYSTAL_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H

@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef IDETECTOR_H_
-#define IDETECTOR_H_
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IDETECTOR_H
+#define BORNAGAIN_CORE_INSTRUMENT_IDETECTOR_H
 
-#include "DetectionProperties.h"
-#include "IAxis.h"
-#include "ICloneable.h"
-#include "INode.h"
-#include "IUnitConverter.h"
-#include "SafePointerVector.h"
-#include "SimulationAreaIterator.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Binning/IAxis.h"
+#include "Core/Instrument/DetectionProperties.h"
+#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Instrument/SimulationAreaIterator.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Tools/SafePointerVector.h"
 
 class Beam;
 class DetectorMask;
@@ -130,4 +130,4 @@ private:
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
 };
 
-#endif /* IDETECTOR_H_ */
+#endif // BORNAGAIN_CORE_INSTRUMENT_IDETECTOR_H

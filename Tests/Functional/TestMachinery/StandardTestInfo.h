@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef STANDARDTESTINFO_H
-#define STANDARDTESTINFO_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTINFO_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTINFO_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 #include <vector>
 
@@ -43,4 +43,4 @@ public:
     double m_threshold;
 };
 
-#endif // STANDARDTESTINFO_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTINFO_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTITHREADPERFORMANCETEST_H
-#define MULTITHREADPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <map>
 #include <vector>
 
@@ -52,4 +52,4 @@ private:
     TestResult test_case(const std::string& sim_type, int nrepetitions, int nthreads) const;
 };
 
-#endif // MULTITHREADPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETEST_H

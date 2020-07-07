@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "MesoCrystalView.h"
-#include "MesoCrystalItem.h"
-#include "ParticleItem.h"
-#include "SessionItem.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/MesoCrystalView.h"
+#include "GUI/coregui/Models/MesoCrystalItem.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent)
 {
@@ -30,7 +30,7 @@ MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent
         ->setToolTip(QStringLiteral("Connect basis particles"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*2.5;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 2.5;
 }
 
 void MesoCrystalView::addView(IView* childView, int /* row */)

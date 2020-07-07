@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FTDecayFunctionItems.h"
-#include "BornAgainNamespace.h"
-#include "Units.h"
+#include "GUI/coregui/Models/FTDecayFunctionItems.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/Units.h"
 
 // --------------------------------------------------------------------------------------------- //
 

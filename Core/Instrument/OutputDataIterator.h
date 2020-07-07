@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAITERATOR_H
-#define OUTPUTDATAITERATOR_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATAITERATOR_H
+#define BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATAITERATOR_H
 
 #include <cstddef>
 #include <iterator>
@@ -211,4 +211,4 @@ bool operator!=(const OutputDataIterator<TValue1, TContainer1>& left,
     return !(left == right);
 }
 
-#endif // OUTPUTDATAITERATOR_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATAITERATOR_H

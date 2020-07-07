@@ -1,5 +1,5 @@
-#include "OptionContainer.h"
-#include "google_test.h"
+#include "Fit/Tools/OptionContainer.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <exception>
 
 class OptionContainerTest : public ::testing::Test

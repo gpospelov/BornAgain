@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "SimAnMinimizer.h"
-#include "GSLMultiMinimizer.h"
-#include "MinimizerConstants.h"
+#include "Fit/RootAdapter/SimAnMinimizer.h"
+#include "Fit/Minimizer/MinimizerConstants.h"
+#include "Fit/RootAdapter/GSLMultiMinimizer.h"
 
 #ifdef _WIN32
 #pragma warning(push)

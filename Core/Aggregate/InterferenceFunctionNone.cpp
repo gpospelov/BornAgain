@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunctionNone.h"
-#include "BornAgainNamespace.h"
+#include "Core/Aggregate/InterferenceFunctionNone.h"
+#include "Core/Basics/BornAgainNamespace.h"
 
 InterferenceFunctionNone::InterferenceFunctionNone()
 {

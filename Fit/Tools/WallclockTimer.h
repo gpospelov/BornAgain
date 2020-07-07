@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef TIMEINTERVAL_H
-#define TIMEINTERVAL_H
+#ifndef BORNAGAIN_FIT_TOOLS_WALLCLOCKTIMER_H
+#define BORNAGAIN_FIT_TOOLS_WALLCLOCKTIMER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 struct WallclockTimerState;
@@ -38,4 +38,4 @@ private:
     std::unique_ptr<WallclockTimerState> m_state;
 };
 
-#endif // TIMEINTERVAL_H
+#endif // BORNAGAIN_FIT_TOOLS_WALLCLOCKTIMER_H

@@ -1,5 +1,5 @@
-#include "MultiOption.h"
-#include "google_test.h"
+#include "Fit/Tools/MultiOption.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <string>
 
 class MultiOptionTest : public ::testing::Test

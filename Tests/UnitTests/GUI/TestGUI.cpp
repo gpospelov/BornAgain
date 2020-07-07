@@ -1,5 +1,5 @@
-#include "Comparators.h"
-#include "google_test.h"
+#include "Tests/UnitTests/GUI/Comparators.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <QAbstractItemModel>
 #include <QCoreApplication>
 

@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "LayerItem.h"
-#include "BornAgainNamespace.h"
-#include "MaterialItemUtils.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 
 namespace
 {

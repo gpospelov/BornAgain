@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "SaveThread.h"
-#include "projectdocument.h"
+#include "GUI/coregui/mainwindow/SaveThread.h"
+#include "GUI/coregui/mainwindow/projectdocument.h"
 
 SaveThread::SaveThread(QObject* parent) : QThread(parent), m_document(nullptr) {}
 

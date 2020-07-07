@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorDebyeBueche.h"
-#include "BornAgainNamespace.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
+#include "Core/SoftParticle/FormFactorDebyeBueche.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <limits>
 
 FormFactorDebyeBueche::FormFactorDebyeBueche(double I0, double xi)

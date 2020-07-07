@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "IDetector.h"
-#include "ConvolutionDetectorResolution.h"
-#include "DetectorMask.h"
-#include "IDetectorResolution.h"
-#include "OutputData.h"
-#include "RegionOfInterest.h"
-#include "SimulationArea.h"
-#include "SimulationElement.h"
+#include "Core/Instrument/IDetector.h"
+#include "Core/Instrument/ConvolutionDetectorResolution.h"
+#include "Core/Instrument/DetectorMask.h"
+#include "Core/Instrument/IDetectorResolution.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Instrument/SimulationArea.h"
+#include "Core/SimulationElement/SimulationElement.h"
 
 IDetector::IDetector()
 {

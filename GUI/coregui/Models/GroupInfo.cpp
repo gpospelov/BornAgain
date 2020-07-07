@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "GroupInfo.h"
-#include "GUIHelpers.h"
+#include "GUI/coregui/Models/GroupInfo.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 GroupInfo::GroupInfo(const QString& groupType, bool is_sorted)
     : m_groupType(groupType), is_sorted(is_sorted)

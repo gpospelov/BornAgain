@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "IPositionBuilder.h"
-#include "InterferenceFunctions.h"
-#include "Lattice2D.h"
-#include "RealSpace2DParacrystalUtils.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/IPositionBuilder.h"
+#include "Core/Lattice/Lattice2D.h"
+#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpace2DParacrystalUtils.h"
 #include <cmath>
 #include <random>
 

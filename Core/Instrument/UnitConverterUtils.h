@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef UNITCONVERTERUTILS_H
-#define UNITCONVERTERUTILS_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H
+#define BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H
 
-#include "IUnitConverter.h"
+#include "Core/Instrument/IUnitConverter.h"
 
 class Instrument;
 class Simulation;
@@ -42,4 +42,4 @@ BA_CORE_API_ std::unique_ptr<IUnitConverter> createConverterForGISAS(const Instr
 BA_CORE_API_ std::unique_ptr<IUnitConverter> createConverter(const Simulation& simulation);
 } // namespace UnitConverterUtils
 
-#endif // UNITCONVERTERUTILS_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H

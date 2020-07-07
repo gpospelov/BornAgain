@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PARACRYSTALBUILDER_H
-#define PARACRYSTALBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
 
-#include "IMultiLayerBuilder.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include <memory>
 
 class IFTDistribution2D;
@@ -87,4 +87,4 @@ public:
     virtual MultiLayer* buildSample() const;
 };
 
-#endif // PARACRYSTALBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H

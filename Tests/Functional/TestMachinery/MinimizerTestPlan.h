@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERTESTPLAN_H
-#define MINIMIZERTESTPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H
 
-#include "ParameterPlan.h"
-#include "WinDllMacros.h"
+#include "Tests/Functional/TestMachinery/ParameterPlan.h"
+#include "Wrap/WinDllMacros.h"
 #include <vector>
 
 namespace Fit
@@ -52,4 +52,4 @@ protected:
     std::vector<ParameterPlan> m_parameter_plan; //! initial/expected parameter values
 };
 
-#endif // MINIMIZERTESTPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H

@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONHARDDISK_H
-#define INTERFERENCEFUNCTIONHARDDISK_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONHARDDISK_H
+#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONHARDDISK_H
 
-#include "IInterferenceFunction.h"
-#include "Integrator.h"
+#include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Tools/Integrator.h"
 
 //! Percus-Yevick hard disk interference function.
 //!
@@ -53,4 +53,4 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-#endif // INTERFERENCEFUNCTIONHARDDISK_H
+#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONHARDDISK_H

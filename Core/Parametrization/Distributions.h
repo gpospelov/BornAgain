@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONS_H
-#define DISTRIBUTIONS_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
 
-#include "ICloneable.h"
-#include "INode.h"
-#include "RealLimits.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
+#include "Fit/Tools/RealLimits.h"
 #include <vector>
 
 class ParameterSample;
@@ -314,4 +314,4 @@ private:
     double m_right;
 };
 
-#endif // DISTRIBUTIONS_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H

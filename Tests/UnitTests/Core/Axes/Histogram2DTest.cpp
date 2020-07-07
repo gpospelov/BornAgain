@@ -1,6 +1,6 @@
-#include "Histogram2D.h"
-#include "Histogram1D.h"
-#include "google_test.h"
+#include "Core/Instrument/Histogram2D.h"
+#include "Core/Instrument/Histogram1D.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <memory>
 
 class Histogram2DTest : public ::testing::Test
@@ -22,8 +22,7 @@ protected:
 // 0.0   -----------------------------------
 //     -1.0  -0.5        0.5   1.0        2.0  X
 
-Histogram2DTest::Histogram2DTest()
-    : hist{4, {-1.0, -0.5, 0.5, 1.0, 2.0}, 3, {0.0, 1.0, 2.0, 4.0}}
+Histogram2DTest::Histogram2DTest() : hist{4, {-1.0, -0.5, 0.5, 1.0, 2.0}, 3, {0.0, 1.0, 2.0, 4.0}}
 {
 }
 

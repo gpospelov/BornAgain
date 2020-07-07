@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVETESTCASES_H
-#define FITOBJECTIVETESTCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTCASES_H
 
 //! Collection of FitObjective tests.
 
-#include "FitObjectiveTest.h"
+#include "Tests/Functional/Fit/FitObjective/FitObjectiveTest.h"
 
 class MigradCylindersInBA : public FitObjectiveTest
 {
@@ -107,4 +107,4 @@ public:
     OffSpecFitTest();
 };
 
-#endif //   MINIMIZERTESTCASES_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTCASES_H

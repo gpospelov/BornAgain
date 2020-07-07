@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IDistribution1DSampler.h"
+#include "Core/Aggregate/IDistribution1DSampler.h"
 #include <random>
 
 IDistribution1DSampler::~IDistribution1DSampler() = default;

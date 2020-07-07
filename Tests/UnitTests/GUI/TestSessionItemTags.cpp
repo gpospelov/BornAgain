@@ -1,7 +1,7 @@
-#include "GUIHelpers.h"
-#include "SessionItemTags.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/SessionItemTags.h"
+#include "GUI/coregui/Models/item_constants.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class TestSessionItemTags : public ::testing::Test
 {

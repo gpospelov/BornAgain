@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef ROUGHNESSMODELS_H
-#define ROUGHNESSMODELS_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_ROUGHNESSMODELS_H
+#define BORNAGAIN_CORE_MULTILAYER_ROUGHNESSMODELS_H
 
 #include <string>
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 // workaround for SWIG (instead of just writing enum class RoughnessModel ...)
 struct BA_CORE_API_ RoughnessModelWrap {
@@ -30,4 +30,4 @@ struct BA_CORE_API_ RoughnessModelWrap {
 };
 typedef RoughnessModelWrap::RoughnessModel RoughnessModel;
 
-#endif // ROUGHNESSMODELS_H
+#endif // BORNAGAIN_CORE_MULTILAYER_ROUGHNESSMODELS_H

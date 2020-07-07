@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTEDITOR_H
-#define COMPONENTEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTEDITOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QWidget>
 
 class ComponentView;
@@ -73,4 +73,4 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditor::EditorType)
 
-#endif // COMPONENTEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTEDITOR_H

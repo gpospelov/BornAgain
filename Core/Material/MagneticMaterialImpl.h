@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef MAGNETICMATERIALIMPL_H_
-#define MAGNETICMATERIALIMPL_H_
+#ifndef BORNAGAIN_CORE_MATERIAL_MAGNETICMATERIALIMPL_H
+#define BORNAGAIN_CORE_MATERIAL_MAGNETICMATERIALIMPL_H
 
-#include "BaseMaterialImpl.h"
-#include "Complex.h"
-#include "EigenCore.h"
-#include "Vectors3D.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Material/BaseMaterialImpl.h"
+#include "Core/Vector/EigenCore.h"
+#include "Core/Vector/Vectors3D.h"
 
 class Transform3D;
 class WavevectorInfo;
@@ -61,4 +61,4 @@ private:
     kvector_t m_magnetization; //!< magnetization
 };
 
-#endif /* MAGNETICMATERIALIMPL_H_ */
+#endif // BORNAGAIN_CORE_MATERIAL_MAGNETICMATERIALIMPL_H

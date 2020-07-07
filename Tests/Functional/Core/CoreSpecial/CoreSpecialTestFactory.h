@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef CORESPECIALTESTFACTORY_H
-#define CORESPECIALTESTFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_CORESPECIALTESTFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_CORESPECIALTESTFACTORY_H
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 //! @class CoreSpecialTestFactory
 //! @brief Collection of special case for Core library.
@@ -26,4 +26,4 @@ public:
     CoreSpecialTestFactory();
 };
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_CORESPECIALTESTFACTORY_H

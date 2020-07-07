@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef RECTANGULARDETECTOR_H
-#define RECTANGULARDETECTOR_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_RECTANGULARDETECTOR_H
+#define BORNAGAIN_CORE_INSTRUMENT_RECTANGULARDETECTOR_H
 
-#include "IDetector2D.h"
-#include "IPixel.h"
+#include "Core/Binning/IPixel.h"
+#include "Core/Instrument/IDetector2D.h"
 
 //! A pixel in a RectangularDetector.
 
@@ -130,4 +130,4 @@ private:
     kvector_t m_v_unit;
 };
 
-#endif // RECTANGULARDETECTOR_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_RECTANGULARDETECTOR_H

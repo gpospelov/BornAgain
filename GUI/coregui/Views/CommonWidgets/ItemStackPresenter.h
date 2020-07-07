@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMSTACKPRESENTER_H
-#define ITEMSTACKPRESENTER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
 
-#include "ItemStackWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemStackWidget.h"
 #include <QDebug>
 #include <QMap>
 #include <QStackedWidget>
@@ -133,4 +133,4 @@ template <class T> void ItemStackPresenter<T>::removeWidgets()
     m_itemToWidget.clear();
 }
 
-#endif // ITEMSTACKPRESENTER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H

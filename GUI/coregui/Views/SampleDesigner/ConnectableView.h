@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef CONNECTABLEVIEW_H
-#define CONNECTABLEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_CONNECTABLEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_CONNECTABLEVIEW_H
 
-#include "IView.h"
-#include "NodeEditorPort.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/SampleDesigner/IView.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorPort.h"
+#include "Wrap/WinDllMacros.h"
 
 class QPainter;
 class QStyleOptionGraphicsItem;
@@ -86,4 +86,4 @@ private:
 //    //! сalls the ISampleViewVisitor's visit method
 //};
 
-#endif // CONNECTABLEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_CONNECTABLEVIEW_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "IterationStrategy.h"
-#include "NodeIterator.h"
+#include "Core/Parametrization/IterationStrategy.h"
+#include "Core/Parametrization/NodeIterator.h"
 
 void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)
 {

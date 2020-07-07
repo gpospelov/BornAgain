@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "DataPropertyContainer.h"
-#include "DataItem.h"
-#include "DataProperties.h"
-#include "GUIHelpers.h"
+#include "GUI/coregui/Models/DataPropertyContainer.h"
+#include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/Models/DataProperties.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 const QString DataPropertyContainer::T_CHILDREN = "data links";
 

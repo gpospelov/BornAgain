@@ -1,5 +1,5 @@
-#include "RealLimits.h"
-#include "google_test.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <limits>
 
 class RealLimitsTest : public ::testing::Test

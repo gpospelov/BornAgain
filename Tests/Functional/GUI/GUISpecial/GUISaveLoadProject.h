@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GUISAVELOADPROJECT_H
-#define GUISAVELOADPROJECT_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QMap>
 #include <QString>
 #include <QVector>
@@ -54,4 +54,4 @@ private:
     QMap<QString, QVector<DataXML>> m_results;
 };
 
-#endif // GUISAVELOADPROJECT_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H

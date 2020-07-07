@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "SampleViewStatusBar.h"
-#include "mainwindow.h"
+#include "GUI/coregui/Views/SampleDesigner/SampleViewStatusBar.h"
+#include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QHBoxLayout>
 #include <QStatusBar>
 #include <QToolButton>

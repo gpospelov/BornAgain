@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONALTESTFACTORY_H
-#define FUNCTIONALTESTFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_FUNCTIONALTESTFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_FUNCTIONALTESTFACTORY_H
 
-#include "IFactory.h"
-#include "IFunctionalTest.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Simple factory to hold packs of functional tests.
 
@@ -26,4 +26,4 @@ public:
     std::unique_ptr<IFunctionalTest> createTest(std::string& test_name);
 };
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_FUNCTIONALTESTFACTORY_H

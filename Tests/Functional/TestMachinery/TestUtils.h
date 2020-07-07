@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTUTILS_H
-#define TESTUTILS_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTUTILS_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTUTILS_H
 
-#include "OutputData.h"
-#include "StandardTestInfo.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/OutputData.h"
+#include "Tests/Functional/TestMachinery/StandardTestInfo.h"
+#include "Wrap/WinDllMacros.h"
 
 namespace TestUtils
 {
@@ -34,4 +34,4 @@ BA_CORE_API_ bool runPython(const std::string& py_command);
 
 } // namespace TestUtils
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTUTILS_H

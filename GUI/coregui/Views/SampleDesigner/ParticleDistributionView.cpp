@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ParticleDistributionView.h"
-#include "SessionItem.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleDistributionView.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : ConnectableView(parent)
 {
@@ -28,7 +28,7 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : Conn
         ->setToolTip(QStringLiteral("Connect particle to this port. It will be a prototype \n"
                                     "for parametric distribution."));
 
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
 void ParticleDistributionView::addView(IView* childView, int /* row */)

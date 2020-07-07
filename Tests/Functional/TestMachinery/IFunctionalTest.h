@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef IFUNCTIONALTEST_H
-#define IFUNCTIONALTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H
 
-#include "INamed.h"
+#include "Core/Basics/INamed.h"
 #include <map>
 
 //! Base class for all functional tests.
@@ -44,4 +44,4 @@ protected:
     std::string m_description;
 };
 
-#endif // IFUNCTIONALTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H

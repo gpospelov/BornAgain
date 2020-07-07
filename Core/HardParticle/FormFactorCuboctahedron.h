@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCUBOCTAHEDRON_H
-#define FORMFACTORCUBOCTAHEDRON_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCUBOCTAHEDRON_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCUBOCTAHEDRON_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A truncated bifrustum with quadratic base.
 //! @ingroup hardParticle
@@ -51,4 +51,4 @@ private:
     double m_alpha;
 };
 
-#endif // FORMFACTORCUBOCTAHEDRON_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCUBOCTAHEDRON_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "MaskDrawingContext.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskDrawingContext.h"
+#include "GUI/coregui/Models/item_constants.h"
 
 MaskDrawingContext::MaskDrawingContext()
     : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE), m_mask_value(MaskEditorFlags::MASK_ON),

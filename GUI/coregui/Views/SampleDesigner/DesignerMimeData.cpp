@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "DesignerMimeData.h"
-#include "DesignerHelper.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerMimeData.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include <QBitmap>
 #include <QByteArray>
 #include <QDataStream>

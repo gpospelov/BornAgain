@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIPERFORMANCETEST_H
-#define GUIPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QString>
 #include <memory>
 
@@ -41,4 +41,4 @@ private:
     QString m_sample_name;
 };
 
-#endif // GUIPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H

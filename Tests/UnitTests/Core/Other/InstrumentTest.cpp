@@ -1,8 +1,8 @@
-#include "Instrument.h"
-#include "BornAgainNamespace.h"
-#include "MathConstants.h"
-#include "OutputData.h"
-#include "google_test.h"
+#include "Core/Instrument/Instrument.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Instrument/OutputData.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class InstrumentTest : public ::testing::Test
 {

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef STANDARDSIMULATIONS_H
-#define STANDARDSIMULATIONS_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_STANDARDSIMULATIONS_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_STANDARDSIMULATIONS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 
 class DepthProbeSimulation;
 class GISASSimulation;
@@ -82,4 +82,4 @@ BA_CORE_API_ DepthProbeSimulation* BasicDepthProbe();
 
 } // namespace StandardSimulations
 
-#endif // STANDARDSIMULATIONS_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_STANDARDSIMULATIONS_H

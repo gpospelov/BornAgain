@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCOHERENTSUM_H
-#define FORMFACTORCOHERENTSUM_H
+#ifndef BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTSUM_H
+#define BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTSUM_H
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "FormFactorCoherentPart.h"
+#include "Core/Aggregate/FormFactorCoherentPart.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Vector/EigenCore.h"
 #include <vector>
 
 class SimulationElement;
@@ -48,4 +48,4 @@ private:
     double m_abundance;
 };
 
-#endif // FORMFACTORCOHERENTSUM_H
+#endif // BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTSUM_H

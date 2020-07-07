@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef IDETECTORRESOLUTION_H
-#define IDETECTORRESOLUTION_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_IDETECTORRESOLUTION_H
+#define BORNAGAIN_CORE_INSTRUMENT_IDETECTORRESOLUTION_H
 
-#include "ICloneable.h"
-#include "INode.h"
-#include "OutputData.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Parametrization/INode.h"
 
 //! Interface for detector resolution algorithms
 //! @ingroup algorithms_internal
@@ -35,4 +35,4 @@ public:
     virtual IDetectorResolution* clone() const = 0;
 };
 
-#endif // IDETECTORRESOLUTION_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_IDETECTORRESOLUTION_H

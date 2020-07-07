@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTSERVICE_H
-#define TESTSERVICE_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTSERVICE_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTSERVICE_H
 
-#include "ITestService.h"
+#include "Tests/Functional/TestMachinery/ITestService.h"
 #include <boost/format.hpp>
 #include <iostream>
 #include <string>
@@ -55,4 +55,4 @@ private:
     T m_test_factory;
 };
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTSERVICE_H

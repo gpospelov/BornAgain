@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYOUTSTRATEGYBUILDER_H
-#define LAYOUTSTRATEGYBUILDER_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_LAYOUTSTRATEGYBUILDER_H
+#define BORNAGAIN_CORE_MULTILAYER_LAYOUTSTRATEGYBUILDER_H
 
-#include "SimulationOptions.h"
+#include "Core/Parametrization/SimulationOptions.h"
 #include <memory>
 
 class IInterferenceFunction;
@@ -45,4 +45,4 @@ private:
     std::unique_ptr<IInterferenceFunctionStrategy> mP_strategy;
 };
 
-#endif // LAYOUTSTRATEGYBUILDER_H
+#endif // BORNAGAIN_CORE_MULTILAYER_LAYOUTSTRATEGYBUILDER_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORITEMS_H
-#define FORMFACTORITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_FORMFACTORITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_FORMFACTORITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IFormFactor;
 
@@ -299,4 +299,4 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
-#endif // FORMFACTORITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_FORMFACTORITEMS_H

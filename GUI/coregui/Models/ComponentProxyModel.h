@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTPROXYMODEL_H
-#define COMPONENTPROXYMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYMODEL_H
 
-#include "ProxyModelStrategy.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Models/ProxyModelStrategy.h"
+#include "Wrap/WinDllMacros.h"
 #include <QAbstractProxyModel>
 #include <QMap>
 #include <QPersistentModelIndex>
@@ -70,4 +70,4 @@ private:
     std::unique_ptr<ProxyModelStrategy> m_proxyStrategy;
 };
 
-#endif // COMPONENTPROXYMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_COMPONENTPROXYMODEL_H

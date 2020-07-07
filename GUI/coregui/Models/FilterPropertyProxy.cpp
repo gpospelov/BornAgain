@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FilterPropertyProxy.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Models/FilterPropertyProxy.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 int FilterPropertyProxy::columnCount(const QModelIndex& parent) const
 {

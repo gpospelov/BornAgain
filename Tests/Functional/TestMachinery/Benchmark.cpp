@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Benchmark.h"
+#include "Tests/Functional/TestMachinery/Benchmark.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>

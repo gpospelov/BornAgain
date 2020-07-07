@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "MaskEditorActions.h"
-#include "MaskItems.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorActions.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QMenu>

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERPERFORMANCETEST_H
-#define MULTILAYERPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTILAYERPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTILAYERPERFORMANCETEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Functional test for measuring simulation performance on samples with different number of layers.
 
@@ -28,4 +28,4 @@ private:
     bool runTest() override;
 };
 
-#endif // MULTILAYERPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTILAYERPERFORMANCETEST_H

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef COREIOPERFORMANCETEST_H
-#define COREIOPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPERFORMANCETEST_H
 
-#include "Benchmark.h"
-#include "IFunctionalTest.h"
-#include "OutputData.h"
+#include "Core/Instrument/OutputData.h"
+#include "Tests/Functional/TestMachinery/Benchmark.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <memory>
 
 //! Functional test to validate read/write of large data files.
@@ -51,4 +51,4 @@ private:
     std::vector<TestResults> m_test_results;
 };
 
-#endif // COREIOPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPERFORMANCETEST_H

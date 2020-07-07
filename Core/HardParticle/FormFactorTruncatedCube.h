@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORTRUNCATEDCUBE_H
-#define FORMFACTORTRUNCATEDCUBE_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDCUBE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDCUBE_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A cube, with tetrahedral truncation of all corners
 //! @ingroup hardParticle
@@ -43,4 +43,4 @@ private:
     double m_removed_length;
 };
 
-#endif // FORMFACTORTRUNCATEDCUBE_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDCUBE_H

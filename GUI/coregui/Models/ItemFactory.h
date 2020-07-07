@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMFACTORY_H
-#define ITEMFACTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEMFACTORY_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_ITEMFACTORY_H
 
 #include <QString>
 
@@ -32,4 +32,4 @@ QStringList ValidTopItemTypes();
 
 }; // namespace ItemFactory
 
-#endif // ITEMFACTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_ITEMFACTORY_H

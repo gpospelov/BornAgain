@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef UNITS_H
-#define UNITS_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_UNITS_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_UNITS_H
 
 //! Constants and functions for physical unit conversions.
 
@@ -61,4 +61,4 @@ static const double gauss = 1e-4;
 
 } // namespace Units
 
-#endif // UNITS_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_UNITS_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPLAN_H
-#define FITPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLAN_H
 
-#include "MinimizerTestPlan.h"
+#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
 #include <memory>
 
 namespace Fit
@@ -52,4 +52,4 @@ protected:
     bool m_residual_based;
 };
 
-#endif // FITPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLAN_H

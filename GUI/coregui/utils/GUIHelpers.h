@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIHELPERS_H
-#define GUIHELPERS_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_GUIHELPERS_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_GUIHELPERS_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QStringList>
 #include <QWidget>
 #include <memory>
@@ -87,4 +87,4 @@ inline std::ostream& operator<<(std::ostream& stream, const QString& str)
     return stream;
 }
 
-#endif // GUIHELPERS_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_GUIHELPERS_H

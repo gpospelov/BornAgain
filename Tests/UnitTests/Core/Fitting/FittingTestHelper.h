@@ -1,13 +1,13 @@
-#ifndef FITTINGTESTHELPER_H
-#define FITTINGTESTHELPER_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H
+#define BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H
 
-#include "GISASSimulation.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "OutputData.h"
-#include "Parameters.h"
-#include "Units.h"
+#include "Core/Instrument/OutputData.h"
+#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/Layer.h"
+#include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/Units.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Fit/Kernel/Parameters.h"
 #include <memory>
 
 //! Helper class to simplify testing of SimDataPair and FitObjective
@@ -52,4 +52,4 @@ public:
     size_t size() const { return m_nx * m_ny; }
 };
 
-#endif // FITTINGTESTHELPER_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H

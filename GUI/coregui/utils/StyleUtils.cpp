@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "StyleUtils.h"
-#include "DesignerHelper.h"
-#include "detailswidget.h"
-#include "hostosinfo.h"
+#include "GUI/coregui/utils/StyleUtils.h"
+#include "GUI/coregui/Views/CommonWidgets/detailswidget.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/hostosinfo.h"
 #include <QApplication>
 #include <QBoxLayout>
 #include <QDialog>
@@ -26,11 +26,12 @@ namespace
 Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded);
 QSize FindSizeOfLetterM(const QWidget* widget);
 
-QSize DefaultSizeOfLetterM() {
+QSize DefaultSizeOfLetterM()
+{
     QWidget widget;
     return FindSizeOfLetterM(&widget);
 }
-}
+} // namespace
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
 {
@@ -119,7 +120,7 @@ int StyleUtils::SystemPointSize()
 
 int StyleUtils::PropertyPanelWidth()
 {
-    return SizeOfLetterM().width()*16;
+    return SizeOfLetterM().width() * 16;
 }
 
 namespace

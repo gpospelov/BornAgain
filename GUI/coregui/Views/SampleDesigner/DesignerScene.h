@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef DESIGNERSCENE_H
-#define DESIGNERSCENE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERSCENE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERSCENE_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QGraphicsScene>
 #include <QMap>
 #include <QModelIndex>
@@ -118,4 +118,4 @@ private:
     NodeEditor* m_nodeEditor;
 };
 
-#endif // DESIGNERSCENE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERSCENE_H

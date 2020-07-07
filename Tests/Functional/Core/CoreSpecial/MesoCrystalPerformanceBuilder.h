@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef MESOCRYSTALPERFORMANCEBUILDER_H
-#define MESOCRYSTALPERFORMANCEBUILDER_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MESOCRYSTALPERFORMANCEBUILDER_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MESOCRYSTALPERFORMANCEBUILDER_H
 
-#include "IMultiLayerBuilder.h"
-#include "Material.h"
+#include "Core/Material/Material.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 
 class MesoCrystal;
 class IFormFactor;
@@ -53,4 +53,4 @@ private:
     int m_tilt_steps;
 };
 
-#endif // FOURIERTRANSFORMATIONTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MESOCRYSTALPERFORMANCEBUILDER_H

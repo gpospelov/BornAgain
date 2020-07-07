@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef BASICVECTOR3D_H
-#define BASICVECTOR3D_H
+#ifndef BORNAGAIN_CORE_VECTOR_BASICVECTOR3D_H
+#define BORNAGAIN_CORE_VECTOR_BASICVECTOR3D_H
 
 //! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
 //! then reworked beyond recongnition. Removed split of point and vector semantics.
 //! Transforms are relegated to a separate class Transform3D.
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <complex>
 
 //! Three-dimensional vector template, for use with integer, double, or complex components.
@@ -356,4 +356,4 @@ BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<std::complex<doub
 
 template <> BA_CORE_API_ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 
-#endif // BASICVECTOR3D_H
+#endif // BORNAGAIN_CORE_VECTOR_BASICVECTOR3D_H

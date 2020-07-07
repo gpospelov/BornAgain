@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ADJUSTMINIMIZERPLAN_H
-#define ADJUSTMINIMIZERPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_ADJUSTMINIMIZERPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_ADJUSTMINIMIZERPLAN_H
 
-#include "FitPlan.h"
+#include "Tests/Functional/Fit/FitObjective/FitPlan.h"
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Parameters are made far from their original values, Genetic+Minuit used in pair.
@@ -28,4 +28,4 @@ public:
     bool checkMinimizer(Fit::Minimizer& minimizer);
 };
 
-#endif //  ADJUSTMINIMIZERPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_ADJUSTMINIMIZERPLAN_H

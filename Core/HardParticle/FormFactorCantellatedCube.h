@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTOREDGETRUNCATEDCUBE_H
-#define FORMFACTOREDGETRUNCATEDCUBE_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCANTELLATEDCUBE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCANTELLATEDCUBE_H
 
-#include "FormFactorPolyhedron.h"
+#include "Core/HardParticle/FormFactorPolyhedron.h"
 
 //! A cube, with truncation of all edges and corners, as in Croset (2017) Fig 7
 //! @ingroup hardParticle
@@ -43,4 +43,4 @@ private:
     double m_removed_length;
 };
 
-#endif // FORMFACTOREDGETRUNCATEDCUBE_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCANTELLATEDCUBE_H

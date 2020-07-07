@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "IPeakShape.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
+#include "Core/Aggregate/IPeakShape.h"
+#include "Core/Basics/MathConstants.h"
+#include "Core/Tools/MathFunctions.h"
 
 #include <limits>
 

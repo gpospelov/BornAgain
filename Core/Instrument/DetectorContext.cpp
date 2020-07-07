@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "DetectorContext.h"
-#include "IDetector2D.h"
+#include "Core/Instrument/DetectorContext.h"
+#include "Core/Instrument/IDetector2D.h"
 
 DetectorContext::DetectorContext(const IDetector2D* detector)
 {

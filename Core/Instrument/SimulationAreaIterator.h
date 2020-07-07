@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONAREAITERATOR_H
-#define SIMULATIONAREAITERATOR_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_SIMULATIONAREAITERATOR_H
+#define BORNAGAIN_CORE_INSTRUMENT_SIMULATIONAREAITERATOR_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <cstdlib>
 class SimulationArea;
 
@@ -58,4 +58,4 @@ inline bool SimulationAreaIterator::operator!=(const SimulationAreaIterator& rig
     return !(*this == right);
 }
 
-#endif // SIMULATIONAREAITERATOR_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_SIMULATIONAREAITERATOR_H

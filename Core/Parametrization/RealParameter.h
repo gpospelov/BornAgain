@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef REALPARAMETER_H
-#define REALPARAMETER_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H
 
-#include "Attributes.h"
-#include "IParameter.h"
-#include "RealLimits.h"
-#include "Unit.h"
+#include "Core/Parametrization/IParameter.h"
+#include "Core/Parametrization/Unit.h"
+#include "Fit/Tools/Attributes.h"
+#include "Fit/Tools/RealLimits.h"
 #include <string>
 
 class ParameterPool;
@@ -61,4 +61,4 @@ protected:
     Unit m_unit;
 };
 
-#endif // REALPARAMETER_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H

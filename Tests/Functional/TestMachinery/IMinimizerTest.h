@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef IMINIMIZERTEST_H
-#define IMINIMIZERTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IMINIMIZERTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IMINIMIZERTEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <memory>
 #include <string>
 
@@ -42,4 +42,4 @@ protected:
     std::string m_fit_plan_name;
 };
 
-#endif // IMINIMIZERTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IMINIMIZERTEST_H

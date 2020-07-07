@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORBAR_H
-#define FORMFACTORBAR_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H
 
-#include "ProfileBar.h"
+#include "Core/HardParticle/ProfileBar.h"
 
 //! The form factor of an elongated bar, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating
@@ -43,4 +43,4 @@ private:
     complex_t factor_x(complex_t qx) const override final;
 };
 
-#endif // FORMFACTORBAR_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H

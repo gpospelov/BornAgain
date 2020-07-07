@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVETESTFACTORY_H
-#define FITOBJECTIVETESTFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTFACTORY_H
 
-#include "FunctionalTestFactory.h"
+#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
 
 //! Factory to generate fitting tests. Tests will based on FitObjective approach.
 
@@ -25,4 +25,4 @@ public:
     FitObjectiveTestFactory();
 };
 
-#endif // FITOBJECTIVETESTFACTORY_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTFACTORY_H

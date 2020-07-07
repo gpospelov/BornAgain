@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ACTIONMANAGER_H
-#define ACTIONMANAGER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_ACTIONMANAGER_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_ACTIONMANAGER_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 
 class QMenu;
@@ -64,4 +64,4 @@ private:
     void createGlobalShortcuts();
 };
 
-#endif // ACTIONMANAGER_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_ACTIONMANAGER_H

@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPRINTSERVICE_H
-#define FITPRINTSERVICE_H
+#ifndef BORNAGAIN_CORE_FITTING_FITPRINTSERVICE_H
+#define BORNAGAIN_CORE_FITTING_FITPRINTSERVICE_H
 
-#include "WallclockTimer.h"
-#include "WinDllMacros.h"
+#include "Fit/Tools/WallclockTimer.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class FitObjective;
@@ -40,4 +40,4 @@ private:
     WallclockTimer m_last_call_time;
 };
 
-#endif
+#endif // BORNAGAIN_CORE_FITTING_FITPRINTSERVICE_H

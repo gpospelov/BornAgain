@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "JobListWidget.h"
-#include "ItemSelectorWidget.h"
-#include "JobItem.h"
-#include "JobListViewDelegate.h"
-#include "JobModel.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/JobWidgets/JobListWidget.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.h"
+#include "GUI/coregui/Views/JobWidgets/JobListViewDelegate.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QItemSelectionModel>
 #include <QListView>
 #include <QVBoxLayout>
@@ -78,7 +78,7 @@ const JobItem* JobListWidget::currentJobItem() const
 
 QSize JobListWidget::sizeHint() const
 {
-    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth() * 2);
 }
 
 QSize JobListWidget::minimumSizeHint() const

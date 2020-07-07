@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ISTANDARDTEST_H
-#define ISTANDARDTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <memory>
 #include <string>
 
@@ -40,4 +40,4 @@ protected:
     double m_threshold;
 };
 
-#endif // ISTANDARDTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H

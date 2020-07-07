@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "IStandardTest.h"
-#include "GISASSimulation.h"
+#include "Tests/Functional/TestMachinery/IStandardTest.h"
+#include "Core/Simulation/GISASSimulation.h"
 
 IStandardTest::IStandardTest(const std::string& name, const std::string& description,
                              const Simulation& simulation, double threshold)

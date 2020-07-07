@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PYIMPORTASSISTANT_H
-#define PYIMPORTASSISTANT_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_PYIMPORTASSISTANT_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_PYIMPORTASSISTANT_H
 
-#include "WinDllMacros.h"
+#include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <memory>
 
@@ -44,4 +44,4 @@ private:
     MainWindow* m_mainWindow;
 };
 
-#endif // PYIMPORTASSISTANT_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_PYIMPORTASSISTANT_H

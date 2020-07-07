@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef RESOLUTIONFUNCTION2DGAUSSIAN_H
-#define RESOLUTIONFUNCTION2DGAUSSIAN_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_RESOLUTIONFUNCTION2DGAUSSIAN_H
+#define BORNAGAIN_CORE_INSTRUMENT_RESOLUTIONFUNCTION2DGAUSSIAN_H
 
-#include "IResolutionFunction2D.h"
+#include "Core/Instrument/IResolutionFunction2D.h"
 
 //! Simple gaussian two-dimensional resolution function.
 //! @ingroup algorithms_internal
@@ -44,4 +44,4 @@ private:
     double m_sigma_y;
 };
 
-#endif // RESOLUTIONFUNCTION2DGAUSSIAN_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_RESOLUTIONFUNCTION2DGAUSSIAN_H

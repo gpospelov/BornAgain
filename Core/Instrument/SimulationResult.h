@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONRESULT_H
-#define SIMULATIONRESULT_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
+#define BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
 
-#include "IUnitConverter.h"
-#include "PyObject.h"
-#include "WinDllMacros.h"
+#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Tools/PyObject.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <vector>
 
@@ -83,4 +83,4 @@ private:
     std::unique_ptr<IUnitConverter> mP_unit_converter;
 };
 
-#endif // SIMULATIONRESULT_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H

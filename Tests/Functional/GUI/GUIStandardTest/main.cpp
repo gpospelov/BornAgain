@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "GUIStandardTest.h"
-#include "StandardTestService.h"
+#include "Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.h"
+#include "Tests/Functional/TestMachinery/StandardTestService.h"
 #include <iostream>
 
 //! Runs GUIStandardTest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {
-    bool ok =  StandardTestService<GUIStandardTest>().execute(argc, argv);
+    bool ok = StandardTestService<GUIStandardTest>().execute(argc, argv);
     if (!ok)
         std::cout << "\n"
                   << "hint: If this test fails while all other form-factor related tests\n"

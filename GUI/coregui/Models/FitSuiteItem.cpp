@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FitSuiteItem.h"
-#include "FitParameterItems.h"
-#include "MinimizerItem.h"
+#include "GUI/coregui/Models/FitSuiteItem.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "GUI/coregui/Models/MinimizerItem.h"
 
 const QString FitSuiteItem::P_UPDATE_INTERVAL = "Update interval";
 const QString FitSuiteItem::P_ITERATION_COUNT = "Number of iterations";

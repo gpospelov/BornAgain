@@ -1,11 +1,11 @@
-#include "ComboProperty.h"
-#include "DocumentModel.h"
-#include "ParticleItem.h"
-#include "ParticleLayoutItem.h"
-#include "SampleModel.h"
-#include "SessionItemUtils.h"
-#include "SimulationOptionsItem.h"
-#include "google_test.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/DocumentModel.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/ParticleLayoutItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "GUI/coregui/Models/SimulationOptionsItem.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 #include <QtTest>
 
 using SessionItemUtils::ParentRow;

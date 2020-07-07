@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ParticleCompositionView.h"
-#include "ParticleItem.h"
-#include "SessionItem.h"
-#include "DesignerHelper.h"
-#include "StyleUtils.h"
+#include "GUI/coregui/Views/SampleDesigner/ParticleCompositionView.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 
 ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : ConnectableView(parent)
 {
@@ -29,7 +29,7 @@ ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : Connec
         ->setToolTip(QStringLiteral("Connect particles"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
-    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
 void ParticleCompositionView::addView(IView* childView, int /* row */)

@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef RESIDUALTESTPLAN_H
-#define RESIDUALTESTPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H
 
-#include "KernelTypes.h"
-#include "MinimizerTestPlan.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
 
 class ResidualTestPlan : public MinimizerTestPlan
 {
@@ -39,4 +39,4 @@ private:
     test_funct_t m_test_func;
 };
 
-#endif // RESIDUALTESTPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H

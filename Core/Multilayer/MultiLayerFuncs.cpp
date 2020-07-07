@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerFuncs.h"
-#include "ProcessedSample.h"
-#include "ProfileHelper.h"
-#include "SimulationOptions.h"
+#include "Core/Multilayer/MultiLayerFuncs.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Core/Computation/ProfileHelper.h"
+#include "Core/Parametrization/SimulationOptions.h"
 
 std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points, double z_min,
                                        double z_max)

@@ -1,5 +1,5 @@
-#include "AttLimits.h"
-#include "google_test.h"
+#include "Fit/Tools/AttLimits.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 class AttLimitsTest : public ::testing::Test
 {

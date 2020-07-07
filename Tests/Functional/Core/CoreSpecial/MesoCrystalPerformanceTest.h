@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MESOCRYSTALPERFORMANCETEST_H
-#define MESOCRYSTALPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MESOCRYSTALPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MESOCRYSTALPERFORMANCETEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Runs heavy mesocrystal simulation to investigate where it spends time.
 
@@ -25,4 +25,4 @@ protected:
     bool runTest();
 };
 
-#endif // FOURIERTRANSFORMATIONTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MESOCRYSTALPERFORMANCETEST_H

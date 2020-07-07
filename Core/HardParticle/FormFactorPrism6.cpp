@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorPrism6.h"
-#include "BornAgainNamespace.h"
-#include "RealParameter.h"
+#include "Core/HardParticle/FormFactorPrism6.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "Core/Parametrization/RealParameter.h"
 
 //! Constructor of a prism with a regular hexagonal base.
 //! @param base_edge: length of the hexagonal base in nanometers

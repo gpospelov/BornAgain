@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef OPTIONCONTAINER_H
-#define OPTIONCONTAINER_H
+#ifndef BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H
+#define BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H
 
-#include "MultiOption.h"
-#include "WinDllMacros.h"
+#include "Fit/Tools/MultiOption.h"
+#include "Wrap/WinDllMacros.h"
 #include <map>
 #include <memory>
 #include <stdexcept>
@@ -91,4 +91,4 @@ template <class T> void OptionContainer::setOptionValue(const std::string& optio
             + optionName + "'");
 }
 
-#endif // OPTIONCONTAINER_H
+#endif // BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H

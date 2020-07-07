@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "JobWorker.h"
-#include "GISASSimulation.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/JobWorker.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QDateTime>
 #include <memory>
 

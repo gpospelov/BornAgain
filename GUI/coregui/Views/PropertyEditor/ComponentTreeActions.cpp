@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "ComponentTreeActions.h"
-#include "SessionItem.h"
-#include "item_constants.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentTreeActions.h"
+#include "GUI/coregui/Models/SessionItem.h"
+#include "GUI/coregui/Models/item_constants.h"
 #include <QAction>
 #include <QMenu>
 

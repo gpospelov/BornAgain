@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARRTCOEFFICIENTS_H
-#define SCALARRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SCALARRTCOEFFICIENTS_H
+#define BORNAGAIN_CORE_MULTILAYER_SCALARRTCOEFFICIENTS_H
 
-#include "Complex.h"
-#include "EigenCore.h"
-#include "ILayerRTCoefficients.h"
+#include "Core/Basics/Complex.h"
+#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Vector/EigenCore.h"
 
 //! Specular reflection and transmission coefficients in a layer in case
 //! of scalar interactions between the layers and the scattered particle.
@@ -139,4 +139,4 @@ inline complex_t ScalarRTCoefficients::getScalarT() const
     return t_r(0);
 }
 
-#endif // SCALARRTCOEFFICIENTS_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SCALARRTCOEFFICIENTS_H

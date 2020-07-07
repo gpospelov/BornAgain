@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorRipple1.h"
-#include "Ripples.h"
+#include "Core/HardParticle/FormFactorRipple1.h"
+#include "Core/HardParticle/Ripples.h"
 
 // ************************************************************************** //
 // class FormFactorRipple1Box

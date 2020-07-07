@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ItemComboToolBar.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemComboToolBar.h"
 #include <QAction>
 #include <QComboBox>
 #include <QStandardItemModel>

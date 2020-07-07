@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "CoreSpecialTestFactory.h"
-#include "TestService.h"
+#include "Tests/Functional/Core/CoreSpecial/CoreSpecialTestFactory.h"
+#include "Tests/Functional/TestMachinery/TestService.h"
 
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)

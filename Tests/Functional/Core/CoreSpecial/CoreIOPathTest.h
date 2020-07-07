@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef COREIOPATHTEST_H
-#define COREIOPATHTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPATHTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPATHTEST_H
 
-#include "IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Functional test to validate read/write to files containing non-ascii characters in a path.
 
@@ -27,4 +27,4 @@ public:
     bool runTest();
 };
 
-#endif // COREIOPATHTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_COREIOPATHTEST_H

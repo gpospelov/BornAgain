@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerItem.h"
-#include "BornAgainNamespace.h"
-#include "LayerItem.h"
-#include "ParameterTranslators.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "Core/Basics/BornAgainNamespace.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/ParameterTranslators.h"
 
 namespace
 {

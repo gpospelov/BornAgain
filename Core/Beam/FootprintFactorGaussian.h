@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FOOTPRINTFACTORGAUSSIAN_H
-#define FOOTPRINTFACTORGAUSSIAN_H
+#ifndef BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORGAUSSIAN_H
+#define BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORGAUSSIAN_H
 
-#include "IFootprintFactor.h"
+#include "Core/Beam/IFootprintFactor.h"
 
 //! Calculates footprint coefficient for a gaussian beam
 //! Beam width is interpreted as the full width on the level
@@ -44,4 +44,4 @@ private:
     void initialize();
 };
 
-#endif /* FOOTPRINTFACTORGAUSSIAN_H */
+#endif // BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORGAUSSIAN_H

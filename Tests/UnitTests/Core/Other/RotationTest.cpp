@@ -1,5 +1,5 @@
-#include "Rotations.h"
-#include "google_test.h"
+#include "Core/Scattering/Rotations.h"
+#include "Tests/UnitTests/utilities/google_test.h"
 
 #include <memory>
 

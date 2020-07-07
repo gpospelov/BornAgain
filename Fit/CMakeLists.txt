@@ -5,15 +5,6 @@
 set(lib BornAgainFit)
 
 # --- source and include files ------
-set(FIT_SOURCE_DIRS
-    ${CMAKE_CURRENT_SOURCE_DIR}/Kernel
-    ${CMAKE_CURRENT_SOURCE_DIR}/Minimizer
-    ${CMAKE_CURRENT_SOURCE_DIR}/RootAdapter
-    ${CMAKE_CURRENT_SOURCE_DIR}/Tools
-    )
-
-set(include_dirs ${BUILD_INC_DIR} ${CMAKE_SOURCE_DIR}/Wrap ${FIT_SOURCE_DIRS})
-
 file(GLOB source_files */*.cpp)
 file(GLOB include_files */*.h)
 
@@ -48,14 +39,14 @@ if(BORNAGAIN_PYTHON)
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainFit_wrap.cpp;-outdir;${TMP_DIR}"
             ";-I${CMAKE_SOURCE_DIR}")
 
-        add_custom_command (
+        add_custom_command(
             OUTPUT ${AUTO_DIR}/libBornAgainFit.py
             COMMAND ${Python_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
                    ${TMP_DIR}/libBornAgainFit.py
                    ${AUTO_DIR}/libBornAgainFit.py
             DEPENDS ${TMP_DIR}/libBornAgainFit.py
             )
-        add_custom_command (
+        add_custom_command(
             OUTPUT ${TMP_DIR}/libBornAgainFit.py
                    ${AUTO_DIR}/libBornAgainFit_wrap.h
                    ${AUTO_DIR}/libBornAgainFit_wrap.cpp
@@ -65,7 +56,7 @@ if(BORNAGAIN_PYTHON)
 
     endif(BORNAGAIN_GENERATE_BINDINGS)
 
-    add_custom_target (
+    add_custom_target(
         ${lib}_python
         COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/libBornAgainFit.py
              ${CMAKE_BINARY_DIR}/lib/libBornAgainFit.py
@@ -74,7 +65,7 @@ if(BORNAGAIN_PYTHON)
         DEPENDS ${AUTO_DIR}/libBornAgainFit.py
         )
 
-    if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
             OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
         # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
         set_source_files_properties(${AUTO_DIR}/libBornAgainFit_wrap.cpp
@@ -100,7 +91,7 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 # exposing library name and list of include directories outside
-set(${lib}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
+set(${lib}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${WRAP_DIR} PARENT_SCOPE)
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 
 # --- dependencies ---------
@@ -117,7 +108,7 @@ endif()
 # --- custom actions
 # python in windows required .pyd extention for the library name
 if(WIN32 AND BORNAGAIN_PYTHON)
-    ADD_CUSTOM_COMMAND(
+    add_custom_command(
         TARGET ${lib}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
@@ -125,7 +116,7 @@ if(WIN32 AND BORNAGAIN_PYTHON)
         ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}".pyd"
         )
     # for functional tests
-    ADD_CUSTOM_COMMAND(
+    add_custom_command(
         TARGET ${lib}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
@@ -144,15 +135,15 @@ endif()
 # -----------------------------------------------
 # installation
 # -----------------------------------------------
-install (TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
-install (FILES ${fitkernel_include_files} DESTINATION ${destination_include}  COMPONENT Headers)
-install (FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
+install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
+install(FILES ${fitkernel_include_files} DESTINATION ${destination_include}  COMPONENT Headers)
+install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
     DESTINATION ${destination_lib} COMPONENT Libraries) # required by SWIG
-install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
+install(FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)
     if(BORNAGAIN_PYTHON)
-        ADD_CUSTOM_COMMAND(
+        add_custom_command(
             TARGET ${lib}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy

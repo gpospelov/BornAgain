@@ -13,20 +13,6 @@ if(BORNAGAIN_TIDY)
 endif()
 
 # --- source and include files ---------
-include(GlobDirectories)
-GLOB_DIRECTORIES(CORE_SUBDIRS)
-
-set(CORE_SOURCE_DIRS "")
-foreach(subdir ${CORE_SUBDIRS})
-    list(APPEND CORE_SOURCE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${subdir}")
-endforeach()
-
-set(include_dirs
-    ${BUILD_INC_DIR}
-    ${CMAKE_SOURCE_DIR}/Wrap
-    ${CORE_SOURCE_DIRS}
-    )
-
 file(GLOB source_files "*/*.cpp")
 file(GLOB include_files "*/*.h")
 
@@ -63,14 +49,14 @@ if(BORNAGAIN_PYTHON)
                                ";-I${CMAKE_SOURCE_DIR};-I${CMAKE_BINARY_DIR}/inc")
         set(SWIG_RUNTIME_FLAGS "-c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h")
 
-        add_custom_command (
+        add_custom_command(
             OUTPUT ${AUTO_DIR}/libBornAgainCore.py
             COMMAND ${Python_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
                    ${TMP_DIR}/libBornAgainCore.py
                    ${AUTO_DIR}/libBornAgainCore.py
             DEPENDS ${TMP_DIR}/libBornAgainCore.py
             )
-        add_custom_command (
+        add_custom_command(
             OUTPUT ${TMP_DIR}/libBornAgainCore.py
                    ${AUTO_DIR}/libBornAgainCore_wrap.h
                    ${AUTO_DIR}/libBornAgainCore_wrap.cpp
@@ -78,7 +64,7 @@ if(BORNAGAIN_PYTHON)
             DEPENDS ${swig_dependencies} ${include_files}
             )
 
-        add_custom_command (
+        add_custom_command(
             OUTPUT ${AUTO_DIR}/swig_runtime.h
             COMMAND ${SWIG_EXECUTABLE} ${SWIG_RUNTIME_FLAGS}
             DEPENDS ${swig_dependencies} ${include_files}
@@ -86,7 +72,7 @@ if(BORNAGAIN_PYTHON)
 
     endif(BORNAGAIN_GENERATE_BINDINGS)
 
-    add_custom_target (
+    add_custom_target(
         ${library_name}_python
         COMMAND ${CMAKE_COMMAND} -E copy
             ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
@@ -97,7 +83,7 @@ if(BORNAGAIN_PYTHON)
 
     add_custom_target(${library_name}_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
 
-    if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
             OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
         # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
         set_source_files_properties(${AUTO_DIR}/libBornAgainCore_wrap.cpp
@@ -187,15 +173,15 @@ endif()
 
 # --- installation ---------
 
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.gz")
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
-install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
-install (FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
-install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
-install (FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h DESTINATION ${destination_include} COMPONENT Headers)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.gz")
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
+install(TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
+install(FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
+install(FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
+install(FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extention for the library name

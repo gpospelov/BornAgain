@@ -26,7 +26,6 @@ include(VERSION.cmake)
 option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
-option(BORNAGAIN_OPENGL "Build additional modules for 3D in GUI" ON)
 option(UNITTESTS "Don't skip unit tests" ON)
 
 option(BORNAGAIN_MPI "Build with MPI support" OFF)

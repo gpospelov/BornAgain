@@ -27,13 +27,10 @@
 #include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
 #include "GUI/coregui/Views/PropertyEditor/TestComponentView.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceWidget.h"
 #include "GUI/coregui/Views/SpecularDataWidgets/Plot1DCanvas.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QTreeView>
-
-#ifdef BORNAGAIN_OPENGL
-#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceWidget.h"
-#endif
 
 #include <QCheckBox>
 #include <QLineEdit>
@@ -175,10 +172,8 @@ void TestView::test_ba3d()
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-#ifdef BORNAGAIN_OPENGL
     RealSpaceWidget* widget = new RealSpaceWidget(m_mainWindow->sampleModel());
     layout->addWidget(widget);
-#endif
     setLayout(layout);
 }
 

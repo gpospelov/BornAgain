@@ -1,8 +1,6 @@
 #ifndef TESTREALSPACEBUILDERUTILS_H
 #define TESTREALSPACEBUILDERUTILS_H
 
-#ifdef BORNAGAIN_OPENGL
-
 #include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Scattering/IFormFactor.h"
@@ -243,7 +241,5 @@ TEST_F(TestRealSpaceBuilderUtils, test_particle3DContainerVector)
     EXPECT_EQ(particle3DContainer_vector.at(2).cumulativeAbundance(), 1.0);
     EXPECT_EQ(particle3DContainer_vector.at(2).particleType(), Constants::ParticleType);
 }
-
-#endif // BORNAGAIN_OPENGL
 
 #endif // TESTREALSPACEBUILDERUTILS_H

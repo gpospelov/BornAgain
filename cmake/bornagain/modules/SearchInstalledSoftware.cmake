@@ -54,11 +54,7 @@ endif()
 
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
-    if (BORNAGAIN_USE_PYTHON2)
-        find_package (Python 2.7 COMPONENTS Interpreter Development NumPy)
-    else()
-        find_package (Python COMPONENTS Interpreter Development NumPy)
-    endif()
+    find_package (Python COMPONENTS Interpreter Development NumPy)
 
     message(STATUS "  Python_VERSION              : ${Python_VERSION}")
     message(STATUS "  Python_INTERPRETER_ID       : ${Python_INTERPRETER_ID}")

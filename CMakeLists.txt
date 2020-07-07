@@ -29,7 +29,6 @@ option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 option(BORNAGAIN_OPENGL "Build additional modules for 3D in GUI" ON)
 option(UNITTESTS "Don't skip unit tests" ON)
 
-option(BORNAGAIN_USE_PYTHON2 "Build against python 2.7" OFF)
 option(BORNAGAIN_MPI "Build with MPI support" OFF)
 
 option(BORNAGAIN_GENERATE_BINDINGS "Generate python bindings during build (requires swig)" OFF)

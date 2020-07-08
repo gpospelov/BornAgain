@@ -13,11 +13,16 @@ set(CONFIGURABLES_DIR ${CMAKE_SOURCE_DIR}/cmake/configurables)
 
 include(PreventInSourceBuilds)
 
-project(BornAgain)
+project(BornAgain
+    DESCRIPTION "BornAgain: simulate and fit scattering at grazing incidence."
+    HOMEPAGE_URL https://www.bornagainproject.org
+    LANGUAGES CXX)
 
 include(CTest) # equivalent to "enable_testing() ???
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck) # => 'make check' is an alias for 'ctest'
-add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND}) # => 'make check' is an alias for 'ctest'
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck)
+   # => 'make check' is an alias for 'ctest'
+add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND})
+   # => 'make check' is an alias for 'ctest'
 
 include(VERSION.cmake)
 

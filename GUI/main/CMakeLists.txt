@@ -59,7 +59,7 @@ endif()
 
 if(APPLE)
     set(MACOSX_BUNDLE_IDENTIFIER "org.bornagainproject.BornAgain")
-    configure_file("${TEMPLATE_DIR}/MacOSXBundleInfo.plist.in" "${BUILD_VAR_DIR}/Info.plist" @ONLY)
+    configure_file("${CONFIGURABLES_DIR}/MacOSXBundleInfo.plist.in" "${BUILD_VAR_DIR}/Info.plist" @ONLY)
 
     set_target_properties(${executable_name}
         PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${BUILD_VAR_DIR}/Info.plist)
@@ -104,10 +104,10 @@ if(UNIX)
         install( FILES ${CMAKE_SOURCE_DIR}/GUI/main/BornAgain.icns
             DESTINATION ${destination_bundle}/Contents/Resources/
         )
-        install( FILES ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts/qt.conf
+        install( FILES ${CMAKE_SOURCE_DIR}/cmake/configurables/qt.conf
             DESTINATION ${destination_bundle}/Contents/Resources/
         )
-        configure_file(${CMAKE_SOURCE_DIR}/cmake/bornagain/modules/FixAppleBundle.cmake.in
+        configure_file(${CMAKE_SOURCE_DIR}/cmake/configurables/FixAppleBundle.cmake.in
                        ${BUILD_VAR_DIR}/FixAppleBundle.cmake @ONLY)
         install(SCRIPT ${BUILD_VAR_DIR}/FixAppleBundle.cmake COMPONENT Runtime)
     elseif(WIN32)

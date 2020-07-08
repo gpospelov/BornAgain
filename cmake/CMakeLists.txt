@@ -21,5 +21,5 @@ install(CODE "MESSAGE(\"${after_install_text}\")")
 endif()
 
 # to show files in Qt creator
-FILE(GLOB_RECURSE ScriptFiles "scripts/*.*")
+FILE(GLOB_RECURSE ScriptFiles "configurables/*.*")
 add_custom_target(scripts SOURCES ${ScriptFiles})

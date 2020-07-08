@@ -6,9 +6,10 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 
 set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake/generic/modules
-    ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
-set(TEMPLATE_DIR ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts)
+    ${CMAKE_SOURCE_DIR}/cmake/modules    # CMake modules specific for BornAgain
+    ${CMAKE_SOURCE_DIR}/cmake/extensions # CMake modules for use in various projects
+    )
+set(CONFIGURABLES_DIR ${CMAKE_SOURCE_DIR}/cmake/configurables)
 
 include(PreventInSourceBuilds)
 
@@ -107,7 +108,7 @@ endif()
 add_subdirectory(Tests/Functional)
 
 # after-install message
-add_subdirectory(cmake/bornagain)
+add_subdirectory(cmake)
 
 # make package targets
 include(BornAgainCPack)

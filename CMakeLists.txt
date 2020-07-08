@@ -72,8 +72,8 @@ endif()
 
 # code coverage analysis
 if(BORNAGAIN_COVERAGE)
-  include(CheckCoverage)
-  include(SetupCoverage)
+  include(CoverageFunction)
+  include(BACoverage)
 endif()
 
 # recurse into the given subdirectories

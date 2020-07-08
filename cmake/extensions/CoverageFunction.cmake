@@ -1,6 +1,6 @@
-# CheckCoverage.cmake
+# CoverageFunction.cmake
 #
-# description: add custom target 'coverage' which generates a code coverage report
+# description: find coverage tools and provide function add_coverage_target
 #
 # usage: from build directory
 #

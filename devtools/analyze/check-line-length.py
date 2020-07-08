@@ -4,7 +4,7 @@
 
 """
 
-import glob, sys
+import glob, re, sys
 from io import open
 
 if len(sys.argv)<3:
@@ -42,6 +42,8 @@ for fn in flist:
     ntablin = 0
     for i in range(n):
         lin = txt[i]
+        if re.match(r'\s*\/\/', lin):
+            continue # ignore comment lines
         if '\t' in lin:
             ntablin += 1
             lin = lin.replace( '\t', '    ' )
@@ -54,7 +56,7 @@ for fn in flist:
 
     if nexclin>0:
         print( "%s: %i/%i lines too long, line %i longest with %i chars" %
-               (fn, nexclin, n, maxwhere, maxlen) )
+               (fn, nexclin, n, maxwhere+1, maxlen) )
         totexc += nexclin
         nfexc += 1
     if ntablin>0:

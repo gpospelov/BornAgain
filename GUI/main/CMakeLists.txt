@@ -59,7 +59,8 @@ endif()
 
 if(APPLE)
     set(MACOSX_BUNDLE_IDENTIFIER "org.bornagainproject.BornAgain")
-    configure_file("${CONFIGURABLES_DIR}/MacOSXBundleInfo.plist.in" "${BUILD_VAR_DIR}/Info.plist" @ONLY)
+    configure_file("${CONFIGURABLES_DIR}/MacOSXBundleInfo.plist.in"
+        "${BUILD_VAR_DIR}/Info.plist" @ONLY)
 
     set_target_properties(${executable_name}
         PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${BUILD_VAR_DIR}/Info.plist)
@@ -69,7 +70,8 @@ if(APPLE)
         set(link_flags "-Wl,-rpath,@loader_path/../Frameworks/ \
   -Wl,-rpath,@loader_path/../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
     else()
-        set(link_flags "-Wl,-rpath,@loader_path/../../../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
+        set(link_flags "-Wl,-rpath,\
+@loader_path/../../../lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}/")
     endif()
     set_target_properties(${executable_name} PROPERTIES LINK_FLAGS ${link_flags})
 endif()

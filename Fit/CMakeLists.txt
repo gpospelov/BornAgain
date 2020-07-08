@@ -69,7 +69,8 @@ if(BORNAGAIN_PYTHON)
             OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
         # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
         set_source_files_properties(${AUTO_DIR}/libBornAgainFit_wrap.cpp
-            PROPERTIES COMPILE_OPTIONS "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-deprecated-declarations")
+            PROPERTIES COMPILE_OPTIONS
+            "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-deprecated-declarations")
     endif()
 
     list(APPEND source_files "${AUTO_DIR}/libBornAgainFit_wrap.cpp")

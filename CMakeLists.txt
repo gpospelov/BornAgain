@@ -19,6 +19,8 @@ project(BornAgain
     HOMEPAGE_URL https://www.bornagainproject.org
     LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 14)
+
 include(CTest) # equivalent to "enable_testing() ???
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck)
    # => 'make check' is an alias for 'ctest'

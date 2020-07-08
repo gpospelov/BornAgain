@@ -5,7 +5,7 @@ find_package(FFTW3 REQUIRED)
 find_package(GSL REQUIRED)
 
 find_package(Cerf REQUIRED)
-
+message(STATUS "Cerf found=${Cerf_FOUND} lib=${Cerf_LIBRARIES} inc=${Cerf_INCLUDE_DIR} version={Cerf_VERSION}")
 # --- Eigen3 is a git submodule; throw an error if submodule is not initialized ---
 set(EIGEN3_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/Core/eigen3" CACHE INTERNAL "")
 if( NOT EXISTS "${EIGEN3_INCLUDE_DIR}/.git" )

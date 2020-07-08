@@ -23,7 +23,20 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/SimulationElement/SimulationElement.h"
-#include "Faddeeva.hh"
+
+#ifdef CERF_AS_CPP
+#include <cerf.h>
+#else
+#include "cerfwrap.h"
+std::complex<double> cerfcx(std::complex<double> z) {
+    const double zx = z.real();
+    const double zy = z.imag();
+    double vx;
+    double vy;
+    wrap_cerfcx(zx, zy, &vx, &vy);
+    return {vx, vy};
+}
+#endif
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
@@ -32,11 +45,11 @@ namespace
 {
 complex_t h_plus(complex_t z)
 {
-    return 0.5 * Faddeeva::erfcx(-mul_I(z) / std::sqrt(2.0));
+    return 0.5 * cerfcx(-mul_I(z) / std::sqrt(2.0));
 }
 complex_t h_min(complex_t z)
 {
-    return 0.5 * Faddeeva::erfcx(mul_I(z) / std::sqrt(2.0));
+    return 0.5 * cerfcx(mul_I(z) / std::sqrt(2.0));
 }
 } // namespace
 

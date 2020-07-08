@@ -13,9 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/RealSpacePanel.h"
-#ifdef BORNAGAIN_OPENGL
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceWidget.h"
-#endif
 #include <QVBoxLayout>
 
 RealSpacePanel::RealSpacePanel(SampleModel* sampleModel, QItemSelectionModel* selectionModel,
@@ -30,11 +28,8 @@ RealSpacePanel::RealSpacePanel(SampleModel* sampleModel, QItemSelectionModel* se
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
-#ifdef BORNAGAIN_OPENGL
     m_realSpaceWidget = new RealSpaceWidget(sampleModel, selectionModel, this);
     layout->addWidget(m_realSpaceWidget);
-#endif
-
     setLayout(layout);
 }
 

@@ -17,7 +17,8 @@ project(BornAgain
     VERSION 1.17.99
     DESCRIPTION "BornAgain: simulate and fit scattering at grazing incidence."
     HOMEPAGE_URL https://www.bornagainproject.org
-    LANGUAGES CXX)
+    ) # LANGUAGES CXX)
+     # TODO modernize FindCerf to get rid of AssertLibraryFunction to restore restriction to CXX
 
 set(CMAKE_CXX_STANDARD 14)
 

@@ -59,12 +59,13 @@ jobs:
         cd ${{github.workspace}}
         mkdir deps
         Get-Date -Format G
-        wget http://apps.jcns.fz-juelich.de/src/WinLibs/bornagain_deps_20200703.zip -O ${{runner.temp}}\local_x64.zip
+        wget http://apps.jcns.fz-juelich.de/src/WinLibs/bornagain_deps_200708.zip -O ${{runner.temp}}\dependencies.zip
         Get-Date -Format G
-        7z x ${{runner.temp}}\local_x64.zip -odeps
+        7z x ${{runner.temp}}\dependencies.zip -odeps
         Get-Date -Format G
         dir deps
-        dir deps/local_x64
+        dir deps/include
+        dir deps/lib
 
     - name: Install Python packages
       run: |
@@ -130,7 +131,7 @@ jobs:
         CCACHE_MAXSIZE: "1000M"
       run: |
         call "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
-        set OPTLIBS=${{github.workspace}}\deps\local_x64
+        set OPTLIBS=${{github.workspace}}\deps
         set QTDIR=${{github.workspace}}\qt5\Qt\5.14.2\msvc2017_64
         set PATH=${{github.workspace}};%OPTLIBS%\lib;%QTDIR%\bin;%PATH%
         cd ${{github.workspace}}
@@ -147,7 +148,7 @@ jobs:
       run: |
         echo %QTDIR%
         echo %OPTLIBS%
-        set OPTLIBS=${{github.workspace}}\deps\local_x64
+        set OPTLIBS=${{github.workspace}}\deps
         set PATH=%OPTLIBS%\lib;%QTDIR%\bin;%PATH%
         echo %PATH%
         cd ${{github.workspace}}\build

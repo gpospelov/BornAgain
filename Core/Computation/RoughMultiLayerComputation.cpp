@@ -24,16 +24,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
-#ifdef CERF_AS_CPP
-#include <cerf.h>
-#else
-#include "cerfwrap.h"
-std::complex<double> cerfcx(std::complex<double> z) {
-    std::complex<double> ret;
-    wrap_cerfcx((void*)&z, (void*)&ret);
-    return ret;
-}
-#endif
+#include <cerf>
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)

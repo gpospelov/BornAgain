@@ -13,9 +13,8 @@ endif()
 
 # --- source and include files ---------
 file(GLOB source_files "*/*.cpp" )
-if(NOT Cerf_IS_CPP)
-    file(GLOB s2 "*/*.c" )
-    list(APPEND source_files ${s2})
+if((NOT Cerf_IS_CPP) AND (NOT WIN32)) # TEMPORARY
+    list(APPEND source_files ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper/cerf_ptr.c)
 endif()
 file(GLOB include_files "*/*.h")
 
@@ -153,7 +152,9 @@ target_include_directories(${library_name}
     PUBLIC ${CMAKE_SOURCE_DIR} ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR} ${GSL_INCLUDE_DIR}
     ${tspectrum_INCLUDE_DIR}
     SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR}
-    PRIVATE ${Cerf_INCLUDE_DIR})
+    PRIVATE ${Cerf_INCLUDE_DIR}
+    ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper # TEMPORARY
+    )
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
     ${tspectrum_LIBRARY} ${Cerf_LIBRARIES})
 

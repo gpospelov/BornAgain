@@ -1,5 +1,9 @@
 # Search for installed software required by BornAgain
 
+if(WIN32)
+    set(CMAKE_FIND_LIBRARY_SUFFIXES .dll.a .lib)
+endif()
+
 find_package(Threads REQUIRED)
 find_package(FFTW3 REQUIRED)
 find_package(GSL REQUIRED)

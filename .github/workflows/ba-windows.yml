@@ -59,7 +59,7 @@ jobs:
         cd ${{github.workspace}}
         mkdir deps
         Get-Date -Format G
-        wget http://apps.jcns.fz-juelich.de/src/WinLibs/bornagain_deps_200708.zip -O ${{runner.temp}}\dependencies.zip
+        wget http://apps.jcns.fz-juelich.de/src/WinLibs/bornagain_deps_200709.zip -O ${{runner.temp}}\dependencies.zip
         Get-Date -Format G
         7z x ${{runner.temp}}\dependencies.zip -odeps
         Get-Date -Format G

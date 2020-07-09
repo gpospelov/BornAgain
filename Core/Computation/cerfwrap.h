@@ -2,7 +2,7 @@
 extern "C" {
 #endif
 
-void wrap_cerfcx(double zx, double zy, double* vx, double* vy);
+    void wrap_cerfcx(void* z, void* ret);
 
 #ifdef __cplusplus
 }

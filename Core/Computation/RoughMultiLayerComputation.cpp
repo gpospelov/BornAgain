@@ -29,12 +29,9 @@
 #else
 #include "cerfwrap.h"
 std::complex<double> cerfcx(std::complex<double> z) {
-    const double zx = z.real();
-    const double zy = z.imag();
-    double vx;
-    double vy;
-    wrap_cerfcx(zx, zy, &vx, &vy);
-    return {vx, vy};
+    std::complex<double> ret;
+    wrap_cerfcx((void*)&z, (void*)&ret);
+    return ret;
 }
 #endif
 

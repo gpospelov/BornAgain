@@ -52,7 +52,7 @@ set(include_widgetbox
     "Views/widgetbox/widgetbox_global.h"
 )
 if(WIN32)
-	add_definitions(-DQDESIGNER_UILIB_LIBRARY)
+    add_definitions(-DQDESIGNER_UILIB_LIBRARY)
 endif()
 
 list(APPEND include_files ${include_widgetbox})
@@ -141,8 +141,7 @@ if(WIN32)
 
     set(QT_VISTA_STYLE "${QTDIR}/plugins/styles/qwindowsvistastyle.dll")
     if(EXISTS "${QT_VISTA_STYLE}")
-        install(FILES
-		${QT_VISTA_STYLE}
+        install(FILES ${QT_VISTA_STYLE}
                 DESTINATION bin/styles COMPONENT Libraries)
     else(EXISTS "${QT_VISTA_STYLE}")
         MESSAGE(AUTHOR_WARNING "File ${QT_VISTA_STYLE} not found.")

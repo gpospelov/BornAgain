@@ -6,19 +6,26 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 
 set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake/generic/modules
-    ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
-set(TEMPLATE_DIR ${CMAKE_SOURCE_DIR}/cmake/bornagain/scripts)
+    ${CMAKE_SOURCE_DIR}/cmake/modules    # CMake modules specific for BornAgain
+    ${CMAKE_SOURCE_DIR}/cmake/extensions # CMake modules for use in various projects
+    )
+set(CONFIGURABLES_DIR ${CMAKE_SOURCE_DIR}/cmake/configurables)
 
 include(PreventInSourceBuilds)
 
-project(BornAgain)
+project(BornAgain
+    VERSION 1.17.99
+    DESCRIPTION "BornAgain: simulate and fit scattering at grazing incidence."
+    HOMEPAGE_URL https://www.bornagainproject.org
+    LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 14)
 
 include(CTest) # equivalent to "enable_testing() ???
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck) # => 'make check' is an alias for 'ctest'
-add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND}) # => 'make check' is an alias for 'ctest'
-
-include(VERSION.cmake)
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck)
+   # => 'make check' is an alias for 'ctest'
+add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND})
+   # => 'make check' is an alias for 'ctest'
 
 ## declare project-wide user flags, and set default values
 
@@ -61,8 +68,7 @@ endif()
 include(BornAgainConfiguration)
 include(BornAgainPolicy)
 include(GeneratePythonDocs)
-include(PyExamplesLineLength)
-include(CheckCode)
+include(BALineLength)
 
 # debug optimization
 if(BORNAGAIN_DEBUG_OPTIMIZATION)
@@ -71,8 +77,8 @@ endif()
 
 # code coverage analysis
 if(BORNAGAIN_COVERAGE)
-  include(CheckCoverage)
-  include(SetupCoverage)
+  include(CoverageFunction)
+  include(BACoverage)
 endif()
 
 # recurse into the given subdirectories
@@ -107,7 +113,7 @@ endif()
 add_subdirectory(Tests/Functional)
 
 # after-install message
-add_subdirectory(cmake/bornagain)
+add_subdirectory(cmake)
 
 # make package targets
 include(BornAgainCPack)

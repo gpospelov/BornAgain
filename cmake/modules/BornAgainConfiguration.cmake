@@ -32,7 +32,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(BUILD_VAR_DIR ${CMAKE_BINARY_DIR}/var)
 set(BUILD_INC_DIR ${CMAKE_BINARY_DIR}/inc)
 set(BUILD_SRC_DIR ${CMAKE_BINARY_DIR}/src)
-configure_file("${TEMPLATE_DIR}/auto_README.in" "${CMAKE_SOURCE_DIR}/auto/README" @ONLY)
+configure_file("${CONFIGURABLES_DIR}/auto_README.in" "${CMAKE_SOURCE_DIR}/auto/README" @ONLY)
 
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/bornagain)
@@ -107,7 +107,7 @@ message(STATUS "Destination directories:
 # configure files
 # -----------------------------------------------------------------------------
 
-configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)
+configure_file(${CONFIGURABLES_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)
 
 if (WIN32)
     # Necessary to provide correct slashes in BABuild.h
@@ -119,9 +119,9 @@ if (WIN32)
     file(TO_CMAKE_PATH ${Python_SITELIB} Python_SITELIB)
 endif()
 
-configure_file(${TEMPLATE_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
-configure_file(${TEMPLATE_DIR}/BABuild.h.in  ${BUILD_INC_DIR}/BABuild.h @ONLY)
-configure_file(${TEMPLATE_DIR}/BATesting.h.in  ${BUILD_INC_DIR}/BATesting.h @ONLY)
+configure_file(${CONFIGURABLES_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
+configure_file(${CONFIGURABLES_DIR}/BABuild.h.in  ${BUILD_INC_DIR}/BABuild.h @ONLY)
+configure_file(${CONFIGURABLES_DIR}/BATesting.h.in  ${BUILD_INC_DIR}/BATesting.h @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")
 
 configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data.py
@@ -135,9 +135,9 @@ configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data_dif
 
 set(this_bindir $BORNAGAINSYS/bin)
 set(this_libdir $BORNAGAINSYS/lib/${destination_suffix})
-configure_file(${TEMPLATE_DIR}/thisbornagain.sh.in
+configure_file(${CONFIGURABLES_DIR}/thisbornagain.sh.in
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.sh @ONLY)
-configure_file(${TEMPLATE_DIR}/thisbornagain.csh.in
+configure_file(${CONFIGURABLES_DIR}/thisbornagain.csh.in
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.csh @ONLY)
 
 # -----------------------------------------------------------------------------
@@ -146,7 +146,7 @@ configure_file(${TEMPLATE_DIR}/thisbornagain.csh.in
 
 if(BUILD_DEBIAN)
     set(CMAKE_INSTALL_PREFIX "/usr")
-    configure_file(${TEMPLATE_DIR}/postinst.in ${BUILD_VAR_DIR}/postinst @ONLY)
-    configure_file(${TEMPLATE_DIR}/prerm.in ${BUILD_VAR_DIR}/prerm @ONLY)
+    configure_file(${CONFIGURABLES_DIR}/postinst.in ${BUILD_VAR_DIR}/postinst @ONLY)
+    configure_file(${CONFIGURABLES_DIR}/prerm.in ${BUILD_VAR_DIR}/prerm @ONLY)
     set(CMAKE_INSTALL_RPATH \$ORIGIN/../;\$ORIGIN/../../lib/${destination_suffix})
 endif(BUILD_DEBIAN)

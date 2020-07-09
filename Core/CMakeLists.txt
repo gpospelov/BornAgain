@@ -7,9 +7,8 @@ message(STATUS "Configuring BornAgain GUI")
 set(library_name BornAgainCore)
 
 if(BORNAGAIN_TIDY)
-#    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,readability-*,-readability-braces-around-statements")
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,readability-*,-readability-braces-around-statements,modernize-*")
-#set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*,-google-*,-misc-macro-parentheses,-readability-braces-around-statements,-readability-named-parameter,-llvm-namespace-comment")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,\
+readability-*,-readability-braces-around-statements,modernize-*")
 endif()
 
 # --- source and include files ---------
@@ -88,7 +87,8 @@ if(BORNAGAIN_PYTHON)
         # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
         set_source_files_properties(${AUTO_DIR}/libBornAgainCore_wrap.cpp
             PROPERTIES COMPILE_OPTIONS
-            "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-sometimes-uninitialized;-Wno-deprecated-declarations")
+            "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-sometimes-uninitialized;\
+-Wno-deprecated-declarations")
     endif()
 
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
@@ -173,15 +173,24 @@ endif()
 
 # --- installation ---------
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.gz")
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_examples} COMPONENT Examples)
-install(TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
-install(FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
-install(FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
-install(FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h DESTINATION ${destination_include} COMPONENT Headers)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
+    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
+    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
+    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.gz")
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
+    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp
+    DESTINATION ${destination_examples} COMPONENT Examples)
+install(TARGETS ${library_name}
+    DESTINATION ${destination_lib} COMPONENT Libraries)
+install(FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py
+    DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
+install(FILES ${include_files}
+    DESTINATION ${destination_include} COMPONENT Headers)
+install(FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h
+    DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extention for the library name
@@ -193,7 +202,8 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
             )
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
+        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
+            DESTINATION ${destination_lib} COMPONENT Libraries)
         add_custom_command(
             TARGET ${library_name}
             POST_BUILD
@@ -212,7 +222,8 @@ if(WIN32)
             DESTINATION ${destination_lib} COMPONENT Libraries)
     endforeach()
 
-    set(win_python_lib "${Python_LIBRARY_DIRS}/python${Python_VERSION_MAJOR}${Python_VERSION_MINOR}.lib")
+    set(win_python_lib
+        "${Python_LIBRARY_DIRS}/python${Python_VERSION_MAJOR}${Python_VERSION_MINOR}.lib")
     get_filename_component(UTF_BASE_NAME ${win_python_lib} NAME_WE)
     get_filename_component(UTF_PATH ${Python_EXECUTABLE} PATH)
     message(STATUS "Python dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")

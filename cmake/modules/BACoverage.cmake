@@ -1,10 +1,6 @@
-# SetupCoverage.cmake
+# BACoverage.cmake
 #
-# description: sets up code coverage custom target
-#
-# copyright: 2016 Scientific Computing Group, Forschungszentrum Juelich GmbH
-#
-# license: see LICENSE
+# description: sets up BornAgain code coverage custom target
 
 set(coverage_ignore_dirs "'/usr/*'")
 list(APPEND coverage_ignore_dirs "'*/auto/*'")

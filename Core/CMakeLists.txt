@@ -12,7 +12,10 @@ readability-*,-readability-braces-around-statements,modernize-*")
 endif()
 
 # --- source and include files ---------
-file(GLOB source_files "*/*.cpp")
+file(GLOB source_files "*/*.cpp" )
+if((NOT Cerf_IS_CPP) AND (NOT WIN32)) # TEMPORARY
+    list(APPEND source_files ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper/cerf_ptr.c)
+endif()
 file(GLOB include_files "*/*.h")
 
 if(BORNAGAIN_PYTHON)
@@ -117,6 +120,9 @@ endif()
 
 
 # --- making library ---------
+if(${Cerf_IS_CPP})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCERF_AS_CPP=ON")
+endif()
 add_library(${library_name} SHARED ${source_files})
 
 set_target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
@@ -145,10 +151,12 @@ endif()
 target_include_directories(${library_name}
     PUBLIC ${CMAKE_SOURCE_DIR} ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR} ${GSL_INCLUDE_DIR}
     ${tspectrum_INCLUDE_DIR}
+    ${Cerf_INCLUDE_DIR}
+    ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper # TEMPORARY
     SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR}
-    PRIVATE ${Faddeeva_INCLUDE_DIR})
+    )
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
-    ${Faddeeva_LIBRARY} ${tspectrum_LIBRARY})
+    ${tspectrum_LIBRARY} ${Cerf_LIBRARIES})
 
 if(BORNAGAIN_MPI)
     add_definitions(-DBORNAGAIN_MPI)

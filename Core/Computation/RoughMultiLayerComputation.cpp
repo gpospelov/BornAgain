@@ -23,7 +23,8 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/SimulationElement/SimulationElement.h"
-#include "Faddeeva.hh"
+
+#include <cerf>
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
@@ -32,11 +33,11 @@ namespace
 {
 complex_t h_plus(complex_t z)
 {
-    return 0.5 * Faddeeva::erfcx(-mul_I(z) / std::sqrt(2.0));
+    return 0.5 * cerfcx(-mul_I(z) / std::sqrt(2.0));
 }
 complex_t h_min(complex_t z)
 {
-    return 0.5 * Faddeeva::erfcx(mul_I(z) / std::sqrt(2.0));
+    return 0.5 * cerfcx(mul_I(z) / std::sqrt(2.0));
 }
 } // namespace
 

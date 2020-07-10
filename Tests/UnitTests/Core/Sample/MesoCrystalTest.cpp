@@ -1,5 +1,4 @@
 #include "Core/Particle/MesoCrystal.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Lattice/Lattice.h"
 #include "Core/Particle/Crystal.h"
@@ -19,14 +18,14 @@ TEST_F(MesoCrystalTest, getChildren)
 
     std::vector<const INode*> children = meso.getChildren();
     EXPECT_EQ(children.size(), 2u);
-    EXPECT_EQ(children.at(0)->getName(), BornAgain::CrystalType);
-    EXPECT_EQ(children.at(1)->getName(), BornAgain::FFFullSphereType);
+    EXPECT_EQ(children.at(0)->getName(), "Crystal");
+    EXPECT_EQ(children.at(1)->getName(), "FullSphere");
 
     // children when rotation is set
     meso.setRotation(RotationY(45.));
     children = meso.getChildren();
     EXPECT_EQ(children.size(), 3u);
-    EXPECT_EQ(children.at(0)->getName(), BornAgain::YRotationType);
-    EXPECT_EQ(children.at(1)->getName(), BornAgain::CrystalType);
-    EXPECT_EQ(children.at(2)->getName(), BornAgain::FFFullSphereType);
+    EXPECT_EQ(children.at(0)->getName(), "YRotation");
+    EXPECT_EQ(children.at(1)->getName(), "Crystal");
+    EXPECT_EQ(children.at(2)->getName(), "FullSphere");
 }

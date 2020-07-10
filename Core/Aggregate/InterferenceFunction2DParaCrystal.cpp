@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
@@ -26,7 +25,7 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Latti
                                                                      double domain_size_2)
     : m_integrate_xi(false), m_damping_length(damping_length)
 {
-    setName(BornAgain::InterferenceFunction2DParaCrystalType);
+    setName("Interference2DParaCrystal");
     setLattice(lattice);
     setDomainSizes(domain_size_1, domain_size_2);
     init_parameters();
@@ -45,7 +44,7 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double leng
                                                                      double damping_length)
     : m_integrate_xi(false), m_damping_length(damping_length)
 {
-    setName(BornAgain::InterferenceFunction2DParaCrystalType);
+    setName("Interference2DParaCrystal");
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
     setDomainSizes(0.0, 0.0);
     init_parameters();
@@ -60,14 +59,14 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
 
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
-    registerParameter(BornAgain::DampingLength, &m_damping_length)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("DampingLength", &m_damping_length)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::DomainSize1, &m_domain_sizes[0])
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("DomainSize1", &m_domain_sizes[0])
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::DomainSize2, &m_domain_sizes[1])
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("DomainSize2", &m_domain_sizes[1])
+        .setUnit("nm")
         .setNonnegative();
 }
 

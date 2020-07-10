@@ -14,14 +14,13 @@
 
 #include "Core/Aggregate/InterferenceFunction3DLattice.h"
 #include "Core/Aggregate/IPeakShape.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include <algorithm>
 
 InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& lattice)
     : m_lattice(lattice), mP_peak_shape(nullptr), m_rec_radius(0.0)
 {
-    setName(BornAgain::InterferenceFunction3DLatticeType);
+    setName("Interference3DLattice");
     initRecRadius();
 }
 

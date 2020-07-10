@@ -13,11 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionNone.h"
-#include "Core/Basics/BornAgainNamespace.h"
 
 InterferenceFunctionNone::InterferenceFunctionNone()
 {
-    setName(BornAgain::InterferenceFunctionNoneType);
+    setName("InterferenceNone");
 }
 
 InterferenceFunctionNone* InterferenceFunctionNone::clone() const

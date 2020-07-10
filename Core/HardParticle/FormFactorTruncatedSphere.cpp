@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -29,11 +28,11 @@
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
     : m_radius(radius), m_height(height), m_dh(dh)
 {
-    setName(BornAgain::FFTruncatedSphereType);
+    setName("TruncatedSphere");
     check_initialization();
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("DeltaHeight", &m_dh).setUnit("nm").setNonnegative();
     onChange();
 }
 

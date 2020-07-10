@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Particle/Particle.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/ModelPath.h"
@@ -37,7 +36,7 @@ const QString position_tooltip = "Relative position of the particle's reference 
 } // namespace
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
-const QString ParticleItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
+const QString ParticleItem::P_ABUNDANCE = QString::fromStdString("Abundance");
 const QString ParticleItem::P_MATERIAL = "Material";
 const QString ParticleItem::P_POSITION = "Position Offset";
 const QString ParticleItem::T_TRANSFORMATION = "Transformation Tag";
@@ -58,7 +57,7 @@ ParticleItem::ParticleItem() : SessionGraphicsItem(Constants::ParticleType)
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
     setDefaultTag(T_TRANSFORMATION);
 
-    addTranslator(VectorParameterTranslator(P_POSITION, BornAgain::Position));
+    addTranslator(VectorParameterTranslator(P_POSITION, "Position"));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(

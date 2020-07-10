@@ -23,7 +23,7 @@ FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double h
                                            double asymmetry)
     : ProfileRipple2{length, width, height, asymmetry}
 {
-    setName(BornAgain::FFRipple2BoxType);
+    setName("Ripple2Box");
 }
 
 FormFactorRipple2Box* FormFactorRipple2Box::clone() const
@@ -49,7 +49,7 @@ FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, doub
                                                double asymmetry)
     : ProfileRipple2{length, width, height, asymmetry}
 {
-    setName(BornAgain::FFRipple2GaussType);
+    setName("Ripple2Gauss");
 }
 
 FormFactorRipple2Gauss* FormFactorRipple2Gauss::clone() const
@@ -75,7 +75,7 @@ FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, 
                                                    double asymmetry)
     : ProfileRipple2{length, width, height, asymmetry}
 {
-    setName(BornAgain::FFRipple2LorentzType);
+    setName("Ripple2Lorentz");
 }
 
 FormFactorRipple2Lorentz* FormFactorRipple2Lorentz::clone() const

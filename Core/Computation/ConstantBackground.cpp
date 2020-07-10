@@ -18,7 +18,7 @@
 ConstantBackground::ConstantBackground(double background_value)
     : m_background_value(background_value)
 {
-    setName(BornAgain::ConstantBackgroundType);
+    setName("ConstantBackground");
     init_parameters();
 }
 
@@ -36,5 +36,5 @@ double ConstantBackground::addBackGround(double intensity) const
 
 void ConstantBackground::init_parameters()
 {
-    registerParameter(BornAgain::BackgroundValue, &m_background_value).setNonnegative();
+    registerParameter("BackgroundValue", &m_background_value).setNonnegative();
 }

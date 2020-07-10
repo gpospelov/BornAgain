@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionHardDisk.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 #include <cmath>
@@ -29,7 +28,7 @@ double W2(double x);
 InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
     : m_radius(radius), m_density(density)
 {
-    setName(BornAgain::InterferenceFunctionHardDiskType);
+    setName("InterferenceHardDisk");
     validateParameters();
     init_parameters();
 }
@@ -60,7 +59,7 @@ InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(
     const InterferenceFunctionHardDisk& other)
     : IInterferenceFunction(other), m_radius(other.m_radius), m_density(other.m_density)
 {
-    setName(BornAgain::InterferenceFunctionHardDiskType);
+    setName("InterferenceHardDisk");
     validateParameters();
     init_parameters();
 }
@@ -82,9 +81,9 @@ double InterferenceFunctionHardDisk::iff_without_dw(const kvector_t q) const
 
 void InterferenceFunctionHardDisk::init_parameters()
 {
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::TotalParticleDensity, &m_density)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
+    registerParameter("TotalParticleDensity", &m_density)
+        .setUnit("nm")
         .setNonnegative();
 }
 

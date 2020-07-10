@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/FTDecayFunctions.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -26,13 +25,13 @@ IFTDecayFunction1D::IFTDecayFunction1D(double decay_length) : m_decay_length(dec
 
 void IFTDecayFunction1D::register_decay_length()
 {
-    registerParameter(BornAgain::DecayLength, &m_decay_length);
+    registerParameter("DecayLength", &m_decay_length);
 }
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
     : IFTDecayFunction1D(decay_length)
 {
-    setName(BornAgain::FTDecayFunction1DCauchyType);
+    setName("FTDecayFunction1DCauchy");
     register_decay_length();
 }
 
@@ -50,7 +49,7 @@ double FTDecayFunction1DCauchy::evaluate(double q) const
 FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
     : IFTDecayFunction1D(decay_length)
 {
-    setName(BornAgain::FTDecayFunction1DGaussType);
+    setName("FTDecayFunction1DGauss");
     register_decay_length();
 }
 
@@ -68,7 +67,7 @@ double FTDecayFunction1DGauss::evaluate(double q) const
 FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
     : IFTDecayFunction1D(decay_length)
 {
-    setName(BornAgain::FTDecayFunction1DTriangleType);
+    setName("FTDecayFunction1DTriangle");
     register_decay_length();
 }
 
@@ -86,9 +85,9 @@ double FTDecayFunction1DTriangle::evaluate(double q) const
 FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
     : IFTDecayFunction1D(decay_length), m_eta(eta)
 {
-    setName(BornAgain::FTDecayFunction1DVoigtType);
+    setName("FTDecayFunction1DVoigt");
     register_decay_length();
-    registerParameter(BornAgain::Eta, &m_eta);
+    registerParameter("Eta", &m_eta);
 }
 
 FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const
@@ -162,18 +161,18 @@ IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, d
 
 void IFTDecayFunction2D::register_decay_lengths()
 {
-    registerParameter(BornAgain::DecayLengthX, &m_decay_length_x)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("DecayLengthX", &m_decay_length_x)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::DecayLengthY, &m_decay_length_y)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("DecayLengthY", &m_decay_length_y)
+        .setUnit("nm")
         .setNonnegative();
 }
 
 void IFTDecayFunction2D::register_gamma()
 {
-    registerParameter(BornAgain::Gamma, &m_gamma)
-        .setUnit(BornAgain::UnitsRad)
+    registerParameter("Gamma", &m_gamma)
+        .setUnit("rad")
         .setLimited(-M_PI_2, M_PI_2);
 }
 
@@ -196,7 +195,7 @@ FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double d
                                                  double gamma)
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma)
 {
-    setName(BornAgain::FTDecayFunction2DCauchyType);
+    setName("FTDecayFunction2DCauchy");
     init_parameters();
 }
 
@@ -216,7 +215,7 @@ FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double dec
                                                double gamma)
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma)
 {
-    setName(BornAgain::FTDecayFunction2DGaussType);
+    setName("FTDecayFunction2DGauss");
     init_parameters();
 }
 
@@ -242,9 +241,9 @@ FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double dec
                                                double eta, double gamma)
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma), m_eta(eta)
 {
-    setName(BornAgain::FTDecayFunction2DVoigtType);
+    setName("FTDecayFunction2DVoigt");
     register_decay_lengths();
-    registerParameter(BornAgain::Eta, &m_eta);
+    registerParameter("Eta", &m_eta);
     register_gamma();
 }
 

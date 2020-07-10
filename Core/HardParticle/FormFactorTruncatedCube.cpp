@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorTruncatedCube.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Parametrization/RealParameter.h"
 
@@ -40,10 +39,10 @@ const PolyhedralTopology FormFactorTruncatedCube::topology = {
 FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
     : FormFactorPolyhedron(), m_length(length), m_removed_length(removed_length)
 {
-    setName(BornAgain::FFTruncatedCubeType);
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::RemovedLength, &m_removed_length)
-        .setUnit(BornAgain::UnitsNm)
+    setName("TruncatedCube");
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("RemovedLength", &m_removed_length)
+        .setUnit("nm")
         .setNonnegative();
     onChange();
 }

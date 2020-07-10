@@ -20,7 +20,7 @@
 DetectionProperties::DetectionProperties()
     : m_direction{}, m_efficiency{}, m_total_transmission{1.0}
 {
-    setName(BornAgain::DetectorAnalyzer);
+    setName("Analyzer");
     init_parameters();
 }
 
@@ -85,9 +85,9 @@ double DetectionProperties::analyzerTotalTransmission() const
 
 void DetectionProperties::init_parameters()
 {
-    registerVector(BornAgain::Direction, &m_direction, BornAgain::UnitsNone);
-    registerParameter(BornAgain::Efficiency, &m_efficiency);
-    registerParameter(BornAgain::Transmission, &m_total_transmission).setNonnegative();
+    registerVector("Direction", &m_direction, "");
+    registerParameter("Efficiency", &m_efficiency);
+    registerParameter("Transmission", &m_total_transmission).setNonnegative();
 }
 
 bool DetectionProperties::checkAnalyzerProperties(const kvector_t direction, double efficiency,

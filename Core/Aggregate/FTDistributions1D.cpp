@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/FTDistributions1D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
@@ -30,12 +29,12 @@ IFTDistribution1D::~IFTDistribution1D() = default;
 
 void IFTDistribution1D::init_parameters()
 {
-    registerParameter(BornAgain::Omega, &m_omega);
+    registerParameter("Omega", &m_omega);
 }
 
 FTDistribution1DCauchy::FTDistribution1DCauchy(double omega) : IFTDistribution1D(omega)
 {
-    setName(BornAgain::FTDistribution1DCauchyType);
+    setName("FTDistribution1DCauchy");
     init_parameters();
 }
 
@@ -62,7 +61,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() 
 
 FTDistribution1DGauss::FTDistribution1DGauss(double omega) : IFTDistribution1D(omega)
 {
-    setName(BornAgain::FTDistribution1DGaussType);
+    setName("FTDistribution1DGauss");
     init_parameters();
 }
 
@@ -89,7 +88,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() c
 
 FTDistribution1DGate::FTDistribution1DGate(double omega) : IFTDistribution1D(omega)
 {
-    setName(BornAgain::FTDistribution1DGateType);
+    setName("FTDistribution1DGate");
     init_parameters();
 }
 
@@ -115,7 +114,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() co
 
 FTDistribution1DTriangle::FTDistribution1DTriangle(double omega) : IFTDistribution1D(omega)
 {
-    setName(BornAgain::FTDistribution1DTriangleType);
+    setName("FTDistribution1DTriangle");
     init_parameters();
 }
 
@@ -142,7 +141,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler(
 
 FTDistribution1DCosine::FTDistribution1DCosine(double omega) : IFTDistribution1D(omega)
 {
-    setName(BornAgain::FTDistribution1DCosineType);
+    setName("FTDistribution1DCosine");
     init_parameters();
 }
 
@@ -172,9 +171,9 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
     : IFTDistribution1D(omega), m_eta(eta)
 {
-    setName(BornAgain::FTDistribution1DVoigtType);
+    setName("FTDistribution1DVoigt");
     init_parameters();
-    registerParameter(BornAgain::Eta, &m_eta);
+    registerParameter("Eta", &m_eta);
 }
 
 FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const

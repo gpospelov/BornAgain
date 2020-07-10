@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include "Fit/Tools/RealLimits.h"
@@ -21,12 +20,12 @@
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
     : m_mean(mean), m_sigma(sigma), m_mean_r3(0.0)
 {
-    setName(BornAgain::FormFactorSphereGaussianRadiusType);
+    setName("FormFactorSphereGaussianRadius");
     m_mean_r3 = calculateMeanR3();
     P_ff_sphere.reset(new FormFactorFullSphere(m_mean_r3));
-    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::SigmaRadius, &m_sigma)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
+    registerParameter("SigmaRadius", &m_sigma)
+        .setUnit("nm")
         .setNonnegative();
     onChange();
 }

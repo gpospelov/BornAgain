@@ -1,5 +1,4 @@
 #include "Core/Beam/Beam.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Beam/FootprintFactorSquare.h"
@@ -23,10 +22,10 @@ TEST_F(BeamTest, BeamInitialState)
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[2]);
     EXPECT_EQ(1.0, m_empty_beam.getIntensity());
     // EXPECT_EQ(size_t(4), m_empty_beam.parameterPool()->size());
-    //    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Intensity)->value());
-    //    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Wavelength)->value());
-    //    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Alpha)->value());
-    //    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Phi)->value());
+    //    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter("Intensity")->value());
+    //    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter("Wavelength")->value());
+    //    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter("Alpha")->value());
+    //    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter("Phi")->value());
     //    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(0, 0));
     //    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(1, 1));
 }
@@ -49,7 +48,7 @@ TEST_F(BeamTest, BeamAssignment)
     /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(size_t(4), beam_copy.getParameterPool()->size());
     EXPECT_EQ(double(2.0),
-              beam_copy.getParameterPool()->getParameter(BornAgain::Intensity).getValue());
+              beam_copy.getParameterPool()->getParameter("Intensity").getValue());
     EXPECT_EQ(complex_t(0.6, 0.0), beam_copy.getPolarization()(0, 0));
     EXPECT_EQ(complex_t(0.4, 0.0), beam_copy.getPolarization()(1, 1));
     */

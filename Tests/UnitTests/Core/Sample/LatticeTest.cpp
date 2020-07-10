@@ -199,9 +199,9 @@ TEST_F(LatticeTest, onChangeTest)
     // The new changed lattice vectors
     kvector_t c1(2, 0, 0), c2(0, 2, 0), c3(0, 0, 2);
 
-    l1.setVectorValue(BornAgain::BasisVector_A, c1);
-    l1.setVectorValue(BornAgain::BasisVector_B, c2);
-    l1.setVectorValue(BornAgain::BasisVector_C, c3);
+    l1.setVectorValue("BasisA", c1);
+    l1.setVectorValue("BasisB", c2);
+    l1.setVectorValue("BasisC", c3);
     EXPECT_EQ(c1, l1.getBasisVectorA());
     EXPECT_EQ(c2, l1.getBasisVectorB());
     EXPECT_EQ(c3, l1.getBasisVectorC());

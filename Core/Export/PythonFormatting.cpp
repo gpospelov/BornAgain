@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Export/PythonFormatting.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
@@ -176,11 +175,11 @@ std::string printDegrees(double input)
 
 std::string printValue(double value, const std::string& units)
 {
-    if (units == BornAgain::UnitsRad)
+    if (units == "rad")
         return printDegrees(value);
-    else if (units == BornAgain::UnitsNm)
+    else if (units == "nm")
         return printNm(value);
-    else if (units == BornAgain::UnitsNone)
+    else if (units == "")
         return printDouble(value);
     else
         throw std::runtime_error("PythonFormatting::printValue() -> Error. Unknown units '" + units
@@ -224,7 +223,7 @@ bool isDefaultDirection(const kvector_t direction)
 
 std::string valueTimesUnit(const RealParameter* par)
 {
-    if (par->unit() == BornAgain::UnitsRad)
+    if (par->unit() == "rad")
         return printDegrees(par->value());
     return printDouble(par->value()) + (par->unit() == "" ? "" : ("*" + par->unit()));
 }

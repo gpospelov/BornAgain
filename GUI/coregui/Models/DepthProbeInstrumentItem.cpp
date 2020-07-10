@@ -83,11 +83,11 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
     simulation->setZSpan(depthAxis->size(), depthAxis->getMin(), depthAxis->getMax());
 
     TransformToDomain::setBeamDistribution(
-        BornAgain::Wavelength, beamItem()->item<BeamWavelengthItem>(SpecularBeamItem::P_WAVELENGTH),
+        "Wavelength", beamItem()->item<BeamWavelengthItem>(SpecularBeamItem::P_WAVELENGTH),
         *simulation.get());
 
     TransformToDomain::setBeamDistribution(
-        BornAgain::Inclination,
+        "InclinationAngle",
         beamItem()->item<SpecularBeamInclinationItem>(SpecularBeamItem::P_INCLINATION_ANGLE),
         *simulation.get());
 

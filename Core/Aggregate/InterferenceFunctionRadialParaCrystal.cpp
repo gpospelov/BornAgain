@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -27,7 +26,7 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(dou
     : m_peak_distance(peak_distance), m_damping_length(damping_length), m_use_damping_length(true),
       m_kappa(0.0), m_domain_size(0.0)
 {
-    setName(BornAgain::InterferenceFunctionRadialParaCrystalType);
+    setName("InterferenceRadialParaCrystal");
     if (m_damping_length == 0.0)
         m_use_damping_length = false;
     init_parameters();
@@ -35,15 +34,15 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(dou
 
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
-    registerParameter(BornAgain::PeakDistance, &m_peak_distance)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("PeakDistance", &m_peak_distance)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::DampingLength, &m_damping_length)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("DampingLength", &m_damping_length)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::SizeSpaceCoupling, &m_kappa).setNonnegative();
-    registerParameter(BornAgain::DomainSize, &m_domain_size)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("SizeSpaceCoupling", &m_kappa).setNonnegative();
+    registerParameter("DomainSize", &m_domain_size)
+        .setUnit("nm")
         .setNonnegative();
 }
 

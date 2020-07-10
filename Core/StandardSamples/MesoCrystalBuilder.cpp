@@ -14,7 +14,6 @@
 
 #include "Core/StandardSamples/MesoCrystalBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Lattice/ISelectionRule.h"

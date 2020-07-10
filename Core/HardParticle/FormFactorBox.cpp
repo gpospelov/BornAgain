@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorBox.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 
@@ -24,10 +23,10 @@
 FormFactorBox::FormFactorBox(double length, double width, double height)
     : FormFactorPolygonalPrism(height), m_length(length), m_width(width)
 {
-    setName(BornAgain::FFBoxType);
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("Box");
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

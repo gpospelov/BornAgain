@@ -169,7 +169,7 @@ std::unique_ptr<Simulation> TestComponents::CreateWavelengthGISAS()
     // create parameter distribution
     DistributionLogNormal wavelength_distr(1.0 * Units::angstrom, 0.1);
     ParameterPattern pattern1;
-    pattern1.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    pattern1.beginsWith("*").add("Beam").add("Wavelength");
     result->addParameterDistribution(pattern1.toStdString(), wavelength_distr, 1000);
 
     auto sample = std::unique_ptr<MultiLayer>(CylindersInBABuilder().buildSample());

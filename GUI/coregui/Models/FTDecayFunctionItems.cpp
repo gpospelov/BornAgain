@@ -13,13 +13,12 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/Units.h"
 
 // --------------------------------------------------------------------------------------------- //
 
 const QString FTDecayFunction1DItem::P_DECAY_LENGTH =
-    QString::fromStdString(BornAgain::DecayLength);
+    QString::fromStdString("DecayLength");
 
 FTDecayFunction1DItem::FTDecayFunction1DItem(const QString& name) : SessionItem(name) {}
 
@@ -73,7 +72,7 @@ std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DTriangleItem::createFTDecay
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDecayFunction1DVoigtItem::P_ETA = QString::fromStdString(BornAgain::Eta);
+const QString FTDecayFunction1DVoigtItem::P_ETA = QString::fromStdString("Eta");
 
 FTDecayFunction1DVoigtItem::FTDecayFunction1DVoigtItem()
     : FTDecayFunction1DItem(Constants::FTDecayFunction1DVoigtType)
@@ -95,11 +94,11 @@ std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DVoigtItem::createFTDecayFun
 // --------------------------------------------------------------------------------------------- //
 
 const QString FTDecayFunction2DItem::P_DECAY_LENGTH_X =
-    QString::fromStdString(BornAgain::DecayLengthX);
+    QString::fromStdString("DecayLengthX");
 const QString FTDecayFunction2DItem::P_DECAY_LENGTH_Y =
-    QString::fromStdString(BornAgain::DecayLengthY);
-const QString FTDecayFunction2DItem::P_GAMMA = QString::fromStdString(BornAgain::Gamma);
-const QString FTDecayFunction2DItem::P_DELTA = QString::fromStdString(BornAgain::Delta);
+    QString::fromStdString("DecayLengthY");
+const QString FTDecayFunction2DItem::P_GAMMA = QString::fromStdString("Gamma");
+const QString FTDecayFunction2DItem::P_DELTA = QString::fromStdString("Delta");
 
 FTDecayFunction2DItem::FTDecayFunction2DItem(const QString& name) : SessionItem(name) {}
 
@@ -157,7 +156,7 @@ std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DGaussItem::createFTDecayFun
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDecayFunction2DVoigtItem::P_ETA = QString::fromStdString(BornAgain::Eta);
+const QString FTDecayFunction2DVoigtItem::P_ETA = QString::fromStdString("Eta");
 
 FTDecayFunction2DVoigtItem::FTDecayFunction2DVoigtItem()
     : FTDecayFunction2DItem(Constants::FTDecayFunction2DVoigtType)

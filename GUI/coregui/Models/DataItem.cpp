@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DataItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/utils/GUIHelpers.h"

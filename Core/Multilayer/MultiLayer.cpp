@@ -14,7 +14,6 @@
 
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Aggregate/ILayout.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Computation/MultiLayerUtils.h"
 #include "Core/Material/MaterialUtils.h"
@@ -27,7 +26,7 @@
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
 {
-    setName(BornAgain::MultiLayerType);
+    setName("MultiLayer");
     init_parameters();
 }
 
@@ -130,10 +129,10 @@ std::vector<const INode*> MultiLayer::getChildren() const
 void MultiLayer::init_parameters()
 {
     parameterPool()->clear(); // non-trivially needed
-    registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("CrossCorrelationLength", &m_crossCorrLength)
+        .setUnit("nm")
         .setNonnegative();
-    registerVector(BornAgain::ExternalField, &m_ext_field, BornAgain::UnitsNone);
+    registerVector("ExternalField", &m_ext_field, "");
 }
 
 void MultiLayer::addAndRegisterLayer(Layer* child)

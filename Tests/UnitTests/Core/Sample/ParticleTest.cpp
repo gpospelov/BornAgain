@@ -1,5 +1,4 @@
 #include "Core/Particle/Particle.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -20,7 +19,7 @@ TEST_F(ParticleTest, InitialState)
     EXPECT_EQ(HomogeneousMaterial(), *particle.material());
     EXPECT_EQ(nullptr, particle.createFormFactor());
     EXPECT_EQ(nullptr, particle.rotation());
-    EXPECT_EQ(BornAgain::ParticleType, particle.getName());
+    EXPECT_EQ("Particle", particle.getName());
 }
 
 TEST_F(ParticleTest, Clone)
@@ -30,7 +29,7 @@ TEST_F(ParticleTest, Clone)
     EXPECT_EQ(HomogeneousMaterial(), *clone->material());
     EXPECT_EQ(nullptr, clone->createFormFactor());
     EXPECT_EQ(nullptr, clone->rotation());
-    EXPECT_EQ(BornAgain::ParticleType, clone->getName());
+    EXPECT_EQ("Particle", clone->getName());
 }
 
 TEST_F(ParticleTest, Constructors)
@@ -55,7 +54,7 @@ TEST_F(ParticleTest, Constructors)
     std::unique_ptr<Particle> p3(new Particle(mat, sphere, transform));
     EXPECT_EQ(mat, *p3->material());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial*>(p3->createFormFactor()));
-    EXPECT_EQ(BornAgain::ZRotationType, p3->rotation()->getName());
+    EXPECT_EQ("ZRotation", p3->rotation()->getName());
 }
 
 TEST_F(ParticleTest, setters)
@@ -73,7 +72,7 @@ TEST_F(ParticleTest, setters)
     EXPECT_TRUE(nullptr != particle.rotation());
 
     std::unique_ptr<Particle> particle2(particle.clone());
-    EXPECT_EQ(BornAgain::ParticleType, particle2->getName());
+    EXPECT_EQ("Particle", particle2->getName());
     EXPECT_EQ(vacuum, *particle2->material());
     EXPECT_TRUE(nullptr != particle2->rotation());
 }
@@ -87,12 +86,12 @@ TEST_F(ParticleTest, getChildren)
     std::unique_ptr<Particle> particle(new Particle(mat, sphere));
     std::vector<const INode*> children = particle->getChildren();
     EXPECT_EQ(children.size(), 1u);
-    EXPECT_EQ(children.at(0)->getName(), BornAgain::FFFullSphereType);
+    EXPECT_EQ(children.at(0)->getName(), "FullSphere");
 
     // Checking children of particle (with rotation)
     particle.reset(new Particle(mat, sphere, RotationY(45.)));
     children = particle->getChildren();
     EXPECT_EQ(children.size(), 2u);
-    EXPECT_EQ(children.at(0)->getName(), BornAgain::YRotationType);
-    EXPECT_EQ(children.at(1)->getName(), BornAgain::FFFullSphereType);
+    EXPECT_EQ(children.at(0)->getName(), "YRotation");
+    EXPECT_EQ(children.at(1)->getName(), "FullSphere");
 }

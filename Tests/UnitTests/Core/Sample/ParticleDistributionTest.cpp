@@ -1,5 +1,4 @@
 #include "Core/Particle/ParticleDistribution.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterUtils.h"
@@ -25,7 +24,7 @@ TEST_F(ParticleDistributionTest, getChildren)
     std::vector<const INode*> children = distr.getChildren();
 
     EXPECT_EQ(children.size(), 2u);
-    EXPECT_EQ(children.at(0)->getName(), BornAgain::ParticleType);
+    EXPECT_EQ(children.at(0)->getName(), "Particle");
 }
 
 TEST_F(ParticleDistributionTest, mainParameterUnits)
@@ -35,9 +34,9 @@ TEST_F(ParticleDistributionTest, mainParameterUnits)
 
     ParameterDistribution par("/Particle/FullSphere/Radius", gate, 5);
     ParticleDistribution distr(Particle(mat, FormFactorFullSphere(1.0)), par);
-    EXPECT_EQ(ParameterUtils::mainParUnits(distr), BornAgain::UnitsNm);
+    EXPECT_EQ(ParameterUtils::mainParUnits(distr), "nm");
 
     par = ParameterDistribution("/Particle/Cone/Alpha", gate, 5);
     ParticleDistribution distr2(Particle(mat, FormFactorCone(10.0, 20.0, 70.0 * Units::deg)), par);
-    EXPECT_EQ(ParameterUtils::mainParUnits(distr2), BornAgain::UnitsRad);
+    EXPECT_EQ(ParameterUtils::mainParUnits(distr2), "rad");
 }

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
@@ -102,11 +101,11 @@ void MaskUnitsConverter::convertCoordinate(SessionItem* maskItem, const QString&
                                            const QString& yname)
 {
     if (maskItem->isTag(xname)) {
-        double x = convert(maskItem->getItemValue(xname).toDouble(), BornAgain::X_AXIS_INDEX);
+        double x = convert(maskItem->getItemValue(xname).toDouble(), 0);
         maskItem->setItemValue(xname, x);
     }
     if (maskItem->isTag(yname)) {
-        double y = convert(maskItem->getItemValue(yname).toDouble(), BornAgain::Y_AXIS_INDEX);
+        double y = convert(maskItem->getItemValue(yname).toDouble(), 1);
         maskItem->setItemValue(yname, y);
     }
 }
@@ -116,7 +115,7 @@ void MaskUnitsConverter::convertCoordinate(SessionItem* maskItem, const QString&
 double MaskUnitsConverter::convert(double value, int axis_index)
 {
     Q_ASSERT(mp_data);
-    Q_ASSERT(axis_index == BornAgain::X_AXIS_INDEX || axis_index == BornAgain::Y_AXIS_INDEX);
+    Q_ASSERT(axis_index == 0 || axis_index == 1);
 
     if (m_direction == TO_NBINS) {
         return IntensityDataFunctions::coordinateToBinf(value, mp_data->getAxis(axis_index));

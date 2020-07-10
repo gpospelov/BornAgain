@@ -22,7 +22,7 @@
 FormFactorRipple1Box::FormFactorRipple1Box(double length, double width, double height)
     : ProfileRipple1{length, width, height}
 {
-    setName(BornAgain::FFRipple1BoxType);
+    setName("Ripple1Box");
 }
 
 FormFactorRipple1Box* FormFactorRipple1Box::clone() const
@@ -47,7 +47,7 @@ complex_t FormFactorRipple1Box::factor_x(complex_t qx) const
 FormFactorRipple1Gauss::FormFactorRipple1Gauss(double length, double width, double height)
     : ProfileRipple1{length, width, height}
 {
-    setName(BornAgain::FFRipple1GaussType);
+    setName("Ripple1Gauss");
 }
 
 FormFactorRipple1Gauss* FormFactorRipple1Gauss::clone() const
@@ -72,7 +72,7 @@ complex_t FormFactorRipple1Gauss::factor_x(complex_t qx) const
 FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(double length, double width, double height)
     : ProfileRipple1{length, width, height}
 {
-    setName(BornAgain::FFRipple1LorentzType);
+    setName("Ripple1Lorentz");
 }
 
 FormFactorRipple1Lorentz* FormFactorRipple1Lorentz::clone() const

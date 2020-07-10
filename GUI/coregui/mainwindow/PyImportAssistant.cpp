@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "BABuild.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Tools/PyImport.h"
 #include "Core/Tools/SysUtils.h"
@@ -215,7 +214,7 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
 {
     try {
         QString name = sampleName;
-        if (multilayer.getName() != BornAgain::MultiLayerType)
+        if (multilayer.getName() != "MultiLayer")
             name = QString::fromStdString(multilayer.getName());
 
         GUIObjectBuilder::populateSampleModel(m_mainWindow->sampleModel(),

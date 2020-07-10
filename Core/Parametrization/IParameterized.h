@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
 
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/INamed.h"
 #include "Core/Vector/Vectors3D.h"
 
@@ -47,7 +46,7 @@ public:
     RealParameter& registerParameter(const std::string& name, double* parpointer);
 
     void registerVector(const std::string& base_name, kvector_t* p_vec,
-                        const std::string& units = BornAgain::UnitsNm);
+                        const std::string& units = "nm");
 
     void setParameterValue(const std::string& name, double value);
 

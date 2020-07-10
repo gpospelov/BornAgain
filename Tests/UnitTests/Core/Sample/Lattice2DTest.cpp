@@ -1,5 +1,4 @@
 #include "Core/Lattice/Lattice2D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class Lattice2DTest : public ::testing::Test
@@ -17,13 +16,13 @@ TEST_F(Lattice2DTest, basicLattice)
 
     const double new_value(42.0);
 
-    lattice.setParameterValue(BornAgain::LatticeLength1, new_value);
+    lattice.setParameterValue("LatticeLength1", new_value);
     EXPECT_EQ(lattice.length1(), new_value);
-    lattice.setParameterValue(BornAgain::LatticeLength2, new_value);
+    lattice.setParameterValue("LatticeLength2", new_value);
     EXPECT_EQ(lattice.length2(), new_value);
-    lattice.setParameterValue(BornAgain::LatticeAngle, new_value);
+    lattice.setParameterValue("Alpha", new_value);
     EXPECT_EQ(lattice.latticeAngle(), new_value);
-    lattice.setParameterValue(BornAgain::Xi, new_value);
+    lattice.setParameterValue("Xi", new_value);
     EXPECT_EQ(lattice.rotationAngle(), new_value);
 }
 
@@ -37,7 +36,7 @@ TEST_F(Lattice2DTest, basicLatticeClone)
     EXPECT_EQ(clone->length2(), length2);
     EXPECT_EQ(clone->latticeAngle(), angle);
     EXPECT_EQ(clone->rotationAngle(), xi);
-    EXPECT_EQ(clone->getName(), BornAgain::BasicLatticeType);
+    EXPECT_EQ(clone->getName(), "BasicLattice");
 }
 
 TEST_F(Lattice2DTest, squareLatticeClone)
@@ -50,14 +49,14 @@ TEST_F(Lattice2DTest, squareLatticeClone)
     EXPECT_EQ(clone->length2(), length);
     EXPECT_DOUBLE_EQ(clone->latticeAngle(), M_PI / 2.0);
     EXPECT_EQ(clone->rotationAngle(), xi);
-    EXPECT_EQ(clone->getName(), BornAgain::SquareLatticeType);
+    EXPECT_EQ(clone->getName(), "SquareLattice");
 
     // registered parameters of clone
     const double new_value(42.0);
-    clone->setParameterValue(BornAgain::LatticeLength, new_value);
+    clone->setParameterValue("LatticeLength", new_value);
     EXPECT_EQ(clone->length1(), new_value);
     EXPECT_EQ(clone->length2(), new_value);
-    clone->setParameterValue(BornAgain::Xi, new_value);
+    clone->setParameterValue("Xi", new_value);
     EXPECT_EQ(clone->rotationAngle(), new_value);
 }
 
@@ -71,14 +70,14 @@ TEST_F(Lattice2DTest, hexagonalLatticeClone)
     EXPECT_EQ(clone->length2(), length);
     EXPECT_DOUBLE_EQ(clone->latticeAngle(), 2. * M_PI / 3.0);
     EXPECT_EQ(clone->rotationAngle(), xi);
-    EXPECT_EQ(clone->getName(), BornAgain::HexagonalLatticeType);
+    EXPECT_EQ(clone->getName(), "HexagonalLattice");
 
     // registered parameters of clone
     const double new_value(42.0);
-    clone->setParameterValue(BornAgain::LatticeLength, new_value);
+    clone->setParameterValue("LatticeLength", new_value);
     EXPECT_EQ(clone->length1(), new_value);
     EXPECT_EQ(clone->length2(), new_value);
-    clone->setParameterValue(BornAgain::Xi, new_value);
+    clone->setParameterValue("Xi", new_value);
     EXPECT_EQ(clone->rotationAngle(), new_value);
 }
 
@@ -99,6 +98,6 @@ TEST_F(Lattice2DTest, onChange)
 
     parent.registerChild(&lattice);
     EXPECT_FALSE(parent.m_changed);
-    lattice.setParameterValue(BornAgain::LatticeLength1, 42.0);
+    lattice.setParameterValue("LatticeLength1", 42.0);
     EXPECT_TRUE(parent.m_changed);
 }

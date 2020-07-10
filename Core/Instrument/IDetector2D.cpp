@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IDetector2D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Instrument/DetectorContext.h"
 #include "Core/Instrument/DetectorFunctions.h"
@@ -38,8 +37,8 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, 
                                         double y_min, double y_max)
 {
     clear();
-    addAxis(*createAxis(BornAgain::X_AXIS_INDEX, n_x, x_min, x_max));
-    addAxis(*createAxis(BornAgain::Y_AXIS_INDEX, n_y, y_min, y_max));
+    addAxis(*createAxis(0, n_x, x_min, x_max));
+    addAxis(*createAxis(1, n_y, y_min, y_max));
 }
 
 void IDetector2D::setDetectorAxes(const IAxis& axis0, const IAxis& axis1)

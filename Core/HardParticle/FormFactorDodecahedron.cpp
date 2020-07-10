@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorDodecahedron.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorDodecahedron::topology = {{// bottom:
@@ -38,8 +37,8 @@ const PolyhedralTopology FormFactorDodecahedron::topology = {{// bottom:
 //! @param edge: length of the edge in nanometers
 FormFactorDodecahedron::FormFactorDodecahedron(double edge) : FormFactorPolyhedron(), m_edge(edge)
 {
-    setName(BornAgain::FFDodecahedronType);
-    registerParameter(BornAgain::Edge, &m_edge).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("Dodecahedron");
+    registerParameter("Edge", &m_edge).setUnit("nm").setNonnegative();
     onChange();
 }
 

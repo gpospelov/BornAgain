@@ -42,5 +42,5 @@ IFootprintFactor::IFootprintFactor(const IFootprintFactor& other)
 
 void IFootprintFactor::initialize()
 {
-    registerParameter(BornAgain::BeamToSampleWidthRatio, &m_width_ratio).setNonnegative();
+    registerParameter("BeamToSampleWidthRatio", &m_width_ratio).setNonnegative();
 }

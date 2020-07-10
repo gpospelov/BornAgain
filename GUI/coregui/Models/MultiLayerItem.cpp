@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/MultiLayerItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"
 
@@ -23,7 +22,7 @@ const QString external_field_tooltip = "External field (A/m)";
 }
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH =
-    QString::fromStdString(BornAgain::CrossCorrelationLength);
+    QString::fromStdString("CrossCorrelationLength");
 const QString MultiLayerItem::P_EXTERNAL_FIELD = "ExternalField";
 const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
@@ -42,7 +41,7 @@ MultiLayerItem::MultiLayerItem() : SessionGraphicsItem(Constants::MultiLayerType
     setDefaultTag(T_LAYERS);
 
     addTranslator(RoughnessTranslator(this));
-    addTranslator(VectorParameterTranslator(P_EXTERNAL_FIELD, BornAgain::ExternalField));
+    addTranslator(VectorParameterTranslator(P_EXTERNAL_FIELD, "ExternalField"));
 
     mapper()->setOnChildrenChange([this](SessionItem*) { updateLayers(); });
 }

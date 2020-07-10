@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionFinite3DLattice.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -32,7 +31,7 @@ InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const L
                                                                          unsigned N_3)
     : m_N_1(N_1), m_N_2(N_2), m_N_3(N_3)
 {
-    setName(BornAgain::InterferenceFunctionFinite3DLatticeType);
+    setName("InterferenceFinite3DLattice");
     setLattice(lattice);
 }
 

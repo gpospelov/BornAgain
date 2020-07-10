@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParameterTranslators.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Models/MesoCrystalItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/VectorItem.h"
@@ -22,9 +21,9 @@
 namespace
 {
 const QStringList expectedRoughnessPars = QStringList()
-                                          << QString::fromStdString(BornAgain::Sigma)
-                                          << QString::fromStdString(BornAgain::Hurst)
-                                          << QString::fromStdString(BornAgain::CorrelationLength);
+                                          << QString::fromStdString("Sigma")
+                                          << QString::fromStdString("Hurst")
+                                          << QString::fromStdString("CorrelationLength");
 }
 
 IPathTranslator::~IPathTranslator() {}
@@ -114,7 +113,7 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
     int layerIndex = getLayerIndex(layerName);
     QString postfix = numberOfLayers() == 2 ? QString() : QString::number(layerIndex - 1);
 
-    result.push_back(QString::fromStdString(BornAgain::LayerInterfaceType) + postfix);
+    result.push_back(QString::fromStdString("LayerInterface") + postfix);
     return result;
 }
 

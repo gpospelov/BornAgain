@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -25,8 +24,8 @@ namespace
 //! Returns list of all angle related parameters used in Core library.
 std::vector<std::string> angleRelatedParameters()
 {
-    std::vector<std::string> result{BornAgain::Inclination, BornAgain::Azimuth, BornAgain::Alpha,
-                                    BornAgain::Beta,        BornAgain::Gamma,   BornAgain::Angle};
+    std::vector<std::string> result{"InclinationAngle", "AzimuthalAngle", "Alpha",
+                                    "Beta",        "Gamma",   "Angle"};
     return result;
 }
 } // namespace

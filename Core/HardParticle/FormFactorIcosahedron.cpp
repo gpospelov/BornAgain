@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorIcosahedron.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorIcosahedron::topology = {{// bottom:
@@ -48,8 +47,8 @@ const PolyhedralTopology FormFactorIcosahedron::topology = {{// bottom:
 //! @param edge: length of the edge in nanometers
 FormFactorIcosahedron::FormFactorIcosahedron(double edge) : FormFactorPolyhedron(), m_edge(edge)
 {
-    setName(BornAgain::FFIcosahedronType);
-    registerParameter(BornAgain::Edge, &m_edge).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("Icosahedron");
+    registerParameter("Edge", &m_edge).setUnit("nm").setNonnegative();
     onChange();
 }
 

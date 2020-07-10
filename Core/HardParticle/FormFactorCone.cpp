@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCone.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -28,7 +27,7 @@
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     : m_radius(radius), m_height(height), m_alpha(alpha)
 {
-    setName(BornAgain::FFConeType);
+    setName("Cone");
     m_cot_alpha = MathFunctions::cot(m_alpha);
     if (!std::isfinite(m_cot_alpha) || m_cot_alpha < 0)
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
@@ -41,10 +40,10 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Alpha, &m_alpha)
-        .setUnit(BornAgain::UnitsRad)
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("Alpha", &m_alpha)
+        .setUnit("rad")
         .setLimited(0., M_PI_2);
     onChange();
 }

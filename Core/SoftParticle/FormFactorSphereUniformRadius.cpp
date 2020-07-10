@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorSphereUniformRadius.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -27,10 +26,10 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double
         throw Exceptions::ClassInitializationException(
             "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
             " mean radius must be bigger than the half width");
-    setName(BornAgain::FormFactorSphereUniformRadiusType);
-    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::FullWidth, &m_full_width)
-        .setUnit(BornAgain::UnitsNm)
+    setName("FormFactorSphereUniformRadius");
+    registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
+    registerParameter("FullWidth", &m_full_width)
+        .setUnit("nm")
         .setNonnegative();
     onChange();
 }

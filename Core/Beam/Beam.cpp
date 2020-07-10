@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Beam/Beam.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
@@ -25,7 +24,7 @@ static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;
 
 Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(1.0)
 {
-    setName(BornAgain::BeamType);
+    setName("Beam");
     init_parameters();
 }
 
@@ -126,17 +125,17 @@ std::vector<const INode*> Beam::getChildren() const
 
 void Beam::init_parameters()
 {
-    registerParameter(BornAgain::Intensity, &m_intensity).setNonnegative();
-    registerParameter(BornAgain::Wavelength, &m_wavelength)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("Intensity", &m_intensity).setNonnegative();
+    registerParameter("Wavelength", &m_wavelength)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::Inclination, &m_alpha)
-        .setUnit(BornAgain::UnitsRad)
+    registerParameter("InclinationAngle", &m_alpha)
+        .setUnit("rad")
         .setLimited(0, INCLINATION_LIMIT);
-    registerParameter(BornAgain::Azimuth, &m_phi)
-        .setUnit(BornAgain::UnitsRad)
+    registerParameter("AzimuthalAngle", &m_phi)
+        .setUnit("rad")
         .setLimited(-M_PI_2, M_PI_2);
-    registerVector(BornAgain::BlochVector, &m_bloch_vector, BornAgain::UnitsNone);
+    registerVector("BlochVector", &m_bloch_vector, "");
 }
 
 void Beam::registerChildren()

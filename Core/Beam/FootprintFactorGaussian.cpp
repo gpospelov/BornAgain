@@ -55,7 +55,7 @@ FootprintFactorGaussian::FootprintFactorGaussian(const FootprintFactorGaussian& 
 
 void FootprintFactorGaussian::initialize()
 {
-    setName(BornAgain::GaussianFootprintFactorType);
+    setName("FootprintFactorGaussian");
 }
 
 static_assert(!std::is_copy_constructible<FootprintFactorGaussian>::value,

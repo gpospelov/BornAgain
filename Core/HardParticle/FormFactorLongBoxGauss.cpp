@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorLongBoxGauss.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h"
 #include "Core/Tools/MathFunctions.h"
@@ -21,10 +20,10 @@
 FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
-    setName(BornAgain::FFLongBoxGaussType);
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("FormFactorLongBoxGauss");
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

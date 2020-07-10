@@ -16,7 +16,6 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Instrument/AxisNames.h"
@@ -161,10 +160,10 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
         return Units::rad2deg(value);
     case AxesUnits::QSPACE: {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-        if (i_axis == BornAgain::X_AXIS_INDEX) {
+        if (i_axis == 0) {
             auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
             return (k_i - k_f).y();
-        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+        } else if (i_axis == 1) {
             auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
             return (k_f - k_i).z();
         }
@@ -174,10 +173,10 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
     }
     case AxesUnits::QXQY: {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-        if (i_axis == BornAgain::X_AXIS_INDEX) {
+        if (i_axis == 0) {
             auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
             return (k_i - k_f).y();
-        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+        } else if (i_axis == 1) {
             auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
             return (k_f - k_i).x();
         }
@@ -254,9 +253,9 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
         return Units::rad2deg(axisAngle(i_axis, k_f));
     case AxesUnits::QSPACE: {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-        if (i_axis == BornAgain::X_AXIS_INDEX) {
+        if (i_axis == 0) {
             return (k_i - k_f).y();
-        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+        } else if (i_axis == 1) {
             return (k_f - k_i).z();
         }
         throw std::runtime_error("Error in RectangularConverter::calculateValue: "
@@ -265,9 +264,9 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     }
     case AxesUnits::QXQY: {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-        if (i_axis == BornAgain::X_AXIS_INDEX) {
+        if (i_axis == 0) {
             return (k_i - k_f).y();
-        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+        } else if (i_axis == 1) {
             return (k_f - k_i).x();
         }
         throw std::runtime_error("Error in RectangularConverter::calculateValue: "
@@ -298,9 +297,9 @@ kvector_t RectangularConverter::normalizeToWavelength(kvector_t vector) const
 
 double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
 {
-    if (i_axis == BornAgain::X_AXIS_INDEX) {
+    if (i_axis == 0) {
         return k_f.phi();
-    } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+    } else if (i_axis == 1) {
         return M_PI_2 - k_f.theta();
     }
     throw std::runtime_error("Error in RectangularConverter::axisAngle: "

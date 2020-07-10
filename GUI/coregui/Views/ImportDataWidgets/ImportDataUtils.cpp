@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/AxesItems.h"

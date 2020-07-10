@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/RectangularDetector.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Instrument/IDetectorResolution.h"
@@ -26,7 +25,7 @@ RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nyb
       m_dbeam_u0(0.0), m_dbeam_v0(0.0), m_detector_arrangement(GENERIC)
 {
     setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
-    setName(BornAgain::RectangularDetectorType);
+    setName("RectangularDetector");
 }
 
 RectangularDetector::RectangularDetector(const RectangularDetector& other)
@@ -36,7 +35,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
       m_detector_arrangement(other.m_detector_arrangement), m_u_unit(other.m_u_unit),
       m_v_unit(other.m_v_unit)
 {
-    setName(BornAgain::RectangularDetectorType);
+    setName("RectangularDetector");
 }
 
 RectangularDetector::~RectangularDetector() {}
@@ -91,24 +90,24 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 
 double RectangularDetector::getWidth() const
 {
-    const IAxis& axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& axis = getAxis(0);
     return axis.getMax() - axis.getMin();
 }
 
 double RectangularDetector::getHeight() const
 {
-    const IAxis& axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& axis = getAxis(1);
     return axis.getMax() - axis.getMin();
 }
 
 size_t RectangularDetector::getNbinsX() const
 {
-    return getAxis(BornAgain::X_AXIS_INDEX).size();
+    return getAxis(0).size();
 }
 
 size_t RectangularDetector::getNbinsY() const
 {
-    return getAxis(BornAgain::Y_AXIS_INDEX).size();
+    return getAxis(1).size();
 }
 
 kvector_t RectangularDetector::getNormalVector() const
@@ -158,8 +157,8 @@ AxesUnits RectangularDetector::defaultAxesUnits() const
 
 RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 {
-    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& u_axis = getAxis(0);
+    const IAxis& v_axis = getAxis(1);
     double u_min, v_min, width, height;
     auto p_roi = regionOfInterest();
     if (p_roi) {
@@ -182,10 +181,10 @@ RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 
 IPixel* RectangularDetector::createPixel(size_t index) const
 {
-    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    const size_t u_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    const size_t v_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+    const IAxis& u_axis = getAxis(0);
+    const IAxis& v_axis = getAxis(1);
+    const size_t u_index = axisBinIndex(index, 0);
+    const size_t v_index = axisBinIndex(index, 1);
 
     const Bin1D u_bin = u_axis.getBin(u_index);
     const Bin1D v_bin = v_axis.getBin(v_index);
@@ -200,9 +199,9 @@ std::string RectangularDetector::axisName(size_t index) const
 {
     switch (index) {
     case 0:
-        return BornAgain::U_AXIS_NAME;
+        return "u";
     case 1:
-        return BornAgain::V_AXIS_NAME;
+        return "v";
     default:
         throw Exceptions::LogicErrorException(
             "RectangularDetector::getAxisName(size_t index) -> Error! index > 1");
@@ -223,8 +222,8 @@ size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
     kvector_t k_orth = (k_spec / kd - normal_unit) * m_distance;
     double u = k_orth.dot(m_u_unit) + m_u0;
     double v = k_orth.dot(m_v_unit) + m_v0;
-    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis& u_axis = getAxis(0);
+    const IAxis& v_axis = getAxis(1);
     if (u_axis.contains(u) && v_axis.contains(v))
         return getGlobalIndex(u_axis.findClosestIndex(u), v_axis.findClosestIndex(v));
     return totalSize();

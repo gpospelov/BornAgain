@@ -15,7 +15,6 @@
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "Core/Aggregate/FTDecayFunctions.h"
 #include "Core/Aggregate/FTDistributions2D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
@@ -34,7 +33,7 @@ const QString decay_function_tag = "Decay Function";
 // InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION rely on same constant
 
 const QString InterferenceFunctionItem::P_POSITION_VARIANCE =
-    QString::fromStdString(BornAgain::PositionVariance);
+    QString::fromStdString("PositionVariance");
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
@@ -53,9 +52,9 @@ void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction* p_iff)
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunction1DLatticeItem::P_LENGTH =
-    QString::fromStdString(BornAgain::Length);
+    QString::fromStdString("Length");
 const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
-    QString::fromStdString(BornAgain::Xi);
+    QString::fromStdString("Xi");
 const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
@@ -140,11 +139,11 @@ void InterferenceFunction2DLatticeItem::update_rotation_availability()
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH =
-    QString::fromStdString(BornAgain::DampingLength);
+    QString::fromStdString("DampingLength");
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1 =
-    QString::fromStdString(BornAgain::DomainSize1);
+    QString::fromStdString("DomainSize1");
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2 =
-    QString::fromStdString(BornAgain::DomainSize2);
+    QString::fromStdString("DomainSize2");
 const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION = "Integration_over_xi";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
@@ -310,9 +309,9 @@ void InterferenceFunctionFinite2DLatticeItem::update_rotation_availability()
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunctionHardDiskItem::P_RADIUS =
-    QString::fromStdString(BornAgain::Radius);
+    QString::fromStdString("Radius");
 const QString InterferenceFunctionHardDiskItem::P_DENSITY =
-    QString::fromStdString(BornAgain::TotalParticleDensity);
+    QString::fromStdString("TotalParticleDensity");
 
 InterferenceFunctionHardDiskItem::InterferenceFunctionHardDiskItem()
     : InterferenceFunctionItem(Constants::InterferenceFunctionHardDiskType)
@@ -336,13 +335,13 @@ InterferenceFunctionHardDiskItem::createInterferenceFunction() const
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =
-    QString::fromStdString(BornAgain::PeakDistance);
+    QString::fromStdString("PeakDistance");
 const QString InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH =
-    QString::fromStdString(BornAgain::DampingLength);
+    QString::fromStdString("DampingLength");
 const QString InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE =
-    QString::fromStdString(BornAgain::DomainSize);
+    QString::fromStdString("DomainSize");
 const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
-    QString::fromStdString(BornAgain::SizeSpaceCoupling);
+    QString::fromStdString("SizeSpaceCoupling");
 const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem()

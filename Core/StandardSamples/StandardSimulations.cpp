@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/StandardSimulations.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Beam/FootprintFactorSquare.h"
 #include "Core/Binning/FixedBinAxis.h"
@@ -112,13 +111,13 @@ GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
     DistributionGate phi_distr(-0.1 * Units::degree, 0.1 * Units::degree);
 
     ParameterPattern pattern1;
-    pattern1.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    pattern1.beginsWith("*").add("Beam").add("Wavelength");
     result->addParameterDistribution(pattern1.toStdString(), wavelength_distr, 5);
     ParameterPattern pattern2;
-    pattern2.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
+    pattern2.beginsWith("*").add("Beam").add("InclinationAngle");
     result->addParameterDistribution(pattern2.toStdString(), alpha_distr, 4);
     ParameterPattern pattern3;
-    pattern3.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Azimuth);
+    pattern3.beginsWith("*").add("Beam").add("AzimuthalAngle");
     result->addParameterDistribution(pattern3.toStdString(), phi_distr, 3);
 
     return result;

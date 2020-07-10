@@ -14,7 +14,6 @@
 
 #include "Core/StandardSamples/MagneticLayersBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Instrument/Histogram2D.h"
@@ -91,5 +90,5 @@ void GISASSimulation::initSimulationElementVector()
 
 void GISASSimulation::initialize()
 {
-    setName(BornAgain::GISASSimulationType);
+    setName("GISASSimulation");
 }

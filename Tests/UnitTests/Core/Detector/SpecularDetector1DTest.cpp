@@ -1,5 +1,4 @@
 #include "Core/Instrument/SpecularDetector1D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Instrument/OutputData.h"

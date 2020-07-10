@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/IInterferenceFunction.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <algorithm>
 #include <stdexcept>
@@ -62,7 +61,7 @@ double IInterferenceFunction::iff_no_inner(const kvector_t q, double outer_iff) 
 
 void IInterferenceFunction::init_parameters()
 {
-    registerParameter(BornAgain::PositionVariance, &m_position_var)
-        .setUnit(BornAgain::UnitsNm2)
+    registerParameter("PositionVariance", &m_position_var)
+        .setUnit("nm^2")
         .setNonnegative();
 }

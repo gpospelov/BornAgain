@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/Histogram2D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Instrument/ArrayUtils.h"
 #include "Core/Instrument/Histogram1D.h"
@@ -130,13 +129,13 @@ void Histogram2D::addContent(const std::vector<std::vector<double>>& data)
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;
 
-    if (nrows != m_data.getAxis(BornAgain::Y_AXIS_INDEX).size()
-        || ncols != m_data.getAxis(BornAgain::X_AXIS_INDEX).size()) {
+    if (nrows != m_data.getAxis(1).size()
+        || ncols != m_data.getAxis(0).size()) {
         std::ostringstream ostr;
         ostr << "Histogram2D::addContent() -> Shape of input array [" << nrows << ", " << ncols
              << "] doesn't mach histogram axes. "
-             << "X-axis size: " << m_data.getAxis(BornAgain::X_AXIS_INDEX).size()
-             << "Y-axis size: " << m_data.getAxis(BornAgain::Y_AXIS_INDEX).size();
+             << "X-axis size: " << m_data.getAxis(0).size()
+             << "Y-axis size: " << m_data.getAxis(1).size();
         throw Exceptions::LogicErrorException(ostr.str());
     }
 

@@ -40,7 +40,7 @@ AxesUnits SpecularDetector1D::defaultAxesUnits() const
 std::string SpecularDetector1D::axisName(size_t index) const
 {
     if (index == 0) {
-        return BornAgain::U_AXIS_NAME;
+        return "u";
     } else
         throw std::runtime_error(
             "SpecularDetector1D::getAxisName(size_t index) -> Error! index > 0");
@@ -48,5 +48,5 @@ std::string SpecularDetector1D::axisName(size_t index) const
 
 void SpecularDetector1D::initialize()
 {
-    setName(BornAgain::SpecularDetectorType);
+    setName("SpecularDetector1D");
 }

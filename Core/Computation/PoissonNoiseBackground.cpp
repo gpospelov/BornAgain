@@ -17,7 +17,7 @@
 
 PoissonNoiseBackground::PoissonNoiseBackground()
 {
-    setName(BornAgain::PoissonNoiseBackgroundType);
+    setName("PoissonNoiseBackground");
 }
 
 PoissonNoiseBackground::~PoissonNoiseBackground() = default;

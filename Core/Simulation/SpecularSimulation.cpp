@@ -192,18 +192,18 @@ void SpecularSimulation::validateParametrization(const ParameterDistribution& pa
     const std::vector<RealParameter*> names =
         parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
-        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+        if (par->getName().find("InclinationAngle") != std::string::npos && !zero_mean)
             throw std::runtime_error("Error in SpecularSimulation: parameter distribution of "
                                      "beam inclination angle should have zero mean.");
 }
 
 void SpecularSimulation::initialize()
 {
-    setName(BornAgain::SpecularSimulationType);
+    setName("SpecularSimulation");
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    auto inclination = m_instrument.getBeam().parameter(BornAgain::Inclination);
+    auto inclination = m_instrument.getBeam().parameter("InclinationAngle");
     inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 

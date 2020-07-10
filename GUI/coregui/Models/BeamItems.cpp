@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BeamItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/IAxis.h"
 #include "Core/Parametrization/Units.h"
@@ -40,10 +39,10 @@ const QString polarization_tooltip = "Polarization of the beam, given as the Blo
 RealLimits getLimits(double max_q);
 } // namespace
 
-const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
-const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
-const QString BeamItem::P_INCLINATION_ANGLE = QString::fromStdString(BornAgain::Inclination);
-const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString(BornAgain::Azimuth);
+const QString BeamItem::P_INTENSITY = QString::fromStdString("Intensity");
+const QString BeamItem::P_WAVELENGTH = QString::fromStdString("Wavelength");
+const QString BeamItem::P_INCLINATION_ANGLE = QString::fromStdString("InclinationAngle");
+const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString("AzimuthalAngle");
 const QString BeamItem::P_POLARIZATION = QString("Polarization");
 
 BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
@@ -56,7 +55,7 @@ BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
     addGroupProperty(P_POLARIZATION, Constants::VectorType)->setToolTip(polarization_tooltip);
 
-    addTranslator(VectorParameterTranslator(P_POLARIZATION, BornAgain::BlochVector));
+    addTranslator(VectorParameterTranslator(P_POLARIZATION, "BlochVector"));
 }
 
 BeamItem::~BeamItem() = default;

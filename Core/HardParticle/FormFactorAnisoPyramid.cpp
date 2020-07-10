@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorAnisoPyramid.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -36,12 +35,12 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, doub
                                                double alpha)
     : FormFactorPolyhedron(), m_length(length), m_width(width), m_height(height), m_alpha(alpha)
 {
-    setName(BornAgain::FFAnisoPyramidType);
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Alpha, &m_alpha)
-        .setUnit(BornAgain::UnitsRad)
+    setName("AnisoPyramid");
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("Alpha", &m_alpha)
+        .setUnit("rad")
         .setLimited(0., M_PI_2);
     onChange();
 }

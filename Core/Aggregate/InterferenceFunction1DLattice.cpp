@@ -14,7 +14,6 @@
 
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
 #include "Core/Aggregate/FTDecayFunctions.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -34,7 +33,7 @@ static const int min_points = 4;
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
     : m_lattice_params(length, xi), m_na{0}
 {
-    setName(BornAgain::InterferenceFunction1DLatticeType);
+    setName("Interference1DLattice");
     init_parameters();
 }
 
@@ -103,8 +102,8 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    registerParameter(BornAgain::Length, &m_lattice_params.m_length)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("Length", &m_lattice_params.m_length)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::Xi, &m_lattice_params.m_xi).setUnit(BornAgain::UnitsRad);
+    registerParameter("Xi", &m_lattice_params.m_xi).setUnit("rad");
 }

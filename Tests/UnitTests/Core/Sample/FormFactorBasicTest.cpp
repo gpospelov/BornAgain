@@ -1,4 +1,3 @@
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Scattering/IFormFactorBorn.h"
@@ -79,7 +78,7 @@ TEST_F(FormFactorBasicTest, AnisoPyramid)
 
     FormFactorAnisoPyramid particle(length, width, height, alpha);
 
-    EXPECT_EQ(BornAgain::FFAnisoPyramidType, particle.getName());
+    EXPECT_EQ("AnisoPyramid", particle.getName());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(length, particle.getLength());
     EXPECT_EQ(width, particle.getWidth());
@@ -101,7 +100,7 @@ TEST_F(FormFactorBasicTest, HemiEllipsoid)
 
     FormFactorHemiEllipsoid particle(radiusx, radiusy, height);
 
-    EXPECT_EQ(BornAgain::FFHemiEllipsoidType, particle.getName());
+    EXPECT_EQ("HemiEllipsoid", particle.getName());
     EXPECT_EQ(radiusx, particle.getRadiusX());
     EXPECT_EQ(radiusy, particle.getRadiusY());
     EXPECT_EQ(height, particle.getHeight());
@@ -119,7 +118,7 @@ TEST_F(FormFactorBasicTest, Box)
 
     FormFactorBox particle(length, width, height);
 
-    EXPECT_EQ(BornAgain::FFBoxType, particle.getName());
+    EXPECT_EQ("Box", particle.getName());
     EXPECT_EQ(width, particle.getWidth());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(3., particle.radialExtension());
@@ -149,7 +148,7 @@ TEST_F(FormFactorBasicTest, Cone)
 
     FormFactorCone particle(radius, height, alpha);
 
-    EXPECT_EQ(BornAgain::FFConeType, particle.getName());
+    EXPECT_EQ("Cone", particle.getName());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(alpha, particle.getAlpha());
@@ -172,7 +171,7 @@ TEST_F(FormFactorBasicTest, Cone6)
 
     FormFactorCone6 particle(base_edge, height, alpha);
 
-    EXPECT_EQ(BornAgain::FFCone6Type, particle.getName());
+    EXPECT_EQ("Cone6", particle.getName());
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(alpha, particle.getAlpha());
@@ -197,7 +196,7 @@ TEST_F(FormFactorBasicTest, Cuboctahedron)
 
     FormFactorCuboctahedron particle(length, height, height_ratio, alpha);
 
-    EXPECT_EQ(BornAgain::FFCuboctahedronType, particle.getName());
+    EXPECT_EQ("Cuboctahedron", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(length, particle.getLength());
     EXPECT_EQ(height_ratio, particle.getHeightRatio());
@@ -217,7 +216,7 @@ TEST_F(FormFactorBasicTest, Cylinder)
 
     FormFactorCylinder particle(radius, height);
 
-    EXPECT_EQ(BornAgain::FFCylinderType, particle.getName());
+    EXPECT_EQ("Cylinder", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
@@ -248,7 +247,7 @@ TEST_F(FormFactorBasicTest, Dodecahedron)
     double volume = (15 + 7 * sqrt(5)) / 4 * pow(edge, 3);
 
     FormFactorDodecahedron particle(edge);
-    EXPECT_EQ(BornAgain::FFDodecahedronType, particle.getName());
+    EXPECT_EQ("Dodecahedron", particle.getName());
     EXPECT_EQ(edge, particle.getEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
@@ -267,7 +266,7 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
 
     FormFactorEllipsoidalCylinder particle(radiusx, radiusy, height);
 
-    EXPECT_EQ(BornAgain::FFEllipsoidalCylinderType, particle.getName());
+    EXPECT_EQ("EllipsoidalCylinder", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(radiusx, particle.getRadiusX());
     EXPECT_EQ(radiusy, particle.getRadiusY());
@@ -301,7 +300,7 @@ TEST_F(FormFactorBasicTest, FullSphere)
     double volume = 4. / 3. * M_PI * radius * radius * radius;
 
     FormFactorFullSphere particle(radius);
-    EXPECT_EQ(BornAgain::FFFullSphereType, particle.getName());
+    EXPECT_EQ("FullSphere", particle.getName());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
@@ -318,7 +317,7 @@ TEST_F(FormFactorBasicTest, FullSpheroid)
 
     FormFactorFullSpheroid particle(radius, height);
 
-    EXPECT_EQ(BornAgain::FFFullSpheroidType, particle.getName());
+    EXPECT_EQ("FullSpheroid", particle.getName());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
@@ -335,7 +334,7 @@ TEST_F(FormFactorBasicTest, Icosahedron)
 
     FormFactorIcosahedron particle(edge);
 
-    EXPECT_EQ(BornAgain::FFIcosahedronType, particle.getName());
+    EXPECT_EQ("Icosahedron", particle.getName());
     EXPECT_EQ(edge, particle.getEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
@@ -353,7 +352,7 @@ TEST_F(FormFactorBasicTest, Prism3)
 
     FormFactorPrism3 particle(base_edge, height);
 
-    EXPECT_EQ(BornAgain::FFPrism3Type, particle.getName());
+    EXPECT_EQ("Prism3", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
@@ -371,7 +370,7 @@ TEST_F(FormFactorBasicTest, Prism6)
 
     FormFactorPrism6 particle(base_edge, height);
 
-    EXPECT_EQ(BornAgain::FFPrism6Type, particle.getName());
+    EXPECT_EQ("Prism6", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
@@ -393,7 +392,7 @@ TEST_F(FormFactorBasicTest, Pyramid)
 
     FormFactorPyramid particle(base_edge, height, alpha);
 
-    EXPECT_EQ(BornAgain::FFPyramidType, particle.getName());
+    EXPECT_EQ("Pyramid", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_EQ(alpha, particle.getAlpha());
@@ -414,7 +413,7 @@ TEST_F(FormFactorBasicTest, TruncatedSphere)
 
     FormFactorTruncatedSphere particle(radius, height);
 
-    EXPECT_EQ(BornAgain::FFTruncatedSphereType, particle.getName());
+    EXPECT_EQ("TruncatedSphere", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
@@ -433,7 +432,7 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
 
     FormFactorTruncatedSpheroid particle(radius, height, flattening);
 
-    EXPECT_EQ(BornAgain::FFTruncatedSpheroidType, particle.getName());
+    EXPECT_EQ("TruncatedSpheroid", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
@@ -455,7 +454,7 @@ TEST_F(FormFactorBasicTest, Tetrahedron)
 
     FormFactorTetrahedron particle(base_edge, height, alpha);
 
-    EXPECT_EQ(BornAgain::FFTetrahedronType, particle.getName());
+    EXPECT_EQ("Tetrahedron", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_EQ(alpha, particle.getAlpha());
@@ -473,7 +472,7 @@ TEST_F(FormFactorBasicTest, Ripple1Box)
 
     FormFactorRipple1Box particle(length, width, height);
 
-    EXPECT_EQ(BornAgain::FFRipple1BoxType, particle.getName());
+    EXPECT_EQ("Ripple1Box", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(width, particle.getWidth());
     EXPECT_EQ(length, particle.getLength());
@@ -492,7 +491,7 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
 
     FormFactorTruncatedCube particle(length, t);
 
-    EXPECT_EQ(BornAgain::FFTruncatedCubeType, particle.getName());
+    EXPECT_EQ("TruncatedCube", particle.getName());
     EXPECT_EQ(length, particle.getLength());
     EXPECT_DOUBLE_EQ(t, particle.getRemovedLength());
     EXPECT_DOUBLE_EQ(particle.volume(), volume);
@@ -512,7 +511,7 @@ TEST_F(FormFactorBasicTest, Ripple2Box)
 
     FormFactorRipple2Box particle(length, width, height, d);
 
-    EXPECT_EQ(BornAgain::FFRipple2BoxType, particle.getName());
+    EXPECT_EQ("Ripple2Box", particle.getName());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));

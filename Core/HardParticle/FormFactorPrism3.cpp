@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorPrism3.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <iostream>
 
@@ -23,11 +22,11 @@
 FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
     : FormFactorPolygonalPrism(height), m_base_edge(base_edge)
 {
-    setName(BornAgain::FFPrism3Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge)
-        .setUnit(BornAgain::UnitsNm)
+    setName("Prism3");
+    registerParameter("BaseEdge", &m_base_edge)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

@@ -13,10 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/FTDistributionItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/Units.h"
 
-const QString FTDistribution1DItem::P_OMEGA = QString::fromStdString(BornAgain::Omega);
+const QString FTDistribution1DItem::P_OMEGA = QString::fromStdString("Omega");
 
 FTDistribution1DItem::FTDistribution1DItem(const QString& name) : SessionItem(name) {}
 
@@ -98,7 +97,7 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DCosineItem::createFTDistribut
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDistribution1DVoigtItem::P_ETA = QString::fromStdString(BornAgain::Eta);
+const QString FTDistribution1DVoigtItem::P_ETA = QString::fromStdString("Eta");
 
 FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
     : FTDistribution1DItem(Constants::FTDistribution1DVoigtType)
@@ -119,9 +118,9 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistributi
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDistribution2DItem::P_OMEGA_X = QString::fromStdString(BornAgain::OmegaX);
-const QString FTDistribution2DItem::P_OMEGA_Y = QString::fromStdString(BornAgain::OmegaY);
-const QString FTDistribution2DItem::P_GAMMA = QString::fromStdString(BornAgain::Gamma);
+const QString FTDistribution2DItem::P_OMEGA_X = QString::fromStdString("OmegaX");
+const QString FTDistribution2DItem::P_OMEGA_Y = QString::fromStdString("OmegaY");
+const QString FTDistribution2DItem::P_GAMMA = QString::fromStdString("Gamma");
 
 FTDistribution2DItem::FTDistribution2DItem(const QString& name) : SessionItem(name) {}
 
@@ -215,7 +214,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DConeItem::createFTDistributio
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDistribution2DVoigtItem::P_ETA = QString::fromStdString(BornAgain::Eta);
+const QString FTDistribution2DVoigtItem::P_ETA = QString::fromStdString("Eta");
 
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     : FTDistribution2DItem(Constants::FTDistribution2DVoigtType)

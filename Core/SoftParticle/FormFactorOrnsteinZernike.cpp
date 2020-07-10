@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorOrnsteinZernike.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <limits>
@@ -23,7 +22,7 @@ FormFactorOrnsteinZernike::FormFactorOrnsteinZernike(double I0, double xi_xy, do
     m_I0 = I0;
     m_xi_xy = xi_xy;
     m_xi_z = xi_z;
-    setName(BornAgain::FFOrnsteinZernikeType);
+    setName("FormFactorOrnsteinZernike");
 }
 
 complex_t FormFactorOrnsteinZernike::evaluate_for_q(cvector_t q) const

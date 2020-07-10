@@ -228,7 +228,7 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
     distItem->setDomainCacheNames(main_distr_par_name, linked_pars);
 
     double unit_factor(1.0);
-    if (ParameterUtils::mainParUnits(sample) == BornAgain::UnitsRad)
+    if (ParameterUtils::mainParUnits(sample) == "rad")
         unit_factor = 1. / Units::degree;
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
@@ -260,11 +260,11 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
     const DistributionHandler::Distributions_t distributions =
         simulation.getDistributionHandler().getDistributions();
     for (size_t i = 0; i < distributions.size(); ++i) {
-        addDistributionToBeamItem(BornAgain::Wavelength, BeamItem::P_WAVELENGTH, distributions[i],
+        addDistributionToBeamItem("Wavelength", BeamItem::P_WAVELENGTH, distributions[i],
                                   beam_item);
-        addDistributionToBeamItem(BornAgain::Inclination, BeamItem::P_INCLINATION_ANGLE,
+        addDistributionToBeamItem("InclinationAngle", BeamItem::P_INCLINATION_ANGLE,
                                   distributions[i], beam_item);
-        addDistributionToBeamItem(BornAgain::Azimuth, BeamItem::P_AZIMUTHAL_ANGLE, distributions[i],
+        addDistributionToBeamItem("AzimuthalAngle", BeamItem::P_AZIMUTHAL_ANGLE, distributions[i],
                                   beam_item);
     }
 
@@ -789,12 +789,12 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
 void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
 {
     SessionItem* latticeItem(nullptr);
-    if (lattice.getName() == BornAgain::SquareLatticeType) {
+    if (lattice.getName() == "SquareLattice") {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
                                              Constants::SquareLatticeType);
         latticeItem->setItemValue(SquareLatticeItem::P_LATTICE_LENGTH, lattice.length1());
 
-    } else if (lattice.getName() == BornAgain::HexagonalLatticeType) {
+    } else if (lattice.getName() == "HexagonalLattice") {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
                                              Constants::HexagonalLatticeType);
         latticeItem->setItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH, lattice.length1());
@@ -877,7 +877,7 @@ void addDistributionToBeamItem(const std::string& parameter_name, const QString&
                                const ParameterDistribution& distribution, const BeamItem* beam_item)
 {
     ParameterPattern pattern;
-    pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
+    pattern.beginsWith("*").add("Beam").add(parameter_name);
     if (distribution.getMainParameterName() != pattern.toStdString())
         return;
 

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/Instrument.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Instrument/DetectorFunctions.h"
 #include "Core/Instrument/Histogram2D.h"
@@ -23,7 +22,7 @@
 
 Instrument::Instrument() : mP_detector(new SphericalDetector)
 {
-    setName(BornAgain::InstrumentType);
+    setName("Instrument");
     registerChild(mP_detector.get());
     registerChild(&m_beam);
     init_parameters();

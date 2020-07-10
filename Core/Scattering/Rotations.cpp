@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/Rotations.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 
 IRotation* IRotation::createRotation(const Transform3D& transform)
@@ -80,8 +79,8 @@ Transform3D IdentityRotation::getTransform3D() const
 //! @param angle: rotation angle around x-axis in radians
 RotationX::RotationX(double angle) : m_angle(angle)
 {
-    setName(BornAgain::XRotationType);
-    registerParameter(BornAgain::Angle, &m_angle).setUnit(BornAgain::UnitsRad);
+    setName("XRotation");
+    registerParameter("Angle", &m_angle).setUnit("rad");
 }
 
 Transform3D RotationX::getTransform3D() const
@@ -95,8 +94,8 @@ Transform3D RotationX::getTransform3D() const
 //! @param angle: rotation angle around y-axis in radians
 RotationY::RotationY(double angle) : m_angle(angle)
 {
-    setName(BornAgain::YRotationType);
-    registerParameter(BornAgain::Angle, &m_angle).setUnit(BornAgain::UnitsRad);
+    setName("YRotation");
+    registerParameter("Angle", &m_angle).setUnit("rad");
 }
 
 Transform3D RotationY::getTransform3D() const
@@ -110,8 +109,8 @@ Transform3D RotationY::getTransform3D() const
 //! @param angle: rotation angle around z-axis in radians
 RotationZ::RotationZ(double angle) : m_angle(angle)
 {
-    setName(BornAgain::ZRotationType);
-    registerParameter(BornAgain::Angle, &m_angle).setUnit(BornAgain::UnitsRad);
+    setName("ZRotation");
+    registerParameter("Angle", &m_angle).setUnit("rad");
 }
 
 Transform3D RotationZ::getTransform3D() const
@@ -129,10 +128,10 @@ Transform3D RotationZ::getTransform3D() const
 RotationEuler::RotationEuler(double alpha, double beta, double gamma)
     : m_alpha(alpha), m_beta(beta), m_gamma(gamma)
 {
-    setName(BornAgain::EulerRotationType);
-    registerParameter(BornAgain::Alpha, &m_alpha).setUnit(BornAgain::UnitsRad);
-    registerParameter(BornAgain::Beta, &m_beta).setUnit(BornAgain::UnitsRad);
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit(BornAgain::UnitsRad);
+    setName("EulerRotation");
+    registerParameter("Alpha", &m_alpha).setUnit("rad");
+    registerParameter("Beta", &m_beta).setUnit("rad");
+    registerParameter("Gamma", &m_gamma).setUnit("rad");
 }
 
 IRotation* RotationEuler::createInverse() const

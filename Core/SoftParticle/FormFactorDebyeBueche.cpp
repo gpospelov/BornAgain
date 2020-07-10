@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorDebyeBueche.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <limits>
@@ -22,7 +21,7 @@ FormFactorDebyeBueche::FormFactorDebyeBueche(double I0, double xi)
 {
     m_I0 = I0;
     m_xi = xi;
-    setName(BornAgain::FFDebyeBuecheType);
+    setName("FormFactorDebyeBueche");
 }
 
 complex_t FormFactorDebyeBueche::evaluate_for_q(cvector_t q) const

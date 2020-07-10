@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionTwin.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <cmath>
 
@@ -21,7 +20,7 @@ InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t& direction, d
                                                    double std_dev)
     : m_direction(direction), m_distance(mean_distance), m_std_dev(std_dev)
 {
-    setName(BornAgain::InterferenceFunctionTwinType);
+    setName("InterferenceTwin");
     validateParameters();
     init_parameters();
 }
@@ -50,7 +49,7 @@ InterferenceFunctionTwin::InterferenceFunctionTwin(const InterferenceFunctionTwi
     : IInterferenceFunction(other), m_direction(other.m_direction), m_distance(other.m_distance),
       m_std_dev(other.m_std_dev)
 {
-    setName(BornAgain::InterferenceFunctionTwinType);
+    setName("InterferenceTwin");
     validateParameters();
     init_parameters();
 }
@@ -73,9 +72,9 @@ void InterferenceFunctionTwin::validateParameters() const
 
 void InterferenceFunctionTwin::init_parameters()
 {
-    registerVector(BornAgain::Direction, &m_direction, BornAgain::UnitsNone);
-    registerParameter(BornAgain::Mean, &m_distance).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::StdDeviation, &m_std_dev)
-        .setUnit(BornAgain::UnitsNm)
+    registerVector("Direction", &m_direction, "");
+    registerParameter("Mean", &m_distance).setUnit("nm").setNonnegative();
+    registerParameter("StdDev", &m_std_dev)
+        .setUnit("nm")
         .setNonnegative();
 }

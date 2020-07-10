@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/FTDistributions2D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
@@ -38,14 +37,14 @@ double IFTDistribution2D::sumsq(double qx, double qy) const
 
 void IFTDistribution2D::register_omega()
 {
-    registerParameter(BornAgain::OmegaX, &m_omega_x).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::OmegaY, &m_omega_y).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("OmegaX", &m_omega_x).setUnit("nm").setNonnegative();
+    registerParameter("OmegaY", &m_omega_y).setUnit("nm").setNonnegative();
 }
 
 void IFTDistribution2D::register_gamma()
 {
-    registerParameter(BornAgain::Gamma, &m_gamma)
-        .setUnit(BornAgain::UnitsRad)
+    registerParameter("Gamma", &m_gamma)
+        .setUnit("rad")
         .setLimited(-M_PI_2, M_PI_2);
 }
 
@@ -58,7 +57,7 @@ void IFTDistribution2D::init_parameters()
 FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
-    setName(BornAgain::FTDistribution2DCauchyType);
+    setName("FTDistribution2DCauchy");
     init_parameters();
 }
 
@@ -80,7 +79,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() 
 FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
-    setName(BornAgain::FTDistribution2DGaussType);
+    setName("FTDistribution2DGauss");
     init_parameters();
 }
 
@@ -102,7 +101,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() c
 FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
-    setName(BornAgain::FTDistribution2DGateType);
+    setName("FTDistribution2DGate");
     init_parameters();
 }
 
@@ -125,7 +124,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() co
 FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
-    setName(BornAgain::FTDistribution2DConeType);
+    setName("FTDistribution2DCone");
     init_parameters();
 }
 
@@ -161,9 +160,9 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, dou
                                              double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma), m_eta(eta)
 {
-    setName(BornAgain::FTDistribution2DVoigtType);
+    setName("FTDistribution2DVoigt");
     register_omega();
-    registerParameter(BornAgain::Eta, &m_eta);
+    registerParameter("Eta", &m_eta);
     register_gamma();
 }
 

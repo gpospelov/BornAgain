@@ -34,9 +34,9 @@ const QString analyzer_transmission_tooltip = "Total transmission of the polariz
 const QString DetectorItem::T_MASKS = "Masks";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
-const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString(BornAgain::Efficiency);
+const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString("Efficiency");
 const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION =
-    QString::fromStdString(BornAgain::Transmission);
+    QString::fromStdString("Transmission");
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
@@ -50,9 +50,9 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
         .setToolTip(analyzer_efficiency_tooltip);
     addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
 
-    QString additional_name = QString::fromStdString(BornAgain::DetectorAnalyzer);
+    QString additional_name = QString::fromStdString("Analyzer");
     addTranslator(
-        VectorParameterTranslator(P_ANALYZER_DIRECTION, BornAgain::Direction, {additional_name}));
+        VectorParameterTranslator(P_ANALYZER_DIRECTION, "Direction", {additional_name}));
     addTranslator(AddElementTranslator(P_ANALYZER_EFFICIENCY, additional_name));
     addTranslator(AddElementTranslator(P_ANALYZER_TOTAL_TRANSMISSION, additional_name));
 

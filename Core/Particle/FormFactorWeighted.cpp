@@ -14,11 +14,10 @@
 
 #include "Core/Particle/FormFactorWeighted.h"
 #include "Core/Basics/Algorithms.h"
-#include "Core/Basics/BornAgainNamespace.h"
 
 FormFactorWeighted::FormFactorWeighted()
 {
-    setName(BornAgain::FormFactorWeightedType);
+    setName("FormFactorWeighted");
 }
 
 FormFactorWeighted::~FormFactorWeighted()

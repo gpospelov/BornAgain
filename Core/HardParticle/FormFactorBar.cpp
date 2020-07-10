@@ -22,7 +22,7 @@
 FormFactorBarGauss::FormFactorBarGauss(double length, double width, double height)
     : ProfileBar{length, width, height}
 {
-    setName(BornAgain::FFBarGaussType);
+    setName("BarGauss");
 }
 
 FormFactorBarGauss* FormFactorBarGauss::clone() const
@@ -47,7 +47,7 @@ complex_t FormFactorBarGauss::factor_x(complex_t qx) const
 FormFactorBarLorentz::FormFactorBarLorentz(double length, double width, double height)
     : ProfileBar{length, width, height}
 {
-    setName(BornAgain::FFBarLorentzType);
+    setName("BarLorentz");
 }
 
 FormFactorBarLorentz* FormFactorBarLorentz::clone() const

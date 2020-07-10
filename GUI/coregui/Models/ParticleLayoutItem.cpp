@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
@@ -48,8 +47,8 @@ const QString weight_tooltip =
 } // namespace
 
 const QString ParticleLayoutItem::P_TOTAL_DENSITY =
-    QString::fromStdString(BornAgain::TotalParticleDensity);
-const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString(BornAgain::Weight);
+    QString::fromStdString("TotalParticleDensity");
+const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString("Weight");
 const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
 const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 

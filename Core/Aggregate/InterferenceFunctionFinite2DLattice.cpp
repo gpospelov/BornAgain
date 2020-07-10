@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionFinite2DLattice.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -31,7 +30,7 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const L
                                                                          unsigned N_1, unsigned N_2)
     : m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
 {
-    setName(BornAgain::InterferenceFunctionFinite2DLatticeType);
+    setName("InterferenceFinite2DLattice");
     setLattice(lattice);
     init_parameters();
 }
@@ -49,7 +48,7 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double 
                                                                          unsigned N_1, unsigned N_2)
     : m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
 {
-    setName(BornAgain::InterferenceFunctionFinite2DLatticeType);
+    setName("InterferenceFinite2DLattice");
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
     init_parameters();
 }

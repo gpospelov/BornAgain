@@ -275,7 +275,7 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
 
     const std::string axis_def = indent() + "alpha_i_axis = ";
     result << axis_def
-           << PythonFormatting::printAxis(*simulation.beamAxis(), BornAgain::UnitsRad,
+           << PythonFormatting::printAxis(*simulation.beamAxis(), "rad",
                                           axis_def.size())
            << "\n";
 

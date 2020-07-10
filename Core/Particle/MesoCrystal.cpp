@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Particle/MesoCrystal.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
 #include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
 #include "Core/Particle/IClusteredParticles.h"
@@ -78,7 +77,7 @@ MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor*
 
 void MesoCrystal::initialize()
 {
-    setName(BornAgain::MesoCrystalType);
+    setName("MesoCrystal");
     registerParticleProperties();
     registerChild(mp_particle_structure.get());
     registerChild(mp_meso_form_factor.get());

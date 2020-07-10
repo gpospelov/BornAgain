@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/LayerRoughnessItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 
 namespace
 {
@@ -24,10 +23,10 @@ const QString hurst_tooltip =
 
 LayerZeroRoughnessItem::LayerZeroRoughnessItem() : SessionItem(Constants::LayerZeroRoughnessType) {}
 
-const QString LayerBasicRoughnessItem::P_SIGMA = QString::fromStdString(BornAgain::Sigma);
-const QString LayerBasicRoughnessItem::P_HURST = QString::fromStdString(BornAgain::Hurst);
+const QString LayerBasicRoughnessItem::P_SIGMA = QString::fromStdString("Sigma");
+const QString LayerBasicRoughnessItem::P_HURST = QString::fromStdString("Hurst");
 const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH =
-    QString::fromStdString(BornAgain::CorrelationLength);
+    QString::fromStdString("CorrelationLength");
 
 LayerBasicRoughnessItem::LayerBasicRoughnessItem() : SessionItem(Constants::LayerBasicRoughnessType)
 {

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DistributionItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "GUI/coregui/Models/RealLimitsItems.h"
@@ -91,7 +90,7 @@ void DistributionItem::register_limits()
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString SymmetricDistributionItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
+const QString SymmetricDistributionItem::P_MEAN = QString::fromStdString("Mean");
 
 SymmetricDistributionItem::SymmetricDistributionItem(const QString& name) : DistributionItem(name)
 {
@@ -134,8 +133,8 @@ void DistributionNoneItem::init_distribution(double value)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionGateItem::P_MIN = QString::fromStdString(BornAgain::Minimum);
-const QString DistributionGateItem::P_MAX = QString::fromStdString(BornAgain::Maximum);
+const QString DistributionGateItem::P_MIN = QString::fromStdString("Min");
+const QString DistributionGateItem::P_MAX = QString::fromStdString("Max");
 
 DistributionGateItem::DistributionGateItem() : DistributionItem(Constants::DistributionGateType)
 {
@@ -164,7 +163,7 @@ void DistributionGateItem::init_distribution(double value)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionLorentzItem::P_HWHM = QString::fromStdString(BornAgain::HWHM);
+const QString DistributionLorentzItem::P_HWHM = QString::fromStdString("HWHM");
 
 DistributionLorentzItem::DistributionLorentzItem()
     : SymmetricDistributionItem(Constants::DistributionLorentzType)
@@ -207,7 +206,7 @@ void DistributionLorentzItem::init_distribution(double value)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionGaussianItem::P_STD_DEV = QString::fromStdString(BornAgain::StdDeviation);
+const QString DistributionGaussianItem::P_STD_DEV = QString::fromStdString("StdDev");
 
 DistributionGaussianItem::DistributionGaussianItem()
     : SymmetricDistributionItem(Constants::DistributionGaussianType)
@@ -250,9 +249,9 @@ void DistributionGaussianItem::init_distribution(double value)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionLogNormalItem::P_MEDIAN = QString::fromStdString(BornAgain::Median);
+const QString DistributionLogNormalItem::P_MEDIAN = QString::fromStdString("Median");
 const QString DistributionLogNormalItem::P_SCALE_PAR =
-    QString::fromStdString(BornAgain::ScaleParameter);
+    QString::fromStdString("ScaleParameter");
 
 DistributionLogNormalItem::DistributionLogNormalItem()
     : DistributionItem(Constants::DistributionLogNormalType)
@@ -289,7 +288,7 @@ void DistributionLogNormalItem::showMean(bool flag)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionCosineItem::P_SIGMA = QString::fromStdString(BornAgain::Sigma);
+const QString DistributionCosineItem::P_SIGMA = QString::fromStdString("Sigma");
 
 DistributionCosineItem::DistributionCosineItem()
     : SymmetricDistributionItem(Constants::DistributionCosineType)
@@ -332,12 +331,12 @@ void DistributionCosineItem::init_distribution(double value)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionTrapezoidItem::P_CENTER = QString::fromStdString(BornAgain::Center);
-const QString DistributionTrapezoidItem::P_LEFTWIDTH = QString::fromStdString(BornAgain::LeftWidth);
+const QString DistributionTrapezoidItem::P_CENTER = QString::fromStdString("Center");
+const QString DistributionTrapezoidItem::P_LEFTWIDTH = QString::fromStdString("LeftWidth");
 const QString DistributionTrapezoidItem::P_MIDDLEWIDTH =
-    QString::fromStdString(BornAgain::MiddleWidth);
+    QString::fromStdString("MiddleWidth");
 const QString DistributionTrapezoidItem::P_RIGHTWIDTH =
-    QString::fromStdString(BornAgain::RightWidth);
+    QString::fromStdString("RightWidth");
 
 DistributionTrapezoidItem::DistributionTrapezoidItem()
     : DistributionItem(Constants::DistributionTrapezoidType)

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/MesoCrystalItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
@@ -85,16 +84,16 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
 
-    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
+    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, "Position"));
     addTranslator(RotationTranslator());
-    QStringList additional_names{QString::fromStdString(BornAgain::LatticeType),
-                                 QString::fromStdString(BornAgain::CrystalType)};
+    QStringList additional_names{QString::fromStdString("Lattice"),
+                                 QString::fromStdString("Crystal")};
     addTranslator(
-        VectorParameterTranslator(P_VECTOR_A, BornAgain::BasisVector_A, additional_names));
+        VectorParameterTranslator(P_VECTOR_A, "BasisA", additional_names));
     addTranslator(
-        VectorParameterTranslator(P_VECTOR_B, BornAgain::BasisVector_B, additional_names));
+        VectorParameterTranslator(P_VECTOR_B, "BasisB", additional_names));
     addTranslator(
-        VectorParameterTranslator(P_VECTOR_C, BornAgain::BasisVector_C, additional_names));
+        VectorParameterTranslator(P_VECTOR_C, "BasisC", additional_names));
 
     mapper()->setOnParentChange([this](SessionItem* parent) {
         if (SessionItemUtils::HasOwnAbundance(parent)) {
@@ -137,7 +136,7 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
     QStringList result = list;
     // Add CrystalType to path name of basis particle
     if (IsIParticleName(list.back())) {
-        result << QString::fromStdString(BornAgain::CrystalType);
+        result << QString::fromStdString("Crystal");
     }
     result = SessionItem::translateList(result);
     return result;

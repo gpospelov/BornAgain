@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ResolutionFunctionItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Instrument/ResolutionFunction2DGaussian.h"
 
 ResolutionFunctionItem::ResolutionFunctionItem(const QString& name) : SessionItem(name) {}
@@ -34,9 +33,9 @@ ResolutionFunctionNoneItem::createResolutionFunction(double) const
 /* --------------------------------------------------------------------------------------------- */
 
 const QString ResolutionFunction2DGaussianItem::P_SIGMA_X =
-    QString::fromStdString(BornAgain::SigmaX);
+    QString::fromStdString("SigmaX");
 const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y =
-    QString::fromStdString(BornAgain::SigmaY);
+    QString::fromStdString("SigmaY");
 
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)

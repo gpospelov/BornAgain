@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/Data1DViewItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DataItem.h"
@@ -134,8 +133,8 @@ void Data1DViewItem::setAxesRangeToData()
     if (!data)
         return;
 
-    setLowerX(data->getAxis(BornAgain::X_AXIS_INDEX).getMin());
-    setUpperX(data->getAxis(BornAgain::X_AXIS_INDEX).getMax());
+    setLowerX(data->getAxis(0).getMin());
+    setUpperX(data->getAxis(0).getMax());
 
     auto data_range = dataRange(data.get());
     setLowerY(data_range.first);

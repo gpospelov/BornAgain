@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCone6.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -36,13 +35,13 @@ const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true
 FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     : FormFactorPolyhedron(), m_base_edge(base_edge), m_height(height), m_alpha(alpha)
 {
-    setName(BornAgain::FFCone6Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge)
-        .setUnit(BornAgain::UnitsNm)
+    setName("Cone6");
+    registerParameter("BaseEdge", &m_base_edge)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Alpha, &m_alpha)
-        .setUnit(BornAgain::UnitsRad)
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("Alpha", &m_alpha)
+        .setUnit("rad")
         .setLimited(0., M_PI_2);
     onChange();
 }

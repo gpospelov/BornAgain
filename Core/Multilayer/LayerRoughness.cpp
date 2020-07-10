@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 
@@ -35,11 +34,11 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double later
 
 void LayerRoughness::initialize()
 {
-    setName(BornAgain::LayerBasicRoughnessType);
-    registerParameter(BornAgain::Sigma, &m_sigma);
-    registerParameter(BornAgain::Hurst, &m_hurstParameter);
-    registerParameter(BornAgain::CorrelationLength, &m_lateralCorrLength)
-        .setUnit(BornAgain::UnitsNm)
+    setName("LayerBasicRoughness");
+    registerParameter("Sigma", &m_sigma);
+    registerParameter("Hurst", &m_hurstParameter);
+    registerParameter("CorrelationLength", &m_lateralCorrLength)
+        .setUnit("nm")
         .setNonnegative();
 }
 

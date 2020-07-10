@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -25,8 +24,8 @@
 FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center)
     : m_radius(radius), m_position_at_center(position_at_center)
 {
-    setName(BornAgain::FFFullSphereType);
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("FullSphere");
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
     onChange();
 }
 

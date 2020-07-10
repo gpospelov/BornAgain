@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorGauss.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h"
@@ -25,9 +24,9 @@ FormFactorGauss::FormFactorGauss(double width, double height)
 {
     m_width = width;
     m_height = height;
-    setName(BornAgain::FFGaussType);
-    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("FormFactorGauss");
+    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     m_max_ql = std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);
     onChange();
 }

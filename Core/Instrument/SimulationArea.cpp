@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/SimulationArea.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Instrument/DetectorMask.h"
 #include "Core/Instrument/IDetector.h"

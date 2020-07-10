@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCuboctahedron.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorPyramid.h"
@@ -43,14 +42,14 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, d
     : FormFactorPolyhedron(), m_length(length), m_height(height), m_height_ratio(height_ratio),
       m_alpha(alpha)
 {
-    setName(BornAgain::FFCuboctahedronType);
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::HeightRatio, &m_height_ratio)
-        .setUnit(BornAgain::UnitsNm)
+    setName("Cuboctahedron");
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("HeightRatio", &m_height_ratio)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::Alpha, &m_alpha)
-        .setUnit(BornAgain::UnitsRad)
+    registerParameter("Alpha", &m_alpha)
+        .setUnit("rad")
         .setLimited(0., M_PI_2);
     onChange();
 }

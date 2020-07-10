@@ -1,5 +1,4 @@
 #include "Core/Instrument/SphericalDetector.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
@@ -74,11 +73,11 @@ TEST_F(SphericalDetectorTest, constructionWithParameters)
     EXPECT_EQ(10u, detector.getAxis(0).size());
     EXPECT_EQ(-1.0, detector.getAxis(0).getMin());
     EXPECT_EQ(1.0, detector.getAxis(0).getMax());
-    EXPECT_EQ(BornAgain::PHI_AXIS_NAME, detector.getAxis(0).getName());
+    EXPECT_EQ("phi_f", detector.getAxis(0).getName());
     EXPECT_EQ(20u, detector.getAxis(1).size());
     EXPECT_EQ(0.0, detector.getAxis(1).getMin());
     EXPECT_EQ(2.0, detector.getAxis(1).getMax());
-    EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, detector.getAxis(1).getName());
+    EXPECT_EQ("alpha_f", detector.getAxis(1).getName());
 }
 
 // Creation of the detector map with axes in given units

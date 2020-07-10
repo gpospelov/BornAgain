@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Particle/Particle.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 
@@ -96,6 +95,6 @@ std::vector<const INode*> Particle::getChildren() const
 
 void Particle::initialize()
 {
-    setName(BornAgain::ParticleType);
+    setName("Particle");
     registerParticleProperties();
 }

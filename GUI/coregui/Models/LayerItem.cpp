@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/LayerItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 
 namespace
@@ -23,7 +22,7 @@ const QString layer_nslices_tooltip = "Number of horizontal slices.\n"
                                       "when corresponding Simulation option set.";
 }
 
-const QString LayerItem::P_THICKNESS = QString::fromStdString(BornAgain::Thickness);
+const QString LayerItem::P_THICKNESS = QString::fromStdString("Thickness");
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
 const QString LayerItem::P_NSLICES = "Number of slices";

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorPrism6.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 
 //! Constructor of a prism with a regular hexagonal base.
@@ -22,11 +21,11 @@
 FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
     : FormFactorPolygonalPrism(height), m_base_edge(base_edge)
 {
-    setName(BornAgain::FFPrism6Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge)
-        .setUnit(BornAgain::UnitsNm)
+    setName("Prism6");
+    registerParameter("BaseEdge", &m_base_edge)
+        .setUnit("nm")
         .setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

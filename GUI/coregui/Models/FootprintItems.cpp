@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/FootprintItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Beam/FootprintFactorSquare.h"
 #include "GUI/coregui/Models/item_constants.h"

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Lattice/Lattice2D.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -48,13 +47,13 @@ Lattice2D::Lattice2D(const Lattice2D& other) : ICloneable()
 void Lattice2D::setRotationEnabled(bool enabled)
 {
     if (enabled) {
-        if (parameter(BornAgain::Xi))
+        if (parameter("Xi"))
             return;
 
-        registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
+        registerParameter("Xi", &m_xi).setUnit("rad");
 
     } else {
-        removeParameter(BornAgain::Xi);
+        removeParameter("Xi");
     }
 }
 
@@ -67,7 +66,7 @@ BasicLattice::BasicLattice(double length1, double length2, double angle, double 
         throw std::runtime_error("BasicLattice::BasicLattice() -> Error. Lattice length can't be "
                                  "negative or zero.");
 
-    setName(BornAgain::BasicLatticeType);
+    setName("BasicLattice");
     init_parameters();
 }
 
@@ -90,14 +89,14 @@ BasicLattice::BasicLattice(const BasicLattice& other)
 
 void BasicLattice::init_parameters()
 {
-    registerParameter(BornAgain::LatticeLength1, &m_length1)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("LatticeLength1", &m_length1)
+        .setUnit("nm")
         .setPositive();
-    registerParameter(BornAgain::LatticeLength2, &m_length2)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("LatticeLength2", &m_length2)
+        .setUnit("nm")
         .setPositive();
-    registerParameter(BornAgain::LatticeAngle, &m_angle).setUnit(BornAgain::UnitsRad);
-    registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
+    registerParameter("Alpha", &m_angle).setUnit("rad");
+    registerParameter("Xi", &m_xi).setUnit("rad");
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -109,7 +108,7 @@ SquareLattice::SquareLattice(double length, double rotation_angle)
         throw std::runtime_error("SquareLattice::SquareLattice() -> Error. Lattice length can't be "
                                  "negative or zero.");
 
-    setName(BornAgain::SquareLatticeType);
+    setName("SquareLattice");
     init_parameters();
 }
 
@@ -136,10 +135,10 @@ SquareLattice::SquareLattice(const SquareLattice& other)
 
 void SquareLattice::init_parameters()
 {
-    registerParameter(BornAgain::LatticeLength, &m_length)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("LatticeLength", &m_length)
+        .setUnit("nm")
         .setPositive();
-    registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
+    registerParameter("Xi", &m_xi).setUnit("rad");
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -151,7 +150,7 @@ HexagonalLattice::HexagonalLattice(double length, double rotation_angle)
         throw std::runtime_error("HexagonalLattice::HexagonalLattice() -> Error. "
                                  "Lattice length can't be negative or zero.");
 
-    setName(BornAgain::HexagonalLatticeType);
+    setName("HexagonalLattice");
     init_parameters();
 }
 
@@ -179,8 +178,8 @@ HexagonalLattice::HexagonalLattice(const HexagonalLattice& other)
 
 void HexagonalLattice::init_parameters()
 {
-    registerParameter(BornAgain::LatticeLength, &m_length)
-        .setUnit(BornAgain::UnitsNm)
+    registerParameter("LatticeLength", &m_length)
+        .setUnit("nm")
         .setPositive();
-    registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
+    registerParameter("Xi", &m_xi).setUnit("rad");
 }

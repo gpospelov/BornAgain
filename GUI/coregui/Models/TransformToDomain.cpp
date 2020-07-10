@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/TransformToDomain.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/ScanResolution.h"
 #include "Core/Parametrization/Distributions.h"
@@ -159,11 +158,11 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
     }
 
     setParameterDistributionToSimulation<BeamWavelengthItem>(
-        BornAgain::Wavelength, beam_item.getItem(BeamItem::P_WAVELENGTH), simulation);
+        "Wavelength", beam_item.getItem(BeamItem::P_WAVELENGTH), simulation);
     setParameterDistributionToSimulation<BeamInclinationAngleItem>(
-        BornAgain::Inclination, beam_item.getItem(BeamItem::P_INCLINATION_ANGLE), simulation);
+        "InclinationAngle", beam_item.getItem(BeamItem::P_INCLINATION_ANGLE), simulation);
     setParameterDistributionToSimulation<BeamAzimuthalAngleItem>(
-        BornAgain::Azimuth, beam_item.getItem(BeamItem::P_AZIMUTHAL_ANGLE), simulation);
+        "AzimuthalAngle", beam_item.getItem(BeamItem::P_AZIMUTHAL_ANGLE), simulation);
 }
 
 void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
@@ -187,7 +186,7 @@ void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
                                             Simulation& simulation)
 {
     ParameterPattern parameter_pattern;
-    parameter_pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
+    parameter_pattern.beginsWith("*").add("Beam").add(parameter_name);
 
     auto P_par_distr = item.getParameterDistributionForName(parameter_pattern.toStdString());
     if (P_par_distr)
@@ -250,7 +249,7 @@ void setParameterDistributionToSimulation(const std::string& parameter_name,
     }
 
     ParameterPattern parameter_pattern;
-    parameter_pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
+    parameter_pattern.beginsWith("*").add("Beam").add(parameter_name);
 
     auto P_par_distr =
         parameter_item->getParameterDistributionForName(parameter_pattern.toStdString());

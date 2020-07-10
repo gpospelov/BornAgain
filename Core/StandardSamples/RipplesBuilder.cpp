@@ -15,7 +15,6 @@
 #include "Core/StandardSamples/RipplesBuilder.h"
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/HardParticle/FormFactorRipple1.h"
 #include "Core/HardParticle/FormFactorRipple2.h"
 #include "Core/Material/MaterialFactoryFuncs.h"

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BackgroundItems.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "GUI/coregui/Models/item_constants.h"
@@ -38,7 +37,7 @@ namespace
 const QString constant_background_value_tooltip = "Constant background value [counts/pixel]";
 }
 
-const QString ConstantBackgroundItem::P_VALUE = QString::fromStdString(BornAgain::BackgroundValue);
+const QString ConstantBackgroundItem::P_VALUE = QString::fromStdString("BackgroundValue");
 
 ConstantBackgroundItem::ConstantBackgroundItem() : BackgroundItem(Constants::ConstantBackgroundType)
 {

@@ -54,7 +54,7 @@ ParticleCompositionItem::ParticleCompositionItem()
     setDefaultTag(T_PARTICLES);
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
 
-    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
+    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, "Position"));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange([this](SessionItem* parent) {

@@ -34,8 +34,10 @@ const GroupInfoCatalogue& groupInfoCatalogue()
 
 QStringList parents_with_abundance()
 {
-    return QStringList() << "ParticleCoreShell" << "ParticleComposition"
-                         << "ParticleDistribution" << "MesoCrystal";
+    return QStringList() << "ParticleCoreShell"
+                         << "ParticleComposition"
+                         << "ParticleDistribution"
+                         << "MesoCrystal";
 }
 
 } // namespace

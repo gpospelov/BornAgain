@@ -252,14 +252,11 @@ namespace
 const QVector<QPair<QStringList, QStringList>> black_list{
     {// Global scope
      {QString()},
-     {"Sigma factor", "MaterialRefractiveData",
-      "MaterialSLDData", MaterialItem::P_MAGNETIZATION}},
+     {"Sigma factor", "MaterialRefractiveData", "MaterialSLDData", MaterialItem::P_MAGNETIZATION}},
     {// Instrument scope
-     {"GISASInstrument", "OffSpecInstrument",
-      "SpecularInstrument"},
+     {"GISASInstrument", "OffSpecInstrument", "SpecularInstrument"},
      {// Distribution types
-      "DistributionGate", "DistributionLorentz",
-      "DistributionGaussian", "DistributionLogNormal",
+      "DistributionGate", "DistributionLorentz", "DistributionGaussian", "DistributionLogNormal",
       "DistributionCosine", "DistributionTrapezoid",
 
       // Detector axes

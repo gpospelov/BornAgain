@@ -185,8 +185,8 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
             && item->displayName() == InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
             update_rotation_availability();
         }
-        if (item->modelType() == "GroupProperty" && property == GroupItem::T_ITEMS
-            && isTag(P_PDF1) && isTag(P_PDF2))
+        if (item->modelType() == "GroupProperty" && property == GroupItem::T_ITEMS && isTag(P_PDF1)
+            && isTag(P_PDF2))
             update_distribution_displaynames();
     });
 

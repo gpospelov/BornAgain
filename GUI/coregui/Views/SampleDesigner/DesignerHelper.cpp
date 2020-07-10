@@ -161,8 +161,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
         return getParticleLayoutBoundingRect();
     } else if (name == "Rotation") {
         return getTransformationBoundingRect();
-    } else if (name.startsWith("FormFactor") || name == "Particle"
-               || name == "ParticleCoreShell"
+    } else if (name.startsWith("FormFactor") || name == "Particle" || name == "ParticleCoreShell"
                || name == "ParticleDistribution") {
         return getParticleBoundingRect();
     } else if (name.startsWith("Interference")) {
@@ -182,8 +181,7 @@ QColor DesignerHelper::getDefaultColor(const QString& name)
         return QColor(26, 156, 9);
     } else if (name == "ParticleLayout") {
         return QColor(135, 206, 50);
-    } else if (name.startsWith("FormFactor") || name == "Particle"
-               || name == "ParticleCoreShell") {
+    } else if (name.startsWith("FormFactor") || name == "Particle" || name == "ParticleCoreShell") {
         return QColor(210, 223, 237);
     } else if (name.startsWith("InterferenceFunction")) {
         return QColor(255, 236, 139);

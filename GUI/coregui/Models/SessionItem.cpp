@@ -329,8 +329,7 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
     if (SessionItemUtils::IsValidGroup(groupType)) {
         // create group item
         GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(groupType);
-        GroupItem* groupItem =
-            dynamic_cast<GroupItem*>(ItemFactory::CreateItem("GroupProperty"));
+        GroupItem* groupItem = dynamic_cast<GroupItem*>(ItemFactory::CreateItem("GroupProperty"));
         Q_ASSERT(groupItem);
         groupItem->setGroupInfo(groupInfo);
         registerTag(groupTag, 1, 1, QStringList() << "GroupProperty");
@@ -441,8 +440,8 @@ QString SessionItem::displayName() const
 {
     QString result = data(SessionFlags::DisplayNameRole).toString();
 
-    if (modelType() == "Property" || modelType() == "GroupProperty"
-        || modelType() == "Parameter" || modelType() == "Parameter Label")
+    if (modelType() == "Property" || modelType() == "GroupProperty" || modelType() == "Parameter"
+        || modelType() == "Parameter Label")
         return result;
 
     if (m_parent) {

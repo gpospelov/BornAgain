@@ -180,8 +180,7 @@ void ApplicationModels::createTestJob()
 
 void ApplicationModels::createTestRealData()
 {
-    auto realDataItem =
-        dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
+    auto realDataItem = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
     realDataItem->setItemName("realdata");
 
     std::unique_ptr<OutputData<double>> data(

@@ -53,8 +53,7 @@ std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const
 // Background consisting of Poisson noise
 /* ------------------------------------------------ */
 
-PoissonNoiseBackgroundItem::PoissonNoiseBackgroundItem()
-    : BackgroundItem("PoissonNoiseBackground")
+PoissonNoiseBackgroundItem::PoissonNoiseBackgroundItem() : BackgroundItem("PoissonNoiseBackground")
 {
 }
 

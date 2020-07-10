@@ -37,8 +37,8 @@ TEST_F(TestTranslations, test_TranslateRotation)
     SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
     SessionItem* particle = model.insertNewItem("Particle", layout->index());
 
-    SessionItem* transformation = model.insertNewItem("Rotation", particle->index(),
-                                                      -1, ParticleItem::T_TRANSFORMATION);
+    SessionItem* transformation =
+        model.insertNewItem("Rotation", particle->index(), -1, ParticleItem::T_TRANSFORMATION);
 
     SessionItem* rotationItem =
         transformation->setGroupProperty(TransformationItem::P_ROT, "XRotation");

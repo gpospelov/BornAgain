@@ -30,8 +30,10 @@ TEST_F(TestSessionItemTags, registerTag)
 
     // registering another tag
     EXPECT_TRUE(tags.registerTag("tag2", 0, 1,
-                                 QStringList() << "Particle" << "Layer"));
-    expected = QStringList() << "Particle" << "Layer";
+                                 QStringList() << "Particle"
+                                               << "Layer"));
+    expected = QStringList() << "Particle"
+                             << "Layer";
     EXPECT_EQ(tags.modelTypesForTag("tag2"), expected);
 }
 
@@ -39,7 +41,8 @@ TEST_F(TestSessionItemTags, modelTypesForTag)
 {
     SessionItemTags tags;
 
-    QStringList expected = QStringList() << "Particle" << "Layer";
+    QStringList expected = QStringList() << "Particle"
+                                         << "Layer";
 
     EXPECT_TRUE(tags.registerTag("tag1", 0, 1, expected));
     EXPECT_EQ(tags.modelTypesForTag("tag1"), expected);
@@ -60,7 +63,8 @@ TEST_F(TestSessionItemTags, tagStartIndex)
     EXPECT_EQ(tags.tagStartIndex("tag1"), 0);
 
     EXPECT_TRUE(tags.registerTag("tag2", 0, 1,
-                                 QStringList() << "Particle" << "Layer"));
+                                 QStringList() << "Particle"
+                                               << "Layer"));
     EXPECT_EQ(tags.childCount("tag2"), 0);
     EXPECT_EQ(tags.tagStartIndex("tag2"), 0);
 

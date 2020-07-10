@@ -213,8 +213,7 @@ void ColorMap::subscribeToItem()
 
     intensityItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            if (item->modelType() == "BasicAxis"
-                || item->modelType() == "AmplitudeAxis")
+            if (item->modelType() == "BasicAxis" || item->modelType() == "AmplitudeAxis")
                 onAxisPropertyChanged(item->itemName(), name);
         },
         this);

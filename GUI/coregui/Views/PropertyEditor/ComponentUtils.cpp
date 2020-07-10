@@ -22,10 +22,12 @@ QList<const SessionItem*> groupItems(const SessionItem& item);
 
 QStringList ComponentUtils::propertyRelatedTypes()
 {
-    QStringList result = QStringList()
-                         << "Property" << "GroupProperty"
-                         << "Vector" << "BasicAxis"
-                         << "AmplitudeAxis" << "MaterialRefractiveData";
+    QStringList result = QStringList() << "Property"
+                                       << "GroupProperty"
+                                       << "Vector"
+                                       << "BasicAxis"
+                                       << "AmplitudeAxis"
+                                       << "MaterialRefractiveData";
     return result;
 }
 

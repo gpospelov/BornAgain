@@ -67,13 +67,12 @@ void JobModelFunctions::initDataView(JobItem* job_item)
     assert(!job_item->getItem(JobItem::T_DATAVIEW));
 
     SessionModel* model = job_item->model();
-    auto view_item = dynamic_cast<Data1DViewItem*>(model->insertNewItem(
-        "Data1DViewItem", job_item->index(), -1, JobItem::T_DATAVIEW));
+    auto view_item = dynamic_cast<Data1DViewItem*>(
+        model->insertNewItem("Data1DViewItem", job_item->index(), -1, JobItem::T_DATAVIEW));
     assert(view_item);
 
-    auto property_container = dynamic_cast<DataPropertyContainer*>(
-        model->insertNewItem("DataPropertyContainer", view_item->index(), -1,
-                             Data1DViewItem::T_DATA_PROPERTIES));
+    auto property_container = dynamic_cast<DataPropertyContainer*>(model->insertNewItem(
+        "DataPropertyContainer", view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES));
     assert(property_container);
 
     property_container->addItem(job_item->realDataItem()->dataItem());
@@ -147,14 +146,11 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
 
     auto instrumentType = jobItem->instrumentItem()->modelType();
     if (instrumentType == "SpecularInstrument") {
-        model->insertNewItem("SpecularData", model->indexOfItem(jobItem), -1,
-                             JobItem::T_OUTPUT);
+        model->insertNewItem("SpecularData", model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
-    } else if (instrumentType == "GISASInstrument"
-               || instrumentType == "OffSpecInstrument"
+    } else if (instrumentType == "GISASInstrument" || instrumentType == "OffSpecInstrument"
                || instrumentType == "DepthProbeInstrument") {
-        model->insertNewItem("IntensityData", model->indexOfItem(jobItem), -1,
-                             JobItem::T_OUTPUT);
+        model->insertNewItem("IntensityData", model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
     } else {
         throw GUIHelpers::Error("JobModelFunctions::setupJobItemOutput() -> Error. "
@@ -276,8 +272,7 @@ void createFitContainers(JobItem* jobItem)
                                 "a second FitSuiteItem.");
     }
 
-    fitSuiteItem =
-        model->insertNewItem("FitSuite", jobItem->index(), -1, JobItem::T_FIT_SUITE);
+    fitSuiteItem = model->insertNewItem("FitSuite", jobItem->index(), -1, JobItem::T_FIT_SUITE);
 
     SessionItem* parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
     if (parsContainerItem != nullptr) {
@@ -285,9 +280,8 @@ void createFitContainers(JobItem* jobItem)
                                 "a second FitParameterContainer.");
     }
 
-    parsContainerItem =
-        model->insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                             FitSuiteItem::T_FIT_PARAMETERS);
+    parsContainerItem = model->insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
+                                             FitSuiteItem::T_FIT_PARAMETERS);
 
     // Minimizer settings
     SessionItem* minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
@@ -296,14 +290,13 @@ void createFitContainers(JobItem* jobItem)
                                 "a second MinimizerContainer.");
     }
 
-    minimizerContainerItem = model->insertNewItem(
-        "MinimizerContainer", fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
+    minimizerContainerItem = model->insertNewItem("MinimizerContainer", fitSuiteItem->index(), -1,
+                                                  FitSuiteItem::T_MINIMIZER);
 }
 
 PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument)
 {
     return dynamic_cast<PointwiseAxisItem*>(
-        instrument->beamItem()->inclinationAxisGroup()->getChildOfType(
-            "PointwiseAxis"));
+        instrument->beamItem()->inclinationAxisGroup()->getChildOfType("PointwiseAxis"));
 }
 } // namespace

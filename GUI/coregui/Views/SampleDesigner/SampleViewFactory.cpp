@@ -24,18 +24,22 @@
 #include "GUI/coregui/Views/SampleDesigner/ParticleView.h"
 #include "GUI/coregui/Views/SampleDesigner/TransformationView.h"
 
-QStringList SampleViewFactory::m_valid_item_names =
-    QStringList() << "MultiLayer" << "Layer"
-                  << "ParticleLayout" << "Particle"
-                  << "Rotation" << "ParticleCoreShell"
-                  << "ParticleComposition" << "MesoCrystal"
-                  << "ParticleDistribution"
-                  << "Interference1DLattice"
-                  << "Interference2DLattice"
-                  << "Interference2DParaCrystal"
-                  << "InterferenceFinite2DLattice"
-                  << "InterferenceHardDisk"
-                  << "InterferenceRadialParaCrystal";
+QStringList SampleViewFactory::m_valid_item_names = QStringList()
+                                                    << "MultiLayer"
+                                                    << "Layer"
+                                                    << "ParticleLayout"
+                                                    << "Particle"
+                                                    << "Rotation"
+                                                    << "ParticleCoreShell"
+                                                    << "ParticleComposition"
+                                                    << "MesoCrystal"
+                                                    << "ParticleDistribution"
+                                                    << "Interference1DLattice"
+                                                    << "Interference2DLattice"
+                                                    << "Interference2DParaCrystal"
+                                                    << "InterferenceFinite2DLattice"
+                                                    << "InterferenceHardDisk"
+                                                    << "InterferenceRadialParaCrystal";
 
 bool SampleViewFactory::isValidType(const QString& name)
 {

@@ -22,15 +22,12 @@ TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
     SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
 
     // composition added to layout should have abundance enabled
-    SessionItem* compositionFree =
-        model.insertNewItem("ParticleComposition", layout->index());
+    SessionItem* compositionFree = model.insertNewItem("ParticleComposition", layout->index());
     EXPECT_TRUE(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
-    SessionItem* distribution =
-        model.insertNewItem("ParticleDistribution", layout->index());
-    SessionItem* composition =
-        model.insertNewItem("ParticleComposition", distribution->index());
+    SessionItem* distribution = model.insertNewItem("ParticleDistribution", layout->index());
+    SessionItem* composition = model.insertNewItem("ParticleComposition", distribution->index());
     EXPECT_TRUE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
     composition = distribution->takeRow(ParentRow(*composition));

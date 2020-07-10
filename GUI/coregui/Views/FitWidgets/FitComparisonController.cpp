@@ -50,8 +50,7 @@ private:
 using DiffItemController = FitComparisonController2D::DiffItemController;
 
 FitComparisonController2D::FitComparisonController2D(QObject* parent)
-    : QObject(parent),
-      m_diff_item_controller(new DiffItemController("IntensityData", this)),
+    : QObject(parent), m_diff_item_controller(new DiffItemController("IntensityData", this)),
       m_appearanceRepeater(new PropertyRepeater(this)), m_xAxisRepeater(new PropertyRepeater(this)),
       m_yAxisRepeater(new PropertyRepeater(this)), m_zAxisRepeater(new PropertyRepeater(this))
 {

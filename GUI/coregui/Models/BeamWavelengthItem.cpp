@@ -41,8 +41,7 @@ double BeamWavelengthItem::wavelength() const
 }
 
 SpecularBeamWavelengthItem::SpecularBeamWavelengthItem()
-    : BeamWavelengthItem("SpecularBeamWavelength",
-                         "Symmetric distribution group")
+    : BeamWavelengthItem("SpecularBeamWavelength", "Symmetric distribution group")
 {
 }
 

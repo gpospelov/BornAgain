@@ -30,8 +30,8 @@ TEST_F(TestLinkInstrument, test_linkInstrumentManager)
     QSignalSpy spy(&manager, SIGNAL(instrumentMapUpdated()));
 
     // populating instrument model
-    GISASInstrumentItem* instrument = dynamic_cast<GISASInstrumentItem*>(
-        instrumentModel.insertNewItem("GISASInstrument"));
+    GISASInstrumentItem* instrument =
+        dynamic_cast<GISASInstrumentItem*>(instrumentModel.insertNewItem("GISASInstrument"));
     QString identifier = instrument->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
     // checking that LinkInstrumentManager was notified about new instrument
@@ -57,8 +57,8 @@ TEST_F(TestLinkInstrument, test_canLinkToInstrument)
     manager.setModels(&instrumentModel, &realDataModel);
 
     // populating instrument model
-    GISASInstrumentItem* instrument = dynamic_cast<GISASInstrumentItem*>(
-        instrumentModel.insertNewItem("GISASInstrument"));
+    GISASInstrumentItem* instrument =
+        dynamic_cast<GISASInstrumentItem*>(instrumentModel.insertNewItem("GISASInstrument"));
     QString identifier = instrument->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
     // populating real data model, setting intensity data

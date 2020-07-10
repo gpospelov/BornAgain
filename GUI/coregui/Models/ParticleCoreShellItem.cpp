@@ -36,8 +36,7 @@ const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
 
 // TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 
-ParticleCoreShellItem::ParticleCoreShellItem()
-    : SessionGraphicsItem("ParticleCoreShell")
+ParticleCoreShellItem::ParticleCoreShellItem() : SessionGraphicsItem("ParticleCoreShell")
 {
     setToolTip(QStringLiteral("A particle with a core/shell geometry"));
 

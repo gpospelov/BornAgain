@@ -78,8 +78,10 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
     addGroupProperty(ParticleItem::P_POSITION, "Vector")->setToolTip(position_tooltip);
 
     registerTag(T_BASIS_PARTICLE, 0, 1,
-                QStringList() << "Particle" << "ParticleCoreShell"
-                              << "ParticleComposition" << "MesoCrystal");
+                QStringList() << "Particle"
+                              << "ParticleCoreShell"
+                              << "ParticleComposition"
+                              << "MesoCrystal");
     setDefaultTag(T_BASIS_PARTICLE);
 
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << "Rotation");
@@ -178,9 +180,7 @@ namespace
 {
 bool IsIParticleName(QString name)
 {
-    return (name.startsWith("Particle")
-            || name.startsWith("ParticleComposition")
-            || name.startsWith("ParticleCoreShell")
-            || name.startsWith("MesoCrystal"));
+    return (name.startsWith("Particle") || name.startsWith("ParticleComposition")
+            || name.startsWith("ParticleCoreShell") || name.startsWith("MesoCrystal"));
 }
 } // namespace

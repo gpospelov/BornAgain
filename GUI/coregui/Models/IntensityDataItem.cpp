@@ -27,11 +27,18 @@ namespace
 ComboProperty gradientCombo()
 {
     ComboProperty result;
-    result << "Grayscale" << "Hot" << "Cold"
-           << "Night" << "Candy"
-           << "Geography" << "Ion"
-           << "Thermal" << "Polar"
-           << "Spectrum" << "Jet" << "Hues";
+    result << "Grayscale"
+           << "Hot"
+           << "Cold"
+           << "Night"
+           << "Candy"
+           << "Geography"
+           << "Ion"
+           << "Thermal"
+           << "Polar"
+           << "Spectrum"
+           << "Jet"
+           << "Hues";
     result.setValue("Jet");
     return result;
 }

@@ -25,8 +25,7 @@
 const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
 const QString DepthProbeInstrumentItem::P_ZAXIS = "Z axis";
 
-DepthProbeInstrumentItem::DepthProbeInstrumentItem()
-    : InstrumentItem("DepthProbeInstrument")
+DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProbeInstrument")
 {
     setItemName("DepthProbeInstrument");
 

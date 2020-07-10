@@ -25,8 +25,7 @@
 RealDataPresenter::RealDataPresenter(QWidget* parent) : ItemComboWidget(parent)
 {
     registerWidget("Color Map", create_new<IntensityDataWidget>);
-    registerWidget("Projections",
-                   create_new<IntensityDataProjectionsWidget>);
+    registerWidget("Projections", create_new<IntensityDataProjectionsWidget>);
     registerWidget("Mask Editor", create_new<RealDataMaskWidget>);
     registerWidget("Reflectometry", create_new<SpecularDataWidget>);
 }
@@ -44,7 +43,8 @@ QStringList RealDataPresenter::activePresentationList(SessionItem* item)
     QStringList result;
     if (underlying_data_model == "IntensityData")
         result << "Color Map"
-               << "Projections" << "Mask Editor";
+               << "Projections"
+               << "Mask Editor";
     else if (underlying_data_model == "SpecularData")
         result << "Reflectometry";
     else

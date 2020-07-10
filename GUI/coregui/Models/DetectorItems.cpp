@@ -42,8 +42,7 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
     registerTag(T_MASKS, 0, -1, QStringList() << "MaskContainer");
     setDefaultTag(T_MASKS);
 
-    addGroupProperty(P_ANALYZER_DIRECTION, "Vector")
-        ->setToolTip(analyzer_direction_tooltip);
+    addGroupProperty(P_ANALYZER_DIRECTION, "Vector")->setToolTip(analyzer_direction_tooltip);
     addProperty(P_ANALYZER_EFFICIENCY, 0.0)
         ->setLimits(RealLimits::limitless())
         .setToolTip(analyzer_efficiency_tooltip);

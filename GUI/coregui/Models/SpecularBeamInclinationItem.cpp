@@ -52,8 +52,7 @@ void SpecularBeamInclinationItem::updateFileName(const QString& filename)
 
 void SpecularBeamInclinationItem::setupAxisGroup()
 {
-    auto group_item =
-        dynamic_cast<GroupItem*>(this->addGroupProperty(P_ALPHA_AXIS, "Axes group"));
+    auto group_item = dynamic_cast<GroupItem*>(this->addGroupProperty(P_ALPHA_AXIS, "Axes group"));
 
     // Both underlying axis items are created, since it
     // strongly simplifies their representation and state

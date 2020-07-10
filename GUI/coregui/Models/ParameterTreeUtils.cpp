@@ -248,8 +248,7 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == "Property") {
                 if (child->value().type() == QVariant::Double) {
-                    SessionItem* branch =
-                        tree->model()->insertNewItem("Parameter", tree->index());
+                    SessionItem* branch = tree->model()->insertNewItem("Parameter", tree->index());
                     handleItem(branch, child);
                 }
 

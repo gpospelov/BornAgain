@@ -142,8 +142,7 @@ void ComponentProxyStrategy::processGroupItem(SessionItem* item,
 void ComponentProxyStrategy::processSubGroupItem(SessionItem* item,
                                                  const QPersistentModelIndex& sourceIndex)
 {
-    if (const SessionItem* ancestor =
-            ModelPath::ancestor(item->parent(), "GroupProperty")) {
+    if (const SessionItem* ancestor = ModelPath::ancestor(item->parent(), "GroupProperty")) {
         auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
 
         if (item->parent() == groupItem->currentItem()) {

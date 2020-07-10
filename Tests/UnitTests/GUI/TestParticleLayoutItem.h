@@ -17,16 +17,15 @@ using namespace SessionItemUtils;
 TEST_F(TestParticleLayoutItem, densityAppearance)
 {
     SampleModel model;
-    auto layout =
-        dynamic_cast<ParticleLayoutItem*>(model.insertNewItem("ParticleLayout"));
+    auto layout = dynamic_cast<ParticleLayoutItem*>(model.insertNewItem("ParticleLayout"));
 
     // empty layout should have TotalDensity enabled
     EXPECT_TRUE(layout->getItem(ParticleLayoutItem::P_TOTAL_DENSITY)->isEnabled());
 
     // adding radial paracrystal shouldn't change it
     auto interference =
-        model.insertNewItem("InterferenceRadialParaCrystal",
-                            model.indexOfItem(layout), -1, ParticleLayoutItem::T_INTERFERENCE);
+        model.insertNewItem("InterferenceRadialParaCrystal", model.indexOfItem(layout), -1,
+                            ParticleLayoutItem::T_INTERFERENCE);
     EXPECT_TRUE(layout->getItem(ParticleLayoutItem::T_INTERFERENCE) == interference);
     EXPECT_TRUE(layout->getItem(ParticleLayoutItem::P_TOTAL_DENSITY)->isEnabled());
 
@@ -37,9 +36,8 @@ TEST_F(TestParticleLayoutItem, densityAppearance)
     delete interference;
 
     // adding 2d interference, TotalDensity should be disabled
-    interference =
-        model.insertNewItem("Interference2DLattice", model.indexOfItem(layout),
-                            -1, ParticleLayoutItem::T_INTERFERENCE);
+    interference = model.insertNewItem("Interference2DLattice", model.indexOfItem(layout), -1,
+                                       ParticleLayoutItem::T_INTERFERENCE);
     EXPECT_FALSE(layout->getItem(ParticleLayoutItem::P_TOTAL_DENSITY)->isEnabled());
 
     // removing 2D interference, TotalIntensity should be reenabled
@@ -56,16 +54,14 @@ TEST_F(TestParticleLayoutItem, densityAppearance)
 TEST_F(TestParticleLayoutItem, densityValue)
 {
     SampleModel model;
-    auto layout =
-        dynamic_cast<ParticleLayoutItem*>(model.insertNewItem("ParticleLayout"));
+    auto layout = dynamic_cast<ParticleLayoutItem*>(model.insertNewItem("ParticleLayout"));
 
     // empty layout should have TotalDensity 0.01
     EXPECT_EQ(layout->getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble(), 0.01);
 
     // adding 2d interference with default hexagonal lattice
-    auto interference =
-        model.insertNewItem("Interference2DLattice", model.indexOfItem(layout),
-                            -1, ParticleLayoutItem::T_INTERFERENCE);
+    auto interference = model.insertNewItem("Interference2DLattice", model.indexOfItem(layout), -1,
+                                            ParticleLayoutItem::T_INTERFERENCE);
 
     auto& hexItem =
         interference->groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);

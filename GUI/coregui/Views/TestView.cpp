@@ -86,8 +86,8 @@ void TestView::test_MinimizerSettings()
     setLayout(layout);
 
     SessionModel* model = new SessionModel("TempModel", this);
-    MinimizerContainerItem* minimizerItem = dynamic_cast<MinimizerContainerItem*>(
-        model->insertNewItem("MinimizerContainer"));
+    MinimizerContainerItem* minimizerItem =
+        dynamic_cast<MinimizerContainerItem*>(model->insertNewItem("MinimizerContainer"));
     widget->setItem(minimizerItem);
 }
 

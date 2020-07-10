@@ -32,10 +32,8 @@ TEST_F(TestMultiLayerItem, test_twoLayerSystem)
     EXPECT_TRUE(bottom->getItem(LayerItem::P_ROUGHNESS)->isEnabled());
 
     // Default roughness should be "LayerZeroRoughness"
-    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              "LayerZeroRoughness");
-    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              "LayerZeroRoughness");
+    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
+    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
 }
 
 //! Testing layer appearance (enabled, disabled) in a MultiLayer made of three default layers.
@@ -67,12 +65,9 @@ TEST_F(TestMultiLayerItem, test_threeLayerSystem)
     EXPECT_TRUE(bottom->getItem(LayerItem::P_ROUGHNESS)->isEnabled());
 
     // Default roughness should be "LayerZeroRoughness"
-    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              "LayerZeroRoughness");
-    EXPECT_EQ(middle->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              "LayerZeroRoughness");
-    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              "LayerZeroRoughness");
+    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
+    EXPECT_EQ(middle->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
+    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
 }
 
 //! Testing middle layer appearance when it is moved to the top.

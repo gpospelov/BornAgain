@@ -46,8 +46,8 @@ SpecularInstrumentItem* TestSavingSpecularData::createSpecularInstrument(Applica
 
 PointwiseAxisItem* TestSavingSpecularData::createPointwiseAxisItem(SessionModel& model)
 {
-    auto instrument_item = dynamic_cast<SpecularInstrumentItem*>(
-        model.insertNewItem("SpecularInstrument"));
+    auto instrument_item =
+        dynamic_cast<SpecularInstrumentItem*>(model.insertNewItem("SpecularInstrument"));
     return dynamic_cast<PointwiseAxisItem*>(
         getAxisGroup(instrument_item)->getChildOfType("PointwiseAxis"));
 }
@@ -107,8 +107,8 @@ TEST_F(TestSavingSpecularData, test_InstrumentInJobItem)
 
     // adding JobItem
     SessionItem* jobItem = models.jobModel()->insertNewItem("JobItem");
-    SessionItem* dataItem = models.jobModel()->insertNewItem(
-        "IntensityData", jobItem->index(), -1, JobItem::T_OUTPUT);
+    SessionItem* dataItem =
+        models.jobModel()->insertNewItem("IntensityData", jobItem->index(), -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding instrument

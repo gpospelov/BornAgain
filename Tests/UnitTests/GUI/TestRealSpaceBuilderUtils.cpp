@@ -38,12 +38,10 @@ TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
 TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances)
 {
     SampleModel sampleModel;
-    auto layout =
-        dynamic_cast<ParticleLayoutItem*>(sampleModel.insertNewItem("ParticleLayout"));
+    auto layout = dynamic_cast<ParticleLayoutItem*>(sampleModel.insertNewItem("ParticleLayout"));
 
-    auto particle1 =
-        sampleModel.insertNewItem("Particle", sampleModel.indexOfItem(layout), -1,
-                                  ParticleLayoutItem::T_PARTICLES);
+    auto particle1 = sampleModel.insertNewItem("Particle", sampleModel.indexOfItem(layout), -1,
+                                               ParticleLayoutItem::T_PARTICLES);
     EXPECT_EQ(particle1->parent(), layout);
 
     SessionItem* particle2 = sampleModel.insertNewItem("Particle");
@@ -178,14 +176,12 @@ TEST_F(TestRealSpaceBuilderUtils, test_singleParticle3DContainer)
 
     auto particleItem = sampleModel->insertNewItem("Particle");
     EXPECT_EQ(particleItem->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
-    EXPECT_EQ(particleItem->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(),
-              "Cylinder");
+    EXPECT_EQ(particleItem->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(), "Cylinder");
 
     particleItem->setItemValue(ParticleItem::P_ABUNDANCE, 8.0);
     EXPECT_EQ(particleItem->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 8.0);
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Box");
-    EXPECT_EQ(particleItem->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(),
-              "Box");
+    EXPECT_EQ(particleItem->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(), "Box");
 
     // Create a 3D particle from particleItem and associate it to a Particle3DContainer object
     auto pItem = dynamic_cast<const ParticleItem*>(particleItem);
@@ -203,8 +199,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_particle3DContainerVector)
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();
 
-    auto layout = dynamic_cast<ParticleLayoutItem*>(
-        sampleModel->insertNewItem("ParticleLayout"));
+    auto layout = dynamic_cast<ParticleLayoutItem*>(sampleModel->insertNewItem("ParticleLayout"));
 
     auto particle1 = sampleModel->insertNewItem("Particle");
     auto particle2 = sampleModel->insertNewItem("Particle");

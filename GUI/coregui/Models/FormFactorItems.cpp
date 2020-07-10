@@ -236,8 +236,7 @@ const QString EllipsoidalCylinderItem::P_RADIUS_X = QString::fromStdString("Radi
 const QString EllipsoidalCylinderItem::P_RADIUS_Y = QString::fromStdString("RadiusY");
 const QString EllipsoidalCylinderItem::P_HEIGHT = QString::fromStdString("Height");
 
-EllipsoidalCylinderItem::EllipsoidalCylinderItem()
-    : FormFactorItem("EllipsoidalCylinder")
+EllipsoidalCylinderItem::EllipsoidalCylinderItem() : FormFactorItem("EllipsoidalCylinder")
 {
     setToolTip(QStringLiteral("Cylinder with an ellipse cross section"));
     addProperty(P_RADIUS_X, 8.0)

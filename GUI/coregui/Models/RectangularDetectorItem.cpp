@@ -52,8 +52,10 @@ const QString tooltip_samplex_v0 =
 ComboProperty alignmentCombo()
 {
     ComboProperty result;
-    result << "Generic" << "Perpendicular to direct beam"
-           << "Perpendicular to sample x-axis" << "Perpendicular to reflected beam"
+    result << "Generic"
+           << "Perpendicular to direct beam"
+           << "Perpendicular to sample x-axis"
+           << "Perpendicular to reflected beam"
            << "Perpendicular to reflected beam (dpos)";
     result.setValue("Perpendicular to direct beam");
     return result;

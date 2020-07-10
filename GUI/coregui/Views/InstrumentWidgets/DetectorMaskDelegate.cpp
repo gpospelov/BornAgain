@@ -55,8 +55,8 @@ void DetectorMaskDelegate::createIntensityDataItem()
 {
     m_tempIntensityDataModel->clear();
 
-    m_intensityItem = dynamic_cast<IntensityDataItem*>(
-        m_tempIntensityDataModel->insertNewItem("IntensityData"));
+    m_intensityItem =
+        dynamic_cast<IntensityDataItem*>(m_tempIntensityDataModel->insertNewItem("IntensityData"));
     Q_ASSERT(m_intensityItem);
 
     m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);

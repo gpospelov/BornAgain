@@ -55,8 +55,7 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DGaussItem::createFTDistributi
 
 // --------------------------------------------------------------------------------------------- //
 
-FTDistribution1DGateItem::FTDistribution1DGateItem()
-    : FTDistribution1DItem("FTDistribution1DGate")
+FTDistribution1DGateItem::FTDistribution1DGateItem() : FTDistribution1DItem("FTDistribution1DGate")
 {
     setToolTip(QStringLiteral("One-dimensional Gate probability distribution"));
     add_omega_property();
@@ -182,8 +181,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGaussItem::createFTDistributi
 
 // --------------------------------------------------------------------------------------------- //
 
-FTDistribution2DGateItem::FTDistribution2DGateItem()
-    : FTDistribution2DItem("FTDistribution2DGate")
+FTDistribution2DGateItem::FTDistribution2DGateItem() : FTDistribution2DItem("FTDistribution2DGate")
 {
     setToolTip(QStringLiteral("Two-dimensional Gate probability distribution"));
     add_properties();
@@ -198,8 +196,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistributio
 
 // --------------------------------------------------------------------------------------------- //
 
-FTDistribution2DConeItem::FTDistribution2DConeItem()
-    : FTDistribution2DItem("FTDistribution2DCone")
+FTDistribution2DConeItem::FTDistribution2DConeItem() : FTDistribution2DItem("FTDistribution2DCone")
 {
     setToolTip(QStringLiteral("Two-dimensional Cone probability distribution"));
     add_properties();

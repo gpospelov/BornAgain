@@ -197,8 +197,8 @@ void TransformFromDomain::setLayerItem(SessionItem* layerItem, const Layer* laye
     if (top_interface) {
         const LayerRoughness* roughness = top_interface->getRoughness();
         if (TransformFromDomain::isValidRoughness(roughness)) {
-            SessionItem* roughnessItem = layerItem->setGroupProperty(
-                LayerItem::P_ROUGHNESS, "LayerBasicRoughness");
+            SessionItem* roughnessItem =
+                layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, "LayerBasicRoughness");
             TransformFromDomain::setRoughnessItem(roughnessItem, *roughness);
         }
     }
@@ -360,8 +360,8 @@ void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
     if (auto p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
         if (auto resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                 p_convfunc->getResolutionFunction2D())) {
-            SessionItem* item = detector_item->setGroupProperty(
-                DetectorItem::P_RESOLUTION_FUNCTION, "ResolutionFunction2DGaussian");
+            SessionItem* item = detector_item->setGroupProperty(DetectorItem::P_RESOLUTION_FUNCTION,
+                                                                "ResolutionFunction2DGaussian");
             double scale(1.0);
             if (detector_item->modelType() == "SphericalDetector")
                 scale = 1. / Units::degree;
@@ -604,13 +604,12 @@ void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
 {
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
-        auto constant_bg_item = instrument_item->setGroupProperty(
-            InstrumentItem::P_BACKGROUND, "ConstantBackground");
+        auto constant_bg_item =
+            instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND, "ConstantBackground");
         double value = p_constant_bg->backgroundValue();
         constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
     } else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
-        instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
-                                          "PoissonNoiseBackground");
+        instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND, "PoissonNoiseBackground");
     }
 }
 
@@ -620,13 +619,13 @@ void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
     if (!footprint)
         return;
     if (const auto gaussian_fp = dynamic_cast<const FootprintFactorGaussian*>(footprint)) {
-        auto gaussian_fp_item = beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT,
-                                                            "GaussianFootrpint");
+        auto gaussian_fp_item =
+            beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT, "GaussianFootrpint");
         const double value = gaussian_fp->widthRatio();
         gaussian_fp_item->setItemValue(FootprintGaussianItem::P_VALUE, value);
     } else if (const auto square_fp = dynamic_cast<const FootprintFactorSquare*>(footprint)) {
-        auto square_fp_item = beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT,
-                                                          "SquareFootprint");
+        auto square_fp_item =
+            beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT, "SquareFootprint");
         const double value = square_fp->widthRatio();
         square_fp_item->setItemValue(FootprintSquareItem::P_VALUE, value);
     }
@@ -651,32 +650,26 @@ namespace
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)
 {
     if (const FTDistribution1DCauchy* pdf = dynamic_cast<const FTDistribution1DCauchy*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution1DCauchy");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution1DCauchy");
         pdfItem->setItemValue(FTDistribution1DCauchyItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DGauss* pdf =
                    dynamic_cast<const FTDistribution1DGauss*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution1DGauss");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution1DGauss");
         pdfItem->setItemValue(FTDistribution1DGaussItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DGate* pdf = dynamic_cast<const FTDistribution1DGate*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution1DGate");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution1DGate");
         pdfItem->setItemValue(FTDistribution1DGateItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DTriangle* pdf =
                    dynamic_cast<const FTDistribution1DTriangle*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution1DTriangle");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution1DTriangle");
         pdfItem->setItemValue(FTDistribution1DTriangleItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DCosine* pdf =
                    dynamic_cast<const FTDistribution1DCosine*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution1DCosine");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution1DCosine");
         pdfItem->setItemValue(FTDistribution1DCosineItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DVoigt* pdf =
                    dynamic_cast<const FTDistribution1DVoigt*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution1DVoigt");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution1DVoigt");
         pdfItem->setItemValue(FTDistribution1DVoigtItem::P_OMEGA, pdf->omega());
         pdfItem->setItemValue(FTDistribution1DVoigtItem::P_ETA, pdf->eta());
     } else {
@@ -688,38 +681,33 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
 {
     if (const FTDistribution2DCauchy* pdf_cauchy =
             dynamic_cast<const FTDistribution2DCauchy*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution2DCauchy");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution2DCauchy");
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_OMEGA_X, pdf_cauchy->omegaX());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_OMEGA_Y, pdf_cauchy->omegaY());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_GAMMA,
                               Units::rad2deg(pdf_cauchy->gamma()));
     } else if (const FTDistribution2DGauss* pdf_gauss =
                    dynamic_cast<const FTDistribution2DGauss*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution2DGauss");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution2DGauss");
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_OMEGA_X, pdf_gauss->omegaX());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_OMEGA_Y, pdf_gauss->omegaY());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_GAMMA,
                               Units::rad2deg(pdf_gauss->gamma()));
     } else if (const FTDistribution2DGate* pdf_gate =
                    dynamic_cast<const FTDistribution2DGate*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution2DGate");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution2DGate");
         pdfItem->setItemValue(FTDistribution2DGateItem::P_OMEGA_X, pdf_gate->omegaX());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_OMEGA_Y, pdf_gate->omegaY());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_GAMMA, Units::rad2deg(pdf_gate->gamma()));
     } else if (const FTDistribution2DCone* pdf_cone =
                    dynamic_cast<const FTDistribution2DCone*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution2DCone");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution2DCone");
         pdfItem->setItemValue(FTDistribution2DConeItem::P_OMEGA_X, pdf_cone->omegaX());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_OMEGA_Y, pdf_cone->omegaY());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_GAMMA, Units::rad2deg(pdf_cone->gamma()));
     } else if (const FTDistribution2DVoigt* pdf_voigt =
                    dynamic_cast<const FTDistribution2DVoigt*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDistribution2DVoigt");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution2DVoigt");
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_OMEGA_X, pdf_voigt->omegaX());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_OMEGA_Y, pdf_voigt->omegaY());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_GAMMA,
@@ -733,23 +721,19 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
 void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* ipdf, QString group_name)
 {
     if (const FTDecayFunction1DCauchy* pdf = dynamic_cast<const FTDecayFunction1DCauchy*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDecayFunction1DCauchy");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction1DCauchy");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DGauss* pdf =
                    dynamic_cast<const FTDecayFunction1DGauss*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDecayFunction1DGauss");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction1DGauss");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DTriangle* pdf =
                    dynamic_cast<const FTDecayFunction1DTriangle*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDecayFunction1DTriangle");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction1DTriangle");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DVoigt* pdf =
                    dynamic_cast<const FTDecayFunction1DVoigt*>(ipdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDecayFunction1DVoigt");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction1DVoigt");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
         pdfItem->setItemValue(FTDecayFunction1DVoigtItem::P_ETA, pdf->eEta());
     } else {
@@ -761,22 +745,19 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
 {
     if (const FTDecayFunction2DCauchy* pdf_cauchy =
             dynamic_cast<const FTDecayFunction2DCauchy*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDecayFunction2DCauchy");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction2DCauchy");
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X, pdf_cauchy->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y, pdf_cauchy->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA, Units::rad2deg(pdf_cauchy->gamma()));
     } else if (const FTDecayFunction2DGauss* pdf_gauss =
                    dynamic_cast<const FTDecayFunction2DGauss*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDecayFunction2DGauss");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction2DGauss");
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X, pdf_gauss->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y, pdf_gauss->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA, Units::rad2deg(pdf_gauss->gamma()));
     } else if (const FTDecayFunction2DVoigt* pdf_voigt =
                    dynamic_cast<const FTDecayFunction2DVoigt*>(pdf)) {
-        SessionItem* pdfItem =
-            item->setGroupProperty(group_name, "FTDecayFunction2DVoigt");
+        SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction2DVoigt");
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X, pdf_voigt->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y, pdf_voigt->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA, Units::rad2deg(pdf_voigt->gamma()));

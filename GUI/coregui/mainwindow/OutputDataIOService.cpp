@@ -129,8 +129,7 @@ namespace
 JobItem* parentJobItem(SaveLoadInterface* item)
 {
     auto session_item = dynamic_cast<SessionItem*>(item); // sidecast
-    auto jobItem =
-        dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, "JobItem"));
+    auto jobItem = dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, "JobItem"));
     return const_cast<JobItem*>(jobItem);
 }
 } // namespace

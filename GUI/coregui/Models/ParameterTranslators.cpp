@@ -102,8 +102,7 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
     if (list.empty())
         return {};
 
-    if (!list.back().contains("Layer")
-        || !expectedRoughnessPars.contains(list.front()))
+    if (!list.back().contains("Layer") || !expectedRoughnessPars.contains(list.front()))
         return list;
 
     QStringList result = list;

@@ -82,8 +82,8 @@ void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample)
     SessionItem* p_parent = m_levelToParentItem[depth() - 1];
     SessionItem* p_layout_item(nullptr);
     if (p_parent) {
-        p_layout_item = m_sampleModel->insertNewItem("ParticleLayout",
-                                                     m_sampleModel->indexOfItem(p_parent));
+        p_layout_item =
+            m_sampleModel->insertNewItem("ParticleLayout", m_sampleModel->indexOfItem(p_parent));
     } else {
         p_layout_item = m_sampleModel->insertNewItem("ParticleLayout");
     }
@@ -459,9 +459,9 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction1DLattice* p_sample
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem("Interference1DLattice",
-                                                     m_sampleModel->indexOfItem(parent), -1,
-                                                     ParticleLayoutItem::T_INTERFERENCE);
+    SessionItem* item =
+        m_sampleModel->insertNewItem("Interference1DLattice", m_sampleModel->indexOfItem(parent),
+                                     -1, ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::set1DLatticeItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
@@ -471,9 +471,9 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction2DLattice* p_sample
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem("Interference2DLattice",
-                                                     m_sampleModel->indexOfItem(parent), -1,
-                                                     ParticleLayoutItem::T_INTERFERENCE);
+    SessionItem* item =
+        m_sampleModel->insertNewItem("Interference2DLattice", m_sampleModel->indexOfItem(parent),
+                                     -1, ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::set2DLatticeItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
@@ -483,9 +483,9 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sa
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem(
-        "Interference2DParaCrystal", m_sampleModel->indexOfItem(parent), -1,
-        ParticleLayoutItem::T_INTERFERENCE);
+    SessionItem* item = m_sampleModel->insertNewItem("Interference2DParaCrystal",
+                                                     m_sampleModel->indexOfItem(parent), -1,
+                                                     ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::set2DParaCrystalItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
@@ -495,9 +495,9 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem(
-        "InterferenceFinite2DLattice", m_sampleModel->indexOfItem(parent), -1,
-        ParticleLayoutItem::T_INTERFERENCE);
+    SessionItem* item = m_sampleModel->insertNewItem("InterferenceFinite2DLattice",
+                                                     m_sampleModel->indexOfItem(parent), -1,
+                                                     ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::setFinite2DLatticeItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
@@ -507,9 +507,9 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionHardDisk* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem("InterferenceHardDisk",
-                                                     m_sampleModel->indexOfItem(parent), -1,
-                                                     ParticleLayoutItem::T_INTERFERENCE);
+    SessionItem* item =
+        m_sampleModel->insertNewItem("InterferenceHardDisk", m_sampleModel->indexOfItem(parent), -1,
+                                     ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::setHardDiskItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
@@ -519,9 +519,9 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* 
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem(
-        "InterferenceRadialParaCrystal", m_sampleModel->indexOfItem(parent),
-        -1, ParticleLayoutItem::T_INTERFERENCE);
+    SessionItem* item = m_sampleModel->insertNewItem("InterferenceRadialParaCrystal",
+                                                     m_sampleModel->indexOfItem(parent), -1,
+                                                     ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
     TransformFromDomain::setRadialParaCrystalItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
@@ -532,9 +532,8 @@ void GUIDomainSampleVisitor::visit(const RotationX* p_sample)
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
 
-    SessionItem* transformation_item =
-        m_sampleModel->insertNewItem("Rotation", m_sampleModel->indexOfItem(parent),
-                                     -1, ParticleItem::T_TRANSFORMATION);
+    SessionItem* transformation_item = m_sampleModel->insertNewItem(
+        "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem =
         transformation_item->setGroupProperty(TransformationItem::P_ROT, "XRotation");
     p_rotationItem->setItemValue(XRotationItem::P_ANGLE, Units::rad2deg(p_sample->getAngle()));
@@ -546,9 +545,8 @@ void GUIDomainSampleVisitor::visit(const RotationY* p_sample)
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
 
-    SessionItem* transformation_item =
-        m_sampleModel->insertNewItem("Rotation", m_sampleModel->indexOfItem(parent),
-                                     -1, ParticleItem::T_TRANSFORMATION);
+    SessionItem* transformation_item = m_sampleModel->insertNewItem(
+        "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem =
         transformation_item->setGroupProperty(TransformationItem::P_ROT, "YRotation");
     p_rotationItem->setItemValue(YRotationItem::P_ANGLE, Units::rad2deg(p_sample->getAngle()));
@@ -560,9 +558,8 @@ void GUIDomainSampleVisitor::visit(const RotationZ* p_sample)
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
 
-    SessionItem* transformation_item =
-        m_sampleModel->insertNewItem("Rotation", m_sampleModel->indexOfItem(parent),
-                                     -1, ParticleItem::T_TRANSFORMATION);
+    SessionItem* transformation_item = m_sampleModel->insertNewItem(
+        "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem =
         transformation_item->setGroupProperty(TransformationItem::P_ROT, "ZRotation");
     p_rotationItem->setItemValue(ZRotationItem::P_ANGLE, Units::rad2deg(p_sample->getAngle()));
@@ -574,12 +571,11 @@ void GUIDomainSampleVisitor::visit(const RotationEuler* p_sample)
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
 
-    SessionItem* transformation_item =
-        m_sampleModel->insertNewItem("Rotation", m_sampleModel->indexOfItem(parent),
-                                     -1, ParticleItem::T_TRANSFORMATION);
+    SessionItem* transformation_item = m_sampleModel->insertNewItem(
+        "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
     Q_ASSERT(transformation_item);
-    SessionItem* p_rotationItem = transformation_item->setGroupProperty(
-        TransformationItem::P_ROT, "EulerRotation");
+    SessionItem* p_rotationItem =
+        transformation_item->setGroupProperty(TransformationItem::P_ROT, "EulerRotation");
     p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA, Units::rad2deg(p_sample->getAlpha()));
     p_rotationItem->setItemValue(EulerRotationItem::P_BETA, Units::rad2deg(p_sample->getBeta()));
     p_rotationItem->setItemValue(EulerRotationItem::P_GAMMA, Units::rad2deg(p_sample->getGamma()));

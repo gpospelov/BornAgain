@@ -62,9 +62,8 @@ IntensityDataProjectionsWidget::projectionContainer(IntensityDataItem* intensity
 
     auto containerItem = intensityItem->getItem(IntensityDataItem::T_PROJECTIONS);
     if (!containerItem)
-        containerItem = intensityItem->model()->insertNewItem("ProjectionContainer",
-                                                              intensityItem->index(), -1,
-                                                              IntensityDataItem::T_PROJECTIONS);
+        containerItem = intensityItem->model()->insertNewItem(
+            "ProjectionContainer", intensityItem->index(), -1, IntensityDataItem::T_PROJECTIONS);
 
     return dynamic_cast<ProjectionContainerItem*>(containerItem);
 }

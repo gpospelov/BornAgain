@@ -24,10 +24,8 @@ const int vertical_projection_tab = 1;
 } // namespace
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
-    : SessionItemWidget(parent),
-      m_xProjection(new ProjectionsPlot("HorizontalLineMask")),
-      m_yProjection(new ProjectionsPlot("VerticalLineMask")),
-      m_tabWidget(new QTabWidget)
+    : SessionItemWidget(parent), m_xProjection(new ProjectionsPlot("HorizontalLineMask")),
+      m_yProjection(new ProjectionsPlot("VerticalLineMask")), m_tabWidget(new QTabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);

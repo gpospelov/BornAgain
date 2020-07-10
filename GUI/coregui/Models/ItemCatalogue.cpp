@@ -79,17 +79,12 @@ ItemCatalogue::ItemCatalogue()
     add("ParticleComposition", create_new<ParticleCompositionItem>);
     add("ParticleDistribution", create_new<ParticleDistributionItem>);
     add("MesoCrystal", create_new<MesoCrystalItem>);
-    add("Interference1DLattice",
-        create_new<InterferenceFunction1DLatticeItem>);
-    add("Interference2DLattice",
-        create_new<InterferenceFunction2DLatticeItem>);
-    add("Interference2DParaCrystal",
-        create_new<InterferenceFunction2DParaCrystalItem>);
-    add("InterferenceFinite2DLattice",
-        create_new<InterferenceFunctionFinite2DLatticeItem>);
+    add("Interference1DLattice", create_new<InterferenceFunction1DLatticeItem>);
+    add("Interference2DLattice", create_new<InterferenceFunction2DLatticeItem>);
+    add("Interference2DParaCrystal", create_new<InterferenceFunction2DParaCrystalItem>);
+    add("InterferenceFinite2DLattice", create_new<InterferenceFunctionFinite2DLatticeItem>);
     add("InterferenceHardDisk", create_new<InterferenceFunctionHardDiskItem>);
-    add("InterferenceRadialParaCrystal",
-        create_new<InterferenceFunctionRadialParaCrystalItem>);
+    add("InterferenceRadialParaCrystal", create_new<InterferenceFunctionRadialParaCrystalItem>);
     add("GISASInstrument", create_new<GISASInstrumentItem>);
     add("OffSpecInstrument", create_new<OffSpecInstrumentItem>);
     add("SpecularInstrument", create_new<SpecularInstrumentItem>);
@@ -275,10 +270,14 @@ void ItemCatalogue::init_top_item_types()
 {
     m_valid_top_item_types.clear();
 
-    m_valid_top_item_types << "MultiLayer" << "Layer"
-                           << "ParticleLayout" << "Particle"
-                           << "ParticleCoreShell" << "ParticleComposition"
-                           << "MesoCrystal" << "ParticleDistribution"
+    m_valid_top_item_types << "MultiLayer"
+                           << "Layer"
+                           << "ParticleLayout"
+                           << "Particle"
+                           << "ParticleCoreShell"
+                           << "ParticleComposition"
+                           << "MesoCrystal"
+                           << "ParticleDistribution"
                            << "Rotation"
                            << "Interference1DLattice"
                            << "Interference2DLattice"

@@ -12,9 +12,8 @@ TEST_F(TestFitParameterModel, test_InitialState)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
-    SessionItem* container =
-        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                             FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container = source.insertNewItem("FitParameterContainer", fitSuiteItem->index(),
+                                                  -1, FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     EXPECT_EQ(0, proxy.rowCount(QModelIndex()));
@@ -27,9 +26,8 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
-    SessionItem* container =
-        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                             FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container = source.insertNewItem("FitParameterContainer", fitSuiteItem->index(),
+                                                  -1, FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
@@ -132,9 +130,8 @@ TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
-    SessionItem* container =
-        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                             FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container = source.insertNewItem("FitParameterContainer", fitSuiteItem->index(),
+                                                  -1, FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
@@ -196,9 +193,8 @@ TEST_F(TestFitParameterModel, test_addTwoFitParameterAndLinks)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
-    SessionItem* container =
-        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                             FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container = source.insertNewItem("FitParameterContainer", fitSuiteItem->index(),
+                                                  -1, FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameters

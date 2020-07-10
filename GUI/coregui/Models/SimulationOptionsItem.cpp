@@ -62,18 +62,21 @@ SimulationOptionsItem::SimulationOptionsItem() : SessionItem("SimulationOptions"
     addProperty(P_NTHREADS, nthreads.variant())->setToolTip(tooltip_nthreads);
 
     ComboProperty computationMethod;
-    computationMethod << "Analytical" << "Monte-Carlo Integration";
+    computationMethod << "Analytical"
+                      << "Monte-Carlo Integration";
     addProperty(P_COMPUTATION_METHOD, computationMethod.variant())->setToolTip(tooltip_computation);
 
     addProperty(P_MC_POINTS, 100)->setEnabled(false);
 
     ComboProperty averageLayerMaterials;
-    averageLayerMaterials << "Ambient Layer Material" << "Average Layer Material";
+    averageLayerMaterials << "Ambient Layer Material"
+                          << "Average Layer Material";
     addProperty(P_FRESNEL_MATERIAL_METHOD, averageLayerMaterials.variant())
         ->setToolTip(tooltip_ambientmaterial);
 
     ComboProperty includeSpecularPeak;
-    includeSpecularPeak << "No" << "Yes";
+    includeSpecularPeak << "No"
+                        << "Yes";
     addProperty(P_INCLUDE_SPECULAR_PEAK, includeSpecularPeak.variant())
         ->setToolTip(tooltip_specularpeak);
 
@@ -197,7 +200,8 @@ QStringList SimulationOptionsItem::getCPUUsageOptions()
 QStringList SimulationOptionsItem::getRunPolicyNames()
 {
     QStringList result;
-    result << "Immediately" << "In background";
+    result << "Immediately"
+           << "In background";
     return result;
 }
 

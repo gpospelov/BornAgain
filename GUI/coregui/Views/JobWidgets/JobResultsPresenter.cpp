@@ -44,12 +44,9 @@ const std::map<JobViewFlags::EActivities, std::map<QString, QString>> activity_t
 
 const std::map<QString, QStringList> default_active_presentation_list{
     {"SpecularInstrument", {"Reflectometry"}},
-    {{"GISASInstrument"},
-     {"Color Map", "Projections"}},
-    {{"OffSpecInstrument"},
-     {"Color Map", "Projections"}},
-    {{"DepthProbeInstrument"},
-     {"Color Map", "Projections"}}};
+    {{"GISASInstrument"}, {"Color Map", "Projections"}},
+    {{"OffSpecInstrument"}, {"Color Map", "Projections"}},
+    {{"DepthProbeInstrument"}, {"Color Map", "Projections"}}};
 
 template <class QStringObj>
 QStringObj getPresentations(const SessionItem* job_item,
@@ -67,8 +64,7 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent) : ItemComboWidget(pare
 {
     registerWidget("Color Map", create_new<IntensityDataWidget>);
 
-    registerWidget("Projections",
-                   create_new<IntensityDataProjectionsWidget>);
+    registerWidget("Projections", create_new<IntensityDataProjectionsWidget>);
 
     registerWidget("Fit 1D Data", create_new<FitComparisonWidget1D>);
     registerWidget("Fit 2D Data", create_new<FitComparisonWidget>);

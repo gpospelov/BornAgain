@@ -24,10 +24,8 @@ namespace
 //! Returns true if name is related to 2D interference functions.
 bool isInterference2D(const QString& name)
 {
-    if (name == "Interference2DLattice"
-        || name == "Interference2DParaCrystal"
-        || name == "InterferenceFinite2DLattice"
-        || name == "InterferenceHardDisk")
+    if (name == "Interference2DLattice" || name == "Interference2DParaCrystal"
+        || name == "InterferenceFinite2DLattice" || name == "InterferenceHardDisk")
         return true;
     return false;
 }
@@ -60,8 +58,10 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem("ParticleLayout")
     addProperty(P_WEIGHT, 1.0)->setToolTip(weight_tooltip);
 
     registerTag(T_PARTICLES, 0, -1,
-                QStringList() << "Particle" << "ParticleCoreShell"
-                              << "ParticleComposition" << "MesoCrystal"
+                QStringList() << "Particle"
+                              << "ParticleCoreShell"
+                              << "ParticleComposition"
+                              << "MesoCrystal"
                               << "ParticleDistribution");
     setDefaultTag(T_PARTICLES);
     registerTag(T_INTERFERENCE, 0, 1,

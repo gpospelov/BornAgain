@@ -112,7 +112,7 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
 {
     ProjectionsData result;
     projectionsType == "VerticalLineMask" ? result.is_horizontal = false
-                                                       : result.is_horizontal = true;
+                                          : result.is_horizontal = true;
 
     for (auto item : projectionItems(projectionsType, intensityItem)) {
         std::unique_ptr<Histogram1D> hist;

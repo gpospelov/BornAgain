@@ -150,8 +150,8 @@ void RealDataSelectorActions::importDataLoop(int ndim)
         if (ndim == 2) {
             std::unique_ptr<OutputData<double>> data = ImportDataUtils::Import2dData(fileName);
             if (data) {
-                RealDataItem* realDataItem = dynamic_cast<RealDataItem*>(
-                    m_realDataModel->insertNewItem("RealData"));
+                RealDataItem* realDataItem =
+                    dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
                 realDataItem->setItemName(baseNameOfLoadedFile);
                 realDataItem->setOutputData(data.release());
                 m_selectionModel->clearSelection();
@@ -160,8 +160,8 @@ void RealDataSelectorActions::importDataLoop(int ndim)
         } else if (ndim == 1) {
             auto data = ImportDataUtils::Import1dData(fileName);
             if (data) {
-                RealDataItem* realDataItem = dynamic_cast<RealDataItem*>(
-                    m_realDataModel->insertNewItem("RealData"));
+                RealDataItem* realDataItem =
+                    dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
                 realDataItem->setItemName(baseNameOfLoadedFile);
                 realDataItem->setImportData(std::move(data));
                 m_selectionModel->clearSelection();

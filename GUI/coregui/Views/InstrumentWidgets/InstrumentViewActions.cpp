@@ -131,8 +131,8 @@ void InstrumentViewActions::onCloneInstrument()
         if (auto instrument = dynamic_cast<SpecularInstrumentItem*>(item)) {
             auto axis_group = instrument->beamItem()->inclinationAxisGroup();
 
-            auto donor_axis = dynamic_cast<PointwiseAxisItem*>(
-                axis_group->getItemOfType("PointwiseAxis"));
+            auto donor_axis =
+                dynamic_cast<PointwiseAxisItem*>(axis_group->getItemOfType("PointwiseAxis"));
             if (!donor_axis->containsNonXMLData())
                 return;
 

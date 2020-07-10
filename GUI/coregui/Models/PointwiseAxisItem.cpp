@@ -27,8 +27,7 @@ std::unique_ptr<OutputData<double>> makeOutputData(const IAxis& axis);
 const QString PointwiseAxisItem::P_NATIVE_UNITS = "NativeUnits";
 const QString PointwiseAxisItem::P_FILE_NAME = "FileName";
 
-PointwiseAxisItem::PointwiseAxisItem()
-    : BasicAxisItem("PointwiseAxis"), m_instrument(nullptr)
+PointwiseAxisItem::PointwiseAxisItem() : BasicAxisItem("PointwiseAxis"), m_instrument(nullptr)
 {
     getItem(P_MIN)->setEnabled(false);
     getItem(P_NBINS)->setEnabled(false);

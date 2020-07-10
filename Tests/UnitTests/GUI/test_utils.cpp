@@ -49,8 +49,7 @@ std::unique_ptr<OutputData<double>> TestUtils::createData(double value, DIM n_di
 RealDataItem* TestUtils::createRealData(const QString& name, SessionModel& model, double value,
                                         DIM n_dim)
 {
-    RealDataItem* result =
-        dynamic_cast<RealDataItem*>(model.insertNewItem("RealData"));
+    RealDataItem* result = dynamic_cast<RealDataItem*>(model.insertNewItem("RealData"));
     result->setOutputData(createData(value, n_dim).release());
     result->setItemValue(SessionItem::P_NAME, name);
     return result;

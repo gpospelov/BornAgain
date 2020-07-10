@@ -103,8 +103,7 @@ void SymmetricDistributionItem::showMean(bool flag)
 
 // --------------------------------------------------------------------------------------------- //
 
-DistributionNoneItem::DistributionNoneItem()
-    : SymmetricDistributionItem("DistributionNone")
+DistributionNoneItem::DistributionNoneItem() : SymmetricDistributionItem("DistributionNone")
 {
     addProperty(P_MEAN, 0.1)->setLimits(RealLimits::limitless()).setDisplayName("Value");
     getItem(P_MEAN)->setDecimals(4);
@@ -252,8 +251,7 @@ void DistributionGaussianItem::init_distribution(double value)
 const QString DistributionLogNormalItem::P_MEDIAN = QString::fromStdString("Median");
 const QString DistributionLogNormalItem::P_SCALE_PAR = QString::fromStdString("ScaleParameter");
 
-DistributionLogNormalItem::DistributionLogNormalItem()
-    : DistributionItem("DistributionLogNormal")
+DistributionLogNormalItem::DistributionLogNormalItem() : DistributionItem("DistributionLogNormal")
 {
     addProperty(P_MEDIAN, 1.0);
     addProperty(P_SCALE_PAR, 1.0);
@@ -289,8 +287,7 @@ void DistributionLogNormalItem::showMean(bool flag)
 
 const QString DistributionCosineItem::P_SIGMA = QString::fromStdString("Sigma");
 
-DistributionCosineItem::DistributionCosineItem()
-    : SymmetricDistributionItem("DistributionCosine")
+DistributionCosineItem::DistributionCosineItem() : SymmetricDistributionItem("DistributionCosine")
 {
     addProperty(P_MEAN, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_SIGMA, 1.0);
@@ -335,8 +332,7 @@ const QString DistributionTrapezoidItem::P_LEFTWIDTH = QString::fromStdString("L
 const QString DistributionTrapezoidItem::P_MIDDLEWIDTH = QString::fromStdString("MiddleWidth");
 const QString DistributionTrapezoidItem::P_RIGHTWIDTH = QString::fromStdString("RightWidth");
 
-DistributionTrapezoidItem::DistributionTrapezoidItem()
-    : DistributionItem("DistributionTrapezoid")
+DistributionTrapezoidItem::DistributionTrapezoidItem() : DistributionItem("DistributionTrapezoid")
 {
     addProperty(P_CENTER, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_LEFTWIDTH, 1.0);

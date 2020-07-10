@@ -23,11 +23,13 @@
 MaskContainerItem::MaskContainerItem() : SessionItem("MaskContainer")
 {
     const QString T_MASKS = "Mask Tag";
-    QStringList allowedMasks = QStringList()
-                               << "RectangleMask" << "PolygonMask"
-                               << "EllipseMask" << "VerticalLineMask"
-                               << "HorizontalLineMask" << "MaskAllMask"
-                               << "RegionOfInterest";
+    QStringList allowedMasks = QStringList() << "RectangleMask"
+                                             << "PolygonMask"
+                                             << "EllipseMask"
+                                             << "VerticalLineMask"
+                                             << "HorizontalLineMask"
+                                             << "MaskAllMask"
+                                             << "RegionOfInterest";
     registerTag(T_MASKS, 0, -1, allowedMasks);
     setDefaultTag(T_MASKS);
 }

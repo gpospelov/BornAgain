@@ -34,8 +34,11 @@ ComboProperty fitParameterTypeCombo()
                                          << QStringLiteral("No limits imposed to parameter value");
 
     ComboProperty result;
-    result << "fixed" << "limited" << "lower limited"
-           << "upper limited" << "free";
+    result << "fixed"
+           << "limited"
+           << "lower limited"
+           << "upper limited"
+           << "free";
     result.setValue("limited");
     result.setToolTips(tooltips);
     return result;
@@ -236,8 +239,7 @@ bool FitParameterItem::isFixed() const
 
 const QString FitParameterContainerItem::T_FIT_PARAMETERS = "Data tag";
 
-FitParameterContainerItem::FitParameterContainerItem()
-    : SessionItem("FitParameterContainer")
+FitParameterContainerItem::FitParameterContainerItem() : SessionItem("FitParameterContainer")
 {
     registerTag(T_FIT_PARAMETERS, 0, -1, QStringList() << "FitParameter");
     setDefaultTag(T_FIT_PARAMETERS);

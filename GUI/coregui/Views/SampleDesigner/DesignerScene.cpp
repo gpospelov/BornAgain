@@ -351,8 +351,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection* connection)
     if (connection->getParentView()->getItem()->modelType() == "ParticleLayout") {
         if (connection->inputPort()->getPortType() == NodeEditorPort::INTERFERENCE)
             tag = ParticleLayoutItem::T_INTERFERENCE;
-    } else if (connection->getParentView()->getItem()->modelType()
-               == "ParticleCoreShell") {
+    } else if (connection->getParentView()->getItem()->modelType() == "ParticleCoreShell") {
         if (parentView->getInputPortIndex(connection->inputPort()) == 0)
             tag = ParticleCoreShellItem::T_CORE;
         else if (parentView->getInputPortIndex(connection->inputPort()) == 1)
@@ -360,8 +359,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection* connection)
         else if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
 
-    } else if (connection->getParentView()->getItem()->modelType()
-               == "ParticleComposition") {
+    } else if (connection->getParentView()->getItem()->modelType() == "ParticleComposition") {
         if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
     } else if (connection->getParentView()->getItem()->modelType() == "MesoCrystal") {

@@ -36,8 +36,7 @@ const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
 
 // TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 
-ParticleCompositionItem::ParticleCompositionItem()
-    : SessionGraphicsItem("ParticleComposition")
+ParticleCompositionItem::ParticleCompositionItem() : SessionGraphicsItem("ParticleComposition")
 {
     setToolTip(QStringLiteral("Composition of particles with fixed positions"));
 
@@ -49,8 +48,10 @@ ParticleCompositionItem::ParticleCompositionItem()
     addGroupProperty(ParticleItem::P_POSITION, "Vector")->setToolTip(position_tooltip);
 
     registerTag(T_PARTICLES, 0, -1,
-                QStringList() << "Particle" << "ParticleCoreShell"
-                              << "ParticleComposition" << "MesoCrystal");
+                QStringList() << "Particle"
+                              << "ParticleCoreShell"
+                              << "ParticleComposition"
+                              << "MesoCrystal");
     setDefaultTag(T_PARTICLES);
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << "Rotation");
 

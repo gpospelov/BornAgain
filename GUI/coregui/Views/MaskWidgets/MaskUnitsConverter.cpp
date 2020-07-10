@@ -60,8 +60,7 @@ void MaskUnitsConverter::convertIntensityDataItem(IntensityDataItem* intensityDa
 
 void MaskUnitsConverter::convertMask(SessionItem* maskItem)
 {
-    if (maskItem->modelType() == "RectangleMask"
-        || maskItem->modelType() == "RegionOfInterest") {
+    if (maskItem->modelType() == "RectangleMask" || maskItem->modelType() == "RegionOfInterest") {
         convertCoordinate(maskItem, RectangleItem::P_XLOW, RectangleItem::P_YLOW);
         convertCoordinate(maskItem, RectangleItem::P_XUP, RectangleItem::P_YUP);
     } else if (maskItem->modelType() == "PolygonMask") {

@@ -37,8 +37,7 @@ const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
 const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 
-ParticleDistributionItem::ParticleDistributionItem()
-    : SessionGraphicsItem("ParticleDistribution")
+ParticleDistributionItem::ParticleDistributionItem() : SessionGraphicsItem("ParticleDistribution")
 {
     setToolTip(QStringLiteral("Collection of particles obtained via parametric distribution "
                               "of particle prototype"));
@@ -52,8 +51,10 @@ ParticleDistributionItem::ParticleDistributionItem()
         ->setToolTip(QStringLiteral("Distribution to apply to the specified parameter"));
 
     registerTag(T_PARTICLES, 0, 1,
-                QStringList() << "Particle" << "ParticleCoreShell"
-                              << "ParticleComposition" << "MesoCrystal");
+                QStringList() << "Particle"
+                              << "ParticleCoreShell"
+                              << "ParticleComposition"
+                              << "MesoCrystal");
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;

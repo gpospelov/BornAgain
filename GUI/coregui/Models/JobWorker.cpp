@@ -19,8 +19,7 @@
 
 JobWorker::JobWorker(const QString& identifier, Simulation* simulation)
     : m_identifier(identifier), m_simulation(simulation), m_percentage_done(0),
-      m_job_status("Idle"), m_terminate_request_flag(false),
-      m_simulation_duration(0)
+      m_job_status("Idle"), m_terminate_request_flag(false), m_simulation_duration(0)
 {
 }
 

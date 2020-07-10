@@ -50,10 +50,10 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
 
     EXPECT_EQ(distItem->defaultTag(), ParticleDistributionItem::T_PARTICLES);
 
-    EXPECT_EQ(distItem->acceptableDefaultItemTypes(),
-              QVector<QString>() << "Particle" << "ParticleCoreShell"
-                                 << "ParticleComposition"
-                                 << "MesoCrystal");
+    EXPECT_EQ(distItem->acceptableDefaultItemTypes(), QVector<QString>() << "Particle"
+                                                                         << "ParticleCoreShell"
+                                                                         << "ParticleComposition"
+                                                                         << "MesoCrystal");
 
     // main parameter
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)

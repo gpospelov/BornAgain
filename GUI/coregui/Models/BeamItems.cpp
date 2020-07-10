@@ -207,8 +207,7 @@ void SpecularBeamItem::updateToData(const IAxis& axis, QString units)
     }
 
     auto axis_group = inclinationAxisGroup();
-    auto axis_item =
-        static_cast<PointwiseAxisItem*>(axis_group->getChildOfType("PointwiseAxis"));
+    auto axis_item = static_cast<PointwiseAxisItem*>(axis_group->getChildOfType("PointwiseAxis"));
     axis_item->init(axis, units);
     axis_group->setCurrentType("PointwiseAxis"); // calls updateWavelength()
     axis_item->updateIndicators();

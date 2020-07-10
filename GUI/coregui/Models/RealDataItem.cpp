@@ -34,14 +34,16 @@ RealDataItem::RealDataItem() : SessionItem("RealData"), m_linkedInstrument(nullp
 
     // Registering this tag even without actual data item to avoid troubles in copying RealDataItem
     registerTag(T_INTENSITY_DATA, 1, 1,
-                QStringList() << "IntensityData" << "SpecularData");
+                QStringList() << "IntensityData"
+                              << "SpecularData");
     setDefaultTag(T_INTENSITY_DATA);
 
     addProperty(P_INSTRUMENT_ID, QString());
     addProperty(P_INSTRUMENT_NAME, QString());
 
     registerTag(T_NATIVE_DATA, 1, 1,
-                QStringList() << "IntensityData" << "SpecularData");
+                QStringList() << "IntensityData"
+                              << "SpecularData");
     addProperty(P_NATIVE_UNITS, "nbins")->setVisible(false);
 
     mapper()->setOnPropertyChange([this](const QString& name) {
@@ -104,8 +106,7 @@ void RealDataItem::setOutputData(OutputData<double>* data)
     assert(data->getRank() < 3 && data->getRank() > 0);
 
     const QString& target_model_type =
-        data->getRank() == 2 ? "IntensityData"
-                             : data->getRank() == 1 ? "SpecularData" : "";
+        data->getRank() == 2 ? "IntensityData" : data->getRank() == 1 ? "SpecularData" : "";
     auto data_item = getItem(T_INTENSITY_DATA);
     if (data_item && data_item->modelType() != target_model_type)
         throw GUIHelpers::Error("Error in RealDataItem::setOutputData: trying to set data "
@@ -121,8 +122,7 @@ void RealDataItem::setOutputData(OutputData<double>* data)
 void RealDataItem::initDataItem(size_t data_rank, const QString& tag)
 {
     assert(data_rank <= 2 && data_rank > 0);
-    const QString& target_model_type =
-        data_rank == 2 ? "IntensityData" : "SpecularData";
+    const QString& target_model_type = data_rank == 2 ? "IntensityData" : "SpecularData";
     auto data_item = getItem(tag);
     if (data_item && data_item->modelType() != target_model_type)
         throw GUIHelpers::Error("Error in RealDataItem::initDataItem: trying to set data "

@@ -64,8 +64,8 @@ TEST_F(TestParticleCoreShell, test_propertyAppearance)
     EXPECT_EQ(pos.z(), 0.0);
 
     // adding core, and checking that abundance is disabled
-    SessionItem* core = model.insertNewItem("Particle", coreshell->index(), -1,
-                                            ParticleCoreShellItem::T_CORE);
+    SessionItem* core =
+        model.insertNewItem("Particle", coreshell->index(), -1, ParticleCoreShellItem::T_CORE);
     EXPECT_FALSE(core->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_TRUE(core->getItem(ParticleItem::P_POSITION)->isEnabled());
 

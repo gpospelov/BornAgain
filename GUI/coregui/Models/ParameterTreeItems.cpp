@@ -23,7 +23,8 @@ ParameterLabelItem::ParameterLabelItem() : SessionItem("Parameter Label")
 {
     const QString T_CHILDREN = "children tag";
     registerTag(T_CHILDREN, 0, -1,
-                QStringList() << "Parameter Label" << "Parameter");
+                QStringList() << "Parameter Label"
+                              << "Parameter");
     setDefaultTag(T_CHILDREN);
 }
 

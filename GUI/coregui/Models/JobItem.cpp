@@ -74,11 +74,13 @@ JobItem::JobItem() : SessionItem("JobItem")
     registerTag(T_SAMPLE, 1, 1, QStringList() << "MultiLayer");
     registerTag(T_MATERIAL_CONTAINER, 1, 1, QStringList{"MaterialContainer"});
     registerTag(T_INSTRUMENT, 1, 1,
-                QStringList() << "GISASInstrument" << "OffSpecInstrument"
+                QStringList() << "GISASInstrument"
+                              << "OffSpecInstrument"
                               << "SpecularInstrument"
                               << "DepthProbeInstrument");
     registerTag(T_OUTPUT, 1, 1,
-                QStringList() << "IntensityData" << "SpecularData");
+                QStringList() << "IntensityData"
+                              << "SpecularData");
     registerTag(T_REALDATA, 1, 1, QStringList() << "RealData");
     registerTag(T_DATAVIEW, 1, 1, QStringList() << "Data1DViewItem");
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << "Parameter Container");

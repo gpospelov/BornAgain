@@ -27,12 +27,12 @@ namespace
 ComboProperty gradientCombo()
 {
     ComboProperty result;
-    result << Constants::GRADIENT_GRAYSCALE << Constants::GRADIENT_HOT << Constants::GRADIENT_COLD
-           << Constants::GRADIENT_NIGHT << Constants::GRADIENT_CANDY
-           << Constants::GRADIENT_GEOGRAPHY << Constants::GRADIENT_ION
-           << Constants::GRADIENT_THERMAL << Constants::GRADIENT_POLAR
-           << Constants::GRADIENT_SPECTRUM << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
-    result.setValue(Constants::GRADIENT_JET);
+    result << "Grayscale" << "Hot" << "Cold"
+           << "Night" << "Candy"
+           << "Geography" << "Ion"
+           << "Thermal" << "Polar"
+           << "Spectrum" << "Jet" << "Hues";
+    result.setValue("Jet");
     return result;
 }
 } // namespace
@@ -50,7 +50,7 @@ const QString IntensityDataItem::P_ZAXIS = "color-axis";
 const QString IntensityDataItem::T_MASKS = "Mask tag";
 const QString IntensityDataItem::T_PROJECTIONS = "Projection tag";
 
-IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
+IntensityDataItem::IntensityDataItem() : DataItem("IntensityData")
 {
     addProperty(P_TITLE, QString())->setVisible(false);
 
@@ -58,22 +58,22 @@ IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
     addProperty(P_IS_INTERPOLATED, true);
     addProperty(P_GRADIENT, gradientCombo().variant());
 
-    SessionItem* item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
+    SessionItem* item = addGroupProperty(P_XAXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupProperty(P_YAXIS, Constants::BasicAxisType);
+    item = addGroupProperty(P_YAXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
+    item = addGroupProperty(P_ZAXIS, "AmplitudeAxis");
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
     setXaxisTitle(x_axis_default_name);
     setYaxisTitle(y_axis_default_name);
 
-    registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
+    registerTag(T_MASKS, 0, -1, QStringList() << "MaskContainer");
     setDefaultTag(T_MASKS);
 
-    registerTag(T_PROJECTIONS, 0, -1, QStringList() << Constants::ProjectionContainerType);
+    registerTag(T_PROJECTIONS, 0, -1, QStringList() << "ProjectionContainer");
 }
 
 void IntensityDataItem::setOutputData(OutputData<double>* data)
@@ -227,7 +227,7 @@ std::vector<int> IntensityDataItem::shape() const
 
 void IntensityDataItem::reset(ImportDataInfo data)
 {
-    assert(data.unitsLabel() == Constants::UnitsNbins);
+    assert(data.unitsLabel() == "nbins");
     ComboProperty combo = ComboProperty() << data.unitsLabel();
     setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
     getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);

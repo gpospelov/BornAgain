@@ -81,7 +81,7 @@ JobModel* ApplicationModels::jobModel()
 void ApplicationModels::resetModels()
 {
     m_documentModel->clear();
-    m_documentModel->insertNewItem(Constants::SimulationOptionsType);
+    m_documentModel->insertNewItem("SimulationOptions");
 
     m_materialModel->clear();
     m_materialModel->addRefractiveMaterial("Default", 1e-3, 1e-5);
@@ -96,7 +96,7 @@ void ApplicationModels::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    SessionItem* instrument = m_instrumentModel->insertNewItem(Constants::GISASInstrumentType);
+    SessionItem* instrument = m_instrumentModel->insertNewItem("GISASInstrument");
     instrument->setItemName("GISAS");
 }
 
@@ -181,7 +181,7 @@ void ApplicationModels::createTestJob()
 void ApplicationModels::createTestRealData()
 {
     auto realDataItem =
-        dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
+        dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
     realDataItem->setItemName("realdata");
 
     std::unique_ptr<OutputData<double>> data(

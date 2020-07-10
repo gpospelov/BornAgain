@@ -129,7 +129,7 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection& s
     for (auto index : selection.indexes()) {
         m_tuningWidget->selectionModel()->clearSelection();
         SessionItem* item = m_fitParameterModel->itemForIndex(index);
-        if (item->parent()->modelType() == Constants::FitParameterLinkType) {
+        if (item->parent()->modelType() == "FitParameterLink") {
             QString link = item->parent()->getItemValue(FitParameterLinkItem::P_LINK).toString();
             m_tuningWidget->makeSelected(
                 FitParameterHelper::getParameterItem(jobItem()->fitParameterContainerItem(), link));
@@ -233,7 +233,7 @@ void FitParameterWidget::init_actions()
 
 void FitParameterWidget::initTuningWidgetContextMenu(QMenu& menu)
 {
-    if (jobItem()->getStatus() == Constants::STATUS_FITTING) {
+    if (jobItem()->getStatus() == "Fitting") {
         setActionsEnabled(false);
         return;
     }
@@ -267,7 +267,7 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu& menu)
 
 void FitParameterWidget::initFitParameterTreeContextMenu(QMenu& menu)
 {
-    if (jobItem()->getStatus() == Constants::STATUS_FITTING) {
+    if (jobItem()->getStatus() == "Fitting") {
         setActionsEnabled(false);
         return;
     }
@@ -337,7 +337,7 @@ QVector<FitParameterItem*> FitParameterWidget::selectedFitParameters()
     QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
     for (auto index : indexes) {
         if (SessionItem* item = m_fitParameterModel->itemForIndex(index)) {
-            if (item->modelType() == Constants::FitParameterType) {
+            if (item->modelType() == "FitParameter") {
                 FitParameterItem* fitParItem = dynamic_cast<FitParameterItem*>(item);
                 Q_ASSERT(fitParItem);
                 result.push_back(fitParItem);
@@ -367,7 +367,7 @@ QVector<FitParameterLinkItem*> FitParameterWidget::selectedFitParameterLinks()
     QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
     for (QModelIndex index : indexes) {
         if (SessionItem* item = m_fitParameterModel->itemForIndex(index)) {
-            if (item->parent()->modelType() == Constants::FitParameterLinkType) {
+            if (item->parent()->modelType() == "FitParameterLink") {
                 FitParameterLinkItem* fitParItem =
                     dynamic_cast<FitParameterLinkItem*>(item->parent());
                 Q_ASSERT(fitParItem);

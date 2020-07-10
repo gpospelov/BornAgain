@@ -1,4 +1,3 @@
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/GUIMessage.h"
 #include "GUI/coregui/utils/MessageService.h"

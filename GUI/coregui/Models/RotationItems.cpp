@@ -20,7 +20,7 @@
 
 const QString XRotationItem::P_ANGLE = "Angle";
 
-XRotationItem::XRotationItem() : RotationItem(Constants::XRotationType)
+XRotationItem::XRotationItem() : RotationItem("XRotation")
 {
     setToolTip(QStringLiteral("Particle rotation around x-axis"));
     addProperty(P_ANGLE, 0.0)
@@ -37,7 +37,7 @@ std::unique_ptr<IRotation> XRotationItem::createRotation() const
 
 const QString YRotationItem::P_ANGLE = "Angle";
 
-YRotationItem::YRotationItem() : RotationItem(Constants::YRotationType)
+YRotationItem::YRotationItem() : RotationItem("YRotation")
 {
     setToolTip(QStringLiteral("Particle rotation around y-axis"));
     addProperty(P_ANGLE, 0.0)
@@ -54,7 +54,7 @@ std::unique_ptr<IRotation> YRotationItem::createRotation() const
 
 const QString ZRotationItem::P_ANGLE = "Angle";
 
-ZRotationItem::ZRotationItem() : RotationItem(Constants::ZRotationType)
+ZRotationItem::ZRotationItem() : RotationItem("ZRotation")
 {
     setToolTip(QStringLiteral("Particle rotation around z-axis"));
     addProperty(P_ANGLE, 0.0)
@@ -73,7 +73,7 @@ const QString EulerRotationItem::P_ALPHA = "Alpha";
 const QString EulerRotationItem::P_BETA = "Beta";
 const QString EulerRotationItem::P_GAMMA = "Gamma";
 
-EulerRotationItem::EulerRotationItem() : RotationItem(Constants::EulerRotationType)
+EulerRotationItem::EulerRotationItem() : RotationItem("EulerRotation")
 {
     setToolTip(QStringLiteral("Sequence of three rotations following Euler angles \n"
                               "notation z-x'-z'"));

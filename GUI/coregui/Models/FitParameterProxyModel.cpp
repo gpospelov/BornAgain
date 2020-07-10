@@ -66,21 +66,21 @@ Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex& index) const
     if (SessionItem* item = itemForIndex(index)) {
         if (item->isEditable() && index.column() != 0)
             returnVal |= Qt::ItemIsEditable;
-        if (item->parent()->modelType() == Constants::FitParameterLinkType && index.column() == 0) {
+        if (item->parent()->modelType() == "FitParameterLink" && index.column() == 0) {
             returnVal |= Qt::ItemIsDragEnabled;
         }
         const bool allow_one_fit_parameter_to_have_more_than_one_link = true;
         if (allow_one_fit_parameter_to_have_more_than_one_link) {
             // drop is allowed to fit parameter container, and, to FitParameterItem itself.
             // (i.e. we can have more than one link in single FitParameterItem)
-            if (item->modelType() == Constants::FitParameterType
-                || item->modelType() == Constants::FitParameterContainerType) {
+            if (item->modelType() == "FitParameter"
+                || item->modelType() == "FitParameterContainer") {
                 returnVal |= Qt::ItemIsDropEnabled;
             }
         } else {
             // drop is allowed only to fit parameter container
             // (i.e. only one link is allowed in FitParameterItem)
-            if (item->modelType() == Constants::FitParameterContainerType) {
+            if (item->modelType() == "FitParameterContainer") {
                 returnVal |= Qt::ItemIsDropEnabled;
             }
         }
@@ -97,7 +97,7 @@ QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex
     SessionItem* parent_item = itemForIndex(parent);
     Q_ASSERT(parent_item);
 
-    if (parent_item->modelType() == Constants::FitParameterContainerType) {
+    if (parent_item->modelType() == "FitParameterContainer") {
         if (SessionItem* fitParItem = parent_item->childAt(row)) {
             SessionItem* itemToPack = fitParItem;
             if (column != 0) {
@@ -105,7 +105,7 @@ QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex
             }
             return createIndex(row, column, itemToPack);
         }
-    } else if (parent_item->modelType() == Constants::FitParameterType && column == 0) {
+    } else if (parent_item->modelType() == "FitParameter" && column == 0) {
         QVector<SessionItem*> links = parent_item->getItems(FitParameterItem::T_LINK);
         if (row < links.size()) {
             if (SessionItem* linkItem = links.at(row)) {
@@ -128,7 +128,7 @@ QModelIndex FitParameterProxyModel::parent(const QModelIndex& child) const
         if (SessionItem* parent_item = child_item->parent()) {
             if (!isValidSourceItem(parent_item))
                 return QModelIndex();
-            if (parent_item->modelType() == Constants::FitParameterLinkType) {
+            if (parent_item->modelType() == "FitParameterLink") {
                 SessionItem* fitPar = parent_item->parent();
                 if (!isValidSourceItem(fitPar))
                     return QModelIndex();
@@ -151,9 +151,9 @@ int FitParameterProxyModel::rowCount(const QModelIndex& parent) const
     if (parent_item != m_root_item && !isValidSourceItem(parent_item))
         return 0;
 
-    if (parent_item->modelType() == Constants::FitParameterContainerType) {
+    if (parent_item->modelType() == "FitParameterContainer") {
         return parent_item->numberOfChildren();
-    } else if (parent_item->modelType() == Constants::FitParameterType) {
+    } else if (parent_item->modelType() == "FitParameter") {
         return parent_item->getItems(FitParameterItem::T_LINK).size();
     }
     return 0;
@@ -172,7 +172,7 @@ int FitParameterProxyModel::columnCount(const QModelIndex& parent) const
 
     if (parent.isValid()) {
         if (SessionItem* parentItem = itemForIndex(parent)) {
-            if (parentItem->modelType() == Constants::FitParameterType) {
+            if (parentItem->modelType() == "FitParameter") {
                 return (parentItem->getItems(FitParameterItem::T_LINK).size() ? 1 : 0);
             }
         }
@@ -190,7 +190,7 @@ QVariant FitParameterProxyModel::data(const QModelIndex& index, int role) const
 
     if (SessionItem* item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
-            if (item->modelType() == Constants::FitParameterType) {
+            if (item->modelType() == "FitParameter") {
                 return item->displayName();
             } else {
                 return item->value();
@@ -264,7 +264,7 @@ bool FitParameterProxyModel::dropMimeData(const QMimeData* data, Qt::DropAction 
 
     if (parent.isValid()) {
         if (SessionItem* fitParItem = itemForIndex(parent)) {
-            Q_ASSERT(fitParItem->modelType() == Constants::FitParameterType);
+            Q_ASSERT(fitParItem->modelType() == "FitParameter");
             ParameterItem* parItem = FitParameterHelper::getParameterItem(
                 m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
             Q_ASSERT(parItem);
@@ -355,18 +355,18 @@ QModelIndex FitParameterProxyModel::indexOfItem(SessionItem* item) const
         return QModelIndex();
 
     if (SessionItem* parent_item = item->parent()) {
-        if (parent_item->modelType() == Constants::FitParameterContainerType) {
-            if (item->modelType() == Constants::FitParameterType) {
+        if (parent_item->modelType() == "FitParameterContainer") {
+            if (item->modelType() == "FitParameter") {
                 return createIndex(ParentRow(*item), 0, item);
             }
-        } else if (parent_item->modelType() == Constants::FitParameterType) {
+        } else if (parent_item->modelType() == "FitParameter") {
 
             QString tag = parent_item->tagFromItem(item);
             int col = m_columnNames.key(tag, -1);
             if (col > 0) {
                 return createIndex(ParentRow(*parent_item), col, item);
             }
-        } else if (parent_item->modelType() == Constants::FitParameterLinkType) {
+        } else if (parent_item->modelType() == "FitParameterLink") {
             QVector<SessionItem*> links = parent_item->parent()->getItems(FitParameterItem::T_LINK);
             return createIndex(links.indexOf(parent_item), 0, item);
         }

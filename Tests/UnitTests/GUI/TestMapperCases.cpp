@@ -17,20 +17,20 @@ class TestMapperCases : public ::testing::Test
 TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
 {
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, multilayer->index());
-    SessionItem* layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
+    SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
 
     // composition added to layout should have abundance enabled
     SessionItem* compositionFree =
-        model.insertNewItem(Constants::ParticleCompositionType, layout->index());
+        model.insertNewItem("ParticleComposition", layout->index());
     EXPECT_TRUE(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
     SessionItem* distribution =
-        model.insertNewItem(Constants::ParticleDistributionType, layout->index());
+        model.insertNewItem("ParticleDistribution", layout->index());
     SessionItem* composition =
-        model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
+        model.insertNewItem("ParticleComposition", distribution->index());
     EXPECT_TRUE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
     composition = distribution->takeRow(ParentRow(*composition));
@@ -41,16 +41,16 @@ TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
 TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle)
 {
     DocumentModel model;
-    model.insertNewItem(Constants::SimulationOptionsType);
+    model.insertNewItem("SimulationOptions");
 
     SimulationOptionsItem* item = model.simulationOptionsItem();
 
     ComboProperty combo =
         item->getItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD).value<ComboProperty>();
-    EXPECT_EQ(combo.getValue(), Constants::SIMULATION_ANALYTICAL);
+    EXPECT_EQ(combo.getValue(), "Analytical");
     EXPECT_TRUE(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == false);
 
-    combo.setValue(Constants::SIMULATION_MONTECARLO);
+    combo.setValue("Monte-Carlo Integration");
     item->setItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD, combo.variant());
     EXPECT_TRUE(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
 }

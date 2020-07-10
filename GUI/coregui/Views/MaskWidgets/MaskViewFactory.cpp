@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/MaskWidgets/MaskViewFactory.h"
 #include "GUI/coregui/Models/SessionItem.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/MaskWidgets/EllipseView.h"
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 #include "GUI/coregui/Views/MaskWidgets/IntensityDataView.h"
@@ -32,43 +31,43 @@ IShape2DView* MaskViewFactory::createMaskView(SessionItem* item, ISceneAdaptor* 
     IShape2DView* result(0);
     QString model_type = item->modelType();
 
-    if (model_type == Constants::MaskContainerType) {
+    if (model_type == "MaskContainer") {
         result = new MaskContainerView();
     }
 
-    else if (model_type == Constants::ProjectionContainerType) {
+    else if (model_type == "ProjectionContainer") {
         result = new MaskContainerView();
     }
 
-    else if (model_type == Constants::RectangleMaskType) {
+    else if (model_type == "RectangleMask") {
         result = new RectangleView();
     }
 
-    else if (model_type == Constants::PolygonMaskType) {
+    else if (model_type == "PolygonMask") {
         result = new PolygonView();
     }
 
-    else if (model_type == Constants::PolygonPointType) {
+    else if (model_type == "PolygonPoint") {
         result = new PolygonPointView();
     }
 
-    else if (model_type == Constants::VerticalLineMaskType) {
+    else if (model_type == "VerticalLineMask") {
         result = new VerticalLineView();
     }
 
-    else if (model_type == Constants::HorizontalLineMaskType) {
+    else if (model_type == "HorizontalLineMask") {
         result = new HorizontalLineView();
     }
 
-    else if (model_type == Constants::EllipseMaskType) {
+    else if (model_type == "EllipseMask") {
         result = new EllipseView();
     }
 
-    else if (model_type == Constants::MaskAllType) {
+    else if (model_type == "MaskAllMask") {
         result = new MaskAllView();
     }
 
-    else if (model_type == Constants::RegionOfInterestType) {
+    else if (model_type == "RegionOfInterest") {
         result = new RegionOfInterestView();
     }
 

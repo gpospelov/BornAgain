@@ -1,7 +1,6 @@
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
@@ -10,12 +9,12 @@ namespace
 
 IntensityDataItem* createData(SessionModel& model)
 {
-    return dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    return dynamic_cast<IntensityDataItem*>(model.insertNewItem("IntensityData"));
 }
 
 BasicAxisItem* createAxis(SessionModel& model)
 {
-    return dynamic_cast<BasicAxisItem*>(model.insertNewItem(Constants::BasicAxisType));
+    return dynamic_cast<BasicAxisItem*>(model.insertNewItem("BasicAxis"));
 }
 } // namespace
 

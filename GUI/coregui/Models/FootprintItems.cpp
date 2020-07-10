@@ -15,7 +15,6 @@
 #include "GUI/coregui/Models/FootprintItems.h"
 #include "Core/Beam/FootprintFactorGaussian.h"
 #include "Core/Beam/FootprintFactorSquare.h"
-#include "GUI/coregui/Models/item_constants.h"
 
 namespace
 {
@@ -33,7 +32,7 @@ FootprintItem::~FootprintItem() = default;
 // Footprint none
 /* ------------------------------------------------ */
 
-FootprintNoneItem::FootprintNoneItem() : FootprintItem(Constants::FootprintNoneType) {}
+FootprintNoneItem::FootprintNoneItem() : FootprintItem("NoFootprint") {}
 
 FootprintNoneItem::~FootprintNoneItem() = default;
 
@@ -47,7 +46,7 @@ std::unique_ptr<IFootprintFactor> FootprintNoneItem::createFootprint() const
 
 const QString FootprintGaussianItem::P_VALUE = footprint_value_name;
 
-FootprintGaussianItem::FootprintGaussianItem() : FootprintItem(Constants::FootprintGaussianType)
+FootprintGaussianItem::FootprintGaussianItem() : FootprintItem("GaussianFootrpint")
 {
     addProperty(P_VALUE, 0.0)
         ->setLimits(RealLimits::nonnegative())
@@ -66,7 +65,7 @@ std::unique_ptr<IFootprintFactor> FootprintGaussianItem::createFootprint() const
 
 const QString FootprintSquareItem::P_VALUE = footprint_value_name;
 
-FootprintSquareItem::FootprintSquareItem() : FootprintItem(Constants::FootprintSquareType)
+FootprintSquareItem::FootprintSquareItem() : FootprintItem("SquareFootprint")
 {
     addProperty(P_VALUE, 0.0)
         ->setLimits(RealLimits::nonnegative())

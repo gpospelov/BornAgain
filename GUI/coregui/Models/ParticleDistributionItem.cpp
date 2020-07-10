@@ -38,7 +38,7 @@ const QString ParticleDistributionItem::NO_SELECTION = "None";
 const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 
 ParticleDistributionItem::ParticleDistributionItem()
-    : SessionGraphicsItem(Constants::ParticleDistributionType)
+    : SessionGraphicsItem("ParticleDistribution")
 {
     setToolTip(QStringLiteral("Collection of particles obtained via parametric distribution "
                               "of particle prototype"));
@@ -48,12 +48,12 @@ ParticleDistributionItem::ParticleDistributionItem()
         .setDecimals(3)
         .setToolTip(abundance_tooltip);
 
-    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup)
+    addGroupProperty(P_DISTRIBUTION, "Distribution group")
         ->setToolTip(QStringLiteral("Distribution to apply to the specified parameter"));
 
     registerTag(T_PARTICLES, 0, 1,
-                QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
-                              << Constants::ParticleCompositionType << Constants::MesoCrystalType);
+                QStringList() << "Particle" << "ParticleCoreShell"
+                              << "ParticleComposition" << "MesoCrystal");
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
@@ -62,13 +62,13 @@ ParticleDistributionItem::ParticleDistributionItem()
 
     addProperty(P_LINKED_PARAMETER, par_prop.variant())
         ->setToolTip(QStringLiteral("Linked parameter"))
-        .setEditorType(Constants::MultiSelectionComboEditorType);
+        .setEditorType("MultiSelectionComboEditor");
 
     updateMainParameterList();
 
     mapper()->setOnAnyChildChange([this](SessionItem* item) {
         // prevent infinit loop when item changes its own properties
-        if (item && item->modelType() == Constants::PropertyType && item->parent() == this)
+        if (item && item->modelType() == "Property" && item->parent() == this)
             return;
         updateMainParameterList();
     });

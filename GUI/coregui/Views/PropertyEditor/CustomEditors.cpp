@@ -70,7 +70,7 @@ void CustomEditor::setDataIntern(const QVariant& data)
 ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     : CustomEditor(parent), m_textLabel(new QLabel), m_pixmapLabel(new QLabel),
       m_focusFilter(new LostFocusFilter(this)),
-      m_extDialogType(Constants::MaterialEditorExternalType)
+      m_extDialogType("ExtMaterialEditor")
 {
     setMouseTracking(true);
     setAutoFillBackground(true);
@@ -109,9 +109,9 @@ void ExternalPropertyEditor::buttonClicked()
     ExternalProperty property = m_data.value<ExternalProperty>();
 
     ExternalProperty newProperty;
-    if (m_extDialogType == Constants::MaterialEditorExternalType) {
+    if (m_extDialogType == "ExtMaterialEditor") {
         newProperty = MaterialItemUtils::selectMaterialProperty(property);
-    } else if (m_extDialogType == Constants::ColorEditorExternalType) {
+    } else if (m_extDialogType == "ExtColorEditor") {
         newProperty = MaterialItemUtils::selectColorProperty(property);
     } else {
         throw GUIHelpers::Error("ExternalPropertyEditor::buttonClicked() -> Unexpected dialog");

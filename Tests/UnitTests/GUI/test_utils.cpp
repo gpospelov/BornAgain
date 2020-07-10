@@ -50,7 +50,7 @@ RealDataItem* TestUtils::createRealData(const QString& name, SessionModel& model
                                         DIM n_dim)
 {
     RealDataItem* result =
-        dynamic_cast<RealDataItem*>(model.insertNewItem(Constants::RealDataType));
+        dynamic_cast<RealDataItem*>(model.insertNewItem("RealData"));
     result->setOutputData(createData(value, n_dim).release());
     result->setItemValue(SessionItem::P_NAME, name);
     return result;

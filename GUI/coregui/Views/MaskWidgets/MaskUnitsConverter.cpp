@@ -60,18 +60,18 @@ void MaskUnitsConverter::convertIntensityDataItem(IntensityDataItem* intensityDa
 
 void MaskUnitsConverter::convertMask(SessionItem* maskItem)
 {
-    if (maskItem->modelType() == Constants::RectangleMaskType
-        || maskItem->modelType() == Constants::RegionOfInterestType) {
+    if (maskItem->modelType() == "RectangleMask"
+        || maskItem->modelType() == "RegionOfInterest") {
         convertCoordinate(maskItem, RectangleItem::P_XLOW, RectangleItem::P_YLOW);
         convertCoordinate(maskItem, RectangleItem::P_XUP, RectangleItem::P_YUP);
-    } else if (maskItem->modelType() == Constants::PolygonMaskType) {
-        for (SessionItem* pointItem : maskItem->getChildrenOfType(Constants::PolygonPointType))
+    } else if (maskItem->modelType() == "PolygonMask") {
+        for (SessionItem* pointItem : maskItem->getChildrenOfType("PolygonPoint"))
             convertCoordinate(pointItem, PolygonPointItem::P_POSX, PolygonPointItem::P_POSY);
-    } else if (maskItem->modelType() == Constants::VerticalLineMaskType) {
+    } else if (maskItem->modelType() == "VerticalLineMask") {
         convertCoordinate(maskItem, VerticalLineItem::P_POSX, QString());
-    } else if (maskItem->modelType() == Constants::HorizontalLineMaskType) {
+    } else if (maskItem->modelType() == "HorizontalLineMask") {
         convertCoordinate(maskItem, QString(), HorizontalLineItem::P_POSY);
-    } else if (maskItem->modelType() == Constants::EllipseMaskType) {
+    } else if (maskItem->modelType() == "EllipseMask") {
         double xc = maskItem->getItemValue(EllipseItem::P_XCENTER).toDouble();
         double yc = maskItem->getItemValue(EllipseItem::P_YCENTER).toDouble();
         double xR = maskItem->getItemValue(EllipseItem::P_XRADIUS).toDouble();

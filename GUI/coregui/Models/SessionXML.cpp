@@ -90,14 +90,14 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
                                    QString::number(variant.toBool()));
         } else if (type_name == qstring_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute, variant.toString());
-        } else if (type_name == Constants::ExternalPropertyType) {
+        } else if (type_name == "ExternalProperty") {
             ExternalProperty prop = variant.value<ExternalProperty>();
             writer->writeAttribute(SessionXML::ExternalPropertyTextAtt, prop.text());
 
             QString tcol = prop.color().isValid() ? prop.color().name(QColor::HexArgb) : "";
             writer->writeAttribute(SessionXML::ExternalPropertyColorAtt, tcol);
             writer->writeAttribute(SessionXML::ExternalPropertyIdentifierAtt, prop.identifier());
-        } else if (type_name == Constants::ComboPropertyType) {
+        } else if (type_name == "ComboProperty") {
             ComboProperty combo = variant.value<ComboProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute, combo.stringOfSelections());
             writer->writeAttribute(SessionXML::ParameterExtAttribute, combo.stringOfValues());
@@ -193,7 +193,7 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
         QString parameter_value =
             reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
         variant = parameter_value;
-    } else if (parameter_type == Constants::ExternalPropertyType) {
+    } else if (parameter_type == "ExternalProperty") {
         QString text = reader->attributes().value(SessionXML::ExternalPropertyTextAtt).toString();
         QString colorName =
             reader->attributes().value(SessionXML::ExternalPropertyColorAtt).toString();
@@ -205,7 +205,7 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
         property.setColor(QColor(colorName));
         property.setIdentifier(identifier);
         variant = property.variant();
-    } else if (parameter_type == Constants::ComboPropertyType) {
+    } else if (parameter_type == "ComboProperty") {
         QString selections =
             reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
         QString values = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
@@ -243,7 +243,7 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
 {
     SessionItem* result(nullptr);
 
-    if (item->modelType() == Constants::GroupItemType) {
+    if (item->modelType() == "GroupProperty") {
         if (auto groupItem = dynamic_cast<GroupItem*>(item))
             result = groupItem->getItemOfType(modelType);
     } else {

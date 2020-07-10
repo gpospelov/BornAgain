@@ -20,8 +20,8 @@
 class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem
 {
 public:
-    BeamWavelengthItem(const QString& model_type = Constants::BeamWavelengthType,
-                       const QString& distribution_group = Constants::DistributionExtendedGroup);
+    BeamWavelengthItem(const QString& model_type = "BeamWavelength",
+                       const QString& distribution_group = "Distribution extended group");
 
     double wavelength() const;
 

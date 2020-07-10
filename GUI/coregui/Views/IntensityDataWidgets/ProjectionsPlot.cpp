@@ -89,8 +89,8 @@ void ProjectionsPlot::subscribeToItem()
     // Update to changed IntensityDataItem axes
     intensityItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            if (item->modelType() == Constants::BasicAxisType
-                || item->modelType() == Constants::AmplitudeAxisType)
+            if (item->modelType() == "BasicAxis"
+                || item->modelType() == "AmplitudeAxis")
                 onAxisPropertyChanged(item->itemName(), name);
         },
         this);
@@ -273,7 +273,7 @@ void ProjectionsPlot::setGraphFromItem(QCPGraph* graph, SessionItem* item)
 {
     std::unique_ptr<Histogram1D> hist;
 
-    if (item->modelType() == Constants::HorizontalLineMaskType) {
+    if (item->modelType() == "HorizontalLineMask") {
         double value = item->getItemValue(HorizontalLineItem::P_POSY).toDouble();
         hist.reset(m_hist2d->projectionX(value));
     } else {
@@ -312,5 +312,5 @@ void ProjectionsPlot::replot()
 
 bool ProjectionsPlot::isHorizontalType()
 {
-    return m_projectionType == Constants::HorizontalLineMaskType;
+    return m_projectionType == "HorizontalLineMask";
 }

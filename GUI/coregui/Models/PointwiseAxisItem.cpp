@@ -28,13 +28,13 @@ const QString PointwiseAxisItem::P_NATIVE_UNITS = "NativeUnits";
 const QString PointwiseAxisItem::P_FILE_NAME = "FileName";
 
 PointwiseAxisItem::PointwiseAxisItem()
-    : BasicAxisItem(Constants::PointwiseAxisType), m_instrument(nullptr)
+    : BasicAxisItem("PointwiseAxis"), m_instrument(nullptr)
 {
     getItem(P_MIN)->setEnabled(false);
     getItem(P_NBINS)->setEnabled(false);
     getItem(P_MAX)->setEnabled(false);
     addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
-    addProperty(P_NATIVE_UNITS, Constants::UnitsNbins)->setVisible(false);
+    addProperty(P_NATIVE_UNITS, "nbins")->setVisible(false);
 
     setLastModified(QDateTime::currentDateTime());
     mapper()->setOnPropertyChange([this](const QString& name) {
@@ -123,13 +123,13 @@ void PointwiseAxisItem::setLastModified(const QDateTime& dtime)
 
 bool PointwiseAxisItem::checkValidity() const
 {
-    return m_axis && m_instrument && getUnitsLabel() != Constants::UnitsNbins;
+    return m_axis && m_instrument && getUnitsLabel() != "nbins";
 }
 
 void PointwiseAxisItem::findInstrument()
 {
     SessionItem* parent_item = parent();
-    while (parent_item && parent_item->modelType() != Constants::SpecularInstrumentType)
+    while (parent_item && parent_item->modelType() != "SpecularInstrument")
         parent_item = parent_item->parent();
     m_instrument = static_cast<SpecularInstrumentItem*>(parent_item);
 }

@@ -78,7 +78,7 @@ JobItem* JobModel::addJob(const MultiLayerItem* multiLayerItem,
     Q_ASSERT(instrumentItem);
     Q_ASSERT(optionItem);
 
-    JobItem* jobItem = dynamic_cast<JobItem*>(insertNewItem(Constants::JobItemType));
+    JobItem* jobItem = dynamic_cast<JobItem*>(insertNewItem("JobItem"));
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(GUIHelpers::createUuid());
 
@@ -86,7 +86,7 @@ JobItem* JobModel::addJob(const MultiLayerItem* multiLayerItem,
     JobModelFunctions::setupJobItemInstrument(jobItem, instrumentItem);
 
     // TODO: remove when specular instrument is ready for magnetization
-    if (instrumentItem->modelType() == Constants::SpecularInstrumentType)
+    if (instrumentItem->modelType() == "SpecularInstrument")
         JobModelFunctions::muteMagnetizationData(jobItem);
     copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
@@ -112,7 +112,7 @@ bool JobModel::hasUnfinishedJobs()
 {
     bool result = m_queue_data->hasUnfinishedJobs();
     for (auto jobItem : topItems<JobItem>()) {
-        if (jobItem->getStatus() == Constants::STATUS_FITTING)
+        if (jobItem->getStatus() == "Fitting")
             result = true;
     }
 
@@ -146,7 +146,7 @@ QVector<SessionItem*> JobModel::nonXMLData() const
             dynamic_cast<SpecularInstrumentItem*>(jobItem->getItem(JobItem::T_INSTRUMENT));
         if (instrument) {
             auto axis_group = instrument->beamItem()->inclinationAxisGroup();
-            result.push_back(axis_group->getChildOfType(Constants::PointwiseAxisType));
+            result.push_back(axis_group->getChildOfType("PointwiseAxis"));
         }
     }
 
@@ -198,7 +198,7 @@ QString JobModel::generateJobName()
         QModelIndex itemIndex = index(i_row, 0, parentIndex);
 
         if (SessionItem* item = itemForIndex(itemIndex)) {
-            if (item->modelType() == Constants::JobItemType) {
+            if (item->modelType() == "JobItem") {
                 QString jobName = item->itemName();
                 if (jobName.startsWith("job")) {
                     int job_index = jobName.remove(0, 3).toInt();

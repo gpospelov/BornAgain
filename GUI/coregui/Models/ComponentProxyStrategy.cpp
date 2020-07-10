@@ -64,7 +64,7 @@ bool ComponentProxyStrategy::isPropertyRelated(SessionItem* item)
     static QStringList propertyRelated = ComponentUtils::propertyRelatedTypes();
 
     if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex
-        && item->parent()->modelType() != Constants::GroupItemType)
+        && item->parent()->modelType() != "GroupProperty")
         return propertyRelated.contains(item->modelType()) ? true : false;
 
     return true;
@@ -93,9 +93,9 @@ void ComponentProxyStrategy::processRootItem(SessionItem* item,
 
 bool ComponentProxyStrategy::isSubGroup(SessionItem* item)
 {
-    const SessionItem* ancestor = ModelPath::ancestor(item->parent(), Constants::GroupItemType);
-    if (item->modelType() == Constants::GroupItemType && ancestor
-        && ancestor->modelType() == Constants::GroupItemType) {
+    const SessionItem* ancestor = ModelPath::ancestor(item->parent(), "GroupProperty");
+    if (item->modelType() == "GroupProperty" && ancestor
+        && ancestor->modelType() == "GroupProperty") {
         return true;
     }
 
@@ -106,10 +106,10 @@ bool ComponentProxyStrategy::isSubGroup(SessionItem* item)
 
 bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
 {
-    if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
+    if (item->parent() && item->parent()->modelType() == "GroupProperty")
         return true;
 
-    if (const SessionItem* ancestor = ModelPath::ancestor(item, Constants::GroupItemType)) {
+    if (const SessionItem* ancestor = ModelPath::ancestor(item, "GroupProperty")) {
         if (ancestor != item)
             return true;
     }
@@ -122,7 +122,7 @@ bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
 void ComponentProxyStrategy::processGroupItem(SessionItem* item,
                                               const QPersistentModelIndex& sourceIndex)
 {
-    if (const SessionItem* ancestor = ModelPath::ancestor(item, Constants::GroupItemType)) {
+    if (const SessionItem* ancestor = ModelPath::ancestor(item, "GroupProperty")) {
         if (ancestor == item)
             return;
 
@@ -143,7 +143,7 @@ void ComponentProxyStrategy::processSubGroupItem(SessionItem* item,
                                                  const QPersistentModelIndex& sourceIndex)
 {
     if (const SessionItem* ancestor =
-            ModelPath::ancestor(item->parent(), Constants::GroupItemType)) {
+            ModelPath::ancestor(item->parent(), "GroupProperty")) {
         auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
 
         if (item->parent() == groupItem->currentItem()) {

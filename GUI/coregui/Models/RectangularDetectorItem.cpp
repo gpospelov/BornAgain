@@ -52,10 +52,10 @@ const QString tooltip_samplex_v0 =
 ComboProperty alignmentCombo()
 {
     ComboProperty result;
-    result << Constants::ALIGNMENT_GENERIC << Constants::ALIGNMENT_TO_DIRECT_BEAM
-           << Constants::ALIGNMENT_TO_SAMPLE << Constants::ALIGNMENT_TO_REFLECTED_BEAM
-           << Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS;
-    result.setValue(Constants::ALIGNMENT_TO_DIRECT_BEAM);
+    result << "Generic" << "Perpendicular to direct beam"
+           << "Perpendicular to sample x-axis" << "Perpendicular to reflected beam"
+           << "Perpendicular to reflected beam (dpos)";
+    result.setValue("Perpendicular to direct beam");
     return result;
 }
 } // namespace
@@ -72,17 +72,17 @@ const QString RectangularDetectorItem::P_DBEAM_V0 = "v0 (dbeam)";
 const QString RectangularDetectorItem::P_DISTANCE = "Distance";
 
 RectangularDetectorItem::RectangularDetectorItem()
-    : DetectorItem(Constants::RectangularDetectorType), m_is_constructed(false)
+    : DetectorItem("RectangularDetector"), m_is_constructed(false)
 {
     // axes parameters
-    SessionItem* item = addGroupProperty(P_X_AXIS, Constants::BasicAxisType);
+    SessionItem* item = addGroupProperty(P_X_AXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX, default_detector_width);
     item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width [mm]"));
     item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Width of the detector in mm"));
 
-    item = addGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
+    item = addGroupProperty(P_Y_AXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
@@ -93,11 +93,11 @@ RectangularDetectorItem::RectangularDetectorItem()
     addProperty(P_ALIGNMENT, alignmentCombo().variant());
 
     // alignment parameters
-    item = addGroupProperty(P_NORMAL, Constants::VectorType);
+    item = addGroupProperty(P_NORMAL, "Vector");
     item->setItemValue(VectorItem::P_X, default_detector_distance);
 
     // direction
-    item = addGroupProperty(P_DIRECTION, Constants::VectorType);
+    item = addGroupProperty(P_DIRECTION, "Vector");
     item->setItemValue(VectorItem::P_Y, -1.0);
 
     addProperty(P_U0, default_detector_width / 2.)
@@ -179,15 +179,15 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() con
 
     ComboProperty alignment = getItemValue(P_ALIGNMENT).value<ComboProperty>();
 
-    if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
+    if (alignment.getValue() == "Generic") {
         result->setPosition(normalVector(), u0, v0, directionVector());
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
+    } else if (alignment.getValue() == "Perpendicular to direct beam") {
         result->setPerpendicularToDirectBeam(distance, dbeam_u0, dbeam_v0);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
+    } else if (alignment.getValue() == "Perpendicular to sample x-axis") {
         result->setPerpendicularToSampleX(distance, u0, v0);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
+    } else if (alignment.getValue() == "Perpendicular to reflected beam") {
         result->setPerpendicularToReflectedBeam(distance, u0, v0);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
+    } else if (alignment.getValue() == "Perpendicular to reflected beam (dpos)") {
         result->setPerpendicularToReflectedBeam(distance);
         result->setDirectBeamPosition(dbeam_u0, dbeam_v0);
     }
@@ -205,30 +205,30 @@ void RectangularDetectorItem::update_properties_appearance()
         getItem(prop)->setVisible(false);
 
     // enabling some properties back, depending from detector alignment mode
-    if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
+    if (alignment.getValue() == "Generic") {
         getItem(P_NORMAL)->setVisible(true);
         getItem(P_DIRECTION)->setVisible(true);
         getItem(P_U0)->setVisible(true);
         getItem(P_U0)->setToolTip(tooltip_u0);
         getItem(P_V0)->setVisible(true);
         getItem(P_V0)->setToolTip(tooltip_v0);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
+    } else if (alignment.getValue() == "Perpendicular to sample x-axis") {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_U0)->setVisible(true);
         getItem(P_U0)->setToolTip(tooltip_samplex_u0);
         getItem(P_V0)->setVisible(true);
         getItem(P_V0)->setToolTip(tooltip_samplex_v0);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
+    } else if (alignment.getValue() == "Perpendicular to direct beam") {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_DBEAM_U0)->setVisible(true);
         getItem(P_DBEAM_V0)->setVisible(true);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
+    } else if (alignment.getValue() == "Perpendicular to reflected beam") {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_U0)->setVisible(true);
         getItem(P_U0)->setToolTip(tooltip_refbeam_u0);
         getItem(P_V0)->setVisible(true);
         getItem(P_V0)->setToolTip(tooltip_refbeam_v0);
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
+    } else if (alignment.getValue() == "Perpendicular to reflected beam (dpos)") {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_DBEAM_U0)->setVisible(true);
         getItem(P_DBEAM_V0)->setVisible(true);

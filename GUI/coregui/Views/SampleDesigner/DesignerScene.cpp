@@ -348,11 +348,11 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection* connection)
     ConnectableView* childView = connection->getChildView();
 
     QString tag;
-    if (connection->getParentView()->getItem()->modelType() == Constants::ParticleLayoutType) {
+    if (connection->getParentView()->getItem()->modelType() == "ParticleLayout") {
         if (connection->inputPort()->getPortType() == NodeEditorPort::INTERFERENCE)
             tag = ParticleLayoutItem::T_INTERFERENCE;
     } else if (connection->getParentView()->getItem()->modelType()
-               == Constants::ParticleCoreShellType) {
+               == "ParticleCoreShell") {
         if (parentView->getInputPortIndex(connection->inputPort()) == 0)
             tag = ParticleCoreShellItem::T_CORE;
         else if (parentView->getInputPortIndex(connection->inputPort()) == 1)
@@ -361,10 +361,10 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection* connection)
             tag = ParticleItem::T_TRANSFORMATION;
 
     } else if (connection->getParentView()->getItem()->modelType()
-               == Constants::ParticleCompositionType) {
+               == "ParticleComposition") {
         if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
-    } else if (connection->getParentView()->getItem()->modelType() == Constants::MesoCrystalType) {
+    } else if (connection->getParentView()->getItem()->modelType() == "MesoCrystal") {
         if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
     }
@@ -413,10 +413,10 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent* event)
             if (SampleViewFactory::isValidType(mimeData->getClassName())) {
 
                 SessionItem* new_item(0);
-                if (mimeData->getClassName().startsWith(Constants::FormFactorType)) {
-                    new_item = m_sampleModel->insertNewItem(Constants::ParticleType);
+                if (mimeData->getClassName().startsWith("FormFactor")) {
+                    new_item = m_sampleModel->insertNewItem("Particle");
                     QString ffName = mimeData->getClassName();
-                    ffName.remove(Constants::FormFactorType);
+                    ffName.remove("FormFactor");
                     new_item->setGroupProperty(ParticleItem::P_FORM_FACTOR, ffName);
 
                 } else {
@@ -492,12 +492,12 @@ bool DesignerScene::isAcceptedByMultiLayer(const DesignerMimeData* mimeData,
         return false;
 
     //    // MultiLayer can be inserted in MultiLayer
-    //    if (mimeData->getClassName() == Constants::MultiLayerType && isMultiLayerNearby(event)) {
+    //    if (mimeData->getClassName() == "MultiLayer" && isMultiLayerNearby(event)) {
     //        return true;
     //    }
 
     // layer can be inserted in MultiLayer
-    if (mimeData->getClassName() == Constants::LayerType && isMultiLayerNearby(event)) {
+    if (mimeData->getClassName() == "Layer" && isMultiLayerNearby(event)) {
         return true;
     }
     return false;

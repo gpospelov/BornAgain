@@ -21,14 +21,14 @@ const QString hurst_tooltip =
     "dimensionless [0.0, 1.0], where 0.0 gives more spikes, \n1.0 more smoothness.";
 }
 
-LayerZeroRoughnessItem::LayerZeroRoughnessItem() : SessionItem(Constants::LayerZeroRoughnessType) {}
+LayerZeroRoughnessItem::LayerZeroRoughnessItem() : SessionItem("LayerZeroRoughness") {}
 
 const QString LayerBasicRoughnessItem::P_SIGMA = QString::fromStdString("Sigma");
 const QString LayerBasicRoughnessItem::P_HURST = QString::fromStdString("Hurst");
 const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH =
     QString::fromStdString("CorrelationLength");
 
-LayerBasicRoughnessItem::LayerBasicRoughnessItem() : SessionItem(Constants::LayerBasicRoughnessType)
+LayerBasicRoughnessItem::LayerBasicRoughnessItem() : SessionItem("LayerBasicRoughness")
 {
     setToolTip(QStringLiteral("A roughness of interface between two layers."));
     addProperty(P_SIGMA, 1.0)->setToolTip(QStringLiteral("rms of the roughness in nanometers"));

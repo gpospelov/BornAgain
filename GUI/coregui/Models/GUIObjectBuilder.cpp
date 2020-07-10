@@ -89,18 +89,18 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* p_document_m
                                                      const Simulation& simulation)
 {
     SimulationOptionsItem* p_options_item = dynamic_cast<SimulationOptionsItem*>(
-        p_document_model->insertNewItem(Constants::SimulationOptionsType));
+        p_document_model->insertNewItem("SimulationOptions"));
     Q_ASSERT(p_options_item);
     if (simulation.getOptions().isIntegrate()) {
-        p_options_item->setComputationMethod(Constants::SIMULATION_MONTECARLO);
+        p_options_item->setComputationMethod("Monte-Carlo Integration");
         p_options_item->setNumberOfMonteCarloPoints(
             static_cast<int>(simulation.getOptions().getMcPoints()));
     }
     if (simulation.getOptions().useAvgMaterials()) {
-        p_options_item->setFresnelMaterialMethod(Constants::AVERAGE_LAYER_MATERIAL);
+        p_options_item->setFresnelMaterialMethod("Average Layer Material");
     }
     if (simulation.getOptions().includeSpecular()) {
-        p_options_item->setIncludeSpecularPeak(Constants::Yes);
+        p_options_item->setIncludeSpecularPeak("Yes");
     }
     return p_options_item;
 }
@@ -112,7 +112,7 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
                                                const QString& name)
 {
     auto result =
-        dynamic_cast<GISASInstrumentItem*>(model->insertNewItem(Constants::GISASInstrumentType));
+        dynamic_cast<GISASInstrumentItem*>(model->insertNewItem("GISASInstrument"));
 
     result->setItemName(name);
     TransformFromDomain::setGISASBeamItem(result->beamItem(), simulation);
@@ -127,7 +127,7 @@ OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
                                                    const QString& name)
 {
     auto result = dynamic_cast<OffSpecInstrumentItem*>(
-        model->insertNewItem(Constants::OffSpecInstrumentType));
+        model->insertNewItem("OffSpecInstrument"));
 
     result->setItemName(name);
     TransformFromDomain::setOffSpecBeamItem(result->beamItem(), simulation);
@@ -145,7 +145,7 @@ SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
                                                      const QString& name)
 {
     auto result = dynamic_cast<SpecularInstrumentItem*>(
-        model->insertNewItem(Constants::SpecularInstrumentType));
+        model->insertNewItem("SpecularInstrument"));
 
     result->setItemName(name);
     TransformFromDomain::setSpecularBeamItem(result->beamItem(), simulation);

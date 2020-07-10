@@ -44,7 +44,7 @@ bool isBottomLayer(const SessionItem& layerItem)
 double TransformTo3D::visualLayerThickness(const SessionItem& layerItem,
                                            const SceneGeometry& sceneGeometry)
 {
-    Q_ASSERT(layerItem.modelType() == Constants::LayerType);
+    Q_ASSERT(layerItem.modelType() == "Layer");
 
     double thickness(0.0);
     if (isTopLayer(layerItem))
@@ -61,7 +61,7 @@ std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(const SessionItem& 
                                                              const SceneGeometry& sceneGeometry,
                                                              const QVector3D& origin)
 {
-    Q_ASSERT(layerItem.modelType() == Constants::LayerType);
+    Q_ASSERT(layerItem.modelType() == "Layer");
 
     double thickness = TransformTo3D::visualLayerThickness(layerItem, sceneGeometry);
 
@@ -86,7 +86,7 @@ std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(const SessionItem& 
 std::unique_ptr<RealSpace::Particles::Particle>
 TransformTo3D::createParticle3D(const SessionItem& particleItem)
 {
-    Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
+    Q_ASSERT(particleItem.modelType() == "Particle");
 
     std::unique_ptr<RealSpace::Particles::Particle> result;
 

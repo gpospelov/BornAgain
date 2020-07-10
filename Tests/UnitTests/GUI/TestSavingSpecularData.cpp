@@ -41,15 +41,15 @@ TestSavingSpecularData::TestSavingSpecularData()
 SpecularInstrumentItem* TestSavingSpecularData::createSpecularInstrument(ApplicationModels& models)
 {
     return dynamic_cast<SpecularInstrumentItem*>(
-        models.instrumentModel()->insertNewItem(Constants::SpecularInstrumentType));
+        models.instrumentModel()->insertNewItem("SpecularInstrument"));
 }
 
 PointwiseAxisItem* TestSavingSpecularData::createPointwiseAxisItem(SessionModel& model)
 {
     auto instrument_item = dynamic_cast<SpecularInstrumentItem*>(
-        model.insertNewItem(Constants::SpecularInstrumentType));
+        model.insertNewItem("SpecularInstrument"));
     return dynamic_cast<PointwiseAxisItem*>(
-        getAxisGroup(instrument_item)->getChildOfType(Constants::PointwiseAxisType));
+        getAxisGroup(instrument_item)->getChildOfType("PointwiseAxis"));
 }
 
 GroupItem* TestSavingSpecularData::getAxisGroup(SpecularInstrumentItem* instrument)
@@ -85,11 +85,11 @@ TEST_F(TestSavingSpecularData, test_SpecularInsturment)
 
     // explicitly switching to pointwise axis item
     auto axis_group = getAxisGroup(instrument);
-    axis_group->setCurrentType(Constants::PointwiseAxisType);
+    axis_group->setCurrentType("PointwiseAxis");
     EXPECT_EQ(models.instrumentModel()->nonXMLData().size(), 1);
 
     // hiding pointwise axis item back
-    axis_group->setCurrentType(Constants::BasicAxisType);
+    axis_group->setCurrentType("BasicAxis");
     EXPECT_EQ(models.instrumentModel()->nonXMLData().size(), 1);
 
     // checking data items of OutputDataIOService
@@ -106,20 +106,20 @@ TEST_F(TestSavingSpecularData, test_InstrumentInJobItem)
     ApplicationModels models;
 
     // adding JobItem
-    SessionItem* jobItem = models.jobModel()->insertNewItem(Constants::JobItemType);
+    SessionItem* jobItem = models.jobModel()->insertNewItem("JobItem");
     SessionItem* dataItem = models.jobModel()->insertNewItem(
-        Constants::IntensityDataType, jobItem->index(), -1, JobItem::T_OUTPUT);
+        "IntensityData", jobItem->index(), -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding instrument
     auto instrument = dynamic_cast<SpecularInstrumentItem*>(models.jobModel()->insertNewItem(
-        Constants::SpecularInstrumentType, jobItem->index(), -1, JobItem::T_INSTRUMENT));
+        "SpecularInstrument", jobItem->index(), -1, JobItem::T_INSTRUMENT));
     // instrument contains hidden pointwise axis item
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
 
     // explicitly switching to pointwise axis item
     auto axis_group = getAxisGroup(instrument);
-    axis_group->setCurrentType(Constants::PointwiseAxisType);
+    axis_group->setCurrentType("PointwiseAxis");
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
 
     OutputDataIOService service(&models);
@@ -130,7 +130,7 @@ TEST_F(TestSavingSpecularData, test_InstrumentInJobItem)
     EXPECT_EQ(dataItems.indexOf(dataItem), 0);
 
     // hiding pointwise axis, should be saved anyway
-    axis_group->setCurrentType(Constants::BasicAxisType);
+    axis_group->setCurrentType("BasicAxis");
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
     EXPECT_EQ(service.nonXMLItems().size(), 2);
     dataItems = models.nonXMLData();
@@ -150,7 +150,7 @@ TEST_F(TestSavingSpecularData, test_setLastModified)
     EXPECT_FALSE(info.wasModifiedSinceLastSave());
 
     QTest::qSleep(nap_time);
-    item->init(*m_axis.get(), Constants::UnitsDegrees);
+    item->init(*m_axis.get(), "Degrees");
     EXPECT_TRUE(info.wasModifiedSinceLastSave());
 
     info = OutputDataSaveInfo::createSaved(item);
@@ -163,7 +163,7 @@ TEST_F(TestSavingSpecularData, test_DirHistory)
 {
     SessionModel model("TempModel");
     auto item1 = createPointwiseAxisItem(model);
-    item1->init(*m_axis, Constants::UnitsDegrees);
+    item1->init(*m_axis, "Degrees");
 
     auto item2 = createPointwiseAxisItem(model);
 
@@ -187,7 +187,7 @@ TEST_F(TestSavingSpecularData, test_DirHistory)
 
     // Modifying item
     QTest::qSleep(10);
-    item1->init(*m_axis, Constants::UnitsDegrees);
+    item1->init(*m_axis, "Degrees");
 
     EXPECT_TRUE(history.wasModifiedSinceLastSave(item1));
 }
@@ -206,14 +206,14 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
 
     auto axis_group1 = getAxisGroup(instrument1);
     auto pointwise_axis_item1 =
-        dynamic_cast<PointwiseAxisItem*>(axis_group1->getChildOfType(Constants::PointwiseAxisType));
-    pointwise_axis_item1->init(*m_axis, Constants::UnitsDegrees);
+        dynamic_cast<PointwiseAxisItem*>(axis_group1->getChildOfType("PointwiseAxis"));
+    pointwise_axis_item1->init(*m_axis, "Degrees");
 
     auto axis_group2 = getAxisGroup(instrument2);
     auto pointwise_axis_item2 =
-        dynamic_cast<PointwiseAxisItem*>(axis_group2->getChildOfType(Constants::PointwiseAxisType));
+        dynamic_cast<PointwiseAxisItem*>(axis_group2->getChildOfType("PointwiseAxis"));
     PointwiseAxis tmp("y", std::vector<double>{1.0, 2.0, 3.0});
-    pointwise_axis_item2->init(tmp, Constants::UnitsRadians);
+    pointwise_axis_item2->init(tmp, "Radians");
 
     // Saving first time
     OutputDataIOService service(&models);
@@ -233,7 +233,7 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
 
     // Modifying data and saving the project.
     PointwiseAxis tmp2("z", std::vector<double>{2.0, 3.0, 4.0});
-    pointwise_axis_item2->init(tmp2, Constants::UnitsRadians);
+    pointwise_axis_item2->init(tmp2, "Radians");
     service.save(projectDir);
     QTest::qSleep(10);
 
@@ -264,16 +264,16 @@ TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
     auto instrument = createSpecularInstrument(models);
     auto axis_group = getAxisGroup(instrument);
     auto pointwise_axis_item =
-        dynamic_cast<PointwiseAxisItem*>(axis_group->getChildOfType(Constants::PointwiseAxisType));
-    pointwise_axis_item->init(*m_axis, Constants::UnitsQyQz);
+        dynamic_cast<PointwiseAxisItem*>(axis_group->getChildOfType("PointwiseAxis"));
+    pointwise_axis_item->init(*m_axis, "q-space");
 
     // adding JobItem and copying instrument
-    auto jobItem = dynamic_cast<JobItem*>(models.jobModel()->insertNewItem(Constants::JobItemType));
+    auto jobItem = dynamic_cast<JobItem*>(models.jobModel()->insertNewItem("JobItem"));
     JobModelFunctions::setupJobItemInstrument(jobItem, instrument);
     auto job_instrument =
         dynamic_cast<SpecularInstrumentItem*>(jobItem->getItem(JobItem::T_INSTRUMENT));
     auto job_axis_item = dynamic_cast<PointwiseAxisItem*>(
-        getAxisGroup(job_instrument)->getChildOfType(Constants::PointwiseAxisType));
+        getAxisGroup(job_instrument)->getChildOfType("PointwiseAxis"));
 
     // checking filenames
     EXPECT_EQ(pointwise_axis_item->fileName(),

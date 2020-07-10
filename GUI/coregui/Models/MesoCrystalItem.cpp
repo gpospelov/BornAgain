@@ -61,28 +61,28 @@ const QString MesoCrystalItem::P_VECTOR_C = "Third " + MesoCrystalItem::LATTICE_
 
 // TODO make derived from ParticleItem
 
-MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalType)
+MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
 {
     setToolTip(QStringLiteral("A 3D crystal structure of nanoparticles"));
 
-    addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
+    addGroupProperty(P_FORM_FACTOR, "Form Factor");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
         ->setLimits(RealLimits::limited(0.0, 1.0))
         .setDecimals(3)
         .setToolTip(abundance_tooltip);
 
-    addGroupProperty(P_VECTOR_A, Constants::VectorType)->setToolTip(lattice_vector1_tooltip);
-    addGroupProperty(P_VECTOR_B, Constants::VectorType)->setToolTip(lattice_vector2_tooltip);
-    addGroupProperty(P_VECTOR_C, Constants::VectorType)->setToolTip(lattice_vector3_tooltip);
-    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
+    addGroupProperty(P_VECTOR_A, "Vector")->setToolTip(lattice_vector1_tooltip);
+    addGroupProperty(P_VECTOR_B, "Vector")->setToolTip(lattice_vector2_tooltip);
+    addGroupProperty(P_VECTOR_C, "Vector")->setToolTip(lattice_vector3_tooltip);
+    addGroupProperty(ParticleItem::P_POSITION, "Vector")->setToolTip(position_tooltip);
 
     registerTag(T_BASIS_PARTICLE, 0, 1,
-                QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
-                              << Constants::ParticleCompositionType << Constants::MesoCrystalType);
+                QStringList() << "Particle" << "ParticleCoreShell"
+                              << "ParticleComposition" << "MesoCrystal");
     setDefaultTag(T_BASIS_PARTICLE);
 
-    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << "Rotation");
 
     addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, "Position"));
     addTranslator(RotationTranslator());
@@ -151,16 +151,16 @@ std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
 {
     QVector<SessionItem*> childlist = children();
     for (int i = 0; i < childlist.size(); ++i) {
-        if (childlist[i]->modelType() == Constants::ParticleType) {
+        if (childlist[i]->modelType() == "Particle") {
             auto* particle_item = static_cast<ParticleItem*>(childlist[i]);
             return particle_item->createParticle();
-        } else if (childlist[i]->modelType() == Constants::ParticleCoreShellType) {
+        } else if (childlist[i]->modelType() == "ParticleCoreShell") {
             auto* particle_coreshell_item = static_cast<ParticleCoreShellItem*>(childlist[i]);
             return particle_coreshell_item->createParticleCoreShell();
-        } else if (childlist[i]->modelType() == Constants::ParticleCompositionType) {
+        } else if (childlist[i]->modelType() == "ParticleComposition") {
             auto* particlecomposition_item = static_cast<ParticleCompositionItem*>(childlist[i]);
             return particlecomposition_item->createParticleComposition();
-        } else if (childlist[i]->modelType() == Constants::MesoCrystalType) {
+        } else if (childlist[i]->modelType() == "MesoCrystal") {
             auto* mesocrystal_item = static_cast<MesoCrystalItem*>(childlist[i]);
             return mesocrystal_item->createMesoCrystal();
         }
@@ -178,9 +178,9 @@ namespace
 {
 bool IsIParticleName(QString name)
 {
-    return (name.startsWith(Constants::ParticleType)
-            || name.startsWith(Constants::ParticleCompositionType)
-            || name.startsWith(Constants::ParticleCoreShellType)
-            || name.startsWith(Constants::MesoCrystalType));
+    return (name.startsWith("Particle")
+            || name.startsWith("ParticleComposition")
+            || name.startsWith("ParticleCoreShell")
+            || name.startsWith("MesoCrystal"));
 }
 } // namespace

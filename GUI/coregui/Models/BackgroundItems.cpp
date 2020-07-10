@@ -15,14 +15,13 @@
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
-#include "GUI/coregui/Models/item_constants.h"
 
 BackgroundItem::BackgroundItem(const QString& model_type) : SessionItem(model_type) {}
 
 // Background none
 /* ------------------------------------------------ */
 
-BackgroundNoneItem::BackgroundNoneItem() : BackgroundItem(Constants::BackgroundNoneType) {}
+BackgroundNoneItem::BackgroundNoneItem() : BackgroundItem("NoBackground") {}
 
 std::unique_ptr<IBackground> BackgroundNoneItem::createBackground() const
 {
@@ -39,7 +38,7 @@ const QString constant_background_value_tooltip = "Constant background value [co
 
 const QString ConstantBackgroundItem::P_VALUE = QString::fromStdString("BackgroundValue");
 
-ConstantBackgroundItem::ConstantBackgroundItem() : BackgroundItem(Constants::ConstantBackgroundType)
+ConstantBackgroundItem::ConstantBackgroundItem() : BackgroundItem("ConstantBackground")
 {
     addProperty(P_VALUE, 0.0)
         ->setLimits(RealLimits::nonnegative())
@@ -55,7 +54,7 @@ std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const
 /* ------------------------------------------------ */
 
 PoissonNoiseBackgroundItem::PoissonNoiseBackgroundItem()
-    : BackgroundItem(Constants::PoissonNoiseBackgroundType)
+    : BackgroundItem("PoissonNoiseBackground")
 {
 }
 

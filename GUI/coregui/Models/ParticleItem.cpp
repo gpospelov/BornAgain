@@ -41,20 +41,20 @@ const QString ParticleItem::P_MATERIAL = "Material";
 const QString ParticleItem::P_POSITION = "Position Offset";
 const QString ParticleItem::T_TRANSFORMATION = "Transformation Tag";
 
-ParticleItem::ParticleItem() : SessionGraphicsItem(Constants::ParticleType)
+ParticleItem::ParticleItem() : SessionGraphicsItem("Particle")
 {
-    addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
+    addGroupProperty(P_FORM_FACTOR, "Form Factor");
     addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
         ->setToolTip(QStringLiteral("Material of particle"))
-        .setEditorType(Constants::MaterialEditorExternalType);
+        .setEditorType("ExtMaterialEditor");
 
     addProperty(P_ABUNDANCE, 1.0)
         ->setLimits(RealLimits::limited(0.0, 1.0))
         .setDecimals(3)
         .setToolTip(abundance_tooltip);
-    addGroupProperty(P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
+    addGroupProperty(P_POSITION, "Vector")->setToolTip(position_tooltip);
 
-    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
+    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << "Rotation");
     setDefaultTag(T_TRANSFORMATION);
 
     addTranslator(VectorParameterTranslator(P_POSITION, "Position"));
@@ -114,7 +114,7 @@ bool ParticleItem::isShellParticle() const
     if (!parent())
         return false;
 
-    return parent()->modelType() == Constants::ParticleCoreShellType
+    return parent()->modelType() == "ParticleCoreShell"
            && parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL;
 }
 
@@ -125,5 +125,5 @@ bool ParticleItem::parentIsParticleLayout() const
     if (!parent())
         return false;
 
-    return parent()->modelType() == Constants::ParticleLayoutType;
+    return parent()->modelType() == "ParticleLayout";
 }

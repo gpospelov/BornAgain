@@ -25,8 +25,8 @@
 LayerView::LayerView(QGraphicsItem* parent) : ILayerView(parent)
 {
     setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
-    setName(Constants::LayerType);
-    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::LayerType));
+    setName("Layer");
+    setRectangle(DesignerHelper::getDefaultBoundingRect("Layer"));
     setAcceptDrops(false);
     addPort(QString(), NodeEditorPort::INPUT, NodeEditorPort::PARTICLE_LAYOUT);
 }

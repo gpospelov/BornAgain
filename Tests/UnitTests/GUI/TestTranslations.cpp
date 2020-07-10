@@ -17,10 +17,10 @@ class TestTranslations : public ::testing::Test
 TEST_F(TestTranslations, test_TranslatePosition)
 {
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, multilayer->index());
-    SessionItem* layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType, layout->index());
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
+    SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
+    SessionItem* particle = model.insertNewItem("Particle", layout->index());
 
     SessionItem* positionItem = particle->getItem(ParticleItem::P_POSITION);
     SessionItem* xItem = positionItem->getItem(VectorItem::P_X);
@@ -32,16 +32,16 @@ TEST_F(TestTranslations, test_TranslatePosition)
 TEST_F(TestTranslations, test_TranslateRotation)
 {
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, multilayer->index());
-    SessionItem* layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType, layout->index());
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
+    SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
+    SessionItem* particle = model.insertNewItem("Particle", layout->index());
 
-    SessionItem* transformation = model.insertNewItem(Constants::RotationType, particle->index(),
+    SessionItem* transformation = model.insertNewItem("Rotation", particle->index(),
                                                       -1, ParticleItem::T_TRANSFORMATION);
 
     SessionItem* rotationItem =
-        transformation->setGroupProperty(TransformationItem::P_ROT, Constants::XRotationType);
+        transformation->setGroupProperty(TransformationItem::P_ROT, "XRotation");
 
     SessionItem* angleItem = rotationItem->getItem(XRotationItem::P_ANGLE);
     EXPECT_EQ(ModelPath::itemPathTranslation(*angleItem, multilayer->parent()),
@@ -51,13 +51,13 @@ TEST_F(TestTranslations, test_TranslateRotation)
 TEST_F(TestTranslations, test_BeamDistributionNone)
 {
     SampleModel model;
-    SessionItem* instrument = model.insertNewItem(Constants::GISASInstrumentType);
+    SessionItem* instrument = model.insertNewItem("GISASInstrument");
     SessionItem* beam = instrument->getItem(Instrument2DItem::P_BEAM);
 
     SessionItem* wavelength = beam->getItem(BeamItem::P_WAVELENGTH);
 
     SessionItem* distr = wavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
-    EXPECT_EQ(distr->modelType(), Constants::DistributionNoneType);
+    EXPECT_EQ(distr->modelType(), "DistributionNone");
     SessionItem* value = distr->getItem(DistributionNoneItem::P_MEAN);
 
     EXPECT_EQ(ModelPath::itemPathTranslation(*value, instrument->parent()),

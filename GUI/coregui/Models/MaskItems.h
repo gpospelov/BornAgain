@@ -45,7 +45,7 @@ public:
     static const QString P_YLOW;
     static const QString P_XUP;
     static const QString P_YUP;
-    explicit RectangleItem(const QString& modelType = Constants::RectangleMaskType);
+    explicit RectangleItem(const QString& modelType = "RectangleMask");
     virtual std::unique_ptr<IShape2D> createShape(double scale) const;
 };
 

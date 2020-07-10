@@ -35,7 +35,7 @@ TEST_F(TestSessionXML, test_sessionItem)
     QString expected;
 
     SessionModel source("TestModel");
-    source.insertNewItem(Constants::PropertyType);
+    source.insertNewItem("Property");
 
     expected = "<TestModel Name=\"DefaultName\">"
                "<Item ModelType=\"Property\" Tag=\"rootTag\" DisplayName=\"Property\"/>"
@@ -47,7 +47,7 @@ TEST_F(TestSessionXML, test_sessionItem)
 
     EXPECT_EQ(target.rowCount(QModelIndex()), 1);
     SessionItem* newItem = target.itemForIndex(target.index(0, 0, QModelIndex()));
-    EXPECT_EQ(newItem->modelType(), Constants::PropertyType);
+    EXPECT_EQ(newItem->modelType(), "Property");
     EXPECT_EQ(newItem->displayName(), QString("Property"));
     EXPECT_FALSE(newItem->value().isValid());
 }
@@ -58,7 +58,7 @@ TEST_F(TestSessionXML, test_FullSphereItem)
 {
     // source model, to xml
     SessionModel source("TestModel");
-    SessionItem* sphere = source.insertNewItem(Constants::FullSphereType);
+    SessionItem* sphere = source.insertNewItem("FullSphere");
     SessionItem* radius = sphere->getItem(FullSphereItem::P_RADIUS);
     QString buffer = itemToXML(source.rootItem());
 
@@ -91,9 +91,9 @@ TEST_F(TestSessionXML, test_twoFullSphereItems)
 {
     // source model, to xml
     SessionModel source("TestModel");
-    SessionItem* sphere1 = source.insertNewItem(Constants::FullSphereType);
+    SessionItem* sphere1 = source.insertNewItem("FullSphere");
     sphere1->setItemValue(FullSphereItem::P_RADIUS, 1.0);
-    SessionItem* sphere2 = source.insertNewItem(Constants::FullSphereType);
+    SessionItem* sphere2 = source.insertNewItem("FullSphere");
     sphere2->setItemValue(FullSphereItem::P_RADIUS, 2.0);
     QString buffer = itemToXML(source.rootItem());
 
@@ -107,7 +107,7 @@ TEST_F(TestSessionXML, test_twoFullSphereItems)
 TEST_F(TestSessionXML, test_emptyMultiLayer)
 {
     SessionModel source("TestModel");
-    source.insertNewItem(Constants::MultiLayerType);
+    source.insertNewItem("MultiLayer");
     QString buffer = itemToXML(source.rootItem());
 
     SessionModel target("TestModel");
@@ -120,7 +120,7 @@ TEST_F(TestSessionXML, test_emptyMultiLayer)
 TEST_F(TestSessionXML, test_Layer)
 {
     SessionModel source("TestModel");
-    source.insertNewItem(Constants::LayerType);
+    source.insertNewItem("Layer");
     QString buffer = itemToXML(source.rootItem());
 
     SessionModel target("TestModel");
@@ -133,7 +133,7 @@ TEST_F(TestSessionXML, test_Layer)
 TEST_F(TestSessionXML, test_Particle)
 {
     SessionModel source("TestModel");
-    source.insertNewItem(Constants::ParticleType);
+    source.insertNewItem("Particle");
     QString buffer = itemToXML(source.rootItem());
 
     SessionModel target("TestModel");
@@ -146,9 +146,9 @@ TEST_F(TestSessionXML, test_Particle)
 TEST_F(TestSessionXML, test_ParticleWithFF)
 {
     SessionModel source("TestModel");
-    SessionItem* particle = source.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = source.insertNewItem("Particle");
 
-    particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
+    particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
     QString buffer = itemToXML(source.rootItem());
 
     SessionModel target("TestModel");

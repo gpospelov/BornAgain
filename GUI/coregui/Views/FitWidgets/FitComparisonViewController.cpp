@@ -31,7 +31,7 @@ const double relative_diff_max_1d = 4.0;
 
 FitComparison1DViewController::FitComparison1DViewController(QObject* parent)
     : QObject(parent),
-      m_diff_item_controller(new DiffItemController(Constants::SpecularDataType, this)),
+      m_diff_item_controller(new DiffItemController("SpecularData", this)),
       m_diff_view_item(nullptr), m_appearanceRepeater(new PropertyRepeater(this)),
       m_xAxisRepeater(new PropertyRepeater(this))
 {
@@ -90,8 +90,8 @@ void FitComparison1DViewController::clear()
 void FitComparison1DViewController::createDiffViewItem(JobItem* job_item)
 {
     m_diff_view_item = dynamic_cast<Data1DViewItem*>(
-        m_diff_item_controller->model()->insertNewItem(Constants::Data1DViewItemType));
-    auto container = m_diff_view_item->model()->insertNewItem(Constants::DataPropertyContainerType,
+        m_diff_item_controller->model()->insertNewItem("Data1DViewItem"));
+    auto container = m_diff_view_item->model()->insertNewItem("DataPropertyContainer",
                                                               m_diff_view_item->index(), -1,
                                                               Data1DViewItem::T_DATA_PROPERTIES);
     dynamic_cast<DataPropertyContainer*>(container)->addItem(m_diff_item_controller->diffItem());

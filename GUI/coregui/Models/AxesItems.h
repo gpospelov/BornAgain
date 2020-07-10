@@ -30,7 +30,7 @@ public:
     static const QString P_TITLE;
     static const QString P_TITLE_IS_VISIBLE;
 
-    explicit BasicAxisItem(const QString& type = Constants::BasicAxisType);
+    explicit BasicAxisItem(const QString& type = "BasicAxis");
     virtual ~BasicAxisItem();
 
     virtual std::unique_ptr<IAxis> createAxis(double scale) const;

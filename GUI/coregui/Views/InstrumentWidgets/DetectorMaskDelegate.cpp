@@ -56,7 +56,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
     m_tempIntensityDataModel->clear();
 
     m_intensityItem = dynamic_cast<IntensityDataItem*>(
-        m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+        m_tempIntensityDataModel->insertNewItem("IntensityData"));
     Q_ASSERT(m_intensityItem);
 
     m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);
@@ -71,7 +71,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 
     // creating output data corresponding to the detector
     auto instrument = dynamic_cast<const GISASInstrumentItem*>(
-        ModelPath::ancestor(m_detectorItem, Constants::GISASInstrumentType));
+        ModelPath::ancestor(m_detectorItem, "GISASInstrument"));
     JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 
     m_intensityItem->getOutputData()->setAllTo(1.0);

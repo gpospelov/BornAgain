@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/JobWidgets/ProjectionsWidget.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ProjectionsPlot.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -26,8 +25,8 @@ const int vertical_projection_tab = 1;
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent),
-      m_xProjection(new ProjectionsPlot(Constants::HorizontalLineMaskType)),
-      m_yProjection(new ProjectionsPlot(Constants::VerticalLineMaskType)),
+      m_xProjection(new ProjectionsPlot("HorizontalLineMask")),
+      m_yProjection(new ProjectionsPlot("VerticalLineMask")),
       m_tabWidget(new QTabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;

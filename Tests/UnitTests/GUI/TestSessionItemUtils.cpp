@@ -3,7 +3,6 @@
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
@@ -18,9 +17,9 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     SessionModel model("TestModel");
 
     // 3 property items in root, all visible
-    auto item1 = model.insertNewItem(Constants::PropertyType);
-    auto item2 = model.insertNewItem(Constants::PropertyType);
-    auto item3 = model.insertNewItem(Constants::PropertyType);
+    auto item1 = model.insertNewItem("Property");
+    auto item2 = model.insertNewItem("Property");
+    auto item3 = model.insertNewItem("Property");
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item1), 0);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item2), 1);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item3), 2);
@@ -32,8 +31,8 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item3), 1);
 
     // two more items
-    auto item4 = model.insertNewItem(Constants::PropertyType);
-    auto item5 = model.insertNewItem(Constants::PropertyType);
+    auto item4 = model.insertNewItem("Property");
+    auto item5 = model.insertNewItem("Property");
     item5->setVisible(false);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item1), 0);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item2), -1);
@@ -42,7 +41,7 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item5), -1);
 
     // adding vector item
-    SessionItem* vector = model.insertNewItem(Constants::VectorType);
+    SessionItem* vector = model.insertNewItem("Vector");
     auto x = vector->getItem(VectorItem::P_X);
     auto y = vector->getItem(VectorItem::P_Y);
     auto z = vector->getItem(VectorItem::P_Z);

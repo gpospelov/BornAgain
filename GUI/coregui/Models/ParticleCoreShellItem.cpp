@@ -37,7 +37,7 @@ const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
 // TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 
 ParticleCoreShellItem::ParticleCoreShellItem()
-    : SessionGraphicsItem(Constants::ParticleCoreShellType)
+    : SessionGraphicsItem("ParticleCoreShell")
 {
     setToolTip(QStringLiteral("A particle with a core/shell geometry"));
 
@@ -46,11 +46,11 @@ ParticleCoreShellItem::ParticleCoreShellItem()
         .setDecimals(3)
         .setToolTip(abundance_tooltip);
 
-    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
+    addGroupProperty(ParticleItem::P_POSITION, "Vector")->setToolTip(position_tooltip);
 
-    registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
-    registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
-    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
+    registerTag(T_CORE, 0, 1, QStringList() << "Particle");
+    registerTag(T_SHELL, 0, 1, QStringList() << "Particle");
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << "Rotation");
 
     addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, "Position"));
     addTranslator(RotationTranslator());

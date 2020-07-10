@@ -29,10 +29,10 @@ TEST_F(TestParameterTreeUtils, test_parameterTreeNames)
 {
     SampleModel model;
 
-    SessionItem* layer = model.insertNewItem(Constants::LayerType);
+    SessionItem* layer = model.insertNewItem("Layer");
     EXPECT_EQ(ParameterTreeUtils::parameterTreeNames(layer), QStringList() << "Layer/Thickness");
 
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = model.insertNewItem("Particle");
     EXPECT_EQ(ParameterTreeUtils::parameterTreeNames(particle), expectedParticleParameterNames);
 }
 
@@ -42,7 +42,7 @@ TEST_F(TestParameterTreeUtils, test_parameterTranslatedNames)
 {
     SampleModel model;
 
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = model.insertNewItem("Particle");
 
     EXPECT_EQ(ParameterTreeUtils::translatedParameterTreeNames(particle),
               expectedParticleParameterTranslations);
@@ -54,11 +54,11 @@ TEST_F(TestParameterTreeUtils, test_linkItemFromParameterName)
 {
     SampleModel model;
 
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = model.insertNewItem("Particle");
 
     auto ffItem = static_cast<FormFactorItem*>(particle->getGroupItem(ParticleItem::P_FORM_FACTOR));
     Q_ASSERT(ffItem);
-    EXPECT_EQ(ffItem->modelType(), Constants::CylinderType);
+    EXPECT_EQ(ffItem->modelType(), "Cylinder");
 
     EXPECT_EQ(ffItem->getItem(CylinderItem::P_RADIUS),
               ParameterTreeUtils::parameterNameToLinkedItem("Particle/Cylinder/Radius", particle));

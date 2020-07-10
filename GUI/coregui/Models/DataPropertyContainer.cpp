@@ -19,9 +19,9 @@
 
 const QString DataPropertyContainer::T_CHILDREN = "data links";
 
-DataPropertyContainer::DataPropertyContainer() : SessionItem(Constants::DataPropertyContainerType)
+DataPropertyContainer::DataPropertyContainer() : SessionItem("DataPropertyContainer")
 {
-    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::DataItem1DPropertiesType);
+    registerTag(T_CHILDREN, 0, -1, QStringList() << "DataItem1DProperties");
     setDefaultTag(T_CHILDREN);
 }
 

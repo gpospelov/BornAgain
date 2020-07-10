@@ -38,10 +38,10 @@ namespace
 std::map<QString, QString> get_tag_map()
 {
     std::map<QString, QString> result = {
-        {Constants::ParticleCompositionType, ParticleCompositionItem::T_PARTICLES},
-        {Constants::ParticleDistributionType, ParticleDistributionItem::T_PARTICLES},
-        {Constants::ParticleLayoutType, ParticleLayoutItem::T_PARTICLES},
-        {Constants::MesoCrystalType, MesoCrystalItem::T_BASIS_PARTICLE}};
+        {"ParticleComposition", ParticleCompositionItem::T_PARTICLES},
+        {"ParticleDistribution", ParticleDistributionItem::T_PARTICLES},
+        {"ParticleLayout", ParticleLayoutItem::T_PARTICLES},
+        {"MesoCrystal", MesoCrystalItem::T_BASIS_PARTICLE}};
     return result;
 }
 } // namespace
@@ -110,9 +110,9 @@ MaterialItem* MaterialItemUtils::findMaterial(const ExternalProperty& material_p
 QString MaterialItemUtils::materialTag(const SessionItem& item)
 {
     QString result;
-    if (item.modelType() == Constants::ParticleType) {
+    if (item.modelType() == "Particle") {
         result = ParticleItem::P_MATERIAL;
-    } else if (item.modelType() == Constants::LayerType) {
+    } else if (item.modelType() == "Layer") {
         result = LayerItem::P_MATERIAL;
     }
     return result;
@@ -122,7 +122,7 @@ QString MaterialItemUtils::materialTag(const SessionItem& item)
 
 QStringList MaterialItemUtils::materialRelatedModelTypes()
 {
-    return {Constants::ParticleType, Constants::LayerType};
+    return {"Particle", "Layer"};
 }
 
 //! Constructs material property for given material.
@@ -200,9 +200,9 @@ QVector<SessionItem*> MaterialItemUtils::materialPropertyItems(SessionItem* item
             continue;
         }
 
-        if (model_type == Constants::ParticleType)
+        if (model_type == "Particle")
             materials.append(static_cast<ParticleItem*>(item)->materialPropertyItems());
-        else if (model_type == Constants::ParticleCoreShellType)
+        else if (model_type == "ParticleCoreShell")
             materials.append(static_cast<ParticleCoreShellItem*>(item)->materialPropertyItems());
         else
             throw GUIHelpers::Error(

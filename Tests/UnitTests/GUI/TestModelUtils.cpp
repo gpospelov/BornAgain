@@ -2,7 +2,6 @@
 #include "GUI/coregui/Models/ModelUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <QVector>
 
@@ -33,19 +32,19 @@ TEST_F(TestModelUtils, test_topItemNames)
     EXPECT_TRUE(ModelUtils::topItemNames(&model).isEmpty());
 
     // inserting three top items
-    auto item = model.insertNewItem(Constants::MultiLayerType);
+    auto item = model.insertNewItem("MultiLayer");
     item->setItemName("name1");
-    item = model.insertNewItem(Constants::LayerType);
-    item = model.insertNewItem(Constants::MultiLayerType);
+    item = model.insertNewItem("Layer");
+    item = model.insertNewItem("MultiLayer");
     item->setItemName("name2");
 
     // checking names of items of certain type
-    ASSERT_EQ(ModelUtils::topItemNames(&model, Constants::MultiLayerType).size(), 2);
-    EXPECT_EQ(ModelUtils::topItemNames(&model, Constants::MultiLayerType).at(0), QString("name1"));
-    EXPECT_EQ(ModelUtils::topItemNames(&model, Constants::MultiLayerType).at(1), QString("name2"));
+    ASSERT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").size(), 2);
+    EXPECT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").at(0), QString("name1"));
+    EXPECT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").at(1), QString("name2"));
 
     // checking names of all top items
-    QStringList expected = {"name1", Constants::LayerType, "name2"};
+    QStringList expected = {"name1", "Layer", "name2"};
     EXPECT_EQ(ModelUtils::topItemNames(&model), expected);
 }
 
@@ -68,7 +67,7 @@ TEST_F(TestModelUtils, test_emptyModel)
 TEST_F(TestModelUtils, test_vectorItem)
 {
     SessionModel model("TestModel");
-    SessionItem* vectorItem = model.insertNewItem(Constants::VectorType);
+    SessionItem* vectorItem = model.insertNewItem("Vector");
 
     QVector<QModelIndex> indices;
 
@@ -94,8 +93,8 @@ TEST_F(TestModelUtils, test_vectorItem)
 TEST_F(TestModelUtils, test_iterateIf)
 {
     SessionModel model("TestModel");
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
     SessionItem* thicknessItem = layer->getItem(LayerItem::P_THICKNESS);
 
     layer->setVisible(true);

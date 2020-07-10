@@ -36,9 +36,9 @@ QString DetectorPresenter::itemPresentation() const
     if (!currentItem())
         return {};
 
-    if (currentItem()->modelType() == Constants::SphericalDetectorType)
+    if (currentItem()->modelType() == "SphericalDetector")
         return SphericalDetectorPresentation;
-    else if (currentItem()->modelType() == Constants::RectangularDetectorType)
+    else if (currentItem()->modelType() == "RectangularDetector")
         return RectangularDetectorPresentation;
     else
         throw GUIHelpers::Error("DetectorPresenter::itemPresentation() -> Error. Wrong item "

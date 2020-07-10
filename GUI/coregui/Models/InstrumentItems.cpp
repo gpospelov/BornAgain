@@ -33,8 +33,8 @@
 namespace
 {
 const QString background_group_label = "Type";
-const QStringList instrument_names{Constants::GISASInstrumentType, Constants::OffSpecInstrumentType,
-                                   Constants::SpecularInstrumentType};
+const QStringList instrument_names{"GISASInstrument", "OffSpecInstrument",
+                                   "SpecularInstrument"};
 void addAxisGroupProperty(SessionItem* parent, const QString& tag);
 } // namespace
 
@@ -100,14 +100,14 @@ void InstrumentItem::initBeamGroup(const QString& beam_model)
 
 void InstrumentItem::initBackgroundGroup()
 {
-    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    auto item = addGroupProperty(P_BACKGROUND, "Background group");
     item->setDisplayName(background_group_label);
     item->setToolTip("Background type");
 }
 
-SpecularInstrumentItem::SpecularInstrumentItem() : InstrumentItem(Constants::SpecularInstrumentType)
+SpecularInstrumentItem::SpecularInstrumentItem() : InstrumentItem("SpecularInstrument")
 {
-    initBeamGroup(Constants::SpecularBeamType);
+    initBeamGroup("SpecularBeam");
     initBackgroundGroup();
     item<SpecularBeamItem>(P_BEAM).updateFileName(ItemFileNameUtils::instrumentDataFileName(*this));
 }
@@ -144,8 +144,8 @@ void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
 bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const
 {
     const QString native_units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
-    if (native_units == Constants::UnitsNbins) {
-        return beamItem()->currentInclinationAxisItem()->modelType() == Constants::BasicAxisType
+    if (native_units == "nbins") {
+        return beamItem()->currentInclinationAxisItem()->modelType() == "BasicAxis"
                && shape() == item->shape();
     } else {
         auto axis_item = dynamic_cast<PointwiseAxisItem*>(beamItem()->currentInclinationAxisItem());
@@ -183,8 +183,8 @@ const QString Instrument2DItem::P_DETECTOR = "Detector";
 
 Instrument2DItem::Instrument2DItem(const QString& modelType) : InstrumentItem(modelType)
 {
-    initBeamGroup(Constants::GISASBeamType);
-    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    initBeamGroup("GISASBeam");
+    addGroupProperty(P_DETECTOR, "Detector group");
     initBackgroundGroup();
 
     setDefaultTag(P_DETECTOR);
@@ -227,7 +227,7 @@ std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
     return result;
 }
 
-GISASInstrumentItem::GISASInstrumentItem() : Instrument2DItem(Constants::GISASInstrumentType) {}
+GISASInstrumentItem::GISASInstrumentItem() : Instrument2DItem("GISASInstrument") {}
 
 std::vector<int> GISASInstrumentItem::shape() const
 {
@@ -250,7 +250,7 @@ void GISASInstrumentItem::updateToRealData(const RealDataItem* item)
 
 const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 
-OffSpecInstrumentItem::OffSpecInstrumentItem() : Instrument2DItem(Constants::OffSpecInstrumentType)
+OffSpecInstrumentItem::OffSpecInstrumentItem() : Instrument2DItem("OffSpecInstrument")
 {
     addAxisGroupProperty(this, P_ALPHA_AXIS);
     auto inclination_item = getItem(P_ALPHA_AXIS)->getItem(BasicAxisItem::P_MIN);
@@ -287,7 +287,7 @@ namespace
 {
 void addAxisGroupProperty(SessionItem* parent, const QString& tag)
 {
-    auto item = parent->addGroupProperty(tag, Constants::BasicAxisType);
+    auto item = parent->addGroupProperty(tag, "BasicAxis");
     item->setToolTip("Incoming alpha range [deg]");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");

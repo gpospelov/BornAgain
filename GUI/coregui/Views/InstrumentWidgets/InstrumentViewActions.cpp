@@ -74,16 +74,16 @@ void InstrumentViewActions::onAddInstrument()
 
     QString instrumentType = action->data().toString();
 
-    if (instrumentType == Constants::GISASInstrumentType) {
+    if (instrumentType == "GISASInstrument") {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("GISAS"));
-    } else if (instrumentType == Constants::OffSpecInstrumentType) {
+    } else if (instrumentType == "OffSpecInstrument") {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("OffSpec"));
-    } else if (instrumentType == Constants::SpecularInstrumentType) {
+    } else if (instrumentType == "SpecularInstrument") {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Specular"));
-    } else if (instrumentType == Constants::DepthProbeInstrumentType) {
+    } else if (instrumentType == "DepthProbeInstrument") {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("DepthProbe"));
     } else {
@@ -132,7 +132,7 @@ void InstrumentViewActions::onCloneInstrument()
             auto axis_group = instrument->beamItem()->inclinationAxisGroup();
 
             auto donor_axis = dynamic_cast<PointwiseAxisItem*>(
-                axis_group->getItemOfType(Constants::PointwiseAxisType));
+                axis_group->getItemOfType("PointwiseAxis"));
             if (!donor_axis->containsNonXMLData())
                 return;
 
@@ -140,7 +140,7 @@ void InstrumentViewActions::onCloneInstrument()
                 dynamic_cast<PointwiseAxisItem*>(dynamic_cast<SpecularInstrumentItem*>(clone)
                                                      ->beamItem()
                                                      ->inclinationAxisGroup()
-                                                     ->getItemOfType(Constants::PointwiseAxisType));
+                                                     ->getItemOfType("PointwiseAxis"));
             acceptor_axis->init(*donor_axis->getAxis(), donor_axis->getUnitsLabel());
         }
     }
@@ -216,23 +216,23 @@ void InstrumentViewActions::initAddInstrumentMenu()
     m_addInstrumentMenu->setToolTipsVisible(true);
 
     auto action = m_addInstrumentMenu->addAction("GISAS");
-    action->setData(QVariant::fromValue(Constants::GISASInstrumentType));
+    action->setData(QVariant::fromValue(QString{"GISASInstrument"}));
     action->setToolTip("Add GISAS instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
     m_addInstrumentMenu->setDefaultAction(action);
 
     action = m_addInstrumentMenu->addAction("OffSpec");
-    action->setData(QVariant::fromValue(Constants::OffSpecInstrumentType));
+    action->setData(QVariant::fromValue(QString{"OffSpecInstrument"}));
     action->setToolTip("Add OffSpec instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
     action = m_addInstrumentMenu->addAction("Specular");
-    action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
+    action->setData(QVariant::fromValue(QString{"SpecularInstrument"}));
     action->setToolTip("Add Specular instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
     action = m_addInstrumentMenu->addAction("DepthProbe");
-    action->setData(QVariant::fromValue(Constants::DepthProbeInstrumentType));
+    action->setData(QVariant::fromValue(QString{"DepthProbeInstrument"}));
     action->setToolTip("Add DepthProbe instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 }

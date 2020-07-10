@@ -156,7 +156,7 @@ void RunFitControlWidget::updateControlElements()
 {
     setEnabled(isValidJobItem());
 
-    if (jobItem()->getStatus() == Constants::STATUS_FITTING) {
+    if (jobItem()->getStatus() == "Fitting") {
         m_startButton->setEnabled(false);
         m_stopButton->setEnabled(true);
         m_warningSign->clear();

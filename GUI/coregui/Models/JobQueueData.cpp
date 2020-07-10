@@ -56,7 +56,7 @@ void JobQueueData::runJob(JobItem* jobItem)
         message += QString::fromStdString(std::string(ex.what()));
         jobItem->setComments(message);
         jobItem->setProgress(100);
-        jobItem->setStatus(Constants::STATUS_FAILED);
+        jobItem->setStatus("Failed");
         emit focusRequest(jobItem);
         return;
     }
@@ -108,7 +108,7 @@ void JobQueueData::onStartedJob()
 
     auto jobItem = m_jobModel->getJobItemForIdentifier(worker->identifier());
     jobItem->setProgress(0);
-    jobItem->setStatus(Constants::STATUS_RUNNING);
+    jobItem->setStatus("Running");
     jobItem->setBeginTime(GUIHelpers::currentDateTime());
     jobItem->setEndTime(QString());
 }
@@ -229,7 +229,7 @@ void JobQueueData::processFinishedJob(JobWorker* worker, JobItem* jobItem)
     jobItem->setDuration(worker->simulationDuration());
 
     // propagating status of runner
-    if (worker->status() == Constants::STATUS_FAILED) {
+    if (worker->status() == "Failed") {
         jobItem->setComments(worker->failureMessage());
     } else {
         // propagating simulation results

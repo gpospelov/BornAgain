@@ -22,14 +22,14 @@ const QString FitSuiteItem::P_CHI2 = "Chi2";
 const QString FitSuiteItem::T_FIT_PARAMETERS = "Fit parameters container";
 const QString FitSuiteItem::T_MINIMIZER = "Minimizer settings";
 
-FitSuiteItem::FitSuiteItem() : SessionItem(Constants::FitSuiteType)
+FitSuiteItem::FitSuiteItem() : SessionItem("FitSuite")
 {
     addProperty(P_UPDATE_INTERVAL, 10);
     addProperty(P_ITERATION_COUNT, 0);
     addProperty(P_CHI2, 0.0);
 
-    registerTag(T_FIT_PARAMETERS, 1, 1, QStringList() << Constants::FitParameterContainerType);
-    registerTag(T_MINIMIZER, 1, 1, QStringList() << Constants::MinimizerContainerType);
+    registerTag(T_FIT_PARAMETERS, 1, 1, QStringList() << "FitParameterContainer");
+    registerTag(T_MINIMIZER, 1, 1, QStringList() << "MinimizerContainer");
 }
 
 FitParameterContainerItem* FitSuiteItem::fitParameterContainerItem()

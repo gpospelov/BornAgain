@@ -64,19 +64,19 @@ QVariant itemIcon(const SessionItem* item)
 
     auto& icons = iconCatalogue();
 
-    if (modelType == Constants::GISASInstrumentType) {
+    if (modelType == "GISASInstrument") {
         return QVariant(icons.gisasIcon);
 
-    } else if (modelType == Constants::OffSpecInstrumentType) {
+    } else if (modelType == "OffSpecInstrument") {
         return QVariant(icons.offspecIcon);
 
-    } else if (modelType == Constants::SpecularInstrumentType) {
+    } else if (modelType == "SpecularInstrument") {
         return QVariant(icons.specularIcon);
 
-    } else if (modelType == Constants::DepthProbeInstrumentType) {
+    } else if (modelType == "DepthProbeInstrument") {
         return QVariant(icons.depthIcon);
 
-    } else if (modelType == Constants::MaterialType) {
+    } else if (modelType == "Material") {
         auto materialItem = dynamic_cast<const MaterialItem*>(item);
         return QVariant(materialIcon(materialItem->color()));
     }

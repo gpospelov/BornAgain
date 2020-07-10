@@ -68,7 +68,7 @@ void MaterialPropertyController::onMaterialDataChanged(const QModelIndex& topLef
 {
     auto changedItem = m_materialModel->itemForIndex(topLeft);
     if (auto materialItem = dynamic_cast<const MaterialItem*>(
-            ModelPath::ancestor(changedItem, Constants::MaterialType))) {
+            ModelPath::ancestor(changedItem, "Material"))) {
 
         for (auto sampleItem : relatedSampleItems()) {
             QString tag = MaterialItemUtils::materialTag(*sampleItem);

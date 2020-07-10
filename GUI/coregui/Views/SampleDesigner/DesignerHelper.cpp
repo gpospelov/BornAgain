@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QPainter>
 #include <QtGlobal>
@@ -154,17 +153,17 @@ int DesignerHelper::nanometerToScreen(double nanometer)
 
 QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
 {
-    if (name == Constants::MultiLayerType) {
+    if (name == "MultiLayer") {
         return getDefaultMultiLayerRect();
-    } else if (name == Constants::LayerType) {
+    } else if (name == "Layer") {
         return QRectF(0, 0, layerWidth(), layerHeight());
-    } else if (name == Constants::ParticleLayoutType) {
+    } else if (name == "ParticleLayout") {
         return getParticleLayoutBoundingRect();
-    } else if (name == Constants::RotationType) {
+    } else if (name == "Rotation") {
         return getTransformationBoundingRect();
-    } else if (name.startsWith(Constants::FormFactorType) || name == Constants::ParticleType
-               || name == Constants::ParticleCoreShellType
-               || name == Constants::ParticleDistributionType) {
+    } else if (name.startsWith("FormFactor") || name == "Particle"
+               || name == "ParticleCoreShell"
+               || name == "ParticleDistribution") {
         return getParticleBoundingRect();
     } else if (name.startsWith("Interference")) {
         return getInterferenceFunctionBoundingRect();
@@ -175,16 +174,16 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
 
 QColor DesignerHelper::getDefaultColor(const QString& name)
 {
-    if (name == Constants::MultiLayerType) {
+    if (name == "MultiLayer") {
         // return QColor(Qt::blue);
         return QColor(51, 116, 255);
-    } else if (name == Constants::LayerType) {
+    } else if (name == "Layer") {
         // return QColor(Qt::green);
         return QColor(26, 156, 9);
-    } else if (name == Constants::ParticleLayoutType) {
+    } else if (name == "ParticleLayout") {
         return QColor(135, 206, 50);
-    } else if (name.startsWith(Constants::FormFactorType) || name == Constants::ParticleType
-               || name == Constants::ParticleCoreShellType) {
+    } else if (name.startsWith("FormFactor") || name == "Particle"
+               || name == "ParticleCoreShell") {
         return QColor(210, 223, 237);
     } else if (name.startsWith("InterferenceFunction")) {
         return QColor(255, 236, 139);

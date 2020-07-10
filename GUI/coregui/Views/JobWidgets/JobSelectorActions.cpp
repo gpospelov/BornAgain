@@ -161,7 +161,7 @@ bool JobSelectorActions::canRunJob(const QModelIndex& index) const
 
     const JobItem* jobItem = m_jobModel->getJobItemForIndex(index);
 
-    if (jobItem->isRunning() || jobItem->getStatus() == Constants::STATUS_FITTING)
+    if (jobItem->isRunning() || jobItem->getStatus() == "Fitting")
         return false;
 
     return true;
@@ -173,7 +173,7 @@ bool JobSelectorActions::canRemoveJob(const QModelIndex& index) const
         return false;
 
     const JobItem* jobItem = m_jobModel->getJobItemForIndex(index);
-    if (jobItem->isRunning() || jobItem->getStatus() == Constants::STATUS_FITTING)
+    if (jobItem->isRunning() || jobItem->getStatus() == "Fitting")
         return false;
 
     return true;

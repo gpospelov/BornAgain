@@ -26,7 +26,7 @@ IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
       m_fftItem(nullptr), m_in_fft_mode(false)
 {
     m_fftItem =
-        dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem(Constants::IntensityDataType));
+        dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem("IntensityData"));
 
     m_fftAction = new QAction(this);
     m_fftAction->setText("Fourier");

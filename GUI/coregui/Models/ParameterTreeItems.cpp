@@ -19,18 +19,18 @@
 
 // ----------------------------------------------------------------------------
 
-ParameterLabelItem::ParameterLabelItem() : SessionItem(Constants::ParameterLabelType)
+ParameterLabelItem::ParameterLabelItem() : SessionItem("Parameter Label")
 {
     const QString T_CHILDREN = "children tag";
     registerTag(T_CHILDREN, 0, -1,
-                QStringList() << Constants::ParameterLabelType << Constants::ParameterType);
+                QStringList() << "Parameter Label" << "Parameter");
     setDefaultTag(T_CHILDREN);
 }
 
 const QString ParameterItem::P_LINK = "Link";
 const QString ParameterItem::P_BACKUP = "Backup";
 const QString ParameterItem::P_DOMAIN = "Domain";
-ParameterItem::ParameterItem() : SessionItem(Constants::ParameterType)
+ParameterItem::ParameterItem() : SessionItem("Parameter")
 {
     // Link to original PropertyItem in one of components of MultiLayerItem or InstrumentItem
     addProperty(P_LINK, "");
@@ -56,7 +56,7 @@ void ParameterItem::propagateValueToLink(double newValue)
 
 SessionItem* ParameterItem::linkedItem()
 {
-    const SessionItem* jobItem = ModelPath::ancestor(this, Constants::JobItemType);
+    const SessionItem* jobItem = ModelPath::ancestor(this, "JobItem");
     Q_ASSERT(jobItem);
     QString link = jobItem->itemName() + "/" + getItemValue(P_LINK).toString();
     return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
@@ -72,9 +72,9 @@ void ParameterItem::restoreFromBackup()
 
 // ----------------------------------------------------------------------------
 
-ParameterContainerItem::ParameterContainerItem() : SessionItem(Constants::ParameterContainerType)
+ParameterContainerItem::ParameterContainerItem() : SessionItem("Parameter Container")
 {
     const QString T_CHILDREN = "children tag";
-    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::ParameterLabelType);
+    registerTag(T_CHILDREN, 0, -1, QStringList() << "Parameter Label");
     setDefaultTag(T_CHILDREN);
 }

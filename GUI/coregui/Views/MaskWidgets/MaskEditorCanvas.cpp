@@ -127,7 +127,7 @@ bool MaskEditorCanvas::isAxisRangeMatchData() const
 void MaskEditorCanvas::setZoomToROI()
 {
     if (MaskContainerItem* maskContainer = m_intensityDataItem->maskContainerItem()) {
-        if (SessionItem* roiItem = maskContainer->getChildOfType(Constants::RegionOfInterestType)) {
+        if (SessionItem* roiItem = maskContainer->getChildOfType("RegionOfInterest")) {
             m_intensityDataItem->setLowerX(roiItem->getItemValue(RectangleItem::P_XLOW).toDouble());
             m_intensityDataItem->setUpperX(roiItem->getItemValue(RectangleItem::P_XUP).toDouble());
             m_intensityDataItem->setLowerY(roiItem->getItemValue(RectangleItem::P_YLOW).toDouble());

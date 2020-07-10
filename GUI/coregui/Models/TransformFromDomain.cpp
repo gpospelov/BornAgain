@@ -191,14 +191,14 @@ void TransformFromDomain::setLayerItem(SessionItem* layerItem, const Layer* laye
                                        const LayerInterface* top_interface)
 {
     layerItem->setItemValue(LayerItem::P_THICKNESS, layer->thickness());
-    layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+    layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, "LayerZeroRoughness");
     layerItem->setItemValue(LayerItem::P_NSLICES, (int)layer->numberOfSlices());
 
     if (top_interface) {
         const LayerRoughness* roughness = top_interface->getRoughness();
         if (TransformFromDomain::isValidRoughness(roughness)) {
             SessionItem* roughnessItem = layerItem->setGroupProperty(
-                LayerItem::P_ROUGHNESS, Constants::LayerBasicRoughnessType);
+                LayerItem::P_ROUGHNESS, "LayerBasicRoughness");
             TransformFromDomain::setRoughnessItem(roughnessItem, *roughness);
         }
     }
@@ -336,11 +336,11 @@ void TransformFromDomain::setDetectorGeometry(Instrument2DItem* instrument_item,
                                               const IDetector& detector)
 {
     if (auto det = dynamic_cast<const SphericalDetector*>(&detector)) {
-        instrument_item->setDetectorGroup(Constants::SphericalDetectorType);
+        instrument_item->setDetectorGroup("SphericalDetector");
         auto item = dynamic_cast<SphericalDetectorItem*>(instrument_item->detectorItem());
         setSphericalDetector(item, *det);
     } else if (auto det = dynamic_cast<const RectangularDetector*>(&detector)) {
-        instrument_item->setDetectorGroup(Constants::RectangularDetectorType);
+        instrument_item->setDetectorGroup("RectangularDetector");
         auto item = dynamic_cast<RectangularDetectorItem*>(instrument_item->detectorItem());
         setRectangularDetector(item, *det);
     } else {
@@ -361,9 +361,9 @@ void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
         if (auto resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                 p_convfunc->getResolutionFunction2D())) {
             SessionItem* item = detector_item->setGroupProperty(
-                DetectorItem::P_RESOLUTION_FUNCTION, Constants::ResolutionFunction2DGaussianType);
+                DetectorItem::P_RESOLUTION_FUNCTION, "ResolutionFunction2DGaussian");
             double scale(1.0);
-            if (detector_item->modelType() == Constants::SphericalDetectorType)
+            if (detector_item->modelType() == "SphericalDetector")
                 scale = 1. / Units::degree;
             item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
                                scale * resfunc->getSigmaX());
@@ -432,7 +432,7 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
     yAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getHeight());
 
     if (detector.getDetectorArrangment() == RectangularDetector::GENERIC) {
-        detector_item->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
+        detector_item->setDetectorAlignment("Generic");
 
         kvector_t normal = detector.getNormalVector();
         SetVectorItem(*detector_item, RectangularDetectorItem::P_NORMAL, normal);
@@ -445,28 +445,28 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
     }
 
     else if (detector.getDetectorArrangment() == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
-        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_SAMPLE);
+        detector_item->setDetectorAlignment("Perpendicular to sample x-axis");
         detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE, detector.getDistance());
         detector_item->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
         detector_item->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
-        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_DIRECT_BEAM);
+        detector_item->setDetectorAlignment("Perpendicular to direct beam");
         detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE, detector.getDistance());
         detector_item->setItemValue(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
         detector_item->setItemValue(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
-        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
+        detector_item->setDetectorAlignment("Perpendicular to reflected beam");
         detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE, detector.getDistance());
         detector_item->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
         detector_item->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
-        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS);
+        detector_item->setDetectorAlignment("Perpendicular to reflected beam (dpos)");
         detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE, detector.getDistance());
         detector_item->setItemValue(RectangularDetectorItem::P_DBEAM_U0,
                                     detector.getDirectBeamU0());
@@ -489,7 +489,7 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
         detector_item->createMaskContainer();
 
         double scale(1.0);
-        if (detector_item->modelType() == Constants::SphericalDetectorType)
+        if (detector_item->modelType() == "SphericalDetector")
             scale = 1. / Units::degree;
 
         setMaskContainer(detector_item->maskContainerItem(), *detector, scale);
@@ -605,12 +605,12 @@ void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
         auto constant_bg_item = instrument_item->setGroupProperty(
-            InstrumentItem::P_BACKGROUND, Constants::ConstantBackgroundType);
+            InstrumentItem::P_BACKGROUND, "ConstantBackground");
         double value = p_constant_bg->backgroundValue();
         constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
     } else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
         instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
-                                          Constants::PoissonNoiseBackgroundType);
+                                          "PoissonNoiseBackground");
     }
 }
 
@@ -621,12 +621,12 @@ void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
         return;
     if (const auto gaussian_fp = dynamic_cast<const FootprintFactorGaussian*>(footprint)) {
         auto gaussian_fp_item = beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT,
-                                                            Constants::FootprintGaussianType);
+                                                            "GaussianFootrpint");
         const double value = gaussian_fp->widthRatio();
         gaussian_fp_item->setItemValue(FootprintGaussianItem::P_VALUE, value);
     } else if (const auto square_fp = dynamic_cast<const FootprintFactorSquare*>(footprint)) {
         auto square_fp_item = beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT,
-                                                          Constants::FootprintSquareType);
+                                                          "SquareFootprint");
         const double value = square_fp->widthRatio();
         square_fp_item->setItemValue(FootprintSquareItem::P_VALUE, value);
     }
@@ -634,7 +634,7 @@ void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
 
 void TransformFromDomain::setAxisItem(SessionItem* item, const IAxis& axis, double factor)
 {
-    if (item->modelType() != Constants::BasicAxisType)
+    if (item->modelType() != "BasicAxis")
         throw GUIHelpers::Error("TransformFromDomain::setAxisItem() -> Error. Unexpected item.");
 
     if (!dynamic_cast<const FixedBinAxis*>(&axis))
@@ -652,31 +652,31 @@ void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_na
 {
     if (const FTDistribution1DCauchy* pdf = dynamic_cast<const FTDistribution1DCauchy*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution1DCauchyType);
+            item->setGroupProperty(group_name, "FTDistribution1DCauchy");
         pdfItem->setItemValue(FTDistribution1DCauchyItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DGauss* pdf =
                    dynamic_cast<const FTDistribution1DGauss*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution1DGaussType);
+            item->setGroupProperty(group_name, "FTDistribution1DGauss");
         pdfItem->setItemValue(FTDistribution1DGaussItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DGate* pdf = dynamic_cast<const FTDistribution1DGate*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution1DGateType);
+            item->setGroupProperty(group_name, "FTDistribution1DGate");
         pdfItem->setItemValue(FTDistribution1DGateItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DTriangle* pdf =
                    dynamic_cast<const FTDistribution1DTriangle*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution1DTriangleType);
+            item->setGroupProperty(group_name, "FTDistribution1DTriangle");
         pdfItem->setItemValue(FTDistribution1DTriangleItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DCosine* pdf =
                    dynamic_cast<const FTDistribution1DCosine*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution1DCosineType);
+            item->setGroupProperty(group_name, "FTDistribution1DCosine");
         pdfItem->setItemValue(FTDistribution1DCosineItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DVoigt* pdf =
                    dynamic_cast<const FTDistribution1DVoigt*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution1DVoigtType);
+            item->setGroupProperty(group_name, "FTDistribution1DVoigt");
         pdfItem->setItemValue(FTDistribution1DVoigtItem::P_OMEGA, pdf->omega());
         pdfItem->setItemValue(FTDistribution1DVoigtItem::P_ETA, pdf->eta());
     } else {
@@ -689,7 +689,7 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
     if (const FTDistribution2DCauchy* pdf_cauchy =
             dynamic_cast<const FTDistribution2DCauchy*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution2DCauchyType);
+            item->setGroupProperty(group_name, "FTDistribution2DCauchy");
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_OMEGA_X, pdf_cauchy->omegaX());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_OMEGA_Y, pdf_cauchy->omegaY());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_GAMMA,
@@ -697,7 +697,7 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
     } else if (const FTDistribution2DGauss* pdf_gauss =
                    dynamic_cast<const FTDistribution2DGauss*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution2DGaussType);
+            item->setGroupProperty(group_name, "FTDistribution2DGauss");
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_OMEGA_X, pdf_gauss->omegaX());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_OMEGA_Y, pdf_gauss->omegaY());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_GAMMA,
@@ -705,21 +705,21 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
     } else if (const FTDistribution2DGate* pdf_gate =
                    dynamic_cast<const FTDistribution2DGate*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution2DGateType);
+            item->setGroupProperty(group_name, "FTDistribution2DGate");
         pdfItem->setItemValue(FTDistribution2DGateItem::P_OMEGA_X, pdf_gate->omegaX());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_OMEGA_Y, pdf_gate->omegaY());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_GAMMA, Units::rad2deg(pdf_gate->gamma()));
     } else if (const FTDistribution2DCone* pdf_cone =
                    dynamic_cast<const FTDistribution2DCone*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution2DConeType);
+            item->setGroupProperty(group_name, "FTDistribution2DCone");
         pdfItem->setItemValue(FTDistribution2DConeItem::P_OMEGA_X, pdf_cone->omegaX());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_OMEGA_Y, pdf_cone->omegaY());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_GAMMA, Units::rad2deg(pdf_cone->gamma()));
     } else if (const FTDistribution2DVoigt* pdf_voigt =
                    dynamic_cast<const FTDistribution2DVoigt*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDistribution2DVoigtType);
+            item->setGroupProperty(group_name, "FTDistribution2DVoigt");
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_OMEGA_X, pdf_voigt->omegaX());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_OMEGA_Y, pdf_voigt->omegaY());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_GAMMA,
@@ -734,22 +734,22 @@ void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* ipdf, QStri
 {
     if (const FTDecayFunction1DCauchy* pdf = dynamic_cast<const FTDecayFunction1DCauchy*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDecayFunction1DCauchyType);
+            item->setGroupProperty(group_name, "FTDecayFunction1DCauchy");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DGauss* pdf =
                    dynamic_cast<const FTDecayFunction1DGauss*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDecayFunction1DGaussType);
+            item->setGroupProperty(group_name, "FTDecayFunction1DGauss");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DTriangle* pdf =
                    dynamic_cast<const FTDecayFunction1DTriangle*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDecayFunction1DTriangleType);
+            item->setGroupProperty(group_name, "FTDecayFunction1DTriangle");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DVoigt* pdf =
                    dynamic_cast<const FTDecayFunction1DVoigt*>(ipdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDecayFunction1DVoigtType);
+            item->setGroupProperty(group_name, "FTDecayFunction1DVoigt");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
         pdfItem->setItemValue(FTDecayFunction1DVoigtItem::P_ETA, pdf->eEta());
     } else {
@@ -762,21 +762,21 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
     if (const FTDecayFunction2DCauchy* pdf_cauchy =
             dynamic_cast<const FTDecayFunction2DCauchy*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDecayFunction2DCauchyType);
+            item->setGroupProperty(group_name, "FTDecayFunction2DCauchy");
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X, pdf_cauchy->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y, pdf_cauchy->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA, Units::rad2deg(pdf_cauchy->gamma()));
     } else if (const FTDecayFunction2DGauss* pdf_gauss =
                    dynamic_cast<const FTDecayFunction2DGauss*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDecayFunction2DGaussType);
+            item->setGroupProperty(group_name, "FTDecayFunction2DGauss");
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X, pdf_gauss->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y, pdf_gauss->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA, Units::rad2deg(pdf_gauss->gamma()));
     } else if (const FTDecayFunction2DVoigt* pdf_voigt =
                    dynamic_cast<const FTDecayFunction2DVoigt*>(pdf)) {
         SessionItem* pdfItem =
-            item->setGroupProperty(group_name, Constants::FTDecayFunction2DVoigtType);
+            item->setGroupProperty(group_name, "FTDecayFunction2DVoigt");
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X, pdf_voigt->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y, pdf_voigt->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA, Units::rad2deg(pdf_voigt->gamma()));
@@ -791,17 +791,17 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
     SessionItem* latticeItem(nullptr);
     if (lattice.getName() == "SquareLattice") {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                             Constants::SquareLatticeType);
+                                             "SquareLattice");
         latticeItem->setItemValue(SquareLatticeItem::P_LATTICE_LENGTH, lattice.length1());
 
     } else if (lattice.getName() == "HexagonalLattice") {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                             Constants::HexagonalLatticeType);
+                                             "HexagonalLattice");
         latticeItem->setItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH, lattice.length1());
 
     } else {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                             Constants::BasicLatticeType);
+                                             "BasicLattice");
         latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH1, lattice.length1());
         latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH2, lattice.length2());
         latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_ANGLE,
@@ -824,32 +824,32 @@ void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_dis
 
     SessionItem* item = 0;
     if (const DistributionGate* distr = dynamic_cast<const DistributionGate*>(p_distribution)) {
-        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionGateType);
+        item = part_distr_item->setGroupProperty(group_name, "DistributionGate");
         item->setItemValue(DistributionGateItem::P_MIN, factor * distr->getMin());
         item->setItemValue(DistributionGateItem::P_MAX, factor * distr->getMax());
     } else if (const DistributionLorentz* distr =
                    dynamic_cast<const DistributionLorentz*>(p_distribution)) {
-        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionLorentzType);
+        item = part_distr_item->setGroupProperty(group_name, "DistributionLorentz");
         item->setItemValue(DistributionLorentzItem::P_MEAN, factor * distr->getMean());
         item->setItemValue(DistributionLorentzItem::P_HWHM, factor * distr->getHWHM());
     } else if (const DistributionGaussian* distr =
                    dynamic_cast<const DistributionGaussian*>(p_distribution)) {
-        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionGaussianType);
+        item = part_distr_item->setGroupProperty(group_name, "DistributionGaussian");
         item->setItemValue(DistributionGaussianItem::P_MEAN, factor * distr->getMean());
         item->setItemValue(DistributionGaussianItem::P_STD_DEV, factor * distr->getStdDev());
     } else if (const DistributionLogNormal* distr =
                    dynamic_cast<const DistributionLogNormal*>(p_distribution)) {
-        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionLogNormalType);
+        item = part_distr_item->setGroupProperty(group_name, "DistributionLogNormal");
         item->setItemValue(DistributionLogNormalItem::P_MEDIAN, factor * distr->getMedian());
         item->setItemValue(DistributionLogNormalItem::P_SCALE_PAR, distr->getScalePar());
     } else if (const DistributionCosine* distr =
                    dynamic_cast<const DistributionCosine*>(p_distribution)) {
-        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionCosineType);
+        item = part_distr_item->setGroupProperty(group_name, "DistributionCosine");
         item->setItemValue(DistributionCosineItem::P_MEAN, factor * distr->getMean());
         item->setItemValue(DistributionCosineItem::P_SIGMA, factor * distr->getSigma());
     } else if (const DistributionTrapezoid* distr =
                    dynamic_cast<const DistributionTrapezoid*>(p_distribution)) {
-        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionTrapezoidType);
+        item = part_distr_item->setGroupProperty(group_name, "DistributionTrapezoid");
         item->setItemValue(DistributionTrapezoidItem::P_CENTER, factor * distr->getMean());
         item->setItemValue(DistributionTrapezoidItem::P_LEFTWIDTH, factor * distr->getLeftWidth());
         item->setItemValue(DistributionTrapezoidItem::P_MIDDLEWIDTH,

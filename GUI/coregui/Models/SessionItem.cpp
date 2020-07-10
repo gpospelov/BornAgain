@@ -289,9 +289,9 @@ SessionItem* SessionItem::addProperty(const QString& name, const QVariant& varia
         throw GUIHelpers::Error(
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
-    SessionItem* property = ItemFactory::CreateItem(Constants::PropertyType);
+    SessionItem* property = ItemFactory::CreateItem("Property");
     property->setDisplayName(name);
-    registerTag(name, 1, 1, QStringList() << Constants::PropertyType);
+    registerTag(name, 1, 1, QStringList() << "Property");
     if (!insertItem(0, property, name))
         throw GUIHelpers::Error("SessionItem::addProperty -> Error. Can't insert item");
 
@@ -330,10 +330,10 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
         // create group item
         GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(groupType);
         GroupItem* groupItem =
-            dynamic_cast<GroupItem*>(ItemFactory::CreateItem(Constants::GroupItemType));
+            dynamic_cast<GroupItem*>(ItemFactory::CreateItem("GroupProperty"));
         Q_ASSERT(groupItem);
         groupItem->setGroupInfo(groupInfo);
-        registerTag(groupTag, 1, 1, QStringList() << Constants::GroupItemType);
+        registerTag(groupTag, 1, 1, QStringList() << "GroupProperty");
         result = groupItem;
     } else {
         // create single item
@@ -441,8 +441,8 @@ QString SessionItem::displayName() const
 {
     QString result = data(SessionFlags::DisplayNameRole).toString();
 
-    if (modelType() == Constants::PropertyType || modelType() == Constants::GroupItemType
-        || modelType() == Constants::ParameterType || modelType() == Constants::ParameterLabelType)
+    if (modelType() == "Property" || modelType() == "GroupProperty"
+        || modelType() == "Parameter" || modelType() == "Parameter Label")
         return result;
 
     if (m_parent) {
@@ -548,7 +548,7 @@ SessionItem& SessionItem::setToolTip(const QString& tooltip)
 QString SessionItem::editorType() const
 {
     auto variant = data(SessionFlags::CustomEditorRole);
-    return variant.isValid() ? variant.toString() : Constants::DefaultEditorType;
+    return variant.isValid() ? variant.toString() : "Default";
 }
 
 SessionItem& SessionItem::setEditorType(const QString& editorType)

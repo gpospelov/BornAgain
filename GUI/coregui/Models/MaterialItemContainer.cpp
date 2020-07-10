@@ -19,10 +19,10 @@
 
 const QString MaterialItemContainer::T_MATERIALS = "MaterialVector";
 
-MaterialItemContainer::MaterialItemContainer() : SessionItem(Constants::MaterialContainerType)
+MaterialItemContainer::MaterialItemContainer() : SessionItem("MaterialContainer")
 {
     setItemName("Materials");
-    registerTag(T_MATERIALS, 0, -1, QStringList{Constants::MaterialType});
+    registerTag(T_MATERIALS, 0, -1, QStringList{"Material"});
 }
 
 MaterialItem* MaterialItemContainer::insertCopy(MaterialItem* material_item)

@@ -26,18 +26,18 @@ const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
 const QString DepthProbeInstrumentItem::P_ZAXIS = "Z axis";
 
 DepthProbeInstrumentItem::DepthProbeInstrumentItem()
-    : InstrumentItem(Constants::DepthProbeInstrumentType)
+    : InstrumentItem("DepthProbeInstrument")
 {
-    setItemName(Constants::DepthProbeInstrumentType);
+    setItemName("DepthProbeInstrument");
 
-    addGroupProperty(P_BEAM, Constants::SpecularBeamType);
+    addGroupProperty(P_BEAM, "SpecularBeam");
 
     auto axisItem = beamItem()->currentInclinationAxisItem();
     axisItem->setItemValue(BasicAxisItem::P_MIN, 0.0);
     axisItem->setItemValue(BasicAxisItem::P_MAX, 1.0);
     axisItem->setItemValue(BasicAxisItem::P_NBINS, 500);
 
-    auto axis = addGroupProperty(P_ZAXIS, Constants::BasicAxisType);
+    auto axis = addGroupProperty(P_ZAXIS, "BasicAxis");
     axis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     axis->setItemValue(BasicAxisItem::P_MIN, -100.0);
     axis->setItemValue(BasicAxisItem::P_MAX, 100.0);

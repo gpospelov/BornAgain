@@ -19,7 +19,6 @@
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <QFileDialog>
@@ -68,11 +67,11 @@ void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataIte
     QTextStream out(&file);
 
     out << "# Projections along x-axis (horizontal projections) \n";
-    out << projectionsToString(Constants::HorizontalLineMaskType, intensityItem);
+    out << projectionsToString("HorizontalLineMask", intensityItem);
     out << "\n";
 
     out << "# Projections along y-axis (vertical projections) \n";
-    out << projectionsToString(Constants::VerticalLineMaskType, intensityItem);
+    out << projectionsToString("VerticalLineMask", intensityItem);
     out << "\n";
 
     file.close();
@@ -112,14 +111,14 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
                                           IntensityDataItem* intensityItem)
 {
     ProjectionsData result;
-    projectionsType == Constants::VerticalLineMaskType ? result.is_horizontal = false
+    projectionsType == "VerticalLineMask" ? result.is_horizontal = false
                                                        : result.is_horizontal = true;
 
     for (auto item : projectionItems(projectionsType, intensityItem)) {
         std::unique_ptr<Histogram1D> hist;
         SaveProjectionsAssistant::Projection data;
 
-        if (item->modelType() == Constants::HorizontalLineMaskType) {
+        if (item->modelType() == "HorizontalLineMask") {
             data.axis_value = item->getItemValue(HorizontalLineItem::P_POSY).toDouble();
             hist.reset(m_hist2d->projectionX(data.axis_value));
         } else {
@@ -152,7 +151,7 @@ QVector<SessionItem*> SaveProjectionsAssistant::projectionItems(const QString& p
     auto result = intensityItem->projectionContainerItem()->getChildrenOfType(projectionsType);
     std::sort(result.begin(), result.end(), [=](SessionItem* item1, SessionItem* item2) {
         QString propertyName = HorizontalLineItem::P_POSY;
-        if (projectionsType != Constants::HorizontalLineMaskType)
+        if (projectionsType != "HorizontalLineMask")
             propertyName = VerticalLineItem::P_POSX;
 
         return item1->getItemValue(propertyName).toDouble()

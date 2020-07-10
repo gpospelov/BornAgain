@@ -31,11 +31,11 @@ void FitParameterHelper::createFitParameter(FitParameterContainerItem* container
     removeFromFitParameters(container, parameterItem);
 
     FitParameterItem* fitPar = dynamic_cast<FitParameterItem*>(
-        container->model()->insertNewItem(Constants::FitParameterType, container->index()));
+        container->model()->insertNewItem("FitParameter", container->index()));
     Q_ASSERT(fitPar);
     fitPar->setDisplayName(QStringLiteral("par"));
     SessionItem* link =
-        fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+        fitPar->model()->insertNewItem("FitParameterLink", fitPar->index());
     fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
     link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
 
@@ -72,7 +72,7 @@ void FitParameterHelper::addToFitParameter(FitParameterContainerItem* container,
     for (auto fitPar : container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if (fitPar->displayName() == fitParName) {
             SessionItem* link =
-                fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
+                fitPar->model()->insertNewItem("FitParameterLink", fitPar->index());
             link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
             break;
         }
@@ -105,7 +105,7 @@ QStringList FitParameterHelper::getFitParameterNames(FitParameterContainerItem* 
 QString FitParameterHelper::getParameterItemPath(const ParameterItem* parameterItem)
 {
     QString result = ModelPath::getPathFromIndex(parameterItem->index());
-    QString containerPrefix = Constants::ParameterContainerType + "/";
+    QString containerPrefix = "Parameter Container/";
     int containerEnd = result.indexOf(containerPrefix) + containerPrefix.size();
     result = result.mid(containerEnd);
     return result;
@@ -118,10 +118,10 @@ ParameterItem* FitParameterHelper::getParameterItem(FitParameterContainerItem* c
                                                     const QString& link)
 {
     SessionItem* cur = container;
-    while (cur && cur->modelType() != Constants::JobItemType) {
+    while (cur && cur->modelType() != "JobItem") {
         cur = cur->parent();
     }
-    Q_ASSERT(cur && cur->modelType() == Constants::JobItemType);
+    Q_ASSERT(cur && cur->modelType() == "JobItem");
     JobItem* jobItem = dynamic_cast<JobItem*>(cur);
     Q_ASSERT(jobItem);
     return dynamic_cast<ParameterItem*>(

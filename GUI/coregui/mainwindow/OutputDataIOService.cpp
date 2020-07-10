@@ -17,7 +17,6 @@
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/ModelPath.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/SaveLoadInterface.h"
 #include "GUI/coregui/utils/MessageService.h"
@@ -79,7 +78,7 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
             if (auto jobItem = parentJobItem(item)) {
                 if (jobItem->isRunning()) {
                     jobItem->setComments(QString("Possible GUI crash while job was running"));
-                    jobItem->setStatus(Constants::STATUS_FAILED);
+                    jobItem->setStatus("Failed");
                 }
             }
 
@@ -88,7 +87,7 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
                 // Handling corrupted file on disk
                 jobItem->setComments(
                     QString("Load of the data from disk failed with '%1'").arg(QString(ex.what())));
-                jobItem->setStatus(Constants::STATUS_FAILED);
+                jobItem->setStatus("Failed");
             }
             if (messageService)
                 messageService->send_warning(this, QString(ex.what()));
@@ -131,7 +130,7 @@ JobItem* parentJobItem(SaveLoadInterface* item)
 {
     auto session_item = dynamic_cast<SessionItem*>(item); // sidecast
     auto jobItem =
-        dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, Constants::JobItemType));
+        dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, "JobItem"));
     return const_cast<JobItem*>(jobItem);
 }
 } // namespace

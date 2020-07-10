@@ -11,9 +11,9 @@ class TestFitParameterModel : public ::testing::Test
 TEST_F(TestFitParameterModel, test_InitialState)
 {
     JobModel source;
-    SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
+    SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
     SessionItem* container =
-        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
                              FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
@@ -26,14 +26,14 @@ TEST_F(TestFitParameterModel, test_InitialState)
 TEST_F(TestFitParameterModel, test_addFitParameter)
 {
     JobModel source;
-    SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
+    SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
     SessionItem* container =
-        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
                              FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
-    SessionItem* fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
+    SessionItem* fitPar0 = source.insertNewItem("FitParameter", container->index());
     fitPar0->setDisplayName(QStringLiteral("par"));
     fitPar0->setItemValue(FitParameterItem::P_MIN, 1.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 2.0);
@@ -93,7 +93,7 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
     // ----------------------------------------------------
     // adding second fit parameter
     // ----------------------------------------------------
-    SessionItem* fitPar1 = source.insertNewItem(Constants::FitParameterType, container->index());
+    SessionItem* fitPar1 = source.insertNewItem("FitParameter", container->index());
     fitPar0->setDisplayName(QStringLiteral("par"));
     fitPar0->setItemValue(FitParameterItem::P_MIN, 10.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 20.0);
@@ -131,21 +131,21 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
 TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
 {
     JobModel source;
-    SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
+    SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
     SessionItem* container =
-        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
                              FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
-    SessionItem* fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
+    SessionItem* fitPar0 = source.insertNewItem("FitParameter", container->index());
     fitPar0->setDisplayName(QStringLiteral("par"));
     fitPar0->setItemValue(FitParameterItem::P_MIN, 1.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 2.0);
     fitPar0->setItemValue(FitParameterItem::P_START_VALUE, 3.0);
 
     // adding link
-    SessionItem* link0 = source.insertNewItem(Constants::FitParameterLinkType, fitPar0->index());
+    SessionItem* link0 = source.insertNewItem("FitParameterLink", fitPar0->index());
     link0->setItemValue(FitParameterLinkItem::P_LINK, "link0");
 
     // checking index of root
@@ -175,7 +175,7 @@ TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
     EXPECT_EQ(linkIndex, proxy.indexOfItem(link0->getItem(FitParameterLinkItem::P_LINK)));
 
     // adding second link
-    SessionItem* link1 = source.insertNewItem(Constants::FitParameterLinkType, fitPar0->index());
+    SessionItem* link1 = source.insertNewItem("FitParameterLink", fitPar0->index());
     link1->setItemValue(FitParameterLinkItem::P_LINK, "link1");
     EXPECT_EQ(proxy.rowCount(index), 2);
     EXPECT_EQ(proxy.columnCount(index), 1); // linkItem
@@ -195,19 +195,19 @@ TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
 TEST_F(TestFitParameterModel, test_addTwoFitParameterAndLinks)
 {
     JobModel source;
-    SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
+    SessionItem* fitSuiteItem = source.insertNewItem("FitSuite");
     SessionItem* container =
-        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+        source.insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
                              FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameters
-    SessionItem* fitPar0 = source.insertNewItem(Constants::FitParameterType, container->index());
-    SessionItem* link0 = source.insertNewItem(Constants::FitParameterLinkType, fitPar0->index());
+    SessionItem* fitPar0 = source.insertNewItem("FitParameter", container->index());
+    SessionItem* link0 = source.insertNewItem("FitParameterLink", fitPar0->index());
     Q_UNUSED(link0);
 
-    SessionItem* fitPar1 = source.insertNewItem(Constants::FitParameterType, container->index());
-    SessionItem* link1 = source.insertNewItem(Constants::FitParameterLinkType, fitPar1->index());
+    SessionItem* fitPar1 = source.insertNewItem("FitParameter", container->index());
+    SessionItem* link1 = source.insertNewItem("FitParameterLink", fitPar1->index());
     Q_UNUSED(link1);
 
     // checking index of root

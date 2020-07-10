@@ -23,14 +23,14 @@ const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
 const QString SpecularDataItem::P_YAXIS = "y-axis";
 
-SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
+SpecularDataItem::SpecularDataItem() : DataItem("SpecularData")
 {
     addProperty(P_TITLE, QString())->setVisible(false);
 
-    SessionItem* item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
+    SessionItem* item = addGroupProperty(P_XAXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupProperty(P_YAXIS, Constants::AmplitudeAxisType);
+    item = addGroupProperty(P_YAXIS, "AmplitudeAxis");
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(true);
 

@@ -43,7 +43,7 @@ SessionItem* ItemFactory::CreateItem(const QString& model_name, SessionItem* par
 
 SessionItem* ItemFactory::CreateEmptyItem()
 {
-    return new SessionItem(Constants::RootItemType);
+    return new SessionItem("ROOT_ITEM");
 }
 
 QStringList ItemFactory::ValidTopItemTypes()

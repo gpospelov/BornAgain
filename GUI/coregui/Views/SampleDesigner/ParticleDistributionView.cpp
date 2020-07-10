@@ -19,9 +19,9 @@
 
 ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : ConnectableView(parent)
 {
-    setName(Constants::ParticleDistributionType);
+    setName("ParticleDistribution");
     setColor(DesignerHelper::getDefaultParticleColor());
-    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleDistributionType));
+    setRectangle(DesignerHelper::getDefaultBoundingRect("ParticleDistribution"));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
     addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)

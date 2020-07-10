@@ -17,7 +17,6 @@
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/MaskWidgets/ColorMapSceneAdaptor.h"
 #include "GUI/coregui/Views/MaskWidgets/ISceneAdaptor.h"
 #include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
@@ -74,8 +73,8 @@ void MaskGraphicsScene::setMaskContext(SessionModel* model, const QModelIndex& m
         m_maskModel = model;
 
         QString containerType = m_maskModel->itemForIndex(maskContainerIndex)->modelType();
-        if (containerType != Constants::MaskContainerType
-            && containerType != Constants::ProjectionContainerType)
+        if (containerType != "MaskContainer"
+            && containerType != "ProjectionContainer")
             throw GUIHelpers::Error(
                 "MaskGraphicsScene::setMaskContext() -> Error. Not a container");
 
@@ -380,8 +379,8 @@ void MaskGraphicsScene::updateViews(const QModelIndex& parentIndex, IShape2DView
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
         if (SessionItem* item = m_maskModel->itemForIndex(itemIndex)) {
-            if (item->modelType() == Constants::GroupItemType
-                || item->modelType() == Constants::PropertyType)
+            if (item->modelType() == "GroupProperty"
+                || item->modelType() == "Property")
                 continue;
 
             childView = addViewForItem(item);
@@ -469,7 +468,7 @@ bool MaskGraphicsScene::isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent
     if (m_context.isROIMode()) {
         // only one ROI is allowed
         for (SessionItem* item : m_ItemToView.keys())
-            if (item->modelType() == Constants::RegionOfInterestType)
+            if (item->modelType() == "RegionOfInterest")
                 return false;
     }
     return true;
@@ -519,7 +518,7 @@ bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent* event
     if (!m_context.isMaskAllMode())
         return false;
     for (SessionItem* item : m_ItemToView.keys())
-        if (item->modelType() == Constants::MaskAllType)
+        if (item->modelType() == "MaskAllMask")
             return false;
     return true;
 }
@@ -568,9 +567,9 @@ void MaskGraphicsScene::setInPanAndZoomMode(bool value)
 void MaskGraphicsScene::updateCursors()
 {
     for (auto it = m_ItemToView.begin(); it != m_ItemToView.end(); ++it) {
-        if (it.key()->modelType() == Constants::VerticalLineMaskType) {
+        if (it.key()->modelType() == "VerticalLineMask") {
             it.value()->setCursor(m_context.isInZoomMode() ? Qt::ArrowCursor : Qt::SizeHorCursor);
-        } else if (it.key()->modelType() == Constants::HorizontalLineMaskType) {
+        } else if (it.key()->modelType() == "HorizontalLineMask") {
             it.value()->setCursor(m_context.isInZoomMode() ? Qt::ArrowCursor : Qt::SizeVerCursor);
         }
     }
@@ -611,13 +610,13 @@ void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent* even
     qreal ymin = std::min(click_pos.y(), mouse_pos.y());
     qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
-    if (m_currentItem->modelType() == Constants::RectangleMaskType
-        || m_currentItem->modelType() == Constants::RegionOfInterestType) {
+    if (m_currentItem->modelType() == "RectangleMask"
+        || m_currentItem->modelType() == "RegionOfInterest") {
         m_currentItem->setItemValue(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
         m_currentItem->setItemValue(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
         m_currentItem->setItemValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
         m_currentItem->setItemValue(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
-    } else if (m_currentItem->modelType() == Constants::EllipseMaskType) {
+    } else if (m_currentItem->modelType() == "EllipseMask") {
         m_currentItem->setItemValue(EllipseItem::P_XCENTER,
                                     m_adaptor->fromSceneX(xmin + (xmax - xmin) / 2.));
         m_currentItem->setItemValue(EllipseItem::P_YCENTER,
@@ -638,14 +637,14 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
     if (!m_currentItem) {
         setDrawingInProgress(true);
         m_currentItem =
-            m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskContainerIndex, 0);
+            m_maskModel->insertNewItem("PolygonMask", m_maskContainerIndex, 0);
         m_currentItem->setItemValue(MaskItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
         m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem),
                                  QItemSelectionModel::Select);
         setItemName(m_currentItem);
     }
-    Q_ASSERT(m_currentItem->modelType() == Constants::PolygonMaskType);
+    Q_ASSERT(m_currentItem->modelType() == "PolygonMask");
 
     if (PolygonView* polygon = currentPolygon()) {
         if (polygon->closePolygonIfNecessary()) {
@@ -654,7 +653,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
             return;
         }
     }
-    SessionItem* point = m_maskModel->insertNewItem(Constants::PolygonPointType,
+    SessionItem* point = m_maskModel->insertNewItem("PolygonPoint",
                                                     m_maskModel->indexOfItem(m_currentItem));
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
 
@@ -684,14 +683,14 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent* event)
 void MaskGraphicsScene::processVerticalLineItem(const QPointF& pos)
 {
     m_currentItem =
-        m_maskModel->insertNewItem(Constants::VerticalLineMaskType, m_maskContainerIndex, 0);
+        m_maskModel->insertNewItem("VerticalLineMask", m_maskContainerIndex, 0);
     m_currentItem->setItemValue(VerticalLineItem::P_POSX, m_adaptor->fromSceneX(pos.x()));
 }
 
 void MaskGraphicsScene::processHorizontalLineItem(const QPointF& pos)
 {
     m_currentItem =
-        m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskContainerIndex, 0);
+        m_maskModel->insertNewItem("HorizontalLineMask", m_maskContainerIndex, 0);
     m_currentItem->setItemValue(HorizontalLineItem::P_POSY, m_adaptor->fromSceneY(pos.y()));
 }
 
@@ -699,7 +698,7 @@ void MaskGraphicsScene::processMaskAllItem(QGraphicsSceneMouseEvent* event)
 {
     Q_UNUSED(event);
     setDrawingInProgress(true);
-    m_currentItem = m_maskModel->insertNewItem(Constants::MaskAllType, m_maskContainerIndex);
+    m_currentItem = m_maskModel->insertNewItem("MaskAllMask", m_maskContainerIndex);
     m_selectionModel->clearSelection();
     setDrawingInProgress(false);
 }
@@ -735,7 +734,7 @@ PolygonView* MaskGraphicsScene::currentPolygon() const
 
 void MaskGraphicsScene::setItemName(SessionItem* itemToChange)
 {
-    if (itemToChange->modelType() == Constants::RegionOfInterestType)
+    if (itemToChange->modelType() == "RegionOfInterest")
         return;
 
     int glob_index(0);

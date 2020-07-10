@@ -69,7 +69,7 @@ MaskContainerItem* RealDataMaskWidget::maskContainer(IntensityDataItem* intensit
 {
     auto containerItem = intensityData->getItem(IntensityDataItem::T_MASKS);
     if (!containerItem)
-        containerItem = intensityData->model()->insertNewItem(Constants::MaskContainerType,
+        containerItem = intensityData->model()->insertNewItem("MaskContainer",
                                                               intensityData->index());
 
     MaskContainerItem* result = dynamic_cast<MaskContainerItem*>(containerItem);

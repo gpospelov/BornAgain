@@ -45,20 +45,20 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
 
     // adding RealDataItem
     RealDataItem* realData =
-        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem(Constants::RealDataType));
+        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem("RealData"));
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
     realData->setOutputData(TestUtils::createData().release());
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
 
     // adding JobItem
-    SessionItem* jobItem = models.jobModel()->insertNewItem(Constants::JobItemType);
+    SessionItem* jobItem = models.jobModel()->insertNewItem("JobItem");
     SessionItem* dataItem = models.jobModel()->insertNewItem(
-        Constants::IntensityDataType, jobItem->index(), -1, JobItem::T_OUTPUT);
+        "IntensityData", jobItem->index(), -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding RealDataItem to jobItem
     RealDataItem* realData2 = dynamic_cast<RealDataItem*>(models.jobModel()->insertNewItem(
-        Constants::RealDataType, jobItem->index(), -1, JobItem::T_REALDATA));
+        "RealData", jobItem->index(), -1, JobItem::T_REALDATA));
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
     realData2->setOutputData(TestUtils::createData(0.0, TestUtils::DIM::D1).release());
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
@@ -90,7 +90,7 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
 TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
 {
     SessionModel model("TempModel");
-    DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
 
     item->setLastModified(QDateTime::currentDateTime());
 
@@ -111,9 +111,9 @@ TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
 TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 {
     SessionModel model("TempModel");
-    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
 
-    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
     item1->setOutputData(m_data.clone());
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());
@@ -148,9 +148,9 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
 {
     SessionModel model("TempModel");
-    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
 
-    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
     item1->setOutputData(m_data.clone());
     item2->setOutputData(m_data.clone());
 
@@ -203,8 +203,8 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     QTest::qSleep(10);
 
     // Checking existance of data on disk
-    QString fname1 = "./" + projectDir + "/" + "realdata_data1_0.int.gz";
-    QString fname2 = "./" + projectDir + "/" + "realdata_data2_0.int.gz";
+    QString fname1 = "./" + projectDir + "/realdata_data1_0.int.gz";
+    QString fname2 = "./" + projectDir + "/realdata_data2_0.int.gz";
     EXPECT_TRUE(ProjectUtils::exists(fname1));
     EXPECT_TRUE(ProjectUtils::exists(fname2));
 
@@ -233,7 +233,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     service.save(projectDir);
     QTest::qSleep(10);
 
-    QString fname2new = "./" + projectDir + "/" + "realdata_data2new_0.int.gz";
+    QString fname2new = "./" + projectDir + "/realdata_data2new_0.int.gz";
     EXPECT_TRUE(ProjectUtils::exists(fname2new));
     EXPECT_TRUE(TestUtils::isTheSame(fname2new, *realData2->dataItem()->getOutputData()));
 
@@ -251,11 +251,11 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
 
     // adding RealDataItem
     RealDataItem* realData =
-        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem(Constants::RealDataType));
+        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem("RealData"));
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
 
     ImportDataInfo import_data(std::unique_ptr<OutputData<double>>(m_data.clone()),
-                               Constants::UnitsNbins);
+                               "nbins");
     realData->setImportData(std::move(import_data));
 
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 2);
@@ -263,9 +263,9 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
 
     // adding JobItem
     JobItem* jobItem =
-        dynamic_cast<JobItem*>(models.jobModel()->insertNewItem(Constants::JobItemType));
+        dynamic_cast<JobItem*>(models.jobModel()->insertNewItem("JobItem"));
     jobItem->setIdentifier(GUIHelpers::createUuid());
-    models.jobModel()->insertNewItem(Constants::IntensityDataType, jobItem->index(), -1,
+    models.jobModel()->insertNewItem("IntensityData", jobItem->index(), -1,
                                      JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 

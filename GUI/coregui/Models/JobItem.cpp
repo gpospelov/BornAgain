@@ -26,7 +26,6 @@
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
@@ -51,15 +50,15 @@ const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
 const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
 const QString JobItem::T_FIT_SUITE = "Fit Suite";
 
-JobItem::JobItem() : SessionItem(Constants::JobItemType)
+JobItem::JobItem() : SessionItem("JobItem")
 {
-    setItemName(Constants::JobItemType);
+    setItemName("JobItem");
     addProperty(P_IDENTIFIER, QString())->setVisible(false);
     addProperty(P_SAMPLE_NAME, QString())->setEditable(false);
     addProperty(P_INSTRUMENT_NAME, QString())->setEditable(false);
     addProperty(P_WITH_FITTING, false)->setVisible(false);
 
-    addProperty(P_STATUS, Constants::STATUS_IDLE)->setEditable(false);
+    addProperty(P_STATUS, "Idle")->setEditable(false);
 
     addProperty(P_BEGIN_TIME, QString())->setEditable(false);
     addProperty(P_END_TIME, QString())->setEditable(false);
@@ -72,21 +71,21 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     addProperty(P_PROGRESS, 0)->setVisible(false);
     addProperty(P_PRESENTATION_TYPE, QVariant::Type::Invalid)->setVisible(false);
 
-    registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
-    registerTag(T_MATERIAL_CONTAINER, 1, 1, QStringList{Constants::MaterialContainerType});
+    registerTag(T_SAMPLE, 1, 1, QStringList() << "MultiLayer");
+    registerTag(T_MATERIAL_CONTAINER, 1, 1, QStringList{"MaterialContainer"});
     registerTag(T_INSTRUMENT, 1, 1,
-                QStringList() << Constants::GISASInstrumentType << Constants::OffSpecInstrumentType
-                              << Constants::SpecularInstrumentType
-                              << Constants::DepthProbeInstrumentType);
+                QStringList() << "GISASInstrument" << "OffSpecInstrument"
+                              << "SpecularInstrument"
+                              << "DepthProbeInstrument");
     registerTag(T_OUTPUT, 1, 1,
-                QStringList() << Constants::IntensityDataType << Constants::SpecularDataType);
-    registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
-    registerTag(T_DATAVIEW, 1, 1, QStringList() << Constants::Data1DViewItemType);
-    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
+                QStringList() << "IntensityData" << "SpecularData");
+    registerTag(T_REALDATA, 1, 1, QStringList() << "RealData");
+    registerTag(T_DATAVIEW, 1, 1, QStringList() << "Data1DViewItem");
+    registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << "Parameter Container");
 
-    registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
+    registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << "SimulationOptions");
 
-    registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
+    registerTag(T_FIT_SUITE, 1, 1, QStringList() << "FitSuite");
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
         if (item->parent() == this && dynamic_cast<DataItem*>(item)
@@ -128,7 +127,7 @@ QString JobItem::getStatus() const
 void JobItem::setStatus(const QString& status)
 {
     setItemValue(P_STATUS, status);
-    if (status == Constants::STATUS_FAILED) {
+    if (status == "Failed") {
         if (DataItem* intensityItem = dataItem()) {
             if (intensityItem->getOutputData())
                 intensityItem->getOutputData()->setAllTo(0.0);
@@ -139,27 +138,27 @@ void JobItem::setStatus(const QString& status)
 
 bool JobItem::isIdle() const
 {
-    return getStatus() == Constants::STATUS_IDLE;
+    return getStatus() == "Idle";
 }
 
 bool JobItem::isRunning() const
 {
-    return getStatus() == Constants::STATUS_RUNNING;
+    return getStatus() == "Running";
 }
 
 bool JobItem::isCompleted() const
 {
-    return getStatus() == Constants::STATUS_COMPLETED;
+    return getStatus() == "Completed";
 }
 
 bool JobItem::isCanceled() const
 {
-    return getStatus() == Constants::STATUS_CANCELED;
+    return getStatus() == "Canceled";
 }
 
 bool JobItem::isFailed() const
 {
-    return getStatus() == Constants::STATUS_FAILED;
+    return getStatus() == "Failed";
 }
 
 bool JobItem::isValidForFitting()

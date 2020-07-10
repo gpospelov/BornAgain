@@ -39,10 +39,10 @@ const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = QString::fromStdStri
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
-    registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
+    registerTag(T_MASKS, 0, -1, QStringList() << "MaskContainer");
     setDefaultTag(T_MASKS);
 
-    addGroupProperty(P_ANALYZER_DIRECTION, Constants::VectorType)
+    addGroupProperty(P_ANALYZER_DIRECTION, "Vector")
         ->setToolTip(analyzer_direction_tooltip);
     addProperty(P_ANALYZER_EFFICIENCY, 0.0)
         ->setLimits(RealLimits::limitless())
@@ -91,7 +91,7 @@ MaskContainerItem* DetectorItem::maskContainerItem() const
 void DetectorItem::createMaskContainer()
 {
     if (!maskContainerItem())
-        model()->insertNewItem(Constants::MaskContainerType, this->index());
+        model()->insertNewItem("MaskContainer", this->index());
 }
 
 void DetectorItem::importMasks(const MaskContainerItem* maskContainer)
@@ -104,7 +104,7 @@ void DetectorItem::importMasks(const MaskContainerItem* maskContainer)
 
 void DetectorItem::register_resolution_function()
 {
-    auto item = addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
+    auto item = addGroupProperty(P_RESOLUTION_FUNCTION, "Resolution function group");
     item->setDisplayName(res_func_group_label);
     item->setToolTip("Detector resolution function");
 }
@@ -113,8 +113,8 @@ void DetectorItem::update_resolution_function_tooltips()
 {
     auto& resfuncItem = groupItem<ResolutionFunctionItem>(DetectorItem::P_RESOLUTION_FUNCTION);
 
-    if (resfuncItem.modelType() == Constants::ResolutionFunction2DGaussianType) {
-        QString units = modelType() == Constants::SphericalDetectorType ? "deg" : "mm";
+    if (resfuncItem.modelType() == "ResolutionFunction2DGaussian") {
+        QString units = modelType() == "SphericalDetector" ? "deg" : "mm";
 
         resfuncItem.getItem(ResolutionFunction2DGaussianItem::P_SIGMA_X)
             ->setToolTip("Resolution along horizontal axis (in " + units + ")");
@@ -141,7 +141,7 @@ void DetectorItem::addMasksToDomain(IDetector2D* detector) const
     for (int i_row = maskContainer->children().size(); i_row > 0; --i_row) {
         if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->children().at(i_row - 1))) {
 
-            if (maskItem->modelType() == Constants::RegionOfInterestType) {
+            if (maskItem->modelType() == "RegionOfInterest") {
                 double xlow = scale * maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
                 double ylow = scale * maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
                 double xup = scale * maskItem->getItemValue(RectangleItem::P_XUP).toDouble();

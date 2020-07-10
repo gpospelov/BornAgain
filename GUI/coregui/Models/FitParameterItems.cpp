@@ -34,9 +34,9 @@ ComboProperty fitParameterTypeCombo()
                                          << QStringLiteral("No limits imposed to parameter value");
 
     ComboProperty result;
-    result << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED << Constants::FITPAR_LOWERLIMITED
-           << Constants::FITPAR_UPPERLIMITED << Constants::FITPAR_FREE;
-    result.setValue(Constants::FITPAR_LIMITED);
+    result << "fixed" << "limited" << "lower limited"
+           << "upper limited" << "free";
+    result.setValue("limited");
     result.setToolTips(tooltips);
     return result;
 }
@@ -49,7 +49,7 @@ const double range_factor = 0.5;
 const QString FitParameterLinkItem::P_LINK = "Link";
 const QString FitParameterLinkItem::P_DOMAIN = "Domain";
 
-FitParameterLinkItem::FitParameterLinkItem() : SessionItem(Constants::FitParameterLinkType)
+FitParameterLinkItem::FitParameterLinkItem() : SessionItem("FitParameterLink")
 {
     addProperty(P_LINK, "");
     addProperty(P_DOMAIN, "");
@@ -63,13 +63,13 @@ const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
 const QString FitParameterItem::T_LINK = "Link tag";
 
-FitParameterItem::FitParameterItem() : SessionItem(Constants::FitParameterType)
+FitParameterItem::FitParameterItem() : SessionItem("FitParameter")
 {
     addProperty(P_TYPE, fitParameterTypeCombo().variant());
-    addProperty(P_START_VALUE, 0.0)->setEditorType(Constants::ScientificSpinBoxType);
-    addProperty(P_MIN, 0.0)->setEditorType(Constants::ScientificSpinBoxType);
-    addProperty(P_MAX, 0.0)->setEditorType(Constants::ScientificSpinBoxType).setEnabled(false);
-    registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
+    addProperty(P_START_VALUE, 0.0)->setEditorType("ScientificSpinBox");
+    addProperty(P_MIN, 0.0)->setEditorType("ScientificSpinBox");
+    addProperty(P_MAX, 0.0)->setEditorType("ScientificSpinBox").setEnabled(false);
+    registerTag(T_LINK, 0, -1, QStringList() << "FitParameterLink");
     setDefaultTag(T_LINK);
 
     getItem(P_START_VALUE)->setLimits(RealLimits::limitless());
@@ -209,27 +209,27 @@ void FitParameterItem::setLimitEnabled(const QString& name, bool enabled)
 
 bool FitParameterItem::isLimited() const
 {
-    return parameterType() == Constants::FITPAR_LIMITED;
+    return parameterType() == "limited";
 }
 
 bool FitParameterItem::isFree() const
 {
-    return parameterType() == Constants::FITPAR_FREE;
+    return parameterType() == "free";
 }
 
 bool FitParameterItem::isLowerLimited() const
 {
-    return parameterType() == Constants::FITPAR_LOWERLIMITED;
+    return parameterType() == "lower limited";
 }
 
 bool FitParameterItem::isUpperLimited() const
 {
-    return parameterType() == Constants::FITPAR_UPPERLIMITED;
+    return parameterType() == "upper limited";
 }
 
 bool FitParameterItem::isFixed() const
 {
-    return parameterType() == Constants::FITPAR_FIXED;
+    return parameterType() == "fixed";
 }
 
 // ----------------------------------------------------------------------------
@@ -237,9 +237,9 @@ bool FitParameterItem::isFixed() const
 const QString FitParameterContainerItem::T_FIT_PARAMETERS = "Data tag";
 
 FitParameterContainerItem::FitParameterContainerItem()
-    : SessionItem(Constants::FitParameterContainerType)
+    : SessionItem("FitParameterContainer")
 {
-    registerTag(T_FIT_PARAMETERS, 0, -1, QStringList() << Constants::FitParameterType);
+    registerTag(T_FIT_PARAMETERS, 0, -1, QStringList() << "FitParameter");
     setDefaultTag(T_FIT_PARAMETERS);
 }
 

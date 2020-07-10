@@ -110,8 +110,8 @@ void SpecularPlot::subscribeToItem()
 
     specularItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            if (item->modelType() == Constants::BasicAxisType
-                || item->modelType() == Constants::AmplitudeAxisType)
+            if (item->modelType() == "BasicAxis"
+                || item->modelType() == "AmplitudeAxis")
                 modifyAxesProperties(item->itemName(), name);
         },
         this);

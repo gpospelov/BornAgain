@@ -91,9 +91,9 @@ QString PropertyEditorFactory::toString(const QModelIndex& index)
 
     if (isDoubleProperty(variant) && index.internalPointer()) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
-        return item->editorType() == Constants::ScientificEditorType
+        return item->editorType() == "ScientificDouble"
                    ? QString::number(item->value().toDouble(), 'g')
-                   : item->editorType() == Constants::ScientificSpinBoxType
+                   : item->editorType() == "ScientificSpinBox"
                          ? ScientificSpinBox::toString(item->value().toDouble(), item->decimals())
                          : QString::number(item->value().toDouble(), 'f', item->decimals());
     }
@@ -106,12 +106,12 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
     QWidget* result(nullptr);
 
     if (isDoubleProperty(item.value())) {
-        if (item.editorType() == Constants::ScientificEditorType) {
+        if (item.editorType() == "ScientificDouble") {
             auto editor = new ScientificDoublePropertyEditor;
             auto limits = item.limits();
             editor->setLimits(limits);
             result = editor;
-        } else if (item.editorType() == Constants::ScientificSpinBoxType) {
+        } else if (item.editorType() == "ScientificSpinBox") {
             auto editor = new ScientificSpinBoxEditor;
             auto limits = item.limits();
             editor->setLimits(limits);
@@ -135,14 +135,14 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
         result = createCustomStringEditor(item);
     } else if (isExternalProperty(item.value())) {
         auto editor = new ExternalPropertyEditor;
-        if (item.editorType() != Constants::DefaultEditorType)
+        if (item.editorType() != "Default")
             editor->setExternalDialogType(item.editorType());
         result = editor;
     } else if (isComboProperty(item.value())) {
-        if (item.editorType() == Constants::DefaultEditorType) {
+        if (item.editorType() == "Default") {
             auto editor = new ComboPropertyEditor;
             result = editor;
-        } else if (item.editorType() == Constants::MultiSelectionComboEditorType) {
+        } else if (item.editorType() == "MultiSelectionComboEditor") {
             auto editor = new MultiComboPropertyEditor;
             result = editor;
         }

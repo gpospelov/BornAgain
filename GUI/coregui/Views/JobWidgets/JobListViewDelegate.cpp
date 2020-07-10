@@ -27,11 +27,11 @@
 JobListViewDelegate::JobListViewDelegate(QWidget* parent) : QItemDelegate(parent)
 {
     m_buttonState = QStyle::State_Enabled;
-    m_status_to_color[Constants::STATUS_IDLE] = QColor(255, 286, 12);
-    m_status_to_color[Constants::STATUS_RUNNING] = QColor(5, 150, 230);
-    m_status_to_color[Constants::STATUS_COMPLETED] = QColor(5, 150, 230);
-    m_status_to_color[Constants::STATUS_CANCELED] = QColor(186, 0, 0);
-    m_status_to_color[Constants::STATUS_FAILED] = QColor(255, 186, 12);
+    m_status_to_color["Idle"] = QColor(255, 286, 12);
+    m_status_to_color["Running"] = QColor(5, 150, 230);
+    m_status_to_color["Completed"] = QColor(5, 150, 230);
+    m_status_to_color["Canceled"] = QColor(186, 0, 0);
+    m_status_to_color["Failed"] = QColor(255, 186, 12);
 }
 
 void JobListViewDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,

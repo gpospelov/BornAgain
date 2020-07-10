@@ -70,185 +70,185 @@ ItemCatalogue::ItemCatalogue()
 {
     init_top_item_types();
 
-    add(Constants::MultiLayerType, create_new<MultiLayerItem>);
-    add(Constants::LayerType, create_new<LayerItem>);
-    add(Constants::ParticleLayoutType, create_new<ParticleLayoutItem>);
-    add(Constants::ParticleType, create_new<ParticleItem>);
-    add(Constants::RotationType, create_new<TransformationItem>);
-    add(Constants::ParticleCoreShellType, create_new<ParticleCoreShellItem>);
-    add(Constants::ParticleCompositionType, create_new<ParticleCompositionItem>);
-    add(Constants::ParticleDistributionType, create_new<ParticleDistributionItem>);
-    add(Constants::MesoCrystalType, create_new<MesoCrystalItem>);
-    add(Constants::InterferenceFunction1DLatticeType,
+    add("MultiLayer", create_new<MultiLayerItem>);
+    add("Layer", create_new<LayerItem>);
+    add("ParticleLayout", create_new<ParticleLayoutItem>);
+    add("Particle", create_new<ParticleItem>);
+    add("Rotation", create_new<TransformationItem>);
+    add("ParticleCoreShell", create_new<ParticleCoreShellItem>);
+    add("ParticleComposition", create_new<ParticleCompositionItem>);
+    add("ParticleDistribution", create_new<ParticleDistributionItem>);
+    add("MesoCrystal", create_new<MesoCrystalItem>);
+    add("Interference1DLattice",
         create_new<InterferenceFunction1DLatticeItem>);
-    add(Constants::InterferenceFunction2DLatticeType,
+    add("Interference2DLattice",
         create_new<InterferenceFunction2DLatticeItem>);
-    add(Constants::InterferenceFunction2DParaCrystalType,
+    add("Interference2DParaCrystal",
         create_new<InterferenceFunction2DParaCrystalItem>);
-    add(Constants::InterferenceFunctionFinite2DLatticeType,
+    add("InterferenceFinite2DLattice",
         create_new<InterferenceFunctionFinite2DLatticeItem>);
-    add(Constants::InterferenceFunctionHardDiskType, create_new<InterferenceFunctionHardDiskItem>);
-    add(Constants::InterferenceFunctionRadialParaCrystalType,
+    add("InterferenceHardDisk", create_new<InterferenceFunctionHardDiskItem>);
+    add("InterferenceRadialParaCrystal",
         create_new<InterferenceFunctionRadialParaCrystalItem>);
-    add(Constants::GISASInstrumentType, create_new<GISASInstrumentItem>);
-    add(Constants::OffSpecInstrumentType, create_new<OffSpecInstrumentItem>);
-    add(Constants::SpecularInstrumentType, create_new<SpecularInstrumentItem>);
-    add(Constants::GISASBeamType, create_new<GISASBeamItem>);
-    add(Constants::SpecularBeamType, create_new<SpecularBeamItem>);
-    add(Constants::BackgroundNoneType, create_new<BackgroundNoneItem>);
-    add(Constants::ConstantBackgroundType, create_new<ConstantBackgroundItem>);
-    add(Constants::PoissonNoiseBackgroundType, create_new<PoissonNoiseBackgroundItem>);
-    add(Constants::FootprintNoneType, create_new<FootprintNoneItem>);
-    add(Constants::FootprintGaussianType, create_new<FootprintGaussianItem>);
-    add(Constants::FootprintSquareType, create_new<FootprintSquareItem>);
-    add(Constants::VectorType, create_new<VectorItem>);
-    add(Constants::PropertyType, create_new<PropertyItem>);
+    add("GISASInstrument", create_new<GISASInstrumentItem>);
+    add("OffSpecInstrument", create_new<OffSpecInstrumentItem>);
+    add("SpecularInstrument", create_new<SpecularInstrumentItem>);
+    add("GISASBeam", create_new<GISASBeamItem>);
+    add("SpecularBeam", create_new<SpecularBeamItem>);
+    add("NoBackground", create_new<BackgroundNoneItem>);
+    add("ConstantBackground", create_new<ConstantBackgroundItem>);
+    add("PoissonNoiseBackground", create_new<PoissonNoiseBackgroundItem>);
+    add("NoFootprint", create_new<FootprintNoneItem>);
+    add("GaussianFootrpint", create_new<FootprintGaussianItem>);
+    add("SquareFootprint", create_new<FootprintSquareItem>);
+    add("Vector", create_new<VectorItem>);
+    add("Property", create_new<PropertyItem>);
 
-    add(Constants::AnisoPyramidType, create_new<AnisoPyramidItem>);
-    add(Constants::BarGaussType, create_new<BarGaussItem>);
-    add(Constants::BarLorentzType, create_new<BarLorentzItem>);
-    add(Constants::BoxType, create_new<BoxItem>);
-    add(Constants::ConeType, create_new<ConeItem>);
-    add(Constants::Cone6Type, create_new<Cone6Item>);
-    add(Constants::CuboctahedronType, create_new<CuboctahedronItem>);
-    add(Constants::DodecahedronType, create_new<DodecahedronItem>);
-    add(Constants::DotType, create_new<DotItem>);
-    add(Constants::CylinderType, create_new<CylinderItem>);
-    add(Constants::EllipsoidalCylinderType, create_new<EllipsoidalCylinderItem>);
-    add(Constants::FullSphereType, create_new<FullSphereItem>);
-    add(Constants::FullSpheroidType, create_new<FullSpheroidItem>);
-    add(Constants::HemiEllipsoidType, create_new<HemiEllipsoidItem>);
-    add(Constants::IcosahedronType, create_new<IcosahedronItem>);
-    add(Constants::Prism3Type, create_new<Prism3Item>);
-    add(Constants::Prism6Type, create_new<Prism6Item>);
-    add(Constants::PyramidType, create_new<PyramidItem>);
-    add(Constants::Ripple1BoxType, create_new<Ripple1BoxItem>);
-    add(Constants::Ripple1GaussType, create_new<Ripple1GaussItem>);
-    add(Constants::Ripple1LorentzType, create_new<Ripple1LorentzItem>);
-    add(Constants::Ripple2BoxType, create_new<Ripple2BoxItem>);
-    add(Constants::Ripple2GaussType, create_new<Ripple2GaussItem>);
-    add(Constants::Ripple2LorentzType, create_new<Ripple2LorentzItem>);
-    add(Constants::TetrahedronType, create_new<TetrahedronItem>);
-    add(Constants::TruncatedCubeType, create_new<TruncatedCubeItem>);
-    add(Constants::TruncatedSphereType, create_new<TruncatedSphereItem>);
-    add(Constants::TruncatedSpheroidType, create_new<TruncatedSpheroidItem>);
+    add("AnisoPyramid", create_new<AnisoPyramidItem>);
+    add("BarGauss", create_new<BarGaussItem>);
+    add("BarLorentz", create_new<BarLorentzItem>);
+    add("Box", create_new<BoxItem>);
+    add("Cone", create_new<ConeItem>);
+    add("Cone6", create_new<Cone6Item>);
+    add("Cuboctahedron", create_new<CuboctahedronItem>);
+    add("Dodecahedron", create_new<DodecahedronItem>);
+    add("Dot", create_new<DotItem>);
+    add("Cylinder", create_new<CylinderItem>);
+    add("EllipsoidalCylinder", create_new<EllipsoidalCylinderItem>);
+    add("FullSphere", create_new<FullSphereItem>);
+    add("FullSpheroid", create_new<FullSpheroidItem>);
+    add("HemiEllipsoid", create_new<HemiEllipsoidItem>);
+    add("Icosahedron", create_new<IcosahedronItem>);
+    add("Prism3", create_new<Prism3Item>);
+    add("Prism6", create_new<Prism6Item>);
+    add("Pyramid", create_new<PyramidItem>);
+    add("Ripple1Box", create_new<Ripple1BoxItem>);
+    add("Ripple1Gauss", create_new<Ripple1GaussItem>);
+    add("Ripple1Lorentz", create_new<Ripple1LorentzItem>);
+    add("Ripple2Box", create_new<Ripple2BoxItem>);
+    add("Ripple2Gauss", create_new<Ripple2GaussItem>);
+    add("Ripple2Lorentz", create_new<Ripple2LorentzItem>);
+    add("Tetrahedron", create_new<TetrahedronItem>);
+    add("TruncatedCube", create_new<TruncatedCubeItem>);
+    add("TruncatedSphere", create_new<TruncatedSphereItem>);
+    add("TruncatedSpheroid", create_new<TruncatedSpheroidItem>);
 
-    add(Constants::XRotationType, create_new<XRotationItem>);
-    add(Constants::YRotationType, create_new<YRotationItem>);
-    add(Constants::ZRotationType, create_new<ZRotationItem>);
-    add(Constants::EulerRotationType, create_new<EulerRotationItem>);
+    add("XRotation", create_new<XRotationItem>);
+    add("YRotation", create_new<YRotationItem>);
+    add("ZRotation", create_new<ZRotationItem>);
+    add("EulerRotation", create_new<EulerRotationItem>);
 
-    add(Constants::LayerBasicRoughnessType, create_new<LayerBasicRoughnessItem>);
-    add(Constants::LayerZeroRoughnessType, create_new<LayerZeroRoughnessItem>);
+    add("LayerBasicRoughness", create_new<LayerBasicRoughnessItem>);
+    add("LayerZeroRoughness", create_new<LayerZeroRoughnessItem>);
 
-    add(Constants::SphericalDetectorType, create_new<SphericalDetectorItem>);
-    add(Constants::RectangularDetectorType, create_new<RectangularDetectorItem>);
+    add("SphericalDetector", create_new<SphericalDetectorItem>);
+    add("RectangularDetector", create_new<RectangularDetectorItem>);
 
-    add(Constants::DistributionNoneType, create_new<DistributionNoneItem>);
-    add(Constants::DistributionGateType, create_new<DistributionGateItem>);
-    add(Constants::DistributionLorentzType, create_new<DistributionLorentzItem>);
-    add(Constants::DistributionGaussianType, create_new<DistributionGaussianItem>);
-    add(Constants::DistributionLogNormalType, create_new<DistributionLogNormalItem>);
-    add(Constants::DistributionCosineType, create_new<DistributionCosineItem>);
-    add(Constants::DistributionTrapezoidType, create_new<DistributionTrapezoidItem>);
+    add("DistributionNone", create_new<DistributionNoneItem>);
+    add("DistributionGate", create_new<DistributionGateItem>);
+    add("DistributionLorentz", create_new<DistributionLorentzItem>);
+    add("DistributionGaussian", create_new<DistributionGaussianItem>);
+    add("DistributionLogNormal", create_new<DistributionLogNormalItem>);
+    add("DistributionCosine", create_new<DistributionCosineItem>);
+    add("DistributionTrapezoid", create_new<DistributionTrapezoidItem>);
 
-    add(Constants::FTDistribution1DCauchyType, create_new<FTDistribution1DCauchyItem>);
-    add(Constants::FTDistribution1DGaussType, create_new<FTDistribution1DGaussItem>);
-    add(Constants::FTDistribution1DGateType, create_new<FTDistribution1DGateItem>);
-    add(Constants::FTDistribution1DTriangleType, create_new<FTDistribution1DTriangleItem>);
-    add(Constants::FTDistribution1DCosineType, create_new<FTDistribution1DCosineItem>);
-    add(Constants::FTDistribution1DVoigtType, create_new<FTDistribution1DVoigtItem>);
+    add("FTDistribution1DCauchy", create_new<FTDistribution1DCauchyItem>);
+    add("FTDistribution1DGauss", create_new<FTDistribution1DGaussItem>);
+    add("FTDistribution1DGate", create_new<FTDistribution1DGateItem>);
+    add("FTDistribution1DTriangle", create_new<FTDistribution1DTriangleItem>);
+    add("FTDistribution1DCosine", create_new<FTDistribution1DCosineItem>);
+    add("FTDistribution1DVoigt", create_new<FTDistribution1DVoigtItem>);
 
-    add(Constants::FTDistribution2DCauchyType, create_new<FTDistribution2DCauchyItem>);
-    add(Constants::FTDistribution2DGaussType, create_new<FTDistribution2DGaussItem>);
-    add(Constants::FTDistribution2DGateType, create_new<FTDistribution2DGateItem>);
-    add(Constants::FTDistribution2DConeType, create_new<FTDistribution2DConeItem>);
-    add(Constants::FTDistribution2DVoigtType, create_new<FTDistribution2DVoigtItem>);
+    add("FTDistribution2DCauchy", create_new<FTDistribution2DCauchyItem>);
+    add("FTDistribution2DGauss", create_new<FTDistribution2DGaussItem>);
+    add("FTDistribution2DGate", create_new<FTDistribution2DGateItem>);
+    add("FTDistribution2DCone", create_new<FTDistribution2DConeItem>);
+    add("FTDistribution2DVoigt", create_new<FTDistribution2DVoigtItem>);
 
-    add(Constants::FTDecayFunction1DCauchyType, create_new<FTDecayFunction1DCauchyItem>);
-    add(Constants::FTDecayFunction1DGaussType, create_new<FTDecayFunction1DGaussItem>);
-    add(Constants::FTDecayFunction1DTriangleType, create_new<FTDecayFunction1DTriangleItem>);
-    add(Constants::FTDecayFunction1DVoigtType, create_new<FTDecayFunction1DVoigtItem>);
+    add("FTDecayFunction1DCauchy", create_new<FTDecayFunction1DCauchyItem>);
+    add("FTDecayFunction1DGauss", create_new<FTDecayFunction1DGaussItem>);
+    add("FTDecayFunction1DTriangle", create_new<FTDecayFunction1DTriangleItem>);
+    add("FTDecayFunction1DVoigt", create_new<FTDecayFunction1DVoigtItem>);
 
-    add(Constants::FTDecayFunction2DCauchyType, create_new<FTDecayFunction2DCauchyItem>);
-    add(Constants::FTDecayFunction2DGaussType, create_new<FTDecayFunction2DGaussItem>);
-    add(Constants::FTDecayFunction2DVoigtType, create_new<FTDecayFunction2DVoigtItem>);
+    add("FTDecayFunction2DCauchy", create_new<FTDecayFunction2DCauchyItem>);
+    add("FTDecayFunction2DGauss", create_new<FTDecayFunction2DGaussItem>);
+    add("FTDecayFunction2DVoigt", create_new<FTDecayFunction2DVoigtItem>);
 
-    add(Constants::BasicLatticeType, create_new<BasicLatticeItem>);
-    add(Constants::SquareLatticeType, create_new<SquareLatticeItem>);
-    add(Constants::HexagonalLatticeType, create_new<HexagonalLatticeItem>);
+    add("BasicLattice", create_new<BasicLatticeItem>);
+    add("SquareLattice", create_new<SquareLatticeItem>);
+    add("HexagonalLattice", create_new<HexagonalLatticeItem>);
 
-    add(Constants::MaterialType, create_new<MaterialItem>);
-    add(Constants::MaterialContainerType, create_new<MaterialItemContainer>);
+    add("Material", create_new<MaterialItem>);
+    add("MaterialContainer", create_new<MaterialItemContainer>);
 
-    add(Constants::MaterialRefractiveDataType, create_new<MaterialRefractiveDataItem>);
-    add(Constants::MaterialSLDDataType, create_new<MaterialSLDDataItem>);
+    add("MaterialRefractiveData", create_new<MaterialRefractiveDataItem>);
+    add("MaterialSLDData", create_new<MaterialSLDDataItem>);
 
-    add(Constants::JobItemType, create_new<JobItem>);
+    add("JobItem", create_new<JobItem>);
 
-    add(Constants::IntensityDataType, create_new<IntensityDataItem>);
-    add(Constants::SpecularDataType, create_new<SpecularDataItem>);
-    add(Constants::Data1DViewItemType, create_new<Data1DViewItem>);
-    add(Constants::DataPropertyContainerType, create_new<DataPropertyContainer>);
-    add(Constants::DataItem1DPropertiesType, create_new<Data1DProperties>);
+    add("IntensityData", create_new<IntensityDataItem>);
+    add("SpecularData", create_new<SpecularDataItem>);
+    add("Data1DViewItem", create_new<Data1DViewItem>);
+    add("DataPropertyContainer", create_new<DataPropertyContainer>);
+    add("DataItem1DProperties", create_new<Data1DProperties>);
 
-    add(Constants::BasicAxisType, create_new<BasicAxisItem>);
-    add(Constants::PointwiseAxisType, create_new<PointwiseAxisItem>);
-    add(Constants::AmplitudeAxisType, create_new<AmplitudeAxisItem>);
+    add("BasicAxis", create_new<BasicAxisItem>);
+    add("PointwiseAxis", create_new<PointwiseAxisItem>);
+    add("AmplitudeAxis", create_new<AmplitudeAxisItem>);
 
-    add(Constants::BeamWavelengthType, create_new<BeamWavelengthItem>);
-    add(Constants::BeamAzimuthalAngleType, create_new<BeamAzimuthalAngleItem>);
-    add(Constants::BeamInclinationAngleType, create_new<BeamInclinationAngleItem>);
-    add(Constants::SpecularBeamInclinationType, create_new<SpecularBeamInclinationItem>);
-    add(Constants::SpecularBeamWavelengthType, create_new<SpecularBeamWavelengthItem>);
+    add("BeamWavelength", create_new<BeamWavelengthItem>);
+    add("BeamAzimuthalAngle", create_new<BeamAzimuthalAngleItem>);
+    add("BeamInclinationAngle", create_new<BeamInclinationAngleItem>);
+    add("SpecularBeamInclinationAxis", create_new<SpecularBeamInclinationItem>);
+    add("SpecularBeamWavelength", create_new<SpecularBeamWavelengthItem>);
 
-    add(Constants::ResolutionFunctionNoneType, create_new<ResolutionFunctionNoneItem>);
-    add(Constants::ResolutionFunction2DGaussianType, create_new<ResolutionFunction2DGaussianItem>);
+    add("ResolutionFunctionNone", create_new<ResolutionFunctionNoneItem>);
+    add("ResolutionFunction2DGaussian", create_new<ResolutionFunction2DGaussianItem>);
 
-    add(Constants::MaskContainerType, create_new<MaskContainerItem>);
-    add(Constants::RectangleMaskType, create_new<RectangleItem>);
-    add(Constants::PolygonPointType, create_new<PolygonPointItem>);
-    add(Constants::PolygonMaskType, create_new<PolygonItem>);
-    add(Constants::VerticalLineMaskType, create_new<VerticalLineItem>);
-    add(Constants::HorizontalLineMaskType, create_new<HorizontalLineItem>);
-    add(Constants::EllipseMaskType, create_new<EllipseItem>);
-    add(Constants::MaskAllType, create_new<MaskAllItem>);
+    add("MaskContainer", create_new<MaskContainerItem>);
+    add("RectangleMask", create_new<RectangleItem>);
+    add("PolygonPoint", create_new<PolygonPointItem>);
+    add("PolygonMask", create_new<PolygonItem>);
+    add("VerticalLineMask", create_new<VerticalLineItem>);
+    add("HorizontalLineMask", create_new<HorizontalLineItem>);
+    add("EllipseMask", create_new<EllipseItem>);
+    add("MaskAllMask", create_new<MaskAllItem>);
 
-    add(Constants::RegionOfInterestType, create_new<RegionOfInterestItem>);
+    add("RegionOfInterest", create_new<RegionOfInterestItem>);
 
-    add(Constants::GroupItemType, create_new<GroupItem>);
+    add("GroupProperty", create_new<GroupItem>);
 
-    add(Constants::ParameterContainerType, create_new<ParameterContainerItem>);
-    add(Constants::ParameterLabelType, create_new<ParameterLabelItem>);
-    add(Constants::ParameterType, create_new<ParameterItem>);
+    add("Parameter Container", create_new<ParameterContainerItem>);
+    add("Parameter Label", create_new<ParameterLabelItem>);
+    add("Parameter", create_new<ParameterItem>);
 
-    add(Constants::FitParameterContainerType, create_new<FitParameterContainerItem>);
-    add(Constants::FitParameterType, create_new<FitParameterItem>);
-    add(Constants::FitParameterLinkType, create_new<FitParameterLinkItem>);
-    add(Constants::FitSuiteType, create_new<FitSuiteItem>);
+    add("FitParameterContainer", create_new<FitParameterContainerItem>);
+    add("FitParameter", create_new<FitParameterItem>);
+    add("FitParameterLink", create_new<FitParameterLinkItem>);
+    add("FitSuite", create_new<FitSuiteItem>);
 
-    add(Constants::SimulationOptionsType, create_new<SimulationOptionsItem>);
+    add("SimulationOptions", create_new<SimulationOptionsItem>);
 
-    add(Constants::RealDataType, create_new<RealDataItem>);
+    add("RealData", create_new<RealDataItem>);
 
-    add(Constants::MinimizerContainerType, create_new<MinimizerContainerItem>);
-    add(Constants::MinuitMinimizerType, create_new<MinuitMinimizerItem>);
-    add(Constants::GSLMultiMinimizerType, create_new<GSLMultiMinimizerItem>);
-    add(Constants::GeneticMinimizerType, create_new<GeneticMinimizerItem>);
-    add(Constants::GSLSimAnMinimizerType, create_new<SimAnMinimizerItem>);
-    add(Constants::GSLLMAMinimizerType, create_new<GSLLMAMinimizerItem>);
-    add(Constants::TestMinimizerType, create_new<TestMinimizerItem>);
+    add("MinimizerContainer", create_new<MinimizerContainerItem>);
+    add("Minuit2", create_new<MinuitMinimizerItem>);
+    add("GSLMultiMin", create_new<GSLMultiMinimizerItem>);
+    add("Genetic", create_new<GeneticMinimizerItem>);
+    add("GSLSimAn", create_new<SimAnMinimizerItem>);
+    add("GSLLMA", create_new<GSLLMAMinimizerItem>);
+    add("Test", create_new<TestMinimizerItem>);
 
-    add(Constants::RealLimitsLimitlessType, create_new<LimitlessItem>);
-    add(Constants::RealLimitsPositiveType, create_new<PositiveItem>);
-    add(Constants::RealLimitsNonnegativeType, create_new<NonnegativeItem>);
-    add(Constants::RealLimitsLowerLimitedType, create_new<LowerLimitedItem>);
-    add(Constants::RealLimitsUpperLimitedType, create_new<UpperLimitedItem>);
-    add(Constants::RealLimitsLimitedType, create_new<LimitedItem>);
+    add("RealLimitsLimitless", create_new<LimitlessItem>);
+    add("RealLimitsPositive", create_new<PositiveItem>);
+    add("RealLimitsNonnegative", create_new<NonnegativeItem>);
+    add("RealLimitsLowerLimited", create_new<LowerLimitedItem>);
+    add("RealLimitsUpperLimited", create_new<UpperLimitedItem>);
+    add("RealLimitsLimited", create_new<LimitedItem>);
 
-    add(Constants::ProjectionContainerType, create_new<ProjectionContainerItem>);
+    add("ProjectionContainer", create_new<ProjectionContainerItem>);
 
-    add(Constants::DepthProbeInstrumentType, create_new<DepthProbeInstrumentItem>);
+    add("DepthProbeInstrument", create_new<DepthProbeInstrumentItem>);
 }
 
 bool ItemCatalogue::contains(const QString& modelType) const
@@ -275,15 +275,15 @@ void ItemCatalogue::init_top_item_types()
 {
     m_valid_top_item_types.clear();
 
-    m_valid_top_item_types << Constants::MultiLayerType << Constants::LayerType
-                           << Constants::ParticleLayoutType << Constants::ParticleType
-                           << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
-                           << Constants::MesoCrystalType << Constants::ParticleDistributionType
-                           << Constants::RotationType
-                           << Constants::InterferenceFunction1DLatticeType
-                           << Constants::InterferenceFunction2DLatticeType
-                           << Constants::InterferenceFunction2DParaCrystalType
-                           << Constants::InterferenceFunctionFinite2DLatticeType
-                           << Constants::InterferenceFunctionHardDiskType
-                           << Constants::InterferenceFunctionRadialParaCrystalType;
+    m_valid_top_item_types << "MultiLayer" << "Layer"
+                           << "ParticleLayout" << "Particle"
+                           << "ParticleCoreShell" << "ParticleComposition"
+                           << "MesoCrystal" << "ParticleDistribution"
+                           << "Rotation"
+                           << "Interference1DLattice"
+                           << "Interference2DLattice"
+                           << "Interference2DParaCrystal"
+                           << "InterferenceFinite2DLattice"
+                           << "InterferenceHardDisk"
+                           << "InterferenceRadialParaCrystal";
 }

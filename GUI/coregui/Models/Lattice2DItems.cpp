@@ -36,7 +36,7 @@ const QString BasicLatticeItem::P_LATTICE_LENGTH1 = QString::fromStdString("Latt
 const QString BasicLatticeItem::P_LATTICE_LENGTH2 = QString::fromStdString("LatticeLength2");
 const QString BasicLatticeItem::P_LATTICE_ANGLE = QString::fromStdString("Alpha");
 
-BasicLatticeItem::BasicLatticeItem() : Lattice2DItem(Constants::BasicLatticeType)
+BasicLatticeItem::BasicLatticeItem() : Lattice2DItem("BasicLattice")
 {
     setToolTip(QStringLiteral("Two dimensional lattice"));
     addProperty(P_LATTICE_LENGTH1, 20.0)
@@ -60,7 +60,7 @@ std::unique_ptr<Lattice2D> BasicLatticeItem::createLattice() const
 
 const QString SquareLatticeItem::P_LATTICE_LENGTH = QString::fromStdString("LatticeLength");
 
-SquareLatticeItem::SquareLatticeItem() : Lattice2DItem(Constants::SquareLatticeType)
+SquareLatticeItem::SquareLatticeItem() : Lattice2DItem("SquareLattice")
 {
     addProperty(P_LATTICE_LENGTH, 20.0)
         ->setToolTip(QStringLiteral("Length of first and second lattice vectors in nanometers"));
@@ -78,7 +78,7 @@ std::unique_ptr<Lattice2D> SquareLatticeItem::createLattice() const
 
 const QString HexagonalLatticeItem::P_LATTICE_LENGTH = QString::fromStdString("LatticeLength");
 
-HexagonalLatticeItem::HexagonalLatticeItem() : Lattice2DItem(Constants::HexagonalLatticeType)
+HexagonalLatticeItem::HexagonalLatticeItem() : Lattice2DItem("HexagonalLattice")
 {
     addProperty(P_LATTICE_LENGTH, 20.0)
         ->setToolTip(QStringLiteral("Length of first and second lattice vectors in nanometers"));

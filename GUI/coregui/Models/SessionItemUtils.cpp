@@ -34,8 +34,8 @@ const GroupInfoCatalogue& groupInfoCatalogue()
 
 QStringList parents_with_abundance()
 {
-    return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
-                         << Constants::ParticleDistributionType << Constants::MesoCrystalType;
+    return QStringList() << "ParticleCoreShell" << "ParticleComposition"
+                         << "ParticleDistribution" << "MesoCrystal";
 }
 
 } // namespace
@@ -163,7 +163,7 @@ bool SessionItemUtils::IsTheSame(const QVariant& var1, const QVariant& var2)
 
 bool SessionItemUtils::IsPositionRelated(const SessionItem& item)
 {
-    if (item.modelType() == Constants::PropertyType
+    if (item.modelType() == "Property"
         && (item.displayName() == SessionGraphicsItem::P_XPOS
             || item.displayName() == SessionGraphicsItem::P_YPOS))
         return true;

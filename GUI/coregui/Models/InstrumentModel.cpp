@@ -40,7 +40,7 @@ QVector<SessionItem*> InstrumentModel::nonXMLData() const
                               ->getItem(BeamItem::P_INCLINATION_ANGLE)
                               ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
 
-        if (auto pointwise_axis = axis_group->getChildOfType(Constants::PointwiseAxisType))
+        if (auto pointwise_axis = axis_group->getChildOfType("PointwiseAxis"))
             result.push_back(pointwise_axis);
     }
 

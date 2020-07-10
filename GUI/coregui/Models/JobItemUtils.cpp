@@ -27,17 +27,17 @@
 
 namespace
 {
-const std::map<QString, AxesUnits> units_from_names{{Constants::UnitsNbins, AxesUnits::NBINS},
-                                                    {Constants::UnitsRadians, AxesUnits::RADIANS},
-                                                    {Constants::UnitsDegrees, AxesUnits::DEGREES},
-                                                    {Constants::UnitsMm, AxesUnits::MM},
-                                                    {Constants::UnitsQyQz, AxesUnits::QSPACE}};
+const std::map<QString, AxesUnits> units_from_names{{"nbins", AxesUnits::NBINS},
+                                                    {"Radians", AxesUnits::RADIANS},
+                                                    {"Degrees", AxesUnits::DEGREES},
+                                                    {"mm", AxesUnits::MM},
+                                                    {"q-space", AxesUnits::QSPACE}};
 
-const std::map<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, Constants::UnitsNbins},
-                                                    {AxesUnits::RADIANS, Constants::UnitsRadians},
-                                                    {AxesUnits::MM, Constants::UnitsMm},
-                                                    {AxesUnits::QSPACE, Constants::UnitsQyQz},
-                                                    {AxesUnits::DEGREES, Constants::UnitsDegrees}};
+const std::map<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, "nbins"},
+                                                    {AxesUnits::RADIANS, "Radians"},
+                                                    {AxesUnits::MM, "mm"},
+                                                    {AxesUnits::QSPACE, "q-space"},
+                                                    {AxesUnits::DEGREES, "Degrees"}};
 
 //! Updates axes' titles
 void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, AxesUnits units);

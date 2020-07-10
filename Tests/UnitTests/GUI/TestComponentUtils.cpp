@@ -2,7 +2,6 @@
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentUtils.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 #include <QDebug>
@@ -17,7 +16,7 @@ TEST_F(TestComponentUtils, test_componentItems)
 {
     SessionModel model("TestModel");
 
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = model.insertNewItem("Particle");
     SessionItem* group = particle->getItem(ParticleItem::P_FORM_FACTOR);
     SessionItem* ffItem = particle->getGroupItem(ParticleItem::P_FORM_FACTOR);
 
@@ -37,10 +36,10 @@ TEST_F(TestComponentUtils, test_componentItemsFFChange)
 {
     SessionModel model("TestModel");
 
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = model.insertNewItem("Particle");
     SessionItem* group = particle->getItem(ParticleItem::P_FORM_FACTOR);
 
-    particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::FullSphereType);
+    particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, "FullSphere");
     SessionItem* sphereItem = particle->getGroupItem(ParticleItem::P_FORM_FACTOR);
 
     QList<const SessionItem*> expectedList =

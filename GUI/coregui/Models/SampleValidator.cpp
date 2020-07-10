@@ -43,15 +43,15 @@ void SampleValidator::validateItem(const SessionItem* item)
 
     QString diagnosis;
 
-    if (item->modelType() == Constants::MultiLayerType) {
+    if (item->modelType() == "MultiLayer") {
         diagnosis = validateMultiLayerItem(item);
-    } else if (item->modelType() == Constants::ParticleLayoutType) {
+    } else if (item->modelType() == "ParticleLayout") {
         diagnosis = validateParticleLayoutItem(item);
-    } else if (item->modelType() == Constants::ParticleCoreShellType) {
+    } else if (item->modelType() == "ParticleCoreShell") {
         diagnosis = validateParticleCoreShellItem(item);
-    } else if (item->modelType() == Constants::ParticleCompositionType) {
+    } else if (item->modelType() == "ParticleComposition") {
         diagnosis = validateParticleCompositionItem(item);
-    } else if (item->modelType() == Constants::ParticleDistributionType) {
+    } else if (item->modelType() == "ParticleDistribution") {
         diagnosis = validateParticleDistributionItem(item);
     }
     if (!diagnosis.isEmpty()) {

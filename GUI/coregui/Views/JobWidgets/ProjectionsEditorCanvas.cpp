@@ -84,10 +84,10 @@ void ProjectionsEditorCanvas::onEnteringColorMap()
 
     if (m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
         m_liveProjection =
-            m_model->insertNewItem(Constants::HorizontalLineMaskType, m_containerIndex);
+            m_model->insertNewItem("HorizontalLineMask", m_containerIndex);
     else if (m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
         m_liveProjection =
-            m_model->insertNewItem(Constants::VerticalLineMaskType, m_containerIndex);
+            m_model->insertNewItem("VerticalLineMask", m_containerIndex);
 
     if (m_liveProjection)
         m_liveProjection->setItemValue(MaskItem::P_IS_VISIBLE, false);

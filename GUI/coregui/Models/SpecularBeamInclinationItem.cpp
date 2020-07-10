@@ -27,9 +27,9 @@ void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type);
 const QString SpecularBeamInclinationItem::P_ALPHA_AXIS = "Alpha axis";
 
 SpecularBeamInclinationItem::SpecularBeamInclinationItem()
-    : BeamDistributionItem(Constants::SpecularBeamInclinationType, m_show_mean)
+    : BeamDistributionItem("SpecularBeamInclinationAxis", m_show_mean)
 {
-    register_distribution_group(Constants::SymmetricDistributionGroup);
+    register_distribution_group("Symmetric distribution group");
     setupAxisGroup();
     setupDistributionMean(getGroupItem(P_DISTRIBUTION));
 
@@ -46,24 +46,24 @@ double SpecularBeamInclinationItem::scaleFactor() const
 void SpecularBeamInclinationItem::updateFileName(const QString& filename)
 {
     auto& group_item = item<GroupItem>(P_ALPHA_AXIS);
-    auto axis_item = group_item.getChildOfType(Constants::PointwiseAxisType);
+    auto axis_item = group_item.getChildOfType("PointwiseAxis");
     axis_item->setItemValue(PointwiseAxisItem::P_FILE_NAME, filename);
 }
 
 void SpecularBeamInclinationItem::setupAxisGroup()
 {
     auto group_item =
-        dynamic_cast<GroupItem*>(this->addGroupProperty(P_ALPHA_AXIS, Constants::AxesGroup));
+        dynamic_cast<GroupItem*>(this->addGroupProperty(P_ALPHA_AXIS, "Axes group"));
 
     // Both underlying axis items are created, since it
     // strongly simplifies their representation and state
     // handling (no signal emulation required).
     // Basic axis item is the default one.
 
-    group_item->setCurrentType(Constants::PointwiseAxisType);
+    group_item->setCurrentType("PointwiseAxis");
     setAxisPresentationDefaults(group_item->currentItem(), group_item->currentType());
 
-    group_item->setCurrentType(Constants::BasicAxisType);
+    group_item->setCurrentType("BasicAxis");
     setAxisPresentationDefaults(group_item->currentItem(), group_item->currentType());
 
     group_item->setToolTip("Axis type selected");
@@ -71,7 +71,7 @@ void SpecularBeamInclinationItem::setupAxisGroup()
     group_item->setEnabled(false);
     group_item->mapper()->setOnValueChange(
         [group_item]() {
-            if (group_item->currentItem()->modelType() == Constants::PointwiseAxisType)
+            if (group_item->currentItem()->modelType() == "PointwiseAxis")
                 group_item->setEnabled(true);
         },
         this);
@@ -101,11 +101,11 @@ void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type)
     axis_item->getItem(BasicAxisItem::P_MIN)->setLimits(RealLimits::limited(0., 90.));
     axis_item->getItem(BasicAxisItem::P_MAX)->setLimits(RealLimits::limited(0., 90.));
 
-    if (type == Constants::BasicAxisType) {
+    if (type == "BasicAxis") {
         axis_item->setItemValue(BasicAxisItem::P_MIN, 0.0);
         axis_item->setItemValue(BasicAxisItem::P_MAX, 3.0);
         axis_item->setItemValue(BasicAxisItem::P_NBINS, 500);
-    } else if (type == Constants::PointwiseAxisType) {
+    } else if (type == "PointwiseAxis") {
         axis_item->getItem(BasicAxisItem::P_MIN)->setEnabled(false);
         axis_item->getItem(BasicAxisItem::P_MAX)->setEnabled(false);
         axis_item->getItem(BasicAxisItem::P_NBINS)->setEnabled(false);

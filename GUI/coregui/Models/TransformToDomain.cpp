@@ -99,9 +99,9 @@ std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
 std::unique_ptr<LayerRoughness>
 TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
 {
-    if (roughnessItem.modelType() == Constants::LayerZeroRoughnessType) {
+    if (roughnessItem.modelType() == "LayerZeroRoughness") {
         return nullptr;
-    } else if (roughnessItem.modelType() == Constants::LayerBasicRoughnessType) {
+    } else if (roughnessItem.modelType() == "LayerBasicRoughness") {
         return std::make_unique<LayerRoughness>(
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble(),
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble(),
@@ -124,16 +124,16 @@ std::unique_ptr<ParticleLayout> TransformToDomain::createParticleLayout(const Se
 std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem& item)
 {
     std::unique_ptr<IParticle> P_particle;
-    if (item.modelType() == Constants::ParticleType) {
+    if (item.modelType() == "Particle") {
         auto& particle_item = static_cast<const ParticleItem&>(item);
         P_particle = particle_item.createParticle();
-    } else if (item.modelType() == Constants::ParticleCoreShellType) {
+    } else if (item.modelType() == "ParticleCoreShell") {
         auto& particle_coreshell_item = static_cast<const ParticleCoreShellItem&>(item);
         P_particle = particle_coreshell_item.createParticleCoreShell();
-    } else if (item.modelType() == Constants::ParticleCompositionType) {
+    } else if (item.modelType() == "ParticleComposition") {
         auto& particle_composition_item = static_cast<const ParticleCompositionItem&>(item);
         P_particle = particle_composition_item.createParticleComposition();
-    } else if (item.modelType() == Constants::MesoCrystalType) {
+    } else if (item.modelType() == "MesoCrystal") {
         auto& mesocrystal_item = static_cast<const MesoCrystalItem&>(item);
         P_particle = mesocrystal_item.createMesoCrystal();
     }
@@ -152,8 +152,8 @@ TransformToDomain::createParticleDistribution(const SessionItem& item)
 void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
                                                               GISASSimulation& simulation)
 {
-    if (beam_item.modelType() != Constants::GISASBeamType) {
-        Q_ASSERT(beam_item.modelType() == Constants::GISASBeamType);
+    if (beam_item.modelType() != "GISASBeam") {
+        Q_ASSERT(beam_item.modelType() == "GISASBeam");
         return;
     }
 
@@ -168,8 +168,8 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
 void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
                                                  AngularSpecScan& scan)
 {
-    if (beam_item.modelType() != Constants::SpecularBeamType) {
-        Q_ASSERT(beam_item.modelType() == Constants::SpecularBeamType);
+    if (beam_item.modelType() != "SpecularBeam") {
+        Q_ASSERT(beam_item.modelType() == "SpecularBeam");
         return;
     }
 
@@ -195,17 +195,17 @@ void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
 
 void TransformToDomain::setSimulationOptions(Simulation* simulation, const SessionItem& item)
 {
-    Q_ASSERT(item.modelType() == Constants::SimulationOptionsType);
+    Q_ASSERT(item.modelType() == "SimulationOptions");
 
     if (auto optionItem = dynamic_cast<const SimulationOptionsItem*>(&item)) {
         simulation->getOptions().setNumberOfThreads(optionItem->getNumberOfThreads());
-        if (optionItem->getComputationMethod() == Constants::SIMULATION_MONTECARLO) {
+        if (optionItem->getComputationMethod() == "Monte-Carlo Integration") {
             simulation->getOptions().setMonteCarloIntegration(
                 true, optionItem->getNumberOfMonteCarloPoints());
         }
-        if (optionItem->getFresnelMaterialMethod() == Constants::AVERAGE_LAYER_MATERIAL)
+        if (optionItem->getFresnelMaterialMethod() == "Average Layer Material")
             simulation->getOptions().setUseAvgMaterials(true);
-        if (optionItem->getIncludeSpecularPeak() == Constants::Yes)
+        if (optionItem->getIncludeSpecularPeak() == "Yes")
             simulation->getOptions().setIncludeSpecular(true);
     }
 }
@@ -226,7 +226,7 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
 {
     QVector<SessionItem*> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::RotationType) {
+        if (children[i]->modelType() == "Rotation") {
             auto& rot_item = children[i]->groupItem<RotationItem>(TransformationItem::P_ROT);
             auto rotation = rot_item.createRotation();
             if (rotation)

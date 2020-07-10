@@ -36,10 +36,10 @@ void TestDataItems::testItemClock(QString model_type)
 
 TEST_F(TestDataItems, testSpecularItemClock)
 {
-    testItemClock(Constants::SpecularDataType);
+    testItemClock("SpecularData");
 }
 
 TEST_F(TestDataItems, testIntensityItemClock)
 {
-    testItemClock(Constants::IntensityDataType);
+    testItemClock("IntensityData");
 }

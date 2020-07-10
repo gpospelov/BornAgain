@@ -40,9 +40,9 @@ class TestParticleDistributionItem : public ::testing::Test
 TEST_F(TestParticleDistributionItem, test_InitialState)
 {
     SampleModel model;
-    SessionItem* distItem = model.insertNewItem(Constants::ParticleDistributionType);
+    SessionItem* distItem = model.insertNewItem("ParticleDistribution");
 
-    EXPECT_EQ(distItem->displayName(), Constants::ParticleDistributionType);
+    EXPECT_EQ(distItem->displayName(), "ParticleDistribution");
     EXPECT_EQ(distItem->displayName(), distItem->itemName());
 
     // xpos, ypos, P_ABUNDANCE, P_DISTRIBUTION, P_DISTRIBUTED_PARAMETER
@@ -51,9 +51,9 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
     EXPECT_EQ(distItem->defaultTag(), ParticleDistributionItem::T_PARTICLES);
 
     EXPECT_EQ(distItem->acceptableDefaultItemTypes(),
-              QVector<QString>() << Constants::ParticleType << Constants::ParticleCoreShellType
-                                 << Constants::ParticleCompositionType
-                                 << Constants::MesoCrystalType);
+              QVector<QString>() << "Particle" << "ParticleCoreShell"
+                                 << "ParticleComposition"
+                                 << "MesoCrystal");
 
     // main parameter
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
@@ -71,10 +71,10 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
 TEST_F(TestParticleDistributionItem, test_AddParticle)
 {
     SampleModel model;
-    SessionItem* dist = model.insertNewItem(Constants::ParticleDistributionType);
+    SessionItem* dist = model.insertNewItem("ParticleDistribution");
 
     // adding default particle and checking list of available parameters
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType, dist->index());
+    SessionItem* particle = model.insertNewItem("Particle", dist->index());
 
     EXPECT_EQ(dist->getItems().size(), 1);
 
@@ -93,7 +93,7 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     EXPECT_EQ(prop.getValue(), "");
 
     // changing form factor of the particle
-    particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::BoxType);
+    particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Box");
 
     prop = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                .value<ComboProperty>();
@@ -116,8 +116,8 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
 TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
 {
     SampleModel model;
-    SessionItem* dist = model.insertNewItem(Constants::ParticleDistributionType);
-    model.insertNewItem(Constants::ParticleType, dist->index());
+    SessionItem* dist = model.insertNewItem("ParticleDistribution");
+    model.insertNewItem("Particle", dist->index());
 
     ComboProperty mainCombo = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                                   .value<ComboProperty>();
@@ -188,10 +188,10 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
 
     // creating GUI distribution
     SampleModel model;
-    SessionItem* distItem = model.insertNewItem(Constants::ParticleDistributionType);
-    SessionItem* particleItem = model.insertNewItem(Constants::ParticleType, distItem->index());
+    SessionItem* distItem = model.insertNewItem("ParticleDistribution");
+    SessionItem* particleItem = model.insertNewItem("Particle", distItem->index());
 
-    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
 
     // Sets it from domain
     TransformFromDomain::setParticleDistributionItem(distItem, particle_collection);
@@ -202,7 +202,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // changing particle type and check that distribution picked up domain name
-    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
     prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                .value<ComboProperty>();
 
@@ -227,10 +227,10 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
 
     // creating GUI distribution
     SampleModel model;
-    SessionItem* distItem = model.insertNewItem(Constants::ParticleDistributionType);
-    SessionItem* particleItem = model.insertNewItem(Constants::ParticleType, distItem->index());
+    SessionItem* distItem = model.insertNewItem("ParticleDistribution");
+    SessionItem* particleItem = model.insertNewItem("Particle", distItem->index());
 
-    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
 
     // Sets it from domain
     TransformFromDomain::setParticleDistributionItem(distItem, particle_collection);
@@ -244,7 +244,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
     EXPECT_EQ(linkedProp.getValue(), "");
 
     // changing particle type and check that distribution picked up domain name
-    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "Cylinder");
 
     prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                .value<ComboProperty>();
@@ -273,8 +273,8 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
 
     // creating GUI distribution
     SampleModel model;
-    SessionItem* partDistItem = model.insertNewItem(Constants::ParticleDistributionType);
-    model.insertNewItem(Constants::ParticleType, partDistItem->index());
+    SessionItem* partDistItem = model.insertNewItem("ParticleDistribution");
+    model.insertNewItem("Particle", partDistItem->index());
 
     // Sets it from domain
     TransformFromDomain::setParticleDistributionItem(partDistItem, particle_collection);
@@ -293,8 +293,8 @@ TEST_F(TestParticleDistributionItem, test_Clone)
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
 
     SampleModel model1;
-    SessionItem* dist = model1.insertNewItem(Constants::ParticleDistributionType);
-    model1.insertNewItem(Constants::ParticleType, dist->index());
+    SessionItem* dist = model1.insertNewItem("ParticleDistribution");
+    model1.insertNewItem("Particle", dist->index());
 
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);

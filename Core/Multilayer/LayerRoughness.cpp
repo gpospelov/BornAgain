@@ -37,9 +37,7 @@ void LayerRoughness::initialize()
     setName("LayerBasicRoughness");
     registerParameter("Sigma", &m_sigma);
     registerParameter("Hurst", &m_hurstParameter);
-    registerParameter("CorrelationLength", &m_lateralCorrLength)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("CorrelationLength", &m_lateralCorrLength).setUnit("nm").setNonnegative();
 }
 
 /* ************************************************************************* */

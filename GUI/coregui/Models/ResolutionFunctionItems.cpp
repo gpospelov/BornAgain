@@ -32,10 +32,8 @@ ResolutionFunctionNoneItem::createResolutionFunction(double) const
 
 /* --------------------------------------------------------------------------------------------- */
 
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_X =
-    QString::fromStdString("SigmaX");
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y =
-    QString::fromStdString("SigmaY");
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_X = QString::fromStdString("SigmaX");
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = QString::fromStdString("SigmaY");
 
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)

@@ -45,12 +45,8 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, d
     setName("Cuboctahedron");
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("HeightRatio", &m_height_ratio)
-        .setUnit("nm")
-        .setNonnegative();
-    registerParameter("Alpha", &m_alpha)
-        .setUnit("rad")
-        .setLimited(0., M_PI_2);
+    registerParameter("HeightRatio", &m_height_ratio).setUnit("nm").setNonnegative();
+    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
 }
 

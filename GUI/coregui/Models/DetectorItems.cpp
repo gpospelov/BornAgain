@@ -35,8 +35,7 @@ const QString DetectorItem::T_MASKS = "Masks";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
 const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString("Efficiency");
-const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION =
-    QString::fromStdString("Transmission");
+const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = QString::fromStdString("Transmission");
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
@@ -51,8 +50,7 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
     addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
 
     QString additional_name = QString::fromStdString("Analyzer");
-    addTranslator(
-        VectorParameterTranslator(P_ANALYZER_DIRECTION, "Direction", {additional_name}));
+    addTranslator(VectorParameterTranslator(P_ANALYZER_DIRECTION, "Direction", {additional_name}));
     addTranslator(AddElementTranslator(P_ANALYZER_EFFICIENCY, additional_name));
     addTranslator(AddElementTranslator(P_ANALYZER_TOTAL_TRANSMISSION, additional_name));
 

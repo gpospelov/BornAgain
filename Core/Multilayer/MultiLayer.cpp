@@ -129,9 +129,7 @@ std::vector<const INode*> MultiLayer::getChildren() const
 void MultiLayer::init_parameters()
 {
     parameterPool()->clear(); // non-trivially needed
-    registerParameter("CrossCorrelationLength", &m_crossCorrLength)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("CrossCorrelationLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
     registerVector("ExternalField", &m_ext_field, "");
 }
 

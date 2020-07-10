@@ -42,9 +42,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     }
     registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha)
-        .setUnit("rad")
-        .setLimited(0., M_PI_2);
+    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
 }
 

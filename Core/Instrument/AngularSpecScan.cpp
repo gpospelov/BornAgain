@@ -240,8 +240,7 @@ std::string AngularSpecScan::print() const
     std::stringstream result;
     result << "\n" << PythonFormatting::indent() << "# Defining specular scan:\n";
     const std::string axis_def = PythonFormatting::indent() + "axis = ";
-    result << axis_def
-           << PythonFormatting::printAxis(*coordinateAxis(), "rad", axis_def.size())
+    result << axis_def << PythonFormatting::printAxis(*coordinateAxis(), "rad", axis_def.size())
            << "\n";
 
     result << PythonFormatting::indent() << "scan = ";

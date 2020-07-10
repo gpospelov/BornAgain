@@ -126,15 +126,9 @@ std::vector<const INode*> Beam::getChildren() const
 void Beam::init_parameters()
 {
     registerParameter("Intensity", &m_intensity).setNonnegative();
-    registerParameter("Wavelength", &m_wavelength)
-        .setUnit("nm")
-        .setNonnegative();
-    registerParameter("InclinationAngle", &m_alpha)
-        .setUnit("rad")
-        .setLimited(0, INCLINATION_LIMIT);
-    registerParameter("AzimuthalAngle", &m_phi)
-        .setUnit("rad")
-        .setLimited(-M_PI_2, M_PI_2);
+    registerParameter("Wavelength", &m_wavelength).setUnit("nm").setNonnegative();
+    registerParameter("InclinationAngle", &m_alpha).setUnit("rad").setLimited(0, INCLINATION_LIMIT);
+    registerParameter("AzimuthalAngle", &m_phi).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
     registerVector("BlochVector", &m_bloch_vector, "");
 }
 

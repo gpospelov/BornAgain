@@ -20,10 +20,9 @@
 
 namespace
 {
-const QStringList expectedRoughnessPars = QStringList()
-                                          << QString::fromStdString("Sigma")
-                                          << QString::fromStdString("Hurst")
-                                          << QString::fromStdString("CorrelationLength");
+const QStringList expectedRoughnessPars =
+    QStringList() << QString::fromStdString("Sigma") << QString::fromStdString("Hurst")
+                  << QString::fromStdString("CorrelationLength");
 }
 
 IPathTranslator::~IPathTranslator() {}

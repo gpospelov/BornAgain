@@ -23,9 +23,7 @@ FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
     : FormFactorPolygonalPrism(height), m_base_edge(base_edge)
 {
     setName("Prism3");
-    registerParameter("BaseEdge", &m_base_edge)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }

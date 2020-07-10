@@ -574,8 +574,7 @@ std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const
 /* ------------------------------------------------ */
 
 const QString TruncatedCubeItem::P_LENGTH = QString::fromStdString("Length");
-const QString TruncatedCubeItem::P_REMOVED_LENGTH =
-    QString::fromStdString("RemovedLength");
+const QString TruncatedCubeItem::P_REMOVED_LENGTH = QString::fromStdString("RemovedLength");
 
 TruncatedCubeItem::TruncatedCubeItem() : FormFactorItem(Constants::TruncatedCubeType)
 {

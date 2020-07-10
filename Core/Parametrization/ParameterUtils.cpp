@@ -24,8 +24,8 @@ namespace
 //! Returns list of all angle related parameters used in Core library.
 std::vector<std::string> angleRelatedParameters()
 {
-    std::vector<std::string> result{"InclinationAngle", "AzimuthalAngle", "Alpha",
-                                    "Beta",        "Gamma",   "Angle"};
+    std::vector<std::string> result{
+        "InclinationAngle", "AzimuthalAngle", "Alpha", "Beta", "Gamma", "Angle"};
     return result;
 }
 } // namespace

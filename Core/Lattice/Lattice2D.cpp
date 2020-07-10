@@ -89,12 +89,8 @@ BasicLattice::BasicLattice(const BasicLattice& other)
 
 void BasicLattice::init_parameters()
 {
-    registerParameter("LatticeLength1", &m_length1)
-        .setUnit("nm")
-        .setPositive();
-    registerParameter("LatticeLength2", &m_length2)
-        .setUnit("nm")
-        .setPositive();
+    registerParameter("LatticeLength1", &m_length1).setUnit("nm").setPositive();
+    registerParameter("LatticeLength2", &m_length2).setUnit("nm").setPositive();
     registerParameter("Alpha", &m_angle).setUnit("rad");
     registerParameter("Xi", &m_xi).setUnit("rad");
 }
@@ -135,9 +131,7 @@ SquareLattice::SquareLattice(const SquareLattice& other)
 
 void SquareLattice::init_parameters()
 {
-    registerParameter("LatticeLength", &m_length)
-        .setUnit("nm")
-        .setPositive();
+    registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
     registerParameter("Xi", &m_xi).setUnit("rad");
 }
 
@@ -178,8 +172,6 @@ HexagonalLattice::HexagonalLattice(const HexagonalLattice& other)
 
 void HexagonalLattice::init_parameters()
 {
-    registerParameter("LatticeLength", &m_length)
-        .setUnit("nm")
-        .setPositive();
+    registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
     registerParameter("Xi", &m_xi).setUnit("rad");
 }

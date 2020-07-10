@@ -61,7 +61,5 @@ double IInterferenceFunction::iff_no_inner(const kvector_t q, double outer_iff) 
 
 void IInterferenceFunction::init_parameters()
 {
-    registerParameter("PositionVariance", &m_position_var)
-        .setUnit("nm^2")
-        .setNonnegative();
+    registerParameter("PositionVariance", &m_position_var).setUnit("nm^2").setNonnegative();
 }

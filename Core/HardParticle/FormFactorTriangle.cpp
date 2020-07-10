@@ -19,9 +19,7 @@
 FormFactorTriangle::FormFactorTriangle(const double base_edge) : m_base_edge(base_edge)
 {
     setName("Triangle");
-    registerParameter("BaseEdge", &m_base_edge)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
     onChange();
 }
 

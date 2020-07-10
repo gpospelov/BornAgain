@@ -55,9 +55,7 @@ FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double remov
 {
     setName("CantellatedCube");
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("RemovedLength", &m_removed_length)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("RemovedLength", &m_removed_length).setUnit("nm").setNonnegative();
     onChange();
 }
 

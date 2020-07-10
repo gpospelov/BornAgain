@@ -30,16 +30,14 @@ TEST_F(PythonFormattingTest, RealLimits)
     EXPECT_EQ("RealLimits.lowerLimited(1.0*nm)",
               PythonFormatting::printRealLimits(RealLimits::lowerLimited(1.0), "nm"));
     EXPECT_EQ("RealLimits.lowerLimited(1.0*deg)",
-              PythonFormatting::printRealLimits(RealLimits::lowerLimited(1.0 * Units::deg),
-                                                "rad"));
+              PythonFormatting::printRealLimits(RealLimits::lowerLimited(1.0 * Units::deg), "rad"));
 
     EXPECT_EQ("RealLimits.upperLimited(1.0)",
               PythonFormatting::printRealLimits(RealLimits::upperLimited(1.0)));
     EXPECT_EQ("RealLimits.upperLimited(1.0*nm)",
               PythonFormatting::printRealLimits(RealLimits::upperLimited(1.0), "nm"));
     EXPECT_EQ("RealLimits.upperLimited(1.0*deg)",
-              PythonFormatting::printRealLimits(RealLimits::upperLimited(1.0 * Units::deg),
-                                                "rad"));
+              PythonFormatting::printRealLimits(RealLimits::upperLimited(1.0 * Units::deg), "rad"));
 
     EXPECT_EQ("RealLimits.limited(1.0, 2.0)",
               PythonFormatting::printRealLimits(RealLimits::limited(1.0, 2.0)));
@@ -69,9 +67,9 @@ TEST_F(PythonFormattingTest, printDistribution)
                   DistributionGate(1.0 * Units::deg, 2.0 * Units::deg), "rad"),
               "ba.DistributionGate(1.0*deg, 2.0*deg)");
 
-    EXPECT_EQ(PythonFormatting::printDistribution(DistributionLogNormal(1.0 * Units::deg, 0.01),
-                                                  "rad"),
-              "ba.DistributionLogNormal(1.0*deg, 0.01)");
+    EXPECT_EQ(
+        PythonFormatting::printDistribution(DistributionLogNormal(1.0 * Units::deg, 0.01), "rad"),
+        "ba.DistributionLogNormal(1.0*deg, 0.01)");
 }
 
 TEST_F(PythonFormattingTest, printParameterDistribution)
@@ -116,8 +114,7 @@ TEST_F(PythonFormattingTest, printAxis)
 
     PointwiseAxis axis3("axis3",
                         std::vector<double>{1.0 * Units::deg, 2.0 * Units::deg, 3.0 * Units::deg});
-    EXPECT_EQ(PythonFormatting::printAxis(axis3, "rad", 0),
-              "numpy.asarray([1.0*deg,\n"
-              "               2.0*deg,\n"
-              "               3.0*deg])");
+    EXPECT_EQ(PythonFormatting::printAxis(axis3, "rad", 0), "numpy.asarray([1.0*deg,\n"
+                                                            "               2.0*deg,\n"
+                                                            "               3.0*deg])");
 }

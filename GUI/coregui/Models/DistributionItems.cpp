@@ -250,8 +250,7 @@ void DistributionGaussianItem::init_distribution(double value)
 // --------------------------------------------------------------------------------------------- //
 
 const QString DistributionLogNormalItem::P_MEDIAN = QString::fromStdString("Median");
-const QString DistributionLogNormalItem::P_SCALE_PAR =
-    QString::fromStdString("ScaleParameter");
+const QString DistributionLogNormalItem::P_SCALE_PAR = QString::fromStdString("ScaleParameter");
 
 DistributionLogNormalItem::DistributionLogNormalItem()
     : DistributionItem(Constants::DistributionLogNormalType)
@@ -333,10 +332,8 @@ void DistributionCosineItem::init_distribution(double value)
 
 const QString DistributionTrapezoidItem::P_CENTER = QString::fromStdString("Center");
 const QString DistributionTrapezoidItem::P_LEFTWIDTH = QString::fromStdString("LeftWidth");
-const QString DistributionTrapezoidItem::P_MIDDLEWIDTH =
-    QString::fromStdString("MiddleWidth");
-const QString DistributionTrapezoidItem::P_RIGHTWIDTH =
-    QString::fromStdString("RightWidth");
+const QString DistributionTrapezoidItem::P_MIDDLEWIDTH = QString::fromStdString("MiddleWidth");
+const QString DistributionTrapezoidItem::P_RIGHTWIDTH = QString::fromStdString("RightWidth");
 
 DistributionTrapezoidItem::DistributionTrapezoidItem()
     : DistributionItem(Constants::DistributionTrapezoidType)

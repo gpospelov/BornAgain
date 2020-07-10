@@ -102,8 +102,6 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    registerParameter("Length", &m_lattice_params.m_length)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("Length", &m_lattice_params.m_length).setUnit("nm").setNonnegative();
     registerParameter("Xi", &m_lattice_params.m_xi).setUnit("rad");
 }

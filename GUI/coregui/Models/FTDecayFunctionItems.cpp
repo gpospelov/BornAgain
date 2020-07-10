@@ -17,8 +17,7 @@
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDecayFunction1DItem::P_DECAY_LENGTH =
-    QString::fromStdString("DecayLength");
+const QString FTDecayFunction1DItem::P_DECAY_LENGTH = QString::fromStdString("DecayLength");
 
 FTDecayFunction1DItem::FTDecayFunction1DItem(const QString& name) : SessionItem(name) {}
 
@@ -93,10 +92,8 @@ std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DVoigtItem::createFTDecayFun
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDecayFunction2DItem::P_DECAY_LENGTH_X =
-    QString::fromStdString("DecayLengthX");
-const QString FTDecayFunction2DItem::P_DECAY_LENGTH_Y =
-    QString::fromStdString("DecayLengthY");
+const QString FTDecayFunction2DItem::P_DECAY_LENGTH_X = QString::fromStdString("DecayLengthX");
+const QString FTDecayFunction2DItem::P_DECAY_LENGTH_Y = QString::fromStdString("DecayLengthY");
 const QString FTDecayFunction2DItem::P_GAMMA = QString::fromStdString("Gamma");
 const QString FTDecayFunction2DItem::P_DELTA = QString::fromStdString("Delta");
 

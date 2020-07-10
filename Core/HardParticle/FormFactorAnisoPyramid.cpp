@@ -39,9 +39,7 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, doub
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
     registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha)
-        .setUnit("rad")
-        .setLimited(0., M_PI_2);
+    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
 }
 

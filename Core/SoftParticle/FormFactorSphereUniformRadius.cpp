@@ -28,9 +28,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double
             " mean radius must be bigger than the half width");
     setName("FormFactorSphereUniformRadius");
     registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
-    registerParameter("FullWidth", &m_full_width)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("FullWidth", &m_full_width).setUnit("nm").setNonnegative();
     onChange();
 }
 

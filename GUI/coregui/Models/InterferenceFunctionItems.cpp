@@ -51,10 +51,8 @@ void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction* p_iff)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString InterferenceFunction1DLatticeItem::P_LENGTH =
-    QString::fromStdString("Length");
-const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
-    QString::fromStdString("Xi");
+const QString InterferenceFunction1DLatticeItem::P_LENGTH = QString::fromStdString("Length");
+const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE = QString::fromStdString("Xi");
 const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
@@ -308,8 +306,7 @@ void InterferenceFunctionFinite2DLatticeItem::update_rotation_availability()
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString InterferenceFunctionHardDiskItem::P_RADIUS =
-    QString::fromStdString("Radius");
+const QString InterferenceFunctionHardDiskItem::P_RADIUS = QString::fromStdString("Radius");
 const QString InterferenceFunctionHardDiskItem::P_DENSITY =
     QString::fromStdString("TotalParticleDensity");
 

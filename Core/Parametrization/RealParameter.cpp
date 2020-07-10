@@ -96,8 +96,7 @@ RealParameter& RealParameter::setNonnegative()
 
 RealParameter& RealParameter::setUnit(const std::string& name)
 {
-    if (!(name == "" || name == "nm" || name == "rad"
-          || name == "nm^2"))
+    if (!(name == "" || name == "nm" || name == "rad" || name == "nm^2"))
         throw std::runtime_error("RealParameter::setUnit() -> Error. Unexpected unit name " + name);
 
     m_unit.setUnit(name);

@@ -161,19 +161,13 @@ IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, d
 
 void IFTDecayFunction2D::register_decay_lengths()
 {
-    registerParameter("DecayLengthX", &m_decay_length_x)
-        .setUnit("nm")
-        .setNonnegative();
-    registerParameter("DecayLengthY", &m_decay_length_y)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("DecayLengthX", &m_decay_length_x).setUnit("nm").setNonnegative();
+    registerParameter("DecayLengthY", &m_decay_length_y).setUnit("nm").setNonnegative();
 }
 
 void IFTDecayFunction2D::register_gamma()
 {
-    registerParameter("Gamma", &m_gamma)
-        .setUnit("rad")
-        .setLimited(-M_PI_2, M_PI_2);
+    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
 }
 
 void IFTDecayFunction2D::init_parameters()

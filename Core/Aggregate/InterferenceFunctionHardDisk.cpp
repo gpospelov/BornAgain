@@ -82,9 +82,7 @@ double InterferenceFunctionHardDisk::iff_without_dw(const kvector_t q) const
 void InterferenceFunctionHardDisk::init_parameters()
 {
     registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
-    registerParameter("TotalParticleDensity", &m_density)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("TotalParticleDensity", &m_density).setUnit("nm").setNonnegative();
 }
 
 void InterferenceFunctionHardDisk::validateParameters() const

@@ -36,9 +36,7 @@ FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alp
     : FormFactorPolyhedron(), m_base_edge(base_edge), m_height(height), m_alpha(alpha)
 {
     setName("Pyramid");
-    registerParameter("BaseEdge", &m_base_edge)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI);
     onChange();

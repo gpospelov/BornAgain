@@ -41,9 +41,7 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_l
 {
     setName("TruncatedCube");
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("RemovedLength", &m_removed_length)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("RemovedLength", &m_removed_length).setUnit("nm").setNonnegative();
     onChange();
 }
 

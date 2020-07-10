@@ -24,9 +24,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, doub
     m_mean_r3 = calculateMeanR3();
     P_ff_sphere.reset(new FormFactorFullSphere(m_mean_r3));
     registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
-    registerParameter("SigmaRadius", &m_sigma)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("SigmaRadius", &m_sigma).setUnit("nm").setNonnegative();
     onChange();
 }
 

@@ -32,10 +32,8 @@ double Lattice2DItem::unitCellArea() const
     return createLattice()->unitCellArea();
 }
 
-const QString BasicLatticeItem::P_LATTICE_LENGTH1 =
-    QString::fromStdString("LatticeLength1");
-const QString BasicLatticeItem::P_LATTICE_LENGTH2 =
-    QString::fromStdString("LatticeLength2");
+const QString BasicLatticeItem::P_LATTICE_LENGTH1 = QString::fromStdString("LatticeLength1");
+const QString BasicLatticeItem::P_LATTICE_LENGTH2 = QString::fromStdString("LatticeLength2");
 const QString BasicLatticeItem::P_LATTICE_ANGLE = QString::fromStdString("Alpha");
 
 BasicLatticeItem::BasicLatticeItem() : Lattice2DItem(Constants::BasicLatticeType)
@@ -60,8 +58,7 @@ std::unique_ptr<Lattice2D> BasicLatticeItem::createLattice() const
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString SquareLatticeItem::P_LATTICE_LENGTH =
-    QString::fromStdString("LatticeLength");
+const QString SquareLatticeItem::P_LATTICE_LENGTH = QString::fromStdString("LatticeLength");
 
 SquareLatticeItem::SquareLatticeItem() : Lattice2DItem(Constants::SquareLatticeType)
 {
@@ -79,8 +76,7 @@ std::unique_ptr<Lattice2D> SquareLatticeItem::createLattice() const
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString HexagonalLatticeItem::P_LATTICE_LENGTH =
-    QString::fromStdString("LatticeLength");
+const QString HexagonalLatticeItem::P_LATTICE_LENGTH = QString::fromStdString("LatticeLength");
 
 HexagonalLatticeItem::HexagonalLatticeItem() : Lattice2DItem(Constants::HexagonalLatticeType)
 {

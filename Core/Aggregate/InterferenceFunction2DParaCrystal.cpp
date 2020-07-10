@@ -59,15 +59,9 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
 
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
-    registerParameter("DampingLength", &m_damping_length)
-        .setUnit("nm")
-        .setNonnegative();
-    registerParameter("DomainSize1", &m_domain_sizes[0])
-        .setUnit("nm")
-        .setNonnegative();
-    registerParameter("DomainSize2", &m_domain_sizes[1])
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("DampingLength", &m_damping_length).setUnit("nm").setNonnegative();
+    registerParameter("DomainSize1", &m_domain_sizes[0]).setUnit("nm").setNonnegative();
+    registerParameter("DomainSize2", &m_domain_sizes[1]).setUnit("nm").setNonnegative();
 }
 
 //! Sets the probability distributions (Fourier transformed) for the two lattice directions.

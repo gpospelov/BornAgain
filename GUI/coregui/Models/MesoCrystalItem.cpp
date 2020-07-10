@@ -88,12 +88,9 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
     addTranslator(RotationTranslator());
     QStringList additional_names{QString::fromStdString("Lattice"),
                                  QString::fromStdString("Crystal")};
-    addTranslator(
-        VectorParameterTranslator(P_VECTOR_A, "BasisA", additional_names));
-    addTranslator(
-        VectorParameterTranslator(P_VECTOR_B, "BasisB", additional_names));
-    addTranslator(
-        VectorParameterTranslator(P_VECTOR_C, "BasisC", additional_names));
+    addTranslator(VectorParameterTranslator(P_VECTOR_A, "BasisA", additional_names));
+    addTranslator(VectorParameterTranslator(P_VECTOR_B, "BasisB", additional_names));
+    addTranslator(VectorParameterTranslator(P_VECTOR_C, "BasisC", additional_names));
 
     mapper()->setOnParentChange([this](SessionItem* parent) {
         if (SessionItemUtils::HasOwnAbundance(parent)) {

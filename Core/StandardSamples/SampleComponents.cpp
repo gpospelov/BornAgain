@@ -31,8 +31,7 @@ FTDistribution2DComponents::FTDistribution2DComponents()
 FormFactorComponents::FormFactorComponents()
 // ************************************************************************** //
 {
-    add("AnisoPyramid",
-        new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73)));
+    add("AnisoPyramid", new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73)));
 
     add("Box", new FormFactorBox(10.0, 20.0, 5.0));
 
@@ -41,11 +40,9 @@ FormFactorComponents::FormFactorComponents()
 
     add("Cone", new FormFactorCone(5.0, 6.0, Units::deg2rad(54.73)));
 
-    add("Cone6",
-        new FormFactorCone6(2. / sqrt(3.) * 5.0, 5.0, Units::deg2rad(54.73)));
+    add("Cone6", new FormFactorCone6(2. / sqrt(3.) * 5.0, 5.0, Units::deg2rad(54.73)));
 
-    add("Cuboctahedron",
-        new FormFactorCuboctahedron(10.0, 5.0, 1.0, Units::deg2rad(54.73)));
+    add("Cuboctahedron", new FormFactorCuboctahedron(10.0, 5.0, 1.0, Units::deg2rad(54.73)));
 
     add("Cylinder", new FormFactorCylinder(5.0, 10.0));
 

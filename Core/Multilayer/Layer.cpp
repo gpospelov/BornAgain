@@ -81,9 +81,7 @@ void Layer::registerThickness(bool make_registered)
 {
     if (make_registered) {
         if (!parameter("Thickness"))
-            registerParameter("Thickness", &m_thickness)
-                .setUnit("nm")
-                .setNonnegative();
+            registerParameter("Thickness", &m_thickness).setUnit("nm").setNonnegative();
     } else {
         removeParameter("Thickness");
     }

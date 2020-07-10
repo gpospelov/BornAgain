@@ -34,16 +34,10 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(dou
 
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
-    registerParameter("PeakDistance", &m_peak_distance)
-        .setUnit("nm")
-        .setNonnegative();
-    registerParameter("DampingLength", &m_damping_length)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("PeakDistance", &m_peak_distance).setUnit("nm").setNonnegative();
+    registerParameter("DampingLength", &m_damping_length).setUnit("nm").setNonnegative();
     registerParameter("SizeSpaceCoupling", &m_kappa).setNonnegative();
-    registerParameter("DomainSize", &m_domain_size)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("DomainSize", &m_domain_size).setUnit("nm").setNonnegative();
 }
 
 InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const

@@ -36,13 +36,9 @@ FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     : FormFactorPolyhedron(), m_base_edge(base_edge), m_height(height), m_alpha(alpha)
 {
     setName("Cone6");
-    registerParameter("BaseEdge", &m_base_edge)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha)
-        .setUnit("rad")
-        .setLimited(0., M_PI_2);
+    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
 }
 

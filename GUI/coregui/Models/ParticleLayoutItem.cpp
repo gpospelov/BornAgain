@@ -46,8 +46,7 @@ const QString weight_tooltip =
     "Should be used when multiple layouts define different domains in the sample.";
 } // namespace
 
-const QString ParticleLayoutItem::P_TOTAL_DENSITY =
-    QString::fromStdString("TotalParticleDensity");
+const QString ParticleLayoutItem::P_TOTAL_DENSITY = QString::fromStdString("TotalParticleDensity");
 const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString("Weight");
 const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
 const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";

@@ -74,7 +74,5 @@ void InterferenceFunctionTwin::init_parameters()
 {
     registerVector("Direction", &m_direction, "");
     registerParameter("Mean", &m_distance).setUnit("nm").setNonnegative();
-    registerParameter("StdDev", &m_std_dev)
-        .setUnit("nm")
-        .setNonnegative();
+    registerParameter("StdDev", &m_std_dev).setUnit("nm").setNonnegative();
 }

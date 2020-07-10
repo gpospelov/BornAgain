@@ -14,7 +14,6 @@
 
 #include "Fit/Minimizer/TestMinimizer.h"
 #include "Fit/Kernel/Parameters.h"
-#include "Fit/Minimizer/MinimizerConstants.h"
 #include <sstream>
 
 using namespace Fit;
@@ -25,7 +24,7 @@ TestMinimizer::~TestMinimizer() = default;
 
 std::string TestMinimizer::minimizerName() const
 {
-    return std::string(MinimizerNames::Test);
+    return std::string("Test");
 }
 
 MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters)

@@ -32,27 +32,27 @@ IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
 {
     IMinimizer* result(0);
 
-    if (minimizerName == MinimizerNames::Minuit2) {
+    if (minimizerName == "Minuit2") {
         result = new Minuit2Minimizer(algorithmType);
     }
 
-    else if (minimizerName == MinimizerNames::GSLLMA) {
+    else if (minimizerName == "GSLLMA") {
         result = new GSLLevenbergMarquardtMinimizer();
     }
 
-    else if (minimizerName == MinimizerNames::GSLSimAn) {
+    else if (minimizerName == "GSLSimAn") {
         result = new SimAnMinimizer();
     }
 
-    else if (minimizerName == MinimizerNames::GSLMultiMin) {
+    else if (minimizerName == "GSLMultiMin") {
         result = new GSLMultiMinimizer(algorithmType);
     }
 
-    else if (minimizerName == MinimizerNames::Genetic) {
+    else if (minimizerName == "Genetic") {
         result = new GeneticMinimizer();
     }
 
-    else if (minimizerName == MinimizerNames::Test) {
+    else if (minimizerName == "Test") {
         result = new TestMinimizer();
     }
 

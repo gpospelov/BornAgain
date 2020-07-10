@@ -14,7 +14,6 @@
 
 #include "Fit/RootAdapter/GeneticMinimizer.h"
 #include "Fit/Kernel/Parameter.h"
-#include "Fit/Minimizer/MinimizerConstants.h"
 #include "Math/GeneticMinimizer.h"
 
 namespace
@@ -33,11 +32,11 @@ GeneticMinimizer::GeneticMinimizer()
     : RootMinimizerAdapter(MinimizerInfo::buildGeneticInfo()),
       m_genetic_minimizer(new ROOT::Math::GeneticMinimizer())
 {
-    addOption(OptionNames::Tolerance, 0.01, "Tolerance on the function value at the minimum");
-    addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
-    addOption(OptionNames::MaxIterations, 3, "Maximum number of iterations");
-    addOption(OptionNames::PopulationSize, 300, "Population size");
-    addOption(OptionNames::RandomSeed, 0, "Random seed");
+    addOption("Tolerance", 0.01, "Tolerance on the function value at the minimum");
+    addOption("PrintLevel", 0, "Minimizer internal print level");
+    addOption("MaxIterations", 3, "Maximum number of iterations");
+    addOption("PopSize", 300, "Population size");
+    addOption("RandomSeed", 0, "Random seed");
 
     // Seems it is not used inside Root, no need to expose
     // addOption("Cycles", 3, "Number of cycles");
@@ -54,52 +53,52 @@ GeneticMinimizer::~GeneticMinimizer() = default;
 
 void GeneticMinimizer::setTolerance(double value)
 {
-    setOptionValue(OptionNames::Tolerance, value);
+    setOptionValue("Tolerance", value);
 }
 
 double GeneticMinimizer::tolerance() const
 {
-    return optionValue<double>(OptionNames::Tolerance);
+    return optionValue<double>("Tolerance");
 }
 
 void GeneticMinimizer::setPrintLevel(int value)
 {
-    setOptionValue(OptionNames::PrintLevel, value);
+    setOptionValue("PrintLevel", value);
 }
 
 int GeneticMinimizer::printLevel() const
 {
-    return optionValue<int>(OptionNames::PrintLevel);
+    return optionValue<int>("PrintLevel");
 }
 
 void GeneticMinimizer::setMaxIterations(int value)
 {
-    setOptionValue(OptionNames::MaxIterations, value);
+    setOptionValue("MaxIterations", value);
 }
 
 int GeneticMinimizer::maxIterations() const
 {
-    return optionValue<int>(OptionNames::MaxIterations);
+    return optionValue<int>("MaxIterations");
 }
 
 void GeneticMinimizer::setPopulationSize(int value)
 {
-    setOptionValue(OptionNames::PopulationSize, value);
+    setOptionValue("PopSize", value);
 }
 
 int GeneticMinimizer::populationSize() const
 {
-    return optionValue<int>(OptionNames::PopulationSize);
+    return optionValue<int>("PopSize");
 }
 
 void GeneticMinimizer::setRandomSeed(int value)
 {
-    setOptionValue(OptionNames::RandomSeed, value);
+    setOptionValue("RandomSeed", value);
 }
 
 int GeneticMinimizer::randomSeed() const
 {
-    return optionValue<int>(OptionNames::RandomSeed);
+    return optionValue<int>("RandomSeed");
 }
 
 void GeneticMinimizer::setParameter(unsigned int index, const Fit::Parameter& par)

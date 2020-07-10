@@ -19,7 +19,6 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
     EXPECT_EQ(1.0, P_distr_gate->getMax());
     EXPECT_EQ(1.0, P_distr_gate->probabilityDensity(1.0));
     EXPECT_EQ(0, P_distr_gate->probabilityDensity(3.0));
-    EXPECT_EQ("DistributionGate", P_distr_gate->getName());
 
     std::vector<double> list1 = P_distr_gate->equidistantPoints(1, 0.0);
     EXPECT_EQ(list1.size(), size_t(1));
@@ -49,7 +48,6 @@ TEST_F(DistributionsTest, DistributionGateConstructor)
     EXPECT_EQ(2.0, distr2.getMax());
     EXPECT_EQ(1.0, distr2.probabilityDensity(1));
     EXPECT_EQ(0, distr2.probabilityDensity(3));
-    EXPECT_EQ("DistributionGate", distr2.getName());
 
     std::vector<double> list2 = distr2.equidistantPoints(1, 0.0);
     EXPECT_EQ(list2.size(), size_t(1));
@@ -92,7 +90,6 @@ TEST_F(DistributionsTest, DistributionGateClone)
 {
     DistributionGate gate(2.0, 3.0);
     DistributionGate* clone = gate.clone();
-    EXPECT_EQ(gate.getName(), clone->getName());
     EXPECT_EQ(gate.getMean(), clone->getMean());
     EXPECT_EQ(gate.getMin(), clone->getMin());
     EXPECT_EQ(gate.getMax(), clone->getMax());
@@ -106,7 +103,6 @@ TEST_F(DistributionsTest, DistributionLorentzDefaultConstructor)
     std::unique_ptr<DistributionLorentz> P_distr_lorentz{new DistributionLorentz()};
     EXPECT_EQ(0.0, P_distr_lorentz->getMean());
     EXPECT_EQ(1.0, P_distr_lorentz->getHWHM());
-    EXPECT_EQ("DistributionLorentz", P_distr_lorentz->getName());
     EXPECT_EQ(1 / (M_TWOPI), P_distr_lorentz->probabilityDensity(1.0));
 
     std::vector<double> list1 = P_distr_lorentz->equidistantPoints(1, 0.0);
@@ -129,7 +125,6 @@ TEST_F(DistributionsTest, DistributionLorentzConstructor)
     DistributionLorentz distr2(1.0, 1.0);
     EXPECT_EQ(1.0, distr2.getMean());
     EXPECT_EQ(1.0, distr2.getHWHM());
-    EXPECT_EQ("DistributionLorentz", distr2.getName());
     EXPECT_EQ(1.0 / M_PI, distr2.probabilityDensity(1.0));
 
     std::vector<double> list2 = distr2.equidistantPoints(1, 0.0);
@@ -160,7 +155,6 @@ TEST_F(DistributionsTest, DistributionLorentzClone)
     std::unique_ptr<DistributionLorentz> P_clone{P_distr_lorentz->clone()};
     EXPECT_EQ(1.0, P_clone->getMean());
     EXPECT_EQ(2.0, P_clone->getHWHM());
-    EXPECT_EQ("DistributionLorentz", P_clone->getName());
 }
 
 TEST_F(DistributionsTest, DistributionLorentzSamples)
@@ -205,7 +199,6 @@ TEST_F(DistributionsTest, DistributionGaussianDefaultConstructor)
     EXPECT_EQ(0.0, P_distr_gauss->getMean());
     EXPECT_EQ(1.0, P_distr_gauss->getStdDev());
     EXPECT_EQ(std::exp(-1.0 / 2.0) / std::sqrt(M_TWOPI), P_distr_gauss->probabilityDensity(1.0));
-    EXPECT_EQ("DistributionGaussian", P_distr_gauss->getName());
 
     std::vector<double> list1 = P_distr_gauss->equidistantPoints(1, 0.0);
     EXPECT_EQ(P_distr_gauss->getMean(), list1[0]);
@@ -228,7 +221,6 @@ TEST_F(DistributionsTest, DistributionGaussianConstructor)
     EXPECT_EQ(1.0, distr2.getMean());
     EXPECT_EQ(1.0, distr2.getStdDev());
     EXPECT_EQ(1 / std::sqrt(M_TWOPI), distr2.probabilityDensity(1.0));
-    EXPECT_EQ("DistributionGaussian", distr2.getName());
 
     std::vector<double> list2 = distr2.equidistantPoints(1, 0.0);
     EXPECT_EQ(distr2.getMean(), list2[0]);
@@ -259,7 +251,6 @@ TEST_F(DistributionsTest, DistributionGaussianClone)
     EXPECT_EQ(1.0, P_clone->getMean());
     EXPECT_EQ(1.0, P_clone->getStdDev());
     EXPECT_EQ(1 / std::sqrt(M_TWOPI), P_clone->probabilityDensity(1.0));
-    EXPECT_EQ("DistributionGaussian", P_clone->getName());
 
     std::vector<double> list1 = P_clone->equidistantPoints(1, 0.0);
     EXPECT_EQ(P_distr_gauss->getMean(), list1[0]);
@@ -285,7 +276,6 @@ TEST_F(DistributionsTest, DistributionLogNormalConstructorWithOneParameter)
     EXPECT_EQ(1.0, distr2.getScalePar());
     EXPECT_EQ(std::exp(0.5), distr2.getMean());
     EXPECT_EQ(1.0 / std::sqrt(M_TWOPI), distr2.probabilityDensity(1.0));
-    EXPECT_EQ("DistributionLogNormal", distr2.getName());
 
     std::vector<double> list2 = distr2.equidistantPoints(1, 0.0);
     EXPECT_EQ(distr2.getMedian(), list2[0]);
@@ -302,7 +292,6 @@ TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
     EXPECT_EQ(1.0, P_distr_lognormal->getScalePar());
     EXPECT_EQ(std::exp(0.5), P_distr_lognormal->getMean());
     EXPECT_EQ(1.0 / std::sqrt(M_TWOPI), P_distr_lognormal->probabilityDensity(1.0));
-    EXPECT_EQ("DistributionLogNormal", P_distr_lognormal->getName());
 
     std::vector<double> list1 = P_distr_lognormal->equidistantPoints(1, 0.0);
     EXPECT_EQ(P_distr_lognormal->getMedian(), list1[0]);
@@ -334,7 +323,6 @@ TEST_F(DistributionsTest, DistributionLogNormalClone)
     EXPECT_EQ(1.0, P_distr_lognormal->getScalePar());
     EXPECT_EQ(std::exp(0.5), P_distr_lognormal->getMean());
     EXPECT_EQ(1 / std::sqrt(M_TWOPI), P_distr_lognormal->probabilityDensity(1.0));
-    EXPECT_EQ("DistributionLogNormal", P_distr_lognormal->getName());
 
     std::vector<double> list1 = P_distr_lognormal->equidistantPoints(1, 0.0);
     EXPECT_EQ(P_distr_lognormal->getMedian(), list1[0]);
@@ -353,7 +341,6 @@ TEST_F(DistributionsTest, DistributionCosineDefaultConstructor)
     EXPECT_EQ(1.0, P_distr_cosine->getSigma());
     EXPECT_DOUBLE_EQ((1.0 + std::cos(1.0)) / (M_TWOPI), P_distr_cosine->probabilityDensity(1.0));
     EXPECT_EQ(0, P_distr_cosine->probabilityDensity(100.0));
-    EXPECT_EQ("DistributionCosine", P_distr_cosine->getName());
 
     std::vector<double> list1 = P_distr_cosine->equidistantPoints(1, 0.0);
     EXPECT_EQ(P_distr_cosine->getMean(), list1[0]);
@@ -377,7 +364,6 @@ TEST_F(DistributionsTest, DistributionCosineConstructor)
     EXPECT_EQ(1.0, distr2.getSigma());
     EXPECT_EQ(2.0 / (M_TWOPI), distr2.probabilityDensity(1.0));
     EXPECT_EQ(0, distr2.probabilityDensity(100.0));
-    EXPECT_EQ("DistributionCosine", distr2.getName());
 
     std::vector<double> list2 = distr2.equidistantPoints(1, 0.0);
     EXPECT_EQ(distr2.getMean(), list2[0]);
@@ -409,7 +395,6 @@ TEST_F(DistributionsTest, DistributionCosineClone)
     EXPECT_EQ(1.0, P_clone->getSigma());
     EXPECT_EQ(2.0 / (M_TWOPI), P_clone->probabilityDensity(1.0));
     EXPECT_EQ(0, P_distr_cosine->probabilityDensity(100.0));
-    EXPECT_EQ("DistributionCosine", P_clone->getName());
 
     std::vector<double> list1 = P_clone->equidistantPoints(1, 0.0);
     EXPECT_EQ(P_clone->getMean(), list1[0]);

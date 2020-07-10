@@ -21,9 +21,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
 
     // Sigma constructor
     ParameterDistribution pardistr(name, distribution, 1);
-    EXPECT_EQ("ParameterDistribution", pardistr.getName());
     EXPECT_EQ(1.5, pardistr.getDistribution()->getMean());
-    EXPECT_EQ("DistributionGate", pardistr.getDistribution()->getName());
     EXPECT_EQ(1.0, pardistr.getDistribution()->probabilityDensity(1));
     EXPECT_EQ(name, pardistr.getMainParameterName());
     EXPECT_EQ(size_t(1), pardistr.getNbrSamples());
@@ -40,9 +38,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
 
     // xmin, xmax constructor
     ParameterDistribution pardistr3(name, distribution, 5, 1.0, 2.0);
-    EXPECT_EQ("ParameterDistribution", pardistr3.getName());
     EXPECT_EQ(1.5, pardistr3.getDistribution()->getMean());
-    EXPECT_EQ("DistributionGate", pardistr3.getDistribution()->getName());
     EXPECT_EQ(1.0, pardistr3.getDistribution()->probabilityDensity(1));
     EXPECT_EQ(name, pardistr3.getMainParameterName());
     EXPECT_EQ(size_t(5), pardistr3.getNbrSamples());
@@ -59,9 +55,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionCopyConstructor)
     pardistr.linkParameter("link1").linkParameter("link2");
 
     ParameterDistribution pcopy(pardistr);
-    EXPECT_EQ(pardistr.getName(), pcopy.getName());
     EXPECT_EQ(1.5, pcopy.getDistribution()->getMean());
-    EXPECT_EQ(pardistr.getDistribution()->getName(), pcopy.getDistribution()->getName());
 
     EXPECT_EQ(pardistr.getDistribution()->probabilityDensity(1),
               pcopy.getDistribution()->probabilityDensity(1));
@@ -84,9 +78,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionAssignment)
     pardistr.linkParameter("link1").linkParameter("link2");
 
     ParameterDistribution pcopy = pardistr;
-    EXPECT_EQ(pardistr.getName(), pcopy.getName());
     EXPECT_EQ(1.5, pcopy.getDistribution()->getMean());
-    EXPECT_EQ(pardistr.getDistribution()->getName(), pcopy.getDistribution()->getName());
 
     EXPECT_EQ(pardistr.getDistribution()->probabilityDensity(1),
               pcopy.getDistribution()->probabilityDensity(1));

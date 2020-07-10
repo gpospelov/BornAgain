@@ -73,7 +73,6 @@ void DepthProbeConverterTest::checkAlphaAxis(AxesUnits units,
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
     EXPECT_EQ(axis->size(), test_object.axisSize(0));
     EXPECT_EQ(axis->size(), m_nbins);
-    EXPECT_EQ(axis->getName(), test_object.axisName(0, units));
     EXPECT_EQ(axis->getMin(), test_object.calculateMin(0, units));
     EXPECT_EQ(axis->getMax(), test_object.calculateMax(0, units));
 }
@@ -84,7 +83,6 @@ void DepthProbeConverterTest::checkZAxis(AxesUnits units, const DepthProbeConver
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
     EXPECT_EQ(axis->size(), test_object.axisSize(1));
     EXPECT_EQ(axis->size(), m_nbins);
-    EXPECT_EQ(axis->getName(), test_object.axisName(1, units));
 
     EXPECT_EQ(axis->getMin(), test_object.calculateMin(1, units));
     const double test_min = units == AxesUnits::NBINS ? 0 : m_z_start;

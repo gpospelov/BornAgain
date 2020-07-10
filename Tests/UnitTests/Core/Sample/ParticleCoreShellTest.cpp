@@ -33,9 +33,6 @@ TEST_F(ParticleCoreShellTest, InitialState)
 {
     EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
     EXPECT_EQ(nullptr, mp_coreshell->rotation());
-    EXPECT_EQ("ParticleCoreShell", mp_coreshell->getName());
-    EXPECT_EQ("Particle", mp_coreshell->coreParticle()->getName());
-    EXPECT_EQ("Particle", mp_coreshell->shellParticle()->getName());
 }
 
 TEST_F(ParticleCoreShellTest, Clone)
@@ -43,9 +40,6 @@ TEST_F(ParticleCoreShellTest, Clone)
     ParticleCoreShell* p_clone = mp_coreshell->clone();
     EXPECT_EQ(nullptr, p_clone->createFormFactor());
     EXPECT_EQ(nullptr, p_clone->rotation());
-    EXPECT_EQ("ParticleCoreShell", p_clone->getName());
-    EXPECT_EQ("Particle", p_clone->coreParticle()->getName());
-    EXPECT_EQ("Particle", p_clone->shellParticle()->getName());
     delete p_clone;
 }
 

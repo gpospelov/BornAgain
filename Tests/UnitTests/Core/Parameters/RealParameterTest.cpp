@@ -12,8 +12,6 @@ TEST_F(RealParameterTest, simpleConstructor)
 {
     double value(42.0);
     std::unique_ptr<RealParameter> par(new RealParameter("name", &value));
-
-    EXPECT_EQ(par->getName(), "name");
     EXPECT_EQ(par->value(), value);
     EXPECT_EQ(par->limits(), RealLimits::limitless());
     EXPECT_EQ(par->unit(), std::string());
@@ -42,8 +40,6 @@ TEST_F(RealParameterTest, extendedConstructor)
     RealParameter par(
         "name", &value, "parent_name", [&]() { is_changed = true; }, RealLimits::limited(1.0, 43.0),
         Attributes::free());
-
-    EXPECT_EQ(par.getName(), "name");
     EXPECT_EQ(par.value(), value);
     EXPECT_EQ(par.limits(), RealLimits::limited(1.0, 43.0));
 
@@ -66,8 +62,6 @@ TEST_F(RealParameterTest, clone)
     // cloning and deleting original
     std::unique_ptr<RealParameter> clone(par->clone());
     par.reset();
-
-    EXPECT_EQ(clone->getName(), "name");
     EXPECT_EQ(clone->value(), value);
     EXPECT_EQ(clone->limits(), RealLimits::limited(1.0, 43.0));
 

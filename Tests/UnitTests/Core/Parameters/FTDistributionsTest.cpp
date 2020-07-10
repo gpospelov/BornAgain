@@ -15,7 +15,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DCauchyConstructor)
 {
     std::unique_ptr<IFTDistribution1D> P_1d_cauchy{new FTDistribution1DCauchy(1.0)};
     EXPECT_EQ(1.0, P_1d_cauchy->omega());
-    EXPECT_EQ("FTDistribution1DCauchy", P_1d_cauchy->getName());
     EXPECT_NEAR(0.961538, P_1d_cauchy->evaluate(0.2), 0.000001);
 
     P_1d_cauchy->setOmega(3.0);
@@ -31,7 +30,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DCauchyClone)
     std::unique_ptr<IFTDistribution1D> P_clone{P_1d_cauchy->clone()};
 
     EXPECT_EQ(5.0, P_clone->omega());
-    EXPECT_EQ("FTDistribution1DCauchy", P_clone->getName());
     EXPECT_NEAR(0.5, P_clone->evaluate(0.2), 0.000001);
 }
 
@@ -39,7 +37,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DGaussConstructor)
 {
     std::unique_ptr<IFTDistribution1D> P_1d_gauss{new FTDistribution1DGauss(1.0)};
     EXPECT_EQ(1.0, P_1d_gauss->omega());
-    EXPECT_EQ("FTDistribution1DGauss", P_1d_gauss->getName());
     EXPECT_NEAR(0.9801987, P_1d_gauss->evaluate(0.2), 0.000001);
 
     P_1d_gauss->setOmega(3.0);
@@ -52,7 +49,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DGaussClone)
     std::unique_ptr<IFTDistribution1D> P_clone{P_1d_gauss->clone()};
 
     EXPECT_EQ(5.0, P_clone->omega());
-    EXPECT_EQ("FTDistribution1DGauss", P_clone->getName());
     EXPECT_NEAR(0.6065307, P_clone->evaluate(0.2), 0.000001);
 }
 
@@ -60,7 +56,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DGateConstructor)
 {
     std::unique_ptr<IFTDistribution1D> P_1d_gate{new FTDistribution1DGate(1.0)};
     EXPECT_EQ(1.0, P_1d_gate->omega());
-    EXPECT_EQ("FTDistribution1DGate", P_1d_gate->getName());
     EXPECT_NEAR(0.993347, P_1d_gate->evaluate(0.2), 0.000001);
 
     P_1d_gate->setOmega(3.0);
@@ -73,7 +68,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DGateClone)
     std::unique_ptr<IFTDistribution1D> P_clone{P_1d_gate->clone()};
 
     EXPECT_EQ(5.0, P_clone->omega());
-    EXPECT_EQ("FTDistribution1DGate", P_clone->getName());
     EXPECT_NEAR(0.841471, P_clone->evaluate(0.2), 0.000001);
 }
 
@@ -81,7 +75,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DTriangleConstructor)
 {
     std::unique_ptr<IFTDistribution1D> P_1d_triangle{new FTDistribution1DTriangle(1.0)};
     EXPECT_EQ(1.0, P_1d_triangle->omega());
-    EXPECT_EQ("FTDistribution1DTriangle", P_1d_triangle->getName());
     EXPECT_NEAR(0.996671, P_1d_triangle->evaluate(0.2), 0.000001);
 
     P_1d_triangle->setOmega(3.0);
@@ -94,7 +87,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DTriangleClone)
     std::unique_ptr<IFTDistribution1D> P_clone{P_1d_triangle->clone()};
 
     EXPECT_EQ(5.0, P_clone->omega());
-    EXPECT_EQ("FTDistribution1DTriangle", P_clone->getName());
     EXPECT_NEAR(0.919395, P_clone->evaluate(0.2), 0.000001);
 }
 
@@ -102,7 +94,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DCosineConstructor)
 {
     std::unique_ptr<IFTDistribution1D> P_1d_cosine{new FTDistribution1DCosine(1.0)};
     EXPECT_EQ(1.0, P_1d_cosine->omega());
-    EXPECT_EQ("FTDistribution1DCosine", P_1d_cosine->getName());
     EXPECT_NEAR(0.997389, P_1d_cosine->evaluate(0.2), 0.000001);
 
     P_1d_cosine->setOmega(3.0);
@@ -115,7 +106,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DCosineClone)
     std::unique_ptr<IFTDistribution1D> P_clone{P_1d_cosine->clone()};
 
     EXPECT_EQ(5.0, P_clone->omega());
-    EXPECT_EQ("FTDistribution1DCosine", P_clone->getName());
     EXPECT_NEAR(0.936342, P_clone->evaluate(0.2), 0.000001);
 }
 
@@ -123,7 +113,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DVoigtConstructor)
 {
     std::unique_ptr<IFTDistribution1D> P_1d_voigt{new FTDistribution1DVoigt(1.0, 1.7)};
     EXPECT_EQ(1.0, P_1d_voigt->omega());
-    EXPECT_EQ("FTDistribution1DVoigt", P_1d_voigt->getName());
     EXPECT_NEAR(0.993261, P_1d_voigt->evaluate(0.2), 0.000001);
 
     P_1d_voigt->setOmega(3.0);
@@ -136,7 +125,6 @@ TEST_F(FTDistributionsTest, FTDistribution1DVoigtClone)
     std::unique_ptr<IFTDistribution1D> P_clone{P_1d_voigt->clone()};
 
     EXPECT_EQ(5.0, P_clone->omega());
-    EXPECT_EQ("FTDistribution1DVoigt", P_clone->getName());
     EXPECT_NEAR(-0.096572, P_clone->evaluate(0.2), 0.000001);
 }
 
@@ -151,7 +139,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyConstructor)
     EXPECT_EQ(0, P_2d_cauchy->parameter("Gamma")->value());
     EXPECT_EQ(M_PI / 2.0, P_2d_cauchy->delta());
     EXPECT_EQ(0.0, P_2d_cauchy->gamma());
-    EXPECT_EQ("FTDistribution2DCauchy", P_2d_cauchy->getName());
     EXPECT_NEAR(0.343206, P_2d_cauchy->evaluate(0.2, 0.5), 0.000001);
 
     P_2d_cauchy->setGamma(3.0);
@@ -173,7 +160,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyClone)
     EXPECT_EQ(2.3, P_clone->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_clone->delta());
     EXPECT_EQ(0.0, P_clone->gamma());
-    EXPECT_EQ("FTDistribution2DCauchy", P_clone->getName());
     EXPECT_NEAR(0.165121078, P_clone->evaluate(0.2, 0.5), 0.000001);
 }
 
@@ -184,7 +170,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussConstructor)
     EXPECT_EQ(2.0, P_2d_gauss->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_gauss->delta());
     EXPECT_EQ(0.0, P_2d_gauss->gamma());
-    EXPECT_EQ("FTDistribution2DGauss", P_2d_gauss->getName());
     EXPECT_NEAR(0.5945205, P_2d_gauss->evaluate(0.2, 0.5), 0.000001);
 
     P_2d_gauss->setGamma(3.0);
@@ -200,7 +185,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussClone)
     EXPECT_EQ(2.3, P_clone->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_clone->delta());
     EXPECT_EQ(0.0, P_clone->gamma());
-    EXPECT_EQ("FTDistribution2DGauss", P_clone->getName());
     EXPECT_NEAR(0.3130945, P_clone->evaluate(0.2, 0.5), 0.000001);
 }
 
@@ -211,7 +195,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DGateConstructor)
     EXPECT_EQ(2.0, P_2d_gate->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_gate->delta());
     EXPECT_EQ(0.0, P_2d_gate->gamma());
-    EXPECT_EQ("FTDistribution2DGate", P_2d_gate->getName());
     EXPECT_NEAR(0.875513, P_2d_gate->evaluate(0.2, 0.5), 0.000001);
 
     P_2d_gate->setGamma(3.0);
@@ -227,7 +210,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DGateClone)
     EXPECT_EQ(2.3, P_clone->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_clone->delta());
     EXPECT_EQ(0.0, P_clone->gamma());
-    EXPECT_EQ("FTDistribution2DGate", P_clone->getName());
     EXPECT_NEAR(0.736461, P_clone->evaluate(0.2, 0.5), 0.000001);
 }
 
@@ -238,7 +220,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DConeConstructor)
     EXPECT_EQ(2.0, P_2d_cone->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_cone->delta());
     EXPECT_EQ(0.0, P_2d_cone->gamma());
-    EXPECT_EQ("FTDistribution2DCone", P_2d_cone->getName());
     EXPECT_NEAR(0.924374, P_2d_cone->evaluate(0.2, 0.5), 0.000001);
 
     P_2d_cone->setGamma(3.0);
@@ -254,7 +235,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DConeClone)
     EXPECT_EQ(2.3, P_clone->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_clone->delta());
     EXPECT_EQ(0.0, P_clone->gamma());
-    EXPECT_EQ("FTDistribution2DCone", P_clone->getName());
     EXPECT_NEAR(0.837410, P_clone->evaluate(0.2, 0.5), 0.000001);
 }
 
@@ -265,7 +245,6 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtConstructor)
     EXPECT_EQ(2.0, P_2d_voigt->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_voigt->delta());
     EXPECT_EQ(0.0, P_2d_voigt->gamma());
-    EXPECT_EQ("FTDistribution2DVoigt", P_2d_voigt->getName());
     EXPECT_NEAR(1.2228072, P_2d_voigt->evaluate(0.2, 0.5), 0.000001);
 
     P_2d_voigt->setGamma(3.0);
@@ -281,6 +260,5 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtClone)
     EXPECT_EQ(2.3, P_clone->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_clone->delta());
     EXPECT_EQ(0.0, P_clone->gamma());
-    EXPECT_EQ("FTDistribution2DVoigt", P_clone->getName());
     EXPECT_NEAR(-0.6635305, P_clone->evaluate(0.2, 0.5), 0.000001);
 }

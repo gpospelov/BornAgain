@@ -26,7 +26,6 @@ TEST_F(SpecularDetectorTest, basicBehaviour)
     EXPECT_EQ(1u, detector.dimension());
     EXPECT_EQ(axis.getMin(), detector.getAxis(0).getMin());
     EXPECT_EQ(axis.getMax(), detector.getAxis(0).getMax());
-    EXPECT_EQ(axis.getName(), detector.getAxis(0).getName());
 
     // throwing exceptions
     OutputData<double>* p_intensity_map(nullptr);

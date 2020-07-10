@@ -13,7 +13,6 @@ TEST_F(LayerRoughnessTest, LayerRoughnessInitial)
     EXPECT_EQ(0.0, roughness.getSigma());
     EXPECT_EQ(0.0, roughness.getHurstParameter());
     EXPECT_EQ(0.0, roughness.getLatteralCorrLength());
-    EXPECT_EQ("LayerBasicRoughness", roughness.getName());
 
     // set new parameter
     roughness.setSigma(1.1);
@@ -30,7 +29,6 @@ TEST_F(LayerRoughnessTest, LayerRoughnessInitial)
     EXPECT_EQ(2.1, roughness2.getSigma());
     EXPECT_EQ(2.2, roughness2.getHurstParameter());
     EXPECT_EQ(2.3, roughness2.getLatteralCorrLength());
-    EXPECT_EQ("LayerBasicRoughness", roughness.getName());
 }
 
 // test clone LayerRoughness
@@ -42,7 +40,6 @@ TEST_F(LayerRoughnessTest, LayerRoughnessClone)
     EXPECT_EQ(clone->getSigma(), original.getSigma());
     EXPECT_EQ(clone->getHurstParameter(), original.getHurstParameter());
     EXPECT_EQ(clone->getLatteralCorrLength(), original.getLatteralCorrLength());
-    EXPECT_EQ(clone->getName(), original.getName());
     delete clone;
 }
 
@@ -65,5 +62,4 @@ TEST_F(LayerRoughnessTest, LayerRoughnessPool)
     EXPECT_EQ(4.1, roughnessPool.getSigma());
     EXPECT_EQ(4.2, roughnessPool.getHurstParameter());
     EXPECT_EQ(4.3, roughnessPool.getLatteralCorrLength());
-    EXPECT_EQ("LayerBasicRoughness", roughnessPool.getName());
 }

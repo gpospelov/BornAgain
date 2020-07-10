@@ -88,8 +88,6 @@ TEST_F(INodeTest, parentship)
 TEST_F(INodeTest, displayName)
 {
     INodeTest::TestClass node;
-    EXPECT_EQ(node.getName(), test_class_name);
-    EXPECT_EQ(node.getName(), node.displayName());
 
     // Adding first child and checking its displayName
     INodeTest::TestClass* child0 = new INodeTest::TestClass();

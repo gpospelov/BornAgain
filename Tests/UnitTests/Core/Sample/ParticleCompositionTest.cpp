@@ -14,7 +14,6 @@ TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
     std::unique_ptr<ParticleComposition> composition(new ParticleComposition());
     std::vector<kvector_t> positions;
     positions.push_back(kvector_t(0.0, 0.0, 0.0));
-    EXPECT_EQ("ParticleComposition", composition->getName());
     EXPECT_EQ(0u, composition->nbrParticles());
 }
 
@@ -27,13 +26,9 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     composition.addParticle(particle, position);
 
     std::unique_ptr<ParticleComposition> clone(composition.clone());
-
-    EXPECT_EQ(clone->getName(), composition.getName());
     std::vector<const INode*> children = clone->getChildren();
     EXPECT_EQ(children.size(), 1u);
     auto p_particle = dynamic_cast<const IParticle*>(children[0]);
-
-    EXPECT_EQ(p_particle->getName(), particle.getName());
     EXPECT_EQ(p_particle->rotation(), nullptr);
     EXPECT_EQ(p_particle->position(), position);
 }
@@ -49,7 +44,4 @@ TEST_F(ParticleCompositionTest, getChildren)
 
     std::vector<const INode*> children = composition.getChildren();
     EXPECT_EQ(children.size(), 3u);
-    EXPECT_EQ(children.at(0)->getName(), "YRotation");
-    EXPECT_EQ(children.at(1)->getName(), "Particle");
-    EXPECT_EQ(children.at(2)->getName(), "Particle");
 }

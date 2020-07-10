@@ -42,7 +42,6 @@ protected:
 TEST_F(MultiLayerTest, BasicProperty)
 {
     // check default properties
-    EXPECT_EQ("MultiLayer", mLayer.getName());
     EXPECT_EQ(0.0, mLayer.crossCorrLength());
     EXPECT_EQ(size_t(0), mLayer.numberOfLayers());
 
@@ -77,24 +76,16 @@ TEST_F(MultiLayerTest, CheckAllLayers)
 
     // check individual layer
     const Layer* got0 = mLayer.layer(0);
-    EXPECT_EQ("Layer", got0->getName());
     EXPECT_EQ(0, got0->thickness());
-    EXPECT_EQ(topLayer.material()->getName(), got0->material()->getName());
 
     const Layer* got1 = mLayer.layer(1);
-    EXPECT_EQ("Layer", got1->getName());
     EXPECT_EQ(20, got1->thickness());
-    EXPECT_EQ(layer1.material()->getName(), got1->material()->getName());
 
     const Layer* got2 = mLayer.layer(2);
-    EXPECT_EQ("Layer", got2->getName());
     EXPECT_EQ(40, got2->thickness());
-    EXPECT_EQ(layer2.material()->getName(), got2->material()->getName());
 
     const Layer* got3 = mLayer.layer(3);
-    EXPECT_EQ("Layer", got3->getName());
     EXPECT_EQ(0, got3->thickness());
-    EXPECT_EQ(substrate.material()->getName(), got3->material()->getName());
 }
 
 TEST_F(MultiLayerTest, LayerInterfaces)
@@ -104,40 +95,25 @@ TEST_F(MultiLayerTest, LayerInterfaces)
     // check interfaces
     const LayerInterface* interface0 = mLayer.layerInterface(0);
     EXPECT_TRUE(nullptr != interface0);
-    EXPECT_EQ("LayerInterface", interface0->getName());
     EXPECT_EQ(nullptr, interface0->getRoughness());
-    EXPECT_EQ(topLayer.material()->getName(), interface0->topLayer()->material()->getName());
-    EXPECT_EQ(layer1.material()->getName(), interface0->bottomLayer()->material()->getName());
 
     const LayerInterface* interface1 = mLayer.layerInterface(1);
     EXPECT_TRUE(nullptr != interface1);
-    EXPECT_EQ("LayerInterface", interface1->getName());
     EXPECT_EQ(nullptr, interface1->getRoughness());
-    EXPECT_EQ(layer1.material()->getName(), interface1->topLayer()->material()->getName());
-    EXPECT_EQ(layer2.material()->getName(), interface1->bottomLayer()->material()->getName());
 
     const LayerInterface* interface2 = mLayer.layerInterface(2);
     EXPECT_TRUE(nullptr != interface2);
-    EXPECT_EQ("LayerInterface", interface2->getName());
     EXPECT_EQ(nullptr, interface2->getRoughness());
-    EXPECT_EQ(layer2.material()->getName(), interface2->topLayer()->material()->getName());
-    EXPECT_EQ(substrate.material()->getName(), interface2->bottomLayer()->material()->getName());
 
     // bottom interface
     const LayerInterface* interfaceBottom = LayerBottomInterface(mLayer, 0);
     EXPECT_TRUE(nullptr != interfaceBottom);
-    EXPECT_EQ("LayerInterface", interfaceBottom->getName());
     EXPECT_EQ(nullptr, interfaceBottom->getRoughness());
-    EXPECT_EQ(topLayer.material()->getName(), interfaceBottom->topLayer()->material()->getName());
-    EXPECT_EQ(layer1.material()->getName(), interfaceBottom->bottomLayer()->material()->getName());
 
     // top interface
     const LayerInterface* interfaceTop = LayerTopInterface(mLayer, 3);
     EXPECT_TRUE(nullptr != interfaceTop);
-    EXPECT_EQ("LayerInterface", interfaceTop->getName());
     EXPECT_EQ(nullptr, interfaceTop->getRoughness());
-    EXPECT_EQ(layer2.material()->getName(), interfaceTop->topLayer()->material()->getName());
-    EXPECT_EQ(substrate.material()->getName(), interfaceTop->bottomLayer()->material()->getName());
 
     // null interface
     const LayerInterface* interfaceTopNull = LayerTopInterface(mLayer, 0);
@@ -154,7 +130,6 @@ TEST_F(MultiLayerTest, Clone)
     MultiLayer* mLayerClone = mLayer.clone();
 
     // check properties
-    EXPECT_EQ("MultiLayer", mLayerClone->getName());
     EXPECT_EQ(0.0, mLayerClone->crossCorrLength());
     EXPECT_EQ(size_t(4), mLayerClone->numberOfLayers());
 
@@ -166,62 +141,39 @@ TEST_F(MultiLayerTest, Clone)
 
     // check individual layer
     const Layer* layerCopy0 = mLayerClone->layer(0);
-    EXPECT_EQ(topLayer.getName(), layerCopy0->getName());
     EXPECT_EQ(topLayer.thickness(), layerCopy0->thickness());
-    EXPECT_EQ(topLayer.material()->getName(), layerCopy0->material()->getName());
 
     const Layer* layerCopy1 = mLayerClone->layer(1);
-    EXPECT_EQ(layer1.getName(), layerCopy1->getName());
     EXPECT_EQ(layer1.thickness(), layerCopy1->thickness());
-    EXPECT_EQ(layer1.material()->getName(), layerCopy1->material()->getName());
 
     const Layer* layerCopy2 = mLayerClone->layer(2);
-    EXPECT_EQ(layer2.getName(), layerCopy2->getName());
     EXPECT_EQ(layer2.thickness(), layerCopy2->thickness());
-    EXPECT_EQ(layer2.material()->getName(), layerCopy2->material()->getName());
 
     const Layer* layerCopy3 = mLayerClone->layer(3);
-    EXPECT_EQ(substrate.getName(), layerCopy3->getName());
     EXPECT_EQ(substrate.thickness(), layerCopy3->thickness());
-    EXPECT_EQ(substrate.material()->getName(), layerCopy3->material()->getName());
 
     // check interfaces
     const LayerInterface* interface0 = mLayerClone->layerInterface(0);
     EXPECT_TRUE(nullptr != interface0);
-    EXPECT_EQ("LayerInterface", interface0->getName());
     EXPECT_EQ(nullptr, interface0->getRoughness());
-    EXPECT_EQ(topLayer.material()->getName(), interface0->topLayer()->material()->getName());
-    EXPECT_EQ(layer1.material()->getName(), interface0->bottomLayer()->material()->getName());
 
     const LayerInterface* interface1 = mLayerClone->layerInterface(1);
     EXPECT_TRUE(nullptr != interface1);
-    EXPECT_EQ("LayerInterface", interface1->getName());
     EXPECT_EQ(nullptr, interface1->getRoughness());
-    EXPECT_EQ(layer1.material()->getName(), interface1->topLayer()->material()->getName());
-    EXPECT_EQ(layer2.material()->getName(), interface1->bottomLayer()->material()->getName());
 
     const LayerInterface* interface2 = mLayerClone->layerInterface(2);
     EXPECT_TRUE(nullptr != interface2);
-    EXPECT_EQ("LayerInterface", interface2->getName());
     EXPECT_EQ(nullptr, interface2->getRoughness());
-    EXPECT_EQ(layer2.material()->getName(), interface2->topLayer()->material()->getName());
-    EXPECT_EQ(substrate.material()->getName(), interface2->bottomLayer()->material()->getName());
 
     // top interface
     const LayerInterface* interfaceBottom = LayerTopInterface(*mLayerClone, 1);
     EXPECT_TRUE(nullptr != interfaceBottom);
-    EXPECT_EQ("LayerInterface", interfaceBottom->getName());
     EXPECT_EQ(nullptr, interfaceBottom->getRoughness());
-    EXPECT_EQ(topLayer.material()->getName(), interfaceBottom->topLayer()->material()->getName());
-    EXPECT_EQ(layer1.material()->getName(), interfaceBottom->bottomLayer()->material()->getName());
 
     // Bottom interface
     const LayerInterface* interfaceTop = LayerBottomInterface(*mLayerClone, 2);
     EXPECT_TRUE(nullptr != interfaceTop);
-    EXPECT_EQ("LayerInterface", interfaceTop->getName());
     EXPECT_EQ(nullptr, interfaceTop->getRoughness());
-    EXPECT_EQ(layer2.material()->getName(), interfaceTop->topLayer()->material()->getName());
-    EXPECT_EQ(substrate.material()->getName(), interfaceTop->bottomLayer()->material()->getName());
 
     // null interface
     const LayerInterface* interfaceTopNull = LayerTopInterface(*mLayerClone, 0);

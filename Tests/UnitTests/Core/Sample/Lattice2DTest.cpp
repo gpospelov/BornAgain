@@ -36,7 +36,6 @@ TEST_F(Lattice2DTest, basicLatticeClone)
     EXPECT_EQ(clone->length2(), length2);
     EXPECT_EQ(clone->latticeAngle(), angle);
     EXPECT_EQ(clone->rotationAngle(), xi);
-    EXPECT_EQ(clone->getName(), "BasicLattice");
 }
 
 TEST_F(Lattice2DTest, squareLatticeClone)
@@ -49,7 +48,6 @@ TEST_F(Lattice2DTest, squareLatticeClone)
     EXPECT_EQ(clone->length2(), length);
     EXPECT_DOUBLE_EQ(clone->latticeAngle(), M_PI / 2.0);
     EXPECT_EQ(clone->rotationAngle(), xi);
-    EXPECT_EQ(clone->getName(), "SquareLattice");
 
     // registered parameters of clone
     const double new_value(42.0);
@@ -70,7 +68,6 @@ TEST_F(Lattice2DTest, hexagonalLatticeClone)
     EXPECT_EQ(clone->length2(), length);
     EXPECT_DOUBLE_EQ(clone->latticeAngle(), 2. * M_PI / 3.0);
     EXPECT_EQ(clone->rotationAngle(), xi);
-    EXPECT_EQ(clone->getName(), "HexagonalLattice");
 
     // registered parameters of clone
     const double new_value(42.0);

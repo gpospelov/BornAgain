@@ -36,5 +36,4 @@ TEST_F(LayerInterfaceTest, createRoughInterface)
     EXPECT_EQ(interface->getRoughness()->getSigma(), 1.0);
     std::vector<const INode*> children = interface->getChildren();
     EXPECT_EQ(children.size(), 1u);
-    EXPECT_EQ(children.at(0)->getName(), "LayerBasicRoughness");
 }

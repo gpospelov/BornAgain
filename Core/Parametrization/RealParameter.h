@@ -36,6 +36,7 @@ public:
                   const std::function<void()>& onChange = std::function<void()>(),
                   const RealLimits& limits = RealLimits::limitless(),
                   const Attributes& attr = Attributes::free());
+    virtual ~RealParameter() = default;
 
     RealParameter* clone(const std::string& new_name = "") const;
 

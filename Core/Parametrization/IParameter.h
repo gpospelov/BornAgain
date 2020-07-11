@@ -31,6 +31,7 @@ public:
     IParameter() = delete;
     IParameter(const std::string& name, T* data, const std::string& parent_name,
                const std::function<void()>& onChange);
+    virtual ~IParameter() = default;
 
     virtual IParameter* clone(const std::string& new_name = "") const = 0;
 

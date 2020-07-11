@@ -7780,6 +7780,9 @@ C++ includes: IMultiLayerBuilder.h
 %feature("docstring")  IMultiLayerBuilder::IMultiLayerBuilder "IMultiLayerBuilder::IMultiLayerBuilder()
 ";
 
+%feature("docstring")  IMultiLayerBuilder::~IMultiLayerBuilder "virtual IMultiLayerBuilder::~IMultiLayerBuilder()=default
+";
+
 %feature("docstring")  IMultiLayerBuilder::buildSample "virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
 ";
 
@@ -9314,6 +9317,9 @@ C++ includes: IParameter.h
 ";
 
 %feature("docstring")  IParameter::IParameter "IParameter< T >::IParameter(const std::string &name, T *data, const std::string &parent_name, const std::function< void()> &onChange)
+";
+
+%feature("docstring")  IParameter::~IParameter "virtual IParameter< T >::~IParameter()=default
 ";
 
 %feature("docstring")  IParameter::clone "virtual IParameter* IParameter< T >::clone(const std::string &new_name=\"\") const =0
@@ -13771,6 +13777,9 @@ C++ includes: RealParameter.h
 ";
 
 %feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name=std::string(), const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
+";
+
+%feature("docstring")  RealParameter::~RealParameter "virtual RealParameter::~RealParameter()=default
 ";
 
 %feature("docstring")  RealParameter::clone "RealParameter * RealParameter::clone(const std::string &new_name=\"\") const

@@ -5665,6 +5665,7 @@ class IMultiLayerBuilder(IParameterized):
         else:
             _self = self
         _libBornAgainCore.IMultiLayerBuilder_swiginit(self, _libBornAgainCore.new_IMultiLayerBuilder(_self, ))
+    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
 
     def buildSample(self):
         r"""
@@ -5745,7 +5746,6 @@ class IMultiLayerBuilder(IParameterized):
 
         """
         return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)
@@ -15359,6 +15359,7 @@ class IParameterReal(object):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
 
     def clone(self, *args):
         r"""
@@ -15411,7 +15412,6 @@ class IParameterReal(object):
 
         """
         return _libBornAgainCore.IParameterReal_getName(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
 
 # Register IParameterReal in _libBornAgainCore:
 _libBornAgainCore.IParameterReal_swigregister(IParameterReal)
@@ -22056,6 +22056,7 @@ class RealParameter(IParameterReal):
 
         """
         _libBornAgainCore.RealParameter_swiginit(self, _libBornAgainCore.new_RealParameter(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
 
     def clone(self, *args):
         r"""
@@ -22140,7 +22141,6 @@ class RealParameter(IParameterReal):
 
         """
         return _libBornAgainCore.RealParameter_unit(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
 
 # Register RealParameter in _libBornAgainCore:
 _libBornAgainCore.RealParameter_swigregister(RealParameter)

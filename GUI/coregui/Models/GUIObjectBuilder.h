@@ -39,11 +39,11 @@ BA_CORE_API_ SessionItem* populateSampleModelFromSim(SampleModel* sampleModel,
 BA_CORE_API_ SessionItem* populateSampleModel(SampleModel* sampleModel,
                                               MaterialModel* materialModel,
                                               const MultiLayer& sample,
-                                              const QString& sample_name = QString());
+                                              const QString& sample_name = "");
 
 BA_CORE_API_ SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
                                                   const Simulation& simulation,
-                                                  const QString& instrument_name = QString());
+                                                  const QString& instrument_name = "");
 
 BA_CORE_API_ SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
                                                 const Simulation& simulation);

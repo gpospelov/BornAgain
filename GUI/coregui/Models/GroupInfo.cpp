@@ -39,7 +39,7 @@ void GroupInfo::add(const QString& itemType, const QString& itemLabel)
 
 QString GroupInfo::defaultType() const
 {
-    if (m_defaultItemType == QString() && m_info.size() != 0)
+    if (m_defaultItemType == "" && m_info.size() != 0)
         return m_info[0].m_itemType;
     return m_defaultItemType;
 }

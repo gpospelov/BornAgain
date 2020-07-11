@@ -27,7 +27,7 @@ class BA_CORE_API_ SessionItemTags
 public:
     bool registerTag(const QString& name, int min, int max, const QStringList& modelTypes);
 
-    bool isValid(const QString& tagName, const QString& modelType = QString()) const;
+    bool isValid(const QString& tagName, const QString& modelType = "") const;
 
     QStringList modelTypesForTag(const QString& tagName) const;
 

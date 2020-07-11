@@ -128,7 +128,7 @@ QString MaskDrawingContext::activityToModelType() const
         return "EllipseMask";
     if (isROIMode())
         return "RegionOfInterest";
-    return QString();
+    return "";
 }
 
 //! Returns model row corresponding to given activity. All shapes, except ROI, will be added

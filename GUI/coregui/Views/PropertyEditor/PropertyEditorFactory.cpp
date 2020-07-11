@@ -98,7 +98,7 @@ QString PropertyEditorFactory::toString(const QModelIndex& index)
                          : QString::number(item->value().toDouble(), 'f', item->decimals());
     }
 
-    return QString();
+    return "";
 }
 
 QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* parent)

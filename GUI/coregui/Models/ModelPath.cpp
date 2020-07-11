@@ -28,7 +28,7 @@ QString ModelPath::getPathFromIndex(const QModelIndex& index)
         std::reverse(namePath.begin(), namePath.end());
         return namePath.join("/");
     }
-    return QString();
+    return "";
 }
 
 // TODO cover with unit tests and simplify

@@ -44,14 +44,14 @@ private:
 };
 
 BA_CORE_API_ void information(QWidget* parent, const QString& title, const QString& text,
-                              const QString& detailedText = QString());
+                              const QString& detailedText = "");
 BA_CORE_API_ void warning(QWidget* parent, const QString& title, const QString& text,
-                          const QString& detailedText = QString());
+                          const QString& detailedText = "");
 BA_CORE_API_ bool question(QWidget* parent, const QString& title, const QString& text,
-                           const QString& detailedText = QString(), const QString& yesText = "&Yes",
+                           const QString& detailedText = "", const QString& yesText = "&Yes",
                            const QString& noText = "&No");
 BA_CORE_API_ bool okToDelete(QWidget* parent, const QString& title, const QString& text,
-                             const QString& detailedText = QString());
+                             const QString& detailedText = "");
 
 BA_CORE_API_ QString getBornAgainVersionString();
 

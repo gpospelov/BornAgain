@@ -61,7 +61,7 @@ QString AutosaveController::autosaveDir() const
     if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveDir(m_document->projectFileName());
 
-    return QString();
+    return "";
 }
 
 QString AutosaveController::autosaveName() const
@@ -69,7 +69,7 @@ QString AutosaveController::autosaveName() const
     if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveName(m_document->projectFileName());
 
-    return QString();
+    return "";
 }
 
 void AutosaveController::removeAutosaveDir()

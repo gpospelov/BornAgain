@@ -29,7 +29,7 @@ public:
     ComboProperty();
 
     static ComboProperty fromList(const QStringList& values,
-                                  const QString& current_value = QString());
+                                  const QString& current_value = "");
 
     QString getValue() const;
     void setValue(const QString& name);

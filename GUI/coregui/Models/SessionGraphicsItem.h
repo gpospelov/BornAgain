@@ -25,7 +25,7 @@ public:
     static const QString P_YPOS;
 
 protected:
-    explicit SessionGraphicsItem(const QString& model_type = QString());
+    explicit SessionGraphicsItem(const QString& model_type = "");
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONGRAPHICSITEM_H

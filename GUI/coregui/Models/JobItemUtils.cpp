@@ -132,7 +132,7 @@ ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter)
     ComboProperty result;
     for (auto units : converter.availableUnits()) {
         auto unit_name = nameFromAxesUnits(units);
-        if (unit_name != QString())
+        if (unit_name != "")
             result << unit_name;
     }
 

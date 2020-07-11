@@ -187,7 +187,7 @@ QString fileDir(const QString& fileName)
     if (info.exists()) {
         return info.dir().path();
     }
-    return QString();
+    return "";
 }
 
 //! Returns base name of file.

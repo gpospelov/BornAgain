@@ -44,7 +44,7 @@ class BA_CORE_API_ ProjectDocument : public QObject
     Q_OBJECT
 
 public:
-    ProjectDocument(const QString& projectFileName = QString());
+    ProjectDocument(const QString& projectFileName = "");
 
     QString projectName() const;
     void setProjectName(const QString& text);

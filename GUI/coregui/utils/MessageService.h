@@ -41,7 +41,7 @@ public:
 
     QStringList senderList() const;
 
-    int messageCount(const QObject* sender, const QString& message_type = QString()) const;
+    int messageCount(const QObject* sender, const QString& message_type = "") const;
     int warningCount(const QObject* sender = 0) const;
     int errorCount(const QObject* sender = 0) const;
 

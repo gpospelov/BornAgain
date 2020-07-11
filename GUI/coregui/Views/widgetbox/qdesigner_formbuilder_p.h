@@ -106,7 +106,7 @@ public:
                                   const DeviceProfile& deviceProfile, QString* errorMessage);
     // Convenience that pops up message boxes in case of failures.
     static QWidget* createPreview(const QDesignerFormWindowInterface* fw,
-                                  const QString& styleName = QString());
+                                  const QString& styleName = "");
     //  Create a preview widget (for integrations) or return 0. The widget has to be embedded into a
     //  main window.
     static QWidget* createPreview(const QDesignerFormWindowInterface* fw, const QString& styleName,
@@ -117,8 +117,8 @@ public:
 
     // Create a preview image
     static QPixmap createPreviewPixmap(const QDesignerFormWindowInterface* fw,
-                                       const QString& styleName = QString(),
-                                       const QString& appStyleSheet = QString());
+                                       const QString& styleName = "",
+                                       const QString& appStyleSheet = "");
 
 protected:
     using QFormBuilder::create;

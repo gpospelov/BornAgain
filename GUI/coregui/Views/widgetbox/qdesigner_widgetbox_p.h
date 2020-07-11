@@ -81,11 +81,11 @@ public:
     // Convenience to access the widget box icon of a widget. Empty category
     // matches all
     virtual QIcon iconForWidget(const QString& className,
-                                const QString& category = QString()) const = 0;
+                                const QString& category = "") const = 0;
 
     // Convenience to find a widget by class name. Empty category matches all
     static bool findWidget(const QDesignerWidgetBoxInterface* wbox, const QString& className,
-                           const QString& category /* = QString()  */, Widget* widgetData);
+                           const QString& category /* = ""  */, Widget* widgetData);
     // Convenience functions to create a DomWidget from widget box xml.
     static DomUI* xmlToUi(const QString& name, const QString& xml, bool insertFakeTopLevel,
                           QString* errorMessage);

@@ -121,7 +121,7 @@ QString ProjectManager::projectDir() const
     if (m_project_document && m_project_document->hasValidNameAndPath())
         return m_project_document->projectDir();
 
-    return QString();
+    return "";
 }
 
 //! Returns directory name suitable for saving plots.
@@ -360,7 +360,7 @@ QString ProjectManager::acquireProjectFileName()
     NewProjectDialog dialog(m_mainWindow, workingDirectory(), untitledProjectName());
 
     if (dialog.exec() != QDialog::Accepted)
-        return QString();
+        return "";
 
     m_workingDirectory = dialog.getWorkingDirectory();
 

@@ -38,7 +38,7 @@ public:
     void generatePythonScript(const MultiLayerItem* sampleItem,
                               const InstrumentItem* instrumentItem,
                               const SimulationOptionsItem* optionItem = 0,
-                              const QString& outputDir = QString());
+                              const QString& outputDir = "");
 
 private slots:
     void onExportToFileButton();

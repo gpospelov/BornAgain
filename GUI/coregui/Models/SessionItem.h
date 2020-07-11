@@ -33,7 +33,7 @@ class BA_CORE_API_ SessionItem
 public:
     static const QString P_NAME;
 
-    explicit SessionItem(const QString& modelType = QString());
+    explicit SessionItem(const QString& modelType = "");
     virtual ~SessionItem();
     SessionModel* model() const;
     SessionItem* parent() const;
@@ -59,10 +59,10 @@ public:
     QVector<QString> acceptableDefaultItemTypes() const;
 
     // access tagged items
-    SessionItem* getItem(const QString& tag = QString(), int row = 0) const;
+    SessionItem* getItem(const QString& tag = "", int row = 0) const;
     template <typename T> T& item(const QString& tag) const;
-    QVector<SessionItem*> getItems(const QString& tag = QString()) const;
-    bool insertItem(int row, SessionItem* item, const QString& tag = QString());
+    QVector<SessionItem*> getItems(const QString& tag = "") const;
+    bool insertItem(int row, SessionItem* item, const QString& tag = "");
     SessionItem* takeItem(int row, const QString& tag);
 
     // convenience functions for properties

@@ -26,7 +26,7 @@
 class BA_CORE_API_ GroupInfo
 {
 public:
-    explicit GroupInfo(const QString& groupType = QString(), bool is_sorted = true);
+    explicit GroupInfo(const QString& groupType = "", bool is_sorted = true);
 
     void add(const QString& itemType, const QString& itemLabel);
 

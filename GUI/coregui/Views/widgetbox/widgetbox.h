@@ -90,7 +90,7 @@ public:
 
     virtual bool loadContents(const QString& contents);
     virtual QIcon iconForWidget(const QString& className,
-                                const QString& category = QString()) const;
+                                const QString& category = "") const;
 
 protected:
     virtual void dragEnterEvent(QDragEnterEvent* event);

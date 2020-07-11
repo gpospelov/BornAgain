@@ -34,7 +34,7 @@ class BA_CORE_API_ ProjectLoadWarningDialog : public QDialog
 
 public:
     ProjectLoadWarningDialog(QWidget* parent, const MessageService* messageService = 0,
-                             const QString& documentVersion = QString());
+                             const QString& documentVersion = "");
 
 private:
     QWidget* createTopPanel();

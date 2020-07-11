@@ -48,7 +48,7 @@ std::string bornagainDir()
 QString getCandidate(const QStringList& funcNames)
 {
     if (funcNames.isEmpty())
-        return QString();
+        return "";
 
     for (auto str : funcNames) {
         QString name = str.toLower();
@@ -149,7 +149,7 @@ QString PyImportAssistant::getPySampleFunctionName(const QString& snippet)
         DetailedMessageBox warning(m_mainWindow, "Python failure", message, details);
         warning.exec();
 
-        return QString();
+        return "";
     }
     QApplication::restoreOverrideCursor();
 

@@ -138,7 +138,7 @@ QString SavePlotAssistant::getExtensionFromFilterName(const QString& filterName)
             return m_formats[i].m_file_extention;
         }
     }
-    return QString();
+    return "";
 }
 
 bool SavePlotAssistant::isPngFile(const QString& fileName) const

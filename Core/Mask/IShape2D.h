@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_MASK_ISHAPE2D_H
 
 #include "Core/Basics/ICloneable.h"
-#include "Core/Basics/INamed.h"
 #include <iostream>
 
 struct Bin1D;

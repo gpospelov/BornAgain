@@ -1,5 +1,4 @@
 #include "Core/Tools/OrderedMap.h"
-#include "Core/Basics/INamed.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class OrderedMapTest : public ::testing::Test
@@ -79,14 +78,14 @@ TEST_F(OrderedMapTest, OrderedMapErase)
 
 TEST_F(OrderedMapTest, OrderedMapGetValue)
 {
-    OrderedMap<const INamed*, INamed*> omap;
+    OrderedMap<const std::string*, std::string*> omap;
 
-    std::unique_ptr<INamed> key1(new INamed("key1"));
-    std::unique_ptr<INamed> key2(new INamed("key2"));
-    std::unique_ptr<INamed> key3(new INamed("key3"));
-    std::unique_ptr<INamed> val1(new INamed("val1"));
-    std::unique_ptr<INamed> val2(new INamed("val2"));
-    std::unique_ptr<INamed> val3(new INamed("val3"));
+    std::unique_ptr<std::string> key1(new std::string("key1"));
+    std::unique_ptr<std::string> key2(new std::string("key2"));
+    std::unique_ptr<std::string> key3(new std::string("key3"));
+    std::unique_ptr<std::string> val1(new std::string("val1"));
+    std::unique_ptr<std::string> val2(new std::string("val2"));
+    std::unique_ptr<std::string> val3(new std::string("val3"));
 
     omap.insert(key1.get(), val1.get());
     omap.insert(key2.get(), val2.get());
@@ -99,12 +98,12 @@ TEST_F(OrderedMapTest, OrderedMapGetValue)
 
 TEST_F(OrderedMapTest, OrderedMapFind)
 {
-    OrderedMap<const INamed*, std::string> omap;
+    OrderedMap<const std::string*, std::string> omap;
 
-    std::unique_ptr<INamed> n1(new INamed("named1"));
-    std::unique_ptr<INamed> n2(new INamed("named2"));
-    std::unique_ptr<INamed> n3(new INamed("named3"));
-    std::unique_ptr<INamed> n4(new INamed("named4"));
+    std::unique_ptr<std::string> n1(new std::string("named1"));
+    std::unique_ptr<std::string> n2(new std::string("named2"));
+    std::unique_ptr<std::string> n3(new std::string("named3"));
+    std::unique_ptr<std::string> n4(new std::string("named4"));
 
     omap.insert(n1.get(), "aaa");
     omap.insert(n2.get(), "bbb");
@@ -125,11 +124,11 @@ TEST_F(OrderedMapTest, OrderedMapFind)
 
 TEST_F(OrderedMapTest, OrderedMapReInsert)
 {
-    std::unique_ptr<INamed> P_n1(new INamed("named1"));
-    std::unique_ptr<INamed> P_n2(new INamed("named2"));
-    std::unique_ptr<INamed> P_n3(new INamed("named3"));
+    std::unique_ptr<std::string> P_n1(new std::string("named1"));
+    std::unique_ptr<std::string> P_n2(new std::string("named2"));
+    std::unique_ptr<std::string> P_n3(new std::string("named3"));
 
-    OrderedMap<INamed*, double> omap;
+    OrderedMap<std::string*, double> omap;
     omap.insert(P_n1.get(), 1.0);
     omap.insert(P_n2.get(), 2.0);
     omap.insert(P_n3.get(), 3.0);

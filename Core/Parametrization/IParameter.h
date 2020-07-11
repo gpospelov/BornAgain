@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H
 
-#include "Core/Basics/INamed.h"
 #include <functional>
 #include <stdexcept>
 #include <string>
@@ -26,7 +25,7 @@
 //! This class is templated on the data type of the wrapped parameter.
 //! @ingroup tools_internal
 
-template <class T> class IParameter : public INamed
+template <class T> class IParameter
 {
 public:
     IParameter() = delete;
@@ -46,20 +45,22 @@ public:
     }
 
     bool hasSameData(const IParameter& other);
+    const std::string& getName() const { return m_name; }
 
 protected:
+    const std::string m_name;
     T* m_data;
-    std::string m_parent_name;
-    std::function<void()> m_onChange;
+    const std::string m_parent_name;
+    const std::function<void()> m_onChange;
 
     //! For use in error messages
-    std::string fullName() { return m_parent_name + "/" + getName(); }
+    std::string fullName() const { return m_parent_name + "/" + m_name; }
 };
 
 template <class T>
 IParameter<T>::IParameter(const std::string& name, T* data, const std::string& parent_name,
                           const std::function<void()>& onChange)
-    : INamed(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange)
+    : m_name(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange)
 {
     if (!m_data)
         throw std::runtime_error("Attempt to construct an IParameter with null data pointer");

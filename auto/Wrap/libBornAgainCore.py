@@ -1801,49 +1801,7 @@ major_version_number = cvar.major_version_number
 minor_version_number = cvar.minor_version_number
 patch_version_number = cvar.patch_version_number
 
-class INamed(object):
-    r"""
-
-
-    Interface for named objects.
-
-    C++ includes: INamed.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(INamed self) -> INamed
-        __init__(INamed self, std::string const & name) -> INamed
-        INamed::INamed(const std::string &name)
-
-        """
-        if self.__class__ == INamed:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.INamed_swiginit(self, _libBornAgainCore.new_INamed(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_INamed
-
-    def getName(self):
-        r"""
-        getName(INamed self) -> std::string
-        std::string INamed::getName() const
-
-        """
-        return _libBornAgainCore.INamed_getName(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_INamed(self)
-        return weakref.proxy(self)
-
-# Register INamed in _libBornAgainCore:
-_libBornAgainCore.INamed_swigregister(INamed)
-
-class IParameterized(INamed):
+class IParameterized(object):
     r"""
 
 
@@ -1910,8 +1868,8 @@ class IParameterized(INamed):
 
     def registerVector(self, *args):
         r"""
-        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units=BornAgain::UnitsNm)
-        void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units=BornAgain::UnitsNm)
+        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
+        void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
 
         """
         return _libBornAgainCore.IParameterized_registerVector(self, *args)
@@ -1982,6 +1940,22 @@ class IParameterized(INamed):
     def ZComponentName(base_name):
         r"""ZComponentName(std::string const & base_name) -> std::string"""
         return _libBornAgainCore.IParameterized_ZComponentName(base_name)
+
+    def setName(self, name):
+        r"""
+        setName(IParameterized self, std::string const & name)
+        void IParameterized::setName(const std::string &name)
+
+        """
+        return _libBornAgainCore.IParameterized_setName(self, name)
+
+    def getName(self):
+        r"""
+        getName(IParameterized self) -> std::string const &
+        const std::string& IParameterized::getName() const
+
+        """
+        return _libBornAgainCore.IParameterized_getName(self)
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IParameterized(self)
@@ -4270,7 +4244,7 @@ class CustomBinAxis(VariableBinAxis):
 # Register CustomBinAxis in _libBornAgainCore:
 _libBornAgainCore.CustomBinAxis_swigregister(CustomBinAxis)
 
-class IShape2D(ICloneable, INamed):
+class IShape2D(ICloneable):
     r"""
 
 
@@ -15370,7 +15344,7 @@ class IAbstractParticle(ISample):
 # Register IAbstractParticle in _libBornAgainCore:
 _libBornAgainCore.IAbstractParticle_swigregister(IAbstractParticle)
 
-class IParameterReal(INamed):
+class IParameterReal(object):
     r"""
 
 
@@ -15429,6 +15403,14 @@ class IParameterReal(INamed):
 
         """
         return _libBornAgainCore.IParameterReal_hasSameData(self, other)
+
+    def getName(self):
+        r"""
+        getName(IParameterReal self) -> std::string const &
+        const std::string& IParameter< T >::getName() const
+
+        """
+        return _libBornAgainCore.IParameterReal_getName(self)
     __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
 
 # Register IParameterReal in _libBornAgainCore:
@@ -16992,7 +16974,7 @@ class IntensityDataIOFactory(object):
     r"""
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
 
     Usage:
 
@@ -17038,7 +17020,7 @@ class IntensityDataIOFactory(object):
         __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
 
         Usage:
 

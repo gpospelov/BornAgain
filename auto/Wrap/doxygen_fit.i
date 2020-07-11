@@ -212,7 +212,7 @@ Wrapper for the CERN ROOT facade of the GSL multi minimizer family (gradient des
 C++ includes: GSLMultiMinimizer.h
 ";
 
-%feature("docstring")  GSLMultiMinimizer::GSLMultiMinimizer "GSLMultiMinimizer::GSLMultiMinimizer(const std::string &algorithmName=AlgorithmNames::ConjugateFR)
+%feature("docstring")  GSLMultiMinimizer::GSLMultiMinimizer "GSLMultiMinimizer::GSLMultiMinimizer(const std::string &algorithmName=\"ConjugateFR\")
 ";
 
 %feature("docstring")  GSLMultiMinimizer::~GSLMultiMinimizer "GSLMultiMinimizer::~GSLMultiMinimizer()
@@ -544,7 +544,7 @@ Wrapper for the CERN ROOT facade of the Minuit2 minimizer. See Minuit2 user manu
 C++ includes: Minuit2Minimizer.h
 ";
 
-%feature("docstring")  Minuit2Minimizer::Minuit2Minimizer "Minuit2Minimizer::Minuit2Minimizer(const std::string &algorithmName=AlgorithmNames::Migrad)
+%feature("docstring")  Minuit2Minimizer::Minuit2Minimizer "Minuit2Minimizer::Minuit2Minimizer(const std::string &algorithmName=\"Migrad\")
 ";
 
 %feature("docstring")  Minuit2Minimizer::~Minuit2Minimizer "Minuit2Minimizer::~Minuit2Minimizer()
@@ -1292,34 +1292,28 @@ Internal state of a  WallclockTimer object.
 // File: namespace_0d11.xml
 
 
-// File: namespace_0d26.xml
+// File: namespace_0d25.xml
 
 
-// File: namespace_0d30.xml
+// File: namespace_0d29.xml
 
 
-// File: namespace_0d32.xml
+// File: namespace_0d31.xml
 
 
-// File: namespace_0d36.xml
+// File: namespace_0d35.xml
 
 
-// File: namespace_0d38.xml
+// File: namespace_0d37.xml
 
 
 // File: namespace_0d4.xml
 
 
-// File: namespace_0d42.xml
-
-
-// File: namespaceAlgorithmNames.xml
+// File: namespace_0d41.xml
 
 
 // File: namespaceFit.xml
-
-
-// File: namespaceMinimizerNames.xml
 
 
 // File: namespaceMinimizerResultUtils.xml
@@ -1353,9 +1347,6 @@ Returns translation of GSL error code to string.
 
 Returns horizontal line of 80 characters length with section name in it. 
 ";
-
-
-// File: namespaceOptionNames.xml
 
 
 // File: namespaceROOT.xml
@@ -1472,9 +1463,6 @@ Returns new string which is lower case of text.
 
 
 // File: MinimizerCatalogue_8h.xml
-
-
-// File: MinimizerConstants_8h.xml
 
 
 // File: MinimizerFactory_8cpp.xml

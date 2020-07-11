@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
 
-#include "Core/Basics/INamed.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>
 
@@ -26,7 +25,7 @@ class RealParameter;
 //! Manages a local parameter pool, and a tree of child pools.
 //! @ingroup tools_internal
 
-class BA_CORE_API_ IParameterized : public INamed
+class BA_CORE_API_ IParameterized
 {
 public:
     IParameterized(const std::string& name = "");
@@ -66,7 +65,11 @@ public:
     static std::string YComponentName(const std::string& base_name);
     static std::string ZComponentName(const std::string& base_name);
 
+    void setName(const std::string& name) { m_name = name; }
+    const std::string& getName() const { return m_name; }
+
 private:
+    std::string m_name;
     std::unique_ptr<ParameterPool> m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 

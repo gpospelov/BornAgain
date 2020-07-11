@@ -22,7 +22,7 @@
 #include <stdexcept>
 
 IParameterized::IParameterized(const std::string& name)
-    : INamed(name)
+    : m_name{name}
     , m_pool{new ParameterPool}
 {
 }

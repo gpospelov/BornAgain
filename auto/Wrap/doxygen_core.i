@@ -168,7 +168,12 @@ C++ includes: SimulationResult.h
 
 
 // File: classBaseMaterialImpl.xml
-%feature("docstring") BaseMaterialImpl "";
+%feature("docstring") BaseMaterialImpl "
+
+Interface for material implementation classes. Inherited by  MagneticMaterialImpl, which has further children.
+
+C++ includes: BaseMaterialImpl.h
+";
 
 %feature("docstring")  BaseMaterialImpl::BaseMaterialImpl "BaseMaterialImpl::BaseMaterialImpl(const std::string &name)
 
@@ -237,6 +242,11 @@ Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections.
 %feature("docstring")  BaseMaterialImpl::print "virtual void BaseMaterialImpl::print(std::ostream &ostr) const =0
 
 Prints object data. 
+";
+
+%feature("docstring")  BaseMaterialImpl::getName "const std::string& BaseMaterialImpl::getName() const
+
+Returns name of the material. 
 ";
 
 
@@ -7780,27 +7790,6 @@ C++ includes: IMultiLayerBuilder.h
 ";
 
 
-// File: classINamed.xml
-%feature("docstring") INamed "
-
-Interface for named objects.
-
-C++ includes: INamed.h
-";
-
-%feature("docstring")  INamed::INamed "INamed::INamed()
-";
-
-%feature("docstring")  INamed::INamed "INamed::INamed(const std::string &name)
-";
-
-%feature("docstring")  INamed::~INamed "INamed::~INamed()
-";
-
-%feature("docstring")  INamed::getName "std::string INamed::getName() const
-";
-
-
 // File: classInfinitePlane.xml
 %feature("docstring") InfinitePlane "
 
@@ -8431,7 +8420,7 @@ perform the actual integration over the ranges [min_array, max_array]
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
 
 Usage:
 
@@ -9346,6 +9335,9 @@ Returns true if wrapped parameter was not initialized with proper real value.
 Returns true if two parameters are pointing to the same raw data. 
 ";
 
+%feature("docstring")  IParameter::getName "const std::string& IParameter< T >::getName() const
+";
+
 
 // File: classIParameterized.xml
 %feature("docstring") IParameterized "
@@ -9382,7 +9374,7 @@ Returns multiline string representing available parameters.
 %feature("docstring")  IParameterized::registerParameter "RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
 ";
 
-%feature("docstring")  IParameterized::registerVector "void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units=BornAgain::UnitsNm)
+%feature("docstring")  IParameterized::registerVector "void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units=\"nm\")
 ";
 
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
@@ -9405,6 +9397,12 @@ Action to be taken in inherited class when a parameter has changed.
 ";
 
 %feature("docstring")  IParameterized::removeVector "void IParameterized::removeVector(const std::string &base_name)
+";
+
+%feature("docstring")  IParameterized::setName "void IParameterized::setName(const std::string &name)
+";
+
+%feature("docstring")  IParameterized::getName "const std::string& IParameterized::getName() const
 ";
 
 
@@ -9741,7 +9739,7 @@ Basic class for all shapes in 2D.
 C++ includes: IShape2D.h
 ";
 
-%feature("docstring")  IShape2D::IShape2D "IShape2D::IShape2D(const std::string &name)
+%feature("docstring")  IShape2D::IShape2D "IShape2D::IShape2D(const char *name)
 ";
 
 %feature("docstring")  IShape2D::clone "virtual IShape2D* IShape2D::clone() const =0
@@ -10778,7 +10776,7 @@ C++ includes: MagneticLayersBuilder.h
 // File: classMagneticMaterialImpl.xml
 %feature("docstring") MagneticMaterialImpl "
 
-Basic implementation for magnetized material. Incorporates data and methods required to handle material magnetization.
+Basic implementation for magnetized material. Inherited by  RefractiveMaterialImpl and  MaterialBySLDImpl. Incorporates data and methods required to handle material magnetization.
 
 C++ includes: MagneticMaterialImpl.h
 ";
@@ -12047,7 +12045,7 @@ C++ includes: OutputDataReadFactory.h
 // File: classOutputDataReadINTStrategy.xml
 %feature("docstring") OutputDataReadINTStrategy "
 
-Strategy to read  BornAgain native IntensityData from ASCII file.
+Strategy to read BornAgain native IntensityData from ASCII file.
 
 C++ includes: OutputDataReadStrategy.h
 ";
@@ -12092,7 +12090,7 @@ C++ includes: OutputDataWriteFactory.h
 // File: classOutputDataWriteINTStrategy.xml
 %feature("docstring") OutputDataWriteINTStrategy "
 
-Strategy to write  OutputData to special  BornAgain ASCII format
+Strategy to write  OutputData to special BornAgain ASCII format
 
 C++ includes: OutputDataWriteStrategy.h
 ";
@@ -16696,6 +16694,9 @@ C++ includes: Unit.h
 %feature("docstring")  Unit::setUnit "void Unit::setUnit(const std::string &name)
 ";
 
+%feature("docstring")  Unit::getName "const std::string& Unit::getName() const
+";
+
 
 // File: classUnitConverter1D.xml
 %feature("docstring") UnitConverter1D "
@@ -17090,10 +17091,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17123,172 +17124,172 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d104.xml
+// File: namespace_0d101.xml
 
 
-// File: namespace_0d106.xml
+// File: namespace_0d103.xml
 
 
-// File: namespace_0d108.xml
+// File: namespace_0d105.xml
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d109.xml
 
 
 // File: namespace_0d12.xml
 
 
-// File: namespace_0d127.xml
+// File: namespace_0d124.xml
 
 
-// File: namespace_0d136.xml
+// File: namespace_0d133.xml
 
 
-// File: namespace_0d141.xml
+// File: namespace_0d138.xml
 
 
-// File: namespace_0d150.xml
+// File: namespace_0d147.xml
 
 
-// File: namespace_0d152.xml
+// File: namespace_0d149.xml
 
 
-// File: namespace_0d156.xml
+// File: namespace_0d153.xml
 
 
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d192.xml
+// File: namespace_0d189.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d227.xml
+// File: namespace_0d224.xml
 
 
-// File: namespace_0d235.xml
+// File: namespace_0d232.xml
 
 
-// File: namespace_0d241.xml
+// File: namespace_0d238.xml
 
 
-// File: namespace_0d245.xml
+// File: namespace_0d242.xml
 
 
-// File: namespace_0d295.xml
+// File: namespace_0d292.xml
 
 
-// File: namespace_0d304.xml
+// File: namespace_0d301.xml
 
 
-// File: namespace_0d312.xml
+// File: namespace_0d309.xml
 
 
-// File: namespace_0d314.xml
+// File: namespace_0d311.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d326.xml
+// File: namespace_0d323.xml
 
 
-// File: namespace_0d332.xml
+// File: namespace_0d329.xml
 
 
-// File: namespace_0d353.xml
+// File: namespace_0d350.xml
 
 
-// File: namespace_0d357.xml
+// File: namespace_0d354.xml
 
 
-// File: namespace_0d359.xml
+// File: namespace_0d356.xml
 
 
-// File: namespace_0d361.xml
+// File: namespace_0d358.xml
 
 
-// File: namespace_0d371.xml
+// File: namespace_0d368.xml
 
 
-// File: namespace_0d383.xml
+// File: namespace_0d380.xml
 
 
-// File: namespace_0d387.xml
+// File: namespace_0d384.xml
 
 
-// File: namespace_0d399.xml
+// File: namespace_0d396.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d405.xml
+// File: namespace_0d402.xml
 
 
-// File: namespace_0d407.xml
+// File: namespace_0d404.xml
 
 
-// File: namespace_0d414.xml
+// File: namespace_0d411.xml
 
 
-// File: namespace_0d416.xml
+// File: namespace_0d413.xml
+
+
+// File: namespace_0d417.xml
+
+
+// File: namespace_0d419.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d420.xml
+// File: namespace_0d429.xml
 
 
-// File: namespace_0d422.xml
+// File: namespace_0d442.xml
 
 
-// File: namespace_0d432.xml
+// File: namespace_0d451.xml
 
 
-// File: namespace_0d445.xml
+// File: namespace_0d453.xml
 
 
-// File: namespace_0d454.xml
+// File: namespace_0d486.xml
 
 
-// File: namespace_0d456.xml
+// File: namespace_0d493.xml
 
 
-// File: namespace_0d490.xml
+// File: namespace_0d513.xml
 
 
-// File: namespace_0d497.xml
+// File: namespace_0d521.xml
 
 
-// File: namespace_0d517.xml
+// File: namespace_0d523.xml
 
 
 // File: namespace_0d525.xml
 
 
-// File: namespace_0d527.xml
-
-
-// File: namespace_0d529.xml
-
-
 // File: namespace_0d6.xml
+
+
+// File: namespace_0d609.xml
 
 
 // File: namespace_0d613.xml
 
 
-// File: namespace_0d617.xml
+// File: namespace_0d637.xml
 
 
-// File: namespace_0d641.xml
-
-
-// File: namespace_0d98.xml
+// File: namespace_0d95.xml
 
 
 // File: namespacealgo.xml
@@ -17382,9 +17383,6 @@ vector<vector<double>>
 // File: namespaceboost_1_1geometry.xml
 
 
-// File: namespaceBornAgain.xml
-
-
 // File: namespaceDataFormatUtils.xml
 %feature("docstring")  DataFormatUtils::isCompressed "bool DataFormatUtils::isCompressed(const std::string &name)
 
@@ -17412,7 +17410,7 @@ Returns file main extension (without .gz).
 
 %feature("docstring")  DataFormatUtils::isIntFile "bool DataFormatUtils::isIntFile(const std::string &file_name)
 
-returns true if file name corresponds to  BornAgain native format (compressed or not) 
+returns true if file name corresponds to BornAgain native format (compressed or not) 
 ";
 
 %feature("docstring")  DataFormatUtils::isTiffFile "bool DataFormatUtils::isTiffFile(const std::string &file_name)
@@ -17997,7 +17995,7 @@ Converts char to string. In the case of nullptr will return an empty string.
 
 %feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=std::string())
 
-Imports  BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
+Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
 ";
 
 %feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
@@ -18026,7 +18024,7 @@ functionName:
 A function name in this script which produces a  MultiLayer
 
 path: 
-A path to import  BornAgain library. If empty, relies on PYTHONPATH 
+A path to import BornAgain library. If empty, relies on PYTHONPATH 
 ";
 
 %feature("docstring")  PyImport::listOfFunctions "std::vector< std::string > PyImport::listOfFunctions(const std::string &script, const std::string &path=std::string())
@@ -18040,7 +18038,7 @@ script:
 Python script
 
 path: 
-A path to import  BornAgain library. If empty, relies on PYTHONPATH 
+A path to import BornAgain library. If empty, relies on PYTHONPATH 
 ";
 
 
@@ -18508,9 +18506,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: Algorithms_8h.xml
 
 
-// File: BornAgainNamespace_8h.xml
-
-
 // File: Complex_8h.xml
 %feature("docstring")  mul_I "complex_t mul_I(complex_t z)
 
@@ -18533,12 +18528,6 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: ICloneable_8h.xml
-
-
-// File: INamed_8cpp.xml
-
-
-// File: INamed_8h.xml
 
 
 // File: ISingleton_8h.xml
@@ -19903,9 +19892,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: ThreadInfo_8h.xml
-
-
-// File: Unit_8cpp.xml
 
 
 // File: Unit_8h.xml

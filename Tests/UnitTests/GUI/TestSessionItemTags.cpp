@@ -10,7 +10,7 @@ TEST_F(TestSessionItemTags, initialState)
 {
     SessionItemTags tags;
     EXPECT_FALSE(tags.isValid(QString()));
-    EXPECT_FALSE(tags.isValid(QString("abc")));
+    EXPECT_FALSE(tags.isValid("abc"));
 }
 
 TEST_F(TestSessionItemTags, registerTag)

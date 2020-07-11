@@ -21,16 +21,16 @@ TEST_F(TestScientificSpinBox, testValueFromText)
     };
 
     // translation fails
-    EXPECT_EQ(0.1, to_value(QString("abcd")));
-    EXPECT_EQ(0.1, to_value(QString("1,2")));
-    EXPECT_EQ(0.1, to_value(QString("100,000,000.2")));
-    EXPECT_EQ(0.1, to_value(QString("100.000.000.2")));
-    EXPECT_EQ(0.1, to_value(QString("1e+2345")));
-    EXPECT_EQ(0.1, to_value(QString("-1e+2345")));
-    EXPECT_EQ(0.1, to_value(QString("1e-2345")));
-    EXPECT_EQ(0.1, to_value(QString("-1e-2345")));
-    EXPECT_EQ(0.1, to_value(QString("--0.1")));
-    EXPECT_EQ(0.1, to_value(QString("-.e-12")));
+    EXPECT_EQ(0.1, to_value("abcd"));
+    EXPECT_EQ(0.1, to_value("1,2"));
+    EXPECT_EQ(0.1, to_value("100,000,000.2"));
+    EXPECT_EQ(0.1, to_value("100.000.000.2"));
+    EXPECT_EQ(0.1, to_value("1e+2345"));
+    EXPECT_EQ(0.1, to_value("-1e+2345"));
+    EXPECT_EQ(0.1, to_value("1e-2345"));
+    EXPECT_EQ(0.1, to_value("-1e-2345"));
+    EXPECT_EQ(0.1, to_value("--0.1"));
+    EXPECT_EQ(0.1, to_value("-.e-12"));
     EXPECT_EQ(0.1, to_value(QString()));
 
     auto to_value_2 = [&validator](QString text) {
@@ -38,18 +38,18 @@ TEST_F(TestScientificSpinBox, testValueFromText)
     };
 
     // translation fails due to out-of-bounds condition
-    EXPECT_EQ(0.1, to_value_2(QString("-0.2")));
-    EXPECT_EQ(0.1, to_value_2(QString("-0.1e+1")));
-    EXPECT_EQ(0.1, to_value_2(QString("1e+8")));
+    EXPECT_EQ(0.1, to_value_2("-0.2"));
+    EXPECT_EQ(0.1, to_value_2("-0.1e+1"));
+    EXPECT_EQ(0.1, to_value_2("1e+8"));
 
     // legitimate values
-    EXPECT_EQ(-0.0999, to_value_2(QString("-0.0999")));
-    EXPECT_EQ(-1e-13, to_value_2(QString("-.1e-12")));
-    EXPECT_EQ(0.0, to_value_2(QString("0")));
-    EXPECT_EQ(0.123, to_value_2(QString("0.123")));
-    EXPECT_EQ(1e+6, to_value_2(QString("1e+6")));
-    EXPECT_EQ(1.1e+6, to_value_2(QString("1.1e+6")));
-    EXPECT_EQ(0.012, to_value_2(QString("0.012")));
+    EXPECT_EQ(-0.0999, to_value_2("-0.0999"));
+    EXPECT_EQ(-1e-13, to_value_2("-.1e-12"));
+    EXPECT_EQ(0.0, to_value_2("0"));
+    EXPECT_EQ(0.123, to_value_2("0.123"));
+    EXPECT_EQ(1e+6, to_value_2("1e+6"));
+    EXPECT_EQ(1.1e+6, to_value_2("1.1e+6"));
+    EXPECT_EQ(0.012, to_value_2("0.012"));
 }
 
 TEST_F(TestScientificSpinBox, testTextFromValue)

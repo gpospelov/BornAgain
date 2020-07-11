@@ -22,8 +22,8 @@ ItemTreeView::ItemTreeView(QWidget* parent) : QTreeView(parent)
 {
 
     setAllColumnsShowFocus(true);
-    setWindowTitle(QString("Sample Tree View"));
-    setObjectName(QString("ObjectTree"));
+    setWindowTitle("Sample Tree View");
+    setObjectName("ObjectTree");
     setContextMenuPolicy(Qt::CustomContextMenu);
     setDragDropMode(QAbstractItemView::InternalMove);
 }

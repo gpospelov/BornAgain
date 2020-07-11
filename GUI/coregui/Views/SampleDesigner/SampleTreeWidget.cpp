@@ -24,7 +24,7 @@
 SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
     : QWidget(parent), m_treeView(new ItemTreeView), m_sampleModel(model)
 {
-    setWindowTitle(QString("Sample Tree"));
+    setWindowTitle("Sample Tree");
     setObjectName(QLatin1String("SampleTreeWidget"));
 
     auto mainLayout = new QVBoxLayout;
@@ -59,7 +59,7 @@ QTreeView* SampleTreeWidget::treeView()
 void SampleTreeWidget::showContextMenu(const QPoint& pnt)
 {
     QMenu menu;
-    QMenu add_menu(QString("Add"));
+    QMenu add_menu("Add");
     QVector<QString> addItemNames;
     QModelIndex parent_index = FilterPropertyProxy::toSourceIndex(treeView()->indexAt(pnt));
     treeView()->setCurrentIndex(parent_index);

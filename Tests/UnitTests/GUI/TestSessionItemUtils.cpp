@@ -60,7 +60,7 @@ TEST_F(TestSessionItemUtils, VariantType)
     EXPECT_FALSE(SessionItemUtils::VariantType(QVariant::fromValue(1.0))
                  == SessionItemUtils::VariantType(QVariant::fromValue(1)));
     EXPECT_FALSE(SessionItemUtils::VariantType(QVariant::fromValue(1.0))
-                 == SessionItemUtils::VariantType(QVariant::fromValue(QString("a"))));
+                 == SessionItemUtils::VariantType(QVariant::fromValue(QString{"a"})));
 
     QVariant v1, v2;
     EXPECT_TRUE(SessionItemUtils::VariantType(v1) == SessionItemUtils::VariantType(v2));
@@ -120,10 +120,10 @@ TEST_F(TestSessionItemUtils, IsTheSameVariant)
     EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(1.0), QVariant::fromValue(2.0)));
 
     // comparing QVariant based on strings
-    EXPECT_TRUE(SessionItemUtils::IsTheSame(QVariant::fromValue(QString("a")),
-                                            QVariant::fromValue(QString("a"))));
-    EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(QString("a")),
-                                             QVariant::fromValue(QString("b"))));
+    EXPECT_TRUE(SessionItemUtils::IsTheSame(QVariant::fromValue(QString{"a"}),
+                                            QVariant::fromValue(QString{"a"})));
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(QString{"a"}),
+                                             QVariant::fromValue(QString{"b"})));
 
     // comparing variants of different type
     EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(1.0), QVariant::fromValue(1)));

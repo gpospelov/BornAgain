@@ -77,7 +77,7 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
             // handling crash of GUI during job run and non-existing file
             if (auto jobItem = parentJobItem(item)) {
                 if (jobItem->isRunning()) {
-                    jobItem->setComments(QString("Possible GUI crash while job was running"));
+                    jobItem->setComments("Possible GUI crash while job was running");
                     jobItem->setStatus("Failed");
                 }
             }

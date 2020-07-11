@@ -46,7 +46,7 @@ TEST_F(TestSessionItemData, setData)
 
     EXPECT_TRUE(itemData.setData(Qt::DisplayRole, ep.variant()));
     EXPECT_TRUE(
-        itemData.setData(SessionFlags::CustomEditorRole, QVariant::fromValue(QString("abc"))));
+        itemData.setData(SessionFlags::CustomEditorRole, QVariant::fromValue(QString{"abc"})));
 
     expected = {Qt::DisplayRole, SessionFlags::CustomEditorRole};
     EXPECT_EQ(itemData.roles(), expected);

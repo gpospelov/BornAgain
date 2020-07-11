@@ -38,7 +38,7 @@ void UpdateNotifier::checkForUpdates()
             networkRequest.setRawHeader(QByteArray("User-Agent"), text.toLatin1());
             m_networkAccessManager->get(networkRequest);
         } else {
-            emit onUpdateNotification(QString(""));
+            emit onUpdateNotification("");
         }
     }
 }
@@ -66,7 +66,7 @@ void UpdateNotifier::replyFinished(QNetworkReply* reply)
                 message.append("</a>");
                 emit onUpdateNotification(message);
             } else {
-                emit onUpdateNotification(QString(""));
+                emit onUpdateNotification("");
             }
         }
     };

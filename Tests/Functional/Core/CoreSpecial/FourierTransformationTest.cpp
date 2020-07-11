@@ -109,7 +109,7 @@ namespace
 {
 std::string inputImageDir()
 {
-    return std::string(BATesting::CoreReferenceDir());
+    return BATesting::CoreReferenceDir();
 }
 
 std::vector<std::string> inputImageNames()
@@ -134,7 +134,7 @@ std::string fftReferenceImage(const std::string& input_image)
 
 std::string outputDir()
 {
-    return std::string(BATesting::CoreOutputDir());
+    return BATesting::CoreOutputDir();
 }
 
 } // namespace

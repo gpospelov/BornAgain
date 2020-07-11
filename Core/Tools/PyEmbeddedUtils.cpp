@@ -60,9 +60,9 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj)
 std::string PyEmbeddedUtils::toString(char* c)
 {
     if (c)
-        return std::string(c);
+        return c;
     else
-        return std::string();
+        return "";
 }
 
 std::string PyEmbeddedUtils::toString(wchar_t* c)
@@ -72,7 +72,7 @@ std::string PyEmbeddedUtils::toString(wchar_t* c)
         std::string result(wstr.begin(), wstr.end());
         return result;
     } else {
-        return std::string();
+        return "";
     }
 }
 

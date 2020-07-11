@@ -80,8 +80,7 @@ public:
 
     // Convenience to access the widget box icon of a widget. Empty category
     // matches all
-    virtual QIcon iconForWidget(const QString& className,
-                                const QString& category = "") const = 0;
+    virtual QIcon iconForWidget(const QString& className, const QString& category = "") const = 0;
 
     // Convenience to find a widget by class name. Empty category matches all
     static bool findWidget(const QDesignerWidgetBoxInterface* wbox, const QString& className,

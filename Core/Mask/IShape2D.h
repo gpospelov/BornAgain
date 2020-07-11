@@ -44,6 +44,7 @@ public:
 
 protected:
     virtual void print(std::ostream& ostr) const { ostr << m_name; }
+
 private:
     const char* const m_name;
 };

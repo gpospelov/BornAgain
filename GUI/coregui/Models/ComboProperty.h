@@ -28,8 +28,7 @@ class BA_CORE_API_ ComboProperty
 public:
     ComboProperty();
 
-    static ComboProperty fromList(const QStringList& values,
-                                  const QString& current_value = "");
+    static ComboProperty fromList(const QStringList& values, const QString& current_value = "");
 
     QString getValue() const;
     void setValue(const QString& name);

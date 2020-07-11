@@ -21,11 +21,7 @@
 #include <sstream>
 #include <stdexcept>
 
-IParameterized::IParameterized(const std::string& name)
-    : m_name{name}
-    , m_pool{new ParameterPool}
-{
-}
+IParameterized::IParameterized(const std::string& name) : m_name{name}, m_pool{new ParameterPool} {}
 
 IParameterized::IParameterized(const IParameterized& other) : IParameterized(other.getName())
 {

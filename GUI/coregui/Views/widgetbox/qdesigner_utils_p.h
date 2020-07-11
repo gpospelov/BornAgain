@@ -330,8 +330,7 @@ private:
 class QDESIGNER_SHARED_EXPORT PropertySheetTranslatableData
 {
 protected:
-    PropertySheetTranslatableData(bool translatable = true,
-                                  const QString& disambiguation = "",
+    PropertySheetTranslatableData(bool translatable = true, const QString& disambiguation = "",
                                   const QString& comment = "");
     bool equals(const PropertySheetTranslatableData& rhs) const;
 
@@ -354,8 +353,7 @@ class QDESIGNER_SHARED_EXPORT PropertySheetStringValue : public PropertySheetTra
 {
 public:
     PropertySheetStringValue(const QString& value = "", bool translatable = true,
-                             const QString& disambiguation = "",
-                             const QString& comment = "");
+                             const QString& disambiguation = "", const QString& comment = "");
 
     bool operator==(const PropertySheetStringValue& other) const { return equals(other); }
     bool operator!=(const PropertySheetStringValue& other) const { return !equals(other); }
@@ -374,8 +372,7 @@ class QDESIGNER_SHARED_EXPORT PropertySheetStringListValue : public PropertyShee
 {
 public:
     PropertySheetStringListValue(const QStringList& value = QStringList(), bool translatable = true,
-                                 const QString& disambiguation = "",
-                                 const QString& comment = "");
+                                 const QString& disambiguation = "", const QString& comment = "");
 
     bool operator==(const PropertySheetStringListValue& other) const { return equals(other); }
     bool operator!=(const PropertySheetStringListValue& other) const { return !equals(other); }
@@ -394,12 +391,10 @@ class QDESIGNER_SHARED_EXPORT PropertySheetKeySequenceValue : public PropertyShe
 {
 public:
     PropertySheetKeySequenceValue(const QKeySequence& value = QKeySequence(),
-                                  bool translatable = true,
-                                  const QString& disambiguation = "",
+                                  bool translatable = true, const QString& disambiguation = "",
                                   const QString& comment = "");
     PropertySheetKeySequenceValue(const QKeySequence::StandardKey& standardKey,
-                                  bool translatable = true,
-                                  const QString& disambiguation = "",
+                                  bool translatable = true, const QString& disambiguation = "",
                                   const QString& comment = "");
 
     bool operator==(const PropertySheetKeySequenceValue& other) const { return equals(other); }

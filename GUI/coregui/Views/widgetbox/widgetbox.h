@@ -89,8 +89,7 @@ public:
     virtual bool save();
 
     virtual bool loadContents(const QString& contents);
-    virtual QIcon iconForWidget(const QString& className,
-                                const QString& category = "") const;
+    virtual QIcon iconForWidget(const QString& className, const QString& category = "") const;
 
 protected:
     virtual void dragEnterEvent(QDragEnterEvent* event);

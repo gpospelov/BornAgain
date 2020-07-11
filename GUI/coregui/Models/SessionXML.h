@@ -56,8 +56,8 @@ BA_CORE_API_ void writeTo(QXmlStreamWriter* writer, SessionItem* parent);
 BA_CORE_API_ void writeItemAndChildItems(QXmlStreamWriter* writer, const SessionItem* item);
 BA_CORE_API_ void writeVariant(QXmlStreamWriter* writer, QVariant variant, int role);
 
-BA_CORE_API_ void readItems(QXmlStreamReader* reader, SessionItem* parent,
-                            QString topTag = "", MessageService* messageService = nullptr);
+BA_CORE_API_ void readItems(QXmlStreamReader* reader, SessionItem* parent, QString topTag = "",
+                            MessageService* messageService = nullptr);
 BA_CORE_API_ QString readProperty(QXmlStreamReader* reader, SessionItem* item,
                                   MessageService* messageService = nullptr);
 } // namespace SessionXML

@@ -25,6 +25,7 @@ public:
     explicit Unit(const std::string& name = "") : m_name(name) {}
     void setUnit(const std::string& name) { m_name = name; }
     const std::string& getName() const { return m_name; }
+
 private:
     std::string m_name;
 };

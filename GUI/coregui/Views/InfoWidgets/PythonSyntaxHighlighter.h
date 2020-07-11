@@ -81,8 +81,7 @@ private:
     // multi-line section.
     bool matchMultiline(const QString& text, const QRegExp& delimiter, const int inState,
                         const QTextCharFormat& style);
-    const QTextCharFormat getTextCharFormat(const QString& colorName,
-                                            const QString& style = "");
+    const QTextCharFormat getTextCharFormat(const QString& colorName, const QString& style = "");
 
     QList<HighlightingRule> rules;
     QRegExp triSingleQuote;

@@ -15,18 +15,18 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H
 
-#include "Core/Basics/INamed.h"
+#include "Wrap/WinDllMacros.h"
 #include <map>
 
 //! Base class for all functional tests.
 //! @class IFunctionalTest
 
-class BA_CORE_API_ IFunctionalTest : public INamed
+class BA_CORE_API_ IFunctionalTest
 {
 public:
     IFunctionalTest() {}
     IFunctionalTest(const std::string& name, const std::string& description)
-        : INamed(name), m_description(description)
+        : m_name(name), m_description(description)
     {
     }
     virtual ~IFunctionalTest();
@@ -36,11 +36,14 @@ public:
     std::string description() const { return m_description; }
     void setDescription(const std::string& description) { m_description = description; }
 
-    using INamed::setName;
+    void setName(const std::string& name) { m_name = name; }
+    const std::string& getName() const { return m_name; }
 
 protected:
     virtual bool runTest() = 0; //!< Returns true when successful
 
+private:
+    std::string m_name;
     std::string m_description;
 };
 

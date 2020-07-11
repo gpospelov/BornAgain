@@ -18,13 +18,13 @@
 #include "Core/Parametrization/RealParameter.h"
 #include "Fit/Tools/RealLimits.h"
 #include <iostream>
-#include <memory>
 #include <sstream>
 #include <stdexcept>
 
-IParameterized::IParameterized(const std::string& name) : INamed(name)
+IParameterized::IParameterized(const std::string& name)
+    : INamed(name)
+    , m_pool{new ParameterPool}
 {
-    m_pool = new ParameterPool;
 }
 
 IParameterized::IParameterized(const IParameterized& other) : IParameterized(other.getName())
@@ -33,10 +33,7 @@ IParameterized::IParameterized(const IParameterized& other) : IParameterized(oth
         throw std::runtime_error("BUG: not prepared to copy parameters of " + getName());
 }
 
-IParameterized::~IParameterized()
-{
-    delete m_pool;
-}
+IParameterized::~IParameterized() = default;
 
 ParameterPool* IParameterized::createParameterTree() const
 {

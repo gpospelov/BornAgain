@@ -17,6 +17,7 @@
 
 #include "Core/Basics/INamed.h"
 #include "Core/Vector/Vectors3D.h"
+#include <memory>
 
 class RealLimits;
 class ParameterPool;
@@ -35,7 +36,7 @@ public:
     IParameterized& operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
-    ParameterPool* parameterPool() const { return m_pool; }
+    ParameterPool* parameterPool() const { return m_pool.get(); } // has non-const usages!
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     virtual ParameterPool* createParameterTree() const;
@@ -66,7 +67,7 @@ public:
     static std::string ZComponentName(const std::string& base_name);
 
 private:
-    ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
+    std::unique_ptr<ParameterPool> m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 
 #endif // BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H

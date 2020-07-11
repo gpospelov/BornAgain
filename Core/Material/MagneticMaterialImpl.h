@@ -24,6 +24,7 @@ class Transform3D;
 class WavevectorInfo;
 
 //! Basic implementation for magnetized material.
+//! Inherited by RefractiveMaterialImpl and MaterialBySLDImpl.
 //! Incorporates data and methods required to handle material magnetization.
 //! @ingroup materials
 

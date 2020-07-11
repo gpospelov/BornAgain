@@ -22,8 +22,8 @@ namespace
 std::map<int, std::string> statusDescription()
 {
     std::map<int, std::string> result;
-    result[0] = std::string("OK, minimum found");
-    result[1] = std::string("Maximum number of iterations reached");
+    result[0] = "OK, minimum found";
+    result[1] = "Maximum number of iterations reached";
     return result;
 }
 } // namespace

@@ -24,7 +24,7 @@ TestMinimizer::~TestMinimizer() = default;
 
 std::string TestMinimizer::minimizerName() const
 {
-    return std::string("Test");
+    return "Test";
 }
 
 MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters)

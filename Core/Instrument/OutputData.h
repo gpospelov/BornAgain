@@ -616,7 +616,7 @@ template <class T> size_t OutputData<T>::getAxisIndex(const std::string& axis_na
             return i;
     throw Exceptions::LogicErrorException("OutputData<T>::getAxisIndex() -> "
                                           "Error! Axis with given name not found '"
-                                          + axis_name + std::string("'"));
+                                          + axis_name + "'");
 }
 
 template <class T> bool OutputData<T>::axisNameExists(const std::string& axis_name) const

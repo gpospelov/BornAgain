@@ -87,7 +87,7 @@ double RootMinimizerAdapter::minValue() const
 
 std::string RootMinimizerAdapter::statusToString() const
 {
-    return m_status ? std::string("Minimum found") : std::string("Error in solving");
+    return m_status ? "Minimum found" : "Error in solving";
 }
 
 bool RootMinimizerAdapter::providesError() const

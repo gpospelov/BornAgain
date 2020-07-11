@@ -111,13 +111,13 @@ TEST_F(OrderedMapTest, OrderedMapFind)
     EXPECT_EQ(size_t(3), omap.size());
 
     EXPECT_EQ(omap.find(n1.get())->first, n1.get());
-    EXPECT_EQ(omap.find(n1.get())->second, std::string("aaa"));
+    EXPECT_EQ(omap.find(n1.get())->second, "aaa");
 
     EXPECT_EQ(omap.find(n2.get())->first, n2.get());
-    EXPECT_EQ(omap.find(n2.get())->second, std::string("bbb"));
+    EXPECT_EQ(omap.find(n2.get())->second, "bbb");
 
     EXPECT_EQ(omap.find(n3.get())->first, n3.get());
-    EXPECT_EQ(omap.find(n3.get())->second, std::string("ccc"));
+    EXPECT_EQ(omap.find(n3.get())->second, "ccc");
 
     EXPECT_EQ(omap.find(n4.get()), omap.end());
 }

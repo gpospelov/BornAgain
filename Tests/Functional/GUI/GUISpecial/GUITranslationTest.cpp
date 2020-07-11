@@ -251,7 +251,7 @@ namespace
 {
 const QVector<QPair<QStringList, QStringList>> black_list{
     {// Global scope
-     {QString()},
+     {""},
      {"Sigma factor", "MaterialRefractiveData", "MaterialSLDData", MaterialItem::P_MAGNETIZATION}},
     {// Instrument scope
      {"GISASInstrument", "OffSpecInstrument", "SpecularInstrument"},

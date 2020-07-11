@@ -258,7 +258,7 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
     realData->setImportData(std::move(import_data));
 
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 2);
-    realData->setItemValue(RealDataItem::P_NAME, QString("RealData"));
+    realData->setItemValue(RealDataItem::P_NAME, "RealData");
 
     // adding JobItem
     JobItem* jobItem = dynamic_cast<JobItem*>(models.jobModel()->insertNewItem("JobItem"));

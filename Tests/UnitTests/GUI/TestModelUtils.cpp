@@ -40,8 +40,8 @@ TEST_F(TestModelUtils, test_topItemNames)
 
     // checking names of items of certain type
     ASSERT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").size(), 2);
-    EXPECT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").at(0), QString("name1"));
-    EXPECT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").at(1), QString("name2"));
+    EXPECT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").at(0), "name1");
+    EXPECT_EQ(ModelUtils::topItemNames(&model, "MultiLayer").at(1), "name2");
 
     // checking names of all top items
     QStringList expected = {"name1", "Layer", "name2"};

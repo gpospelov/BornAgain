@@ -22,7 +22,7 @@ TEST_F(TestLayerItems, test_LayerDefaultMaterial)
 
     ExternalProperty material =
         layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_EQ(material.text(), QString("Default"));
+    EXPECT_EQ(material.text(), "Default");
     EXPECT_EQ(material.identifier(),
               defMaterial->getItemValue(MaterialItem::P_IDENTIFIER).toString());
 }

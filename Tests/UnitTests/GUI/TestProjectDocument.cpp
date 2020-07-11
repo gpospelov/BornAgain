@@ -75,7 +75,7 @@ TEST_F(TestProjectDocument, test_projectDocument)
     document.save(projectFileName);
     EXPECT_TRUE(document.hasValidNameAndPath());
     EXPECT_EQ(document.projectDir(), projectDir);
-    EXPECT_EQ(document.projectName(), QString("document"));
+    EXPECT_EQ(document.projectName(), "document");
     EXPECT_EQ(document.projectFileName(), projectFileName);
     EXPECT_FALSE(document.isModified());
 

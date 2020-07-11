@@ -155,7 +155,7 @@ TEST_F(TestSavingSpecularData, test_setLastModified)
 
     info = OutputDataSaveInfo::createSaved(item);
     QTest::qSleep(nap_time);
-    item->setItemValue(PointwiseAxisItem::P_FILE_NAME, QString("new_value"));
+    item->setItemValue(PointwiseAxisItem::P_FILE_NAME, "new_value");
     EXPECT_TRUE(info.wasModifiedSinceLastSave());
 }
 

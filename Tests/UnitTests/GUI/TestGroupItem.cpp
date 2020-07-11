@@ -20,8 +20,8 @@ TEST_F(TestGroupItem, test_groupInfo)
     info.setDefaultType("AAA");
 
     // sorted group (default behavior)
-    EXPECT_EQ(info.groupType(), QString("Group"));
-    EXPECT_EQ(info.defaultType(), QString("AAA"));
+    EXPECT_EQ(info.groupType(), "Group");
+    EXPECT_EQ(info.defaultType(), "AAA");
     EXPECT_EQ(info.itemTypes(), QStringList() << "AAA"
                                               << "BBB"
                                               << "CCC");
@@ -35,7 +35,7 @@ TEST_F(TestGroupItem, test_groupInfo)
     info.add("AAA2", "a_label2");
     info.add("CCC2", "c_label2");
     info.setDefaultType("AAA2");
-    EXPECT_EQ(info.defaultType(), QString("AAA2"));
+    EXPECT_EQ(info.defaultType(), "AAA2");
     EXPECT_EQ(info.itemTypes(), QStringList() << "BBB2"
                                               << "AAA2"
                                               << "CCC2");

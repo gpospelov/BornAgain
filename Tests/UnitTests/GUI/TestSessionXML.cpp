@@ -48,7 +48,7 @@ TEST_F(TestSessionXML, test_sessionItem)
     EXPECT_EQ(target.rowCount(QModelIndex()), 1);
     SessionItem* newItem = target.itemForIndex(target.index(0, 0, QModelIndex()));
     EXPECT_EQ(newItem->modelType(), "Property");
-    EXPECT_EQ(newItem->displayName(), QString("Property"));
+    EXPECT_EQ(newItem->displayName(), "Property");
     EXPECT_FALSE(newItem->value().isValid());
 }
 

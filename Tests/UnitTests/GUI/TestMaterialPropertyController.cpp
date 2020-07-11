@@ -126,5 +126,5 @@ TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
 
     // layer3 should have different MaterialProperty name
     property = layer3->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_EQ(property.text(), QString("name3changed"));
+    EXPECT_EQ(property.text(), "name3changed");
 }

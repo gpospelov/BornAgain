@@ -52,5 +52,5 @@ TEST_F(TestSessionItemData, setData)
     EXPECT_EQ(itemData.roles(), expected);
 
     EXPECT_EQ(itemData.data(Qt::DisplayRole).value<ExternalProperty>(), ep);
-    EXPECT_EQ(itemData.data(SessionFlags::CustomEditorRole).toString(), QString("abc"));
+    EXPECT_EQ(itemData.data(SessionFlags::CustomEditorRole).toString(), "abc");
 }

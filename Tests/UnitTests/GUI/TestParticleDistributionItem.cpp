@@ -206,7 +206,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
     prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                .value<ComboProperty>();
 
-    EXPECT_EQ(prop.getValue(), QString("Particle/Cylinder/Radius"));
+    EXPECT_EQ(prop.getValue(), "Particle/Cylinder/Radius");
 }
 
 //! Constructing from domain distribution with linked parameter defined
@@ -248,7 +248,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
 
     prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                .value<ComboProperty>();
-    EXPECT_EQ(prop.getValue(), QString("Particle/Cylinder/Radius"));
+    EXPECT_EQ(prop.getValue(), "Particle/Cylinder/Radius");
 
     linkedProp =
         distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();

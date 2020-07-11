@@ -59,7 +59,7 @@ void JobWorker::start()
             m_job_status = "Failed";
             m_percentage_done = 100;
             m_failure_message =
-                QString("JobRunner::start() -> Simulation failed with exception throw:\n\n");
+                "JobRunner::start() -> Simulation failed with exception throw:\n\n";
 
             m_failure_message.append(QString(ex.what()));
         }
@@ -67,7 +67,7 @@ void JobWorker::start()
     } else {
         m_job_status = "Failed";
         m_percentage_done = 100;
-        m_failure_message = QString("JobRunner::start() -> Error. Simulation doesn't exist.");
+        m_failure_message = "JobRunner::start() -> Error. Simulation doesn't exist.";
     }
 
     emit progressUpdate();

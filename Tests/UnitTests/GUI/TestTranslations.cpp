@@ -26,7 +26,7 @@ TEST_F(TestTranslations, test_TranslatePosition)
     SessionItem* xItem = positionItem->getItem(VectorItem::P_X);
 
     EXPECT_EQ(ModelPath::itemPathTranslation(*xItem, multilayer->parent()),
-              QString("MultiLayer/Layer/ParticleLayout/Particle/PositionX"));
+              "MultiLayer/Layer/ParticleLayout/Particle/PositionX");
 }
 
 TEST_F(TestTranslations, test_TranslateRotation)
@@ -45,7 +45,7 @@ TEST_F(TestTranslations, test_TranslateRotation)
 
     SessionItem* angleItem = rotationItem->getItem(XRotationItem::P_ANGLE);
     EXPECT_EQ(ModelPath::itemPathTranslation(*angleItem, multilayer->parent()),
-              QString("MultiLayer/Layer/ParticleLayout/Particle/XRotation/Angle"));
+              "MultiLayer/Layer/ParticleLayout/Particle/XRotation/Angle");
 }
 
 TEST_F(TestTranslations, test_BeamDistributionNone)
@@ -61,12 +61,12 @@ TEST_F(TestTranslations, test_BeamDistributionNone)
     SessionItem* value = distr->getItem(DistributionNoneItem::P_MEAN);
 
     EXPECT_EQ(ModelPath::itemPathTranslation(*value, instrument->parent()),
-              QString("Instrument/Beam/Wavelength"));
+              "Instrument/Beam/Wavelength");
 
     SessionItem* inclinationAngle = beam->getItem(BeamItem::P_INCLINATION_ANGLE);
     distr = inclinationAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
     value = distr->getItem(DistributionNoneItem::P_MEAN);
 
     EXPECT_EQ(ModelPath::itemPathTranslation(*value, instrument->parent()),
-              QString("Instrument/Beam/InclinationAngle"));
+              "Instrument/Beam/InclinationAngle");
 }

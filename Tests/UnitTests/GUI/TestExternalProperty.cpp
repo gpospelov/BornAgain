@@ -27,7 +27,7 @@ TEST_F(TestExternalProperty, test_initialState)
     property.setColor(QColor());
     EXPECT_TRUE(property.isValid() == false);
     property.setText("aaa");
-    EXPECT_TRUE(property.text() == QString("aaa"));
+    EXPECT_TRUE(property.text() == "aaa");
     EXPECT_TRUE(property.isValid() == true);
     property.setText(QString());
     EXPECT_TRUE(property.isValid() == false);

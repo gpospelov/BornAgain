@@ -106,7 +106,7 @@ TEST_F(TestComboProperty, stringOfValues)
     EXPECT_EQ(combo.selectedIndices(), QVector<int>({0}));
 
     // setting new string of values, containing current value. Current values should remain.
-    stringOfValues = QString("c1;b1;c3");
+    stringOfValues = "c1;b1;c3";
     combo.setStringOfValues(stringOfValues);
     EXPECT_EQ(combo.stringOfValues(), stringOfValues);
     EXPECT_EQ(combo.getValue(), "b1");

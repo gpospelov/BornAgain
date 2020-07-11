@@ -43,7 +43,7 @@ const QString BeamItem::P_INTENSITY = QString::fromStdString("Intensity");
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString("Wavelength");
 const QString BeamItem::P_INCLINATION_ANGLE = QString::fromStdString("InclinationAngle");
 const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString("AzimuthalAngle");
-const QString BeamItem::P_POLARIZATION = QString("Polarization");
+const QString BeamItem::P_POLARIZATION = "Polarization";
 
 BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
 {
@@ -132,7 +132,7 @@ void BeamItem::setWavelengthProperty(const QString& wavelength_type)
 // Specular beam item
 /* ------------------------------------------------------------------------- */
 
-const QString SpecularBeamItem::P_FOOPTPRINT = QString("Footprint");
+const QString SpecularBeamItem::P_FOOPTPRINT = "Footprint";
 
 const QString footprint_group_label("Type");
 

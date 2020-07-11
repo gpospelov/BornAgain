@@ -252,7 +252,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
 
     linkedProp =
         distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
-    QStringList expectedLinked = QStringList() << QString("Particle/Cylinder/Height");
+    QStringList expectedLinked = QStringList() << "Particle/Cylinder/Height";
     EXPECT_EQ(linkedProp.selectedValues(), expectedLinked);
     EXPECT_EQ(linkedProp.getValue(), expectedLinked.at(0));
 }

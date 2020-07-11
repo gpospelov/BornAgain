@@ -56,7 +56,7 @@ void UpdateNotifier::replyFinished(QNetworkReply* reply)
             QString myVersion = GUIHelpers::getBornAgainVersionString();
 
             // Testwise degrade version
-            // myVersion = QString("1.1.0");
+            // myVersion = "1.1.0";
 
             if (GUIHelpers::versionCode(versionString) > GUIHelpers::versionCode(myVersion)) {
                 QString message("New version is available: <a href=\"");

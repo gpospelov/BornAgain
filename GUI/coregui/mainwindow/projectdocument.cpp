@@ -76,7 +76,7 @@ void ProjectDocument::setProjectFileName(const QString& projectFileName)
 
 QString ProjectDocument::projectFileExtension()
 {
-    return QString(".pro");
+    return ".pro";
 }
 
 void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)

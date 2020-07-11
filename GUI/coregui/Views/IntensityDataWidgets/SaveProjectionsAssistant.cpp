@@ -51,7 +51,7 @@ void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataIte
 {
     Q_ASSERT(intensityItem);
 
-    QString defaultName = ProjectUtils::userExportDir() + QString("/untitled.txt");
+    QString defaultName = ProjectUtils::userExportDir() + "/untitled.txt";
     QString fileName = QFileDialog::getSaveFileName(parent, "Save projections data", defaultName);
 
     if (fileName.isEmpty())
@@ -95,7 +95,7 @@ QString SaveProjectionsAssistant::projectionsToString(const QString& projections
     auto bin_centers = projData.bin_centers;
 
     for (int i_point = 0; i_point < bin_centers.size(); ++i_point) {
-        out << to_double_str(bin_centers[i_point]) << QString(" ");
+        out << to_double_str(bin_centers[i_point]) << " ";
         for (auto& data : projData.projections) {
             out << to_scientific_str(data.bin_values[i_point]);
         }

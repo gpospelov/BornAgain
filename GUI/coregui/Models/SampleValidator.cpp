@@ -56,7 +56,7 @@ void SampleValidator::validateItem(const SessionItem* item)
     }
     if (!diagnosis.isEmpty()) {
         m_valid_sample = false;
-        m_validation_message += QString("* ") + diagnosis + QString("\n");
+        m_validation_message += QString("* ") + diagnosis + "\n";
     }
 }
 

@@ -17,6 +17,7 @@
 
 #include "Wrap/WinDllMacros.h"
 #include <map>
+#include <string>
 
 //! Base class for all functional tests.
 //! @class IFunctionalTest
@@ -43,8 +44,8 @@ protected:
     virtual bool runTest() = 0; //!< Returns true when successful
 
 private:
-    std::string m_name;
-    std::string m_description;
+std::string m_name {""};
+std::string m_description {""};
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H

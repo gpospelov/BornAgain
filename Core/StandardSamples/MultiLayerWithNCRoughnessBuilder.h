@@ -28,8 +28,6 @@ class BA_CORE_API_ MultiLayerWithNCRoughnessBuilder : public MultiLayerWithRough
 public:
     MultiLayerWithNCRoughnessBuilder();
     MultiLayer* buildSample() const override;
-
-private:
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHNCROUGHNESSBUILDER_H

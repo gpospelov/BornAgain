@@ -20,7 +20,6 @@
 
 class RealSpaceModel : public RealSpace::Model
 {
-public:
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMODEL_H

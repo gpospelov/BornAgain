@@ -42,8 +42,6 @@ public:
     {
         return *static_cast<const IParameter*>(this) == *static_cast<const IParameter*>(&other);
     }
-
-protected:
 };
 
 #endif // BORNAGAIN_UNUSED_COMPONENTPARAMETER_H

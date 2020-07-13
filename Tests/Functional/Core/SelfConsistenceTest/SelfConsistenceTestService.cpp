@@ -25,8 +25,6 @@ using builder_ptr = std::unique_ptr<IMultiLayerBuilder>;
 bool SelfConsistenceTestService::execute(int argc, char** argv)
 {
     StandardTestInfo info = TestUtils::testInfo(argc, argv);
-    if (info.m_test_name.empty())
-        return false;
 
     std::vector<sim_ptr> simulations;
     for (size_t i = 0, size = info.size(); i < size; ++i) {

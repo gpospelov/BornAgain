@@ -71,10 +71,10 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
             createTest(test_name, info.m_test_description, *simulation, info.m_threshold));
 
         if (n_subtests)
-            std::cout << "IStandardTest::execute() -> " << test_name << " " << sample_index + 1
+            std::cout << "IStandardTest::runTest() -> " << test_name << " " << sample_index + 1
                       << "/" << n_subtests << " (" << builder->getName() << ")\n";
 
-        if (!test->execute())
+        if (!test->runTest())
             ++number_of_failed_tests;
     }
 

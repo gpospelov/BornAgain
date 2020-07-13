@@ -32,15 +32,12 @@ public:
     }
     virtual ~IFunctionalTest() = default;
 
-    bool execute() { return runTest(); }
-
     std::string description() const { return m_description; }
     void setDescription(const std::string& description) { m_description = description; }
 
     void setName(const std::string& name) { m_name = name; }
     const std::string& getName() const { return m_name; }
 
-protected:
     virtual bool runTest() = 0; //!< Returns true when successful
 
 private:

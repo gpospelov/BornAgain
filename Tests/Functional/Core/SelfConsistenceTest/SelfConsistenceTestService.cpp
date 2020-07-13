@@ -38,5 +38,5 @@ bool SelfConsistenceTestService::execute(int argc, char** argv)
 
     auto test = std::make_unique<SelfConsistenceTest>(info.m_test_name, info.m_test_description,
                                                       std::move(simulations), info.m_threshold);
-    return test->execute();
+    return test->runTest();
 }

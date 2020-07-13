@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/SessionItemUtils.h"
-#include "GUI/coregui/Models/GroupInfoCatalogue.h"
+#include "GUI/coregui/Models/GroupInfoCatalog.h"
 #include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 #include "GUI/coregui/Models/SessionItem.h"
@@ -26,10 +26,10 @@
 
 namespace
 {
-const GroupInfoCatalogue& groupInfoCatalogue()
+const GroupInfoCatalog& groupInfoCatalog()
 {
-    static GroupInfoCatalogue s_catalogue = GroupInfoCatalogue();
-    return s_catalogue;
+    static GroupInfoCatalog s_catalog = GroupInfoCatalog();
+    return s_catalog;
 }
 
 QStringList parents_with_abundance()
@@ -119,12 +119,12 @@ QVariant SessionItemUtils::CheckStateRole(const SessionItem& item)
 
 bool SessionItemUtils::IsValidGroup(const QString& group_type)
 {
-    return groupInfoCatalogue().containsGroup(group_type);
+    return groupInfoCatalog().containsGroup(group_type);
 }
 
 GroupInfo SessionItemUtils::GetGroupInfo(const QString& group_type)
 {
-    return groupInfoCatalogue().groupInfo(group_type);
+    return groupInfoCatalog().groupInfo(group_type);
 }
 
 int SessionItemUtils::VariantType(const QVariant& variant)

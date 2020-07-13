@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/ItemCatalogue.cpp
-//! @brief     Implements class ItemCatalogue
+//! @file      GUI/coregui/Models/ItemCatalog.cpp
+//! @brief     Implements class ItemCatalog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "GUI/coregui/Models/ItemCatalogue.h"
+#include "GUI/coregui/Models/ItemCatalog.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
@@ -66,7 +66,7 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-ItemCatalogue::ItemCatalogue()
+ItemCatalog::ItemCatalog()
 {
     init_top_item_types();
 
@@ -246,27 +246,27 @@ ItemCatalogue::ItemCatalogue()
     add("DepthProbeInstrument", create_new<DepthProbeInstrumentItem>);
 }
 
-bool ItemCatalogue::contains(const QString& modelType) const
+bool ItemCatalog::contains(const QString& modelType) const
 {
     return m_data.contains(modelType);
 }
 
-std::unique_ptr<SessionItem> ItemCatalogue::create(const QString& modelType) const
+std::unique_ptr<SessionItem> ItemCatalog::create(const QString& modelType) const
 {
     return m_data.create(modelType);
 }
 
-QStringList ItemCatalogue::validTopItemTypes() const
+QStringList ItemCatalog::validTopItemTypes() const
 {
     return m_valid_top_item_types;
 }
 
-void ItemCatalogue::add(const QString& modelType, ItemCatalogue::factory_function_t f)
+void ItemCatalog::add(const QString& modelType, ItemCatalog::factory_function_t f)
 {
     m_data.registerItem(modelType, f);
 }
 
-void ItemCatalogue::init_top_item_types()
+void ItemCatalog::init_top_item_types()
 {
     m_valid_top_item_types.clear();
 

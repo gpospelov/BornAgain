@@ -15,17 +15,17 @@
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include "BABuild.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
 #include <cstdlib>
 #include <iostream>
 
 StandardTestInfo TestUtils::testInfo(int argc, char** argv)
 {
-    static StandardTestCatalogue catalogue = StandardTestCatalogue();
+    static StandardTestCatalog catalog = StandardTestCatalog();
 
     std::string test_name = argc > 1 ? std::string(argv[1]) : std::string();
 
-    return catalogue.testInfo(test_name);
+    return catalog.testInfo(test_name);
 }
 
 bool TestUtils::isTheSame(const OutputData<double>& dat, const OutputData<double>& ref,

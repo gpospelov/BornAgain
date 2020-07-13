@@ -100,7 +100,7 @@ protected:
 
 //! Returns new instance of class T.
 //!
-//! This templated function is used in catalogues in form of a function pointer
+//! This templated function is used in catalogs in form of a function pointer
 //! 'create_new<T>', with no function arguments supplied. Equivalently, we could
 //! use a lambda function '[](){return new T;}'.
 

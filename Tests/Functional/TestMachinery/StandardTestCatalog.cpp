@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/StandardTestCatalogue.cpp
-//! @brief     Implements class StandardTestCatalogue.
+//! @file      Tests/Functional/TestMachinery/StandardTestCatalog.cpp
+//! @brief     Implements class StandardTestCatalog.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iostream>
 
-StandardTestCatalogue::StandardTestCatalogue()
+StandardTestCatalog::StandardTestCatalog()
 {
     add("FormFactors", "Test of all form factors defined", "MiniGISAS", "ParticleInTheAirBuilder",
         2e-10);
@@ -326,51 +326,51 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder", 1e-10);
 }
 
-//! Adds test description to the catalogue.
+//! Adds test description to the catalog.
 
-void StandardTestCatalogue::add(const std::string& test_name, const std::string& test_description,
+void StandardTestCatalog::add(const std::string& test_name, const std::string& test_description,
                                 const std::string& simulation_name,
                                 const std::string& sample_builder_name, double threshold)
 {
     if (contains(test_name))
-        throw std::runtime_error("StandardTestCatalogue::add() -> Error. "
+        throw std::runtime_error("StandardTestCatalog::add() -> Error. "
                                  "Existing item '"
                                  + test_name + "'");
 
-    m_catalogue[test_name] = StandardTestInfo(test_name, test_description, simulation_name,
+    m_catalog[test_name] = StandardTestInfo(test_name, test_description, simulation_name,
                                               sample_builder_name, threshold);
 }
 
-void StandardTestCatalogue::add(const std::string& test_name, const std::string& test_description,
+void StandardTestCatalog::add(const std::string& test_name, const std::string& test_description,
                                 std::initializer_list<std::string> simulation_names,
                                 std::initializer_list<std::string> sample_builder_names,
                                 double threshold)
 {
     if (contains(test_name))
-        throw std::runtime_error("StandardTestCatalogue::add() -> Error. "
+        throw std::runtime_error("StandardTestCatalog::add() -> Error. "
                                  "Existing item '"
                                  + test_name + "'");
 
-    m_catalogue[test_name] =
+    m_catalog[test_name] =
         StandardTestInfo(test_name, test_description, std::move(simulation_names),
                          std::move(sample_builder_names), threshold);
 }
 
 //! Returns test info for given test name.
 
-StandardTestInfo StandardTestCatalogue::testInfo(const std::string& test_name)
+StandardTestInfo StandardTestCatalog::testInfo(const std::string& test_name)
 {
     if (!contains(test_name))
-        throw std::runtime_error("StandardTestCatalogue::testInfo() -> Error. No info for "
+        throw std::runtime_error("StandardTestCatalog::testInfo() -> Error. No info for "
                                  "given name '"
                                  + test_name + "'");
 
-    return m_catalogue[test_name];
+    return m_catalog[test_name];
 }
 
-//! Returns true if catalogue contains info for test with given name.
+//! Returns true if catalog contains info for test with given name.
 
-bool StandardTestCatalogue::contains(const std::string& test_name)
+bool StandardTestCatalog::contains(const std::string& test_name)
 {
-    return m_catalogue.find(test_name) != m_catalogue.end();
+    return m_catalog.find(test_name) != m_catalog.end();
 }

@@ -22,13 +22,13 @@
 namespace
 {
 
-struct IconCatalogue {
+struct IconCatalog {
     QIcon gisasIcon;
     QIcon offspecIcon;
     QIcon specularIcon;
     QIcon depthIcon;
 
-    IconCatalogue()
+    IconCatalog()
     {
         gisasIcon.addPixmap(QPixmap(":/images/gisas_instrument.svg"), QIcon::Selected);
         gisasIcon.addPixmap(QPixmap(":/images/gisas_instrument_shaded.svg"), QIcon::Normal);
@@ -41,9 +41,9 @@ struct IconCatalogue {
     }
 };
 
-IconCatalogue& iconCatalogue()
+IconCatalog& iconCatalog()
 {
-    static IconCatalogue result;
+    static IconCatalog result;
     return result;
 }
 
@@ -62,7 +62,7 @@ QVariant itemIcon(const SessionItem* item)
 
     auto modelType = item->modelType();
 
-    auto& icons = iconCatalogue();
+    auto& icons = iconCatalog();
 
     if (modelType == "GISASInstrument") {
         return QVariant(icons.gisasIcon);

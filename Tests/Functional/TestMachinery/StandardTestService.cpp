@@ -19,7 +19,7 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
-#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <iostream>
 

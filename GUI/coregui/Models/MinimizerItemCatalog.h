@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/MinimizerItemCatalogue.h
-//! @brief     Defines MinimizerItemCatalogue class
+//! @file      GUI/coregui/Models/MinimizerItemCatalog.h
+//! @brief     Defines MinimizerItemCatalog class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOGUE_H
-#define BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOGUE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOG_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOG_H
 
 #include "GUI/coregui/Models/ComboProperty.h"
 
 class MinimizerItem;
 
-//! The MinimizerItemCatalogue class is a static class to provide MinimizerItem
+//! The MinimizerItemCatalog class is a static class to provide MinimizerItem
 //! with the list of available minimizers/algorithms.
 
-class BA_CORE_API_ MinimizerItemCatalogue
+class BA_CORE_API_ MinimizerItemCatalog
 {
 public:
     static ComboProperty algorithmCombo(const QString& minimizerType);
@@ -32,4 +32,4 @@ private:
     static QStringList algorithmDescriptions(const QString& minimizerType);
 };
 
-#endif // BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOGUE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MINIMIZERITEMCATALOG_H

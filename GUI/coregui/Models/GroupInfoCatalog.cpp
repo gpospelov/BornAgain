@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/GroupInfoCatalogue.cpp
-//! @brief     Implements class GroupInfoCatalogue
+//! @file      GUI/coregui/Models/GroupInfoCatalog.cpp
+//! @brief     Implements class GroupInfoCatalog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "GUI/coregui/Models/GroupInfoCatalogue.h"
+#include "GUI/coregui/Models/GroupInfoCatalog.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-GroupInfoCatalogue::GroupInfoCatalogue()
+GroupInfoCatalog::GroupInfoCatalog()
 {
     GroupInfo info("Form Factor");
     info.add("AnisoPyramid", "Aniso Pyramid");
@@ -198,17 +198,17 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     addInfo(info);
 }
 
-GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const
+GroupInfo GroupInfoCatalog::groupInfo(const QString& groupType) const
 {
     for (auto& info : m_groups)
         if (info.groupType() == groupType)
             return info;
 
-    throw GUIHelpers::Error("GroupInfoCatalogue::groupInfo() -> Error. No such group '" + groupType
+    throw GUIHelpers::Error("GroupInfoCatalog::groupInfo() -> Error. No such group '" + groupType
                             + "'");
 }
 
-bool GroupInfoCatalogue::containsGroup(const QString& groupType) const
+bool GroupInfoCatalog::containsGroup(const QString& groupType) const
 {
     for (auto& info : m_groups)
         if (info.groupType() == groupType)
@@ -217,10 +217,10 @@ bool GroupInfoCatalogue::containsGroup(const QString& groupType) const
     return false;
 }
 
-void GroupInfoCatalogue::addInfo(const GroupInfo& info)
+void GroupInfoCatalog::addInfo(const GroupInfo& info)
 {
     if (containsGroup(info.groupType()))
-        throw GUIHelpers::Error("GroupInfoCatalogue::addInfo -> Error. Already exists '"
+        throw GUIHelpers::Error("GroupInfoCatalog::addInfo -> Error. Already exists '"
                                 + info.groupType() + "'");
 
     m_groups.push_back(info);

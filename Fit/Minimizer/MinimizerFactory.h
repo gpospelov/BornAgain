@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H
 #define BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H
 
-#include "Fit/Minimizer/MinimizerCatalogue.h"
+#include "Fit/Minimizer/MinimizerCatalog.h"
 #include "Wrap/WinDllMacros.h"
 #include <string>
 
@@ -31,13 +31,13 @@ public:
                                        const std::string& algorithmType = "",
                                        const std::string& optionString = "");
 
-    static void printCatalogue();
+    static void printCatalog();
 
-    static std::string catalogueToString();
+    static std::string catalogToString();
 
-    static std::string catalogueDetailsToString();
+    static std::string catalogDetailsToString();
 
-    static const MinimizerCatalogue& catalogue();
+    static const MinimizerCatalog& catalog();
 };
 
 #endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H

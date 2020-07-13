@@ -21,7 +21,7 @@
 #include "Fit/RootAdapter/GeneticMinimizer.h"
 #include "Fit/RootAdapter/Minuit2Minimizer.h"
 #include "Fit/RootAdapter/SimAnMinimizer.h"
-#include "GUI/coregui/Models/MinimizerItemCatalogue.h"
+#include "GUI/coregui/Models/MinimizerItemCatalog.h"
 
 MinimizerItem::MinimizerItem(const QString& model_type) : SessionItem(model_type) {}
 
@@ -76,7 +76,7 @@ const QString MinuitMinimizerItem::P_MAXFUNCTIONCALLS = QString::fromStdString("
 
 MinuitMinimizerItem::MinuitMinimizerItem() : MinimizerItem("Minuit2")
 {
-    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).variant());
+    addProperty(P_ALGORITHMS, MinimizerItemCatalog::algorithmCombo(modelType()).variant());
 
     addProperty(P_STRATEGY, 1)
         ->setToolTip("Minimization strategy (0-low, 1-medium, 2-high quality)");
@@ -115,7 +115,7 @@ const QString GSLMultiMinimizerItem::P_MAXITERATIONS = QString::fromStdString("M
 
 GSLMultiMinimizerItem::GSLMultiMinimizerItem() : MinimizerItem("GSLMultiMin")
 {
-    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).variant());
+    addProperty(P_ALGORITHMS, MinimizerItemCatalog::algorithmCombo(modelType()).variant());
     addProperty(P_MAXITERATIONS, 0)->setToolTip("Maximum number of iterations");
 }
 

@@ -20273,7 +20273,7 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 Returns new instance of class T.
 
-This templated function is used in catalogues in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
+This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
 ";
 
 

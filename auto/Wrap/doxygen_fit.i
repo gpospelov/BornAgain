@@ -397,36 +397,36 @@ Finds minimum of user objective function (to be called from Python).
 ";
 
 
-// File: classMinimizerCatalogue.xml
-%feature("docstring") MinimizerCatalogue "
+// File: classMinimizerCatalog.xml
+%feature("docstring") MinimizerCatalog "
 
 Hard-coded information about all minimizers available.
 
-C++ includes: MinimizerCatalogue.h
+C++ includes: MinimizerCatalog.h
 ";
 
-%feature("docstring")  MinimizerCatalogue::MinimizerCatalogue "MinimizerCatalogue::MinimizerCatalogue()
+%feature("docstring")  MinimizerCatalog::MinimizerCatalog "MinimizerCatalog::MinimizerCatalog()
 ";
 
-%feature("docstring")  MinimizerCatalogue::toString "std::string MinimizerCatalogue::toString() const
+%feature("docstring")  MinimizerCatalog::toString "std::string MinimizerCatalog::toString() const
 
-Returns multiline string representing catalogue content. 
+Returns multiline string representing catalog content. 
 ";
 
-%feature("docstring")  MinimizerCatalogue::minimizerNames "std::vector< std::string > MinimizerCatalogue::minimizerNames() const
+%feature("docstring")  MinimizerCatalog::minimizerNames "std::vector< std::string > MinimizerCatalog::minimizerNames() const
 ";
 
-%feature("docstring")  MinimizerCatalogue::algorithmNames "std::vector< std::string > MinimizerCatalogue::algorithmNames(const std::string &minimizerName) const
+%feature("docstring")  MinimizerCatalog::algorithmNames "std::vector< std::string > MinimizerCatalog::algorithmNames(const std::string &minimizerName) const
 
 Returns list of algorithms defined for the minimizer with a given name. 
 ";
 
-%feature("docstring")  MinimizerCatalogue::algorithmDescriptions "std::vector< std::string > MinimizerCatalogue::algorithmDescriptions(const std::string &minimizerName) const
+%feature("docstring")  MinimizerCatalog::algorithmDescriptions "std::vector< std::string > MinimizerCatalog::algorithmDescriptions(const std::string &minimizerName) const
 
 Returns list of algorithm's descriptions for the minimizer with a given name . 
 ";
 
-%feature("docstring")  MinimizerCatalogue::minimizerInfo "const MinimizerInfo & MinimizerCatalogue::minimizerInfo(const std::string &minimizerName) const
+%feature("docstring")  MinimizerCatalog::minimizerInfo "const MinimizerInfo & MinimizerCatalog::minimizerInfo(const std::string &minimizerName) const
 
 Returns info for minimizer with given name. 
 ";
@@ -1459,10 +1459,10 @@ Returns new string which is lower case of text.
 // File: IMinimizer_8h.xml
 
 
-// File: MinimizerCatalogue_8cpp.xml
+// File: MinimizerCatalog_8cpp.xml
 
 
-// File: MinimizerCatalogue_8h.xml
+// File: MinimizerCatalog_8h.xml
 
 
 // File: MinimizerFactory_8cpp.xml

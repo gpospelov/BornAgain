@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/MinimizerCatalogue.h
-//! @brief     Defines class MinimizerCatalogue.
+//! @file      Fit/Minimizer/MinimizerCatalog.h
+//! @brief     Defines class MinimizerCatalog.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOGUE_H
-#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOGUE_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOG_H
+#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOG_H
 
 #include "Fit/Minimizer/MinimizerInfo.h"
 #include "Wrap/WinDllMacros.h"
@@ -34,10 +34,10 @@ Genetic        | Default
 Test           | Default
 */
 
-class BA_CORE_API_ MinimizerCatalogue
+class BA_CORE_API_ MinimizerCatalog
 {
 public:
-    MinimizerCatalogue();
+    MinimizerCatalog();
 
     std::string toString() const;
 
@@ -54,4 +54,4 @@ private:
     std::vector<MinimizerInfo> m_minimizers;
 };
 
-#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOGUE_H
+#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERCATALOG_H

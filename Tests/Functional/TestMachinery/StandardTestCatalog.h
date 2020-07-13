@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/StandardTestCatalogue.h
-//! @brief     Defines class StandardTestCatalogue.
+//! @file      Tests/Functional/TestMachinery/StandardTestCatalog.h
+//! @brief     Defines class StandardTestCatalog.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,21 +12,21 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOGUE_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOGUE_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOG_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOG_H
 
 #include "Tests/Functional/TestMachinery/StandardTestInfo.h"
 #include "Wrap/WinDllMacros.h"
 #include <map>
 
-//! @class StandardTestCatalogue
+//! @class StandardTestCatalog
 //! @ingroup standard_samples
-//! @brief Catalogue with the description of standard functional tests.
+//! @brief Catalog with the description of standard functional tests.
 
-class BA_CORE_API_ StandardTestCatalogue
+class BA_CORE_API_ StandardTestCatalog
 {
 public:
-    StandardTestCatalogue();
+    StandardTestCatalog();
 
     StandardTestInfo testInfo(const std::string& test_name);
 
@@ -41,7 +41,7 @@ private:
              std::initializer_list<std::string> simulation_names,
              std::initializer_list<std::string> sample_builder_name, double threshold);
 
-    std::map<std::string, StandardTestInfo> m_catalogue;
+    std::map<std::string, StandardTestInfo> m_catalog;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOGUE_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOG_H

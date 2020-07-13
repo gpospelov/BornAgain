@@ -25,13 +25,6 @@ StandardTestInfo TestUtils::testInfo(int argc, char** argv)
 
     std::string test_name = argc > 1 ? std::string(argv[1]) : std::string();
 
-    if (!catalogue.contains(test_name)) {
-        std::cout << "There is no test named '" << test_name << "'\n";
-        std::cout << "Available tests:\n";
-        catalogue.printCatalogue(std::cout);
-        return StandardTestInfo();
-    }
-
     return catalogue.testInfo(test_name);
 }
 

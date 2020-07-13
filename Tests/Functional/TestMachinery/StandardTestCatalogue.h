@@ -32,8 +32,6 @@ public:
 
     bool contains(const std::string& test_name);
 
-    void printCatalogue(std::ostream& ostr) const;
-
 private:
     void add(const std::string& test_name, const std::string& test_description,
              const std::string& simulation_name, const std::string& sample_builder_name,

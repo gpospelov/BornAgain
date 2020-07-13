@@ -68,7 +68,7 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
         std::string test_name = fullTestName(info.m_test_name, builder->getName());
 
         std::unique_ptr<IFunctionalTest> test(
-            createTest(test_name, info.m_test_description, *simulation, info.m_threshold));
+            createStdTest(test_name, info.m_test_description, *simulation, info.m_threshold));
 
         if (n_subtests)
             std::cout << "IStandardTest::runTest() -> " << test_name << " " << sample_index + 1

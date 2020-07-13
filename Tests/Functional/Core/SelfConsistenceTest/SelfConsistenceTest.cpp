@@ -18,6 +18,7 @@
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
+#include <cassert>
 
 namespace
 {
@@ -30,12 +31,8 @@ SelfConsistenceTest::SelfConsistenceTest(const std::string& name, const std::str
     : IFunctionalTest(name, description), m_simulations(std::move(simulations)),
       m_threshold(threshold)
 {
-    if (m_simulations.size() < 2)
-        throw std::runtime_error("Error in SelfConsistenceTest::SelfConsistenceTest: not enough "
-                                 "simulations to compare.");
+    assert(m_simulations.size()>=2); // need at least two simulations to compare
 }
-
-SelfConsistenceTest::~SelfConsistenceTest() = default;
 
 bool SelfConsistenceTest::runTest()
 {
@@ -53,17 +50,14 @@ bool SelfConsistenceTest::runTest()
         const bool outcome = TestUtils::isTheSame(*results[i], *results[0], m_threshold);
         if (!outcome) { // compose message and save results
             std::stringstream ss;
-            ss << "Comparison between the following simulations failed:\n";
-            ss << "\t1st simulation index: "
-               << "0\n";
-            ss << "\t2nd simulation index: " << i << "\n";
-            ss << "Results are stored in\n";
+            ss << "Simulations 0 and " << i << " yield different results.\n"
+               << "Results are stored in\n";
             const std::string output_dname = BATesting::SelfConsistenceOutputDir();
             FileSystemUtils::createDirectories(output_dname);
             for (size_t index : {size_t(0), i}) {
                 const std::string fname = composeName(output_dname, getName(), index);
                 IntensityDataIOFactory::writeOutputData(*results[index], fname);
-                ss << fname << "\n";
+                ss << "- " << fname << "\n";
             }
             std::cout << ss.str();
         }

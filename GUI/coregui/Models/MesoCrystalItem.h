@@ -27,7 +27,6 @@ class BA_CORE_API_ MesoCrystalItem : public SessionGraphicsItem
 public:
     static const QString P_OUTER_SHAPE;
     static const QString T_BASIS_PARTICLE;
-    static const QString LATTICE_VECTOR;
     static const QString P_VECTOR_A;
     static const QString P_VECTOR_B;
     static const QString P_VECTOR_C;

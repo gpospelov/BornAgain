@@ -54,10 +54,9 @@ bool IsIParticleName(QString name);
 
 const QString MesoCrystalItem::P_OUTER_SHAPE = "Outer Shape";
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
-const QString MesoCrystalItem::LATTICE_VECTOR = "lattice vector";
-const QString MesoCrystalItem::P_VECTOR_A = "First " + MesoCrystalItem::LATTICE_VECTOR;
-const QString MesoCrystalItem::P_VECTOR_B = "Second " + MesoCrystalItem::LATTICE_VECTOR;
-const QString MesoCrystalItem::P_VECTOR_C = "Third " + MesoCrystalItem::LATTICE_VECTOR;
+const QString MesoCrystalItem::P_VECTOR_A = "First lattice vector";
+const QString MesoCrystalItem::P_VECTOR_B = "Second lattice vector";
+const QString MesoCrystalItem::P_VECTOR_C = "Third lattice vector";
 
 // TODO make derived from ParticleItem
 

@@ -31,7 +31,7 @@ const QString analyzer_efficiency_tooltip = "Efficiency of the polarization anal
 const QString analyzer_transmission_tooltip = "Total transmission of the polarization analysis";
 } // namespace
 
-const QString DetectorItem::T_MASKS = "Masks";
+const QString DetectorItem::T_MASKS = "Mask tag";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
 const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString("Efficiency");

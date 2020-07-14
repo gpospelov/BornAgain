@@ -31,8 +31,7 @@ public:
     explicit MultiOption(const std::string& name = "");
 
     template <typename T>
-    explicit MultiOption(const std::string& name, const T& t,
-                         const std::string& descripion = "");
+    explicit MultiOption(const std::string& name, const T& t, const std::string& descripion = "");
 
     std::string name() const;
 

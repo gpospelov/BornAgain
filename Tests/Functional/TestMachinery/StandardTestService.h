@@ -33,7 +33,7 @@ public:
 
 private:
     virtual IFunctionalTest* createStdTest(const std::string& name, const std::string& description,
-                                        const Simulation& simulation, double threshold) = 0;
+                                           const Simulation& simulation, double threshold) = 0;
 };
 
 //! @class StandardTestService
@@ -46,7 +46,7 @@ template <typename T> class StandardTestService : public StandardTestServiceBase
 
 private:
     IFunctionalTest* createStdTest(const std::string& name, const std::string& description,
-                                const Simulation& simulation, double threshold) override
+                                   const Simulation& simulation, double threshold) override
     {
         return new T(name, description, simulation, threshold);
     }

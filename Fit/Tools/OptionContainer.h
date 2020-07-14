@@ -38,8 +38,7 @@ public:
     OptionContainer& operator=(const OptionContainer& other);
 
     template <class T>
-    option_t addOption(const std::string& optionName, T value,
-                       const std::string& description = "");
+    option_t addOption(const std::string& optionName, T value, const std::string& description = "");
 
     option_t option(const std::string& optionName);
     const option_t option(const std::string& optionName) const;

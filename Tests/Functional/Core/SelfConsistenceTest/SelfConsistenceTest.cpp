@@ -31,7 +31,7 @@ SelfConsistenceTest::SelfConsistenceTest(const std::string& name, const std::str
     : IFunctionalTest(name, description), m_simulations(std::move(simulations)),
       m_threshold(threshold)
 {
-    assert(m_simulations.size()>=2); // need at least two simulations to compare
+    assert(m_simulations.size() >= 2); // need at least two simulations to compare
 }
 
 bool SelfConsistenceTest::runTest()

@@ -16,7 +16,6 @@
 #include <sstream>
 #include <stdexcept>
 
-
 void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
 {
     for (const AlgorithmInfo& algo : m_algorithms) {

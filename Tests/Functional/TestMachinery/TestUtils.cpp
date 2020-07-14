@@ -22,7 +22,7 @@
 
 StandardTestInfo TestUtils::testInfo(int argc, char** argv)
 {
-    assert(argc>1);
+    assert(argc > 1);
     return StandardTestCatalog().testInfo(argv[1]);
 }
 

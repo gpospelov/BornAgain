@@ -307,13 +307,13 @@ StandardTestCatalog::StandardTestCatalog()
 
     add("PolarizedQAngleReflectivityPP",
         "Compares specular signal from ++ channel for angular- and q-defined reflectivity",
-        {"BasicSpecularPP", "BasicQSpecularPP"}, {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"},
-        1e-10);
+        {"BasicSpecularPP", "BasicQSpecularPP"},
+        {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"}, 1e-10);
 
     add("PolarizedQAngleReflectivityMM",
         "Compares specular signal from -- channel for angular- and q-defined reflectivity",
-        {"BasicSpecularMM", "BasicQSpecularMM"}, {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"},
-        1e-10);
+        {"BasicSpecularMM", "BasicQSpecularMM"},
+        {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"}, 1e-10);
 
     // off-specular simulation
 
@@ -329,8 +329,8 @@ StandardTestCatalog::StandardTestCatalog()
 //! Adds test description to the catalog.
 
 void StandardTestCatalog::add(const std::string& test_name, const std::string& test_description,
-                                const std::string& simulation_name,
-                                const std::string& sample_builder_name, double threshold)
+                              const std::string& simulation_name,
+                              const std::string& sample_builder_name, double threshold)
 {
     if (contains(test_name))
         throw std::runtime_error("StandardTestCatalog::add() -> Error. "
@@ -338,13 +338,13 @@ void StandardTestCatalog::add(const std::string& test_name, const std::string& t
                                  + test_name + "'");
 
     m_catalog[test_name] = StandardTestInfo(test_name, test_description, simulation_name,
-                                              sample_builder_name, threshold);
+                                            sample_builder_name, threshold);
 }
 
 void StandardTestCatalog::add(const std::string& test_name, const std::string& test_description,
-                                std::initializer_list<std::string> simulation_names,
-                                std::initializer_list<std::string> sample_builder_names,
-                                double threshold)
+                              std::initializer_list<std::string> simulation_names,
+                              std::initializer_list<std::string> sample_builder_names,
+                              double threshold)
 {
     if (contains(test_name))
         throw std::runtime_error("StandardTestCatalog::add() -> Error. "

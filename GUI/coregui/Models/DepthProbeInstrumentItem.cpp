@@ -42,7 +42,8 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProb
     axis->setItemValue(BasicAxisItem::P_MAX_DEG, 100.0);
     axis->getItem(BasicAxisItem::P_NBINS)
         ->setToolTip("Number of points in scan across sample bulk");
-    axis->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Starting value below sample horizont in nm");
+    axis->getItem(BasicAxisItem::P_MIN_DEG)
+        ->setToolTip("Starting value below sample horizont in nm");
     axis->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Ending value above sample horizont in nm");
 }
 

@@ -27,7 +27,9 @@ class BA_CORE_API_ AlgorithmInfo
 public:
     AlgorithmInfo() = delete;
     AlgorithmInfo(const std::string& itemName, const std::string& itemDescription)
-    : m_itemName(itemName), m_itemDescription(itemDescription) {}
+        : m_itemName(itemName), m_itemDescription(itemDescription)
+    {
+    }
 
     std::string name() const { return m_itemName; }
     std::string description() const { return m_itemDescription; }
@@ -45,8 +47,9 @@ class BA_CORE_API_ MinimizerInfo
 public:
     MinimizerInfo() = delete;
     MinimizerInfo(const std::string& minimizerType, const std::string& minimizerDescription)
-    : m_name(minimizerType)
-    , m_description(minimizerDescription) {}
+        : m_name(minimizerType), m_description(minimizerDescription)
+    {
+    }
 
     //! Sets currently active algorithm
     void setAlgorithmName(const std::string& algorithmName);

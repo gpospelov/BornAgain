@@ -49,7 +49,7 @@ jobs:
 
     - name: setup dependencies
       run: |
-        brew install cmake fftw gsl boost qt5 libtiff libcerf ccache
+        brew install cmake ccache fftw gsl boost qt5 libtiff libcerf eigen
         echo "Qt5 is installed to"
         echo $QTDIR
     - name: Install Python packages

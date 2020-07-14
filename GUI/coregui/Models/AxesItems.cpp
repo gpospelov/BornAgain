@@ -19,7 +19,7 @@ const QString BasicAxisItem::P_IS_VISIBLE = "Visibility";
 const QString BasicAxisItem::P_NBINS = "Nbins";
 const QString BasicAxisItem::P_MIN = "Min [deg]";
 const QString BasicAxisItem::P_MAX = "Max [deg]";
-const QString BasicAxisItem::P_TITLE = "title";
+const QString BasicAxisItem::P_TITLE = "Title";
 const QString BasicAxisItem::P_TITLE_IS_VISIBLE = "Title Visibility";
 
 static const int max_detector_pixels = 65536;

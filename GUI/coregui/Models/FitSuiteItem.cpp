@@ -19,7 +19,7 @@
 const QString FitSuiteItem::P_UPDATE_INTERVAL = "Update interval";
 const QString FitSuiteItem::P_ITERATION_COUNT = "Number of iterations";
 const QString FitSuiteItem::P_CHI2 = "Chi2";
-const QString FitSuiteItem::T_FIT_PARAMETERS = "Fit parameters container";
+const QString FitSuiteItem::T_FIT_PARAMETERS_CONTAINER = "Fit parameters container";
 const QString FitSuiteItem::T_MINIMIZER = "Minimizer settings";
 
 FitSuiteItem::FitSuiteItem() : SessionItem("FitSuite")
@@ -28,13 +28,14 @@ FitSuiteItem::FitSuiteItem() : SessionItem("FitSuite")
     addProperty(P_ITERATION_COUNT, 0);
     addProperty(P_CHI2, 0.0);
 
-    registerTag(T_FIT_PARAMETERS, 1, 1, QStringList() << "FitParameterContainer");
+    registerTag(T_FIT_PARAMETERS_CONTAINER, 1, 1, QStringList() << "FitParameterContainer");
     registerTag(T_MINIMIZER, 1, 1, QStringList() << "MinimizerContainer");
 }
 
 FitParameterContainerItem* FitSuiteItem::fitParameterContainerItem()
 {
-    return dynamic_cast<FitParameterContainerItem*>(getItem(FitSuiteItem::T_FIT_PARAMETERS));
+    return dynamic_cast<FitParameterContainerItem*>(
+        getItem(FitSuiteItem::T_FIT_PARAMETERS_CONTAINER));
 }
 
 MinimizerContainerItem* FitSuiteItem::minimizerContainerItem()

@@ -31,8 +31,8 @@ const QString position_tooltip = "Relative position of the particle's reference 
 
 } // namespace
 
-const QString ParticleCoreShellItem::T_CORE = "Core Tag";
-const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
+const QString ParticleCoreShellItem::T_CORE = "Core tag";
+const QString ParticleCoreShellItem::T_SHELL = "Shell tag";
 
 // TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 

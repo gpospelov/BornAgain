@@ -32,23 +32,23 @@
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";
 const QString JobItem::P_INSTRUMENT_NAME = "Instrument";
-const QString JobItem::P_WITH_FITTING = "With Fitting";
+const QString JobItem::P_WITH_FITTING = "With fitting";
 const QString JobItem::P_STATUS = "Status";
-const QString JobItem::P_BEGIN_TIME = "Begin Time";
-const QString JobItem::P_END_TIME = "End Time";
+const QString JobItem::P_BEGIN_TIME = "Begin time";
+const QString JobItem::P_END_TIME = "End time";
 const QString JobItem::P_DURATION = "Duration";
 const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
-const QString JobItem::P_PRESENTATION_TYPE = "Presentation Type";
-const QString JobItem::T_SAMPLE = "Sample Tag";
-const QString JobItem::T_MATERIAL_CONTAINER = "Material Container";
-const QString JobItem::T_INSTRUMENT = "Instrument Tag";
-const QString JobItem::T_OUTPUT = "Output Tag";
-const QString JobItem::T_REALDATA = "Real Data Tag";
-const QString JobItem::T_DATAVIEW = "Data View Tag";
-const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
-const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
-const QString JobItem::T_FIT_SUITE = "Fit Suite";
+const QString JobItem::P_PRESENTATION_TYPE = "Presentation type";
+const QString JobItem::T_SAMPLE = "Sample tag";
+const QString JobItem::T_MATERIAL_CONTAINER = "Material container tag";
+const QString JobItem::T_INSTRUMENT = "Instrument tag";
+const QString JobItem::T_OUTPUT = "Output tag";
+const QString JobItem::T_REALDATA = "Real Data tag";
+const QString JobItem::T_DATAVIEW = "Data View tag";
+const QString JobItem::T_PARAMETER_TREE = "Parameter tree tag";
+const QString JobItem::T_SIMULATION_OPTIONS = "Simulation options tag";
+const QString JobItem::T_FIT_SUITE = "Fit suite tag";
 
 JobItem::JobItem() : SessionItem("JobItem")
 {

@@ -274,14 +274,15 @@ void createFitContainers(JobItem* jobItem)
 
     fitSuiteItem = model->insertNewItem("FitSuite", jobItem->index(), -1, JobItem::T_FIT_SUITE);
 
-    SessionItem* parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* parsContainerItem = fitSuiteItem->getItem(
+        FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
     if (parsContainerItem != nullptr) {
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
                                 "a second FitParameterContainer.");
     }
 
     parsContainerItem = model->insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                                             FitSuiteItem::T_FIT_PARAMETERS);
+                                             FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
 
     // Minimizer settings
     SessionItem* minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);

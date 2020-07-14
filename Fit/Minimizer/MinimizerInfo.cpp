@@ -16,28 +16,6 @@
 #include <sstream>
 #include <stdexcept>
 
-InfoItem::InfoItem(const std::string& itemName, const std::string& itemDescription)
-    : m_itemName(itemName), m_itemDescription(itemDescription)
-{
-}
-
-std::string InfoItem::name() const
-{
-    return m_itemName;
-}
-
-std::string InfoItem::description() const
-{
-    return m_itemDescription;
-}
-
-// ----------------------------------------------------------------------------
-
-MinimizerInfo::MinimizerInfo(const std::string& minimizerType,
-                             const std::string& minimizerDescription)
-    : InfoItem(minimizerType, minimizerDescription)
-{
-}
 
 void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
 {
@@ -55,11 +33,6 @@ void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
         msg << algo.name() << " ";
     msg << ")";
     throw std::runtime_error(msg.str());
-}
-
-std::string MinimizerInfo::algorithmName() const
-{
-    return m_current_algorithm;
 }
 
 //! Return list of defined algorithm names.

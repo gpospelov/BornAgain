@@ -7,7 +7,11 @@ endif()
 find_package(Threads REQUIRED)
 find_package(FFTW3 REQUIRED)
 find_package(GSL REQUIRED)
-find_package(Eigen3 3.3 REQUIRED) # no need for FindEigen3, as Eigen provides Eigen3Config.cmake
+if(WIN32)
+    message("Eigen3 include dirs hopefully given on the command line: ${EIGEN3_INCLUDE_DIRS}")
+else()
+    find_package(Eigen3 3.3 REQUIRED) # no need for FindEigen3, as Eigen provides Eigen3Config.cmake
+endif()
 
 find_package(Cerf REQUIRED)
 message(STATUS "Cerf found=${Cerf_FOUND} lib=${Cerf_LIBRARIES} inc=${Cerf_INCLUDE_DIR} version={Cerf_VERSION}")

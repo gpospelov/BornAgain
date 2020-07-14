@@ -24,7 +24,7 @@ class SpecularInstrumentItem;
 //! Item for non-uniform axis with specified coordinates.
 class BA_CORE_API_ PointwiseAxisItem : public BasicAxisItem, public SaveLoadInterface
 {
-    static const QString P_NATIVE_UNITS;
+    static const QString P_NATIVE_AXIS_UNITS;
 
 public:
     static const QString P_FILE_NAME;

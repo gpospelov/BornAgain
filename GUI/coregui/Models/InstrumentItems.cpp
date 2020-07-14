@@ -135,14 +135,14 @@ void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
         throw GUIHelpers::Error("Error in SpecularInstrumentItem::updateToRealData: The type "
                                 "of instrument is incompatible with passed data shape.");
 
-    QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
+    QString units = item->getItemValue(RealDataItem::P_NATIVE_DATA_UNITS).toString();
     const auto& data = item->nativeData()->getOutputData()->getAxis(0);
     beamItem()->updateToData(data, units);
 }
 
 bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const
 {
-    const QString native_units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
+    const QString native_units = item->getItemValue(RealDataItem::P_NATIVE_DATA_UNITS).toString();
     if (native_units == "nbins") {
         return beamItem()->currentInclinationAxisItem()->modelType() == "BasicAxis"
                && shape() == item->shape();

@@ -33,7 +33,7 @@ public:
     static const QString P_INSTRUMENT_ID;
     static const QString P_INSTRUMENT_NAME;
     static const QString T_NATIVE_DATA;
-    static const QString P_NATIVE_UNITS;
+    static const QString P_NATIVE_DATA_UNITS;
 
     RealDataItem();
 

@@ -25,7 +25,7 @@
 class BA_CORE_API_ InfoItem
 {
 public:
-    InfoItem();
+    InfoItem() = delete;
     InfoItem(const std::string& itemName, const std::string& itemDescription);
 
     std::string name() const;
@@ -44,7 +44,7 @@ class BA_CORE_API_ MinimizerInfo : public InfoItem
 public:
     using AlgorithmInfo = InfoItem;
 
-    MinimizerInfo();
+    MinimizerInfo() = delete;
     MinimizerInfo(const std::string& minimizerType, const std::string& minimizerDescription);
 
     //! Sets currently active algorithm

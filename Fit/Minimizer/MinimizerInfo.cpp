@@ -16,8 +16,6 @@
 #include <sstream>
 #include <stdexcept>
 
-InfoItem::InfoItem() = default;
-
 InfoItem::InfoItem(const std::string& itemName, const std::string& itemDescription)
     : m_itemName(itemName), m_itemDescription(itemDescription)
 {
@@ -34,8 +32,6 @@ std::string InfoItem::description() const
 }
 
 // ----------------------------------------------------------------------------
-
-MinimizerInfo::MinimizerInfo() = default;
 
 MinimizerInfo::MinimizerInfo(const std::string& minimizerType,
                              const std::string& minimizerDescription)

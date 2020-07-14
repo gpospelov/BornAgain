@@ -658,7 +658,7 @@ SessionItem* AddFormFactorItem(SessionItem* p_parent, const QString& model_type)
     if (parent_type == "Particle") {
         property_name = ParticleItem::P_FORM_FACTOR;
     } else if (parent_type == "MesoCrystal") {
-        property_name = MesoCrystalItem::P_FORM_FACTOR;
+        property_name = MesoCrystalItem::P_OUTER_SHAPE;
     }
     if (property_name.isEmpty()) {
         throw GUIHelpers::Error("AddFormFactorItem: parent is neither ParticleItem or "

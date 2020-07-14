@@ -163,7 +163,7 @@ void DistributionWidget::init_plot()
 
 void DistributionWidget::plot_distributions()
 {
-    if (m_item->modelType() == Constants::DistributionNoneType)
+    if (m_item->modelType() == "DistributionNone")
         plot_single_value();
 
     else
@@ -174,7 +174,7 @@ void DistributionWidget::plot_distributions()
 
 void DistributionWidget::plot_single_value()
 {
-    Q_ASSERT(m_item->displayName() == Constants::DistributionNoneType);
+    Q_ASSERT(m_item->displayName() == "DistributionNone");
 
     double value = m_item->getItemValue(DistributionNoneItem::P_MEAN).toDouble();
 
@@ -187,7 +187,7 @@ void DistributionWidget::plot_single_value()
 
 void DistributionWidget::plot_multiple_values()
 {
-    Q_ASSERT(m_item->displayName() != Constants::DistributionNoneType);
+    Q_ASSERT(m_item->displayName() != "DistributionNone");
 
     int numberOfSamples = m_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigmafactor(0.0);

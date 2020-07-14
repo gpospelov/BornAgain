@@ -65,7 +65,7 @@ QString ProjectDocument::projectFileName() const
     if (!projectName().isEmpty())
         return projectDir() + "/" + projectName() + projectFileExtension();
     else
-        return QString();
+        return "";
 }
 
 void ProjectDocument::setProjectFileName(const QString& projectFileName)
@@ -76,7 +76,7 @@ void ProjectDocument::setProjectFileName(const QString& projectFileName)
 
 QString ProjectDocument::projectFileExtension()
 {
-    return QString(".pro");
+    return ".pro";
 }
 
 void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)

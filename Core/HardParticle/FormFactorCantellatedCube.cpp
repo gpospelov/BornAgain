@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCantellatedCube.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Parametrization/RealParameter.h"
 
@@ -55,10 +54,8 @@ FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double remov
     : FormFactorPolyhedron(), m_length(length), m_removed_length(removed_length)
 {
     setName("CantellatedCube");
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::RemovedLength, &m_removed_length)
-        .setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("RemovedLength", &m_removed_length).setUnit("nm").setNonnegative();
     onChange();
 }
 

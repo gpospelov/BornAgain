@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
@@ -61,18 +60,17 @@ void MaskUnitsConverter::convertIntensityDataItem(IntensityDataItem* intensityDa
 
 void MaskUnitsConverter::convertMask(SessionItem* maskItem)
 {
-    if (maskItem->modelType() == Constants::RectangleMaskType
-        || maskItem->modelType() == Constants::RegionOfInterestType) {
+    if (maskItem->modelType() == "RectangleMask" || maskItem->modelType() == "RegionOfInterest") {
         convertCoordinate(maskItem, RectangleItem::P_XLOW, RectangleItem::P_YLOW);
         convertCoordinate(maskItem, RectangleItem::P_XUP, RectangleItem::P_YUP);
-    } else if (maskItem->modelType() == Constants::PolygonMaskType) {
-        for (SessionItem* pointItem : maskItem->getChildrenOfType(Constants::PolygonPointType))
+    } else if (maskItem->modelType() == "PolygonMask") {
+        for (SessionItem* pointItem : maskItem->getChildrenOfType("PolygonPoint"))
             convertCoordinate(pointItem, PolygonPointItem::P_POSX, PolygonPointItem::P_POSY);
-    } else if (maskItem->modelType() == Constants::VerticalLineMaskType) {
+    } else if (maskItem->modelType() == "VerticalLineMask") {
         convertCoordinate(maskItem, VerticalLineItem::P_POSX, QString());
-    } else if (maskItem->modelType() == Constants::HorizontalLineMaskType) {
+    } else if (maskItem->modelType() == "HorizontalLineMask") {
         convertCoordinate(maskItem, QString(), HorizontalLineItem::P_POSY);
-    } else if (maskItem->modelType() == Constants::EllipseMaskType) {
+    } else if (maskItem->modelType() == "EllipseMask") {
         double xc = maskItem->getItemValue(EllipseItem::P_XCENTER).toDouble();
         double yc = maskItem->getItemValue(EllipseItem::P_YCENTER).toDouble();
         double xR = maskItem->getItemValue(EllipseItem::P_XRADIUS).toDouble();
@@ -102,11 +100,11 @@ void MaskUnitsConverter::convertCoordinate(SessionItem* maskItem, const QString&
                                            const QString& yname)
 {
     if (maskItem->isTag(xname)) {
-        double x = convert(maskItem->getItemValue(xname).toDouble(), BornAgain::X_AXIS_INDEX);
+        double x = convert(maskItem->getItemValue(xname).toDouble(), 0);
         maskItem->setItemValue(xname, x);
     }
     if (maskItem->isTag(yname)) {
-        double y = convert(maskItem->getItemValue(yname).toDouble(), BornAgain::Y_AXIS_INDEX);
+        double y = convert(maskItem->getItemValue(yname).toDouble(), 1);
         maskItem->setItemValue(yname, y);
     }
 }
@@ -116,7 +114,7 @@ void MaskUnitsConverter::convertCoordinate(SessionItem* maskItem, const QString&
 double MaskUnitsConverter::convert(double value, int axis_index)
 {
     Q_ASSERT(mp_data);
-    Q_ASSERT(axis_index == BornAgain::X_AXIS_INDEX || axis_index == BornAgain::Y_AXIS_INDEX);
+    Q_ASSERT(axis_index == 0 || axis_index == 1);
 
     if (m_direction == TO_NBINS) {
         return IntensityDataFunctions::coordinateToBinf(value, mp_data->getAxis(axis_index));

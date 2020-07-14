@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Vector/WavevectorInfo.h"
@@ -22,7 +21,7 @@ FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form
     : IFormFactorDecorator(form_factor), m_material(HomogeneousMaterial()),
       m_ambient_material(HomogeneousMaterial())
 {
-    setName(BornAgain::FormFactorDecoratorMaterialType);
+    setName("FormFactorDecoratorMaterial");
 }
 
 FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() {}

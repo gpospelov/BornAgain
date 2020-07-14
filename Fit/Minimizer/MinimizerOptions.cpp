@@ -27,7 +27,7 @@ std::string MinimizerOptions::toOptionString() const
 {
     std::ostringstream result;
     for (auto option : m_options) {
-        result << option->name() << std::string("=") << option->value() << delimeter;
+        result << option->name() << "=" << option->value() << delimeter;
     }
     return result.str();
 }

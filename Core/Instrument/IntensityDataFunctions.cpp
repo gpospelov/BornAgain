@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Instrument/ArrayUtils.h"
 #include "Core/Instrument/ConvolutionDetectorResolution.h"
 #include "Core/Instrument/DetectorFunctions.h"
@@ -200,15 +199,15 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
 
 void IntensityDataFunctions::coordinateToBinf(double& x, double& y, const OutputData<double>& data)
 {
-    x = coordinateToBinf(x, data.getAxis(BornAgain::X_AXIS_INDEX));
-    y = coordinateToBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
+    x = coordinateToBinf(x, data.getAxis(0));
+    y = coordinateToBinf(y, data.getAxis(1));
 }
 
 void IntensityDataFunctions::coordinateFromBinf(double& x, double& y,
                                                 const OutputData<double>& data)
 {
-    x = coordinateFromBinf(x, data.getAxis(BornAgain::X_AXIS_INDEX));
-    y = coordinateFromBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
+    x = coordinateFromBinf(x, data.getAxis(0));
+    y = coordinateFromBinf(y, data.getAxis(1));
 }
 
 std::vector<std::vector<double>>

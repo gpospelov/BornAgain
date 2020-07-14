@@ -14,7 +14,6 @@
 
 #include "Core/StandardSamples/RotatedPyramidsBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/HardParticle/FormFactorPyramid.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

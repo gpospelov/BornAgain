@@ -18,7 +18,7 @@ const QString VectorItem::P_X = "X";
 const QString VectorItem::P_Y = "Y";
 const QString VectorItem::P_Z = "Z";
 
-VectorItem::VectorItem() : SessionItem(Constants::VectorType)
+VectorItem::VectorItem() : SessionItem("Vector")
 {
     addProperty(P_X, 0.0)
         ->setLimits(RealLimits::limitless())

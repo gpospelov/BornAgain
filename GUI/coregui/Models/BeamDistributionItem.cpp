@@ -27,7 +27,7 @@ BeamDistributionItem::BeamDistributionItem(const QString& name, bool show_mean) 
     addTranslator(DistributionNoneTranslator());
 
     mapper()->setOnChildPropertyChange([this, show_mean](SessionItem* item, const QString&) {
-        if (item->modelType() == Constants::GroupItemType && item->parent() == this)
+        if (item->modelType() == "GroupProperty" && item->parent() == this)
             initDistributionItem(show_mean);
     });
 }
@@ -71,7 +71,7 @@ void BeamDistributionItem::initDistributionItem(bool show_mean)
 
     SessionItem* distributionNone = nullptr;
     for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
-        if (item->modelType() == Constants::DistributionNoneType) {
+        if (item->modelType() == "DistributionNone") {
             distributionNone = item;
             break;
         }
@@ -118,7 +118,7 @@ double BeamDistributionItem::meanValue() const
 void BeamDistributionItem::resetToValue(double value)
 {
     SessionItem* distributionItem =
-        setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
+        setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, "DistributionNone");
     Q_ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_MEAN, value);
 }
@@ -133,8 +133,8 @@ double BeamDistributionItem::scaleFactor() const
 
 void BeamDistributionItem::register_distribution_group(const QString& group_type)
 {
-    Q_ASSERT(group_type == Constants::DistributionExtendedGroup
-             || group_type == Constants::SymmetricDistributionGroup);
+    Q_ASSERT(group_type == "Distribution extended group"
+             || group_type == "Symmetric distribution group");
     addGroupProperty(P_DISTRIBUTION, group_type);
 }
 

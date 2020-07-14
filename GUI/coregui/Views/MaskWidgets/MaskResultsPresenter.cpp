@@ -96,7 +96,7 @@ OutputData<double>* MaskResultsPresenter::createMaskPresentation() const
     for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
         if (MaskItem* maskItem = dynamic_cast<MaskItem*>(m_maskModel->itemForIndex(itemIndex))) {
-            if (maskItem->modelType() == Constants::RegionOfInterestType) {
+            if (maskItem->modelType() == "RegionOfInterest") {
                 double xlow = maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
                 double ylow = maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
                 double xup = maskItem->getItemValue(RectangleItem::P_XUP).toDouble();

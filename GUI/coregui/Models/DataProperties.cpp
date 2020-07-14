@@ -70,7 +70,7 @@ DataItem* DataProperties::dataItem()
 
 const QString Data1DProperties::P_COLOR = "Color";
 
-Data1DProperties::Data1DProperties() : DataProperties(Constants::DataItem1DPropertiesType)
+Data1DProperties::Data1DProperties() : DataProperties("DataItem1DProperties")
 {
     addProperty(P_COLOR, defaultColorCombo().variant());
 }

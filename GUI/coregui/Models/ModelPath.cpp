@@ -28,7 +28,7 @@ QString ModelPath::getPathFromIndex(const QModelIndex& index)
         std::reverse(namePath.begin(), namePath.end());
         return namePath.join("/");
     }
-    return QString();
+    return "";
 }
 
 // TODO cover with unit tests and simplify
@@ -39,8 +39,7 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel* model, const QString
         QStringList parts = path.split("/");
         SessionItem* t = model->rootItem();
         for (int i = 0; i < parts.length(); i++) {
-            if (t->modelType() == Constants::JobItemType
-                && parts[i] == Constants::GISASInstrumentType) {
+            if (t->modelType() == "JobItem" && parts[i] == "GISASInstrument") {
                 t = t->getItem(JobItem::T_INSTRUMENT);
                 continue;
             }

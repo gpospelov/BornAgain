@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCylinder.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/DoubleEllipse.h"
@@ -25,9 +24,9 @@
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
     : m_radius(radius), m_height(height)
 {
-    setName(BornAgain::FFCylinderType);
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("Cylinder");
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

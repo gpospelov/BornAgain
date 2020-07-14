@@ -95,5 +95,5 @@ TEST_F(TestProjectUtils, test_stringListSubstraction)
 
     QStringList diff = ProjectUtils::substract(oldFiles, newFiles);
     EXPECT_EQ(diff.size(), 1);
-    EXPECT_EQ(diff.at(0), QString("b.int.gz"));
+    EXPECT_EQ(diff.at(0), "b.int.gz");
 }

@@ -26,6 +26,7 @@ class BA_CORE_API_ IMultiLayerBuilder : public IParameterized
 {
 public:
     IMultiLayerBuilder();
+    virtual ~IMultiLayerBuilder() = default;
 
     virtual MultiLayer* buildSample() const = 0;
 

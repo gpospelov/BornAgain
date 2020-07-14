@@ -16,13 +16,13 @@ class TestLayerItems : public ::testing::Test
 TEST_F(TestLayerItems, test_LayerDefaultMaterial)
 {
     ApplicationModels models;
-    auto layer = models.sampleModel()->insertNewItem(Constants::LayerType);
+    auto layer = models.sampleModel()->insertNewItem("Layer");
     auto materials = models.materialModel()->topItems();
     auto defMaterial = materials.front();
 
     ExternalProperty material =
         layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_EQ(material.text(), QString("Default"));
+    EXPECT_EQ(material.text(), "Default");
     EXPECT_EQ(material.identifier(),
               defMaterial->getItemValue(MaterialItem::P_IDENTIFIER).toString());
 }

@@ -1,5 +1,4 @@
 #include "Core/Particle/ParticleCoreShell.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Parametrization/Units.h"
@@ -34,9 +33,6 @@ TEST_F(ParticleCoreShellTest, InitialState)
 {
     EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
     EXPECT_EQ(nullptr, mp_coreshell->rotation());
-    EXPECT_EQ(BornAgain::ParticleCoreShellType, mp_coreshell->getName());
-    EXPECT_EQ(BornAgain::ParticleType, mp_coreshell->coreParticle()->getName());
-    EXPECT_EQ(BornAgain::ParticleType, mp_coreshell->shellParticle()->getName());
 }
 
 TEST_F(ParticleCoreShellTest, Clone)
@@ -44,9 +40,6 @@ TEST_F(ParticleCoreShellTest, Clone)
     ParticleCoreShell* p_clone = mp_coreshell->clone();
     EXPECT_EQ(nullptr, p_clone->createFormFactor());
     EXPECT_EQ(nullptr, p_clone->rotation());
-    EXPECT_EQ(BornAgain::ParticleCoreShellType, p_clone->getName());
-    EXPECT_EQ(BornAgain::ParticleType, p_clone->coreParticle()->getName());
-    EXPECT_EQ(BornAgain::ParticleType, p_clone->shellParticle()->getName());
     delete p_clone;
 }
 

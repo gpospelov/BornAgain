@@ -19,7 +19,7 @@
 
 const QString GroupItem::T_ITEMS = "Item tag";
 
-GroupItem::GroupItem() : SessionItem(Constants::GroupItemType)
+GroupItem::GroupItem() : SessionItem("GroupProperty")
 {
     registerTag(T_ITEMS);
     setDefaultTag(T_ITEMS);

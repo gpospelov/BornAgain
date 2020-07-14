@@ -1,7 +1,6 @@
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
 class TestMultiLayerItem : public ::testing::Test
@@ -16,9 +15,9 @@ TEST_F(TestMultiLayerItem, test_twoLayerSystem)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem(Constants::MultiLayerType);
-    auto top = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
-    auto bottom = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    auto multilayer = model.insertNewItem("MultiLayer");
+    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto bottom = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Thickness property should be disabled for top and bottom layers
     EXPECT_FALSE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
@@ -33,10 +32,8 @@ TEST_F(TestMultiLayerItem, test_twoLayerSystem)
     EXPECT_TRUE(bottom->getItem(LayerItem::P_ROUGHNESS)->isEnabled());
 
     // Default roughness should be "LayerZeroRoughness"
-    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              Constants::LayerZeroRoughnessType);
-    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              Constants::LayerZeroRoughnessType);
+    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
+    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
 }
 
 //! Testing layer appearance (enabled, disabled) in a MultiLayer made of three default layers.
@@ -47,10 +44,10 @@ TEST_F(TestMultiLayerItem, test_threeLayerSystem)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem(Constants::MultiLayerType);
-    auto top = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
-    auto middle = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
-    auto bottom = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    auto multilayer = model.insertNewItem("MultiLayer");
+    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto middle = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto bottom = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Thickness property should be disabled for top and bottom layers and enabled for middle
     EXPECT_FALSE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
@@ -68,12 +65,9 @@ TEST_F(TestMultiLayerItem, test_threeLayerSystem)
     EXPECT_TRUE(bottom->getItem(LayerItem::P_ROUGHNESS)->isEnabled());
 
     // Default roughness should be "LayerZeroRoughness"
-    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              Constants::LayerZeroRoughnessType);
-    EXPECT_EQ(middle->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              Constants::LayerZeroRoughnessType);
-    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(),
-              Constants::LayerZeroRoughnessType);
+    EXPECT_EQ(top->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
+    EXPECT_EQ(middle->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
+    EXPECT_EQ(bottom->getGroupItem(LayerItem::P_ROUGHNESS)->modelType(), "LayerZeroRoughness");
 }
 
 //! Testing middle layer appearance when it is moved to the top.
@@ -85,10 +79,10 @@ TEST_F(TestMultiLayerItem, test_movingMiddleLayerOnTop)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem(Constants::MultiLayerType);
-    auto top = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
-    auto middle = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
-    auto bottom = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    auto multilayer = model.insertNewItem("MultiLayer");
+    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto middle = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto bottom = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     const double thickness = 10.0;
     middle->setItemValue(LayerItem::P_THICKNESS, thickness);
@@ -111,8 +105,8 @@ TEST_F(TestMultiLayerItem, test_movingMiddleLayerOnTop)
     // Moving middle layer to top
     model.moveItem(middle, multilayer, 0, MultiLayerItem::T_LAYERS);
     // checking that middle is top now, and top layer is middle now
-    EXPECT_EQ(middle, multilayer->getChildrenOfType(Constants::LayerType).at(0));
-    EXPECT_EQ(top, multilayer->getChildrenOfType(Constants::LayerType).at(1));
+    EXPECT_EQ(middle, multilayer->getChildrenOfType("Layer").at(0));
+    EXPECT_EQ(top, multilayer->getChildrenOfType("Layer").at(1));
 
     // Thickness and roughness of middle layer should be disabled now
     EXPECT_FALSE(middle->getItem(LayerItem::P_THICKNESS)->isEnabled());
@@ -133,9 +127,9 @@ TEST_F(TestMultiLayerItem, test_movingLayerOnCanvas)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem(Constants::MultiLayerType);
-    auto top = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
-    model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    auto multilayer = model.insertNewItem("MultiLayer");
+    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Moving top layer to canvas
     model.moveItem(top, nullptr);

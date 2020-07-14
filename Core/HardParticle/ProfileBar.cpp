@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/ProfileBar.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -29,9 +28,9 @@ ProfileBar::ProfileBar(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
     check_initialization();
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

@@ -22,7 +22,6 @@
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionModelDelegate.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentFlatView.h"
@@ -87,7 +86,7 @@ void TestComponentView::onUpdateRequest()
 
 void TestComponentView::onAddItemRequest()
 {
-    m_sampleModel->insertNewItem(Constants::ParticleType);
+    m_sampleModel->insertNewItem("Particle");
 }
 
 void TestComponentView::onExpandRequest()
@@ -120,11 +119,11 @@ void TestComponentView::init_source()
     const std::unique_ptr<MultiLayer> sample(
         factory.createSample("CylindersWithSizeDistributionBuilder"));
     GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *sample);
-    m_sampleModel->insertNewItem(Constants::VectorType);
-    m_sampleModel->insertNewItem(Constants::GISASBeamType);
+    m_sampleModel->insertNewItem("Vector");
+    m_sampleModel->insertNewItem("GISASBeam");
 
     // adding intensity data item
-    m_sampleModel->insertNewItem(Constants::IntensityDataType);
+    m_sampleModel->insertNewItem("IntensityData");
 }
 
 void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)

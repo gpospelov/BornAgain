@@ -143,7 +143,7 @@ void RealDataPropertiesWidget::onInstrumentMapUpdate()
         m_instrumentCombo->setCurrentIndex(index);
     } else {
         // instrument corresponding to m_current_id was deleted
-        m_current_id = QString();
+        m_current_id = "";
         m_instrumentCombo->setCurrentIndex(0);
     }
     setComboConnected(true);

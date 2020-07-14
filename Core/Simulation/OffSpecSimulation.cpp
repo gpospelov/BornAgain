@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/OffSpecSimulation.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Instrument/Histogram2D.h"
 #include "Core/Instrument/SimpleUnitConverters.h"
@@ -135,7 +134,7 @@ void OffSpecSimulation::validateParametrization(const ParameterDistribution& par
     const std::vector<RealParameter*> names =
         parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
-        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+        if (par->getName().find("InclinationAngle") != std::string::npos && !zero_mean)
             throw std::runtime_error("Error in OffSpecSimulation: parameter distribution of "
                                      "beam inclination angle should have zero mean.");
 }
@@ -191,5 +190,5 @@ void OffSpecSimulation::checkInitialization() const
 
 void OffSpecSimulation::initialize()
 {
-    setName(BornAgain::OffSpecSimulationType);
+    setName("OffSpecSimulation");
 }

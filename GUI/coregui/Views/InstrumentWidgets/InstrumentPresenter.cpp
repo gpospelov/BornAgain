@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentPresenter.h"
 #include "GUI/coregui/Models/SessionItem.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/InstrumentWidgets/DepthProbeInstrumentEditor.h"
 #include "GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.h"
 #include "GUI/coregui/Views/InstrumentWidgets/OffSpecInstrumentEditor.h"
@@ -43,13 +42,13 @@ QString InstrumentPresenter::itemPresentation() const
     if (!currentItem())
         return {};
 
-    if (currentItem()->modelType() == Constants::GISASInstrumentType)
+    if (currentItem()->modelType() == "GISASInstrument")
         return GISASPresentation;
-    else if (currentItem()->modelType() == Constants::OffSpecInstrumentType)
+    else if (currentItem()->modelType() == "OffSpecInstrument")
         return OffSpecPresentation;
-    else if (currentItem()->modelType() == Constants::SpecularInstrumentType)
+    else if (currentItem()->modelType() == "SpecularInstrument")
         return SpecularPresentation;
-    else if (currentItem()->modelType() == Constants::DepthProbeInstrumentType)
+    else if (currentItem()->modelType() == "DepthProbeInstrument")
         return DepthProbePresentation;
     else
         throw GUIHelpers::Error("InstrumentPresenter::itemPresentation() -> Error. Wrong item "

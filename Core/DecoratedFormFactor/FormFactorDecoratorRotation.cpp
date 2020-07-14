@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Vector/WavevectorInfo.h"
 #include <memory>
 
@@ -21,7 +20,7 @@ FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& form
                                                          const IRotation& rotation)
     : IFormFactorDecorator(form_factor)
 {
-    setName(BornAgain::FormFactorDecoratorRotationType);
+    setName("FormFactorDecoratorRotation");
     m_transform = rotation.getTransform3D();
 }
 
@@ -58,5 +57,5 @@ FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& form
                                                          const Transform3D& transform)
     : IFormFactorDecorator(form_factor), m_transform(transform)
 {
-    setName(BornAgain::FormFactorDecoratorRotationType);
+    setName("FormFactorDecoratorRotation");
 }

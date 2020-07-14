@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -30,12 +29,12 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double h
                                                          double height_flattening, double dh)
     : m_radius(radius), m_height(height), m_height_flattening(height_flattening), m_dh(dh)
 {
-    setName(BornAgain::FFTruncatedSpheroidType);
+    setName("TruncatedSpheroid");
     check_initialization();
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::HeightFlattening, &m_height_flattening).setNonnegative();
-    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("HeightFlattening", &m_height_flattening).setNonnegative();
+    registerParameter("DeltaHeight", &m_dh).setUnit("nm").setNonnegative();
     onChange();
 }
 

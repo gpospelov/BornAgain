@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/WavevectorInfo.h"
 
@@ -21,7 +20,7 @@ FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IForm
                                                                      const kvector_t& position)
     : IFormFactorDecorator(form_factor), m_position(position)
 {
-    setName(BornAgain::FormFactorDecoratorPositionFactorType);
+    setName("FormFactorDecoratorPositionFactor");
 }
 
 double FormFactorDecoratorPositionFactor::bottomZ(const IRotation& rotation) const

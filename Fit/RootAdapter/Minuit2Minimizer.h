@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
 
-#include "Fit/Minimizer/MinimizerConstants.h"
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
 #include <memory>
 
@@ -34,7 +33,7 @@ class Minuit2Minimizer;
 class BA_CORE_API_ Minuit2Minimizer : public RootMinimizerAdapter
 {
 public:
-    Minuit2Minimizer(const std::string& algorithmName = AlgorithmNames::Migrad);
+    Minuit2Minimizer(const std::string& algorithmName = "Migrad");
     ~Minuit2Minimizer();
 
     //! Sets minimization strategy (0-low, 1-medium, 2-high minimization quality).

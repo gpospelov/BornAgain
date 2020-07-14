@@ -31,7 +31,7 @@ public:
 
     int type() const { return ViewTypes::LAYER; }
 
-    virtual QString getLabel() const { return QString(); }
+    virtual QString getLabel() const { return ""; }
 
     void updateLabel();
 

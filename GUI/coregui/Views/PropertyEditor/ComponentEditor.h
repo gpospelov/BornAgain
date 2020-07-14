@@ -50,7 +50,7 @@ public:
     };
     Q_DECLARE_FLAGS(EditorType, EditorFlags)
 
-    ComponentEditor(EditorType editorType = HeaderTree, const QString& title = QString());
+    ComponentEditor(EditorType editorType = HeaderTree, const QString& title = "");
 
     void setItem(SessionItem* item);
     void clearEditor();

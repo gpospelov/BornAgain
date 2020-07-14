@@ -91,7 +91,7 @@ void JobPropertiesWidget::updateItem()
         return;
 
     if (JobItem* item = jobItem()) {
-        if (item->getStatus() == Constants::STATUS_FAILED)
+        if (item->getStatus() == "Failed")
             m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
         else
             m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::black);

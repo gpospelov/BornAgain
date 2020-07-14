@@ -42,7 +42,7 @@ QString ItemIDFactory::getID(SessionItem* existingItem)
     if (instance().ItemtoIDMap.contains(existingItem))
         return instance().ItemtoIDMap.value(existingItem);
     else
-        return QString();
+        return "";
 }
 
 SessionItem* ItemIDFactory::getItem(QString existingID)

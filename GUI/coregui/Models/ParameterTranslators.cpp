@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParameterTranslators.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Models/MesoCrystalItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/VectorItem.h"
@@ -21,10 +20,9 @@
 
 namespace
 {
-const QStringList expectedRoughnessPars = QStringList()
-                                          << QString::fromStdString(BornAgain::Sigma)
-                                          << QString::fromStdString(BornAgain::Hurst)
-                                          << QString::fromStdString(BornAgain::CorrelationLength);
+const QStringList expectedRoughnessPars =
+    QStringList() << QString::fromStdString("Sigma") << QString::fromStdString("Hurst")
+                  << QString::fromStdString("CorrelationLength");
 }
 
 IPathTranslator::~IPathTranslator() {}
@@ -72,7 +70,7 @@ QStringList AddElementTranslator::translate(const QStringList& list) const
 
 QStringList RotationTranslator::translate(const QStringList& list) const
 {
-    if (list.back() != Constants::RotationType)
+    if (list.back() != "Rotation")
         return list;
 
     Q_ASSERT(list.size() == 3);
@@ -83,7 +81,7 @@ QStringList RotationTranslator::translate(const QStringList& list) const
 
 QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 {
-    if (list.back() != Constants::DistributionNoneType)
+    if (list.back() != "DistributionNone")
         return list;
 
     Q_UNUSED(list);
@@ -104,8 +102,7 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
     if (list.empty())
         return {};
 
-    if (!list.back().contains(Constants::LayerType)
-        || !expectedRoughnessPars.contains(list.front()))
+    if (!list.back().contains("Layer") || !expectedRoughnessPars.contains(list.front()))
         return list;
 
     QStringList result = list;
@@ -114,7 +111,7 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
     int layerIndex = getLayerIndex(layerName);
     QString postfix = numberOfLayers() == 2 ? QString() : QString::number(layerIndex - 1);
 
-    result.push_back(QString::fromStdString(BornAgain::LayerInterfaceType) + postfix);
+    result.push_back(QString::fromStdString("LayerInterface") + postfix);
     return result;
 }
 
@@ -122,7 +119,7 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
 
 int RoughnessTranslator::getLayerIndex(QString layerName) const
 {
-    layerName.remove(Constants::LayerType);
+    layerName.remove("Layer");
     bool ok(true);
     int layerIndex = layerName.toInt(&ok);
     if (!ok)
@@ -132,7 +129,7 @@ int RoughnessTranslator::getLayerIndex(QString layerName) const
 
 int RoughnessTranslator::numberOfLayers() const
 {
-    QVector<SessionItem*> list = mp_parent->getChildrenOfType(Constants::LayerType);
+    QVector<SessionItem*> list = mp_parent->getChildrenOfType("Layer");
     return list.size();
 }
 

@@ -15,7 +15,6 @@
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
 #include "Core/InputOutput/TiffHandler.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Tools/SysUtils.h"
 #include <tiffio.hxx>
 
@@ -53,8 +52,8 @@ void TiffHandler::write(const OutputData<double>& data, std::ostream& output_str
         throw Exceptions::LogicErrorException("TiffHandler::write -> Error. "
                                               "Only 2-dim arrays supported");
     m_tiff = TIFFStreamOpen("MemTIFF", &output_stream);
-    m_width = m_data->getAxis(BornAgain::X_AXIS_INDEX).size();
-    m_height = m_data->getAxis(BornAgain::Y_AXIS_INDEX).size(); // this does not exist for 1d data
+    m_width = m_data->getAxis(0).size();
+    m_height = m_data->getAxis(1).size(); // this does not exist for 1d data
     write_header();
     write_data();
     close();

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -30,7 +29,7 @@ static const int min_points = 4;
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
     : m_integrate_xi(false)
 {
-    setName(BornAgain::InterferenceFunction2DLatticeType);
+    setName("Interference2DLattice");
     setLattice(lattice);
     init_parameters();
 }
@@ -44,7 +43,7 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, do
                                                              double alpha, double xi)
     : m_integrate_xi(false), m_na(0), m_nb(0)
 {
-    setName(BornAgain::InterferenceFunction2DLatticeType);
+    setName("Interference2DLattice");
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
     init_parameters();
 }

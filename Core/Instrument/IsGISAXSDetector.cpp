@@ -13,24 +13,23 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IsGISAXSDetector.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Binning/CustomBinAxis.h"
 
 IsGISAXSDetector::IsGISAXSDetector()
 {
-    setName(BornAgain::IsGISAXSDetectorType);
+    setName("IsGISAXSDetector");
 }
 
 IsGISAXSDetector::IsGISAXSDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
                                    double alpha_min, double alpha_max)
 {
-    setName(BornAgain::IsGISAXSDetectorType);
+    setName("IsGISAXSDetector");
     setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
 IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector& other) : SphericalDetector(other)
 {
-    setName(BornAgain::IsGISAXSDetectorType);
+    setName("IsGISAXSDetector");
 }
 
 IsGISAXSDetector* IsGISAXSDetector::clone() const

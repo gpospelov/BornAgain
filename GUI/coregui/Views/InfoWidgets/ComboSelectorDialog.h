@@ -31,7 +31,7 @@ class BA_CORE_API_ ComboSelectorDialog : public QDialog
 public:
     ComboSelectorDialog(QWidget* parent = 0);
 
-    void addItems(const QStringList& selection, const QString& currentItem = QString());
+    void addItems(const QStringList& selection, const QString& currentItem = "");
     void setTextTop(const QString& text);
     void setTextBottom(const QString& text);
 

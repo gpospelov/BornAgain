@@ -16,18 +16,18 @@ class TestDetectorItems : public ::testing::Test
 TEST_F(TestDetectorItems, test_detectorAlignment)
 {
     InstrumentModel model;
-    SessionItem* detector = model.insertNewItem(Constants::RectangularDetectorType);
+    SessionItem* detector = model.insertNewItem("RectangularDetector");
 
     ComboProperty alignment =
         detector->getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
     // generic has some more items visible
-    alignment.setValue(Constants::ALIGNMENT_GENERIC);
+    alignment.setValue("Generic");
     detector->setItemValue(RectangularDetectorItem::P_ALIGNMENT,
                            QVariant::fromValue<ComboProperty>(alignment));
     EXPECT_TRUE(detector->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
 
     // should be disabled if we switch
-    alignment.setValue(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
+    alignment.setValue("Perpendicular to reflected beam");
     detector->setItemValue(RectangularDetectorItem::P_ALIGNMENT,
                            QVariant::fromValue<ComboProperty>(alignment));
     EXPECT_FALSE(detector->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
@@ -37,12 +37,12 @@ TEST_F(TestDetectorItems, test_resolutionFunction)
 {
     InstrumentModel model;
     GISASInstrumentItem* instrument =
-        dynamic_cast<GISASInstrumentItem*>(model.insertNewItem(Constants::GISASInstrumentType));
+        dynamic_cast<GISASInstrumentItem*>(model.insertNewItem("GISASInstrument"));
 
     DetectorItem* detectorItem = instrument->detectorItem();
 
     detectorItem->setGroupProperty(DetectorItem::P_RESOLUTION_FUNCTION,
-                                   Constants::ResolutionFunction2DGaussianType);
+                                   "ResolutionFunction2DGaussian");
 
     auto detector = detectorItem->createDetector();
     auto convol =

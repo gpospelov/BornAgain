@@ -38,7 +38,7 @@ void UpdateNotifier::checkForUpdates()
             networkRequest.setRawHeader(QByteArray("User-Agent"), text.toLatin1());
             m_networkAccessManager->get(networkRequest);
         } else {
-            emit onUpdateNotification(QString(""));
+            emit onUpdateNotification("");
         }
     }
 }
@@ -56,7 +56,7 @@ void UpdateNotifier::replyFinished(QNetworkReply* reply)
             QString myVersion = GUIHelpers::getBornAgainVersionString();
 
             // Testwise degrade version
-            // myVersion = QString("1.1.0");
+            // myVersion = "1.1.0";
 
             if (GUIHelpers::versionCode(versionString) > GUIHelpers::versionCode(myVersion)) {
                 QString message("New version is available: <a href=\"");
@@ -66,7 +66,7 @@ void UpdateNotifier::replyFinished(QNetworkReply* reply)
                 message.append("</a>");
                 emit onUpdateNotification(message);
             } else {
-                emit onUpdateNotification(QString(""));
+                emit onUpdateNotification("");
             }
         }
     };

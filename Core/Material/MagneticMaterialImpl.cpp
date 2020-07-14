@@ -45,7 +45,6 @@ MagneticMaterialImpl* MagneticMaterialImpl::inverted() const
 {
     std::string name = isScalarMaterial() ? getName() : getName() + "_inv";
     std::unique_ptr<MagneticMaterialImpl> result(this->clone());
-    result->setName(name);
     result->setMagnetization(-magnetization());
     return result.release();
 }
@@ -76,7 +75,6 @@ MagneticMaterialImpl* MagneticMaterialImpl::transformedMaterial(const Transform3
 {
     kvector_t transformed_field = transform.transformed(m_magnetization);
     std::unique_ptr<MagneticMaterialImpl> result(this->clone());
-    result->setName(this->getName());
     result->setMagnetization(transformed_field);
     return result.release();
 }

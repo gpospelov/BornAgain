@@ -63,13 +63,11 @@ TEST_F(BeamFootprintTest, Clone)
     std::unique_ptr<FootprintFactorGaussian> gaussian_clone(gaussian_ff.clone());
 
     EXPECT_NE(gaussian_clone.get(), &gaussian_ff);
-    EXPECT_EQ(gaussian_clone->getName(), gaussian_ff.getName());
     EXPECT_EQ(gaussian_clone->widthRatio(), gaussian_ff.widthRatio());
 
     FootprintFactorSquare square_ff(1.0);
     std::unique_ptr<FootprintFactorSquare> square_clone(square_ff.clone());
 
     EXPECT_NE(square_clone.get(), &square_ff);
-    EXPECT_EQ(square_clone->getName(), square_ff.getName());
     EXPECT_EQ(square_clone->widthRatio(), square_ff.widthRatio());
 }

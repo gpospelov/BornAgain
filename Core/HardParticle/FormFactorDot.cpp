@@ -13,15 +13,14 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorDot.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/RealParameter.h"
 
 //! Constructor.
 //! @param rscat: radius of a sphere with same forward scattering power, in nanometers
 FormFactorDot::FormFactorDot(double radius) : m_radius(radius)
 {
-    setName(BornAgain::FFDotType);
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("Dot");
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
     onChange();
 }
 

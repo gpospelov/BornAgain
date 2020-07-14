@@ -143,7 +143,7 @@ void RealSpaceCanvas::savePicture(const QPixmap& pixmap)
     QString dirname = AppSvc::projectManager()->userExportDir();
     QString defaultExtension = ".png";
     QString selectedFilter("*" + defaultExtension);
-    QString defaultName = dirname + QString("/untitled");
+    QString defaultName = dirname + "/untitled";
     QString fileName = QFileDialog::getSaveFileName(nullptr, "Save 3D real space view", defaultName,
                                                     selectedFilter);
     QString nameToSave =

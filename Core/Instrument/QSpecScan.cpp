@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/Export/PythonFormatting.h"
@@ -113,8 +112,7 @@ std::string QSpecScan::print() const
 {
     std::stringstream result;
     const std::string axis_def = PythonFormatting::indent() + "axis = ";
-    result << axis_def
-           << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsNone, axis_def.size())
+    result << axis_def << PythonFormatting::printAxis(*coordinateAxis(), "", axis_def.size())
            << "\n";
 
     result << PythonFormatting::indent() << "scan = ba.QSpecScan(axis)";

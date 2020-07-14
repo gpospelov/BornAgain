@@ -56,28 +56,28 @@ void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
 
     model->defCamPos = cameraPosition;
 
-    if (item.modelType() == Constants::MultiLayerType)
+    if (item.modelType() == "MultiLayer")
         populateMultiLayer(model, item, sceneGeometry);
 
-    else if (item.modelType() == Constants::LayerType)
+    else if (item.modelType() == "Layer")
         populateLayer(model, item, sceneGeometry);
 
-    else if (item.modelType() == Constants::ParticleLayoutType)
+    else if (item.modelType() == "ParticleLayout")
         populateLayout(model, item, sceneGeometry);
 
-    else if (item.modelType() == Constants::ParticleType)
+    else if (item.modelType() == "Particle")
         populateParticleFromParticleItem(model, item);
 
-    else if (item.modelType() == Constants::ParticleCompositionType)
+    else if (item.modelType() == "ParticleComposition")
         populateParticleFromParticleItem(model, item);
 
-    else if (item.modelType() == Constants::ParticleCoreShellType)
+    else if (item.modelType() == "ParticleCoreShell")
         populateParticleFromParticleItem(model, item);
 
-    else if (item.modelType() == Constants::ParticleDistributionType)
+    else if (item.modelType() == "ParticleDistribution")
         populateParticleFromParticleItem(model, item);
 
-    else if (item.modelType() == Constants::MesoCrystalType)
+    else if (item.modelType() == "MesoCrystal")
         populateParticleFromParticleItem(model, item);
 }
 
@@ -114,7 +114,7 @@ void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& l
 void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
                                       const SceneGeometry& sceneGeometry, const QVector3D& origin)
 {
-    Q_ASSERT(layoutItem.modelType() == Constants::ParticleLayoutType);
+    Q_ASSERT(layoutItem.modelType() == "ParticleLayout");
 
     // If there is no particle to populate
     if (!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
@@ -140,11 +140,11 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
                                                         const SessionItem& particleItem) const
 {
     Particle3DContainer particle3DContainer;
-    if (particleItem.modelType() == Constants::ParticleType) {
+    if (particleItem.modelType() == "Particle") {
         auto pItem = dynamic_cast<const ParticleItem*>(&particleItem);
         auto particle = pItem->createParticle();
         particle3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle);
-    } else if (particleItem.modelType() == Constants::ParticleCoreShellType) {
+    } else if (particleItem.modelType() == "ParticleCoreShell") {
         auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(&particleItem);
         // If there is no CORE or SHELL to populate inside ParticleCoreShellItem
         if (!particleCoreShellItem->getItem(ParticleCoreShellItem::T_CORE)
@@ -153,7 +153,7 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
         auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
         particle3DContainer =
             RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
-    } else if (particleItem.modelType() == Constants::ParticleCompositionType) {
+    } else if (particleItem.modelType() == "ParticleComposition") {
         auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
         // If there is no particle to populate inside ParticleCompositionItem
         if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
@@ -161,14 +161,14 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
         auto particleComposition = particleCompositionItem->createParticleComposition();
         particle3DContainer =
             RealSpaceBuilderUtils::particleComposition3DContainer(*particleComposition);
-    } else if (particleItem.modelType() == Constants::ParticleDistributionType) {
+    } else if (particleItem.modelType() == "ParticleDistribution") {
         auto particleDistributionItem =
             dynamic_cast<const ParticleDistributionItem*>(&particleItem);
         // If there is no particle to populate inside ParticleDistributionItem
         if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
             return;
         // show nothing when ParticleDistributionItem is selected
-    } else if (particleItem.modelType() == Constants::MesoCrystalType) {
+    } else if (particleItem.modelType() == "MesoCrystal") {
         auto mesoCrystalItem = dynamic_cast<const MesoCrystalItem*>(&particleItem);
         // If there is no particle to populate inside MesoCrystalItem
         if (!mesoCrystalItem->getItem(MesoCrystalItem::T_BASIS_PARTICLE))

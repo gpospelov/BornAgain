@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
 
 #include "Core/Basics/Complex.h"
-#include "Core/Basics/INamed.h"
 #include "Core/Vector/EigenCore.h"
 #include "Core/Vector/Vectors3D.h"
 
@@ -25,13 +24,15 @@ class WavevectorInfo;
 
 enum class MATERIAL_TYPES { InvalidMaterialType = -1, RefractiveMaterial = 0, MaterialBySLD };
 
+//! Interface for material implementation classes.
+//! Inherited by MagneticMaterialImpl, which has further children.
 //! @ingroup materials
 
-class BA_CORE_API_ BaseMaterialImpl : public INamed
+class BA_CORE_API_ BaseMaterialImpl
 {
 public:
     //! Constructs basic material with name
-    BaseMaterialImpl(const std::string& name) : INamed(name) {}
+    BaseMaterialImpl(const std::string& name) : m_name(name) {}
 
     virtual ~BaseMaterialImpl() = default;
 
@@ -72,6 +73,12 @@ public:
 
     //! Prints object data
     virtual void print(std::ostream& ostr) const = 0;
+
+    //! Returns name of the material
+    const std::string& getName() const { return m_name; }
+
+private:
+    const std::string m_name;
 };
 
 #endif // BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H

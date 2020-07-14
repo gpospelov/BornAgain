@@ -148,9 +148,8 @@ std::string GUITranslationTest::translationResultsToString() const
 
 bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 {
-    std::vector<std::string> invalidNames{BornAgain::Direction, BornAgain::Efficiency,
-                                          BornAgain::Transmission, BornAgain::Inclination,
-                                          BornAgain::Azimuth};
+    std::vector<std::string> invalidNames{"Direction", "Efficiency", "Transmission",
+                                          "InclinationAngle", "AzimuthalAngle"};
     for (auto name : invalidNames) {
         if (domainName.find(name) != std::string::npos)
             return false;
@@ -252,16 +251,13 @@ namespace
 {
 const QVector<QPair<QStringList, QStringList>> black_list{
     {// Global scope
-     {QString()},
-     {Constants::DistributionSigmaFactor, Constants::MaterialRefractiveDataType,
-      Constants::MaterialSLDDataType, MaterialItem::P_MAGNETIZATION}},
+     {""},
+     {"Sigma factor", "MaterialRefractiveData", "MaterialSLDData", MaterialItem::P_MAGNETIZATION}},
     {// Instrument scope
-     {Constants::GISASInstrumentType, Constants::OffSpecInstrumentType,
-      Constants::SpecularInstrumentType},
+     {"GISASInstrument", "OffSpecInstrument", "SpecularInstrument"},
      {// Distribution types
-      Constants::DistributionGateType, Constants::DistributionLorentzType,
-      Constants::DistributionGaussianType, Constants::DistributionLogNormalType,
-      Constants::DistributionCosineType, Constants::DistributionTrapezoidType,
+      "DistributionGate", "DistributionLorentz", "DistributionGaussian", "DistributionLogNormal",
+      "DistributionCosine", "DistributionTrapezoid",
 
       // Detector axes
       SphericalDetectorItem::P_PHI_AXIS, SphericalDetectorItem::P_ALPHA_AXIS,
@@ -275,7 +271,7 @@ const QVector<QPair<QStringList, QStringList>> black_list{
       RectangularDetectorItem::P_DBEAM_V0, RectangularDetectorItem::P_DISTANCE,
 
       // Detector resolution
-      Constants::ResolutionFunction2DGaussianType,
+      "ResolutionFunction2DGaussian",
 
       // Beam angle parameters
       BeamItem::P_INCLINATION_ANGLE, BeamItem::P_AZIMUTHAL_ANGLE}}};

@@ -33,11 +33,9 @@ TEST_F(Histogram2DTest, VariableHist)
     // basic axes check
     EXPECT_EQ(size_t(12), hist.getTotalNumberOfBins());
     EXPECT_EQ(hist.getRank(), size_t(2));
-    EXPECT_EQ(hist.getXaxis().getName(), std::string("x-axis"));
     EXPECT_EQ(hist.getXaxis().size(), size_t(4));
     EXPECT_EQ(hist.getXmin(), -1.0);
     EXPECT_EQ(hist.getXmax(), 2.0);
-    EXPECT_EQ(hist.getYaxis().getName(), std::string("y-axis"));
     EXPECT_EQ(hist.getYaxis().size(), size_t(3));
     EXPECT_EQ(hist.getYmin(), 0.0);
     EXPECT_EQ(hist.getYmax(), 4.0);

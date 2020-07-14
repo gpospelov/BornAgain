@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
@@ -25,10 +24,8 @@ namespace
 //! Returns true if name is related to 2D interference functions.
 bool isInterference2D(const QString& name)
 {
-    if (name == Constants::InterferenceFunction2DLatticeType
-        || name == Constants::InterferenceFunction2DParaCrystalType
-        || name == Constants::InterferenceFunctionFinite2DLatticeType
-        || name == Constants::InterferenceFunctionHardDiskType)
+    if (name == "Interference2DLattice" || name == "Interference2DParaCrystal"
+        || name == "InterferenceFinite2DLattice" || name == "InterferenceHardDisk")
         return true;
     return false;
 }
@@ -47,13 +44,12 @@ const QString weight_tooltip =
     "Should be used when multiple layouts define different domains in the sample.";
 } // namespace
 
-const QString ParticleLayoutItem::P_TOTAL_DENSITY =
-    QString::fromStdString(BornAgain::TotalParticleDensity);
-const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString(BornAgain::Weight);
+const QString ParticleLayoutItem::P_TOTAL_DENSITY = QString::fromStdString("TotalParticleDensity");
+const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString("Weight");
 const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
 const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 
-ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::ParticleLayoutType)
+ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem("ParticleLayout")
 {
     setToolTip(QStringLiteral("A layout of particles"));
 
@@ -62,17 +58,19 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
     addProperty(P_WEIGHT, 1.0)->setToolTip(weight_tooltip);
 
     registerTag(T_PARTICLES, 0, -1,
-                QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
-                              << Constants::ParticleCompositionType << Constants::MesoCrystalType
-                              << Constants::ParticleDistributionType);
+                QStringList() << "Particle"
+                              << "ParticleCoreShell"
+                              << "ParticleComposition"
+                              << "MesoCrystal"
+                              << "ParticleDistribution");
     setDefaultTag(T_PARTICLES);
     registerTag(T_INTERFERENCE, 0, 1,
-                QStringList() << Constants::InterferenceFunction1DLatticeType
-                              << Constants::InterferenceFunction2DLatticeType
-                              << Constants::InterferenceFunction2DParaCrystalType
-                              << Constants::InterferenceFunctionFinite2DLatticeType
-                              << Constants::InterferenceFunctionHardDiskType
-                              << Constants::InterferenceFunctionRadialParaCrystalType);
+                QStringList() << "Interference1DLattice"
+                              << "Interference2DLattice"
+                              << "Interference2DParaCrystal"
+                              << "InterferenceFinite2DLattice"
+                              << "InterferenceHardDisk"
+                              << "InterferenceRadialParaCrystal");
 
     mapper()->setOnChildrenChange([this](SessionItem*) {
         updateDensityAppearance();

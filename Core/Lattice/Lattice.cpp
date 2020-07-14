@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Lattice/Lattice.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Lattice/ISelectionRule.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -24,7 +23,7 @@ Lattice::Lattice()
     : mp_selection_rule(nullptr), m_a({1.0, 0.0, 0.0}), m_b({0.0, 1.0, 0.0}), m_c({0.0, 0.0, 1.0}),
       m_cache_ok(false)
 {
-    setName(BornAgain::LatticeType);
+    setName("Lattice");
     initialize();
     registerBasisVectors();
 }
@@ -32,7 +31,7 @@ Lattice::Lattice()
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
     : mp_selection_rule(nullptr), m_a(a1), m_b(a2), m_c(a3), m_cache_ok(false)
 {
-    setName(BornAgain::LatticeType);
+    setName("Lattice");
     initialize();
     registerBasisVectors();
 }
@@ -41,7 +40,7 @@ Lattice::Lattice(const Lattice& lattice)
     : mp_selection_rule(nullptr), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c),
       m_cache_ok(false)
 {
-    setName(BornAgain::LatticeType);
+    setName("Lattice");
     initialize();
     if (lattice.mp_selection_rule)
         setSelectionRule(*lattice.mp_selection_rule);
@@ -190,10 +189,10 @@ void Lattice::onChange()
 
 void Lattice::registerBasisVectors()
 {
-    if (!parameter(XComponentName(BornAgain::BasisVector_A))) {
-        registerVector(BornAgain::BasisVector_A, &m_a, BornAgain::UnitsNm);
-        registerVector(BornAgain::BasisVector_B, &m_b, BornAgain::UnitsNm);
-        registerVector(BornAgain::BasisVector_C, &m_c, BornAgain::UnitsNm);
+    if (!parameter(XComponentName("BasisA"))) {
+        registerVector("BasisA", &m_a, "nm");
+        registerVector("BasisB", &m_b, "nm");
+        registerVector("BasisC", &m_c, "nm");
     }
 }
 

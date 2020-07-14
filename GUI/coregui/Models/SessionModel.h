@@ -55,7 +55,7 @@ public:
 
     QModelIndex indexOfItem(SessionItem* item) const;
     SessionItem* insertNewItem(QString model_type, const QModelIndex& parent = QModelIndex(),
-                               int row = -1, QString tag = QString());
+                               int row = -1, QString tag = "");
 
     QString getModelTag() const;
     QString getModelName() const;
@@ -63,8 +63,8 @@ public:
     QVector<QString> acceptableDefaultItemTypes(const QModelIndex& parent) const;
 
     virtual void clear();
-    void load(const QString& filename = QString());
-    void save(const QString& filename = QString());
+    void load(const QString& filename = "");
+    void save(const QString& filename = "");
 
     // Sets mimedata pointer of item being dragged
     void setDraggedItemType(const QString& type);
@@ -76,10 +76,10 @@ public:
     void writeTo(QXmlStreamWriter* writer, SessionItem* parent = 0);
 
     SessionItem* moveItem(SessionItem* item, SessionItem* new_parent = 0, int row = -1,
-                          const QString& tag = QString());
+                          const QString& tag = "");
 
     SessionItem* copyItem(const SessionItem* item_to_copy, SessionItem* new_parent = 0,
-                          const QString& tag = QString());
+                          const QString& tag = "");
 
     virtual SessionModel* createCopy(SessionItem* parent = 0);
 

@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/StyleUtils.h"
@@ -27,18 +26,18 @@ gradient_map_t createGradientMap()
 {
     gradient_map_t result;
 
-    result[Constants::GRADIENT_GRAYSCALE] = QCPColorGradient::gpGrayscale;
-    result[Constants::GRADIENT_HOT] = QCPColorGradient::gpHot;
-    result[Constants::GRADIENT_COLD] = QCPColorGradient::gpCold;
-    result[Constants::GRADIENT_NIGHT] = QCPColorGradient::gpNight;
-    result[Constants::GRADIENT_CANDY] = QCPColorGradient::gpCandy;
-    result[Constants::GRADIENT_GEOGRAPHY] = QCPColorGradient::gpGeography;
-    result[Constants::GRADIENT_ION] = QCPColorGradient::gpIon;
-    result[Constants::GRADIENT_THERMAL] = QCPColorGradient::gpThermal;
-    result[Constants::GRADIENT_POLAR] = QCPColorGradient::gpPolar;
-    result[Constants::GRADIENT_SPECTRUM] = QCPColorGradient::gpSpectrum;
-    result[Constants::GRADIENT_JET] = QCPColorGradient::gpJet;
-    result[Constants::GRADIENT_HUES] = QCPColorGradient::gpHues;
+    result["Grayscale"] = QCPColorGradient::gpGrayscale;
+    result["Hot"] = QCPColorGradient::gpHot;
+    result["Cold"] = QCPColorGradient::gpCold;
+    result["Night"] = QCPColorGradient::gpNight;
+    result["Candy"] = QCPColorGradient::gpCandy;
+    result["Geography"] = QCPColorGradient::gpGeography;
+    result["Ion"] = QCPColorGradient::gpIon;
+    result["Thermal"] = QCPColorGradient::gpThermal;
+    result["Polar"] = QCPColorGradient::gpPolar;
+    result["Spectrum"] = QCPColorGradient::gpSpectrum;
+    result["Jet"] = QCPColorGradient::gpJet;
+    result["Hues"] = QCPColorGradient::gpHues;
 
     return result;
 }

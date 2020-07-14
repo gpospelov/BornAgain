@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/tooltipdatabase.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <QFile>
 #include <QXmlStreamReader>
@@ -52,7 +51,7 @@ QString ToolTipDataBase::widgetboxToolTip(const QString& className)
 {
     Q_ASSERT(m_instance);
     QString modelName(className);
-    modelName.remove(Constants::FormFactorType);
+    modelName.remove("FormFactor");
     return m_instance->this_getToolTip(sampleViewContext, modelName, titleProperty);
 }
 

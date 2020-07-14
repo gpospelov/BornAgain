@@ -16,9 +16,9 @@ class TestParticleItem : public ::testing::Test
 TEST_F(TestParticleItem, test_InitialState)
 {
     SampleModel model;
-    SessionItem* item = model.insertNewItem(Constants::ParticleType);
+    SessionItem* item = model.insertNewItem("Particle");
 
-    EXPECT_EQ(item->displayName(), Constants::ParticleType);
+    EXPECT_EQ(item->displayName(), "Particle");
     EXPECT_EQ(item->displayName(), item->itemName());
     // xpos, ypos, P_FORM_FACTOR, P_MATERIAL, P_ABUNDANCE, P_POSITION
     EXPECT_EQ(item->children().size(), 6);
@@ -32,13 +32,13 @@ TEST_F(TestParticleItem, test_InitialState)
 TEST_F(TestParticleItem, test_compositionContext)
 {
     SampleModel model;
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = model.insertNewItem("Particle");
     particle->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
     EXPECT_TRUE(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_EQ(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 0.2);
 
     // adding particle to composition, checking that abundance is default
-    SessionItem* composition = model.insertNewItem(Constants::ParticleCompositionType);
+    SessionItem* composition = model.insertNewItem("ParticleComposition");
     model.moveItem(particle, composition, -1, ParticleCompositionItem::T_PARTICLES);
     EXPECT_FALSE(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_EQ(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
@@ -52,13 +52,13 @@ TEST_F(TestParticleItem, test_compositionContext)
 TEST_F(TestParticleItem, test_distributionContext)
 {
     SampleModel model;
-    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle = model.insertNewItem("Particle");
     particle->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
     EXPECT_TRUE(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     EXPECT_EQ(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 0.2);
 
     // adding particle to distribution, checking that abundance is default
-    SessionItem* distribution = model.insertNewItem(Constants::ParticleDistributionType);
+    SessionItem* distribution = model.insertNewItem("ParticleDistribution");
     model.moveItem(particle, distribution, -1, ParticleDistributionItem::T_PARTICLES);
     EXPECT_TRUE(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
     EXPECT_EQ(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);

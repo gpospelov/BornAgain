@@ -43,8 +43,8 @@ public:
     std::unique_ptr<OutputData<double>> createData(double value)
     {
         std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-        result->addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, m_nx, m_xmin, m_xmax));
-        result->addAxis(FixedBinAxis(BornAgain::ALPHA_AXIS_NAME, m_ny, m_ymin, m_ymax));
+        result->addAxis(FixedBinAxis("phi_f", m_nx, m_xmin, m_xmax));
+        result->addAxis(FixedBinAxis("alpha_f", m_ny, m_ymin, m_ymax));
         result->setAllTo(value);
         return result;
     }

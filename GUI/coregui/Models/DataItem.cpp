@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DataItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
@@ -91,7 +90,7 @@ DataItem::DataItem(const QString& modelType) : SessionItem(modelType)
     // name of the file used to serialize given IntensityDataItem
     addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
 
-    ComboProperty units = ComboProperty() << Constants::UnitsNbins;
+    ComboProperty units = ComboProperty() << "nbins";
     addProperty(P_AXES_UNITS, units.variant());
 
     mapper()->setOnPropertyChange([this](const QString& name) {

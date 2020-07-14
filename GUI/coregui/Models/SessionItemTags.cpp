@@ -114,7 +114,7 @@ int SessionItemTags::insertIndexFromTagRow(const QString& tagName, int row)
 QString SessionItemTags::tagFromIndex(int index) const
 {
     if (index < 0)
-        return QString();
+        return "";
 
     for (const auto& tag : m_tags) {
         if (index < tag.childCount)
@@ -123,7 +123,7 @@ QString SessionItemTags::tagFromIndex(int index) const
             index -= tag.childCount;
     }
 
-    return QString();
+    return "";
 }
 
 int SessionItemTags::childCount(const QString& tagName)

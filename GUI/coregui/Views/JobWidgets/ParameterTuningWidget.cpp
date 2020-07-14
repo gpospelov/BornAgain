@@ -197,7 +197,7 @@ JobItem* ParameterTuningWidget::jobItem()
 void ParameterTuningWidget::updateDragAndDropSettings()
 {
     Q_ASSERT(jobItem());
-    if (jobItem()->getStatus() == Constants::STATUS_FITTING) {
+    if (jobItem()->getStatus() == "Fitting") {
         setTuningDelegateEnabled(false);
         m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
     } else {

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Particle/IParticle.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -64,21 +63,21 @@ std::vector<const INode*> IParticle::getChildren() const
 void IParticle::registerAbundance(bool make_registered)
 {
     if (make_registered) {
-        if (!parameter(BornAgain::Abundance))
-            registerParameter(BornAgain::Abundance, &m_abundance);
+        if (!parameter("Abundance"))
+            registerParameter("Abundance", &m_abundance);
     } else {
-        removeParameter(BornAgain::Abundance);
+        removeParameter("Abundance");
     }
 }
 
 void IParticle::registerPosition(bool make_registered)
 {
     if (make_registered) {
-        if (!parameter(XComponentName(BornAgain::Position))) {
-            registerVector(BornAgain::Position, &m_position, BornAgain::UnitsNm);
+        if (!parameter(XComponentName("Position"))) {
+            registerVector("Position", &m_position, "nm");
         }
     } else {
-        removeVector(BornAgain::Position);
+        removeVector("Position");
     }
 }
 

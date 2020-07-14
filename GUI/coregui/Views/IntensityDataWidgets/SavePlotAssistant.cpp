@@ -55,7 +55,7 @@ void SavePlotAssistant::savePlot(const QString& dirname, QCustomPlot* plot,
 
 {
     QString selectedFilter("*.png");
-    QString defaultName = dirname + QString("/untitled");
+    QString defaultName = dirname + "/untitled";
     QString fileName = QFileDialog::getSaveFileName(0, "Save Plot", defaultName, getFilterString(),
                                                     &selectedFilter);
 
@@ -138,7 +138,7 @@ QString SavePlotAssistant::getExtensionFromFilterName(const QString& filterName)
             return m_formats[i].m_file_extention;
         }
     }
-    return QString();
+    return "";
 }
 
 bool SavePlotAssistant::isPngFile(const QString& fileName) const

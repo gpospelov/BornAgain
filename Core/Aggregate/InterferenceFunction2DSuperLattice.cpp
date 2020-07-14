@@ -14,7 +14,6 @@
 
 #include "Core/Aggregate/InterferenceFunction2DSuperLattice.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -29,7 +28,7 @@ InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lat
                                                                        unsigned size_2)
     : m_integrate_xi(false), mP_substructure(nullptr), m_size_1(size_1), m_size_2(size_2)
 {
-    setName(BornAgain::InterferenceFunction2DSuperLattice);
+    setName("Interference2DSuperLattice");
     setLattice(lattice);
     setSubstructureIFF(InterferenceFunctionNone());
     init_parameters();
@@ -44,7 +43,7 @@ InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
     double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
     : m_integrate_xi(false), mP_substructure(nullptr), m_size_1(size_1), m_size_2(size_2)
 {
-    setName(BornAgain::InterferenceFunction2DSuperLattice);
+    setName("Interference2DSuperLattice");
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
     setSubstructureIFF(InterferenceFunctionNone());
     init_parameters();

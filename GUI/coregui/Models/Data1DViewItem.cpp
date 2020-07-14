@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/Data1DViewItem.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DataItem.h"
@@ -38,14 +37,14 @@ const QString Data1DViewItem::P_YAXIS = "y-axis";
 const QString Data1DViewItem::P_AXES_UNITS = "Axes Units";
 const QString Data1DViewItem::T_DATA_PROPERTIES = "Data property container";
 
-Data1DViewItem::Data1DViewItem() : SessionItem(Constants::Data1DViewItemType), m_job_item(nullptr)
+Data1DViewItem::Data1DViewItem() : SessionItem("Data1DViewItem"), m_job_item(nullptr)
 {
     addProperty(P_TITLE, QString())->setVisible(false);
 
-    SessionItem* item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
+    SessionItem* item = addGroupProperty(P_XAXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupProperty(P_YAXIS, Constants::AmplitudeAxisType);
+    item = addGroupProperty(P_YAXIS, "AmplitudeAxis");
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(true);
 
@@ -53,9 +52,9 @@ Data1DViewItem::Data1DViewItem() : SessionItem(Constants::Data1DViewItemType), m
     item->setValue(true);
     item->setVisible(false);
 
-    registerTag(T_DATA_PROPERTIES, 1, 1, QStringList() << Constants::DataPropertyContainerType);
+    registerTag(T_DATA_PROPERTIES, 1, 1, QStringList() << "DataPropertyContainer");
 
-    ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
+    ComboProperty combo = ComboProperty() << "nbins";
     addProperty(P_AXES_UNITS, combo.variant());
 
     mapper()->setOnPropertyChange([this](const QString& name) {
@@ -134,8 +133,8 @@ void Data1DViewItem::setAxesRangeToData()
     if (!data)
         return;
 
-    setLowerX(data->getAxis(BornAgain::X_AXIS_INDEX).getMin());
-    setUpperX(data->getAxis(BornAgain::X_AXIS_INDEX).getMax());
+    setLowerX(data->getAxis(0).getMin());
+    setUpperX(data->getAxis(0).getMax());
 
     auto data_range = dataRange(data.get());
     setLowerY(data_range.first);
@@ -172,7 +171,7 @@ JobItem* Data1DViewItem::jobItem()
 
     auto item = parent();
     do {
-        if (item->modelType() == Constants::JobItemType) {
+        if (item->modelType() == "JobItem") {
             m_job_item = dynamic_cast<JobItem*>(item);
             return m_job_item;
         }

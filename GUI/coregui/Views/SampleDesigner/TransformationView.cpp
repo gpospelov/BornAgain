@@ -13,12 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/TransformationView.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 
 TransformationView::TransformationView(QGraphicsItem* parent) : ConnectableView(parent)
 {
-    setName(Constants::RotationType);
+    setName("Rotation");
     setColor(DesignerHelper::getDefaultTransformationColor());
     setRectangle(DesignerHelper::getTransformationBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::TRANSFORMATION)

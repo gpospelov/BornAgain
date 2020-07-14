@@ -38,7 +38,7 @@ public:
     //! port direction
     enum EPortDirection { INPUT, OUTPUT };
 
-    NodeEditorPort(QGraphicsItem* parent = 0, const QString& name = QString("unnamed"),
+    NodeEditorPort(QGraphicsItem* parent = 0, const QString& name = "unnamed",
                    EPortDirection direction = INPUT, EPortType port_type = DEFAULT);
 
     virtual ~NodeEditorPort();

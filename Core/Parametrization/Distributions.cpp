@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
@@ -128,7 +127,7 @@ IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_val
 
 DistributionGate::DistributionGate(double min, double max) : m_min(min), m_max(max)
 {
-    setName(BornAgain::DistributionGateType);
+    setName("DistributionGate");
     checkInitialization();
     init_parameters();
 }
@@ -154,8 +153,8 @@ std::vector<double> DistributionGate::equidistantPoints(size_t nbr_samples, doub
 
 void DistributionGate::init_parameters()
 {
-    registerParameter(BornAgain::Minimum, &m_min);
-    registerParameter(BornAgain::Maximum, &m_max);
+    registerParameter("Min", &m_min);
+    registerParameter("Max", &m_max);
 }
 
 bool DistributionGate::isDelta() const
@@ -166,7 +165,7 @@ bool DistributionGate::isDelta() const
 bool DistributionGate::checkInitialization() const
 {
     if (m_max < m_min) {
-        SignalBadInitialization(BornAgain::DistributionGateType);
+        SignalBadInitialization("DistributionGate");
     }
     return true;
 }
@@ -177,7 +176,7 @@ bool DistributionGate::checkInitialization() const
 
 DistributionLorentz::DistributionLorentz(double mean, double hwhm) : m_mean(mean), m_hwhm(hwhm)
 {
-    setName(BornAgain::DistributionLorentzType);
+    setName("DistributionLorentz");
     checkInitialization();
     init_parameters();
 }
@@ -202,8 +201,8 @@ std::vector<double> DistributionLorentz::equidistantPoints(size_t nbr_samples, d
 
 void DistributionLorentz::init_parameters()
 {
-    registerParameter(BornAgain::Mean, &m_mean);
-    registerParameter(BornAgain::HWHM, &m_hwhm);
+    registerParameter("Mean", &m_mean);
+    registerParameter("HWHM", &m_hwhm);
 }
 
 bool DistributionLorentz::isDelta() const
@@ -214,7 +213,7 @@ bool DistributionLorentz::isDelta() const
 bool DistributionLorentz::checkInitialization() const
 {
     if (m_hwhm < 0.0) {
-        SignalBadInitialization(BornAgain::DistributionLorentzType);
+        SignalBadInitialization("DistributionLorentz");
     }
     return true;
 }
@@ -226,7 +225,7 @@ bool DistributionLorentz::checkInitialization() const
 DistributionGaussian::DistributionGaussian(double mean, double std_dev)
     : m_mean(mean), m_std_dev(std_dev)
 {
-    setName(BornAgain::DistributionGaussianType);
+    setName("DistributionGaussian");
     checkInitialization();
     init_parameters();
 }
@@ -252,8 +251,8 @@ std::vector<double> DistributionGaussian::equidistantPoints(size_t nbr_samples, 
 
 void DistributionGaussian::init_parameters()
 {
-    registerParameter(BornAgain::Mean, &m_mean);
-    registerParameter(BornAgain::StdDeviation, &m_std_dev);
+    registerParameter("Mean", &m_mean);
+    registerParameter("StdDev", &m_std_dev);
 }
 
 bool DistributionGaussian::isDelta() const
@@ -264,7 +263,7 @@ bool DistributionGaussian::isDelta() const
 bool DistributionGaussian::checkInitialization() const
 {
     if (m_std_dev < 0.0) {
-        SignalBadInitialization(BornAgain::DistributionGaussianType);
+        SignalBadInitialization("DistributionGaussian");
     }
     return true;
 }
@@ -276,7 +275,7 @@ bool DistributionGaussian::checkInitialization() const
 DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
     : m_median(median), m_scale_param(scale_param)
 {
-    setName(BornAgain::DistributionLogNormalType);
+    setName("DistributionLogNormal");
     checkInitialization();
     init_parameters();
 }
@@ -314,8 +313,8 @@ std::vector<double> DistributionLogNormal::equidistantPoints(size_t nbr_samples,
 
 void DistributionLogNormal::init_parameters()
 {
-    registerParameter(BornAgain::Median, &m_median);
-    registerParameter(BornAgain::ScaleParameter, &m_scale_param);
+    registerParameter("Median", &m_median);
+    registerParameter("ScaleParameter", &m_scale_param);
 }
 
 bool DistributionLogNormal::isDelta() const
@@ -325,14 +324,14 @@ bool DistributionLogNormal::isDelta() const
 
 void DistributionLogNormal::setUnits(const std::string& units)
 {
-    parameter(BornAgain::Median)->setUnit(units);
+    parameter("Median")->setUnit(units);
     // scale parameter remains unitless
 }
 
 bool DistributionLogNormal::checkInitialization() const
 {
     if (m_scale_param < 0.0 || m_median <= 0.0) {
-        SignalBadInitialization(BornAgain::DistributionLogNormalType);
+        SignalBadInitialization("DistributionLogNormal");
     }
     return true;
 }
@@ -343,7 +342,7 @@ bool DistributionLogNormal::checkInitialization() const
 
 DistributionCosine::DistributionCosine(double mean, double sigma) : m_mean(mean), m_sigma(sigma)
 {
-    setName(BornAgain::DistributionCosineType);
+    setName("DistributionCosine");
     checkInitialization();
     init_parameters();
 }
@@ -370,8 +369,8 @@ std::vector<double> DistributionCosine::equidistantPoints(size_t nbr_samples, do
 
 void DistributionCosine::init_parameters()
 {
-    registerParameter(BornAgain::Mean, &m_mean);
-    registerParameter(BornAgain::Sigma, &m_sigma);
+    registerParameter("Mean", &m_mean);
+    registerParameter("Sigma", &m_sigma);
 }
 
 bool DistributionCosine::isDelta() const
@@ -382,7 +381,7 @@ bool DistributionCosine::isDelta() const
 bool DistributionCosine::checkInitialization() const
 {
     if (m_sigma < 0.0) {
-        SignalBadInitialization(BornAgain::DistributionCosineType);
+        SignalBadInitialization("DistributionCosine");
     }
     return true;
 }
@@ -395,7 +394,7 @@ DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, d
                                              double right_width)
     : m_center(center), m_left(left_width), m_middle(middle_width), m_right(right_width)
 {
-    setName(BornAgain::DistributionTrapezoidType);
+    setName("DistributionTrapezoid");
     checkInitialization();
     init_parameters();
 }
@@ -433,16 +432,16 @@ bool DistributionTrapezoid::isDelta() const
 
 void DistributionTrapezoid::init_parameters()
 {
-    registerParameter(BornAgain::Center, &m_center);
-    registerParameter(BornAgain::LeftWidth, &m_left);
-    registerParameter(BornAgain::MiddleWidth, &m_middle);
-    registerParameter(BornAgain::RightWidth, &m_right);
+    registerParameter("Center", &m_center);
+    registerParameter("LeftWidth", &m_left);
+    registerParameter("MiddleWidth", &m_middle);
+    registerParameter("RightWidth", &m_right);
 }
 
 bool DistributionTrapezoid::checkInitialization() const
 {
     if (m_left < 0.0 || m_middle < 0.0 || m_right < 0.0) {
-        SignalBadInitialization(BornAgain::DistributionTrapezoidType);
+        SignalBadInitialization("DistributionTrapezoid");
     }
     return true;
 }

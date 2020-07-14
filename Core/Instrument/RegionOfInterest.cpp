@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/RegionOfInterest.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Instrument/IDetector2D.h"
 #include "Core/Mask/Rectangle.h"
@@ -22,7 +21,7 @@ RegionOfInterest::RegionOfInterest(const IDetector2D& detector, double xlow, dou
                                    double xup, double yup)
     : RegionOfInterest(xlow, ylow, xup, yup)
 {
-    initFrom(detector.getAxis(BornAgain::X_AXIS_INDEX), detector.getAxis(BornAgain::Y_AXIS_INDEX));
+    initFrom(detector.getAxis(0), detector.getAxis(1));
 }
 
 RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, double ylow,
@@ -33,7 +32,7 @@ RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, 
         throw Exceptions::RuntimeErrorException("RegionOfInterest::RegionOfInterest() -> Error. "
                                                 "Data is not two-dimensional.");
 
-    initFrom(data.getAxis(BornAgain::X_AXIS_INDEX), data.getAxis(BornAgain::Y_AXIS_INDEX));
+    initFrom(data.getAxis(0), data.getAxis(1));
 }
 
 RegionOfInterest::RegionOfInterest(double xlow, double ylow, double xup, double yup)
@@ -118,8 +117,8 @@ bool RegionOfInterest::isInROI(size_t detectorIndex) const
 
 std::unique_ptr<IAxis> RegionOfInterest::clipAxisToRoi(size_t axis_index, const IAxis& axis) const
 {
-    size_t nbin1 = (axis_index == BornAgain::X_AXIS_INDEX ? m_ax1 : m_ay1);
-    size_t nbin2 = (axis_index == BornAgain::X_AXIS_INDEX ? m_ax2 : m_ay2);
+    size_t nbin1 = (axis_index == 0 ? m_ax1 : m_ay1);
+    size_t nbin2 = (axis_index == 0 ? m_ax2 : m_ay2);
     return std::unique_ptr<IAxis>(new FixedBinAxis(
         axis.getName(), nbin2 - nbin1 + 1, axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
 }

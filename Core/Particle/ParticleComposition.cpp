@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Particle/ParticleComposition.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Particle/FormFactorWeighted.h"
 #include "Core/Particle/ParticleDistribution.h"
@@ -132,6 +131,6 @@ void ParticleComposition::addParticlePointer(IParticle* p_particle)
 
 void ParticleComposition::initialize()
 {
-    setName(BornAgain::ParticleCompositionType);
+    setName("ParticleComposition");
     registerParticleProperties();
 }

@@ -32,15 +32,15 @@ const QString MaterialItem::P_MATERIAL_DATA = "Material data";
 const QString MaterialItem::P_MAGNETIZATION = "Magnetization";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
-MaterialItem::MaterialItem() : SessionItem(Constants::MaterialType)
+MaterialItem::MaterialItem() : SessionItem("Material")
 {
-    setItemName(Constants::MaterialType);
+    setItemName("Material");
 
     ExternalProperty color = MaterialItemUtils::colorProperty(QColor(Qt::red));
-    addProperty(P_COLOR, color.variant())->setEditorType(Constants::ColorEditorExternalType);
+    addProperty(P_COLOR, color.variant())->setEditorType("ExtColorEditor");
 
-    addGroupProperty(P_MATERIAL_DATA, Constants::MaterialDataGroup);
-    addGroupProperty(P_MAGNETIZATION, Constants::VectorType)->setToolTip(magnetization_tooltip);
+    addGroupProperty(P_MATERIAL_DATA, "Material data group");
+    addGroupProperty(P_MAGNETIZATION, "Vector")->setToolTip(magnetization_tooltip);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
     getItem(P_IDENTIFIER)->setVisible(false);
 }
@@ -49,7 +49,7 @@ MaterialItem::MaterialItem() : SessionItem(Constants::MaterialType)
 
 void MaterialItem::setRefractiveData(double delta, double beta)
 {
-    auto refractiveData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialRefractiveDataType);
+    auto refractiveData = setGroupProperty(P_MATERIAL_DATA, "MaterialRefractiveData");
     refractiveData->setItemValue(MaterialRefractiveDataItem::P_DELTA, delta);
     refractiveData->setItemValue(MaterialRefractiveDataItem::P_BETA, beta);
 }
@@ -58,7 +58,7 @@ void MaterialItem::setRefractiveData(double delta, double beta)
 
 void MaterialItem::setSLDData(double sld_real, double sld_imag)
 {
-    auto sldData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialSLDDataType);
+    auto sldData = setGroupProperty(P_MATERIAL_DATA, "MaterialSLDData");
     sldData->setItemValue(MaterialSLDDataItem::P_SLD_REAL, sld_real);
     sldData->setItemValue(MaterialSLDDataItem::P_SLD_IMAG, sld_imag);
 }
@@ -80,12 +80,12 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
     auto magnetization = GetVectorItem(*this, P_MAGNETIZATION);
     auto name = itemName().toStdString();
 
-    if (dataItem->modelType() == Constants::MaterialRefractiveDataType) {
+    if (dataItem->modelType() == "MaterialRefractiveData") {
         double delta = dataItem->getItemValue(MaterialRefractiveDataItem::P_DELTA).toDouble();
         double beta = dataItem->getItemValue(MaterialRefractiveDataItem::P_BETA).toDouble();
         return std::make_unique<Material>(HomogeneousMaterial(name, delta, beta, magnetization));
 
-    } else if (dataItem->modelType() == Constants::MaterialSLDDataType) {
+    } else if (dataItem->modelType() == "MaterialSLDData") {
         double sld_real = dataItem->getItemValue(MaterialSLDDataItem::P_SLD_REAL).toDouble();
         double sld_imag = dataItem->getItemValue(MaterialSLDDataItem::P_SLD_IMAG).toDouble();
         return std::make_unique<Material>(MaterialBySLD(name, sld_real, sld_imag, magnetization));

@@ -55,9 +55,9 @@ public slots:
     void clearRecentProjects();
     void newProject();
     bool closeCurrentProject();
-    bool saveProject(QString projectFileName = QString());
+    bool saveProject(QString projectFileName = "");
     bool saveProjectAs();
-    void openProject(QString fileName = QString());
+    void openProject(QString fileName = "");
 
 private:
     void createNewProject();

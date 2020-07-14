@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorFullSpheroid.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -27,9 +26,9 @@
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
     : m_radius(radius), m_height(height)
 {
-    setName(BornAgain::FFFullSpheroidType);
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    setName("FullSpheroid");
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
+    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
 }
 

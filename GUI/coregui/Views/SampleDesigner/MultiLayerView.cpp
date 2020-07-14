@@ -27,7 +27,7 @@ MultiLayerView::MultiLayerView(QGraphicsItem* parent) : ILayerView(parent)
 {
     setColor(QColor(Qt::blue));
 
-    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::MultiLayerType));
+    setRectangle(DesignerHelper::getDefaultBoundingRect("MultiLayer"));
     setAcceptHoverEvents(false);
     setAcceptDrops(true);
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));

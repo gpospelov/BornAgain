@@ -83,7 +83,7 @@ void FitSessionController::onStartFittingRequest()
         m_runFitManager->runFitting(m_objectiveBuilder);
 
     } catch (std::exception& e) {
-        m_jobItem->setStatus(Constants::STATUS_FAILED);
+        m_jobItem->setStatus("Failed");
         m_fitlog->append(e.what(), FitLogFlags::ERROR);
         emit fittingError(QString::fromStdString(e.what()));
     }
@@ -121,7 +121,7 @@ void FitSessionController::onFittingStarted()
 {
     m_fitlog->clearLog();
 
-    m_jobItem->setStatus(Constants::STATUS_FITTING);
+    m_jobItem->setStatus("Fitting");
     m_jobItem->setProgress(0);
     m_jobItem->setBeginTime(GUIHelpers::currentDateTime());
     m_jobItem->setEndTime(QString());
@@ -132,8 +132,8 @@ void FitSessionController::onFittingStarted()
 
 void FitSessionController::onFittingFinished()
 {
-    if (m_jobItem->getStatus() != Constants::STATUS_FAILED)
-        m_jobItem->setStatus(Constants::STATUS_COMPLETED);
+    if (m_jobItem->getStatus() != "Failed")
+        m_jobItem->setStatus("Completed");
     m_jobItem->setEndTime(GUIHelpers::currentDateTime());
     m_jobItem->setProgress(100);
     m_jobItem->setDuration(m_runFitManager->getDuration());

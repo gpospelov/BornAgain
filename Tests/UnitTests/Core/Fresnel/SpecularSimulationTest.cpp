@@ -63,7 +63,7 @@ std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation()
 
 void SpecularSimulationTest::checkBeamState(const SpecularSimulation& sim)
 {
-    const auto* inclination = sim.getInstrument().getBeam().parameter(BornAgain::Inclination);
+    const auto* inclination = sim.getInstrument().getBeam().parameter("InclinationAngle");
     const auto test_limits = RealLimits::limited(-M_PI_2, M_PI_2);
     EXPECT_EQ(test_limits, inclination->limits());
     EXPECT_EQ(0.0, inclination->value());
@@ -223,11 +223,11 @@ TEST_F(SpecularSimulationTest, AddingBeamDistributions)
     DistributionGaussian distribution(1.0, 2.0);
 
     ParameterPattern wl_pattern;
-    wl_pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    wl_pattern.beginsWith("*").add("Beam").add("Wavelength");
     ParameterPattern incl_ang_pattern;
-    incl_ang_pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
+    incl_ang_pattern.beginsWith("*").add("Beam").add("InclinationAngle");
     ParameterPattern beam_pattern;
-    beam_pattern.beginsWith("*").add(BornAgain::BeamType).add("*");
+    beam_pattern.beginsWith("*").add("Beam").add("*");
 
     EXPECT_THROW(sim->addParameterDistribution(incl_ang_pattern.toStdString(), distribution, 5),
                  std::runtime_error);
@@ -248,7 +248,7 @@ TEST_F(SpecularSimulationTest, OutOfRangeAngles)
 {
     auto sim = defaultSimulation();
     auto& beam = sim->getInstrument().getBeam();
-    beam.parameter(BornAgain::Inclination)->setValue(-0.2 * Units::deg);
+    beam.parameter("InclinationAngle")->setValue(-0.2 * Units::deg);
 
     sim->runSimulation();
     auto sim_result = sim->result();

@@ -15,7 +15,6 @@
 #include "Tests/Functional/Python/PyEmbedded/TestCases.h"
 #include "BABuild.h"
 #include "BAVersion.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Export/PythonFormatting.h"
 #include "Core/Multilayer/MultiLayer.h"
@@ -291,7 +290,7 @@ bool ObjectExtract::runTest()
 
     Py_Finalize();
 
-    return name == BornAgain::MultiLayerType;
+    return name == "MultiLayer";
 }
 
 //! Running Python snippet which creates a multilayer in embedded way.

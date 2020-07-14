@@ -20,9 +20,9 @@
 
 ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem* parent) : ConnectableView(parent)
 {
-    setName(Constants::ParticleCoreShellType);
+    setName("ParticleCoreShell");
     setColor(DesignerHelper::getDefaultParticleColor());
-    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleCoreShellType));
+    setRectangle(DesignerHelper::getDefaultBoundingRect("ParticleCoreShell"));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
     addPort("core", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)

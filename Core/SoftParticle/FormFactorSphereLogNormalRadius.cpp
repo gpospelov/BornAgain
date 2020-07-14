@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -23,10 +22,10 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, do
                                                                  size_t n_samples)
     : m_mean(mean), m_scale_param(scale_param), m_n_samples(n_samples)
 {
-    setName(BornAgain::FormFactorSphereLogNormalRadiusType);
+    setName("FormFactorSphereLogNormalRadius");
     mP_distribution.reset(new DistributionLogNormal(mean, scale_param));
-    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::ScaleParameter, &m_scale_param);
+    registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
+    registerParameter("ScaleParameter", &m_scale_param);
     if (!mP_distribution)
         return;
     // Init vectors:

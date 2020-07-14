@@ -148,7 +148,6 @@
 #include "Core/Instrument/IIntensityFunction.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Aggregate/ILayout.h"
-#include "Core/Basics/INamed.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Fitting/IObserver.h"
 #include "Core/Parametrization/IParameterized.h"
@@ -277,7 +276,6 @@
 %include "BAVersion.h"
 %include "Core/Vector/BasicVector3D.h"
 %include "Core/Basics/ICloneable.h"
-%include "Core/Basics/INamed.h"
 %include "Core/Parametrization/IParameterized.h"
 %include "Core/Parametrization/INode.h"
 

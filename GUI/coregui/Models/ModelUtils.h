@@ -26,7 +26,7 @@ class SessionModel;
 namespace ModelUtils
 {
 //! Returns list of top iten manes.
-BA_CORE_API_ QStringList topItemNames(SessionModel* model, const QString& modelType = QString());
+BA_CORE_API_ QStringList topItemNames(SessionModel* model, const QString& modelType = "");
 
 //! Iterates through all model indices and calls user function.
 BA_CORE_API_ void iterate(const QModelIndex& index, const QAbstractItemModel* model,

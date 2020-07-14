@@ -56,7 +56,7 @@ FootprintFactorSquare::FootprintFactorSquare(const FootprintFactorSquare& other)
 
 void FootprintFactorSquare::initialize()
 {
-    setName(BornAgain::SquareFootprintFactorType);
+    setName("FootprintFactorSquare");
 }
 
 static_assert(!std::is_copy_constructible<FootprintFactorSquare>::value,

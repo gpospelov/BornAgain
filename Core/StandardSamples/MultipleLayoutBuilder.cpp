@@ -14,7 +14,6 @@
 
 #include "Core/StandardSamples/MultipleLayoutBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/HardParticle/FormFactorPrism3.h"
 #include "Core/Material/MaterialFactoryFuncs.h"

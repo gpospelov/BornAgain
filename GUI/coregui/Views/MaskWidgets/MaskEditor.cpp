@@ -52,7 +52,7 @@ void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex& maskCont
 
     Q_ASSERT(intensityItem);
     Q_ASSERT(maskContainerIndex.isValid());
-    Q_ASSERT(model->itemForIndex(maskContainerIndex)->modelType() == Constants::MaskContainerType);
+    Q_ASSERT(model->itemForIndex(maskContainerIndex)->modelType() == "MaskContainer");
 
     m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
     m_editorCanvas->setMaskContext(model, maskContainerIndex, intensityItem);

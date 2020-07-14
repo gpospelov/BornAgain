@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Instrument/Histogram2D.h"
 #include "Core/Instrument/IDetector2D.h"
 #include "Core/Instrument/RegionOfInterest.h"
@@ -117,8 +116,8 @@ void DetectorMask::process_masks()
 
     m_number_of_masked_channels = 0;
     for (size_t index = 0; index < m_mask_data.getAllocatedSize(); ++index) {
-        Bin1D binx = m_mask_data.getAxisBin(index, BornAgain::X_AXIS_INDEX);
-        Bin1D biny = m_mask_data.getAxisBin(index, BornAgain::Y_AXIS_INDEX);
+        Bin1D binx = m_mask_data.getAxisBin(index, 0);
+        Bin1D biny = m_mask_data.getAxisBin(index, 1);
         // setting mask to the data starting from last shape added
         bool is_masked(false);
         for (size_t i_shape = m_shapes.size(); i_shape > 0; --i_shape) {

@@ -15,5 +15,5 @@ TEST_F(StringUtilsTest, removeSubstring)
 TEST_F(StringUtilsTest, toLower)
 {
     std::string target("QyQz");
-    EXPECT_EQ(StringUtils::to_lower(target), std::string("qyqz"));
+    EXPECT_EQ(StringUtils::to_lower(target), "qyqz");
 }

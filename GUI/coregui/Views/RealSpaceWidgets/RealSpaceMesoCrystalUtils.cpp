@@ -445,7 +445,7 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
 
     // set the correct abundance for the MesoCrystal
     mesoCrystal3DContainer.setCumulativeAbundance(M_clone->abundance() / m_total_abundance);
-    mesoCrystal3DContainer.setParticleType(Constants::MesoCrystalType);
+    mesoCrystal3DContainer.setParticleType("MesoCrystal");
 
     return mesoCrystal3DContainer;
 }

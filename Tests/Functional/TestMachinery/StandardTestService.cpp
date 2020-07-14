@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/TestMachinery/StandardTestService.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Simulation/Simulation.h"
@@ -33,7 +32,7 @@ std::string fullTestName(const std::string& test_name, const std::string& builde
 {
     std::string result = test_name;
 
-    if (builder_name != BornAgain::SampleBuilderType)
+    if (builder_name != "SampleBuilder")
         result += "_" + builder_name;
 
     return result;

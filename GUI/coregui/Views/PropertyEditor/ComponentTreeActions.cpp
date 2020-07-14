@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/PropertyEditor/ComponentTreeActions.h"
 #include "GUI/coregui/Models/SessionItem.h"
-#include "GUI/coregui/Models/item_constants.h"
 #include <QAction>
 #include <QMenu>
 
@@ -26,7 +25,7 @@ ComponentTreeActions::ComponentTreeActions(QObject* parent) : QObject(parent) {}
 
 void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, SessionItem& item)
 {
-    bool sc_editor = item.editorType() == Constants::ScientificEditorType;
+    bool sc_editor = item.editorType() == "ScientificDouble";
 
     QMenu menu;
     QAction* scientificAction = menu.addAction("Scientific presentation");
@@ -37,9 +36,9 @@ void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, Ses
     scientificAction->setChecked(sc_editor);
     connect(scientificAction, &QAction::triggered, [&]() {
         if (scientificAction->isChecked())
-            item.setEditorType(Constants::ScientificEditorType);
+            item.setEditorType("ScientificDouble");
         else
-            item.setEditorType(Constants::DefaultEditorType);
+            item.setEditorType("Default");
     });
 
     // to select number of decimals
@@ -49,7 +48,7 @@ void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, Ses
         if (!sc_editor && item.decimals() == i)
             action->setChecked(true);
         connect(action, &QAction::triggered, [i, &item] {
-            item.setEditorType(Constants::DefaultEditorType);
+            item.setEditorType("Default");
             item.setDecimals(i);
         });
     }

@@ -1,5 +1,4 @@
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/BornAgainNamespace.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Material/MaterialFactoryFuncs.h"

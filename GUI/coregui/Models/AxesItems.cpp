@@ -55,20 +55,20 @@ void BasicAxisItem::register_basic_properties()
 const QString AmplitudeAxisItem::P_IS_LOGSCALE = "log10";
 const QString AmplitudeAxisItem::P_LOCK_MIN_MAX = "Lock (min, max)";
 
-AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem(Constants::AmplitudeAxisType)
+AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem("AmplitudeAxis")
 {
     addProperty(P_LOCK_MIN_MAX, false)->setVisible(false);
     addProperty(P_IS_LOGSCALE, true);
     getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     getItem(BasicAxisItem::P_IS_VISIBLE)->setVisible(true);
-    setMinMaxEditor(Constants::ScientificEditorType);
+    setMinMaxEditor("ScientificDouble");
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_IS_LOGSCALE) {
             if (getItemValue(P_IS_LOGSCALE).toBool())
-                setMinMaxEditor(Constants::ScientificEditorType);
+                setMinMaxEditor("ScientificDouble");
             else
-                setMinMaxEditor(Constants::DefaultEditorType);
+                setMinMaxEditor("Default");
         }
     });
 }

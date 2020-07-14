@@ -37,7 +37,7 @@ BA_CORE_API_ std::string toString(char* c);
 BA_CORE_API_ std::string toString(wchar_t* c);
 
 //! Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH.
-BA_CORE_API_ void import_bornagain(const std::string& path = std::string());
+BA_CORE_API_ void import_bornagain(const std::string& path = "");
 
 //! Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info.
 BA_CORE_API_ std::string pythonRuntimeInfo();

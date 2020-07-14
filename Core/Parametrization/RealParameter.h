@@ -32,7 +32,7 @@ class BA_CORE_API_ RealParameter : public IParameter<double>
 {
 public:
     RealParameter(const std::string& name, double* par,
-                  const std::string& parent_name = std::string(),
+                  const std::string& parent_name = "",
                   const std::function<void()>& onChange = std::function<void()>(),
                   const RealLimits& limits = RealLimits::limitless(),
                   const Attributes& attr = Attributes::free());

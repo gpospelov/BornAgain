@@ -59,8 +59,8 @@ public:
     std::vector<std::string> algorithmNames() const;
     std::vector<std::string> algorithmDescriptions() const;
 
-    static MinimizerInfo buildMinuit2Info(const std::string& defaultAlgo = std::string());
-    static MinimizerInfo buildGSLMultiMinInfo(const std::string& defaultAlgo = std::string());
+    static MinimizerInfo buildMinuit2Info(const std::string& defaultAlgo = "");
+    static MinimizerInfo buildGSLMultiMinInfo(const std::string& defaultAlgo = "");
     static MinimizerInfo buildGSLLMAInfo();
     static MinimizerInfo buildGSLSimAnInfo();
     static MinimizerInfo buildGeneticInfo();

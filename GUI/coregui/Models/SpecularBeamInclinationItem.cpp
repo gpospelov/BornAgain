@@ -95,18 +95,18 @@ void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type)
     axis_item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     axis_item->setItemValue(BasicAxisItem::P_TITLE, "alpha_i");
     axis_item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
-    axis_item->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value [deg]");
-    axis_item->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value [deg]");
-    axis_item->getItem(BasicAxisItem::P_MIN)->setLimits(RealLimits::limited(0., 90.));
-    axis_item->getItem(BasicAxisItem::P_MAX)->setLimits(RealLimits::limited(0., 90.));
+    axis_item->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Starting value [deg]");
+    axis_item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Ending value [deg]");
+    axis_item->getItem(BasicAxisItem::P_MIN_DEG)->setLimits(RealLimits::limited(0., 90.));
+    axis_item->getItem(BasicAxisItem::P_MAX_DEG)->setLimits(RealLimits::limited(0., 90.));
 
     if (type == "BasicAxis") {
-        axis_item->setItemValue(BasicAxisItem::P_MIN, 0.0);
-        axis_item->setItemValue(BasicAxisItem::P_MAX, 3.0);
+        axis_item->setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
+        axis_item->setItemValue(BasicAxisItem::P_MAX_DEG, 3.0);
         axis_item->setItemValue(BasicAxisItem::P_NBINS, 500);
     } else if (type == "PointwiseAxis") {
-        axis_item->getItem(BasicAxisItem::P_MIN)->setEnabled(false);
-        axis_item->getItem(BasicAxisItem::P_MAX)->setEnabled(false);
+        axis_item->getItem(BasicAxisItem::P_MIN_DEG)->setEnabled(false);
+        axis_item->getItem(BasicAxisItem::P_MAX_DEG)->setEnabled(false);
         axis_item->getItem(BasicAxisItem::P_NBINS)->setEnabled(false);
     }
 }

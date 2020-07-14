@@ -252,7 +252,7 @@ const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 OffSpecInstrumentItem::OffSpecInstrumentItem() : Instrument2DItem("OffSpecInstrument")
 {
     addAxisGroupProperty(this, P_ALPHA_AXIS);
-    auto inclination_item = getItem(P_ALPHA_AXIS)->getItem(BasicAxisItem::P_MIN);
+    auto inclination_item = getItem(P_ALPHA_AXIS)->getItem(BasicAxisItem::P_MIN_DEG);
     auto beam_item = beamItem();
     beam_item->setInclinationAngle(inclination_item->value().toDouble());
     beam_item->getItem(BeamItem::P_INCLINATION_ANGLE)->setEnabled(false);
@@ -290,11 +290,11 @@ void addAxisGroupProperty(SessionItem* parent, const QString& tag)
     item->setToolTip("Incoming alpha range [deg]");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
-    item->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value [deg]");
-    item->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value [deg]");
+    item->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Starting value [deg]");
+    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Ending value [deg]");
 
     item->setItemValue(BasicAxisItem::P_TITLE, "alpha_i");
-    item->setItemValue(BasicAxisItem::P_MIN, 0.0);
-    item->setItemValue(BasicAxisItem::P_MAX, 10.0);
+    item->setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 10.0);
 }
 } // namespace

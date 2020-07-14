@@ -256,7 +256,7 @@ void ProjectionsPlot::onAxisPropertyChanged(const QString& axisName, const QStri
 {
     Q_UNUSED(axisName);
 
-    if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX)
+    if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG)
         updateAxesRange();
     else if (propertyName == BasicAxisItem::P_TITLE)
         updateAxesTitle();

@@ -79,17 +79,17 @@ RectangularDetectorItem::RectangularDetectorItem()
     // axes parameters
     SessionItem* item = addGroupProperty(P_X_AXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
-    item->setItemValue(BasicAxisItem::P_MAX, default_detector_width);
-    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width [mm]"));
-    item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Width of the detector in mm"));
+    item->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, default_detector_width);
+    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName(QStringLiteral("Width [mm]"));
+    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip(QStringLiteral("Width of the detector in mm"));
 
     item = addGroupProperty(P_Y_AXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
-    item->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
-    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Height [mm]"));
-    item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Height of the detector in mm"));
+    item->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, default_detector_height);
+    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName(QStringLiteral("Height [mm]"));
+    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip(QStringLiteral("Height of the detector in mm"));
 
     // alignment selector
     addProperty(P_ALIGNMENT, alignmentCombo().variant());
@@ -164,11 +164,11 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() con
     // basic axes parameters
     auto& x_axis = item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
     size_t n_x = x_axis.getItemValue(BasicAxisItem::P_NBINS).toUInt();
-    double width = x_axis.getItemValue(BasicAxisItem::P_MAX).toDouble();
+    double width = x_axis.getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 
     auto& y_axis = item<BasicAxisItem>(RectangularDetectorItem::P_Y_AXIS);
     size_t n_y = y_axis.getItemValue(BasicAxisItem::P_NBINS).toUInt();
-    double height = y_axis.getItemValue(BasicAxisItem::P_MAX).toDouble();
+    double height = y_axis.getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 
     std::unique_ptr<RectangularDetector> result(new RectangularDetector(n_x, width, n_y, height));
 

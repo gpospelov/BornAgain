@@ -131,14 +131,14 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
     }
 
     if (axisName == IntensityDataItem::P_XAXIS) {
-        if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
+        if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG) {
             setAxesRangeConnected(false);
             m_customPlot->xAxis->setRange(ColorMapUtils::itemZoomX(intensityItem()));
             setAxesRangeConnected(true);
             replot();
         }
     } else if (axisName == IntensityDataItem::P_YAXIS) {
-        if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
+        if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG) {
             setAxesRangeConnected(false);
             m_customPlot->yAxis->setRange(ColorMapUtils::itemZoomY(intensityItem()));
             setAxesRangeConnected(true);
@@ -147,7 +147,7 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
     }
 
     else if (axisName == IntensityDataItem::P_ZAXIS) {
-        if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
+        if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG) {
             setDataRangeFromItem(intensityItem());
             replot();
         } else if (propertyName == AmplitudeAxisItem::P_IS_LOGSCALE) {

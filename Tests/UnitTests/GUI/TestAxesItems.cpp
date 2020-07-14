@@ -19,8 +19,8 @@ TEST_F(TestAxesItems, transformFromDomain)
     FixedBinAxis axis0("axis0", 99, -42.0, 42.0);
     TransformFromDomain::setAxisItem(&item, axis0);
     EXPECT_EQ(item.getItemValue(BasicAxisItem::P_NBINS), static_cast<int>(axis0.size()));
-    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MIN), static_cast<int>(axis0.getMin()));
-    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MAX), static_cast<int>(axis0.getMax()));
+    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MIN_DEG), static_cast<int>(axis0.getMin()));
+    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MAX_DEG), static_cast<int>(axis0.getMax()));
     EXPECT_EQ(item.getItemValue(BasicAxisItem::P_TITLE), QString::fromStdString(axis0.getName()));
 
     // transform domain axis with limits given in radians
@@ -28,8 +28,8 @@ TEST_F(TestAxesItems, transformFromDomain)
     const double scale = 1. / Units::deg;
     TransformFromDomain::setAxisItem(&item, axis1, scale);
     EXPECT_EQ(item.getItemValue(BasicAxisItem::P_NBINS), static_cast<int>(axis1.size()));
-    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MIN), -42.0);
-    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MAX), 42.0);
+    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MIN_DEG), -42.0);
+    EXPECT_EQ(item.getItemValue(BasicAxisItem::P_MAX_DEG), 42.0);
     EXPECT_EQ(item.getItemValue(BasicAxisItem::P_TITLE), QString::fromStdString(axis1.getName()));
 
     // transform to unexpected item

@@ -275,14 +275,14 @@ void Plot1D::modifyAxesProperties(const QString& axisName, const QString& proper
     }
 
     if (axisName == Data1DViewItem::P_XAXIS) {
-        if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
+        if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG) {
             setAxesRangeConnected(false);
             m_custom_plot->xAxis->setRange(viewItem()->getLowerX(), viewItem()->getUpperX());
             setAxesRangeConnected(true);
             replot();
         }
     } else if (axisName == Data1DViewItem::P_YAXIS) {
-        if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
+        if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG) {
             setAxesRangeConnected(false);
             m_custom_plot->yAxis->setRange(viewItem()->getLowerY(), viewItem()->getUpperY());
             setAxesRangeConnected(true);

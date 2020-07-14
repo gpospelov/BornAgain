@@ -110,12 +110,12 @@ int IntensityDataItem::getNbinsY() const
 
 double IntensityDataItem::getLowerX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
+    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
 double IntensityDataItem::getUpperX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
+    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
 double IntensityDataItem::getXmin() const
@@ -132,12 +132,12 @@ double IntensityDataItem::getXmax() const
 
 double IntensityDataItem::getLowerY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
+    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
 double IntensityDataItem::getUpperY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
+    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
 double IntensityDataItem::getYmin() const
@@ -154,12 +154,12 @@ double IntensityDataItem::getYmax() const
 
 double IntensityDataItem::getLowerZ() const
 {
-    return getItem(P_ZAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
+    return getItem(P_ZAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
 double IntensityDataItem::getUpperZ() const
 {
-    return getItem(P_ZAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
+    return getItem(P_ZAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
 QString IntensityDataItem::getGradient() const
@@ -250,41 +250,41 @@ void IntensityDataItem::reset(ImportDataInfo data)
 
 void IntensityDataItem::setLowerX(double xmin)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, xmin);
 }
 
 void IntensityDataItem::setUpperX(double xmax)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX, xmax);
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, xmax);
 }
 
 void IntensityDataItem::setLowerY(double ymin)
 {
-    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_MIN, ymin);
+    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, ymin);
 }
 
 void IntensityDataItem::setUpperY(double ymax)
 {
-    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_MAX, ymax);
+    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, ymax);
 }
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
     if (getLowerZ() != zmin)
-        getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MIN, zmin);
+        getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, zmin);
 
     if (getUpperZ() != zmax)
-        getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MAX, zmax);
+        getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, zmax);
 }
 
 void IntensityDataItem::setLowerZ(double zmin)
 {
-    getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MIN, zmin);
+    getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, zmin);
 }
 
 void IntensityDataItem::setUpperZ(double zmax)
 {
-    getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MAX, zmax);
+    getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, zmax);
 }
 
 void IntensityDataItem::setLogz(bool logz)

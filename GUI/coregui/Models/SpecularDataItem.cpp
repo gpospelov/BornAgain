@@ -62,12 +62,12 @@ int SpecularDataItem::getNbins() const
 
 double SpecularDataItem::getLowerX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
+    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
 double SpecularDataItem::getUpperX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
+    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
 double SpecularDataItem::getXmin() const
@@ -84,12 +84,12 @@ double SpecularDataItem::getXmax() const
 
 double SpecularDataItem::getLowerY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
+    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
 double SpecularDataItem::getUpperY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
+    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
 double SpecularDataItem::getYmin() const
@@ -160,22 +160,22 @@ void SpecularDataItem::reset(ImportDataInfo data)
 
 void SpecularDataItem::setLowerX(double xmin)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, xmin);
 }
 
 void SpecularDataItem::setUpperX(double xmax)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX, xmax);
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, xmax);
 }
 
 void SpecularDataItem::setLowerY(double ymin)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN, ymin);
+    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN_DEG, ymin);
 }
 
 void SpecularDataItem::setUpperY(double ymax)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX, ymax);
+    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX_DEG, ymax);
 }
 
 void SpecularDataItem::setLog(bool log_flag)

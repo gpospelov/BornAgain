@@ -14,7 +14,7 @@
 
 #include "Core/Beam/FootprintFactorSquare.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/PythonFormatting.h"
 #include <algorithm>
 #include <stdexcept>
 

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/SaveProjectionsAssistant.h"
-#include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Core/Instrument/Histogram1D.h"
 #include "Core/Instrument/Histogram2D.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"

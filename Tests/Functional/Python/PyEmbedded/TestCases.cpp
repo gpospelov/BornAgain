@@ -16,7 +16,7 @@
 #include "BABuild.h"
 #include "BAVersion.h"
 #include "Core/Export/ExportToPython.h"
-#include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/Tools/PyEmbeddedUtils.h"

@@ -15,7 +15,7 @@
 #include "Core/Export/SampleToPython.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Export/INodeUtils.h"
-#include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Core/Export/SampleLabelHandler.h"
 #include "Core/Lattice/Lattice.h"
 #include "Core/Material/Material.h"

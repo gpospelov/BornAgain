@@ -16,7 +16,7 @@
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
-#include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Core/Instrument/ScanResolution.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"

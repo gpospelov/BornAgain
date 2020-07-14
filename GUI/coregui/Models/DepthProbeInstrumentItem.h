@@ -25,7 +25,7 @@ class BA_CORE_API_ DepthProbeInstrumentItem : public InstrumentItem
 {
 public:
     static const QString P_BEAM;
-    static const QString P_ZAXIS;
+    static const QString P_Z_AXIS;
 
     DepthProbeInstrumentItem();
 

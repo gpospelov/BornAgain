@@ -23,7 +23,7 @@
 #include "GUI/coregui/Models/TransformToDomain.h"
 
 const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
-const QString DepthProbeInstrumentItem::P_ZAXIS = "Z axis";
+const QString DepthProbeInstrumentItem::P_Z_AXIS = "Z axis";
 
 DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProbeInstrument")
 {
@@ -36,7 +36,7 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProb
     axisItem->setItemValue(BasicAxisItem::P_MAX, 1.0);
     axisItem->setItemValue(BasicAxisItem::P_NBINS, 500);
 
-    auto axis = addGroupProperty(P_ZAXIS, "BasicAxis");
+    auto axis = addGroupProperty(P_Z_AXIS, "BasicAxis");
     axis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     axis->setItemValue(BasicAxisItem::P_MIN, -100.0);
     axis->setItemValue(BasicAxisItem::P_MAX, 100.0);
@@ -77,7 +77,7 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
     simulation->setBeamParameters(beamItem()->getWavelength(), static_cast<int>(axis->size()),
                                   axis->getMin(), axis->getMax());
 
-    auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_ZAXIS));
+    auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_Z_AXIS));
     auto depthAxis = depthAxisItem->createAxis(1.0);
     simulation->setZSpan(depthAxis->size(), depthAxis->getMin(), depthAxis->getMax());
 

@@ -67,6 +67,22 @@ jobs:
         dir deps/include
         dir deps/lib
 
+    - name: setup Eigen3
+      shell: powershell
+      run: |
+        Get-Date -Format G
+        $Env:Path += ";C:\msys64\usr\bin"
+        cd ${{github.workspace}}
+        mkdir eigen
+        Get-Date -Format G
+        wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip -O ${{runner.temp}}\eigen.zip
+        Get-Date -Format G
+        7z x ${{runner.temp}}\eigen.zip -oeigen
+        Get-Date -Format G
+        dir eigen
+        dir eigen/eigen-3.3.7
+        dir eigen/eigen-3.3.7/Eigen/src
+
     - name: Install Python packages
       run: |
         python -m pip install --upgrade pip
@@ -132,13 +148,14 @@ jobs:
       run: |
         call "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
         set OPTLIBS=${{github.workspace}}\deps
+        set EIGENDIR=${{github.workspace}}\eigen\eigen-3.3.7
         set QTDIR=${{github.workspace}}\qt5\Qt\5.14.2\msvc2017_64
         set PATH=${{github.workspace}};%OPTLIBS%\lib;%QTDIR%\bin;%PATH%
         cd ${{github.workspace}}
         dir
         mkdir build
         cd build
-        cmake -G "Visual Studio 16 2019" -G Ninja -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_INCLUDE_PATH=%OPTLIBS%/include -DCMAKE_LIBRARY_PATH=%OPTLIBS%/lib -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" ..
+        cmake -G "Visual Studio 16 2019" -G Ninja -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_INCLUDE_PATH=%OPTLIBS%/include -DCMAKE_LIBRARY_PATH=%OPTLIBS%/lib -DEIGEN3_INCLUDE_DIRS=%EIGENDIR% -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" ..
         ccache -z
         ccache -p
         cmake --build . --config Release -j4

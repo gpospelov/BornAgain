@@ -51,9 +51,9 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential\
-          gfortran cmake libgsl-dev libboost-all-dev libfftw3-dev libtiff5-dev libcerf-dev \
-          qt5-default libqt5designercomponents5 qttools5-dev libqt5svg5-dev \
-          ccache
+          gfortran cmake ccache \
+          libgsl-dev libboost-all-dev libfftw3-dev libtiff5-dev libcerf-dev libeigen3-dev \
+          qt5-default libqt5designercomponents5 qttools5-dev libqt5svg5-dev
     - name: Install Python packages
       run: |
         python -m pip install --upgrade pip

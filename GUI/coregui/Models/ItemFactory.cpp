@@ -15,11 +15,11 @@
 #include "GUI/coregui/Models/ItemFactory.h"
 #include "GUI/coregui/Models/ItemCatalog.h"
 #include "GUI/coregui/Models/SessionItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace
 {
 
+//! Returns the single instance of ItemCatalog.
 const ItemCatalog& catalog()
 {
     static ItemCatalog item_catalog;
@@ -30,10 +30,6 @@ const ItemCatalog& catalog()
 
 SessionItem* ItemFactory::CreateItem(const QString& model_name, SessionItem* parent)
 {
-    if (!catalog().contains(model_name))
-        throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "
-                                + model_name);
-
     SessionItem* result = catalog().create(model_name).release();
     if (parent)
         parent->insertItem(-1, result);

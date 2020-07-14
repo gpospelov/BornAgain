@@ -68,8 +68,6 @@
 
 ItemCatalog::ItemCatalog()
 {
-    init_top_item_types();
-
     add("MultiLayer", create_new<MultiLayerItem>);
     add("Layer", create_new<LayerItem>);
     add("ParticleLayout", create_new<ParticleLayoutItem>);
@@ -246,43 +244,35 @@ ItemCatalog::ItemCatalog()
     add("DepthProbeInstrument", create_new<DepthProbeInstrumentItem>);
 }
 
-bool ItemCatalog::contains(const QString& modelType) const
-{
-    return m_data.contains(modelType);
-}
-
 std::unique_ptr<SessionItem> ItemCatalog::create(const QString& modelType) const
 {
+    if (!m_data.contains(modelType))
+        throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "
+                                + modelType);
+
     return m_data.create(modelType);
 }
 
-QStringList ItemCatalog::validTopItemTypes() const
+QStringList ItemCatalog::validTopItemTypes()
 {
-    return m_valid_top_item_types;
+    return {"MultiLayer",
+            "Layer",
+            "ParticleLayout",
+            "Particle",
+            "ParticleCoreShell",
+            "ParticleComposition",
+            "MesoCrystal",
+            "ParticleDistribution",
+            "Rotation",
+            "Interference1DLattice",
+            "Interference2DLattice",
+            "Interference2DParaCrystal",
+            "InterferenceFinite2DLattice",
+            "InterferenceHardDisk",
+            "InterferenceRadialParaCrystal"};
 }
 
-void ItemCatalog::add(const QString& modelType, ItemCatalog::factory_function_t f)
+void ItemCatalog::add(const QString& modelType, std::function<SessionItem*()> f)
 {
     m_data.registerItem(modelType, f);
-}
-
-void ItemCatalog::init_top_item_types()
-{
-    m_valid_top_item_types.clear();
-
-    m_valid_top_item_types << "MultiLayer"
-                           << "Layer"
-                           << "ParticleLayout"
-                           << "Particle"
-                           << "ParticleCoreShell"
-                           << "ParticleComposition"
-                           << "MesoCrystal"
-                           << "ParticleDistribution"
-                           << "Rotation"
-                           << "Interference1DLattice"
-                           << "Interference2DLattice"
-                           << "Interference2DParaCrystal"
-                           << "InterferenceFinite2DLattice"
-                           << "InterferenceHardDisk"
-                           << "InterferenceRadialParaCrystal";
 }

@@ -197,10 +197,10 @@ StandardTestCatalog::StandardTestCatalog()
         "MiniGISASPolarizationMM", "MagneticCylindersBuilder", 2e-10);
 
     add("MagneticSpheresInMagLayerPP", "Magnetic spheres in a magnetized layer, ++ channel",
-        "MiniGISASPolarizationPP", "MagnetizedLayerWithSpheresBuilder", 2e-10);
+        "MiniGISASPolarizationPP", "MagneticLayerBuilder", 2e-10);
 
     add("MagneticSpheresInMagLayerMP", "Magnetic spheres in a magnetized layer, ++ channel",
-        "MiniGISASPolarizationMP", "MagnetizedLayerWithSpheresBuilder", 2e-10);
+        "MiniGISASPolarizationMP", "MagneticLayerBuilder", 2e-10);
 
     // Masking
 
@@ -300,19 +300,19 @@ StandardTestCatalog::StandardTestCatalog()
     // polarized specular
 
     add("BasicSpecularPP", "Basic specular simulation on polarized sample, ++ channel",
-        "BasicSpecularPP", "MagneticLayerBuilder", 1e-10);
+        "BasicSpecularPP", "SimpleMagneticLayerBuilder", 1e-10);
 
     add("BasicSpecularMM", "Basic specular simulation on polarized sample, -- channel",
-        "BasicSpecularMM", "MagneticLayerBuilder", 1e-10);
+        "BasicSpecularMM", "SimpleMagneticLayerBuilder", 1e-10);
 
     add("PolarizedQAngleReflectivityPP",
         "Compares specular signal from ++ channel for angular- and q-defined reflectivity",
-        {"BasicSpecularPP", "BasicQSpecularPP"}, {"MagneticLayerBuilder", "MagneticLayerBuilder"},
+        {"BasicSpecularPP", "BasicQSpecularPP"}, {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"},
         1e-10);
 
     add("PolarizedQAngleReflectivityMM",
         "Compares specular signal from -- channel for angular- and q-defined reflectivity",
-        {"BasicSpecularMM", "BasicQSpecularMM"}, {"MagneticLayerBuilder", "MagneticLayerBuilder"},
+        {"BasicSpecularMM", "BasicQSpecularMM"}, {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"},
         1e-10);
 
     // off-specular simulation

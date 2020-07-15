@@ -22051,7 +22051,7 @@ class RealParameter(IParameterReal):
 
     def __init__(self, *args):
         r"""
-        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name=std::string(), std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name="", std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
         RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name=std::string(), const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 
         """
@@ -22870,14 +22870,6 @@ class SampleBuilderFactoryTemp(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
-        r"""
-        __init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp
-        IFactory< Key, AbstractProduct >::IFactory()
-
-        """
-        _libBornAgainCore.SampleBuilderFactoryTemp_swiginit(self, _libBornAgainCore.new_SampleBuilderFactoryTemp())
-
     def createItem(self, item_key):
         r"""
         createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder
@@ -22905,7 +22897,6 @@ class SampleBuilderFactoryTemp(object):
 
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
-    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
 
     def size(self):
         r"""
@@ -22932,6 +22923,15 @@ class SampleBuilderFactoryTemp(object):
 
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_end(self)
+
+    def __init__(self):
+        r"""
+        __init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp
+        IFactory< Key, AbstractProduct >::IFactory()
+
+        """
+        _libBornAgainCore.SampleBuilderFactoryTemp_swiginit(self, _libBornAgainCore.new_SampleBuilderFactoryTemp())
+    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
 
 # Register SampleBuilderFactoryTemp in _libBornAgainCore:
 _libBornAgainCore.SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
@@ -22984,14 +22984,6 @@ class SimulationFactoryTemp(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
-        r"""
-        __init__(SimulationFactoryTemp self) -> SimulationFactoryTemp
-        IFactory< Key, AbstractProduct >::IFactory()
-
-        """
-        _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())
-
     def createItem(self, item_key):
         r"""
         createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation
@@ -23019,7 +23011,6 @@ class SimulationFactoryTemp(object):
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
 
     def size(self):
         r"""
@@ -23046,6 +23037,15 @@ class SimulationFactoryTemp(object):
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_end(self)
+
+    def __init__(self):
+        r"""
+        __init__(SimulationFactoryTemp self) -> SimulationFactoryTemp
+        IFactory< Key, AbstractProduct >::IFactory()
+
+        """
+        _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
 
 # Register SimulationFactoryTemp in _libBornAgainCore:
 _libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)

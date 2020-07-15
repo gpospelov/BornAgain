@@ -50,7 +50,7 @@ public:
     }
 
 #ifndef SWIG
-    std::unique_ptr<AbstractProduct> create(const Key& item_key) const
+    std::unique_ptr<AbstractProduct> createItemPtr(const Key& item_key) const
     {
         return std::unique_ptr<AbstractProduct>{createItem(item_key)};
     }

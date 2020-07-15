@@ -56,7 +56,7 @@ GUITranslationTest::GUITranslationTest(const std::string& simName, const std::st
     : m_models(new ApplicationModels(nullptr)), m_simulationName(simName), m_sampleName(sampleName)
 {
     SimulationFactory simFactory;
-    std::unique_ptr<Simulation> simulation = simFactory.create(m_simulationName);
+    std::unique_ptr<Simulation> simulation = simFactory.createItemPtr(m_simulationName);
     if (GISASSimulation* gisas = dynamic_cast<GISASSimulation*>(simulation.get())) {
         m_simulation.reset(gisas);
         simulation.release();

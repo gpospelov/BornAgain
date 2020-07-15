@@ -29,7 +29,7 @@ class BA_CORE_API_ ItemCatalog
 public:
     ItemCatalog();
 
-    std::unique_ptr<SessionItem> create(const QString& modelType) const;
+    std::unique_ptr<SessionItem> createItemPtr(const QString& modelType) const;
 
     static QStringList validTopItemTypes();
 

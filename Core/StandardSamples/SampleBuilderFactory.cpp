@@ -252,5 +252,5 @@ SampleBuilderFactory::SampleBuilderFactory()
 
 MultiLayer* SampleBuilderFactory::createSample(const std::string& name)
 {
-    return create(name)->buildSample();
+    return createItemPtr(name)->buildSample();
 }

@@ -24,11 +24,11 @@
 bool BatchSimulation::runTest()
 {
     SimulationFactory sim_registry;
-    const std::unique_ptr<Simulation> simulation = sim_registry.create("MiniGISAS");
+    const std::unique_ptr<Simulation> simulation = sim_registry.createItemPtr("MiniGISAS");
 
     SampleBuilderFactory sampleFactory;
     std::shared_ptr<class IMultiLayerBuilder> builder(
-        sampleFactory.create("CylindersInBABuilder").release());
+        sampleFactory.createItemPtr("CylindersInBABuilder").release());
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();
     auto sim_result = simulation->result();

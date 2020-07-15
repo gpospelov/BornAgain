@@ -97,7 +97,7 @@ std::unique_ptr<Simulation> FitPlan::createSimulation(const Fit::Parameters& par
 {
     (void)params;
     SimulationFactory factory;
-    auto simulation = factory.create(m_simulation_name);
+    auto simulation = factory.createItemPtr(m_simulation_name);
     return simulation;
 }
 
@@ -106,7 +106,7 @@ std::unique_ptr<Simulation> FitPlan::createSimulation(const Fit::Parameters& par
 std::unique_ptr<MultiLayer> FitPlan::createMultiLayer(const Fit::Parameters& params) const
 {
     SampleBuilderFactory factory;
-    auto sample_builder = factory.create(m_sample_builder_name);
+    auto sample_builder = factory.createItemPtr(m_sample_builder_name);
 
     // propagating current values of fit parameters to sample builder before building the sample
     for (const auto& par : params)

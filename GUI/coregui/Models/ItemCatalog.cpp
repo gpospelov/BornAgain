@@ -244,13 +244,13 @@ ItemCatalog::ItemCatalog()
     add("DepthProbeInstrument", create_new<DepthProbeInstrumentItem>);
 }
 
-std::unique_ptr<SessionItem> ItemCatalog::create(const QString& modelType) const
+std::unique_ptr<SessionItem> ItemCatalog::createItemPtr(const QString& modelType) const
 {
     if (!m_data.contains(modelType))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "
                                 + modelType);
 
-    return m_data.create(modelType);
+    return m_data.createItemPtr(modelType);
 }
 
 QStringList ItemCatalog::validTopItemTypes()

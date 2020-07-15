@@ -38,7 +38,7 @@ public:
     typedef typename DescriptionMap_t::const_iterator const_iterator;
 
     //! Creates object by calling creation function corresponded to given identifier
-    AbstractProduct* createItem(const Key& item_key)
+    AbstractProduct* createItem(const Key& item_key) const
     {
         auto it = m_callbacks.find(item_key);
         if (it == m_callbacks.end()) {
@@ -52,13 +52,7 @@ public:
 #ifndef SWIG
     std::unique_ptr<AbstractProduct> create(const Key& item_key) const
     {
-        auto it = m_callbacks.find(item_key);
-        if (it == m_callbacks.end()) {
-            std::ostringstream message;
-            message << "IFactory::createItem() -> Error. Unknown item key '" << item_key << "'";
-            throw Exceptions::RuntimeErrorException(message.str());
-        }
-        return std::unique_ptr<AbstractProduct>((it->second)());
+        return std::unique_ptr<AbstractProduct>{createItem(item_key)};
     }
 #endif
 

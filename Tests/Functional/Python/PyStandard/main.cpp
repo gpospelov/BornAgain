@@ -19,5 +19,5 @@
 
 int main(int argc, char** argv)
 {
-    return StandardTestService<PyStandardTest>().execute(argc, argv) ? 0 : 1;
+    return !StandardTestService<PyStandardTest>().execute(argc, argv);
 }

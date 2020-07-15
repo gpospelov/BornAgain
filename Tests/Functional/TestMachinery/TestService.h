@@ -17,6 +17,7 @@
 
 #include "Tests/Functional/TestMachinery/ITestService.h"
 #include <boost/format.hpp>
+#include <cassert>
 #include <iostream>
 #include <string>
 
@@ -32,23 +33,12 @@ public:
 
     bool execute(int argc, char** argv)
     {
-        std::string test_name = argc > 1 ? std::string(argv[1]) : std::string();
-
-        if (!m_test_factory.contains(test_name)) {
-            if (!test_name.empty())
-                std::cout << "No test with name '" << test_name << "'.\n";
-            for (auto it : m_test_factory)
-                std::cout << boost::format("%-30s | %-50s\n") % it.first % it.second;
-            return false;
-        }
+        assert(argc>1);
+        std::string test_name = argv[1];
+        assert(!m_test_factory.contains(test_name));
 
         auto test = m_test_factory.createTest(test_name);
-        bool result = test->runTest();
-
-        std::cout << boost::format("%-15s | %-50s -> %-5s\n") % test->getName()
-                         % test->description() % (result ? "OK" : "FAILED");
-
-        return result;
+        return test->runTest();
     }
 
 private:

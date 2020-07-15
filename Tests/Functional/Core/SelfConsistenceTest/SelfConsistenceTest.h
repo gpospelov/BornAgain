@@ -27,13 +27,14 @@ class Simulation;
 class SelfConsistenceTest : public IFunctionalTest
 {
 public:
-    SelfConsistenceTest(const std::string& name, const std::string& description,
+    SelfConsistenceTest(const std::string& name,
                         std::vector<std::unique_ptr<Simulation>> simulations, double threshold);
     ~SelfConsistenceTest() = default;
 
     bool runTest();
 
 private:
+    std::string m_name;
     std::vector<std::unique_ptr<Simulation>> m_simulations;
     double m_threshold;
 };

@@ -17,7 +17,5 @@
 std::unique_ptr<IFunctionalTest> FunctionalTestFactory::createTest(std::string& test_name)
 {
     auto result = createItemPtr(test_name);
-    result->setName(test_name);
-    result->setDescription(m_descriptions[test_name]);
     return result;
 }

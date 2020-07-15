@@ -26,23 +26,9 @@ class BA_CORE_API_ IFunctionalTest
 {
 public:
     IFunctionalTest() {}
-    IFunctionalTest(const std::string& name, const std::string& description)
-        : m_name(name), m_description(description)
-    {
-    }
     virtual ~IFunctionalTest() = default;
 
-    std::string description() const { return m_description; }
-    void setDescription(const std::string& description) { m_description = description; }
-
-    void setName(const std::string& name) { m_name = name; }
-    const std::string& getName() const { return m_name; }
-
     virtual bool runTest() = 0; //!< Returns true when successful
-
-private:
-    std::string m_name{""};
-    std::string m_description{""};
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H

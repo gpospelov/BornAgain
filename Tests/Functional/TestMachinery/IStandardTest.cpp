@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/TestMachinery/IStandardTest.h"
-#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Simulation/Simulation.h"
 
-IStandardTest::IStandardTest(const std::string& name, const std::string& description,
+IStandardTest::IStandardTest(const std::string& name,
                              const Simulation& simulation, double threshold)
-    : IFunctionalTest(name, description), m_reference_simulation(simulation.clone()),
+    : m_name(name), m_reference_simulation(simulation.clone()),
       m_threshold(threshold)
 {
 }
 
-IStandardTest::~IStandardTest() = default;
+IStandardTest::~IStandardTest() = default; // needs sizeof(Simulation)

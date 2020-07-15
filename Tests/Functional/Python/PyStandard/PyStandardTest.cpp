@@ -27,14 +27,14 @@ bool PyStandardTest::runTest()
 {
     // Set output data filename, and remove old output files
     std::string output_name =
-        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName());
+        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), m_name);
     std::string output_path = output_name + ".ref.int.gz";
     std::remove(output_path.c_str());
     std::cout << "Removed old output " << output_path << "\n";
 
     // Generate Python script
     std::string pyscript_filename =
-        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName() + ".py");
+        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), m_name + ".py");
     std::ofstream pythonFile(pyscript_filename);
     pythonFile << ExportToPython::generatePyExportTest(*m_reference_simulation);
     pythonFile.close();

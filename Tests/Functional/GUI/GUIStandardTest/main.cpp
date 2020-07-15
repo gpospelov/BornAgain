@@ -26,5 +26,5 @@ int main(int argc, char** argv)
                   << "hint: If this test fails while all other form-factor related tests\n"
                   << "pass then a likely cause is a change in the form factor API that is\n"
                   << "not correctly reflected in the GUIDomainSampleVisitor class.\n\n";
-    return ok ? 0 : 1;
+    return !ok;
 }

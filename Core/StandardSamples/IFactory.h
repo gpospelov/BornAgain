@@ -37,9 +37,6 @@ public:
     typedef std::map<Key, std::string> DescriptionMap_t;
     typedef typename DescriptionMap_t::const_iterator const_iterator;
 
-    IFactory() {}
-    ~IFactory() {}
-
     //! Creates object by calling creation function corresponded to given identifier
     AbstractProduct* createItem(const Key& item_key)
     {

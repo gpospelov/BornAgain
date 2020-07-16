@@ -74,13 +74,6 @@ public:
 
     bool contains(const Key& item_key) const
     {
-        std::cout << "DEBUG --> looking for '" << item_key << "'\n";
-        if (m_callbacks.find(item_key) == m_callbacks.end()) {
-            std::cout << "DEBUG --> not found!\n";
-            for (const auto it: m_callbacks)
-                std::cout << "DEBUG --> key: '" << it.first << "'\n";
-        }
-        std::cout << std::flush;
         return m_callbacks.find(item_key) != m_callbacks.end();
     }
 

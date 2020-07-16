@@ -16,6 +16,5 @@
 
 std::unique_ptr<IFunctionalTest> FunctionalTestFactory::createTest(std::string& test_name)
 {
-    auto result = createItemPtr(test_name);
-    return result;
+    return createItemPtr(test_name);
 }

@@ -16,7 +16,6 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTSERVICE_H
 
 #include "Wrap/WinDllMacros.h"
-#include <memory>
 #include <string>
 class IFunctionalTest;
 class Simulation;

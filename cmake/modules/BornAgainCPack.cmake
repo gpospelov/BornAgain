@@ -67,6 +67,7 @@ set(CPACK_SOURCE_IGNORE_FILES
     ".pro$"
     ".pro.user$"
     ".pri$"
+    "build/"
 )
 
 

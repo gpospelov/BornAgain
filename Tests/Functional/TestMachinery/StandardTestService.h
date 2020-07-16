@@ -20,9 +20,8 @@
 class IFunctionalTest;
 class Simulation;
 
-//! @class StandardTestServiceBase
+//! Main class to run standard functional test from standalone executable.
 //! @ingroup standard_samples
-//! @brief Main class to run standard functional test from standalone executable.
 
 class BA_CORE_API_ StandardTestServiceBase
 {
@@ -35,10 +34,10 @@ private:
                                            const Simulation& simulation, double threshold) = 0;
 };
 
-//! @class StandardTestService
-//! @ingroup standard_samples
-//! @brief Extends main class to run standard functional test from standalone executable.
+//! @brief
+//! Extends main class to run standard functional test from standalone executable.
 //! Concrete test type is templated.
+//! @ingroup standard_samples
 
 template <typename T> class StandardTestService : public StandardTestServiceBase
 {

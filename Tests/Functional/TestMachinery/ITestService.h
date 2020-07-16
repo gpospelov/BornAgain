@@ -25,8 +25,6 @@
 class BA_CORE_API_ ITestService
 {
 public:
-    ITestService() {}
-    virtual ~ITestService();
     virtual bool execute(int argc, char** argv) = 0;
 };
 

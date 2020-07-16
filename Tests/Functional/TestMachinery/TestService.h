@@ -16,9 +16,7 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTSERVICE_H
 
 #include "Tests/Functional/TestMachinery/ITestService.h"
-#include <boost/format.hpp>
 #include <cassert>
-#include <iostream>
 #include <string>
 
 //! @class TestService

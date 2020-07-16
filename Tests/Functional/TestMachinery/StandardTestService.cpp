@@ -21,6 +21,7 @@
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
+#include <cassert>
 #include <iostream>
 
 namespace
@@ -45,12 +46,8 @@ std::string fullTestName(const std::string& test_name, const std::string& builde
 bool StandardTestServiceBase::execute(int argc, char** argv)
 {
     StandardTestInfo info = TestUtils::testInfo(argc, argv);
-    if (info.m_test_name.empty())
-        return false;
-
-    if (info.size() != 1)
-        throw std::runtime_error("Error in StandardTestServiceBase::execute: the size of provided "
-                                 "test info should be exactly 1");
+    assert(!info.m_test_name.empty());
+    assert(info.size() == 1);
 
     std::unique_ptr<IMultiLayerBuilder> builder(
         SampleBuilderFactory().createItem(info.m_sample_builder_names.front()));

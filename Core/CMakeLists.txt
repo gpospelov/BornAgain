@@ -16,7 +16,7 @@ file(GLOB source_files "*/*.cpp" )
 if((NOT Cerf_IS_CPP) AND (NOT WIN32)) # TEMPORARY
     list(APPEND source_files ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper/cerf_ptr.c)
 endif()
-file(GLOB include_files "*/*.h")
+file(GLOB include_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*/*.h")
 
 if(BORNAGAIN_PYTHON)
 
@@ -95,7 +95,6 @@ if(BORNAGAIN_PYTHON)
     endif()
 
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
-    list(APPEND include_files "${AUTO_DIR}/swig_runtime.h")
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
@@ -195,10 +194,16 @@ install(TARGETS ${library_name}
     DESTINATION ${destination_lib} COMPONENT Libraries)
 install(FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py
     DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
-install(FILES ${include_files}
-    DESTINATION ${destination_include} COMPONENT Headers)
+
+foreach(file ${include_files})
+    get_filename_component(dir ${file} DIRECTORY)
+    install(FILES ${file} DESTINATION ${destination_include}/Core/${dir})
+endforeach()
+install(FILES "${AUTO_DIR}/swig_runtime.h"
+    DESTINATION ${destination_include}/Wrap COMPONENT Headers)
+
 install(FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h
-    DESTINATION ${destination_include} COMPONENT Headers)
+    DESTINATION ${destination_include}/Wrap COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extention for the library name

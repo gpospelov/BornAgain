@@ -6,7 +6,7 @@ set(lib BornAgainFit)
 
 # --- source and include files ------
 file(GLOB source_files */*.cpp)
-file(GLOB include_files */*.h)
+file(GLOB include_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} */*.h)
 
 if(BORNAGAIN_PYTHON)
 
@@ -137,10 +137,13 @@ endif()
 # installation
 # -----------------------------------------------
 install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
-install(FILES ${fitkernel_include_files} DESTINATION ${destination_include}  COMPONENT Headers)
 install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
     DESTINATION ${destination_lib} COMPONENT Libraries) # required by SWIG
-install(FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
+
+foreach(file ${include_files})
+    get_filename_component(dir ${file} DIRECTORY)
+    install(FILES ${file} DESTINATION ${destination_include}/Fit/${dir})
+endforeach()
 
 if(WIN32)
     if(BORNAGAIN_PYTHON)

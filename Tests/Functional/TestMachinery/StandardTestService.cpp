@@ -15,7 +15,6 @@
 #include "Tests/Functional/TestMachinery/StandardTestService.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Simulation/Simulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"

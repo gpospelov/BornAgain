@@ -15,16 +15,16 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTSERVICE_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTSERVICE_H
 
-#include "Tests/Functional/TestMachinery/ITestService.h"
+#include "Wrap/WinDllMacros.h"
 #include <cassert>
 #include <string>
 
-//! @class TestService
-//! @ingroup standard_samples
-//! @brief Main class to run standard functional test from standalone executable.
+//! @brief
+//! Main class to run standard functional test from standalone executable.
 //! Test name is obtained from command line parameters and then constructed via templated factory.
+//! @ingroup standard_samples
 
-template <typename T> class TestService : public ITestService
+template <typename T> class BA_CORE_API_ TestService
 {
 public:
     bool execute(int argc, char** argv)

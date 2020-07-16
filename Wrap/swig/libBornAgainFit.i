@@ -65,7 +65,7 @@ import_array();
 #include "Fit/Kernel/Parameter.h"
 #include "Fit/Kernel/Parameters.h"
 #include "Fit/Minimizer/IMinimizer.h"
-#include "Fit/Minimizer/MinimizerCatalogue.h"
+#include "Fit/Minimizer/MinimizerCatalog.h"
 #include "Fit/Minimizer/MinimizerFactory.h"
 
 #include "Fit/Kernel/PyCallback.h"
@@ -84,7 +84,7 @@ import_array();
 %include "Fit/Kernel/MinimizerResult.h"
 %include "Fit/Kernel/Minimizer.h"
 %include "Fit/Minimizer/IMinimizer.h"
-%include "Fit/Minimizer/MinimizerCatalogue.h"
+%include "Fit/Minimizer/MinimizerCatalog.h"
 %include "Fit/Minimizer/MinimizerFactory.h"
 
 %include "extendFit.i"

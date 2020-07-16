@@ -24,16 +24,16 @@ namespace
 std::unique_ptr<OutputData<double>> makeOutputData(const IAxis& axis);
 }
 
-const QString PointwiseAxisItem::P_NATIVE_UNITS = "NativeUnits";
+const QString PointwiseAxisItem::P_NATIVE_AXIS_UNITS = "NativeAxisUnits";
 const QString PointwiseAxisItem::P_FILE_NAME = "FileName";
 
 PointwiseAxisItem::PointwiseAxisItem() : BasicAxisItem("PointwiseAxis"), m_instrument(nullptr)
 {
-    getItem(P_MIN)->setEnabled(false);
+    getItem(P_MIN_DEG)->setEnabled(false);
     getItem(P_NBINS)->setEnabled(false);
-    getItem(P_MAX)->setEnabled(false);
+    getItem(P_MAX_DEG)->setEnabled(false);
     addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
-    addProperty(P_NATIVE_UNITS, "nbins")->setVisible(false);
+    addProperty(P_NATIVE_AXIS_UNITS, "nbins")->setVisible(false);
 
     setLastModified(QDateTime::currentDateTime());
     mapper()->setOnPropertyChange([this](const QString& name) {
@@ -48,7 +48,7 @@ void PointwiseAxisItem::init(const IAxis& axis, const QString& units_label)
 {
     setLastModified(QDateTime::currentDateTime());
     m_axis = std::unique_ptr<IAxis>(axis.clone());
-    setItemValue(P_NATIVE_UNITS, units_label);
+    setItemValue(P_NATIVE_AXIS_UNITS, units_label);
     findInstrument();
 }
 
@@ -59,7 +59,7 @@ const IAxis* PointwiseAxisItem::getAxis() const
 
 const QString PointwiseAxisItem::getUnitsLabel() const
 {
-    return getItemValue(P_NATIVE_UNITS).toString();
+    return getItemValue(P_NATIVE_AXIS_UNITS).toString();
 }
 
 std::unique_ptr<IAxis> PointwiseAxisItem::createAxis(double scale) const
@@ -139,8 +139,8 @@ void PointwiseAxisItem::updateIndicators()
         return;
 
     const auto converter = m_instrument->createUnitConverter();
-    getItem(P_MIN)->setValue(converter->calculateMin(0, AxesUnits::DEGREES));
-    getItem(P_MAX)->setValue(converter->calculateMax(0, AxesUnits::DEGREES));
+    getItem(P_MIN_DEG)->setValue(converter->calculateMin(0, AxesUnits::DEGREES));
+    getItem(P_MAX_DEG)->setValue(converter->calculateMax(0, AxesUnits::DEGREES));
     getItem(P_NBINS)->setValue(static_cast<int>(m_axis->size()));
 
     emitDataChanged();

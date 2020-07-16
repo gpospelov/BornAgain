@@ -29,9 +29,9 @@ class SelfConsistenceTest : public IFunctionalTest
 public:
     SelfConsistenceTest(const std::string& name, const std::string& description,
                         std::vector<std::unique_ptr<Simulation>> simulations, double threshold);
-    ~SelfConsistenceTest() override;
+    ~SelfConsistenceTest() = default;
 
-    bool runTest() override;
+    bool runTest();
 
 private:
     std::vector<std::unique_ptr<Simulation>> m_simulations;

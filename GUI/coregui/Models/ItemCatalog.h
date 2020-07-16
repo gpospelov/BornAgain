@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/ItemCatalogue.h
-//! @brief     Defines class ItemCatalogue
+//! @file      GUI/coregui/Models/ItemCatalog.h
+//! @brief     Defines class ItemCatalog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOGUE_H
-#define BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOGUE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOG_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOG_H
 
 #include "Core/StandardSamples/IFactory.h"
 #include "Wrap/WinDllMacros.h"
@@ -22,25 +22,21 @@
 
 class SessionItem;
 
-class BA_CORE_API_ ItemCatalogue
+//! Catalog of SessionItem%s. A single instance is created and used in ItemFactory.cpp.
+
+class BA_CORE_API_ ItemCatalog
 {
 public:
-    using factory_function_t = std::function<SessionItem*()>;
-
-    ItemCatalogue();
-
-    bool contains(const QString& modelType) const;
+    ItemCatalog();
 
     std::unique_ptr<SessionItem> create(const QString& modelType) const;
 
-    QStringList validTopItemTypes() const;
+    static QStringList validTopItemTypes();
 
 private:
-    void add(const QString& modelType, factory_function_t f);
-    void init_top_item_types();
+    void add(const QString& modelType, std::function<SessionItem*()> f);
 
     IFactory<QString, SessionItem> m_data;
-    QStringList m_valid_top_item_types;
 };
 
-#endif // BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOGUE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOG_H

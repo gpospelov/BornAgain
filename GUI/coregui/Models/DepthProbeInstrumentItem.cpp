@@ -23,7 +23,7 @@
 #include "GUI/coregui/Models/TransformToDomain.h"
 
 const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
-const QString DepthProbeInstrumentItem::P_ZAXIS = "Z axis";
+const QString DepthProbeInstrumentItem::P_Z_AXIS = "Z axis";
 
 DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProbeInstrument")
 {
@@ -32,18 +32,19 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProb
     addGroupProperty(P_BEAM, "SpecularBeam");
 
     auto axisItem = beamItem()->currentInclinationAxisItem();
-    axisItem->setItemValue(BasicAxisItem::P_MIN, 0.0);
-    axisItem->setItemValue(BasicAxisItem::P_MAX, 1.0);
+    axisItem->setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
+    axisItem->setItemValue(BasicAxisItem::P_MAX_DEG, 1.0);
     axisItem->setItemValue(BasicAxisItem::P_NBINS, 500);
 
-    auto axis = addGroupProperty(P_ZAXIS, "BasicAxis");
+    auto axis = addGroupProperty(P_Z_AXIS, "BasicAxis");
     axis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    axis->setItemValue(BasicAxisItem::P_MIN, -100.0);
-    axis->setItemValue(BasicAxisItem::P_MAX, 100.0);
+    axis->setItemValue(BasicAxisItem::P_MIN_DEG, -100.0);
+    axis->setItemValue(BasicAxisItem::P_MAX_DEG, 100.0);
     axis->getItem(BasicAxisItem::P_NBINS)
         ->setToolTip("Number of points in scan across sample bulk");
-    axis->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value below sample horizont in nm");
-    axis->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value above sample horizont in nm");
+    axis->getItem(BasicAxisItem::P_MIN_DEG)
+        ->setToolTip("Starting value below sample horizont in nm");
+    axis->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Ending value above sample horizont in nm");
 }
 
 SpecularBeamItem* DepthProbeInstrumentItem::beamItem() const
@@ -77,7 +78,7 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
     simulation->setBeamParameters(beamItem()->getWavelength(), static_cast<int>(axis->size()),
                                   axis->getMin(), axis->getMax());
 
-    auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_ZAXIS));
+    auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_Z_AXIS));
     auto depthAxis = depthAxisItem->createAxis(1.0);
     simulation->setZSpan(depthAxis->size(), depthAxis->getMin(), depthAxis->getMax());
 

@@ -79,22 +79,22 @@ int Data1DViewItem::getNbins() const
 
 double Data1DViewItem::getLowerX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
+    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
 double Data1DViewItem::getUpperX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
+    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
 double Data1DViewItem::getLowerY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
+    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
 double Data1DViewItem::getUpperY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
+    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
 bool Data1DViewItem::isLog() const
@@ -182,22 +182,22 @@ JobItem* Data1DViewItem::jobItem()
 
 void Data1DViewItem::setLowerX(double xmin)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, xmin);
 }
 
 void Data1DViewItem::setUpperX(double xmax)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX, xmax);
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, xmax);
 }
 
 void Data1DViewItem::setLowerY(double ymin)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN, ymin);
+    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN_DEG, ymin);
 }
 
 void Data1DViewItem::setUpperY(double ymax)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX, ymax);
+    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX_DEG, ymax);
 }
 
 void Data1DViewItem::setLog(bool log_flag)

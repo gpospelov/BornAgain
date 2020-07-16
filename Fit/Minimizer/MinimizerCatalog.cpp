@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/MinimizerCatalogue.cpp
-//! @brief     Implements class MinimizerCatalogue.
+//! @file      Fit/Minimizer/MinimizerCatalog.cpp
+//! @brief     Implements class MinimizerCatalog.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "Fit/Minimizer/MinimizerCatalogue.h"
+#include "Fit/Minimizer/MinimizerCatalog.h"
 #include "Fit/Tools/MinimizerUtils.h"
 #include <boost/format.hpp>
 #include <sstream>
 
-MinimizerCatalogue::MinimizerCatalogue()
+MinimizerCatalog::MinimizerCatalog()
 {
     addMinimizerInfo(MinimizerInfo::buildMinuit2Info());
     addMinimizerInfo(MinimizerInfo::buildGSLMultiMinInfo());
@@ -27,9 +27,9 @@ MinimizerCatalogue::MinimizerCatalogue()
     addMinimizerInfo(MinimizerInfo::buildTestMinimizerInfo());
 }
 
-//! Returns multiline string representing catalogue content.
+//! Returns multiline string representing catalog content.
 
-std::string MinimizerCatalogue::toString() const
+std::string MinimizerCatalog::toString() const
 {
     const int text_width = 80;
     std::ostringstream result;
@@ -45,7 +45,7 @@ std::string MinimizerCatalogue::toString() const
     return result.str();
 }
 
-std::vector<std::string> MinimizerCatalogue::minimizerNames() const
+std::vector<std::string> MinimizerCatalog::minimizerNames() const
 {
     std::vector<std::string> result;
     for (const auto& info : m_minimizers)
@@ -56,7 +56,7 @@ std::vector<std::string> MinimizerCatalogue::minimizerNames() const
 
 //! Returns list of algorithms defined for the minimizer with a given name.
 
-std::vector<std::string> MinimizerCatalogue::algorithmNames(const std::string& minimizerName) const
+std::vector<std::string> MinimizerCatalog::algorithmNames(const std::string& minimizerName) const
 {
     return minimizerInfo(minimizerName).algorithmNames();
 }
@@ -64,27 +64,27 @@ std::vector<std::string> MinimizerCatalogue::algorithmNames(const std::string& m
 //! Returns list of algorithm's descriptions for the minimizer with a given name    .
 
 std::vector<std::string>
-MinimizerCatalogue::algorithmDescriptions(const std::string& minimizerName) const
+MinimizerCatalog::algorithmDescriptions(const std::string& minimizerName) const
 {
     return minimizerInfo(minimizerName).algorithmDescriptions();
 }
 
 //! Returns info for minimizer with given name.
 
-const MinimizerInfo& MinimizerCatalogue::minimizerInfo(const std::string& minimizerName) const
+const MinimizerInfo& MinimizerCatalog::minimizerInfo(const std::string& minimizerName) const
 {
     for (const auto& info : m_minimizers)
         if (info.name() == minimizerName)
             return info;
 
-    throw std::runtime_error("MinimizerCatalogue::minimizerInfo -> Error. "
+    throw std::runtime_error("MinimizerCatalog::minimizerInfo -> Error. "
                              "No minimizer with the name '"
                              + minimizerName + "'");
 }
 
-//! Adds minimizer info to the catalogue.
+//! Adds minimizer info to the catalog.
 
-void MinimizerCatalogue::addMinimizerInfo(const MinimizerInfo& info)
+void MinimizerCatalog::addMinimizerInfo(const MinimizerInfo& info)
 {
     m_minimizers.push_back(info);
 }

@@ -18,7 +18,7 @@
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/INodeUtils.h"
-#include "Core/Export/PythonFormatting.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Instrument/ConvolutionDetectorResolution.h"
 #include "Core/Instrument/ISpecularScan.h"

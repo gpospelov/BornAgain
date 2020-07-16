@@ -257,7 +257,7 @@ void SpecularPlot::modifyAxesProperties(const QString& axisName, const QString& 
     }
 
     if (axisName == SpecularDataItem::P_XAXIS) {
-        if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
+        if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG) {
             setAxesRangeConnected(false);
             m_custom_plot->xAxis->setRange(specularItem()->getLowerX(),
                                            specularItem()->getUpperX());
@@ -265,7 +265,7 @@ void SpecularPlot::modifyAxesProperties(const QString& axisName, const QString& 
             replot();
         }
     } else if (axisName == SpecularDataItem::P_YAXIS) {
-        if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
+        if (propertyName == BasicAxisItem::P_MIN_DEG || propertyName == BasicAxisItem::P_MAX_DEG) {
             setAxesRangeConnected(false);
             m_custom_plot->yAxis->setRange(specularItem()->getLowerY(),
                                            specularItem()->getUpperY());

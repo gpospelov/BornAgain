@@ -65,7 +65,7 @@ void DepthProbeInstrumentEditor::subscribeToItem()
         inclinationItem->getItem(SpecularBeamInclinationItem::P_DISTRIBUTION));
     m_inclinationEditor->addItem(
         inclinationItem->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
-    m_depthAxisEditor->setItem(instrumentItem()->getItem(DepthProbeInstrumentItem::P_ZAXIS));
+    m_depthAxisEditor->setItem(instrumentItem()->getItem(DepthProbeInstrumentItem::P_Z_AXIS));
 }
 
 void DepthProbeInstrumentEditor::unsubscribeFromItem()

@@ -28,11 +28,10 @@ class BA_CORE_API_ MultiOption
 public:
     using variant_t = boost::variant<int, double, std::string>;
 
-    explicit MultiOption(const std::string& name = std::string());
+    explicit MultiOption(const std::string& name = "");
 
     template <typename T>
-    explicit MultiOption(const std::string& name, const T& t,
-                         const std::string& descripion = std::string());
+    explicit MultiOption(const std::string& name, const T& t, const std::string& descripion = "");
 
     std::string name() const;
 

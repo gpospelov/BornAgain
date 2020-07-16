@@ -32,8 +32,8 @@ public:
     bool execute(int argc, char** argv);
 
 private:
-    virtual IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                        const Simulation& simulation, double threshold) = 0;
+    virtual IFunctionalTest* createStdTest(const std::string& name, const std::string& description,
+                                           const Simulation& simulation, double threshold) = 0;
 };
 
 //! @class StandardTestService
@@ -45,8 +45,8 @@ template <typename T> class StandardTestService : public StandardTestServiceBase
 {
 
 private:
-    IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                const Simulation& simulation, double threshold) override
+    IFunctionalTest* createStdTest(const std::string& name, const std::string& description,
+                                   const Simulation& simulation, double threshold) override
     {
         return new T(name, description, simulation, threshold);
     }

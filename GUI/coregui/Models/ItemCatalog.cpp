@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/ItemCatalogue.cpp
-//! @brief     Implements class ItemCatalogue
+//! @file      GUI/coregui/Models/ItemCatalog.cpp
+//! @brief     Implements class ItemCatalog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "GUI/coregui/Models/ItemCatalogue.h"
+#include "GUI/coregui/Models/ItemCatalog.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
@@ -66,10 +66,8 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-ItemCatalogue::ItemCatalogue()
+ItemCatalog::ItemCatalog()
 {
-    init_top_item_types();
-
     add("MultiLayer", create_new<MultiLayerItem>);
     add("Layer", create_new<LayerItem>);
     add("ParticleLayout", create_new<ParticleLayoutItem>);
@@ -246,43 +244,35 @@ ItemCatalogue::ItemCatalogue()
     add("DepthProbeInstrument", create_new<DepthProbeInstrumentItem>);
 }
 
-bool ItemCatalogue::contains(const QString& modelType) const
+std::unique_ptr<SessionItem> ItemCatalog::create(const QString& modelType) const
 {
-    return m_data.contains(modelType);
-}
+    if (!m_data.contains(modelType))
+        throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "
+                                + modelType);
 
-std::unique_ptr<SessionItem> ItemCatalogue::create(const QString& modelType) const
-{
     return m_data.create(modelType);
 }
 
-QStringList ItemCatalogue::validTopItemTypes() const
+QStringList ItemCatalog::validTopItemTypes()
 {
-    return m_valid_top_item_types;
+    return {"MultiLayer",
+            "Layer",
+            "ParticleLayout",
+            "Particle",
+            "ParticleCoreShell",
+            "ParticleComposition",
+            "MesoCrystal",
+            "ParticleDistribution",
+            "Rotation",
+            "Interference1DLattice",
+            "Interference2DLattice",
+            "Interference2DParaCrystal",
+            "InterferenceFinite2DLattice",
+            "InterferenceHardDisk",
+            "InterferenceRadialParaCrystal"};
 }
 
-void ItemCatalogue::add(const QString& modelType, ItemCatalogue::factory_function_t f)
+void ItemCatalog::add(const QString& modelType, std::function<SessionItem*()> f)
 {
     m_data.registerItem(modelType, f);
-}
-
-void ItemCatalogue::init_top_item_types()
-{
-    m_valid_top_item_types.clear();
-
-    m_valid_top_item_types << "MultiLayer"
-                           << "Layer"
-                           << "ParticleLayout"
-                           << "Particle"
-                           << "ParticleCoreShell"
-                           << "ParticleComposition"
-                           << "MesoCrystal"
-                           << "ParticleDistribution"
-                           << "Rotation"
-                           << "Interference1DLattice"
-                           << "Interference2DLattice"
-                           << "Interference2DParaCrystal"
-                           << "InterferenceFinite2DLattice"
-                           << "InterferenceHardDisk"
-                           << "InterferenceRadialParaCrystal";
 }

@@ -26,7 +26,7 @@ const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 const QString RealDataItem::T_NATIVE_DATA = "Native user data axis";
-const QString RealDataItem::P_NATIVE_UNITS = "Native user data units";
+const QString RealDataItem::P_NATIVE_DATA_UNITS = "Native user data units";
 
 RealDataItem::RealDataItem() : SessionItem("RealData"), m_linkedInstrument(nullptr)
 {
@@ -44,7 +44,7 @@ RealDataItem::RealDataItem() : SessionItem("RealData"), m_linkedInstrument(nullp
     registerTag(T_NATIVE_DATA, 1, 1,
                 QStringList() << "IntensityData"
                               << "SpecularData");
-    addProperty(P_NATIVE_UNITS, "nbins")->setVisible(false);
+    addProperty(P_NATIVE_DATA_UNITS, "nbins")->setVisible(false);
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_NAME)
@@ -144,13 +144,13 @@ void RealDataItem::setImportData(ImportDataInfo data)
     auto output_data = data.intensityData();
 
     dataItem()->reset(std::move(data));
-    getItem(P_NATIVE_UNITS)->setValue(units_name);
+    getItem(P_NATIVE_DATA_UNITS)->setValue(units_name);
     item<DataItem>(T_NATIVE_DATA).setOutputData(output_data.release());
 }
 
 bool RealDataItem::holdsDimensionalData() const
 {
-    return getItemValue(P_NATIVE_UNITS).toString() != "nbins";
+    return getItemValue(P_NATIVE_DATA_UNITS).toString() != "nbins";
 }
 
 void RealDataItem::linkToInstrument(const InstrumentItem* instrument, bool make_update)
@@ -207,6 +207,6 @@ void RealDataItem::updateToInstrument()
     auto data_source = native_data_item ? native_data_item : data_item;
 
     std::unique_ptr<OutputData<double>> native_data(data_source->getOutputData()->clone());
-    const QString units_label = getItemValue(P_NATIVE_UNITS).toString();
+    const QString units_label = getItemValue(P_NATIVE_DATA_UNITS).toString();
     data_item->reset(ImportDataInfo(std::move(native_data), units_label));
 }

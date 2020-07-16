@@ -2169,13 +2169,13 @@ class IMinimizer(object):
 # Register IMinimizer in _libBornAgainFit:
 _libBornAgainFit.IMinimizer_swigregister(IMinimizer)
 
-class MinimizerCatalogue(object):
+class MinimizerCatalog(object):
     r"""
 
 
     Hard-coded information about all minimizers available.
 
-    C++ includes: MinimizerCatalogue.h
+    C++ includes: MinimizerCatalog.h
 
     """
 
@@ -2184,63 +2184,63 @@ class MinimizerCatalogue(object):
 
     def __init__(self):
         r"""
-        __init__(MinimizerCatalogue self) -> MinimizerCatalogue
-        MinimizerCatalogue::MinimizerCatalogue()
+        __init__(MinimizerCatalog self) -> MinimizerCatalog
+        MinimizerCatalog::MinimizerCatalog()
 
         """
-        _libBornAgainFit.MinimizerCatalogue_swiginit(self, _libBornAgainFit.new_MinimizerCatalogue())
+        _libBornAgainFit.MinimizerCatalog_swiginit(self, _libBornAgainFit.new_MinimizerCatalog())
 
     def toString(self):
         r"""
-        toString(MinimizerCatalogue self) -> std::string
-        std::string MinimizerCatalogue::toString() const
+        toString(MinimizerCatalog self) -> std::string
+        std::string MinimizerCatalog::toString() const
 
-        Returns multiline string representing catalogue content. 
+        Returns multiline string representing catalog content. 
 
         """
-        return _libBornAgainFit.MinimizerCatalogue_toString(self)
+        return _libBornAgainFit.MinimizerCatalog_toString(self)
 
     def minimizerNames(self):
         r"""
-        minimizerNames(MinimizerCatalogue self) -> vector_string_t
-        std::vector< std::string > MinimizerCatalogue::minimizerNames() const
+        minimizerNames(MinimizerCatalog self) -> vector_string_t
+        std::vector< std::string > MinimizerCatalog::minimizerNames() const
 
         """
-        return _libBornAgainFit.MinimizerCatalogue_minimizerNames(self)
+        return _libBornAgainFit.MinimizerCatalog_minimizerNames(self)
 
     def algorithmNames(self, minimizerName):
         r"""
-        algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t
-        std::vector< std::string > MinimizerCatalogue::algorithmNames(const std::string &minimizerName) const
+        algorithmNames(MinimizerCatalog self, std::string const & minimizerName) -> vector_string_t
+        std::vector< std::string > MinimizerCatalog::algorithmNames(const std::string &minimizerName) const
 
         Returns list of algorithms defined for the minimizer with a given name. 
 
         """
-        return _libBornAgainFit.MinimizerCatalogue_algorithmNames(self, minimizerName)
+        return _libBornAgainFit.MinimizerCatalog_algorithmNames(self, minimizerName)
 
     def algorithmDescriptions(self, minimizerName):
         r"""
-        algorithmDescriptions(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t
-        std::vector< std::string > MinimizerCatalogue::algorithmDescriptions(const std::string &minimizerName) const
+        algorithmDescriptions(MinimizerCatalog self, std::string const & minimizerName) -> vector_string_t
+        std::vector< std::string > MinimizerCatalog::algorithmDescriptions(const std::string &minimizerName) const
 
         Returns list of algorithm's descriptions for the minimizer with a given name . 
 
         """
-        return _libBornAgainFit.MinimizerCatalogue_algorithmDescriptions(self, minimizerName)
+        return _libBornAgainFit.MinimizerCatalog_algorithmDescriptions(self, minimizerName)
 
     def minimizerInfo(self, minimizerName):
         r"""
-        minimizerInfo(MinimizerCatalogue self, std::string const & minimizerName) -> MinimizerInfo const &
-        const MinimizerInfo & MinimizerCatalogue::minimizerInfo(const std::string &minimizerName) const
+        minimizerInfo(MinimizerCatalog self, std::string const & minimizerName) -> MinimizerInfo const &
+        const MinimizerInfo & MinimizerCatalog::minimizerInfo(const std::string &minimizerName) const
 
         Returns info for minimizer with given name. 
 
         """
-        return _libBornAgainFit.MinimizerCatalogue_minimizerInfo(self, minimizerName)
-    __swig_destroy__ = _libBornAgainFit.delete_MinimizerCatalogue
+        return _libBornAgainFit.MinimizerCatalog_minimizerInfo(self, minimizerName)
+    __swig_destroy__ = _libBornAgainFit.delete_MinimizerCatalog
 
-# Register MinimizerCatalogue in _libBornAgainFit:
-_libBornAgainFit.MinimizerCatalogue_swigregister(MinimizerCatalogue)
+# Register MinimizerCatalog in _libBornAgainFit:
+_libBornAgainFit.MinimizerCatalog_swigregister(MinimizerCatalog)
 
 class MinimizerFactory(object):
     r"""
@@ -2261,24 +2261,24 @@ class MinimizerFactory(object):
         return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 
     @staticmethod
-    def printCatalogue():
-        r"""printCatalogue()"""
-        return _libBornAgainFit.MinimizerFactory_printCatalogue()
+    def printCatalog():
+        r"""printCatalog()"""
+        return _libBornAgainFit.MinimizerFactory_printCatalog()
 
     @staticmethod
-    def catalogueToString():
-        r"""catalogueToString() -> std::string"""
-        return _libBornAgainFit.MinimizerFactory_catalogueToString()
+    def catalogToString():
+        r"""catalogToString() -> std::string"""
+        return _libBornAgainFit.MinimizerFactory_catalogToString()
 
     @staticmethod
-    def catalogueDetailsToString():
-        r"""catalogueDetailsToString() -> std::string"""
-        return _libBornAgainFit.MinimizerFactory_catalogueDetailsToString()
+    def catalogDetailsToString():
+        r"""catalogDetailsToString() -> std::string"""
+        return _libBornAgainFit.MinimizerFactory_catalogDetailsToString()
 
     @staticmethod
-    def catalogue():
-        r"""catalogue() -> MinimizerCatalogue"""
-        return _libBornAgainFit.MinimizerFactory_catalogue()
+    def catalog():
+        r"""catalog() -> MinimizerCatalog"""
+        return _libBornAgainFit.MinimizerFactory_catalog()
 
     def __init__(self):
         r"""
@@ -2300,21 +2300,21 @@ def MinimizerFactory_createMinimizer(*args):
     r"""MinimizerFactory_createMinimizer(std::string const & minimizerName, std::string const & algorithmType="", std::string const & optionString="") -> IMinimizer"""
     return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 
-def MinimizerFactory_printCatalogue():
-    r"""MinimizerFactory_printCatalogue()"""
-    return _libBornAgainFit.MinimizerFactory_printCatalogue()
+def MinimizerFactory_printCatalog():
+    r"""MinimizerFactory_printCatalog()"""
+    return _libBornAgainFit.MinimizerFactory_printCatalog()
 
-def MinimizerFactory_catalogueToString():
-    r"""MinimizerFactory_catalogueToString() -> std::string"""
-    return _libBornAgainFit.MinimizerFactory_catalogueToString()
+def MinimizerFactory_catalogToString():
+    r"""MinimizerFactory_catalogToString() -> std::string"""
+    return _libBornAgainFit.MinimizerFactory_catalogToString()
 
-def MinimizerFactory_catalogueDetailsToString():
-    r"""MinimizerFactory_catalogueDetailsToString() -> std::string"""
-    return _libBornAgainFit.MinimizerFactory_catalogueDetailsToString()
+def MinimizerFactory_catalogDetailsToString():
+    r"""MinimizerFactory_catalogDetailsToString() -> std::string"""
+    return _libBornAgainFit.MinimizerFactory_catalogDetailsToString()
 
-def MinimizerFactory_catalogue():
-    r"""MinimizerFactory_catalogue() -> MinimizerCatalogue"""
-    return _libBornAgainFit.MinimizerFactory_catalogue()
+def MinimizerFactory_catalog():
+    r"""MinimizerFactory_catalog() -> MinimizerCatalog"""
+    return _libBornAgainFit.MinimizerFactory_catalog()
 
 
 class ParametersIterator(object):

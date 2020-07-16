@@ -52,12 +52,11 @@ bool IsIParticleName(QString name);
 
 } // namespace
 
-const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
+const QString MesoCrystalItem::P_OUTER_SHAPE = "Outer Shape";
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
-const QString MesoCrystalItem::LATTICE_VECTOR = "lattice vector";
-const QString MesoCrystalItem::P_VECTOR_A = "First " + MesoCrystalItem::LATTICE_VECTOR;
-const QString MesoCrystalItem::P_VECTOR_B = "Second " + MesoCrystalItem::LATTICE_VECTOR;
-const QString MesoCrystalItem::P_VECTOR_C = "Third " + MesoCrystalItem::LATTICE_VECTOR;
+const QString MesoCrystalItem::P_VECTOR_A = "First lattice vector";
+const QString MesoCrystalItem::P_VECTOR_B = "Second lattice vector";
+const QString MesoCrystalItem::P_VECTOR_C = "Third lattice vector";
 
 // TODO make derived from ParticleItem
 
@@ -65,7 +64,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
 {
     setToolTip(QStringLiteral("A 3D crystal structure of nanoparticles"));
 
-    addGroupProperty(P_FORM_FACTOR, "Form Factor");
+    addGroupProperty(P_OUTER_SHAPE, "Form Factor");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
         ->setLimits(RealLimits::limited(0.0, 1.0))
@@ -172,7 +171,7 @@ std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
 
 std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const
 {
-    auto& ff_item = groupItem<FormFactorItem>(MesoCrystalItem::P_FORM_FACTOR);
+    auto& ff_item = groupItem<FormFactorItem>(MesoCrystalItem::P_OUTER_SHAPE);
     return ff_item.createFormFactor();
 }
 

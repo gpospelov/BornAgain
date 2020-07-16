@@ -30,9 +30,7 @@ public:
         : m_name(name), m_description(description)
     {
     }
-    virtual ~IFunctionalTest();
-
-    bool execute();
+    virtual ~IFunctionalTest() = default;
 
     std::string description() const { return m_description; }
     void setDescription(const std::string& description) { m_description = description; }
@@ -40,12 +38,11 @@ public:
     void setName(const std::string& name) { m_name = name; }
     const std::string& getName() const { return m_name; }
 
-protected:
     virtual bool runTest() = 0; //!< Returns true when successful
 
 private:
-std::string m_name {""};
-std::string m_description {""};
+    std::string m_name{""};
+    std::string m_description{""};
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IFUNCTIONALTEST_H

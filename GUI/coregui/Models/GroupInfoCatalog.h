@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/GroupInfoCatalogue.h
-//! @brief     Defines class GroupInfoCatalogue
+//! @file      GUI/coregui/Models/GroupInfoCatalog.h
+//! @brief     Defines class GroupInfoCatalog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H
-#define BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOG_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOG_H
 
 #include "GUI/coregui/Models/GroupInfo.h"
 
-//! Catalogue to hold info for GroupProperty creation.
+//! Catalog to hold info for GroupProperty creation.
 
-class BA_CORE_API_ GroupInfoCatalogue
+class BA_CORE_API_ GroupInfoCatalog
 {
 public:
-    GroupInfoCatalogue();
+    GroupInfoCatalog();
 
     GroupInfo groupInfo(const QString& groupType) const;
 
@@ -33,4 +33,4 @@ private:
     QVector<GroupInfo> m_groups;
 };
 
-#endif // BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOGUE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GROUPINFOCATALOG_H

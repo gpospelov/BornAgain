@@ -43,7 +43,7 @@ public:
         }
 
         auto test = m_test_factory.createTest(test_name);
-        bool result = test->execute();
+        bool result = test->runTest();
 
         std::cout << boost::format("%-15s | %-50s -> %-5s\n") % test->getName()
                          % test->description() % (result ? "OK" : "FAILED");

@@ -80,35 +80,35 @@ TEST_F(TestSessionItemController, test_onPropertyChange)
     EXPECT_EQ(object.m_is_subscribed, false);
 
     // changing item, should be no reaction
-    item->setItemValue(BasicAxisItem::P_MAX, 3.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 3.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 0);
 
     // setting visible and changing item
     object.setVisible(true);
     EXPECT_EQ(object.m_is_subscribed, true);
-    item->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
 
     // same value, no change expected
-    item->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
 
     // new value
-    item->setItemValue(BasicAxisItem::P_MAX, 4.1);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.1);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 2);
 
     // setting same item once again, setting visible, and then checking that no double subscription
     object.setItem(item);
     object.setVisible(true);
-    item->setItemValue(BasicAxisItem::P_MAX, 4.2);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.2);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 3);
 
     // setting invisible and changing item, no reaction on item value change expected
     object.setVisible(false);
     EXPECT_EQ(object.m_is_subscribed, false);
-    item->setItemValue(BasicAxisItem::P_MAX, 5.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 5.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 3);
 }
@@ -125,7 +125,7 @@ TEST_F(TestSessionItemController, test_onItemDestroyWidgetVisible)
     object.setItem(item);
     object.setVisible(true);
 
-    item->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
 
@@ -151,7 +151,7 @@ TEST_F(TestSessionItemController, test_onItemDestroyWidgetHidden)
     object.setItem(item);
     object.setVisible(true);
 
-    item->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
 
@@ -186,7 +186,7 @@ TEST_F(TestSessionItemController, test_onTwoItems)
     EXPECT_EQ(object.currentItem(), item1);
     object.setVisible(true);
 
-    item1->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    item1->setItemValue(BasicAxisItem::P_MAX_DEG, 4.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
 
@@ -197,12 +197,12 @@ TEST_F(TestSessionItemController, test_onTwoItems)
     object.setVisible(true);
 
     // changing the value of previous item, widget shouldn't react
-    item1->setItemValue(BasicAxisItem::P_MAX, 5.0);
+    item1->setItemValue(BasicAxisItem::P_MAX_DEG, 5.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
 
     // changing the value of new item, widget should react
-    item2->setItemValue(BasicAxisItem::P_MAX, 6.0);
+    item2->setItemValue(BasicAxisItem::P_MAX_DEG, 6.0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 2);
 }
 
@@ -221,7 +221,7 @@ TEST_F(TestSessionItemController, test_onTwoItemsWhenHidden)
     object.setItem(item1);
     EXPECT_EQ(object.currentItem(), item1);
 
-    item1->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    item1->setItemValue(BasicAxisItem::P_MAX_DEG, 4.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 0);
 
@@ -230,12 +230,12 @@ TEST_F(TestSessionItemController, test_onTwoItemsWhenHidden)
     EXPECT_EQ(object.currentItem(), item2);
 
     // changing the value of previous item, widget shouldn't react
-    item1->setItemValue(BasicAxisItem::P_MAX, 5.0);
+    item1->setItemValue(BasicAxisItem::P_MAX_DEG, 5.0);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 0);
 
     // changing the value of new item, widget shouldn't react
-    item2->setItemValue(BasicAxisItem::P_MAX, 6.0);
+    item2->setItemValue(BasicAxisItem::P_MAX_DEG, 6.0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 0);
 }
 
@@ -251,7 +251,7 @@ TEST_F(TestSessionItemController, test_deleteWidget)
     object->setItem(item);
     object->setVisible(true);
 
-    item->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.0);
 
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
@@ -263,7 +263,7 @@ TEST_F(TestSessionItemController, test_deleteWidget)
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
     EXPECT_EQ(listener.m_onWidgetDestroyed, 1);
 
-    item->setItemValue(BasicAxisItem::P_MAX, 4.1);
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, 4.1);
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 1);
 }

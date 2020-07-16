@@ -25,8 +25,8 @@ class BA_CORE_API_ BasicAxisItem : public SessionItem
 public:
     static const QString P_IS_VISIBLE;
     static const QString P_NBINS;
-    static const QString P_MIN;
-    static const QString P_MAX;
+    static const QString P_MIN_DEG;
+    static const QString P_MAX_DEG;
     static const QString P_TITLE;
     static const QString P_TITLE_IS_VISIBLE;
 

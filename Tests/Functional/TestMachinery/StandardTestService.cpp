@@ -19,7 +19,7 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
-#include "Tests/Functional/TestMachinery/StandardTestCatalogue.h"
+#include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <iostream>
 
@@ -68,13 +68,13 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
         std::string test_name = fullTestName(info.m_test_name, builder->getName());
 
         std::unique_ptr<IFunctionalTest> test(
-            createTest(test_name, info.m_test_description, *simulation, info.m_threshold));
+            createStdTest(test_name, info.m_test_description, *simulation, info.m_threshold));
 
         if (n_subtests)
-            std::cout << "IStandardTest::execute() -> " << test_name << " " << sample_index + 1
+            std::cout << "IStandardTest::runTest() -> " << test_name << " " << sample_index + 1
                       << "/" << n_subtests << " (" << builder->getName() << ")\n";
 
-        if (!test->execute())
+        if (!test->runTest())
             ++number_of_failed_tests;
     }
 

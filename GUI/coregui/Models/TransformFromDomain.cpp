@@ -404,15 +404,15 @@ void TransformFromDomain::setSphericalDetector(SphericalDetectorItem* detector_i
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(phiAxisItem);
     phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.size());
-    phiAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
-    phiAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
+    phiAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(phi_axis.getMin()));
+    phiAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem* alphaAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(alphaAxisItem);
     alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
-    alphaAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
-    alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
+    alphaAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(alpha_axis.getMin()));
+    alphaAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(alpha_axis.getMax()));
 }
 
 void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detector_item,
@@ -423,13 +423,13 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(xAxisItem);
     xAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
-    xAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getWidth());
+    xAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, detector.getWidth());
 
     BasicAxisItem* yAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(yAxisItem);
     yAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
-    yAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getHeight());
+    yAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, detector.getHeight());
 
     if (detector.getDetectorArrangment() == RectangularDetector::GENERIC) {
         detector_item->setDetectorAlignment("Generic");
@@ -640,8 +640,8 @@ void TransformFromDomain::setAxisItem(SessionItem* item, const IAxis& axis, doub
         throw GUIHelpers::Error("TransformFromDomain::setAxisItem() -> Error. Unexpected axis");
 
     item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
-    item->setItemValue(BasicAxisItem::P_MIN, factor * axis.getMin());
-    item->setItemValue(BasicAxisItem::P_MAX, factor * axis.getMax());
+    item->setItemValue(BasicAxisItem::P_MIN_DEG, factor * axis.getMin());
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, factor * axis.getMax());
     item->setItemValue(BasicAxisItem::P_TITLE, QString::fromStdString(axis.getName()));
 }
 

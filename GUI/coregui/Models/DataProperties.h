@@ -25,7 +25,7 @@ class DataItem;
 class BA_CORE_API_ DataProperties : public SessionItem
 {
 public:
-    static const QString P_LINK;
+    static const QString P_DATALINK;
 
     void setDataItem(DataItem* item);
     DataItem* dataItem();

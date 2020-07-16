@@ -51,7 +51,7 @@ private:
 
     //!< Default model type for given group (i.e. FFCylinder for formfactor group)
     QString m_defaultItemType;
-    //!< Unique group name for GroupInfoCatalogue
+    //!< Unique group name for GroupInfoCatalog
     QString m_groupType;
     //!< Info will be sorted if true, otherwise order of insertion will be preserved
     bool is_sorted;

@@ -32,7 +32,7 @@ public:
         assert(argc>1);
         std::string test_name = argv[1];
         assert(test_name!="");
-        assert(!m_test_factory.contains(test_name));
+        assert(m_test_factory.contains(test_name));
         auto test = m_test_factory.createTest(test_name);
         assert(test);
         return test->runTest();

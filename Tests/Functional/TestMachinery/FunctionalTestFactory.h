@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/TestMachinery/FunctionalTestFactory.h
-//! @brief     Defines FunctionalTestFactory.
+//! @brief     Defines and implements FunctionalTestFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,7 +23,10 @@
 class BA_CORE_API_ FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
-    std::unique_ptr<IFunctionalTest> createTest(std::string& test_name);
+    std::unique_ptr<IFunctionalTest> createTest(std::string& test_name)
+    {
+        return createItemPtr(test_name);
+    }
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_FUNCTIONALTESTFACTORY_H

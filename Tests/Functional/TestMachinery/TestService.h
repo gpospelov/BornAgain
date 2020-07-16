@@ -29,14 +29,11 @@
 template <typename T> class TestService : public ITestService
 {
 public:
-    TestService() {}
-
     bool execute(int argc, char** argv)
     {
         assert(argc>1);
         std::string test_name = argv[1];
         assert(!m_test_factory.contains(test_name));
-
         auto test = m_test_factory.createTest(test_name);
         return test->runTest();
     }

@@ -19,12 +19,14 @@
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
+#include <cassert>
 
 bool CoreStandardTest::runTest()
 {
     std::unique_ptr<OutputData<double>> reference;
 
     // Load reference if available
+    assert(m_name!="");
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
             FileSystemUtils::jointPath(BATesting::CoreReferenceDir(), m_name + ".int.gz")));

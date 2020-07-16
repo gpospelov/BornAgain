@@ -2,6 +2,7 @@ BornAgain-1.17.99, work in progress
   > Changes in build configuration:
     1) Python2 no longer supported
     2) OpenGL can no longer be deselected
+    3) Eigen3 removed from ThordParty; it is now a regular external dependence
   > Internal refactoring:
     1) Unit tests now under CTest control, no longer enforced during compilation
 

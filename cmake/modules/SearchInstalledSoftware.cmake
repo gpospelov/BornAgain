@@ -9,8 +9,10 @@ find_package(FFTW3 REQUIRED)
 find_package(GSL REQUIRED)
 if(WIN32)
     message("Eigen3 include dirs hopefully given on the command line: ${EIGEN3_INCLUDE_DIRS}")
+    message(STATUS "Eigen3 include_dir=${EIGEN3_INCLUDE_DIR}")
 else()
     find_package(Eigen3 3.3 REQUIRED) # no need for FindEigen3, as Eigen provides Eigen3Config.cmake
+    message(STATUS "Eigen3 include_dir=${EIGEN3_INCLUDE_DIR} version=${EIGEN3_VERSION_STRING}")
 endif()
 
 find_package(Cerf REQUIRED)

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitObjective/FitPlanCases.h
+//! @file      Tests/Functional/Core/Fitting/FitPlanCases.h
 //! @brief     Defines collection of FitPlanCases classes
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANCASES_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANCASES_H
 
-#include "Tests/Functional/Fit/FitObjective/FitPlan.h"
+#include "Tests/Functional/Core/Fitting/FitPlan.h"
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 

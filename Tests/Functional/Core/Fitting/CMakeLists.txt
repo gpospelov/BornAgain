@@ -1,4 +1,4 @@
-set(test TestFitObjective)
+set(test TestCoreFitting)
 
 set(test_cases
     MigradCylindersInBA

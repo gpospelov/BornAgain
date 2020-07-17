@@ -1,7 +1,7 @@
 #include "Core/Instrument/DetectorMask.h"
 #include "Core/Instrument/SphericalDetector.h"
 #include "Core/Mask/Polygon.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class DetectorMaskTest : public ::testing::Test

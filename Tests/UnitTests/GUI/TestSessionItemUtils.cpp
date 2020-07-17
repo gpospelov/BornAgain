@@ -4,7 +4,7 @@
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestSessionItemUtils : public ::testing::Test
 {

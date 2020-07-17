@@ -1,7 +1,7 @@
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestMultiLayerItem : public ::testing::Test
 {

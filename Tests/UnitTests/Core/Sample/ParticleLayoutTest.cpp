@@ -6,7 +6,7 @@
 #include "Core/Parametrization/Units.h"
 #include "Core/Particle/IAbstractParticle.h"
 #include "Core/Particle/Particle.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class ParticleLayoutTest : public ::testing::Test
 {

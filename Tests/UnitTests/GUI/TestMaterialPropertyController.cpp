@@ -5,7 +5,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QtTest>
 
 class TestMaterialPropertyController : public ::testing::Test

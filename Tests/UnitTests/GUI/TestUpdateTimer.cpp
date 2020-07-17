@@ -1,5 +1,5 @@
 #include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QSignalSpy>
 
 class TestUpdateTimer : public ::testing::Test

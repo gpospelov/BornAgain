@@ -11,7 +11,7 @@
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class SphericalDetectorTest : public ::testing::Test

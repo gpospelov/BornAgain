@@ -2,7 +2,7 @@
 #include "Core/InputOutput/OutputDataReadStrategy.h"
 #include "Core/InputOutput/OutputDataWriteStrategy.h"
 #include "Core/Instrument/OutputData.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class IOStrategyTest : public ::testing::Test
 {

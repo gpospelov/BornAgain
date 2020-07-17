@@ -2,7 +2,7 @@
 #include "GUI/coregui/Models/LayerRoughnessItems.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestLayerRoughnessItems : public ::testing::Test
 {

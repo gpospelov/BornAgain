@@ -1,5 +1,5 @@
 #include "Core/Tools/FileSystemUtils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class FileSystemUtilsTest : public ::testing::Test
 {

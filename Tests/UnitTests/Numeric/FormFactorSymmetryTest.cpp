@@ -1,7 +1,7 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/includeIncludes/HardParticles.h"
 #include "Tests/UnitTests/Numeric/FormFactorTest.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 //! Check that form factors are invariant when q is transformed according to particle symmetry.
 

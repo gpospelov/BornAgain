@@ -5,7 +5,7 @@
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 
 class TestCsvImportAssistant : public ::testing::Test

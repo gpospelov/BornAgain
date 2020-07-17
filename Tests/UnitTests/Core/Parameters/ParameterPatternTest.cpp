@@ -1,5 +1,5 @@
 #include "Core/Parametrization/ParameterPattern.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <string>
 
 class ParameterPatternTest : public ::testing::Test

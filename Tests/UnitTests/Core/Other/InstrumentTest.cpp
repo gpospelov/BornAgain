@@ -1,7 +1,7 @@
 #include "Core/Instrument/Instrument.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Instrument/OutputData.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class InstrumentTest : public ::testing::Test
 {

@@ -13,7 +13,7 @@
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QObject>
 
 class TestRealSpaceBuilderUtils : public ::testing::Test

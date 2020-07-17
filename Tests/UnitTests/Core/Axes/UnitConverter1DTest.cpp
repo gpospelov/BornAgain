@@ -7,7 +7,7 @@
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/QSpecScan.h"
 #include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test
 {

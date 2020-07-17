@@ -1,7 +1,7 @@
 #include "Core/Instrument/ChiSquaredModule.h"
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/VarianceFunctions.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 // TODO revise test
 

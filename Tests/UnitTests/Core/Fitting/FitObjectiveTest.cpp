@@ -1,7 +1,7 @@
 #include "Core/Fitting/FitObjective.h"
 #include "Fit/Kernel/Parameters.h"
 #include "Tests/UnitTests/Core/Fitting/FittingTestHelper.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class FitObjectiveTest : public ::testing::Test
 {

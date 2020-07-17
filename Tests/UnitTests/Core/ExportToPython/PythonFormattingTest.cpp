@@ -5,7 +5,7 @@
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Parametrization/Units.h"
 #include "Fit/Tools/RealLimits.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class PythonFormattingTest : public ::testing::Test
 {

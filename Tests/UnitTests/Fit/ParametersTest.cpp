@@ -1,5 +1,5 @@
 #include "Fit/Kernel/Parameters.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <string>
 
 class ParametersTest : public ::testing::Test

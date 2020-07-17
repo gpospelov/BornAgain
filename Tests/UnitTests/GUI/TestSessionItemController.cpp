@@ -2,7 +2,7 @@
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Views/CommonWidgets/SessionItemController.h"
 #include "Tests/UnitTests/GUI/TestSessionItemControllerHelper.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QObject>
 
 class TestSessionItemController : public ::testing::Test

@@ -3,7 +3,7 @@
 #include "Core/Lattice/Lattice.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/ParticleComposition.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class MesoCrystalTest : public ::testing::Test
 {

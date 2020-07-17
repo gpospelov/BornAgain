@@ -3,7 +3,7 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 #include <memory>
 

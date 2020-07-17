@@ -9,7 +9,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Particle/Particle.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class MultilayerAveragingTest : public ::testing::Test
 {

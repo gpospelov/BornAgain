@@ -8,7 +8,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/TransformationItem.h"
 #include "GUI/coregui/Models/VectorItem.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestTranslations : public ::testing::Test
 {

@@ -4,7 +4,7 @@
 #include "Core/Mask/Line.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class Shape2DTest : public ::testing::Test

@@ -1,6 +1,6 @@
 #include "Core/Fitting/ObjectiveMetric.h"
 #include "Core/Fitting/ObjectiveMetricUtils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 
 class ObjectiveMetricTest : public ::testing::Test

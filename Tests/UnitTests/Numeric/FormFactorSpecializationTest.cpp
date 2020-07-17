@@ -1,6 +1,6 @@
 #include "Core/includeIncludes/HardParticles.h"
 #include "Tests/UnitTests/Numeric/FormFactorTest.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 //! Compare form factor for particle shapes A and B, where A is given special
 //! parameter values so that it coincides with the more symmetric B.

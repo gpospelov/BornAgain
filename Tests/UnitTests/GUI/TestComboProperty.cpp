@@ -1,7 +1,7 @@
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "Tests/UnitTests/GUI/Comparators.h"
 #include "Tests/UnitTests/GUI/test_utils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestComboProperty : public ::testing::Test
 {

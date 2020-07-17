@@ -2,7 +2,7 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class LayerTest : public ::testing::Test
 {

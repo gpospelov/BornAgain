@@ -11,7 +11,7 @@
 #include "GUI/coregui/mainwindow/projectdocument.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/UnitTests/GUI/test_utils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QSignalSpy>
 
 class TestSaveService : public ::testing::Test

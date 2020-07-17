@@ -1,6 +1,6 @@
 #include "Core/Instrument/ArrayUtils.h"
 #include "Core/Binning/IAxis.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 
 class ArrayUtilsTest : public ::testing::Test

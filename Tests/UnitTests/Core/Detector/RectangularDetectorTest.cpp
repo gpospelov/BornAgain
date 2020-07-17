@@ -2,7 +2,7 @@
 #include "Core/Parametrization/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Tools/Numeric.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>
 

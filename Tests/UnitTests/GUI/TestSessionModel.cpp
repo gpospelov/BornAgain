@@ -6,7 +6,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionItemTags.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QSignalSpy>
 #include <QXmlStreamWriter>
 #include <memory>

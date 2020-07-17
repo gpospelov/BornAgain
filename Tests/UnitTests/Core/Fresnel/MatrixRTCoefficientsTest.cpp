@@ -1,5 +1,5 @@
 #include "Core/Multilayer/MatrixRTCoefficients.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class MatrixRTCoefficientsTest : public ::testing::Test
 {

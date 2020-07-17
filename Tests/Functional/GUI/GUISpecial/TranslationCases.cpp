@@ -19,109 +19,77 @@ BasicTranslationTest::BasicTranslationTest()
 {
 }
 
-BasicTranslationTest::~BasicTranslationTest() = default;
-
 RadialParaTranslationTest::RadialParaTranslationTest()
     : GUITranslationTest("BasicGISAS", "RadialParaCrystalBuilder")
 {
 }
-
-RadialParaTranslationTest::~RadialParaTranslationTest() = default;
 
 HardDiskTranslationTest::HardDiskTranslationTest()
     : GUITranslationTest("BasicGISAS", "HardDiskBuilder")
 {
 }
 
-HardDiskTranslationTest::~HardDiskTranslationTest() = default;
-
 HexParaTranslationTest::HexParaTranslationTest()
     : GUITranslationTest("BasicGISAS", "HexParaCrystalBuilder")
 {
 }
-
-HexParaTranslationTest::~HexParaTranslationTest() = default;
 
 CoreShellTranslationTest::CoreShellTranslationTest()
     : GUITranslationTest("BasicGISAS", "CoreShellParticleBuilder")
 {
 }
 
-CoreShellTranslationTest::~CoreShellTranslationTest() = default;
-
 RoughnessTranslationTest::RoughnessTranslationTest()
     : GUITranslationTest("BasicGISAS", "MultiLayerWithRoughnessBuilder")
 {
 }
-
-RoughnessTranslationTest::~RoughnessTranslationTest() = default;
 
 SquareLatticeTranslationTest::SquareLatticeTranslationTest()
     : GUITranslationTest("BasicGISAS", "SquareLatticeBuilder")
 {
 }
 
-SquareLatticeTranslationTest::~SquareLatticeTranslationTest() = default;
-
 RotationTranslationTest::RotationTranslationTest()
     : GUITranslationTest("BasicGISAS", "RotatedPyramidsBuilder")
 {
 }
-
-RotationTranslationTest::~RotationTranslationTest() = default;
 
 SizeDistributionTranslationTest::SizeDistributionTranslationTest()
     : GUITranslationTest("BasicGISAS", "CylindersWithSizeDistributionBuilder")
 {
 }
 
-SizeDistributionTranslationTest::~SizeDistributionTranslationTest() = default;
-
 CompositionTranslationTest::CompositionTranslationTest()
     : GUITranslationTest("BasicGISAS", "ParticleCompositionBuilder")
 {
 }
-
-CompositionTranslationTest::~CompositionTranslationTest() = default;
 
 Para2DTranslationTest::Para2DTranslationTest()
     : GUITranslationTest("BasicGISAS", "Basic2DParaCrystalBuilder")
 {
 }
 
-Para2DTranslationTest::~Para2DTranslationTest() = default;
-
 Lattice1DTranslationTest::Lattice1DTranslationTest()
     : GUITranslationTest("BasicGISAS", "Lattice1DBuilder")
 {
 }
-
-Lattice1DTranslationTest::~Lattice1DTranslationTest() = default;
 
 Lattice2DTranslationTest::Lattice2DTranslationTest()
     : GUITranslationTest("BasicGISAS", "Basic2DLatticeBuilder")
 {
 }
 
-Lattice2DTranslationTest::~Lattice2DTranslationTest() = default;
-
 TwoLayerRoughnessTranslationTest::TwoLayerRoughnessTranslationTest()
     : GUITranslationTest("BasicGISAS", "TwoLayerRoughnessBuilder")
 {
 }
-
-TwoLayerRoughnessTranslationTest::~TwoLayerRoughnessTranslationTest() = default;
 
 MesoCrystalTranslationTest::MesoCrystalTranslationTest()
     : GUITranslationTest("BasicGISAS", "MesoCrystalBuilder")
 {
 }
 
-MesoCrystalTranslationTest::~MesoCrystalTranslationTest() = default;
-
 MagneticSpheresTranslationTest::MagneticSpheresTranslationTest()
     : GUITranslationTest("BasicPolarizedGISAS", "MagneticSpheresBuilder")
 {
 }
-
-MagneticSpheresTranslationTest::~MagneticSpheresTranslationTest() = default;

@@ -20,5 +20,5 @@
 int main(int argc, char** argv)
 {
     QCoreApplication a(argc, argv);
-    return TestService<GUISpecialTestFactory>().execute(argc, argv) ? 0 : 1;
+    return !TestService<GUISpecialTestFactory>().execute(argc, argv);
 }

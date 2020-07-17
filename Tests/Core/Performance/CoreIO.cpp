@@ -12,6 +12,7 @@
 //
 // ************************************************************************** //
 
+#include "Core/Instrument/OutputData.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Tools/Numeric.h"
 #include "Tests/Functional/TestMachinery/Benchmark.h"
@@ -22,6 +23,20 @@
 #include <random>
 
 namespace {
+
+    struct TestResults {
+        int m_nx;
+        int m_ny;
+        std::string m_file_format;
+        bool m_data_type;
+        double m_create_data_time;
+        double m_clone_data_time;
+        double m_read_time;
+        double m_write_time;
+        double m_biggest_diff;
+    };
+
+    std::vector<TestResults> results;
 
 std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill)
 {
@@ -101,19 +116,19 @@ bool test_io(int nx, int ny, bool random_data, const std::string& ext)
     std::cout << mb.report() << std::endl;
     std::cout << "Diff: " << result.m_biggest_diff << std::endl;
 
-    m_test_results.push_back(result);
+    results.push_back(result);
 
     bool success = result.m_biggest_diff < 1e-10 ? true : false;
     return success;
 }
 
-std::string report() const
+std::string report()
 {
     std::ostringstream result;
 
     result << "--- CoreIOTest::report() ---\n";
     result << "Size      | format     | data  | create  clone   read    write   | diff \n";
-    for (auto res : m_test_results) {
+    for (auto res : results) {
         result << boost::format("%-4dx%-4d | %-10s |   %1d   | %-7.3f %-7.3f %-7.3f %-7.3f | %g \n")
                       % res.m_nx % res.m_ny % res.m_file_format % res.m_data_type
                       % res.m_create_data_time % res.m_clone_data_time % res.m_read_time

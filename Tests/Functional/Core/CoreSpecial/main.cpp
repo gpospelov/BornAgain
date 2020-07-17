@@ -18,5 +18,5 @@
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)
 {
-    return TestService<CoreSpecialTestFactory>().execute(argc, argv) ? 0 : 1;
+    return !TestService<CoreSpecialTestFactory>().execute(argc, argv);
 }

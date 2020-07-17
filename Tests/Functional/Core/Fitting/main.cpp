@@ -19,5 +19,5 @@
 
 int main(int argc, char** argv)
 {
-    return TestService<FitObjectiveTestFactory>().execute(argc, argv) ? 0 : 1;
+    return !TestService<FitObjectiveTestFactory>().execute(argc, argv);
 }

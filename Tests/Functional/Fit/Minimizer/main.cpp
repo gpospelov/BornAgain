@@ -19,5 +19,5 @@
 
 int main(int argc, char** argv)
 {
-    return TestService<MinimizerTestFactory>().execute(argc, argv) ? 0 : 1;
+    return !TestService<MinimizerTestFactory>().execute(argc, argv);
 }

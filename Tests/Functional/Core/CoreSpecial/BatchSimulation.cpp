@@ -3,7 +3,6 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/Core/CoreSpecial/BatchSimulation.cpp
-//! @brief     Defines BatchSimulation class.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,16 +11,17 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/CoreSpecial/BatchSimulation.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>
 
-bool BatchSimulation::runTest()
+class BatchSimulation : public ::testing::Test {};
+
+TEST_F(BatchSimulation, BatchSimulation)
 {
     SimulationFactory sim_registry;
     const std::unique_ptr<Simulation> simulation = sim_registry.createItemPtr("MiniGISAS");
@@ -53,10 +53,5 @@ bool BatchSimulation::runTest()
 
     double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);
 
-    std::cout << "BatchSimulation"
-              << " "
-              << "Running simulations in batch mode"
-              << " " << diff << " " << (diff > threshold ? "[FAILED]" : "[OK]") << "\n";
-
-    return diff <= threshold;
+    EXPECT_LE(diff, threshold);
 }

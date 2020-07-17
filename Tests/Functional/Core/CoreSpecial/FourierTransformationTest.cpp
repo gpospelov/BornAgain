@@ -12,13 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/CoreSpecial/FourierTransformationTest.h"
 #include "BATesting.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Instrument/OutputData.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Tests/Functional/TestMachinery/TestUtils.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -35,34 +34,33 @@ std::vector<std::string> inputImages()
 }
 
 //! Returns location of images to test fft.
-std::string inputImageDir();
+std::string inputImageDir() { return BATesting::CoreReferenceDir(); }
 
 //! Returns file names with paths to test fft.
-std::vector<std::string> inputImageNames();
+std::vector<std::string> inputImageNames()
+    {
+    std::vector<std::string> result;
+    for (auto name : inputImages())
+        result.push_back(FileSystemUtils::jointPath(inputImageDir(), name));
 
-//! Returns name of directory with fft images for reference.
-std::string fftReferenceDir();
-
-//! Returns name of fft image based on given image name.
-std::string fftReferenceImage(const std::string& input_image);
-
-//! Returns name of directory for output fft images.
-std::string outputDir();
-
-} // namespace
-
-bool FourierTransformationTest::runTest()
-{
-    bool success(true);
-
-    for (auto inputImage : inputImageNames())
-        success &= test_fft(inputImage, fftReferenceImage(inputImage));
-
-    return success;
+    return result;
 }
 
-bool FourierTransformationTest::test_fft(const std::string& input_image_name,
-                                         const std::string& reference_fft_name)
+//! Returns name of directory with fft images for reference.
+std::string fftReferenceDir() { return BATesting::CoreReferenceDir(); }
+
+//! Returns name of fft image based on given image name.
+std::string fftReferenceImage(const std::string& input_image)
+    {
+    auto filename = FileSystemUtils::filename(input_image);
+    return FileSystemUtils::jointPath(fftReferenceDir(), "FourierTransformation_" + filename);
+}
+
+//! Returns name of directory for output fft images.
+std::string outputDir() { return BATesting::CoreOutputDir(); }
+
+//! Runs test over one image. Returns true upon success.
+bool test_fft(const std::string& input_image_name, const std::string& reference_fft_name)
 {
     std::cout << "\nFourierTransformationTest::test_fft()"
               << "\n";
@@ -92,7 +90,7 @@ bool FourierTransformationTest::test_fft(const std::string& input_image_name,
     // comparing new fft against reference fft, if exist
     bool success(false);
     if (reference_fft)
-        success = TestUtils::isTheSame(*fft, *reference_fft, threshold) ? true : false;
+        success = IntensityDataFunctions::getRelativeDifference(*fft, *reference_fft) <= threshold;
 
     if (!success) {
         FileSystemUtils::createDirectory(outputDir());
@@ -105,36 +103,13 @@ bool FourierTransformationTest::test_fft(const std::string& input_image_name,
     return success;
 }
 
-namespace
-{
-std::string inputImageDir()
-{
-    return BATesting::CoreReferenceDir();
-}
-
-std::vector<std::string> inputImageNames()
-{
-    std::vector<std::string> result;
-    for (auto name : inputImages())
-        result.push_back(FileSystemUtils::jointPath(inputImageDir(), name));
-
-    return result;
-}
-
-std::string fftReferenceDir()
-{
-    return BATesting::CoreReferenceDir();
-}
-
-std::string fftReferenceImage(const std::string& input_image)
-{
-    auto filename = FileSystemUtils::filename(input_image);
-    return FileSystemUtils::jointPath(fftReferenceDir(), "FourierTransformation_" + filename);
-}
-
-std::string outputDir()
-{
-    return BATesting::CoreOutputDir();
-}
-
 } // namespace
+
+
+class FourierTransformationTest : public ::testing::Test {};
+
+TEST_F(FourierTransformationTest, FourierTransformation)
+{
+    for (auto inputImage : inputImageNames())
+        EXPECT_TRUE(test_fft(inputImage, fftReferenceImage(inputImage)));
+}

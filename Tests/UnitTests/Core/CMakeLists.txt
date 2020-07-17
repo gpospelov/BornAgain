@@ -1,4 +1,4 @@
-include(GoogleTest)
+include(GoogleTest) // provides gtest_discover_tests
 
 set(test UnitTestCore)
 

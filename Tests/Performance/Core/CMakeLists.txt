@@ -6,13 +6,15 @@
 
 include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
 
-function(PerformanceTest NAME DEPS)
+function(PerformanceTest NAME SPEED DEPS)
     add_executable(${NAME} ${NAME}.cpp ${DEPS})
     target_link_libraries(${NAME} ${BornAgainCore_LIBRARY})
-    add_test(Core:Perf:${NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${NAME})
+    if((${SPEED} STREQUAL "fast") OR SLOWTESTS)
+        add_test(Core:Perf:${NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${NAME})
+    endif()
 endfunction()
 
-PerformanceTest(CoreIO ../Benchmark.cpp)
-PerformanceTest(Multilayer "")
-PerformanceTest(Mesocrystal "")
-PerformanceTest(Threading ThreadingComponents.cpp)
+PerformanceTest(CoreIO "slow" ../Benchmark.cpp)
+PerformanceTest(Multilayer "fast" "")
+PerformanceTest(Mesocrystal "fast" "")
+PerformanceTest(Threading "slow" ThreadingComponents.cpp)

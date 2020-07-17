@@ -35,9 +35,9 @@ add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND})
 option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
-option(UNITTESTS "Don't skip unit tests" ON)
 
 option(BORNAGAIN_MPI "Build with MPI support" OFF)
+option(SLOWTESTS "CTest also covers slow tests" OFF)
 
 option(BORNAGAIN_GENERATE_BINDINGS "Generate python bindings during build (requires swig)" OFF)
 option(BORNAGAIN_GENERATE_PYTHON_DOCS "Generate python documentation from the doxygen comments" OFF)

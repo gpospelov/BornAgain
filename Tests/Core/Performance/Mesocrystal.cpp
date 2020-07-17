@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceBuilder.cpp
-//! @brief     Defines MesoCrystalPerformanceBuilder class.
+//! @file      Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceTest.cpp
+//! @brief     Implements Mesocrystal performance test.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,29 +12,93 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/CoreSpecial/MesoCrystalPerformanceBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
+#include "Core/Instrument/RectangularDetector.h"
 #include "Core/Lattice/ISelectionRule.h"
 #include "Core/Lattice/Lattice.h"
+#include "Core/Material/Material.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Parametrization/Units.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
+#include "Core/Simulation/GISASSimulation.h"
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
+#include <iostream>
+
+namespace
+{
+
+const double m_distance(909.99);
+const double m_pixel_size = 4 * 41.74e-3;
+const int m_nx = 1024;
+const int m_ny = 1024;
+const double m_center_x = 108.2;
+const double m_center_y = 942.0;
+
+std::unique_ptr<RectangularDetector> create_detector()
+{
+    double width = m_nx * m_pixel_size;
+    double height = m_ny * m_pixel_size;
+    double u0 = m_center_x * m_pixel_size;
+    double v0 = (m_ny - m_center_y) * m_pixel_size;
+    std::unique_ptr<RectangularDetector> result =
+        std::make_unique<RectangularDetector>(m_nx, width, m_ny, height);
+    result->setPerpendicularToDirectBeam(m_distance, u0, v0);
+    return result;
+}
+
+Lattice createLattice(double a, double c)
+{
+    Lattice result = Lattice::createHexagonalLattice(a, c);
+    result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
+    return result;
+}
+
+} // namespace
+
 
 using Units::deg;
 using Units::nm;
 
-namespace
+//! Runs heavy mesocrystal simulation to investigate where it spends time.
+
+class MesoCrystalPerformanceBuilder : public IMultiLayerBuilder
 {
-Lattice createLattice(double a, double c);
-}
+public:
+    MesoCrystalPerformanceBuilder();
+    ~MesoCrystalPerformanceBuilder();
+
+protected:
+    MultiLayer* buildSample() const;
+
+private:
+    std::unique_ptr<MesoCrystal> createMeso(Material material,
+                                            const IFormFactor& form_factor) const;
+
+    double m_lattice_length_a;
+    double m_lattice_length_c;
+    double m_nanoparticle_radius;
+    double m_sigma_nanoparticle_radius;
+    double m_meso_height;
+    double m_meso_radius;
+    double m_sigma_lattice_length_a;
+    double m_roughness;
+    double m_surface_filling_ratio;
+    double m_phi_start;
+    double m_phi_stop;
+    int m_phi_rotation_steps;
+    double m_tilt_start;
+    double m_tilt_stop;
+    int m_tilt_steps;
+};
 
 MesoCrystalPerformanceBuilder::MesoCrystalPerformanceBuilder()
     : m_lattice_length_a(12.45 * nm), m_lattice_length_c(31.0 * nm),
@@ -128,13 +192,27 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
     return std::make_unique<MesoCrystal>(npc, form_factor);
 }
 
-namespace
-{
 
-Lattice createLattice(double a, double c)
+int main()
 {
-    Lattice result = Lattice::createHexagonalLattice(a, c);
-    result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
-    return result;
+    GISASSimulation simulation;
+
+    simulation.setTerminalProgressMonitor();
+
+    auto detector = create_detector();
+
+    simulation.setDetector(*detector.get());
+
+    simulation.setBeamParameters(1.77 * Units::angstrom, 0.4 * Units::deg, 0.0);
+    simulation.setBeamIntensity(6.1e+12);
+
+    std::shared_ptr<IMultiLayerBuilder> builder(new MesoCrystalPerformanceBuilder);
+    simulation.setSampleBuilder(builder);
+
+    simulation.setRegionOfInterest(40.0, 40.0, 41.0, 41.0);
+
+    std::cout << "MesoCrystalPerformanceTest::runTest() -> Starting simulation\n";
+    simulation.runSimulation();
+
+    return 0;
 }
-} // namespace

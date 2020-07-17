@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/CoreSpecial/MultilayerPerformanceTest.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
@@ -37,9 +36,7 @@ void report(const Results& results)
 }
 } // namespace
 
-MultilayerPerformanceTest::~MultilayerPerformanceTest() = default;
-
-bool MultilayerPerformanceTest::runTest()
+int main()
 {
     Results results;
     results.reserve(n_layers.size());
@@ -56,5 +53,5 @@ bool MultilayerPerformanceTest::runTest()
     }
 
     report(results);
-    return true;
+    return 0;
 }

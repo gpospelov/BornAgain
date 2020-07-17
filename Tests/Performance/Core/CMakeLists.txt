@@ -13,7 +13,8 @@ set(test_cases
     )
 
 foreach(test ${test_cases})
-    add_executable(${test} ${test}.cpp)
+    add_executable(${test} ${test}.cpp ../Benchmark.cpp)
+        # todo: Benchmark only needed by _some_ tests
     target_link_libraries(${test} ${BornAgainCore_LIBRARY})
     add_test(Core:Perf:${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
 endforeach()

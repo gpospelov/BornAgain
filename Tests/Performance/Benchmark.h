@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/Benchmark.h
+//! @file      Tests/Performance/Benchmark.h
 //! @brief     Defines Benchmark class
 //!
 //! @homepage  http://www.bornagainproject.org

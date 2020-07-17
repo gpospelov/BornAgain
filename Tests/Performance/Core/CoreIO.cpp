@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Core/Performance/CoreIO.cpp
+//! @file      Tests/Performance/Core/CoreIO.cpp
 //! @brief     Implements CoreIOTest class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #include "Core/Instrument/OutputData.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Tools/Numeric.h"
-#include "Tests/Functional/TestMachinery/Benchmark.h"
+#include "Tests/Performance/Benchmark.h"
 #include <boost/format.hpp>
 #include <cassert>
 #include <iomanip>

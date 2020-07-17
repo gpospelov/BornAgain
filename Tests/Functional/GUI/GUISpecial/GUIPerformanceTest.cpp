@@ -32,7 +32,7 @@
 #include "GUI/coregui/Models/ParameterTreeUtils.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
-#include "Tests/Functional/TestMachinery/Benchmark.h"
+#include "Tests/Performance/Benchmark.h"
 #include <QCoreApplication>
 #include <QDebug>
 #include <QElapsedTimer>

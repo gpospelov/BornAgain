@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Core/Performance/Multilayer.cpp
+//! @file      Tests/Performance/Core/Multilayer.cpp
 //! @brief     Implements class MultilayerPerformanceTest
 //!
 //! @homepage  http://www.bornagainproject.org

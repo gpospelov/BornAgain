@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/Benchmark.cpp
+//! @file      Tests/Performance/Benchmark.cpp
 //! @brief     Implements Benchmark class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/TestMachinery/Benchmark.h"
+#include "Tests/Performance/Benchmark.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>

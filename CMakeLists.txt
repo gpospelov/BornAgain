@@ -103,7 +103,7 @@ add_subdirectory(ThirdParty/Core)
 add_subdirectory(Core)
 add_subdirectory(Tests/UnitTests/Core)
 add_subdirectory(Tests/UnitTests/Numeric)
-add_subdirectory(Tests/Core/Performance)
+add_subdirectory(Tests/Performance/Core)
 
 if(BORNAGAIN_GUI)
     include(SearchQt)

@@ -7,6 +7,7 @@
 include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
 
 set(test_cases
+    CoreIO
     Multilayer
     Mesocrystal
     )

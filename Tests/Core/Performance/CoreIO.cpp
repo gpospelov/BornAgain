@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/CoreSpecial/CoreIOPerformanceTest.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Tools/Numeric.h"
 #include "Tests/Functional/TestMachinery/Benchmark.h"
@@ -22,33 +21,44 @@
 #include <iostream>
 #include <random>
 
-bool CoreIOPerformanceTest::runTest()
+namespace {
+
+std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill)
 {
-    std::cout << "CoreIOTest::runTest()" << std::endl;
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    result->addAxis("x", nx, 0.0, static_cast<double>(nx));
+    result->addAxis("y", ny, 0.0, static_cast<double>(ny));
 
-    bool success(true);
+    if (fill) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> dis(0.0, 12);
+        for (size_t i = 0; i < result->getAllocatedSize(); ++i) {
+            double value = std::pow(10, dis(gen));
+            (*result)[i] = value;
+        }
+    }
 
-    // 1024x768, zeros
-    success &= test_io(1024, 768, false, "int");
-    success &= test_io(1024, 768, false, "int.gz");
-    success &= test_io(1024, 768, false, "int.bz2");
-
-    // 1024x768, random data
-    success &= test_io(1024, 768, true, "int");
-    success &= test_io(1024, 768, true, "int.gz");
-    success &= test_io(1024, 768, true, "int.bz2");
-
-    // 2048x2048, random data
-    success &= test_io(2048, 2048, true, "int");
-    success &= test_io(2048, 2048, true, "int.gz");
-    success &= test_io(2048, 2048, true, "int.bz2");
-
-    std::cout << report() << std::endl;
-
-    return success;
+    return result;
 }
 
-bool CoreIOPerformanceTest::test_io(int nx, int ny, bool random_data, const std::string& ext)
+//! Returns biggest element difference found.
+
+double biggest_difference(const OutputData<double>& data, const OutputData<double>& ref)
+{
+    if (data.getAllocatedSize() != ref.getAllocatedSize())
+        throw std::runtime_error("CoreIOTest::biggest_difference() -> Error. Size is different.");
+
+    double max_diff = std::numeric_limits<double>::min();
+
+    for (size_t i = 0; i < data.getAllocatedSize(); ++i) {
+        double diff = Numeric::GetRelativeDifference(data[i], ref[i]);
+        max_diff = std::max(diff, max_diff);
+    }
+    return max_diff;
+}
+
+bool test_io(int nx, int ny, bool random_data, const std::string& ext)
 {
     std::cout << "Test " << nx << "x" << ny << ", " << (random_data ? "random data" : "zeros")
               << ", file_format: " << ext << "\n";
@@ -97,43 +107,7 @@ bool CoreIOPerformanceTest::test_io(int nx, int ny, bool random_data, const std:
     return success;
 }
 
-std::unique_ptr<OutputData<double>> CoreIOPerformanceTest::createData(int nx, int ny, bool fill)
-{
-    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis("x", nx, 0.0, static_cast<double>(nx));
-    result->addAxis("y", ny, 0.0, static_cast<double>(ny));
-
-    if (fill) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis(0.0, 12);
-        for (size_t i = 0; i < result->getAllocatedSize(); ++i) {
-            double value = std::pow(10, dis(gen));
-            (*result)[i] = value;
-        }
-    }
-
-    return result;
-}
-
-//! Returns biggest element difference found.
-
-double CoreIOPerformanceTest::biggest_difference(const OutputData<double>& data,
-                                                 const OutputData<double>& ref)
-{
-    if (data.getAllocatedSize() != ref.getAllocatedSize())
-        throw std::runtime_error("CoreIOTest::biggest_difference() -> Error. Size is different.");
-
-    double max_diff = std::numeric_limits<double>::min();
-
-    for (size_t i = 0; i < data.getAllocatedSize(); ++i) {
-        double diff = Numeric::GetRelativeDifference(data[i], ref[i]);
-        max_diff = std::max(diff, max_diff);
-    }
-    return max_diff;
-}
-
-std::string CoreIOPerformanceTest::report() const
+std::string report() const
 {
     std::ostringstream result;
 
@@ -147,4 +121,30 @@ std::string CoreIOPerformanceTest::report() const
     }
 
     return result.str();
+}
+
+} // namespace
+
+int main ()
+{
+    bool success(true);
+
+    // 1024x768, zeros
+    success &= test_io(1024, 768, false, "int");
+    success &= test_io(1024, 768, false, "int.gz");
+    success &= test_io(1024, 768, false, "int.bz2");
+
+    // 1024x768, random data
+    success &= test_io(1024, 768, true, "int");
+    success &= test_io(1024, 768, true, "int.gz");
+    success &= test_io(1024, 768, true, "int.bz2");
+
+    // 2048x2048, random data
+    success &= test_io(2048, 2048, true, "int");
+    success &= test_io(2048, 2048, true, "int.gz");
+    success &= test_io(2048, 2048, true, "int.bz2");
+
+    std::cout << report() << std::endl;
+
+    return 0;
 }

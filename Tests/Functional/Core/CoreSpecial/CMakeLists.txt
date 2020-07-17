@@ -3,10 +3,11 @@ set(test TestCoreSpecial)
 set(test_cases
     BatchSimulation
     FourierTransformation
+    CoreIOPath
     MultilayerPerformance
+    MesoPerformance
+# disabled because too slow
 #    CoreIOPerformance
-#    MesoPerformance
-#    CoreIOPath
 #    MultiThreadPerformance
 )
 

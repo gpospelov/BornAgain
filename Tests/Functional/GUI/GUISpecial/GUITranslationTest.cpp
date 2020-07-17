@@ -41,15 +41,68 @@
 
 namespace
 {
+
+bool containsNames(const QString& text, const QStringList& names)
+{
+    for (const auto& name : names)
+        if (text.contains(name))
+            return true;
+    return false;
+}
+
+const QVector<QPair<QStringList, QStringList>> black_list{
+    {// Global scope
+     {""},
+     {"Sigma factor", "MaterialRefractiveData", "MaterialSLDData", MaterialItem::P_MAGNETIZATION}},
+    {// Instrument scope
+     {"GISASInstrument", "OffSpecInstrument", "SpecularInstrument"},
+     {// Distribution types
+      "DistributionGate", "DistributionLorentz", "DistributionGaussian", "DistributionLogNormal",
+      "DistributionCosine", "DistributionTrapezoid",
+
+      // Detector axes
+      SphericalDetectorItem::P_PHI_AXIS, SphericalDetectorItem::P_ALPHA_AXIS,
+      RectangularDetectorItem::P_X_AXIS, RectangularDetectorItem::P_Y_AXIS,
+      OffSpecInstrumentItem::P_ALPHA_AXIS,
+
+      // Rectangular detector positioning
+      RectangularDetectorItem::P_ALIGNMENT, RectangularDetectorItem::P_NORMAL,
+      RectangularDetectorItem::P_DIRECTION, RectangularDetectorItem::P_U0,
+      RectangularDetectorItem::P_V0, RectangularDetectorItem::P_DBEAM_U0,
+      RectangularDetectorItem::P_DBEAM_V0, RectangularDetectorItem::P_DISTANCE,
+
+      // Detector resolution
+      "ResolutionFunction2DGaussian",
+
+      // Beam angle parameters
+      BeamItem::P_INCLINATION_ANGLE, BeamItem::P_AZIMUTHAL_ANGLE}}};
+
+//! Returns true, if it makes sence to look for GUI translation for given domain name.
+//! Intended to supress warnings about not-yet implemented translations.
+bool requiresTranslation(ParameterItem* parItem)
+{
+    if (!parItem)
+        return false;
+
+    const QString& par_path = FitParameterHelper::getParameterItemPath(parItem);
+
+    for (const auto& item : black_list) {
+        if (item.first.size() == 1 && item.first[0].isNull()) { // checking global scope
+            if (containsNames(par_path, item.second))
+                return false;
+        } else { // checking everything else
+            if (containsNames(par_path, item.first) && containsNames(par_path, item.second))
+                return false;
+        }
+    }
+    return true;
+}
+
 std::string header(size_t width = 80)
 {
     return std::string(width, '-');
 }
 
-//! Returns true, if it makes sence to look for GUI translation for given domain name.
-//! Intended to supress warnings about not-yet implemented translations.
-bool requiresTranslation(ParameterItem* parItem);
-bool containsNames(const QString& text, const QStringList& names);
 } // namespace
 
 GUITranslationTest::GUITranslationTest(const std::string& simName, const std::string& sampleName)
@@ -66,6 +119,7 @@ GUITranslationTest::GUITranslationTest(const std::string& simName, const std::st
     SampleBuilderFactory sampleFactory;
     m_simulation->setSample(*sampleFactory.createSample(m_sampleName));
 }
+
 
 GUITranslationTest::~GUITranslationTest() {}
 
@@ -246,60 +300,3 @@ bool GUITranslationTest::checkMissedTranslations()
     bool isSuccess = (missedNames.empty() ? true : false);
     return isSuccess;
 }
-
-namespace
-{
-const QVector<QPair<QStringList, QStringList>> black_list{
-    {// Global scope
-     {""},
-     {"Sigma factor", "MaterialRefractiveData", "MaterialSLDData", MaterialItem::P_MAGNETIZATION}},
-    {// Instrument scope
-     {"GISASInstrument", "OffSpecInstrument", "SpecularInstrument"},
-     {// Distribution types
-      "DistributionGate", "DistributionLorentz", "DistributionGaussian", "DistributionLogNormal",
-      "DistributionCosine", "DistributionTrapezoid",
-
-      // Detector axes
-      SphericalDetectorItem::P_PHI_AXIS, SphericalDetectorItem::P_ALPHA_AXIS,
-      RectangularDetectorItem::P_X_AXIS, RectangularDetectorItem::P_Y_AXIS,
-      OffSpecInstrumentItem::P_ALPHA_AXIS,
-
-      // Rectangular detector positioning
-      RectangularDetectorItem::P_ALIGNMENT, RectangularDetectorItem::P_NORMAL,
-      RectangularDetectorItem::P_DIRECTION, RectangularDetectorItem::P_U0,
-      RectangularDetectorItem::P_V0, RectangularDetectorItem::P_DBEAM_U0,
-      RectangularDetectorItem::P_DBEAM_V0, RectangularDetectorItem::P_DISTANCE,
-
-      // Detector resolution
-      "ResolutionFunction2DGaussian",
-
-      // Beam angle parameters
-      BeamItem::P_INCLINATION_ANGLE, BeamItem::P_AZIMUTHAL_ANGLE}}};
-
-bool requiresTranslation(ParameterItem* parItem)
-{
-    if (!parItem)
-        return false;
-
-    const QString& par_path = FitParameterHelper::getParameterItemPath(parItem);
-
-    for (const auto& item : black_list) {
-        if (item.first.size() == 1 && item.first[0].isNull()) { // checking global scope
-            if (containsNames(par_path, item.second))
-                return false;
-        } else { // checking everything else
-            if (containsNames(par_path, item.first) && containsNames(par_path, item.second))
-                return false;
-        }
-    }
-    return true;
-}
-
-bool containsNames(const QString& text, const QStringList& names)
-{
-    for (const auto& name : names)
-        if (text.contains(name))
-            return true;
-    return false;
-}
-} // namespace

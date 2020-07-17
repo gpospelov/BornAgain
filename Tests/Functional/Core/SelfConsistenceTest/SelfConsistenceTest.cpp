@@ -33,8 +33,7 @@ std::string composeName(std::string d_name, std::string test_name, size_t index)
 SelfConsistenceTest::SelfConsistenceTest(const std::string& name,
                                          std::vector<std::unique_ptr<Simulation>> simulations,
                                          double threshold)
-    : m_name(name), m_simulations(std::move(simulations)),
-      m_threshold(threshold)
+    : m_name(name), m_simulations(std::move(simulations)), m_threshold(threshold)
 {
     assert(m_simulations.size() >= 2); // need at least two simulations to compare
 }

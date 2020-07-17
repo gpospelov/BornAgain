@@ -8,8 +8,8 @@
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
 #include "Tests/GTestWrapper/google_test.h"
+#include "Tests/UnitTests/GUI/test_utils.h"
 #include <QFileInfo>
 #include <QSignalSpy>
 

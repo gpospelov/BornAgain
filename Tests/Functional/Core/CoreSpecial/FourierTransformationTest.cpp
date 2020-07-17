@@ -34,11 +34,14 @@ std::vector<std::string> inputImages()
 }
 
 //! Returns location of images to test fft.
-std::string inputImageDir() { return BATesting::CoreReferenceDir(); }
+std::string inputImageDir()
+{
+    return BATesting::CoreReferenceDir();
+}
 
 //! Returns file names with paths to test fft.
 std::vector<std::string> inputImageNames()
-    {
+{
     std::vector<std::string> result;
     for (auto name : inputImages())
         result.push_back(FileSystemUtils::jointPath(inputImageDir(), name));
@@ -47,17 +50,23 @@ std::vector<std::string> inputImageNames()
 }
 
 //! Returns name of directory with fft images for reference.
-std::string fftReferenceDir() { return BATesting::CoreReferenceDir(); }
+std::string fftReferenceDir()
+{
+    return BATesting::CoreReferenceDir();
+}
 
 //! Returns name of fft image based on given image name.
 std::string fftReferenceImage(const std::string& input_image)
-    {
+{
     auto filename = FileSystemUtils::filename(input_image);
     return FileSystemUtils::jointPath(fftReferenceDir(), "FourierTransformation_" + filename);
 }
 
 //! Returns name of directory for output fft images.
-std::string outputDir() { return BATesting::CoreOutputDir(); }
+std::string outputDir()
+{
+    return BATesting::CoreOutputDir();
+}
 
 //! Runs test over one image. Returns true upon success.
 bool test_fft(const std::string& input_image_name, const std::string& reference_fft_name)
@@ -105,8 +114,9 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
 
 } // namespace
 
-
-class FourierTransformationTest : public ::testing::Test {};
+class FourierTransformationTest : public ::testing::Test
+{
+};
 
 TEST_F(FourierTransformationTest, FourierTransformation)
 {

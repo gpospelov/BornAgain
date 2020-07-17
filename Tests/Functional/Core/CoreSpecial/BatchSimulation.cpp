@@ -19,7 +19,9 @@
 #include <iostream>
 #include <memory>
 
-class BatchSimulation : public ::testing::Test {};
+class BatchSimulation : public ::testing::Test
+{
+};
 
 TEST_F(BatchSimulation, BatchSimulation)
 {

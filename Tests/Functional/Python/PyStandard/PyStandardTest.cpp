@@ -27,9 +27,8 @@
 bool PyStandardTest::runTest()
 {
     // Set output data filename, and remove old output files
-    assert(m_name!="");
-    std::string output_name =
-        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), m_name);
+    assert(m_name != "");
+    std::string output_name = FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), m_name);
     std::string output_path = output_name + ".ref.int.gz";
     std::remove(output_path.c_str());
     std::cout << "Removed old output " << output_path << "\n";

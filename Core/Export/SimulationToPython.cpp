@@ -18,7 +18,6 @@
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/INodeUtils.h"
-#include "Core/Tools/PythonFormatting.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Instrument/ConvolutionDetectorResolution.h"
 #include "Core/Instrument/ISpecularScan.h"
@@ -30,6 +29,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
+#include "Core/Tools/PythonFormatting.h"
 #include <iomanip>
 
 using namespace PythonFormatting;

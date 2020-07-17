@@ -28,8 +28,7 @@ class GISASSimulation;
 class BA_CORE_API_ IStandardTest : public IFunctionalTest
 {
 public:
-    IStandardTest(const std::string& name,
-                  const Simulation& simulation, double threshold);
+    IStandardTest(const std::string& name, const Simulation& simulation, double threshold);
 
     ~IStandardTest();
 

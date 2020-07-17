@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Performance/Core/MultiThreadPerformanceTestComponents.cpp
+//! @file      Tests/Performance/Core/ThreadingComponents.cpp
 //! @brief     Defines TestComponents namespace
 //!
 //! @homepage  http://www.bornagainproject.org

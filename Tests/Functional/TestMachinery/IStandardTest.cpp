@@ -15,10 +15,9 @@
 #include "Tests/Functional/TestMachinery/IStandardTest.h"
 #include "Core/Simulation/Simulation.h"
 
-IStandardTest::IStandardTest(const std::string& name,
-                             const Simulation& simulation, double threshold)
-    : m_name(name), m_reference_simulation(simulation.clone()),
-      m_threshold(threshold)
+IStandardTest::IStandardTest(const std::string& name, const Simulation& simulation,
+                             double threshold)
+    : m_name(name), m_reference_simulation(simulation.clone()), m_threshold(threshold)
 {
 }
 

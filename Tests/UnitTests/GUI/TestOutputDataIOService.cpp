@@ -13,8 +13,8 @@
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/ImportDataInfo.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
 #include "Tests/GTestWrapper/google_test.h"
+#include "Tests/UnitTests/GUI/test_utils.h"
 #include <QTest>
 #include <memory>
 

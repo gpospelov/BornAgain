@@ -15,11 +15,11 @@
 #include "Core/Instrument/QSpecScan.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
-#include "Core/Tools/PythonFormatting.h"
 #include "Core/Instrument/ScanResolution.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Fit/Tools/RealLimits.h"
 
 namespace

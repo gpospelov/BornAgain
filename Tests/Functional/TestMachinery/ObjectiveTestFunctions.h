@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTIVETESTFUNCTIONS_G
-#define OBJECTIVETESTFUNCTIONS_G
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_OBJECTIVETESTFUNCTIONS_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_OBJECTIVETESTFUNCTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <vector>
@@ -32,4 +32,4 @@ BA_CORE_API_ double DecayingSin(double x, const std::vector<double>& par);
 
 } // namespace TestFunctions
 
-#endif
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_OBJECTIVETESTFUNCTIONS_H

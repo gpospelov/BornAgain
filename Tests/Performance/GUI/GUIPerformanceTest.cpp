@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUISpecial/GUIPerformanceTest.cpp
+//! @file      Tests/Performance/GUI/GUIPerformanceTest.cpp
 //! @brief     Implements GUI performance functional test.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -165,7 +165,6 @@ void GUIPerformanceTest::test_real_time()
             QCoreApplication::processEvents(QEventLoop::AllEvents, 1);
     }
 }
-
 
 int main()
 {

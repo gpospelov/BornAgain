@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUISpecial/CsvImportAssistantPerformanceTest.h
+//! @file      Tests/Performance/GUI/CsvImportAssistantPerformanceTest.h
 //! @brief     Defines GUI performance functional test.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_CSVIMPORTASSISTANTPERFORMANCETEST_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_CSVIMPORTASSISTANTPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_PERFORMANCE_GUI_CSVIMPORTASSISTANTPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_PERFORMANCE_GUI_CSVIMPORTASSISTANTPERFORMANCETEST_H
 
 #include "GUI/coregui/Models/SpecularDataItem.h"
 #include <QString>
@@ -37,4 +37,4 @@ protected:
         {12.0, 13.0, 14.0, 15.0}, {16.0, 17.0, 18.0, 19.0}, {20.0, 21.0, 22.0, 23.0}};
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_CSVIMPORTASSISTANTPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_PERFORMANCE_GUI_CSVIMPORTASSISTANTPERFORMANCETEST_H

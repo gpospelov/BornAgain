@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUISpecial/GUIPerformanceTest.h
+//! @file      Tests/Performance/GUI/GUIPerformanceTest.h
 //! @brief     Defines GUI performance functional test.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_PERFORMANCE_GUI_GUIPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_PERFORMANCE_GUI_GUIPERFORMANCETEST_H
 
 #include <QString>
 #include <memory>
@@ -38,4 +38,4 @@ private:
     QString m_sample_name;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_PERFORMANCE_GUI_GUIPERFORMANCETEST_H

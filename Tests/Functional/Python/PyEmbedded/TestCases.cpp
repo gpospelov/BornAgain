@@ -16,12 +16,12 @@
 #include "BABuild.h"
 #include "BAVersion.h"
 #include "Core/Export/ExportToPython.h"
-#include "Core/Tools/PythonFormatting.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/Tools/PyEmbeddedUtils.h"
 #include "Core/Tools/PyImport.h"
 #include "Core/Tools/PythonCore.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Core/Tools/SysUtils.h"
 #include <iostream>
 #include <sstream>

@@ -42,7 +42,9 @@ bool test_io(const OutputData<double>* data, const std::string& file_name)
 
 } // namespace
 
-class CoreIOPathTest : public ::testing::Test {};
+class CoreIOPathTest : public ::testing::Test
+{
+};
 
 TEST_F(CoreIOPathTest, CoreIOPath)
 {
@@ -63,6 +65,6 @@ TEST_F(CoreIOPathTest, CoreIOPath)
     // tests file writing and directory creation when dirname contains cyrillic characters
     boost::filesystem::path test_subdir_rus(dirname_rus);
     FileSystemUtils::createDirectories((test_dir / test_subdir / test_subdir_rus).string());
-    EXPECT_TRUE(test_io(data.get(),
-                        (test_dir / test_subdir / test_subdir_rus / test_file).string()));
+    EXPECT_TRUE(
+        test_io(data.get(), (test_dir / test_subdir / test_subdir_rus / test_file).string()));
 }

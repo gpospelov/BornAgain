@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_BENCHMARK_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_BENCHMARK_H
+#ifndef BORNAGAIN_TESTS_PERFORMANCE_BENCHMARK_H
+#define BORNAGAIN_TESTS_PERFORMANCE_BENCHMARK_H
 
 #include "Core/Tools/OrderedMap.h"
 #include "Fit/Tools/WallclockTimer.h"
@@ -62,4 +62,4 @@ private:
     BenchmarkMap m_data;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_BENCHMARK_H
+#endif // BORNAGAIN_TESTS_PERFORMANCE_BENCHMARK_H

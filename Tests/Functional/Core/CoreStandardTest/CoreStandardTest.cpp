@@ -26,7 +26,7 @@ bool CoreStandardTest::runTest()
     std::unique_ptr<OutputData<double>> reference;
 
     // Load reference if available
-    assert(m_name!="");
+    assert(m_name != "");
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
             FileSystemUtils::jointPath(BATesting::CoreReferenceDir(), m_name + ".int.gz")));

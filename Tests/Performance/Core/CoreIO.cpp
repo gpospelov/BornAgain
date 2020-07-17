@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/OutputData.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/OutputData.h"
 #include "Core/Tools/Numeric.h"
 #include "Tests/Performance/Benchmark.h"
 #include <boost/format.hpp>
@@ -22,21 +22,22 @@
 #include <iostream>
 #include <random>
 
-namespace {
+namespace
+{
 
-    struct TestResults {
-        int m_nx;
-        int m_ny;
-        std::string m_file_format;
-        bool m_data_type;
-        double m_create_data_time;
-        double m_clone_data_time;
-        double m_read_time;
-        double m_write_time;
-        double m_biggest_diff;
-    };
+struct TestResults {
+    int m_nx;
+    int m_ny;
+    std::string m_file_format;
+    bool m_data_type;
+    double m_create_data_time;
+    double m_clone_data_time;
+    double m_read_time;
+    double m_write_time;
+    double m_biggest_diff;
+};
 
-    std::vector<TestResults> results;
+std::vector<TestResults> results;
 
 std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill)
 {
@@ -140,7 +141,7 @@ std::string report()
 
 } // namespace
 
-int main ()
+int main()
 {
     bool success(true);
 

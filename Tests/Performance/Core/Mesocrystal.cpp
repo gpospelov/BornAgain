@@ -12,6 +12,7 @@
 //
 // ************************************************************************** //
 
+#include "Core/Particle/MesoCrystal.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Instrument/RectangularDetector.h"
@@ -24,9 +25,7 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Units.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/Particle/Crystal.h"
-#include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
 #include "Core/Simulation/GISASSimulation.h"
@@ -63,7 +62,6 @@ Lattice createLattice(double a, double c)
 }
 
 } // namespace
-
 
 using Units::deg;
 using Units::nm;
@@ -191,7 +189,6 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
 
     return std::make_unique<MesoCrystal>(npc, form_factor);
 }
-
 
 int main()
 {

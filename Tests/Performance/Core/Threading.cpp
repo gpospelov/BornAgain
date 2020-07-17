@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Performance/Core/MultiThreadPerformanceTest.cpp
+//! @file      Tests/Performance/Core/Threading.cpp
 //! @brief     Implements MultiThreadPerformanceTest class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Performance/Core/ThreadingComponents.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
@@ -20,19 +19,19 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
+#include "Tests/Performance/Core/ThreadingComponents.h"
 #include <algorithm>
 #include <boost/format.hpp>
 #include <chrono>
 #include <functional>
 #include <iomanip>
 #include <iostream>
+#include <map>
 #include <memory>
 #include <thread>
-#include <map>
 #include <vector>
 
 using namespace TestComponents;
-
 
 //! Functional test to validate multi-thread performance.
 //! Two aspects are addressed: performance scaling with number of threads, influence of
@@ -123,7 +122,6 @@ std::vector<size_t> threads_to_measure()
 }
 
 } // namespace
-
 
 bool MultiThreadPerformanceTest::runTest()
 {

@@ -16,23 +16,20 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_CSVIMPORTASSISTANTPERFORMANCETEST_H
 
 #include "GUI/coregui/Models/SpecularDataItem.h"
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QString>
 #include <memory>
 
 //! Functional test to measure performance of CsvImportAssistant by loading files of different sizes
-class CsvImportAssistantPerformanceTest : public IFunctionalTest
+class CsvImportAssistantPerformanceTest
 {
 public:
-    CsvImportAssistantPerformanceTest();
-    ~CsvImportAssistantPerformanceTest();
+    bool runTest();
 
 protected:
     const QString testFilename() { return QString::fromStdString(m_testFilename); }
     void writeTestFile();
     void writeTestFile(size_t nRows, size_t nCols);
     OutputData<double>* readTestFile();
-    bool runTest();
 
     const std::string m_testFilename = "tmp_TestCsvImportAssistant.txt";
     const std::vector<std::vector<double>> m_testVector = {

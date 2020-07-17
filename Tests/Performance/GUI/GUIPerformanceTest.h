@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUIPERFORMANCETEST_H
 
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QString>
 #include <memory>
 
@@ -23,17 +22,15 @@ class ApplicationModels;
 
 //! Functional test to measure performance of GUI by mimicking activity typical for RealTimeView.
 
-class GUIPerformanceTest : public IFunctionalTest
+class GUIPerformanceTest
 {
 public:
     GUIPerformanceTest();
-    ~GUIPerformanceTest();
 
     void test_domain_to_gui();
     void test_gui_to_domain();
     void test_real_time();
 
-protected:
     bool runTest();
 
 private:

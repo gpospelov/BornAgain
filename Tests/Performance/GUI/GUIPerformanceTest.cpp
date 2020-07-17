@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/GUI/GUISpecial/GUIPerformanceTest.h"
+#include "Tests/Performance/GUI/GUIPerformanceTest.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
@@ -49,8 +49,6 @@ GUIPerformanceTest::GUIPerformanceTest()
     : m_models(new ApplicationModels(nullptr)), m_sample_name("ParticleCompositionBuilder")
 {
 }
-
-GUIPerformanceTest::~GUIPerformanceTest() {}
 
 bool GUIPerformanceTest::runTest()
 {
@@ -166,4 +164,10 @@ void GUIPerformanceTest::test_real_time()
         while (timer.elapsed() < 10)
             QCoreApplication::processEvents(QEventLoop::AllEvents, 1);
     }
+}
+
+
+int main()
+{
+    return !GUIPerformanceTest().runTest();
 }

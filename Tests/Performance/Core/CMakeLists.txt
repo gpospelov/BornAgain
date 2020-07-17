@@ -1,9 +1,3 @@
-##      MultilayerPerformance
-##      MesoPerformance
-##  # disabled because too slow
-##  #    CoreIOPerformance
-##  #    MultiThreadPerformance
-
 include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
 
 function(PerformanceTest NAME SPEED DEPS)

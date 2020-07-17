@@ -12,17 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/GUI/GUISpecial/CsvImportAssistantPerformanceTest.h"
+#include "Tests/Performance/GUI/CsvImportAssistantPerformanceTest.h"
 #include "Core/InputOutput/OutputDataReadFactory.h"
 #include "Core/InputOutput/OutputDataWriteFactory.h"
 #include "Core/Instrument/ArrayUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include <ctime>
 #include <iostream>
-
-CsvImportAssistantPerformanceTest::CsvImportAssistantPerformanceTest() {}
-
-CsvImportAssistantPerformanceTest::~CsvImportAssistantPerformanceTest() {}
 
 void CsvImportAssistantPerformanceTest::writeTestFile()
 {
@@ -92,4 +88,10 @@ bool CsvImportAssistantPerformanceTest::runTest()
         }
     }
     return true;
+}
+
+
+int main()
+{
+    return !CsvImportAssistantPerformanceTest().runTest();
 }

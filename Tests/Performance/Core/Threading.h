@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETEST_H
 #define BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETEST_H
 
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <map>
 #include <vector>
 
@@ -23,7 +22,7 @@
 //! Two aspects are addressed: performance scaling with number of threads, influence of
 //! simulation settings on scaling.
 
-class MultiThreadPerformanceTest : public IFunctionalTest
+class MultiThreadPerformanceTest
 {
 public:
     bool runTest();

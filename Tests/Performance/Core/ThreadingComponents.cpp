@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTestComponents.h"
+#include "Tests/Performance/Core/ThreadingComponents.h"
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"

@@ -110,6 +110,7 @@ if(BORNAGAIN_GUI)
     add_subdirectory(ThirdParty/GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/GUI)
+    add_subdirectory(Tests/Performance/GUI)
 endif()
 
 # functional tests (ctest)

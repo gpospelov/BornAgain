@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUISpecial/GUISpecialTestFactory.h"
-#include "Tests/Functional/GUI/GUISpecial/CsvImportAssistantPerformanceTest.h"
-#include "Tests/Functional/GUI/GUISpecial/GUIPerformanceTest.h"
 #include "Tests/Functional/GUI/GUISpecial/GUISaveLoadProject.h"
 #include "Tests/Functional/GUI/GUISpecial/TranslationCases.h"
 
@@ -66,10 +64,5 @@ GUISpecialTestFactory::GUISpecialTestFactory()
     registerItem("MagneticSpheresTranslation", create_new<MagneticSpheresTranslationTest>,
                  "MagneticSpheresTranslation test");
 
-    registerItem("GUIPerformance", create_new<GUIPerformanceTest>,
-                 "Measuring GUI performance on typical tasks.");
-
     registerItem("SaveLoadProject", create_new<GUISaveLoadProject>, "Save/load project test");
-    registerItem("CsvImportAssistantPerformanceTest", create_new<CsvImportAssistantPerformanceTest>,
-                 "Measuring performance of loading ascii files");
 }

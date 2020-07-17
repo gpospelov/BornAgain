@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTest.h"
+#include "Tests/Performance/Core/ThreadingComponents.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
@@ -20,7 +20,6 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
-#include "Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTestComponents.h"
 #include <algorithm>
 #include <boost/format.hpp>
 #include <chrono>
@@ -29,8 +28,44 @@
 #include <iostream>
 #include <memory>
 #include <thread>
+#include <map>
+#include <vector>
 
 using namespace TestComponents;
+
+
+//! Functional test to validate multi-thread performance.
+//! Two aspects are addressed: performance scaling with number of threads, influence of
+//! simulation settings on scaling.
+
+class MultiThreadPerformanceTest
+{
+public:
+    bool runTest();
+
+    struct TestResult {
+        std::string simulation_type;
+        int nrepetitions;
+        int nthreads;
+        long time_msec;
+        double scale_par;
+    };
+
+    struct SimData {
+        std::string name;
+        size_t nrepetitions;
+    };
+
+    using test_results_t = std::vector<TestResult>;
+    using test_map_t = std::map<std::string, test_results_t>;
+
+private:
+    void warm_up() const;
+    test_map_t run_measurements(std::vector<size_t> threads_data,
+                                std::vector<SimData> sim_data) const;
+    void fancy_print(const test_map_t& results) const;
+    TestResult test_case(const std::string& sim_type, int nrepetitions, int nthreads) const;
+};
 
 namespace
 {
@@ -88,6 +123,7 @@ std::vector<size_t> threads_to_measure()
 }
 
 } // namespace
+
 
 bool MultiThreadPerformanceTest::runTest()
 {
@@ -199,4 +235,9 @@ MultiThreadPerformanceTest::test_case(const std::string& sim_type, int nrepetiti
         simulation->runSimulation();
 
     return {sim_type, nrepetitions, nthreads, static_cast<int>(duration(now() - start_time)), 0.0};
+}
+
+int main()
+{
+    return !MultiThreadPerformanceTest().runTest();
 }

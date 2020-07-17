@@ -6,15 +6,13 @@
 
 include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
 
-set(test_cases
-    CoreIO
-    Multilayer
-    Mesocrystal
-    )
+function(PerformanceTest NAME DEPS)
+    add_executable(${NAME} ${NAME}.cpp ${DEPS})
+    target_link_libraries(${NAME} ${BornAgainCore_LIBRARY})
+    add_test(Core:Perf:${NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${NAME})
+endfunction()
 
-foreach(test ${test_cases})
-    add_executable(${test} ${test}.cpp ../Benchmark.cpp)
-        # todo: Benchmark only needed by _some_ tests
-    target_link_libraries(${test} ${BornAgainCore_LIBRARY})
-    add_test(Core:Perf:${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
-endforeach()
+PerformanceTest(CoreIO ../Benchmark.cpp)
+PerformanceTest(Multilayer "")
+PerformanceTest(Mesocrystal "")
+PerformanceTest(Threading ThreadingComponents.cpp)

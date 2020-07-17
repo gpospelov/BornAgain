@@ -22052,7 +22052,7 @@ class RealParameter(IParameterReal):
     def __init__(self, *args):
         r"""
         __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name="", std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
-        RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name=std::string(), const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
+        RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name="", const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 
         """
         _libBornAgainCore.RealParameter_swiginit(self, _libBornAgainCore.new_RealParameter(*args))
@@ -22873,7 +22873,7 @@ class SampleBuilderFactoryTemp(object):
     def createItem(self, item_key):
         r"""
         createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder
-        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
+        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
 
         Creates object by calling creation function corresponded to given identifier. 
 
@@ -22927,7 +22927,11 @@ class SampleBuilderFactoryTemp(object):
     def __init__(self):
         r"""
         __init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp
-        IFactory< Key, AbstractProduct >::IFactory()
+
+
+        Base class for all factories.
+
+        C++ includes: IFactory.h
 
         """
         _libBornAgainCore.SampleBuilderFactoryTemp_swiginit(self, _libBornAgainCore.new_SampleBuilderFactoryTemp())
@@ -22987,7 +22991,7 @@ class SimulationFactoryTemp(object):
     def createItem(self, item_key):
         r"""
         createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation
-        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
+        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
 
         Creates object by calling creation function corresponded to given identifier. 
 
@@ -23041,7 +23045,11 @@ class SimulationFactoryTemp(object):
     def __init__(self):
         r"""
         __init__(SimulationFactoryTemp self) -> SimulationFactoryTemp
-        IFactory< Key, AbstractProduct >::IFactory()
+
+
+        Base class for all factories.
+
+        C++ includes: IFactory.h
 
         """
         _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())

@@ -1,6 +1,27 @@
 
 // File: index.xml
 
+// File: classAlgorithmInfo.xml
+%feature("docstring") AlgorithmInfo "
+
+A name and a description.
+
+C++ includes: MinimizerInfo.h
+";
+
+%feature("docstring")  AlgorithmInfo::AlgorithmInfo "AlgorithmInfo::AlgorithmInfo()=delete
+";
+
+%feature("docstring")  AlgorithmInfo::AlgorithmInfo "AlgorithmInfo::AlgorithmInfo(const std::string &itemName, const std::string &itemDescription)
+";
+
+%feature("docstring")  AlgorithmInfo::name "std::string AlgorithmInfo::name() const
+";
+
+%feature("docstring")  AlgorithmInfo::description "std::string AlgorithmInfo::description() const
+";
+
+
 // File: classAttLimits.xml
 %feature("docstring") AttLimits "
 
@@ -317,27 +338,6 @@ Returns true if minimizer computations are residual-based, false otherwise.
 ";
 
 
-// File: classInfoItem.xml
-%feature("docstring") InfoItem "
-
-A name and a description.
-
-C++ includes: MinimizerInfo.h
-";
-
-%feature("docstring")  InfoItem::InfoItem "InfoItem::InfoItem()
-";
-
-%feature("docstring")  InfoItem::InfoItem "InfoItem::InfoItem(const std::string &itemName, const std::string &itemDescription)
-";
-
-%feature("docstring")  InfoItem::name "std::string InfoItem::name() const
-";
-
-%feature("docstring")  InfoItem::description "std::string InfoItem::description() const
-";
-
-
 // File: classFit_1_1Kernel.xml
 %feature("docstring") Fit::Kernel "
 
@@ -449,7 +449,7 @@ Info about a minimizer, including list of defined minimization algorithms.
 C++ includes: MinimizerInfo.h
 ";
 
-%feature("docstring")  MinimizerInfo::MinimizerInfo "MinimizerInfo::MinimizerInfo()
+%feature("docstring")  MinimizerInfo::MinimizerInfo "MinimizerInfo::MinimizerInfo()=delete
 ";
 
 %feature("docstring")  MinimizerInfo::MinimizerInfo "MinimizerInfo::MinimizerInfo(const std::string &minimizerType, const std::string &minimizerDescription)
@@ -458,6 +458,12 @@ C++ includes: MinimizerInfo.h
 %feature("docstring")  MinimizerInfo::setAlgorithmName "void MinimizerInfo::setAlgorithmName(const std::string &algorithmName)
 
 Sets currently active algorithm. 
+";
+
+%feature("docstring")  MinimizerInfo::name "std::string MinimizerInfo::name() const
+";
+
+%feature("docstring")  MinimizerInfo::description "std::string MinimizerInfo::description() const
 ";
 
 %feature("docstring")  MinimizerInfo::algorithmName "std::string MinimizerInfo::algorithmName() const
@@ -622,10 +628,10 @@ Stores a single option for minimization algorithm. Int, double, string values ar
 C++ includes: MultiOption.h
 ";
 
-%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name=std::string())
+%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name=\"\")
 ";
 
-%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name, const T &t, const std::string &descripion=std::string())
+%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name, const T &t, const std::string &descripion=\"\")
 ";
 
 %feature("docstring")  MultiOption::name "std::string MultiOption::name() const
@@ -702,7 +708,7 @@ C++ includes: OptionContainer.h
 Returns true if option with such name already exists. 
 ";
 
-%feature("docstring")  OptionContainer::addOption "OptionContainer::option_t OptionContainer::addOption(const std::string &optionName, T value, const std::string &description=std::string())
+%feature("docstring")  OptionContainer::addOption "OptionContainer::option_t OptionContainer::addOption(const std::string &optionName, T value, const std::string &description=\"\")
 ";
 
 %feature("docstring")  OptionContainer::option "OptionContainer::option_t OptionContainer::option(const std::string &optionName)

@@ -62,7 +62,6 @@ class SpecularPlan : public FitPlan
 {
 public:
     SpecularPlan();
-    ~SpecularPlan() override;
 };
 
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer (q-defined beam)
@@ -71,7 +70,6 @@ class SpecularPlanQ : public FitPlan
 {
 public:
     SpecularPlanQ();
-    ~SpecularPlanQ() override;
 };
 
 //! The same as SpecularPlan, but with two (identical) datasets

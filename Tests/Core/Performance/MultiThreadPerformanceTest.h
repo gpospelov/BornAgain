@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTest.h
+//! @file      Tests/Core/Performance/MultiThreadPerformanceTest.h
 //! @brief     Defines MultiThreadPerformanceTest class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETEST_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETEST_H
+#ifndef BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETEST_H
+#define BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETEST_H
 
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <map>
@@ -52,4 +52,4 @@ private:
     TestResult test_case(const std::string& sim_type, int nrepetitions, int nthreads) const;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETEST_H
+#endif // BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETEST_H

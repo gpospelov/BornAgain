@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreSpecial/MultiThreadPerformanceTestComponents.h
+//! @file      Tests/Core/Performance/MultiThreadPerformanceTestComponents.h
 //! @brief     Defines TestComponents namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETESTCOMPONENTS_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETESTCOMPONENTS_H
+#ifndef BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETESTCOMPONENTS_H
+#define BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETESTCOMPONENTS_H
 
 #include <memory>
 
@@ -37,4 +37,4 @@ std::unique_ptr<Simulation> CreateMCGISAS();
 
 } // namespace TestComponents
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_MULTITHREADPERFORMANCETESTCOMPONENTS_H
+#endif // BORNAGAIN_TESTS_CORE_PERFORMANCE_MULTITHREADPERFORMANCETESTCOMPONENTS_H

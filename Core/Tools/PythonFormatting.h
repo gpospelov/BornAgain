@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_EXPORT_PYTHONFORMATTING_H
-#define BORNAGAIN_CORE_EXPORT_PYTHONFORMATTING_H
+#ifndef BORNAGAIN_CORE_TOOLS_PYTHONFORMATTING_H
+#define BORNAGAIN_CORE_TOOLS_PYTHONFORMATTING_H
 
 #include "Core/Vector/Vectors3D.h"
 #include <functional>
@@ -76,4 +76,4 @@ BA_CORE_API_ std::string printAxis(const IAxis& axis, const std::string& units, 
 BA_CORE_API_ std::string indent(size_t width = 4u);
 } // namespace PythonFormatting
 
-#endif // BORNAGAIN_CORE_EXPORT_PYTHONFORMATTING_H
+#endif // BORNAGAIN_CORE_TOOLS_PYTHONFORMATTING_H

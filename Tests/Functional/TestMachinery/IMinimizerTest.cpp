@@ -20,9 +20,9 @@
 using namespace Fit;
 
 IMinimizerTest::IMinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
-                               const std::string& fit_plan_name)
+                               const std::string& fit_plan_name, const std::string& options)
     : m_minimizer_name(minimizer_name), m_algorithm_name(algorithm_name),
-      m_fit_plan_name(fit_plan_name)
+      m_fit_plan_name(fit_plan_name), m_option_string(options)
 {
 }
 

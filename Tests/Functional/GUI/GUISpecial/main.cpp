@@ -13,12 +13,14 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUISpecial/GUISpecialTestFactory.h"
-#include "Tests/Functional/TestMachinery/TestService.h"
+#include <cassert>
 #include <QCoreApplication>
 
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)
 {
     QCoreApplication a(argc, argv);
-    return !TestService<GUISpecialTestFactory>().execute(argc, argv);
+    assert(argc > 1);
+    auto test = GUISpecialTestFactory().createTest(argv[1]);
+    return !test->runTest();
 }

@@ -23,7 +23,7 @@
 class BA_CORE_API_ FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
-    std::unique_ptr<IFunctionalTest> createTest(std::string& test_name)
+    std::unique_ptr<IFunctionalTest> createTest(const std::string& test_name)
     {
         return createItemPtr(test_name);
     }

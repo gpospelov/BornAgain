@@ -13,10 +13,12 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Core/CoreSpecial/CoreSpecialTestFactory.h"
-#include "Tests/Functional/TestMachinery/TestService.h"
+#include <cassert>
 
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)
 {
-    return !TestService<CoreSpecialTestFactory>().execute(argc, argv);
+    assert(argc > 1);
+    auto test = CoreSpecialTestFactory().createTest(argv[1]);
+    return !test->runTest();
 }

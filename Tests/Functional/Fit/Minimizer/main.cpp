@@ -13,11 +13,13 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Fit/Minimizer/MinimizerTestFactory.h"
-#include "Tests/Functional/TestMachinery/TestService.h"
+#include <cassert>
 
 //! Runs functional tests.
 
 int main(int argc, char** argv)
 {
-    return !TestService<MinimizerTestFactory>().execute(argc, argv);
+    assert(argc > 1);
+    auto test = MinimizerTestFactory().createTest(argv[1]);
+    return !test->runTest();
 }

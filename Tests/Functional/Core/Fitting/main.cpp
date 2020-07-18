@@ -13,11 +13,13 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Core/Fitting/FitObjectiveTestFactory.h"
-#include "Tests/Functional/TestMachinery/TestService.h"
+#include <cassert>
 
 //! Runs functional tests.
 
 int main(int argc, char** argv)
 {
-    return !TestService<FitObjectiveTestFactory>().execute(argc, argv);
+    assert(argc > 1);
+    auto test = FitObjectiveTestFactory().createTest(argv[1]);
+    return !test->runTest();
 }

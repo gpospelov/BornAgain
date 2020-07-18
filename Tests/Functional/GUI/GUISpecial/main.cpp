@@ -21,6 +21,6 @@ int main(int argc, char** argv)
 {
     QCoreApplication a(argc, argv);
     assert(argc > 1);
-    auto test = GUISpecialTestFactory().createTest(argv[1]);
+    auto test = GUISpecialTestFactory().createItemPtr(argv[1]);
     return !test->runTest();
 }

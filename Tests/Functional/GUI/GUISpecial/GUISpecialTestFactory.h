@@ -15,12 +15,13 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISPECIALTESTFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISPECIALTESTFACTORY_H
 
-#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! @class GUISpecialTestFactory
 //! @brief Collection of special tests for GUI library.
 
-class GUISpecialTestFactory : public FunctionalTestFactory
+class GUISpecialTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     GUISpecialTestFactory();

@@ -19,6 +19,6 @@
 int main(int argc, char** argv)
 {
     assert(argc > 1);
-    auto test = CoreSpecialTestFactory().createTest(argv[1]);
+    auto test = CoreSpecialTestFactory().createItemPtr(argv[1]);
     return !test->runTest();
 }

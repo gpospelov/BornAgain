@@ -15,12 +15,13 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_CORESPECIALTESTFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_CORESPECIALTESTFACTORY_H
 
-#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! @class CoreSpecialTestFactory
 //! @brief Collection of special case for Core library.
 
-class CoreSpecialTestFactory : public FunctionalTestFactory
+class CoreSpecialTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     CoreSpecialTestFactory();

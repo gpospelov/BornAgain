@@ -15,11 +15,12 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_MINIMIZERTESTFACTORY_H
 
-#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Factory to generate standalone fit tests.
 
-class MinimizerTestFactory : public FunctionalTestFactory
+class MinimizerTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     MinimizerTestFactory();

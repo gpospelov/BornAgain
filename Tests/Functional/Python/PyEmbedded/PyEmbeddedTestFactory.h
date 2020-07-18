@@ -15,12 +15,13 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_PYEMBEDDEDTESTFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYEMBEDDED_PYEMBEDDEDTESTFACTORY_H
 
-#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! @class PyEmbeddedTestFactory
 //! @brief Collection of tests for embedded Python.
 
-class PyEmbeddedTestFactory : public FunctionalTestFactory
+class PyEmbeddedTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     PyEmbeddedTestFactory();

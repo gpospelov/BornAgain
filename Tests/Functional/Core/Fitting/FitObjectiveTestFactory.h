@@ -15,11 +15,12 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITOBJECTIVETESTFACTORY_H
 
-#include "Tests/Functional/TestMachinery/FunctionalTestFactory.h"
+#include "Core/StandardSamples/IFactory.h"
+#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! Factory to generate fitting tests. Tests will based on FitObjective approach.
 
-class FitObjectiveTestFactory : public FunctionalTestFactory
+class FitObjectiveTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     FitObjectiveTestFactory();

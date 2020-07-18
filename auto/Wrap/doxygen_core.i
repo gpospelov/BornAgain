@@ -6752,12 +6752,6 @@ Registers object's creation function and store object description.
 Returns number of registered objects. 
 ";
 
-%feature("docstring")  IFactory::begin "const_iterator IFactory< Key, AbstractProduct >::begin() const
-";
-
-%feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const
-";
-
 
 // File: classIFootprintFactor.xml
 %feature("docstring") IFootprintFactor "

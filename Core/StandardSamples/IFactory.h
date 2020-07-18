@@ -34,10 +34,6 @@ public:
     //! map for correspondance between object identifier and object creation function
     typedef std::map<Key, CreateItemCallback> CallbackMap_t;
 
-    //! map for correspondance between object identifier and object description
-    typedef std::map<Key, std::string> DescriptionMap_t;
-    typedef typename DescriptionMap_t::const_iterator const_iterator;
-
     //! Creates object by calling creation function corresponded to given identifier
     AbstractProduct* createItem(const Key& item_key) const
     {
@@ -67,8 +63,6 @@ public:
                     << "'";
             throw Exceptions::RuntimeErrorException(message.str());
         }
-        if (itemDescription != "")
-            m_descriptions.insert(make_pair(item_key, itemDescription));
         return m_callbacks.insert(make_pair(item_key, CreateFn)).second;
     }
 
@@ -80,13 +74,8 @@ public:
     //! Returns number of registered objects
     size_t size() const { return m_callbacks.size(); }
 
-    // TODO: rename to cbegin, cend (jul20 conflict in libBornAgainCore_wrap.cpp)
-    const_iterator begin() const { return m_descriptions.cbegin(); }
-    const_iterator end() const { return m_descriptions.cend(); }
-
 protected:
     CallbackMap_t m_callbacks;       //!< map of correspondence of objectsId and creation functions
-    DescriptionMap_t m_descriptions; //!< map of correspondence of objectsId and description
 };
 
 //! Returns new instance of class T.

@@ -22908,22 +22908,6 @@ class SampleBuilderFactoryTemp(object):
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_size(self)
 
-    def begin(self):
-        r"""
-        begin(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::begin() const
-
-        """
-        return _libBornAgainCore.SampleBuilderFactoryTemp_begin(self)
-
-    def end(self):
-        r"""
-        end(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::end() const
-
-        """
-        return _libBornAgainCore.SampleBuilderFactoryTemp_end(self)
-
     def __init__(self):
         r"""
         __init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp
@@ -23025,22 +23009,6 @@ class SimulationFactoryTemp(object):
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_size(self)
-
-    def begin(self):
-        r"""
-        begin(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::begin() const
-
-        """
-        return _libBornAgainCore.SimulationFactoryTemp_begin(self)
-
-    def end(self):
-        r"""
-        end(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::end() const
-
-        """
-        return _libBornAgainCore.SimulationFactoryTemp_end(self)
 
     def __init__(self):
         r"""

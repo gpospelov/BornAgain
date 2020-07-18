@@ -22880,15 +22880,15 @@ class SampleBuilderFactoryTemp(object):
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_createItem(self, item_key)
 
-    def registerItem(self, *args):
+    def registerItem(self, item_key, CreateFn):
         r"""
-        registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription="") -> bool
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
+        registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool
+        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
 
-        Registers object's creation function and store object description. 
+        Registers object's creation function. 
 
         """
-        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, *args)
+        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, item_key, CreateFn)
 
     def contains(self, item_key):
         r"""
@@ -22982,15 +22982,15 @@ class SimulationFactoryTemp(object):
         """
         return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
 
-    def registerItem(self, *args):
+    def registerItem(self, item_key, CreateFn):
         r"""
-        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn, std::string const & itemDescription="") -> bool
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
+        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn) -> bool
+        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
 
-        Registers object's creation function and store object description. 
+        Registers object's creation function. 
 
         """
-        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, *args)
+        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, item_key, CreateFn)
 
     def contains(self, item_key):
         r"""

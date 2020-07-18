@@ -23,24 +23,17 @@
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
-    registerItem("BatchSimulation", create_new<BatchSimulation>,
-                 "Running GISASSimulation in batch mode");
+    registerItem("BatchSimulation", create_new<BatchSimulation>);
 
-    registerItem("CoreIOPerformance", create_new<CoreIOPerformanceTest>,
-                 "Input/output of heavy files");
+    registerItem("CoreIOPerformance", create_new<CoreIOPerformanceTest>);
 
-    registerItem("CoreIOPath", create_new<CoreIOPathTest>,
-                 "Input/output to files containing non-ascii characters in a path");
+    registerItem("CoreIOPath", create_new<CoreIOPathTest>);
 
-    registerItem("FourierTransformation", create_new<FourierTransformationTest>,
-                 "Fourier transformation of GISAS images");
+    registerItem("FourierTransformation", create_new<FourierTransformationTest>);
 
-    registerItem("MesoPerformance", create_new<MesoCrystalPerformanceTest>,
-                 "Heavy mesocrystal simulation");
+    registerItem("MesoPerformance", create_new<MesoCrystalPerformanceTest>);
 
-    registerItem("MultilayerPerformance", create_new<MultilayerPerformanceTest>,
-                 "Reflectometry performance on samples with a large number of layers");
+    registerItem("MultilayerPerformance", create_new<MultilayerPerformanceTest>);
 
-    registerItem("MultiThreadPerformance", create_new<MultiThreadPerformanceTest>,
-                 "Performance scaling with number of threads");
+    registerItem("MultiThreadPerformance", create_new<MultiThreadPerformanceTest>);
 }

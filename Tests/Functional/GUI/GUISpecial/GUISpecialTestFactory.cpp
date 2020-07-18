@@ -18,51 +18,37 @@
 
 GUISpecialTestFactory::GUISpecialTestFactory()
 {
-    registerItem("BasicTranslation", create_new<BasicTranslationTest>, "BasicTranslation test");
+    registerItem("BasicTranslation", create_new<BasicTranslationTest>);
 
-    registerItem("RadialParaTranslation", create_new<RadialParaTranslationTest>,
-                 "RadialParaTranslation test");
+    registerItem("RadialParaTranslation", create_new<RadialParaTranslationTest>);
 
-    registerItem("HardDiskTranslation", create_new<HardDiskTranslationTest>,
-                 "HardDiskTranslation test ");
+    registerItem("HardDiskTranslation", create_new<HardDiskTranslationTest>);
 
-    registerItem("HexParaTranslation", create_new<HexParaTranslationTest>,
-                 "HexParaTranslation test");
+    registerItem("HexParaTranslation", create_new<HexParaTranslationTest>);
 
-    registerItem("CoreShellTranslation", create_new<CoreShellTranslationTest>,
-                 "CoreShellTranslation test");
+    registerItem("CoreShellTranslation", create_new<CoreShellTranslationTest>);
 
-    registerItem("RoughnessTranslation", create_new<RoughnessTranslationTest>,
-                 "RoughnessTranslation test");
+    registerItem("RoughnessTranslation", create_new<RoughnessTranslationTest>);
 
-    registerItem("SquareLatticeTranslation", create_new<SquareLatticeTranslationTest>,
-                 "SquareLatticeTranslation test");
+    registerItem("SquareLatticeTranslation", create_new<SquareLatticeTranslationTest>);
 
-    registerItem("RotationTranslation", create_new<RotationTranslationTest>,
-                 "RotationTranslation test");
+    registerItem("RotationTranslation", create_new<RotationTranslationTest>);
 
-    registerItem("SizeDistributionTranslation", create_new<SizeDistributionTranslationTest>,
-                 "SizeDistributionTranslation test");
+    registerItem("SizeDistributionTranslation", create_new<SizeDistributionTranslationTest>);
 
-    registerItem("CompositionTranslation", create_new<CompositionTranslationTest>,
-                 "CompositionTranslation test");
+    registerItem("CompositionTranslation", create_new<CompositionTranslationTest>);
 
-    registerItem("Para2DTranslation", create_new<Para2DTranslationTest>, "Para2DTranslation test");
+    registerItem("Para2DTranslation", create_new<Para2DTranslationTest>);
 
-    registerItem("Lattice1DTranslation", create_new<Lattice1DTranslationTest>,
-                 "Lattice1DTranslation test");
+    registerItem("Lattice1DTranslation", create_new<Lattice1DTranslationTest>);
 
-    registerItem("Lattice2DTranslation", create_new<Lattice2DTranslationTest>,
-                 "Lattice2DTranslation test");
+    registerItem("Lattice2DTranslation", create_new<Lattice2DTranslationTest>);
 
-    registerItem("TwoLayerRoughnessTranslation", create_new<TwoLayerRoughnessTranslationTest>,
-                 "TwoLayerRoughnessTranslation test");
+    registerItem("TwoLayerRoughnessTranslation", create_new<TwoLayerRoughnessTranslationTest>);
 
-    registerItem("MesoCrystalTranslation", create_new<MesoCrystalTranslationTest>,
-                 "MesoCrystalTranslation test");
+    registerItem("MesoCrystalTranslation", create_new<MesoCrystalTranslationTest>);
 
-    registerItem("MagneticSpheresTranslation", create_new<MagneticSpheresTranslationTest>,
-                 "MagneticSpheresTranslation test");
+    registerItem("MagneticSpheresTranslation", create_new<MagneticSpheresTranslationTest>);
 
-    registerItem("SaveLoadProject", create_new<GUISaveLoadProject>, "Save/load project test");
+    registerItem("SaveLoadProject", create_new<GUISaveLoadProject>);
 }

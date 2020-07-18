@@ -53,9 +53,8 @@ public:
     }
 #endif
 
-    //! Registers object's creation function and store object description
-    bool registerItem(const Key& item_key, CreateItemCallback CreateFn,
-                      const std::string& itemDescription = "")
+    //! Registers object's creation function
+    bool registerItem(const Key& item_key, CreateItemCallback CreateFn)
     {
         if (m_callbacks.find(item_key) != m_callbacks.end()) {
             std::ostringstream message;

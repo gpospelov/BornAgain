@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUISpecial/GUISpecialTestFactory.h"
-#include <cassert>
 #include <QCoreApplication>
+#include <cassert>
 
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)

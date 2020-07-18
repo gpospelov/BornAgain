@@ -74,7 +74,7 @@ public:
     size_t size() const { return m_callbacks.size(); }
 
 protected:
-    CallbackMap_t m_callbacks;       //!< map of correspondence of objectsId and creation functions
+    CallbackMap_t m_callbacks; //!< map of correspondence of objectsId and creation functions
 };
 
 //! Returns new instance of class T.

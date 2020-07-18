@@ -107,7 +107,8 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("MagneticCylindersBuilder", create_new<MagneticCylindersBuilder>);
 
-    registerItem("MagneticSubstrateZeroFieldBuilder", create_new<MagneticSubstrateZeroFieldBuilder>);
+    registerItem("MagneticSubstrateZeroFieldBuilder",
+                 create_new<MagneticSubstrateZeroFieldBuilder>);
 
     registerItem("SimpleMagneticLayerBuilder", create_new<SimpleMagneticLayerBuilder>);
 
@@ -141,8 +142,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("BoxCompositionRotateZandYBuilder", create_new<BoxCompositionRotateZandYBuilder>);
 
-    registerItem(
-        "BoxStackCompositionBuilder", create_new<BoxStackCompositionBuilder>);
+    registerItem("BoxStackCompositionBuilder", create_new<BoxStackCompositionBuilder>);
 
     registerItem("ParticleInTheAirBuilder", create_new<ParticleInTheAirBuilder>);
 
@@ -161,8 +161,8 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem("RotatedPyramidsDistributionBuilder",
                  create_new<RotatedPyramidsDistributionBuilder>);
 
-    registerItem(
-        "SpheresWithLimitsDistributionBuilder", create_new<SpheresWithLimitsDistributionBuilder>);
+    registerItem("SpheresWithLimitsDistributionBuilder",
+                 create_new<SpheresWithLimitsDistributionBuilder>);
 
     registerItem("ConesWithLimitsDistributionBuilder",
                  create_new<ConesWithLimitsDistributionBuilder>);

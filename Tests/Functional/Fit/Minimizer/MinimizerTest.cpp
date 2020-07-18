@@ -16,8 +16,8 @@
 #include "Tests/Functional/Fit/Minimizer/FunctionTestPlanFactory.h"
 
 MinimizerTest::MinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
-                             const std::string& fit_plan_name)
-    : IMinimizerTest(minimizer_name, algorithm_name, fit_plan_name)
+                             const std::string& fit_plan_name, const std::string& options)
+    : IMinimizerTest(minimizer_name, algorithm_name, fit_plan_name, options)
 {
 }
 

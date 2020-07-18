@@ -60,19 +60,19 @@ GSLSimAnTestV1::GSLSimAnTestV1() : MinimizerTest("GSLSimAn", "Default", "EasyRos
 
 GSLSimAnTestV2::GSLSimAnTestV2() : MinimizerTest("GSLSimAn", "Default", "EasyWoodFourPlan") {}
 
-GeneticTestV1::GeneticTestV1() : MinimizerTest("Genetic", "Default", "EasyRosenbrockPlan")
+GeneticTestV1::GeneticTestV1()
+    : MinimizerTest("Genetic", "Default", "EasyRosenbrockPlan", "RandomSeed=1")
 {
-    setMinimizerOptions("RandomSeed=1");
 }
 
-GeneticTestV2::GeneticTestV2() : MinimizerTest("Genetic", "Default", "EasyWoodFourPlan")
+GeneticTestV2::GeneticTestV2()
+    : MinimizerTest("Genetic", "Default", "EasyWoodFourPlan", "RandomSeed=1")
 {
-    setMinimizerOptions("RandomSeed=1");
 }
 
-FumiliTestV3::FumiliTestV3() : MinimizerTest("Minuit2", "Fumili", "DecayingSinPlan")
+FumiliTestV3::FumiliTestV3()
+    : MinimizerTest("Minuit2", "Fumili", "DecayingSinPlan", "MaxFunctionCalls=10000")
 {
-    setMinimizerOptions("MaxFunctionCalls=10000");
 }
 
 LevenbergMarquardtV3::LevenbergMarquardtV3()

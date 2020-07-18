@@ -23,7 +23,7 @@ class MinimizerTest : public IMinimizerTest
 {
 public:
     MinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
-                  const std::string& fit_plan_name);
+                  const std::string& fit_plan_name, const std::string& options = "");
 
 protected:
     std::unique_ptr<MinimizerTestPlan> createPlan() const;

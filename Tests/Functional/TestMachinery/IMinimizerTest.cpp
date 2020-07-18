@@ -37,13 +37,8 @@ bool IMinimizerTest::runTest()
 
     Minimizer minimizer;
     minimizer.setMinimizer(m_minimizer_name, m_algorithm_name, m_option_string);
-    auto success = plan->checkMinimizer(minimizer);
+    bool success = plan->checkMinimizer(minimizer);
 
     std::cout << "MinimizerTest::runTest() -> " << (success ? "OK" : "FAILED") << std::endl;
     return success;
-}
-
-void IMinimizerTest::setMinimizerOptions(const std::string& options)
-{
-    m_option_string = options;
 }

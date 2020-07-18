@@ -44,20 +44,20 @@ LevenbergMarquardtCylindersInBA::LevenbergMarquardtCylindersInBA()
 {
 }
 
-SimAnCylindersInBA::SimAnCylindersInBA() : FitObjectiveTest("GSLSimAn", "", "CylindersInBAEasyPlan")
+SimAnCylindersInBA::SimAnCylindersInBA()
+    : FitObjectiveTest("GSLSimAn", "", "CylindersInBAEasyPlan",
+                       "IterationsAtTemp=5;MaxIterations=10;t_min=1.0")
 {
-    setMinimizerOptions("IterationsAtTemp=5;MaxIterations=10;t_min=1.0");
 }
 
 GeneticCylindersInBA::GeneticCylindersInBA()
-    : FitObjectiveTest("Genetic", "", "CylindersInBAEasyPlan")
+    : FitObjectiveTest("Genetic", "", "CylindersInBAEasyPlan", "MaxIterations=1;RandomSeed=1")
 {
-    setMinimizerOptions("MaxIterations=1;RandomSeed=1");
 }
 
-RectDetectorFit::RectDetectorFit() : FitObjectiveTest("Minuit2", "Migrad", "RectDetPlan")
+RectDetectorFit::RectDetectorFit()
+    : FitObjectiveTest("Minuit2", "Migrad", "RectDetPlan", "Strategy=2")
 {
-    setMinimizerOptions("Strategy=2");
 }
 
 AdjustMinimizerFit::AdjustMinimizerFit() : FitObjectiveTest("Genetic", "", "AdjustMinimizerPlan") {}

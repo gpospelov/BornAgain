@@ -27,19 +27,17 @@ class BA_CORE_API_ IMinimizerTest : public IFunctionalTest
 {
 public:
     IMinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
-                   const std::string& fit_plan_name, const std::string& options="");
+                   const std::string& fit_plan_name, const std::string& options = "");
 
     bool runTest();
-
-    void setMinimizerOptions(const std::string& options);
 
 protected:
     virtual std::unique_ptr<MinimizerTestPlan> createPlan() const = 0;
 
-    std::string m_minimizer_name;
-    std::string m_algorithm_name;
-    std::string m_fit_plan_name;
-    std::string m_option_string;
+    const std::string m_minimizer_name;
+    const std::string m_algorithm_name;
+    const std::string m_fit_plan_name;
+    const std::string m_option_string;
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_IMINIMIZERTEST_H

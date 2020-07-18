@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLAN_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLAN_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLAN_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLAN_H
 
 #include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
 #include <memory>
@@ -52,4 +52,4 @@ protected:
     bool m_residual_based;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLAN_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLAN_H

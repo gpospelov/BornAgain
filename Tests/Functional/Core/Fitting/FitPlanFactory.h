@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANFACTORY_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANFACTORY_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANFACTORY_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANFACTORY_H
 
 #include "Core/StandardSamples/IFactory.h"
 #include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
@@ -26,4 +26,4 @@ public:
     FitPlanFactory();
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_FITOBJECTIVE_FITPLANFACTORY_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANFACTORY_H

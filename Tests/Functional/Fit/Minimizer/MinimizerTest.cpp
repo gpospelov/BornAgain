@@ -23,6 +23,5 @@ MinimizerTest::MinimizerTest(const std::string& minimizer_name, const std::strin
 
 std::unique_ptr<MinimizerTestPlan> MinimizerTest::createPlan() const
 {
-    FunctionTestPlanFactory plan_factory;
-    return plan_factory.createItemPtr(m_fit_plan_name);
+    return FunctionTestPlanFactory().createItemPtr(m_fit_plan_name);
 }

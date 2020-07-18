@@ -24,6 +24,5 @@ FitObjectiveTest::FitObjectiveTest(const std::string& minimizer_name,
 
 std::unique_ptr<MinimizerTestPlan> FitObjectiveTest::createPlan() const
 {
-    FitPlanFactory factory;
-    return factory.createItemPtr(m_fit_plan_name);
+    return FitPlanFactory().createItemPtr(m_fit_plan_name);
 }

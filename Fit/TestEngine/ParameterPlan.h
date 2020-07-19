@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/ParameterPlan.h
+//! @file      Fit/TestEngine/ParameterPlan.h
 //! @brief     Defines class ParameterPlan
 //!
 //! @homepage  http://www.bornagainproject.org

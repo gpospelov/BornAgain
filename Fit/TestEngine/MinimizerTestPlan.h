@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H
 
-#include "Tests/Functional/TestMachinery/ParameterPlan.h"
+#include "Fit/TestEngine/ParameterPlan.h"
 #include "Wrap/WinDllMacros.h"
 #include <vector>
 

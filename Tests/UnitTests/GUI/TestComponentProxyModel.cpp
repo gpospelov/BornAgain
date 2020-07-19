@@ -9,7 +9,7 @@
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
+#include "Tests/UnitTests/GUI/Utils.h"
 #include <QDebug>
 #include <QSignalSpy>
 

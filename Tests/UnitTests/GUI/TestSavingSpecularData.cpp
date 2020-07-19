@@ -16,7 +16,7 @@
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/GTestWrapper/google_test.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
+#include "Tests/UnitTests/GUI/Utils.h"
 #include <QTest>
 
 class TestSavingSpecularData : public ::testing::Test

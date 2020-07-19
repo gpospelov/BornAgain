@@ -8,7 +8,7 @@
 #include "GUI/coregui/Models/RectangularDetectorItem.h"
 #include "GUI/coregui/Views/ImportDataWidgets/LinkInstrumentManager.h"
 #include "Tests/GTestWrapper/google_test.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
+#include "Tests/UnitTests/GUI/Utils.h"
 #include <QSignalSpy>
 #include <QTest>
 

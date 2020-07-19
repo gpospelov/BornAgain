@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/GUI/GUISpecial/GUISaveLoadProject.cpp
-//! @brief     Implements GUISaveLoadProject test.
+//! @brief     Implements SaveLoadProject test.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/GUI/GUISpecial/GUISaveLoadProject.h"
+#include "Tests/Functional/GUI/Other/SaveLoadProject.h"
 #include "BATesting.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
@@ -29,8 +29,8 @@
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/MessageService.h"
+#include <cassert>
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>
@@ -50,6 +50,8 @@ QString path(const QString& projectName)
 } // namespace
 
 GUISaveLoadProject::GUISaveLoadProject() : m_models(new ApplicationModels) {}
+
+GUISaveLoadProject::~GUISaveLoadProject() = default;
 
 bool GUISaveLoadProject::runTest()
 {
@@ -90,14 +92,11 @@ int GUISaveLoadProject::run_job()
     GUIObjectBuilder::populateSampleModel(m_models->sampleModel(), m_models->materialModel(),
                                           *sample);
 
-    if (auto instrument2DItem =
-            dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
-        instrument2DItem->detectorItem()->setXSize(50);
-        instrument2DItem->detectorItem()->setYSize(50);
-    } else {
-        throw GUIHelpers::Error("GUISaveLoadProject::run_job() -> Error. ApplicationModels is "
-                                "in unexpected state");
-    }
+    auto instrument2DItem =
+        dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem());
+    assert(instrument2DItem);
+    instrument2DItem->detectorItem()->setXSize(50);
+    instrument2DItem->detectorItem()->setYSize(50);
 
     auto jobItem =
         m_models->jobModel()->addJob(m_models->sampleModel()->multiLayerItem(),

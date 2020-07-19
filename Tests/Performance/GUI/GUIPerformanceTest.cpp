@@ -126,14 +126,11 @@ void GUIPerformanceTest::test_real_time()
         GUIObjectBuilder::populateSampleModel(m_models->sampleModel(), m_models->materialModel(),
                                               *sample);
 
-        if (auto instrument2DItem =
-                dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
-            instrument2DItem->detectorItem()->setXSize(50);
-            instrument2DItem->detectorItem()->setYSize(50);
-        } else {
-            throw GUIHelpers::Error("GUISaveLoadProject::run_job() -> Error. ApplicationModels is "
-                                    "in unexpected state");
-        }
+        auto instrument2DItem =
+            dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem());
+        assert(instrument2DItem);
+        instrument2DItem->detectorItem()->setXSize(50);
+        instrument2DItem->detectorItem()->setYSize(50);
 
         jobItem = m_models->jobModel()->addJob(m_models->sampleModel()->multiLayerItem(),
                                                m_models->instrumentModel()->instrumentItem(), 0,

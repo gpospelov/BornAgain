@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/GUI/GUISpecial/GUITranslationTest.h"
+#include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Simulation/GISASSimulation.h"

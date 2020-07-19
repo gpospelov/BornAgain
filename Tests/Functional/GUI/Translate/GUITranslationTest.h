@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H
 
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <map>
 #include <memory>
 #include <string>
@@ -31,7 +30,7 @@ class ApplicationModels;
 //! * Complains, if translated names doesn't match registered parameters of domain simulation.
 //! * Complains, if simulation contains parameters which do not have translations.
 
-class GUITranslationTest : public IFunctionalTest
+class GUITranslationTest
 {
 public:
     GUITranslationTest(const std::string& simName, const std::string& sampleName);

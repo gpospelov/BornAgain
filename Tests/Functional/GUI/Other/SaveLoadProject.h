@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H
 
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <QMap>
 #include <QString>
 #include <QVector>
@@ -26,12 +25,12 @@ class SessionModel;
 
 //! Functional test to check persistency of application models after save/load.
 
-class GUISaveLoadProject : public IFunctionalTest
+class GUISaveLoadProject
 {
 public:
     GUISaveLoadProject();
+    ~GUISaveLoadProject();
 
-protected:
     bool runTest();
 
 private:

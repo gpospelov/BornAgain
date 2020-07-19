@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/GUI/GUISpecial/GUITranslationTest.h"
+#include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class Translate : public ::testing::Test {};

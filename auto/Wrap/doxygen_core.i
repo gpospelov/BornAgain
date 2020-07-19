@@ -17526,6 +17526,11 @@ Returns sum of relative differences between each pair of elements: (a, b) -> 2*a
 Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
 ";
 
+%feature("docstring")  IntensityDataFunctions::checkRelativeDifference "bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+Returns true is relative difference is below threshold; prints informative output. 
+";
+
 %feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 ";
 

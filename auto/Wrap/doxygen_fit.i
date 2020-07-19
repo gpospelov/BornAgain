@@ -853,6 +853,30 @@ initial step of fit parameter during the minimization, will be calculated automa
 ";
 
 
+// File: classParameterPlan.xml
+%feature("docstring") ParameterPlan "
+
+Defines initial settings of single fit parameter and the final value which has to be found in the course of the fit.
+
+C++ includes: ParameterPlan.h
+";
+
+%feature("docstring")  ParameterPlan::ParameterPlan "ParameterPlan::ParameterPlan(const Fit::Parameter &param, double expected_value, double tolerance=0.01)
+";
+
+%feature("docstring")  ParameterPlan::fitParameter "Fit::Parameter ParameterPlan::fitParameter() const
+";
+
+%feature("docstring")  ParameterPlan::expectedValue "double ParameterPlan::expectedValue() const
+";
+
+%feature("docstring")  ParameterPlan::tolerance "double ParameterPlan::tolerance() const
+";
+
+%feature("docstring")  ParameterPlan::setTolerance "void ParameterPlan::setTolerance(double tolerance)
+";
+
+
 // File: classFit_1_1Parameters.xml
 %feature("docstring") Fit::Parameters "
 
@@ -1664,6 +1688,9 @@ This templated function is used in catalogs in form of a function pointer 'creat
 
 
 // File: Numeric_8h.xml
+
+
+// File: ParameterPlan_8h.xml
 
 
 // File: AttLimits_8cpp.xml

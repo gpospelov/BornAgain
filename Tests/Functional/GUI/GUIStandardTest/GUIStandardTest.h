@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISTANDARDTEST_GUISTANDARDTEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISTANDARDTEST_GUISTANDARDTEST_H
 
-#include "Tests/Functional/TestMachinery/IStandardTest.h"
+#include "Tests/Functional/Std/IStandardTest.h"
 
 //! A functional test of the BornAgain GUI.
 //! Performs a given standard simulation directly, and through domain->GUI->domain,

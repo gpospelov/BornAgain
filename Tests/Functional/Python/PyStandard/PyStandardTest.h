@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYSTANDARD_PYSTANDARDTEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_PYTHON_PYSTANDARD_PYSTANDARDTEST_H
 
-#include "Tests/Functional/TestMachinery/IStandardTest.h"
+#include "Tests/Functional/Std/IStandardTest.h"
 
 //! Tests Python scripts generation from Core objects.
 //! Performs core standard simulation and checks it against simulation via generated Python script.

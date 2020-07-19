@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESTANDARDTEST_CORESTANDARDTEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESTANDARDTEST_CORESTANDARDTEST_H
 
-#include "Tests/Functional/TestMachinery/IStandardTest.h"
+#include "Tests/Functional/Std/IStandardTest.h"
 
 class Simulation;
 

@@ -16911,6 +16911,16 @@ def RelativeDifference(dat, ref):
     """
     return _libBornAgainCore.RelativeDifference(dat, ref)
 
+def checkRelativeDifference(dat, ref, threshold):
+    r"""
+    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
+    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+    Returns true is relative difference is below threshold; prints informative output. 
+
+    """
+    return _libBornAgainCore.checkRelativeDifference(dat, ref, threshold)
+
 def getRelativeDifference(*args):
     r"""
     getRelativeDifference(IntensityData dat, IntensityData ref) -> double

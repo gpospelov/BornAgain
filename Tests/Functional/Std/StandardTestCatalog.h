@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/StandardTestCatalog.h
+//! @file      Tests/Functional/Std/StandardTestCatalog.h
 //! @brief     Defines class StandardTestCatalog.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOG_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_STANDARDTESTCATALOG_H
 
-#include "Tests/Functional/TestMachinery/StandardTestInfo.h"
+#include "Tests/Functional/Std/StandardTestInfo.h"
 #include "Wrap/WinDllMacros.h"
 #include <map>
 

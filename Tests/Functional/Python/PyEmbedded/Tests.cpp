@@ -3,7 +3,6 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/Python/PyEmbedded/TestCases.cpp
-//! @brief     Implements TestCases class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +11,6 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Python/PyEmbedded/TestCases.h"
 #include "BABuild.h"
 #include "BAVersion.h"
 #include "Core/Export/ExportToPython.h"
@@ -23,12 +21,15 @@
 #include "Core/Tools/PythonCore.h"
 #include "Core/Tools/PythonFormatting.h"
 #include "Core/Tools/SysUtils.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <sstream>
 
+class PyEmbedded : public ::testing::Test {};
+
 //! Accessing to the information about Python used during the build, content of path.sys variable.
 
-bool SysPath::runTest()
+TEST_F(PyEmbedded, SysPath)
 {
     // Python build info
     std::cout << "pythonExecutable(): " << BABuild::pythonExecutable() << std::endl;
@@ -46,12 +47,12 @@ bool SysPath::runTest()
     // Runtime info
     auto content = PyEmbeddedUtils::pythonRuntimeInfo();
 
-    return !content.empty();
+    EXPECT_TRUE(!content.empty());
 }
 
 //! Importing numpy and accessing its version string.
 
-bool ImportNumpy::runTest()
+TEST_F(PyEmbedded, ImportNumpy)
 {
     Py_Initialize();
 
@@ -70,12 +71,12 @@ bool ImportNumpy::runTest()
 
     Py_Finalize();
 
-    return !version_string.empty();
+    EXPECT_TRUE(!version_string.empty());
 }
 
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
 
-bool FunctionCall::runTest()
+TEST_F(PyEmbedded, FunctionCall)
 {
     Py_Initialize();
 
@@ -116,14 +117,14 @@ bool FunctionCall::runTest()
                   << "Possible reasons:\n"
                   << "- Python bindings not regenerated\n"
                   << "- Python module load from wrong location\n";
-        return false;
+        EXPECT_TRUE(false);
     }
-    return true;
+    EXPECT_TRUE(true);
 }
 
 //! Creating instance of FormFactorCylinder and calling its method in embedded Python.
 
-bool MethodCall::runTest()
+TEST_F(PyEmbedded, MethodCall)
 {
     const double radius(5.0), height(6.0);
     Py_Initialize();
@@ -181,12 +182,12 @@ bool MethodCall::runTest()
 
     Py_Finalize();
 
-    return value == height;
+    EXPECT_TRUE(value == height);
 }
 
 //! From https://www.awasu.com/weblog/embedding-python/calling-python-code-from-your-program/
 
-bool CompiledFunction::runTest()
+TEST_F(PyEmbedded, CompiledFunction)
 {
     Py_Initialize();
 
@@ -251,13 +252,13 @@ bool CompiledFunction::runTest()
 
     Py_Finalize();
 
-    return result == "30";
+    EXPECT_TRUE(result == "30");
 }
 
 //! Creating MultiLayer in Python and extracting object to C++.
 //! https://stackoverflow.com/questions/9040669/how-can-i-implement-a-c-class-in-python-to-be-called-by-c/
 
-bool ObjectExtract::runTest()
+TEST_F(PyEmbedded, ObjectExtract)
 {
     Py_Initialize();
 
@@ -290,13 +291,13 @@ bool ObjectExtract::runTest()
 
     Py_Finalize();
 
-    return name == "MultiLayer";
+    EXPECT_TRUE(name == "MultiLayer");
 }
 
 //! Running Python snippet which creates a multilayer in embedded way.
 //! Casting resulting PyObject to C++ MultiLayer.
 
-bool EmbeddedMultiLayer::runTest()
+TEST_F(PyEmbedded, EmbeddedMultiLayer)
 {
     Py_Initialize();
 
@@ -355,7 +356,7 @@ bool EmbeddedMultiLayer::runTest()
 
     Py_Finalize();
 
-    return n_layers == 1;
+    EXPECT_TRUE(n_layers == 1);
 }
 
 //! We use one of our standard sample builders to build a sample, then generate Python snippet
@@ -364,7 +365,7 @@ bool EmbeddedMultiLayer::runTest()
 //! is casted back to C++ object and used again, to generate code snippet.
 //! Two code snippets must be identical.
 
-bool ExportToPythonAndBack::runTest()
+TEST_F(PyEmbedded, ExportToPythonAndBack)
 {
     SampleBuilderFactory factory;
     std::unique_ptr<MultiLayer> sample(factory.createSample("CylindersAndPrismsBuilder"));
@@ -378,13 +379,13 @@ bool ExportToPythonAndBack::runTest()
         snippet.str(), PythonFormatting::getSampleFunctionName(), BABuild::buildLibDir());
     auto new_code = ExportToPython::generateSampleCode(*multilayer);
 
-    return code == new_code;
+    EXPECT_TRUE(code == new_code);
 }
 
 //! Retrieves list of functions from the imported script and checks, that there is
 //! one function in a dictioonary with name "get_simulation".
 
-bool ModuleFunctionsList::runTest()
+TEST_F(PyEmbedded, ModuleFunctionsList)
 {
     // compile our function
     std::stringstream buf;
@@ -400,5 +401,5 @@ bool ModuleFunctionsList::runTest()
     auto listOfFunc = PyImport::listOfFunctions(buf.str(), BABuild::buildLibDir());
     for (auto s : listOfFunc)
         std::cout << "AAA" << s << std::endl;
-    return listOfFunc.size() == 1 && listOfFunc.at(0) == "get_simulation";
+    EXPECT_TRUE(listOfFunc.size() == 1 && listOfFunc.at(0) == "get_simulation");
 }

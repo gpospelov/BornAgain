@@ -17,7 +17,7 @@
 
 #include "Wrap/WinDllMacros.h"
 #include <string>
-class IFunctionalTest;
+class IStandardTest;
 class Simulation;
 
 //! Main class to run standard functional test from standalone executable.
@@ -30,7 +30,7 @@ public:
     bool execute(int argc, char** argv);
 
 private:
-    virtual IFunctionalTest* createStdTest(const std::string& name, const Simulation& simulation,
+    virtual IStandardTest* createStdTest(const std::string& name, const Simulation& simulation,
                                            double threshold) = 0;
 };
 
@@ -43,7 +43,7 @@ template <typename T> class StandardTestService : public StandardTestServiceBase
 {
 
 private:
-    IFunctionalTest* createStdTest(const std::string& name, const Simulation& simulation,
+    IStandardTest* createStdTest(const std::string& name, const Simulation& simulation,
                                    double threshold) override
     {
         return new T(name, simulation, threshold);

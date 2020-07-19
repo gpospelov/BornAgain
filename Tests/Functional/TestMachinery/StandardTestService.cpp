@@ -17,7 +17,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
+#include "Tests/Functional/TestMachinery/IStandardTest.h"
 #include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <cassert>
@@ -63,7 +63,7 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
 
         std::string test_name = fullTestName(info.m_test_name, builder->getName());
 
-        std::unique_ptr<IFunctionalTest> test(
+        std::unique_ptr<IStandardTest> test(
             createStdTest(test_name, *simulation, info.m_threshold));
 
         if (n_subtests)

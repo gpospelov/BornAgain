@@ -15,24 +15,23 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H
 
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
 
 class Simulation;
-class GISASSimulation;
 
 //! Base class for tests that compare results with reference data.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ IStandardTest : public IFunctionalTest
+class BA_CORE_API_ IStandardTest
 {
 public:
     IStandardTest(const std::string& name, const Simulation& simulation, double threshold);
 
     ~IStandardTest();
 
-    bool runTest() = 0;
+    virtual bool runTest() = 0;
 
 protected:
     std::string m_name;

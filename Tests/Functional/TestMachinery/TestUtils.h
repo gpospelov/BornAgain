@@ -25,9 +25,6 @@ namespace TestUtils
 BA_CORE_API_ bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref,
                             double threshold);
 
-//! Executes script in external (system) Python interpreter
-BA_CORE_API_ bool runPython(const std::string& py_command);
-
 } // namespace TestUtils
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTUTILS_H

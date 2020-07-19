@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Python/PyStandard/PyStandardTest.h"
+#include "BABuild.h"
 #include "BATesting.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
@@ -22,6 +23,31 @@
 #include <cassert>
 #include <fstream>
 #include <iostream>
+
+namespace {
+
+//! Runs a python command, prints messages, returns true unless the system call failed.
+bool runPython(const std::string& py_command)
+{
+#ifndef _WIN32
+    std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " "
+                              + std::string("NOPLOT=TRUE") + " " + BABuild::pythonExecutable()
+                              + " -B " + py_command;
+#else
+    std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & "
+                              + std::string("set NOPLOT=TRUE") + " & \""
+                              + BABuild::pythonExecutable() + "\" -B " + py_command;
+#endif
+    std::cout << sys_command << std::endl /*sic*/; // flush output before calling std::system
+    int ret = std::system(sys_command.c_str());
+    if (ret != 0) {
+        std::cerr << "Command returned non-zero value " << ret << "\n";
+        return false;
+    }
+    return true;
+}
+
+} // namespace
 
 //! Runs simulation via a Python script and directly, and returns true if the results agree.
 bool PyStandardTest::runTest()
@@ -41,7 +67,7 @@ bool PyStandardTest::runTest()
     pythonFile.close();
 
     // Run Python script
-    if (!TestUtils::runPython(pyscript_filename + " " + output_path))
+    if (!runPython(pyscript_filename + " " + output_path))
         return false;
 
     // Run direct simulation

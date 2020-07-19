@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/TestMachinery/TestUtils.h"
-#include "BABuild.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include <cassert>
 #include <cstdlib>
@@ -33,26 +32,5 @@ bool TestUtils::isTheSame(const OutputData<double>& dat, const OutputData<double
                   << ", within given threshold " << threshold << "\n";
     else
         std::cout << "  => OK: dat = ref\n";
-    return true;
-}
-
-//! Runs a python command, prints messages, returns true unless the system call failed.
-bool TestUtils::runPython(const std::string& py_command)
-{
-#ifndef _WIN32
-    std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " "
-                              + std::string("NOPLOT=TRUE") + " " + BABuild::pythonExecutable()
-                              + " -B " + py_command;
-#else
-    std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & "
-                              + std::string("set NOPLOT=TRUE") + " & \""
-                              + BABuild::pythonExecutable() + "\" -B " + py_command;
-#endif
-    std::cout << sys_command << std::endl /*sic*/; // flush output before calling std::system
-    int ret = std::system(sys_command.c_str());
-    if (ret != 0) {
-        std::cerr << "Command returned non-zero value " << ret << "\n";
-        return false;
-    }
     return true;
 }

@@ -1,6 +1,6 @@
 include(GoogleTest) # provides gtest_discover_tests
 
-set(test TestCoreSpecial2)
+set(test TestCoreSpecial)
 
 set(source_files
     BatchSimulation.cpp

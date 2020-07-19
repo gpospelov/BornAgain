@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/ObjectiveTestFunctions.cpp
+//! @file      Tests/Functional/Fit/Minimizer/ClassicalTestFunctions.cpp
 //! @brief     Implements set of ObjectiveTestFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/TestMachinery/ObjectiveTestFunctions.h"
+#include "Tests/Functional/Fit/Minimizer/ClassicalTestFunctions.h"
 #include <cmath>
 #include <iostream>
-#include <stdexcept>
+#include <cassert>
 #include <string>
 
 //! RosenBrock function: F(x,y) = 100 (y-x^2)^2 + (1-x)^2
@@ -24,10 +24,7 @@
 
 double TestFunctions::RosenBrock(const std::vector<double>& par)
 {
-    if (par.size() != 2)
-        throw std::runtime_error("TestFunctions::RosenBrock() -> Error. Expected 2 input "
-                                 "parameters, actual: "
-                                 + std::to_string(par.size()));
+    assert(par.size() == 2);
 
     const double x = par[0];
     const double y = par[1];
@@ -47,10 +44,8 @@ double TestFunctions::RosenBrock(const std::vector<double>& par)
 
 double TestFunctions::WoodFour(const std::vector<double>& par)
 {
-    if (par.size() != 4)
-        throw std::runtime_error("TestFunctions::WoodFour() -> Error. Expected 4 input "
-                                 "parameters, actual: "
-                                 + std::to_string(par.size()));
+    assert(par.size() == 4);
+
     const double w = par[0];
     const double x = par[1];
     const double y = par[2];
@@ -71,14 +66,12 @@ double TestFunctions::WoodFour(const std::vector<double>& par)
 
 double TestFunctions::DecayingSin(double x, const std::vector<double>& par)
 {
-    if (par.size() != 4)
-        throw std::runtime_error("TestFunctions::DecayingSin() -> Error. Expected 5 input "
-                                 "parameters, actual: "
-                                 + std::to_string(par.size()));
+    assert(par.size() == 4);
 
     const double amp = par[0];
     const double freq = par[1];
     const double phase = par[2];
     const double decay = par[3];
+
     return amp * std::sin(x * freq + phase) * std::exp(-x * x * decay);
 }

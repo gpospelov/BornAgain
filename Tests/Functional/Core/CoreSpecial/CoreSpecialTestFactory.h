@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_CORESPECIALTESTFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_CORESPECIAL_CORESPECIALTESTFACTORY_H
 
-#include "Core/StandardSamples/IFactory.h"
+#include "Fit/TestEngine/IFactory.h"
 #include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 
 //! @class CoreSpecialTestFactory

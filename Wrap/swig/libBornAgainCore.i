@@ -323,7 +323,7 @@
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
 
 %include "Core/Tools/MathFunctions.h"
-%include "Core/StandardSamples/IFactory.h"
+%include "Fit/TestEngine/IFactory.h"
 %include "Core/Multilayer/IMultiLayerBuilder.h"
 %include "Core/Parametrization/INodeVisitor.h"
 %include "Core/Particle/IClusteredParticles.h"

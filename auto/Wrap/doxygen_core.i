@@ -6723,36 +6723,6 @@ Sets distribution units.
 ";
 
 
-// File: classIFactory.xml
-%feature("docstring") IFactory "
-
-Base class for all factories.
-
-C++ includes: IFactory.h
-";
-
-%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
-
-Creates object by calling creation function corresponded to given identifier. 
-";
-
-%feature("docstring")  IFactory::createItemPtr "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
-";
-
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
-
-Registers object's creation function. 
-";
-
-%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
-";
-
-%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
-
-Returns number of registered objects. 
-";
-
-
 // File: classIFootprintFactor.xml
 %feature("docstring") IFootprintFactor "
 
@@ -17088,10 +17058,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17277,13 +17247,13 @@ C++ includes: ZLimits.h
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d607.xml
+// File: namespace_0d606.xml
 
 
-// File: namespace_0d611.xml
+// File: namespace_0d610.xml
 
 
-// File: namespace_0d635.xml
+// File: namespace_0d632.xml
 
 
 // File: namespace_0d95.xml
@@ -17859,28 +17829,6 @@ Returns multiline string representing tree structure starting from given node.
 %feature("docstring")  NodeUtils::nodePath "std::string NodeUtils::nodePath(const INode &node, const INode *root=nullptr)
 
 Returns path composed of node's displayName, with respect to root node. 
-";
-
-
-// File: namespaceNumeric.xml
-%feature("docstring")  Numeric::AreAlmostEqual "bool BA_CORE_API_ Numeric::AreAlmostEqual(double a, double b, double tolerance)
-
-Returns true if two doubles agree within epsilon*tolerance. 
-";
-
-%feature("docstring")  Numeric::GetAbsoluteDifference "double BA_CORE_API_ Numeric::GetAbsoluteDifference(double a, double b)
-
-Returns the absolute value of the difference between a and b. 
-";
-
-%feature("docstring")  Numeric::GetRelativeDifference "double BA_CORE_API_ Numeric::GetRelativeDifference(double a, double b)
-
-Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
-";
-
-%feature("docstring")  Numeric::GetLogDifference "double BA_CORE_API_ Numeric::GetLogDifference(double a, double b)
-
-Returns the difference of the logarithm; input values are truncated at the minimum positive value 
 ";
 
 
@@ -20250,15 +20198,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: HomogeneousMultilayerBuilder_8h.xml
 
 
-// File: IFactory_8h.xml
-%feature("docstring")  create_new "T* create_new()
-
-Returns new instance of class T.
-
-This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
-";
-
-
 // File: IRegistry_8h.xml
 
 
@@ -20478,12 +20417,6 @@ Template function to create an integrator object
 
 
 // File: MathFunctions_8h.xml
-
-
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
 
 
 // File: OrderedMap_8h.xml

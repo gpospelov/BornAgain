@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANFACTORY_H
 
-#include "Core/StandardSamples/IFactory.h"
+#include "Fit/TestEngine/IFactory.h"
 #include "Fit/TestEngine/MinimizerTestPlan.h"
 
 //! Factory to generate plans for fitting objective functions.

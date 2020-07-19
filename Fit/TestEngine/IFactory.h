@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/IFactory.h
+//! @file      Fit/TestEngine/IFactory.h
 //! @brief     Defines interface class IFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
 
-#include "Core/Basics/Exceptions.h"
 #include <functional>
 #include <iostream> // debug
 #include <map>
 #include <memory>
 #include <sstream>
+#include <cassert>
 
 //! Base class for all factories.
 //! @ingroup tools_internal
@@ -38,11 +38,7 @@ public:
     AbstractProduct* createItem(const Key& item_key) const
     {
         auto it = m_callbacks.find(item_key);
-        if (it == m_callbacks.end()) {
-            std::ostringstream message;
-            message << "IFactory::createItem() -> Error. Unknown item key '" << item_key << "'";
-            throw Exceptions::RuntimeErrorException(message.str());
-        }
+        assert(it != m_callbacks.end());
         return (it->second)();
     }
 
@@ -56,12 +52,7 @@ public:
     //! Registers object's creation function
     bool registerItem(const Key& item_key, CreateItemCallback CreateFn)
     {
-        if (m_callbacks.find(item_key) != m_callbacks.end()) {
-            std::ostringstream message;
-            message << "IFactory::createItem() -> Error. Already registered item key '" << item_key
-                    << "'";
-            throw Exceptions::RuntimeErrorException(message.str());
-        }
+        assert(m_callbacks.find(item_key) == m_callbacks.end());
         return m_callbacks.insert(make_pair(item_key, CreateFn)).second;
     }
 

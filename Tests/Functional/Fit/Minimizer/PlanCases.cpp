@@ -14,7 +14,7 @@
 
 #include "Tests/Functional/Fit/Minimizer/PlanCases.h"
 #include "Fit/Kernel/Parameter.h"
-#include "Tests/Functional/TestMachinery/ObjectiveTestFunctions.h"
+#include "Tests/Functional/Fit/Minimizer/ClassicalTestFunctions.h"
 
 namespace
 {

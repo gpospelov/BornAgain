@@ -14,4 +14,4 @@ add_executable(${test} ${source_files})
 target_link_libraries(${test} ${BornAgainGUI_LIBRARY} gtest)
 target_link_libraries(${test} Qt5::Core Qt5::Test)
 
-gtest_discover_tests(${test} TEST_PREFIX GUI:Unit:)
+gtest_discover_tests(${test} TEST_PREFIX GUI.Unit.)

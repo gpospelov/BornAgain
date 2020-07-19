@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/FunctionTestPlanFactory.cpp
+//! @file      Tests/Functional/Fit/Minimizer/PlanFactory.cpp
 //! @brief     Implements class FunctionTestPlanFactory
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Fit/Minimizer/FunctionTestPlanFactory.h"
-#include "Tests/Functional/Fit/Minimizer/FunctionTestPlanCases.h"
+#include "Tests/Functional/Fit/Minimizer/PlanFactory.h"
+#include "Tests/Functional/Fit/Minimizer/PlanCases.h"
 
-FunctionTestPlanFactory::FunctionTestPlanFactory()
+PlanFactory::PlanFactory()
 {
     registerItem("RosenbrockPlan", create_new<RosenbrockPlan>);
     registerItem("EasyRosenbrockPlan", create_new<EasyRosenbrockPlan>);

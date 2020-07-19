@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/FunctionTestPlanFactory.h
+//! @file      Tests/Functional/Fit/Minimizer/PlanFactory.h
 //! @brief     Defines class FunctionTestPlanFactory
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -20,10 +20,10 @@
 
 //! Factory to generate plans for fitting objective functions.
 
-class FunctionTestPlanFactory : public IFactory<std::string, MinimizerTestPlan>
+class PlanFactory : public IFactory<std::string, MinimizerTestPlan>
 {
 public:
-    FunctionTestPlanFactory();
+    PlanFactory();
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANFACTORY_H

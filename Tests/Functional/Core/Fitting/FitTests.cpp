@@ -12,15 +12,20 @@
 //
 // ************************************************************************** //
 
+#include "Fit/Kernel/Minimizer.h"
+#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Tests/Functional/Core/Fitting/FitPlanFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
-//#include "Tests/Functional/Core/Fitting/
 
 class Fitting : public ::testing::Test {};
 
 bool run(const std::string& minimizer_name, const std::string& algorithm_name,
          const std::string& fit_plan_name, const std::string& options="")
 {
-    return true;
+    auto plan = FitPlanFactory().createItemPtr(fit_plan_name);
+    Fit::Minimizer minimizer;
+    minimizer.setMinimizer(minimizer_name, algorithm_name, options);
+    return plan->checkMinimizer(minimizer);
 }
 
 TEST_F(Fitting, MigradCylindersInBA)

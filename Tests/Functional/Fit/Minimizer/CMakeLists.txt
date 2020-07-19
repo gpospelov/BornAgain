@@ -22,11 +22,11 @@ set(test_cases
     LevenbergMarquardtV3
 )
 
-include_directories(${RootMinimizers_INCLUDE_DIRS})
 
 file(GLOB source_files "*.cpp")
 
 add_executable(${test} ${source_files})
+include_directories(${test} PUBLIC ${RootMinimizers_INCLUDE_DIRS})
 target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
 
 foreach(test_case ${test_cases})

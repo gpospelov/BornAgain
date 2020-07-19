@@ -19,7 +19,6 @@
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Tests/Functional/TestMachinery/IStandardTest.h"
 #include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
-#include "Tests/Functional/TestMachinery/TestUtils.h"
 #include <cassert>
 #include <iostream>
 
@@ -44,7 +43,8 @@ std::string fullTestName(const std::string& test_name, const std::string& builde
 
 bool StandardTestServiceBase::execute(int argc, char** argv)
 {
-    StandardTestInfo info = TestUtils::testInfo(argc, argv);
+    assert(argc > 1);
+    StandardTestInfo info = StandardTestCatalog().testInfo(argv[1]);
     assert(!info.m_test_name.empty());
     assert(info.size() == 1);
 

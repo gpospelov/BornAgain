@@ -15,16 +15,9 @@
 #include "Tests/Functional/TestMachinery/TestUtils.h"
 #include "BABuild.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Tests/Functional/TestMachinery/StandardTestCatalog.h"
 #include <cassert>
 #include <cstdlib>
 #include <iostream>
-
-StandardTestInfo TestUtils::testInfo(int argc, char** argv)
-{
-    assert(argc > 1);
-    return StandardTestCatalog().testInfo(argv[1]);
-}
 
 bool TestUtils::isTheSame(const OutputData<double>& dat, const OutputData<double>& ref,
                           double threshold)

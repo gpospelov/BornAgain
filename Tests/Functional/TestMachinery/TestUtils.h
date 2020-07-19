@@ -16,14 +16,10 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_TESTUTILS_H
 
 #include "Core/Instrument/OutputData.h"
-#include "Tests/Functional/TestMachinery/StandardTestInfo.h"
 #include "Wrap/WinDllMacros.h"
 
 namespace TestUtils
 {
-
-//! Returns test info for given set of command line parameters.
-BA_CORE_API_ StandardTestInfo testInfo(int argc, char** argv);
 
 //! Returns true if intensity maps are the same within given threshold.
 BA_CORE_API_ bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref,

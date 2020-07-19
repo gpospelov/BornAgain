@@ -16,7 +16,7 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H
 
 #include "Fit/Kernel/KernelTypes.h"
-#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Fit/TestEngine/MinimizerTestPlan.h"
 
 class ResidualTestPlan : public MinimizerTestPlan
 {

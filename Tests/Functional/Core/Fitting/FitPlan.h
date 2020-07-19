@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLAN_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLAN_H
 
-#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Fit/TestEngine/MinimizerTestPlan.h"
 #include <memory>
 
 namespace Fit

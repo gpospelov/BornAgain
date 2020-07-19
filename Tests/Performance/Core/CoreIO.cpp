@@ -14,7 +14,7 @@
 
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/OutputData.h"
-#include "Core/Tools/Numeric.h"
+#include "Fit/TestEngine/Numeric.h"
 #include "Tests/Performance/Benchmark.h"
 #include <boost/format.hpp>
 #include <cassert>

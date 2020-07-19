@@ -16,7 +16,7 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_FUNCTIONTESTPLANFACTORY_H
 
 #include "Core/StandardSamples/IFactory.h"
-#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Fit/TestEngine/MinimizerTestPlan.h"
 
 //! Factory to generate plans for fitting objective functions.
 

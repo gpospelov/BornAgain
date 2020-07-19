@@ -14,7 +14,7 @@
 
 #include "Tests/Functional/TestMachinery/IMinimizerTest.h"
 #include "Fit/Kernel/Minimizer.h"
-#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Fit/TestEngine/MinimizerTestPlan.h"
 #include <iostream>
 
 using namespace Fit;

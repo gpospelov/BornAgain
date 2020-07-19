@@ -15,7 +15,7 @@
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/Histogram1D.h"
 #include "Core/Instrument/Histogram2D.h"
-#include "Core/Tools/Numeric.h"
+#include "Fit/TestEngine/Numeric.h"
 #include <memory>
 
 IHistogram::IHistogram() {}

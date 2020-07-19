@@ -542,6 +542,32 @@ Returns multi-line string representing minimization results.
 ";
 
 
+// File: classMinimizerTestPlan.xml
+%feature("docstring") MinimizerTestPlan "
+
+Defines objective function to fit, expected minimum, initial fit parameters and expected values of fit parameters at minimum.
+
+C++ includes: MinimizerTestPlan.h
+";
+
+%feature("docstring")  MinimizerTestPlan::MinimizerTestPlan "MinimizerTestPlan::MinimizerTestPlan(const std::string &name)
+";
+
+%feature("docstring")  MinimizerTestPlan::~MinimizerTestPlan "MinimizerTestPlan::~MinimizerTestPlan()
+";
+
+%feature("docstring")  MinimizerTestPlan::addParameter "void MinimizerTestPlan::addParameter(const Fit::Parameter &param, double expected_value, double tolerance=0.01)
+";
+
+%feature("docstring")  MinimizerTestPlan::name "std::string MinimizerTestPlan::name() const
+";
+
+%feature("docstring")  MinimizerTestPlan::checkMinimizer "virtual bool MinimizerTestPlan::checkMinimizer(Fit::Minimizer &minimizer)=0
+
+Runs minimization and check minimization result. 
+";
+
+
 // File: classMinuit2Minimizer.xml
 %feature("docstring") Minuit2Minimizer "
 
@@ -1355,6 +1381,28 @@ Returns horizontal line of 80 characters length with section name in it.
 ";
 
 
+// File: namespaceNumeric.xml
+%feature("docstring")  Numeric::AreAlmostEqual "bool BA_CORE_API_ Numeric::AreAlmostEqual(double a, double b, double tolerance)
+
+Returns true if two doubles agree within epsilon*tolerance. 
+";
+
+%feature("docstring")  Numeric::GetAbsoluteDifference "double BA_CORE_API_ Numeric::GetAbsoluteDifference(double a, double b)
+
+Returns the absolute value of the difference between a and b. 
+";
+
+%feature("docstring")  Numeric::GetRelativeDifference "double BA_CORE_API_ Numeric::GetRelativeDifference(double a, double b)
+
+Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
+";
+
+%feature("docstring")  Numeric::GetLogDifference "double BA_CORE_API_ Numeric::GetLogDifference(double a, double b)
+
+Returns the difference of the logarithm; input values are truncated at the minimum positive value 
+";
+
+
 // File: namespaceROOT.xml
 
 
@@ -1567,6 +1615,18 @@ Returns new string which is lower case of text.
 // File: SimAnMinimizer_8h.xml
 
 
+// File: MinimizerTestPlan_8cpp.xml
+
+
+// File: MinimizerTestPlan_8h.xml
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
+
+
 // File: AttLimits_8cpp.xml
 
 
@@ -1622,6 +1682,9 @@ Returns new string which is lower case of text.
 
 
 // File: dir_5e88eb7454533834afc0f9fdcde3e277.xml
+
+
+// File: dir_03da15e295bc2986014d40bf58034da8.xml
 
 
 // File: dir_e87cef4d6f8e4c4c298cf0a4783d30f5.xml

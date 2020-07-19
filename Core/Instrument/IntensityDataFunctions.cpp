@@ -23,7 +23,7 @@
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Instrument/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
-#include "Core/Tools/Numeric.h"
+#include "Fit/TestEngine/Numeric.h"
 #include <math.h>
 
 //! Returns sum of relative differences between each pair of elements:

@@ -17,7 +17,7 @@
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
-#include "Core/Tools/Numeric.h"
+#include "Fit/TestEngine/Numeric.h"
 
 namespace
 {

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Fit/Kernel/Minimizer.h"
-#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Fit/TestEngine/MinimizerTestPlan.h"
 #include "Tests/Functional/Core/Fitting/FitPlanFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
 

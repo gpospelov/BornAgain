@@ -57,7 +57,7 @@ TEST_F(TestProjectDocument, test_documentFlags)
 TEST_F(TestProjectDocument, test_projectDocument)
 {
     const QString projectDir("test_projectDocument");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
@@ -99,10 +99,10 @@ TEST_F(TestProjectDocument, test_projectDocument)
 TEST_F(TestProjectDocument, test_projectDocumentWithData)
 {
     const QString projectDir("test_projectDocumentWithData");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
 
     ApplicationModels models;
-    RealDataItem* realData = TestUtils::createRealData("RealData", *models.realDataModel());
+    RealDataItem* realData = GuiUnittestUtils::createRealData("RealData", *models.realDataModel());
     Q_ASSERT(realData);
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,

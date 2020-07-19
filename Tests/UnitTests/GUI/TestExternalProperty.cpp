@@ -8,7 +8,7 @@ class TestExternalProperty : public ::testing::Test
 public:
     ExternalProperty propertyFromXML(const QString& buffer)
     {
-        return TestUtils::propertyFromXML<ExternalProperty>(buffer);
+        return GuiUnittestUtils::propertyFromXML<ExternalProperty>(buffer);
     }
 };
 
@@ -81,7 +81,7 @@ TEST_F(TestExternalProperty, test_toXML)
     ExternalProperty property;
     expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"\" Color=\"\" "
                "Identifier=\"\"/>";
-    EXPECT_EQ(TestUtils::propertyToXML(property), expected);
+    EXPECT_EQ(GuiUnittestUtils::propertyToXML(property), expected);
 
     // from XML to empty property
     EXPECT_EQ(propertyFromXML(expected).text(), property.text());
@@ -95,7 +95,7 @@ TEST_F(TestExternalProperty, test_toXML)
     property.setColor(QColor(Qt::red));
     expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"abc\" "
                "Color=\"#ffff0000\" Identifier=\"{123456}\"/>";
-    EXPECT_EQ(TestUtils::propertyToXML(property), expected);
+    EXPECT_EQ(GuiUnittestUtils::propertyToXML(property), expected);
 
     // from XML to initialized property
     EXPECT_EQ(propertyFromXML(expected).identifier(), property.identifier());

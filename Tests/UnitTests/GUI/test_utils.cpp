@@ -28,7 +28,7 @@ const int nxsize = 5;
 const int nysize = 10;
 } // namespace
 
-void TestUtils::create_dir(const QString& dir_name)
+void GuiUnittestUtils::create_dir(const QString& dir_name)
 {
     if (ProjectUtils::exists(dir_name))
         ProjectUtils::removeRecursively(dir_name);
@@ -36,7 +36,7 @@ void TestUtils::create_dir(const QString& dir_name)
     GUIHelpers::createSubdir(".", dir_name);
 }
 
-std::unique_ptr<OutputData<double>> TestUtils::createData(double value, DIM n_dim)
+std::unique_ptr<OutputData<double>> GuiUnittestUtils::createData(double value, DIM n_dim)
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>());
     result->addAxis("x", nxsize, -1.0, 1.0);
@@ -46,7 +46,7 @@ std::unique_ptr<OutputData<double>> TestUtils::createData(double value, DIM n_di
     return result;
 }
 
-RealDataItem* TestUtils::createRealData(const QString& name, SessionModel& model, double value,
+RealDataItem* GuiUnittestUtils::createRealData(const QString& name, SessionModel& model, double value,
                                         DIM n_dim)
 {
     RealDataItem* result = dynamic_cast<RealDataItem*>(model.insertNewItem("RealData"));
@@ -55,13 +55,13 @@ RealDataItem* TestUtils::createRealData(const QString& name, SessionModel& model
     return result;
 }
 
-bool TestUtils::isTheSame(const OutputData<double>& data1, const OutputData<double>& data2)
+bool GuiUnittestUtils::isTheSame(const OutputData<double>& data1, const OutputData<double>& data2)
 {
     double diff = IntensityDataFunctions::getRelativeDifference(data1, data2);
     return diff < 1e-10;
 }
 
-bool TestUtils::isTheSame(const QString& fileName, const OutputData<double>& data)
+bool GuiUnittestUtils::isTheSame(const QString& fileName, const OutputData<double>& data)
 {
     std::unique_ptr<OutputData<double>> dataOnDisk(
         IntensityDataIOFactory::readOutputData(fileName.toStdString()));

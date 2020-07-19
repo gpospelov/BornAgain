@@ -20,7 +20,7 @@ public:
 DataItem* TestDataItemViews::insertNewDataItem(SessionModel& model, double val)
 {
     DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem("SpecularData"));
-    auto data = TestUtils::createData(val, TestUtils::DIM::D1);
+    auto data = GuiUnittestUtils::createData(val, GuiUnittestUtils::DIM::D1);
     item->setOutputData(data.release());
     return item;
 }
@@ -131,7 +131,7 @@ TEST_F(TestDataItemViews, testWrongHostingModel)
 TEST_F(TestDataItemViews, testSavingLinkedData)
 {
     const QString projectDir("test_savingLinkedData");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");
     {
         ApplicationModels models;

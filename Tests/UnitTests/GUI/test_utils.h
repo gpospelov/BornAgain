@@ -24,7 +24,7 @@
 template <class T> class OutputData;
 class RealDataItem;
 
-namespace TestUtils
+namespace GuiUnittestUtils
 {
 enum class DIM { D1 = 1, D2 = 2 };
 
@@ -72,6 +72,6 @@ bool isTheSame(const OutputData<double>& data1, const OutputData<double>& data2)
 //! Helper function to check if file on disk represents same data.
 bool isTheSame(const QString& fileName, const OutputData<double>& data);
 
-} // namespace TestUtils
+} // namespace GuiUnittestUtils
 
 #endif // BORNAGAIN_TESTS_UNITTESTS_GUI_TEST_UTILS_H

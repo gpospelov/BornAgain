@@ -62,7 +62,7 @@ TEST_F(TestLinkInstrument, test_canLinkToInstrument)
     QString identifier = instrument->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
     // populating real data model, setting intensity data
-    RealDataItem* realData = TestUtils::createRealData("RealData", realDataModel);
+    RealDataItem* realData = GuiUnittestUtils::createRealData("RealData", realDataModel);
     JobItemUtils::createDefaultDetectorMap(realData->dataItem(), instrument);
 
     QVERIFY(manager.canLinkDataToInstrument(realData, identifier));

@@ -32,7 +32,7 @@ protected:
 TEST_F(TestSaveService, test_autoSaveController)
 {
     const QString projectDir("test_autoSaveController");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
 
     const QString projectFileName(projectDir + "/document.pro");
 
@@ -105,7 +105,7 @@ TEST_F(TestSaveService, test_autoSaveControllerNewDocument)
 TEST_F(TestSaveService, test_saveService)
 {
     const QString projectDir("test_saveService");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
@@ -136,11 +136,11 @@ TEST_F(TestSaveService, test_saveService)
 TEST_F(TestSaveService, test_saveServiceWithData)
 {
     const QString projectDir("test_saveServiceWithData");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
-    RealDataItem* realData = TestUtils::createRealData("RealData", *models.realDataModel());
+    RealDataItem* realData = GuiUnittestUtils::createRealData("RealData", *models.realDataModel());
     Q_ASSERT(realData);
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
@@ -171,11 +171,11 @@ TEST_F(TestSaveService, test_saveServiceWithData)
 TEST_F(TestSaveService, test_autosaveEnabled)
 {
     const QString projectDir("test_autosaveEnabled");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
-    RealDataItem* realData = TestUtils::createRealData("RealData", *models.realDataModel());
+    RealDataItem* realData = GuiUnittestUtils::createRealData("RealData", *models.realDataModel());
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
                                            models.instrumentModel()->instrumentItem());

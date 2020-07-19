@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_ADJUSTMINIMIZERPLAN_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_ADJUSTMINIMIZERPLAN_H
 
-#include "Tests/Functional/Core/Fitting/FitPlan.h"
+#include "Tests/Functional/Core/Fitting/Plan.h"
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Parameters are made far from their original values, Genetic+Minuit used in pair.
 
-class AdjustMinimizerPlan : public FitPlan
+class AdjustMinimizerPlan : public Plan
 {
 public:
     AdjustMinimizerPlan();

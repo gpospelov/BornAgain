@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/Fitting/FitPlanCases.h
-//! @brief     Defines collection of FitPlanCases classes
+//! @file      Tests/Functional/Core/Fitting/PlanCases.h
+//! @brief     Defines collection of PlanCases classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,11 +15,11 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANCASES_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANCASES_H
 
-#include "Tests/Functional/Core/Fitting/FitPlan.h"
+#include "Tests/Functional/Core/Fitting/Plan.h"
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 
-class CylindersInBAPlan : public FitPlan
+class CylindersInBAPlan : public Plan
 {
 public:
     CylindersInBAPlan();
@@ -28,7 +28,7 @@ public:
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Large tolerance on expected parameter values to help stocastic minimizers to converge fatser.
 
-class CylindersInBAEasyPlan : public FitPlan
+class CylindersInBAEasyPlan : public Plan
 {
 public:
     CylindersInBAEasyPlan();
@@ -37,7 +37,7 @@ public:
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Residual like objective function is used
 
-class CylindersInBAResidualPlan : public FitPlan
+class CylindersInBAResidualPlan : public Plan
 {
 public:
     CylindersInBAResidualPlan();
@@ -46,7 +46,7 @@ public:
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Rectangular detector.
 
-class RectDetPlan : public FitPlan
+class RectDetPlan : public Plan
 {
 public:
     RectDetPlan();
@@ -58,7 +58,7 @@ protected:
 
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer
 
-class SpecularPlan : public FitPlan
+class SpecularPlan : public Plan
 {
 public:
     SpecularPlan();
@@ -66,7 +66,7 @@ public:
 
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer (q-defined beam)
 
-class SpecularPlanQ : public FitPlan
+class SpecularPlanQ : public Plan
 {
 public:
     SpecularPlanQ();
@@ -74,7 +74,7 @@ public:
 
 //! The same as SpecularPlan, but with two (identical) datasets
 
-class MultipleSpecPlan : public FitPlan
+class MultipleSpecPlan : public Plan
 {
 public:
     MultipleSpecPlan();
@@ -86,11 +86,11 @@ protected:
 
 //! Fit for off-specular experiment
 
-class OffSpecFitPlan : public FitPlan
+class OffSpecPlan : public Plan
 {
 public:
-    OffSpecFitPlan();
-    ~OffSpecFitPlan() override = default;
+    OffSpecPlan();
+    ~OffSpecPlan() override = default;
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANCASES_H

@@ -5,9 +5,9 @@ set(test TestCoreFitting)
 set(source_files
     FitTests.cpp
     AdjustMinimizerPlan.cpp
-    FitPlan.cpp
-    FitPlanCases.cpp
-    FitPlanFactory.cpp
+    Plan.cpp
+    PlanCases.cpp
+    PlanFactory.cpp
     )
 
 add_executable(${test} ${source_files} ${CMAKE_SOURCE_DIR}/Tests/GTestWrapper/TestAll.cpp)

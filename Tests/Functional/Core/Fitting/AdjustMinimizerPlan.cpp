@@ -27,7 +27,7 @@ const double nm = Units::nanometer;
 
 using namespace Fit;
 
-AdjustMinimizerPlan::AdjustMinimizerPlan() : FitPlan("AdjustMinimizerPlan")
+AdjustMinimizerPlan::AdjustMinimizerPlan() : Plan("AdjustMinimizerPlan")
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISASFit");
@@ -56,7 +56,7 @@ bool AdjustMinimizerPlan::checkMinimizer(Fit::Minimizer& minimizer)
     result = minimizer.minimize(scalar_func, best_params_so_far);
     fit_objective->finalize(result);
 
-    std::cout << "FitPlan::checkResult() -> " << name() << std::endl;
+    std::cout << "Plan::checkResult() -> " << name() << std::endl;
     success &= valuesAsExpected(result.parameters().values());
     std::cout << std::endl;
 

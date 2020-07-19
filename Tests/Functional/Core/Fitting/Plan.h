@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/Fitting/FitPlan.h
-//! @brief     Defines class FitPlan
+//! @file      Tests/Functional/Core/Fitting/Plan.h
+//! @brief     Defines class Plan
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -29,11 +29,11 @@ class FitObjective;
 
 //! Contains all logic to construct FitObjective, setup Minimizer and check minimization results.
 
-class FitPlan : public MinimizerTestPlan
+class Plan : public MinimizerTestPlan
 {
 public:
-    FitPlan(const std::string& name, bool residual_based = false);
-    ~FitPlan();
+    Plan(const std::string& name, bool residual_based = false);
+    ~Plan();
 
     virtual bool checkMinimizer(Fit::Minimizer& minimizer);
 

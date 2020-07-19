@@ -14,7 +14,7 @@
 
 #include "Fit/Kernel/Minimizer.h"
 #include "Fit/TestEngine/MinimizerTestPlan.h"
-#include "Tests/Functional/Core/Fitting/FitPlanFactory.h"
+#include "Tests/Functional/Core/Fitting/PlanFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class Fitting : public ::testing::Test {};
@@ -22,7 +22,7 @@ class Fitting : public ::testing::Test {};
 bool run(const std::string& minimizer_name, const std::string& algorithm_name,
          const std::string& fit_plan_name, const std::string& options="")
 {
-    auto plan = FitPlanFactory().createItemPtr(fit_plan_name);
+    auto plan = PlanFactory().createItemPtr(fit_plan_name);
     Fit::Minimizer minimizer;
     minimizer.setMinimizer(minimizer_name, algorithm_name, options);
     return plan->checkMinimizer(minimizer);
@@ -100,5 +100,5 @@ TEST_F(Fitting, MultipleSpecFittingTest)
 
 TEST_F(Fitting, OffSpecFitTest)
 {
-    EXPECT_TRUE(run("Minuit2", "Migrad", "OffSpecFitPlan"));
+    EXPECT_TRUE(run("Minuit2", "Migrad", "OffSpecPlan"));
 }

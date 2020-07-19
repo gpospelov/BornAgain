@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/Fitting/FitPlan.cpp
-//! @brief     Defines class FitPlan
+//! @file      Tests/Functional/Core/Fitting/Plan.cpp
+//! @brief     Defines class Plan
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/Fitting/FitPlan.h"
+#include "Tests/Functional/Core/Fitting/Plan.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
@@ -21,14 +21,14 @@
 #include "Fit/Kernel/Minimizer.h"
 #include "Fit/Kernel/Parameters.h"
 
-FitPlan::FitPlan(const std::string& name, bool residual_based)
+Plan::Plan(const std::string& name, bool residual_based)
     : MinimizerTestPlan(name), m_residual_based(residual_based)
 {
 }
 
-FitPlan::~FitPlan() = default;
+Plan::~Plan() = default;
 
-bool FitPlan::checkMinimizer(Fit::Minimizer& minimizer)
+bool Plan::checkMinimizer(Fit::Minimizer& minimizer)
 {
     auto fit_objective = createFitObjective();
 
@@ -50,24 +50,24 @@ bool FitPlan::checkMinimizer(Fit::Minimizer& minimizer)
 
     fit_objective->finalize(result);
 
-    std::cout << "FitPlan::checkResult() -> " << name() << std::endl;
+    std::cout << "Plan::checkResult() -> " << name() << std::endl;
     success &= valuesAsExpected(result.parameters().values());
     std::cout << std::endl;
 
     return success;
 }
 
-void FitPlan::setBuilderName(const std::string& name)
+void Plan::setBuilderName(const std::string& name)
 {
     m_sample_builder_name = name;
 }
 
-void FitPlan::setSimulationName(const std::string& name)
+void Plan::setSimulationName(const std::string& name)
 {
     m_simulation_name = name;
 }
 
-std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
+std::unique_ptr<FitObjective> Plan::createFitObjective() const
 {
     std::unique_ptr<FitObjective> result(new FitObjective);
 
@@ -83,7 +83,7 @@ std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
 
 //! Build simulation (sample included) for given set of fit parameters.
 
-std::unique_ptr<Simulation> FitPlan::buildSimulation(const Fit::Parameters& params) const
+std::unique_ptr<Simulation> Plan::buildSimulation(const Fit::Parameters& params) const
 {
     auto simulation = createSimulation(params);
     auto sample = createMultiLayer(params);
@@ -93,7 +93,7 @@ std::unique_ptr<Simulation> FitPlan::buildSimulation(const Fit::Parameters& para
 
 //! Creates simulation for given set of fit parameters. No sample yets.
 
-std::unique_ptr<Simulation> FitPlan::createSimulation(const Fit::Parameters& params) const
+std::unique_ptr<Simulation> Plan::createSimulation(const Fit::Parameters& params) const
 {
     (void)params;
     SimulationFactory factory;
@@ -103,7 +103,7 @@ std::unique_ptr<Simulation> FitPlan::createSimulation(const Fit::Parameters& par
 
 //! Creates sample for given set of fit parameters.
 
-std::unique_ptr<MultiLayer> FitPlan::createMultiLayer(const Fit::Parameters& params) const
+std::unique_ptr<MultiLayer> Plan::createMultiLayer(const Fit::Parameters& params) const
 {
     SampleBuilderFactory factory;
     auto sample_builder = factory.createItemPtr(m_sample_builder_name);
@@ -117,7 +117,7 @@ std::unique_ptr<MultiLayer> FitPlan::createMultiLayer(const Fit::Parameters& par
 
 //! Creates "experimental" data for fitting.
 
-std::unique_ptr<OutputData<double>> FitPlan::createOutputData() const
+std::unique_ptr<OutputData<double>> Plan::createOutputData() const
 {
     // use expected values of fit parameters to construct simulation
     auto params = parameters();

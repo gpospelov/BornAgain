@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/Fitting/FitPlanFactory.cpp
-//! @brief     Implements class FitPlanFactory
+//! @file      Tests/Functional/Core/Fitting/PlanFactory.cpp
+//! @brief     Implements class PlanFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/Fitting/FitPlanFactory.h"
+#include "Tests/Functional/Core/Fitting/PlanFactory.h"
 #include "Tests/Functional/Core/Fitting/AdjustMinimizerPlan.h"
-#include "Tests/Functional/Core/Fitting/FitPlanCases.h"
+#include "Tests/Functional/Core/Fitting/PlanCases.h"
 
-FitPlanFactory::FitPlanFactory()
+PlanFactory::PlanFactory()
 {
     registerItem("CylindersInBAPlan", create_new<CylindersInBAPlan>);
     registerItem("CylindersInBAEasyPlan", create_new<CylindersInBAEasyPlan>);
@@ -26,5 +26,5 @@ FitPlanFactory::FitPlanFactory()
     registerItem("SpecularPlan", create_new<SpecularPlan>);
     registerItem("SpecularPlanQ", create_new<SpecularPlanQ>);
     registerItem("MultipleSpecPlan", create_new<MultipleSpecPlan>);
-    registerItem("OffSpecFitPlan", create_new<OffSpecFitPlan>);
+    registerItem("OffSpecPlan", create_new<OffSpecPlan>);
 }

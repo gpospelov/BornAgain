@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/Fitting/FitPlanCases.cpp
-//! @brief     Implements collection of FitPlanCases classes
+//! @file      Tests/Functional/Core/Fitting/PlanCases.cpp
+//! @brief     Implements collection of PlanCases classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Core/Fitting/FitPlanCases.h"
+#include "Tests/Functional/Core/Fitting/PlanCases.h"
 #include "Core/Aggregate/FTDecayFunctions.h"
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
@@ -35,7 +35,7 @@ namespace
 const double nm = Units::nanometer;
 }
 
-CylindersInBAPlan::CylindersInBAPlan() : FitPlan("CylindersInBAPlan")
+CylindersInBAPlan::CylindersInBAPlan() : Plan("CylindersInBAPlan")
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISAS");
@@ -43,7 +43,7 @@ CylindersInBAPlan::CylindersInBAPlan() : FitPlan("CylindersInBAPlan")
     addParameter(Parameter("radius", 5.5 * nm, AttLimits::lowerLimited(0.01), 0.01), 5.0 * nm);
 }
 
-CylindersInBAEasyPlan::CylindersInBAEasyPlan() : FitPlan("CylindersInBAEasyPlan")
+CylindersInBAEasyPlan::CylindersInBAEasyPlan() : Plan("CylindersInBAEasyPlan")
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISASFit");
@@ -55,7 +55,7 @@ CylindersInBAEasyPlan::CylindersInBAEasyPlan() : FitPlan("CylindersInBAEasyPlan"
 }
 
 CylindersInBAResidualPlan::CylindersInBAResidualPlan()
-    : FitPlan("CylindersInBAResidualPlan", /*residual_based*/ true)
+    : Plan("CylindersInBAResidualPlan", /*residual_based*/ true)
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISAS");
@@ -65,7 +65,7 @@ CylindersInBAResidualPlan::CylindersInBAResidualPlan()
 
 // ----------------------------------------------------------------------------
 
-RectDetPlan::RectDetPlan() : FitPlan("RectDetPlan")
+RectDetPlan::RectDetPlan() : Plan("RectDetPlan")
 {
     setBuilderName("CylindersInBABuilder");
     addParameter(Parameter("height", 4.5 * nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0 * nm);
@@ -92,7 +92,7 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 
 // ----------------------------------------------------------------------------
 
-SpecularPlan::SpecularPlan() : FitPlan("SpecularPlan")
+SpecularPlan::SpecularPlan() : Plan("SpecularPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -102,7 +102,7 @@ SpecularPlan::SpecularPlan() : FitPlan("SpecularPlan")
 
 // ----------------------------------------------------------------------------
 
-SpecularPlanQ::SpecularPlanQ() : FitPlan("SpecularPlanQ")
+SpecularPlanQ::SpecularPlanQ() : Plan("SpecularPlanQ")
 {
     setSimulationName("BasicSpecularQ");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -112,7 +112,7 @@ SpecularPlanQ::SpecularPlanQ() : FitPlan("SpecularPlanQ")
 
 // ----------------------------------------------------------------------------
 
-MultipleSpecPlan::MultipleSpecPlan() : FitPlan("MultipleSpecPlan")
+MultipleSpecPlan::MultipleSpecPlan() : Plan("MultipleSpecPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -139,7 +139,7 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
 
 // ----------------------------------------------------------------------------
 
-OffSpecFitPlan::OffSpecFitPlan() : FitPlan("OffSpecFitPlan")
+OffSpecPlan::OffSpecPlan() : Plan("OffSpecPlan")
 {
     setBuilderName("ResonatorBuilder");
     setSimulationName("OffSpecMini");

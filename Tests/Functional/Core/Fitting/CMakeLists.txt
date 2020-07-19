@@ -1,30 +1,14 @@
+include(GoogleTest) # provides gtest_discover_tests
+
 set(test TestCoreFitting)
 
-set(test_cases
-    MigradCylindersInBA
-    MigradResidualCylindersInBA
-    SpecularFitTest
-    SpecularFitTestQ
-    MultipleSpecFittingTest
-    FumuliCylindersInBA
-    LevenbergMarquardtCylindersInBA
-    RectDetectorFit
-    OffSpecFitTest
-    # --- slow, but still converging ---
-    # SimAnCylindersInBA
-    # GeneticCylindersInBA
-    # SteepestDescentCylindersInBA
-    # AdjustMinimizerFit
-    # BfgsCylindersInBA
-)
+set(source_files
+    FitTests.cpp
+    )
 
-include_directories(${RootMinimizers_INCLUDE_DIRS})
+add_executable(${test} ${source_files} ${CMAKE_SOURCE_DIR}/Tests/GTestWrapper/TestAll.cpp)
+target_include_directories(${test}
+    PUBLIC ${CMAKE_SOURCE_DIR}/ThirdParty/common/gtest/gtest-1.8.0/include)
+target_link_libraries(${test} ${BornAgainCore_LIBRARY} gtest)
 
-file(GLOB source_files "*.cpp")
-
-add_executable(${test} ${source_files})
-target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
-
-foreach(test_case ${test_cases})
-    add_test(${test}/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})
-endforeach()
+gtest_discover_tests(${test} TEST_PREFIX Core.)

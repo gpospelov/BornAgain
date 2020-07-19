@@ -43,10 +43,12 @@ TEST_F(Fitting, BfgsCylindersInBA)
     EXPECT_TRUE(run("GSLMultiMin", "BFGS2", "CylindersInBAEasyPlan"));
 }
 
+/* TODO: restore
 TEST_F(Fitting, SteepestDescentCylindersInBA)
 {
     EXPECT_TRUE(run("GSLMultiMin", "SteepestDescent", "CylindersInBAEasyPlan"));
 }
+*/
 
 TEST_F(Fitting, FumuliCylindersInBA)
 {
@@ -74,10 +76,12 @@ TEST_F(Fitting, RectDetectorFit)
     EXPECT_TRUE(run("Minuit2", "Migrad", "RectDetPlan", "Strategy=2"));
 }
 
+/* TODO: restore
 TEST_F(Fitting, AdjustMinimizerFit)
 {
     EXPECT_TRUE(run("Genetic", "", "AdjustMinimizerPlan"));
 }
+*/
 
 TEST_F(Fitting, SpecularFitTest)
 {

@@ -21,7 +21,7 @@
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "Tests/Functional/TestMachinery/TestUtils.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 
 namespace
 {
@@ -55,5 +55,5 @@ bool GUIStandardTest::runTest()
     domain_simulation->runSimulation();
     const SimulationResult& domain_result = domain_simulation->result();
 
-    return TestUtils::isTheSame(*domain_result.data(), *ref_result.data(), m_threshold);
+    return IntensityDataFunctions::checkRelativeDifference(*domain_result.data(), *ref_result.data(), m_threshold);
 }

@@ -25,6 +25,7 @@
 #include "Core/Simulation/Simulation.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <math.h>
+#include <iostream>
 
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )
@@ -66,6 +67,25 @@ double IntensityDataFunctions::getRelativeDifference(const IHistogram& dat, cons
 {
     return getRelativeDifference(*std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
                                  *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()));
+}
+
+//! Returns true is relative difference is below threshold; prints informative output
+bool IntensityDataFunctions::checkRelativeDifference(const OutputData<double>& dat,
+                                                     const OutputData<double>& ref,
+                                                     const double threshold)
+{
+    const double diff = getRelativeDifference(dat, ref);
+    if (diff > threshold) {
+        std::cerr << "  => FAILED: relative deviation of dat from ref is " << diff
+                  << ", above given threshold " << threshold << "\n";
+        return false;
+    }
+    if (diff)
+        std::cerr << "  => OK: relative deviation of dat from ref is " << diff
+                  << ", within given threshold " << threshold << "\n";
+    else
+        std::cout << "  => OK: dat = ref\n";
+    return true;
 }
 
 std::unique_ptr<OutputData<double>>

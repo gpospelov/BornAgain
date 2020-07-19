@@ -19,7 +19,7 @@
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Tests/Functional/TestMachinery/TestUtils.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include <cassert>
 #include <fstream>
 #include <iostream>
@@ -81,5 +81,5 @@ bool PyStandardTest::runTest()
     const std::unique_ptr<OutputData<double>> domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
 
-    return TestUtils::isTheSame(*domain_data, *reference_data, m_threshold);
+    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *reference_data, m_threshold);
 }

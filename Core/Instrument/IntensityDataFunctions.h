@@ -35,6 +35,11 @@ BA_CORE_API_ double RelativeDifference(const SimulationResult& dat, const Simula
 BA_CORE_API_ double getRelativeDifference(const OutputData<double>& dat,
                                           const OutputData<double>& ref);
 
+//! Returns true is relative difference is below threshold; prints informative output
+BA_CORE_API_ bool checkRelativeDifference(const OutputData<double>& dat,
+                                          const OutputData<double>& ref,
+                                          const double threshold);
+
 BA_CORE_API_ double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
 
 //! Transforms coordinate on axis into the bin-fraction-coordinate.

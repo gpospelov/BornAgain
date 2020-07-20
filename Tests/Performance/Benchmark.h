@@ -17,16 +17,17 @@
 
 #include "Core/Tools/OrderedMap.h"
 #include "Fit/Tools/WallclockTimer.h"
-#include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <map>
 #include <string>
 
-class BA_CORE_API_ Duration
+// No Win export symbols here, because Benchmark.cpp is linked directly to the executables,
+// and not in form of a library
+
+class Duration
 {
 public:
     Duration() : m_totalTime(0) {}
-    ~Duration() = default;
 
     void start() { m_timer.start(); }
     void stop()
@@ -43,7 +44,7 @@ private:
 
 //! Benchmark tool to measure duration of several processes.
 
-class BA_CORE_API_ Benchmark
+class Benchmark
 {
     typedef OrderedMap<std::string, Duration*> BenchmarkMap;
 

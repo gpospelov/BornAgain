@@ -22,6 +22,9 @@
 #include <iostream>
 #include <random>
 
+namespace
+{
+
 struct TestResults {
     int m_nx;
     int m_ny;
@@ -134,6 +137,8 @@ std::string report()
 
     return result.str();
 }
+
+} // namespace
 
 int main()
 {

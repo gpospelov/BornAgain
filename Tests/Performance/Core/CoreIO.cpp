@@ -22,9 +22,6 @@
 #include <iostream>
 #include <random>
 
-namespace
-{
-
 struct TestResults {
     int m_nx;
     int m_ny;
@@ -112,7 +109,6 @@ bool test_io(int nx, int ny, bool random_data, const std::string& ext)
     result.m_read_time = mb.runTime(test_name);
 
     result.m_biggest_diff = biggest_difference(*data, *ref_data);
-    ;
 
     std::cout << mb.report() << std::endl;
     std::cout << "Diff: " << result.m_biggest_diff << std::endl;
@@ -138,8 +134,6 @@ std::string report()
 
     return result.str();
 }
-
-} // namespace
 
 int main()
 {

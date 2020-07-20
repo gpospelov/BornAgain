@@ -22,9 +22,11 @@
 #undef _POSIX_C_SOURCE
 #undef _XOPEN_SOURCE
 
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 #include <Python.h>
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
@@ -33,7 +35,9 @@
 
 #include "swig_runtime.h"
 
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
+#endif
 
 #endif // BORNAGAIN_PYTHON
 

@@ -29,7 +29,7 @@ class BA_CORE_API_ IStandardTest
 public:
     IStandardTest(const std::string& name, const Simulation& simulation, double threshold);
 
-    ~IStandardTest();
+    virtual ~IStandardTest();
 
     virtual bool runTest() = 0;
 

@@ -55,6 +55,9 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
     int number_of_failed_tests = 0;
 
     for (size_t sample_index = 0; sample_index < builder->size(); ++sample_index) {
+        std::cout << "Run std test " << info.m_test_name << ", subtest " << sample_index << "/"
+                  << builder->size() << ": "<< builder->getName() << "\n";
+
         std::unique_ptr<Simulation> simulation(
             SimulationFactory().createItem(info.m_simulation_names.front()));
 
@@ -66,12 +69,10 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
         std::unique_ptr<IStandardTest> test(
             createStdTest(test_name, *simulation, info.m_threshold));
 
-        if (n_subtests)
-            std::cout << "IStandardTest::runTest() -> " << test_name << " " << sample_index + 1
-                      << "/" << n_subtests << " (" << builder->getName() << ")\n";
-
-        if (!test->runTest())
+        if (!test->runTest()) {
+            std::cout << "subtest " << sample_index << " failed\n";
             ++number_of_failed_tests;
+        }
     }
 
     if (number_of_failed_tests)

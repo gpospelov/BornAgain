@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
-
 function(PerformanceTest NAME SPEED DEPS)
     add_executable(${NAME} ${NAME}.cpp ${DEPS})
     target_link_libraries(${NAME} ${BornAgainGUI_LIBRARY})

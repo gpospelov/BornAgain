@@ -15,7 +15,9 @@
 #include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class Translate : public ::testing::Test {};
+class Translate : public ::testing::Test
+{
+};
 
 bool run(const std::string& sim_name, const std::string& sample_name)
 {

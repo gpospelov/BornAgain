@@ -16,8 +16,8 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETEST_H
 
 #include <memory>
-#include <vector>
 #include <string>
+#include <vector>
 
 class Simulation;
 

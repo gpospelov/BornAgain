@@ -17,14 +17,15 @@
 #include "BATesting.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
 #include <cassert>
 #include <fstream>
 #include <iostream>
 
-namespace {
+namespace
+{
 
 //! Runs a python command, prints messages, returns true unless the system call failed.
 bool runPython(const std::string& py_command)
@@ -81,5 +82,6 @@ bool PyStandardTest::runTest()
     const std::unique_ptr<OutputData<double>> domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
 
-    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *reference_data, m_threshold);
+    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *reference_data,
+                                                           m_threshold);
 }

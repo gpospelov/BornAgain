@@ -24,8 +24,8 @@
 #include "Core/Instrument/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
 #include "Fit/TestEngine/Numeric.h"
-#include <math.h>
 #include <iostream>
+#include <math.h>
 
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )

@@ -31,7 +31,7 @@ public:
 
 private:
     virtual IStandardTest* createStdTest(const std::string& name, const Simulation& simulation,
-                                           double threshold) = 0;
+                                         double threshold) = 0;
 };
 
 //! @brief
@@ -44,7 +44,7 @@ template <typename T> class StandardTestService : public StandardTestServiceBase
 
 private:
     IStandardTest* createStdTest(const std::string& name, const Simulation& simulation,
-                                   double threshold) override
+                                 double threshold) override
     {
         return new T(name, simulation, threshold);
     }

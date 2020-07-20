@@ -14,7 +14,9 @@
 #include "Tests/Functional/GUI/Other/SaveLoadProject.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class Other : public ::testing::Test {};
+class Other : public ::testing::Test
+{
+};
 
 /* TODO restore
    currently times out, or when run interactively, writes:

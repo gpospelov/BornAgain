@@ -30,10 +30,10 @@
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
 #include "GUI/coregui/utils/MessageService.h"
-#include <cassert>
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>
+#include <cassert>
 
 namespace
 {

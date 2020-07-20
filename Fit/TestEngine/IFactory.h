@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
 
+#include <cassert>
 #include <functional>
 #include <iostream> // debug
 #include <map>
 #include <memory>
 #include <sstream>
-#include <cassert>
 
 //! Base class for all factories.
 //! @ingroup tools_internal

@@ -17,10 +17,12 @@
 #include "Tests/Functional/Core/Fitting/PlanFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class Fitting : public ::testing::Test {};
+class Fitting : public ::testing::Test
+{
+};
 
 bool run(const std::string& minimizer_name, const std::string& algorithm_name,
-         const std::string& fit_plan_name, const std::string& options="")
+         const std::string& fit_plan_name, const std::string& options = "")
 {
     auto plan = PlanFactory().createItemPtr(fit_plan_name);
     Fit::Minimizer minimizer;
@@ -63,7 +65,7 @@ TEST_F(Fitting, LevenbergMarquardtCylindersInBA)
 TEST_F(Fitting, SimAnCylindersInBA)
 {
     EXPECT_TRUE(run("GSLSimAn", "", "CylindersInBAEasyPlan",
-                       "IterationsAtTemp=5;MaxIterations=10;t_min=1.0"));
+                    "IterationsAtTemp=5;MaxIterations=10;t_min=1.0"));
 }
 
 TEST_F(Fitting, GeneticCylindersInBA)

@@ -25,7 +25,9 @@
 #include <iostream>
 #include <sstream>
 
-class PyEmbedded : public ::testing::Test {};
+class PyEmbedded : public ::testing::Test
+{
+};
 
 //! Accessing to the information about Python used during the build, content of path.sys variable.
 

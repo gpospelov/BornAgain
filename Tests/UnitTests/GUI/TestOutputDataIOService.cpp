@@ -60,7 +60,8 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     RealDataItem* realData2 = dynamic_cast<RealDataItem*>(
         models.jobModel()->insertNewItem("RealData", jobItem->index(), -1, JobItem::T_REALDATA));
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
-    realData2->setOutputData(GuiUnittestUtils::createData(0.0, GuiUnittestUtils::DIM::D1).release());
+    realData2->setOutputData(
+        GuiUnittestUtils::createData(0.0, GuiUnittestUtils::DIM::D1).release());
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
 
     // checking data items of OutputDataIOService
@@ -194,8 +195,10 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     const double value1(1.0), value2(2.0), value3(3.0);
 
     ApplicationModels models;
-    RealDataItem* realData1 = GuiUnittestUtils::createRealData("data1", *models.realDataModel(), value1);
-    RealDataItem* realData2 = GuiUnittestUtils::createRealData("data2", *models.realDataModel(), value2);
+    RealDataItem* realData1 =
+        GuiUnittestUtils::createRealData("data1", *models.realDataModel(), value1);
+    RealDataItem* realData2 =
+        GuiUnittestUtils::createRealData("data2", *models.realDataModel(), value2);
 
     // Saving first time
     OutputDataIOService service(&models);

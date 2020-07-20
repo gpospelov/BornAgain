@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
@@ -21,7 +22,6 @@
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
 
 namespace
 {
@@ -55,5 +55,6 @@ bool GUIStandardTest::runTest()
     domain_simulation->runSimulation();
     const SimulationResult& domain_result = domain_simulation->result();
 
-    return IntensityDataFunctions::checkRelativeDifference(*domain_result.data(), *ref_result.data(), m_threshold);
+    return IntensityDataFunctions::checkRelativeDifference(*domain_result.data(),
+                                                           *ref_result.data(), m_threshold);
 }

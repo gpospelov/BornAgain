@@ -16,9 +16,9 @@
 #include "BABuild.h"
 #include "BATesting.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
 #include <cassert>
 
 bool CoreStandardTest::runTest()
@@ -43,7 +43,8 @@ bool CoreStandardTest::runTest()
     // Compare with reference if available.
     bool success = false;
     if (reference)
-        success = IntensityDataFunctions::checkRelativeDifference(*result_data, *reference, m_threshold) ? true : false;
+        success =
+            IntensityDataFunctions::checkRelativeDifference(*result_data, *reference, m_threshold);
 
     // Save simulation if different from reference.
     if (!success) {

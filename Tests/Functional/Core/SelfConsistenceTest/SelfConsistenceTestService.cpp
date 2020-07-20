@@ -16,8 +16,8 @@
 #include "Core/Simulation/Simulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
-#include "Tests/Functional/Std/StandardTestCatalog.h"
 #include "Tests/Functional/Core/SelfConsistenceTest/SelfConsistenceTest.h"
+#include "Tests/Functional/Std/StandardTestCatalog.h"
 
 using sim_ptr = std::unique_ptr<Simulation>;
 using builder_ptr = std::unique_ptr<IMultiLayerBuilder>;

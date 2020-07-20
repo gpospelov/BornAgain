@@ -15,9 +15,9 @@
 #include "Tests/Functional/Core/SelfConsistenceTest/SelfConsistenceTest.h"
 #include "BATesting.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
 #include <cassert>
 
 namespace
@@ -51,7 +51,8 @@ bool SelfConsistenceTest::runTest()
     // Compare with reference if available.
     bool success = true;
     for (size_t i = 1, size = results.size(); i < size; ++i) {
-        const bool outcome = IntensityDataFunctions::checkRelativeDifference(*results[i], *results[0], m_threshold);
+        const bool outcome =
+            IntensityDataFunctions::checkRelativeDifference(*results[i], *results[0], m_threshold);
         if (!outcome) { // compose message and save results
             std::stringstream ss;
             ss << "Simulations 0 and " << i << " yield different results.\n"

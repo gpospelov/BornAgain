@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Fit/Minimizer/ClassicalTestFunctions.h"
+#include <cassert>
 #include <cmath>
 #include <iostream>
-#include <cassert>
 #include <string>
 
 //! RosenBrock function: F(x,y) = 100 (y-x^2)^2 + (1-x)^2

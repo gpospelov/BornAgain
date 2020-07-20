@@ -26,6 +26,7 @@ class BA_CORE_API_ Duration
 {
 public:
     Duration() : m_totalTime(0) {}
+    ~Duration() = default;
 
     void start() { m_timer.start(); }
     void stop()

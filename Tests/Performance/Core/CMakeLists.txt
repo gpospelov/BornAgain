@@ -1,8 +1,10 @@
 function(PerformanceTest NAME SPEED DEPS)
-    add_executable(${NAME} ${NAME}.cpp ${DEPS})
-    target_link_libraries(${NAME} ${BornAgainCore_LIBRARY})
+    set(TEST "PTest${NAME}")
+    message(STATUS "P -----------------> ${TEST} ${NAME}.cpp ${DEPS}")
+    add_executable(${TEST} ${NAME}.cpp ${DEPS})
+    target_link_libraries(${TEST} BornAgainCore)
     if((${SPEED} STREQUAL "fast") OR SLOWTESTS)
-        add_test(Core:Perf:${NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${NAME})
+        add_test(Core:Perf:${NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TEST})
     endif()
 endfunction()
 

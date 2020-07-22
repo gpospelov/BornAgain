@@ -16,7 +16,7 @@
 #define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H
 
 #include "Fit/Kernel/KernelTypes.h"
-#include "Tests/Functional/TestMachinery/MinimizerTestPlan.h"
+#include "Fit/TestEngine/MinimizerTestPlan.h"
 
 class ResidualTestPlan : public MinimizerTestPlan
 {
@@ -24,7 +24,6 @@ public:
     using test_funct_t = std::function<double(double, const std::vector<double>&)>;
 
     ResidualTestPlan(const std::string& name, test_funct_t func);
-    ~ResidualTestPlan();
 
     fcn_residual_t residualFunction();
 

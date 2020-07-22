@@ -2,7 +2,7 @@
 #include "Core/Instrument/DetectorFunctions.h"
 #include "Core/Instrument/SphericalDetector.h"
 #include "Core/Mask/Rectangle.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>
 

@@ -1,5 +1,5 @@
 #include "Core/Parametrization/IParameterized.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <stdexcept>
 
 class IParameterizedTest : public ::testing::Test

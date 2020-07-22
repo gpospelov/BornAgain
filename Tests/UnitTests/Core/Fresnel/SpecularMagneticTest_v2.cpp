@@ -6,7 +6,7 @@
 #include "Core/Multilayer/SpecularScalarTanhStrategy.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 constexpr double eps = 1e-10;
 

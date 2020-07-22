@@ -5,7 +5,7 @@
 #include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/includeIncludes/FormFactors.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class ParticleDistributionTest : public ::testing::Test
 {

@@ -1,5 +1,5 @@
 #include "Core/Fitting/FitObserver.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class FitObserverTest : public ::testing::Test
 {

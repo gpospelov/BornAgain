@@ -2,7 +2,7 @@
 #include "GUI/coregui/Models/ModelUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QVector>
 
 class TestModelUtils : public ::testing::Test

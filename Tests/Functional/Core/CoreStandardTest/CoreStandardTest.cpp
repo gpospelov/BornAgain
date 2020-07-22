@@ -16,18 +16,20 @@
 #include "BABuild.h"
 #include "BATesting.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Tests/Functional/TestMachinery/TestUtils.h"
+#include <cassert>
 
 bool CoreStandardTest::runTest()
 {
     std::unique_ptr<OutputData<double>> reference;
 
     // Load reference if available
+    assert(m_name != "");
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
-            FileSystemUtils::jointPath(BATesting::CoreReferenceDir(), getName() + ".int.gz")));
+            FileSystemUtils::jointPath(BATesting::CoreReferenceDir(), m_name + ".int.gz")));
     } catch (const std::exception&) {
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }
@@ -41,13 +43,14 @@ bool CoreStandardTest::runTest()
     // Compare with reference if available.
     bool success = false;
     if (reference)
-        success = TestUtils::isTheSame(*result_data, *reference, m_threshold) ? true : false;
+        success =
+            IntensityDataFunctions::checkRelativeDifference(*result_data, *reference, m_threshold);
 
     // Save simulation if different from reference.
     if (!success) {
         FileSystemUtils::createDirectories(BATesting::CoreOutputDir());
         std::string out_fname =
-            FileSystemUtils::jointPath(BATesting::CoreOutputDir(), getName() + ".int.gz");
+            FileSystemUtils::jointPath(BATesting::CoreOutputDir(), m_name + ".int.gz");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << "\n"
                   << "To visualize an intensity map, use " << BABuild::buildBinDir()

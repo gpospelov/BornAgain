@@ -15,7 +15,6 @@
 #include "Core/Export/SampleToPython.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Export/INodeUtils.h"
-#include "Core/Tools/PythonFormatting.h"
 #include "Core/Export/SampleLabelHandler.h"
 #include "Core/Lattice/Lattice.h"
 #include "Core/Material/Material.h"
@@ -31,6 +30,7 @@
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Scattering/IFormFactor.h"
+#include "Core/Tools/PythonFormatting.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
 #include <iomanip>
 #include <map>

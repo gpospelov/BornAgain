@@ -1,5 +1,5 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestGUIHelpers : public ::testing::Test
 {

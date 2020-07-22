@@ -1,6 +1,6 @@
 #include "Core/SimulationElement/PolarizationHandler.h"
 #include "Core/Vector/EigenCore.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class PolarizationHandlerTest : public ::testing::Test
 {

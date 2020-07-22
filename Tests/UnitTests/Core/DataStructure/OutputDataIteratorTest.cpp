@@ -1,6 +1,6 @@
 #include "Core/Instrument/OutputDataIterator.h"
 #include "Core/Instrument/OutputData.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class OutputDataIteratorTest : public ::testing::Test
 {

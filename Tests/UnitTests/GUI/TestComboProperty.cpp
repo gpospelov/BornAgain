@@ -1,14 +1,14 @@
 #include "GUI/coregui/Models/ComboProperty.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include "Tests/UnitTests/GUI/Comparators.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/UnitTests/GUI/Utils.h"
 
 class TestComboProperty : public ::testing::Test
 {
 public:
     ComboProperty propertyFromXML(const QString& buffer)
     {
-        return TestUtils::propertyFromXML<ComboProperty>(buffer);
+        return GuiUnittestUtils::propertyFromXML<ComboProperty>(buffer);
     }
 };
 
@@ -275,7 +275,7 @@ TEST_F(TestComboProperty, comboXML)
 
     QString expected = "<Parameter ParType=\"ComboProperty\" ParRole=\"0\" ParValue=\"0,2\" "
                        "ParExt=\"a1;a2;a3\"/>";
-    EXPECT_EQ(TestUtils::propertyToXML(combo), expected);
+    EXPECT_EQ(GuiUnittestUtils::propertyToXML(combo), expected);
 
     // reading from XML
     ComboProperty combo_property = propertyFromXML(expected);

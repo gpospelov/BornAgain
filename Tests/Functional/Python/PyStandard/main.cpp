@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Python/PyStandard/PyStandardTest.h"
-#include "Tests/Functional/TestMachinery/StandardTestService.h"
+#include "Tests/Functional/Std/StandardTestService.h"
 
 //! Runs PyStandardTest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {
-    return StandardTestService<PyStandardTest>().execute(argc, argv) ? 0 : 1;
+    return !StandardTestService<PyStandardTest>().execute(argc, argv);
 }

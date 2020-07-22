@@ -8,7 +8,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularScalarTanhStrategy.h"
 #include "Core/Parametrization/SimulationOptions.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class RTTest : public ::testing::Test
 {

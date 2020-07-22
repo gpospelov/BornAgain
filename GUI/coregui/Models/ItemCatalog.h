@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOG_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOG_H
 
-#include "Core/StandardSamples/IFactory.h"
+#include "Fit/TestEngine/IFactory.h"
 #include "Wrap/WinDllMacros.h"
 #include <QStringList>
 #include <memory>
@@ -29,7 +29,7 @@ class BA_CORE_API_ ItemCatalog
 public:
     ItemCatalog();
 
-    std::unique_ptr<SessionItem> create(const QString& modelType) const;
+    std::unique_ptr<SessionItem> createItemPtr(const QString& modelType) const;
 
     static QStringList validTopItemTypes();
 

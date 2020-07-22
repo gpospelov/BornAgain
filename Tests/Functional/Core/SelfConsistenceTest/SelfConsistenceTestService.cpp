@@ -17,14 +17,15 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Tests/Functional/Core/SelfConsistenceTest/SelfConsistenceTest.h"
-#include "Tests/Functional/TestMachinery/TestUtils.h"
+#include "Tests/Functional/Std/StandardTestCatalog.h"
 
 using sim_ptr = std::unique_ptr<Simulation>;
 using builder_ptr = std::unique_ptr<IMultiLayerBuilder>;
 
 bool SelfConsistenceTestService::execute(int argc, char** argv)
 {
-    StandardTestInfo info = TestUtils::testInfo(argc, argv);
+    assert(argc > 1);
+    StandardTestInfo info = StandardTestCatalog().testInfo(argv[1]);
 
     std::vector<sim_ptr> simulations;
     for (size_t i = 0, size = info.size(); i < size; ++i) {
@@ -34,7 +35,7 @@ bool SelfConsistenceTestService::execute(int argc, char** argv)
         simulations.push_back(std::move(simulation));
     }
 
-    auto test = std::make_unique<SelfConsistenceTest>(info.m_test_name, info.m_test_description,
-                                                      std::move(simulations), info.m_threshold);
+    auto test = std::make_unique<SelfConsistenceTest>(info.m_test_name, std::move(simulations),
+                                                      info.m_threshold);
     return test->runTest();
 }

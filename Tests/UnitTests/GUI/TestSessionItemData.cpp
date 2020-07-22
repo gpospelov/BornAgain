@@ -1,7 +1,7 @@
 #include "GUI/coregui/Models/SessionFlags.h"
 #include "GUI/coregui/Models/SessionItemData.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestSessionItemData : public ::testing::Test
 {

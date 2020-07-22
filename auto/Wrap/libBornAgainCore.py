@@ -16911,6 +16911,16 @@ def RelativeDifference(dat, ref):
     """
     return _libBornAgainCore.RelativeDifference(dat, ref)
 
+def checkRelativeDifference(dat, ref, threshold):
+    r"""
+    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
+    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+    Returns true is relative difference is below threshold; prints informative output. 
+
+    """
+    return _libBornAgainCore.checkRelativeDifference(dat, ref, threshold)
+
 def getRelativeDifference(*args):
     r"""
     getRelativeDifference(IntensityData dat, IntensityData ref) -> double
@@ -22051,8 +22061,8 @@ class RealParameter(IParameterReal):
 
     def __init__(self, *args):
         r"""
-        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name=std::string(), std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
-        RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name=std::string(), const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name="", std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
+        RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name="", const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 
         """
         _libBornAgainCore.RealParameter_swiginit(self, _libBornAgainCore.new_RealParameter(*args))
@@ -22858,80 +22868,31 @@ class ThreadInfo(object):
 _libBornAgainCore.ThreadInfo_swigregister(ThreadInfo)
 
 class SampleBuilderFactoryTemp(object):
-    r"""
-
-
-    Base class for all factories.
-
-    C++ includes: IFactory.h
-
-    """
+    r"""Proxy of C++ IFactory< std::string,IMultiLayerBuilder > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
-        r"""
-        __init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp
-        IFactory< Key, AbstractProduct >::IFactory()
-
-        """
-        _libBornAgainCore.SampleBuilderFactoryTemp_swiginit(self, _libBornAgainCore.new_SampleBuilderFactoryTemp())
-
     def createItem(self, item_key):
-        r"""
-        createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder
-        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
-
-        Creates object by calling creation function corresponded to given identifier. 
-
-        """
+        r"""createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder"""
         return _libBornAgainCore.SampleBuilderFactoryTemp_createItem(self, item_key)
 
-    def registerItem(self, *args):
-        r"""
-        registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription="") -> bool
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
-
-        Registers object's creation function and store object description. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, *args)
+    def registerItem(self, item_key, CreateFn):
+        r"""registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, item_key, CreateFn)
 
     def contains(self, item_key):
-        r"""
-        contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
-
-        """
+        r"""contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool"""
         return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
-    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
 
     def size(self):
-        r"""
-        size(SampleBuilderFactoryTemp self) -> size_t
-        size_t IFactory< Key, AbstractProduct >::size() const
-
-        Returns number of registered objects. 
-
-        """
+        r"""size(SampleBuilderFactoryTemp self) -> size_t"""
         return _libBornAgainCore.SampleBuilderFactoryTemp_size(self)
 
-    def begin(self):
-        r"""
-        begin(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::begin() const
-
-        """
-        return _libBornAgainCore.SampleBuilderFactoryTemp_begin(self)
-
-    def end(self):
-        r"""
-        end(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::end() const
-
-        """
-        return _libBornAgainCore.SampleBuilderFactoryTemp_end(self)
+    def __init__(self):
+        r"""__init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp"""
+        _libBornAgainCore.SampleBuilderFactoryTemp_swiginit(self, _libBornAgainCore.new_SampleBuilderFactoryTemp())
+    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
 
 # Register SampleBuilderFactoryTemp in _libBornAgainCore:
 _libBornAgainCore.SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
@@ -22972,80 +22933,31 @@ class SampleBuilderFactory(SampleBuilderFactoryTemp):
 _libBornAgainCore.SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
 class SimulationFactoryTemp(object):
-    r"""
-
-
-    Base class for all factories.
-
-    C++ includes: IFactory.h
-
-    """
+    r"""Proxy of C++ IFactory< std::string,Simulation > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
-        r"""
-        __init__(SimulationFactoryTemp self) -> SimulationFactoryTemp
-        IFactory< Key, AbstractProduct >::IFactory()
-
-        """
-        _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())
-
     def createItem(self, item_key):
-        r"""
-        createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation
-        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
-
-        Creates object by calling creation function corresponded to given identifier. 
-
-        """
+        r"""createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation"""
         return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
 
-    def registerItem(self, *args):
-        r"""
-        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn, std::string const & itemDescription="") -> bool
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
-
-        Registers object's creation function and store object description. 
-
-        """
-        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, *args)
+    def registerItem(self, item_key, CreateFn):
+        r"""registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn) -> bool"""
+        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, item_key, CreateFn)
 
     def contains(self, item_key):
-        r"""
-        contains(SimulationFactoryTemp self, std::string const & item_key) -> bool
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
-
-        """
+        r"""contains(SimulationFactoryTemp self, std::string const & item_key) -> bool"""
         return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
 
     def size(self):
-        r"""
-        size(SimulationFactoryTemp self) -> size_t
-        size_t IFactory< Key, AbstractProduct >::size() const
-
-        Returns number of registered objects. 
-
-        """
+        r"""size(SimulationFactoryTemp self) -> size_t"""
         return _libBornAgainCore.SimulationFactoryTemp_size(self)
 
-    def begin(self):
-        r"""
-        begin(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::begin() const
-
-        """
-        return _libBornAgainCore.SimulationFactoryTemp_begin(self)
-
-    def end(self):
-        r"""
-        end(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
-        const_iterator IFactory< Key, AbstractProduct >::end() const
-
-        """
-        return _libBornAgainCore.SimulationFactoryTemp_end(self)
+    def __init__(self):
+        r"""__init__(SimulationFactoryTemp self) -> SimulationFactoryTemp"""
+        _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
 
 # Register SimulationFactoryTemp in _libBornAgainCore:
 _libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)

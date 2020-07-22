@@ -4,7 +4,7 @@
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Instrument/OutputData.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class FourierTransformTest : public ::testing::Test
 {

@@ -1,6 +1,6 @@
 #include "Core/Lattice/LatticeUtils.h"
 #include "Core/Lattice/ILatticeOrientation.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class LatticeUtilsTest : public ::testing::Test
 {

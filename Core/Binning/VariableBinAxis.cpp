@@ -14,7 +14,7 @@
 
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Tools/Numeric.h"
+#include "Fit/TestEngine/Numeric.h"
 #include <algorithm>
 #include <iomanip>
 

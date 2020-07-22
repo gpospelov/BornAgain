@@ -6723,48 +6723,6 @@ Sets distribution units.
 ";
 
 
-// File: classIFactory.xml
-%feature("docstring") IFactory "
-
-Base class for all factories.
-
-C++ includes: IFactory.h
-";
-
-%feature("docstring")  IFactory::IFactory "IFactory< Key, AbstractProduct >::IFactory()
-";
-
-%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
-
-Creates object by calling creation function corresponded to given identifier. 
-";
-
-%feature("docstring")  IFactory::create "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::create(const Key &item_key) const
-";
-
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription=\"\")
-
-Registers object's creation function and store object description. 
-";
-
-%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
-";
-
-%feature("docstring")  IFactory::~IFactory "IFactory< Key, AbstractProduct >::~IFactory()
-";
-
-%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
-
-Returns number of registered objects. 
-";
-
-%feature("docstring")  IFactory::begin "const_iterator IFactory< Key, AbstractProduct >::begin() const
-";
-
-%feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const
-";
-
-
 // File: classIFootprintFactor.xml
 %feature("docstring") IFootprintFactor "
 
@@ -13776,7 +13734,7 @@ Wraps a parameter of type double. In addition to name and on-change callback hel
 C++ includes: RealParameter.h
 ";
 
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name=std::string(), const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name=\"\", const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 ";
 
 %feature("docstring")  RealParameter::~RealParameter "virtual RealParameter::~RealParameter()=default
@@ -17100,10 +17058,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17151,64 +17109,67 @@ C++ includes: ZLimits.h
 // File: namespace_0d124.xml
 
 
-// File: namespace_0d133.xml
+// File: namespace_0d131.xml
 
 
-// File: namespace_0d138.xml
+// File: namespace_0d136.xml
+
+
+// File: namespace_0d145.xml
 
 
 // File: namespace_0d147.xml
 
 
-// File: namespace_0d149.xml
-
-
-// File: namespace_0d153.xml
+// File: namespace_0d151.xml
 
 
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d189.xml
+// File: namespace_0d187.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d222.xml
 
 
-// File: namespace_0d232.xml
+// File: namespace_0d230.xml
 
 
-// File: namespace_0d238.xml
+// File: namespace_0d236.xml
 
 
-// File: namespace_0d242.xml
+// File: namespace_0d240.xml
 
 
-// File: namespace_0d292.xml
+// File: namespace_0d290.xml
 
 
-// File: namespace_0d301.xml
+// File: namespace_0d299.xml
+
+
+// File: namespace_0d307.xml
 
 
 // File: namespace_0d309.xml
 
 
-// File: namespace_0d311.xml
-
-
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d323.xml
+// File: namespace_0d321.xml
 
 
-// File: namespace_0d329.xml
+// File: namespace_0d327.xml
 
 
-// File: namespace_0d350.xml
+// File: namespace_0d348.xml
+
+
+// File: namespace_0d352.xml
 
 
 // File: namespace_0d354.xml
@@ -17217,64 +17178,64 @@ C++ includes: ZLimits.h
 // File: namespace_0d356.xml
 
 
-// File: namespace_0d358.xml
+// File: namespace_0d366.xml
 
 
-// File: namespace_0d368.xml
+// File: namespace_0d378.xml
 
 
-// File: namespace_0d380.xml
+// File: namespace_0d382.xml
 
 
-// File: namespace_0d384.xml
-
-
-// File: namespace_0d396.xml
+// File: namespace_0d394.xml
 
 
 // File: namespace_0d40.xml
 
 
+// File: namespace_0d400.xml
+
+
 // File: namespace_0d402.xml
 
 
-// File: namespace_0d404.xml
+// File: namespace_0d409.xml
 
 
 // File: namespace_0d411.xml
 
 
-// File: namespace_0d413.xml
+// File: namespace_0d415.xml
 
 
 // File: namespace_0d417.xml
 
 
-// File: namespace_0d419.xml
-
-
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d429.xml
+// File: namespace_0d427.xml
 
 
-// File: namespace_0d442.xml
+// File: namespace_0d440.xml
+
+
+// File: namespace_0d449.xml
 
 
 // File: namespace_0d451.xml
 
 
-// File: namespace_0d453.xml
+// File: namespace_0d484.xml
 
 
-// File: namespace_0d486.xml
+// File: namespace_0d491.xml
 
 
-// File: namespace_0d493.xml
+// File: namespace_0d511.xml
 
 
-// File: namespace_0d513.xml
+// File: namespace_0d519.xml
 
 
 // File: namespace_0d521.xml
@@ -17283,19 +17244,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d523.xml
 
 
-// File: namespace_0d525.xml
-
-
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d609.xml
+// File: namespace_0d606.xml
 
 
-// File: namespace_0d613.xml
+// File: namespace_0d610.xml
 
 
-// File: namespace_0d637.xml
+// File: namespace_0d632.xml
 
 
 // File: namespace_0d95.xml
@@ -17566,6 +17524,11 @@ Returns sum of relative differences between each pair of elements: (a, b) -> 2*a
 %feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
 
 Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
+";
+
+%feature("docstring")  IntensityDataFunctions::checkRelativeDifference "bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+Returns true is relative difference is below threshold; prints informative output. 
 ";
 
 %feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
@@ -17874,28 +17837,6 @@ Returns path composed of node's displayName, with respect to root node.
 ";
 
 
-// File: namespaceNumeric.xml
-%feature("docstring")  Numeric::AreAlmostEqual "bool BA_CORE_API_ Numeric::AreAlmostEqual(double a, double b, double tolerance)
-
-Returns true if two doubles agree within epsilon*tolerance. 
-";
-
-%feature("docstring")  Numeric::GetAbsoluteDifference "double BA_CORE_API_ Numeric::GetAbsoluteDifference(double a, double b)
-
-Returns the absolute value of the difference between a and b. 
-";
-
-%feature("docstring")  Numeric::GetRelativeDifference "double BA_CORE_API_ Numeric::GetRelativeDifference(double a, double b)
-
-Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
-";
-
-%feature("docstring")  Numeric::GetLogDifference "double BA_CORE_API_ Numeric::GetLogDifference(double a, double b)
-
-Returns the difference of the logarithm; input values are truncated at the minimum positive value 
-";
-
-
 // File: namespaceObjectiveMetricUtils.xml
 %feature("docstring")  ObjectiveMetricUtils::l1Norm "const std::function< double(double)> ObjectiveMetricUtils::l1Norm()
 
@@ -18002,7 +17943,7 @@ Converts char to string. In the case of nullptr will return an empty string.
 %feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
 ";
 
-%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=std::string())
+%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=\"\")
 
 Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
 ";
@@ -18019,7 +17960,7 @@ Returns string representing python stack trace.
 
 
 // File: namespacePyImport.xml
-%feature("docstring")  PyImport::createFromPython "std::unique_ptr< MultiLayer > PyImport::createFromPython(const std::string &script, const std::string &functionName, const std::string &path=std::string())
+%feature("docstring")  PyImport::createFromPython "std::unique_ptr< MultiLayer > PyImport::createFromPython(const std::string &script, const std::string &functionName, const std::string &path=\"\")
 
 Creates a multi layer by running python code in embedded interpreter.
 
@@ -18036,7 +17977,7 @@ path:
 A path to import BornAgain library. If empty, relies on PYTHONPATH 
 ";
 
-%feature("docstring")  PyImport::listOfFunctions "std::vector< std::string > PyImport::listOfFunctions(const std::string &script, const std::string &path=std::string())
+%feature("docstring")  PyImport::listOfFunctions "std::vector< std::string > PyImport::listOfFunctions(const std::string &script, const std::string &path=\"\")
 
 Returns list of functions defined in the script.
 
@@ -18780,12 +18721,6 @@ global helper function for comparison of axes
 
 
 // File: INodeUtils_8h.xml
-
-
-// File: PythonFormatting_8cpp.xml
-
-
-// File: PythonFormatting_8h.xml
 
 
 // File: SampleLabelHandler_8cpp.xml
@@ -20268,15 +20203,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: HomogeneousMultilayerBuilder_8h.xml
 
 
-// File: IFactory_8h.xml
-%feature("docstring")  create_new "T* create_new()
-
-Returns new instance of class T.
-
-This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
-";
-
-
 // File: IRegistry_8h.xml
 
 
@@ -20498,12 +20424,6 @@ Template function to create an integrator object
 // File: MathFunctions_8h.xml
 
 
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
-
-
 // File: OrderedMap_8h.xml
 
 
@@ -20526,6 +20446,12 @@ Template function to create an integrator object
 
 
 // File: PythonCore_8h.xml
+
+
+// File: PythonFormatting_8cpp.xml
+
+
+// File: PythonFormatting_8h.xml
 
 
 // File: SafePointerVector_8h.xml

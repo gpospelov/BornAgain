@@ -3,7 +3,7 @@
 #include "Core/Instrument/SphericalDetector.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Vector/Vectors3D.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class OffSpecularConverterTest : public ::testing::Test
 {

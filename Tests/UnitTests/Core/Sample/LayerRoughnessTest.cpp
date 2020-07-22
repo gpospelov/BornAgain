@@ -1,6 +1,6 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Parametrization/ParameterPattern.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class LayerRoughnessTest : public ::testing::Test
 {

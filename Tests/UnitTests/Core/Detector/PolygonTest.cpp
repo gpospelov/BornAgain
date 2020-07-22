@@ -1,6 +1,6 @@
 #include "Core/Mask/Polygon.h"
 #include "Core/Binning/Bin.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class PolygonTest : public ::testing::Test

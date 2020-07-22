@@ -4,7 +4,7 @@
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/SimulationArea.h"
 #include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class SpecularDetectorTest : public ::testing::Test

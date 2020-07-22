@@ -7,7 +7,7 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Parametrization/Units.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 using MultiLayerUtils::LayerBottomInterface;
 using MultiLayerUtils::LayerThickness;

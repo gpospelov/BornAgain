@@ -1,6 +1,6 @@
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Binning/VariableBinAxis.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class IntensityDataFunctionsTest : public ::testing::Test
 {

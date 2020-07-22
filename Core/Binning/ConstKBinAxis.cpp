@@ -14,7 +14,7 @@
 
 #include "Core/Binning/ConstKBinAxis.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Tools/Numeric.h"
+#include "Fit/TestEngine/Numeric.h"
 #include <iomanip>
 
 ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins)

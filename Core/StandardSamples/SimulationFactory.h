@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SIMULATIONFACTORY_H
 
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/StandardSamples/IFactory.h"
+#include "Fit/TestEngine/IFactory.h"
 #include <string>
 
 //! Registry to create standard pre-defined simulations.

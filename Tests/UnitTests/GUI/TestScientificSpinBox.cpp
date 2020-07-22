@@ -1,5 +1,5 @@
 #include "GUI/coregui/Views/JobWidgets/ScientificSpinBox.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <limits>
 
 class TestScientificSpinBox : public ::testing::Test

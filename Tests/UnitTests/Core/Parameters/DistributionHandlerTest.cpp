@@ -2,7 +2,7 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/IParameterized.h"
 #include "Core/Parametrization/ParameterPool.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 
 class DistributionHandlerTest : public ::testing::Test

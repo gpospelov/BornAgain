@@ -4,7 +4,7 @@
 #include "Core/includeIncludes/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestGUICoreObjectCorrespondence : public ::testing::Test
 {

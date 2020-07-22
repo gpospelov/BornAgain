@@ -1,6 +1,27 @@
 
 // File: index.xml
 
+// File: classAlgorithmInfo.xml
+%feature("docstring") AlgorithmInfo "
+
+A name and a description.
+
+C++ includes: MinimizerInfo.h
+";
+
+%feature("docstring")  AlgorithmInfo::AlgorithmInfo "AlgorithmInfo::AlgorithmInfo()=delete
+";
+
+%feature("docstring")  AlgorithmInfo::AlgorithmInfo "AlgorithmInfo::AlgorithmInfo(const std::string &itemName, const std::string &itemDescription)
+";
+
+%feature("docstring")  AlgorithmInfo::name "std::string AlgorithmInfo::name() const
+";
+
+%feature("docstring")  AlgorithmInfo::description "std::string AlgorithmInfo::description() const
+";
+
+
 // File: classAttLimits.xml
 %feature("docstring") AttLimits "
 
@@ -240,6 +261,36 @@ Returns string representation of current minimizer status.
 ";
 
 
+// File: classIFactory.xml
+%feature("docstring") IFactory "
+
+Base class for all factories.
+
+C++ includes: IFactory.h
+";
+
+%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
+
+Creates object by calling creation function corresponded to given identifier. 
+";
+
+%feature("docstring")  IFactory::createItemPtr "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
+";
+
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
+
+Registers object's creation function. 
+";
+
+%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
+";
+
+%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
+
+Returns number of registered objects. 
+";
+
+
 // File: classFit_1_1IFunctionAdapter.xml
 %feature("docstring") Fit::IFunctionAdapter "
 
@@ -314,27 +365,6 @@ Sets option string to the minimizer.
 %feature("docstring")  IMinimizer::requiresResiduals "virtual bool IMinimizer::requiresResiduals()
 
 Returns true if minimizer computations are residual-based, false otherwise. 
-";
-
-
-// File: classInfoItem.xml
-%feature("docstring") InfoItem "
-
-A name and a description.
-
-C++ includes: MinimizerInfo.h
-";
-
-%feature("docstring")  InfoItem::InfoItem "InfoItem::InfoItem()
-";
-
-%feature("docstring")  InfoItem::InfoItem "InfoItem::InfoItem(const std::string &itemName, const std::string &itemDescription)
-";
-
-%feature("docstring")  InfoItem::name "std::string InfoItem::name() const
-";
-
-%feature("docstring")  InfoItem::description "std::string InfoItem::description() const
 ";
 
 
@@ -449,7 +479,7 @@ Info about a minimizer, including list of defined minimization algorithms.
 C++ includes: MinimizerInfo.h
 ";
 
-%feature("docstring")  MinimizerInfo::MinimizerInfo "MinimizerInfo::MinimizerInfo()
+%feature("docstring")  MinimizerInfo::MinimizerInfo "MinimizerInfo::MinimizerInfo()=delete
 ";
 
 %feature("docstring")  MinimizerInfo::MinimizerInfo "MinimizerInfo::MinimizerInfo(const std::string &minimizerType, const std::string &minimizerDescription)
@@ -458,6 +488,12 @@ C++ includes: MinimizerInfo.h
 %feature("docstring")  MinimizerInfo::setAlgorithmName "void MinimizerInfo::setAlgorithmName(const std::string &algorithmName)
 
 Sets currently active algorithm. 
+";
+
+%feature("docstring")  MinimizerInfo::name "std::string MinimizerInfo::name() const
+";
+
+%feature("docstring")  MinimizerInfo::description "std::string MinimizerInfo::description() const
 ";
 
 %feature("docstring")  MinimizerInfo::algorithmName "std::string MinimizerInfo::algorithmName() const
@@ -533,6 +569,32 @@ Returns multi-line string representing minimization results.
 ";
 
 %feature("docstring")  Fit::MinimizerResult::setNumberOfGradientCalls "void MinimizerResult::setNumberOfGradientCalls(int value)
+";
+
+
+// File: classMinimizerTestPlan.xml
+%feature("docstring") MinimizerTestPlan "
+
+Defines objective function to fit, expected minimum, initial fit parameters and expected values of fit parameters at minimum.
+
+C++ includes: MinimizerTestPlan.h
+";
+
+%feature("docstring")  MinimizerTestPlan::MinimizerTestPlan "MinimizerTestPlan::MinimizerTestPlan(const std::string &name)
+";
+
+%feature("docstring")  MinimizerTestPlan::~MinimizerTestPlan "MinimizerTestPlan::~MinimizerTestPlan()
+";
+
+%feature("docstring")  MinimizerTestPlan::addParameter "void MinimizerTestPlan::addParameter(const Fit::Parameter &param, double expected_value, double tolerance=0.01)
+";
+
+%feature("docstring")  MinimizerTestPlan::name "std::string MinimizerTestPlan::name() const
+";
+
+%feature("docstring")  MinimizerTestPlan::checkMinimizer "virtual bool MinimizerTestPlan::checkMinimizer(Fit::Minimizer &minimizer)=0
+
+Runs minimization and check minimization result. 
 ";
 
 
@@ -622,10 +684,10 @@ Stores a single option for minimization algorithm. Int, double, string values ar
 C++ includes: MultiOption.h
 ";
 
-%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name=std::string())
+%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name=\"\")
 ";
 
-%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name, const T &t, const std::string &descripion=std::string())
+%feature("docstring")  MultiOption::MultiOption "MultiOption::MultiOption(const std::string &name, const T &t, const std::string &descripion=\"\")
 ";
 
 %feature("docstring")  MultiOption::name "std::string MultiOption::name() const
@@ -702,7 +764,7 @@ C++ includes: OptionContainer.h
 Returns true if option with such name already exists. 
 ";
 
-%feature("docstring")  OptionContainer::addOption "OptionContainer::option_t OptionContainer::addOption(const std::string &optionName, T value, const std::string &description=std::string())
+%feature("docstring")  OptionContainer::addOption "OptionContainer::option_t OptionContainer::addOption(const std::string &optionName, T value, const std::string &description=\"\")
 ";
 
 %feature("docstring")  OptionContainer::option "OptionContainer::option_t OptionContainer::option(const std::string &optionName)
@@ -788,6 +850,30 @@ initial step of fit parameter during the minimization, will be calculated automa
 ";
 
 %feature("docstring")  Fit::Parameter::setError "void Parameter::setError(double value)
+";
+
+
+// File: classParameterPlan.xml
+%feature("docstring") ParameterPlan "
+
+Defines initial settings of single fit parameter and the final value which has to be found in the course of the fit.
+
+C++ includes: ParameterPlan.h
+";
+
+%feature("docstring")  ParameterPlan::ParameterPlan "ParameterPlan::ParameterPlan(const Fit::Parameter &param, double expected_value, double tolerance=0.01)
+";
+
+%feature("docstring")  ParameterPlan::fitParameter "Fit::Parameter ParameterPlan::fitParameter() const
+";
+
+%feature("docstring")  ParameterPlan::expectedValue "double ParameterPlan::expectedValue() const
+";
+
+%feature("docstring")  ParameterPlan::tolerance "double ParameterPlan::tolerance() const
+";
+
+%feature("docstring")  ParameterPlan::setTolerance "void ParameterPlan::setTolerance(double tolerance)
 ";
 
 
@@ -1349,6 +1435,28 @@ Returns horizontal line of 80 characters length with section name in it.
 ";
 
 
+// File: namespaceNumeric.xml
+%feature("docstring")  Numeric::AreAlmostEqual "bool BA_CORE_API_ Numeric::AreAlmostEqual(double a, double b, double tolerance)
+
+Returns true if two doubles agree within epsilon*tolerance. 
+";
+
+%feature("docstring")  Numeric::GetAbsoluteDifference "double BA_CORE_API_ Numeric::GetAbsoluteDifference(double a, double b)
+
+Returns the absolute value of the difference between a and b. 
+";
+
+%feature("docstring")  Numeric::GetRelativeDifference "double BA_CORE_API_ Numeric::GetRelativeDifference(double a, double b)
+
+Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
+";
+
+%feature("docstring")  Numeric::GetLogDifference "double BA_CORE_API_ Numeric::GetLogDifference(double a, double b)
+
+Returns the difference of the logarithm; input values are truncated at the minimum positive value 
+";
+
+
 // File: namespaceROOT.xml
 
 
@@ -1561,6 +1669,30 @@ Returns new string which is lower case of text.
 // File: SimAnMinimizer_8h.xml
 
 
+// File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+
+Returns new instance of class T.
+
+This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
+";
+
+
+// File: MinimizerTestPlan_8cpp.xml
+
+
+// File: MinimizerTestPlan_8h.xml
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
+
+
+// File: ParameterPlan_8h.xml
+
+
 // File: AttLimits_8cpp.xml
 
 
@@ -1616,6 +1748,9 @@ Returns new string which is lower case of text.
 
 
 // File: dir_5e88eb7454533834afc0f9fdcde3e277.xml
+
+
+// File: dir_03da15e295bc2986014d40bf58034da8.xml
 
 
 // File: dir_e87cef4d6f8e4c4c298cf0a4783d30f5.xml

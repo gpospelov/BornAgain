@@ -12,7 +12,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QXmlStreamWriter>
 
 namespace

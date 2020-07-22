@@ -6,7 +6,7 @@
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class KzComputationTest : public ::testing::Test
 {

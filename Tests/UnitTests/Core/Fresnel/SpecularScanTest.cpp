@@ -6,7 +6,7 @@
 #include "Core/Instrument/ScanResolution.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/SimulationElement/SpecularSimulationElement.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test
 {

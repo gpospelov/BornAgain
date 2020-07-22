@@ -30,7 +30,7 @@ const ItemCatalog& catalog()
 
 SessionItem* ItemFactory::CreateItem(const QString& model_name, SessionItem* parent)
 {
-    SessionItem* result = catalog().create(model_name).release();
+    SessionItem* result = catalog().createItemPtr(model_name).release();
     if (parent)
         parent->insertItem(-1, result);
 

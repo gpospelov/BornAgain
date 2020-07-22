@@ -1,5 +1,5 @@
 #include "Core/Tools/Precomputed.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 namespace

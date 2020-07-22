@@ -4,7 +4,7 @@
 #include "Core/Parametrization/IParameterized.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 
 class ParameterDistributionTest : public ::testing::Test

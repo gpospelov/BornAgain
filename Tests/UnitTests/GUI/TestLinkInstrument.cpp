@@ -7,8 +7,8 @@
 #include "GUI/coregui/Models/RealDataModel.h"
 #include "GUI/coregui/Models/RectangularDetectorItem.h"
 #include "GUI/coregui/Views/ImportDataWidgets/LinkInstrumentManager.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
+#include "Tests/UnitTests/GUI/Utils.h"
 #include <QSignalSpy>
 #include <QTest>
 
@@ -62,7 +62,7 @@ TEST_F(TestLinkInstrument, test_canLinkToInstrument)
     QString identifier = instrument->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
     // populating real data model, setting intensity data
-    RealDataItem* realData = TestUtils::createRealData("RealData", realDataModel);
+    RealDataItem* realData = GuiUnittestUtils::createRealData("RealData", realDataModel);
     JobItemUtils::createDefaultDetectorMap(realData->dataItem(), instrument);
 
     QVERIFY(manager.canLinkDataToInstrument(realData, identifier));

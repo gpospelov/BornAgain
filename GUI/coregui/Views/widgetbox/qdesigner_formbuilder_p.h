@@ -91,7 +91,7 @@ public:
 
     virtual QWidget* createWidget(DomWidget* ui_widget, QWidget* parentWidget = 0)
     {
-        return QFormBuilder::create(ui_widget, parentWidget);
+        return QFormBuilder::createItemPtr(ui_widget, parentWidget);
     }
 
     inline QDesignerFormEditorInterface* core() const { return m_core; }
@@ -124,11 +124,11 @@ protected:
     using QFormBuilder::create;
     using QFormBuilder::createDom;
 
-    virtual QWidget* create(DomUI* ui, QWidget* parentWidget);
+    virtual QWidget* createItemPtr(DomUI* ui, QWidget* parentWidget);
     virtual DomWidget* createDom(QWidget* widget, DomWidget* ui_parentWidget,
                                  bool recursive = true);
-    virtual QWidget* create(DomWidget* ui_widget, QWidget* parentWidget);
-    virtual QLayout* create(DomLayout* ui_layout, QLayout* layout, QWidget* parentWidget);
+    virtual QWidget* createItemPtr(DomWidget* ui_widget, QWidget* parentWidget);
+    virtual QLayout* createItemPtr(DomLayout* ui_layout, QLayout* layout, QWidget* parentWidget);
     virtual void createResources(DomResources* resources);
 
     virtual QWidget* createWidget(const QString& widgetName, QWidget* parentWidget,

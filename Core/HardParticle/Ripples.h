@@ -12,6 +12,9 @@
 //
 // ************************************************************************** //
 
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_RIPPLES_H
+#define BORNAGAIN_CORE_HARDPARTICLE_RIPPLES_H
+
 #include "Core/Basics/Complex.h"
 
 //! Computations for elongated particles.
@@ -23,3 +26,5 @@ complex_t factor_x_Gauss(complex_t q, double l);
 complex_t factor_x_Lorentz(complex_t q, double l);
 
 } // namespace ripples
+
+#endif // BORNAGAIN_CORE_HARDPARTICLE_RIPPLES_H

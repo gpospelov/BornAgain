@@ -3,7 +3,7 @@
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Parametrization/ThreadInfo.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <algorithm>
 
 class OutputDataTest : public ::testing::Test

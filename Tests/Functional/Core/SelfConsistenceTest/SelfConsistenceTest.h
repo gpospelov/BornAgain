@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETEST_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_SELFCONSISTENCETEST_SELFCONSISTENCETEST_H
 
-#include "Tests/Functional/TestMachinery/IFunctionalTest.h"
 #include <memory>
+#include <string>
 #include <vector>
 
 class Simulation;
@@ -24,16 +24,17 @@ class Simulation;
 //! A functional test of BornAgain/Core.
 //! Performs given simulations and compares their results with each other.
 
-class SelfConsistenceTest : public IFunctionalTest
+class SelfConsistenceTest
 {
 public:
-    SelfConsistenceTest(const std::string& name, const std::string& description,
+    SelfConsistenceTest(const std::string& name,
                         std::vector<std::unique_ptr<Simulation>> simulations, double threshold);
     ~SelfConsistenceTest() = default;
 
     bool runTest();
 
 private:
+    std::string m_name;
     std::vector<std::unique_ptr<Simulation>> m_simulations;
     double m_threshold;
 };

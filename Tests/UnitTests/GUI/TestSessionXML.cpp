@@ -2,7 +2,7 @@
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <memory>

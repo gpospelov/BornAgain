@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Core/CoreStandardTest/CoreStandardTest.h"
-#include "Tests/Functional/TestMachinery/StandardTestService.h"
+#include "Tests/Functional/Std/StandardTestService.h"
 
 //! Runs CoreStandardTest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {
-    return StandardTestService<CoreStandardTest>().execute(argc, argv) ? 0 : 1;
+    return !StandardTestService<CoreStandardTest>().execute(argc, argv);
 }

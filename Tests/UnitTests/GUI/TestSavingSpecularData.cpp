@@ -15,8 +15,8 @@
 #include "GUI/coregui/mainwindow/OutputDataIOService.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
-#include "Tests/UnitTests/GUI/test_utils.h"
-#include "Tests/UnitTests/utilities/google_test.h"
+#include "Tests/GTestWrapper/google_test.h"
+#include "Tests/UnitTests/GUI/Utils.h"
 #include <QTest>
 
 class TestSavingSpecularData : public ::testing::Test
@@ -66,7 +66,7 @@ bool TestSavingSpecularData::isSame(const QString& filename, const IAxis* axis)
         IntensityDataIOFactory::readOutputData(filename.toStdString()));
     OutputData<double> refData;
     refData.addAxis(*axis);
-    return TestUtils::isTheSame(*dataOnDisk, refData);
+    return GuiUnittestUtils::isTheSame(*dataOnDisk, refData);
 }
 
 TEST_F(TestSavingSpecularData, test_SpecularInsturment)
@@ -196,7 +196,7 @@ TEST_F(TestSavingSpecularData, test_DirHistory)
 TEST_F(TestSavingSpecularData, test_OutputDataIOService)
 {
     const QString projectDir("test_SpecularDataSave");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
 
     // setting up items and data
 
@@ -256,7 +256,7 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
 TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
 {
     const QString projectDir("test_SpecularDataSave2");
-    TestUtils::create_dir(projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
 
     ApplicationModels models;
 

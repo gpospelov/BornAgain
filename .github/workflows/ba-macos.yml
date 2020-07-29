@@ -49,8 +49,7 @@ jobs:
 
     - name: Install Python packages
       run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install wheel setuptools matplotlib
+        pip3 install wheel setuptools matplotlib
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp

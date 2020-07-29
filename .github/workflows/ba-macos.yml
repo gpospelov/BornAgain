@@ -42,16 +42,11 @@ jobs:
       with:
         submodules: true
 
-    - name: Set up Python3
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
     - name: setup dependencies
       run: |
-        brew install cmake ccache fftw gsl boost qt5 libtiff libcerf eigen numpy scipy
-        echo "Qt5 is installed to"
-        echo $QTDIR
+        brew install cmake ccache fftw gsl boost qt5 libtiff libcerf eigen python numpy scipy
+        echo "Qt5 is installed to $QTDIR"
+
     - name: Install Python packages
       run: |
         python3 -m pip install --upgrade pip

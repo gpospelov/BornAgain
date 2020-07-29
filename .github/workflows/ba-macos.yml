@@ -49,14 +49,13 @@ jobs:
 
     - name: setup dependencies
       run: |
-        brew install cmake ccache fftw gsl boost qt5 libtiff libcerf eigen
+        brew install cmake ccache fftw gsl boost qt5 libtiff libcerf eigen numpy scipy
         echo "Qt5 is installed to"
         echo $QTDIR
     - name: Install Python packages
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install wheel setuptools
-        python3 -m pip install numpy scipy matplotlib
+        python3 -m pip install wheel setuptools matplotlib
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp

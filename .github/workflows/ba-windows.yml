@@ -65,6 +65,7 @@ jobs:
         wget http://apps.jcns.fz-juelich.de/src/WinLibs/libgsl-static.win64.zip -O ${{runner.temp}}\libgsl.zip
         wget http://apps.jcns.fz-juelich.de/src/WinLibs/libtiff.win64.zip -O ${{runner.temp}}\libtiff.zip
         wget http://apps.jcns.fz-juelich.de/src/WinLibs/libyaml.win64.zip -O ${{runner.temp}}\libyaml.zip
+        wget http://apps.jcns.fz-juelich.de/src/WinLibs/eigen3.3.7.zip -O ${{runner.temp}}\eigen.zip
         Get-Date -Format G
         7z x ${{runner.temp}}\libboost.zip -odeps
         7z x ${{runner.temp}}\libcerf.zip -odeps
@@ -72,26 +73,11 @@ jobs:
         7z x ${{runner.temp}}\libgsl.zip -odeps
         7z x ${{runner.temp}}\libtiff.zip -odeps
         7z x ${{runner.temp}}\libyaml.zip -odeps
+        7z x ${{runner.temp}}\eigen.zip -odeps
         Get-Date -Format G
         dir deps
         dir deps/include
         dir deps/lib
-
-    - name: setup Eigen3
-      shell: powershell
-      run: |
-        Get-Date -Format G
-        $Env:Path += ";C:\msys64\usr\bin"
-        cd ${{github.workspace}}
-        mkdir eigen
-        Get-Date -Format G
-        wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip -O ${{runner.temp}}\eigen.zip
-        Get-Date -Format G
-        7z x ${{runner.temp}}\eigen.zip -oeigen
-        Get-Date -Format G
-        dir eigen
-        dir eigen/eigen-3.3.7
-        dir eigen/eigen-3.3.7/Eigen/src
 
     - name: Install Python packages
       run: |
@@ -161,7 +147,7 @@ jobs:
         dir
         mkdir build
         cd build
-        cmake -G "Visual Studio 16 2019" -G Ninja -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_INCLUDE_PATH=%OPTLIBS%/include -DCMAKE_LIBRARY_PATH=%OPTLIBS%/lib -DEIGEN3_INCLUDE_DIRS=%EIGENDIR% -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" ..
+        cmake -G "Visual Studio 16 2019" -G Ninja -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_INCLUDE_PATH=%OPTLIBS%/include -DCMAKE_LIBRARY_PATH=%OPTLIBS%/lib -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" ..
         ccache -z
         ccache -p
         cmake --build . --config Release -j4

@@ -6,12 +6,15 @@ endif()
 
 find_package(Threads REQUIRED)
 find_package(FFTW3 REQUIRED)
+
 find_package(GSL REQUIRED)
+message(STATUS "GSL found=${GSL_FOUND} libs=${GSL_LIBRARIES} inc=${GSL_INCLUDE_DIR} version={GSL_VERSION}")
+
 if(WIN32)
-    message("Eigen3 include dirs hopefully given on the command line: ${EIGEN3_INCLUDE_DIRS}")
-    message(STATUS "Eigen3 include_dir=${EIGEN3_INCLUDE_DIR}")
+    set(EIGEN3_INCLUDE_DIR ${CMAKE_INCLUDE_PATH})
+    message(STATUS "Eigen3 include_dir=${EIGEN3_INCLUDE_DIR} (hard-coded)")
 else()
-    find_package(Eigen3 3.3 REQUIRED) # no need for FindEigen3, as Eigen provides Eigen3Config.cmake
+    find_package(Eigen3 3.3 REQUIRED)
     message(STATUS "Eigen3 include_dir=${EIGEN3_INCLUDE_DIR} version=${EIGEN3_VERSION_STRING}")
 endif()
 

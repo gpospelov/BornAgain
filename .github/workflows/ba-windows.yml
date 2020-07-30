@@ -112,7 +112,7 @@ jobs:
         mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
         cached: 'false'
 
-    - name: Download ccache and Ninja
+    - name: Download ccache, Ninja, Nsis
       id: ccache
       shell: cmake -P {0}
       run: |
@@ -124,10 +124,6 @@ jobs:
         file(DOWNLOAD "${ninja_url}" ./ninja.zip SHOW_PROGRESS)
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./ninja.zip)
 
-    - name: Download Nsis
-      id: nsis
-      shell: cmake -P {0}
-      run: |
         set(nsis_url "https://sourceforge.net/projects/nsis/files/NSIS%203/3.04/nsis-3.04.zip")
         file(DOWNLOAD "${nsis_url}" ./nsis.zip SHOW_PROGRESS)
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./nsis.zip)

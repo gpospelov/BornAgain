@@ -30,9 +30,9 @@ add_library(${library_name} STATIC ${source_files})
 #    TODO: try https://www.nuget.org/packages/gsl-msvc14-x64)
 # The ROOT code in directory mathcore depends on GSL.
 
+target_include_directories(${library_name}
+    PUBLIC ${include_dirs} ${GSL_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
+target_link_libraries(${library_name} ${GSL_LIBRARIES} ${Boost_LIBRARIES})
+
 set(${library_name}_INCLUDE_DIRS ${include_dirs} CACHE INTERNAL "")
 set(${library_name}_LIBRARY ${library_name} CACHE INTERNAL "")
-
-target_include_directories(${library_name} PUBLIC ${GSL_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
-target_link_libraries(${library_name} ${GSL_LIBRARIES} ${Boost_LIBRARIES})
-target_include_directories(${library_name} PUBLIC ${include_dirs})

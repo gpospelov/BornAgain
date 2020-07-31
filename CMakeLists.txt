@@ -4,7 +4,6 @@
 
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-
 set(CMAKE_MODULE_PATH
     ${CMAKE_SOURCE_DIR}/cmake/modules    # CMake modules specific for BornAgain
     ${CMAKE_SOURCE_DIR}/cmake/extensions # CMake modules for use in various projects

@@ -27,28 +27,6 @@ namespace
 
 const double threshold = 1e-10;
 
-//! Returns file names to test fft.
-std::vector<std::string> inputImages()
-{
-    return {"CylindersAndPrisms.int.gz", "RectDetectorGeneric.int.gz"};
-}
-
-//! Returns location of images to test fft.
-std::string inputImageDir()
-{
-    return BATesting::CoreReferenceDir();
-}
-
-//! Returns file names with paths to test fft.
-std::vector<std::string> inputImageNames()
-{
-    std::vector<std::string> result;
-    for (auto name : inputImages())
-        result.push_back(FileSystemUtils::jointPath(inputImageDir(), name));
-
-    return result;
-}
-
 //! Returns name of fft image based on given image name.
 std::string fftReferenceImage(const std::string& input_image)
 {
@@ -60,10 +38,9 @@ std::string fftReferenceImage(const std::string& input_image)
 //! Runs test over one image. Returns true upon success.
 bool test_fft(const std::string& input_image_name, const std::string& reference_fft_name)
 {
-    std::cout << "\nFourierTransformationTest::test_fft()"
-              << "\n";
-    std::cout << "Input image: " << input_image_name << "\n";
-    std::cout << "Reference fft: " << reference_fft_name << "\n";
+    std::cout << "\nFourierTransformationTest::test_fft()" << std::endl;
+    std::cout << "Input image: " << input_image_name << std::endl;
+    std::cout << "Reference fft: " << reference_fft_name << std::endl;
 
     // loading input image
     std::unique_ptr<OutputData<double>> input_image;
@@ -96,7 +73,7 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
             FileSystemUtils::jointPath(BATesting::CoreOutputDir(),
                                        FileSystemUtils::filename(reference_fft_name));
         IntensityDataIOFactory::writeOutputData(*fft, out_fname);
-        std::cout << "New fft image stored in " << out_fname << "\n";
+        std::cout << "New fft image stored in " << out_fname << std::endl;
     }
 
     return success;
@@ -110,6 +87,6 @@ class FourierTransformationTest : public ::testing::Test
 
 TEST_F(FourierTransformationTest, FourierTransformation)
 {
-    for (auto inputImage : inputImageNames())
+    for (const char* inputImage : {"CylindersAndPrisms.int.gz", "RectDetectorGeneric.int.gz"})
         EXPECT_TRUE(test_fft(inputImage, fftReferenceImage(inputImage)));
 }

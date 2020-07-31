@@ -14,7 +14,7 @@
 
 #include "Tests/GTestWrapper/google_test.h"
 
-class Minimize : public ::testing::Test
+class Std : public ::testing::Test
 {
 };
 

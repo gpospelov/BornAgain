@@ -12,6 +12,8 @@
 //
 // ************************************************************************** //
 
+#ifdef BORNAGAIN_PYTHON
+
 #include "Core/Tools/PyImport.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Tools/PyEmbeddedUtils.h"
@@ -120,3 +122,5 @@ std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
 
     return result;
 }
+
+#endif // BORNAGAIN_PYTHON

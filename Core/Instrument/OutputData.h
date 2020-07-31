@@ -278,7 +278,7 @@ template <class T> template <class U> void OutputData<T>::copyShapeFrom(const Ou
 
 template <class T> OutputData<double>* OutputData<T>::meanValues() const
 {
-    auto ret = new OutputData<double>();
+    auto* ret = new OutputData<double>();
     ret->copyShapeFrom(*this);
     ret->allocate();
     for (size_t i = 0; i < mp_ll_data->getTotalSize(); ++i)

@@ -15,6 +15,8 @@
 #ifndef BORNAGAIN_CORE_TOOLS_PYEMBEDDEDUTILS_H
 #define BORNAGAIN_CORE_TOOLS_PYEMBEDDEDUTILS_H
 
+#ifdef BORNAGAIN_PYTHON
+
 #include "Core/Tools/PyObject.h"
 #include "Wrap/WinDllMacros.h"
 #include <memory>
@@ -45,5 +47,7 @@ BA_CORE_API_ std::string pythonRuntimeInfo();
 //! Returns string representing python stack trace.
 BA_CORE_API_ std::string pythonStackTrace();
 } // namespace PyEmbeddedUtils
+
+#endif // BORNAGAIN_PYTHON
 
 #endif // BORNAGAIN_CORE_TOOLS_PYEMBEDDEDUTILS_H

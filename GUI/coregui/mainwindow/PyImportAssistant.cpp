@@ -12,6 +12,8 @@
 //
 // ************************************************************************** //
 
+#ifdef BORNAGAIN_PYTHON
+
 #include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "BABuild.h"
 #include "Core/Multilayer/MultiLayer.h"
@@ -232,3 +234,5 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
         warning.exec();
     }
 }
+
+#endif // BORNAGAIN_PYTHON

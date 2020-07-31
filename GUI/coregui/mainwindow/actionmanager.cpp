@@ -109,11 +109,13 @@ void ActionManager::createMenus()
     QAction* action = m_importMenu->addAction("Import from Python script (experimental)");
     action->setToolTip("Import sample from Python script.\n The script should contain a function "
                        "returning a valid multi-layer.");
-    connect(action, &QAction::triggered, this, &ActionManager::onImportFromPythonScript);
 
+#ifdef BORNAGAIN_PYTHON
+    connect(action, &QAction::triggered, this, &ActionManager::onImportFromPythonScript);
     if (GUI_OS_Utils::HostOsInfo::isMacHost())
         if (SysUtils::getenv("PYTHONHOME").empty())
             action->setEnabled(false);
+#endif // BORNAGAIN_PYTHON
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
@@ -213,8 +215,10 @@ void ActionManager::onAboutApplication()
     dialog.exec();
 }
 
+#ifdef BORNAGAIN_PYTHON
 void ActionManager::onImportFromPythonScript()
 {
     PyImportAssistant assistant(m_mainWindow);
     assistant.exec();
 }
+#endif // BORNAGAIN_PYTHON

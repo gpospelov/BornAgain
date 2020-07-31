@@ -12,10 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifdef BORNAGAIN_PYTHON
-
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/CumulativeValue.h"
+
+#ifdef BORNAGAIN_PYTHON
+
 #include "Core/Tools/PythonCore.h"
 
 template <> PyObject* OutputData<double>::getArray() const
@@ -61,6 +62,8 @@ template <> PyObject* OutputData<double>::getArray() const
     return pyarray;
 }
 
+#endif // BORNAGAIN_PYTHON
+
 template <> double OutputData<double>::getValue(size_t index) const
 {
     return (*this)[index];
@@ -70,5 +73,3 @@ template <> double OutputData<CumulativeValue>::getValue(size_t index) const
 {
     return (*this)[index].getContent();
 }
-
-#endif

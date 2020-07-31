@@ -12,6 +12,12 @@
 //
 // ************************************************************************** //
 
+#include "Tests/GTestWrapper/google_test.h"
+
+class Minimize : public ::testing::Test
+{
+};
+
 
 TEST_F(Std, FormFactors)
 {

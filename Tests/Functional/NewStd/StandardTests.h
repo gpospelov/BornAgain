@@ -255,8 +255,7 @@ StandardTestCatalog::StandardTestCatalog()
         "HomogeneousMultilayerBuilder", 1e-10);
 
     add("HomogeneousTiNiSampleWithAbsorption",
-        "Specular simulation for 10 interchanging Ti-Ni homogeneous "
-        "layers with absorptive SLD material",
+        "Specular simulation for 10 interchanging Ti-Ni homogeneous layers with absorptive SLD material",
         "BasicSpecular", "PlainMultiLayerBySLDBuilder", 1e-10);
 
     add("RoughnessInSpecular", "Specular simulation with rough sample", "BasicSpecular",

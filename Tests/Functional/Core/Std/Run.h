@@ -12,4 +12,7 @@
 //
 // ************************************************************************** //
 
-int run(const char* test_name, const char* sim_name, const char* sample_name, const double limit);
+#include <string>
+
+int run(const std::string& test_name, const std::string& sim_name, const std::string& sample_name,
+        const double limit);

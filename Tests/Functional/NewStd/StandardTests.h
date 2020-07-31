@@ -18,7 +18,6 @@ class Std : public ::testing::Test
 {
 };
 
-
 TEST_F(Std, FormFactors)
 {
     EXPECT_TRUE(run("FormFactors", "MiniGISAS", "ParticleInTheAirBuilder", 2e-10));
@@ -26,12 +25,14 @@ TEST_F(Std, FormFactors)
 
 TEST_F(Std, FormFactorsWithAbsorption)
 {
-    EXPECT_TRUE(run("FormFactorsWithAbsorption", "MiniGISAS_v2", "LayersWithAbsorptionBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("FormFactorsWithAbsorption", "MiniGISAS_v2", "LayersWithAbsorptionBuilder", 2e-10));
 }
 
 TEST_F(Std, GISASAbsorptiveSLDLayers)
 {
-    EXPECT_TRUE(run("GISASAbsorptiveSLDLayers", "MiniGISAS", "LayersWithAbsorptionBySLDBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("GISASAbsorptiveSLDLayers", "MiniGISAS", "LayersWithAbsorptionBySLDBuilder", 2e-10));
 }
 
 TEST_F(Std, CylindersAndPrisms)
@@ -68,7 +69,7 @@ TEST_F(Std, RectParaCrystal)
 {
     EXPECT_TRUE(run("RectParaCrystal", "MiniGISAS", "RectParaCrystalBuilder", 2e-10));
 }
-    // --- CoreShell ---
+// --- CoreShell ---
 TEST_F(Std, CoreShellParticle)
 {
     EXPECT_TRUE(run("CoreShellParticle", "MiniGISAS", "CoreShellParticleBuilder", 2e-10));
@@ -76,12 +77,14 @@ TEST_F(Std, CoreShellParticle)
 
 TEST_F(Std, CoreShellBoxRotateZandY)
 {
-    EXPECT_TRUE(run("CoreShellBoxRotateZandY", "MiniGISAS", "CoreShellBoxRotateZandYBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("CoreShellBoxRotateZandY", "MiniGISAS", "CoreShellBoxRotateZandYBuilder", 2e-10));
 }
-    // ---
+// ---
 TEST_F(Std, MultiLayerWithRoughness)
 {
-    EXPECT_TRUE(run("MultiLayerWithRoughness", "MiniGISAS", "MultiLayerWithRoughnessBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("MultiLayerWithRoughness", "MiniGISAS", "MultiLayerWithRoughnessBuilder", 2e-10));
 }
 
 TEST_F(Std, SquareLattice)
@@ -116,9 +119,10 @@ TEST_F(Std, RotatedPyramids)
 
 TEST_F(Std, ThickAbsorptiveSampleWithRoughness)
 {
-    EXPECT_TRUE(run("ThickAbsorptiveSampleWithRoughness", "ExtraLongWavelengthGISAS", "ThickAbsorptiveSampleBuilder", 2e-10));
+    EXPECT_TRUE(run("ThickAbsorptiveSampleWithRoughness", "ExtraLongWavelengthGISAS",
+                    "ThickAbsorptiveSampleBuilder", 2e-10));
 }
-    // --- Compositions ---
+// --- Compositions ---
 TEST_F(Std, ParticleComposition)
 {
     EXPECT_TRUE(run("ParticleComposition", "MiniGISAS", "ParticleCompositionBuilder", 2e-10));
@@ -141,44 +145,50 @@ TEST_F(Std, BoxCompositionRotateZ)
 
 TEST_F(Std, BoxCompositionRotateZandY)
 {
-    EXPECT_TRUE(run("BoxCompositionRotateZandY", "MiniGISAS", "BoxCompositionRotateZandYBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("BoxCompositionRotateZandY", "MiniGISAS", "BoxCompositionRotateZandYBuilder", 2e-10));
 }
 
 TEST_F(Std, BoxStackComposition)
 {
     EXPECT_TRUE(run("BoxStackComposition", "MiniGISAS", "BoxStackCompositionBuilder", 2e-10));
 }
-    // ---
+// ---
 TEST_F(Std, CylindersWithSizeDistribution)
 {
-    EXPECT_TRUE(run("CylindersWithSizeDistribution", "MiniGISAS", "CylindersWithSizeDistributionBuilder", 2e-10));
+    EXPECT_TRUE(run("CylindersWithSizeDistribution", "MiniGISAS",
+                    "CylindersWithSizeDistributionBuilder", 2e-10));
 }
 
 TEST_F(Std, TwoTypesCylindersDistribution)
 {
-    EXPECT_TRUE(run("TwoTypesCylindersDistribution", "MiniGISAS", "TwoTypesCylindersDistributionBuilder", 2e-10));
+    EXPECT_TRUE(run("TwoTypesCylindersDistribution", "MiniGISAS",
+                    "TwoTypesCylindersDistributionBuilder", 2e-10));
 }
 
 TEST_F(Std, RotatedPyramidsDistribution)
 {
-    EXPECT_TRUE(run("RotatedPyramidsDistribution", "MiniGISAS", "RotatedPyramidsDistributionBuilder", 2e-10));
+    EXPECT_TRUE(run("RotatedPyramidsDistribution", "MiniGISAS",
+                    "RotatedPyramidsDistributionBuilder", 2e-10));
 }
 
 TEST_F(Std, SpheresWithLimitsDistribution)
 {
-    EXPECT_TRUE(run("SpheresWithLimitsDistribution", "MiniGISAS", "SpheresWithLimitsDistributionBuilder", 2e-10));
+    EXPECT_TRUE(run("SpheresWithLimitsDistribution", "MiniGISAS",
+                    "SpheresWithLimitsDistributionBuilder", 2e-10));
 }
 
 TEST_F(Std, ConesWithLimitsDistribution)
 {
-    EXPECT_TRUE(run("ConesWithLimitsDistribution", "MiniGISAS", "ConesWithLimitsDistributionBuilder", 2e-10));
+    EXPECT_TRUE(run("ConesWithLimitsDistribution", "MiniGISAS",
+                    "ConesWithLimitsDistributionBuilder", 2e-10));
 }
 
 TEST_F(Std, LinkedBoxDistribution)
 {
     EXPECT_TRUE(run("LinkedBoxDistribution", "MiniGISAS", "LinkedBoxDistributionBuilder", 2e-10));
 }
-    // ---
+// ---
 TEST_F(Std, BeamDivergence)
 {
     EXPECT_TRUE(run("BeamDivergence", "MiniGISASBeamDivergence", "CylindersInBABuilder", 2e-10));
@@ -186,7 +196,8 @@ TEST_F(Std, BeamDivergence)
 
 TEST_F(Std, DetectorResolution)
 {
-    EXPECT_TRUE(run("DetectorResolution", "MiniGISASDetectorResolution", "CylindersInBABuilder", 2e-10));
+    EXPECT_TRUE(
+        run("DetectorResolution", "MiniGISASDetectorResolution", "CylindersInBABuilder", 2e-10));
 }
 
 TEST_F(Std, MultipleLayout)
@@ -243,20 +254,23 @@ TEST_F(Std, TransformBox)
 {
     EXPECT_TRUE(run("TransformBox", "MiniGISAS", "TransformBoxBuilder", 1e-10));
 }
-    // polarized GISAS
+// polarized GISAS
 TEST_F(Std, MagneticParticleZeroField)
 {
-    EXPECT_TRUE(run("MagneticParticleZeroField", "MiniGISAS", "MagneticParticleZeroFieldBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("MagneticParticleZeroField", "MiniGISAS", "MagneticParticleZeroFieldBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticSubstrateZeroField)
 {
-    EXPECT_TRUE(run("MagneticSubstrateZeroField", "MiniGISASPolarizationPP", "MagneticSubstrateZeroFieldBuilder", 2e-10));
+    EXPECT_TRUE(run("MagneticSubstrateZeroField", "MiniGISASPolarizationPP",
+                    "MagneticSubstrateZeroFieldBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticRotation)
 {
-    EXPECT_TRUE(run("MagneticRotation", "MiniGISASPolarizationPM", "MagneticRotationBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("MagneticRotation", "MiniGISASPolarizationPM", "MagneticRotationBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticSpheres)
@@ -266,39 +280,45 @@ TEST_F(Std, MagneticSpheres)
 
 TEST_F(Std, MagneticCylindersPP)
 {
-    EXPECT_TRUE(run("MagneticCylindersPP", "MiniGISASPolarizationPP", "MagneticCylindersBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("MagneticCylindersPP", "MiniGISASPolarizationPP", "MagneticCylindersBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticCylindersPM)
 {
-    EXPECT_TRUE(run("MagneticCylindersPM", "MiniGISASPolarizationPM", "MagneticCylindersBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("MagneticCylindersPM", "MiniGISASPolarizationPM", "MagneticCylindersBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticCylindersMP)
 {
-    EXPECT_TRUE(run("MagneticCylindersMP", "MiniGISASPolarizationMP", "MagneticCylindersBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("MagneticCylindersMP", "MiniGISASPolarizationMP", "MagneticCylindersBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticCylindersMM)
 {
-    EXPECT_TRUE(run("MagneticCylindersMM", "MiniGISASPolarizationMM", "MagneticCylindersBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("MagneticCylindersMM", "MiniGISASPolarizationMM", "MagneticCylindersBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticSpheresInMagLayerPP)
 {
-    EXPECT_TRUE(run("MagneticSpheresInMagLayerPP", "MiniGISASPolarizationPP", "MagneticLayerBuilder", 2e-10));
+    EXPECT_TRUE(run("MagneticSpheresInMagLayerPP", "MiniGISASPolarizationPP",
+                    "MagneticLayerBuilder", 2e-10));
 }
 
 TEST_F(Std, MagneticSpheresInMagLayerMP)
 {
-    EXPECT_TRUE(run("MagneticSpheresInMagLayerMP", "MiniGISASPolarizationMP", "MagneticLayerBuilder", 2e-10));
+    EXPECT_TRUE(run("MagneticSpheresInMagLayerMP", "MiniGISASPolarizationMP",
+                    "MagneticLayerBuilder", 2e-10));
 }
-    // Masking
+// Masking
 TEST_F(Std, SimulationWithMasks)
 {
     EXPECT_TRUE(run("SimulationWithMasks", "GISASWithMasks", "CylindersAndPrismsBuilder", 1e-10));
 }
-    // Various rectangular detector alignment
+// Various rectangular detector alignment
 TEST_F(Std, RectDetectorGeneric)
 {
     EXPECT_TRUE(run("RectDetectorGeneric", "RectDetectorGeneric", "CylindersInBABuilder", 1e-10));
@@ -306,32 +326,38 @@ TEST_F(Std, RectDetectorGeneric)
 
 TEST_F(Std, RectDetectorPerpToSample)
 {
-    EXPECT_TRUE(run("RectDetectorPerpToSample", "RectDetectorPerpToSample", "CylindersInBABuilder", 1e-10));
+    EXPECT_TRUE(
+        run("RectDetectorPerpToSample", "RectDetectorPerpToSample", "CylindersInBABuilder", 1e-10));
 }
 
 TEST_F(Std, RectDetectorPerpToDirectBeam)
 {
-    EXPECT_TRUE(run("RectDetectorPerpToDirectBeam", "RectDetectorPerpToDirectBeam", "CylindersInBABuilder", 1e-10));
+    EXPECT_TRUE(run("RectDetectorPerpToDirectBeam", "RectDetectorPerpToDirectBeam",
+                    "CylindersInBABuilder", 1e-10));
 }
 
 TEST_F(Std, RectDetectorPerpToReflectedBeam)
 {
-    EXPECT_TRUE(run("RectDetectorPerpToReflectedBeam", "RectDetectorPerpToReflectedBeam", "CylindersInBABuilder", 1e-10));
+    EXPECT_TRUE(run("RectDetectorPerpToReflectedBeam", "RectDetectorPerpToReflectedBeam",
+                    "CylindersInBABuilder", 1e-10));
 }
 
 TEST_F(Std, RectDetectorPerpToReflectedBeamDpos)
 {
-    EXPECT_TRUE(run("RectDetectorPerpToReflectedBeamDpos", "RectDetectorPerpToReflectedBeamDpos", "CylindersInBABuilder", 1e-10));
+    EXPECT_TRUE(run("RectDetectorPerpToReflectedBeamDpos", "RectDetectorPerpToReflectedBeamDpos",
+                    "CylindersInBABuilder", 1e-10));
 }
 
 TEST_F(Std, LargeCylindersMonteCarlo)
 {
-    EXPECT_TRUE(run("LargeCylindersMonteCarlo", "MiniGISASMonteCarlo", "LargeCylindersInDWBABuilder", 5e-1));
+    EXPECT_TRUE(run("LargeCylindersMonteCarlo", "MiniGISASMonteCarlo",
+                    "LargeCylindersInDWBABuilder", 5e-1));
 }
 
 TEST_F(Std, SphericalDetWithRoi)
 {
-    EXPECT_TRUE(run("SphericalDetWithRoi", "SphericalDetWithRoi", "CylindersAndPrismsBuilder", 1e-10));
+    EXPECT_TRUE(
+        run("SphericalDetWithRoi", "SphericalDetWithRoi", "CylindersAndPrismsBuilder", 1e-10));
 }
 
 TEST_F(Std, RectDetWithRoi)
@@ -353,71 +379,84 @@ TEST_F(Std, SlicedComposition)
 {
     EXPECT_TRUE(run("SlicedComposition", "MiniGISAS", "SlicedCompositionBuilder", 1e-10));
 }
-    // Simulations with background
+// Simulations with background
 TEST_F(Std, ConstantBackground)
 {
     EXPECT_TRUE(run("ConstantBackground", "ConstantBackground", "CylindersInBABuilder", 1e-10));
 }
-    // Specular simulations
+// Specular simulations
 TEST_F(Std, HomogeneousTiNiSample)
 {
-    EXPECT_TRUE(run("HomogeneousTiNiSample", "BasicSpecular", "HomogeneousMultilayerBuilder", 1e-10));
+    EXPECT_TRUE(
+        run("HomogeneousTiNiSample", "BasicSpecular", "HomogeneousMultilayerBuilder", 1e-10));
 }
 
 TEST_F(Std, HomogeneousTiNiSampleWithAbsorption)
 {
-    EXPECT_TRUE(run("HomogeneousTiNiSampleWithAbsorption", "BasicSpecular", "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("HomogeneousTiNiSampleWithAbsorption", "BasicSpecular",
+                    "PlainMultiLayerBySLDBuilder", 1e-10));
 }
 
 TEST_F(Std, RoughnessInSpecular)
 {
-    EXPECT_TRUE(run("RoughnessInSpecular", "BasicSpecular", "MultiLayerWithRoughnessBuilder", 2e-9));
+    EXPECT_TRUE(
+        run("RoughnessInSpecular", "BasicSpecular", "MultiLayerWithRoughnessBuilder", 2e-9));
 }
 
 TEST_F(Std, NCRoughnessInSpecular)
 {
-    EXPECT_TRUE(run("NCRoughnessInSpecular", "BasicSpecular", "MultiLayerWithNCRoughnessBuilder", 2e-9));
+    EXPECT_TRUE(
+        run("NCRoughnessInSpecular", "BasicSpecular", "MultiLayerWithNCRoughnessBuilder", 2e-9));
 }
 
 TEST_F(Std, GaussianBeamFootprint)
 {
-    EXPECT_TRUE(run("GaussianBeamFootprint", "SpecularWithGaussianBeam", "HomogeneousMultilayerBuilder", 1e-10));
+    EXPECT_TRUE(run("GaussianBeamFootprint", "SpecularWithGaussianBeam",
+                    "HomogeneousMultilayerBuilder", 1e-10));
 }
 
 TEST_F(Std, SquareBeamFootprint)
 {
-    EXPECT_TRUE(run("SquareBeamFootprint", "SpecularWithSquareBeam", "HomogeneousMultilayerBuilder", 1e-10));
+    EXPECT_TRUE(run("SquareBeamFootprint", "SpecularWithSquareBeam", "HomogeneousMultilayerBuilder",
+                    1e-10));
 }
 
 TEST_F(Std, SpecularDivergentBeam)
 {
-    EXPECT_TRUE(run("SpecularDivergentBeam", "SpecularDivergentBeam", "HomogeneousMultilayerBuilder", 1e-10));
+    EXPECT_TRUE(run("SpecularDivergentBeam", "SpecularDivergentBeam",
+                    "HomogeneousMultilayerBuilder", 1e-10));
 }
 
 TEST_F(Std, RelativeResolutionTOF)
 {
-    EXPECT_TRUE(run("RelativeResolutionTOF", "TOFRWithRelativeResolution", "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("RelativeResolutionTOF", "TOFRWithRelativeResolution",
+                    "PlainMultiLayerBySLDBuilder", 1e-10));
 }
 TEST_F(Std, SpecularWithSlicing)
 {
     EXPECT_TRUE(run("SpecularWithSlicing", "BasicSpecular", "SlicedCylindersBuilder", 1e-10));
     EXPECT_TRUE(run("SpecularWithSlicing", "BasicSpecular", "SLDSlicedCylindersBuilder", 1e-10));
-    EXPECT_TRUE(run("SpecularWithSlicing", "BasicSpecular", "AveragedSlicedCylindersBuilder", 1e-10));
+    EXPECT_TRUE(
+        run("SpecularWithSlicing", "BasicSpecular", "AveragedSlicedCylindersBuilder", 1e-10));
     EXPECT_TRUE(run("SpecularWithSlicing", "BasicSpecularQ", "SLDSlicedCylindersBuilder", 1e-10));
 }
 
 TEST_F(Std, InstrumentDefinitionComparison)
 {
-    EXPECT_TRUE(run("InstrumentDefinitionComparison", "BasicSpecular", "PlainMultiLayerBySLDBuilder", 1e-10));
-    EXPECT_TRUE(run("InstrumentDefinitionComparison", "BasicSpecularQ", "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("InstrumentDefinitionComparison", "BasicSpecular",
+                    "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("InstrumentDefinitionComparison", "BasicSpecularQ",
+                    "PlainMultiLayerBySLDBuilder", 1e-10));
 }
 
 TEST_F(Std, TOFResolutionComparison)
 {
-    EXPECT_TRUE(run("TOFResolutionComparison", "TOFRWithRelativeResolution", "PlainMultiLayerBySLDBuilder", 1e-10));
-    EXPECT_TRUE(run("TOFResolutionComparison", "TOFRWithPointwiseResolution", "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("TOFResolutionComparison", "TOFRWithRelativeResolution",
+                    "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("TOFResolutionComparison", "TOFRWithPointwiseResolution",
+                    "PlainMultiLayerBySLDBuilder", 1e-10));
 }
-    // polarized specular
+// polarized specular
 TEST_F(Std, BasicSpecularPP)
 {
     EXPECT_TRUE(run("BasicSpecularPP", "BasicSpecularPP", "SimpleMagneticLayerBuilder", 1e-10));
@@ -429,14 +468,18 @@ TEST_F(Std, BasicSpecularMM)
 }
 TEST_F(Std, PolarizedQAngleReflectivityPP)
 {
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP", "BasicSpecularPP", "SimpleMagneticLayerBuilder", 1e-10));
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP", "BasicQSpecularPP", "SimpleMagneticLayerBuilder", 1e-10));
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP", "BasicSpecularPP",
+                    "SimpleMagneticLayerBuilder", 1e-10));
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP", "BasicQSpecularPP",
+                    "SimpleMagneticLayerBuilder", 1e-10));
 }
 
 TEST_F(Std, PolarizedQAngleReflectivityMM)
 {
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM", "BasicSpecularMM", "SimpleMagneticLayerBuilder", 1e-10));
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM", "BasicQSpecularMM", "SimpleMagneticLayerBuilder", 1e-10));
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM", "BasicSpecularMM",
+                    "SimpleMagneticLayerBuilder", 1e-10));
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM", "BasicQSpecularMM",
+                    "SimpleMagneticLayerBuilder", 1e-10));
 }
 
 TEST_F(Std, OffSpecularResonator)

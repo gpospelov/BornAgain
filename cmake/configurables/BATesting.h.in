@@ -24,9 +24,11 @@
 namespace BATesting {
 
 inline std::string ReferenceDataDir() { return "@TEST_REFERENCE_DIR@"; }
+inline std::string StdReferenceDir() { return "@TEST_REFERENCE_DIR@/Std"; }
 inline std::string CoreReferenceDir() { return "@TEST_REFERENCE_DIR@/Core"; }
 
 inline std::string TestOutputDir() { return "@TEST_OUTPUT_DIR@"; }
+inline std::string StdOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Std"; }
 inline std::string CoreOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Core"; }
 inline std::string SelfConsistenceOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/SelfConsistence"; }
 inline std::string GUIOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/GUI"; }

@@ -63,7 +63,7 @@ int run(const std::string& test_name, const std::string& sim_name, const std::st
         assert(full_name != "");
         try {
             reference.reset(IntensityDataIOFactory::readOutputData(
-                                FileSystemUtils::jointPath(BATesting::CoreReferenceDir(), full_name + ".int.gz")));
+                                FileSystemUtils::jointPath(BATesting::StdReferenceDir(), full_name + ".int.gz")));
         } catch (const std::exception&) {
             std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
         }
@@ -79,9 +79,9 @@ int run(const std::string& test_name, const std::string& sim_name, const std::st
         // Save simulation if different from reference.
         if (!success) {
             std::cout << "- failure ..." << std::endl;
-            FileSystemUtils::createDirectories(BATesting::CoreOutputDir());
+            FileSystemUtils::createDirectories(BATesting::StdOutputDir());
             std::string out_fname =
-                FileSystemUtils::jointPath(BATesting::CoreOutputDir(), test_name + ".int.gz");
+                FileSystemUtils::jointPath(BATesting::StdOutputDir(), test_name + ".int.gz");
             IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
             std::cout << "New simulation result stored in " << out_fname << "\n"
                       << "To visualize an intensity map, use " << BABuild::buildBinDir()

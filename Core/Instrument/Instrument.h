@@ -31,7 +31,7 @@ class SimulationElement;
 //! Assembles beam, detector and their relative positions with respect to the sample.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ Instrument : public INode
+class BA_CORE_API_ Instrument final : public INode
 {
 public:
     Instrument();
@@ -96,9 +96,6 @@ public:
     std::vector<const INode*> getChildren() const;
 
 protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters() {}
-
     std::unique_ptr<IDetector> mP_detector;
     Beam m_beam;
 };

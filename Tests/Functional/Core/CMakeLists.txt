@@ -3,7 +3,6 @@
 ############################################################################
 
 # add standard and special tests
-add_subdirectory(CoreStandardTest)
 add_subdirectory(SelfConsistenceTest)
 add_subdirectory(CoreSpecial)
 add_subdirectory(Fitting)

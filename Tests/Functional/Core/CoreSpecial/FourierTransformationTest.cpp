@@ -49,23 +49,12 @@ std::vector<std::string> inputImageNames()
     return result;
 }
 
-//! Returns name of directory with fft images for reference.
-std::string fftReferenceDir()
-{
-    return BATesting::CoreReferenceDir();
-}
-
 //! Returns name of fft image based on given image name.
 std::string fftReferenceImage(const std::string& input_image)
 {
     auto filename = FileSystemUtils::filename(input_image);
-    return FileSystemUtils::jointPath(fftReferenceDir(), "FourierTransformation_" + filename);
-}
-
-//! Returns name of directory for output fft images.
-std::string outputDir()
-{
-    return BATesting::CoreOutputDir();
+    return FileSystemUtils::jointPath(BATesting::CoreReferenceDir(),
+                                      "FourierTransformation_" + filename);
 }
 
 //! Runs test over one image. Returns true upon success.
@@ -102,9 +91,10 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
         success = IntensityDataFunctions::getRelativeDifference(*fft, *reference_fft) <= threshold;
 
     if (!success) {
-        FileSystemUtils::createDirectory(outputDir());
+        FileSystemUtils::createDirectory(BATesting::CoreOutputDir());
         std::string out_fname =
-            FileSystemUtils::jointPath(outputDir(), FileSystemUtils::filename(reference_fft_name));
+            FileSystemUtils::jointPath(BATesting::CoreOutputDir(),
+                                       FileSystemUtils::filename(reference_fft_name));
         IntensityDataIOFactory::writeOutputData(*fft, out_fname);
         std::cout << "New fft image stored in " << out_fname << "\n";
     }

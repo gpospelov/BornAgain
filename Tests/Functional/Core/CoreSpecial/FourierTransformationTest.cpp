@@ -38,23 +38,24 @@ std::string fftReferenceImage(const std::string& input_image)
 //! Runs test over one image. Returns true upon success.
 bool test_fft(const std::string& input_image_name, const std::string& reference_fft_name)
 {
-    std::cout << "\nFourierTransformationTest::test_fft()" << std::endl;
     std::cout << "Input image: " << input_image_name << std::endl;
     std::cout << "Reference fft: " << reference_fft_name << std::endl;
 
     // loading input image
     std::unique_ptr<OutputData<double>> input_image;
     try {
-        input_image.reset(IntensityDataIOFactory::readOutputData(input_image_name));
+        const auto filename = FileSystemUtils::jointPath(BATesting::StdReferenceDir(),
+                                                         input_image_name);
+        input_image.reset(IntensityDataIOFactory::readOutputData(filename));
     } catch (const std::exception&) {
         std::cout << "Error: no input image.\n";
         return false;
     }
 
-    // making fourier transformation
-    std::unique_ptr<OutputData<double>> fft = IntensityDataFunctions::createFFT(*input_image.get());
+    std::cout << "transforming" << std::endl;
+    std::unique_ptr<OutputData<double>> fft = IntensityDataFunctions::createFFT(*input_image);
 
-    // loading reference fft
+    std::cout << "loading reference" << std::endl;
     std::unique_ptr<OutputData<double>> reference_fft;
     try {
         reference_fft.reset(IntensityDataIOFactory::readOutputData(reference_fft_name));
@@ -62,7 +63,7 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
         std::cout << "Error: no reference fft image. Creating new one.\n";
     }
 
-    // comparing new fft against reference fft, if exist
+    std::cout << "comparing" << std::endl;
     bool success(false);
     if (reference_fft)
         success = IntensityDataFunctions::getRelativeDifference(*fft, *reference_fft) <= threshold;

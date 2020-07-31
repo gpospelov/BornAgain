@@ -434,26 +434,27 @@ TEST_F(Std, RelativeResolutionTOF)
 }
 TEST_F(Std, SpecularWithSlicing)
 {
-    EXPECT_TRUE(run("SpecularWithSlicing", "BasicSpecular", "SlicedCylindersBuilder", 1e-10));
-    EXPECT_TRUE(run("SpecularWithSlicing", "BasicSpecular", "SLDSlicedCylindersBuilder", 1e-10));
+    EXPECT_TRUE(run("SpecularWithSlicing_01", "BasicSpecular", "SlicedCylindersBuilder", 1e-10));
+    EXPECT_TRUE(run("SpecularWithSlicing_02", "BasicSpecular", "SLDSlicedCylindersBuilder", 1e-10));
     EXPECT_TRUE(
-        run("SpecularWithSlicing", "BasicSpecular", "AveragedSlicedCylindersBuilder", 1e-10));
-    EXPECT_TRUE(run("SpecularWithSlicing", "BasicSpecularQ", "SLDSlicedCylindersBuilder", 1e-10));
+        run("SpecularWithSlicing_03", "BasicSpecular", "AveragedSlicedCylindersBuilder", 1e-10));
+    EXPECT_TRUE(
+        run("SpecularWithSlicing_Q2", "BasicSpecularQ", "SLDSlicedCylindersBuilder", 1e-10));
 }
 
 TEST_F(Std, InstrumentDefinitionComparison)
 {
-    EXPECT_TRUE(run("InstrumentDefinitionComparison", "BasicSpecular",
+    EXPECT_TRUE(run("InstrumentDefinitionComparison_0", "BasicSpecular",
                     "PlainMultiLayerBySLDBuilder", 1e-10));
-    EXPECT_TRUE(run("InstrumentDefinitionComparison", "BasicSpecularQ",
+    EXPECT_TRUE(run("InstrumentDefinitionComparison_Q", "BasicSpecularQ",
                     "PlainMultiLayerBySLDBuilder", 1e-10));
 }
 
 TEST_F(Std, TOFResolutionComparison)
 {
-    EXPECT_TRUE(run("TOFResolutionComparison", "TOFRWithRelativeResolution",
+    EXPECT_TRUE(run("TOFResolutionComparison_TR", "TOFRWithRelativeResolution",
                     "PlainMultiLayerBySLDBuilder", 1e-10));
-    EXPECT_TRUE(run("TOFResolutionComparison", "TOFRWithPointwiseResolution",
+    EXPECT_TRUE(run("TOFResolutionComparison_TP", "TOFRWithPointwiseResolution",
                     "PlainMultiLayerBySLDBuilder", 1e-10));
 }
 // polarized specular
@@ -468,17 +469,17 @@ TEST_F(Std, BasicSpecularMM)
 }
 TEST_F(Std, PolarizedQAngleReflectivityPP)
 {
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP", "BasicSpecularPP",
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP_0", "BasicSpecularPP",
                     "SimpleMagneticLayerBuilder", 1e-10));
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP", "BasicQSpecularPP",
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityPP_Q", "BasicQSpecularPP",
                     "SimpleMagneticLayerBuilder", 1e-10));
 }
 
 TEST_F(Std, PolarizedQAngleReflectivityMM)
 {
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM", "BasicSpecularMM",
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM_0", "BasicSpecularMM",
                     "SimpleMagneticLayerBuilder", 1e-10));
-    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM", "BasicQSpecularMM",
+    EXPECT_TRUE(run("PolarizedQAngleReflectivityMM_Q", "BasicQSpecularMM",
                     "SimpleMagneticLayerBuilder", 1e-10));
 }
 

@@ -397,22 +397,25 @@ TEST_F(STD_TEST_SERIES, RelativeResolutionTOF)
 {
     EXPECT_TRUE(run("TOFRWithRelativeResolution", "PlainMultiLayerBySLDBuilder", 1e-10));
 }
-    add("SpecularWithSlicing", "Compares manual/automatic slicing in a sample with cylinders",
-        {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularQ"},
-        {"SlicedCylindersBuilder", "SLDSlicedCylindersBuilder", "AveragedSlicedCylindersBuilder",
-         "SLDSlicedCylindersBuilder"},
-        1e-10);
+TEST_F(STD_TEST_SERIES, SpecularWithSlicing)
+{
+    EXPECT_TRUE(run("BasicSpecular", "SlicedCylindersBuilder", 1e-10));
+    EXPECT_TRUE(run("BasicSpecular", "SLDSlicedCylindersBuilder", 1e-10));
+    EXPECT_TRUE(run("BasicSpecular", "AveragedSlicedCylindersBuilder", 1e-10));
+    EXPECT_TRUE(run("BasicSpecularQ", "SLDSlicedCylindersBuilder", 1e-10));
+}
 
-    add("InstrumentDefinitionComparison",
-        "Compares specular signal from q-defined, TOF and conventional instrument",
-        {"BasicSpecular", "BasicSpecularQ"},
-        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"}, 1e-10);
+TEST_F(STD_TEST_SERIES, InstrumentDefinitionComparison)
+{
+    EXPECT_TRUE(run("BasicSpecular", "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("BasicSpecularQ", "PlainMultiLayerBySLDBuilder", 1e-10));
+}
 
-    add("TOFResolutionComparison",
-        "Compares specular signal from TOF instruments with pointwise and relative resolutions",
-        {"TOFRWithRelativeResolution", "TOFRWithPointwiseResolution"},
-        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"}, 1e-10);
-
+TEST_F(STD_TEST_SERIES, TOFResolutionComparison)
+{
+    EXPECT_TRUE(run("TOFRWithRelativeResolution", "PlainMultiLayerBySLDBuilder", 1e-10));
+    EXPECT_TRUE(run("TOFRWithPointwiseResolution", "PlainMultiLayerBySLDBuilder", 1e-10));
+}
     // polarized specular
 TEST_F(STD_TEST_SERIES, BasicSpecularPP)
 {
@@ -423,16 +426,17 @@ TEST_F(STD_TEST_SERIES, BasicSpecularMM)
 {
     EXPECT_TRUE(run("BasicSpecularMM", "SimpleMagneticLayerBuilder", 1e-10));
 }
-    add("PolarizedQAngleReflectivityPP",
-        "Compares specular signal from ++ channel for angular- and q-defined reflectivity",
-        {"BasicSpecularPP", "BasicQSpecularPP"},
-        {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"}, 1e-10);
+TEST_F(STD_TEST_SERIES, PolarizedQAngleReflectivityPP)
+{
+    EXPECT_TRUE(run("BasicSpecularPP", "SimpleMagneticLayerBuilder", 1e-10));
+    EXPECT_TRUE(run("BasicQSpecularPP", "SimpleMagneticLayerBuilder", 1e-10));
+}
 
-    add("PolarizedQAngleReflectivityMM",
-        "Compares specular signal from -- channel for angular- and q-defined reflectivity",
-        {"BasicSpecularMM", "BasicQSpecularMM"},
-        {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"}, 1e-10);
-
+TEST_F(STD_TEST_SERIES, PolarizedQAngleReflectivityMM)
+{
+    EXPECT_TRUE(run("BasicSpecularMM", "SimpleMagneticLayerBuilder", 1e-10));
+    EXPECT_TRUE(run("BasicQSpecularMM", "SimpleMagneticLayerBuilder", 1e-10));
+}
     // off-specular simulation
 TEST_F(STD_TEST_SERIES, OffSpecularResonator)
 {

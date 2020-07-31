@@ -18,268 +18,385 @@
 
 StandardTestCatalog::StandardTestCatalog()
 {
-    add("FormFactors", "Test of all form factors defined", "MiniGISAS", "ParticleInTheAirBuilder",
-        2e-10);
+TEST_F(STD_TEST_SERIES, FormFactors)
+{
+    EXPECT_TRUE(run("MiniGISAS", "ParticleInTheAirBuilder", 2e-10));
+}
 
-    add("FormFactorsWithAbsorption", "Test of all form factors defined, absorption case",
-        "MiniGISAS_v2", "LayersWithAbsorptionBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, FormFactorsWithAbsorption)
+{
+    EXPECT_TRUE(run("MiniGISAS_v2", "LayersWithAbsorptionBuilder", 2e-10));
+}
 
-    add("GISASAbsorptiveSLDLayers", "Test for SLD material in GISAS simulations", "MiniGISAS",
-        "LayersWithAbsorptionBySLDBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, GISASAbsorptiveSLDLayers)
+{
+    EXPECT_TRUE(run("MiniGISAS", "LayersWithAbsorptionBySLDBuilder", 2e-10));
+}
 
-    add("CylindersAndPrisms", "Mixture of cylinders and prisms without interference", "MiniGISAS",
-        "CylindersAndPrismsBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, CylindersAndPrisms)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CylindersAndPrismsBuilder", 2e-10));
+}
 
-    add("RadialParaCrystal", "Interference function of radial paracrystal", "MiniGISAS",
-        "RadialParaCrystalBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, RadialParaCrystal)
+{
+    EXPECT_TRUE(run("MiniGISAS", "RadialParaCrystalBuilder", 2e-10));
+}
 
-    add("HardDisk", "Interference function of hard disk Percus-Yevick", "MiniGISAS",
-        "HardDiskBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, HardDisk)
+{
+    EXPECT_TRUE(run("MiniGISAS", "HardDiskBuilder", 2e-10));
+}
 
-    add("Basic2DParaCrystal",
-        "Interference function of basic 2D paracrystal with variety of FT distributions",
-        "MiniGISAS", "Basic2DParaCrystalBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, Basic2DParaCrystal)
+{
+    EXPECT_TRUE(run("MiniGISAS", "Basic2DParaCrystalBuilder", 2e-10));
+}
 
-    add("HexParaCrystal", "Interference function of 2D hexagonal paracrystal", "MiniGISAS",
-        "HexParaCrystalBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, HexParaCrystal)
+{
+    EXPECT_TRUE(run("MiniGISAS", "HexParaCrystalBuilder", 2e-10));
+}
 
-    add("Lattice1D", "Interference function of 21D lattice", "MiniGISAS", "Lattice1DBuilder",
-        2e-10);
+TEST_F(STD_TEST_SERIES, Lattice1D)
+{
+    EXPECT_TRUE(run("MiniGISAS", "Lattice1DBuilder", 2e-10));
+}
 
-    add("RectParaCrystal", "Interference function of 2D rectanguler paracrystal", "MiniGISAS",
-        "RectParaCrystalBuilder", 2e-10);
-
+TEST_F(STD_TEST_SERIES, RectParaCrystal)
+{
+    EXPECT_TRUE(run("MiniGISAS", "RectParaCrystalBuilder", 2e-10));
+}
     // --- CoreShell ---
+TEST_F(STD_TEST_SERIES, CoreShellParticle)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CoreShellParticleBuilder", 2e-10));
+}
 
-    add("CoreShellParticle", "Core shell particle", "MiniGISAS", "CoreShellParticleBuilder", 2e-10);
-
-    add("CoreShellBoxRotateZandY",
-        "Rotation and translation of core shell box particle in 3 layers system", "MiniGISAS",
-        "CoreShellBoxRotateZandYBuilder", 2e-10);
-
+TEST_F(STD_TEST_SERIES, CoreShellBoxRotateZandY)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CoreShellBoxRotateZandYBuilder", 2e-10));
+}
     // ---
+TEST_F(STD_TEST_SERIES, MultiLayerWithRoughness)
+{
+    EXPECT_TRUE(run("MiniGISAS", "MultiLayerWithRoughnessBuilder", 2e-10));
+}
 
-    add("MultiLayerWithRoughness", "Multilayer with roughness", "MiniGISAS",
-        "MultiLayerWithRoughnessBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, SquareLattice)
+{
+    EXPECT_TRUE(run("MiniGISAS", "SquareLatticeBuilder", 2e-10));
+}
 
-    add("SquareLattice", "Interference function of 2D square lattice", "MiniGISAS",
-        "SquareLatticeBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, CenteredSquareLattice)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CenteredSquareLatticeBuilder", 2e-10));
+}
 
-    add("CenteredSquareLattice", "Interference function of 2D square lattice", "MiniGISAS",
-        "CenteredSquareLatticeBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, RotatedSquareLattice)
+{
+    EXPECT_TRUE(run("MiniGISAS", "RotatedSquareLatticeBuilder", 2e-10));
+}
 
-    add("RotatedSquareLattice", "Interference function of rotated 2D square lattice", "MiniGISAS",
-        "RotatedSquareLatticeBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, FiniteSquareLattice)
+{
+    EXPECT_TRUE(run("MiniGISAS", "FiniteSquareLatticeBuilder", 2e-10));
+}
 
-    add("FiniteSquareLattice", "Interference function of finite 2D square lattice", "MiniGISAS",
-        "FiniteSquareLatticeBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, SuperLattice)
+{
+    EXPECT_TRUE(run("MiniGISAS", "SuperLatticeBuilder", 2e-10));
+}
 
-    add("SuperLattice", "Interference function of 2D superlattice", "MiniGISAS",
-        "SuperLatticeBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, RotatedPyramids)
+{
+    EXPECT_TRUE(run("MiniGISAS", "RotatedPyramidsBuilder", 2e-10));
+}
 
-    add("RotatedPyramids", "Interference function of rotated 2D square lattice", "MiniGISAS",
-        "RotatedPyramidsBuilder", 2e-10);
-
-    add("ThickAbsorptiveSampleWithRoughness",
-        "GISAS picture on extra long wavelength from thick absorptive sample with roughness",
-        "ExtraLongWavelengthGISAS", "ThickAbsorptiveSampleBuilder", 2e-10);
-
+TEST_F(STD_TEST_SERIES, ThickAbsorptiveSampleWithRoughness)
+{
+    EXPECT_TRUE(run("ExtraLongWavelengthGISAS", "ThickAbsorptiveSampleBuilder", 2e-10));
+}
     // --- Compositions ---
+TEST_F(STD_TEST_SERIES, ParticleComposition)
+{
+    EXPECT_TRUE(run("MiniGISAS", "ParticleCompositionBuilder", 2e-10));
+}
 
-    add("ParticleComposition", "Two layers of spheres at hex lattice", "MiniGISAS",
-        "ParticleCompositionBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, BoxCompositionRotateX)
+{
+    EXPECT_TRUE(run("MiniGISAS", "BoxCompositionRotateXBuilder", 2e-10));
+}
 
-    add("BoxCompositionRotateX", "Two boxes in particle composition rotated in X by 90 degrees",
-        "MiniGISAS", "BoxCompositionRotateXBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, BoxCompositionRotateY)
+{
+    EXPECT_TRUE(run("MiniGISAS", "BoxCompositionRotateYBuilder", 2e-10));
+}
 
-    add("BoxCompositionRotateY", "Two boxes in particle composition rotated in Y by 90 degrees",
-        "MiniGISAS", "BoxCompositionRotateYBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, BoxCompositionRotateZ)
+{
+    EXPECT_TRUE(run("MiniGISAS", "BoxCompositionRotateZBuilder", 2e-10));
+}
 
-    add("BoxCompositionRotateZ", "Two boxes in particle composition rotated in Z by 90 degrees",
-        "MiniGISAS", "BoxCompositionRotateZBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, BoxCompositionRotateZandY)
+{
+    EXPECT_TRUE(run("MiniGISAS", "BoxCompositionRotateZandYBuilder", 2e-10));
+}
 
-    add("BoxCompositionRotateZandY",
-        "Two boxes in particle composition rotated in Z and Y by 90 degrees", "MiniGISAS",
-        "BoxCompositionRotateZandYBuilder", 2e-10);
-
-    add("BoxStackComposition",
-        "Two different boxes are first rotated and then composed, composition is then rotated.",
-        "MiniGISAS", "BoxStackCompositionBuilder", 2e-10);
-
+TEST_F(STD_TEST_SERIES, BoxStackComposition)
+{
+    EXPECT_TRUE(run("MiniGISAS", "BoxStackCompositionBuilder", 2e-10));
+}
     // ---
+TEST_F(STD_TEST_SERIES, CylindersWithSizeDistribution)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CylindersWithSizeDistributionBuilder", 2e-10));
+}
 
-    add("CylindersWithSizeDistribution", "Cylinders in BA with size distributions", "MiniGISAS",
-        "CylindersWithSizeDistributionBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, TwoTypesCylindersDistribution)
+{
+    EXPECT_TRUE(run("MiniGISAS", "TwoTypesCylindersDistributionBuilder", 2e-10));
+}
 
-    add("TwoTypesCylindersDistribution", "Cylinders in BA with size distributions", "MiniGISAS",
-        "TwoTypesCylindersDistributionBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, RotatedPyramidsDistribution)
+{
+    EXPECT_TRUE(run("MiniGISAS", "RotatedPyramidsDistributionBuilder", 2e-10));
+}
 
-    add("RotatedPyramidsDistribution", "Rotated pyramids distribution", "MiniGISAS",
-        "RotatedPyramidsDistributionBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, SpheresWithLimitsDistribution)
+{
+    EXPECT_TRUE(run("MiniGISAS", "SpheresWithLimitsDistributionBuilder", 2e-10));
+}
 
-    add("SpheresWithLimitsDistribution",
-        "Spherical particles with the distribution applied to the radius and RealLimits defined.",
-        "MiniGISAS", "SpheresWithLimitsDistributionBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, ConesWithLimitsDistribution)
+{
+    EXPECT_TRUE(run("MiniGISAS", "ConesWithLimitsDistributionBuilder", 2e-10));
+}
 
-    add("ConesWithLimitsDistribution",
-        "Spherical particles with the distribution applied to the radius and RealLimits defined.",
-        "MiniGISAS", "ConesWithLimitsDistributionBuilder", 2e-10);
-
-    add("LinkedBoxDistribution",
-        "Distribution of boxes with main parameter and two linked parameters.", "MiniGISAS",
-        "LinkedBoxDistributionBuilder", 2e-10);
-
+TEST_F(STD_TEST_SERIES, LinkedBoxDistribution)
+{
+    EXPECT_TRUE(run("MiniGISAS", "LinkedBoxDistributionBuilder", 2e-10));
+}
     // ---
+TEST_F(STD_TEST_SERIES, BeamDivergence)
+{
+    EXPECT_TRUE(run("MiniGISASBeamDivergence", "CylindersInBABuilder", 2e-10));
+}
 
-    add("BeamDivergence", "Cylinders in BA in the presence of beam divergence",
-        "MiniGISASBeamDivergence", "CylindersInBABuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, DetectorResolution)
+{
+    EXPECT_TRUE(run("MiniGISASDetectorResolution", "CylindersInBABuilder", 2e-10));
+}
 
-    add("DetectorResolution", "Cylinders in BA with detector resolution",
-        "MiniGISASDetectorResolution", "CylindersInBABuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MultipleLayout)
+{
+    EXPECT_TRUE(run("MiniGISAS", "MultipleLayoutBuilder", 2e-10));
+}
 
-    add("MultipleLayout", "Two types of particles in different layouts", "MiniGISAS",
-        "MultipleLayoutBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, ApproximationDA)
+{
+    EXPECT_TRUE(run("MiniGISAS", "SizeDistributionDAModelBuilder", 2e-10));
+}
 
-    add("ApproximationDA", "Size distribution model: decoupling approximation", "MiniGISAS",
-        "SizeDistributionDAModelBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, ApproximationLMA)
+{
+    EXPECT_TRUE(run("MiniGISAS", "SizeDistributionLMAModelBuilder", 2e-10));
+}
 
-    add("ApproximationLMA", "Size distribution model: local monodisperse approximation",
-        "MiniGISAS", "SizeDistributionLMAModelBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, ApproximationSSCA)
+{
+    EXPECT_TRUE(run("MiniGISAS", "SizeDistributionSSCAModelBuilder", 2e-10));
+}
 
-    add("ApproximationSSCA", "Size distribution model: size space coupling approximation",
-        "MiniGISAS", "SizeDistributionSSCAModelBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, CylindersInSSCA)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CylindersInSSCABuilder", 2e-10));
+}
 
-    add("CylindersInSSCA", "Size spacing correlation approximation", "MiniGISAS",
-        "CylindersInSSCABuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, CosineRipple)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CosineRippleBuilder", 2e-10));
+}
 
-    add("CosineRipple", "Cosine ripple within radial paracrystal model", "MiniGISAS",
-        "CosineRippleBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, TriangularRipple)
+{
+    EXPECT_TRUE(run("MiniGISAS", "TriangularRippleBuilder", 2e-10));
+}
 
-    add("TriangularRipple", "Triangular ripple within radial paracrystal model", "MiniGISAS",
-        "TriangularRippleBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, AsymRipple)
+{
+    EXPECT_TRUE(run("MiniGISAS", "AsymRippleBuilder", 2e-10));
+}
 
-    add("AsymRipple", "Triangular ripple with asymetry within radial paracrystal model",
-        "MiniGISAS", "AsymRippleBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MesoCrystal)
+{
+    EXPECT_TRUE(run("MiniGISAS", "MesoCrystalBuilder", 2e-10));
+}
 
-    add("MesoCrystal", "Cylindrical mesocrystal composed of spherical nano particles", "MiniGISAS",
-        "MesoCrystalBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, CustomMorphology)
+{
+    EXPECT_TRUE(run("MiniGISAS", "CustomMorphologyBuilder", 2e-10));
+}
 
-    add("CustomMorphology", "Custom particle mixture a la isgisaxs morphology approach",
-        "MiniGISAS", "CustomMorphologyBuilder", 2e-10);
-
-    add("TransformBox", "Rotated/translated box in 3 layers system", "MiniGISAS",
-        "TransformBoxBuilder", 1e-10);
-
+TEST_F(STD_TEST_SERIES, TransformBox)
+{
+    EXPECT_TRUE(run("MiniGISAS", "TransformBoxBuilder", 1e-10));
+}
     // polarized GISAS
+TEST_F(STD_TEST_SERIES, MagneticParticleZeroField)
+{
+    EXPECT_TRUE(run("MiniGISAS", "MagneticParticleZeroFieldBuilder", 2e-10));
+}
 
-    add("MagneticParticleZeroField", "Magnetic cylinders with zero field", "MiniGISAS",
-        "MagneticParticleZeroFieldBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticSubstrateZeroField)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationPP", "MagneticSubstrateZeroFieldBuilder", 2e-10));
+}
 
-    add("MagneticSubstrateZeroField", "Magnetic substrate with zero field",
-        "MiniGISASPolarizationPP", "MagneticSubstrateZeroFieldBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticRotation)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationPM", "MagneticRotationBuilder", 2e-10));
+}
 
-    add("MagneticRotation", "Rotated magnetic particle in magnetic substrate",
-        "MiniGISASPolarizationPM", "MagneticRotationBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticSpheres)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationPM", "MagneticSpheresBuilder", 2e-10));
+}
 
-    add("MagneticSpheres", "Magnetic spheres inside substrate", "MiniGISASPolarizationPM",
-        "MagneticSpheresBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticCylindersPP)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationPP", "MagneticCylindersBuilder", 2e-10));
+}
 
-    add("MagneticCylindersPP", "Magnetic cylinders on a substrate: ++ channel",
-        "MiniGISASPolarizationPP", "MagneticCylindersBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticCylindersPM)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationPM", "MagneticCylindersBuilder", 2e-10));
+}
 
-    add("MagneticCylindersPM", "Magnetic cylinders on a substrate: +- channel",
-        "MiniGISASPolarizationPM", "MagneticCylindersBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticCylindersMP)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationMP", "MagneticCylindersBuilder", 2e-10));
+}
 
-    add("MagneticCylindersMP", "Magnetic cylinders on a substrate: -+ channel",
-        "MiniGISASPolarizationMP", "MagneticCylindersBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticCylindersMM)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationMM", "MagneticCylindersBuilder", 2e-10));
+}
 
-    add("MagneticCylindersMM", "Magnetic cylinders on a substrate: -- channel",
-        "MiniGISASPolarizationMM", "MagneticCylindersBuilder", 2e-10);
+TEST_F(STD_TEST_SERIES, MagneticSpheresInMagLayerPP)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationPP", "MagneticLayerBuilder", 2e-10));
+}
 
-    add("MagneticSpheresInMagLayerPP", "Magnetic spheres in a magnetized layer, ++ channel",
-        "MiniGISASPolarizationPP", "MagneticLayerBuilder", 2e-10);
-
-    add("MagneticSpheresInMagLayerMP", "Magnetic spheres in a magnetized layer, ++ channel",
-        "MiniGISASPolarizationMP", "MagneticLayerBuilder", 2e-10);
-
+TEST_F(STD_TEST_SERIES, MagneticSpheresInMagLayerMP)
+{
+    EXPECT_TRUE(run("MiniGISASPolarizationMP", "MagneticLayerBuilder", 2e-10));
+}
     // Masking
-
-    add("SimulationWithMasks", "Various masks are added to the simulation", "GISASWithMasks",
-        "CylindersAndPrismsBuilder", 1e-10);
-
+TEST_F(STD_TEST_SERIES, SimulationWithMasks)
+{
+    EXPECT_TRUE(run("GISASWithMasks", "CylindersAndPrismsBuilder", 1e-10));
+}
     // Various rectangular detector alignment
+TEST_F(STD_TEST_SERIES, RectDetectorGeneric)
+{
+    EXPECT_TRUE(run("RectDetectorGeneric", "CylindersInBABuilder", 1e-10));
+}
 
-    add("RectDetectorGeneric", "Various masks are added to the simulation", "RectDetectorGeneric",
-        "CylindersInBABuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, RectDetectorPerpToSample)
+{
+    EXPECT_TRUE(run("RectDetectorPerpToSample", "CylindersInBABuilder", 1e-10));
+}
 
-    add("RectDetectorPerpToSample", "Various masks are added to the simulation",
-        "RectDetectorPerpToSample", "CylindersInBABuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, RectDetectorPerpToDirectBeam)
+{
+    EXPECT_TRUE(run("RectDetectorPerpToDirectBeam", "CylindersInBABuilder", 1e-10));
+}
 
-    add("RectDetectorPerpToDirectBeam", "Various masks are added to the simulation",
-        "RectDetectorPerpToDirectBeam", "CylindersInBABuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, RectDetectorPerpToReflectedBeam)
+{
+    EXPECT_TRUE(run("RectDetectorPerpToReflectedBeam", "CylindersInBABuilder", 1e-10));
+}
 
-    add("RectDetectorPerpToReflectedBeam", "Various masks are added to the simulation",
-        "RectDetectorPerpToReflectedBeam", "CylindersInBABuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, RectDetectorPerpToReflectedBeamDpos)
+{
+    EXPECT_TRUE(run("RectDetectorPerpToReflectedBeamDpos", "CylindersInBABuilder", 1e-10));
+}
 
-    add("RectDetectorPerpToReflectedBeamDpos", "Various masks are added to the simulation",
-        "RectDetectorPerpToReflectedBeamDpos", "CylindersInBABuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, LargeCylindersMonteCarlo)
+{
+    EXPECT_TRUE(run("MiniGISASMonteCarlo", "LargeCylindersInDWBABuilder", 5e-1));
+}
 
-    add("LargeCylindersMonteCarlo", "Large cylinders simulated with MonteCarlo integration",
-        "MiniGISASMonteCarlo", "LargeCylindersInDWBABuilder", 5e-1);
+TEST_F(STD_TEST_SERIES, SphericalDetWithRoi)
+{
+    EXPECT_TRUE(run("SphericalDetWithRoi", "CylindersAndPrismsBuilder", 1e-10));
+}
 
-    add("SphericalDetWithRoi", "Spherical detector with ROI and mask defined",
-        "SphericalDetWithRoi", "CylindersAndPrismsBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, RectDetWithRoi)
+{
+    EXPECT_TRUE(run("RectDetWithRoi", "CylindersAndPrismsBuilder", 1e-10));
+}
 
-    add("RectDetWithRoi", "Rectangular detector with ROI and mask defined", "RectDetWithRoi",
-        "CylindersAndPrismsBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, BoxesWithSpecular)
+{
+    EXPECT_TRUE(run("MiniGISASSpecular", "BoxesSquareLatticeBuilder", 1e-10));
+}
 
-    add("BoxesWithSpecular", "Boxes in square lattice including specular peak", "MiniGISASSpecular",
-        "BoxesSquareLatticeBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, RotatedCylinder)
+{
+    EXPECT_TRUE(run("MiniGISAS", "RotatedCylindersBuilder", 1e-10));
+}
 
-    add("RotatedCylinder", "Rotated cylinder in substrate", "MiniGISAS", "RotatedCylindersBuilder",
-        1e-10);
-
-    add("SlicedComposition",
-        "Spherical particle made of two different materials crossing interface", "MiniGISAS",
-        "SlicedCompositionBuilder", 1e-10);
-
+TEST_F(STD_TEST_SERIES, SlicedComposition)
+{
+    EXPECT_TRUE(run("MiniGISAS", "SlicedCompositionBuilder", 1e-10));
+}
     // Simulations with background
-
-    add("ConstantBackground", "Constant background is added to the simulation",
-        "ConstantBackground", "CylindersInBABuilder", 1e-10);
-
+TEST_F(STD_TEST_SERIES, ConstantBackground)
+{
+    EXPECT_TRUE(run("ConstantBackground", "CylindersInBABuilder", 1e-10));
+}
     // Specular simulations
+TEST_F(STD_TEST_SERIES, HomogeneousTiNiSample)
+{
+    EXPECT_TRUE(run("BasicSpecular", "HomogeneousMultilayerBuilder", 1e-10));
+}
 
-    add("HomogeneousTiNiSample",
-        "Specular simulation for 10 interchanging Ti-Ni homogeneous layers", "BasicSpecular",
-        "HomogeneousMultilayerBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, HomogeneousTiNiSampleWithAbsorption)
+{
+    EXPECT_TRUE(run("BasicSpecular", "PlainMultiLayerBySLDBuilder", 1e-10));
+}
 
-    add("HomogeneousTiNiSampleWithAbsorption",
-        "Specular simulation for 10 interchanging Ti-Ni homogeneous layers with absorptive SLD material",
-        "BasicSpecular", "PlainMultiLayerBySLDBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, RoughnessInSpecular)
+{
+    EXPECT_TRUE(run("BasicSpecular", "MultiLayerWithRoughnessBuilder", 2e-9));
+}
 
-    add("RoughnessInSpecular", "Specular simulation with rough sample", "BasicSpecular",
-        "MultiLayerWithRoughnessBuilder", 2e-9);
+TEST_F(STD_TEST_SERIES, NCRoughnessInSpecular)
+{
+    EXPECT_TRUE(run("BasicSpecular", "MultiLayerWithNCRoughnessBuilder", 2e-9));
+}
 
-    add("NCRoughnessInSpecular", "Specular simulation with rough sample (Nevot-Croce)",
-        "BasicSpecular", "MultiLayerWithNCRoughnessBuilder", 2e-9);
+TEST_F(STD_TEST_SERIES, GaussianBeamFootprint)
+{
+    EXPECT_TRUE(run("SpecularWithGaussianBeam", "HomogeneousMultilayerBuilder", 1e-10));
+}
 
-    add("GaussianBeamFootprint",
-        "Similar to HomogeneousTiNiSample, but with finite-sized gaussian beam",
-        "SpecularWithGaussianBeam", "HomogeneousMultilayerBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, SquareBeamFootprint)
+{
+    EXPECT_TRUE(run("SpecularWithSquareBeam", "HomogeneousMultilayerBuilder", 1e-10));
+}
 
-    add("SquareBeamFootprint",
-        "Similar to HomogeneousTiNiSample, but with finite-sized square beam",
-        "SpecularWithSquareBeam", "HomogeneousMultilayerBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, SpecularDivergentBeam)
+{
+    EXPECT_TRUE(run("SpecularDivergentBeam", "HomogeneousMultilayerBuilder", 1e-10));
+}
 
-    add("SpecularDivergentBeam",
-        "Simulates beam divergence both in wavelength and inclination angle",
-        "SpecularDivergentBeam", "HomogeneousMultilayerBuilder", 1e-10);
-
-    add("RelativeResolutionTOF",
-        "Simulates q-defined reflectometry with a fixed relative q resolution",
-        "TOFRWithRelativeResolution", "PlainMultiLayerBySLDBuilder", 1e-10);
-
+TEST_F(STD_TEST_SERIES, RelativeResolutionTOF)
+{
+    EXPECT_TRUE(run("TOFRWithRelativeResolution", "PlainMultiLayerBySLDBuilder", 1e-10));
+}
     add("SpecularWithSlicing", "Compares manual/automatic slicing in a sample with cylinders",
         {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularQ"},
         {"SlicedCylindersBuilder", "SLDSlicedCylindersBuilder", "AveragedSlicedCylindersBuilder",
@@ -297,13 +414,15 @@ StandardTestCatalog::StandardTestCatalog()
         {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"}, 1e-10);
 
     // polarized specular
+TEST_F(STD_TEST_SERIES, BasicSpecularPP)
+{
+    EXPECT_TRUE(run("BasicSpecularPP", "SimpleMagneticLayerBuilder", 1e-10));
+}
 
-    add("BasicSpecularPP", "Basic specular simulation on polarized sample, ++ channel",
-        "BasicSpecularPP", "SimpleMagneticLayerBuilder", 1e-10);
-
-    add("BasicSpecularMM", "Basic specular simulation on polarized sample, -- channel",
-        "BasicSpecularMM", "SimpleMagneticLayerBuilder", 1e-10);
-
+TEST_F(STD_TEST_SERIES, BasicSpecularMM)
+{
+    EXPECT_TRUE(run("BasicSpecularMM", "SimpleMagneticLayerBuilder", 1e-10));
+}
     add("PolarizedQAngleReflectivityPP",
         "Compares specular signal from ++ channel for angular- and q-defined reflectivity",
         {"BasicSpecularPP", "BasicQSpecularPP"},
@@ -315,14 +434,15 @@ StandardTestCatalog::StandardTestCatalog()
         {"SimpleMagneticLayerBuilder", "SimpleMagneticLayerBuilder"}, 1e-10);
 
     // off-specular simulation
-
-    add("OffSpecularResonator", "Simulates resonator in OffSpec setup", "OffSpecMini",
-        "ResonatorBuilder", 1e-10);
-
+TEST_F(STD_TEST_SERIES, OffSpecularResonator)
+{
+    EXPECT_TRUE(run("OffSpecMini", "ResonatorBuilder", 1e-10));
+}
     // depth probe simulation
-
-    add("DepthProbeTest", "Test for basic functionality of depth probe", "BasicDepthProbe",
-        "HomogeneousMultilayerBuilder", 1e-10);
+TEST_F(STD_TEST_SERIES, DepthProbeTest)
+{
+    EXPECT_TRUE(run("BasicDepthProbe", "HomogeneousMultilayerBuilder", 1e-10));
+}
 }
 
 //! Adds test description to the catalog.

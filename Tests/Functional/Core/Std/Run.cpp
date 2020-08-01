@@ -29,9 +29,9 @@ int run(const std::string& test_name, const std::string& sim_name, const std::st
         const double limit)
 {
     std::cout << "run std test " << test_name << std::endl;
-//    std::cout << "- create sim " << sim_name << std::endl;
-//    std::unique_ptr<Simulation> simulation{SimulationFactory().createItem(sim_name)};
-//    assert(simulation);
+    std::cout << "- create sim " << sim_name << std::endl;
+    std::unique_ptr<Simulation> simulation{SimulationFactory().createItem(sim_name)};
+    assert(simulation);
 
     std::cout << "- sample builder " << sample_builder_name << std::endl;
     std::unique_ptr<IMultiLayerBuilder> builder{
@@ -42,9 +42,6 @@ int run(const std::string& test_name, const std::string& sim_name, const std::st
     for (size_t iSample = 0; iSample < builder->size(); ++iSample) {
         std::cout << "- run subtest " << iSample << "/"
                   << builder->size() << ": "<< builder->getName() << "\n";
-
-        std::unique_ptr<Simulation> simulation(
-            SimulationFactory().createItem(sim_name));
 
         std::unique_ptr<MultiLayer> sample(builder->createSample(iSample));
         simulation->setSample(*sample);

@@ -18,6 +18,7 @@
 #include "Core/Instrument/IHistogram.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Tools/FileSystemUtils.h"
+#include <exception>
 #include <fstream>
 #include <memory>
 
@@ -45,6 +46,8 @@ OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::str
 IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
 {
     std::unique_ptr<OutputData<double>> data(readOutputData(file_name));
+    if (!data)
+        throw std::runtime_error("Could not read " + file_name);
     return IHistogram::createHistogram(*data);
 }
 

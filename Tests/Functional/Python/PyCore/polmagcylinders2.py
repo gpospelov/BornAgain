@@ -8,7 +8,7 @@ from utils import get_difference
 
 from bornagain import *
 
-REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Core"
+REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Python"
 
 # ----------------------------------
 # describe sample and run simulation

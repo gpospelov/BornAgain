@@ -16,17 +16,17 @@
 #include "BATesting.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
+#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include <cassert>
 #include <iostream>
 
-int run(const std::string& test_name, const std::string& sim_name, const std::string& sample_builder_name,
-        const double limit)
+int run(const std::string& test_name, const std::string& sim_name,
+        const std::string& sample_builder_name, const double limit)
 {
     std::cout << "run std test " << test_name << std::endl;
     std::cout << "- create sim " << sim_name << std::endl;
@@ -40,14 +40,14 @@ int run(const std::string& test_name, const std::string& sim_name, const std::st
 
     int number_of_failed_tests = 0;
     for (size_t iSample = 0; iSample < builder->size(); ++iSample) {
-        std::cout << "- run subtest " << iSample << "/"
-                  << builder->size() << ": "<< builder->getName() << "\n";
+        std::cout << "- run subtest " << iSample << "/" << builder->size() << ": "
+                  << builder->getName() << "\n";
 
         std::unique_ptr<MultiLayer> sample(builder->createSample(iSample));
         simulation->setSample(*sample);
 
         std::string full_name = test_name;
-        if (builder->getName()!= "SampleBuilder")
+        if (builder->getName() != "SampleBuilder")
             full_name += "_" + builder->getName();
 
         simulation->runSimulation();
@@ -60,17 +60,18 @@ int run(const std::string& test_name, const std::string& sim_name, const std::st
         assert(full_name != "");
         try {
             reference.reset(IntensityDataIOFactory::readOutputData(
-                                FileSystemUtils::jointPath(BATesting::StdReferenceDir(), full_name + ".int.gz")));
+                FileSystemUtils::jointPath(BATesting::StdReferenceDir(), full_name + ".int.gz")));
         } catch (const std::exception&) {
-            std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
+            std::cout
+                << "No reference found, but we proceed with the simulation to create a new one\n";
         }
 
         // Compare with reference if available.
         bool success = false;
         if (reference) {
             std::cout << "- check diff" << std::endl;
-            success = IntensityDataFunctions::checkRelativeDifference(
-                *result_data, *reference, limit);
+            success =
+                IntensityDataFunctions::checkRelativeDifference(*result_data, *reference, limit);
         }
 
         // Save simulation if different from reference.

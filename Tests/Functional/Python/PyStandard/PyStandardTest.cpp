@@ -65,20 +65,26 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     return std::unique_ptr<OutputData<double>>(IntensityDataIOFactory::readOutputData(output_path));
 }
 
+bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
+                     const double limit)
+{
+    const std::unique_ptr<OutputData<double>> domain_data =
+        domainData(name, direct_simulation);
+
+    const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();
+
+    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, limit);
+}
+
 } // namespace
 
 //! Runs simulation via a Python script and directly, and returns true if the results agree.
 bool PyStandardTest::runTest()
 {
-    // Set output data filename, and remove old output files
     assert(m_name != "");
-    const std::unique_ptr<OutputData<double>> domain_data =
-        domainData(m_name, *m_reference_simulation);
 
-    // Run direct simulation
     std::cout << "- run direct simulation\n";
     m_reference_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double>> direct_data = m_reference_simulation->result().data();
 
-    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *direct_data, m_threshold);
+    return checkSimulation(m_name, *m_reference_simulation, m_threshold);
 }

@@ -68,8 +68,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
 bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
                      const double limit)
 {
-    const std::unique_ptr<OutputData<double>> domain_data =
-        domainData(name, direct_simulation);
+    const std::unique_ptr<OutputData<double>> domain_data = domainData(name, direct_simulation);
 
     const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();
 

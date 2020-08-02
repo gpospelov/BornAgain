@@ -28,7 +28,7 @@ namespace
 {
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
-                                               const Simulation* simulation)
+                                               const Simulation& reference_simulation)
 {
     const std::string output_name =
         FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name);
@@ -40,7 +40,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     const std::string pyscript_filename =
         FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << ExportToPython::generatePyExportTest(*simulation);
+    pythonFile << ExportToPython::generatePyExportTest(reference_simulation);
     pythonFile.close();
 
     // Run Python script
@@ -73,7 +73,7 @@ bool PyStandardTest::runTest()
     // Set output data filename, and remove old output files
     assert(m_name != "");
     const std::unique_ptr<OutputData<double>> domain_data =
-        domainData(m_name, m_reference_simulation.get());
+        domainData(m_name, *m_reference_simulation);
 
     // Run direct simulation
     std::cout << "- run reference simulation\n";

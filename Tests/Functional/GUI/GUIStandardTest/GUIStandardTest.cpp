@@ -25,7 +25,9 @@
 
 namespace
 {
-std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
+
+std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
+                                               const Simulation& reference_simulation)
 {
     // initializing necessary GUI
     DocumentModel documentModel;
@@ -34,16 +36,19 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
     MaterialModel materialModel;
 
     // populating GUI models from domain
-    GUIObjectBuilder::populateSampleModelFromSim(&sampleModel, &materialModel, origin);
-    GUIObjectBuilder::populateInstrumentModel(&instrumentModel, origin);
-    GUIObjectBuilder::populateDocumentModel(&documentModel, origin);
+    GUIObjectBuilder::populateSampleModelFromSim(&sampleModel, &materialModel,
+                                                 reference_simulation);
+    GUIObjectBuilder::populateInstrumentModel(&instrumentModel, reference_simulation);
+    GUIObjectBuilder::populateDocumentModel(&documentModel, reference_simulation);
 
-    auto result = DomainSimulationBuilder::createSimulation(sampleModel.multiLayerItem(),
-                                                            instrumentModel.instrumentItem(),
-                                                            documentModel.simulationOptionsItem());
+    std::unique_ptr<Simulation> domain_simulation = DomainSimulationBuilder::createSimulation(
+        sampleModel.multiLayerItem(), instrumentModel.instrumentItem(),
+        documentModel.simulationOptionsItem());
 
-    return result;
+    domain_simulation->runSimulation();
+    return std::unique_ptr<OutputData<double>>(domain_simulation->result().data());
 }
+
 } // namespace
 
 bool GUIStandardTest::runTest()
@@ -51,9 +56,8 @@ bool GUIStandardTest::runTest()
     m_reference_simulation->runSimulation();
     const std::unique_ptr<OutputData<double>> ref_data = m_reference_simulation->result().data();
 
-    std::unique_ptr<Simulation> domain_simulation = createDomainSimulation(*m_reference_simulation);
-    domain_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double>> domain_data = domain_simulation->result().data();
+    const std::unique_ptr<OutputData<double>> domain_data =
+        domainData(m_name, *m_reference_simulation);
 
     return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, m_threshold);
 }

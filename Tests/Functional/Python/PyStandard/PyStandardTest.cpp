@@ -28,7 +28,7 @@ namespace
 {
 
 //! Runs a python command, prints messages, returns true unless the system call failed.
-bool runPython(const std::string& py_command)
+void runPython(const std::string& py_command)
 {
 #ifndef _WIN32
     std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " "
@@ -42,10 +42,10 @@ bool runPython(const std::string& py_command)
     std::cout << sys_command << std::endl /*sic*/; // flush output before calling std::system
     int ret = std::system(sys_command.c_str());
     if (ret != 0) {
-        std::cerr << "Command returned non-zero value " << ret << "\n";
-        return false;
+        std::stringstream msg;
+        msg << "Command returned non-zero value " << ret;
+        throw std::runtime_error(msg.str());
     }
-    return true;
 }
 
 } // namespace
@@ -68,8 +68,7 @@ bool PyStandardTest::runTest()
     pythonFile.close();
 
     // Run Python script
-    if (!runPython(pyscript_filename + " " + output_path))
-        return false;
+    runPython(pyscript_filename + " " + output_path);
 
     // Run direct simulation
     std::cout << "Running simulation and comparing with result from Py script\n";

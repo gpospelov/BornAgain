@@ -74,9 +74,7 @@ bool PyStandardTest::runTest()
     // Run direct simulation
     std::cout << "Running simulation and comparing with result from Py script\n";
     m_reference_simulation->runSimulation();
-    auto ref_result = m_reference_simulation->result();
-
-    const auto reference_data = ref_result.data();
+    const auto reference_data = m_reference_simulation->result().data();
 
     // Compare results
     const std::unique_ptr<OutputData<double>> domain_data(

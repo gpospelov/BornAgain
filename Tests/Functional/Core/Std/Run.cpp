@@ -25,6 +25,10 @@
 #include <cassert>
 #include <iostream>
 
+bool runSubtest()
+{
+}
+
 int run(const std::string& test_name, const std::string& sim_name,
         const std::string& sample_builder_name, const double limit)
 {
@@ -51,8 +55,7 @@ int run(const std::string& test_name, const std::string& sim_name,
             full_name += "_" + builder->getName();
 
         simulation->runSimulation();
-        auto sim_result = simulation->result();
-        const auto result_data = sim_result.data();
+        const auto result_data = simulation->result().data();
 
         std::unique_ptr<OutputData<double>> reference;
 

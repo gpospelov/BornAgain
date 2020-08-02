@@ -49,12 +49,11 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
-    const SimulationResult& ref_result = m_reference_simulation->result();
+    const std::unique_ptr<OutputData<double>> ref_data = m_reference_simulation->result().data();
 
     std::unique_ptr<Simulation> domain_simulation = createDomainSimulation(*m_reference_simulation);
     domain_simulation->runSimulation();
-    const SimulationResult& domain_result = domain_simulation->result();
+    const std::unique_ptr<OutputData<double>> domain_data = domain_simulation->result().data();
 
-    return IntensityDataFunctions::checkRelativeDifference(*domain_result.data(),
-                                                           *ref_result.data(), m_threshold);
+    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, m_threshold);
 }

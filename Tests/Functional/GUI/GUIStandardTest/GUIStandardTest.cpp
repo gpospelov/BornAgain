@@ -48,15 +48,22 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
     return std::unique_ptr<OutputData<double>>(domain_simulation->result().data());
 }
 
+bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
+                     const double limit)
+{
+    const std::unique_ptr<OutputData<double>> domain_data =
+        domainData(name, direct_simulation);
+
+    const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();
+
+    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, limit);
+}
+
 } // namespace
 
 bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double>> ref_data = m_reference_simulation->result().data();
 
-    const std::unique_ptr<OutputData<double>> domain_data =
-        domainData(m_name, *m_reference_simulation);
-
-    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, m_threshold);
+    return checkSimulation(m_name, *m_reference_simulation, m_threshold);
 }

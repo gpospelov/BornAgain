@@ -25,9 +25,6 @@
 #include <cassert>
 #include <iostream>
 
-namespace
-{
-
 bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
                      const double limit)
 {
@@ -71,8 +68,6 @@ bool checkSimulation(const std::string& name, const Simulation& direct_simulatio
 
     return success;
 }
-
-} // namespace
 
 int run(const std::string& test_name, const std::string& sim_name,
         const std::string& sample_builder_name, const double limit)

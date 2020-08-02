@@ -23,9 +23,6 @@
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
 
-namespace
-{
-
 std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
                                                const Simulation& direct_simulation)
 {
@@ -57,8 +54,6 @@ bool checkSimulation(const std::string& name, const Simulation& direct_simulatio
 
     return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, limit);
 }
-
-} // namespace
 
 bool GUIStandardTest::runTest()
 {

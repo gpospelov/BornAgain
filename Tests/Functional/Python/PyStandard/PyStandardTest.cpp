@@ -28,7 +28,7 @@ namespace
 {
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
-                                               const Simulation& reference_simulation)
+                                               const Simulation& direct_simulation)
 {
     const std::string output_name =
         FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name);
@@ -40,7 +40,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     const std::string pyscript_filename =
         FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << ExportToPython::generatePyExportTest(reference_simulation);
+    pythonFile << ExportToPython::generatePyExportTest(direct_simulation);
     pythonFile.close();
 
     // Run Python script
@@ -76,11 +76,9 @@ bool PyStandardTest::runTest()
         domainData(m_name, *m_reference_simulation);
 
     // Run direct simulation
-    std::cout << "- run reference simulation\n";
+    std::cout << "- run direct simulation\n";
     m_reference_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double>> reference_data =
-        m_reference_simulation->result().data();
+    const std::unique_ptr<OutputData<double>> direct_data = m_reference_simulation->result().data();
 
-    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *reference_data,
-                                                           m_threshold);
+    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *direct_data, m_threshold);
 }

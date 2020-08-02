@@ -27,7 +27,7 @@ namespace
 {
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
-                                               const Simulation& reference_simulation)
+                                               const Simulation& direct_simulation)
 {
     // initializing necessary GUI
     DocumentModel documentModel;
@@ -36,10 +36,9 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
     MaterialModel materialModel;
 
     // populating GUI models from domain
-    GUIObjectBuilder::populateSampleModelFromSim(&sampleModel, &materialModel,
-                                                 reference_simulation);
-    GUIObjectBuilder::populateInstrumentModel(&instrumentModel, reference_simulation);
-    GUIObjectBuilder::populateDocumentModel(&documentModel, reference_simulation);
+    GUIObjectBuilder::populateSampleModelFromSim(&sampleModel, &materialModel, direct_simulation);
+    GUIObjectBuilder::populateInstrumentModel(&instrumentModel, direct_simulation);
+    GUIObjectBuilder::populateDocumentModel(&documentModel, direct_simulation);
 
     std::unique_ptr<Simulation> domain_simulation = DomainSimulationBuilder::createSimulation(
         sampleModel.multiLayerItem(), instrumentModel.instrumentItem(),

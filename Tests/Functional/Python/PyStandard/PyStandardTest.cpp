@@ -27,24 +27,20 @@
 namespace
 {
 
-} // namespace
-
-//! Runs simulation via a Python script and directly, and returns true if the results agree.
-bool PyStandardTest::runTest()
+std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
+                                               const Simulation* simulation)
 {
-    // Set output data filename, and remove old output files
-    assert(m_name != "");
     const std::string output_name =
-        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), m_name);
+        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name);
     const std::string output_path = output_name + ".ref.int.gz";
     std::remove(output_path.c_str());
     std::cout << "- removed old output " << output_path << "\n";
 
     // Generate Python script
     const std::string pyscript_filename =
-        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), m_name + ".py");
+        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << ExportToPython::generatePyExportTest(*m_reference_simulation);
+    pythonFile << ExportToPython::generatePyExportTest(*simulation);
     pythonFile.close();
 
     // Run Python script
@@ -66,15 +62,24 @@ bool PyStandardTest::runTest()
         throw std::runtime_error(msg.str());
     }
 
+    return std::unique_ptr<OutputData<double>>(IntensityDataIOFactory::readOutputData(output_path));
+}
+
+} // namespace
+
+//! Runs simulation via a Python script and directly, and returns true if the results agree.
+bool PyStandardTest::runTest()
+{
+    // Set output data filename, and remove old output files
+    assert(m_name != "");
+    const std::unique_ptr<OutputData<double>> domain_data =
+        domainData(m_name, m_reference_simulation.get());
+
     // Run direct simulation
     std::cout << "- run reference simulation\n";
     m_reference_simulation->runSimulation();
     const std::unique_ptr<OutputData<double>> reference_data =
         m_reference_simulation->result().data();
-
-    // Compare results
-    const std::unique_ptr<OutputData<double>> domain_data(
-        IntensityDataIOFactory::readOutputData(output_path));
 
     return IntensityDataFunctions::checkRelativeDifference(*domain_data, *reference_data,
                                                            m_threshold);

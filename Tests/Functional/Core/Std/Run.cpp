@@ -72,7 +72,7 @@ int run(const std::string& test_name, const std::string& sim_name,
         if (reference) {
             std::cout << "- check diff" << std::endl;
             success =
-                IntensityDataFunctions::checkRelativeDifference(*result_data, *reference, limit);
+                IntensityDataFunctions::checkRelativeDifference(*reference, *result_data, limit);
         }
 
         // Save simulation if different from reference.

@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/Python/PyStandard/PyStandardTest.h"
 #include "BABuild.h"
 #include "BATesting.h"
 #include "Core/Export/ExportToPython.h"

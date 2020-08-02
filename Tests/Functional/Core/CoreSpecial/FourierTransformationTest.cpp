@@ -44,8 +44,8 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
     // loading input image
     std::unique_ptr<OutputData<double>> input_image;
     try {
-        const auto filename = FileSystemUtils::jointPath(BATesting::StdReferenceDir(),
-                                                         input_image_name);
+        const auto filename =
+            FileSystemUtils::jointPath(BATesting::StdReferenceDir(), input_image_name);
         input_image.reset(IntensityDataIOFactory::readOutputData(filename));
     } catch (const std::exception&) {
         std::cout << "Error: no input image.\n";
@@ -70,9 +70,8 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
 
     if (!success) {
         FileSystemUtils::createDirectory(BATesting::CoreOutputDir());
-        std::string out_fname =
-            FileSystemUtils::jointPath(BATesting::CoreOutputDir(),
-                                       FileSystemUtils::filename(reference_fft_name));
+        std::string out_fname = FileSystemUtils::jointPath(
+            BATesting::CoreOutputDir(), FileSystemUtils::filename(reference_fft_name));
         IntensityDataIOFactory::writeOutputData(*fft, out_fname);
         std::cout << "New fft image stored in " << out_fname << std::endl;
     }

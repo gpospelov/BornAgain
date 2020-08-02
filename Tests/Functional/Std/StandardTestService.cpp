@@ -56,7 +56,7 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
 
     for (size_t sample_index = 0; sample_index < builder->size(); ++sample_index) {
         std::cout << "Run std test " << info.m_test_name << ", subtest " << sample_index << "/"
-                  << builder->size() << ": "<< builder->getName() << "\n";
+                  << builder->size() << ": " << builder->getName() << "\n";
 
         std::unique_ptr<Simulation> simulation(
             SimulationFactory().createItem(info.m_simulation_names.front()));

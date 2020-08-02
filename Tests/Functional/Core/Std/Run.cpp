@@ -25,9 +25,7 @@
 #include <cassert>
 #include <iostream>
 
-bool runSubtest()
-{
-}
+bool runSubtest() {}
 
 int run(const std::string& test_name, const std::string& sim_name,
         const std::string& sample_builder_name, const double limit)

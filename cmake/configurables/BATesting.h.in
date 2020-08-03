@@ -32,7 +32,7 @@ inline std::string StdOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Std"; }
 inline std::string CoreOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Core"; }
 inline std::string SelfConsistenceOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/SelfConsistence"; }
 inline std::string GUIOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/GUI"; }
-inline std::string PyStandardOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Python/PyStandard"; }
+inline std::string PyStandardOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Python/Std"; }
 
 
 }

@@ -11,3 +11,5 @@ target_include_directories(${test} PUBLIC
 target_link_libraries(${test} BornAgainCore gtest)
 
 gtest_discover_tests(${test} TEST_PREFIX Py.)
+
+file(MAKE_DIRECTORY ${TEST_OUTPUT_DIR}/Functional/Python/Std)

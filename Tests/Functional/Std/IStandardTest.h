@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_STD_ISTANDARDTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_STD_ISTANDARDTEST_H
 
 #include "Wrap/WinDllMacros.h"
 #include <memory>
@@ -39,4 +39,4 @@ protected:
     double m_threshold;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_ISTANDARDTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_STD_ISTANDARDTEST_H

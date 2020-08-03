@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H
+#ifndef BORNAGAIN_FIT_TESTENGINE_MINIMIZERTESTPLAN_H
+#define BORNAGAIN_FIT_TESTENGINE_MINIMIZERTESTPLAN_H
 
 #include "Fit/TestEngine/ParameterPlan.h"
 #include "Wrap/WinDllMacros.h"
@@ -52,4 +52,4 @@ protected:
     std::vector<ParameterPlan> m_parameter_plan; //! initial/expected parameter values
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_MINIMIZERTESTPLAN_H
+#endif // BORNAGAIN_FIT_TESTENGINE_MINIMIZERTESTPLAN_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANCASES_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANCASES_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_PLANCASES_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_PLANCASES_H
 
 #include "Tests/Functional/Core/Fitting/Plan.h"
 
@@ -93,4 +93,4 @@ public:
     ~OffSpecPlan() override = default;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_FITPLANCASES_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_PLANCASES_H

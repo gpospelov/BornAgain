@@ -1,6 +1,3 @@
-#ifndef FOURIERTRANSFORMTEST_H
-#define FOURIERTRANSFORMTEST_H
-
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Instrument/OutputData.h"
@@ -166,5 +163,3 @@ TEST_F(FourierTransformTest, fft2DTest6)
         for (size_t j = 0; j < signal[0].size(); ++j)
             EXPECT_NEAR(result[i][j], expected_result[i][j], 1e-6);
 }
-
-#endif // FOURIERTRANSFORMTEST_H

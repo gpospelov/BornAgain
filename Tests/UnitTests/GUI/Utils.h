@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_UNITTESTS_GUI_TEST_UTILS_H
-#define BORNAGAIN_TESTS_UNITTESTS_GUI_TEST_UTILS_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_GUI_UTILS_H
+#define BORNAGAIN_TESTS_UNITTESTS_GUI_UTILS_H
 
 #include "GUI/coregui/Models/PropertyItem.h"
 #include "GUI/coregui/Models/SessionXML.h"
@@ -74,4 +74,4 @@ bool isTheSame(const QString& fileName, const OutputData<double>& data);
 
 } // namespace GuiUnittestUtils
 
-#endif // BORNAGAIN_TESTS_UNITTESTS_GUI_TEST_UTILS_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_GUI_UTILS_H

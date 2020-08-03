@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.cpp
-//! @brief     Implements class GUIStandardTest
+//! @file      Tests/Functional/Python/Std/Check.cpp
+//! @brief     Implements function checkSimulation for Python standard test
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "GUI/coregui/Models/DocumentModel.h"
@@ -53,11 +52,4 @@ bool checkSimulation(const std::string& name, const Simulation& direct_simulatio
     const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();
 
     return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, limit);
-}
-
-bool GUIStandardTest::runTest()
-{
-    m_reference_simulation->runSimulation();
-
-    return checkSimulation(m_name, *m_reference_simulation, m_threshold);
 }

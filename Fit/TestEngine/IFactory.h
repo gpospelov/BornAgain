@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
+#ifndef BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
+#define BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
 
 #include <cassert>
 #include <functional>
@@ -79,4 +79,4 @@ template <class T> T* create_new()
     return new T();
 }
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_IFACTORY_H
+#endif // BORNAGAIN_FIT_TESTENGINE_IFACTORY_H

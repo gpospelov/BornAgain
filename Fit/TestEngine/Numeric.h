@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_NUMERIC_H
-#define BORNAGAIN_CORE_TOOLS_NUMERIC_H
+#ifndef BORNAGAIN_FIT_TESTENGINE_NUMERIC_H
+#define BORNAGAIN_FIT_TESTENGINE_NUMERIC_H
 
 #include "Wrap/WinDllMacros.h"
 #include <limits>
@@ -33,4 +33,4 @@ double BA_CORE_API_ GetLogDifference(double a, double b);
 
 } // namespace Numeric
 
-#endif // BORNAGAIN_CORE_TOOLS_NUMERIC_H
+#endif // BORNAGAIN_FIT_TESTENGINE_NUMERIC_H

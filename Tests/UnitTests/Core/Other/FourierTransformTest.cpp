@@ -1,5 +1,5 @@
-#ifndef FOURIERTRANSFORMTEST_H
-#define FOURIERTRANSFORMTEST_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_CORE_OTHER_FOURIERTRANSFORMTEST.CPP
+#define BORNAGAIN_TESTS_UNITTESTS_CORE_OTHER_FOURIERTRANSFORMTEST.CPP
 
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Basics/MathConstants.h"
@@ -167,4 +167,4 @@ TEST_F(FourierTransformTest, fft2DTest6)
             EXPECT_NEAR(result[i][j], expected_result[i][j], 1e-6);
 }
 
-#endif // FOURIERTRANSFORMTEST_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_CORE_OTHER_FOURIERTRANSFORMTEST.CPP

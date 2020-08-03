@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUISpecial/GUITranslationTest.h
+//! @file      Tests/Functional/GUI/Translate/GUITranslationTest.h
 //! @brief     Defines GUI translation functional test.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_TRANSLATE_GUITRANSLATIONTEST_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_TRANSLATE_GUITRANSLATIONTEST_H
 
 #include <map>
 #include <memory>
@@ -62,4 +62,4 @@ private:
     std::string m_simulationName, m_sampleName;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUITRANSLATIONTEST_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_TRANSLATE_GUITRANSLATIONTEST_H

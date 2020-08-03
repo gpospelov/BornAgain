@@ -1,5 +1,5 @@
-#ifndef TESTREALSPACEBUILDERUTILS_H
-#define TESTREALSPACEBUILDERUTILS_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_GUI_TESTREALSPACEBUILDERUTILS.CPP
+#define BORNAGAIN_TESTS_UNITTESTS_GUI_TESTREALSPACEBUILDERUTILS.CPP
 
 #include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
 #include "Core/Particle/Particle.h"
@@ -237,4 +237,4 @@ TEST_F(TestRealSpaceBuilderUtils, test_particle3DContainerVector)
     EXPECT_EQ(particle3DContainer_vector.at(2).particleType(), "Particle");
 }
 
-#endif // TESTREALSPACEBUILDERUTILS_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_GUI_TESTREALSPACEBUILDERUTILS.CPP

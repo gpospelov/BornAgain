@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_OBJECTIVETESTFUNCTIONS_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_OBJECTIVETESTFUNCTIONS_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_CLASSICALTESTFUNCTIONS_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_CLASSICALTESTFUNCTIONS_H
 
 #include "Wrap/WinDllMacros.h"
 #include <vector>
@@ -30,4 +30,4 @@ BA_CORE_API_ double WoodFour(const std::vector<double>& par);
 BA_CORE_API_ double DecayingSin(double x, const std::vector<double>& par);
 } // namespace TestFunctions
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_TESTMACHINERY_OBJECTIVETESTFUNCTIONS_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_CLASSICALTESTFUNCTIONS_H

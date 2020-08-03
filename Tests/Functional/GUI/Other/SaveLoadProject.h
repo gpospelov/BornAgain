@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUISpecial/GUISaveLoadProject.h
+//! @file      Tests/Functional/GUI/Other/SaveLoadProject.h
 //! @brief     Defines GUISaveLoadProject test.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_GUI_OTHER_SAVELOADPROJECT_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_GUI_OTHER_SAVELOADPROJECT_H
 
 #include <QMap>
 #include <QString>
@@ -53,4 +53,4 @@ private:
     QMap<QString, QVector<DataXML>> m_results;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_GUISPECIAL_GUISAVELOADPROJECT_H
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_GUI_OTHER_SAVELOADPROJECT_H

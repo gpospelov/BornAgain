@@ -15,6 +15,8 @@
 #ifndef BORNAGAIN_CORE_TOOLS_PYIMPORT_H
 #define BORNAGAIN_CORE_TOOLS_PYIMPORT_H
 
+#ifdef BORNAGAIN_PYTHON
+
 #include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <string>
@@ -42,5 +44,7 @@ BA_CORE_API_ std::unique_ptr<MultiLayer> createFromPython(const std::string& scr
 BA_CORE_API_ std::vector<std::string> listOfFunctions(const std::string& script,
                                                       const std::string& path = "");
 } // namespace PyImport
+
+#endif // BORNAGAIN_PYTHON
 
 #endif // BORNAGAIN_CORE_TOOLS_PYIMPORT_H

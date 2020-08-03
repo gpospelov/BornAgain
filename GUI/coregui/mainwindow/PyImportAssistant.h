@@ -15,6 +15,8 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_PYIMPORTASSISTANT_H
 #define BORNAGAIN_GUI_COREGUI_MAINWINDOW_PYIMPORTASSISTANT_H
 
+#ifdef BORNAGAIN_PYTHON
+
 #include "Wrap/WinDllMacros.h"
 #include <QObject>
 #include <memory>
@@ -43,5 +45,7 @@ private:
 
     MainWindow* m_mainWindow;
 };
+
+#endif // BORNAGAIN_PYTHON
 
 #endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_PYIMPORTASSISTANT_H

@@ -12,6 +12,8 @@
 //
 // ************************************************************************** //
 
+#ifdef BORNAGAIN_PYTHON
+
 #include "Core/Tools/PyEmbeddedUtils.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Tools/PythonCore.h"
@@ -177,3 +179,5 @@ std::string PyEmbeddedUtils::pythonStackTrace()
 
     return result.str();
 }
+
+#endif // BORNAGAIN_PYTHON

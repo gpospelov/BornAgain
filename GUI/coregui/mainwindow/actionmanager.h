@@ -38,7 +38,9 @@ private slots:
     void toggleCheckForUpdates(bool status);
     void setSessionModelViewActive(bool status);
     void onAboutApplication();
+#ifdef BORNAGAIN_PYTHON
     void onImportFromPythonScript();
+#endif // BORNAGAIN_PYTHON
 
 private:
     MainWindow* m_mainWindow;

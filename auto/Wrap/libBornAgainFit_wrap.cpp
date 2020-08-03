@@ -22417,13 +22417,13 @@ static PyMethodDef SwigMethods[] = {
 	 { "Parameters_begin", _wrap_Parameters_begin, METH_VARARGS, "\n"
 		"Parameters_begin(Parameters self) -> Fit::Parameters::const_iterator\n"
 		"Parameters_begin(Parameters self) -> Fit::Parameters::iterator\n"
-		"iterator Fit::Parameters::begin()\n"
+		"Parameters::iterator Parameters::begin()\n"
 		"\n"
 		""},
 	 { "Parameters_end", _wrap_Parameters_end, METH_VARARGS, "\n"
 		"Parameters_end(Parameters self) -> Fit::Parameters::const_iterator\n"
 		"Parameters_end(Parameters self) -> Fit::Parameters::iterator\n"
-		"iterator Fit::Parameters::end()\n"
+		"Parameters::iterator Parameters::end()\n"
 		"\n"
 		""},
 	 { "Parameters_size", _wrap_Parameters_size, METH_O, "\n"

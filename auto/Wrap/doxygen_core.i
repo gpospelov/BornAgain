@@ -1421,18 +1421,18 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  DepthProbeConverter::DepthProbeConverter "DepthProbeConverter::DepthProbeConverter(const Beam &beam, const IAxis &alpha_axis, const IAxis &z_axis)
 ";
 
-%feature("docstring")  DepthProbeConverter::~DepthProbeConverter "DepthProbeConverter::~DepthProbeConverter() override
+%feature("docstring")  DepthProbeConverter::~DepthProbeConverter "DepthProbeConverter::~DepthProbeConverter() final
 ";
 
-%feature("docstring")  DepthProbeConverter::clone "DepthProbeConverter * DepthProbeConverter::clone() const override
+%feature("docstring")  DepthProbeConverter::clone "DepthProbeConverter * DepthProbeConverter::clone() const final
 ";
 
-%feature("docstring")  DepthProbeConverter::availableUnits "std::vector< AxesUnits > DepthProbeConverter::availableUnits() const override
+%feature("docstring")  DepthProbeConverter::availableUnits "std::vector< AxesUnits > DepthProbeConverter::availableUnits() const final
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  DepthProbeConverter::defaultUnits "AxesUnits DepthProbeConverter::defaultUnits() const override
+%feature("docstring")  DepthProbeConverter::defaultUnits "AxesUnits DepthProbeConverter::defaultUnits() const final
 ";
 
 
@@ -6308,6 +6308,11 @@ C++ includes: ICloneable.h
 %feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
 ";
 
+%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
+
+Used for Python overriding of clone (see swig/tweaks.py) 
+";
+
 
 // File: classIClusteredParticles.xml
 %feature("docstring") IClusteredParticles "
@@ -7811,10 +7816,10 @@ Returns a vector of children (const).
 %feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)
 ";
 
-%feature("docstring")  INode::parent "INode * INode::parent() const
+%feature("docstring")  INode::parent "const INode * INode::parent() const
 ";
 
-%feature("docstring")  INode::parent "INode* INode::parent()
+%feature("docstring")  INode::parent "INode * INode::parent()
 ";
 
 %feature("docstring")  INode::copyNumber "int INode::copyNumber(const INode *node) const
@@ -8289,12 +8294,12 @@ Sets the beam's polarization according to the given Bloch vector.
 Returns the beam's intensity. 
 ";
 
-%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector() const
+%feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 
 Returns the detector data. 
 ";
 
-%feature("docstring")  Instrument::getDetector "IDetector* Instrument::getDetector()
+%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
 ";
 
 %feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
@@ -11551,13 +11556,13 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  OffSpecularConverter::OffSpecularConverter "OffSpecularConverter::OffSpecularConverter(const IDetector2D &detector, const Beam &beam, const IAxis &alpha_axis)
 ";
 
-%feature("docstring")  OffSpecularConverter::~OffSpecularConverter "OffSpecularConverter::~OffSpecularConverter() override
+%feature("docstring")  OffSpecularConverter::~OffSpecularConverter "OffSpecularConverter::~OffSpecularConverter() final
 ";
 
-%feature("docstring")  OffSpecularConverter::clone "OffSpecularConverter * OffSpecularConverter::clone() const override
+%feature("docstring")  OffSpecularConverter::clone "OffSpecularConverter * OffSpecularConverter::clone() const final
 ";
 
-%feature("docstring")  OffSpecularConverter::defaultUnits "AxesUnits OffSpecularConverter::defaultUnits() const override
+%feature("docstring")  OffSpecularConverter::defaultUnits "AxesUnits OffSpecularConverter::defaultUnits() const final
 ";
 
 
@@ -11695,12 +11700,12 @@ Returns copy of raw data vector.
 Returns sum of all values in the data structure. 
 ";
 
-%feature("docstring")  OutputData::begin "OutputData< T >::const_iterator OutputData< T >::begin()
+%feature("docstring")  OutputData::begin "OutputData< T >::iterator OutputData< T >::begin()
 
 Returns read/write iterator that points to the first element. 
 ";
 
-%feature("docstring")  OutputData::begin "const_iterator OutputData< T >::begin() const
+%feature("docstring")  OutputData::begin "OutputData< T >::const_iterator OutputData< T >::begin() const
 
 Returns read-only iterator that points to the first element. 
 ";
@@ -12135,10 +12140,10 @@ get number of samples for this distribution
 get the sigma factor 
 ";
 
-%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution() const
+%feature("docstring")  ParameterDistribution::getDistribution "const IDistribution1D * ParameterDistribution::getDistribution() const
 ";
 
-%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D* ParameterDistribution::getDistribution()
+%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution()
 ";
 
 %feature("docstring")  ParameterDistribution::generateSamples "std::vector< ParameterSample > ParameterDistribution::generateSamples() const
@@ -13854,18 +13859,18 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  RectangularConverter::RectangularConverter "RectangularConverter::RectangularConverter(const RectangularDetector &detector, const Beam &beam)
 ";
 
-%feature("docstring")  RectangularConverter::~RectangularConverter "RectangularConverter::~RectangularConverter() override
+%feature("docstring")  RectangularConverter::~RectangularConverter "RectangularConverter::~RectangularConverter() final
 ";
 
-%feature("docstring")  RectangularConverter::clone "RectangularConverter * RectangularConverter::clone() const override
+%feature("docstring")  RectangularConverter::clone "RectangularConverter * RectangularConverter::clone() const final
 ";
 
-%feature("docstring")  RectangularConverter::availableUnits "std::vector< AxesUnits > RectangularConverter::availableUnits() const override
+%feature("docstring")  RectangularConverter::availableUnits "std::vector< AxesUnits > RectangularConverter::availableUnits() const final
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  RectangularConverter::defaultUnits "AxesUnits RectangularConverter::defaultUnits() const override
+%feature("docstring")  RectangularConverter::defaultUnits "AxesUnits RectangularConverter::defaultUnits() const final
 ";
 
 
@@ -16229,18 +16234,18 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  SphericalConverter::SphericalConverter "SphericalConverter::SphericalConverter(const SphericalDetector &detector, const Beam &beam)
 ";
 
-%feature("docstring")  SphericalConverter::~SphericalConverter "SphericalConverter::~SphericalConverter() override
+%feature("docstring")  SphericalConverter::~SphericalConverter "SphericalConverter::~SphericalConverter() final
 ";
 
-%feature("docstring")  SphericalConverter::clone "SphericalConverter * SphericalConverter::clone() const override
+%feature("docstring")  SphericalConverter::clone "SphericalConverter * SphericalConverter::clone() const final
 ";
 
-%feature("docstring")  SphericalConverter::availableUnits "std::vector< AxesUnits > SphericalConverter::availableUnits() const override
+%feature("docstring")  SphericalConverter::availableUnits "std::vector< AxesUnits > SphericalConverter::availableUnits() const final
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  SphericalConverter::defaultUnits "AxesUnits SphericalConverter::defaultUnits() const override
+%feature("docstring")  SphericalConverter::defaultUnits "AxesUnits SphericalConverter::defaultUnits() const final
 ";
 
 
@@ -16790,16 +16795,16 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  UnitConverterSimple::~UnitConverterSimple "UnitConverterSimple::~UnitConverterSimple() override=default
 ";
 
-%feature("docstring")  UnitConverterSimple::dimension "size_t UnitConverterSimple::dimension() const override
+%feature("docstring")  UnitConverterSimple::dimension "size_t UnitConverterSimple::dimension() const final
 ";
 
-%feature("docstring")  UnitConverterSimple::calculateMin "double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const override
+%feature("docstring")  UnitConverterSimple::calculateMin "double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const final
 ";
 
-%feature("docstring")  UnitConverterSimple::calculateMax "double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const override
+%feature("docstring")  UnitConverterSimple::calculateMax "double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const final
 ";
 
-%feature("docstring")  UnitConverterSimple::axisSize "size_t UnitConverterSimple::axisSize(size_t i_axis) const override
+%feature("docstring")  UnitConverterSimple::axisSize "size_t UnitConverterSimple::axisSize(size_t i_axis) const final
 ";
 
 %feature("docstring")  UnitConverterSimple::availableUnits "std::vector< AxesUnits > UnitConverterSimple::availableUnits() const override
@@ -16807,7 +16812,7 @@ C++ includes: SimpleUnitConverters.h
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  UnitConverterSimple::createConvertedAxis "std::unique_ptr< IAxis > UnitConverterSimple::createConvertedAxis(size_t i_axis, AxesUnits units) const override
+%feature("docstring")  UnitConverterSimple::createConvertedAxis "std::unique_ptr< IAxis > UnitConverterSimple::createConvertedAxis(size_t i_axis, AxesUnits units) const final
 ";
 
 

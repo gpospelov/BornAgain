@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Python/Std/Check.cpp
+//! @file      Tests/Functional/GUI/Std/Check.cpp
 //! @brief     Implements function checkSimulation for Python standard test
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -34,16 +34,16 @@ public:
     UnitConverterSimple(const Beam& beam);
     ~UnitConverterSimple() override = default;
 
-    virtual size_t dimension() const override;
+    virtual size_t dimension() const final;
 
-    double calculateMin(size_t i_axis, AxesUnits units_type) const override;
-    double calculateMax(size_t i_axis, AxesUnits units_type) const override;
-    size_t axisSize(size_t i_axis) const override;
+    double calculateMin(size_t i_axis, AxesUnits units_type) const final;
+    double calculateMax(size_t i_axis, AxesUnits units_type) const final;
+    size_t axisSize(size_t i_axis) const final;
 
     //! Returns the list of all available units
     std::vector<AxesUnits> availableUnits() const override;
 
-    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const override;
+    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const final;
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
@@ -78,19 +78,19 @@ class BA_CORE_API_ SphericalConverter : public UnitConverterSimple
 public:
     SphericalConverter(const SphericalDetector& detector, const Beam& beam);
 
-    ~SphericalConverter() override;
+    ~SphericalConverter() final;
 
-    SphericalConverter* clone() const override;
+    SphericalConverter* clone() const final;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const override;
+    std::vector<AxesUnits> availableUnits() const final;
 
-    AxesUnits defaultUnits() const override;
+    AxesUnits defaultUnits() const final;
 
 private:
     SphericalConverter(const SphericalConverter& other);
-    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const final;
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
 };
 
 //! IUnitConverter class that handles the unit translations for rectangular detectors
@@ -101,19 +101,19 @@ class BA_CORE_API_ RectangularConverter : public UnitConverterSimple
 {
 public:
     RectangularConverter(const RectangularDetector& detector, const Beam& beam);
-    ~RectangularConverter() override;
+    ~RectangularConverter() final;
 
-    RectangularConverter* clone() const override;
+    RectangularConverter* clone() const final;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const override;
+    std::vector<AxesUnits> availableUnits() const final;
 
-    AxesUnits defaultUnits() const override;
+    AxesUnits defaultUnits() const final;
 
 private:
     RectangularConverter(const RectangularConverter& other);
-    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const final;
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
     kvector_t normalizeToWavelength(kvector_t vector) const;
     double axisAngle(size_t i_axis, kvector_t k_f) const;
     std::unique_ptr<RectangularPixel> mP_detector_pixel;
@@ -128,16 +128,16 @@ class BA_CORE_API_ OffSpecularConverter : public UnitConverterSimple
 {
 public:
     OffSpecularConverter(const IDetector2D& detector, const Beam& beam, const IAxis& alpha_axis);
-    ~OffSpecularConverter() override;
+    ~OffSpecularConverter() final;
 
-    OffSpecularConverter* clone() const override;
+    OffSpecularConverter* clone() const final;
 
-    AxesUnits defaultUnits() const override;
+    AxesUnits defaultUnits() const final;
 
 private:
     OffSpecularConverter(const OffSpecularConverter& other);
-    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const final;
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
     void addDetectorYAxis(const IDetector2D& detector);
 };
 
@@ -149,19 +149,19 @@ class BA_CORE_API_ DepthProbeConverter : public UnitConverterSimple
 {
 public:
     DepthProbeConverter(const Beam& beam, const IAxis& alpha_axis, const IAxis& z_axis);
-    ~DepthProbeConverter() override;
+    ~DepthProbeConverter() final;
 
-    DepthProbeConverter* clone() const override;
+    DepthProbeConverter* clone() const final;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const override;
+    std::vector<AxesUnits> availableUnits() const final;
 
-    AxesUnits defaultUnits() const override { return AxesUnits::DEGREES; }
+    AxesUnits defaultUnits() const final { return AxesUnits::DEGREES; }
 
 private:
     DepthProbeConverter(const DepthProbeConverter& other);
-    double calculateValue(size_t, AxesUnits units_type, double value) const override;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+    double calculateValue(size_t, AxesUnits units_type, double value) const final;
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
     void checkUnits(AxesUnits units_type) const;
 };
 

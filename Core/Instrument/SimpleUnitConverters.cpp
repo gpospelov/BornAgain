@@ -55,7 +55,7 @@ double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) co
 {
     checkIndex(i_axis);
     units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
-    auto axis_data = m_axis_data_table[i_axis];
+    const auto& axis_data = m_axis_data_table[i_axis];
     if (units_type == AxesUnits::NBINS) {
         return 0.0;
     }
@@ -66,7 +66,7 @@ double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) co
 {
     checkIndex(i_axis);
     units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
-    auto axis_data = m_axis_data_table[i_axis];
+    const auto& axis_data = m_axis_data_table[i_axis];
     if (units_type == AxesUnits::NBINS) {
         return static_cast<double>(axis_data.nbins);
     }
@@ -76,8 +76,7 @@ double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) co
 size_t UnitConverterSimple::axisSize(size_t i_axis) const
 {
     checkIndex(i_axis);
-    auto axis_data = m_axis_data_table[i_axis];
-    return axis_data.nbins;
+    return m_axis_data_table[i_axis].nbins;
 }
 
 std::vector<AxesUnits> UnitConverterSimple::availableUnits() const
@@ -88,10 +87,10 @@ std::vector<AxesUnits> UnitConverterSimple::availableUnits() const
 std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
                                                                 AxesUnits units) const
 {
-    double min = calculateMin(i_axis, units);
-    double max = calculateMax(i_axis, units);
-    auto axis_name = axisName(i_axis, units);
-    auto axis_size = axisSize(i_axis);
+    const double min = calculateMin(i_axis, units);
+    const double max = calculateMax(i_axis, units);
+    const auto& axis_name = axisName(i_axis, units);
+    const auto axis_size = axisSize(i_axis);
     return std::make_unique<FixedBinAxis>(axis_name, axis_size, min, max);
 }
 
@@ -103,9 +102,9 @@ UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
 
 void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis)
 {
-    auto& axis = detector.getAxis(i_axis);
-    auto p_roi = detector.regionOfInterest();
-    auto axis_name = axisName(i_axis);
+    const auto& axis = detector.getAxis(i_axis);
+    const auto* p_roi = detector.regionOfInterest();
+    const auto& axis_name = axisName(i_axis);
     if (p_roi) {
         auto P_roi_axis = p_roi->clipAxisToRoi(i_axis, axis);
         addAxisData(axis_name, P_roi_axis->getMin(), P_roi_axis->getMax(), defaultUnits(),
@@ -159,12 +158,12 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     case AxesUnits::QSPACE: {
-        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
-            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
+            const auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
             return (k_i - k_f).y();
         } else if (i_axis == 1) {
-            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
+            const auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
             return (k_f - k_i).z();
         }
         throw std::runtime_error("Error in SphericalConverter::calculateValue: "
@@ -172,12 +171,12 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
                                  + std::to_string(static_cast<int>(i_axis)));
     }
     case AxesUnits::QXQY: {
-        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
-            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
+            const auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
             return (k_i - k_f).y();
         } else if (i_axis == 1) {
-            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
+            const auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
             return (k_f - k_i).x();
         }
         throw std::runtime_error("Error in SphericalConverter::calculateValue: "
@@ -245,14 +244,14 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     const auto k10 = mP_detector_pixel->getPosition(1.0, 0.0);
     const auto& max_pos = i_axis == 0 ? k10 : k01; // position of max along given axis
     const double shift = value - m_axis_data_table[i_axis].min;
-    auto k_f = normalizeToWavelength(k00 + shift * (max_pos - k00).unit());
+    const auto k_f = normalizeToWavelength(k00 + shift * (max_pos - k00).unit());
     switch (units_type) {
     case AxesUnits::RADIANS:
         return axisAngle(i_axis, k_f);
     case AxesUnits::DEGREES:
         return Units::rad2deg(axisAngle(i_axis, k_f));
     case AxesUnits::QSPACE: {
-        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
             return (k_i - k_f).y();
         } else if (i_axis == 1) {
@@ -263,7 +262,7 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
                                  + std::to_string(static_cast<int>(i_axis)));
     }
     case AxesUnits::QXQY: {
-        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
             return (k_i - k_f).y();
         } else if (i_axis == 1) {
@@ -317,8 +316,7 @@ OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Be
         throw std::runtime_error("Error in OffSpecularConverter constructor: "
                                  "detector has wrong dimension: "
                                  + std::to_string(static_cast<int>(detector.dimension())));
-    auto alpha_axis_name = axisName(0);
-    addAxisData(alpha_axis_name, alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
+    addAxisData(axisName(0), alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
                 alpha_axis.size());
     addDetectorYAxis(detector);
 }
@@ -362,9 +360,9 @@ std::vector<std::map<AxesUnits, std::string>> OffSpecularConverter::createNameMa
 
 void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
 {
-    auto& axis = detector.getAxis(1);
-    auto p_roi = detector.regionOfInterest();
-    auto axis_name = axisName(1);
+    const auto& axis = detector.getAxis(1);
+    const auto* p_roi = detector.regionOfInterest();
+    const auto& axis_name = axisName(1);
     std::unique_ptr<IAxis> P_new_axis;
     if (p_roi) {
         P_new_axis = p_roi->clipAxisToRoi(1, axis);
@@ -374,16 +372,16 @@ void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
     if (!P_new_axis)
         throw std::runtime_error("Error in OffSpecularConverter::addDetectorYAxis: "
                                  "could not retrieve the y-axis of the detector");
-    if (auto P_rect_det = dynamic_cast<const RectangularDetector*>(&detector)) {
+    if (const auto* P_rect_det = dynamic_cast<const RectangularDetector*>(&detector)) {
         std::unique_ptr<RectangularPixel> P_det_pixel(P_rect_det->regionOfInterestPixel());
-        auto k00 = P_det_pixel->getPosition(0.0, 0.0);
-        auto k01 = P_det_pixel->getPosition(0.0, 1.0);
-        double alpha_f_min = M_PI_2 - k00.theta();
-        double alpha_f_max = M_PI_2 - k01.theta();
+        const auto k00 = P_det_pixel->getPosition(0.0, 0.0);
+        const auto k01 = P_det_pixel->getPosition(0.0, 1.0);
+        const double alpha_f_min = M_PI_2 - k00.theta();
+        const double alpha_f_max = M_PI_2 - k01.theta();
         addAxisData(axis_name, alpha_f_min, alpha_f_max, defaultUnits(), P_new_axis->size());
     } else if (dynamic_cast<const SphericalDetector*>(&detector)) {
-        double alpha_f_min = P_new_axis->getMin();
-        double alpha_f_max = P_new_axis->getMax();
+        const double alpha_f_min = P_new_axis->getMin();
+        const double alpha_f_max = P_new_axis->getMax();
         addAxisData(axis_name, alpha_f_min, alpha_f_max, defaultUnits(), P_new_axis->size());
     } else {
         throw std::runtime_error("Error in OffSpecularConverter::addDetectorYAxis: "

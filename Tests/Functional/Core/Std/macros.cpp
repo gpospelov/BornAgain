@@ -12,5 +12,5 @@
 //
 // ************************************************************************** //
 
-#include "Tests/Functional/NewStd/Run.h"
-#include "Tests/Functional/NewStd/StandardTests.h" // contains macros that are executed by gtest
+#include "Tests/Functional/Std/Run.h"
+#include "Tests/Functional/Std/StandardTests.h" // contains macros that are executed by gtest

@@ -2,7 +2,7 @@ include(GoogleTest) # provides gtest_discover_tests
 
 set(test TestPyStd)
 
-file(GLOB source_files "*.cpp" "../../NewStd/Run.cpp")
+file(GLOB source_files "*.cpp" "../../Std/Run.cpp")
 
 add_executable(${test} ${source_files} ${CMAKE_SOURCE_DIR}/Tests/GTestWrapper/TestAll.cpp)
 target_include_directories(${test} PUBLIC

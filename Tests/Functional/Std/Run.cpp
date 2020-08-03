@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/NewStd/Run.cpp
+//! @file      Tests/Functional/Std/Run.cpp
 //! @brief     Implements function run for use in standard tests.
 //!
 //! @homepage  http://www.bornagainproject.org

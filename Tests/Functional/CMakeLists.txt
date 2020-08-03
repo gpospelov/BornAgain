@@ -4,7 +4,6 @@
 
 include_directories(${CMAKE_SOURCE_DIR}/Tests/Functional/TestMachinery)
 
-add_subdirectory(Std)
 add_subdirectory(Core)
 add_subdirectory(Fit)
 

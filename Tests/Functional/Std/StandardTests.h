@@ -410,7 +410,6 @@ TEST_F(Std, SpecularDivergentBeam)
                     "HomogeneousMultilayerBuilder", 1e-10));
 }
 
-
 // ************************************************************************** //
 // TODO: broken under GUI
 // ************************************************************************** //
@@ -424,7 +423,6 @@ TEST_F(Std, RelativeResolutionTOF)
 }
 
 #endif // GUI_STD_TEST
-
 
 // ************************************************************************** //
 // TODO: broken under Python
@@ -443,7 +441,6 @@ TEST_F(Std, FormFactorsWithAbsorption)
         run("FormFactorsWithAbsorption", "MiniGISAS_v2", "LayersWithAbsorptionBuilder", 2e-10));
 }
 #endif // PYTHON_STD_TEST
-
 
 // ************************************************************************** //
 // TODO: broken under GUI and Python

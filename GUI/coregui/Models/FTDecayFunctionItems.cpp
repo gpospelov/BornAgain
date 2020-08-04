@@ -102,16 +102,17 @@ void FTDecayFunction2DItem::add_decay_property()
 {
     addProperty(P_DECAY_LENGTH_X, 1000.0)
         ->setToolTip("Decay length (half-width of the distribution in nanometers) "
-                                    "\nalong x-axis of the distribution");
+                     "\nalong x-axis of the distribution");
     addProperty(P_DECAY_LENGTH_Y, 1000.0)
         ->setToolTip("Decay length (half-width of the distribution in nanometers) "
-                                    "\nalong y-axis of the distribution");
+                     "\nalong y-axis of the distribution");
 }
 
 void FTDecayFunction2DItem::add_gammadelta_property()
 {
     addProperty(P_GAMMA, 0.0)
-        ->setToolTip("Distribution orientation with respect to the first lattice vector in degrees");
+        ->setToolTip(
+            "Distribution orientation with respect to the first lattice vector in degrees");
     addProperty(P_DELTA, 90.0)->setVisible(false);
 }
 

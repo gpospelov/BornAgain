@@ -34,7 +34,7 @@ MultiLayerItem::MultiLayerItem() : SessionGraphicsItem("MultiLayer")
     addProperty(P_CROSS_CORR_LENGTH, 0.0)
         ->setDecimals(5)
         .setToolTip("Cross correlation length of roughnesses \n"
-                                   "between interfaces in nanometers");
+                    "between interfaces in nanometers");
     addGroupProperty(P_EXTERNAL_FIELD, "Vector")->setToolTip(external_field_tooltip);
 
     registerTag(T_LAYERS, 0, -1, QStringList() << "Layer");

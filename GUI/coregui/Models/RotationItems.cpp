@@ -23,8 +23,7 @@ const QString XRotationItem::P_ANGLE = "Angle";
 XRotationItem::XRotationItem() : RotationItem("XRotation")
 {
     setToolTip("Particle rotation around x-axis");
-    addProperty(P_ANGLE, 0.0)
-        ->setToolTip("Rotation angle around x-axis in degrees");
+    addProperty(P_ANGLE, 0.0)->setToolTip("Rotation angle around x-axis in degrees");
 }
 
 std::unique_ptr<IRotation> XRotationItem::createRotation() const
@@ -40,8 +39,7 @@ const QString YRotationItem::P_ANGLE = "Angle";
 YRotationItem::YRotationItem() : RotationItem("YRotation")
 {
     setToolTip("Particle rotation around y-axis");
-    addProperty(P_ANGLE, 0.0)
-        ->setToolTip("Rotation angle around y-axis in degrees");
+    addProperty(P_ANGLE, 0.0)->setToolTip("Rotation angle around y-axis in degrees");
 }
 
 std::unique_ptr<IRotation> YRotationItem::createRotation() const
@@ -57,8 +55,7 @@ const QString ZRotationItem::P_ANGLE = "Angle";
 ZRotationItem::ZRotationItem() : RotationItem("ZRotation")
 {
     setToolTip("Particle rotation around z-axis");
-    addProperty(P_ANGLE, 0.0)
-        ->setToolTip("Rotation angle around z-axis in degrees");
+    addProperty(P_ANGLE, 0.0)->setToolTip("Rotation angle around z-axis in degrees");
 }
 
 std::unique_ptr<IRotation> ZRotationItem::createRotation() const
@@ -76,13 +73,10 @@ const QString EulerRotationItem::P_GAMMA = "Gamma";
 EulerRotationItem::EulerRotationItem() : RotationItem("EulerRotation")
 {
     setToolTip("Sequence of three rotations following Euler angles \n"
-                              "notation z-x'-z'");
-    addProperty(P_ALPHA, 0.0)
-        ->setToolTip("First Euler anle in z-x'-z' sequence in degrees");
-    addProperty(P_BETA, 0.0)
-        ->setToolTip("Second Euler anle in z-x'-z' sequence in degrees");
-    addProperty(P_GAMMA, 0.0)
-        ->setToolTip("Third Euler anle in z-x'-z' sequence in degrees");
+               "notation z-x'-z'");
+    addProperty(P_ALPHA, 0.0)->setToolTip("First Euler anle in z-x'-z' sequence in degrees");
+    addProperty(P_BETA, 0.0)->setToolTip("Second Euler anle in z-x'-z' sequence in degrees");
+    addProperty(P_GAMMA, 0.0)->setToolTip("Third Euler anle in z-x'-z' sequence in degrees");
 }
 
 std::unique_ptr<IRotation> EulerRotationItem::createRotation() const

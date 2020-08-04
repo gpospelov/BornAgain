@@ -43,8 +43,7 @@ LayerItem::LayerItem() : SessionGraphicsItem("Layer")
         ->setLimits(RealLimits::lowerLimited(0.0))
         .setToolTip(layer_nslices_tooltip);
 
-    addGroupProperty(P_ROUGHNESS, "Roughness")
-        ->setToolTip("Roughness of top interface");
+    addGroupProperty(P_ROUGHNESS, "Roughness")->setToolTip("Roughness of top interface");
 
     registerTag(T_LAYOUTS, 0, -1, QStringList() << "ParticleLayout");
     setDefaultTag(T_LAYOUTS);

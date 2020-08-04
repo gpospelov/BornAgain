@@ -237,8 +237,7 @@ void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget
 {
     // build item. Filter on name + class name if it is different and not a layout.
     QString filter = widget.name();
-    if (!filter.contains("Layout")
-        && m_classNameRegExp.indexIn(widget.domXml()) != -1) {
+    if (!filter.contains("Layout") && m_classNameRegExp.indexIn(widget.domXml()) != -1) {
         const QString className = m_classNameRegExp.cap(1);
         if (!filter.contains(className))
             filter += className;

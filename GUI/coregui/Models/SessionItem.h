@@ -50,8 +50,7 @@ public:
     SessionItem* takeRow(int row);
 
     // manage and check tags
-    bool registerTag(const QString& name, int min = 0, int max = -1,
-                     QStringList modelTypes = {});
+    bool registerTag(const QString& name, int min = 0, int max = -1, QStringList modelTypes = {});
     bool isTag(const QString& name) const;
     SessionItemTags* sessionItemTags();
     QString tagFromItem(const SessionItem* item) const;

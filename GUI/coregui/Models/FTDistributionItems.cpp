@@ -21,8 +21,7 @@ FTDistribution1DItem::FTDistribution1DItem(const QString& name) : SessionItem(na
 
 void FTDistribution1DItem::add_omega_property()
 {
-    addProperty(P_OMEGA, 1.0)
-        ->setToolTip("Half-width of the distribution in nanometers");
+    addProperty(P_OMEGA, 1.0)->setToolTip("Half-width of the distribution in nanometers");
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -125,19 +124,16 @@ FTDistribution2DItem::FTDistribution2DItem(const QString& name) : SessionItem(na
 void FTDistribution2DItem::add_omega_properties()
 {
     addProperty(P_OMEGA_X, 1.0)
-        ->setToolTip(
-            "Half-width of the distribution along its x-axis in nanometers");
+        ->setToolTip("Half-width of the distribution along its x-axis in nanometers");
     addProperty(P_OMEGA_Y, 1.0)
-        ->setToolTip(
-            "Half-width of the distribution along its y-axis in nanometers");
+        ->setToolTip("Half-width of the distribution along its y-axis in nanometers");
 }
 
 void FTDistribution2DItem::add_gamma_property()
 {
     addProperty(P_GAMMA, 0.0)
-        ->setToolTip(
-            "Angle in direct space between "
-                           "first lattice vector \nand x-axis of the distribution in degrees");
+        ->setToolTip("Angle in direct space between "
+                     "first lattice vector \nand x-axis of the distribution in degrees");
 }
 
 void FTDistribution2DItem::add_properties()

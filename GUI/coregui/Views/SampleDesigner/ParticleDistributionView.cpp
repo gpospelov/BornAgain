@@ -26,7 +26,7 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : Conn
         ->setToolTip("Connect to the ParticleLayout");
     addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip("Connect particle to this port. It will be a prototype \n"
-                                    "for parametric distribution.");
+                     "for parametric distribution.");
 
     m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }

@@ -133,8 +133,8 @@ void RealDataSelectorActions::importDataLoop(int ndim)
         filter_string_ba = "";
     }
     QString dirname = AppSvc::projectManager()->userImportDir();
-    QStringList fileNames = QFileDialog::getOpenFileNames(
-        Q_NULLPTR, "Open Intensity Files", dirname, filter_string_ba);
+    QStringList fileNames =
+        QFileDialog::getOpenFileNames(Q_NULLPTR, "Open Intensity Files", dirname, filter_string_ba);
 
     if (fileNames.isEmpty())
         return;

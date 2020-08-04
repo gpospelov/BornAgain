@@ -33,8 +33,7 @@ const QString MinimizerContainerItem::P_NORM = "Norm function";
 
 MinimizerContainerItem::MinimizerContainerItem() : MinimizerItem("MinimizerContainer")
 {
-    addGroupProperty(P_MINIMIZERS, "Minimizer library group")
-        ->setToolTip("Minimizer library");
+    addGroupProperty(P_MINIMIZERS, "Minimizer library group")->setToolTip("Minimizer library");
 
     ComboProperty metric_combo;
     for (auto& item : ObjectiveMetricUtils::metricNames())

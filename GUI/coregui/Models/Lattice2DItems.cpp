@@ -43,8 +43,7 @@ BasicLatticeItem::BasicLatticeItem() : Lattice2DItem("BasicLattice")
         ->setToolTip("Length of first lattice vector in nanometers");
     addProperty(P_LATTICE_LENGTH2, 20.0)
         ->setToolTip("Length of second lattice vector in nanometers");
-    addProperty(P_LATTICE_ANGLE, 90.0)
-        ->setToolTip("Angle between lattice vectors in degrees");
+    addProperty(P_LATTICE_ANGLE, 90.0)->setToolTip("Angle between lattice vectors in degrees");
     addProperty(Lattice2DItem::P_LATTICE_ROTATION_ANGLE, 0.0)->setToolTip(axis_rotation_tooltip);
 }
 

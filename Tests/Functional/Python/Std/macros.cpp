@@ -14,5 +14,5 @@
 
 #include "Tests/Functional/Std/Run.h"
 
-#define  PYTHON_STD_TEST
+#define PYTHON_STD_TEST
 #include "Tests/Functional/Std/StandardTests.h" // contains macros that are executed by gtest

@@ -25,12 +25,12 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(
     setRectangle(DesignerHelper::getParticleLayoutBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::PARTICLE_LAYOUT)
         ->setToolTip("Connect this port with the layer "
-                                    "to populate it with particles");
+                     "to populate it with particles");
     addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip("Connect one or several particles to this port");
     addPort("interference", NodeEditorPort::INPUT, NodeEditorPort::INTERFERENCE)
         ->setToolTip("Connect interference to this port "
-                                    "to have coherent scattering");
+                     "to have coherent scattering");
 }
 
 void ParticleLayoutView::addView(IView* childView, int /* row */)

@@ -126,8 +126,8 @@ bool SampleValidator::isValidMultiLayer(const MultiLayerItem* multilayer)
     iterateItems(multilayer);
 
     if (!m_valid_sample) {
-        m_validation_message = "Can't setup DWBA simulation for given MultiLayer.\n"
-                               + m_validation_message;
+        m_validation_message =
+            "Can't setup DWBA simulation for given MultiLayer.\n" + m_validation_message;
     }
     return m_valid_sample;
 }

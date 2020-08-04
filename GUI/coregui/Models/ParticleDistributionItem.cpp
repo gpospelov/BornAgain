@@ -40,7 +40,7 @@ const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 ParticleDistributionItem::ParticleDistributionItem() : SessionGraphicsItem("ParticleDistribution")
 {
     setToolTip("Collection of particles obtained via parametric distribution "
-                              "of particle prototype");
+               "of particle prototype");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
         ->setLimits(RealLimits::limited(0.0, 1.0))
@@ -58,8 +58,7 @@ ParticleDistributionItem::ParticleDistributionItem() : SessionGraphicsItem("Part
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
-    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())
-        ->setToolTip("Parameter to distribute");
+    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())->setToolTip("Parameter to distribute");
 
     addProperty(P_LINKED_PARAMETER, par_prop.variant())
         ->setToolTip("Linked parameter")

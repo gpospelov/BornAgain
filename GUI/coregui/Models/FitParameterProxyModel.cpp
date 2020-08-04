@@ -29,12 +29,9 @@ FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem* fitPar
 {
     addColumn(PAR_NAME, "Name", "Name of fit parameter");
     addColumn(PAR_TYPE, FitParameterItem::P_TYPE, "Fit parameter limits type");
-    addColumn(PAR_VALUE, FitParameterItem::P_START_VALUE,
-              "Starting value of fit parameter");
-    addColumn(PAR_MIN, FitParameterItem::P_MIN,
-              "Lower bound on fit parameter value");
-    addColumn(PAR_MAX, FitParameterItem::P_MAX,
-              "Upper bound on fit parameter value");
+    addColumn(PAR_VALUE, FitParameterItem::P_START_VALUE, "Starting value of fit parameter");
+    addColumn(PAR_MIN, FitParameterItem::P_MIN, "Lower bound on fit parameter value");
+    addColumn(PAR_MAX, FitParameterItem::P_MAX, "Upper bound on fit parameter value");
 
     connectModel(fitParContainer->model());
 

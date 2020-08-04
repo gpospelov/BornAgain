@@ -35,7 +35,7 @@ public:
     void setPresentation(const QString& name);
 
     void setPresentationList(const QStringList& presentationList,
-                             const QStringList& activeList = QStringList());
+                             const QStringList& activeList = {});
 
     QString currentPresentation() const;
 

@@ -99,7 +99,7 @@ class VectorParameterTranslator : public IPathTranslator
 {
 public:
     VectorParameterTranslator(QString gui_name, std::string base_name,
-                              QStringList additional_names = QStringList());
+                              QStringList additional_names = {});
     ~VectorParameterTranslator() override {}
 
     VectorParameterTranslator* clone() const override;

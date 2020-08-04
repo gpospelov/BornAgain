@@ -24,13 +24,13 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(
     setColor(QColor(135, 206, 50));
     setRectangle(DesignerHelper::getParticleLayoutBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::PARTICLE_LAYOUT)
-        ->setToolTip(QStringLiteral("Connect this port with the layer "
-                                    "to populate it with particles"));
+        ->setToolTip("Connect this port with the layer "
+                                    "to populate it with particles");
     addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect one or several particles to this port"));
+        ->setToolTip("Connect one or several particles to this port");
     addPort("interference", NodeEditorPort::INPUT, NodeEditorPort::INTERFERENCE)
-        ->setToolTip(QStringLiteral("Connect interference to this port "
-                                    "to have coherent scattering"));
+        ->setToolTip("Connect interference to this port "
+                                    "to have coherent scattering");
 }
 
 void ParticleLayoutView::addView(IView* childView, int /* row */)

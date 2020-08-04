@@ -65,7 +65,7 @@ JobItem::JobItem() : SessionItem("JobItem")
 
     auto durationItem = addProperty(P_DURATION, QString());
     durationItem->setEditable(false);
-    durationItem->setToolTip(QStringLiteral("Duration of DWBA simulation in sec.msec format"));
+    durationItem->setToolTip("Duration of DWBA simulation in sec.msec format");
 
     addProperty(P_COMMENTS, QString())->setVisible(false);
     addProperty(P_PROGRESS, 0)->setVisible(false);

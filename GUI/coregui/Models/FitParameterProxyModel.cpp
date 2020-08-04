@@ -27,14 +27,14 @@ FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem* fitPar
                                                QObject* parent)
     : QAbstractItemModel(parent), m_root_item(fitParContainer)
 {
-    addColumn(PAR_NAME, QStringLiteral("Name"), QStringLiteral("Name of fit parameter"));
-    addColumn(PAR_TYPE, FitParameterItem::P_TYPE, QStringLiteral("Fit parameter limits type"));
+    addColumn(PAR_NAME, "Name", "Name of fit parameter");
+    addColumn(PAR_TYPE, FitParameterItem::P_TYPE, "Fit parameter limits type");
     addColumn(PAR_VALUE, FitParameterItem::P_START_VALUE,
-              QStringLiteral("Starting value of fit parameter"));
+              "Starting value of fit parameter");
     addColumn(PAR_MIN, FitParameterItem::P_MIN,
-              QStringLiteral("Lower bound on fit parameter value"));
+              "Lower bound on fit parameter value");
     addColumn(PAR_MAX, FitParameterItem::P_MAX,
-              QStringLiteral("Upper bound on fit parameter value"));
+              "Upper bound on fit parameter value");
 
     connectModel(fitParContainer->model());
 

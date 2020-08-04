@@ -39,8 +39,8 @@ const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 
 ParticleDistributionItem::ParticleDistributionItem() : SessionGraphicsItem("ParticleDistribution")
 {
-    setToolTip(QStringLiteral("Collection of particles obtained via parametric distribution "
-                              "of particle prototype"));
+    setToolTip("Collection of particles obtained via parametric distribution "
+                              "of particle prototype");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
         ->setLimits(RealLimits::limited(0.0, 1.0))
@@ -48,7 +48,7 @@ ParticleDistributionItem::ParticleDistributionItem() : SessionGraphicsItem("Part
         .setToolTip(abundance_tooltip);
 
     addGroupProperty(P_DISTRIBUTION, "Distribution group")
-        ->setToolTip(QStringLiteral("Distribution to apply to the specified parameter"));
+        ->setToolTip("Distribution to apply to the specified parameter");
 
     registerTag(T_PARTICLES, 0, 1,
                 QStringList() << "Particle"
@@ -59,10 +59,10 @@ ParticleDistributionItem::ParticleDistributionItem() : SessionGraphicsItem("Part
 
     ComboProperty par_prop;
     addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())
-        ->setToolTip(QStringLiteral("Parameter to distribute"));
+        ->setToolTip("Parameter to distribute");
 
     addProperty(P_LINKED_PARAMETER, par_prop.variant())
-        ->setToolTip(QStringLiteral("Linked parameter"))
+        ->setToolTip("Linked parameter")
         .setEditorType("MultiSelectionComboEditor");
 
     updateMainParameterList();

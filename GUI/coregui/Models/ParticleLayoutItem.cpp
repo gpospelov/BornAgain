@@ -51,7 +51,7 @@ const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 
 ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem("ParticleLayout")
 {
-    setToolTip(QStringLiteral("A layout of particles"));
+    setToolTip("A layout of particles");
 
     addProperty(P_TOTAL_DENSITY, 0.01)->setToolTip(density_tooltip);
     getItem(P_TOTAL_DENSITY)->setDecimals(10);

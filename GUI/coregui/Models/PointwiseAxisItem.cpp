@@ -32,7 +32,7 @@ PointwiseAxisItem::PointwiseAxisItem() : BasicAxisItem("PointwiseAxis"), m_instr
     getItem(P_MIN_DEG)->setEnabled(false);
     getItem(P_NBINS)->setEnabled(false);
     getItem(P_MAX_DEG)->setEnabled(false);
-    addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
+    addProperty(P_FILE_NAME, "undefined")->setVisible(false);
     addProperty(P_NATIVE_AXIS_UNITS, "nbins")->setVisible(false);
 
     setLastModified(QDateTime::currentDateTime());

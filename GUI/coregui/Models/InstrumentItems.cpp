@@ -50,7 +50,7 @@ QStringList InstrumentItem::translateList(const QStringList& list) const
         result = SessionItem::translateList(list);
         if (instrument_names.contains(result.back())) {
             result.removeLast();
-            result << QStringLiteral("Instrument");
+            result << "Instrument";
         }
     }
     return result;

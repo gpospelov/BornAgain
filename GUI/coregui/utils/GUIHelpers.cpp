@@ -146,7 +146,7 @@ bool parseVersion(const QString& version, int& major_num, int& minor_num, int& p
 {
     major_num = minor_num = patch_num = 0;
     bool success(true);
-    QStringList nums = version.split(QStringLiteral("."));
+    QStringList nums = version.split(".");
     if (nums.size() != 3)
         return false;
 

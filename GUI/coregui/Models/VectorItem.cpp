@@ -22,13 +22,13 @@ VectorItem::VectorItem() : SessionItem("Vector")
 {
     addProperty(P_X, 0.0)
         ->setLimits(RealLimits::limitless())
-        .setToolTip(QStringLiteral("x-coordinate"));
+        .setToolTip("x-coordinate");
     addProperty(P_Y, 0.0)
         ->setLimits(RealLimits::limitless())
-        .setToolTip(QStringLiteral("y-coordinate"));
+        .setToolTip("y-coordinate");
     addProperty(P_Z, 0.0)
         ->setLimits(RealLimits::limitless())
-        .setToolTip(QStringLiteral("z-coordinate"));
+        .setToolTip("z-coordinate");
 
     mapper()->setOnPropertyChange([this](const QString&) { updateLabel(); });
 

@@ -32,8 +32,8 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     layout->setSpacing(0);
 
     m_tabWidget->setTabPosition(QTabWidget::North);
-    m_tabWidget->insertTab(HORIZONTAL, m_xProjection, QStringLiteral("Horizontal"));
-    m_tabWidget->insertTab(VERTICAL, m_yProjection, QStringLiteral("Vertical"));
+    m_tabWidget->insertTab(HORIZONTAL, m_xProjection, "Horizontal");
+    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
 
     layout->addWidget(m_tabWidget);
     setLayout(layout);

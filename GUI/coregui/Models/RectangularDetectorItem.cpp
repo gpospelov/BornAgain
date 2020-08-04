@@ -81,17 +81,17 @@ RectangularDetectorItem::RectangularDetectorItem()
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX_DEG, default_detector_width);
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName(QStringLiteral("Width [mm]"));
+    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName("Width [mm]");
     item->getItem(BasicAxisItem::P_MAX_DEG)
-        ->setToolTip(QStringLiteral("Width of the detector in mm"));
+        ->setToolTip("Width of the detector in mm");
 
     item = addGroupProperty(P_Y_AXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX_DEG, default_detector_height);
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName(QStringLiteral("Height [mm]"));
+    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName("Height [mm]");
     item->getItem(BasicAxisItem::P_MAX_DEG)
-        ->setToolTip(QStringLiteral("Height of the detector in mm"));
+        ->setToolTip("Height of the detector in mm");
 
     // alignment selector
     addProperty(P_ALIGNMENT, alignmentCombo().variant());
@@ -115,7 +115,7 @@ RectangularDetectorItem::RectangularDetectorItem()
 
     addProperty(P_DISTANCE, default_detector_distance)
         ->setToolTip(
-            QStringLiteral("Distance in [mm] from the sample origin to the detector plane"));
+            "Distance in [mm] from the sample origin to the detector plane");
 
     register_resolution_function();
 

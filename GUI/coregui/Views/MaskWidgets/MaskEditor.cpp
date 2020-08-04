@@ -29,7 +29,7 @@ MaskEditor::MaskEditor(QWidget* parent)
       m_editorPropertyPanel(new MaskEditorPropertyPanel), m_editorCanvas(new MaskEditorCanvas),
       m_splitter(new Manhattan::MiniSplitter)
 {
-    setObjectName(QStringLiteral("MaskEditor"));
+    setObjectName("MaskEditor");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_splitter->addWidget(m_editorCanvas);

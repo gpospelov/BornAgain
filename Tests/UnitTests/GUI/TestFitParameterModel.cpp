@@ -32,7 +32,7 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
 
     // adding fit parameter
     SessionItem* fitPar0 = source.insertNewItem("FitParameter", container->index());
-    fitPar0->setDisplayName(QStringLiteral("par"));
+    fitPar0->setDisplayName("par");
     fitPar0->setItemValue(FitParameterItem::P_MIN, 1.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 2.0);
     fitPar0->setItemValue(FitParameterItem::P_START_VALUE, 3.0);
@@ -92,7 +92,7 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
     // adding second fit parameter
     // ----------------------------------------------------
     SessionItem* fitPar1 = source.insertNewItem("FitParameter", container->index());
-    fitPar0->setDisplayName(QStringLiteral("par"));
+    fitPar0->setDisplayName("par");
     fitPar0->setItemValue(FitParameterItem::P_MIN, 10.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 20.0);
     fitPar0->setItemValue(FitParameterItem::P_START_VALUE, 30.0);
@@ -136,7 +136,7 @@ TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
 
     // adding fit parameter
     SessionItem* fitPar0 = source.insertNewItem("FitParameter", container->index());
-    fitPar0->setDisplayName(QStringLiteral("par"));
+    fitPar0->setDisplayName("par");
     fitPar0->setItemValue(FitParameterItem::P_MIN, 1.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 2.0);
     fitPar0->setItemValue(FitParameterItem::P_START_VALUE, 3.0);

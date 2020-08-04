@@ -24,13 +24,13 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem* parent) : Connectabl
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect("ParticleCoreShell"));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
+        ->setToolTip("Connect to the ParticleLayout");
     addPort("core", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect particle which will play the role of core."));
+        ->setToolTip("Connect particle which will play the role of core.");
     addPort("shell", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect particle which will play the role of shell."));
+        ->setToolTip("Connect particle which will play the role of shell.");
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
-        ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
+        ->setToolTip("Connect particle rotation to this port, if necessary");
 
     m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }

@@ -38,7 +38,7 @@ const QString ParticleCoreShellItem::T_SHELL = "Shell tag";
 
 ParticleCoreShellItem::ParticleCoreShellItem() : SessionGraphicsItem("ParticleCoreShell")
 {
-    setToolTip(QStringLiteral("A particle with a core/shell geometry"));
+    setToolTip("A particle with a core/shell geometry");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
         ->setLimits(RealLimits::limited(0.0, 1.0))

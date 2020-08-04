@@ -30,7 +30,7 @@ const QString RealDataItem::P_NATIVE_DATA_UNITS = "Native user data units";
 
 RealDataItem::RealDataItem() : SessionItem("RealData"), m_linkedInstrument(nullptr)
 {
-    setItemName(QStringLiteral("undefined"));
+    setItemName("undefined");
 
     // Registering this tag even without actual data item to avoid troubles in copying RealDataItem
     registerTag(T_INTENSITY_DATA, 1, 1,

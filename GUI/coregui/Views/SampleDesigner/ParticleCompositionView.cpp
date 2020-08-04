@@ -24,11 +24,11 @@ ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : Connec
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect("ParticleCoreShell"));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
+        ->setToolTip("Connect to the ParticleLayout");
     addPort("particles", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect particles"));
+        ->setToolTip("Connect particles");
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
-        ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
+        ->setToolTip("Connect rotation to this port, if necessary");
     m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 

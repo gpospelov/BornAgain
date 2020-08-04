@@ -47,16 +47,16 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget* parent)
     // selection of input parameters
     QGroupBox* groupBox = new QGroupBox("Data selection");
 
-    QLabel* instrumentSelectionLabel = new QLabel(QStringLiteral("Select Instrument:"));
+    QLabel* instrumentSelectionLabel = new QLabel("Select Instrument:");
     instrumentSelectionLabel->setToolTip(select_instrument_tooltip);
     m_instrumentCombo->setToolTip(select_instrument_tooltip);
     m_instrumentCombo->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    QLabel* sampleSelectionLabel = new QLabel(QStringLiteral("Select Sample:"));
+    QLabel* sampleSelectionLabel = new QLabel("Select Sample:");
     sampleSelectionLabel->setToolTip(select_sample_tooltip);
     m_sampleCombo->setToolTip(select_sample_tooltip);
 
-    QLabel* readDataSelectionLabel = new QLabel(QStringLiteral("Select Real Data:"));
+    QLabel* readDataSelectionLabel = new QLabel("Select Real Data:");
     readDataSelectionLabel->setToolTip(select_realdata_tooltip);
     m_realDataCombo->setToolTip(select_realdata_tooltip);
 
@@ -154,12 +154,12 @@ void SimulationDataSelectorWidget::updateSelection(QComboBox* comboBox, QStringL
     comboBox->clear();
     if (itemList.isEmpty()) {
         comboBox->setEnabled(false);
-        comboBox->addItem(QStringLiteral("Not yet defined"));
+        comboBox->addItem("Not yet defined");
     } else {
         comboBox->setEnabled(true);
         // qSort(itemList.begin(), itemList.end()); // uncomment, if we want alphabetical order
         if (allow_none)
-            itemList.insert(-1, QStringLiteral("None"));
+            itemList.insert(-1, "None");
         comboBox->addItems(itemList);
         if (itemList.contains(previousItem))
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));

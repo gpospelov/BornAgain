@@ -39,7 +39,7 @@ InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
 {
     addProperty(P_POSITION_VARIANCE, 0.0)
-        ->setToolTip(QStringLiteral("Variance of the position in each dimension (nm^2)"));
+        ->setToolTip("Variance of the position in each dimension (nm^2)");
 }
 
 InterferenceFunctionItem::~InterferenceFunctionItem() {}
@@ -58,14 +58,14 @@ const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = decay_functi
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     : InterferenceFunctionItem("Interference1DLattice")
 {
-    setToolTip(QStringLiteral("Interference function of a 1D lattice"));
+    setToolTip("Interference function of a 1D lattice");
     addProperty(P_LENGTH, 20.0 * Units::nanometer)
-        ->setToolTip(QStringLiteral("Lattice length in nanometers"));
+        ->setToolTip("Lattice length in nanometers");
     addProperty(P_ROTATION_ANGLE, 0.0)
-        ->setToolTip(QStringLiteral("Rotation of lattice with respect to x-axis of reference \n"
-                                    "frame (beam direction) in degrees "));
+        ->setToolTip("Rotation of lattice with respect to x-axis of reference \n"
+                                    "frame (beam direction) in degrees ");
     addGroupProperty(P_DECAY_FUNCTION, "Decay function 1D")
-        ->setToolTip(QStringLiteral("One-dimensional decay function (finite size effects)"));
+        ->setToolTip("One-dimensional decay function (finite size effects)");
 }
 
 std::unique_ptr<IInterferenceFunction>
@@ -90,12 +90,12 @@ const QString InterferenceFunction2DLatticeItem::P_XI_INTEGRATION = "Integration
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
     : InterferenceFunctionItem("Interference2DLattice")
 {
-    setToolTip(QStringLiteral("Interference function of a 2D lattice"));
+    setToolTip("Interference function of a 2D lattice");
     addGroupProperty(P_LATTICE_TYPE, "Lattice group")->setToolTip("Type of lattice");
     addGroupProperty(P_DECAY_FUNCTION, "Decay function 2D")
         ->setToolTip("Two-dimensional decay function (finite size effects)");
     addProperty(P_XI_INTEGRATION, false)
-        ->setToolTip(QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
+        ->setToolTip("Enables/disables averaging over the lattice rotation angle.");
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
@@ -149,30 +149,28 @@ const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     : InterferenceFunctionItem("Interference2DParaCrystal")
 {
-    setToolTip(QStringLiteral("Interference function of a two-dimensional paracrystal"));
+    setToolTip("Interference function of a two-dimensional paracrystal");
 
     addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, "Lattice group")
-        ->setToolTip(QStringLiteral("Type of lattice"));
+        ->setToolTip("Type of lattice");
     getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
         ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE)
         ->setEnabled(false);
     addProperty(P_XI_INTEGRATION, true)
-        ->setToolTip(QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
+        ->setToolTip("Enables/disables averaging over the lattice rotation angle.");
 
     addProperty(P_DAMPING_LENGTH, 0.0)
         ->setToolTip(
-            QStringLiteral("The damping (coherence) length of the paracrystal in nanometers"));
+            "The damping (coherence) length of the paracrystal in nanometers");
 
     addProperty(P_DOMAIN_SIZE1, 20.0 * Units::micrometer)
-        ->setToolTip(QStringLiteral(
-            "Size of the coherent domain along the first basis vector in nanometers"));
+        ->setToolTip("Size of the coherent domain along the first basis vector in nanometers");
     addProperty(P_DOMAIN_SIZE2, 20.0 * Units::micrometer)
-        ->setToolTip(QStringLiteral(
-            "Size of the coherent domain along the second basis vector in nanometers"));
+        ->setToolTip("Size of the coherent domain along the second basis vector in nanometers");
     addGroupProperty(P_PDF1, "PDF 2D")
-        ->setToolTip(QStringLiteral("Probability distribution in first lattice direction"));
+        ->setToolTip("Probability distribution in first lattice direction");
     addGroupProperty(P_PDF2, "PDF 2D")
-        ->setToolTip(QStringLiteral("Probability distribution in second lattice direction"));
+        ->setToolTip("Probability distribution in second lattice direction");
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
@@ -257,15 +255,15 @@ const QString InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_2 = "Domain
 InterferenceFunctionFinite2DLatticeItem::InterferenceFunctionFinite2DLatticeItem()
     : InterferenceFunctionItem("InterferenceFinite2DLattice")
 {
-    setToolTip(QStringLiteral("Interference function of a finite 2D lattice"));
+    setToolTip("Interference function of a finite 2D lattice");
     addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, "Lattice group")
         ->setToolTip("Type of lattice");
     addProperty(P_XI_INTEGRATION, false)
-        ->setToolTip(QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
+        ->setToolTip("Enables/disables averaging over the lattice rotation angle.");
     addProperty(P_DOMAIN_SIZE_1, 100u)
-        ->setToolTip(QStringLiteral("Domain size 1 in number of unit cells"));
+        ->setToolTip("Domain size 1 in number of unit cells");
     addProperty(P_DOMAIN_SIZE_2, 100u)
-        ->setToolTip(QStringLiteral("Domain size 2 in number of unit cells"));
+        ->setToolTip("Domain size 2 in number of unit cells");
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
@@ -313,11 +311,11 @@ const QString InterferenceFunctionHardDiskItem::P_DENSITY =
 InterferenceFunctionHardDiskItem::InterferenceFunctionHardDiskItem()
     : InterferenceFunctionItem("InterferenceHardDisk")
 {
-    setToolTip(QStringLiteral("Interference function for hard disk Percus-Yevick"));
+    setToolTip("Interference function for hard disk Percus-Yevick");
     addProperty(P_RADIUS, 5.0 * Units::nanometer)
-        ->setToolTip(QStringLiteral("Hard disk radius in nanometers"));
+        ->setToolTip("Hard disk radius in nanometers");
     addProperty(P_DENSITY, 0.002)
-        ->setToolTip(QStringLiteral("Particle density in particles per square nanometer"));
+        ->setToolTip("Particle density in particles per square nanometer");
 }
 
 std::unique_ptr<IInterferenceFunction>
@@ -344,20 +342,20 @@ const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem()
     : InterferenceFunctionItem("InterferenceRadialParaCrystal")
 {
-    setToolTip(QStringLiteral("Interference function of a radial paracrystal"));
+    setToolTip("Interference function of a radial paracrystal");
     addProperty(P_PEAK_DISTANCE, 20.0 * Units::nanometer)
-        ->setToolTip(QStringLiteral("Average distance to the next neighbor in nanometers"));
+        ->setToolTip("Average distance to the next neighbor in nanometers");
     addProperty(P_DAMPING_LENGTH, 1000.0 * Units::nanometer)
-        ->setToolTip(QStringLiteral("The damping (coherence) length of the paracrystal "
-                                    "in nanometers"));
+        ->setToolTip("The damping (coherence) length of the paracrystal "
+                                    "in nanometers");
     addProperty(P_DOMAIN_SIZE, 0.0)
-        ->setToolTip(QStringLiteral("Size of coherence domain along the lattice main axis "
-                                    "in nanometers"));
+        ->setToolTip("Size of coherence domain along the lattice main axis "
+                                    "in nanometers");
     addProperty(P_KAPPA, 0.0)
-        ->setToolTip(QStringLiteral("Size spacing coupling parameter of the Size Spacing "
-                                    "Correlation Approximation"));
+        ->setToolTip("Size spacing coupling parameter of the Size Spacing "
+                                    "Correlation Approximation");
     addGroupProperty(P_PDF, "PDF 1D")
-        ->setToolTip(QStringLiteral("One-dimensional probability distribution"));
+        ->setToolTip("One-dimensional probability distribution");
 }
 
 std::unique_ptr<IInterferenceFunction>

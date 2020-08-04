@@ -38,13 +38,13 @@ const QString BasicLatticeItem::P_LATTICE_ANGLE = QString::fromStdString("Alpha"
 
 BasicLatticeItem::BasicLatticeItem() : Lattice2DItem("BasicLattice")
 {
-    setToolTip(QStringLiteral("Two dimensional lattice"));
+    setToolTip("Two dimensional lattice");
     addProperty(P_LATTICE_LENGTH1, 20.0)
-        ->setToolTip(QStringLiteral("Length of first lattice vector in nanometers"));
+        ->setToolTip("Length of first lattice vector in nanometers");
     addProperty(P_LATTICE_LENGTH2, 20.0)
-        ->setToolTip(QStringLiteral("Length of second lattice vector in nanometers"));
+        ->setToolTip("Length of second lattice vector in nanometers");
     addProperty(P_LATTICE_ANGLE, 90.0)
-        ->setToolTip(QStringLiteral("Angle between lattice vectors in degrees"));
+        ->setToolTip("Angle between lattice vectors in degrees");
     addProperty(Lattice2DItem::P_LATTICE_ROTATION_ANGLE, 0.0)->setToolTip(axis_rotation_tooltip);
 }
 
@@ -63,7 +63,7 @@ const QString SquareLatticeItem::P_LATTICE_LENGTH = QString::fromStdString("Latt
 SquareLatticeItem::SquareLatticeItem() : Lattice2DItem("SquareLattice")
 {
     addProperty(P_LATTICE_LENGTH, 20.0)
-        ->setToolTip(QStringLiteral("Length of first and second lattice vectors in nanometers"));
+        ->setToolTip("Length of first and second lattice vectors in nanometers");
     addProperty(Lattice2DItem::P_LATTICE_ROTATION_ANGLE, 0.0)->setToolTip(axis_rotation_tooltip);
 }
 
@@ -81,7 +81,7 @@ const QString HexagonalLatticeItem::P_LATTICE_LENGTH = QString::fromStdString("L
 HexagonalLatticeItem::HexagonalLatticeItem() : Lattice2DItem("HexagonalLattice")
 {
     addProperty(P_LATTICE_LENGTH, 20.0)
-        ->setToolTip(QStringLiteral("Length of first and second lattice vectors in nanometers"));
+        ->setToolTip("Length of first and second lattice vectors in nanometers");
     addProperty(Lattice2DItem::P_LATTICE_ROTATION_ANGLE, 0.0)->setToolTip(axis_rotation_tooltip);
 }
 

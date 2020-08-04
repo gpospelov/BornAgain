@@ -23,10 +23,10 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : Conn
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect("ParticleDistribution"));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
+        ->setToolTip("Connect to the ParticleLayout");
     addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect particle to this port. It will be a prototype \n"
-                                    "for parametric distribution."));
+        ->setToolTip("Connect particle to this port. It will be a prototype \n"
+                                    "for parametric distribution.");
 
     m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }

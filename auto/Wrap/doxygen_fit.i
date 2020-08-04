@@ -891,16 +891,16 @@ C++ includes: Parameters.h
 %feature("docstring")  Fit::Parameters::add "void Parameters::add(const Parameter &par)
 ";
 
-%feature("docstring")  Fit::Parameters::begin "Parameters::iterator Parameters::begin() const
+%feature("docstring")  Fit::Parameters::begin "Parameters::const_iterator Parameters::begin() const
 ";
 
-%feature("docstring")  Fit::Parameters::end "Parameters::iterator Parameters::end() const
+%feature("docstring")  Fit::Parameters::end "Parameters::const_iterator Parameters::end() const
 ";
 
-%feature("docstring")  Fit::Parameters::begin "iterator Fit::Parameters::begin()
+%feature("docstring")  Fit::Parameters::begin "Parameters::iterator Parameters::begin()
 ";
 
-%feature("docstring")  Fit::Parameters::end "iterator Fit::Parameters::end()
+%feature("docstring")  Fit::Parameters::end "Parameters::iterator Parameters::end()
 ";
 
 %feature("docstring")  Fit::Parameters::size "size_t Parameters::size() const

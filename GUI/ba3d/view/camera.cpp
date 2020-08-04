@@ -105,7 +105,7 @@ void Camera::endTransform(bool keep)
 
         pos3DAxes.rot = (pos3DAxes.rot * addRot).normalized(); // no zooming for 3D axes
     }
-    addRot = QQuaternion();
+    addRot = {};
     zoom = 1;
     set();
 }

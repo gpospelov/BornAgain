@@ -438,7 +438,7 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
                   static_cast<float>(mesoCrystal_translation.z())));
 
     // assign grey (default) color to the outer shape
-    QColor color = QColor();
+    QColor color = {};
     color.setAlphaF(0.3);
     outerShape3D->color = color;
     mesoCrystal3DContainer.addParticle(outerShape3D.release(), true);

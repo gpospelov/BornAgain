@@ -64,7 +64,7 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
 void ProjectionsEditorCanvas::resetContext()
 {
     m_intensityDataItem = nullptr;
-    m_containerIndex = QModelIndex();
+    m_containerIndex = {};
     setConnected(false);
     m_colorMap = nullptr;
     m_scene->resetContext();

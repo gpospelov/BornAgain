@@ -84,7 +84,7 @@ void RealSpaceCanvas::updateToSelection()
         if (indices.size())
             m_currentSelection = FilterPropertyProxy::toSourceIndex(indices.back());
         else
-            m_currentSelection = QModelIndex();
+            m_currentSelection = {};
         // if no object is selected then display nothing on canvas
 
         updateScene();
@@ -208,7 +208,7 @@ void RealSpaceCanvas::resetScene()
 {
     m_realSpaceModel.reset();
     m_view->setModel(nullptr);
-    m_currentSelection = QModelIndex();
+    m_currentSelection = {};
 }
 
 void RealSpaceCanvas::defaultView()
@@ -244,7 +244,7 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
                 Qt::UniqueConnection);
         connect(
             model, &SampleModel::modelAboutToBeReset, this,
-            [&]() { m_currentSelection = QModelIndex(); }, Qt::UniqueConnection);
+            [&]() { m_currentSelection = {}; }, Qt::UniqueConnection);
 
     } else {
         disconnect(model, &SampleModel::rowsInserted, this, &RealSpaceCanvas::updateScene);

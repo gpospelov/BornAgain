@@ -49,14 +49,12 @@ public:
     bool maximumReached(const QString& tagName) const;
 
 private:
-    class TagInfo
+    struct TagInfo
     {
-    public:
-        TagInfo();
         QString name;
-        int min;
-        int max;
-        int childCount;
+        int min {0};
+        int max {-1};
+        int childCount {0};
         QStringList modelTypes;
     };
 

@@ -80,7 +80,7 @@ protected:
 
 private:
     void updateProxyWidget();
-    void updateViews(const QModelIndex& parentIndex = QModelIndex(), IShape2DView* parentView = 0);
+    void updateViews(const QModelIndex& parentIndex = {}, IShape2DView* parentView = 0);
     IShape2DView* addViewForItem(SessionItem* item);
     void deleteViews(const QModelIndex& itemIndex);
     void removeItemViewFromScene(SessionItem* item);

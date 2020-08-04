@@ -34,7 +34,7 @@ private:
     class ItemData
     {
     public:
-        ItemData(int r = -1, const QVariant& v = QVariant());
+        ItemData(int r = -1, const QVariant& v = {});
         int role;
         QVariant data;
         bool operator==(const ItemData& other) const;

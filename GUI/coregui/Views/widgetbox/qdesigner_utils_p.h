@@ -371,7 +371,7 @@ private:
 class QDESIGNER_SHARED_EXPORT PropertySheetStringListValue : public PropertySheetTranslatableData
 {
 public:
-    PropertySheetStringListValue(const QStringList& value = QStringList(), bool translatable = true,
+    PropertySheetStringListValue(const QStringList& value = {}, bool translatable = true,
                                  const QString& disambiguation = "", const QString& comment = "");
 
     bool operator==(const PropertySheetStringListValue& other) const { return equals(other); }
@@ -390,9 +390,8 @@ private:
 class QDESIGNER_SHARED_EXPORT PropertySheetKeySequenceValue : public PropertySheetTranslatableData
 {
 public:
-    PropertySheetKeySequenceValue(const QKeySequence& value = QKeySequence(),
-                                  bool translatable = true, const QString& disambiguation = "",
-                                  const QString& comment = "");
+    PropertySheetKeySequenceValue(const QKeySequence& value = {}, bool translatable = true,
+                                  const QString& disambiguation = "", const QString& comment = "");
     PropertySheetKeySequenceValue(const QKeySequence::StandardKey& standardKey,
                                   bool translatable = true, const QString& disambiguation = "",
                                   const QString& comment = "");

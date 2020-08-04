@@ -39,7 +39,7 @@ public:
 public slots:
     void onRunJob();
     void onRemoveJob();
-    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint = QModelIndex());
+    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint = {});
     void equalizeSelectedToJob(int selected_id);
 
 private:

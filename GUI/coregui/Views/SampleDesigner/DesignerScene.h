@@ -67,7 +67,7 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last);
     void onRowsRemoved(const QModelIndex& parent, int first, int last);
 
-    void setLayerInterfaceLine(const QLineF& line = QLineF())
+    void setLayerInterfaceLine(const QLineF& line = {})
     {
         m_layer_interface_line = line;
         invalidate();
@@ -90,7 +90,7 @@ protected:
 
 private:
     IView* addViewForItem(SessionItem* item);
-    void updateViews(const QModelIndex& parentIndex = QModelIndex(), IView* parentView = 0);
+    void updateViews(const QModelIndex& parentIndex = {}, IView* parentView = 0);
     void deleteViews(const QModelIndex& parentIndex);
     void alignViews();
     void removeItemViewFromScene(SessionItem* item);

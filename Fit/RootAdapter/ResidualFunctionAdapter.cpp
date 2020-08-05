@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Fit/RootAdapter/ResidualFunctionAdapter.h"
-#include "Core/Basics/Assert.h"
 #include "Fit/RootAdapter/RootResidualFunction.h"
+#include <cassert>
 #include <sstream>
 
 namespace

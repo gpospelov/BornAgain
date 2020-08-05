@@ -156,6 +156,7 @@ target_include_directories(${library_name}
     )
 if(BORNAGAIN_GUI)
     target_include_directories(${library_name} PUBLIC ${Qt5Core_INCLUDE_DIRS})
+    target_link_libraries(${library_name} ${Qt5Core_LIBRARIES})
 endif()
 
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}

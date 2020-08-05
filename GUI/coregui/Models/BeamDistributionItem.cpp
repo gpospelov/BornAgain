@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Parametrization/Units.h"

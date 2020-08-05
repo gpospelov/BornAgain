@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/RectangleBaseView.h"
+#include "Core/Basics/Assert.h"
 
 namespace
 {

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/InfoWidgets/WarningSignWidget.h"
 #include <QAbstractScrollArea>
 #include <QEvent>

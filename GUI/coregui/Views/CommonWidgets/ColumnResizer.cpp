@@ -17,6 +17,7 @@
  * License: LGPL v2.1 or later (see COPYING)
  */
 #include "GUI/coregui/Views/CommonWidgets/ColumnResizer.h"
+#include "Core/Basics/Assert.h"
 
 #include <QDebug>
 #include <QEvent>

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/CommonWidgets/ItemComboWidget.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/CommonWidgets/ItemComboToolBar.h"
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include "GUI/coregui/utils/GUIHelpers.h"

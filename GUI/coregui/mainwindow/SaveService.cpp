@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/SaveService.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
 #include "GUI/coregui/mainwindow/AutosaveController.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"

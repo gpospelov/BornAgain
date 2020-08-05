@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "../geometry.h"
+#include "Core/Basics/Assert.h"
 #include <QQuaternion>
 #include <qmath.h>
 

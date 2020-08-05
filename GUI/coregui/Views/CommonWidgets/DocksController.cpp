@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/CommonWidgets/DocksController.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "fancymainwindow.h"
 #include <QAbstractItemView>

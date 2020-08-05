@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/SaveThread.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
 
 SaveThread::SaveThread(QObject* parent) : QThread(parent), m_document(nullptr) {}

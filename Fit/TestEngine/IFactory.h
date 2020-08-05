@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
 #define BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
 
-#include "Core/Basics/Assert.h"
+#include <cassert>
 #include <functional>
 #include <iostream> // debug
 #include <map>
@@ -38,7 +38,7 @@ public:
     AbstractProduct* createItem(const Key& item_key) const
     {
         auto it = m_callbacks.find(item_key);
-        ASSERT(it != m_callbacks.end());
+        assert(it != m_callbacks.end());
         return (it->second)();
     }
 
@@ -52,7 +52,7 @@ public:
     //! Registers object's creation function
     bool registerItem(const Key& item_key, CreateItemCallback CreateFn)
     {
-        ASSERT(m_callbacks.find(item_key) == m_callbacks.end());
+        assert(m_callbacks.find(item_key) == m_callbacks.end());
         return m_callbacks.insert(make_pair(item_key, CreateFn)).second;
     }
 

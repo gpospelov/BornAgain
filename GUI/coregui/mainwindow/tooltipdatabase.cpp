@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/tooltipdatabase.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <QFile>
 #include <QXmlStreamReader>

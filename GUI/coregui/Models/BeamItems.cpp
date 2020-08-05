@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BeamItems.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/IAxis.h"
 #include "Core/Parametrization/Units.h"

@@ -15,6 +15,7 @@
 #include "GUI/ba3d/view/canvas.h"
 #include "../model/geometry.h"
 #include "../model/model.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/ba3d/view/buffer.h"
 #include "GUI/ba3d/view/camera.h"
 #include "GUI/ba3d/view/program.h"

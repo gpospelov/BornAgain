@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/FontScalingEvent.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include "qcustomplot.h"

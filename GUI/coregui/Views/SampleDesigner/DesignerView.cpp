@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/DesignerView.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerMimeData.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
 #include "GUI/coregui/utils/GUIHelpers.h"

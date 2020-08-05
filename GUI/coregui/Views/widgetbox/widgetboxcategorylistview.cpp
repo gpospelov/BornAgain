@@ -40,6 +40,7 @@
 ****************************************************************************/
 
 #include "GUI/coregui/Views/widgetbox/widgetboxcategorylistview.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/mainwindow/tooltipdatabase.h"
 
 #include <QtDesigner/QDesignerFormEditorInterface>

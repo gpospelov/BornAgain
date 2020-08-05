@@ -40,6 +40,7 @@
 ****************************************************************************/
 
 #include "GUI/coregui/Views/widgetbox/widgetboxtreewidget.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/widgetbox/widgetboxcategorylistview.h"
 
 // shared

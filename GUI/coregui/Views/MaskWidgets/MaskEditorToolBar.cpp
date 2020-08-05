@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorToolBar.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorActions.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QButtonGroup>

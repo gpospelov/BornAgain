@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
 
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/CommonWidgets/ItemStackWidget.h"
 #include <QDebug>
 #include <QMap>

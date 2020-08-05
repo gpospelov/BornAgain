@@ -12,6 +12,7 @@
 //
 // ************************************************************************** //
 
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/ItemFactory.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"

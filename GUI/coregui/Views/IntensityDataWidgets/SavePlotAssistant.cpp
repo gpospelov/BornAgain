@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
+#include "Core/Basics/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include <QFileDialog>

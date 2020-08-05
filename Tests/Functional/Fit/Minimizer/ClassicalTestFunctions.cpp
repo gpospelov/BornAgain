@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Fit/Minimizer/ClassicalTestFunctions.h"
-#include "Core/Basics/Assert.h"
+#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -24,7 +24,7 @@
 
 double TestFunctions::RosenBrock(const std::vector<double>& par)
 {
-    ASSERT(par.size() == 2);
+    assert(par.size() == 2);
 
     const double x = par[0];
     const double y = par[1];
@@ -44,7 +44,7 @@ double TestFunctions::RosenBrock(const std::vector<double>& par)
 
 double TestFunctions::WoodFour(const std::vector<double>& par)
 {
-    ASSERT(par.size() == 4);
+    assert(par.size() == 4);
 
     const double w = par[0];
     const double x = par[1];
@@ -66,7 +66,7 @@ double TestFunctions::WoodFour(const std::vector<double>& par)
 
 double TestFunctions::DecayingSin(double x, const std::vector<double>& par)
 {
-    ASSERT(par.size() == 4);
+    assert(par.size() == 4);
 
     const double amp = par[0];
     const double freq = par[1];

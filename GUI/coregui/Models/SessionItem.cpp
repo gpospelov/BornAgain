@@ -25,13 +25,13 @@ const QString SessionItem::P_NAME = "Name";
 
 //! Constructs new item with given model type. The type must be defined.
 SessionItem::SessionItem(const QString& modelType)
-    : m_parent(nullptr), m_model(nullptr), m_values(new SessionItemData),
+    : m_parent(nullptr), m_model(nullptr), m_properties(new SessionItemData),
       m_tags(new SessionItemTags)
 {
     if (modelType.isEmpty())
         throw GUIHelpers::Error("SessionItem::SessionItem() -> Empty modelType.");
 
-    setData(SessionFlags::ModelTypeRole, modelType);
+    setRoleProperty(SessionFlags::ModelTypeRole, modelType);
     setDisplayName(modelType);
     setDecimals(3);
     setLimits(RealLimits::nonnegative());
@@ -363,16 +363,16 @@ SessionItem* SessionItem::getGroupItem(const QString& groupName) const
 
 //! Returns corresponding variant under given role, invalid variant when role is not present.
 
-QVariant SessionItem::data(int role) const
+QVariant SessionItem::roleProperty(int role) const
 {
-    return m_values->data(role);
+    return m_properties->data(role);
 }
 
 //! Set variant to role, create role if not present yet.
 
-bool SessionItem::setData(int role, const QVariant& value)
+bool SessionItem::setRoleProperty(int role, const QVariant& value)
 {
-    bool result = m_values->setData(role, value);
+    bool result = m_properties->setData(role, value);
     if (result)
         emitDataChanged(role);
     return result;
@@ -382,7 +382,7 @@ bool SessionItem::setData(int role, const QVariant& value)
 
 QVector<int> SessionItem::getRoles() const
 {
-    return m_values->roles();
+    return m_properties->roles();
 }
 
 //! Notify model about data changes.
@@ -399,14 +399,14 @@ void SessionItem::emitDataChanged(int role)
 
 QString SessionItem::modelType() const
 {
-    return data(SessionFlags::ModelTypeRole).toString();
+    return roleProperty(SessionFlags::ModelTypeRole).toString();
 }
 
 //! Get value.
 
 QVariant SessionItem::value() const
 {
-    return data(Qt::DisplayRole);
+    return roleProperty(Qt::DisplayRole);
 }
 
 //! Set value, ensure that variant types match.
@@ -417,28 +417,28 @@ bool SessionItem::setValue(QVariant value)
         throw GUIHelpers::Error("SessionItem::setRegisteredProperty() -> Error. Type of "
                                 "previous and new variant does not coincide.");
 
-    return setData(Qt::DisplayRole, value);
+    return setRoleProperty(Qt::DisplayRole, value);
 }
 
 //! Get default tag
 
 QString SessionItem::defaultTag() const
 {
-    return data(SessionFlags::DefaultTagRole).toString();
+    return roleProperty(SessionFlags::DefaultTagRole).toString();
 }
 
 //! Set default tag
 
 void SessionItem::setDefaultTag(const QString& tag)
 {
-    setData(SessionFlags::DefaultTagRole, tag);
+    setRoleProperty(SessionFlags::DefaultTagRole, tag);
 }
 
 //! Get display name of item, append index if ambigue.
 
 QString SessionItem::displayName() const
 {
-    QString result = data(SessionFlags::DisplayNameRole).toString();
+    QString result = roleProperty(SessionFlags::DisplayNameRole).toString();
 
     if (modelType() == "Property" || modelType() == "GroupProperty" || modelType() == "Parameter"
         || modelType() == "Parameter Label")
@@ -461,7 +461,7 @@ QString SessionItem::displayName() const
 
 void SessionItem::setDisplayName(const QString& display_name)
 {
-    setData(SessionFlags::DisplayNameRole, display_name);
+    setRoleProperty(SessionFlags::DisplayNameRole, display_name);
 }
 
 //! Get item name, return display name if no name is set.
@@ -513,46 +513,46 @@ bool SessionItem::isEditable() const
 
 RealLimits SessionItem::limits() const
 {
-    return data(SessionFlags::LimitsRole).value<RealLimits>();
+    return roleProperty(SessionFlags::LimitsRole).value<RealLimits>();
 }
 
 SessionItem& SessionItem::setLimits(const RealLimits& value)
 {
-    this->setData(SessionFlags::LimitsRole, QVariant::fromValue<RealLimits>(value));
+    setRoleProperty(SessionFlags::LimitsRole, QVariant::fromValue<RealLimits>(value));
     return *this;
 }
 
 int SessionItem::decimals() const
 {
-    return data(SessionFlags::DecimalRole).toInt();
+    return roleProperty(SessionFlags::DecimalRole).toInt();
 }
 
 SessionItem& SessionItem::setDecimals(int n)
 {
-    setData(SessionFlags::DecimalRole, n);
+    setRoleProperty(SessionFlags::DecimalRole, n);
     return *this;
 }
 
 QString SessionItem::toolTip() const
 {
-    return data(Qt::ToolTipRole).toString();
+    return roleProperty(Qt::ToolTipRole).toString();
 }
 
 SessionItem& SessionItem::setToolTip(const QString& tooltip)
 {
-    setData(Qt::ToolTipRole, tooltip);
+    setRoleProperty(Qt::ToolTipRole, tooltip);
     return *this;
 }
 
 QString SessionItem::editorType() const
 {
-    auto variant = data(SessionFlags::CustomEditorRole);
+    auto variant = roleProperty(SessionFlags::CustomEditorRole);
     return variant.isValid() ? variant.toString() : "Default";
 }
 
 SessionItem& SessionItem::setEditorType(const QString& editorType)
 {
-    setData(SessionFlags::CustomEditorRole, editorType);
+    setRoleProperty(SessionFlags::CustomEditorRole, editorType);
     return *this;
 }
 
@@ -608,7 +608,7 @@ void SessionItem::setModel(SessionModel* model)
 
 int SessionItem::flags() const
 {
-    QVariant flags = data(SessionFlags::FlagRole);
+    QVariant flags = roleProperty(SessionFlags::FlagRole);
 
     if (!flags.isValid())
         return SessionFlags::VISIBLE | SessionFlags::EDITABLE | SessionFlags::ENABLED;
@@ -625,7 +625,7 @@ void SessionItem::changeFlags(bool enabled, int flag)
     else
         flags &= ~flag;
 
-    setData(SessionFlags::FlagRole, flags);
+    setRoleProperty(SessionFlags::FlagRole, flags);
 }
 
 //! internal

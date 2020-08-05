@@ -116,7 +116,7 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             auto limits = item.limits();
             editor->setLimits(limits);
             editor->setDecimals(item.decimals());
-            editor->setSingleStep(getStep(item.data(Qt::EditRole).toDouble()));
+            editor->setSingleStep(getStep(item.roleProperty(Qt::EditRole).toDouble()));
             result = editor;
         } else {
             auto editor = new DoubleEditor;

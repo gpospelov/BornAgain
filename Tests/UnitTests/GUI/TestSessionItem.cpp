@@ -224,16 +224,16 @@ TEST_F(TestSessionItem, takeRow)
 TEST_F(TestSessionItem, dataRoles)
 {
     std::unique_ptr<SessionItem> item(new SessionItem("Some model type"));
-    item->setData(Qt::DisplayRole, 1234);
-    EXPECT_TRUE(item->data(Qt::DisplayRole) == 1234);
-    EXPECT_TRUE(item->data(Qt::EditRole) == 1234);
-    item->setData(Qt::EditRole, 5432);
-    EXPECT_TRUE(item->data(Qt::DisplayRole) == 5432);
-    EXPECT_TRUE(item->data(Qt::EditRole) == 5432);
+    item->setRoleProperty(Qt::DisplayRole, 1234);
+    EXPECT_TRUE(item->roleProperty(Qt::DisplayRole) == 1234);
+    EXPECT_TRUE(item->roleProperty(Qt::EditRole) == 1234);
+    item->setRoleProperty(Qt::EditRole, 5432);
+    EXPECT_TRUE(item->roleProperty(Qt::DisplayRole) == 5432);
+    EXPECT_TRUE(item->roleProperty(Qt::EditRole) == 5432);
     for (int i = 0; i < 10; i++) {
-        EXPECT_TRUE(item->data(SessionFlags::EndSessionRoles + i).isValid() == false);
-        item->setData(SessionFlags::EndSessionRoles + i, i);
-        EXPECT_TRUE(item->data(SessionFlags::EndSessionRoles + i) == i);
+        EXPECT_TRUE(item->roleProperty(SessionFlags::EndSessionRoles + i).isValid() == false);
+        item->setRoleProperty(SessionFlags::EndSessionRoles + i, i);
+        EXPECT_TRUE(item->roleProperty(SessionFlags::EndSessionRoles + i) == i);
     }
 }
 

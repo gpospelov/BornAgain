@@ -154,6 +154,10 @@ target_include_directories(${library_name}
     ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper # TEMPORARY
     SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIRS}
     )
+if(BORNAGAIN_GUI)
+    target_include_directories(${library_name} PUBLIC ${Qt5Core_INCLUDE_DIRS})
+endif()
+
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
     ${tspectrum_LIBRARY} ${Cerf_LIBRARIES})
 

@@ -3,8 +3,8 @@
 ###############################################################################
 set(executable_name BornAgain)
 
-set(source_files main.cpp appoptions.cpp)
-set(include_files appoptions.h)
+set(source_files main.cpp appoptions.cpp MessageHandler.cpp)
+set(include_files appoptions.h MessageHandler.h )
 
 # -----------------------------------------------------------------------------
 # Qt configuration

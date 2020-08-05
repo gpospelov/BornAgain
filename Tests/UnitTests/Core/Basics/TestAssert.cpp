@@ -8,5 +8,9 @@ class TestAssert : public ::testing::Test
 TEST_F(TestAssert, Assert)
 {
     EXPECT_NO_THROW(ASSERT(1));
-    EXPECT_EXIT(ASSERT(0), ::testing::ExitedWithCode(1), "assertion failed");
+#ifdef QT_MESSAGELOGCONTEXT
+    EXPECT_EXIT(ASSERT(0), ::testing::KilledBySignal(6), "Assertion failed");
+#else
+    EXPECT_EXIT(ASSERT(0), ::testing::KilledBySignal(6), "Assertion .* failed");
+#endif
 }

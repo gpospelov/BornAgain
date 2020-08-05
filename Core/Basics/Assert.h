@@ -15,22 +15,19 @@
 #ifndef BORNAGAIN_CORE_BASICS_ASSERT_H
 #define BORNAGAIN_CORE_BASICS_ASSERT_H
 
-#ifdef BORNAGAIN_GUI
+// ASSERT must be declared as a macro, not a function, in order for the error
+// message to correctly report the source line where the assertion failed.
+
+#ifdef QT_MESSAGELOGCONTEXT
 
 #include <QtGlobal>
-#define ASSERT(condition) \
-    if (!(condition)) \
-        qFatal("assertion failed");
+#define ASSERT(condition) if (!(condition)) qFatal("Assertion failed")
 
-#else // The non-GUI case is used by our test suite
+#else // QT_MESSAGELOGCONTEXT undefined
 
-#include <iostream>
-#define ASSERT(condition) \
-    if (!(condition)) { \
-        std::cerr << "assertion failed" << std::endl; \
-        exit(1); \
-    }
+#include <cassert>
+#define ASSERT(condition) assert(condition)
 
-#endif // BORNAGAIN_GUI
+#endif // QT_MESSAGELOGCONTEXT
 
 #endif // BORNAGAIN_CORE_BASICS_ASSERT_H

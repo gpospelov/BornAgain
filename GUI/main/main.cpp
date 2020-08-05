@@ -17,7 +17,7 @@
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/utils/hostosinfo.h"
 #include "GUI/main/appoptions.h"
-#include <QApplication>
+#include "GUI/main/MessageHandler.h"
 #include <QLocale>
 #include <QMetaType>
 
@@ -37,8 +37,7 @@ int main(int argc, char* argv[])
 
     QApplication app(argc, argv);
 
-    if (!options.find("with-debug"))
-        qInstallMessageHandler(messageHandler);
+    qInstallMessageHandler(MessageHandler);
 
     std::unique_ptr<SplashScreen> splash;
     if (!options.find("no-splash")) {

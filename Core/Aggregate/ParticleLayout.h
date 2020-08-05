@@ -39,8 +39,7 @@ public:
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     void addParticle(const IAbstractParticle& particle, double abundance = -1.0,
-                     const kvector_t position = {},
-                     const IRotation& rotation = IdentityRotation());
+                     const kvector_t position = {}, const IRotation& rotation = IdentityRotation());
 
     SafePointerVector<IParticle> particles() const final override;
 

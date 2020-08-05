@@ -49,7 +49,7 @@ void Geometry::Vertices::addQuad(const Vertices& vs, unsigned i1, unsigned i2, u
 
 void Geometry::Vertices::addStrip(const Vertices& vs, const Indices& is)
 {
-    Q_ASSERT(is.size() >= 3); // at least one triangle
+    ASSERT(is.size() >= 3); // at least one triangle
     for (unsigned i = 0; i + 2 < is.size(); ++i)
         if (i % 2)
             addTriangle(vs.at(is.at(i)), vs.at(is.at(1 + i)), vs.at(is.at(2 + i)));
@@ -59,7 +59,7 @@ void Geometry::Vertices::addStrip(const Vertices& vs, const Indices& is)
 
 void Geometry::Vertices::addFan(const Vertices& vs, const Indices& is)
 {
-    Q_ASSERT(is.size() >= 3); // at least one triangle
+    ASSERT(is.size() >= 3); // at least one triangle
     auto& ctr = vs.at(is.at(0));
     for (unsigned i = 0; i + 2 < is.size(); ++i)
         addTriangle(ctr, vs.at(is.at(1 + i)), vs.at(is.at(2 + i)));
@@ -111,8 +111,8 @@ Geometry::~Geometry()
 Geometry::Mesh Geometry::makeMesh(const Vertices& vs, Vertices const* ns)
 {
     int nv = vs.count();
-    Q_ASSERT(0 == nv % 3);
-    Q_ASSERT(!ns || nv == ns->count()); // if normals not given, will be computed
+    ASSERT(0 == nv % 3);
+    ASSERT(!ns || nv == ns->count()); // if normals not given, will be computed
 
     Mesh mesh(nv);
 

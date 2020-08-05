@@ -61,7 +61,7 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
 
 QItemSelectionModel* ParameterTuningWidget::selectionModel()
 {
-    Q_ASSERT(m_treeView);
+    ASSERT(m_treeView);
     return m_treeView->selectionModel();
 }
 
@@ -80,7 +80,7 @@ QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters()
 
 void ParameterTuningWidget::onCurrentLinkChanged(SessionItem* item)
 {
-    Q_ASSERT(jobItem());
+    ASSERT(jobItem());
 
     if (jobItem()->isRunning())
         return;
@@ -106,7 +106,7 @@ void ParameterTuningWidget::onLockZValueChanged(bool value)
 
 void ParameterTuningWidget::updateParameterModel()
 {
-    Q_ASSERT(m_jobModel);
+    ASSERT(m_jobModel);
 
     if (!jobItem())
         return;
@@ -134,8 +134,8 @@ void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint& point)
 
 void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
 {
-    Q_ASSERT(m_jobModel);
-    Q_ASSERT(jobItem());
+    ASSERT(m_jobModel);
+    ASSERT(jobItem());
 
     if (jobItem()->isRunning())
         return;
@@ -196,7 +196,7 @@ JobItem* ParameterTuningWidget::jobItem()
 
 void ParameterTuningWidget::updateDragAndDropSettings()
 {
-    Q_ASSERT(jobItem());
+    ASSERT(jobItem());
     if (jobItem()->getStatus() == "Fitting") {
         setTuningDelegateEnabled(false);
         m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);

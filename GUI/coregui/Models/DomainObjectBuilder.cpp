@@ -39,7 +39,7 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionIt
         if (children[i]->modelType() == "Layer") {
             auto P_layer = buildLayer(*children[i]);
             auto roughnessItem = children[i]->getGroupItem(LayerItem::P_ROUGHNESS);
-            Q_ASSERT(roughnessItem);
+            ASSERT(roughnessItem);
             auto P_roughness = TransformToDomain::createLayerRoughness(*roughnessItem);
             if (P_layer) {
                 if (P_roughness) {
@@ -122,7 +122,7 @@ std::unique_ptr<IInterferenceFunction>
 DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item)
 {
     auto iffItem = dynamic_cast<const InterferenceFunctionItem*>(&item);
-    Q_ASSERT(iffItem);
+    ASSERT(iffItem);
     return iffItem->createInterferenceFunction();
 }
 

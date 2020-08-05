@@ -14,7 +14,7 @@
 
 #include "Fit/RootAdapter/ResidualFunctionAdapter.h"
 #include "Fit/RootAdapter/RootResidualFunction.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <sstream>
 
 namespace

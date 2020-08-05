@@ -123,7 +123,7 @@ void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QStri
 IntensityDataItem* ProjectionsPlot::intensityItem()
 {
     IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 
@@ -131,7 +131,7 @@ ProjectionContainerItem* ProjectionsPlot::projectionContainerItem()
 {
     ProjectionContainerItem* result = dynamic_cast<ProjectionContainerItem*>(
         intensityItem()->getItem(IntensityDataItem::T_PROJECTIONS));
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

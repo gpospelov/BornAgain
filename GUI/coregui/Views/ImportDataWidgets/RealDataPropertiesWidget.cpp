@@ -166,7 +166,7 @@ void RealDataPropertiesWidget::setComboToIdentifier(const QString& identifier)
     setComboConnected(false);
     m_current_id = identifier;
     int index = m_linkManager->instrumentComboIndex(identifier);
-    Q_ASSERT(index >= 0);
+    ASSERT(index >= 0);
     m_instrumentCombo->setCurrentIndex(index);
     setComboConnected(true);
 }

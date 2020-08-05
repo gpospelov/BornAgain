@@ -106,7 +106,7 @@ void SessionModelDelegate::updateEditorGeometry(QWidget* editor, const QStyleOpt
 void SessionModelDelegate::onCustomEditorDataChanged(const QVariant&)
 {
     CustomEditor* editor = qobject_cast<CustomEditor*>(sender());
-    Q_ASSERT(editor);
+    ASSERT(editor);
     emit commitData(editor);
 }
 

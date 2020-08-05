@@ -26,8 +26,8 @@ Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha, float H)
 
     // H here is the normalized height of the cuboctahedron i.e. H/L (see particles.cpp)
 
-    Q_ASSERT(alpha <= float(M_PI_2));
-    Q_ASSERT(rH >= 0);
+    ASSERT(alpha <= float(M_PI_2));
+    ASSERT(rH >= 0);
 
     float const D = .5f, t = tanf(float(M_PI_2) - alpha);
     float const Db = D - t * H, Dt = D - t * rH * H;
@@ -43,7 +43,7 @@ Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha, float H)
                 vs_.append(Vector3D(x * di, y * di, z[i]));
             }
 
-    Q_ASSERT(12 == vs_.count());
+    ASSERT(12 == vs_.count());
 
     Vertices vs;
     vs.reserve(60);
@@ -59,7 +59,7 @@ Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha, float H)
     vs.addQuad(vs_, 7, 11, 10, 6);
     vs.addQuad(vs_, 6, 10, 8, 4);
 
-    Q_ASSERT(60 == vs.count());
+    ASSERT(60 == vs.count());
 
     return makeMesh(vs);
 }

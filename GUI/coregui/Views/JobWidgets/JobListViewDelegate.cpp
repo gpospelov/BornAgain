@@ -41,10 +41,10 @@ void JobListViewDelegate::paint(QPainter* painter, const QStyleOptionViewItem& o
         painter->fillRect(option.rect, option.palette.highlight());
 
     const JobModel* model = static_cast<const JobModel*>(index.model());
-    Q_ASSERT(model);
+    ASSERT(model);
 
     const JobItem* item = model->getJobItemForIndex(index);
-    Q_ASSERT(item);
+    ASSERT(item);
 
     painter->save();
 
@@ -79,10 +79,10 @@ bool JobListViewDelegate::editorEvent(QEvent* event, QAbstractItemModel* model,
     }
 
     const JobModel* jqmodel = static_cast<const JobModel*>(index.model());
-    Q_ASSERT(model);
+    ASSERT(model);
 
     const JobItem* item = jqmodel->getJobItemForIndex(index);
-    Q_ASSERT(item);
+    ASSERT(item);
 
     if (!item->isRunning())
         return false;

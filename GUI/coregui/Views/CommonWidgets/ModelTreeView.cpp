@@ -57,7 +57,7 @@ void ModelTreeView::toggleExpanded()
 
 void ModelTreeView::setExpanded(bool expanded)
 {
-    Q_ASSERT(m_tree);
+    ASSERT(m_tree);
     if (expanded) {
         m_tree->expandAll();
         m_tree->resizeColumnToContents(0);

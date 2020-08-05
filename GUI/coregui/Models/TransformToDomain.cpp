@@ -153,7 +153,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
                                                               GISASSimulation& simulation)
 {
     if (beam_item.modelType() != "GISASBeam") {
-        Q_ASSERT(beam_item.modelType() == "GISASBeam");
+        ASSERT(beam_item.modelType() == "GISASBeam");
         return;
     }
 
@@ -169,7 +169,7 @@ void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
                                                  AngularSpecScan& scan)
 {
     if (beam_item.modelType() != "SpecularBeam") {
-        Q_ASSERT(beam_item.modelType() == "SpecularBeam");
+        ASSERT(beam_item.modelType() == "SpecularBeam");
         return;
     }
 
@@ -195,7 +195,7 @@ void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
 
 void TransformToDomain::setSimulationOptions(Simulation* simulation, const SessionItem& item)
 {
-    Q_ASSERT(item.modelType() == "SimulationOptions");
+    ASSERT(item.modelType() == "SimulationOptions");
 
     if (auto optionItem = dynamic_cast<const SimulationOptionsItem*>(&item)) {
         simulation->getOptions().setNumberOfThreads(optionItem->getNumberOfThreads());
@@ -244,7 +244,7 @@ void setParameterDistributionToSimulation(const std::string& parameter_name,
 {
     const auto parameter_item = dynamic_cast<const T*>(item);
     if (!parameter_item) {
-        Q_ASSERT(parameter_item);
+        ASSERT(parameter_item);
         return;
     }
 

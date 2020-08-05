@@ -312,7 +312,7 @@ void ColorMap::setFixedColorMapMargins()
 
 void ColorMap::setColorMapFromItem(IntensityDataItem* intensityItem)
 {
-    Q_ASSERT(intensityItem);
+    ASSERT(intensityItem);
 
     m_block_update = true;
 

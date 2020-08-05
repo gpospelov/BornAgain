@@ -47,7 +47,7 @@ void MaterialPropertyController::onMaterialModelLoad()
 {
     for (auto sampleItem : relatedSampleItems()) {
         QString tag = MaterialItemUtils::materialTag(*sampleItem);
-        Q_ASSERT(!tag.isEmpty());
+        ASSERT(!tag.isEmpty());
 
         ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
         if (MaterialItem* material =
@@ -72,7 +72,7 @@ void MaterialPropertyController::onMaterialDataChanged(const QModelIndex& topLef
 
         for (auto sampleItem : relatedSampleItems()) {
             QString tag = MaterialItemUtils::materialTag(*sampleItem);
-            Q_ASSERT(!tag.isEmpty());
+            ASSERT(!tag.isEmpty());
 
             ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
             if (property.identifier() == materialItem->identifier()) {
@@ -103,7 +103,7 @@ void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelInde
     // rewriting MaterialProperty in corresponding sample items
     for (auto sampleItem : relatedSampleItems()) {
         QString tag = MaterialItemUtils::materialTag(*sampleItem);
-        Q_ASSERT(!tag.isEmpty());
+        ASSERT(!tag.isEmpty());
 
         ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
         if (identifiersToDelete.contains(property.identifier())) {

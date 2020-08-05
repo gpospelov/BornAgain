@@ -47,7 +47,7 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget* parent)
 
 void SimulationSetupWidget::setApplicationModels(ApplicationModels* model)
 {
-    Q_ASSERT(model);
+    ASSERT(model);
     if (model != m_applicationModels) {
         m_applicationModels = model;
         m_simDataSelectorWidget->setApplicationModels(model);

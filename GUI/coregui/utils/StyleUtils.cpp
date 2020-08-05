@@ -35,7 +35,7 @@ QSize DefaultSizeOfLetterM()
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
 {
-    Q_ASSERT(tree);
+    ASSERT(tree);
     tree->setStyleSheet(StyleUtils::propertyTreeStyle());
     tree->setAlternatingRowColors(true);
 }

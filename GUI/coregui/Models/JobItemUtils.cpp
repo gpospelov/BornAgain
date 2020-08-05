@@ -48,7 +48,7 @@ void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, A
 
 void JobItemUtils::updateDataAxes(DataItem* intensityItem, const InstrumentItem* instrumentItem)
 {
-    Q_ASSERT(intensityItem);
+    ASSERT(intensityItem);
 
     if (!instrumentItem) {
         // special case when reading old project files: project failed on load instrument

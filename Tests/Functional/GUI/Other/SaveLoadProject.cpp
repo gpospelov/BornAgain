@@ -33,7 +33,7 @@
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>
-#include <cassert>
+#include "Core/Basics/Assert.h"
 
 namespace
 {
@@ -94,7 +94,7 @@ int GUISaveLoadProject::run_job()
 
     auto instrument2DItem =
         dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem());
-    assert(instrument2DItem);
+    ASSERT(instrument2DItem);
     instrument2DItem->detectorItem()->setXSize(50);
     instrument2DItem->detectorItem()->setYSize(50);
 

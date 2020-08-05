@@ -186,7 +186,7 @@ double ConvolutionDetectorResolution::getIntegratedPDF1d(double x, double step) 
     double halfstep = step / 2.0;
     double xmin = x - halfstep;
     double xmax = x + halfstep;
-    assert(m_res_function_1d != nullptr);
+    ASSERT(m_res_function_1d != nullptr);
     return m_res_function_1d(xmax) - m_res_function_1d(xmin);
 }
 

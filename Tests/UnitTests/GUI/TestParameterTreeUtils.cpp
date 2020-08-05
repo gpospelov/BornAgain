@@ -57,7 +57,7 @@ TEST_F(TestParameterTreeUtils, test_linkItemFromParameterName)
     SessionItem* particle = model.insertNewItem("Particle");
 
     auto ffItem = static_cast<FormFactorItem*>(particle->getGroupItem(ParticleItem::P_FORM_FACTOR));
-    Q_ASSERT(ffItem);
+    ASSERT(ffItem);
     EXPECT_EQ(ffItem->modelType(), "Cylinder");
 
     EXPECT_EQ(ffItem->getItem(CylinderItem::P_RADIUS),

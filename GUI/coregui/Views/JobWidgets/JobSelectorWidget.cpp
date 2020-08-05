@@ -83,7 +83,7 @@ const JobItem* JobSelectorWidget::currentJobItem() const
 
 void JobSelectorWidget::makeJobItemSelected(JobItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
     m_jobListWidget->makeJobItemSelected(item);
 }
 

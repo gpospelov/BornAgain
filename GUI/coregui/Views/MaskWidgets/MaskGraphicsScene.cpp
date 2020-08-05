@@ -115,7 +115,7 @@ void MaskGraphicsScene::resetContext()
 
 void MaskGraphicsScene::setSelectionModel(QItemSelectionModel* model)
 {
-    Q_ASSERT(model);
+    ASSERT(model);
     m_selectionModel = model;
     connect(m_selectionModel, &QItemSelectionModel::selectionChanged, this,
             &MaskGraphicsScene::onSessionSelectionChanged, Qt::UniqueConnection);
@@ -123,7 +123,7 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel* model)
 
 ColorMap* MaskGraphicsScene::colorMap()
 {
-    Q_ASSERT(m_proxy);
+    ASSERT(m_proxy);
     return m_proxy->colorMap();
 }
 
@@ -169,7 +169,7 @@ void MaskGraphicsScene::onRowsRemoved(const QModelIndex&, int, int)
 void MaskGraphicsScene::cancelCurrentDrawing()
 {
     if (isDrawingInProgress()) {
-        Q_ASSERT(m_currentItem);
+        ASSERT(m_currentItem);
         QModelIndex index = m_maskModel->indexOfItem(m_currentItem);
         m_maskModel->removeRows(index.row(), 1, index.parent());
         setDrawingInProgress(false);
@@ -178,7 +178,7 @@ void MaskGraphicsScene::cancelCurrentDrawing()
 
 void MaskGraphicsScene::resetScene()
 {
-    Q_ASSERT(m_selectionModel);
+    ASSERT(m_selectionModel);
     m_block_selection = true;
     m_selectionModel->clearSelection();
     clearSelection();
@@ -235,7 +235,7 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     for (QGraphicsItem* graphicsItem : selectedItems()) {
         if (IShape2DView* view = dynamic_cast<IShape2DView*>(graphicsItem)) {
             QModelIndex itemIndex = m_maskModel->indexOfItem(view->parameterizedItem());
-            Q_ASSERT(itemIndex.isValid());
+            ASSERT(itemIndex.isValid());
             if (!m_selectionModel->isSelected(itemIndex))
                 m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
         }
@@ -360,7 +360,7 @@ void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 
 void MaskGraphicsScene::updateProxyWidget()
 {
-    Q_ASSERT(m_intensityItem);
+    ASSERT(m_intensityItem);
     if (!m_proxy) {
         m_proxy = new MaskGraphicsProxy;
         m_proxy->setIntensityItem(m_intensityItem);
@@ -373,7 +373,7 @@ void MaskGraphicsScene::updateProxyWidget()
 
 void MaskGraphicsScene::updateViews(const QModelIndex& parentIndex, IShape2DView* parentView)
 {
-    Q_ASSERT(m_maskModel);
+    ASSERT(m_maskModel);
     IShape2DView* childView(0);
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
@@ -395,7 +395,7 @@ void MaskGraphicsScene::updateViews(const QModelIndex& parentIndex, IShape2DView
 
 IShape2DView* MaskGraphicsScene::addViewForItem(SessionItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
     IShape2DView* view = m_ItemToView[item];
     if (!view) {
         view = MaskViewFactory::createMaskView(item, m_adaptor.data());
@@ -630,7 +630,7 @@ void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent* even
 
 void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
 {
-    Q_ASSERT(m_context.isPolygonMode());
+    ASSERT(m_context.isPolygonMode());
 
     if (!m_currentItem) {
         setDrawingInProgress(true);
@@ -641,7 +641,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
                                  QItemSelectionModel::Select);
         setItemName(m_currentItem);
     }
-    Q_ASSERT(m_currentItem->modelType() == "PolygonMask");
+    ASSERT(m_currentItem->modelType() == "PolygonMask");
 
     if (PolygonView* polygon = currentPolygon()) {
         if (polygon->closePolygonIfNecessary()) {
@@ -703,7 +703,7 @@ void MaskGraphicsScene::processMaskAllItem(QGraphicsSceneMouseEvent* event)
 
 void MaskGraphicsScene::setZValues()
 {
-    Q_ASSERT(m_maskContainerIndex.isValid());
+    ASSERT(m_maskContainerIndex.isValid());
     for (int i = 0; i < m_maskModel->rowCount(m_maskContainerIndex); i++) {
         QModelIndex itemIndex = m_maskModel->index(i, 0, m_maskContainerIndex);
         SessionItem* item = m_maskModel->itemForIndex(itemIndex);

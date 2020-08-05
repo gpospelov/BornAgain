@@ -61,19 +61,19 @@ PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument
 
 void JobModelFunctions::initDataView(JobItem* job_item)
 {
-    assert(job_item && job_item->isValidForFitting());
-    assert(job_item->instrumentItem()
+    ASSERT(job_item && job_item->isValidForFitting());
+    ASSERT(job_item->instrumentItem()
            && job_item->instrumentItem()->modelType() == "SpecularInstrument");
-    assert(!job_item->getItem(JobItem::T_DATAVIEW));
+    ASSERT(!job_item->getItem(JobItem::T_DATAVIEW));
 
     SessionModel* model = job_item->model();
     auto view_item = dynamic_cast<Data1DViewItem*>(
         model->insertNewItem("Data1DViewItem", job_item->index(), -1, JobItem::T_DATAVIEW));
-    assert(view_item);
+    ASSERT(view_item);
 
     auto property_container = dynamic_cast<DataPropertyContainer*>(model->insertNewItem(
         "DataPropertyContainer", view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES));
-    assert(property_container);
+    ASSERT(property_container);
 
     property_container->addItem(job_item->realDataItem()->dataItem());
     property_container->addItem(job_item->dataItem());
@@ -199,7 +199,7 @@ void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* r
 
     RealDataItem* realDataItemCopy =
         dynamic_cast<RealDataItem*>(model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
-    Q_ASSERT(realDataItemCopy);
+    ASSERT(realDataItemCopy);
 
     realDataItemCopy->dataItem()->setOutputData(realDataItem->dataItem()->getOutputData()->clone());
 

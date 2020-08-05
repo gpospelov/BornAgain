@@ -58,7 +58,7 @@ QStringList ComboProperty::getValues() const
 
 void ComboProperty::setValues(const QStringList& values)
 {
-    Q_ASSERT(values.size());
+    ASSERT(values.size());
     QString current = getValue();
     m_values = values;
     setCurrentIndex(m_values.contains(current) ? m_values.indexOf(current) : 0);

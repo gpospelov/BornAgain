@@ -174,7 +174,7 @@ WidgetBoxCategoryModel::WidgetBoxCategoryModel(SampleDesignerInterface* core, QO
       //    m_core(core),
       m_viewMode(QListView::ListMode)
 {
-    Q_ASSERT(m_classNameRegExp.isValid());
+    ASSERT(m_classNameRegExp.isValid());
     Q_UNUSED(core);
 }
 
@@ -399,7 +399,7 @@ QWidget* WidgetBoxCategoryEntryDelegate::createEditor(QWidget* parent,
     QWidget* result = QItemDelegate::createEditor(parent, option, index);
     if (QLineEdit* line_edit = qobject_cast<QLineEdit*>(result)) {
         QRegExp re = QRegExp("[_a-zA-Z][_a-zA-Z0-9]*");
-        Q_ASSERT(re.isValid());
+        ASSERT(re.isValid());
         line_edit->setValidator(new QRegExpValidator(re, line_edit));
     }
     return result;

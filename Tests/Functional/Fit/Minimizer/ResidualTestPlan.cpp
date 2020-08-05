@@ -16,7 +16,7 @@
 #include "Fit/Kernel/Minimizer.h"
 #include "Fit/Kernel/Parameters.h"
 #include "Fit/TestEngine/Numeric.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <iostream>
 #include <sstream>
 

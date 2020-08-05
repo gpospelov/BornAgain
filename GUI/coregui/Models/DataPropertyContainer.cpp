@@ -40,7 +40,7 @@ Data1DProperties* DataPropertyContainer::propertyItem(size_t i) const
     if (children.empty())
         return nullptr;
     auto property_item = dynamic_cast<Data1DProperties*>(children[static_cast<int>(i)]);
-    assert(property_item);
+    ASSERT(property_item);
     return property_item;
 }
 
@@ -76,7 +76,7 @@ std::vector<DataItem*> DataPropertyContainer::dataItems()
     std::transform(items.begin(), items.end(), std::back_inserter(result),
                    [](Data1DProperties* item) {
                        auto data_item = item->dataItem();
-                       assert(data_item);
+                       ASSERT(data_item);
                        return data_item;
                    });
     return result;

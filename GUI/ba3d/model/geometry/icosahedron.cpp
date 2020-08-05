@@ -41,7 +41,7 @@ Geometry::Mesh Geometry::meshIcosahedron()
     vs_[10] = Vector3D(-0.28867513459481281f * E, 0.5f * E, 1.5115226281523415f * E);
     vs_[11] = Vector3D(-0.28867513459481281f * E, -0.5f * E, 1.5115226281523415f * E);
 
-    Q_ASSERT(12 == vs_.count());
+    ASSERT(12 == vs_.count());
 
     Vertices vs;
     vs.reserve(60);
@@ -72,7 +72,7 @@ Geometry::Mesh Geometry::meshIcosahedron()
     vs.addTriangle(vs_[9], vs_[7], vs_[10]);
     vs.addTriangle(vs_[9], vs_[10], vs_[11]);
 
-    Q_ASSERT(60 == vs.count());
+    ASSERT(60 == vs.count());
 
     return makeMesh(vs);
 }

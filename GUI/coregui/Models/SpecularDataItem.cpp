@@ -44,7 +44,7 @@ SpecularDataItem::SpecularDataItem() : DataItem("SpecularData")
 
 void SpecularDataItem::setOutputData(OutputData<double>* data)
 {
-    assert(data && "Assertion failed in SpecularDataItem::setOutputData: nullptr data passed");
+    ASSERT(data && "Assertion failed in SpecularDataItem::setOutputData: nullptr data passed");
     if (data->getRank() != 1)
         throw GUIHelpers::Error(
             "Error in SpecularDataItem::setOutputData: cannot handle non-1D data");
@@ -235,7 +235,7 @@ BasicAxisItem* SpecularDataItem::xAxisItem()
 const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const
 {
     auto result = dynamic_cast<const AmplitudeAxisItem*>(getItem(P_YAXIS));
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

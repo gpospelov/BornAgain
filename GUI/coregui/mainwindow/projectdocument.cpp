@@ -223,7 +223,7 @@ void ProjectDocument::onModelChanged()
 
 void ProjectDocument::readFrom(QIODevice* device)
 {
-    Q_ASSERT(m_messageService);
+    ASSERT(m_messageService);
     QXmlStreamReader reader(device);
 
     while (!reader.atEnd()) {

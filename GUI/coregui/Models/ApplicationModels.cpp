@@ -130,7 +130,7 @@ void ApplicationModels::createMaterialModel()
 
 void ApplicationModels::createSampleModel()
 {
-    Q_ASSERT(m_materialModel);
+    ASSERT(m_materialModel);
     delete m_sampleModel;
     m_sampleModel = new SampleModel(this);
     connectModel(m_sampleModel);
@@ -225,7 +225,7 @@ QList<SessionModel*> ApplicationModels::modelList()
 
 QVector<SessionItem*> ApplicationModels::nonXMLData() const
 {
-    Q_ASSERT(m_realDataModel && m_jobModel && m_instrumentModel);
+    ASSERT(m_realDataModel && m_jobModel && m_instrumentModel);
     return QVector<SessionItem*>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData()
                                    << m_instrumentModel->nonXMLData();
 }

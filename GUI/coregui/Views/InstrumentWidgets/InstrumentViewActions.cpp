@@ -70,7 +70,7 @@ QMenu* InstrumentViewActions::instrumentMenu()
 void InstrumentViewActions::onAddInstrument()
 {
     auto action = qobject_cast<QAction*>(sender());
-    Q_ASSERT(action && action->data().canConvert(QVariant::String));
+    ASSERT(action && action->data().canConvert(QVariant::String));
 
     QString instrumentType = action->data().toString();
 

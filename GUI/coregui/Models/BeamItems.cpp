@@ -79,28 +79,28 @@ double BeamItem::getWavelength() const
 void BeamItem::setWavelength(double value)
 {
     auto beam_wavelength = dynamic_cast<BeamWavelengthItem*>(getItem(P_WAVELENGTH));
-    Q_ASSERT(beam_wavelength);
+    ASSERT(beam_wavelength);
     beam_wavelength->resetToValue(value);
 }
 
 void BeamItem::setInclinationAngle(double value)
 {
     auto angleItem = dynamic_cast<BeamDistributionItem*>(getItem(P_INCLINATION_ANGLE));
-    Q_ASSERT(angleItem);
+    ASSERT(angleItem);
     angleItem->resetToValue(value);
 }
 
 double BeamItem::getAzimuthalAngle() const
 {
     const auto inclination = dynamic_cast<BeamAzimuthalAngleItem*>(getItem(P_AZIMUTHAL_ANGLE));
-    Q_ASSERT(inclination);
+    ASSERT(inclination);
     return inclination->azimuthalAngle();
 }
 
 void BeamItem::setAzimuthalAngle(double value)
 {
     auto angleItem = dynamic_cast<BeamDistributionItem*>(getItem(P_AZIMUTHAL_ANGLE));
-    Q_ASSERT(angleItem);
+    ASSERT(angleItem);
     angleItem->resetToValue(value);
 }
 
@@ -171,7 +171,7 @@ double SpecularBeamItem::getInclinationAngle() const
 
 void SpecularBeamItem::setInclinationAngle(double value)
 {
-    Q_ASSERT(value == 0.0);
+    ASSERT(value == 0.0);
     value = 0.0;
     BeamItem::setInclinationAngle(value);
 }
@@ -239,7 +239,7 @@ GISASBeamItem::~GISASBeamItem() = default;
 double GISASBeamItem::getInclinationAngle() const
 {
     const auto inclination = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
-    Q_ASSERT(inclination);
+    ASSERT(inclination);
     return inclination->inclinationAngle();
 }
 

@@ -63,8 +63,8 @@ QList<QAction*> ProjectionsEditorActions::topToolBarActions()
 
 void ProjectionsEditorActions::onDeleteAction()
 {
-    Q_ASSERT(m_model);
-    Q_ASSERT(m_selectionModel);
+    ASSERT(m_model);
+    ASSERT(m_selectionModel);
 
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
     while (indexes.size()) {

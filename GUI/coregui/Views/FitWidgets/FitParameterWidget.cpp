@@ -339,7 +339,7 @@ QVector<FitParameterItem*> FitParameterWidget::selectedFitParameters()
         if (SessionItem* item = m_fitParameterModel->itemForIndex(index)) {
             if (item->modelType() == "FitParameter") {
                 FitParameterItem* fitParItem = dynamic_cast<FitParameterItem*>(item);
-                Q_ASSERT(fitParItem);
+                ASSERT(fitParItem);
                 result.push_back(fitParItem);
             }
         }
@@ -370,7 +370,7 @@ QVector<FitParameterLinkItem*> FitParameterWidget::selectedFitParameterLinks()
             if (item->parent()->modelType() == "FitParameterLink") {
                 FitParameterLinkItem* fitParItem =
                     dynamic_cast<FitParameterLinkItem*>(item->parent());
-                Q_ASSERT(fitParItem);
+                ASSERT(fitParItem);
                 result.push_back(fitParItem);
             }
         }
@@ -408,7 +408,7 @@ void FitParameterWidget::updateInfoLabel()
 
 void FitParameterWidget::connectTuningWidgetSelection(bool active)
 {
-    Q_ASSERT(m_tuningWidget);
+    ASSERT(m_tuningWidget);
 
     if (active) {
         connect(m_tuningWidget->selectionModel(),

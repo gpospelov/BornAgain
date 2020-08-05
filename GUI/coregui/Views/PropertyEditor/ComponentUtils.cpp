@@ -65,7 +65,7 @@ namespace
 {
 QList<const SessionItem*> groupItems(const SessionItem& item)
 {
-    Q_ASSERT(item.modelType() == "GroupProperty");
+    ASSERT(item.modelType() == "GroupProperty");
 
     QList<const SessionItem*> result;
     for (auto grandchild : item.children()) {

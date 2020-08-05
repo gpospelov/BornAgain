@@ -139,7 +139,7 @@ QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* 
 
 QVector<QPair<QString, QString>> ParameterTreeUtils::parameterDictionary(const SessionItem* source)
 {
-    Q_ASSERT(source);
+    ASSERT(source);
 
     QVector<QPair<QString, QString>> result;
 

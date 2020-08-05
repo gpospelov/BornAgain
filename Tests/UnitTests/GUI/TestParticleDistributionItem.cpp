@@ -280,10 +280,10 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
     TransformFromDomain::setParticleDistributionItem(partDistItem, particle_collection);
 
     SessionItem* distItem = partDistItem->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);
-    Q_ASSERT(distItem);
+    ASSERT(distItem);
     RealLimitsItem* limitsItem =
         dynamic_cast<RealLimitsItem*>(distItem->getGroupItem(DistributionItem::P_LIMITS));
-    Q_ASSERT(limitsItem);
+    ASSERT(limitsItem);
 
     EXPECT_EQ(limitsItem->createRealLimits(), domainLimits);
 }

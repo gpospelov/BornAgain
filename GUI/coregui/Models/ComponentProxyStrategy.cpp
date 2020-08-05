@@ -158,7 +158,7 @@ void ComponentProxyStrategy::processSubGroupItem(SessionItem* item,
 void ComponentProxyStrategy::processDefaultItem(SessionItem* item,
                                                 const QPersistentModelIndex& sourceIndex)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
     if (!item->isVisible())
         return;
 

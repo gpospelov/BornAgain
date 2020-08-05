@@ -36,7 +36,7 @@ QMap<QString, QString> ToolTipDataBase::m_tagToToolTip = QMap<QString, QString>(
 
 ToolTipDataBase::ToolTipDataBase(QObject* parent) : QObject(parent)
 {
-    Q_ASSERT(!m_instance);
+    ASSERT(!m_instance);
     m_instance = this;
 
     initDataBase();
@@ -49,7 +49,7 @@ ToolTipDataBase::~ToolTipDataBase()
 
 QString ToolTipDataBase::widgetboxToolTip(const QString& className)
 {
-    Q_ASSERT(m_instance);
+    ASSERT(m_instance);
     QString modelName(className);
     modelName.remove("FormFactor");
     return m_instance->this_getToolTip(sampleViewContext, modelName, titleProperty);

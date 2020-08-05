@@ -46,14 +46,14 @@ JobModel::~JobModel()
 const JobItem* JobModel::getJobItemForIndex(const QModelIndex& index) const
 {
     const JobItem* result = dynamic_cast<const JobItem*>(itemForIndex(index));
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 
 JobItem* JobModel::getJobItemForIndex(const QModelIndex& index)
 {
     JobItem* result = dynamic_cast<JobItem*>(itemForIndex(index));
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 
@@ -74,9 +74,9 @@ JobItem* JobModel::addJob(const MultiLayerItem* multiLayerItem,
                           const InstrumentItem* instrumentItem, const RealDataItem* realDataItem,
                           const SimulationOptionsItem* optionItem)
 {
-    Q_ASSERT(multiLayerItem);
-    Q_ASSERT(instrumentItem);
-    Q_ASSERT(optionItem);
+    ASSERT(multiLayerItem);
+    ASSERT(instrumentItem);
+    ASSERT(optionItem);
 
     JobItem* jobItem = dynamic_cast<JobItem*>(insertNewItem("JobItem"));
     jobItem->setItemName(generateJobName());
@@ -182,7 +182,7 @@ void JobModel::cancelJob(const QModelIndex& index)
 void JobModel::removeJob(const QModelIndex& index)
 {
     JobItem* jobItem = getJobItemForIndex(index);
-    Q_ASSERT(jobItem);
+    ASSERT(jobItem);
     m_queue_data->removeJob(jobItem->getIdentifier());
 
     emit aboutToDeleteJobItem(jobItem);

@@ -114,7 +114,7 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
 void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QString topTag,
                            MessageService* messageService)
 {
-    Q_ASSERT(parent);
+    ASSERT(parent);
     const QString start_type = parent->model()->getModelTag();
     while (!reader->atEnd()) {
         reader->readNext();

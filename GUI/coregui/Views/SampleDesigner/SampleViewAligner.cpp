@@ -33,7 +33,7 @@ int step_height()
 
 SampleViewAligner::SampleViewAligner(DesignerScene* scene) : m_scene(scene)
 {
-    Q_ASSERT(m_scene);
+    ASSERT(m_scene);
 }
 
 //! Spring based implified algorithm for smart alignment
@@ -151,7 +151,7 @@ QList<IView*> SampleViewAligner::getConnectedViews(IView* view)
 //! Aligns sample starting from
 void SampleViewAligner::alignSample(SessionItem* item, QPointF reference, bool force_alignment)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
     alignSample(m_scene->getSampleModel()->indexOfItem(item), reference, force_alignment);
 }
 

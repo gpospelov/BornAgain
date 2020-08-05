@@ -21,7 +21,7 @@
 #include "Core/Parametrization/ThreadInfo.h"
 #include "Core/Tools/PyObject.h"
 #include "Core/Tools/SafePointerVector.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <sstream>
 
 using std::size_t;
@@ -194,14 +194,14 @@ public:
     //! indexed accessor
     T& operator[](size_t index)
     {
-        assert(mp_ll_data);
+        ASSERT(mp_ll_data);
         return (*mp_ll_data)[index];
     }
 
     //! indexed accessor (const)
     const T& operator[](size_t index) const
     {
-        assert(mp_ll_data);
+        ASSERT(mp_ll_data);
         return (*mp_ll_data)[index];
     }
 
@@ -323,7 +323,7 @@ template <class T> const IAxis& OutputData<T>::getAxis(const std::string& axis_n
 
 template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     std::vector<size_t> result;
     for (size_t i = 0; i < getRank(); ++i) {
         int dim = mp_ll_data->getDimensions()[i];
@@ -334,7 +334,7 @@ template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const
 
 template <class T> inline std::vector<T> OutputData<T>::getRawDataVector() const
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     std::vector<T> result;
     for (size_t i = 0; i < getAllocatedSize(); ++i)
         result.push_back((*mp_ll_data)[i]);
@@ -355,7 +355,7 @@ template <class T> typename OutputData<T>::const_iterator OutputData<T>::begin()
 
 template <class T> std::vector<int> OutputData<T>::getAxesBinIndices(size_t global_index) const
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     size_t remainder = global_index;
     std::vector<int> result;
     result.resize(mp_ll_data->getRank());
@@ -370,7 +370,7 @@ template <class T> std::vector<int> OutputData<T>::getAxesBinIndices(size_t glob
 template <class T>
 size_t OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) const
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     size_t remainder(global_index);
     for (size_t i = 0; i < mp_ll_data->getRank(); ++i) {
         size_t i_axis = mp_ll_data->getRank() - 1 - i;
@@ -392,7 +392,7 @@ size_t OutputData<T>::getAxisBinIndex(size_t global_index, const std::string& ax
 template <class T>
 size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) const
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     if (axes_indices.size() != mp_ll_data->getRank())
         throw Exceptions::LogicErrorException(
             "size_t OutputData<T>::toGlobalIndex() -> "
@@ -417,7 +417,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) c
 template <class T>
 size_t OutputData<T>::findGlobalIndex(const std::vector<double>& coordinates) const
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     if (coordinates.size() != mp_ll_data->getRank())
         throw Exceptions::LogicErrorException(
             "OutputData<T>::findClosestIndex() -> "
@@ -466,7 +466,7 @@ Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_nam
 
 template <class T> inline T OutputData<T>::totalSum() const
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     return mp_ll_data->getTotalSum();
 }
 
@@ -505,21 +505,21 @@ template <class T> void OutputData<T>::setAxisSizes(size_t rank, int* n_dims)
 
 template <class T> const OutputData<T>& OutputData<T>::operator+=(const OutputData<T>& right)
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     *this->mp_ll_data += *right.mp_ll_data;
     return *this;
 }
 
 template <class T> const OutputData<T>& OutputData<T>::operator-=(const OutputData<T>& right)
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     *this->mp_ll_data -= *right.mp_ll_data;
     return *this;
 }
 
 template <class T> const OutputData<T>& OutputData<T>::operator*=(const OutputData<T>& right)
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     *this->mp_ll_data *= *right.mp_ll_data;
     return *this;
 }
@@ -537,7 +537,7 @@ template <class T> bool OutputData<T>::isInitialized() const
 
 template <class T> const OutputData<T>& OutputData<T>::operator/=(const OutputData<T>& right)
 {
-    assert(mp_ll_data);
+    ASSERT(mp_ll_data);
     *this->mp_ll_data /= *right.mp_ll_data;
     return *this;
 }

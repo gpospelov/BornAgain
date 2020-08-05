@@ -22,7 +22,7 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <iostream>
 
 // implemented differently for Core/Py/Gui tests:
@@ -35,7 +35,7 @@ int run(const std::string& test_name, const std::string& sim_name,
     std::cout << "run std test " << test_name << std::endl;
     std::cout << "- create sim " << sim_name << std::endl;
     std::unique_ptr<Simulation> simulation{SimulationFactory().createItem(sim_name)};
-    assert(simulation);
+    ASSERT(simulation);
 
     std::cout << "- sample builder " << sample_builder_name << std::endl;
     std::unique_ptr<IMultiLayerBuilder> builder{

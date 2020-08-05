@@ -51,7 +51,7 @@ MaterialEditor::MaterialEditor(MaterialModel* materialModel, QWidget* parent)
 
 QItemSelectionModel* MaterialEditor::selectionModel()
 {
-    Q_ASSERT(m_listView);
+    ASSERT(m_listView);
     return m_listView->selectionModel();
 }
 

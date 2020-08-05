@@ -220,7 +220,7 @@ QVector<SessionItem*> SessionItem::getItems(const QString& tag) const
         return QVector<SessionItem*>();
 
     int index = m_tags->tagStartIndex(tagName);
-    Q_ASSERT(index >= 0 && index <= m_children.size());
+    ASSERT(index >= 0 && index <= m_children.size());
     return m_children.mid(index, m_tags->childCount(tagName));
 }
 
@@ -240,7 +240,7 @@ bool SessionItem::insertItem(int row, SessionItem* item, const QString& tag)
     if (index < 0)
         throw GUIHelpers::Error("SessionItem::insertItem() -> Invalid row, maximum reached.");
 
-    Q_ASSERT(index <= m_children.size());
+    ASSERT(index <= m_children.size());
 
     if (m_model)
         m_model->beginInsertRows(this->index(), index, index);
@@ -268,7 +268,7 @@ SessionItem* SessionItem::takeItem(int row, const QString& tag)
         throw GUIHelpers::Error("SessionItem::takeItem() -> Single item tag.");
 
     int index = m_tags->indexFromTagRow(tagName, row);
-    Q_ASSERT(index >= 0 && index <= m_children.size());
+    ASSERT(index >= 0 && index <= m_children.size());
 
     if (m_model)
         m_model->beginRemoveRows(this->index(), index, index);
@@ -330,7 +330,7 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
         // create group item
         GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(groupType);
         GroupItem* groupItem = dynamic_cast<GroupItem*>(ItemFactory::CreateItem("GroupProperty"));
-        Q_ASSERT(groupItem);
+        ASSERT(groupItem);
         groupItem->setGroupInfo(groupInfo);
         registerTag(groupTag, 1, 1, QStringList() << "GroupProperty");
         result = groupItem;
@@ -339,7 +339,7 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
         registerTag(groupTag, 1, 1, QStringList() << groupType);
         result = ItemFactory::CreateItem(groupType);
     }
-    Q_ASSERT(result);
+    ASSERT(result);
     result->setDisplayName(groupTag);
     if (!insertItem(0, result, groupTag)) {
         throw GUIHelpers::Error("SessionItem::addGroupProperty -> Error. Can't insert group item");
@@ -585,7 +585,7 @@ void SessionItem::addTranslator(const IPathTranslator& translator)
 void SessionItem::childDeleted(SessionItem* child)
 {
     int index = rowOfChild(child);
-    Q_ASSERT(index != -1);
+    ASSERT(index != -1);
     m_children.replace(index, nullptr);
 }
 

@@ -53,7 +53,7 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
 
     m_toolBar->setPresentation(presentationType);
 
-    Q_ASSERT(currentItem());
+    ASSERT(currentItem());
 
     SessionItemWidget* widget = m_presentationTypeToWidget[presentationType];
 
@@ -62,7 +62,7 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
         m_stackedWidget->addWidget(widget);
         m_presentationTypeToWidget[presentationType] = widget;
     }
-    Q_ASSERT(widget);
+    ASSERT(widget);
     widget->setItem(currentItem());
     m_toolBar->setActionList(widget->actionList());
     m_stackedWidget->setCurrentWidget(widget);

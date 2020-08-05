@@ -420,7 +420,7 @@ void ProjectManager::riseProjectLoadFailedDialog()
 
 void ProjectManager::riseProjectLoadWarningDialog()
 {
-    Q_ASSERT(m_project_document);
+    ASSERT(m_project_document);
     ProjectLoadWarningDialog* warningDialog = new ProjectLoadWarningDialog(
         m_mainWindow, m_messageService, m_project_document->documentVersion());
 

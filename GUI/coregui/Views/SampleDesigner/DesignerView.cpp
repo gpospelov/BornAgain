@@ -84,7 +84,7 @@ void DesignerView::onChangeScale(double new_scale)
 void DesignerView::deleteSelectedItems()
 {
     DesignerScene* designerScene = dynamic_cast<DesignerScene*>(scene());
-    Q_ASSERT(designerScene);
+    ASSERT(designerScene);
     designerScene->deleteSelectedItems();
 }
 

@@ -30,7 +30,7 @@ JobProgressAssistant::JobProgressAssistant(MainWindow* mainWindow)
 
 void JobProgressAssistant::onGlobalProgress(int progress)
 {
-    Q_ASSERT(m_mainWindow->progressBar());
+    ASSERT(m_mainWindow->progressBar());
     if (progress < 0 || progress >= 100) {
         m_mainWindow->progressBar()->setFinished(true);
         m_mainWindow->progressBar()->hide();

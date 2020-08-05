@@ -66,7 +66,7 @@ SessionItem* IShape2DView::parameterizedItem()
 
 void IShape2DView::setSceneAdaptor(const ISceneAdaptor* adaptor)
 {
-    Q_ASSERT(adaptor);
+    ASSERT(adaptor);
 
     if (m_adaptor != adaptor) {
         if (m_adaptor)

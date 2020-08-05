@@ -37,7 +37,7 @@
 
 FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem) : m_jobItem(jobItem)
 {
-    Q_ASSERT(m_jobItem->fitSuiteItem());
+    ASSERT(m_jobItem->fitSuiteItem());
 }
 
 FitObjectiveBuilder::~FitObjectiveBuilder() = default;
@@ -127,8 +127,8 @@ std::unique_ptr<OutputData<double>> FitObjectiveBuilder::createOutputData() cons
         throw GUIHelpers::Error("FitObjectiveBuilder::createOutputData() -> No Real Data defined.");
 
     const DataItem* intensity_item = realDataItem->dataItem();
-    Q_ASSERT(intensity_item);
-    Q_ASSERT(intensity_item->getOutputData());
+    ASSERT(intensity_item);
+    ASSERT(intensity_item->getOutputData());
 
     return std::unique_ptr<OutputData<double>>(intensity_item->getOutputData()->clone());
 }

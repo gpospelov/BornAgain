@@ -25,7 +25,7 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
     if (1 <= cut)
         return Mesh();
     cut = qMax(0.f, cut);
-    Q_ASSERT(0 <= cut && cut < 1);
+    ASSERT(0 <= cut && cut < 1);
 
     // 'rings' are the # of horizontal cross-sections ranging from bottom to top of the sphere
     // 'slices' are the # of vertices in a given ring
@@ -50,8 +50,8 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
     phRge = maxPh - minPh;
     rings = qMax(2, qCeil(qreal(RINGS * phRge) / M_PI)); // At least 2 rings (incl. lowest ring)
 
-    Q_ASSERT(qAbs(minPh) < float(M_PI_2));
-    Q_ASSERT(2 <= rings && 2 <= slices);
+    ASSERT(qAbs(minPh) < float(M_PI_2));
+    ASSERT(2 <= rings && 2 <= slices);
 
     // meshes of vertices and normals, without poles, _[ring][slice]
     QVector<Vertices> vs_(rings), ns_(rings);

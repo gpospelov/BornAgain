@@ -77,7 +77,7 @@ void PolarizationAnalysisEditor::unsubscribeFromItem()
 GISASInstrumentItem* PolarizationAnalysisEditor::instrumentItem()
 {
     auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

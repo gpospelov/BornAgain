@@ -54,7 +54,7 @@ void WarningSign::setWarningHeader(const QString& warningHeader)
 
 void WarningSign::setWarningMessage(const QString& warningMessage)
 {
-    Q_ASSERT(m_area);
+    ASSERT(m_area);
 
     if (m_clear_just_had_happened) {
         m_clear_just_had_happened = false;
@@ -102,7 +102,7 @@ void WarningSign::updateLabelGeometry()
 
 QPoint WarningSign::positionForWarningSign() const
 {
-    Q_ASSERT(m_area);
+    ASSERT(m_area);
 
     int x = m_area->width() - xpos_offset;
     int y = m_area->height() - ypos_offset;

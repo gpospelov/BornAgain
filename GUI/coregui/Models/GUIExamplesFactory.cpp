@@ -78,7 +78,7 @@ SessionItem* GUIExamplesFactory::createSampleItems(const QString& name, SampleMo
 //    SimulationFactory registry;
 //    const std::unique_ptr<GISASSimulation>
 //    P_simulation(registry.createSimulation(exampleName.toStdString()));
-//    Q_ASSERT(P_simulation.get());
+//    ASSERT(P_simulation.get());
 
 //    QString instrumentName = name + "_instrument";
 //    GUIObjectBuilder guiBuilder;

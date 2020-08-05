@@ -58,7 +58,7 @@ void ParameterItem::propagateValueToLink(double newValue)
 SessionItem* ParameterItem::linkedItem()
 {
     const SessionItem* jobItem = ModelPath::ancestor(this, "JobItem");
-    Q_ASSERT(jobItem);
+    ASSERT(jobItem);
     QString link = jobItem->itemName() + "/" + getItemValue(P_LINK).toString();
     return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
 }

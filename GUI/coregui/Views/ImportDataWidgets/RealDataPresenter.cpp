@@ -20,7 +20,7 @@
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularDataWidget.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <QAction>
-#include <cassert>
+#include "Core/Basics/Assert.h"
 
 RealDataPresenter::RealDataPresenter(QWidget* parent) : ItemComboWidget(parent)
 {
@@ -37,7 +37,7 @@ QList<QAction*> RealDataPresenter::actionList()
 
 QStringList RealDataPresenter::activePresentationList(SessionItem* item)
 {
-    assert(item && dynamic_cast<RealDataItem*>(item));
+    ASSERT(item && dynamic_cast<RealDataItem*>(item));
     const auto& underlying_data_model = dynamic_cast<RealDataItem*>(item)->underlyingDataModel();
 
     QStringList result;

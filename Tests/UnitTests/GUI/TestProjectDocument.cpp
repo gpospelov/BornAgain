@@ -103,7 +103,7 @@ TEST_F(TestProjectDocument, test_projectDocumentWithData)
 
     ApplicationModels models;
     RealDataItem* realData = GuiUnittestUtils::createRealData("RealData", *models.realDataModel());
-    Q_ASSERT(realData);
+    ASSERT(realData);
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
                                            models.instrumentModel()->instrumentItem());

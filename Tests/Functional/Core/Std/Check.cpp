@@ -22,7 +22,7 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <iostream>
 
 bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
@@ -33,7 +33,7 @@ bool checkSimulation(const std::string& name, const Simulation& direct_simulatio
     std::unique_ptr<OutputData<double>> reference;
 
     // Load reference if available
-    assert(name != "");
+    ASSERT(name != "");
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
             FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz")));

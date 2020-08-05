@@ -118,7 +118,7 @@ const RealDataItem* SimulationDataSelectorWidget::selectedRealDataItem() const
 
 void SimulationDataSelectorWidget::updateViewElements()
 {
-    Q_ASSERT(m_applicationModels);
+    ASSERT(m_applicationModels);
     updateSelection(m_instrumentCombo,
                     ModelUtils::topItemNames(m_applicationModels->instrumentModel()));
     updateSelection(m_sampleCombo,

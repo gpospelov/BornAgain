@@ -140,14 +140,14 @@ private:
 template <typename T> T& SessionItem::item(const QString& tag) const
 {
     T* t = dynamic_cast<T*>(getItem(tag));
-    Q_ASSERT(t);
+    ASSERT(t);
     return *t;
 }
 
 template <typename T> T& SessionItem::groupItem(const QString& groupName) const
 {
     T* t = dynamic_cast<T*>(getGroupItem(groupName));
-    Q_ASSERT(t);
+    ASSERT(t);
     return *t;
 }
 

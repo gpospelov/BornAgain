@@ -24,7 +24,7 @@ SaveThread::~SaveThread()
 
 void SaveThread::run()
 {
-    Q_ASSERT(m_document);
+    ASSERT(m_document);
     m_document->save_project_data(m_projectFile);
     emit saveReady();
 }

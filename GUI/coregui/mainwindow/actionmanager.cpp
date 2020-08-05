@@ -42,7 +42,7 @@ ActionManager::ActionManager(MainWindow* parent)
 void ActionManager::createActions()
 {
     ProjectManager* projectManager = m_mainWindow->projectManager();
-    Q_ASSERT(projectManager);
+    ASSERT(projectManager);
 
     // new project action
     m_newAction = new QAction("&New Project", m_mainWindow);

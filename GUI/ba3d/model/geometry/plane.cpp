@@ -25,7 +25,7 @@ Geometry::Mesh Geometry::meshPlane()
     vs.reserve(4);
     vs.addQuad({+D, +D, 0}, {-D, +D, 0}, {-D, -D, 0}, {+D, -D, 0});
 
-    Q_ASSERT(4 == vs.count());
+    ASSERT(4 == vs.count());
 
     return makeMesh(vs);
 }

@@ -18,7 +18,7 @@
 #include "Fit/Tools/RealLimits.h"
 #include "Fit/Tools/StringUtils.h"
 #include <algorithm>
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

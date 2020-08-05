@@ -281,7 +281,7 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
     else
         buf = *it;
 
-    Q_ASSERT(program);
+    ASSERT(program);
     program->set(color);
     program->set(mat);
     buf->draw();

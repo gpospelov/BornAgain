@@ -167,7 +167,7 @@ bool ColumnResizer::eventFilter(QObject*, QEvent* event)
 
 void ColumnResizer::addWidgetsFromLayout(QLayout* layout, int column)
 {
-    Q_ASSERT(column >= 0);
+    ASSERT(column >= 0);
     QGridLayout* gridLayout = qobject_cast<QGridLayout*>(layout);
     QFormLayout* formLayout = qobject_cast<QFormLayout*>(layout);
     if (gridLayout) {
@@ -259,7 +259,7 @@ void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout* layout)
 //    qDebug() << "ColumnResizer::onObjectDestroyed" << object;
 //    d->block_update = true;
 //    if(QWidget *widget = dynamic_cast<QWidget *>(object)) {
-//        Q_ASSERT(0);
+//        ASSERT(0);
 //        if(d->m_widgets.contains(widget)) {
 //            d->m_widgets.removeAll(widget);
 //        }

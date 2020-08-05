@@ -22,12 +22,12 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <iostream>
 
 std::unique_ptr<OutputData<double>> load(const std::string& name)
 {
-    assert(name != "");
+    ASSERT(name != "");
     const std::string path =
         FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz");
     std::unique_ptr<OutputData<double>> data;

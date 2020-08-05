@@ -52,7 +52,7 @@ void DetectorMask::initMaskData(const IDetector2D& detector)
         throw Exceptions::RuntimeErrorException("DetectorMask::initMaskData() -> Error. Attempt "
                                                 "to add masks to uninitialized detector.");
 
-    assert(m_shapes.size() == m_mask_of_shape.size());
+    ASSERT(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
     for (size_t dim = 0; dim < detector.dimension(); ++dim) {
@@ -65,7 +65,7 @@ void DetectorMask::initMaskData(const IDetector2D& detector)
 
 void DetectorMask::initMaskData(const OutputData<double>& data)
 {
-    assert(m_shapes.size() == m_mask_of_shape.size());
+    ASSERT(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
     for (size_t dim = 0; dim < data.getRank(); ++dim)

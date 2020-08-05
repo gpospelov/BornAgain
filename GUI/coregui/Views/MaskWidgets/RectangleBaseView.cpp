@@ -34,7 +34,7 @@ void RectangleBaseView::onSizeHandleElementRequest(bool going_to_resize)
     if (going_to_resize) {
         setFlag(QGraphicsItem::ItemIsMovable, false);
         m_activeHandleElement = qobject_cast<SizeHandleElement*>(sender());
-        Q_ASSERT(m_activeHandleElement);
+        ASSERT(m_activeHandleElement);
         SizeHandleElement::EHandleLocation oposite_corner =
             m_activeHandleElement->getOppositeHandleLocation();
         m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();

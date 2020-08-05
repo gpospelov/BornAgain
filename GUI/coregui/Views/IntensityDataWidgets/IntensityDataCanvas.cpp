@@ -113,7 +113,7 @@ void IntensityDataCanvas::subscribeToItem()
 IntensityDataItem* IntensityDataCanvas::intensityDataItem()
 {
     IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

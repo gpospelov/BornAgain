@@ -142,7 +142,7 @@ void ProjectionsEditorCanvas::onActivityModeChanged(MaskEditorFlags::Activity va
 
 void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
 {
-    Q_ASSERT(colorMap);
+    ASSERT(colorMap);
     setConnected(false);
 
     m_colorMap = colorMap;

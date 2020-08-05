@@ -123,8 +123,8 @@ void RealDataSelectorActions::setSelectionModel(QItemSelectionModel* selectionMo
 
 void RealDataSelectorActions::importDataLoop(int ndim)
 {
-    Q_ASSERT(m_realDataModel);
-    Q_ASSERT(m_selectionModel);
+    ASSERT(m_realDataModel);
+    ASSERT(m_selectionModel);
     QString filter_string_ba;
     if (ndim == 2) {
         filter_string_ba = "Intensity File (*.int *.gz *.tif *.tiff *.txt *.csv);;"
@@ -198,9 +198,9 @@ void RealDataSelectorActions::onRotateDataRequest()
 
     RealDataItem* dataItem =
         dynamic_cast<RealDataItem*>(m_realDataModel->itemForIndex(currentIndex));
-    Q_ASSERT(dataItem);
+    ASSERT(dataItem);
     auto intensityItem = dataItem->intensityDataItem();
-    Q_ASSERT(intensityItem);
+    ASSERT(intensityItem);
 
     if (rotationAffectsSetup(*intensityItem)) {
         if (!openRotateWarningDialog(nullptr))

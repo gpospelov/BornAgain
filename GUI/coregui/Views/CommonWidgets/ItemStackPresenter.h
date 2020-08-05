@@ -101,7 +101,7 @@ template <class T> void ItemStackPresenter<T>::hideWidgets()
 
 template <class T> void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
 
     if (m_single_widget)
         return;

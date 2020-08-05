@@ -20,7 +20,7 @@
 
 OutputDataSaveInfo OutputDataSaveInfo::createSaved(const SaveLoadInterface* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
 
     OutputDataSaveInfo result;
     result.m_data = item;
@@ -112,7 +112,7 @@ bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString& dirname,
 
 void OutputDataIOHistory::setHistory(const QString& dirname, const OutputDataDirHistory& history)
 {
-    Q_ASSERT(dirname.isEmpty() == false);
+    ASSERT(dirname.isEmpty() == false);
 
     m_dir_history[dirname] = history;
 }

@@ -90,7 +90,7 @@ void SavePlotAssistant::saveToFile(const QString& fileName, QCustomPlot* plot,
     }
 
     else {
-        Q_ASSERT(output_data);
+        ASSERT(output_data);
         IntensityDataIOFactory::writeOutputData(*output_data, fileName.toStdString());
     }
 }

@@ -14,7 +14,7 @@
 
 #include "Core/Multilayer/SampleProvider.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 
 SampleProvider::SampleProvider() {}
 

@@ -113,8 +113,8 @@ void MaskUnitsConverter::convertCoordinate(SessionItem* maskItem, const QString&
 
 double MaskUnitsConverter::convert(double value, int axis_index)
 {
-    Q_ASSERT(mp_data);
-    Q_ASSERT(axis_index == 0 || axis_index == 1);
+    ASSERT(mp_data);
+    ASSERT(axis_index == 0 || axis_index == 1);
 
     if (m_direction == TO_NBINS) {
         return IntensityDataFunctions::coordinateToBinf(value, mp_data->getAxis(axis_index));

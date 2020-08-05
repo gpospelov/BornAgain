@@ -128,7 +128,7 @@ void GUIPerformanceTest::test_real_time()
 
         auto instrument2DItem =
             dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem());
-        assert(instrument2DItem);
+        ASSERT(instrument2DItem);
         instrument2DItem->detectorItem()->setXSize(50);
         instrument2DItem->detectorItem()->setYSize(50);
 
@@ -148,7 +148,7 @@ void GUIPerformanceTest::test_real_time()
     ParameterItem* parItem = dynamic_cast<ParameterItem*>(ModelPath::getItemFromPath(
         "MultiLayer/Layer0/ParticleLayout/ParticleComposition/Particle1/FullSphere/Radius",
         container));
-    Q_ASSERT(parItem);
+    ASSERT(parItem);
 
     double radius = rndm_radius(mt);
     parItem->propagateValueToLink(radius);

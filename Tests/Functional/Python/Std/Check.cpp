@@ -19,7 +19,7 @@
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <fstream>
 #include <iostream>
 

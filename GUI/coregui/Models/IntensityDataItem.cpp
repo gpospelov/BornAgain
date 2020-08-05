@@ -85,7 +85,7 @@ IntensityDataItem::IntensityDataItem() : DataItem("IntensityData")
 
 void IntensityDataItem::setOutputData(OutputData<double>* data)
 {
-    assert(data && "Assertion failed in IntensityDataItem::setOutputData: nullptr data passed");
+    ASSERT(data && "Assertion failed in IntensityDataItem::setOutputData: nullptr data passed");
     if (data->getRank() != 2)
         throw GUIHelpers::Error(
             "Error in IntensityDataItem::setOutputData: cannot handle non-2D data");
@@ -234,7 +234,7 @@ std::vector<int> IntensityDataItem::shape() const
 
 void IntensityDataItem::reset(ImportDataInfo data)
 {
-    assert(data.unitsLabel() == "nbins");
+    ASSERT(data.unitsLabel() == "nbins");
     ComboProperty combo = ComboProperty() << data.unitsLabel();
     setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
     getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);

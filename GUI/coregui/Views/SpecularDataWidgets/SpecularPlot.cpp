@@ -179,7 +179,7 @@ void SpecularPlot::setUpdateTimerConnected(bool isConnected)
 
 void SpecularPlot::setPlotFromItem(SpecularDataItem* specularItem)
 {
-    Q_ASSERT(specularItem);
+    ASSERT(specularItem);
 
     m_block_update = true;
 
@@ -213,7 +213,7 @@ void SpecularPlot::setAxesLabelsFromItem(SpecularDataItem* item)
 
 void SpecularPlot::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
 {
-    Q_ASSERT(item && axis);
+    ASSERT(item && axis);
     if (item->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
         axis->setLabel(std::move(label));
     else
@@ -222,7 +222,7 @@ void SpecularPlot::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString la
 
 void SpecularPlot::setDataFromItem(SpecularDataItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
     auto data = item->getOutputData();
     if (!data)
         return;

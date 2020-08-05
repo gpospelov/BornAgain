@@ -105,9 +105,9 @@ void DocksController::show_docks(const std::vector<int>& docks_to_show)
 void DocksController::setDockHeightForWidget(int height)
 {
     QWidget* widget = qobject_cast<QWidget*>(sender());
-    Q_ASSERT(widget);
+    ASSERT(widget);
     QDockWidget* dock = findDock(widget);
-    Q_ASSERT(dock);
+    ASSERT(dock);
 
     m_dock_info.m_dock = dock;
     m_dock_info.m_min_size = dock->minimumSize();
@@ -125,7 +125,7 @@ void DocksController::setDockHeightForWidget(int height)
 
 void DocksController::dockToMinMaxSizes()
 {
-    Q_ASSERT(m_dock_info.m_dock);
+    ASSERT(m_dock_info.m_dock);
     m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
     m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
     m_dock_info.m_dock = nullptr;
@@ -134,9 +134,9 @@ void DocksController::dockToMinMaxSizes()
 void DocksController::onWidgetCloseRequest()
 {
     QWidget* widget = qobject_cast<QWidget*>(sender());
-    Q_ASSERT(widget);
+    ASSERT(widget);
     QDockWidget* dock = findDock(widget);
-    Q_ASSERT(dock);
+    ASSERT(dock);
 
     dock->toggleViewAction()->trigger();
 }

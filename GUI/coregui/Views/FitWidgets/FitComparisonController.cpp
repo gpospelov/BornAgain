@@ -58,13 +58,13 @@ FitComparisonController2D::FitComparisonController2D(QObject* parent)
 
 IntensityDataItem* FitComparisonController2D::diffItem()
 {
-    assert(dynamic_cast<IntensityDataItem*>(m_diff_item_controller->diffItem()));
+    ASSERT(dynamic_cast<IntensityDataItem*>(m_diff_item_controller->diffItem()));
     return dynamic_cast<IntensityDataItem*>(m_diff_item_controller->diffItem());
 }
 
 void FitComparisonController2D::setItem(JobItem* job_item)
 {
-    assert(job_item);
+    ASSERT(job_item);
 
     clear();
     m_diff_item_controller->setItem(job_item);
@@ -123,7 +123,7 @@ DiffItemController::DiffItemController(const QString& data_type, QObject* parent
       m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this)),
       m_diff_item(dynamic_cast<DataItem*>(m_tempIntensityDataModel->insertNewItem(data_type)))
 {
-    assert(m_diff_item);
+    ASSERT(m_diff_item);
 }
 
 DiffItemController::~DiffItemController()
@@ -133,7 +133,7 @@ DiffItemController::~DiffItemController()
 
 void DiffItemController::setItem(JobItem* job_item)
 {
-    assert(job_item);
+    ASSERT(job_item);
     if (m_current_item)
         unsubscribe();
     m_current_item = job_item;
@@ -143,11 +143,11 @@ void DiffItemController::setItem(JobItem* job_item)
 
 void DiffItemController::updateDiffData()
 {
-    assert(m_current_item);
+    ASSERT(m_current_item);
 
     auto sim_data = m_current_item->dataItem();
     auto real_data = m_current_item->realDataItem()->dataItem();
-    assert(sim_data && real_data);
+    ASSERT(sim_data && real_data);
 
     if (!sim_data->getOutputData()) // job failed
         return;
@@ -165,7 +165,7 @@ DataItem* DiffItemController::diffItem()
 void DiffItemController::subscribe()
 {
     if (!m_current_item) {
-        assert(false);
+        ASSERT(false);
         return;
     }
 

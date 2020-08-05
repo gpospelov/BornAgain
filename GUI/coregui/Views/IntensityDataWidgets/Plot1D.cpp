@@ -198,7 +198,7 @@ void Plot1D::refreshPlotData()
     m_block_update = true;
 
     auto view_item = viewItem();
-    assert(view_item);
+    ASSERT(view_item);
 
     setAxesRangeFromItem(view_item);
     setAxesLabelsFromItem(view_item);
@@ -229,7 +229,7 @@ void Plot1D::setAxesLabelsFromItem(Data1DViewItem* item)
 
 void Plot1D::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
 {
-    assert(item && axis);
+    ASSERT(item && axis);
     if (item->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
         axis->setLabel(std::move(label));
     else
@@ -259,7 +259,7 @@ Data1DViewItem* Plot1D::viewItem()
 const Data1DViewItem* Plot1D::viewItem() const
 {
     const auto result = dynamic_cast<const Data1DViewItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

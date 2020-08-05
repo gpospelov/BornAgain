@@ -49,7 +49,7 @@ SaveProjectionsAssistant::~SaveProjectionsAssistant() = default;
 
 void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataItem* intensityItem)
 {
-    Q_ASSERT(intensityItem);
+    ASSERT(intensityItem);
 
     QString defaultName = ProjectUtils::userExportDir() + "/untitled.txt";
     QString fileName = QFileDialog::getSaveFileName(parent, "Save projections data", defaultName);

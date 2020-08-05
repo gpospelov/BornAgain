@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_BASICS_ALGORITHMS_H
 
 #include <algorithm>
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <functional>
 #include <vector>
 
@@ -42,7 +42,7 @@ double max_value(const Iterator& begin, const Iterator& end, const Evaluator& ev
 template <typename Evaluator, typename Iterator>
 double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate)
 {
-    assert(begin != end);
+    ASSERT(begin != end);
     double ret = evaluate(*begin);
     Iterator it = begin;
     while (++it != end)
@@ -53,7 +53,7 @@ double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluat
 template <typename Evaluator, typename Iterator>
 double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate)
 {
-    assert(begin != end);
+    ASSERT(begin != end);
     double ret = evaluate(*begin);
     Iterator it = begin;
     while (++it != end)

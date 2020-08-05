@@ -17,7 +17,7 @@
 #include "Fit/TestEngine/Numeric.h"
 #include "Tests/Performance/Benchmark.h"
 #include <boost/format.hpp>
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <iomanip>
 #include <iostream>
 #include <random>

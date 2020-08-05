@@ -185,7 +185,7 @@ void MaskEditorToolBar::setup_shapes_group()
 
 void MaskEditorToolBar::setup_maskmodify_group()
 {
-    Q_ASSERT(m_editorActions);
+    ASSERT(m_editorActions);
     addAction(m_editorActions->bringToFrontAction());
     addAction(m_editorActions->sendToBackAction());
     add_separator();

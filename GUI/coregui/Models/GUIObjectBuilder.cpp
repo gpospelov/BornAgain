@@ -67,7 +67,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
                                                        const Simulation& simulation,
                                                        const QString& instrument_name)
 {
-    Q_ASSERT(p_instrument_model);
+    ASSERT(p_instrument_model);
 
     QString name = instrument_name.isEmpty()
                        ? QString::fromStdString(simulation.getInstrument().getName())
@@ -90,7 +90,7 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* p_document_m
 {
     SimulationOptionsItem* p_options_item =
         dynamic_cast<SimulationOptionsItem*>(p_document_model->insertNewItem("SimulationOptions"));
-    Q_ASSERT(p_options_item);
+    ASSERT(p_options_item);
     if (simulation.getOptions().isIntegrate()) {
         p_options_item->setComputationMethod("Monte-Carlo Integration");
         p_options_item->setNumberOfMonteCarloPoints(

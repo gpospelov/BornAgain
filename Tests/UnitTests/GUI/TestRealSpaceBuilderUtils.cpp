@@ -86,7 +86,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     EXPECT_EQ(p2.particleType(), "Particle");
     EXPECT_FALSE(p2.particle3DBlend(0u));
 
-    Particle3DContainer p3 = Particle3DContainer(p1);
+    Particle3DContainer p3 = {p1};
 
     EXPECT_EQ(p3.containerSize(), 1u);
     EXPECT_EQ(p3.cumulativeAbundance(), 1);

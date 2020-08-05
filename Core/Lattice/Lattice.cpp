@@ -57,7 +57,7 @@ Lattice Lattice::createTransformedLattice(const Transform3D& transform) const
     kvector_t a1 = transform.transformed(m_a);
     kvector_t a2 = transform.transformed(m_b);
     kvector_t a3 = transform.transformed(m_c);
-    Lattice result = Lattice(a1, a2, a3);
+    Lattice result = {a1, a2, a3};
     if (mp_selection_rule)
         result.setSelectionRule(*mp_selection_rule);
     return result;

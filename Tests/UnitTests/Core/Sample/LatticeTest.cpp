@@ -23,7 +23,7 @@ TEST_F(LatticeTest, declarationTest)
     EXPECT_EQ(a3, l2.getBasisVectorC());
 
     // calls and tests copy constructor
-    Lattice l3 = Lattice(l2);
+    Lattice l3 = {l2};
     EXPECT_EQ(a1, l3.getBasisVectorA());
     EXPECT_EQ(a2, l3.getBasisVectorB());
     EXPECT_EQ(a3, l3.getBasisVectorC());

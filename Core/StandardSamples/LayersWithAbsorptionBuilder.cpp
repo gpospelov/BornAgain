@@ -85,6 +85,6 @@ size_t LayersWithAbsorptionBuilder::size()
 
 FormFactorComponents& LayersWithAbsorptionBuilder::ff_components()
 {
-    static FormFactorComponents result = FormFactorComponents();
+    static FormFactorComponents result = {};
     return result;
 }

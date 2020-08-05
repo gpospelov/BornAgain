@@ -57,6 +57,6 @@ TEST_F(ParameterPatternTest, copyTest)
     EXPECT_EQ("/Desktop/BornAgain/Core/Tests", p3.toStdString());
 
     // calls copy constructor
-    ParameterPattern p4 = ParameterPattern(p2);
+    ParameterPattern p4 = {p2};
     EXPECT_EQ("/Desktop/BornAgain/Core/Tests", p4.toStdString());
 }

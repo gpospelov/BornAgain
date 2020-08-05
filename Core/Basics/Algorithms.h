@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_BASICS_ALGORITHMS_H
 #define BORNAGAIN_CORE_BASICS_ALGORITHMS_H
 
-#include <algorithm>
 #include "Core/Basics/Assert.h"
+#include <algorithm>
 #include <functional>
 #include <vector>
 

@@ -21,7 +21,9 @@
 #ifdef QT_MESSAGELOGCONTEXT
 
 #include <QtGlobal>
-#define ASSERT(condition) if (!(condition)) qFatal("Assertion failed")
+#define ASSERT(condition)                                                                          \
+    if (!(condition))                                                                              \
+    qFatal("Assertion failed")
 
 #else // QT_MESSAGELOGCONTEXT undefined
 

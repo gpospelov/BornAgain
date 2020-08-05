@@ -14,6 +14,7 @@
 
 #include "Tests/Functional/GUI/Other/SaveLoadProject.h"
 #include "BATesting.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
@@ -33,7 +34,6 @@
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>
-#include "Core/Basics/Assert.h"
 
 namespace
 {

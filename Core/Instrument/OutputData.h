@@ -15,13 +15,13 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
 #define BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
 
+#include "Core/Basics/Assert.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Instrument/LLData.h"
 #include "Core/Instrument/OutputDataIterator.h"
 #include "Core/Parametrization/ThreadInfo.h"
 #include "Core/Tools/PyObject.h"
 #include "Core/Tools/SafePointerVector.h"
-#include "Core/Basics/Assert.h"
 #include <sstream>
 
 using std::size_t;

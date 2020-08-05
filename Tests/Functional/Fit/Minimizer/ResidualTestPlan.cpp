@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Fit/Minimizer/ResidualTestPlan.h"
+#include "Core/Basics/Assert.h"
 #include "Fit/Kernel/Minimizer.h"
 #include "Fit/Kernel/Parameters.h"
 #include "Fit/TestEngine/Numeric.h"
-#include "Core/Basics/Assert.h"
 #include <iostream>
 #include <sstream>
 

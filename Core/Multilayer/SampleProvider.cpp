@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/SampleProvider.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include "Core/Basics/Assert.h"
+#include "Core/Multilayer/MultiLayer.h"
 
 SampleProvider::SampleProvider() {}
 

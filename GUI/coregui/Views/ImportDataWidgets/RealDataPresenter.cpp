@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataPresenter.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataMaskWidget.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataProjectionsWidget.h"
@@ -20,7 +21,6 @@
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularDataWidget.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <QAction>
-#include "Core/Basics/Assert.h"
 
 RealDataPresenter::RealDataPresenter(QWidget* parent) : ItemComboWidget(parent)
 {

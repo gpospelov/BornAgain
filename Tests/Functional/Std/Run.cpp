@@ -14,6 +14,7 @@
 
 #include "BABuild.h"
 #include "BATesting.h"
+#include "Core/Basics/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
@@ -22,7 +23,6 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Core/Basics/Assert.h"
 #include <iostream>
 
 // implemented differently for Core/Py/Gui tests:

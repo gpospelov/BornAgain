@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
+#include "Core/Basics/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/OutputData.h"
 #include "Fit/TestEngine/Numeric.h"
 #include "Tests/Performance/Benchmark.h"
 #include <boost/format.hpp>
-#include "Core/Basics/Assert.h"
 #include <iomanip>
 #include <iostream>
 #include <random>

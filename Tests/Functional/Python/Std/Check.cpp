@@ -14,12 +14,12 @@
 
 #include "BABuild.h"
 #include "BATesting.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include "Core/Basics/Assert.h"
 #include <fstream>
 #include <iostream>
 

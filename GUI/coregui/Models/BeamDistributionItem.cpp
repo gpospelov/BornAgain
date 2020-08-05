@@ -134,7 +134,7 @@ double BeamDistributionItem::scaleFactor() const
 void BeamDistributionItem::register_distribution_group(const QString& group_type)
 {
     ASSERT(group_type == "Distribution extended group"
-             || group_type == "Symmetric distribution group");
+           || group_type == "Symmetric distribution group");
     addGroupProperty(P_DISTRIBUTION, group_type);
 }
 

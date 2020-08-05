@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Tools/FileSystemUtils.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Basics/Exceptions.h"
 #include <boost/filesystem.hpp>
-#include "Core/Basics/Assert.h"
 #include <codecvt>
 #include <locale>
 #include <regex>

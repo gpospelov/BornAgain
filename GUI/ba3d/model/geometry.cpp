@@ -14,6 +14,7 @@
 
 #include "GUI/ba3d/model/geometry.h"
 #include "GUI/ba3d/model/model.h"
+#include "Core/Basics/Assert.h"
 
 namespace RealSpace
 {

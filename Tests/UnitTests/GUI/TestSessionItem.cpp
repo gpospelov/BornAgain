@@ -26,7 +26,7 @@ TEST_F(TestSessionItem, defaultTag)
 
     // insertion without tag is forbidden
     SessionItem* child = new SessionItem(modelType);
-    EXPECT_THROW(item->insertItem(0, child), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(0, child), ::testing::KilledBySignal(6), ".*");
     delete child;
     EXPECT_EQ(item->numberOfChildren(), 0);
 }
@@ -56,7 +56,7 @@ TEST_F(TestSessionItem, singleTagAndItems)
     SessionItem* child = new SessionItem(modelType);
     EXPECT_TRUE(item->insertItem(0, child, tag1));
     // double insertion is forbidden
-    EXPECT_THROW(item->insertItem(0, child, tag1), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(0, child, tag1), ::testing::KilledBySignal(6), ".*");
     EXPECT_TRUE(child->parent() == item.get());
     EXPECT_EQ(item->numberOfChildren(), 1);
 
@@ -136,7 +136,7 @@ TEST_F(TestSessionItem, tagWithLimits)
         EXPECT_TRUE(item->insertItem(-1, child, tag1));
     }
     auto extra = new SessionItem(modelType);
-    EXPECT_THROW(item->insertItem(-1, extra, tag1), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(-1, extra, tag1), ::testing::KilledBySignal(6), ".*");
 }
 
 TEST_F(TestSessionItem, tagsAndModelTypes)
@@ -251,25 +251,25 @@ TEST_F(TestSessionItem, modelTypes)
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model2), "Tag1"));
 
     auto child = new SessionItem(model3);
-    EXPECT_THROW(item->insertItem(0, child, "Tag1"), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(0, child, "Tag1"), ::testing::KilledBySignal(6), ".*");
     delete child;
 
     child = new SessionItem(model4);
-    EXPECT_THROW(item->insertItem(0, child, "Tag1"), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(0, child, "Tag1"), ::testing::KilledBySignal(6), ".*");
     delete child;
 
     child = new SessionItem(model5);
-    EXPECT_THROW(item->insertItem(0, child, "Tag1"), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(0, child, "Tag1"), ::testing::KilledBySignal(6), ".*");
     delete child;
 
     EXPECT_TRUE(item->registerTag("Tag2", 0, -1, QStringList() << model3 << model4 << model5));
 
     child = new SessionItem(model1);
-    EXPECT_THROW(item->insertItem(0, child, "Tag2"), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(0, child, "Tag2"), ::testing::KilledBySignal(6), ".*");
     delete child;
 
     child = new SessionItem(model2);
-    EXPECT_THROW(item->insertItem(0, child, "Tag2"), GUIHelpers::Error);
+    EXPECT_EXIT(item->insertItem(0, child, "Tag2"), ::testing::KilledBySignal(6), ".*");
     delete child;
 
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model3), "Tag2"));

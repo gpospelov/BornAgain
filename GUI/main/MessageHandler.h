@@ -14,4 +14,4 @@
 
 #include <QApplication>
 
-void MessageHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg);
+void MessageHandler(QtMsgType type, const QMessageLogContext&, const QString& msg);

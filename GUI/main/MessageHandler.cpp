@@ -16,14 +16,8 @@
 #include <QMessageBox>
 #include <iostream>
 
-#ifndef QT_NO_DEBUG
-#define context(ctx) " [" << ctx.function << "]"
-#else
-#define context(ctx) ""
-#endif
-
 //! This is set by main to be the message handler of our GUI.
-void MessageHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
+void MessageHandler(QtMsgType type, const QMessageLogContext&, const QString& msg)
 {
     switch (type) {
     case QtDebugMsg:
@@ -32,27 +26,23 @@ void MessageHandler(QtMsgType type, const QMessageLogContext& ctx, const QString
         std::cerr << "DEBUG: " << msg.toStdString() << std::endl;
         break;
     case QtInfoMsg:
-        std::cerr << "INFO: " << msg.toStdString() << context(ctx) << std::endl;
+        std::cerr << "INFO: " << msg.toStdString() << std::endl;
         break;
     case QtWarningMsg:
     default:
         if (msg.left(4) == "QXcb")
             return;
-        std::cerr << "WARNING: " << msg.toStdString() << " [" << ctx.function << "]" << std::endl;
+        std::cerr << "WARNING: " << msg.toStdString() << std::endl;
         // QMessageBox::warning(QApplication::activeWindow(), qAppName(), msg);
         break;
     case QtFatalMsg:
-        std::cerr << "FATAL: " << msg.toStdString() << " [" << ctx.function << "]" << std::endl;
+        std::cerr << "FATAL: " << msg.toStdString() << std::endl;
         qApp->restoreOverrideCursor();
         QMessageBox::critical(QApplication::activeWindow(), qAppName(),
                               "Sorry, you encountered a fatal bug.\n"
                               "The application will terminate.\n"
                               "Please note the following and inform the maintainers.\n\n"
-                              "Error:\n"
-                                  + msg
-                                  + "\n"
-                                    "Context:\n"
-                                  + ctx.function + "\n");
+                              + msg + "\n");
         qApp->quit();
         exit(1);
     }

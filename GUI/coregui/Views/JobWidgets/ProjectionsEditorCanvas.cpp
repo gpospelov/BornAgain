@@ -30,7 +30,7 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
       m_liveProjection(nullptr), m_model(nullptr), m_intensityDataItem(nullptr),
       m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE), m_block_update(false)
 {
-    setObjectName(QStringLiteral("MaskEditorCanvas"));
+    setObjectName("MaskEditorCanvas");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -64,7 +64,7 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
 void ProjectionsEditorCanvas::resetContext()
 {
     m_intensityDataItem = nullptr;
-    m_containerIndex = QModelIndex();
+    m_containerIndex = {};
     setConnected(false);
     m_colorMap = nullptr;
     m_scene->resetContext();

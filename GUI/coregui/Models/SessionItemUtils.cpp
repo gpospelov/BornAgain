@@ -28,7 +28,7 @@ namespace
 {
 const GroupInfoCatalog& groupInfoCatalog()
 {
-    static GroupInfoCatalog s_catalog = GroupInfoCatalog();
+    static GroupInfoCatalog s_catalog = {};
     return s_catalog;
 }
 

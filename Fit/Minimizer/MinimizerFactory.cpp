@@ -130,6 +130,6 @@ std::string MinimizerFactory::catalogDetailsToString()
 
 const MinimizerCatalog& MinimizerFactory::catalog()
 {
-    static MinimizerCatalog s_catalog = MinimizerCatalog();
+    static MinimizerCatalog s_catalog;
     return s_catalog;
 }

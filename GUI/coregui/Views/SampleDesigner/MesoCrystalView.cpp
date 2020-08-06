@@ -25,11 +25,11 @@ MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect("ParticleCoreShell"));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
+        ->setToolTip("Connect to the ParticleLayout");
     addPort("basis", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
-        ->setToolTip(QStringLiteral("Connect basis particles"));
+        ->setToolTip("Connect basis particles");
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
-        ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
+        ->setToolTip("Connect rotation to this port, if necessary");
     m_label_vspace = StyleUtils::SizeOfLetterM().height() * 2.5;
 }
 

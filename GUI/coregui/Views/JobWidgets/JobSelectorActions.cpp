@@ -27,12 +27,12 @@ JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
     : QObject(parent), m_runJobAction(nullptr), m_removeJobAction(nullptr),
       m_selectionModel(nullptr), m_jobModel(jobModel)
 {
-    m_runJobAction = new QAction(QStringLiteral("Run"), this);
+    m_runJobAction = new QAction("Run", this);
     m_runJobAction->setIcon(QIcon(":/images/play.svg"));
     m_runJobAction->setToolTip("Run currently selected job");
     connect(m_runJobAction, &QAction::triggered, this, &JobSelectorActions::onRunJob);
 
-    m_removeJobAction = new QAction(QStringLiteral("Remove"), this);
+    m_removeJobAction = new QAction("Remove", this);
     m_removeJobAction->setIcon(QIcon(":/images/delete.svg"));
     m_removeJobAction->setToolTip("Remove currently selected job.");
     connect(m_removeJobAction, &QAction::triggered, this, &JobSelectorActions::onRemoveJob);

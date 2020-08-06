@@ -31,7 +31,7 @@ namespace
 
 QString group_name()
 {
-    return QStringLiteral("IntensityDataCanvas/");
+    return "IntensityDataCanvas/";
 }
 QString gradient_setting_name()
 {

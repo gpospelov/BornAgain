@@ -109,7 +109,7 @@ void MaskGraphicsScene::resetContext()
         disconnect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
     }
     m_maskModel = nullptr;
-    m_maskContainerIndex = QModelIndex();
+    m_maskContainerIndex = {};
     resetScene();
 }
 
@@ -646,7 +646,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
     if (PolygonView* polygon = currentPolygon()) {
         if (polygon->closePolygonIfNecessary()) {
             setDrawingInProgress(false);
-            m_currentMousePosition = QPointF();
+            m_currentMousePosition = {};
             return;
         }
     }

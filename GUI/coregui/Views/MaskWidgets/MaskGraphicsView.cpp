@@ -30,7 +30,7 @@ const double zoom_step = 0.05;
 MaskGraphicsView::MaskGraphicsView(QGraphicsScene* scene, QWidget* parent)
     : QGraphicsView(scene, parent), m_current_zoom_value(1.0)
 {
-    setObjectName(QStringLiteral("MaskGraphicsView"));
+    setObjectName("MaskGraphicsView");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setRenderHints(QPainter::HighQualityAntialiasing | QPainter::TextAntialiasing);
     setStyleSheet("QGraphicsView { border-style: none; }");

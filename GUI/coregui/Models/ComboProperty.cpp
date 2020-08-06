@@ -220,10 +220,10 @@ void ComboProperty::setStringOfSelections(const QString& values)
 QString ComboProperty::label() const
 {
     if (m_selected_indices.size() > 1) {
-        return QStringLiteral("Multiple");
+        return "Multiple";
     } else if (m_selected_indices.size() == 1) {
         return getValue();
     } else {
-        return QStringLiteral("None");
+        return "None";
     }
 }

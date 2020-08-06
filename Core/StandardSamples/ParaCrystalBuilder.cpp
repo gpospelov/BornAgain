@@ -127,7 +127,7 @@ size_t Basic2DParaCrystalBuilder::size()
 
 FTDistribution2DComponents& Basic2DParaCrystalBuilder::pdf_components()
 {
-    static FTDistribution2DComponents result = FTDistribution2DComponents();
+    static FTDistribution2DComponents result = {};
     return result;
 }
 

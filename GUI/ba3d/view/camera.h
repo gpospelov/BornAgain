@@ -39,7 +39,7 @@ public:
 
         Position();
         Position(const Vector3D& eye, const Vector3D& ctr, const Vector3D& up,
-                 const QQuaternion& = QQuaternion());
+                 const QQuaternion& = {});
 
         Vector3D eye, ctr, up;
         QQuaternion rot;

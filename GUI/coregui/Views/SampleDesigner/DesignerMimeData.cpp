@@ -78,11 +78,11 @@ void DesignerMimeData::read_widget(QXmlStreamReader& reader)
 {
     for (const QXmlStreamAttribute& attribute : reader.attributes()) {
         QStringRef name = attribute.name();
-        if (name == QStringLiteral("class")) {
+        if (name == "class") {
             m_classname = attribute.value().toString();
             continue;
         }
-        reader.raiseError(QStringLiteral("Unexpected attribute ") + name.toString());
+        reader.raiseError("Unexpected attribute " + name.toString());
     }
     reader.skipCurrentElement();
 }

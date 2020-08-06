@@ -33,7 +33,7 @@ void FitParameterHelper::createFitParameter(FitParameterContainerItem* container
     FitParameterItem* fitPar = dynamic_cast<FitParameterItem*>(
         container->model()->insertNewItem("FitParameter", container->index()));
     Q_ASSERT(fitPar);
-    fitPar->setDisplayName(QStringLiteral("par"));
+    fitPar->setDisplayName("par");
     SessionItem* link = fitPar->model()->insertNewItem("FitParameterLink", fitPar->index());
     fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
     link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));

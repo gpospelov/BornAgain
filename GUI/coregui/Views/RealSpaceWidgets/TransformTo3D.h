@@ -36,7 +36,7 @@ BA_CORE_API_ double visualLayerThickness(const SessionItem& layerItem,
 BA_CORE_API_
 std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
                                               const SceneGeometry& sceneGeometry,
-                                              const QVector3D& origin = QVector3D());
+                                              const QVector3D& origin = {});
 
 BA_CORE_API_
 std::unique_ptr<RealSpace::Particles::Particle> createParticle3D(const SessionItem& particleItem);

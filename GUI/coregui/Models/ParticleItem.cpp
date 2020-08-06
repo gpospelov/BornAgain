@@ -45,7 +45,7 @@ ParticleItem::ParticleItem() : SessionGraphicsItem("Particle")
 {
     addGroupProperty(P_FORM_FACTOR, "Form Factor");
     addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
-        ->setToolTip(QStringLiteral("Material of particle"))
+        ->setToolTip("Material of particle")
         .setEditorType("ExtMaterialEditor");
 
     addProperty(P_ABUNDANCE, 1.0)

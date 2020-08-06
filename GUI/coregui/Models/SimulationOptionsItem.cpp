@@ -22,10 +22,8 @@ namespace
 QStringList getRunPolicyTooltips()
 {
     QStringList result;
-    result.append(QStringLiteral(
-        "Start simulation immediately, switch to Jobs view automatically when completed"));
-    result.append(
-        QStringLiteral("Start simulation immediately, do not switch to Jobs view when completed"));
+    result.append("Start simulation immediately, switch to Jobs view automatically when completed");
+    result.append("Start simulation immediately, do not switch to Jobs view when completed");
     return result;
 }
 

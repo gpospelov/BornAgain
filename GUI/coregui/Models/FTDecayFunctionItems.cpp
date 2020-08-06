@@ -24,7 +24,7 @@ FTDecayFunction1DItem::FTDecayFunction1DItem(const QString& name) : SessionItem(
 void FTDecayFunction1DItem::add_decay_property()
 {
     addProperty(P_DECAY_LENGTH, 1000.0)
-        ->setToolTip(QStringLiteral("Decay length (half-width of the distribution in nanometers)"));
+        ->setToolTip("Decay length (half-width of the distribution in nanometers)");
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -32,7 +32,7 @@ void FTDecayFunction1DItem::add_decay_property()
 FTDecayFunction1DCauchyItem::FTDecayFunction1DCauchyItem()
     : FTDecayFunction1DItem("FTDecayFunction1DCauchy")
 {
-    setToolTip(QStringLiteral("One-dimensional Cauchy decay function"));
+    setToolTip("One-dimensional Cauchy decay function");
     add_decay_property();
 }
 
@@ -46,7 +46,7 @@ std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DCauchyItem::createFTDecayFu
 FTDecayFunction1DGaussItem::FTDecayFunction1DGaussItem()
     : FTDecayFunction1DItem("FTDecayFunction1DGauss")
 {
-    setToolTip(QStringLiteral("One-dimensional Gauss decay function"));
+    setToolTip("One-dimensional Gauss decay function");
     add_decay_property();
 }
 
@@ -60,7 +60,7 @@ std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DGaussItem::createFTDecayFun
 FTDecayFunction1DTriangleItem::FTDecayFunction1DTriangleItem()
     : FTDecayFunction1DItem("FTDecayFunction1DTriangle")
 {
-    setToolTip(QStringLiteral("One-dimensional triangle decay function"));
+    setToolTip("One-dimensional triangle decay function");
     add_decay_property();
 }
 
@@ -76,12 +76,11 @@ const QString FTDecayFunction1DVoigtItem::P_ETA = QString::fromStdString("Eta");
 FTDecayFunction1DVoigtItem::FTDecayFunction1DVoigtItem()
     : FTDecayFunction1DItem("FTDecayFunction1DVoigt")
 {
-    setToolTip(QStringLiteral("One-dimensional pseudo-Voigt decay function"));
+    setToolTip("One-dimensional pseudo-Voigt decay function");
     add_decay_property();
     addProperty(P_ETA, 0.5)
         ->setLimits(RealLimits::limited(0.0, 1.0))
-        .setToolTip(QStringLiteral(
-            "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
+        .setToolTip("Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)");
 }
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DVoigtItem::createFTDecayFunction() const
@@ -102,18 +101,18 @@ FTDecayFunction2DItem::FTDecayFunction2DItem(const QString& name) : SessionItem(
 void FTDecayFunction2DItem::add_decay_property()
 {
     addProperty(P_DECAY_LENGTH_X, 1000.0)
-        ->setToolTip(QStringLiteral("Decay length (half-width of the distribution in nanometers) "
-                                    "\nalong x-axis of the distribution"));
+        ->setToolTip("Decay length (half-width of the distribution in nanometers) "
+                     "\nalong x-axis of the distribution");
     addProperty(P_DECAY_LENGTH_Y, 1000.0)
-        ->setToolTip(QStringLiteral("Decay length (half-width of the distribution in nanometers) "
-                                    "\nalong y-axis of the distribution"));
+        ->setToolTip("Decay length (half-width of the distribution in nanometers) "
+                     "\nalong y-axis of the distribution");
 }
 
 void FTDecayFunction2DItem::add_gammadelta_property()
 {
     addProperty(P_GAMMA, 0.0)
-        ->setToolTip(QStringLiteral(
-            "Distribution orientation with respect to the first lattice vector in degrees"));
+        ->setToolTip(
+            "Distribution orientation with respect to the first lattice vector in degrees");
     addProperty(P_DELTA, 90.0)->setVisible(false);
 }
 
@@ -122,7 +121,7 @@ void FTDecayFunction2DItem::add_gammadelta_property()
 FTDecayFunction2DCauchyItem::FTDecayFunction2DCauchyItem()
     : FTDecayFunction2DItem("FTDecayFunction2DCauchy")
 {
-    setToolTip(QStringLiteral("Two-dimensional Cauchy decay function"));
+    setToolTip("Two-dimensional Cauchy decay function");
     add_decay_property();
     add_gammadelta_property();
 }
@@ -139,7 +138,7 @@ std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DCauchyItem::createFTDecayFu
 FTDecayFunction2DGaussItem::FTDecayFunction2DGaussItem()
     : FTDecayFunction2DItem("FTDecayFunction2DGauss")
 {
-    setToolTip(QStringLiteral("Two-dimensional Gauss decay function"));
+    setToolTip("Two-dimensional Gauss decay function");
     add_decay_property();
     add_gammadelta_property();
 }
@@ -158,12 +157,11 @@ const QString FTDecayFunction2DVoigtItem::P_ETA = QString::fromStdString("Eta");
 FTDecayFunction2DVoigtItem::FTDecayFunction2DVoigtItem()
     : FTDecayFunction2DItem("FTDecayFunction2DVoigt")
 {
-    setToolTip(QStringLiteral("Two-dimensional pseudo-Voigt decay function"));
+    setToolTip("Two-dimensional pseudo-Voigt decay function");
     add_decay_property();
     addProperty(P_ETA, 0.5)
         ->setLimits(RealLimits::limited(0.0, 1.0))
-        .setToolTip(QStringLiteral(
-            "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
+        .setToolTip("Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)");
     add_gammadelta_property();
 }
 

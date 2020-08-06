@@ -43,23 +43,21 @@ public:
                                                   RealSpace::Vector3D::_z));         // up
 
     void populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
-                            const SceneGeometry& sceneGeometry,
-                            const QVector3D& origin = QVector3D());
+                            const SceneGeometry& sceneGeometry, const QVector3D& origin = {});
 
     void populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
-                       const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D(),
+                       const SceneGeometry& sceneGeometry, const QVector3D& origin = {},
                        const bool isTopLayer = false);
 
     void populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
-                        const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
+                        const SceneGeometry& sceneGeometry, const QVector3D& origin = {});
 
     void populateParticleFromParticleItem(RealSpaceModel* model,
                                           const SessionItem& particleItem) const;
 
-    void
-    populateParticleFromParticle3DContainer(RealSpaceModel* model,
-                                            const Particle3DContainer& particle3DContainer,
-                                            const QVector3D& lattice_position = QVector3D()) const;
+    void populateParticleFromParticle3DContainer(RealSpaceModel* model,
+                                                 const Particle3DContainer& particle3DContainer,
+                                                 const QVector3D& lattice_position = {}) const;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDER_H

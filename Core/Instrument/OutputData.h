@@ -551,7 +551,7 @@ template <class T> void OutputData<T>::allocate()
         dims[i] = (int)getAxis(i).size();
     }
     mp_ll_data = new LLData<T>(rank, dims);
-    T default_value = T();
+    T default_value = {};
     mp_ll_data->setAll(default_value);
     delete[] dims;
 }

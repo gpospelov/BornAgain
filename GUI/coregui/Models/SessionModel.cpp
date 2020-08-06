@@ -77,7 +77,7 @@ QVariant SessionModel::data(const QModelIndex& index, int role) const
     if (SessionItem* item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
             if (index.column() == SessionFlags::ITEM_VALUE)
-                return item->data(Qt::DisplayRole);
+                return item->value();
             if (index.column() == SessionFlags::ITEM_NAME)
                 return item->itemName();
         } else if (role == Qt::ToolTipRole) {
@@ -90,7 +90,7 @@ QVariant SessionModel::data(const QModelIndex& index, int role) const
         } else if (role == Qt::CheckStateRole && index.column() == SessionFlags::ITEM_VALUE) {
             return SessionItemUtils::CheckStateRole(*item);
         } else {
-            return item->data(role);
+            return item->roleProperty(role);
         }
     }
     return QVariant();
@@ -160,7 +160,7 @@ bool SessionModel::setData(const QModelIndex& index, const QVariant& value, int 
 
     QModelIndex dataIndex = index;
     if (SessionItem* item = itemForIndex(dataIndex))
-        if (item->setData(role, value))
+        if (item->setRoleProperty(role, value))
             return true;
 
     return false;

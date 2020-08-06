@@ -205,25 +205,25 @@ void MainWindow::initViews()
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_welcomeview.svg"),
                            "Welcome");
-    m_tabWidget->setTabToolTip(WELCOME, QStringLiteral("Switch to Welcome View"));
+    m_tabWidget->setTabToolTip(WELCOME, "Switch to Welcome View");
 
     m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrumentview.svg"),
                            "Instrument");
-    m_tabWidget->setTabToolTip(INSTRUMENT, QStringLiteral("Define the beam and the detector"));
+    m_tabWidget->setTabToolTip(INSTRUMENT, "Define the beam and the detector");
 
     m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sampleview.svg"), "Sample");
-    m_tabWidget->setTabToolTip(SAMPLE, QStringLiteral("Build the sample"));
+    m_tabWidget->setTabToolTip(SAMPLE, "Build the sample");
 
     m_tabWidget->insertTab(IMPORT, m_importDataView, QIcon(":/images/main_importview.svg"), "Data");
-    m_tabWidget->setTabToolTip(IMPORT, QStringLiteral("Import intensity data to fit"));
+    m_tabWidget->setTabToolTip(IMPORT, "Import intensity data to fit");
 
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulationview.svg"),
                            "Simulation");
-    m_tabWidget->setTabToolTip(SIMULATION, QStringLiteral("Run simulation"));
+    m_tabWidget->setTabToolTip(SIMULATION, "Run simulation");
 
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobview.svg"), "Jobs");
     m_tabWidget->setTabToolTip(
-        JOB, QStringLiteral("Switch to see job results, tune parameters real time,\nfit the data"));
+        JOB, "Switch to see job results, tune parameters real time,\nfit the data");
 
     m_tabWidget->setCurrentIndex(WELCOME);
 

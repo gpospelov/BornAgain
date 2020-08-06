@@ -27,11 +27,11 @@ namespace
 
 ComboProperty fitParameterTypeCombo()
 {
-    QStringList tooltips = QStringList() << QStringLiteral("Fixed at given value")
-                                         << QStringLiteral("Limited in the range [min, max]")
-                                         << QStringLiteral("Limited at lower bound [min, inf]")
-                                         << QStringLiteral("Limited at upper bound [-inf, max]")
-                                         << QStringLiteral("No limits imposed to parameter value");
+    QStringList tooltips = QStringList() << "Fixed at given value"
+                                         << "Limited in the range [min, max]"
+                                         << "Limited at lower bound [min, inf]"
+                                         << "Limited at upper bound [-inf, max]"
+                                         << "No limits imposed to parameter value";
 
     ComboProperty result;
     result << "fixed"

@@ -30,7 +30,7 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget* parent)
       m_intensityDataItem(0), m_statusLabel(new PlotStatusLabel(0, this)),
       m_resultsPresenter(new MaskResultsPresenter(this))
 {
-    setObjectName(QStringLiteral("MaskEditorCanvas"));
+    setObjectName("MaskEditorCanvas");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;

@@ -30,21 +30,20 @@ const QString LayerItem::T_LAYOUTS = "Layout tag";
 
 LayerItem::LayerItem() : SessionGraphicsItem("Layer")
 {
-    setToolTip(QStringLiteral("A layer with thickness and material"));
+    setToolTip("A layer with thickness and material");
     addProperty(P_THICKNESS, 0.0)
         ->setLimits(RealLimits::lowerLimited(0.0))
-        .setToolTip(QStringLiteral("Thickness of a layer in nanometers"));
+        .setToolTip("Thickness of a layer in nanometers");
 
     addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
-        ->setToolTip(QStringLiteral("Material the layer is made of"))
+        ->setToolTip("Material the layer is made of")
         .setEditorType("ExtMaterialEditor");
 
     addProperty(P_NSLICES, 1)
         ->setLimits(RealLimits::lowerLimited(0.0))
         .setToolTip(layer_nslices_tooltip);
 
-    addGroupProperty(P_ROUGHNESS, "Roughness")
-        ->setToolTip(QStringLiteral("Roughness of top interface"));
+    addGroupProperty(P_ROUGHNESS, "Roughness")->setToolTip("Roughness of top interface");
 
     registerTag(T_LAYOUTS, 0, -1, QStringList() << "ParticleLayout");
     setDefaultTag(T_LAYOUTS);

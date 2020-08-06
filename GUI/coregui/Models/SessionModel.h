@@ -54,8 +54,8 @@ public:
     // End overridden methods from QAbstractItemModel
 
     QModelIndex indexOfItem(SessionItem* item) const;
-    SessionItem* insertNewItem(QString model_type, const QModelIndex& parent = QModelIndex(),
-                               int row = -1, QString tag = "");
+    SessionItem* insertNewItem(QString model_type, const QModelIndex& parent = {}, int row = -1,
+                               QString tag = "");
 
     QString getModelTag() const;
     QString getModelName() const;

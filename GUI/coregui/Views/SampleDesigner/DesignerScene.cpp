@@ -134,7 +134,7 @@ void DesignerScene::resetScene()
 {
     clear();
     m_ItemToView.clear();
-    m_layer_interface_line = QLineF();
+    m_layer_interface_line = {};
 }
 
 void DesignerScene::updateScene()

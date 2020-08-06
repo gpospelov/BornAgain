@@ -70,6 +70,6 @@ size_t ParticleInTheAirBuilder::size()
 
 FormFactorComponents& ParticleInTheAirBuilder::ff_components()
 {
-    static FormFactorComponents result = FormFactorComponents();
+    static FormFactorComponents result = {};
     return result;
 }

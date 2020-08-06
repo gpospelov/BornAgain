@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/IView.h"
-#include "GUI/coregui/Models/ModelMapper.h"
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 #include <QString>
 

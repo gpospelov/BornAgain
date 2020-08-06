@@ -18,8 +18,8 @@
 #include <QRect>
 
 WarningSignWidget::WarningSignWidget(QWidget* parent)
-    : QWidget(parent), m_pixmap(QStringLiteral(":/images/warning@2x.png")),
-      m_warning_header(QStringLiteral("Houston, we have a problem."))
+    : QWidget(parent), m_pixmap(":/images/warning@2x.png"),
+      m_warning_header("Houston, we have a problem.")
 {
     setAttribute(Qt::WA_NoSystemBackground);
     setToolTip(m_warning_header + "\nClick to see details.");

@@ -21,8 +21,7 @@ FTDistribution1DItem::FTDistribution1DItem(const QString& name) : SessionItem(na
 
 void FTDistribution1DItem::add_omega_property()
 {
-    addProperty(P_OMEGA, 1.0)
-        ->setToolTip(QStringLiteral("Half-width of the distribution in nanometers"));
+    addProperty(P_OMEGA, 1.0)->setToolTip("Half-width of the distribution in nanometers");
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -30,7 +29,7 @@ void FTDistribution1DItem::add_omega_property()
 FTDistribution1DCauchyItem::FTDistribution1DCauchyItem()
     : FTDistribution1DItem("FTDistribution1DCauchy")
 {
-    setToolTip(QStringLiteral("One-dimensional Cauchy probability distribution"));
+    setToolTip("One-dimensional Cauchy probability distribution");
     add_omega_property();
 }
 
@@ -44,7 +43,7 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DCauchyItem::createFTDistribut
 FTDistribution1DGaussItem::FTDistribution1DGaussItem()
     : FTDistribution1DItem("FTDistribution1DGauss")
 {
-    setToolTip(QStringLiteral("One-dimensional Gauss probability distribution"));
+    setToolTip("One-dimensional Gauss probability distribution");
     add_omega_property();
 }
 
@@ -57,7 +56,7 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DGaussItem::createFTDistributi
 
 FTDistribution1DGateItem::FTDistribution1DGateItem() : FTDistribution1DItem("FTDistribution1DGate")
 {
-    setToolTip(QStringLiteral("One-dimensional Gate probability distribution"));
+    setToolTip("One-dimensional Gate probability distribution");
     add_omega_property();
 }
 
@@ -71,7 +70,7 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DGateItem::createFTDistributio
 FTDistribution1DTriangleItem::FTDistribution1DTriangleItem()
     : FTDistribution1DItem("FTDistribution1DTriangle")
 {
-    setToolTip(QStringLiteral("One-dimensional triangle probability distribution"));
+    setToolTip("One-dimensional triangle probability distribution");
     add_omega_property();
 }
 
@@ -85,7 +84,7 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DTriangleItem::createFTDistrib
 FTDistribution1DCosineItem::FTDistribution1DCosineItem()
     : FTDistribution1DItem("FTDistribution1DCosine")
 {
-    setToolTip(QStringLiteral("One-dimensional Cosine probability distribution"));
+    setToolTip("One-dimensional Cosine probability distribution");
     add_omega_property();
 }
 
@@ -101,12 +100,11 @@ const QString FTDistribution1DVoigtItem::P_ETA = QString::fromStdString("Eta");
 FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
     : FTDistribution1DItem("FTDistribution1DVoigt")
 {
-    setToolTip(QStringLiteral("One-dimensional pseudo-Voigt probability distribution"));
+    setToolTip("One-dimensional pseudo-Voigt probability distribution");
     add_omega_property();
     addProperty(P_ETA, 0.5)
         ->setLimits(RealLimits::limited(0.0, 1.0))
-        .setToolTip(QStringLiteral(
-            "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
+        .setToolTip("Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)");
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistribution() const
@@ -126,19 +124,16 @@ FTDistribution2DItem::FTDistribution2DItem(const QString& name) : SessionItem(na
 void FTDistribution2DItem::add_omega_properties()
 {
     addProperty(P_OMEGA_X, 1.0)
-        ->setToolTip(
-            QStringLiteral("Half-width of the distribution along its x-axis in nanometers"));
+        ->setToolTip("Half-width of the distribution along its x-axis in nanometers");
     addProperty(P_OMEGA_Y, 1.0)
-        ->setToolTip(
-            QStringLiteral("Half-width of the distribution along its y-axis in nanometers"));
+        ->setToolTip("Half-width of the distribution along its y-axis in nanometers");
 }
 
 void FTDistribution2DItem::add_gamma_property()
 {
     addProperty(P_GAMMA, 0.0)
-        ->setToolTip(
-            QStringLiteral("Angle in direct space between "
-                           "first lattice vector \nand x-axis of the distribution in degrees"));
+        ->setToolTip("Angle in direct space between "
+                     "first lattice vector \nand x-axis of the distribution in degrees");
 }
 
 void FTDistribution2DItem::add_properties()
@@ -152,7 +147,7 @@ void FTDistribution2DItem::add_properties()
 FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
     : FTDistribution2DItem("FTDistribution2DCauchy")
 {
-    setToolTip(QStringLiteral("Two-dimensional Cauchy probability distribution"));
+    setToolTip("Two-dimensional Cauchy probability distribution");
     add_properties();
 }
 
@@ -168,7 +163,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DCauchyItem::createFTDistribut
 FTDistribution2DGaussItem::FTDistribution2DGaussItem()
     : FTDistribution2DItem("FTDistribution2DGauss")
 {
-    setToolTip(QStringLiteral("Two-dimensional Gauss probability distribution"));
+    setToolTip("Two-dimensional Gauss probability distribution");
     add_properties();
 }
 
@@ -183,7 +178,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGaussItem::createFTDistributi
 
 FTDistribution2DGateItem::FTDistribution2DGateItem() : FTDistribution2DItem("FTDistribution2DGate")
 {
-    setToolTip(QStringLiteral("Two-dimensional Gate probability distribution"));
+    setToolTip("Two-dimensional Gate probability distribution");
     add_properties();
 }
 
@@ -198,7 +193,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistributio
 
 FTDistribution2DConeItem::FTDistribution2DConeItem() : FTDistribution2DItem("FTDistribution2DCone")
 {
-    setToolTip(QStringLiteral("Two-dimensional Cone probability distribution"));
+    setToolTip("Two-dimensional Cone probability distribution");
     add_properties();
 }
 
@@ -216,13 +211,12 @@ const QString FTDistribution2DVoigtItem::P_ETA = QString::fromStdString("Eta");
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     : FTDistribution2DItem("FTDistribution2DVoigt")
 {
-    setToolTip(QStringLiteral("Two-dimensional pseudo-Voigt probability distribution"));
+    setToolTip("Two-dimensional pseudo-Voigt probability distribution");
 
     add_omega_properties();
     addProperty(P_ETA, 0.5)
         ->setLimits(RealLimits::limited(0.0, 1.0))
-        .setToolTip(QStringLiteral(
-            "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
+        .setToolTip("Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)");
     add_gamma_property();
 }
 

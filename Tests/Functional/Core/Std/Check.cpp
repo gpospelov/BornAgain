@@ -36,18 +36,16 @@ bool checkSimulation(const std::string& name, const Simulation& direct_simulatio
     assert(name != "");
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
-                            FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz")));
+            FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz")));
     } catch (const std::exception&) {
-        std::cout
-            << "No reference found, but we proceed with the simulation to create a new one\n";
+        std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }
 
     // Compare with reference if available.
     bool success = false;
     if (reference) {
         std::cout << "- check diff" << std::endl;
-        success =
-            IntensityDataFunctions::checkRelativeDifference(*reference, *result_data, limit);
+        success = IntensityDataFunctions::checkRelativeDifference(*reference, *result_data, limit);
     }
 
     // Save simulation if different from reference.

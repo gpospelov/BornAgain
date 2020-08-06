@@ -37,7 +37,7 @@ QString ProjectUtils::projectDir(const QString& projectFileName)
 
 QString ProjectUtils::autosaveSubdir()
 {
-    return QStringLiteral("autosave");
+    return "autosave";
 }
 
 //! From '/projects/Untitled2/Untitled2.pro' returns '/projects/Untitled2/autosave'.
@@ -98,7 +98,7 @@ bool ProjectUtils::removeRecursively(const QString& dirname)
 
 bool ProjectUtils::removeFile(const QString& dirname, const QString& filename)
 {
-    QString name = dirname + QStringLiteral("/") + filename;
+    QString name = dirname + "/" + filename;
     QFile fin(name);
 
     if (!fin.exists())

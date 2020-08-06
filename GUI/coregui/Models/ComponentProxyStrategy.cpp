@@ -29,7 +29,7 @@ void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyM
 
 bool ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
 {
-    QPersistentModelIndex sourceIndex = QPersistentModelIndex(index);
+    QPersistentModelIndex sourceIndex = {index};
 
     SessionItem* item = m_source->itemForIndex(index);
 

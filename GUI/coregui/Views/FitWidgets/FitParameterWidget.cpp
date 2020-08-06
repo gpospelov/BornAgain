@@ -58,7 +58,7 @@ FitParameterWidget::FitParameterWidget(QWidget* parent)
             SLOT(onFitParameterTreeContextMenu(const QPoint&)));
 
     m_infoLabel->setArea(m_treeView);
-    m_infoLabel->setText(QStringLiteral("Drop parameter(s) to fit here"));
+    m_infoLabel->setText("Drop parameter(s) to fit here");
 }
 
 //! Sets ParameterTuningWidget to be able to provide it with context menu and steer
@@ -217,13 +217,13 @@ void FitParameterWidget::subscribeToItem()
 
 void FitParameterWidget::init_actions()
 {
-    m_createFitParAction = new QAction(QStringLiteral("Create fit parameter"), this);
+    m_createFitParAction = new QAction("Create fit parameter", this);
     connect(m_createFitParAction, SIGNAL(triggered()), this, SLOT(onCreateFitParAction()));
 
-    m_removeFromFitParAction = new QAction(QStringLiteral("Remove from fit parameters"), this);
+    m_removeFromFitParAction = new QAction("Remove from fit parameters", this);
     connect(m_removeFromFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFromFitParAction()));
 
-    m_removeFitParAction = new QAction(QStringLiteral("Remove fit parameter"), this);
+    m_removeFitParAction = new QAction("Remove fit parameter", this);
     connect(m_removeFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFitParAction()));
 
     connect(m_keyboardFilter, SIGNAL(removeItem()), this, SLOT(onRemoveFitParAction()));

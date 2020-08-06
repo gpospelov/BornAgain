@@ -62,7 +62,7 @@ const QString MesoCrystalItem::P_VECTOR_C = "Third lattice vector";
 
 MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
 {
-    setToolTip(QStringLiteral("A 3D crystal structure of nanoparticles"));
+    setToolTip("A 3D crystal structure of nanoparticles");
 
     addGroupProperty(P_OUTER_SHAPE, "Form Factor");
 

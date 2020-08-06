@@ -38,7 +38,7 @@ const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
 
 ParticleCompositionItem::ParticleCompositionItem() : SessionGraphicsItem("ParticleComposition")
 {
-    setToolTip(QStringLiteral("Composition of particles with fixed positions"));
+    setToolTip("Composition of particles with fixed positions");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
         ->setLimits(RealLimits::limited(0.0, 1.0))

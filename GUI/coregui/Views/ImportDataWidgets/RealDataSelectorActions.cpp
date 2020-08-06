@@ -86,21 +86,21 @@ RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
       m_removeDataAction(nullptr), m_rotateDataAction(new QAction(this)), m_realDataModel(nullptr),
       m_selectionModel(nullptr)
 {
-    m_import2dDataAction = new QAction(QStringLiteral("Import 2D data"), parent);
+    m_import2dDataAction = new QAction("Import 2D data", parent);
     m_import2dDataAction->setIcon(QIcon(":/images/import.svg"));
-    m_import2dDataAction->setToolTip(QStringLiteral("Import 2D data"));
+    m_import2dDataAction->setToolTip("Import 2D data");
     connect(m_import2dDataAction, &QAction::triggered, this,
             &RealDataSelectorActions::onImport2dDataAction);
 
-    m_import1dDataAction = new QAction(QStringLiteral("Import 1D data"), parent);
+    m_import1dDataAction = new QAction("Import 1D data", parent);
     m_import1dDataAction->setIcon(QIcon(":/images/import.svg"));
-    m_import1dDataAction->setToolTip(QStringLiteral("Import 1D data"));
+    m_import1dDataAction->setToolTip("Import 1D data");
     connect(m_import1dDataAction, &QAction::triggered, this,
             &RealDataSelectorActions::onImport1dDataAction);
 
-    m_removeDataAction = new QAction(QStringLiteral("Remove this data"), parent);
+    m_removeDataAction = new QAction("Remove this data", parent);
     m_removeDataAction->setIcon(QIcon(":/images/delete.svg"));
-    m_removeDataAction->setToolTip(QStringLiteral("Remove selected data"));
+    m_removeDataAction->setToolTip("Remove selected data");
     connect(m_removeDataAction, &QAction::triggered, this,
             &RealDataSelectorActions::onRemoveDataAction);
 
@@ -133,8 +133,8 @@ void RealDataSelectorActions::importDataLoop(int ndim)
         filter_string_ba = "";
     }
     QString dirname = AppSvc::projectManager()->userImportDir();
-    QStringList fileNames = QFileDialog::getOpenFileNames(
-        Q_NULLPTR, QStringLiteral("Open Intensity Files"), dirname, filter_string_ba);
+    QStringList fileNames =
+        QFileDialog::getOpenFileNames(Q_NULLPTR, "Open Intensity Files", dirname, filter_string_ba);
 
     if (fileNames.isEmpty())
         return;

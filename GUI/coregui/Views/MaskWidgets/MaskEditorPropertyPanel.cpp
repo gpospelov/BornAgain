@@ -97,7 +97,7 @@ void MaskEditorPropertyPanel::setMaskContext(SessionModel* model,
 void MaskEditorPropertyPanel::resetContext()
 {
     m_maskModel = nullptr;
-    m_rootIndex = QModelIndex();
+    m_rootIndex = {};
     m_intensityDataItem = nullptr;
     m_listView->setModel(nullptr);
     m_maskPropertyEditor->setItem(nullptr);

@@ -28,13 +28,13 @@ const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
 MultiLayerItem::MultiLayerItem() : SessionGraphicsItem("MultiLayer")
 {
-    setToolTip(QStringLiteral("A multilayer to hold stack of layers"));
+    setToolTip("A multilayer to hold stack of layers");
     setItemName("MultiLayer");
 
     addProperty(P_CROSS_CORR_LENGTH, 0.0)
         ->setDecimals(5)
-        .setToolTip(QStringLiteral("Cross correlation length of roughnesses \n"
-                                   "between interfaces in nanometers"));
+        .setToolTip("Cross correlation length of roughnesses \n"
+                    "between interfaces in nanometers");
     addGroupProperty(P_EXTERNAL_FIELD, "Vector")->setToolTip(external_field_tooltip);
 
     registerTag(T_LAYERS, 0, -1, QStringList() << "Layer");

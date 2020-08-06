@@ -88,7 +88,7 @@ QString DataItem::selectedAxesUnits() const
 DataItem::DataItem(const QString& modelType) : SessionItem(modelType)
 {
     // name of the file used to serialize given IntensityDataItem
-    addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
+    addProperty(P_FILE_NAME, "undefined")->setVisible(false);
 
     ComboProperty units = ComboProperty() << "nbins";
     addProperty(P_AXES_UNITS, units.variant());

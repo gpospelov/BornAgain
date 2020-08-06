@@ -54,7 +54,7 @@ void SessionXML::writeItemAndChildItems(QXmlStreamWriter* writer, const SessionI
         QString tag = item->parent()->tagFromItem(item);
         writer->writeAttribute(SessionXML::TagAttribute, tag);
         writer->writeAttribute(SessionXML::DisplayNameAttribute,
-                               item->data(SessionFlags::DisplayNameRole).toString());
+                               item->roleProperty(SessionFlags::DisplayNameRole).toString());
         for (int role : item->getRoles()) {
             if (role == Qt::DisplayRole || role == Qt::EditRole)
                 SessionXML::writeVariant(writer, item->value(), role);
@@ -222,7 +222,7 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
     }
 
     if (variant.isValid()) {
-        item->setData(role, variant);
+        item->setRoleProperty(role, variant);
     }
 
     return parameter_name;

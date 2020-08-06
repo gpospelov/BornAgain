@@ -50,8 +50,7 @@ public:
     SessionItem* takeRow(int row);
 
     // manage and check tags
-    bool registerTag(const QString& name, int min = 0, int max = -1,
-                     QStringList modelTypes = QStringList());
+    bool registerTag(const QString& name, int min = 0, int max = -1, QStringList modelTypes = {});
     bool isTag(const QString& name) const;
     SessionItemTags* sessionItemTags();
     QString tagFromItem(const SessionItem* item) const;
@@ -77,8 +76,8 @@ public:
     template <typename T> T& groupItem(const QString& groupName) const;
 
     // access data stored in roles
-    virtual QVariant data(int role) const;
-    virtual bool setData(int role, const QVariant& value);
+    QVariant roleProperty(int role) const;
+    bool setRoleProperty(int role, const QVariant& value);
     QVector<int> getRoles() const;
     void emitDataChanged(int role = Qt::DisplayRole);
 
@@ -132,7 +131,7 @@ private:
     SessionItem* m_parent;
     SessionModel* m_model;
     QVector<SessionItem*> m_children;
-    std::unique_ptr<SessionItemData> m_values;
+    std::unique_ptr<SessionItemData> m_properties;
     std::unique_ptr<SessionItemTags> m_tags;
     std::unique_ptr<ModelMapper> m_mapper;
     QVector<IPathTranslator*> m_translators;

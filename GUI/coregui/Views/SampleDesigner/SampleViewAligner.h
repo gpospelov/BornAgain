@@ -30,13 +30,12 @@ class BA_CORE_API_ SampleViewAligner
 public:
     SampleViewAligner(DesignerScene* scene);
 
-    void alignSample(SessionItem* item, QPointF reference = QPointF(),
-                     bool force_alignment = false);
-    void alignSample(const QModelIndex& parentIndex, QPointF reference = QPointF(),
+    void alignSample(SessionItem* item, QPointF reference = {}, bool force_alignment = false);
+    void alignSample(const QModelIndex& parentIndex, QPointF reference = {},
                      bool force_alignment = false);
 
     void smartAlign();
-    void updateViews(const QModelIndex& parentIndex = QModelIndex());
+    void updateViews(const QModelIndex& parentIndex = {});
     void updateForces();
     void calculateForces(IView* view);
     void advance();

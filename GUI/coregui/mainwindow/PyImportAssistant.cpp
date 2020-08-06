@@ -54,7 +54,7 @@ QString getCandidate(const QStringList& funcNames)
 
     for (auto str : funcNames) {
         QString name = str.toLower();
-        if (name.contains(QStringLiteral("sample")) || name.contains(QStringLiteral("multilayer")))
+        if (name.contains("sample") || name.contains("multilayer"))
             return str;
     }
 

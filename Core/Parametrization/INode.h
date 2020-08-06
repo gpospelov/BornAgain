@@ -55,9 +55,11 @@ public:
 
 protected:
     std::vector<double> P;
-    const std::vector<const char*> PNames;
-    const std::vector<const char*> PUnits;
-    const std::vector<double> PDefaults;
+    const std::vector<double> PMin;
+    const std::vector<double> PMax;
+    const std::vector<double> PDefault;
+    const std::vector<const char*> PName;
+    const std::vector<const char*> PUnit;
 
 private:
     const INode* m_parent;

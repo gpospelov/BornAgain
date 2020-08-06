@@ -5982,16 +5982,6 @@ class IClusteredParticles(ISample):
         """
         return _libBornAgainCore.IClusteredParticles_clone(self)
 
-    def accept(self, visitor):
-        r"""
-        accept(IClusteredParticles self, INodeVisitor visitor)
-        void IClusteredParticles::accept(INodeVisitor *visitor) const override=0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_accept(self, visitor)
-
     def createTotalFormFactor(self, arg2, arg3, arg4):
         r"""
         createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
@@ -9012,16 +9002,6 @@ class IFormFactorDecorator(IFormFactor):
 
         """
         return _libBornAgainCore.IFormFactorDecorator_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IFormFactorDecorator self, INodeVisitor visitor)
-        void IFormFactorDecorator::accept(INodeVisitor *visitor) const override=0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IFormFactorDecorator_accept(self, visitor)
 
     def setAmbientMaterial(self, material):
         r"""
@@ -15073,16 +15053,6 @@ class IInterferenceFunction(ISample):
         """
         return _libBornAgainCore.IInterferenceFunction_clone(self)
 
-    def accept(self, visitor):
-        r"""
-        accept(IInterferenceFunction self, INodeVisitor visitor)
-        virtual void IInterferenceFunction::accept(INodeVisitor *visitor) const =0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_accept(self, visitor)
-
     def evaluate(self, q, outer_iff=1.0):
         r"""
         evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
@@ -15479,16 +15449,6 @@ class IParticle(IAbstractParticle):
 
         """
         return _libBornAgainCore.IParticle_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IParticle self, INodeVisitor visitor)
-        void IParticle::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IParticle_accept(self, visitor)
 
     def createFormFactor(self):
         r"""
@@ -19915,9 +19875,9 @@ _libBornAgainCore.Material_swigregister(Material)
 def HomogeneousMaterial(*args):
     r"""
     HomogeneousMaterial() -> Material
-    HomogeneousMaterial(std::string const & name, double delta, double beta, kvector_t magnetization=kvector_t()) -> Material
-    HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization=kvector_t()) -> Material
-    BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization=kvector_t())
+    HomogeneousMaterial(std::string const & name, double delta, double beta, kvector_t magnetization={}) -> Material
+    HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization={}) -> Material
+    BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
 
     Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\delta$ and  $\\beta$ for refractive index  $n = 1 - \\delta + i \\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
 
@@ -19927,8 +19887,8 @@ def HomogeneousMaterial(*args):
 def MaterialBySLD(*args):
     r"""
     MaterialBySLD() -> Material
-    MaterialBySLD(std::string const & name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t()) -> Material
-    BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t())
+    MaterialBySLD(std::string const & name, double sld_real, double sld_imag, kvector_t magnetization={}) -> Material
+    BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
 
     Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
@@ -21641,8 +21601,8 @@ class ParticleLayout(ILayout):
 
     def addParticle(self, *args):
         r"""
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position=kvector_t(), IRotation rotation=IdentityRotation())
-        void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position=kvector_t(), const IRotation &rotation=IdentityRotation())
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position={}, IRotation rotation=IdentityRotation())
+        void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position={}, const IRotation &rotation=IdentityRotation())
 
         Adds particle to the layout with abundance, position and the rotation defined.
 

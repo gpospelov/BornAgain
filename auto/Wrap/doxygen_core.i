@@ -6327,11 +6327,6 @@ C++ includes: IClusteredParticles.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IClusteredParticles::accept "void IClusteredParticles::accept(INodeVisitor *visitor) const override=0
-
-Calls the  INodeVisitor's visit method. 
-";
-
 %feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
@@ -6905,11 +6900,6 @@ C++ includes: IFormFactorDecorator.h
 %feature("docstring")  IFormFactorDecorator::clone "IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IFormFactorDecorator::accept "void IFormFactorDecorator::accept(INodeVisitor *visitor) const override=0
-
-Calls the  INodeVisitor's visit method. 
 ";
 
 %feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(Material material) override
@@ -7524,11 +7514,6 @@ C++ includes: IInterferenceFunction.h
 %feature("docstring")  IInterferenceFunction::clone "virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IInterferenceFunction::accept "virtual void IInterferenceFunction::accept(INodeVisitor *visitor) const =0
-
-Calls the  INodeVisitor's visit method. 
 ";
 
 %feature("docstring")  IInterferenceFunction::evaluate "double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
@@ -9389,11 +9374,6 @@ C++ includes: IParticle.h
 %feature("docstring")  IParticle::clone "IParticle* IParticle::clone() const override=0
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IParticle::accept "void IParticle::accept(INodeVisitor *visitor) const override
-
-Calls the  INodeVisitor's visit method. 
 ";
 
 %feature("docstring")  IParticle::createFormFactor "IFormFactor * IParticle::createFormFactor() const
@@ -12569,7 +12549,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position=kvector_t(), const IRotation &rotation=IdentityRotation())
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position={}, const IRotation &rotation=IdentityRotation())
 
 Adds particle to the layout with abundance, position and the rotation defined.
 
@@ -17096,172 +17076,172 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d101.xml
+// File: namespace_0d102.xml
 
 
-// File: namespace_0d103.xml
+// File: namespace_0d104.xml
 
 
-// File: namespace_0d105.xml
+// File: namespace_0d106.xml
 
 
-// File: namespace_0d109.xml
+// File: namespace_0d110.xml
 
 
 // File: namespace_0d12.xml
 
 
-// File: namespace_0d124.xml
+// File: namespace_0d125.xml
 
 
-// File: namespace_0d131.xml
+// File: namespace_0d132.xml
 
 
-// File: namespace_0d136.xml
+// File: namespace_0d137.xml
 
 
-// File: namespace_0d145.xml
+// File: namespace_0d146.xml
 
 
-// File: namespace_0d147.xml
+// File: namespace_0d148.xml
 
 
-// File: namespace_0d151.xml
+// File: namespace_0d152.xml
 
 
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d187.xml
+// File: namespace_0d188.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d222.xml
+// File: namespace_0d223.xml
 
 
-// File: namespace_0d230.xml
+// File: namespace_0d231.xml
 
 
-// File: namespace_0d236.xml
+// File: namespace_0d237.xml
 
 
-// File: namespace_0d240.xml
+// File: namespace_0d241.xml
 
 
-// File: namespace_0d290.xml
+// File: namespace_0d291.xml
 
 
-// File: namespace_0d299.xml
+// File: namespace_0d300.xml
 
 
-// File: namespace_0d307.xml
+// File: namespace_0d308.xml
 
 
-// File: namespace_0d309.xml
+// File: namespace_0d310.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d321.xml
+// File: namespace_0d322.xml
 
 
-// File: namespace_0d327.xml
+// File: namespace_0d328.xml
 
 
-// File: namespace_0d348.xml
+// File: namespace_0d349.xml
 
 
-// File: namespace_0d352.xml
+// File: namespace_0d353.xml
 
 
-// File: namespace_0d354.xml
+// File: namespace_0d355.xml
 
 
-// File: namespace_0d356.xml
+// File: namespace_0d357.xml
 
 
-// File: namespace_0d366.xml
+// File: namespace_0d367.xml
 
 
-// File: namespace_0d378.xml
+// File: namespace_0d379.xml
 
 
-// File: namespace_0d382.xml
+// File: namespace_0d383.xml
 
 
-// File: namespace_0d394.xml
+// File: namespace_0d395.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d400.xml
+// File: namespace_0d401.xml
 
 
-// File: namespace_0d402.xml
+// File: namespace_0d403.xml
 
 
-// File: namespace_0d409.xml
+// File: namespace_0d410.xml
 
 
-// File: namespace_0d411.xml
+// File: namespace_0d412.xml
 
 
-// File: namespace_0d415.xml
+// File: namespace_0d416.xml
 
 
-// File: namespace_0d417.xml
+// File: namespace_0d418.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d427.xml
+// File: namespace_0d428.xml
 
 
-// File: namespace_0d440.xml
+// File: namespace_0d441.xml
 
 
-// File: namespace_0d449.xml
+// File: namespace_0d450.xml
 
 
-// File: namespace_0d451.xml
+// File: namespace_0d452.xml
 
 
-// File: namespace_0d484.xml
+// File: namespace_0d485.xml
 
 
-// File: namespace_0d491.xml
+// File: namespace_0d492.xml
 
 
-// File: namespace_0d511.xml
+// File: namespace_0d512.xml
 
 
-// File: namespace_0d519.xml
+// File: namespace_0d520.xml
 
 
-// File: namespace_0d521.xml
+// File: namespace_0d522.xml
 
 
-// File: namespace_0d523.xml
+// File: namespace_0d524.xml
 
 
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d606.xml
+// File: namespace_0d607.xml
 
 
-// File: namespace_0d610.xml
+// File: namespace_0d611.xml
 
 
-// File: namespace_0d632.xml
+// File: namespace_0d633.xml
 
 
-// File: namespace_0d95.xml
+// File: namespace_0d96.xml
 
 
 // File: namespacealgo.xml
@@ -18461,6 +18441,9 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: Algorithms_8h.xml
 
 
+// File: Assert_8h.xml
+
+
 // File: Complex_8h.xml
 %feature("docstring")  mul_I "complex_t mul_I(complex_t z)
 
@@ -19460,10 +19443,10 @@ Creates averaged material. Square refractive index of returned material is arith
 %feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization=kvector_t())
+%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization={})
 ";
 
-%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization=kvector_t())
+%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
 
 Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
 ";
@@ -19471,7 +19454,7 @@ Constructs a material with  name,  refractive_index and  magnetization (in A/m).
 %feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD()
 ";
 
-%feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t())
+%feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
 
 Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 

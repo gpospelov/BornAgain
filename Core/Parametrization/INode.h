@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
 
-#include "Core/Parametrization/INodeVisitor.h"
+#include "Core/Parametrization/INodeVisitor.h" // not forward declared because used by all children
 #include "Core/Parametrization/IParameterized.h"
 #include <memory>
 #include <vector>
@@ -52,6 +52,12 @@ public:
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree() const;
+
+protected:
+    std::vector<double> P;
+    const std::vector<const char*> PNames;
+    const std::vector<const char*> PUnits;
+    const std::vector<double> PDefaults;
 
 private:
     const INode* m_parent;

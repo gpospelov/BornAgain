@@ -39,7 +39,7 @@ void MessageHandler(QtMsgType type, const QMessageLogContext& ctx, const QString
         if (msg.left(4) == "QXcb")
             return;
         std::cerr << "WARNING: " << msg.toStdString() << " [" << ctx.function << "]" << std::endl;
-        QMessageBox::warning(QApplication::activeWindow(), qAppName(), msg);
+        // QMessageBox::warning(QApplication::activeWindow(), qAppName(), msg);
         break;
     case QtFatalMsg:
         std::cerr << "FATAL: " << msg.toStdString() << " [" << ctx.function << "]" << std::endl;

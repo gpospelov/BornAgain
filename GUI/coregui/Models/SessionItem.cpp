@@ -526,7 +526,7 @@ SessionItem& SessionItem::setToolTip(const QString& tooltip)
 
 QString SessionItem::editorType() const
 {
-    const auto variant = data(SessionFlags::CustomEditorRole);
+    const auto variant = roleProperty(SessionFlags::CustomEditorRole);
     return variant.isValid() ? variant.toString() : "Default";
 }
 

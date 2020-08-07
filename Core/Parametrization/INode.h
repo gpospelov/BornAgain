@@ -26,7 +26,15 @@
 class BA_CORE_API_ INode : public IParameterized
 {
 public:
-    INode();
+    INode() : m_parent{nullptr}, m_NP{0} {}
+    INode(const INode* parent,
+             const std::vector<const char*> PName,
+             const std::vector<const char*> PUnit,
+             const std::vector<double> PMin,
+             const std::vector<double> PMax,
+             const std::vector<double> PDefault,
+             std::vector<double> P);
+
     virtual ~INode() {}
 
     //! Calls the INodeVisitor's visit method
@@ -53,16 +61,16 @@ public:
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree() const;
 
-protected:
-    std::vector<double> m_P;
-    const std::vector<double> m_PMin;
-    const std::vector<double> m_PMax;
-    const std::vector<double> m_PDefault;
-    const std::vector<const char*> m_PName;
-    const std::vector<const char*> m_PUnit;
-
 private:
     const INode* m_parent;
+
+protected:
+    const size_t m_NP;
+    const std::vector<const char*> m_PName;
+    const std::vector<const char*> m_PUnit;
+    const std::vector<double> m_PMin;
+    const std::vector<double> m_PMax;
+    std::vector<double> m_P;
 };
 
 template <class T>

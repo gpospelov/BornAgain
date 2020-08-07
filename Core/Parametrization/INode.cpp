@@ -37,6 +37,7 @@ INode::INode(const INode* parent, const std::vector<const char*> PName,
         throw std::runtime_error("Too many parameter values supplied to node constructor");
     if (P.size() < m_NP && PDefault.size() < m_NP)
         throw std::runtime_error("Not enough parameter values supplied to node constructor");
+    m_P.resize(m_NP);
     for (size_t i = 0; i < m_NP; ++i)
         m_P[i] = i < P.size() ? P[i] : PDefault[i];
 }

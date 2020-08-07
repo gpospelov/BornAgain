@@ -174,7 +174,14 @@ protected:
 class BA_CORE_API_ FormFactorPolygonalSurface : public IFormFactorBorn
 {
 public:
-    FormFactorPolygonalSurface() {}
+    FormFactorPolygonalSurface() = default;
+    FormFactorPolygonalSurface(const INode* parent,
+             const std::vector<const char*> PName,
+             const std::vector<const char*> PUnit,
+             const std::vector<double> PMin,
+             const std::vector<double> PMax,
+             const std::vector<double> PDefault,
+             std::vector<double> P);
 
     complex_t evaluate_for_q(cvector_t q) const override final;
     double volume() const override { return 0; }

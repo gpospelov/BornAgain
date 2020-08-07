@@ -24,6 +24,15 @@
 class BA_CORE_API_ IResolutionFunction2D : public ICloneable, public INode
 {
 public:
+    IResolutionFunction2D() = default;
+    IResolutionFunction2D(const INode* parent,
+             const std::vector<const char*> PName,
+             const std::vector<const char*> PUnit,
+             const std::vector<double> PMin,
+             const std::vector<double> PMax,
+             const std::vector<double> PDefault,
+             std::vector<double> P);
+
     virtual ~IResolutionFunction2D() {}
 
     virtual double evaluateCDF(double x, double y) const = 0;

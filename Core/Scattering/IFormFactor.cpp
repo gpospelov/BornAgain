@@ -30,7 +30,15 @@ bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRo
                         kvector_t translation);
 } // namespace
 
-IFormFactor::~IFormFactor() {}
+IFormFactor::IFormFactor(const INode* parent,
+             const std::vector<const char*> PName,
+             const std::vector<const char*> PUnit,
+             const std::vector<double> PMin,
+             const std::vector<double> PMax,
+             const std::vector<double> PDefault,
+             std::vector<double> P)
+    : ISample{parent, PName, PUnit, PMin, PMax, PDefault, P}
+{}
 
 IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation& rot,
                                                  kvector_t translation) const

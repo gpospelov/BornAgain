@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 // This file is part of qAccordion. An Accordion widget for Qt
-// Copyright © 2015 Christian Rapp <0x2a at posteo dot org>
+// Copyright (C) 2015 Christian Rapp <0x2a at posteo dot org>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

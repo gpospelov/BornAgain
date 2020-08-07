@@ -17238,7 +17238,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d611.xml
 
 
-// File: namespace_0d633.xml
+// File: namespace_0d632.xml
 
 
 // File: namespace_0d96.xml
@@ -20374,23 +20374,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: FileSystemUtils_8h.xml
-
-
-// File: fp__exception__glibc__extension_8h.xml
-%feature("docstring")  fegetexcept "int fegetexcept(void)
-
-License: Public Domain 
-David N. Williams 
-";
-
-%feature("docstring")  feenableexcept "int feenableexcept(unsigned int excepts)
-";
-
-%feature("docstring")  fedisableexcept "int fedisableexcept(unsigned int excepts)
-";
-
-%feature("docstring")  fhdl "void fhdl(int sig, siginfo_t *sip, ucontext_t *scp)
-";
 
 
 // File: Integrator_8cpp.xml

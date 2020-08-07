@@ -54,12 +54,12 @@ public:
     ParameterPool* createParameterTree() const;
 
 protected:
-    std::vector<double> P;
-    const std::vector<double> PMin;
-    const std::vector<double> PMax;
-    const std::vector<double> PDefault;
-    const std::vector<const char*> PName;
-    const std::vector<const char*> PUnit;
+    std::vector<double> m_P;
+    const std::vector<double> m_PMin;
+    const std::vector<double> m_PMax;
+    const std::vector<double> m_PDefault;
+    const std::vector<const char*> m_PName;
+    const std::vector<const char*> m_PUnit;
 
 private:
     const INode* m_parent;

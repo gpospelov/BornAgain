@@ -27,13 +27,10 @@ class BA_CORE_API_ INode : public IParameterized
 {
 public:
     INode() : m_parent{nullptr}, m_NP{0} {}
-    INode(const INode* parent,
-             const std::vector<const char*> PName,
-             const std::vector<const char*> PUnit,
-             const std::vector<double> PMin,
-             const std::vector<double> PMax,
-             const std::vector<double> PDefault,
-             std::vector<double> P);
+    INode(const INode* parent, const std::vector<const char*> PName,
+          const std::vector<const char*> PUnit, const std::vector<double> PMin,
+          const std::vector<double> PMax, const std::vector<double> PDefault,
+          std::vector<double> P);
 
     virtual ~INode() {}
 

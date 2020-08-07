@@ -22,27 +22,23 @@
 #include <algorithm>
 #include <exception>
 
-INode::INode(const INode* parent,
-             const std::vector<const char*> PName,
-             const std::vector<const char*> PUnit,
-             const std::vector<double> PMin,
-             const std::vector<double> PMax,
-             const std::vector<double> PDefault,
+INode::INode(const INode* parent, const std::vector<const char*> PName,
+             const std::vector<const char*> PUnit, const std::vector<double> PMin,
+             const std::vector<double> PMax, const std::vector<double> PDefault,
              std::vector<double> P)
-    : m_parent{parent}
-    , m_NP{PName.size()}
-    , m_PName{PName}, m_PUnit{PUnit}, m_PMin{PMin}, m_PMax{PMax}
+    : m_parent{parent}, m_NP{PName.size()}, m_PName{PName}, m_PUnit{PUnit}, m_PMin{PMin}, m_PMax{
+                                                                                              PMax}
 {
-    ASSERT(PUnit.size()==m_NP);
-    ASSERT(PMin.size()<=m_NP);
-    ASSERT(PMax.size()<=m_NP);
-    ASSERT(PDefault.size()<=m_NP);
-    if (P.size()>m_NP)
+    ASSERT(PUnit.size() == m_NP);
+    ASSERT(PMin.size() <= m_NP);
+    ASSERT(PMax.size() <= m_NP);
+    ASSERT(PDefault.size() <= m_NP);
+    if (P.size() > m_NP)
         throw std::runtime_error("Too many parameter values supplied to node constructor");
-    if (P.size()<m_NP && PDefault.size()<m_NP)
+    if (P.size() < m_NP && PDefault.size() < m_NP)
         throw std::runtime_error("Not enough parameter values supplied to node constructor");
-    for (size_t i=0; i<m_NP; ++i)
-        m_P[i] = i<P.size() ? P[i] : PDefault[i];
+    for (size_t i = 0; i < m_NP; ++i)
+        m_P[i] = i < P.size() ? P[i] : PDefault[i];
 }
 
 std::string INode::treeToString() const

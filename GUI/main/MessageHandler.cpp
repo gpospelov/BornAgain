@@ -42,7 +42,7 @@ void MessageHandler(QtMsgType type, const QMessageLogContext&, const QString& ms
                               "Sorry, you encountered a fatal bug.\n"
                               "The application will terminate.\n"
                               "Please note the following and inform the maintainers.\n\n"
-                              + msg + "\n");
+                                  + msg + "\n");
         qApp->quit();
         exit(1);
     }

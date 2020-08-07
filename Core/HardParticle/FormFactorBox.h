@@ -44,10 +44,12 @@ protected:
                                  kvector_t translation) const override final;
 
     void onChange() override final;
+    double height() const final { return m_height; }
 
 private:
     double m_length;
     double m_width;
+    double m_height;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H

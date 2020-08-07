@@ -145,19 +145,26 @@ private:
 class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn
 {
 public:
-    FormFactorPolygonalPrism(double height) : m_height(height) {}
+    FormFactorPolygonalPrism() = default;
+    FormFactorPolygonalPrism(const INode* parent,
+             const std::vector<const char*> PName,
+             const std::vector<const char*> PUnit,
+             const std::vector<double> PMin,
+             const std::vector<double> PMax,
+             const std::vector<double> PDefault,
+             std::vector<double> P);
 
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;
 
     virtual complex_t evaluate_for_q(cvector_t q) const override;
     virtual double volume() const override;
-    double getHeight() const { return m_height; }
+    double getHeight() const { return height(); }
     virtual double radialExtension() const override { return std::sqrt(m_base->area()); }
 
 protected:
+    virtual double height() const = 0;
     std::unique_ptr<PolyhedralFace> m_base;
-    double m_height;
     void setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices);
     std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
 };

@@ -609,12 +609,21 @@ void FormFactorPolyhedron::assert_platonic() const
 //  FormFactorPolygonalPrism implementation
 //**************************************************************************************************
 
+FormFactorPolygonalPrism::FormFactorPolygonalPrism(
+    const INode* parent, const std::vector<const char*> PName,
+                                 const std::vector<const char*> PUnit,
+                                 const std::vector<double> PMin, const std::vector<double> PMax,
+                                 const std::vector<double> PDefault, std::vector<double> P)
+    : IFormFactorBorn{parent, PName, PUnit, PMin, PMax, PDefault, P}
+{
+}
+
 void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices)
 {
     m_vertices.clear();
     for (const kvector_t& vertex : vertices) {
         m_vertices.push_back(vertex);
-        m_vertices.push_back(vertex + kvector_t{0, 0, m_height});
+        m_vertices.push_back(vertex + kvector_t{0, 0, height()});
     }
 
     try {
@@ -643,7 +652,7 @@ double FormFactorPolygonalPrism::topZ(const IRotation& rotation) const
 //! Returns the volume of this prism.
 double FormFactorPolygonalPrism::volume() const
 {
-    return m_height * m_base->area();
+    return height() * m_base->area();
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
@@ -656,7 +665,7 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const
         diagnosis.nExpandedFaces = 0;
 #endif
         cvector_t qxy(q.x(), q.y(), 0.);
-        return m_height * exp_I(m_height / 2 * q.z()) * MathFunctions::sinc(m_height / 2 * q.z())
+        return height() * exp_I(height() / 2 * q.z()) * MathFunctions::sinc(height() / 2 * q.z())
                * m_base->ff_2D(qxy);
     } catch (std::logic_error& e) {
         throw std::logic_error("Bug in " + getName() + ": " + e.what()

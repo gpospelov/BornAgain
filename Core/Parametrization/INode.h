@@ -19,6 +19,9 @@
 #include "Core/Parametrization/IParameterized.h"
 #include <memory>
 #include <vector>
+#include <limits>
+
+const double INF = std::numeric_limits<double>::infinity();
 
 //! Base class for tree-like structures containing parameterized objects.
 //! @ingroup tools_internal

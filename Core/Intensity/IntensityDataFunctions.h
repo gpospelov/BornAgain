@@ -86,16 +86,6 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createFFT(const OutputData<doub
 
 #endif // SWIG
 
-//! Convert user data to SimulationResult object for later drawing in various axes units.
-//! User data will be cropped to the ROI defined in the simulation, amplitudes in areas
-//! corresponding to the masked areas of the detector will be set to zero.
-//! @param simulation: Simulation object with possible ROI and masks defined.
-//! @param data: User data with amplitudes with the shape of data matching the detector.
-//! @return SimulationResult object.
-BA_CORE_API_ SimulationResult ConvertData(const Simulation& simulation,
-                                          const OutputData<double>& data,
-                                          bool put_masked_areas_to_zero = true);
-
 }; // namespace IntensityDataFunctions
 
 #endif // BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H

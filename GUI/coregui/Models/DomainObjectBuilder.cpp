@@ -16,7 +16,7 @@
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Intensity/UnitConverter1D.h"
-#include "Core/Simulation/UnitConverterUtils.h"
+#include "Core/Fitting/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamItems.h"

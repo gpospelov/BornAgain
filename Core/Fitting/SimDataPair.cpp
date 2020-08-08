@@ -15,7 +15,7 @@
 #include "Core/Fitting/SimDataPair.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Simulation/UnitConverterUtils.h"
+#include "Core/Fitting/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
 #include "Fit/TestEngine/Numeric.h"
 
@@ -180,11 +180,11 @@ void SimDataPair::initResultArrays()
     if (!m_simulation || m_sim_data.size() == 0)
         throwInitializationException("initResultArrays");
 
-    m_exp_data = IntensityDataFunctions::ConvertData(*m_simulation, *m_raw_data, true);
+    m_exp_data = m_simulation->convertData(*m_raw_data, true);
 
     if (containsUncertainties()) {
         m_uncertainties =
-            IntensityDataFunctions::ConvertData(*m_simulation, *m_raw_uncertainties, true);
+            m_simulation->convertData(*m_raw_uncertainties, true);
     } else {
         const IUnitConverter& converter = m_sim_data.converter();
         std::unique_ptr<OutputData<double>> dummy_array =
@@ -192,7 +192,7 @@ void SimDataPair::initResultArrays()
         m_uncertainties = SimulationResult(*dummy_array, converter);
     }
 
-    m_user_weights = IntensityDataFunctions::ConvertData(*m_simulation, *m_raw_user_weights, true);
+    m_user_weights = m_simulation->convertData(*m_raw_user_weights, true);
 }
 
 void SimDataPair::validate() const

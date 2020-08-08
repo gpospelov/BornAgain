@@ -100,6 +100,9 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    SimulationResult convertData(const OutputData<double>& data,
+                                 bool put_masked_areas_to_zero = true);
+
     friend class MPISimulation;
 
 protected:

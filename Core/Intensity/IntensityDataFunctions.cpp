@@ -21,8 +21,7 @@
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Intensity/IHistogram.h"
-#include "Core/Simulation/UnitConverterUtils.h"
-#include "Core/Simulation/Simulation.h"
+#include "Core/Fitting/UnitConverterUtils.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <iostream>
 #include <math.h>
@@ -297,42 +296,4 @@ IntensityDataFunctions::createFFT(const OutputData<double>& data)
     auto array_2d = IntensityDataFunctions::create2DArrayfromOutputData(data);
     auto fft_array_2d = IntensityDataFunctions::FT2DArray(array_2d);
     return IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d);
-}
-
-SimulationResult IntensityDataFunctions::ConvertData(const Simulation& simulation,
-                                                     const OutputData<double>& data,
-                                                     bool put_masked_areas_to_zero)
-{
-    auto converter = UnitConverterUtils::createConverter(simulation);
-    auto roi_data =
-        UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
-
-    auto detector = simulation.getInstrument().getDetector();
-
-    if (roi_data->hasSameDimensions(data)) {
-        // data is already cropped to ROI
-        if (put_masked_areas_to_zero) {
-            detector->iterate(
-                [&](IDetector::const_iterator it) {
-                    (*roi_data)[it.roiIndex()] = data[it.roiIndex()];
-                },
-                /*visit_masked*/ false);
-        } else {
-            roi_data->setRawDataVector(data.getRawDataVector());
-        }
-
-    } else if (DetectorFunctions::hasSameDimensions(*detector, data)) {
-        // exp data has same shape as the detector, we have to put orig data to smaller roi map
-        detector->iterate(
-            [&](IDetector::const_iterator it) {
-                (*roi_data)[it.roiIndex()] = data[it.detectorIndex()];
-            },
-            /*visit_masked*/ !put_masked_areas_to_zero);
-
-    } else {
-        throw std::runtime_error("FitObject::init_dataset() -> Error. Detector and exp data have "
-                                 "different shape.");
-    }
-
-    return SimulationResult(*roi_data, *converter);
 }

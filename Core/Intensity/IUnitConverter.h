@@ -59,6 +59,7 @@ public:
 
     virtual std::vector<AxesUnits> availableUnits() const = 0;
     virtual AxesUnits defaultUnits() const = 0;
+    AxesUnits substituteDefaultUnits(AxesUnits units) const;
 
 #ifndef SWIG
     virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;

@@ -43,7 +43,7 @@ std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type) const
                                  "is smaller or equal to the axis index"
                                  + std::to_string(static_cast<int>(i_axis)));
     const auto& name_map = name_maps[i_axis];
-    units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
+    units_type = substituteDefaultUnits(units_type);
     const auto& it = name_map.find(units_type);
     if (it == name_map.cend())
         throwUnitsError("IUnitConverter::axisName", availableUnits());
@@ -78,4 +78,9 @@ void IUnitConverter::throwUnitsError(std::string method, std::vector<AxesUnits> 
     for (auto unit : available)
         ss << AxesUnitsWrap::unitName(unit) << "\n";
     throw std::runtime_error(ss.str());
+}
+
+AxesUnits IUnitConverter::substituteDefaultUnits(AxesUnits units) const
+{
+    return units == AxesUnits::DEFAULT ? defaultUnits() : units;
 }

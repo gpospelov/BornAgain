@@ -26,11 +26,6 @@ template <class T> class OutputData;
 namespace UnitConverterUtils
 {
 
-inline AxesUnits substituteDefaultUnits(const IUnitConverter& converter, AxesUnits units)
-{
-    return units == AxesUnits::DEFAULT ? converter.defaultUnits() : units;
-}
-
 //! Returns zero-valued output data array in specified units
 BA_CORE_API_ std::unique_ptr<OutputData<double>> createOutputData(const IUnitConverter& converter,
                                                                   AxesUnits units);

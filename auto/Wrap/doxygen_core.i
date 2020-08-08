@@ -10035,6 +10035,9 @@ C++ includes: IUnitConverter.h
 %feature("docstring")  IUnitConverter::defaultUnits "virtual AxesUnits IUnitConverter::defaultUnits() const =0
 ";
 
+%feature("docstring")  IUnitConverter::substituteDefaultUnits "AxesUnits IUnitConverter::substituteDefaultUnits(AxesUnits units) const
+";
+
 %feature("docstring")  IUnitConverter::createConvertedAxis "virtual std::unique_ptr<IAxis> IUnitConverter::createConvertedAxis(size_t i_axis, AxesUnits units) const =0
 ";
 

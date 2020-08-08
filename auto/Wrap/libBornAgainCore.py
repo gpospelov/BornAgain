@@ -21646,6 +21646,14 @@ class IUnitConverter(ICloneable):
         """
         return _libBornAgainCore.IUnitConverter_defaultUnits(self)
 
+    def substituteDefaultUnits(self, units):
+        r"""
+        substituteDefaultUnits(IUnitConverter self, AxesUnits units) -> AxesUnits
+        AxesUnits IUnitConverter::substituteDefaultUnits(AxesUnits units) const
+
+        """
+        return _libBornAgainCore.IUnitConverter_substituteDefaultUnits(self, units)
+
 # Register IUnitConverter in _libBornAgainCore:
 _libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
 

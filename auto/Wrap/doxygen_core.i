@@ -17235,37 +17235,37 @@ C++ includes: ZLimits.h
 // File: namespace_0d448.xml
 
 
-// File: namespace_0d452.xml
+// File: namespace_0d450.xml
 
 
-// File: namespace_0d485.xml
+// File: namespace_0d483.xml
 
 
-// File: namespace_0d496.xml
+// File: namespace_0d490.xml
 
 
-// File: namespace_0d519.xml
+// File: namespace_0d500.xml
 
 
-// File: namespace_0d527.xml
-
-
-// File: namespace_0d529.xml
+// File: namespace_0d523.xml
 
 
 // File: namespace_0d531.xml
 
 
+// File: namespace_0d533.xml
+
+
+// File: namespace_0d535.xml
+
+
 // File: namespace_0d6.xml
-
-
-// File: namespace_0d612.xml
 
 
 // File: namespace_0d616.xml
 
 
-// File: namespace_0d637.xml
+// File: namespace_0d620.xml
 
 
 // File: namespace_0d96.xml
@@ -19826,12 +19826,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: ParameterUtils_8h.xml
 
 
-// File: PythonFormatting_8cpp.xml
-
-
-// File: PythonFormatting_8h.xml
-
-
 // File: RangedDistributions_8cpp.xml
 
 
@@ -19944,6 +19938,24 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: TRange_8h.xml
+
+
+// File: PyEmbeddedUtils_8cpp.xml
+
+
+// File: PyEmbeddedUtils_8h.xml
+
+
+// File: PyImport_8cpp.xml
+
+
+// File: PyImport_8h.xml
+
+
+// File: PythonFormatting_8cpp.xml
+
+
+// File: PythonFormatting_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml
@@ -20443,18 +20455,6 @@ Template function to create an integrator object
 // File: Precomputed_8h.xml
 
 
-// File: PyEmbeddedUtils_8cpp.xml
-
-
-// File: PyEmbeddedUtils_8h.xml
-
-
-// File: PyImport_8cpp.xml
-
-
-// File: PyImport_8h.xml
-
-
 // File: PyObject_8h.xml
 
 
@@ -20566,6 +20566,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
+
+
+// File: dir_437a42df1810106c8392af0ca05a14b2.xml
 
 
 // File: dir_6babb1605c026604526d064f820d612b.xml

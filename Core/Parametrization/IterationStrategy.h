@@ -15,8 +15,9 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H
 
-#include "Core/Scattering/ISample.h"
+#include "Wrap/WinDllMacros.h"
 
+class INode;
 class IteratorMemento;
 
 //! Abstract base class for tree traversal strategies, for use in INodeVisitor.

@@ -13,8 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/IterationStrategy.h"
-#include "Core/Basics/Exceptions.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Parametrization/NodeIterator.h"
+#include "Core/Scattering/ISample.h"
 
 PreorderStrategy::PreorderStrategy() {}
 
@@ -35,10 +36,7 @@ IteratorMemento PreorderStrategy::first(const INode* p_root)
 void PreorderStrategy::next(IteratorMemento& iterator_stack) const
 {
     const INode* p_sample = iterator_stack.getCurrent();
-    if (!p_sample) {
-        throw Exceptions::NullPointerException("CompositeIteratorPreorderStrategy::next(): "
-                                               "Error! Null object in the tree of objects");
-    }
+    ASSERT(p_sample);
     std::vector<const INode*> children = p_sample->getChildren();
     if (children.size() > 0) {
         iterator_stack.push_state(IteratorState(children));

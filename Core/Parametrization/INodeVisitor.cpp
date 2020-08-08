@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/IterationStrategy.h"
+#include "Core/Parametrization/INode.h"
 #include "Core/Parametrization/NodeIterator.h"
 
 void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)

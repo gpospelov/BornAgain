@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceMesoCrystalUtils.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 #include "Core/Particle/IParticle.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"

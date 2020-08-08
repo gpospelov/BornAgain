@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Material/MaterialBySLDImpl.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 #include "Core/Vector/WavevectorInfo.h"
 
 namespace

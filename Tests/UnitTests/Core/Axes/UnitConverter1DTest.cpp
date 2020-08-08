@@ -6,7 +6,7 @@
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Instrument/QSpecScan.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test

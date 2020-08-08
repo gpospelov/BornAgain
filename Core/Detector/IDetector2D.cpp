@@ -19,7 +19,7 @@
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Detector/SimulationArea.h"
 #include "Core/Mask/InfinitePlane.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
 IDetector2D::IDetector2D() = default;

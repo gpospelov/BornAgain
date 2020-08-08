@@ -21,7 +21,6 @@
 #include "Core/Instrument/AxisNames.h"
 #include "Core/Instrument/QSpecScan.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 
 namespace

@@ -23,7 +23,6 @@
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Instrument/AxisNames.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
-#include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 
 namespace

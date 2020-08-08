@@ -17178,10 +17178,13 @@ C++ includes: ZLimits.h
 // File: namespace_0d318.xml
 
 
-// File: namespace_0d322.xml
+// File: namespace_0d320.xml
 
 
-// File: namespace_0d343.xml
+// File: namespace_0d341.xml
+
+
+// File: namespace_0d345.xml
 
 
 // File: namespace_0d347.xml
@@ -17190,76 +17193,73 @@ C++ includes: ZLimits.h
 // File: namespace_0d349.xml
 
 
-// File: namespace_0d351.xml
-
-
 // File: namespace_0d36.xml
 
 
-// File: namespace_0d365.xml
+// File: namespace_0d363.xml
 
 
-// File: namespace_0d377.xml
+// File: namespace_0d375.xml
+
+
+// File: namespace_0d379.xml
 
 
 // File: namespace_0d38.xml
 
 
-// File: namespace_0d381.xml
+// File: namespace_0d391.xml
 
 
-// File: namespace_0d393.xml
+// File: namespace_0d397.xml
 
 
 // File: namespace_0d399.xml
 
 
-// File: namespace_0d401.xml
+// File: namespace_0d406.xml
 
 
 // File: namespace_0d408.xml
 
 
-// File: namespace_0d410.xml
+// File: namespace_0d412.xml
 
 
 // File: namespace_0d414.xml
 
 
-// File: namespace_0d416.xml
+// File: namespace_0d424.xml
 
 
-// File: namespace_0d426.xml
+// File: namespace_0d437.xml
 
 
-// File: namespace_0d439.xml
+// File: namespace_0d446.xml
 
 
 // File: namespace_0d448.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0d481.xml
 
 
-// File: namespace_0d483.xml
+// File: namespace_0d488.xml
 
 
-// File: namespace_0d490.xml
+// File: namespace_0d498.xml
 
 
-// File: namespace_0d500.xml
+// File: namespace_0d523.xml
 
 
-// File: namespace_0d525.xml
+// File: namespace_0d531.xml
 
 
 // File: namespace_0d533.xml
 
 
 // File: namespace_0d535.xml
-
-
-// File: namespace_0d537.xml
 
 
 // File: namespace_0d618.xml
@@ -18343,9 +18343,6 @@ Returns true if operation system is Windows.
 
 
 // File: namespaceUnitConverterUtils.xml
-%feature("docstring")  UnitConverterUtils::substituteDefaultUnits "AxesUnits UnitConverterUtils::substituteDefaultUnits(const IUnitConverter &converter, AxesUnits units)
-";
-
 %feature("docstring")  UnitConverterUtils::createOutputData "std::unique_ptr< OutputData< double > > UnitConverterUtils::createOutputData(const IUnitConverter &converter, AxesUnits units)
 
 Returns zero-valued output data array in specified units. 
@@ -19355,12 +19352,6 @@ make Swappable
 // File: UnitConverter1D_8h.xml
 
 
-// File: UnitConverterUtils_8cpp.xml
-
-
-// File: UnitConverterUtils_8h.xml
-
-
 // File: ILatticeOrientation_8cpp.xml
 
 
@@ -20182,6 +20173,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SpecularSimulation_8h.xml
+
+
+// File: UnitConverterUtils_8cpp.xml
+
+
+// File: UnitConverterUtils_8h.xml
 
 
 // File: DepthProbeElement_8cpp.xml

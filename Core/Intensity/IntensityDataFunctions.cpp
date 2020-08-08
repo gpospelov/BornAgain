@@ -21,7 +21,7 @@
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Intensity/IHistogram.h"
-#include "Core/Intensity/UnitConverterUtils.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <iostream>

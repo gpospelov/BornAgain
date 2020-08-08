@@ -15,7 +15,7 @@
 #include "Core/Fitting/SimDataPair.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Intensity/UnitConverterUtils.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
 #include "Fit/TestEngine/Numeric.h"
 

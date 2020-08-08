@@ -14,7 +14,6 @@
 
 #include "Core/Intensity/IUnitConverter.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Intensity/UnitConverterUtils.h"
 
 namespace
 {

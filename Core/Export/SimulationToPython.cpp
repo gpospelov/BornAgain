@@ -20,16 +20,16 @@
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Detector/RegionOfInterest.h"
+#include "Core/Detector/ResolutionFunction2DGaussian.h"
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Instrument/ISpecularScan.h"
-#include "Core/Detector/ResolutionFunction2DGaussian.h"
 #include "Core/Parametrization/ParameterUtils.h"
+#include "Core/PyIO/PythonFormatting.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/PyIO/PythonFormatting.h"
 #include <iomanip>
 
 using namespace PythonFormatting;

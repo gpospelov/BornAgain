@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
-#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/SimulationElement/SimulationElement.h"
 #include "Core/Tools/IntegratorMCMiser.h"
 

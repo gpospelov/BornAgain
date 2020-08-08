@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/SSCAHelper.h"
-#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
 
 SSCAHelper::SSCAHelper(double kappa) : m_kappa(kappa), m_mean_radius{} {}
 

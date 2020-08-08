@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H
 #define BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H
 
-#include "Core/Multilayer/FormFactorCoherentPart.h"
 #include "Core/Basics/Complex.h"
+#include "Core/Multilayer/FormFactorCoherentPart.h"
 #include "Core/Vector/EigenCore.h"
 #include <vector>
 

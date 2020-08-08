@@ -19,8 +19,8 @@
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/SimulationElement/SpecularSimulationElement.h"
 #include "Core/PyIO/PythonFormatting.h"
+#include "Core/SimulationElement/SpecularSimulationElement.h"
 #include "Fit/Tools/RealLimits.h"
 
 namespace

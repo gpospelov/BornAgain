@@ -15,11 +15,11 @@
 #include "BAVersion.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/PyIO/PyEmbeddedUtils.h"
 #include "Core/PyIO/PyImport.h"
-#include "Core/Tools/PythonCore.h"
 #include "Core/PyIO/PythonFormatting.h"
+#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Core/Tools/PythonCore.h"
 #include "Core/Tools/SysUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>

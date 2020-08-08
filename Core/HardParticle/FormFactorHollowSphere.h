@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SoftParticle/FormFactorSphereUniformRadius.h
-//! @brief     Defines class FormFactorSphereUniformRadius.
+//! @file      Core/HardParticle/FormFactorHollowSphere.h
+//! @brief     Defines class FormFactorHollowSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,14 +20,14 @@
 //! Integrated full sphere form factor over a uniform distribution of radii.
 //! @ingroup softParticle
 
-class BA_CORE_API_ FormFactorSphereUniformRadius : public IFormFactorBorn
+class BA_CORE_API_ FormFactorHollowSphere : public IFormFactorBorn
 {
 public:
-    FormFactorSphereUniformRadius(double mean, double full_width);
+    FormFactorHollowSphere(double mean, double full_width);
 
-    FormFactorSphereUniformRadius* clone() const override final
+    FormFactorHollowSphere* clone() const override final
     {
-        return new FormFactorSphereUniformRadius(m_mean, m_full_width);
+        return new FormFactorHollowSphere(m_mean, m_full_width);
     }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 

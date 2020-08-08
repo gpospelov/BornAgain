@@ -21,7 +21,7 @@
 #include "Core/SoftParticle/FormFactorOrnsteinZernike.h"
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
-#include "Core/SoftParticle/FormFactorSphereUniformRadius.h"
+#include "Core/HardParticle/FormFactorHollowSphere.h"
 #include "Core/includeIncludes/SoftParticles.h"
 
 #endif // BORNAGAIN_CORE_INCLUDEINCLUDES_SOFTPARTICLES_H

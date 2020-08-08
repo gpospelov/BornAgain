@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SoftParticle/FormFactorSphereUniformRadius.cpp
-//! @brief     Implements class FormFactorSphereUniformRadius.
+//! @file      Core/HardParticle/FormFactorHollowSphere.cpp
+//! @brief     Implements class FormFactorHollowSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,27 +12,27 @@
 //
 // ************************************************************************** //
 
-#include "Core/SoftParticle/FormFactorSphereUniformRadius.h"
+#include "Core/HardParticle/FormFactorHollowSphere.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
-FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double full_width)
+FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
     : m_mean(mean), m_full_width(full_width)
 {
     if (!checkParameters())
         throw Exceptions::ClassInitializationException(
-            "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
+            "FormFactorHollowSphere::FormFactorHollowSphere:"
             " mean radius must be bigger than the half width");
-    setName("FormFactorSphereUniformRadius");
+    setName("FormFactorHollowSphere");
     registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
     registerParameter("FullWidth", &m_full_width).setUnit("nm").setNonnegative();
     onChange();
 }
 
-complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const
+complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const
 {
     double R = m_mean;
     double W = m_full_width;
@@ -49,12 +49,12 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const
     return nominator / (q2 * q2 * W);
 }
 
-void FormFactorSphereUniformRadius::onChange()
+void FormFactorHollowSphere::onChange()
 {
     mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0 * m_mean, 0.0));
 }
 
-bool FormFactorSphereUniformRadius::checkParameters() const
+bool FormFactorHollowSphere::checkParameters() const
 {
     if (m_full_width <= 0.0)
         return false;

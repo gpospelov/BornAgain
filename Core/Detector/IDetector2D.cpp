@@ -16,7 +16,7 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/DetectorContext.h"
 #include "Core/Detector/DetectorFunctions.h"
-#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Detector/RegionOfInterest.h"
 #include "Core/Instrument/SimulationArea.h"
 #include "Core/Mask/InfinitePlane.h"
 #include "Core/Parametrization/Units.h"

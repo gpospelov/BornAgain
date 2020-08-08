@@ -25,7 +25,7 @@
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/RectangularDetector.h"
-#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Detector/RegionOfInterest.h"
 #include "Core/Instrument/ResolutionFunction2DGaussian.h"
 #include "Core/Instrument/ScanResolution.h"
 #include "Core/Detector/SphericalDetector.h"

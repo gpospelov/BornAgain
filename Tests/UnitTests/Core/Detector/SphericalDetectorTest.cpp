@@ -5,7 +5,7 @@
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Instrument/OutputData.h"
-#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Detector/RegionOfInterest.h"
 #include "Core/Instrument/ResolutionFunction2DGaussian.h"
 #include "Core/Instrument/SimulationArea.h"
 #include "Core/Mask/Polygon.h"

@@ -22,7 +22,7 @@
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Instrument/ISpecularScan.h"
 #include "Core/Detector/RectangularDetector.h"
-#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Detector/RegionOfInterest.h"
 #include "Core/Instrument/ResolutionFunction2DGaussian.h"
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Parametrization/ParameterUtils.h"

@@ -16,7 +16,7 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/IDetectorResolution.h"
-#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Detector/RegionOfInterest.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/SimulationElement/SimulationElement.h"
 

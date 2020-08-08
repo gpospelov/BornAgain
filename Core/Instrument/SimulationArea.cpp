@@ -17,7 +17,7 @@
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetector.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Detector/RegionOfInterest.h"
 #include "Core/Mask/Rectangle.h"
 #include <sstream>
 

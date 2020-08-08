@@ -14,7 +14,7 @@
 
 #include "Core/Instrument/Histogram2D.h"
 #include "Core/Detector/IDetector2D.h"
-#include "Core/Instrument/RegionOfInterest.h"
+#include "Core/Detector/RegionOfInterest.h"
 
 DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}
 

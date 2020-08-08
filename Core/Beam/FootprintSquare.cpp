@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Beam/FootprintFactorSquare.cpp
-//! @brief     Implements class FootprintFactorSquare.
+//! @file      Core/Beam/FootprintSquare.cpp
+//! @brief     Implements class FootprintSquare.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,23 +12,23 @@
 //
 // ************************************************************************** //
 
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Tools/PythonFormatting.h"
 #include <algorithm>
 #include <stdexcept>
 
-FootprintFactorSquare::FootprintFactorSquare(double width_ratio) : IFootprintFactor(width_ratio)
+FootprintSquare::FootprintSquare(double width_ratio) : IFootprintFactor(width_ratio)
 {
     initialize();
 }
 
-FootprintFactorSquare* FootprintFactorSquare::clone() const
+FootprintSquare* FootprintSquare::clone() const
 {
-    return new FootprintFactorSquare(*this);
+    return new FootprintSquare(*this);
 }
 
-double FootprintFactorSquare::calculate(double alpha) const
+double FootprintSquare::calculate(double alpha) const
 {
     if (alpha < 0.0 || alpha > M_PI_2)
         return 0.0;
@@ -38,28 +38,28 @@ double FootprintFactorSquare::calculate(double alpha) const
     return std::min(arg, 1.0);
 }
 
-std::string FootprintFactorSquare::print() const
+std::string FootprintSquare::print() const
 {
     std::stringstream result;
     result << "\n" << PythonFormatting::indent() << "# Defining footprint:\n";
     result << PythonFormatting::indent() << "footprint = ";
-    result << "ba.FootprintFactorSquare";
+    result << "ba.FootprintSquare";
     result << "(" << PythonFormatting::printDouble(widthRatio()) << ")";
     return result.str();
 }
 
-FootprintFactorSquare::FootprintFactorSquare(const FootprintFactorSquare& other)
+FootprintSquare::FootprintSquare(const FootprintSquare& other)
     : IFootprintFactor(other)
 {
     initialize();
 }
 
-void FootprintFactorSquare::initialize()
+void FootprintSquare::initialize()
 {
-    setName("FootprintFactorSquare");
+    setName("FootprintSquare");
 }
 
-static_assert(!std::is_copy_constructible<FootprintFactorSquare>::value,
-              "FootprintFactorSquare should not be copy constructable");
-static_assert(!std::is_copy_assignable<FootprintFactorSquare>::value,
-              "FootprintFactorSquare should not be copy assignable");
+static_assert(!std::is_copy_constructible<FootprintSquare>::value,
+              "FootprintSquare should not be copy constructable");
+static_assert(!std::is_copy_assignable<FootprintSquare>::value,
+              "FootprintSquare should not be copy assignable");

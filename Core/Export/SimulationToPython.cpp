@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Export/SimulationToPython.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/INodeUtils.h"

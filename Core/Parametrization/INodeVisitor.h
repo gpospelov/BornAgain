@@ -28,8 +28,8 @@ class DistributionGaussian;
 class DistributionLogNormal;
 class DistributionLorentz;
 class DistributionTrapezoid;
-class FootprintFactorGaussian;
-class FootprintFactorSquare;
+class FootprintGauss;
+class FootprintSquare;
 class FormFactorAnisoPyramid;
 class FormFactorBarGauss;
 class FormFactorBarLorentz;
@@ -166,8 +166,8 @@ public:
     virtual void visit(const DistributionLogNormal*) {}
     virtual void visit(const DistributionLorentz*) {}
     virtual void visit(const DistributionTrapezoid*) {}
-    virtual void visit(const FootprintFactorGaussian*) {}
-    virtual void visit(const FootprintFactorSquare*) {}
+    virtual void visit(const FootprintGauss*) {}
+    virtual void visit(const FootprintSquare*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
     virtual void visit(const FormFactorBarGauss*) {}
     virtual void visit(const FormFactorBarLorentz*) {}

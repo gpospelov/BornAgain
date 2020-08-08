@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/StandardSimulations.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Instrument/AngularSpecScan.h"
@@ -447,7 +447,7 @@ SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-    auto gaussian_ff = std::make_unique<FootprintFactorGaussian>(1.0);
+    auto gaussian_ff = std::make_unique<FootprintGauss>(1.0);
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(gaussian_ff.get());
 
@@ -462,7 +462,7 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-    auto square_ff = std::make_unique<FootprintFactorSquare>(1.0);
+    auto square_ff = std::make_unique<FootprintSquare>(1.0);
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(square_ff.get());
 

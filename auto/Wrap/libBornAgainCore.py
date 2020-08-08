@@ -1995,9 +1995,10 @@ class INode(IParameterized):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
         __init__(INode self) -> INode
+        __init__(INode self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> INode
         INode::INode()
 
         """
@@ -2005,7 +2006,7 @@ class INode(IParameterized):
             _self = None
         else:
             _self = self
-        _libBornAgainCore.INode_swiginit(self, _libBornAgainCore.new_INode(_self, ))
+        _libBornAgainCore.INode_swiginit(self, _libBornAgainCore.new_INode(_self, *args))
     __swig_destroy__ = _libBornAgainCore.delete_INode
 
     def accept(self, visitor):
@@ -2099,6 +2100,7 @@ class INode(IParameterized):
 
 # Register INode in _libBornAgainCore:
 _libBornAgainCore.INode_swigregister(INode)
+INF = cvar.INF
 
 class swig_dummy_type_inode_vector(object):
     r"""Proxy of C++ std::vector< INode * > class."""
@@ -4302,6 +4304,23 @@ class ISample(ICloneable, INode):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
+    def __init__(self, *args):
+        r"""
+        __init__(ISample self) -> ISample
+        __init__(ISample self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> ISample
+
+
+        Pure virtual base class for sample components and properties related to scattering.
+
+        C++ includes: ISample.h
+
+        """
+        if self.__class__ == ISample:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.ISample_swiginit(self, _libBornAgainCore.new_ISample(_self, *args))
+
     def clone(self):
         r"""
         clone(ISample self) -> ISample
@@ -4331,22 +4350,6 @@ class ISample(ICloneable, INode):
 
         """
         return _libBornAgainCore.ISample_containedMaterials(self)
-
-    def __init__(self):
-        r"""
-        __init__(ISample self) -> ISample
-
-
-        Pure virtual base class for sample components and properties related to scattering.
-
-        C++ includes: ISample.h
-
-        """
-        if self.__class__ == ISample:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.ISample_swiginit(self, _libBornAgainCore.new_ISample(_self, ))
     __swig_destroy__ = _libBornAgainCore.delete_ISample
     def __disown__(self):
         self.this.disown()
@@ -5797,7 +5800,7 @@ class INodeVisitor(object):
         visit(INodeVisitor self, DistributionLogNormal arg2)
         visit(INodeVisitor self, DistributionLorentz arg2)
         visit(INodeVisitor self, DistributionTrapezoid arg2)
-        visit(INodeVisitor self, FootprintFactorGaussian arg2)
+        visit(INodeVisitor self, FootprintGauss arg2)
         visit(INodeVisitor self, FootprintFactorSquare arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBarGauss const * arg2)
@@ -8550,9 +8553,10 @@ class IFormFactor(ISample):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
         __init__(IFormFactor self) -> IFormFactor
+        __init__(IFormFactor self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactor
         IFormFactor::IFormFactor()
 
         """
@@ -8560,7 +8564,7 @@ class IFormFactor(ISample):
             _self = None
         else:
             _self = self
-        _libBornAgainCore.IFormFactor_swiginit(self, _libBornAgainCore.new_IFormFactor(_self, ))
+        _libBornAgainCore.IFormFactor_swiginit(self, _libBornAgainCore.new_IFormFactor(_self, *args))
     __swig_destroy__ = _libBornAgainCore.delete_IFormFactor
 
     def clone(self):
@@ -8854,9 +8858,10 @@ class IFormFactorBorn(IFormFactor):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
         __init__(IFormFactorBorn self) -> IFormFactorBorn
+        __init__(IFormFactorBorn self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactorBorn
         IFormFactorBorn::IFormFactorBorn()=default
 
         """
@@ -8864,8 +8869,7 @@ class IFormFactorBorn(IFormFactor):
             _self = None
         else:
             _self = self
-        _libBornAgainCore.IFormFactorBorn_swiginit(self, _libBornAgainCore.new_IFormFactorBorn(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorBorn
+        _libBornAgainCore.IFormFactorBorn_swiginit(self, _libBornAgainCore.new_IFormFactorBorn(_self, *args))
 
     def clone(self):
         r"""
@@ -8930,6 +8934,7 @@ class IFormFactorBorn(IFormFactor):
     def canSliceAnalytically(self, rot):
         r"""canSliceAnalytically(IFormFactorBorn self, IRotation rot) -> bool"""
         return _libBornAgainCore.IFormFactorBorn_canSliceAnalytically(self, rot)
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorBorn
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
@@ -12849,68 +12854,57 @@ class IFootprintFactor(ICloneable, INode):
 # Register IFootprintFactor in _libBornAgainCore:
 _libBornAgainCore.IFootprintFactor_swigregister(IFootprintFactor)
 
-class FootprintFactorGaussian(IFootprintFactor):
-    r"""
-
-
-    Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\[ \\exp{-1/2} \\] from the peak intensity.
-
-    C++ includes: FootprintFactorGaussian.h
-
-    """
+class FootprintGauss(IFootprintFactor):
+    r"""Proxy of C++ FootprintGauss class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, width_ratio):
-        r"""
-        __init__(FootprintFactorGaussian self, double width_ratio) -> FootprintFactorGaussian
-        FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio)
-
-        """
-        _libBornAgainCore.FootprintFactorGaussian_swiginit(self, _libBornAgainCore.new_FootprintFactorGaussian(width_ratio))
+        r"""__init__(FootprintGauss self, double width_ratio) -> FootprintGauss"""
+        _libBornAgainCore.FootprintGauss_swiginit(self, _libBornAgainCore.new_FootprintGauss(width_ratio))
 
     def accept(self, visitor):
         r"""
-        accept(FootprintFactorGaussian self, INodeVisitor visitor)
-        void FootprintFactorGaussian::accept(INodeVisitor *visitor) const override
+        accept(FootprintGauss self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FootprintFactorGaussian_accept(self, visitor)
+        return _libBornAgainCore.FootprintGauss_accept(self, visitor)
 
     def clone(self):
         r"""
-        clone(FootprintFactorGaussian self) -> FootprintFactorGaussian
-        FootprintFactorGaussian * FootprintFactorGaussian::clone() const override
+        clone(FootprintGauss self) -> FootprintGauss
+        virtual IFootprintFactor* IFootprintFactor::clone() const =0
 
         """
-        return _libBornAgainCore.FootprintFactorGaussian_clone(self)
+        return _libBornAgainCore.FootprintGauss_clone(self)
 
     def calculate(self, alpha):
         r"""
-        calculate(FootprintFactorGaussian self, double alpha) -> double
-        double FootprintFactorGaussian::calculate(double alpha) const override
+        calculate(FootprintGauss self, double alpha) -> double
+        virtual double IFootprintFactor::calculate(double alpha) const =0
 
         Calculate footprint correction coefficient from the beam incident angle  alpha. 
 
         """
-        return _libBornAgainCore.FootprintFactorGaussian_calculate(self, alpha)
+        return _libBornAgainCore.FootprintGauss_calculate(self, alpha)
 
     def _print(self):
         r"""
-        _print(FootprintFactorGaussian self) -> std::string
-        std::string FootprintFactorGaussian::print() const override
+        _print(FootprintGauss self) -> std::string
+        virtual std::string IFootprintFactor::print() const =0
 
         Print python-formatted footprint definition. 
 
         """
-        return _libBornAgainCore.FootprintFactorGaussian__print(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorGaussian
+        return _libBornAgainCore.FootprintGauss__print(self)
+    __swig_destroy__ = _libBornAgainCore.delete_FootprintGauss
 
-# Register FootprintFactorGaussian in _libBornAgainCore:
-_libBornAgainCore.FootprintFactorGaussian_swigregister(FootprintFactorGaussian)
+# Register FootprintGauss in _libBornAgainCore:
+_libBornAgainCore.FootprintGauss_swigregister(FootprintGauss)
 
 class FootprintFactorSquare(IFootprintFactor):
     r"""

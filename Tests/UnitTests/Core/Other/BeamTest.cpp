@@ -1,7 +1,7 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -72,7 +72,7 @@ TEST_F(BeamTest, FootprintBehaviour)
     EXPECT_EQ(nullptr, beam.footprintFactor());
     EXPECT_THROW(beam.setWidthRatio(1.0), std::runtime_error);
 
-    FootprintFactorSquare square_ff(0.0);
+    FootprintSquare square_ff(0.0);
     beam.setFootprintFactor(square_ff);
     beam.setWidthRatio(1.0);
     EXPECT_EQ(1.0, beam.footprintFactor()->widthRatio());
@@ -91,7 +91,7 @@ TEST_F(BeamTest, FootprintBehaviour)
     EXPECT_EQ(nullptr, beam3.footprintFactor());
 
     Beam beam4;
-    FootprintFactorGaussian gaussian_ff(1.0);
+    FootprintGauss gaussian_ff(1.0);
     beam4.setFootprintFactor(gaussian_ff);
 
     beam = beam4;

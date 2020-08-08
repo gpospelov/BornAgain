@@ -16,8 +16,8 @@
 #include "Core/Aggregate/FTDistributions1D.h"
 #include "Core/Aggregate/FTDistributions2D.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
@@ -618,12 +618,12 @@ void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
 {
     if (!footprint)
         return;
-    if (const auto gaussian_fp = dynamic_cast<const FootprintFactorGaussian*>(footprint)) {
+    if (const auto gaussian_fp = dynamic_cast<const FootprintGauss*>(footprint)) {
         auto gaussian_fp_item =
             beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT, "GaussianFootrpint");
         const double value = gaussian_fp->widthRatio();
         gaussian_fp_item->setItemValue(FootprintGaussianItem::P_VALUE, value);
-    } else if (const auto square_fp = dynamic_cast<const FootprintFactorSquare*>(footprint)) {
+    } else if (const auto square_fp = dynamic_cast<const FootprintSquare*>(footprint)) {
         auto square_fp_item =
             beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT, "SquareFootprint");
         const double value = square_fp->widthRatio();

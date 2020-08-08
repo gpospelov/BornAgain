@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Beam/FootprintFactorGaussian.cpp
-//! @brief     Implements class FootprintFactorGaussian.
+//! @file      Core/Beam/FootprintGauss.cpp
+//! @brief     Implements class FootprintGauss.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,22 +12,22 @@
 //
 // ************************************************************************** //
 
-#include "Core/Beam/FootprintFactorGaussian.h"
+#include "Core/Beam/FootprintGauss.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Tools/MathFunctions.h"
 #include "Core/Tools/PythonFormatting.h"
 
-FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio) : IFootprintFactor(width_ratio)
+FootprintGauss::FootprintGauss(double width_ratio) : IFootprintFactor(width_ratio)
 {
     initialize();
 }
 
-FootprintFactorGaussian* FootprintFactorGaussian::clone() const
+FootprintGauss* FootprintGauss::clone() const
 {
-    return new FootprintFactorGaussian(*this);
+    return new FootprintGauss(*this);
 }
 
-double FootprintFactorGaussian::calculate(double alpha) const
+double FootprintGauss::calculate(double alpha) const
 {
     if (alpha < 0.0 || alpha > M_PI_2)
         return 0.0;
@@ -37,28 +37,28 @@ double FootprintFactorGaussian::calculate(double alpha) const
     return MathFunctions::erf(arg);
 }
 
-std::string FootprintFactorGaussian::print() const
+std::string FootprintGauss::print() const
 {
     std::stringstream result;
     result << "\n" << PythonFormatting::indent() << "# Defining footprint:\n";
     result << PythonFormatting::indent() << "footprint = ";
-    result << "ba.FootprintFactorGaussian";
+    result << "ba.FootprintGauss";
     result << "(" << PythonFormatting::printDouble(widthRatio()) << ")";
     return result.str();
 }
 
-FootprintFactorGaussian::FootprintFactorGaussian(const FootprintFactorGaussian& other)
+FootprintGauss::FootprintGauss(const FootprintGauss& other)
     : IFootprintFactor(other)
 {
     initialize();
 }
 
-void FootprintFactorGaussian::initialize()
+void FootprintGauss::initialize()
 {
-    setName("FootprintFactorGaussian");
+    setName("FootprintGauss");
 }
 
-static_assert(!std::is_copy_constructible<FootprintFactorGaussian>::value,
-              "FootprintFactorGaussian should not be copy constructable");
-static_assert(!std::is_copy_assignable<FootprintFactorGaussian>::value,
-              "FootprintFactorGaussian should not be copy assignable");
+static_assert(!std::is_copy_constructible<FootprintGauss>::value,
+              "FootprintGauss should not be copy constructable");
+static_assert(!std::is_copy_assignable<FootprintGauss>::value,
+              "FootprintGauss should not be copy assignable");

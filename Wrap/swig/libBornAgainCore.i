@@ -95,8 +95,8 @@
 #include "Core/Fitting/PyFittingCallbacks.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Binning/FixedBinAxis.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/HardParticle/FormFactorAnisoPyramid.h"
 #include "Core/HardParticle/FormFactorBar.h"
 #include "Core/HardParticle/FormFactorBox.h"
@@ -382,8 +382,8 @@
 %include "Core/Particle/FormFactorWeighted.h"
 
 %include "Core/Beam/IFootprintFactor.h"
-%include "Core/Beam/FootprintFactorGaussian.h"
-%include "Core/Beam/FootprintFactorSquare.h"
+%include "Core/Beam/FootprintGauss.h"
+%include "Core/Beam/FootprintSquare.h"
 
 %include "Core/Simulation/Simulation.h"
 %include "Core/Simulation/Simulation2D.h"

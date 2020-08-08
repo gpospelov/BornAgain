@@ -52,7 +52,7 @@ void FitSessionController::setItem(JobItem* item)
         throw GUIHelpers::Error("FitSuiteManager::setItem() -> Item was already set.");
 
     m_jobItem = item;
-    Q_ASSERT(m_jobItem);
+    ASSERT(m_jobItem);
 
     // no need to unsubscribe from jobItem on jobItem destroy. FitSessionManager deletes
     // controller right after the jobItem.

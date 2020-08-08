@@ -66,7 +66,7 @@ void SessionModelView::onExpandCollapseTree()
 
 void SessionModelView::init_tabs()
 {
-    Q_ASSERT(m_content.empty());
+    ASSERT(m_content.empty());
 
     for (auto model : modelsForTabs()) {
         auto treeView = new ModelTreeView(this, model);

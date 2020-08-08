@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H
 #define BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H
 
-#include <cassert>
+#include "Core/Basics/Assert.h"
 #include <iostream>
 #include <list>
 #include <stdexcept>
@@ -50,7 +50,7 @@ public:
 
     size_t size()
     {
-        assert(m_list.size() == m_map.size());
+        ASSERT(m_list.size() == m_map.size());
         return m_list.size();
     }
 

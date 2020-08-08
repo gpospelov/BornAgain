@@ -48,13 +48,13 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
     std::unique_ptr<SphericalDetector> result(new SphericalDetector());
 
     auto x_axis = dynamic_cast<BasicAxisItem*>(getItem(SphericalDetectorItem::P_PHI_AXIS));
-    Q_ASSERT(x_axis);
+    ASSERT(x_axis);
     int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
     double x_min = Units::deg2rad(x_axis->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble());
     double x_max = Units::deg2rad(x_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble());
 
     auto y_axis = dynamic_cast<BasicAxisItem*>(getItem(SphericalDetectorItem::P_ALPHA_AXIS));
-    Q_ASSERT(y_axis);
+    ASSERT(y_axis);
     int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
     double y_min = Units::deg2rad(y_axis->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble());
     double y_max = Units::deg2rad(y_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble());

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/SaveService.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
 #include "GUI/coregui/mainwindow/AutosaveController.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
@@ -40,7 +41,7 @@ void SaveService::setDocument(ProjectDocument* document)
 
 void SaveService::save(const QString& project_file_name)
 {
-    Q_ASSERT(m_document);
+    ASSERT(m_document);
 
     m_save_queue.enqueue(project_file_name);
     process_queue();
@@ -109,8 +110,8 @@ void SaveService::onAutosaveRequest()
 
 void SaveService::onProjectSaved()
 {
-    Q_ASSERT(m_document);
-    Q_ASSERT(m_is_saving);
+    ASSERT(m_document);
+    ASSERT(m_is_saving);
 
     m_is_saving = false;
     emit projectSaved();
@@ -121,7 +122,7 @@ void SaveService::onProjectSaved()
 
 void SaveService::process_queue()
 {
-    Q_ASSERT(m_document);
+    ASSERT(m_document);
 
     if (m_is_saving)
         return;

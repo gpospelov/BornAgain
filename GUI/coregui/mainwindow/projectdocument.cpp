@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/projectdocument.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/mainwindow/OutputDataIOService.h"
@@ -223,7 +224,7 @@ void ProjectDocument::onModelChanged()
 
 void ProjectDocument::readFrom(QIODevice* device)
 {
-    Q_ASSERT(m_messageService);
+    ASSERT(m_messageService);
     QXmlStreamReader reader(device);
 
     while (!reader.atEnd()) {

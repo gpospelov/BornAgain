@@ -52,7 +52,7 @@ int SessionItemUtils::ParentRow(const SessionItem& item)
 kvector_t SessionItemUtils::GetVectorItem(const SessionItem& item, const QString& name)
 {
     SessionItem* vectorItem = item.getItem(name);
-    Q_ASSERT(vectorItem);
+    ASSERT(vectorItem);
     double x = vectorItem->getItemValue(VectorItem::P_X).toDouble();
     double y = vectorItem->getItemValue(VectorItem::P_Y).toDouble();
     double z = vectorItem->getItemValue(VectorItem::P_Z).toDouble();

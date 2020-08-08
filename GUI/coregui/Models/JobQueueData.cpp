@@ -201,7 +201,7 @@ void JobQueueData::assignForDeletion(QThread* thread)
 
 void JobQueueData::assignForDeletion(JobWorker* worker)
 {
-    Q_ASSERT(worker);
+    ASSERT(worker);
     worker->disconnect();
     for (auto it = m_workers.begin(); it != m_workers.end(); ++it) {
         if (it.value() == worker) {

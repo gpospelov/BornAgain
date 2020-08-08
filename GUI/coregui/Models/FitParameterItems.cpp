@@ -204,7 +204,7 @@ void FitParameterItem::setLimitEnabled(const QString& name, bool enabled)
 {
     if (isTag(name)) {
         SessionItem* propertyItem = getItem(name);
-        Q_ASSERT(propertyItem);
+        ASSERT(propertyItem);
         propertyItem->setEnabled(enabled);
         propertyItem->setEditable(enabled);
     }
@@ -276,7 +276,7 @@ bool FitParameterContainerItem::isEmpty()
 void FitParameterContainerItem::setValuesInParameterContainer(
     const QVector<double>& values, ParameterContainerItem* parameterContainer)
 {
-    Q_ASSERT(parameterContainer);
+    ASSERT(parameterContainer);
 
     QVector<SessionItem*> fitPars = getItems(FitParameterContainerItem::T_FIT_PARAMETERS);
 

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/actionmanager.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Tools/SysUtils.h"
 #include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "GUI/coregui/mainwindow/UpdateNotifier.h"
@@ -42,7 +43,7 @@ ActionManager::ActionManager(MainWindow* parent)
 void ActionManager::createActions()
 {
     ProjectManager* projectManager = m_mainWindow->projectManager();
-    Q_ASSERT(projectManager);
+    ASSERT(projectManager);
 
     // new project action
     m_newAction = new QAction("&New Project", m_mainWindow);

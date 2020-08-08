@@ -188,7 +188,7 @@ std::vector<DepthProbeElement> DepthProbeSimulation::generateSimulationElements(
 std::unique_ptr<IComputation>
 DepthProbeSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
-    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<DepthProbeComputation>(*sample(), m_options, m_progress, begin,
                                                    begin + static_cast<long>(n_elements));

@@ -25,7 +25,7 @@
 
 QLineF MultiLayerCandidate::getInterfaceToScene()
 {
-    Q_ASSERT(multilayer);
+    ASSERT(multilayer);
     QLineF line = multilayer->getInterfaceLine(row);
     if (line.length() != 0) {
         QPointF p1(multilayer->mapToScene(line.p1()));
@@ -82,7 +82,7 @@ void ILayerView::updateColor()
             setColor(mp.color());
             update();
         } else {
-            Q_ASSERT(0);
+            ASSERT(0);
         }
     }
 }
@@ -147,7 +147,7 @@ void ILayerView::mousePressEvent(QGraphicsSceneMouseEvent* event)
 void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     DesignerScene* designerScene = dynamic_cast<DesignerScene*>(scene());
-    Q_ASSERT(designerScene);
+    ASSERT(designerScene);
     designerScene->setLayerInterfaceLine(); // removing drop area hint from the scene
 
     if (QLineF(m_drag_start_position, pos()).length() == 0) {

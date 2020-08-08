@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
+#include "Core/Basics/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include <QFileDialog>
@@ -90,7 +91,7 @@ void SavePlotAssistant::saveToFile(const QString& fileName, QCustomPlot* plot,
     }
 
     else {
-        Q_ASSERT(output_data);
+        ASSERT(output_data);
         IntensityDataIOFactory::writeOutputData(*output_data, fileName.toStdString());
     }
 }

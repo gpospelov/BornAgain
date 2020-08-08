@@ -58,7 +58,7 @@ IntensityDataItem* IntensityDataProjectionsWidget::intensityDataItem()
 ProjectionContainerItem*
 IntensityDataProjectionsWidget::projectionContainer(IntensityDataItem* intensityItem)
 {
-    Q_ASSERT(intensityItem);
+    ASSERT(intensityItem);
 
     auto containerItem = intensityItem->getItem(IntensityDataItem::T_PROJECTIONS);
     if (!containerItem)

@@ -23,7 +23,7 @@ namespace
 {
 template <class DataItemType> DataItemType* dataItem(SessionItem* parent)
 {
-    assert(parent && "Assertion failed in DataItemUtils::dataItem: nullptr passed.");
+    ASSERT(parent && "Assertion failed in DataItemUtils::dataItem: nullptr passed.");
 
     if (parent->modelType() == "JobItem")
         return dynamic_cast<DataItemType*>(parent->getItem(JobItem::T_OUTPUT));

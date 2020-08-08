@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Parametrization/Units.h"
@@ -51,7 +52,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
 
             RealLimitsItem* limitsItem = dynamic_cast<RealLimitsItem*>(
                 distributionItem->getGroupItem(DistributionItem::P_LIMITS));
-            Q_ASSERT(limitsItem);
+            ASSERT(limitsItem);
 
             RealLimits limits = limitsItem->createRealLimits(scaleFactor());
 
@@ -67,7 +68,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
 void BeamDistributionItem::initDistributionItem(bool show_mean)
 {
     GroupItem* groupItem = dynamic_cast<GroupItem*>(getItem(P_DISTRIBUTION));
-    Q_ASSERT(groupItem);
+    ASSERT(groupItem);
 
     SessionItem* distributionNone = nullptr;
     for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
@@ -119,7 +120,7 @@ void BeamDistributionItem::resetToValue(double value)
 {
     SessionItem* distributionItem =
         setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, "DistributionNone");
-    Q_ASSERT(distributionItem);
+    ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_MEAN, value);
 }
 
@@ -133,8 +134,8 @@ double BeamDistributionItem::scaleFactor() const
 
 void BeamDistributionItem::register_distribution_group(const QString& group_type)
 {
-    Q_ASSERT(group_type == "Distribution extended group"
-             || group_type == "Symmetric distribution group");
+    ASSERT(group_type == "Distribution extended group"
+           || group_type == "Symmetric distribution group");
     addGroupProperty(P_DISTRIBUTION, group_type);
 }
 

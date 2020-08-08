@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "../geometry.h"
+#include "Core/Basics/Assert.h"
 #include <qmath.h>
 
 namespace RealSpace
@@ -69,8 +70,8 @@ Geometry::Mesh Geometry::meshColumn(float ratio_Rt_Rb, float numSides)
         }
     }
 
-    Q_ASSERT(vs.count() == nv);
-    Q_ASSERT(!smooth || ns.count() == nv);
+    ASSERT(vs.count() == nv);
+    ASSERT(!smooth || ns.count() == nv);
 
     return makeMesh(vs, smooth ? &ns : nullptr);
 }

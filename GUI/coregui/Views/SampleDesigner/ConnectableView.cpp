@@ -86,7 +86,7 @@ void ConnectableView::setLabel(const QString& name)
 
 void ConnectableView::connectInputPort(ConnectableView* other, int port_number)
 {
-    Q_ASSERT(other);
+    ASSERT(other);
 
     if (port_number >= m_input_ports.size())
         throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong input port number");

@@ -161,7 +161,7 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
 std::unique_ptr<IComputation>
 SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
-    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
                                                  begin + static_cast<long>(n_elements));

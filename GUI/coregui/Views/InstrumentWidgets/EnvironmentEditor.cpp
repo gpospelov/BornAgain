@@ -58,6 +58,6 @@ void EnvironmentEditor::unsubscribeFromItem()
 InstrumentItem* EnvironmentEditor::instrumentItem()
 {
     auto result = dynamic_cast<InstrumentItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }

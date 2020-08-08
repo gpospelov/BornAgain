@@ -111,7 +111,7 @@ void MaskEditorCanvas::onResetViewRequest()
 
 bool MaskEditorCanvas::isAxisRangeMatchData() const
 {
-    Q_ASSERT(m_intensityDataItem);
+    ASSERT(m_intensityDataItem);
 
     if (m_intensityDataItem->getLowerX() != m_intensityDataItem->getXmin())
         return false;

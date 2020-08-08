@@ -92,7 +92,7 @@ QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex
         return QModelIndex();
 
     SessionItem* parent_item = itemForIndex(parent);
-    Q_ASSERT(parent_item);
+    ASSERT(parent_item);
 
     if (parent_item->modelType() == "FitParameterContainer") {
         if (SessionItem* fitParItem = parent_item->childAt(row)) {
@@ -261,16 +261,16 @@ bool FitParameterProxyModel::dropMimeData(const QMimeData* data, Qt::DropAction 
 
     if (parent.isValid()) {
         if (SessionItem* fitParItem = itemForIndex(parent)) {
-            Q_ASSERT(fitParItem->modelType() == "FitParameter");
+            ASSERT(fitParItem->modelType() == "FitParameter");
             ParameterItem* parItem = FitParameterHelper::getParameterItem(
                 m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
-            Q_ASSERT(parItem);
+            ASSERT(parItem);
             FitParameterHelper::addToFitParameter(m_root_item, parItem, fitParItem->displayName());
         }
     } else {
         ParameterItem* parItem = FitParameterHelper::getParameterItem(
             m_root_item, QString::fromLatin1(data->data(SessionXML::LinkMimeType)));
-        Q_ASSERT(parItem);
+        ASSERT(parItem);
         FitParameterHelper::createFitParameter(m_root_item, parItem);
     }
     return true;
@@ -294,7 +294,7 @@ void FitParameterProxyModel::onSourceDataChanged(const QModelIndex& topLeft,
     Q_UNUSED(bottomRight);
 
     JobModel* sourceModel = qobject_cast<JobModel*>(sender());
-    Q_ASSERT(sourceModel);
+    ASSERT(sourceModel);
     SessionItem* sourceItem = sourceModel->itemForIndex(topLeft);
 
     QModelIndex itemIndex = indexOfItem(sourceItem);
@@ -322,7 +322,7 @@ void FitParameterProxyModel::onSourceAboutToBeReset()
 
 void FitParameterProxyModel::connectModel(QAbstractItemModel* sourceModel, bool isConnect)
 {
-    Q_ASSERT(sourceModel);
+    ASSERT(sourceModel);
     if (isConnect) {
         connect(sourceModel, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
                 SLOT(onSourceDataChanged(QModelIndex, QModelIndex, QVector<int>)));
@@ -390,7 +390,7 @@ SessionItem* FitParameterProxyModel::itemForIndex(const QModelIndex& index) cons
 
 SessionModel* FitParameterProxyModel::sourceModel() const
 {
-    Q_ASSERT(m_root_item);
+    ASSERT(m_root_item);
     return m_root_item->model();
 }
 

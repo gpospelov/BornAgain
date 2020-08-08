@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/ba3d/model/model.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/ba3d/model/geometry.h"
 
 namespace RealSpace
@@ -118,16 +119,16 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R)
 
 void Model::add(Object* o)
 {
-    Q_ASSERT(o);
-    Q_ASSERT(!o->model);
+    ASSERT(o);
+    ASSERT(!o->model);
     o->model = this;
     objects.append(o);
 }
 
 void Model::addBlend(Object* o)
 {
-    Q_ASSERT(o);
-    Q_ASSERT(!o->model);
+    ASSERT(o);
+    ASSERT(!o->model);
     o->model = this;
     objectsBlend.append(o);
 }
@@ -140,7 +141,7 @@ void Model::rem(Object* o)
     else if ((i = objectsBlend.indexOf(o)) >= 0)
         objectsBlend.remove(i);
     else
-        Q_ASSERT(false); // object not found, should not happen, bad caller!
+        ASSERT(false); // object not found, should not happen, bad caller!
 
     o->releaseGeometry();
     o->model = nullptr;

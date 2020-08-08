@@ -50,7 +50,7 @@ FitSessionWidget::FitSessionWidget(QWidget* parent)
 
 void FitSessionWidget::setItem(JobItem* jobItem)
 {
-    Q_ASSERT(jobItem);
+    ASSERT(jobItem);
     m_fitParametersWidget->setItem(jobItem);
     m_minimizerSettingsWidget->setItem(jobItem);
     m_controlWidget->setItem(jobItem);
@@ -58,8 +58,8 @@ void FitSessionWidget::setItem(JobItem* jobItem)
 
 void FitSessionWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
 {
-    Q_ASSERT(m_fitParametersWidget);
-    Q_ASSERT(tuningWidget);
+    ASSERT(m_fitParametersWidget);
+    ASSERT(tuningWidget);
     m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
 }
 

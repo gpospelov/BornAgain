@@ -51,7 +51,7 @@ FitActivityPanel::FitActivityPanel(JobModel* jobModel, QWidget* parent)
 
 void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget* realTimeWidget)
 {
-    Q_ASSERT(realTimeWidget);
+    ASSERT(realTimeWidget);
     m_realTimeWidget = realTimeWidget;
 }
 

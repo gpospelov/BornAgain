@@ -37,8 +37,8 @@ void DetectorMaskDelegate::initMaskEditorContext(MaskEditor* maskEditor,
     m_instrumentModel = instrumentModel;
     m_detectorItem = detectorItem;
 
-    Q_ASSERT(m_instrumentModel);
-    Q_ASSERT(m_detectorItem);
+    ASSERT(m_instrumentModel);
+    ASSERT(m_detectorItem);
 
     createIntensityDataItem();
     m_detectorItem->createMaskContainer();
@@ -57,7 +57,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 
     m_intensityItem =
         dynamic_cast<IntensityDataItem*>(m_tempIntensityDataModel->insertNewItem("IntensityData"));
-    Q_ASSERT(m_intensityItem);
+    ASSERT(m_intensityItem);
 
     m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);
     m_intensityItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, false);

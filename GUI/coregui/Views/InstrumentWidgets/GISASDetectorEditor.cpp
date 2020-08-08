@@ -53,7 +53,7 @@ void GISASDetectorEditor::unsubscribeFromItem()
 Instrument2DItem* GISASDetectorEditor::instrumentItem()
 {
     auto result = dynamic_cast<Instrument2DItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

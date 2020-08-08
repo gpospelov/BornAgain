@@ -223,7 +223,7 @@ BasicAxisItem* Data1DViewItem::xAxisItem()
 const AmplitudeAxisItem* Data1DViewItem::yAxisItem() const
 {
     auto result = dynamic_cast<const AmplitudeAxisItem*>(getItem(P_YAXIS));
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

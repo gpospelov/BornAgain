@@ -80,10 +80,10 @@ namespace
 {
 void setupDistributionMean(SessionItem* distribution)
 {
-    Q_ASSERT(distribution);
+    ASSERT(distribution);
 
     SessionItem* valueItem = distribution->getItem(DistributionNoneItem::P_MEAN);
-    Q_ASSERT(valueItem);
+    ASSERT(valueItem);
 
     valueItem->setLimits(RealLimits::limited(-90.0, 90.0));
     valueItem->setDecimals(3);

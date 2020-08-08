@@ -63,7 +63,7 @@ void MaterialEditorToolBar::setSelectionModel(QItemSelectionModel* selectionMode
 void MaterialEditorToolBar::onCustomContextMenuRequested(const QPoint& point)
 {
     QListView* listView = qobject_cast<QListView*>(sender());
-    Q_ASSERT(listView);
+    ASSERT(listView);
     QMenu menu;
     initItemContextMenu(menu);
     menu.exec(listView->mapToGlobal(point));
@@ -84,8 +84,8 @@ void MaterialEditorToolBar::onCloneMaterialAction()
 
 void MaterialEditorToolBar::onRemoveMaterialAction()
 {
-    Q_ASSERT(m_materialModel);
-    Q_ASSERT(m_selectionModel);
+    ASSERT(m_materialModel);
+    ASSERT(m_selectionModel);
 
     auto selected = m_selectionModel->currentIndex();
 

@@ -60,7 +60,7 @@ void RectangularDetectorEditor::unsubscribeFromItem()
 RectangularDetectorItem* RectangularDetectorEditor::detectorItem()
 {
     auto result = dynamic_cast<RectangularDetectorItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

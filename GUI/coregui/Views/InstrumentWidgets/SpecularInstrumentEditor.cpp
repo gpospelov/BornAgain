@@ -47,6 +47,6 @@ void SpecularInstrumentEditor::subscribeToItem()
 SpecularInstrumentItem* SpecularInstrumentEditor::instrumentItem()
 {
     auto result = dynamic_cast<SpecularInstrumentItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }

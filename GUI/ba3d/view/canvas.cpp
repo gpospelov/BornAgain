@@ -15,6 +15,7 @@
 #include "GUI/ba3d/view/canvas.h"
 #include "../model/geometry.h"
 #include "../model/model.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/ba3d/view/buffer.h"
 #include "GUI/ba3d/view/camera.h"
 #include "GUI/ba3d/view/program.h"
@@ -281,7 +282,7 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
     else
         buf = *it;
 
-    Q_ASSERT(program);
+    ASSERT(program);
     program->set(color);
     program->set(mat);
     buf->draw();

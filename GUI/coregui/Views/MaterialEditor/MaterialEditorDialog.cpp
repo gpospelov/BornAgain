@@ -86,7 +86,7 @@ QBoxLayout* MaterialEditorDialog::createButtonLayout()
 
 void MaterialEditorDialog::init_material_editor()
 {
-    Q_ASSERT(m_origMaterialModel);
+    ASSERT(m_origMaterialModel);
     m_tmpMaterialModel.reset(m_origMaterialModel->createCopy());
     m_materialEditor = new MaterialEditor(m_tmpMaterialModel.get(), this);
     readSettings();
@@ -126,7 +126,7 @@ ExternalProperty MaterialEditorDialog::selectedMaterialProperty()
 //!
 void MaterialEditorDialog::setMaterialProperty(const ExternalProperty& matProperty)
 {
-    Q_ASSERT(m_materialEditor);
+    ASSERT(m_materialEditor);
 
     m_materialEditor->setInitialMaterialProperty(matProperty);
 }

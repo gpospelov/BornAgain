@@ -86,7 +86,7 @@ void ComponentTreeView::setRootIndex(const QModelIndex& index, bool show_root_it
 {
     if (QWidget* editor = m_tree->indexWidget(m_tree->currentIndex()))
         m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
-    Q_ASSERT(m_proxyModel);
+    ASSERT(m_proxyModel);
     m_proxyModel->setRootIndex(index);
     if (!show_root_item)
         m_tree->setRootIndex(m_proxyModel->mapFromSource(index));

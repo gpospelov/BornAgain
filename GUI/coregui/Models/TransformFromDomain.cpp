@@ -217,7 +217,7 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
                                                       const ParticleDistribution& sample)
 {
     ParticleDistributionItem* distItem = dynamic_cast<ParticleDistributionItem*>(item);
-    Q_ASSERT(distItem);
+    ASSERT(distItem);
 
     distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample.abundance());
 
@@ -248,7 +248,7 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
 
 void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation)
 {
-    Q_ASSERT(beam_item);
+    ASSERT(beam_item);
     Beam beam = simulation.getInstrument().getBeam();
 
     beam_item->setIntensity(beam.getIntensity());
@@ -402,14 +402,14 @@ void TransformFromDomain::setSphericalDetector(SphericalDetectorItem* detector_i
 
     BasicAxisItem* phiAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_PHI_AXIS));
-    Q_ASSERT(phiAxisItem);
+    ASSERT(phiAxisItem);
     phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.size());
     phiAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(phi_axis.getMin()));
     phiAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem* alphaAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
-    Q_ASSERT(alphaAxisItem);
+    ASSERT(alphaAxisItem);
     alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
     alphaAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(alpha_axis.getMin()));
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(alpha_axis.getMax()));
@@ -421,13 +421,13 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
     // Axes
     BasicAxisItem* xAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(RectangularDetectorItem::P_X_AXIS));
-    Q_ASSERT(xAxisItem);
+    ASSERT(xAxisItem);
     xAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
     xAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, detector.getWidth());
 
     BasicAxisItem* yAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(RectangularDetectorItem::P_Y_AXIS));
-    Q_ASSERT(yAxisItem);
+    ASSERT(yAxisItem);
     yAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
     yAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, detector.getHeight());
 
@@ -585,7 +585,7 @@ void TransformFromDomain::setMaskContainer(MaskContainerItem* container_item,
 void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribution_item,
                                             const ParameterDistribution& parameter_distribution)
 {
-    Q_ASSERT(beam_distribution_item);
+    ASSERT(beam_distribution_item);
 
     if (parameter_distribution.getMinValue() < parameter_distribution.getMaxValue()) {
         throw GUIHelpers::Error(
@@ -842,7 +842,7 @@ void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_dis
     }
 
     DistributionItem* distItem = dynamic_cast<DistributionItem*>(item);
-    Q_ASSERT(distItem);
+    ASSERT(distItem);
 
     distItem->setItemValue(DistributionItem::P_NUMBER_OF_SAMPLES, (int)par_distr.getNbrSamples());
 

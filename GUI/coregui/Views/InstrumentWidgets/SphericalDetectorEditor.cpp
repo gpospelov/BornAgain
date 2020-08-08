@@ -66,6 +66,6 @@ void SphericalDetectorEditor::unsubscribeFromItem()
 SphericalDetectorItem* SphericalDetectorEditor::detectorItem()
 {
     auto result = dynamic_cast<SphericalDetectorItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }

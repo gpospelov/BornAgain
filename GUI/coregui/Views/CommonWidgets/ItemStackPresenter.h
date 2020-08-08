@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
 
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/CommonWidgets/ItemStackWidget.h"
 #include <QDebug>
 #include <QMap>
@@ -101,7 +102,7 @@ template <class T> void ItemStackPresenter<T>::hideWidgets()
 
 template <class T> void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
 
     if (m_single_widget)
         return;

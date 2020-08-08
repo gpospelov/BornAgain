@@ -73,7 +73,7 @@ QStringList RotationTranslator::translate(const QStringList& list) const
     if (list.back() != "Rotation")
         return list;
 
-    Q_ASSERT(list.size() == 3);
+    ASSERT(list.size() == 3);
     QStringList result = list;
     result.removeLast();
     return result;
@@ -153,7 +153,7 @@ QStringList VectorParameterTranslator::translate(const QStringList& list) const
     if (list.back() != m_gui_name)
         return list;
 
-    Q_ASSERT(list.size() == 2);
+    ASSERT(list.size() == 2);
 
     QStringList result;
     if (list.front() == VectorItem::P_X) {

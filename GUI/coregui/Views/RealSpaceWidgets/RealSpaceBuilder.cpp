@@ -114,7 +114,7 @@ void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& l
 void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
                                       const SceneGeometry& sceneGeometry, const QVector3D& origin)
 {
-    Q_ASSERT(layoutItem.modelType() == "ParticleLayout");
+    ASSERT(layoutItem.modelType() == "ParticleLayout");
 
     // If there is no particle to populate
     if (!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))

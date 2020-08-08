@@ -84,7 +84,7 @@ void SpecularDataCanvas::onMousePress(QMouseEvent* event)
 SpecularDataItem* SpecularDataCanvas::specularDataItem()
 {
     SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

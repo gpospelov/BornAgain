@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/utils/StyleUtils.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/CommonWidgets/detailswidget.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/utils/hostosinfo.h"
@@ -35,7 +36,7 @@ QSize DefaultSizeOfLetterM()
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
 {
-    Q_ASSERT(tree);
+    ASSERT(tree);
     tree->setStyleSheet(StyleUtils::propertyTreeStyle());
     tree->setAlternatingRowColors(true);
 }

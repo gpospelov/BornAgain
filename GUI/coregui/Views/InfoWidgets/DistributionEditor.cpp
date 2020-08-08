@@ -68,14 +68,14 @@ void DistributionEditor::onPropertyChanged(const QString& property_name)
 GroupItem* DistributionEditor::groupItem()
 {
     auto result = dynamic_cast<GroupItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 
 DistributionItem* DistributionEditor::distributionItem()
 {
     auto result = dynamic_cast<DistributionItem*>(groupItem()->currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

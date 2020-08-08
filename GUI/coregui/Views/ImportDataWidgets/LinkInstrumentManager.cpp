@@ -89,7 +89,7 @@ int LinkInstrumentManager::instrumentComboIndex(const QString& identifier)
 
 QString LinkInstrumentManager::instrumentIdentifier(int comboIndex)
 {
-    Q_ASSERT(comboIndex >= 0 && comboIndex < m_instrumentVec.size());
+    ASSERT(comboIndex >= 0 && comboIndex < m_instrumentVec.size());
     return m_instrumentVec[comboIndex].m_identifier;
 }
 

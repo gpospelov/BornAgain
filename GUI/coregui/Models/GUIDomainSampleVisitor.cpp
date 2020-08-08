@@ -96,10 +96,10 @@ void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample)
 void GUIDomainSampleVisitor::visit(const Layer* p_sample)
 {
     SessionItem* p_parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_parent);
+    ASSERT(p_parent);
 
     auto p_multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[p_parent]);
-    Q_ASSERT(p_multilayer);
+    ASSERT(p_multilayer);
     size_t layer_index = MultiLayerUtils::IndexOfLayer(*p_multilayer, p_sample);
     const LayerInterface* p_interface =
         MultiLayerUtils::LayerTopInterface(*p_multilayer, layer_index);
@@ -135,10 +135,10 @@ void GUIDomainSampleVisitor::visit(const Particle* p_sample)
 void GUIDomainSampleVisitor::visit(const ParticleDistribution* p_sample)
 {
     SessionItem* p_layout_item = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_layout_item);
+    ASSERT(p_layout_item);
     SessionItem* p_particle_distribution_item = m_sampleModel->insertNewItem(
         "ParticleDistribution", m_sampleModel->indexOfItem(p_layout_item));
-    Q_ASSERT(p_particle_distribution_item);
+    ASSERT(p_particle_distribution_item);
 
     TransformFromDomain::setParticleDistributionItem(p_particle_distribution_item, *p_sample);
 
@@ -164,7 +164,7 @@ void GUIDomainSampleVisitor::visit(const MesoCrystal* p_sample)
 void GUIDomainSampleVisitor::visit(const Crystal* p_sample)
 {
     SessionItem* p_mesocrystal_item = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_mesocrystal_item);
+    ASSERT(p_mesocrystal_item);
     if (p_mesocrystal_item->modelType() != "MesoCrystal") {
         throw GUIHelpers::Error("GUIObjectBuilder::visit(const Crystal*) "
                                 "-> Error. Parent is not a MesoCrystal");
@@ -458,11 +458,11 @@ void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSpheroid* p_sample)
 void GUIDomainSampleVisitor::visit(const InterferenceFunction1DLattice* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
     SessionItem* item =
         m_sampleModel->insertNewItem("Interference1DLattice", m_sampleModel->indexOfItem(parent),
                                      -1, ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
+    ASSERT(item);
     TransformFromDomain::set1DLatticeItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
 }
@@ -470,11 +470,11 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction1DLattice* p_sample
 void GUIDomainSampleVisitor::visit(const InterferenceFunction2DLattice* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
     SessionItem* item =
         m_sampleModel->insertNewItem("Interference2DLattice", m_sampleModel->indexOfItem(parent),
                                      -1, ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
+    ASSERT(item);
     TransformFromDomain::set2DLatticeItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
 }
@@ -482,11 +482,11 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction2DLattice* p_sample
 void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
     SessionItem* item = m_sampleModel->insertNewItem("Interference2DParaCrystal",
                                                      m_sampleModel->indexOfItem(parent), -1,
                                                      ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
+    ASSERT(item);
     TransformFromDomain::set2DParaCrystalItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
 }
@@ -494,11 +494,11 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sa
 void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
     SessionItem* item = m_sampleModel->insertNewItem("InterferenceFinite2DLattice",
                                                      m_sampleModel->indexOfItem(parent), -1,
                                                      ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
+    ASSERT(item);
     TransformFromDomain::setFinite2DLatticeItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
 }
@@ -506,11 +506,11 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_
 void GUIDomainSampleVisitor::visit(const InterferenceFunctionHardDisk* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
     SessionItem* item =
         m_sampleModel->insertNewItem("InterferenceHardDisk", m_sampleModel->indexOfItem(parent), -1,
                                      ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
+    ASSERT(item);
     TransformFromDomain::setHardDiskItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
 }
@@ -518,11 +518,11 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionHardDisk* p_sample)
 void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
     SessionItem* item = m_sampleModel->insertNewItem("InterferenceRadialParaCrystal",
                                                      m_sampleModel->indexOfItem(parent), -1,
                                                      ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
+    ASSERT(item);
     TransformFromDomain::setRadialParaCrystalItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
 }
@@ -530,7 +530,7 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* 
 void GUIDomainSampleVisitor::visit(const RotationX* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
         "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
@@ -543,7 +543,7 @@ void GUIDomainSampleVisitor::visit(const RotationX* p_sample)
 void GUIDomainSampleVisitor::visit(const RotationY* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
         "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
@@ -556,7 +556,7 @@ void GUIDomainSampleVisitor::visit(const RotationY* p_sample)
 void GUIDomainSampleVisitor::visit(const RotationZ* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
         "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
@@ -569,11 +569,11 @@ void GUIDomainSampleVisitor::visit(const RotationZ* p_sample)
 void GUIDomainSampleVisitor::visit(const RotationEuler* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
+    ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
         "Rotation", m_sampleModel->indexOfItem(parent), -1, ParticleItem::T_TRANSFORMATION);
-    Q_ASSERT(transformation_item);
+    ASSERT(transformation_item);
     SessionItem* p_rotationItem =
         transformation_item->setGroupProperty(TransformationItem::P_ROT, "EulerRotation");
     p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA, Units::rad2deg(p_sample->getAlpha()));
@@ -617,7 +617,7 @@ SessionItem* GUIDomainSampleVisitor::InsertIParticle(const IParticle* p_particle
                                                      QString model_type)
 {
     auto p_parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_parent);
+    ASSERT(p_parent);
 
     QString tag;
     auto parent_type = p_parent->modelType();
@@ -625,7 +625,7 @@ SessionItem* GUIDomainSampleVisitor::InsertIParticle(const IParticle* p_particle
         if (parent_type == "ParticleCoreShell") {
             const ParticleCoreShell* p_coreshell =
                 dynamic_cast<const ParticleCoreShell*>(m_itemToSample[p_parent]);
-            Q_ASSERT(p_coreshell);
+            ASSERT(p_coreshell);
             if (p_particle == p_coreshell->coreParticle()) {
                 tag = ParticleCoreShellItem::T_CORE;
             } else if (p_particle == p_coreshell->shellParticle()) {
@@ -639,7 +639,7 @@ SessionItem* GUIDomainSampleVisitor::InsertIParticle(const IParticle* p_particle
     SessionItem* p_particle_item =
         m_sampleModel->insertNewItem(model_type, m_sampleModel->indexOfItem(p_parent), -1, tag);
 
-    Q_ASSERT(p_particle_item);
+    ASSERT(p_particle_item);
     p_particle_item->setItemValue(ParticleItem::P_ABUNDANCE, p_particle->abundance());
     buildPositionInfo(p_particle_item, p_particle);
 

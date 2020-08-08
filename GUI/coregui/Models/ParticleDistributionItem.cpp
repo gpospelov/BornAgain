@@ -202,7 +202,7 @@ const SessionItem* ParticleDistributionItem::childParticle() const
     if (getItems(T_PARTICLES).size() == 0)
         return nullptr;
 
-    Q_ASSERT(getItems(T_PARTICLES).size() == 1);
+    ASSERT(getItems(T_PARTICLES).size() == 1);
     return getItems(T_PARTICLES).front();
 }
 

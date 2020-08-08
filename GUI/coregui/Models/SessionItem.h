@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEM_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEM_H
 
+#include "Core/Basics/Assert.h"
 #include "Fit/Tools/RealLimits.h"
 #include "GUI/coregui/Models/ModelMapper.h"
 #include <QStringList>
@@ -140,14 +141,14 @@ private:
 template <typename T> T& SessionItem::item(const QString& tag) const
 {
     T* t = dynamic_cast<T*>(getItem(tag));
-    Q_ASSERT(t);
+    ASSERT(t);
     return *t;
 }
 
 template <typename T> T& SessionItem::groupItem(const QString& groupName) const
 {
     T* t = dynamic_cast<T*>(getGroupItem(groupName));
-    Q_ASSERT(t);
+    ASSERT(t);
     return *t;
 }
 

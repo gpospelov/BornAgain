@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/mainwindow/projectmanager.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Views/InfoWidgets/ProjectLoadWarningDialog.h"
 #include "GUI/coregui/mainwindow/AppSvc.h"
@@ -420,7 +421,7 @@ void ProjectManager::riseProjectLoadFailedDialog()
 
 void ProjectManager::riseProjectLoadWarningDialog()
 {
-    Q_ASSERT(m_project_document);
+    ASSERT(m_project_document);
     ProjectLoadWarningDialog* warningDialog = new ProjectLoadWarningDialog(
         m_mainWindow, m_messageService, m_project_document->documentVersion());
 

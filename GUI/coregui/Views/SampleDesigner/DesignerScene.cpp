@@ -61,7 +61,7 @@ DesignerScene::~DesignerScene()
 
 void DesignerScene::setSampleModel(SampleModel* sampleModel)
 {
-    Q_ASSERT(sampleModel);
+    ASSERT(sampleModel);
 
     if (sampleModel != m_sampleModel) {
 
@@ -104,7 +104,7 @@ void DesignerScene::setMaterialModel(MaterialModel* materialModel)
 
 void DesignerScene::setSelectionModel(QItemSelectionModel* model, FilterPropertyProxy* proxy)
 {
-    Q_ASSERT(model);
+    ASSERT(model);
 
     if (model != m_selectionModel) {
 
@@ -202,7 +202,7 @@ void DesignerScene::onSceneSelectionChanged()
         if (view) {
             SessionItem* sampleItem = view->getItem();
             QModelIndex itemIndex = m_sampleModel->indexOfItem(sampleItem);
-            Q_ASSERT(itemIndex.isValid());
+            ASSERT(itemIndex.isValid());
             if (!m_selectionModel->isSelected(m_proxy->mapFromSource(itemIndex)))
                 m_selectionModel->select(m_proxy->mapFromSource(itemIndex),
                                          QItemSelectionModel::Select);
@@ -215,7 +215,7 @@ void DesignerScene::onSceneSelectionChanged()
 //! runs through all items recursively and updates corresponding views
 void DesignerScene::updateViews(const QModelIndex& parentIndex, IView* parentView)
 {
-    Q_ASSERT(m_sampleModel);
+    ASSERT(m_sampleModel);
 
     IView* childView(0);
     int childCount = 0;
@@ -241,7 +241,7 @@ void DesignerScene::updateViews(const QModelIndex& parentIndex, IView* parentVie
 //! adds view for item, if it doesn't exists
 IView* DesignerScene::addViewForItem(SessionItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
 
     IView* view = getViewForItem(item);
 
@@ -285,7 +285,7 @@ void DesignerScene::deleteViews(const QModelIndex& viewIndex)
 //! removes view from scene corresponding to given item
 void DesignerScene::removeItemViewFromScene(SessionItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
 
     for (QMap<SessionItem*, IView*>::iterator it = m_ItemToView.begin(); it != m_ItemToView.end();
          ++it) {

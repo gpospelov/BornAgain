@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "../geometry.h"
+#include "Core/Basics/Assert.h"
 
 namespace RealSpace
 {
@@ -63,7 +64,7 @@ Geometry::Mesh Geometry::meshTruncBox(float tD)
             for (int z : {-1, +1})
                 corner(x, y, z);
 
-    Q_ASSERT(150 == vs.count());
+    ASSERT(150 == vs.count());
 
     return makeMesh(vs);
 }

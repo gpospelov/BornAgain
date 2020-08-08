@@ -85,7 +85,7 @@ void OffSpecBeamEditor::unsubscribeFromItem()
 OffSpecInstrumentItem* OffSpecBeamEditor::instrumentItem()
 {
     auto result = dynamic_cast<OffSpecInstrumentItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

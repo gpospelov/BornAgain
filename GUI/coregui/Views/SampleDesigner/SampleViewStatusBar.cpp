@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/SampleViewStatusBar.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QHBoxLayout>
 #include <QStatusBar>
@@ -42,7 +43,7 @@ SampleViewStatusBar::SampleViewStatusBar(MainWindow* mainWindow)
 
 void SampleViewStatusBar::initAppearance()
 {
-    Q_ASSERT(m_mainWindow);
+    ASSERT(m_mainWindow);
     m_mainWindow->statusBar()->addWidget(this, 1);
     m_mainWindow->statusBar()->setSizeGripEnabled(false);
     this->hide();

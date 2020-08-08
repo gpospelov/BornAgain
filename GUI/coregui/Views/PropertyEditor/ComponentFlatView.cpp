@@ -74,7 +74,7 @@ void ComponentFlatView::setModel(SessionModel* model)
 
 void ComponentFlatView::clearLayout()
 {
-    Q_ASSERT(m_gridLayout);
+    ASSERT(m_gridLayout);
     LayoutUtils::clearGridLayout(m_gridLayout, false);
 
     for (auto widget : m_widgetItems)
@@ -92,7 +92,7 @@ void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIn
 {
     Q_UNUSED(bottomRight);
     SessionItem* item = m_model->itemForIndex(topLeft);
-    Q_ASSERT(item);
+    ASSERT(item);
     if (item->modelType() == "GroupProperty")
         updateItemProperties();
 

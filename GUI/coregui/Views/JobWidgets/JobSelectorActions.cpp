@@ -84,7 +84,7 @@ void JobSelectorActions::equalizeSelectedToJob(int selected_id)
         return;
 
     JobItem* referenceItem = m_jobModel->getJobItemForIndex(selectedList.at(selected_id));
-    Q_ASSERT(referenceItem);
+    ASSERT(referenceItem);
 
     IntensityDataItem* referenceDataItem = referenceItem->intensityDataItem();
     if (!referenceDataItem)

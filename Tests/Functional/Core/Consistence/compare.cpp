@@ -14,6 +14,7 @@
 
 #include "BABuild.h"
 #include "BATesting.h"
+#include "Core/Basics/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
@@ -22,12 +23,11 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
-#include <cassert>
 #include <iostream>
 
 std::unique_ptr<OutputData<double>> load(const std::string& name)
 {
-    assert(name != "");
+    ASSERT(name != "");
     const std::string path =
         FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz");
     std::unique_ptr<OutputData<double>> data;

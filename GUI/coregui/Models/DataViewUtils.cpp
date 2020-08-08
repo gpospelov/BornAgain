@@ -26,7 +26,7 @@ namespace
 std::unique_ptr<IUnitConverter> getConverter(Data1DViewItem* view_item)
 {
     auto job_item = view_item->jobItem();
-    assert(job_item->instrumentItem());
+    ASSERT(job_item->instrumentItem());
 
     return DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
 }

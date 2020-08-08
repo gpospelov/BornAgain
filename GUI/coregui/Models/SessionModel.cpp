@@ -344,7 +344,7 @@ SessionItem* SessionModel::itemForIndex(const QModelIndex& index) const
 
 void SessionModel::readFrom(QXmlStreamReader* reader, MessageService* messageService)
 {
-    Q_ASSERT(reader);
+    ASSERT(reader);
 
     if (reader->name() != m_model_tag)
         throw GUIHelpers::Error("SessionModel::readFrom() -> Format error in p1");

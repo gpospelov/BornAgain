@@ -102,8 +102,8 @@ const DataItem* RealDataItem::nativeData() const
 
 void RealDataItem::setOutputData(OutputData<double>* data)
 {
-    assert(data && "Assertion failed in RealDataItem::setOutputData: passed data is nullptr");
-    assert(data->getRank() < 3 && data->getRank() > 0);
+    ASSERT(data && "Assertion failed in RealDataItem::setOutputData: passed data is nullptr");
+    ASSERT(data->getRank() < 3 && data->getRank() > 0);
 
     const QString& target_model_type =
         data->getRank() == 2 ? "IntensityData" : data->getRank() == 1 ? "SpecularData" : "";
@@ -113,7 +113,7 @@ void RealDataItem::setOutputData(OutputData<double>* data)
                                 "incompatible with underlying data item");
     if (!data_item) {
         this->model()->insertNewItem(target_model_type, this->index(), 0, T_INTENSITY_DATA);
-        assert(getItem(T_INTENSITY_DATA)
+        ASSERT(getItem(T_INTENSITY_DATA)
                && "Assertion failed in RealDataItem::setOutputData: inserting data item failed.");
     }
     dataItem()->setOutputData(data);
@@ -121,7 +121,7 @@ void RealDataItem::setOutputData(OutputData<double>* data)
 
 void RealDataItem::initDataItem(size_t data_rank, const QString& tag)
 {
-    assert(data_rank <= 2 && data_rank > 0);
+    ASSERT(data_rank <= 2 && data_rank > 0);
     const QString& target_model_type = data_rank == 2 ? "IntensityData" : "SpecularData";
     auto data_item = getItem(tag);
     if (data_item && data_item->modelType() != target_model_type)
@@ -164,7 +164,7 @@ std::vector<int> RealDataItem::shape() const
 {
     auto data_item = dataItem();
     if (!data_item) {
-        assert(data_item);
+        ASSERT(data_item);
         return {};
     }
     return data_item->shape();

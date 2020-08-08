@@ -225,7 +225,7 @@ double getTestValue(size_t bin, double factor)
 SpecularDataItem* fillTestItem(SessionItem* item, double factor)
 {
     SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(item);
-    Q_ASSERT(result);
+    ASSERT(result);
     auto outputData = std::make_unique<OutputData<double>>();
     outputData->addAxis(FixedBinAxis("Angle [deg]", 1000, 0.0, 10.0));
     for (size_t i = 0; i < 1000; ++i)

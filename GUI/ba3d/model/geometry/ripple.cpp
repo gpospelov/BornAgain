@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "../geometry.h"
+#include "Core/Basics/Assert.h"
 #include <qmath.h>
 
 namespace RealSpace
@@ -70,7 +71,7 @@ Geometry::Mesh Geometry::meshRipple(float numSides, float ratio_asymmetry_W)
         vs.addQuad(vfront.at(s2), vfront.at(s1), vback.at(s1), vback.at(s2)); // side
     }
 
-    Q_ASSERT(vs.count() == nv);
+    ASSERT(vs.count() == nv);
 
     return makeMesh(vs, nullptr); // normals not calculated here and left for makeMesh to calculate
 }

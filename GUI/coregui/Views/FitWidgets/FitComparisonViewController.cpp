@@ -43,7 +43,7 @@ Data1DViewItem* FitComparison1DViewController::diffItemView()
 
 void FitComparison1DViewController::setItem(JobItem* job_item)
 {
-    assert(job_item);
+    ASSERT(job_item);
 
     clear();
     m_diff_item_controller->setJobItem(job_item);
@@ -104,7 +104,7 @@ void FitComparison1DViewController::deleteDiffViewItem()
 {
     auto parent = m_diff_view_item->parent();
     auto old_view_item = parent->takeRow(parent->rowOfChild(m_diff_view_item));
-    assert(old_view_item == m_diff_view_item);
+    ASSERT(old_view_item == m_diff_view_item);
     delete (old_view_item);
     m_diff_view_item = nullptr;
 }
@@ -114,7 +114,7 @@ DiffItemController::DiffItemController(const QString& data_type, QObject* parent
       m_private_model(new SessionModel("TempIntensityDataModel", this)),
       m_diff_item(dynamic_cast<DataItem*>(m_private_model->insertNewItem(data_type)))
 {
-    assert(m_diff_item);
+    ASSERT(m_diff_item);
 }
 
 DiffItemController::~DiffItemController()
@@ -124,7 +124,7 @@ DiffItemController::~DiffItemController()
 
 void DiffItemController::setJobItem(JobItem* job_item)
 {
-    assert(job_item);
+    ASSERT(job_item);
     if (m_current_item)
         unsubscribe();
     m_current_item = job_item;
@@ -134,11 +134,11 @@ void DiffItemController::setJobItem(JobItem* job_item)
 
 void DiffItemController::updateDiffData()
 {
-    assert(m_current_item);
+    ASSERT(m_current_item);
 
     auto sim_data = m_current_item->dataItem();
     auto real_data = m_current_item->realDataItem()->dataItem();
-    assert(sim_data && real_data);
+    ASSERT(sim_data && real_data);
 
     if (!sim_data->getOutputData()) // job failed
         return;
@@ -151,7 +151,7 @@ void DiffItemController::updateDiffData()
 void DiffItemController::subscribe()
 {
     if (!m_current_item) {
-        assert(false);
+        ASSERT(false);
         return;
     }
 

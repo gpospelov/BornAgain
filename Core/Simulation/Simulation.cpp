@@ -219,7 +219,7 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
     initSimulationElementVector();
 
     const size_t n_threads = m_options.getNumberOfThreads();
-    assert(n_threads > 0);
+    ASSERT(n_threads > 0);
 
     std::vector<std::unique_ptr<IComputation>> computations;
 
@@ -248,8 +248,8 @@ namespace
 {
 size_t getIndexStep(size_t total_size, size_t n_handlers)
 {
-    assert(total_size > 0);
-    assert(n_handlers > 0);
+    ASSERT(total_size > 0);
+    ASSERT(n_handlers > 0);
     size_t result = total_size / n_handlers;
     return total_size % n_handlers ? ++result : result;
 }
@@ -274,7 +274,7 @@ size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_e
 
 void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
 {
-    assert(!computations.empty());
+    ASSERT(!computations.empty());
 
     if (computations.size() == 1) { // Running computation in current thread
         auto& computation = computations.front();

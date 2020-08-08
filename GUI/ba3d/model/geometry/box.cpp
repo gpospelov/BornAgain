@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "../geometry.h"
+#include "Core/Basics/Assert.h"
 
 namespace RealSpace
 {
@@ -28,7 +29,7 @@ Geometry::Mesh Geometry::meshBox()
             for (float z : {-D, +D})
                 vs_.append(Vector3D(x, y, z));
 
-    Q_ASSERT(8 == vs_.count());
+    ASSERT(8 == vs_.count());
 
     Vertices vs;
     vs.reserve(36);
@@ -40,7 +41,7 @@ Geometry::Mesh Geometry::meshBox()
     vs.addQuad(vs_, 0, 4, 5, 1);
     vs.addQuad(vs_, 2, 3, 7, 6);
 
-    Q_ASSERT(36 == vs.count());
+    ASSERT(36 == vs.count());
 
     return makeMesh(vs);
 }

@@ -40,6 +40,7 @@
 ****************************************************************************/
 
 #include "GUI/coregui/Views/widgetbox/widgetboxtreewidget.h"
+#include "Core/Basics/Assert.h"
 #include "GUI/coregui/Views/widgetbox/widgetboxcategorylistview.h"
 
 // shared
@@ -147,7 +148,7 @@ WidgetBoxCategoryListView* WidgetBoxTreeWidget::categoryViewAt(int idx) const
     if (QTreeWidgetItem* cat_item = topLevelItem(idx))
         if (QTreeWidgetItem* embedItem = cat_item->child(0))
             rc = qobject_cast<WidgetBoxCategoryListView*>(itemWidget(embedItem, 0));
-    Q_ASSERT(rc);
+    ASSERT(rc);
     return rc;
 }
 

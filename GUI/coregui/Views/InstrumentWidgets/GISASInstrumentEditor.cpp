@@ -52,6 +52,6 @@ void GISASInstrumentEditor::subscribeToItem()
 GISASInstrumentItem* GISASInstrumentEditor::instrumentItem()
 {
     auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }

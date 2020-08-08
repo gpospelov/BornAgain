@@ -120,6 +120,6 @@ JobItem* FitComparisonWidget1D::jobItem()
 Data1DViewItem* FitComparisonWidget1D::viewItem()
 {
     auto view_item = dynamic_cast<Data1DViewItem*>(jobItem()->dataItemView());
-    Q_ASSERT(view_item);
+    ASSERT(view_item);
     return view_item;
 }

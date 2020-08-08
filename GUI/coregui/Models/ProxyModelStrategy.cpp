@@ -62,7 +62,7 @@ void ProxyModelStrategy::setRootIndex(const QModelIndex& sourceRootIndex)
 
 QModelIndex ProxyModelStrategy::createProxyIndex(int nrow, int ncol, void* adata)
 {
-    Q_ASSERT(m_proxy);
+    ASSERT(m_proxy);
     return m_proxy->createIndex(nrow, ncol, adata);
 }
 

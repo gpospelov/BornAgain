@@ -124,7 +124,7 @@ void ExternalPropertyEditor::buttonClicked()
 
 void ExternalPropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.canConvert<ExternalProperty>());
+    ASSERT(m_data.canConvert<ExternalProperty>());
     ExternalProperty materialProperty = m_data.value<ExternalProperty>();
     m_textLabel->setText(materialProperty.text());
     m_pixmapLabel->setPixmap(materialProperty.pixmap());
@@ -250,7 +250,7 @@ void ScientificDoublePropertyEditor::onEditingFinished()
 
 void ScientificDoublePropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Double);
+    ASSERT(m_data.type() == QVariant::Double);
     m_lineEdit->setText(QString::number(m_data.toDouble(), 'g'));
 }
 
@@ -306,7 +306,7 @@ void DoubleEditor::onEditingFinished()
 
 void DoubleEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Double);
+    ASSERT(m_data.type() == QVariant::Double);
     m_doubleEditor->setValue(m_data.toDouble());
 }
 
@@ -362,7 +362,7 @@ void ScientificSpinBoxEditor::onEditingFinished()
 
 void ScientificSpinBoxEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Double);
+    ASSERT(m_data.type() == QVariant::Double);
     m_doubleEditor->setValue(m_data.toDouble());
 }
 
@@ -436,7 +436,7 @@ void BoolEditor::onCheckBoxChange(bool value)
 
 void BoolEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Bool);
+    ASSERT(m_data.type() == QVariant::Bool);
     bool value = m_data.toBool();
 
     m_checkBox->blockSignals(true);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/geometry/plane.cpp
-//! @brief     Implements utility functions in ba3d namespace
+//! @file      GUI/main/MessageHandler.cpp
+//! @brief     Declares function MessageHandler
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,23 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "../geometry.h"
-#include "Core/Basics/Assert.h"
+#include <QApplication>
 
-namespace RealSpace
-{
-
-Geometry::Mesh Geometry::meshPlane()
-{
-    float const D = .5f;
-
-    Vertices vs;
-    vs.reserve(4);
-    vs.addQuad({+D, +D, 0}, {-D, +D, 0}, {-D, -D, 0}, {+D, -D, 0});
-
-    ASSERT(4 == vs.count());
-
-    return makeMesh(vs);
-}
-
-} // namespace RealSpace
+void MessageHandler(QtMsgType type, const QMessageLogContext&, const QString& msg);

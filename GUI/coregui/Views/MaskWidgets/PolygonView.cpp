@@ -38,7 +38,7 @@ void PolygonView::addView(IShape2DView* childView, int row)
         return;
 
     PolygonPointView* pointView = dynamic_cast<PolygonPointView*>(childView);
-    Q_ASSERT(pointView);
+    ASSERT(pointView);
     pointView->setParentItem(this);
 
     // polygon consisting from more than 2 points can be closed via hover event by clicking
@@ -88,7 +88,7 @@ bool PolygonView::isClosedPolygon()
 
 void PolygonView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    Q_ASSERT(m_item);
+    ASSERT(m_item);
     painter->setRenderHints(QPainter::Antialiasing);
 
     bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();

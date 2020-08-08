@@ -55,7 +55,7 @@ QMimeData* ParameterTuningModel::mimeData(const QModelIndexList& proxyIndexes) c
 ParameterItem* ParameterTuningModel::getParameterItem(const QModelIndex& proxyIndex) const
 {
     SessionModel* sessionModel = dynamic_cast<SessionModel*>(sourceModel());
-    Q_ASSERT(sessionModel);
+    ASSERT(sessionModel);
 
     QModelIndex sourceIndex = toSourceIndex(proxyIndex);
     if (sourceIndex.column() == 0) {

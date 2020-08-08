@@ -20508,9 +20508,6 @@ Template function to create an integrator object
 // File: SysUtils_8h.xml
 
 
-// File: w32pragma_8h.xml
-
-
 // File: BasicVector3D_8cpp.xml
 %feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 

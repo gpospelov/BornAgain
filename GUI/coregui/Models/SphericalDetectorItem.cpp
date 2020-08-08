@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
-#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Core/Parametrization/Units.h"
 #include "GUI/coregui/Models/AxesItems.h"
 

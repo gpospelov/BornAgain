@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/ConvolutionDetectorResolution.cpp
+//! @file      Core/Detector/ConvolutionDetectorResolution.cpp
 //! @brief     Implements class ConvolutionDetectorResolution.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/ConvolutionDetectorResolution.h"
+#include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Instrument/Convolve.h"
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d)

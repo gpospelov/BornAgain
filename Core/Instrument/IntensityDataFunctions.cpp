@@ -14,10 +14,10 @@
 
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Instrument/ArrayUtils.h"
-#include "Core/Instrument/ConvolutionDetectorResolution.h"
-#include "Core/Instrument/DetectorFunctions.h"
+#include "Core/Detector/ConvolutionDetectorResolution.h"
+#include "Core/Detector/DetectorFunctions.h"
 #include "Core/Instrument/FourierTransform.h"
-#include "Core/Instrument/IDetector.h"
+#include "Core/Detector/IDetector.h"
 #include "Core/Instrument/IHistogram.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IDetector.cpp
+//! @file      Core/Detector/IDetector.cpp
 //! @brief     Implements common detector interface.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/IDetector.h"
-#include "Core/Instrument/ConvolutionDetectorResolution.h"
-#include "Core/Instrument/DetectorMask.h"
-#include "Core/Instrument/IDetectorResolution.h"
+#include "Core/Detector/IDetector.h"
+#include "Core/Detector/ConvolutionDetectorResolution.h"
+#include "Core/Detector/DetectorMask.h"
+#include "Core/Detector/IDetectorResolution.h"
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Instrument/SimulationArea.h"

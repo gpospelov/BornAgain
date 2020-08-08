@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H
 
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/IDetector.h"
+#include "Core/Detector/IDetector.h"
 #include "Core/Parametrization/INode.h"
 #include <memory>
 

@@ -1,6 +1,6 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Instrument/SimpleUnitConverters.h"
-#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Vector/Vectors3D.h"
 #include "Tests/GTestWrapper/google_test.h"

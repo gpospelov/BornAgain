@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IsGISAXSDetector.h
+//! @file      Core/Detector/IsGISAXSDetector.h
 //! @brief     Defines class IsGISAXSDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H
 #define BORNAGAIN_CORE_INSTRUMENT_ISGISAXSDETECTOR_H
 
-#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Detector/SphericalDetector.h"
 
 //! A spherical detector used for validation with IsGISAXS results.
 //! @ingroup detector

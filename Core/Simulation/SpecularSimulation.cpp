@@ -21,7 +21,7 @@
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/Histogram1D.h"
 #include "Core/Instrument/ISpecularScan.h"
-#include "Core/Instrument/SpecularDetector1D.h"
+#include "Core/Detector/SpecularDetector1D.h"
 #include "Core/Instrument/UnitConverter1D.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"

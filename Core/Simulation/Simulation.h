@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_SIMULATION_SIMULATION_H
 
 #include "Core/Computation/ProgressHandler.h"
-#include "Core/Instrument/IDetector2D.h"
+#include "Core/Detector/IDetector2D.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Multilayer/SampleProvider.h"

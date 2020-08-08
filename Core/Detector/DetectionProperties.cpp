@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/DetectionProperties.cpp
+//! @file      Core/Detector/DetectionProperties.cpp
 //! @brief     Implements class DetectionProperties.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/DetectionProperties.h"
+#include "Core/Detector/DetectionProperties.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Parametrization/RealParameter.h"

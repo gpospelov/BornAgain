@@ -16,7 +16,7 @@
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Detector/RectangularDetector.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

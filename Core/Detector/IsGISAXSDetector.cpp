@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IsGISAXSDetector.cpp
+//! @file      Core/Detector/IsGISAXSDetector.cpp
 //! @brief     Implements class IsGISAXSDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/IsGISAXSDetector.h"
+#include "Core/Detector/IsGISAXSDetector.h"
 #include "Core/Binning/CustomBinAxis.h"
 
 IsGISAXSDetector::IsGISAXSDetector()

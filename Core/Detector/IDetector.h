@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IDetector.h
+//! @file      Core/Detector/IDetector.h
 //! @brief     Defines common detector interface.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,7 @@
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Binning/IAxis.h"
-#include "Core/Instrument/DetectionProperties.h"
+#include "Core/Detector/DetectionProperties.h"
 #include "Core/Instrument/IUnitConverter.h"
 #include "Core/Instrument/SimulationAreaIterator.h"
 #include "Core/Parametrization/INode.h"

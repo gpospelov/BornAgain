@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/DetectorFunctions.cpp
+//! @file      Core/Detector/DetectorFunctions.cpp
 //! @brief     Implements namespace DetectorFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/DetectorFunctions.h"
+#include "Core/Detector/DetectorFunctions.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/SimulationArea.h"

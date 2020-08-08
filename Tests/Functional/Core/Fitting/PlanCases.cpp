@@ -18,7 +18,7 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
-#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Detector/RectangularDetector.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

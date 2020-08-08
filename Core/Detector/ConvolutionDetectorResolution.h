@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/ConvolutionDetectorResolution.h
+//! @file      Core/Detector/ConvolutionDetectorResolution.h
 //! @brief     Defines class ConvolutionDetectorResolution.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_CONVOLUTIONDETECTORRESOLUTION_H
 #define BORNAGAIN_CORE_INSTRUMENT_CONVOLUTIONDETECTORRESOLUTION_H
 
-#include "Core/Instrument/IDetectorResolution.h"
+#include "Core/Detector/IDetectorResolution.h"
 #include "Core/Instrument/IResolutionFunction2D.h"
 
 //! Convolutes the intensity in 1 or 2 dimensions with a resolution function.

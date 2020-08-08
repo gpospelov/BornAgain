@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_JOBITEMUTILS_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_JOBITEMUTILS_H
 
-#include "Core/Instrument/IDetector.h"
+#include "Core/Detector/IDetector.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include <QMap>
 

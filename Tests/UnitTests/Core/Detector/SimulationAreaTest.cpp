@@ -1,6 +1,6 @@
 #include "Core/Instrument/SimulationArea.h"
-#include "Core/Instrument/DetectorFunctions.h"
-#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Detector/DetectorFunctions.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Core/Mask/Rectangle.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>

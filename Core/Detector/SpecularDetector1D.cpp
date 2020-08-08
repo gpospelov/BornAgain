@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/SpecularDetector1D.cpp
+//! @file      Core/Detector/SpecularDetector1D.cpp
 //! @brief     Implements a detector for specular simulations.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/SpecularDetector1D.h"
+#include "Core/Detector/SpecularDetector1D.h"
 
 SpecularDetector1D::SpecularDetector1D(const IAxis& axis)
 {

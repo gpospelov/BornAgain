@@ -19,10 +19,10 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Instrument/AxisNames.h"
-#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Detector/RectangularDetector.h"
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Instrument/SimpleUnitConverters.h"
-#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Core/Instrument/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 

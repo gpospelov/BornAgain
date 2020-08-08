@@ -19,7 +19,7 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Instrument/Histogram1D.h"
 #include "Core/Instrument/SimpleUnitConverters.h"
-#include "Core/Instrument/SpecularDetector1D.h"
+#include "Core/Detector/SpecularDetector1D.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/DetectorContext.h
+//! @file      Core/Detector/DetectorContext.h
 //! @brief     Define DetectorContext class.
 //!
 //! @homepage  http://www.bornagainproject.org

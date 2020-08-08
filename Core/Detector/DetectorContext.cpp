@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/DetectorContext.cpp
+//! @file      Core/Detector/DetectorContext.cpp
 //! @brief     Implements DetectorContext class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/DetectorContext.h"
-#include "Core/Instrument/IDetector2D.h"
+#include "Core/Detector/DetectorContext.h"
+#include "Core/Detector/IDetector2D.h"
 
 DetectorContext::DetectorContext(const IDetector2D* detector)
 {

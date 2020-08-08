@@ -1,6 +1,6 @@
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

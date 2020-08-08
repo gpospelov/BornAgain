@@ -20119,6 +20119,464 @@ class SphericalDetector(IDetector2D):
 # Register SphericalDetector in _libBornAgainCore:
 _libBornAgainCore.SphericalDetector_swigregister(SphericalDetector)
 
+class IsGISAXSDetector(SphericalDetector):
+    r"""
+
+
+    A spherical detector used for validation with IsGISAXS results.
+
+    C++ includes: IsGISAXSDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(IsGISAXSDetector self) -> IsGISAXSDetector
+        __init__(IsGISAXSDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> IsGISAXSDetector
+        __init__(IsGISAXSDetector self, IsGISAXSDetector other) -> IsGISAXSDetector
+        IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
+
+        """
+        _libBornAgainCore.IsGISAXSDetector_swiginit(self, _libBornAgainCore.new_IsGISAXSDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(IsGISAXSDetector self) -> IsGISAXSDetector
+        IsGISAXSDetector * IsGISAXSDetector::clone() const override
+
+        """
+        return _libBornAgainCore.IsGISAXSDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IsGISAXSDetector self, INodeVisitor visitor)
+        void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IsGISAXSDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_IsGISAXSDetector
+
+# Register IsGISAXSDetector in _libBornAgainCore:
+_libBornAgainCore.IsGISAXSDetector_swigregister(IsGISAXSDetector)
+
+class RectangularPixel(IPixel):
+    r"""
+
+
+    A pixel in a  RectangularDetector.
+
+    C++ includes: RectangularDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, corner_pos, width, height):
+        r"""
+        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
+        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
+
+        """
+        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
+
+    def clone(self):
+        r"""
+        clone(RectangularPixel self) -> RectangularPixel
+        RectangularPixel * RectangularPixel::clone() const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
+        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
+        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
+
+    def getPosition(self, x, y):
+        r"""
+        getPosition(RectangularPixel self, double x, double y) -> kvector_t
+        kvector_t RectangularPixel::getPosition(double x, double y) const
+
+        """
+        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
+        double RectangularPixel::getIntegrationFactor(double x, double y) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(RectangularPixel self) -> double
+        double RectangularPixel::getSolidAngle() const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
+
+# Register RectangularPixel in _libBornAgainCore:
+_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
+
+class RectangularDetector(IDetector2D):
+    r"""
+
+
+    A flat rectangular detector with axes and resolution function.
+
+    C++ includes: RectangularDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    GENERIC = _libBornAgainCore.RectangularDetector_GENERIC
+    
+    PERPENDICULAR_TO_SAMPLE = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_SAMPLE
+    
+    PERPENDICULAR_TO_DIRECT_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_DIRECT_BEAM
+    
+    PERPENDICULAR_TO_REFLECTED_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM
+    
+    PERPENDICULAR_TO_REFLECTED_BEAM_DPOS = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
+    
+
+    def __init__(self, *args):
+        r"""
+        __init__(RectangularDetector self, size_t nxbins, double width, size_t nybins, double height) -> RectangularDetector
+        __init__(RectangularDetector self, RectangularDetector other) -> RectangularDetector
+        RectangularDetector::RectangularDetector(const RectangularDetector &other)
+
+        """
+        _libBornAgainCore.RectangularDetector_swiginit(self, _libBornAgainCore.new_RectangularDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(RectangularDetector self) -> RectangularDetector
+        RectangularDetector * RectangularDetector::clone() const override
+
+        """
+        return _libBornAgainCore.RectangularDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(RectangularDetector self, INodeVisitor visitor)
+        void RectangularDetector::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.RectangularDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularDetector
+
+    def init(self, beam):
+        r"""
+        init(RectangularDetector self, Beam beam)
+        void RectangularDetector::init(const Beam &beam) override
+
+        Inits detector with the beam settings. 
+
+        """
+        return _libBornAgainCore.RectangularDetector_init(self, beam)
+
+    def setPosition(self, *args):
+        r"""
+        setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction=kvector_t(0.0, -1.0, 0.0))
+        void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPosition(self, *args)
+
+    def setPerpendicularToSampleX(self, distance, u0, v0):
+        r"""
+        setPerpendicularToSampleX(RectangularDetector self, double distance, double u0, double v0)
+        void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPerpendicularToSampleX(self, distance, u0, v0)
+
+    def setPerpendicularToDirectBeam(self, distance, u0, v0):
+        r"""
+        setPerpendicularToDirectBeam(RectangularDetector self, double distance, double u0, double v0)
+        void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPerpendicularToDirectBeam(self, distance, u0, v0)
+
+    def setPerpendicularToReflectedBeam(self, distance, u0=0.0, v0=0.0):
+        r"""
+        setPerpendicularToReflectedBeam(RectangularDetector self, double distance, double u0=0.0, double v0=0.0)
+        void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0=0.0, double v0=0.0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPerpendicularToReflectedBeam(self, distance, u0, v0)
+
+    def setDirectBeamPosition(self, u0, v0):
+        r"""
+        setDirectBeamPosition(RectangularDetector self, double u0, double v0)
+        void RectangularDetector::setDirectBeamPosition(double u0, double v0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setDirectBeamPosition(self, u0, v0)
+
+    def getWidth(self):
+        r"""
+        getWidth(RectangularDetector self) -> double
+        double RectangularDetector::getWidth() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getWidth(self)
+
+    def getHeight(self):
+        r"""
+        getHeight(RectangularDetector self) -> double
+        double RectangularDetector::getHeight() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getHeight(self)
+
+    def getNbinsX(self):
+        r"""
+        getNbinsX(RectangularDetector self) -> size_t
+        size_t RectangularDetector::getNbinsX() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getNbinsX(self)
+
+    def getNbinsY(self):
+        r"""
+        getNbinsY(RectangularDetector self) -> size_t
+        size_t RectangularDetector::getNbinsY() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getNbinsY(self)
+
+    def getNormalVector(self):
+        r"""
+        getNormalVector(RectangularDetector self) -> kvector_t
+        kvector_t RectangularDetector::getNormalVector() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getNormalVector(self)
+
+    def getU0(self):
+        r"""
+        getU0(RectangularDetector self) -> double
+        double RectangularDetector::getU0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getU0(self)
+
+    def getV0(self):
+        r"""
+        getV0(RectangularDetector self) -> double
+        double RectangularDetector::getV0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getV0(self)
+
+    def getDirectionVector(self):
+        r"""
+        getDirectionVector(RectangularDetector self) -> kvector_t
+        kvector_t RectangularDetector::getDirectionVector() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDirectionVector(self)
+
+    def getDistance(self):
+        r"""
+        getDistance(RectangularDetector self) -> double
+        double RectangularDetector::getDistance() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDistance(self)
+
+    def getDirectBeamU0(self):
+        r"""
+        getDirectBeamU0(RectangularDetector self) -> double
+        double RectangularDetector::getDirectBeamU0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDirectBeamU0(self)
+
+    def getDirectBeamV0(self):
+        r"""
+        getDirectBeamV0(RectangularDetector self) -> double
+        double RectangularDetector::getDirectBeamV0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDirectBeamV0(self)
+
+    def getDetectorArrangment(self):
+        r"""
+        getDetectorArrangment(RectangularDetector self) -> RectangularDetector::EDetectorArrangement
+        RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(RectangularDetector self) -> AxesUnits
+        AxesUnits RectangularDetector::defaultAxesUnits() const override
+
+        return default axes units 
+
+        """
+        return _libBornAgainCore.RectangularDetector_defaultAxesUnits(self)
+
+    def regionOfInterestPixel(self):
+        r"""
+        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel
+        RectangularPixel * RectangularDetector::regionOfInterestPixel() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_regionOfInterestPixel(self)
+
+# Register RectangularDetector in _libBornAgainCore:
+_libBornAgainCore.RectangularDetector_swigregister(RectangularDetector)
+
+class DetectorMask(object):
+    r"""
+
+
+    Collection of detector masks.
+
+    C++ includes: DetectorMask.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DetectorMask self) -> DetectorMask
+        __init__(DetectorMask self, DetectorMask other) -> DetectorMask
+        DetectorMask::DetectorMask(const DetectorMask &other)
+
+        """
+        _libBornAgainCore.DetectorMask_swiginit(self, _libBornAgainCore.new_DetectorMask(*args))
+
+    def addMask(self, shape, mask_value):
+        r"""
+        addMask(DetectorMask self, IShape2D shape, bool mask_value)
+        void DetectorMask::addMask(const IShape2D &shape, bool mask_value)
+
+        Add mask to the stack of detector masks. The value "true" means that the area will be excluded from the analysis.
+
+        Parameters:
+        -----------
+
+        shape: 
+        The shape of mask.
+
+        mask_value: 
+        The value of mask 
+
+        """
+        return _libBornAgainCore.DetectorMask_addMask(self, shape, mask_value)
+
+    def initMaskData(self, *args):
+        r"""
+        initMaskData(DetectorMask self, IDetector2D detector)
+        initMaskData(DetectorMask self, IntensityData data)
+        void DetectorMask::initMaskData(const OutputData< double > &data)
+
+        """
+        return _libBornAgainCore.DetectorMask_initMaskData(self, *args)
+
+    def isMasked(self, index):
+        r"""
+        isMasked(DetectorMask self, size_t index) -> bool
+        bool DetectorMask::isMasked(size_t index) const
+
+        """
+        return _libBornAgainCore.DetectorMask_isMasked(self, index)
+
+    def getMaskData(self):
+        r"""
+        getMaskData(DetectorMask self) -> OutputData< bool > const *
+        const OutputData<bool>* DetectorMask::getMaskData() const
+
+        """
+        return _libBornAgainCore.DetectorMask_getMaskData(self)
+
+    def createHistogram(self):
+        r"""
+        createHistogram(DetectorMask self) -> Histogram2D
+        Histogram2D * DetectorMask::createHistogram() const
+
+        """
+        return _libBornAgainCore.DetectorMask_createHistogram(self)
+
+    def removeMasks(self):
+        r"""
+        removeMasks(DetectorMask self)
+        void DetectorMask::removeMasks()
+
+        remove all masks and return object to initial state 
+
+        """
+        return _libBornAgainCore.DetectorMask_removeMasks(self)
+
+    def hasMasks(self):
+        r"""
+        hasMasks(DetectorMask self) -> bool
+        bool DetectorMask::hasMasks() const
+
+        returns true if has masks 
+
+        """
+        return _libBornAgainCore.DetectorMask_hasMasks(self)
+
+    def numberOfMaskedChannels(self):
+        r"""
+        numberOfMaskedChannels(DetectorMask self) -> int
+        int DetectorMask::numberOfMaskedChannels() const
+
+        """
+        return _libBornAgainCore.DetectorMask_numberOfMaskedChannels(self)
+
+    def numberOfMasks(self):
+        r"""
+        numberOfMasks(DetectorMask self) -> size_t
+        size_t DetectorMask::numberOfMasks() const
+
+        """
+        return _libBornAgainCore.DetectorMask_numberOfMasks(self)
+
+    def getMaskShape(self, mask_index, mask_value):
+        r"""
+        getMaskShape(DetectorMask self, size_t mask_index, bool & mask_value) -> IShape2D
+        const IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
+
+        """
+        return _libBornAgainCore.DetectorMask_getMaskShape(self, mask_index, mask_value)
+    __swig_destroy__ = _libBornAgainCore.delete_DetectorMask
+
+# Register DetectorMask in _libBornAgainCore:
+_libBornAgainCore.DetectorMask_swigregister(DetectorMask)
+
 class IChiSquaredModule(ICloneable):
     r"""
 
@@ -20573,128 +21031,6 @@ class ChiSquaredModule(IChiSquaredModule):
 # Register ChiSquaredModule in _libBornAgainCore:
 _libBornAgainCore.ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class DetectorMask(object):
-    r"""
-
-
-    Collection of detector masks.
-
-    C++ includes: DetectorMask.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(DetectorMask self) -> DetectorMask
-        __init__(DetectorMask self, DetectorMask other) -> DetectorMask
-        DetectorMask::DetectorMask(const DetectorMask &other)
-
-        """
-        _libBornAgainCore.DetectorMask_swiginit(self, _libBornAgainCore.new_DetectorMask(*args))
-
-    def addMask(self, shape, mask_value):
-        r"""
-        addMask(DetectorMask self, IShape2D shape, bool mask_value)
-        void DetectorMask::addMask(const IShape2D &shape, bool mask_value)
-
-        Add mask to the stack of detector masks. The value "true" means that the area will be excluded from the analysis.
-
-        Parameters:
-        -----------
-
-        shape: 
-        The shape of mask.
-
-        mask_value: 
-        The value of mask 
-
-        """
-        return _libBornAgainCore.DetectorMask_addMask(self, shape, mask_value)
-
-    def initMaskData(self, *args):
-        r"""
-        initMaskData(DetectorMask self, IDetector2D detector)
-        initMaskData(DetectorMask self, IntensityData data)
-        void DetectorMask::initMaskData(const OutputData< double > &data)
-
-        """
-        return _libBornAgainCore.DetectorMask_initMaskData(self, *args)
-
-    def isMasked(self, index):
-        r"""
-        isMasked(DetectorMask self, size_t index) -> bool
-        bool DetectorMask::isMasked(size_t index) const
-
-        """
-        return _libBornAgainCore.DetectorMask_isMasked(self, index)
-
-    def getMaskData(self):
-        r"""
-        getMaskData(DetectorMask self) -> OutputData< bool > const *
-        const OutputData<bool>* DetectorMask::getMaskData() const
-
-        """
-        return _libBornAgainCore.DetectorMask_getMaskData(self)
-
-    def createHistogram(self):
-        r"""
-        createHistogram(DetectorMask self) -> Histogram2D
-        Histogram2D * DetectorMask::createHistogram() const
-
-        """
-        return _libBornAgainCore.DetectorMask_createHistogram(self)
-
-    def removeMasks(self):
-        r"""
-        removeMasks(DetectorMask self)
-        void DetectorMask::removeMasks()
-
-        remove all masks and return object to initial state 
-
-        """
-        return _libBornAgainCore.DetectorMask_removeMasks(self)
-
-    def hasMasks(self):
-        r"""
-        hasMasks(DetectorMask self) -> bool
-        bool DetectorMask::hasMasks() const
-
-        returns true if has masks 
-
-        """
-        return _libBornAgainCore.DetectorMask_hasMasks(self)
-
-    def numberOfMaskedChannels(self):
-        r"""
-        numberOfMaskedChannels(DetectorMask self) -> int
-        int DetectorMask::numberOfMaskedChannels() const
-
-        """
-        return _libBornAgainCore.DetectorMask_numberOfMaskedChannels(self)
-
-    def numberOfMasks(self):
-        r"""
-        numberOfMasks(DetectorMask self) -> size_t
-        size_t DetectorMask::numberOfMasks() const
-
-        """
-        return _libBornAgainCore.DetectorMask_numberOfMasks(self)
-
-    def getMaskShape(self, mask_index, mask_value):
-        r"""
-        getMaskShape(DetectorMask self, size_t mask_index, bool & mask_value) -> IShape2D
-        const IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
-
-        """
-        return _libBornAgainCore.DetectorMask_getMaskShape(self, mask_index, mask_value)
-    __swig_destroy__ = _libBornAgainCore.delete_DetectorMask
-
-# Register DetectorMask in _libBornAgainCore:
-_libBornAgainCore.DetectorMask_swigregister(DetectorMask)
-
 class Instrument(INode):
     r"""
 
@@ -20987,51 +21323,6 @@ def ConvertData(*args):
 
     """
     return _libBornAgainCore.ConvertData(*args)
-class IsGISAXSDetector(SphericalDetector):
-    r"""
-
-
-    A spherical detector used for validation with IsGISAXS results.
-
-    C++ includes: IsGISAXSDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(IsGISAXSDetector self) -> IsGISAXSDetector
-        __init__(IsGISAXSDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> IsGISAXSDetector
-        __init__(IsGISAXSDetector self, IsGISAXSDetector other) -> IsGISAXSDetector
-        IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
-
-        """
-        _libBornAgainCore.IsGISAXSDetector_swiginit(self, _libBornAgainCore.new_IsGISAXSDetector(*args))
-
-    def clone(self):
-        r"""
-        clone(IsGISAXSDetector self) -> IsGISAXSDetector
-        IsGISAXSDetector * IsGISAXSDetector::clone() const override
-
-        """
-        return _libBornAgainCore.IsGISAXSDetector_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IsGISAXSDetector self, INodeVisitor visitor)
-        void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IsGISAXSDetector_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_IsGISAXSDetector
-
-# Register IsGISAXSDetector in _libBornAgainCore:
-_libBornAgainCore.IsGISAXSDetector_swigregister(IsGISAXSDetector)
-
 
 def importArrayToOutputData(*args):
     r"""
@@ -21043,297 +21334,6 @@ def importArrayToOutputData(*args):
 
     """
     return _libBornAgainCore.importArrayToOutputData(*args)
-class RectangularPixel(IPixel):
-    r"""
-
-
-    A pixel in a  RectangularDetector.
-
-    C++ includes: RectangularDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, corner_pos, width, height):
-        r"""
-        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
-        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-
-        """
-        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
-
-    def clone(self):
-        r"""
-        clone(RectangularPixel self) -> RectangularPixel
-        RectangularPixel * RectangularPixel::clone() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
-        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
-
-    def getPosition(self, x, y):
-        r"""
-        getPosition(RectangularPixel self, double x, double y) -> kvector_t
-        kvector_t RectangularPixel::getPosition(double x, double y) const
-
-        """
-        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
-        double RectangularPixel::getIntegrationFactor(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(RectangularPixel self) -> double
-        double RectangularPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
-
-# Register RectangularPixel in _libBornAgainCore:
-_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
-
-class RectangularDetector(IDetector2D):
-    r"""
-
-
-    A flat rectangular detector with axes and resolution function.
-
-    C++ includes: RectangularDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    GENERIC = _libBornAgainCore.RectangularDetector_GENERIC
-    
-    PERPENDICULAR_TO_SAMPLE = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_SAMPLE
-    
-    PERPENDICULAR_TO_DIRECT_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_DIRECT_BEAM
-    
-    PERPENDICULAR_TO_REFLECTED_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM
-    
-    PERPENDICULAR_TO_REFLECTED_BEAM_DPOS = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
-    
-
-    def __init__(self, *args):
-        r"""
-        __init__(RectangularDetector self, size_t nxbins, double width, size_t nybins, double height) -> RectangularDetector
-        __init__(RectangularDetector self, RectangularDetector other) -> RectangularDetector
-        RectangularDetector::RectangularDetector(const RectangularDetector &other)
-
-        """
-        _libBornAgainCore.RectangularDetector_swiginit(self, _libBornAgainCore.new_RectangularDetector(*args))
-
-    def clone(self):
-        r"""
-        clone(RectangularDetector self) -> RectangularDetector
-        RectangularDetector * RectangularDetector::clone() const override
-
-        """
-        return _libBornAgainCore.RectangularDetector_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(RectangularDetector self, INodeVisitor visitor)
-        void RectangularDetector::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.RectangularDetector_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularDetector
-
-    def init(self, beam):
-        r"""
-        init(RectangularDetector self, Beam beam)
-        void RectangularDetector::init(const Beam &beam) override
-
-        Inits detector with the beam settings. 
-
-        """
-        return _libBornAgainCore.RectangularDetector_init(self, beam)
-
-    def setPosition(self, *args):
-        r"""
-        setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction=kvector_t(0.0, -1.0, 0.0))
-        void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPosition(self, *args)
-
-    def setPerpendicularToSampleX(self, distance, u0, v0):
-        r"""
-        setPerpendicularToSampleX(RectangularDetector self, double distance, double u0, double v0)
-        void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPerpendicularToSampleX(self, distance, u0, v0)
-
-    def setPerpendicularToDirectBeam(self, distance, u0, v0):
-        r"""
-        setPerpendicularToDirectBeam(RectangularDetector self, double distance, double u0, double v0)
-        void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPerpendicularToDirectBeam(self, distance, u0, v0)
-
-    def setPerpendicularToReflectedBeam(self, distance, u0=0.0, v0=0.0):
-        r"""
-        setPerpendicularToReflectedBeam(RectangularDetector self, double distance, double u0=0.0, double v0=0.0)
-        void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0=0.0, double v0=0.0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPerpendicularToReflectedBeam(self, distance, u0, v0)
-
-    def setDirectBeamPosition(self, u0, v0):
-        r"""
-        setDirectBeamPosition(RectangularDetector self, double u0, double v0)
-        void RectangularDetector::setDirectBeamPosition(double u0, double v0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setDirectBeamPosition(self, u0, v0)
-
-    def getWidth(self):
-        r"""
-        getWidth(RectangularDetector self) -> double
-        double RectangularDetector::getWidth() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getWidth(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(RectangularDetector self) -> double
-        double RectangularDetector::getHeight() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getHeight(self)
-
-    def getNbinsX(self):
-        r"""
-        getNbinsX(RectangularDetector self) -> size_t
-        size_t RectangularDetector::getNbinsX() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getNbinsX(self)
-
-    def getNbinsY(self):
-        r"""
-        getNbinsY(RectangularDetector self) -> size_t
-        size_t RectangularDetector::getNbinsY() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getNbinsY(self)
-
-    def getNormalVector(self):
-        r"""
-        getNormalVector(RectangularDetector self) -> kvector_t
-        kvector_t RectangularDetector::getNormalVector() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getNormalVector(self)
-
-    def getU0(self):
-        r"""
-        getU0(RectangularDetector self) -> double
-        double RectangularDetector::getU0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getU0(self)
-
-    def getV0(self):
-        r"""
-        getV0(RectangularDetector self) -> double
-        double RectangularDetector::getV0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getV0(self)
-
-    def getDirectionVector(self):
-        r"""
-        getDirectionVector(RectangularDetector self) -> kvector_t
-        kvector_t RectangularDetector::getDirectionVector() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDirectionVector(self)
-
-    def getDistance(self):
-        r"""
-        getDistance(RectangularDetector self) -> double
-        double RectangularDetector::getDistance() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDistance(self)
-
-    def getDirectBeamU0(self):
-        r"""
-        getDirectBeamU0(RectangularDetector self) -> double
-        double RectangularDetector::getDirectBeamU0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDirectBeamU0(self)
-
-    def getDirectBeamV0(self):
-        r"""
-        getDirectBeamV0(RectangularDetector self) -> double
-        double RectangularDetector::getDirectBeamV0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDirectBeamV0(self)
-
-    def getDetectorArrangment(self):
-        r"""
-        getDetectorArrangment(RectangularDetector self) -> RectangularDetector::EDetectorArrangement
-        RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
-
-    def defaultAxesUnits(self):
-        r"""
-        defaultAxesUnits(RectangularDetector self) -> AxesUnits
-        AxesUnits RectangularDetector::defaultAxesUnits() const override
-
-        return default axes units 
-
-        """
-        return _libBornAgainCore.RectangularDetector_defaultAxesUnits(self)
-
-    def regionOfInterestPixel(self):
-        r"""
-        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel
-        RectangularPixel * RectangularDetector::regionOfInterestPixel() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_regionOfInterestPixel(self)
-
-# Register RectangularDetector in _libBornAgainCore:
-_libBornAgainCore.RectangularDetector_swigregister(RectangularDetector)
-
 class ResolutionFunction2DGaussian(IResolutionFunction2D):
     r"""
 
@@ -21927,6 +21927,356 @@ class IntensityData(object):
 
 # Register IntensityData in _libBornAgainCore:
 _libBornAgainCore.IntensityData_swigregister(IntensityData)
+
+class AngularSpecScan(object):
+    r"""
+
+
+    Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
+
+    C++ includes: AngularSpecScan.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
+        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+
+        """
+        _libBornAgainCore.AngularSpecScan_swiginit(self, _libBornAgainCore.new_AngularSpecScan(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
+
+    def clone(self):
+        r"""
+        clone(AngularSpecScan self) -> AngularSpecScan
+        AngularSpecScan * AngularSpecScan::clone() const override
+
+        """
+        return _libBornAgainCore.AngularSpecScan_clone(self)
+
+    def setFootprintFactor(self, f_factor):
+        r"""
+        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
+        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+        Sets footprint correction factor. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
+
+    def setWavelengthResolution(self, resolution):
+        r"""
+        setWavelengthResolution(AngularSpecScan self, ScanResolution resolution)
+        void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
+
+        Sets wavelength resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setWavelengthResolution(self, resolution)
+
+    def setRelativeWavelengthResolution(self, *args):
+        r"""
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets wavelength resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
+
+    def setAbsoluteWavelengthResolution(self, *args):
+        r"""
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets wavelength resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
+
+    def setAngleResolution(self, resolution):
+        r"""
+        setAngleResolution(AngularSpecScan self, ScanResolution resolution)
+        void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+        Sets angle resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAngleResolution(self, resolution)
+
+    def setRelativeAngularResolution(self, *args):
+        r"""
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets angular resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeAngularResolution(self, *args)
+
+    def setAbsoluteAngularResolution(self, *args):
+        r"""
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets angular resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
+
+# Register AngularSpecScan in _libBornAgainCore:
+_libBornAgainCore.AngularSpecScan_swigregister(AngularSpecScan)
+
+class AxesUnits(object):
+    r"""
+
+
+    Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
+    
+    NBINS = _libBornAgainCore.AxesUnits_NBINS
+    
+    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
+    
+    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
+    
+    MM = _libBornAgainCore.AxesUnits_MM
+    
+    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
+    
+    QXQY = _libBornAgainCore.AxesUnits_QXQY
+    
+    RQ4 = _libBornAgainCore.AxesUnits_RQ4
+    
+    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
+
+# Register AxesUnits in _libBornAgainCore:
+_libBornAgainCore.AxesUnits_swigregister(AxesUnits)
+
+class IUnitConverter(ICloneable):
+    r"""
+
+
+    Interface to provide axis translations to different units for simulation output
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IUnitConverter
+
+    def clone(self):
+        r"""
+        clone(IUnitConverter self) -> IUnitConverter
+        virtual IUnitConverter* IUnitConverter::clone() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_clone(self)
+
+    def dimension(self):
+        r"""
+        dimension(IUnitConverter self) -> size_t
+        virtual size_t IUnitConverter::dimension() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_dimension(self)
+
+    def calculateMin(self, i_axis, units_type):
+        r"""
+        calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
+
+    def calculateMax(self, i_axis, units_type):
+        r"""
+        calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
+
+    def axisSize(self, i_axis):
+        r"""
+        axisSize(IUnitConverter self, size_t i_axis) -> size_t
+        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
+
+    def axisName(self, *args):
+        r"""
+        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) -> std::string
+        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
+
+        """
+        return _libBornAgainCore.IUnitConverter_axisName(self, *args)
+
+    def availableUnits(self):
+        r"""
+        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
+        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_availableUnits(self)
+
+    def defaultUnits(self):
+        r"""
+        defaultUnits(IUnitConverter self) -> AxesUnits
+        virtual AxesUnits IUnitConverter::defaultUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_defaultUnits(self)
+
+# Register IUnitConverter in _libBornAgainCore:
+_libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
+
+class QSpecScan(object):
+    r"""
+
+
+    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+    C++ includes: QSpecScan.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
+        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
+        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
+        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+
+        """
+        _libBornAgainCore.QSpecScan_swiginit(self, _libBornAgainCore.new_QSpecScan(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
+
+    def clone(self):
+        r"""
+        clone(QSpecScan self) -> QSpecScan
+        QSpecScan * QSpecScan::clone() const override
+
+        """
+        return _libBornAgainCore.QSpecScan_clone(self)
+
+    def setQResolution(self, resolution):
+        r"""
+        setQResolution(QSpecScan self, ScanResolution resolution)
+        void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+        Sets q resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setQResolution(self, resolution)
+
+    def setRelativeQResolution(self, *args):
+        r"""
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets qz resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setRelativeQResolution(self, *args)
+
+    def setAbsoluteQResolution(self, *args):
+        r"""
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets qz resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
+
+# Register QSpecScan in _libBornAgainCore:
+_libBornAgainCore.QSpecScan_swigregister(QSpecScan)
+
+class ScanResolution(ICloneable):
+    r"""
+
+
+    Container for reflectivity resolution data.
+
+    C++ includes: ScanResolution.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ScanResolution
+
+    @staticmethod
+    def scanRelativeResolution(*args):
+        r"""
+        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
+
+    @staticmethod
+    def scanAbsoluteResolution(*args):
+        r"""
+        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
+
+# Register ScanResolution in _libBornAgainCore:
+_libBornAgainCore.ScanResolution_swigregister(ScanResolution)
+
+def ScanResolution_scanRelativeResolution(*args):
+    r"""
+    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
+
+def ScanResolution_scanAbsoluteResolution(*args):
+    r"""
+    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
 
 class ILatticeOrientation(object):
     r"""Proxy of C++ ILatticeOrientation class."""
@@ -23001,356 +23351,6 @@ class SimulationFactory(SimulationFactoryTemp):
 
 # Register SimulationFactory in _libBornAgainCore:
 _libBornAgainCore.SimulationFactory_swigregister(SimulationFactory)
-
-class AngularSpecScan(object):
-    r"""
-
-
-    Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
-
-    C++ includes: AngularSpecScan.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
-        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
-        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
-        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
-
-        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
-
-        """
-        _libBornAgainCore.AngularSpecScan_swiginit(self, _libBornAgainCore.new_AngularSpecScan(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
-
-    def clone(self):
-        r"""
-        clone(AngularSpecScan self) -> AngularSpecScan
-        AngularSpecScan * AngularSpecScan::clone() const override
-
-        """
-        return _libBornAgainCore.AngularSpecScan_clone(self)
-
-    def setFootprintFactor(self, f_factor):
-        r"""
-        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
-        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
-
-        Sets footprint correction factor. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
-
-    def setWavelengthResolution(self, resolution):
-        r"""
-        setWavelengthResolution(AngularSpecScan self, ScanResolution resolution)
-        void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
-
-        Sets wavelength resolution values via  ScanResolution object. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setWavelengthResolution(self, resolution)
-
-    def setRelativeWavelengthResolution(self, *args):
-        r"""
-        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
-
-        Sets wavelength resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
-
-    def setAbsoluteWavelengthResolution(self, *args):
-        r"""
-        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
-
-        Sets wavelength resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
-
-    def setAngleResolution(self, resolution):
-        r"""
-        setAngleResolution(AngularSpecScan self, ScanResolution resolution)
-        void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
-
-        Sets angle resolution values via  ScanResolution object. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setAngleResolution(self, resolution)
-
-    def setRelativeAngularResolution(self, *args):
-        r"""
-        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
-
-        Sets angular resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setRelativeAngularResolution(self, *args)
-
-    def setAbsoluteAngularResolution(self, *args):
-        r"""
-        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
-
-        Sets angular resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
-
-# Register AngularSpecScan in _libBornAgainCore:
-_libBornAgainCore.AngularSpecScan_swigregister(AngularSpecScan)
-
-class AxesUnits(object):
-    r"""
-
-
-    Wrapper for detector axes units, required for a better representation of detector axes units in python
-
-    C++ includes: IUnitConverter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
-    
-    NBINS = _libBornAgainCore.AxesUnits_NBINS
-    
-    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
-    
-    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
-    
-    MM = _libBornAgainCore.AxesUnits_MM
-    
-    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
-    
-    QXQY = _libBornAgainCore.AxesUnits_QXQY
-    
-    RQ4 = _libBornAgainCore.AxesUnits_RQ4
-    
-    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
-
-# Register AxesUnits in _libBornAgainCore:
-_libBornAgainCore.AxesUnits_swigregister(AxesUnits)
-
-class IUnitConverter(ICloneable):
-    r"""
-
-
-    Interface to provide axis translations to different units for simulation output
-
-    C++ includes: IUnitConverter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IUnitConverter
-
-    def clone(self):
-        r"""
-        clone(IUnitConverter self) -> IUnitConverter
-        virtual IUnitConverter* IUnitConverter::clone() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_clone(self)
-
-    def dimension(self):
-        r"""
-        dimension(IUnitConverter self) -> size_t
-        virtual size_t IUnitConverter::dimension() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_dimension(self)
-
-    def calculateMin(self, i_axis, units_type):
-        r"""
-        calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
-        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
-
-    def calculateMax(self, i_axis, units_type):
-        r"""
-        calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
-        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
-
-    def axisSize(self, i_axis):
-        r"""
-        axisSize(IUnitConverter self, size_t i_axis) -> size_t
-        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
-
-    def axisName(self, *args):
-        r"""
-        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) -> std::string
-        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
-
-        """
-        return _libBornAgainCore.IUnitConverter_axisName(self, *args)
-
-    def availableUnits(self):
-        r"""
-        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_availableUnits(self)
-
-    def defaultUnits(self):
-        r"""
-        defaultUnits(IUnitConverter self) -> AxesUnits
-        virtual AxesUnits IUnitConverter::defaultUnits() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_defaultUnits(self)
-
-# Register IUnitConverter in _libBornAgainCore:
-_libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
-
-class QSpecScan(object):
-    r"""
-
-
-    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
-
-    C++ includes: QSpecScan.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
-        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
-        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
-        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
-
-        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
-
-        """
-        _libBornAgainCore.QSpecScan_swiginit(self, _libBornAgainCore.new_QSpecScan(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
-
-    def clone(self):
-        r"""
-        clone(QSpecScan self) -> QSpecScan
-        QSpecScan * QSpecScan::clone() const override
-
-        """
-        return _libBornAgainCore.QSpecScan_clone(self)
-
-    def setQResolution(self, resolution):
-        r"""
-        setQResolution(QSpecScan self, ScanResolution resolution)
-        void QSpecScan::setQResolution(const ScanResolution &resolution)
-
-        Sets q resolution values via  ScanResolution object. 
-
-        """
-        return _libBornAgainCore.QSpecScan_setQResolution(self, resolution)
-
-    def setRelativeQResolution(self, *args):
-        r"""
-        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
-
-        Sets qz resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
-
-        """
-        return _libBornAgainCore.QSpecScan_setRelativeQResolution(self, *args)
-
-    def setAbsoluteQResolution(self, *args):
-        r"""
-        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
-
-        Sets qz resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
-
-        """
-        return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
-
-# Register QSpecScan in _libBornAgainCore:
-_libBornAgainCore.QSpecScan_swigregister(QSpecScan)
-
-class ScanResolution(ICloneable):
-    r"""
-
-
-    Container for reflectivity resolution data.
-
-    C++ includes: ScanResolution.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ScanResolution
-
-    @staticmethod
-    def scanRelativeResolution(*args):
-        r"""
-        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-        """
-        return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
-
-    @staticmethod
-    def scanAbsoluteResolution(*args):
-        r"""
-        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-        """
-        return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
-
-# Register ScanResolution in _libBornAgainCore:
-_libBornAgainCore.ScanResolution_swigregister(ScanResolution)
-
-def ScanResolution_scanRelativeResolution(*args):
-    r"""
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-    """
-    return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
-
-def ScanResolution_scanAbsoluteResolution(*args):
-    r"""
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-    """
-    return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
 
 
 def ScanRelativeResolution(distribution, rel_dev):

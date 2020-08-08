@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IDetector2D.cpp
+//! @file      Core/Detector/IDetector2D.cpp
 //! @brief     Implements shared functionality of interface IDetector2D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/IDetector2D.h"
+#include "Core/Detector/IDetector2D.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/DetectorContext.h"
-#include "Core/Instrument/DetectorFunctions.h"
+#include "Core/Detector/DetectorContext.h"
+#include "Core/Detector/DetectorFunctions.h"
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Instrument/SimulationArea.h"
 #include "Core/Mask/InfinitePlane.h"

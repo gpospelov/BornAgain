@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/DetectorFunctions.h
+//! @file      Core/Detector/DetectorFunctions.h
 //! @brief     Defines namespace DetectorFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_DETECTORFUNCTIONS_H
 #define BORNAGAIN_CORE_INSTRUMENT_DETECTORFUNCTIONS_H
 
-#include "Core/Instrument/IDetector.h"
+#include "Core/Detector/IDetector.h"
 #include "Wrap/WinDllMacros.h"
 #include <functional>
 #include <memory>

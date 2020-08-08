@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/RectangularDetector.h
+//! @file      Core/Detector/RectangularDetector.h
 //! @brief     Defines class RectangularDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_RECTANGULARDETECTOR_H
 
 #include "Core/Binning/IPixel.h"
-#include "Core/Instrument/IDetector2D.h"
+#include "Core/Detector/IDetector2D.h"
 
 //! A pixel in a RectangularDetector.
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/DetectorMask.cpp
+//! @file      Core/Detector/DetectorMask.cpp
 //! @brief     Implements class DetectorMask.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/Histogram2D.h"
-#include "Core/Instrument/IDetector2D.h"
+#include "Core/Detector/IDetector2D.h"
 #include "Core/Instrument/RegionOfInterest.h"
 
 DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}

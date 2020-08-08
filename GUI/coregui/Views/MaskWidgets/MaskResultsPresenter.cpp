@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskResultsPresenter.h"
-#include "Core/Instrument/DetectorMask.h"
+#include "Core/Detector/DetectorMask.h"
 #include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/RegionOfInterest.h"
 #include "Core/Mask/IShape2D.h"

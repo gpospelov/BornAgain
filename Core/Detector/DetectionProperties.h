@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/DetectionProperties.h
+//! @file      Core/Detector/DetectionProperties.h
 //! @brief     Defines class DetectionProperties.
 //!
 //! @homepage  http://www.bornagainproject.org

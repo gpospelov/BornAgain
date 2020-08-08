@@ -7,7 +7,7 @@
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Detector/ResolutionFunction2DGaussian.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Intensity/SimulationArea.h"
+#include "Core/Detector/SimulationArea.h"
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Parametrization/Units.h"

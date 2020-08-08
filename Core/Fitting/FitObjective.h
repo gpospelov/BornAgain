@@ -18,7 +18,7 @@
 #include "Core/Fitting/FitTypes.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/SimDataPair.h"
-#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Intensity/OutputData.h"
 #include "Fit/Kernel/MinimizerResult.h"
 

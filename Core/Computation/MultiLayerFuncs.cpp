@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/MultiLayerFuncs.cpp
+//! @file      Core/Computation/MultiLayerFuncs.cpp
 //! @brief     Global functions related to MultiLayers.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Multilayer/MultiLayerFuncs.h"
+#include "Core/Computation/MultiLayerFuncs.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Computation/ProfileHelper.h"
 #include "Core/Parametrization/SimulationOptions.h"

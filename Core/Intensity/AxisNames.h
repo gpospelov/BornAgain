@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/AxisNames.h
+//! @file      Core/Intensity/AxisNames.h
 //! @brief     Defines namespace AxisNames.
 //!
 //! @homepage  http://www.bornagainproject.org

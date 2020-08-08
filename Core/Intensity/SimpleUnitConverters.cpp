@@ -21,7 +21,7 @@
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Detector/SphericalDetector.h"
-#include "Core/Instrument/AxisNames.h"
+#include "Core/Intensity/AxisNames.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Parametrization/Units.h"
 

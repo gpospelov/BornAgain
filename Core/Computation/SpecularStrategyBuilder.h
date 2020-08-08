@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SpecularStrategyBuilder.h
+//! @file      Core/Computation/SpecularStrategyBuilder.h
 //! @brief     Defines class SpecularStrategyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

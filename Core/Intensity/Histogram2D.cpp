@@ -14,7 +14,7 @@
 
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/Binning/VariableBinAxis.h"
-#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Intensity/Histogram1D.h"
 #include <memory>
 

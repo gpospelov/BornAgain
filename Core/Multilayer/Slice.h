@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/Slice.h
+//! @file      Core/Multilayer/Slice.h
 //! @brief     Defines class Slice.
 //!
 //! @homepage  http://www.bornagainproject.org

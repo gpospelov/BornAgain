@@ -1,4 +1,4 @@
-#include "Core/Instrument/ArrayUtils.h"
+#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Binning/IAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <vector>

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Intensity/SimulationAreaIterator.cpp
+//! @file      Core/Detector/SimulationAreaIterator.cpp
 //! @brief     Implements class SimulationAreaIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Core/Intensity/SimulationAreaIterator.h"
+#include "Core/Detector/SimulationAreaIterator.h"
 #include "Core/Detector/IDetector2D.h"
-#include "Core/Intensity/SimulationArea.h"
+#include "Core/Detector/SimulationArea.h"
 
 SimulationAreaIterator::SimulationAreaIterator(const SimulationArea* area, size_t start_at_index)
     : m_area(area), m_index(start_at_index), m_element_index(0)

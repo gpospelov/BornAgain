@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/LayoutStrategyBuilder.h
+//! @file      Core/Computation/LayoutStrategyBuilder.h
 //! @brief     Defines class LayoutStrategyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org

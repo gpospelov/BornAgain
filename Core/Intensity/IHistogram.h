@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_IHISTOGRAM_H
 #define BORNAGAIN_CORE_INTENSITY_IHISTOGRAM_H
 
-#include "Core/Instrument/CumulativeValue.h"
+#include "Core/Intensity/CumulativeValue.h"
 #include "Core/Intensity/OutputData.h"
 #include "Core/Tools/PyObject.h"
 

@@ -105,8 +105,17 @@
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
+#include "Core/Computation/MultiLayerFuncs.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
-#include "Core/Scattering/IFormFactorDecorator.h"
+#include "Core/Detector/DetectorMask.h"
+#include "Core/Detector/IDetector2D.h"
+#include "Core/Detector/IDetectorResolution.h"
+#include "Core/Detector/IResolutionFunction2D.h"
+#include "Core/Detector/IsGISAXSDetector.h"
+#include "Core/Detector/RectangularDetector.h"
+#include "Core/Detector/ResolutionFunction2DGaussian.h"
+#include "Core/Detector/ScanResolution.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/IObserver.h"
 #include "Core/Fitting/IterationInfo.h"
@@ -142,21 +151,12 @@
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Core/HardParticle/Ripples.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Detector/DetectorMask.h"
-#include "Core/Detector/IDetector2D.h"
-#include "Core/Detector/IDetectorResolution.h"
-#include "Core/Detector/RectangularDetector.h"
-#include "Core/Detector/IsGISAXSDetector.h"
-#include "Core/Detector/SphericalDetector.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/ChiSquaredModule.h"
 #include "Core/Instrument/IChiSquaredModule.h"
-#include "Core/Detector/IResolutionFunction2D.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/PyArrayImportUtils.h"
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Detector/ResolutionFunction2DGaussian.h"
-#include "Core/Detector/ScanResolution.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Instrument/SpectrumUtils.h"
 #include "Core/Instrument/VarianceFunctions.h"
@@ -185,7 +185,6 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Multilayer/MultiLayerFuncs.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Parametrization/INodeVisitor.h"
@@ -210,6 +209,7 @@
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Particle/SlicedParticle.h"
+#include "Core/Scattering/IFormFactorDecorator.h"
 #include "Core/Scattering/ISample.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
@@ -273,42 +273,57 @@
 %import(module="libBornAgainFit") "Fit/Kernel/Parameters.h"
 %import(module="libBornAgainFit") "Fit/Kernel/Parameter.h"
 
-%include "BAVersion.h"
-%include "Core/Vector/BasicVector3D.h"
-%include "Core/Basics/ICloneable.h"
-%include "Core/Parametrization/IParameterized.h"
-%include "Core/Parametrization/INode.h"
-
-// need to tell SWIG explicitly to instantiate these templates with given types
-%template(swig_dummy_type_inode_vector) std::vector<INode*>;
-%template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
+%rename(AxesUnits) AxesUnitsWrap;
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
-// SWIG does not automatically instantiate templates, so we declare these by hand
+%template(swig_dummy_type_inode_vector) std::vector<INode*>;
+%template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
+
+%template(vector_IFormFactorPtr_t) std::vector<IFormFactor*>;
+
+%include "Fit/TestEngine/IFactory.h"
+%template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
+%template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
+
+%include "Core/Vector/BasicVector3D.h"
 %template(kvector_t) BasicVector3D<double>;
 %template(vector_kvector_t) std::vector<BasicVector3D<double>>;
 %template(cvector_t) BasicVector3D<std::complex<double>>;
 %template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
 
-// SWIG workaround for using axes units the same way as they are used in cpp files
-%rename(AxesUnits) AxesUnitsWrap;
-%rename(RoughnessModel) RoughnessModelWrap;
+%include "Core/Parametrization/IParameter.h" // needed?
+%template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
 
-%include "Core/Basics/Complex.h"
+%include "Core/Parametrization/ParameterSample.h"
+%template(ParameterSampleVector) std::vector<ParameterSample>;
+
+%include "Core/Intensity/OutputData.h"
+%template(IntensityData) OutputData<double>;
+
+%include "Core/Fitting/FitObjective.h"
+%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
+%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
+
+%include "BAVersion.h"
+
+%include "Core/Binning/Bin.h"
+%include "Core/Binning/IPixel.h"
+%include "Core/Binning/IAxis.h"
+%include "Core/Binning/VariableBinAxis.h"
+
+%include "Core/Binning/ConstKBinAxis.h"
+%include "Core/Binning/CustomBinAxis.h"
+%include "Core/Binning/FixedBinAxis.h"
+
+// need to tell SWIG explicitly to instantiate these templates with given types
+%include "Core/Basics/ICloneable.h"
 %include "Core/Basics/ISingleton.h"
-
-%include "Core/Tools/MathFunctions.h"
+%include "Core/Basics/Complex.h"
 
 %include "Core/Vector/Vectors3D.h"
 %include "Core/Vector/WavevectorInfo.h"
 
-%include "Core/Binning/Bin.h"
-%include "Core/Binning/IAxis.h"
-%include "Core/Binning/VariableBinAxis.h"
-%include "Core/Binning/ConstKBinAxis.h"
-%include "Core/Binning/CustomBinAxis.h"
-%include "Core/Binning/FixedBinAxis.h"
-%include "Core/Binning/IPixel.h"
+%include "Core/Tools/MathFunctions.h"
 
 %include "Core/Mask/IShape2D.h"
 %include "Core/Mask/Ellipse.h"
@@ -316,21 +331,32 @@
 %include "Core/Mask/Polygon.h"
 %include "Core/Mask/Rectangle.h"
 
+%include "Core/Parametrization/IParameterized.h"
+%include "Core/Parametrization/INode.h"
+%include "Core/Parametrization/INodeVisitor.h"
+%include "Core/Parametrization/RealParameter.h"
+
+%include "Core/Parametrization/Distributions.h"
+%include "Core/Parametrization/Distributions.h"
+%include "Core/Parametrization/ParameterDistribution.h"
+%include "Core/Parametrization/ParameterPool.h"
+%include "Core/Parametrization/RangedDistributions.h"
+%include "Core/Parametrization/SimulationOptions.h"
+%include "Core/Parametrization/ThreadInfo.h"
+%include "Core/Parametrization/Units.h"
+
 %include "Core/Scattering/ISample.h"
 %include "Core/Scattering/IFormFactor.h"
 %include "Core/Scattering/IFormFactorBorn.h"
-%template(vector_IFormFactorPtr_t) std::vector<IFormFactor*>;
+%include "Core/Scattering/IFormFactorDecorator.h"
+
 %include "Core/Scattering/Rotations.h"
 
 %include "Fit/Kernel/FitOptions.h"
-%include "Fit/TestEngine/IFactory.h"
 
 %include "Core/Fitting/IObserver.h"
 %include "Core/Fitting/IterationInfo.h"
 %include "Core/Fitting/PyFittingCallbacks.h"
-%include "Core/Fitting/FitObjective.h"
-%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
-%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
 
 %include "Core/Particle/FormFactorCrystal.h"
 %include "Core/Particle/FormFactorWeighted.h"
@@ -370,31 +396,13 @@
 %include "Core/Beam/FootprintGauss.h"
 %include "Core/Beam/FootprintSquare.h"
 
-%include "Core/Scattering/IFormFactorDecorator.h"
-
 %include "Core/Multilayer/IMultiLayerBuilder.h"
 %include "Core/Multilayer/Layer.h"
 %include "Core/Multilayer/LayerRoughness.h"
 %include "Core/Multilayer/MultiLayer.h"
-%include "Core/Multilayer/MultiLayerFuncs.h"
 %include "Core/Multilayer/RoughnessModels.h"
-
-%include "Core/Parametrization/Units.h"
-%include "Core/Parametrization/Distributions.h"
-%include "Core/Parametrization/INodeVisitor.h"
-%include "Core/Parametrization/Distributions.h"
-%include "Core/Parametrization/SimulationOptions.h"
-%include "Core/Parametrization/IParameter.h" // needed?
-%template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
-
-%include "Core/Parametrization/ParameterSample.h"
-%template(ParameterSampleVector) std::vector<ParameterSample>;
-
-%include "Core/Parametrization/ParameterDistribution.h"
-%include "Core/Parametrization/ParameterPool.h"
-%include "Core/Parametrization/RangedDistributions.h"
-%include "Core/Parametrization/RealParameter.h"
-%include "Core/Parametrization/ThreadInfo.h"
+// SWIG workaround for using axes units the same way as they are used in cpp files
+%rename(RoughnessModel) RoughnessModelWrap;
 
 %include "Core/HardParticle/FormFactorPolyhedron.h"
 %include "Core/HardParticle/FormFactorPolyhedron.h"
@@ -447,42 +455,42 @@
 %include "Core/Computation/IBackground.h"
 %include "Core/Computation/ConstantBackground.h"
 %include "Core/Computation/PoissonNoiseBackground.h"
+%include "Core/Computation/MultiLayerFuncs.h"
 
 %include "Core/InputOutput/IntensityDataIOFactory.h"
 
 %include "Core/Detector/IDetector.h"
 %include "Core/Detector/IDetector2D.h"
-%include "Core/Detector/IDetectorResolution.h"
 %include "Core/Detector/SphericalDetector.h"
+%include "Core/Detector/DetectorMask.h"
 %include "Core/Detector/IsGISAXSDetector.h"
 %include "Core/Detector/RectangularDetector.h"
-%include "Core/Detector/DetectorMask.h"
 
-%include "Core/Instrument/IChiSquaredModule.h"
+%include "Core/Detector/IDetectorResolution.h"
 %include "Core/Detector/IResolutionFunction2D.h"
-%include "Core/Instrument/ISpecularScan.h"
-
-%include "Core/Instrument/ChiSquaredModule.h"
-%include "Core/Instrument/Instrument.h"
-%include "Core/Instrument/PyArrayImportUtils.h"
 %include "Core/Detector/ResolutionFunction2DGaussian.h"
-%include "Core/Instrument/SimulationResult.h"
-%include "Core/Instrument/SpectrumUtils.h"
-%include "Core/Instrument/VarianceFunctions.h"
+%include "Core/Detector/ScanResolution.h"
 
 %include "Core/Intensity/IHistogram.h"
-%include "Core/Intensity/Histogram1D.h"
-%include "Core/Intensity/Histogram2D.h"
-%include "Core/Intensity/IntensityDataFunctions.h"
 %include "Core/Intensity/IIntensityNormalizer.h"
 %include "Core/Intensity/IIntensityFunction.h"
 %include "Core/Intensity/IUnitConverter.h"
-%include "Core/Intensity/OutputData.h"
-%template(IntensityData) OutputData<double>;
+
+%include "Core/Intensity/Histogram1D.h"
+%include "Core/Intensity/Histogram2D.h"
+%include "Core/Intensity/IntensityDataFunctions.h"
+
+%include "Core/Instrument/IChiSquaredModule.h"
+%include "Core/Instrument/ISpecularScan.h"
 
 %include "Core/Instrument/AngularSpecScan.h"
+%include "Core/Instrument/ChiSquaredModule.h"
+%include "Core/Instrument/Instrument.h"
+%include "Core/Instrument/PyArrayImportUtils.h"
 %include "Core/Instrument/QSpecScan.h"
-%include "Core/Detector/ScanResolution.h"
+%include "Core/Instrument/SimulationResult.h"
+%include "Core/Instrument/SpectrumUtils.h"
+%include "Core/Instrument/VarianceFunctions.h"
 
 %include "Core/Lattice/ILatticeOrientation.h"
 %include "Core/Lattice/ISelectionRule.h"
@@ -494,9 +502,7 @@
 %include "Core/Material/Material.h"
 %include "Core/Material/MaterialFactoryFuncs.h"
 
-%template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
 %include "Core/StandardSamples/SampleBuilderFactory.h"
-%template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 %include "Core/StandardSamples/SimulationFactory.h"
 
 %include "extendCore.i"

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Intensity/SimulationArea.h
+//! @file      Core/Detector/SimulationArea.h
 //! @brief     Defines class SimulationArea.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_SIMULATIONAREA_H
 #define BORNAGAIN_CORE_INTENSITY_SIMULATIONAREA_H
 
-#include "Core/Intensity/SimulationAreaIterator.h"
+#include "Core/Detector/SimulationAreaIterator.h"
 #include "Wrap/WinDllMacros.h"
 
 class IDetector;

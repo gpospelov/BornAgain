@@ -15,7 +15,7 @@
 #include "Core/Simulation/Simulation.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/IComputation.h"
-#include "Core/Computation/MultiLayerUtils.h"
+#include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/SlicedFormFactorList.cpp
+//! @file      Core/Multilayer/SlicedFormFactorList.cpp
 //! @brief     Defines class SlicedFormFactorList.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Particle/SlicedFormFactorList.h"
-#include "Core/Computation/Slice.h"
+#include "Core/Multilayer/SlicedFormFactorList.h"
+#include "Core/Multilayer/Slice.h"
 #include "Core/Particle/IParticle.h"
 #include "Core/Scattering/Rotations.h"
 #include <utility>

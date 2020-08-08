@@ -15,13 +15,13 @@
 #include "Core/Computation/ProcessedLayout.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Aggregate/ILayout.h"
-#include "Core/Computation/Slice.h"
+#include "Core/Multilayer/Slice.h"
 #include "Core/Multilayer/FormFactorBAPol.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Multilayer/FormFactorDWBA.h"
 #include "Core/Multilayer/FormFactorDWBAPol.h"
 #include "Core/Particle/IParticle.h"
-#include "Core/Particle/SlicedFormFactorList.h"
+#include "Core/Multilayer/SlicedFormFactorList.h"
 
 namespace
 {

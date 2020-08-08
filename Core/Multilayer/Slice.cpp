@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/Slice.cpp
+//! @file      Core/Multilayer/Slice.cpp
 //! @brief     Implements class Slice.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Computation/Slice.h"
+#include "Core/Multilayer/Slice.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/LayerRoughness.h"
 

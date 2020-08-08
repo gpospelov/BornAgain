@@ -450,10 +450,6 @@
 
 %include "Core/InputOutput/IntensityDataIOFactory.h"
 
-%include "Core/Intensity/IHistogram.h"
-%include "Core/Intensity/Histogram1D.h"
-%include "Core/Intensity/Histogram2D.h"
-
 %include "Core/Detector/IDetector.h"
 %include "Core/Detector/IDetector2D.h"
 %include "Core/Detector/IDetectorResolution.h"
@@ -468,13 +464,16 @@
 
 %include "Core/Instrument/ChiSquaredModule.h"
 %include "Core/Instrument/Instrument.h"
-%include "Core/Intensity/IntensityDataFunctions.h"
 %include "Core/Instrument/PyArrayImportUtils.h"
 %include "Core/Instrument/ResolutionFunction2DGaussian.h"
 %include "Core/Instrument/SimulationResult.h"
 %include "Core/Instrument/SpectrumUtils.h"
 %include "Core/Instrument/VarianceFunctions.h"
 
+%include "Core/Intensity/IHistogram.h"
+%include "Core/Intensity/Histogram1D.h"
+%include "Core/Intensity/Histogram2D.h"
+%include "Core/Intensity/IntensityDataFunctions.h"
 %include "Core/Intensity/IIntensityNormalizer.h"
 %include "Core/Intensity/IIntensityFunction.h"
 %include "Core/Intensity/IUnitConverter.h"

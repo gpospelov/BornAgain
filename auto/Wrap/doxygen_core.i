@@ -17118,22 +17118,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d12.xml
 
 
+// File: namespace_0d143.xml
+
+
 // File: namespace_0d150.xml
 
 
-// File: namespace_0d157.xml
+// File: namespace_0d155.xml
 
 
-// File: namespace_0d162.xml
+// File: namespace_0d164.xml
 
 
-// File: namespace_0d171.xml
+// File: namespace_0d166.xml
 
 
-// File: namespace_0d173.xml
-
-
-// File: namespace_0d177.xml
+// File: namespace_0d170.xml
 
 
 // File: namespace_0d18.xml
@@ -17142,25 +17142,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d215.xml
+// File: namespace_0d208.xml
 
 
-// File: namespace_0d250.xml
+// File: namespace_0d243.xml
 
 
-// File: namespace_0d258.xml
+// File: namespace_0d251.xml
 
 
-// File: namespace_0d264.xml
+// File: namespace_0d257.xml
 
 
-// File: namespace_0d268.xml
+// File: namespace_0d261.xml
 
 
-// File: namespace_0d292.xml
+// File: namespace_0d285.xml
 
 
-// File: namespace_0d296.xml
+// File: namespace_0d289.xml
+
+
+// File: namespace_0d309.xml
 
 
 // File: namespace_0d316.xml
@@ -17169,79 +17172,76 @@ C++ includes: ZLimits.h
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d323.xml
+// File: namespace_0d322.xml
 
 
-// File: namespace_0d329.xml
+// File: namespace_0d326.xml
 
 
-// File: namespace_0d333.xml
+// File: namespace_0d347.xml
 
 
-// File: namespace_0d354.xml
+// File: namespace_0d351.xml
 
 
-// File: namespace_0d358.xml
+// File: namespace_0d353.xml
 
 
-// File: namespace_0d360.xml
+// File: namespace_0d355.xml
 
 
-// File: namespace_0d362.xml
+// File: namespace_0d365.xml
 
 
-// File: namespace_0d372.xml
+// File: namespace_0d377.xml
 
 
-// File: namespace_0d384.xml
+// File: namespace_0d381.xml
 
 
-// File: namespace_0d388.xml
+// File: namespace_0d393.xml
+
+
+// File: namespace_0d399.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d400.xml
-
-
-// File: namespace_0d406.xml
+// File: namespace_0d401.xml
 
 
 // File: namespace_0d408.xml
 
 
-// File: namespace_0d415.xml
+// File: namespace_0d410.xml
 
 
-// File: namespace_0d417.xml
+// File: namespace_0d414.xml
+
+
+// File: namespace_0d416.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d421.xml
+// File: namespace_0d426.xml
 
 
-// File: namespace_0d423.xml
+// File: namespace_0d439.xml
 
 
-// File: namespace_0d433.xml
+// File: namespace_0d448.xml
 
 
-// File: namespace_0d446.xml
+// File: namespace_0d450.xml
 
 
-// File: namespace_0d455.xml
+// File: namespace_0d483.xml
 
 
-// File: namespace_0d457.xml
-
-
-// File: namespace_0d490.xml
-
-
-// File: namespace_0d497.xml
+// File: namespace_0d496.xml
 
 
 // File: namespace_0d517.xml
@@ -18708,27 +18708,6 @@ global helper function for comparison of axes
 // File: SpecularComputationTerm_8h.xml
 
 
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
-// File: IFormFactorDecorator_8h.xml
-
-
 // File: ConvolutionDetectorResolution_8cpp.xml
 
 
@@ -19983,6 +19962,24 @@ Generate z values (equidistant) for use in MaterialProfile.
 ";
 
 
+// File: FormFactorDecoratorMaterial_8cpp.xml
+
+
+// File: FormFactorDecoratorMaterial_8h.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorRotation_8cpp.xml
+
+
+// File: FormFactorDecoratorRotation_8h.xml
+
+
 // File: IFormFactor_8cpp.xml
 %feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
@@ -19997,6 +19994,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: IFormFactorBorn_8h.xml
+
+
+// File: IFormFactorDecorator_8h.xml
 
 
 // File: ISample_8cpp.xml
@@ -20524,9 +20524,6 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
-
-
-// File: dir_e5c18127747cd9d7214e02067b529d74.xml
 
 
 // File: dir_44f78a63fb6824b6161080fb024dfdfe.xml

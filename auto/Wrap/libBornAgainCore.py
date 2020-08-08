@@ -5801,7 +5801,7 @@ class INodeVisitor(object):
         visit(INodeVisitor self, DistributionLorentz arg2)
         visit(INodeVisitor self, DistributionTrapezoid arg2)
         visit(INodeVisitor self, FootprintGauss arg2)
-        visit(INodeVisitor self, FootprintFactorSquare arg2)
+        visit(INodeVisitor self, FootprintSquare arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBarGauss const * arg2)
         visit(INodeVisitor self, FormFactorBarLorentz const * arg2)
@@ -12906,68 +12906,57 @@ class FootprintGauss(IFootprintFactor):
 # Register FootprintGauss in _libBornAgainCore:
 _libBornAgainCore.FootprintGauss_swigregister(FootprintGauss)
 
-class FootprintFactorSquare(IFootprintFactor):
-    r"""
-
-
-    Calculates footprint coefficient for a square beam
-
-    C++ includes: FootprintFactorSquare.h
-
-    """
+class FootprintSquare(IFootprintFactor):
+    r"""Proxy of C++ FootprintSquare class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, width_ratio):
-        r"""
-        __init__(FootprintFactorSquare self, double width_ratio) -> FootprintFactorSquare
-        FootprintFactorSquare::FootprintFactorSquare(double width_ratio)
-
-        """
-        _libBornAgainCore.FootprintFactorSquare_swiginit(self, _libBornAgainCore.new_FootprintFactorSquare(width_ratio))
+        r"""__init__(FootprintSquare self, double width_ratio) -> FootprintSquare"""
+        _libBornAgainCore.FootprintSquare_swiginit(self, _libBornAgainCore.new_FootprintSquare(width_ratio))
 
     def accept(self, visitor):
         r"""
-        accept(FootprintFactorSquare self, INodeVisitor visitor)
-        void FootprintFactorSquare::accept(INodeVisitor *visitor) const override
+        accept(FootprintSquare self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FootprintFactorSquare_accept(self, visitor)
+        return _libBornAgainCore.FootprintSquare_accept(self, visitor)
 
     def clone(self):
         r"""
-        clone(FootprintFactorSquare self) -> FootprintFactorSquare
-        FootprintFactorSquare * FootprintFactorSquare::clone() const override
+        clone(FootprintSquare self) -> FootprintSquare
+        virtual IFootprintFactor* IFootprintFactor::clone() const =0
 
         """
-        return _libBornAgainCore.FootprintFactorSquare_clone(self)
+        return _libBornAgainCore.FootprintSquare_clone(self)
 
     def calculate(self, alpha):
         r"""
-        calculate(FootprintFactorSquare self, double alpha) -> double
-        double FootprintFactorSquare::calculate(double alpha) const override
+        calculate(FootprintSquare self, double alpha) -> double
+        virtual double IFootprintFactor::calculate(double alpha) const =0
 
         Calculate footprint correction coefficient from the beam incident angle  alpha. 
 
         """
-        return _libBornAgainCore.FootprintFactorSquare_calculate(self, alpha)
+        return _libBornAgainCore.FootprintSquare_calculate(self, alpha)
 
     def _print(self):
         r"""
-        _print(FootprintFactorSquare self) -> std::string
-        std::string FootprintFactorSquare::print() const override
+        _print(FootprintSquare self) -> std::string
+        virtual std::string IFootprintFactor::print() const =0
 
         Print python-formatted footprint definition. 
 
         """
-        return _libBornAgainCore.FootprintFactorSquare__print(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorSquare
+        return _libBornAgainCore.FootprintSquare__print(self)
+    __swig_destroy__ = _libBornAgainCore.delete_FootprintSquare
 
-# Register FootprintFactorSquare in _libBornAgainCore:
-_libBornAgainCore.FootprintFactorSquare_swigregister(FootprintFactorSquare)
+# Register FootprintSquare in _libBornAgainCore:
+_libBornAgainCore.FootprintSquare_swigregister(FootprintSquare)
 
 class Simulation(ICloneable, INode):
     r"""

@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/IResolutionFunction2D"
+#include "Core/Instrument/IResolutionFunction2D.h"
 
 IResolutionFunction2D::IResolutionFunction2D(
     const INode* parent, const std::vector<const char*> PName,

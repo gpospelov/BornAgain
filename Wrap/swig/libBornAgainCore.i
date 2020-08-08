@@ -196,7 +196,7 @@
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Parametrization/ThreadInfo.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/FormFactorWeighted.h"
@@ -319,6 +319,7 @@
 %include "Core/Basics/ICloneable.h"
 %include "Core/Basics/ISingleton.h"
 %include "Core/Basics/Complex.h"
+%include "Core/Basics/Units.h"
 
 %include "Core/Vector/Vectors3D.h"
 %include "Core/Vector/WavevectorInfo.h"
@@ -343,7 +344,6 @@
 %include "Core/Parametrization/RangedDistributions.h"
 %include "Core/Parametrization/SimulationOptions.h"
 %include "Core/Parametrization/ThreadInfo.h"
-%include "Core/Parametrization/Units.h"
 
 %include "Core/Scattering/ISample.h"
 %include "Core/Scattering/IFormFactor.h"

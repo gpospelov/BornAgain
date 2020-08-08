@@ -5175,6 +5175,22 @@ def exp_I(z):
 
     """
     return _libBornAgainCore.exp_I(z)
+
+def rad2deg(angle):
+    r"""
+    rad2deg(double angle) -> double
+    double Units::rad2deg(double angle)
+
+    """
+    return _libBornAgainCore.rad2deg(angle)
+
+def deg2rad(angle):
+    r"""
+    deg2rad(double angle) -> double
+    double Units::deg2rad(double angle)
+
+    """
+    return _libBornAgainCore.deg2rad(angle)
 class WavevectorInfo(object):
     r"""
 
@@ -5245,6 +5261,24 @@ class WavevectorInfo(object):
 
 # Register WavevectorInfo in _libBornAgainCore:
 _libBornAgainCore.WavevectorInfo_swigregister(WavevectorInfo)
+nanometer = cvar.nanometer
+angstrom = cvar.angstrom
+micrometer = cvar.micrometer
+millimeter = cvar.millimeter
+meter = cvar.meter
+nm = cvar.nm
+nm2 = cvar.nm2
+barn = cvar.barn
+radian = cvar.radian
+milliradian = cvar.milliradian
+degree = cvar.degree
+steradian = cvar.steradian
+rad = cvar.rad
+mrad = cvar.mrad
+sr = cvar.sr
+deg = cvar.deg
+tesla = cvar.tesla
+gauss = cvar.gauss
 
 def WavevectorInfo_GetZeroQ():
     r"""WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
@@ -7862,22 +7896,6 @@ class ThreadInfo(object):
 # Register ThreadInfo in _libBornAgainCore:
 _libBornAgainCore.ThreadInfo_swigregister(ThreadInfo)
 
-
-def rad2deg(angle):
-    r"""
-    rad2deg(double angle) -> double
-    double Units::rad2deg(double angle)
-
-    """
-    return _libBornAgainCore.rad2deg(angle)
-
-def deg2rad(angle):
-    r"""
-    deg2rad(double angle) -> double
-    double Units::deg2rad(double angle)
-
-    """
-    return _libBornAgainCore.deg2rad(angle)
 class ISample(ICloneable, INode):
     r"""
 
@@ -7941,24 +7959,6 @@ class ISample(ICloneable, INode):
 
 # Register ISample in _libBornAgainCore:
 _libBornAgainCore.ISample_swigregister(ISample)
-nanometer = cvar.nanometer
-angstrom = cvar.angstrom
-micrometer = cvar.micrometer
-millimeter = cvar.millimeter
-meter = cvar.meter
-nm = cvar.nm
-nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
-rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
-deg = cvar.deg
-tesla = cvar.tesla
-gauss = cvar.gauss
 
 class IFormFactor(ISample):
     r"""

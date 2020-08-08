@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H
 #define BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H
 
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Wrap/WinDllMacros.h"
 #include <memory>
 #include <stdexcept>

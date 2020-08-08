@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_IDETECTORRESOLUTION_H
 
 #include "Core/Basics/ICloneable.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Parametrization/INode.h"
 
 //! Interface for detector resolution algorithms

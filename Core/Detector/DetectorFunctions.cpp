@@ -13,10 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Detector/DetectorFunctions.h"
-#include "Core/Instrument/Instrument.h"
-#include "Core/Instrument/OutputData.h"
-#include "Core/Instrument/SimulationArea.h"
-#include "Core/Instrument/SimulationAreaIterator.h"
+#include "Core/Intensity/OutputData.h"
+#include "Core/Intensity/SimulationArea.h"
+#include "Core/Intensity/SimulationAreaIterator.h"
 #include "Fit/Tools/StringUtils.h"
 #include <algorithm>
 #include <cctype>

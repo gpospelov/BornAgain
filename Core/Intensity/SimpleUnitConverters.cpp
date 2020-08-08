@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/SimpleUnitConverters.cpp
+//! @file      Core/Intensity/SimpleUnitConverters.cpp
 //! @brief     Implements IUnitConverter classes.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,9 +21,9 @@
 #include "Core/Instrument/AxisNames.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Detector/SphericalDetector.h"
-#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 
 namespace

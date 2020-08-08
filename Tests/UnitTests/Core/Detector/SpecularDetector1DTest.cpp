@@ -1,8 +1,8 @@
 #include "Core/Detector/SpecularDetector1D.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
-#include "Core/Instrument/OutputData.h"
-#include "Core/Instrument/SimulationArea.h"
+#include "Core/Intensity/OutputData.h"
+#include "Core/Intensity/SimulationArea.h"
 #include "Core/Parametrization/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>

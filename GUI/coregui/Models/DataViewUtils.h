@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_DATAVIEWUTILS_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_DATAVIEWUTILS_H
 
-#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Intensity/IUnitConverter.h"
 #include <QString>
 #include <memory>
 

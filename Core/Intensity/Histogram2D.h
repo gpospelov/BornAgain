@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Histogram2D.h
+//! @file      Core/Intensity/Histogram2D.h
 //! @brief     Defines class Histogram2D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM2D_H
 
 #include "Core/Instrument/ArrayUtils.h"
-#include "Core/Instrument/IHistogram.h"
+#include "Core/Intensity/IHistogram.h"
 
 //! Two dimensional histogram.
 //! @ingroup tools

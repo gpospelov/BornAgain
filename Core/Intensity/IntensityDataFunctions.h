@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IntensityDataFunctions.h
+//! @file      Core/Intensity/IntensityDataFunctions.h
 //! @brief     Defines class IntensityDataFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H
 #define BORNAGAIN_CORE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H
 
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include <memory>
 
 class IHistogram;

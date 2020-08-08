@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IUnitConverter.h
+//! @file      Core/Intensity/IUnitConverter.h
 //! @brief     Defines interface IUnitConverter and possible axis units.
 //!
 //! @homepage  http://www.bornagainproject.org

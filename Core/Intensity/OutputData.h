@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/OutputData.h
+//! @file      Core/Intensity/OutputData.h
 //! @brief     Defines and implements template class OutputData.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,8 +17,8 @@
 
 #include "Core/Basics/Assert.h"
 #include "Core/Binning/FixedBinAxis.h"
-#include "Core/Instrument/LLData.h"
-#include "Core/Instrument/OutputDataIterator.h"
+#include "Core/Intensity/LLData.h"
+#include "Core/Intensity/OutputDataIterator.h"
 #include "Core/Parametrization/ThreadInfo.h"
 #include "Core/Tools/PyObject.h"
 #include "Core/Tools/SafePointerVector.h"

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_AXISNAMES_H
 #define BORNAGAIN_CORE_INSTRUMENT_AXISNAMES_H
 
-#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Intensity/IUnitConverter.h"
 #include <map>
 
 //! Contains functions to create maps that give the right axis names for different

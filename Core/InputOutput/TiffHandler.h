@@ -17,7 +17,7 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include <memory>
 #include <tiffio.h>
 

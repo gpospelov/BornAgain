@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
 #include "Core/Detector/IDetector2D.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
-#include "Core/Instrument/UnitConverter1D.h"
-#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
+#include "Core/Intensity/UnitConverter1D.h"
+#include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamItems.h"

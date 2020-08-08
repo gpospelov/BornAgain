@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IHistogram.cpp
+//! @file      Core/Intensity/IHistogram.cpp
 //! @brief     Implements class IntensityDataObject.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Instrument/Histogram1D.h"
-#include "Core/Instrument/Histogram2D.h"
+#include "Core/Intensity/Histogram1D.h"
+#include "Core/Intensity/Histogram2D.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <memory>
 

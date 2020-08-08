@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/LLData.cpp
+//! @file      Core/Intensity/LLData.cpp
 //! @brief     Implements template specializations for LLData.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/LLData.h"
+#include "Core/Intensity/LLData.h"
 
 template <> Eigen::Matrix2d LLData<Eigen::Matrix2d>::getZeroElement() const
 {

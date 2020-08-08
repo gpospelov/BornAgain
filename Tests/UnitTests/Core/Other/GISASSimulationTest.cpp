@@ -1,6 +1,6 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"

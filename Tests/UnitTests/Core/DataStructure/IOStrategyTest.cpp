@@ -1,7 +1,7 @@
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/InputOutput/OutputDataReadStrategy.h"
 #include "Core/InputOutput/OutputDataWriteStrategy.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class IOStrategyTest : public ::testing::Test

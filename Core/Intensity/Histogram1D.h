@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Histogram1D.h
+//! @file      Core/Intensity/Histogram1D.h
 //! @brief     Defines class Histogram1D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H
 #define BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H
 
-#include "Core/Instrument/IHistogram.h"
+#include "Core/Intensity/IHistogram.h"
 
 //! One dimensional histogram.
 //! @ingroup tools

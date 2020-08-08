@@ -1,7 +1,7 @@
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Binning/FixedBinAxis.h"
-#include "Core/Instrument/Histogram2D.h"
+#include "Core/Intensity/Histogram2D.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/Layer.h"

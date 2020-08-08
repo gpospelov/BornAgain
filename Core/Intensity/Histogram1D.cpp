@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Histogram1D.cpp
+//! @file      Core/Intensity/Histogram1D.cpp
 //! @brief     Implements class Histogram1D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/Histogram1D.h"
+#include "Core/Intensity/Histogram1D.h"
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Instrument/ArrayUtils.h"
 #include <memory>

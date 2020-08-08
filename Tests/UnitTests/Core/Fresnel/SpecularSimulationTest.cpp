@@ -4,7 +4,7 @@
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Instrument/AngularSpecScan.h"
-#include "Core/Instrument/Histogram1D.h"
+#include "Core/Intensity/Histogram1D.h"
 #include "Core/Instrument/QSpecScan.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"

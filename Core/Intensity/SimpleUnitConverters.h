@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/SimpleUnitConverters.h
+//! @file      Core/Intensity/SimpleUnitConverters.h
 //! @brief     Defines interface UnitConverterSimple and its subclasses.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_SIMPLEUNITCONVERTERS_H
 #define BORNAGAIN_CORE_INSTRUMENT_SIMPLEUNITCONVERTERS_H
 
-#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Intensity/IUnitConverter.h"
 #include "Core/Vector/Vectors3D.h"
 
 class Beam;

@@ -1,5 +1,5 @@
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Vector/Vectors3D.h"

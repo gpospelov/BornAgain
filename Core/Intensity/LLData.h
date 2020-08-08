@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/LLData.h
+//! @file      Core/Intensity/LLData.h
 //! @brief     Defines class LLData.
 //!
 //! @homepage  http://www.bornagainproject.org

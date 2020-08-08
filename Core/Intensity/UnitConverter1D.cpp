@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/UnitConverter1D.cpp
+//! @file      Core/Intensity/UnitConverter1D.cpp
 //! @brief     Implements UnitConverter1D class and derived classes.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/UnitConverter1D.h"
+#include "Core/Intensity/UnitConverter1D.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/AxisNames.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 
 namespace

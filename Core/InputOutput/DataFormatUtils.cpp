@@ -16,7 +16,7 @@
 #include "Core/Binning/ConstKBinAxis.h"
 #include "Core/Binning/CustomBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Tools/FileSystemUtils.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iostream>

@@ -14,7 +14,7 @@
 
 #include "Core/InputOutput/OutputDataWriter.h"
 #include "Core/InputOutput/DataFormatUtils.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #ifdef _WIN32
 #pragma warning(push)
 #pragma warning(disable : 4244 4275)

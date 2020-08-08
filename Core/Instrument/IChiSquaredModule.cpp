@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IChiSquaredModule.h"
-#include "Core/Instrument/IIntensityFunction.h"
+#include "Core/Intensity/IIntensityFunction.h"
 #include "Core/Instrument/VarianceFunctions.h"
 
 IChiSquaredModule::IChiSquaredModule() : m_variance_function(new VarianceSimFunction) {}

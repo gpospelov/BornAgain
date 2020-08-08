@@ -14,8 +14,8 @@
 
 #include "BATesting.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/IntensityDataFunctions.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Tools/FileSystemUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>

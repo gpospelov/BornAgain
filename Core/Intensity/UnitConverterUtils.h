@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/UnitConverterUtils.h
+//! @file      Core/Intensity/UnitConverterUtils.h
 //! @brief     Declares utilities for unit converters.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H
 #define BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H
 
-#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Intensity/IUnitConverter.h"
 
 class Instrument;
 class Simulation;

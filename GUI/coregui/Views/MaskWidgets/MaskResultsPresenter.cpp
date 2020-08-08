@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Views/MaskWidgets/MaskResultsPresenter.h"
 #include "Core/Detector/DetectorMask.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Mask/IShape2D.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"

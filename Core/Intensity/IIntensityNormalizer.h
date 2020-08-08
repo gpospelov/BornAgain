@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IIntensityNormalizer.h
+//! @file      Core/Intensity/IIntensityNormalizer.h
 //! @brief     Defines classes IOutputDataNormalizer,
 //!              OutputDataNormalizer, OutputDataSimpleNormalizer.
 //!
@@ -17,7 +17,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_IINTENSITYNORMALIZER_H
 
 #include "Core/Basics/ICloneable.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Parametrization/INode.h"
 
 //! Interface to OutputData normalizers.

@@ -17,7 +17,7 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Detector/DetectorContext.h"
 #include "Core/Detector/DetectorFunctions.h"
-#include "Core/Instrument/Histogram2D.h"
+#include "Core/Intensity/Histogram2D.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
 namespace

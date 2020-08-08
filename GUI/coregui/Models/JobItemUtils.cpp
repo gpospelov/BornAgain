@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobItemUtils.h"
-#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DataItem.h"

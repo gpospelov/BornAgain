@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/Histogram2D.h"
+#include "Core/Intensity/Histogram2D.h"
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Detector/RegionOfInterest.h"
 

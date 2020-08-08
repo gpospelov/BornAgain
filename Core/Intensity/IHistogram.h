@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IHistogram.h
+//! @file      Core/Intensity/IHistogram.h
 //! @brief     Defines class IHistogram.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_IHISTOGRAM_H
 
 #include "Core/Instrument/CumulativeValue.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Tools/PyObject.h"
 
 class Histogram1D;

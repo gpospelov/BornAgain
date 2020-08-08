@@ -6,9 +6,10 @@ BornAgain-1.17.99, work in progress
     1) Python2 no longer supported
     2) OpenGL can no longer be deselected
     3) Eigen3 removed from ThirdParty; it is now a regular external dependence
-  > Internal refactoring:
+  > Internal refactoring and fixes of unreported bugs
     1) Unit tests now under CTest control, no longer enforced during compilation
     2) Uniform handling of assertions
+    3) Success of test_nonXMLDataInDir was dependent on test execution order
 
 BornAgain-1.17.0, released 2020.06.16
   > API changes:

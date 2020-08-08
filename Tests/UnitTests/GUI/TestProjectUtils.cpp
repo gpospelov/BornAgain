@@ -6,11 +6,6 @@
 #include <QTextStream>
 #include <iostream>
 
-namespace
-{
-const QString projectDir = "test_ProjectUtils";
-}
-
 class TestProjectUtils : public ::testing::Test
 {
 protected:
@@ -30,8 +25,10 @@ protected:
     }
 };
 
-TEST_F(TestProjectUtils, test_basicFileOperations)
+TEST_F(TestProjectUtils, test_nonXMLDataInDir)
 {
+    const QString projectDir = "test_ProjectUtils";
+
     QDir dir(projectDir);
     if (dir.exists()) {
         EXPECT_TRUE(ProjectUtils::removeRecursively(projectDir) == true);
@@ -41,12 +38,6 @@ TEST_F(TestProjectUtils, test_basicFileOperations)
     GUIHelpers::createSubdir(".", projectDir);
     EXPECT_TRUE(ProjectUtils::exists(projectDir));
 
-    createTestFile(projectDir, "a.txt");
-    EXPECT_TRUE(ProjectUtils::exists(projectDir + "/a.txt"));
-}
-
-TEST_F(TestProjectUtils, test_nonXMLDataInDir)
-{
     EXPECT_EQ(1, 1);
     QStringList test_nonxml_files{"jobdata_job2_0.int.gz", "refdata_job2_0.int.gz",
                                   "realdata_box_nanodots_0.int.gz", "realdata_untitled_0.int.gz"};

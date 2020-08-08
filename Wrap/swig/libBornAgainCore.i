@@ -166,6 +166,7 @@
 #include "Core/Instrument/ResolutionFunction2DGaussian.h"
 #include "Core/Instrument/ScanResolution.h"
 #include "Core/Instrument/SimulationResult.h"
+#include "Core/Instrument/SpectrumUtils.h"
 #include "Core/Instrument/VarianceFunctions.h"
 #include "Core/Lattice/ILatticeOrientation.h"
 #include "Core/Lattice/ISelectionRule.h"
@@ -226,7 +227,6 @@
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"
 #include "Core/Tools/MathFunctions.h"
-#include "Core/Tools/SpectrumUtils.h"
 #include "Core/Vector/BasicVector3D.h"
 #include "Core/Vector/Vectors3D.h"
 #include "Core/Vector/WavevectorInfo.h"
@@ -298,7 +298,6 @@
 %include "Core/Basics/ISingleton.h"
 
 %include "Core/Tools/MathFunctions.h"
-%include "Core/Tools/SpectrumUtils.h"
 
 %include "Core/Vector/Vectors3D.h"
 %include "Core/Vector/WavevectorInfo.h"
@@ -475,6 +474,7 @@
 %include "Core/Instrument/IntensityDataFunctions.h"
 %include "Core/Instrument/PyArrayImportUtils.h"
 %include "Core/Instrument/ResolutionFunction2DGaussian.h"
+%include "Core/Instrument/SpectrumUtils.h"
 %include "Core/Instrument/VarianceFunctions.h"
 
 %include "Core/Instrument/OutputData.h"

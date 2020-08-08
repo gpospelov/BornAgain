@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/SpectrumUtils.cpp
+//! @file      Core/Instrument/SpectrumUtils.cpp
 //! @brief     PyObvject forward declaration.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Tools/SpectrumUtils.h"
+#include "Core/Instrument/SpectrumUtils.h"
 #include "Core/Instrument/ArrayUtils.h"
 #include "tspectrum.h"
 #include <cmath>

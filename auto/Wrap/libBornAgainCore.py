@@ -1999,7 +1999,7 @@ class INode(IParameterized):
         r"""
         __init__(INode self) -> INode
         __init__(INode self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> INode
-        INode::INode()
+        INode::INode(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
         if self.__class__ == INode:
@@ -3588,14 +3588,6 @@ def GeneratePoissonRandom(average):
 
     """
     return _libBornAgainCore.GeneratePoissonRandom(average)
-
-def FindPeaks(*args):
-    r"""
-    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pair_double_t
-    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
-
-    """
-    return _libBornAgainCore.FindPeaks(*args)
 class WavevectorInfo(object):
     r"""
 
@@ -4932,11 +4924,7 @@ class ISample(ICloneable, INode):
         r"""
         __init__(ISample self) -> ISample
         __init__(ISample self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> ISample
-
-
-        Pure virtual base class for sample components and properties related to scattering.
-
-        C++ includes: ISample.h
+        ISample::ISample(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
         if self.__class__ == ISample:
@@ -5004,7 +4992,7 @@ class IFormFactor(ISample):
         r"""
         __init__(IFormFactor self) -> IFormFactor
         __init__(IFormFactor self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactor
-        IFormFactor::IFormFactor()
+        IFormFactor::IFormFactor(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
         if self.__class__ == IFormFactor:
@@ -5136,7 +5124,7 @@ class IFormFactorBorn(IFormFactor):
         r"""
         __init__(IFormFactorBorn self) -> IFormFactorBorn
         __init__(IFormFactorBorn self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactorBorn
-        IFormFactorBorn::IFormFactorBorn()=default
+        IFormFactorBorn::IFormFactorBorn(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
         if self.__class__ == IFormFactorBorn:
@@ -11383,19 +11371,30 @@ class IFootprintFactor(ICloneable, INode):
 _libBornAgainCore.IFootprintFactor_swigregister(IFootprintFactor)
 
 class FootprintGauss(IFootprintFactor):
-    r"""Proxy of C++ FootprintGauss class."""
+    r"""
+
+
+    Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\[ \\exp{-1/2} \\] from the peak intensity.
+
+    C++ includes: FootprintGauss.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, width_ratio):
-        r"""__init__(FootprintGauss self, double width_ratio) -> FootprintGauss"""
+        r"""
+        __init__(FootprintGauss self, double width_ratio) -> FootprintGauss
+        FootprintGauss::FootprintGauss(double width_ratio)
+
+        """
         _libBornAgainCore.FootprintGauss_swiginit(self, _libBornAgainCore.new_FootprintGauss(width_ratio))
 
     def accept(self, visitor):
         r"""
         accept(FootprintGauss self, INodeVisitor visitor)
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FootprintGauss::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -11405,7 +11404,7 @@ class FootprintGauss(IFootprintFactor):
     def clone(self):
         r"""
         clone(FootprintGauss self) -> FootprintGauss
-        virtual IFootprintFactor* IFootprintFactor::clone() const =0
+        FootprintGauss * FootprintGauss::clone() const override
 
         """
         return _libBornAgainCore.FootprintGauss_clone(self)
@@ -11413,7 +11412,7 @@ class FootprintGauss(IFootprintFactor):
     def calculate(self, alpha):
         r"""
         calculate(FootprintGauss self, double alpha) -> double
-        virtual double IFootprintFactor::calculate(double alpha) const =0
+        double FootprintGauss::calculate(double alpha) const override
 
         Calculate footprint correction coefficient from the beam incident angle  alpha. 
 
@@ -11423,7 +11422,7 @@ class FootprintGauss(IFootprintFactor):
     def _print(self):
         r"""
         _print(FootprintGauss self) -> std::string
-        virtual std::string IFootprintFactor::print() const =0
+        std::string FootprintGauss::print() const override
 
         Print python-formatted footprint definition. 
 
@@ -11435,19 +11434,30 @@ class FootprintGauss(IFootprintFactor):
 _libBornAgainCore.FootprintGauss_swigregister(FootprintGauss)
 
 class FootprintSquare(IFootprintFactor):
-    r"""Proxy of C++ FootprintSquare class."""
+    r"""
+
+
+    Calculates footprint coefficient for a square beam
+
+    C++ includes: FootprintSquare.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, width_ratio):
-        r"""__init__(FootprintSquare self, double width_ratio) -> FootprintSquare"""
+        r"""
+        __init__(FootprintSquare self, double width_ratio) -> FootprintSquare
+        FootprintSquare::FootprintSquare(double width_ratio)
+
+        """
         _libBornAgainCore.FootprintSquare_swiginit(self, _libBornAgainCore.new_FootprintSquare(width_ratio))
 
     def accept(self, visitor):
         r"""
         accept(FootprintSquare self, INodeVisitor visitor)
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FootprintSquare::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -11457,7 +11467,7 @@ class FootprintSquare(IFootprintFactor):
     def clone(self):
         r"""
         clone(FootprintSquare self) -> FootprintSquare
-        virtual IFootprintFactor* IFootprintFactor::clone() const =0
+        FootprintSquare * FootprintSquare::clone() const override
 
         """
         return _libBornAgainCore.FootprintSquare_clone(self)
@@ -11465,7 +11475,7 @@ class FootprintSquare(IFootprintFactor):
     def calculate(self, alpha):
         r"""
         calculate(FootprintSquare self, double alpha) -> double
-        virtual double IFootprintFactor::calculate(double alpha) const =0
+        double FootprintSquare::calculate(double alpha) const override
 
         Calculate footprint correction coefficient from the beam incident angle  alpha. 
 
@@ -11475,7 +11485,7 @@ class FootprintSquare(IFootprintFactor):
     def _print(self):
         r"""
         _print(FootprintSquare self) -> std::string
-        virtual std::string IFootprintFactor::print() const =0
+        std::string FootprintSquare::print() const override
 
         Print python-formatted footprint definition. 
 
@@ -16052,19 +16062,30 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 _libBornAgainCore.FormFactorHemiEllipsoid_swigregister(FormFactorHemiEllipsoid)
 
 class FormFactorHollowSphere(IFormFactorBorn):
-    r"""Proxy of C++ FormFactorHollowSphere class."""
+    r"""
+
+
+    Integrated full sphere form factor over a uniform distribution of radii.
+
+    C++ includes: FormFactorHollowSphere.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, mean, full_width):
-        r"""__init__(FormFactorHollowSphere self, double mean, double full_width) -> FormFactorHollowSphere"""
+        r"""
+        __init__(FormFactorHollowSphere self, double mean, double full_width) -> FormFactorHollowSphere
+        FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
+
+        """
         _libBornAgainCore.FormFactorHollowSphere_swiginit(self, _libBornAgainCore.new_FormFactorHollowSphere(mean, full_width))
 
     def clone(self):
         r"""
         clone(FormFactorHollowSphere self) -> FormFactorHollowSphere
-        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+        FormFactorHollowSphere* FormFactorHollowSphere::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -16074,7 +16095,7 @@ class FormFactorHollowSphere(IFormFactorBorn):
     def accept(self, visitor):
         r"""
         accept(FormFactorHollowSphere self, INodeVisitor visitor)
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -16084,7 +16105,7 @@ class FormFactorHollowSphere(IFormFactorBorn):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorHollowSphere self) -> double
-        virtual double IFormFactor::radialExtension() const =0
+        double FormFactorHollowSphere::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -16094,7 +16115,7 @@ class FormFactorHollowSphere(IFormFactorBorn):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorHollowSphere self, cvector_t q) -> complex_t
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+        complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -21401,6 +21422,14 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
 # Register ResolutionFunction2DGaussian in _libBornAgainCore:
 _libBornAgainCore.ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
 
+
+def FindPeaks(*args):
+    r"""
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pair_double_t
+    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+    """
+    return _libBornAgainCore.FindPeaks(*args)
 class IVarianceFunction(object):
     r"""
 

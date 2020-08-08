@@ -2688,61 +2688,61 @@ Creates a new clipped axis.
 ";
 
 
-// File: classFootprintFactorGaussian.xml
-%feature("docstring") FootprintFactorGaussian "
+// File: classFootprintGauss.xml
+%feature("docstring") FootprintGauss "
 
 Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\\\[ \\\\exp{-1/2} \\\\] from the peak intensity.
 
-C++ includes: FootprintFactorGaussian.h
+C++ includes: FootprintGauss.h
 ";
 
-%feature("docstring")  FootprintFactorGaussian::FootprintFactorGaussian "FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio)
+%feature("docstring")  FootprintGauss::FootprintGauss "FootprintGauss::FootprintGauss(double width_ratio)
 ";
 
-%feature("docstring")  FootprintFactorGaussian::accept "void FootprintFactorGaussian::accept(INodeVisitor *visitor) const override
+%feature("docstring")  FootprintGauss::accept "void FootprintGauss::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FootprintFactorGaussian::clone "FootprintFactorGaussian * FootprintFactorGaussian::clone() const override
+%feature("docstring")  FootprintGauss::clone "FootprintGauss * FootprintGauss::clone() const override
 ";
 
-%feature("docstring")  FootprintFactorGaussian::calculate "double FootprintFactorGaussian::calculate(double alpha) const override
+%feature("docstring")  FootprintGauss::calculate "double FootprintGauss::calculate(double alpha) const override
 
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
-%feature("docstring")  FootprintFactorGaussian::print "std::string FootprintFactorGaussian::print() const override
+%feature("docstring")  FootprintGauss::print "std::string FootprintGauss::print() const override
 
 Print python-formatted footprint definition. 
 ";
 
 
-// File: classFootprintFactorSquare.xml
-%feature("docstring") FootprintFactorSquare "
+// File: classFootprintSquare.xml
+%feature("docstring") FootprintSquare "
 
 Calculates footprint coefficient for a square beam
 
-C++ includes: FootprintFactorSquare.h
+C++ includes: FootprintSquare.h
 ";
 
-%feature("docstring")  FootprintFactorSquare::FootprintFactorSquare "FootprintFactorSquare::FootprintFactorSquare(double width_ratio)
+%feature("docstring")  FootprintSquare::FootprintSquare "FootprintSquare::FootprintSquare(double width_ratio)
 ";
 
-%feature("docstring")  FootprintFactorSquare::accept "void FootprintFactorSquare::accept(INodeVisitor *visitor) const override
+%feature("docstring")  FootprintSquare::accept "void FootprintSquare::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FootprintFactorSquare::clone "FootprintFactorSquare * FootprintFactorSquare::clone() const override
+%feature("docstring")  FootprintSquare::clone "FootprintSquare * FootprintSquare::clone() const override
 ";
 
-%feature("docstring")  FootprintFactorSquare::calculate "double FootprintFactorSquare::calculate(double alpha) const override
+%feature("docstring")  FootprintSquare::calculate "double FootprintSquare::calculate(double alpha) const override
 
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
-%feature("docstring")  FootprintFactorSquare::print "std::string FootprintFactorSquare::print() const override
+%feature("docstring")  FootprintSquare::print "std::string FootprintSquare::print() const override
 
 Print python-formatted footprint definition. 
 ";
@@ -4036,6 +4036,38 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
+// File: classFormFactorHollowSphere.xml
+%feature("docstring") FormFactorHollowSphere "
+
+Integrated full sphere form factor over a uniform distribution of radii.
+
+C++ includes: FormFactorHollowSphere.h
+";
+
+%feature("docstring")  FormFactorHollowSphere::FormFactorHollowSphere "FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
+";
+
+%feature("docstring")  FormFactorHollowSphere::clone "FormFactorHollowSphere* FormFactorHollowSphere::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorHollowSphere::accept "void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorHollowSphere::radialExtension "double FormFactorHollowSphere::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorHollowSphere::evaluate_for_q "complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const override final
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
 // File: classFormFactorIcosahedron.xml
 %feature("docstring") FormFactorIcosahedron "
 
@@ -4260,7 +4292,10 @@ A prism with a polygonal base, for form factor computation.
 C++ includes: FormFactorPolyhedron.h
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
+%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism()=default
+";
+
+%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 ";
 
 %feature("docstring")  FormFactorPolygonalPrism::bottomZ "double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
@@ -4300,7 +4335,10 @@ A polygonal surface, for testing form factor computations.
 C++ includes: FormFactorPolyhedron.h
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface()
+%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface()=default
+";
+
+%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 ";
 
 %feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const override final
@@ -4328,6 +4366,9 @@ C++ includes: FormFactorPolyhedron.h
 ";
 
 %feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
+";
+
+%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 ";
 
 %feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
@@ -4679,38 +4720,6 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorSphereUniformRadius.xml
-%feature("docstring") FormFactorSphereUniformRadius "
-
-Integrated full sphere form factor over a uniform distribution of radii.
-
-C++ includes: FormFactorSphereUniformRadius.h
-";
-
-%feature("docstring")  FormFactorSphereUniformRadius::FormFactorSphereUniformRadius "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double full_width)
-";
-
-%feature("docstring")  FormFactorSphereUniformRadius::clone "FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorSphereUniformRadius::accept "void FormFactorSphereUniformRadius::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorSphereUniformRadius::radialExtension "double FormFactorSphereUniformRadius::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorSphereUniformRadius::evaluate_for_q "complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
 // File: classFormFactorTetrahedron.xml
 %feature("docstring") FormFactorTetrahedron "
 
@@ -4764,7 +4773,7 @@ A planar equilateral triangle, for testing form factor computations.
 C++ includes: FormFactorTriangle.h
 ";
 
-%feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(const double base_edge)
+%feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(double base_edge)
 ";
 
 %feature("docstring")  FormFactorTriangle::clone "FormFactorTriangle* FormFactorTriangle::clone() const override final
@@ -6772,10 +6781,13 @@ Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWei
 C++ includes: IFormFactor.h
 ";
 
-%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()
+%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()=default
 ";
 
-%feature("docstring")  IFormFactor::~IFormFactor "IFormFactor::~IFormFactor() override
+%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+";
+
+%feature("docstring")  IFormFactor::~IFormFactor "IFormFactor::~IFormFactor()=default
 ";
 
 %feature("docstring")  IFormFactor::clone "IFormFactor* IFormFactor::clone() const override=0
@@ -6842,7 +6854,7 @@ C++ includes: IFormFactorBorn.h
 %feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()=default
 ";
 
-%feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn() override
+%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 ";
 
 %feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0
@@ -7777,6 +7789,9 @@ C++ includes: INode.h
 %feature("docstring")  INode::INode "INode::INode()
 ";
 
+%feature("docstring")  INode::INode "INode::INode(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+";
+
 %feature("docstring")  INode::~INode "virtual INode::~INode()
 ";
 
@@ -7872,10 +7887,10 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionTrapezoid *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintFactorGaussian *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintGauss *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintFactorSquare *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintSquare *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorAnisoPyramid *)
@@ -9543,6 +9558,12 @@ Interface providing two-dimensional resolution function.
 C++ includes: IResolutionFunction2D.h
 ";
 
+%feature("docstring")  IResolutionFunction2D::IResolutionFunction2D "IResolutionFunction2D::IResolutionFunction2D()=default
+";
+
+%feature("docstring")  IResolutionFunction2D::IResolutionFunction2D "IResolutionFunction2D::IResolutionFunction2D(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+";
+
 %feature("docstring")  IResolutionFunction2D::~IResolutionFunction2D "virtual IResolutionFunction2D::~IResolutionFunction2D()
 ";
 
@@ -9596,6 +9617,12 @@ Returns true if rotation matrix is identity matrix (no rotations)
 Pure virtual base class for sample components and properties related to scattering.
 
 C++ includes: ISample.h
+";
+
+%feature("docstring")  ISample::ISample "ISample::ISample()=default
+";
+
+%feature("docstring")  ISample::ISample "ISample::ISample(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 ";
 
 %feature("docstring")  ISample::clone "ISample* ISample::clone() const override=0
@@ -17043,10 +17070,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17091,154 +17118,154 @@ C++ includes: ZLimits.h
 // File: namespace_0d12.xml
 
 
-// File: namespace_0d125.xml
+// File: namespace_0d150.xml
 
 
-// File: namespace_0d132.xml
+// File: namespace_0d157.xml
 
 
-// File: namespace_0d137.xml
+// File: namespace_0d162.xml
 
 
-// File: namespace_0d146.xml
+// File: namespace_0d171.xml
 
 
-// File: namespace_0d148.xml
+// File: namespace_0d173.xml
 
 
-// File: namespace_0d152.xml
+// File: namespace_0d177.xml
 
 
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d188.xml
-
-
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d223.xml
+// File: namespace_0d215.xml
 
 
-// File: namespace_0d231.xml
+// File: namespace_0d250.xml
 
 
-// File: namespace_0d237.xml
+// File: namespace_0d258.xml
 
 
-// File: namespace_0d241.xml
+// File: namespace_0d264.xml
 
 
-// File: namespace_0d291.xml
+// File: namespace_0d268.xml
 
 
-// File: namespace_0d300.xml
+// File: namespace_0d302.xml
 
 
-// File: namespace_0d308.xml
+// File: namespace_0d311.xml
 
 
-// File: namespace_0d310.xml
+// File: namespace_0d315.xml
+
+
+// File: namespace_0d317.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d322.xml
+// File: namespace_0d327.xml
 
 
-// File: namespace_0d328.xml
+// File: namespace_0d333.xml
 
 
-// File: namespace_0d349.xml
+// File: namespace_0d354.xml
 
 
-// File: namespace_0d353.xml
+// File: namespace_0d358.xml
 
 
-// File: namespace_0d355.xml
+// File: namespace_0d360.xml
 
 
-// File: namespace_0d357.xml
+// File: namespace_0d362.xml
 
 
-// File: namespace_0d367.xml
+// File: namespace_0d372.xml
 
 
-// File: namespace_0d379.xml
+// File: namespace_0d384.xml
 
 
-// File: namespace_0d383.xml
-
-
-// File: namespace_0d395.xml
+// File: namespace_0d388.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d401.xml
+// File: namespace_0d400.xml
 
 
-// File: namespace_0d403.xml
+// File: namespace_0d406.xml
 
 
-// File: namespace_0d410.xml
+// File: namespace_0d408.xml
 
 
-// File: namespace_0d412.xml
+// File: namespace_0d415.xml
 
 
-// File: namespace_0d416.xml
-
-
-// File: namespace_0d418.xml
+// File: namespace_0d417.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d428.xml
+// File: namespace_0d421.xml
 
 
-// File: namespace_0d441.xml
+// File: namespace_0d423.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0d433.xml
 
 
-// File: namespace_0d452.xml
+// File: namespace_0d446.xml
 
 
-// File: namespace_0d485.xml
+// File: namespace_0d455.xml
 
 
-// File: namespace_0d492.xml
+// File: namespace_0d457.xml
 
 
-// File: namespace_0d512.xml
+// File: namespace_0d490.xml
 
 
-// File: namespace_0d520.xml
+// File: namespace_0d497.xml
 
 
-// File: namespace_0d522.xml
+// File: namespace_0d517.xml
 
 
-// File: namespace_0d524.xml
+// File: namespace_0d525.xml
+
+
+// File: namespace_0d527.xml
+
+
+// File: namespace_0d529.xml
 
 
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d607.xml
+// File: namespace_0d610.xml
 
 
-// File: namespace_0d611.xml
+// File: namespace_0d614.xml
 
 
-// File: namespace_0d632.xml
+// File: namespace_0d635.xml
 
 
 // File: namespace_0d96.xml
@@ -18483,16 +18510,16 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: Beam_8h.xml
 
 
-// File: FootprintFactorGaussian_8cpp.xml
+// File: FootprintGauss_8cpp.xml
 
 
-// File: FootprintFactorGaussian_8h.xml
+// File: FootprintGauss_8h.xml
 
 
-// File: FootprintFactorSquare_8cpp.xml
+// File: FootprintSquare_8cpp.xml
 
 
-// File: FootprintFactorSquare_8h.xml
+// File: FootprintSquare_8h.xml
 
 
 // File: IFootprintFactor_8cpp.xml
@@ -18702,6 +18729,81 @@ global helper function for comparison of axes
 // File: IFormFactorDecorator_8h.xml
 
 
+// File: ConvolutionDetectorResolution_8cpp.xml
+
+
+// File: ConvolutionDetectorResolution_8h.xml
+
+
+// File: DetectionProperties_8cpp.xml
+
+
+// File: DetectionProperties_8h.xml
+
+
+// File: DetectorContext_8cpp.xml
+
+
+// File: DetectorContext_8h.xml
+
+
+// File: DetectorFunctions_8cpp.xml
+
+
+// File: DetectorFunctions_8h.xml
+
+
+// File: DetectorMask_8cpp.xml
+
+
+// File: DetectorMask_8h.xml
+
+
+// File: IDetector_8cpp.xml
+
+
+// File: IDetector_8h.xml
+
+
+// File: IDetector2D_8cpp.xml
+
+
+// File: IDetector2D_8h.xml
+
+
+// File: IDetectorResolution_8h.xml
+
+
+// File: IsGISAXSDetector_8cpp.xml
+
+
+// File: IsGISAXSDetector_8h.xml
+
+
+// File: RectangularDetector_8cpp.xml
+
+
+// File: RectangularDetector_8h.xml
+
+
+// File: RegionOfInterest_8cpp.xml
+
+
+// File: RegionOfInterest_8h.xml
+
+
+// File: SpecularDetector1D_8cpp.xml
+
+
+// File: SpecularDetector1D_8h.xml
+
+
+// File: SphericalDetector_8cpp.xml
+
+
+// File: SphericalDetector_8h.xml
+
+
 // File: ExportToPython_8cpp.xml
 
 
@@ -18871,6 +18973,12 @@ global helper function for comparison of axes
 
 
 // File: FormFactorHemiEllipsoid_8h.xml
+
+
+// File: FormFactorHollowSphere_8cpp.xml
+
+
+// File: FormFactorHollowSphere_8h.xml
 
 
 // File: FormFactorIcosahedron_8cpp.xml
@@ -19074,12 +19182,6 @@ global helper function for comparison of axes
 // File: ChiSquaredModule_8h.xml
 
 
-// File: ConvolutionDetectorResolution_8cpp.xml
-
-
-// File: ConvolutionDetectorResolution_8h.xml
-
-
 // File: Convolve_8cpp.xml
 
 
@@ -19090,30 +19192,6 @@ global helper function for comparison of axes
 
 
 // File: CumulativeValue_8h.xml
-
-
-// File: DetectionProperties_8cpp.xml
-
-
-// File: DetectionProperties_8h.xml
-
-
-// File: DetectorContext_8cpp.xml
-
-
-// File: DetectorContext_8h.xml
-
-
-// File: DetectorFunctions_8cpp.xml
-
-
-// File: DetectorFunctions_8h.xml
-
-
-// File: DetectorMask_8cpp.xml
-
-
-// File: DetectorMask_8h.xml
 
 
 // File: FourierTransform_8cpp.xml
@@ -19138,21 +19216,6 @@ global helper function for comparison of axes
 
 
 // File: IChiSquaredModule_8h.xml
-
-
-// File: IDetector_8cpp.xml
-
-
-// File: IDetector_8h.xml
-
-
-// File: IDetector2D_8cpp.xml
-
-
-// File: IDetector2D_8h.xml
-
-
-// File: IDetectorResolution_8h.xml
 
 
 // File: IHistogram_8cpp.xml
@@ -19185,13 +19248,10 @@ global helper function for comparison of axes
 // File: IntensityDataFunctions_8h.xml
 
 
+// File: IResolutionFunction2D_8cpp.xml
+
+
 // File: IResolutionFunction2D_8h.xml
-
-
-// File: IsGISAXSDetector_8cpp.xml
-
-
-// File: IsGISAXSDetector_8h.xml
 
 
 // File: ISpecularScan_8cpp.xml
@@ -19239,18 +19299,6 @@ make Swappable
 // File: QSpecScan_8h.xml
 
 
-// File: RectangularDetector_8cpp.xml
-
-
-// File: RectangularDetector_8h.xml
-
-
-// File: RegionOfInterest_8cpp.xml
-
-
-// File: RegionOfInterest_8h.xml
-
-
 // File: ResolutionFunction2DGaussian_8cpp.xml
 
 
@@ -19287,16 +19335,10 @@ make Swappable
 // File: SimulationResult_8h.xml
 
 
-// File: SpecularDetector1D_8cpp.xml
+// File: SpectrumUtils_8cpp.xml
 
 
-// File: SpecularDetector1D_8h.xml
-
-
-// File: SphericalDetector_8cpp.xml
-
-
-// File: SphericalDetector_8h.xml
+// File: SpectrumUtils_8h.xml
 
 
 // File: UnitConverter1D_8cpp.xml
@@ -20143,12 +20185,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: FormFactorSphereLogNormalRadius_8h.xml
 
 
-// File: FormFactorSphereUniformRadius_8cpp.xml
-
-
-// File: FormFactorSphereUniformRadius_8h.xml
-
-
 // File: BoxCompositionBuilder_8cpp.xml
 
 
@@ -20428,12 +20464,6 @@ Template function to create an integrator object
 // File: SafePointerVector_8h.xml
 
 
-// File: SpectrumUtils_8cpp.xml
-
-
-// File: SpectrumUtils_8h.xml
-
-
 // File: SysUtils_8cpp.xml
 
 
@@ -20497,6 +20527,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_e5c18127747cd9d7214e02067b529d74.xml
+
+
+// File: dir_44f78a63fb6824b6161080fb024dfdfe.xml
 
 
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml

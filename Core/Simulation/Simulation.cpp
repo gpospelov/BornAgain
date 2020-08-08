@@ -16,11 +16,13 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/IComputation.h"
 #include "Core/Computation/MultiLayerUtils.h"
+#include "Core/Detector/DetectorFunctions.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Simulation/MPISimulation.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "Fit/Tools/StringUtils.h"
 #include <gsl/gsl_errno.h>
 #include <iomanip>

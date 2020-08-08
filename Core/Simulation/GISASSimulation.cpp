@@ -16,9 +16,9 @@
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Intensity/Histogram2D.h"
-#include "Core/Fitting/UnitConverterUtils.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
 GISASSimulation::GISASSimulation()

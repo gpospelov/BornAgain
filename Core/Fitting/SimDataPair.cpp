@@ -15,8 +15,8 @@
 #include "Core/Fitting/SimDataPair.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Fitting/UnitConverterUtils.h"
 #include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "Fit/TestEngine/Numeric.h"
 
 namespace
@@ -183,8 +183,7 @@ void SimDataPair::initResultArrays()
     m_exp_data = m_simulation->convertData(*m_raw_data, true);
 
     if (containsUncertainties()) {
-        m_uncertainties =
-            m_simulation->convertData(*m_raw_uncertainties, true);
+        m_uncertainties = m_simulation->convertData(*m_raw_uncertainties, true);
     } else {
         const IUnitConverter& converter = m_sim_data.converter();
         std::unique_ptr<OutputData<double>> dummy_array =

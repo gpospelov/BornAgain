@@ -14,14 +14,12 @@
 
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
-#include "Core/Detector/DetectorFunctions.h"
 #include "Core/Detector/IDetector.h"
 #include "Core/Instrument/ArrayUtils.h"
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Intensity/IHistogram.h"
-#include "Core/Fitting/UnitConverterUtils.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <iostream>
 #include <math.h>

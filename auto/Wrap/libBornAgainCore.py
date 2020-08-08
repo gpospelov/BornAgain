@@ -17921,6 +17921,10 @@ class Simulation(ICloneable, INode):
         """
         return _libBornAgainCore.Simulation_getChildren(self)
 
+    def convertData(self, data, put_masked_areas_to_zero=True):
+        r"""convertData(Simulation self, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult"""
+        return _libBornAgainCore.Simulation_convertData(self, data, put_masked_areas_to_zero)
+
     def setSampleBuilder(self, ptr):
         self.samplebuilder = ptr
         self.setSampleBuilderCpp(ptr)
@@ -21224,14 +21228,6 @@ def FT2DArray(signal):
 
     """
     return _libBornAgainCore.FT2DArray(signal)
-
-def ConvertData(simulation, data, put_masked_areas_to_zero=True):
-    r"""
-    ConvertData(Simulation simulation, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult
-    SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
-
-    """
-    return _libBornAgainCore.ConvertData(simulation, data, put_masked_areas_to_zero)
 class IIntensityNormalizer(ICloneable, INode):
     r"""
 

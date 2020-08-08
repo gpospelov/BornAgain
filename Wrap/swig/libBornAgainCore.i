@@ -400,9 +400,10 @@
 %include "Core/Multilayer/Layer.h"
 %include "Core/Multilayer/LayerRoughness.h"
 %include "Core/Multilayer/MultiLayer.h"
-%include "Core/Multilayer/RoughnessModels.h"
+
 // SWIG workaround for using axes units the same way as they are used in cpp files
 %rename(RoughnessModel) RoughnessModelWrap;
+%include "Core/Multilayer/RoughnessModels.h"
 
 %include "Core/HardParticle/FormFactorPolyhedron.h"
 %include "Core/HardParticle/FormFactorPolyhedron.h"

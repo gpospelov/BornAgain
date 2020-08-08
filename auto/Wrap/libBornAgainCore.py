@@ -14576,7 +14576,7 @@ class MultiLayer(ISample):
 # Register MultiLayer in _libBornAgainCore:
 _libBornAgainCore.MultiLayer_swigregister(MultiLayer)
 
-class RoughnessModelWrap(object):
+class RoughnessModel(object):
     r"""Proxy of C++ RoughnessModelWrap class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
@@ -14584,16 +14584,16 @@ class RoughnessModelWrap(object):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.RoughnessModelWrap_DEFAULT
+    DEFAULT = _libBornAgainCore.RoughnessModel_DEFAULT
     
-    TANH = _libBornAgainCore.RoughnessModelWrap_TANH
+    TANH = _libBornAgainCore.RoughnessModel_TANH
     
-    NEVOT_CROCE = _libBornAgainCore.RoughnessModelWrap_NEVOT_CROCE
+    NEVOT_CROCE = _libBornAgainCore.RoughnessModel_NEVOT_CROCE
     
-    __swig_destroy__ = _libBornAgainCore.delete_RoughnessModelWrap
+    __swig_destroy__ = _libBornAgainCore.delete_RoughnessModel
 
-# Register RoughnessModelWrap in _libBornAgainCore:
-_libBornAgainCore.RoughnessModelWrap_swigregister(RoughnessModelWrap)
+# Register RoughnessModel in _libBornAgainCore:
+_libBornAgainCore.RoughnessModel_swigregister(RoughnessModel)
 
 class PolygonalTopology(object):
     r"""

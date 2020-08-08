@@ -14,8 +14,8 @@
 
 #include "Core/Scattering/IFormFactor.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
+#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Core/Scattering/FormFactorDecoratorRotation.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/WavevectorInfo.h"

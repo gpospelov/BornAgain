@@ -19462,131 +19462,6 @@ class Histogram2D(IHistogram):
 # Register Histogram2D in _libBornAgainCore:
 _libBornAgainCore.Histogram2D_swigregister(Histogram2D)
 
-class AxisInfo(object):
-    r"""
-
-
-    Information about an axis in specific units. Can be used for plotting.
-
-    C++ includes: SimulationResult.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    m_name = property(_libBornAgainCore.AxisInfo_m_name_get, _libBornAgainCore.AxisInfo_m_name_set, doc=r"""m_name : std::string""")
-    m_min = property(_libBornAgainCore.AxisInfo_m_min_get, _libBornAgainCore.AxisInfo_m_min_set, doc=r"""m_min : double""")
-    m_max = property(_libBornAgainCore.AxisInfo_m_max_get, _libBornAgainCore.AxisInfo_m_max_set, doc=r"""m_max : double""")
-
-    def __init__(self):
-        r"""
-        __init__(AxisInfo self) -> AxisInfo
-
-
-        Information about an axis in specific units. Can be used for plotting.
-
-        C++ includes: SimulationResult.h
-
-        """
-        _libBornAgainCore.AxisInfo_swiginit(self, _libBornAgainCore.new_AxisInfo())
-    __swig_destroy__ = _libBornAgainCore.delete_AxisInfo
-
-# Register AxisInfo in _libBornAgainCore:
-_libBornAgainCore.AxisInfo_swigregister(AxisInfo)
-
-class SimulationResult(object):
-    r"""
-
-
-    Wrapper around  OutputData<double> that also provides unit conversions.
-
-    C++ includes: SimulationResult.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(SimulationResult self) -> SimulationResult
-        __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
-        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
-        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
-        SimulationResult::SimulationResult(SimulationResult &&other)
-
-        """
-        _libBornAgainCore.SimulationResult_swiginit(self, _libBornAgainCore.new_SimulationResult(*args))
-
-    def histogram2d(self, *args):
-        r"""
-        histogram2d(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> Histogram2D
-        Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
-
-        """
-        return _libBornAgainCore.SimulationResult_histogram2d(self, *args)
-
-    def axisInfo(self, *args):
-        r"""
-        axisInfo(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> swig_dummy_type_axisinfo_vector
-        std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
-
-        Provide  AxisInfo for each axis and the given units. 
-
-        """
-        return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
-
-    def converter(self):
-        r"""
-        converter(SimulationResult self) -> IUnitConverter
-        const IUnitConverter & SimulationResult::converter() const
-
-        Returns underlying unit converter. 
-
-        """
-        return _libBornAgainCore.SimulationResult_converter(self)
-
-    def size(self):
-        r"""
-        size(SimulationResult self) -> size_t
-        size_t SimulationResult::size() const
-
-        """
-        return _libBornAgainCore.SimulationResult_size(self)
-
-    def array(self, *args):
-        r"""
-        array(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> PyObject
-        PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
-
-        returns intensity data as Python numpy array 
-
-        """
-        return _libBornAgainCore.SimulationResult_array(self, *args)
-
-    def axis(self, *args):
-        r"""
-        axis(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
-        axis(SimulationResult self, size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
-        std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
-
-        Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
-
-        """
-        return _libBornAgainCore.SimulationResult_axis(self, *args)
-
-    def __getitem__(self, i):
-        r"""__getitem__(SimulationResult self, unsigned int i) -> double"""
-        return _libBornAgainCore.SimulationResult___getitem__(self, i)
-
-    def __setitem__(self, i, value):
-        r"""__setitem__(SimulationResult self, unsigned int i, double value) -> double"""
-        return _libBornAgainCore.SimulationResult___setitem__(self, i, value)
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
-
-# Register SimulationResult in _libBornAgainCore:
-_libBornAgainCore.SimulationResult_swigregister(SimulationResult)
-
 class IDetector(ICloneable, INode):
     r"""
 
@@ -20676,302 +20551,6 @@ class IChiSquaredModule(ICloneable):
 # Register IChiSquaredModule in _libBornAgainCore:
 _libBornAgainCore.IChiSquaredModule_swigregister(IChiSquaredModule)
 
-class IIntensityNormalizer(ICloneable, INode):
-    r"""
-
-
-    Interface to  OutputData normalizers.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IIntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IIntensityNormalizer self) -> IIntensityNormalizer
-        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_clone(self)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
-        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IIntensityNormalizer self, IntensityData data)
-        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IIntensityNormalizer self, double arg2)
-        virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_setMaximumIntensity(self, arg2)
-
-# Register IIntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IIntensityNormalizer_swigregister(IIntensityNormalizer)
-
-class IntensityNormalizer(IIntensityNormalizer):
-    r"""
-
-
-    Standard  OutputData normalizer, with configurable max_intensity.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityNormalizer self, double scale=1.0, double shift=0.0) -> IntensityNormalizer
-        IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityNormalizer_swiginit(self, _libBornAgainCore.new_IntensityNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IntensityNormalizer self) -> IntensityNormalizer
-        IntensityNormalizer * IntensityNormalizer::clone() const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityNormalizer self, INodeVisitor visitor)
-        void IntensityNormalizer::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_accept(self, visitor)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
-        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IntensityNormalizer self, IntensityData data)
-        void IntensityNormalizer::apply(OutputData< double > &data) const final
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, max_intensity):
-        r"""
-        setMaximumIntensity(IntensityNormalizer self, double max_intensity)
-        virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
-
-# Register IntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityNormalizer_swigregister(IntensityNormalizer)
-
-class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
-    r"""
-
-
-    Simplified  OutputData normalizer, with max_intensity=1.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0, double shift=0.0) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityScaleAndShiftNormalizer_swiginit(self, _libBornAgainCore.new_IntensityScaleAndShiftNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
-        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_accept(self, visitor)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
-        void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
-
-    def clone(self):
-        r"""
-        clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
-
-# Register IntensityScaleAndShiftNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
-
-class IIntensityFunction(object):
-    r"""
-
-
-    Interface for applying arbitrary function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
-
-    def clone(self):
-        r"""
-        clone(IIntensityFunction self) -> IIntensityFunction
-        virtual IIntensityFunction* IIntensityFunction::clone() const =0
-
-        """
-        return _libBornAgainCore.IIntensityFunction_clone(self)
-
-    def evaluate(self, value):
-        r"""
-        evaluate(IIntensityFunction self, double value) -> double
-        virtual double IIntensityFunction::evaluate(double value) const =0
-
-        """
-        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
-
-# Register IIntensityFunction in _libBornAgainCore:
-_libBornAgainCore.IIntensityFunction_swigregister(IIntensityFunction)
-
-class IntensityFunctionLog(IIntensityFunction):
-    r"""
-
-
-    Algorithm for applying log function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IntensityFunctionLog self) -> IntensityFunctionLog
-        IntensityFunctionLog * IntensityFunctionLog::clone() const
-
-        """
-        return _libBornAgainCore.IntensityFunctionLog_clone(self)
-
-    def evaluate(self, value):
-        r"""
-        evaluate(IntensityFunctionLog self, double value) -> double
-        double IntensityFunctionLog::evaluate(double value) const
-
-        """
-        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
-
-    def __init__(self):
-        r"""
-        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
-
-
-        Algorithm for applying log function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
-        _libBornAgainCore.IntensityFunctionLog_swiginit(self, _libBornAgainCore.new_IntensityFunctionLog())
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
-
-# Register IntensityFunctionLog in _libBornAgainCore:
-_libBornAgainCore.IntensityFunctionLog_swigregister(IntensityFunctionLog)
-
-class IntensityFunctionSqrt(IIntensityFunction):
-    r"""
-
-
-    Algorithm for applying sqrt function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
-
-        """
-        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
-
-    def evaluate(self, value):
-        r"""
-        evaluate(IntensityFunctionSqrt self, double value) -> double
-        double IntensityFunctionSqrt::evaluate(double value) const
-
-        """
-        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
-
-    def __init__(self):
-        r"""
-        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-
-
-        Algorithm for applying sqrt function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
-        _libBornAgainCore.IntensityFunctionSqrt_swiginit(self, _libBornAgainCore.new_IntensityFunctionSqrt())
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
-
-# Register IntensityFunctionSqrt in _libBornAgainCore:
-_libBornAgainCore.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
-
 class IResolutionFunction2D(ICloneable, INode):
     r"""
 
@@ -21422,6 +21001,131 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
 # Register ResolutionFunction2DGaussian in _libBornAgainCore:
 _libBornAgainCore.ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
 
+class AxisInfo(object):
+    r"""
+
+
+    Information about an axis in specific units. Can be used for plotting.
+
+    C++ includes: SimulationResult.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    m_name = property(_libBornAgainCore.AxisInfo_m_name_get, _libBornAgainCore.AxisInfo_m_name_set, doc=r"""m_name : std::string""")
+    m_min = property(_libBornAgainCore.AxisInfo_m_min_get, _libBornAgainCore.AxisInfo_m_min_set, doc=r"""m_min : double""")
+    m_max = property(_libBornAgainCore.AxisInfo_m_max_get, _libBornAgainCore.AxisInfo_m_max_set, doc=r"""m_max : double""")
+
+    def __init__(self):
+        r"""
+        __init__(AxisInfo self) -> AxisInfo
+
+
+        Information about an axis in specific units. Can be used for plotting.
+
+        C++ includes: SimulationResult.h
+
+        """
+        _libBornAgainCore.AxisInfo_swiginit(self, _libBornAgainCore.new_AxisInfo())
+    __swig_destroy__ = _libBornAgainCore.delete_AxisInfo
+
+# Register AxisInfo in _libBornAgainCore:
+_libBornAgainCore.AxisInfo_swigregister(AxisInfo)
+
+class SimulationResult(object):
+    r"""
+
+
+    Wrapper around  OutputData<double> that also provides unit conversions.
+
+    C++ includes: SimulationResult.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(SimulationResult self) -> SimulationResult
+        __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
+        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
+        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
+        SimulationResult::SimulationResult(SimulationResult &&other)
+
+        """
+        _libBornAgainCore.SimulationResult_swiginit(self, _libBornAgainCore.new_SimulationResult(*args))
+
+    def histogram2d(self, *args):
+        r"""
+        histogram2d(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> Histogram2D
+        Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
+
+        """
+        return _libBornAgainCore.SimulationResult_histogram2d(self, *args)
+
+    def axisInfo(self, *args):
+        r"""
+        axisInfo(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> swig_dummy_type_axisinfo_vector
+        std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
+
+        Provide  AxisInfo for each axis and the given units. 
+
+        """
+        return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
+
+    def converter(self):
+        r"""
+        converter(SimulationResult self) -> IUnitConverter
+        const IUnitConverter & SimulationResult::converter() const
+
+        Returns underlying unit converter. 
+
+        """
+        return _libBornAgainCore.SimulationResult_converter(self)
+
+    def size(self):
+        r"""
+        size(SimulationResult self) -> size_t
+        size_t SimulationResult::size() const
+
+        """
+        return _libBornAgainCore.SimulationResult_size(self)
+
+    def array(self, *args):
+        r"""
+        array(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> PyObject
+        PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
+
+        returns intensity data as Python numpy array 
+
+        """
+        return _libBornAgainCore.SimulationResult_array(self, *args)
+
+    def axis(self, *args):
+        r"""
+        axis(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
+        std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
+
+        Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
+
+        """
+        return _libBornAgainCore.SimulationResult_axis(self, *args)
+
+    def __getitem__(self, i):
+        r"""__getitem__(SimulationResult self, unsigned int i) -> double"""
+        return _libBornAgainCore.SimulationResult___getitem__(self, i)
+
+    def __setitem__(self, i, value):
+        r"""__setitem__(SimulationResult self, unsigned int i, double value) -> double"""
+        return _libBornAgainCore.SimulationResult___setitem__(self, i, value)
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
+
+# Register SimulationResult in _libBornAgainCore:
+_libBornAgainCore.SimulationResult_swigregister(SimulationResult)
+
 
 def FindPeaks(*args):
     r"""
@@ -21551,6 +21255,422 @@ class VarianceSimFunction(IVarianceFunction):
 
 # Register VarianceSimFunction in _libBornAgainCore:
 _libBornAgainCore.VarianceSimFunction_swigregister(VarianceSimFunction)
+
+class IIntensityNormalizer(ICloneable, INode):
+    r"""
+
+
+    Interface to  OutputData normalizers.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityNormalizer
+
+    def clone(self):
+        r"""
+        clone(IIntensityNormalizer self) -> IIntensityNormalizer
+        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_clone(self)
+
+    def createNormalizedData(self, data):
+        r"""
+        createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
+        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
+
+    def apply(self, data):
+        r"""
+        apply(IIntensityNormalizer self, IntensityData data)
+        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
+
+    def setMaximumIntensity(self, arg2):
+        r"""
+        setMaximumIntensity(IIntensityNormalizer self, double arg2)
+        virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_setMaximumIntensity(self, arg2)
+
+# Register IIntensityNormalizer in _libBornAgainCore:
+_libBornAgainCore.IIntensityNormalizer_swigregister(IIntensityNormalizer)
+
+class IntensityNormalizer(IIntensityNormalizer):
+    r"""
+
+
+    Standard  OutputData normalizer, with configurable max_intensity.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, scale=1.0, shift=0.0):
+        r"""
+        __init__(IntensityNormalizer self, double scale=1.0, double shift=0.0) -> IntensityNormalizer
+        IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
+
+        """
+        _libBornAgainCore.IntensityNormalizer_swiginit(self, _libBornAgainCore.new_IntensityNormalizer(scale, shift))
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityNormalizer
+
+    def clone(self):
+        r"""
+        clone(IntensityNormalizer self) -> IntensityNormalizer
+        IntensityNormalizer * IntensityNormalizer::clone() const
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IntensityNormalizer self, INodeVisitor visitor)
+        void IntensityNormalizer::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_accept(self, visitor)
+
+    def createNormalizedData(self, data):
+        r"""
+        createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
+        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
+
+    def apply(self, data):
+        r"""
+        apply(IntensityNormalizer self, IntensityData data)
+        void IntensityNormalizer::apply(OutputData< double > &data) const final
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_apply(self, data)
+
+    def setMaximumIntensity(self, max_intensity):
+        r"""
+        setMaximumIntensity(IntensityNormalizer self, double max_intensity)
+        virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
+
+# Register IntensityNormalizer in _libBornAgainCore:
+_libBornAgainCore.IntensityNormalizer_swigregister(IntensityNormalizer)
+
+class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
+    r"""
+
+
+    Simplified  OutputData normalizer, with max_intensity=1.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, scale=1.0, shift=0.0):
+        r"""
+        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0, double shift=0.0) -> IntensityScaleAndShiftNormalizer
+        IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
+
+        """
+        _libBornAgainCore.IntensityScaleAndShiftNormalizer_swiginit(self, _libBornAgainCore.new_IntensityScaleAndShiftNormalizer(scale, shift))
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
+
+    def accept(self, visitor):
+        r"""
+        accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
+        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_accept(self, visitor)
+
+    def setMaximumIntensity(self, arg2):
+        r"""
+        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
+        void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
+
+    def clone(self):
+        r"""
+        clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
+        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
+
+# Register IntensityScaleAndShiftNormalizer in _libBornAgainCore:
+_libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
+
+class IIntensityFunction(object):
+    r"""
+
+
+    Interface for applying arbitrary function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
+
+    def clone(self):
+        r"""
+        clone(IIntensityFunction self) -> IIntensityFunction
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IIntensityFunction self, double value) -> double
+        virtual double IIntensityFunction::evaluate(double value) const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
+
+# Register IIntensityFunction in _libBornAgainCore:
+_libBornAgainCore.IIntensityFunction_swigregister(IIntensityFunction)
+
+class IntensityFunctionLog(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying log function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionLog self) -> IntensityFunctionLog
+        IntensityFunctionLog * IntensityFunctionLog::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionLog self, double value) -> double
+        double IntensityFunctionLog::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
+
+
+        Algorithm for applying log function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionLog_swiginit(self, _libBornAgainCore.new_IntensityFunctionLog())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+
+# Register IntensityFunctionLog in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionLog_swigregister(IntensityFunctionLog)
+
+class IntensityFunctionSqrt(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying sqrt function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionSqrt self, double value) -> double
+        double IntensityFunctionSqrt::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+
+        Algorithm for applying sqrt function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionSqrt_swiginit(self, _libBornAgainCore.new_IntensityFunctionSqrt())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+
+# Register IntensityFunctionSqrt in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
+
+class AxesUnits(object):
+    r"""
+
+
+    Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
+    
+    NBINS = _libBornAgainCore.AxesUnits_NBINS
+    
+    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
+    
+    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
+    
+    MM = _libBornAgainCore.AxesUnits_MM
+    
+    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
+    
+    QXQY = _libBornAgainCore.AxesUnits_QXQY
+    
+    RQ4 = _libBornAgainCore.AxesUnits_RQ4
+    
+    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
+
+# Register AxesUnits in _libBornAgainCore:
+_libBornAgainCore.AxesUnits_swigregister(AxesUnits)
+
+class IUnitConverter(ICloneable):
+    r"""
+
+
+    Interface to provide axis translations to different units for simulation output
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IUnitConverter
+
+    def clone(self):
+        r"""
+        clone(IUnitConverter self) -> IUnitConverter
+        virtual IUnitConverter* IUnitConverter::clone() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_clone(self)
+
+    def dimension(self):
+        r"""
+        dimension(IUnitConverter self) -> size_t
+        virtual size_t IUnitConverter::dimension() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_dimension(self)
+
+    def calculateMin(self, i_axis, units_type):
+        r"""
+        calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
+
+    def calculateMax(self, i_axis, units_type):
+        r"""
+        calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
+
+    def axisSize(self, i_axis):
+        r"""
+        axisSize(IUnitConverter self, size_t i_axis) -> size_t
+        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
+
+    def axisName(self, *args):
+        r"""
+        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) -> std::string
+        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
+
+        """
+        return _libBornAgainCore.IUnitConverter_axisName(self, *args)
+
+    def availableUnits(self):
+        r"""
+        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
+        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_availableUnits(self)
+
+    def defaultUnits(self):
+        r"""
+        defaultUnits(IUnitConverter self) -> AxesUnits
+        virtual AxesUnits IUnitConverter::defaultUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_defaultUnits(self)
+
+# Register IUnitConverter in _libBornAgainCore:
+_libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
 
 class IntensityData(object):
     r"""
@@ -22067,126 +22187,6 @@ class AngularSpecScan(object):
 
 # Register AngularSpecScan in _libBornAgainCore:
 _libBornAgainCore.AngularSpecScan_swigregister(AngularSpecScan)
-
-class AxesUnits(object):
-    r"""
-
-
-    Wrapper for detector axes units, required for a better representation of detector axes units in python
-
-    C++ includes: IUnitConverter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
-    
-    NBINS = _libBornAgainCore.AxesUnits_NBINS
-    
-    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
-    
-    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
-    
-    MM = _libBornAgainCore.AxesUnits_MM
-    
-    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
-    
-    QXQY = _libBornAgainCore.AxesUnits_QXQY
-    
-    RQ4 = _libBornAgainCore.AxesUnits_RQ4
-    
-    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
-
-# Register AxesUnits in _libBornAgainCore:
-_libBornAgainCore.AxesUnits_swigregister(AxesUnits)
-
-class IUnitConverter(ICloneable):
-    r"""
-
-
-    Interface to provide axis translations to different units for simulation output
-
-    C++ includes: IUnitConverter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IUnitConverter
-
-    def clone(self):
-        r"""
-        clone(IUnitConverter self) -> IUnitConverter
-        virtual IUnitConverter* IUnitConverter::clone() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_clone(self)
-
-    def dimension(self):
-        r"""
-        dimension(IUnitConverter self) -> size_t
-        virtual size_t IUnitConverter::dimension() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_dimension(self)
-
-    def calculateMin(self, i_axis, units_type):
-        r"""
-        calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
-        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
-
-    def calculateMax(self, i_axis, units_type):
-        r"""
-        calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
-        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
-
-    def axisSize(self, i_axis):
-        r"""
-        axisSize(IUnitConverter self, size_t i_axis) -> size_t
-        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
-
-    def axisName(self, *args):
-        r"""
-        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) -> std::string
-        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
-
-        """
-        return _libBornAgainCore.IUnitConverter_axisName(self, *args)
-
-    def availableUnits(self):
-        r"""
-        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_availableUnits(self)
-
-    def defaultUnits(self):
-        r"""
-        defaultUnits(IUnitConverter self) -> AxesUnits
-        virtual AxesUnits IUnitConverter::defaultUnits() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_defaultUnits(self)
-
-# Register IUnitConverter in _libBornAgainCore:
-_libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
 
 class QSpecScan(object):
     r"""

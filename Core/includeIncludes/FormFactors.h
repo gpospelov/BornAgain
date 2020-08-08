@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_INCLUDEINCLUDES_FORMFACTORS_H
 #define BORNAGAIN_CORE_INCLUDEINCLUDES_FORMFACTORS_H
 
-#include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
+#include "Core/Scattering/FormFactorDecoratorMaterial.h"
+#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Core/Scattering/FormFactorDecoratorRotation.h"
 #include "Core/Particle/FormFactorWeighted.h"
 #include "Core/includeIncludes/HardParticles.h"
 #include "Core/includeIncludes/SoftParticles.h"

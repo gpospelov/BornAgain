@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Particle/Particle.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
+#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 
 Particle::Particle() : m_material(HomogeneousMaterial())

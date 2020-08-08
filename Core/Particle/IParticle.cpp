@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Particle/IParticle.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
+#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
 

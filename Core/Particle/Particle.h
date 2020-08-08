@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_PARTICLE_H
 #define BORNAGAIN_CORE_PARTICLE_PARTICLE_H
 
-#include "Core/DecoratedFormFactor/FormFactorDecoratorMaterial.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
+#include "Core/Scattering/FormFactorDecoratorMaterial.h"
+#include "Core/Scattering/FormFactorDecoratorRotation.h"
 #include "Core/Material/Material.h"
 #include "Core/Particle/IParticle.h"
 

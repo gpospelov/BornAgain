@@ -1,4 +1,4 @@
-#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Scattering/IFormFactorDecorator.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Scattering/IFormFactor.h"
 #include "GUI/coregui/Models/ApplicationModels.h"

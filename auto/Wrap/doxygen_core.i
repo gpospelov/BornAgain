@@ -17157,22 +17157,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d268.xml
 
 
-// File: namespace_0d302.xml
+// File: namespace_0d292.xml
 
 
-// File: namespace_0d311.xml
+// File: namespace_0d296.xml
 
 
-// File: namespace_0d315.xml
-
-
-// File: namespace_0d317.xml
+// File: namespace_0d316.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d327.xml
+// File: namespace_0d323.xml
+
+
+// File: namespace_0d329.xml
 
 
 // File: namespace_0d333.xml
@@ -19200,6 +19200,72 @@ global helper function for comparison of axes
 // File: FourierTransform_8h.xml
 
 
+// File: IChiSquaredModule_8cpp.xml
+
+
+// File: IChiSquaredModule_8h.xml
+
+
+// File: Instrument_8cpp.xml
+
+
+// File: Instrument_8h.xml
+
+
+// File: IResolutionFunction2D_8cpp.xml
+
+
+// File: IResolutionFunction2D_8h.xml
+
+
+// File: ISpecularScan_8cpp.xml
+
+
+// File: ISpecularScan_8h.xml
+
+
+// File: PyArrayImportUtils_8cpp.xml
+
+
+// File: PyArrayImportUtils_8h.xml
+
+
+// File: QSpecScan_8cpp.xml
+
+
+// File: QSpecScan_8h.xml
+
+
+// File: ResolutionFunction2DGaussian_8cpp.xml
+
+
+// File: ResolutionFunction2DGaussian_8h.xml
+
+
+// File: ScanResolution_8cpp.xml
+
+
+// File: ScanResolution_8h.xml
+
+
+// File: SimulationResult_8cpp.xml
+
+
+// File: SimulationResult_8h.xml
+
+
+// File: SpectrumUtils_8cpp.xml
+
+
+// File: SpectrumUtils_8h.xml
+
+
+// File: VarianceFunctions_8cpp.xml
+
+
+// File: VarianceFunctions_8h.xml
+
+
 // File: Histogram1D_8cpp.xml
 
 
@@ -19210,12 +19276,6 @@ global helper function for comparison of axes
 
 
 // File: Histogram2D_8h.xml
-
-
-// File: IChiSquaredModule_8cpp.xml
-
-
-// File: IChiSquaredModule_8h.xml
 
 
 // File: IHistogram_8cpp.xml
@@ -19236,28 +19296,10 @@ global helper function for comparison of axes
 // File: IIntensityNormalizer_8h.xml
 
 
-// File: Instrument_8cpp.xml
-
-
-// File: Instrument_8h.xml
-
-
 // File: IntensityDataFunctions_8cpp.xml
 
 
 // File: IntensityDataFunctions_8h.xml
-
-
-// File: IResolutionFunction2D_8cpp.xml
-
-
-// File: IResolutionFunction2D_8h.xml
-
-
-// File: ISpecularScan_8cpp.xml
-
-
-// File: ISpecularScan_8h.xml
 
 
 // File: IUnitConverter_8cpp.xml
@@ -19287,30 +19329,6 @@ make Swappable
 ";
 
 
-// File: PyArrayImportUtils_8cpp.xml
-
-
-// File: PyArrayImportUtils_8h.xml
-
-
-// File: QSpecScan_8cpp.xml
-
-
-// File: QSpecScan_8h.xml
-
-
-// File: ResolutionFunction2DGaussian_8cpp.xml
-
-
-// File: ResolutionFunction2DGaussian_8h.xml
-
-
-// File: ScanResolution_8cpp.xml
-
-
-// File: ScanResolution_8h.xml
-
-
 // File: SimpleUnitConverters_8cpp.xml
 
 
@@ -19329,18 +19347,6 @@ make Swappable
 // File: SimulationAreaIterator_8h.xml
 
 
-// File: SimulationResult_8cpp.xml
-
-
-// File: SimulationResult_8h.xml
-
-
-// File: SpectrumUtils_8cpp.xml
-
-
-// File: SpectrumUtils_8h.xml
-
-
 // File: UnitConverter1D_8cpp.xml
 
 
@@ -19351,12 +19357,6 @@ make Swappable
 
 
 // File: UnitConverterUtils_8h.xml
-
-
-// File: VarianceFunctions_8cpp.xml
-
-
-// File: VarianceFunctions_8h.xml
 
 
 // File: ILatticeOrientation_8cpp.xml
@@ -20548,6 +20548,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_602d2305564088eb1fd2ee9e74929d48.xml
+
+
+// File: dir_d6d024cca01b851661c3fb5635dd2ee0.xml
 
 
 // File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml

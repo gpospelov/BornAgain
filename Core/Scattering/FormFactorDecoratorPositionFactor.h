@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h
+//! @file      Core/Scattering/FormFactorDecoratorPositionFactor.h
 //! @brief     Defines class FormFactorDecoratorPositionFactor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORPOSITIONFACTOR_H
 #define BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORPOSITIONFACTOR_H
 
-#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Scattering/IFormFactorDecorator.h"
 #include "Core/Vector/Vectors3D.h"
 
 //! Decorates a form factor with a position dependent phase factor.

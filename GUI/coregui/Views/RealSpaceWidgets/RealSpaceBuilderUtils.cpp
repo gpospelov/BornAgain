@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/DecoratedFormFactor/IFormFactorDecorator.h"
+#include "Core/Scattering/IFormFactorDecorator.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/IParticle.h"

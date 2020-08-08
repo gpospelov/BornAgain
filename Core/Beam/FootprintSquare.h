@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORSQUARE_H
-#define BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORSQUARE_H
+#ifndef BORNAGAIN_CORE_BEAM_FOOTPRINTSQUARE_H
+#define BORNAGAIN_CORE_BEAM_FOOTPRINTSQUARE_H
 
 #include "Core/Beam/IFootprintFactor.h"
 
@@ -42,4 +42,4 @@ private:
     void initialize();
 };
 
-#endif // BORNAGAIN_CORE_BEAM_FOOTPRINTFACTORSQUARE_H
+#endif // BORNAGAIN_CORE_BEAM_FOOTPRINTSQUARE_H

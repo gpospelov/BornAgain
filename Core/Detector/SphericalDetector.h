@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_SPHERICALDETECTOR_H
-#define BORNAGAIN_CORE_INSTRUMENT_SPHERICALDETECTOR_H
+#ifndef BORNAGAIN_CORE_DETECTOR_SPHERICALDETECTOR_H
+#define BORNAGAIN_CORE_DETECTOR_SPHERICALDETECTOR_H
 
 #include "Core/Binning/IPixel.h"
 #include "Core/Detector/IDetector2D.h"
@@ -79,4 +79,4 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_SPHERICALDETECTOR_H
+#endif // BORNAGAIN_CORE_DETECTOR_SPHERICALDETECTOR_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTSUM_H
-#define BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTSUM_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H
+#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H
 
 #include "Core/Multilayer/FormFactorCoherentPart.h"
 #include "Core/Basics/Complex.h"
@@ -48,4 +48,4 @@ private:
     double m_abundance;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_FORMFACTORCOHERENTSUM_H
+#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H

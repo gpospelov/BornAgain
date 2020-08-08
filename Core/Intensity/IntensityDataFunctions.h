@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H
-#define BORNAGAIN_CORE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H
+#ifndef BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H
+#define BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H
 
 #include "Core/Intensity/OutputData.h"
 #include <memory>
@@ -102,4 +102,4 @@ BA_CORE_API_ SimulationResult ConvertData(const Simulation& simulation,
 
 }; // namespace IntensityDataFunctions
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H
+#endif // BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H

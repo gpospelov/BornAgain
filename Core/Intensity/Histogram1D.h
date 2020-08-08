@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H
-#define BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H
+#ifndef BORNAGAIN_CORE_INTENSITY_HISTOGRAM1D_H
+#define BORNAGAIN_CORE_INTENSITY_HISTOGRAM1D_H
 
 #include "Core/Intensity/IHistogram.h"
 
@@ -69,4 +69,4 @@ public:
     Histogram1D* crop(double xmin, double xmax);
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_HISTOGRAM1D_H
+#endif // BORNAGAIN_CORE_INTENSITY_HISTOGRAM1D_H

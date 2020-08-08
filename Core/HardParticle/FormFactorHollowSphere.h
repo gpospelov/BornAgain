@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREUNIFORMRADIUS_H
-#define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREUNIFORMRADIUS_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHOLLOWSPHERE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHOLLOWSPHERE_H
 
 #include "Core/HardParticle/FormFactorFullSphere.h"
 
@@ -44,4 +44,4 @@ private:
     double m_full_width; //!< This is the full width of the radius distribution
 };
 
-#endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREUNIFORMRADIUS_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHOLLOWSPHERE_H

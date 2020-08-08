@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
-#define BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
+#ifndef BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
+#define BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 
 #include "Core/Basics/Assert.h"
 #include "Core/Binning/FixedBinAxis.h"
@@ -627,4 +627,4 @@ template <class T> bool OutputData<T>::axisNameExists(const std::string& axis_na
     return false;
 }
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_OUTPUTDATA_H
+#endif // BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H

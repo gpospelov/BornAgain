@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_SCANRESOLUTION_H
-#define BORNAGAIN_CORE_INSTRUMENT_SCANRESOLUTION_H
+#ifndef BORNAGAIN_CORE_DETECTOR_SCANRESOLUTION_H
+#define BORNAGAIN_CORE_DETECTOR_SCANRESOLUTION_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Parametrization/ParameterSample.h"
@@ -69,4 +69,4 @@ inline std::ostream& operator<<(std::ostream& os, const ScanResolution& scan_res
     return os << scan_resolution.print();
 }
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_SCANRESOLUTION_H
+#endif // BORNAGAIN_CORE_DETECTOR_SCANRESOLUTION_H

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/main/MessageHandler.cpp
+//! @file      GUI/main/MessageHandler.h
 //! @brief     Declares function MessageHandler
 //!
 //! @homepage  http://www.bornagainproject.org

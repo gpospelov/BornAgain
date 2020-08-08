@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H
-#define BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H
+#ifndef BORNAGAIN_CORE_INTENSITY_UNITCONVERTERUTILS_H
+#define BORNAGAIN_CORE_INTENSITY_UNITCONVERTERUTILS_H
 
 #include "Core/Intensity/IUnitConverter.h"
 
@@ -42,4 +42,4 @@ BA_CORE_API_ std::unique_ptr<IUnitConverter> createConverterForGISAS(const Instr
 BA_CORE_API_ std::unique_ptr<IUnitConverter> createConverter(const Simulation& simulation);
 } // namespace UnitConverterUtils
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_UNITCONVERTERUTILS_H
+#endif // BORNAGAIN_CORE_INTENSITY_UNITCONVERTERUTILS_H

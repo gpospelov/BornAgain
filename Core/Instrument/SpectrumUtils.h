@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_SPECTRUMUTILS_H
-#define BORNAGAIN_CORE_TOOLS_SPECTRUMUTILS_H
+#ifndef BORNAGAIN_CORE_INSTRUMENT_SPECTRUMUTILS_H
+#define BORNAGAIN_CORE_INSTRUMENT_SPECTRUMUTILS_H
 
 #include "Core/Intensity/Histogram2D.h"
 #include "Wrap/WinDllMacros.h"
@@ -33,4 +33,4 @@ BA_CORE_API_ std::vector<std::pair<double, double>> FindPeaks(const Histogram2D&
                                                               double threshold = 0.05);
 }
 
-#endif // BORNAGAIN_CORE_TOOLS_SPECTRUMUTILS_H
+#endif // BORNAGAIN_CORE_INSTRUMENT_SPECTRUMUTILS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_DETECTORMASK_H
-#define BORNAGAIN_CORE_INSTRUMENT_DETECTORMASK_H
+#ifndef BORNAGAIN_CORE_DETECTOR_DETECTORMASK_H
+#define BORNAGAIN_CORE_DETECTOR_DETECTORMASK_H
 
 #include "Core/Intensity/OutputData.h"
 #include "Core/Mask/IShape2D.h"
@@ -70,4 +70,4 @@ private:
     int m_number_of_masked_channels;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_DETECTORMASK_H
+#endif // BORNAGAIN_CORE_DETECTOR_DETECTORMASK_H

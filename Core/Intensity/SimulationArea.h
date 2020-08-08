@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_SIMULATIONAREA_H
-#define BORNAGAIN_CORE_INSTRUMENT_SIMULATIONAREA_H
+#ifndef BORNAGAIN_CORE_INTENSITY_SIMULATIONAREA_H
+#define BORNAGAIN_CORE_INTENSITY_SIMULATIONAREA_H
 
 #include "Core/Intensity/SimulationAreaIterator.h"
 #include "Wrap/WinDllMacros.h"
@@ -67,4 +67,4 @@ public:
     virtual bool isMasked(size_t) const;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_SIMULATIONAREA_H
+#endif // BORNAGAIN_CORE_INTENSITY_SIMULATIONAREA_H

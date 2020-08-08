@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_IDETECTOR_H
-#define BORNAGAIN_CORE_INSTRUMENT_IDETECTOR_H
+#ifndef BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
+#define BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Binning/IAxis.h"
@@ -130,4 +130,4 @@ private:
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_IDETECTOR_H
+#endif // BORNAGAIN_CORE_DETECTOR_IDETECTOR_H

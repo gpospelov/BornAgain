@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_IDETECTOR2D_H
-#define BORNAGAIN_CORE_INSTRUMENT_IDETECTOR2D_H
+#ifndef BORNAGAIN_CORE_DETECTOR_IDETECTOR2D_H
+#define BORNAGAIN_CORE_DETECTOR_IDETECTOR2D_H
 
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetector.h"
@@ -93,4 +93,4 @@ private:
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_IDETECTOR2D_H
+#endif // BORNAGAIN_CORE_DETECTOR_IDETECTOR2D_H

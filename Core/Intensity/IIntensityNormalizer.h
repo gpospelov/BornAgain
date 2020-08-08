@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_IINTENSITYNORMALIZER_H
-#define BORNAGAIN_CORE_INSTRUMENT_IINTENSITYNORMALIZER_H
+#ifndef BORNAGAIN_CORE_INTENSITY_IINTENSITYNORMALIZER_H
+#define BORNAGAIN_CORE_INTENSITY_IINTENSITYNORMALIZER_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Intensity/OutputData.h"
@@ -95,4 +95,4 @@ public:
     }
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_IINTENSITYNORMALIZER_H
+#endif // BORNAGAIN_CORE_INTENSITY_IINTENSITYNORMALIZER_H

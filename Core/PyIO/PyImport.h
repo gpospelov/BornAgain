@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_PYIMPORT_H
-#define BORNAGAIN_CORE_TOOLS_PYIMPORT_H
+#ifndef BORNAGAIN_CORE_PYIO_PYIMPORT_H
+#define BORNAGAIN_CORE_PYIO_PYIMPORT_H
 
 #ifdef BORNAGAIN_PYTHON
 
@@ -47,4 +47,4 @@ BA_CORE_API_ std::vector<std::string> listOfFunctions(const std::string& script,
 
 #endif // BORNAGAIN_PYTHON
 
-#endif // BORNAGAIN_CORE_TOOLS_PYIMPORT_H
+#endif // BORNAGAIN_CORE_PYIO_PYIMPORT_H

@@ -15,7 +15,7 @@
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
-#include "Core/Tools/PythonFormatting.h"
+#include "Core/Parametrization/PythonFormatting.h"
 #include <limits>
 
 namespace

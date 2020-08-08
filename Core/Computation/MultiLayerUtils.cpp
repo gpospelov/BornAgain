@@ -19,6 +19,7 @@
 #include "Core/Multilayer/LayerFillLimits.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Particle/IParticle.h"
 
 namespace
 {

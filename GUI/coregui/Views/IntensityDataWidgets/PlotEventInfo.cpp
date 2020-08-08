@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
-#include "Core/Tools/PythonFormatting.h"
+#include "Core/Parametrization/PythonFormatting.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
 PlotEventInfo::PlotEventInfo(PLOT_TYPE type)

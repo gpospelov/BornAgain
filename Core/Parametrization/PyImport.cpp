@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/PyImport.cpp
+//! @file      Core/Parametrization/PyImport.cpp
 //! @brief     Implements PyImport namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,9 +14,9 @@
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "Core/Tools/PyImport.h"
+#include "Core/Parametrization/PyImport.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Tools/PyEmbeddedUtils.h"
+#include "Core/Parametrization/PyEmbeddedUtils.h"
 #include "Core/Tools/PythonCore.h"
 
 namespace

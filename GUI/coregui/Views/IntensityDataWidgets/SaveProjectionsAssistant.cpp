@@ -15,7 +15,7 @@
 #include "GUI/coregui/Views/IntensityDataWidgets/SaveProjectionsAssistant.h"
 #include "Core/Intensity/Histogram1D.h"
 #include "Core/Intensity/Histogram2D.h"
-#include "Core/Tools/PythonFormatting.h"
+#include "Core/Parametrization/PythonFormatting.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"

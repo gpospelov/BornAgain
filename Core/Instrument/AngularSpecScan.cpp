@@ -20,7 +20,7 @@
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/SimulationElement/SpecularSimulationElement.h"
-#include "Core/Tools/PythonFormatting.h"
+#include "Core/Parametrization/PythonFormatting.h"
 #include "Fit/Tools/RealLimits.h"
 
 namespace

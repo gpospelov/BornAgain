@@ -18,6 +18,12 @@
 #include "Wrap/WinDllMacros.h"
 #include <iostream>
 
+//! Vertical extension of a particle, specified by bottom and top z coordinate.
+struct ParticleLimits {
+    double m_bottom;
+    double m_top;
+};
+
 //! Helper class that represents a onesided limit
 //!
 //! @ingroup intern

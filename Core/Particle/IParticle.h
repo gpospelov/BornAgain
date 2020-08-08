@@ -23,12 +23,6 @@
 #include "Core/Vector/Vectors3D.h"
 #include <memory>
 
-//! Vertical extension of a particle, specified by bottom and top z coordinate.
-struct ParticleLimits {
-    double m_bottom;
-    double m_top;
-};
-
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
 //! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
 //!

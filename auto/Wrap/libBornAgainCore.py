@@ -7013,37 +7013,6 @@ class Crystal(IClusteredParticles):
 # Register Crystal in _libBornAgainCore:
 _libBornAgainCore.Crystal_swigregister(Crystal)
 
-class ParticleLimits(object):
-    r"""
-
-
-    Vertical extension of a particle, specified by bottom and top z coordinate.
-
-    C++ includes: IParticle.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    m_bottom = property(_libBornAgainCore.ParticleLimits_m_bottom_get, _libBornAgainCore.ParticleLimits_m_bottom_set, doc=r"""m_bottom : double""")
-    m_top = property(_libBornAgainCore.ParticleLimits_m_top_get, _libBornAgainCore.ParticleLimits_m_top_set, doc=r"""m_top : double""")
-
-    def __init__(self):
-        r"""
-        __init__(ParticleLimits self) -> ParticleLimits
-
-
-        Vertical extension of a particle, specified by bottom and top z coordinate.
-
-        C++ includes: IParticle.h
-
-        """
-        _libBornAgainCore.ParticleLimits_swiginit(self, _libBornAgainCore.new_ParticleLimits())
-    __swig_destroy__ = _libBornAgainCore.delete_ParticleLimits
-
-# Register ParticleLimits in _libBornAgainCore:
-_libBornAgainCore.ParticleLimits_swigregister(ParticleLimits)
-
 class IParticle(IAbstractParticle):
     r"""
 
@@ -18701,767 +18670,6 @@ def IntensityDataIOFactory_writeSimulationResult(result, file_name):
     r"""IntensityDataIOFactory_writeSimulationResult(SimulationResult result, std::string const & file_name)"""
     return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
 
-class IHistogram(object):
-    r"""
-
-
-    Base class for 1D and 2D histograms holding values of double type.
-
-    C++ includes: IHistogram.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    INTEGRAL = _libBornAgainCore.IHistogram_INTEGRAL
-    
-    AVERAGE = _libBornAgainCore.IHistogram_AVERAGE
-    
-    STANDARD_ERROR = _libBornAgainCore.IHistogram_STANDARD_ERROR
-    
-    NENTRIES = _libBornAgainCore.IHistogram_NENTRIES
-    
-    __swig_destroy__ = _libBornAgainCore.delete_IHistogram
-
-    def clone(self):
-        r"""
-        clone(IHistogram self) -> IHistogram
-        virtual IHistogram* IHistogram::clone() const =0
-
-        """
-        return _libBornAgainCore.IHistogram_clone(self)
-
-    def getRank(self):
-        r"""
-        getRank(IHistogram self) -> size_t
-        virtual size_t IHistogram::getRank() const =0
-
-        Returns number of histogram dimensions. 
-
-        """
-        return _libBornAgainCore.IHistogram_getRank(self)
-
-    def getTotalNumberOfBins(self):
-        r"""
-        getTotalNumberOfBins(IHistogram self) -> size_t
-        size_t IHistogram::getTotalNumberOfBins() const
-
-        Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. 
-
-        """
-        return _libBornAgainCore.IHistogram_getTotalNumberOfBins(self)
-
-    def getXaxis(self):
-        r"""
-        getXaxis(IHistogram self) -> IAxis
-        const IAxis & IHistogram::getXaxis() const
-
-        returns x-axis 
-
-        """
-        return _libBornAgainCore.IHistogram_getXaxis(self)
-
-    def getYaxis(self):
-        r"""
-        getYaxis(IHistogram self) -> IAxis
-        const IAxis & IHistogram::getYaxis() const
-
-        returns y-axis for 2D histograms 
-
-        """
-        return _libBornAgainCore.IHistogram_getYaxis(self)
-
-    def getXmin(self):
-        r"""
-        getXmin(IHistogram self) -> double
-        double IHistogram::getXmin() const
-
-        Returns x-axis min (lower edge of first bin). 
-
-        """
-        return _libBornAgainCore.IHistogram_getXmin(self)
-
-    def getXmax(self):
-        r"""
-        getXmax(IHistogram self) -> double
-        double IHistogram::getXmax() const
-
-        Returns x-axis max (upper edge of last bin). 
-
-        """
-        return _libBornAgainCore.IHistogram_getXmax(self)
-
-    def getNbinsX(self):
-        r"""
-        getNbinsX(IHistogram self) -> size_t
-        size_t IHistogram::getNbinsX() const
-
-        Returns number of bins on x-axis. 
-
-        """
-        return _libBornAgainCore.IHistogram_getNbinsX(self)
-
-    def getYmin(self):
-        r"""
-        getYmin(IHistogram self) -> double
-        double IHistogram::getYmin() const
-
-        Returns y-axis min (lower edge of first bin) for 2D histograms. 
-
-        """
-        return _libBornAgainCore.IHistogram_getYmin(self)
-
-    def getYmax(self):
-        r"""
-        getYmax(IHistogram self) -> double
-        double IHistogram::getYmax() const
-
-        Returns y-axis max (upper edge of last bin) for 2D histograms. 
-
-        """
-        return _libBornAgainCore.IHistogram_getYmax(self)
-
-    def getNbinsY(self):
-        r"""
-        getNbinsY(IHistogram self) -> size_t
-        size_t IHistogram::getNbinsY() const
-
-        Returns number of bins on y-axis. 
-
-        """
-        return _libBornAgainCore.IHistogram_getNbinsY(self)
-
-    def getGlobalBin(self, binx, biny=0):
-        r"""
-        getGlobalBin(IHistogram self, size_t binx, size_t biny=0) -> size_t
-        size_t IHistogram::getGlobalBin(size_t binx, size_t biny=0) const
-
-        Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with x-axis index.
-
-        Parameters:
-        -----------
-
-        binx: 
-        x-axis bin index
-
-        biny: 
-        y-axis bin index (for 2D histograms)
-
-        The global bin index 
-
-        """
-        return _libBornAgainCore.IHistogram_getGlobalBin(self, binx, biny)
-
-    def findGlobalBin(self, x, y):
-        r"""
-        findGlobalBin(IHistogram self, double x, double y) -> size_t
-        size_t IHistogram::findGlobalBin(double x, double y) const
-
-        Returns closest global bin index for given axes coordinates. For 1D.
-
-        Parameters:
-        -----------
-
-        x: 
-        Value on x-axis
-
-        y: 
-        Value on y-axis (for 2D histograms)
-
-        Closest global bin index 
-
-        """
-        return _libBornAgainCore.IHistogram_findGlobalBin(self, x, y)
-
-    def getXaxisIndex(self, i):
-        r"""
-        getXaxisIndex(IHistogram self, size_t i) -> size_t
-        size_t IHistogram::getXaxisIndex(size_t i) const
-
-        Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
-
-        """
-        return _libBornAgainCore.IHistogram_getXaxisIndex(self, i)
-
-    def getYaxisIndex(self, i):
-        r"""
-        getYaxisIndex(IHistogram self, size_t i) -> size_t
-        size_t IHistogram::getYaxisIndex(size_t i) const
-
-        Returns y-axis bin index for given globalbin (for 2D histograms). 
-
-        """
-        return _libBornAgainCore.IHistogram_getYaxisIndex(self, i)
-
-    def getXaxisValue(self, i):
-        r"""
-        getXaxisValue(IHistogram self, size_t i) -> double
-        double IHistogram::getXaxisValue(size_t i)
-
-        Returns the value on x-axis corresponding to the global bin index.
-
-        Parameters:
-        -----------
-
-        globalbin: 
-        The global bin index
-
-        The center of corresponding bin of the axis 
-
-        """
-        return _libBornAgainCore.IHistogram_getXaxisValue(self, i)
-
-    def getYaxisValue(self, i):
-        r"""
-        getYaxisValue(IHistogram self, size_t i) -> double
-        double IHistogram::getYaxisValue(size_t i)
-
-        Returns the value on y-axis corresponding to the 2D histogram global bin index.
-
-        Parameters:
-        -----------
-
-        globalbin: 
-        The global bin index
-
-        The center of corresponding bin of the axis 
-
-        """
-        return _libBornAgainCore.IHistogram_getYaxisValue(self, i)
-
-    def getData(self, *args):
-        r"""
-        getData(IHistogram self) -> OutputData< CumulativeValue > const
-        getData(IHistogram self) -> OutputData< CumulativeValue > &
-        OutputData<CumulativeValue>& IHistogram::getData()
-
-        """
-        return _libBornAgainCore.IHistogram_getData(self, *args)
-
-    def getBinContent(self, *args):
-        r"""
-        getBinContent(IHistogram self, size_t i) -> double
-        getBinContent(IHistogram self, size_t binx, size_t biny) -> double
-        double IHistogram::getBinContent(size_t binx, size_t biny) const
-
-        Returns content (accumulated value) of the 2D histogram bin with given indices.
-
-        Parameters:
-        -----------
-
-        binx: 
-        x-axis bin index
-
-        biny: 
-        y-axis bin index
-
-        The value accumulated by the bin (integral) 
-
-        """
-        return _libBornAgainCore.IHistogram_getBinContent(self, *args)
-
-    def setBinContent(self, i, value):
-        r"""
-        setBinContent(IHistogram self, size_t i, double value)
-        void IHistogram::setBinContent(size_t i, double value)
-
-        Sets content of the bin corresponding to the globalbin number. 
-
-        """
-        return _libBornAgainCore.IHistogram_setBinContent(self, i, value)
-
-    def addBinContent(self, i, value):
-        r"""
-        addBinContent(IHistogram self, size_t i, double value)
-        void IHistogram::addBinContent(size_t i, double value)
-
-        Add the value to the bin. 
-
-        """
-        return _libBornAgainCore.IHistogram_addBinContent(self, i, value)
-
-    def getBinError(self, *args):
-        r"""
-        getBinError(IHistogram self, size_t i) -> double
-        getBinError(IHistogram self, size_t binx, size_t biny) -> double
-        double IHistogram::getBinError(size_t binx, size_t biny) const
-
-        Returns error of the bin with given indices (for 2D histograms). 
-
-        """
-        return _libBornAgainCore.IHistogram_getBinError(self, *args)
-
-    def getBinAverage(self, *args):
-        r"""
-        getBinAverage(IHistogram self, size_t i) -> double
-        getBinAverage(IHistogram self, size_t binx, size_t biny) -> double
-        double IHistogram::getBinAverage(size_t binx, size_t biny) const
-
-        Returns average value of the bin with given indices (for 2D histograms). 
-
-        """
-        return _libBornAgainCore.IHistogram_getBinAverage(self, *args)
-
-    def getBinNumberOfEntries(self, *args):
-        r"""
-        getBinNumberOfEntries(IHistogram self, size_t i) -> int
-        getBinNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int
-        int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
-
-        Returns number of entries in the bin with given indices (for 2D histograms). 
-
-        """
-        return _libBornAgainCore.IHistogram_getBinNumberOfEntries(self, *args)
-
-    def getMaximum(self):
-        r"""
-        getMaximum(IHistogram self) -> double
-        double IHistogram::getMaximum() const
-
-        Returns histogram maximum value (maximum of  getBinContent() over all bins) 
-
-        """
-        return _libBornAgainCore.IHistogram_getMaximum(self)
-
-    def getMaximumBinIndex(self):
-        r"""
-        getMaximumBinIndex(IHistogram self) -> size_t
-        size_t IHistogram::getMaximumBinIndex() const
-
-        Returns globalbin index with maximum content. 
-
-        """
-        return _libBornAgainCore.IHistogram_getMaximumBinIndex(self)
-
-    def getMinimum(self):
-        r"""
-        getMinimum(IHistogram self) -> double
-        double IHistogram::getMinimum() const
-
-        Returns histogram minimum value (minimum of  getBinContent() over all bins) 
-
-        """
-        return _libBornAgainCore.IHistogram_getMinimum(self)
-
-    def getMinimumBinIndex(self):
-        r"""
-        getMinimumBinIndex(IHistogram self) -> size_t
-        size_t IHistogram::getMinimumBinIndex() const
-
-        Returns globalbin index with minimum content. 
-
-        """
-        return _libBornAgainCore.IHistogram_getMinimumBinIndex(self)
-
-    def scale(self, value):
-        r"""
-        scale(IHistogram self, double value)
-        void IHistogram::scale(double value)
-
-        Multiply this histogram (every bin content value) by a constant. 
-
-        """
-        return _libBornAgainCore.IHistogram_scale(self, value)
-
-    def integral(self):
-        r"""
-        integral(IHistogram self) -> double
-        double IHistogram::integral() const
-
-        Returns integral of bins content (computed as a sum of all bin content). 
-
-        """
-        return _libBornAgainCore.IHistogram_integral(self)
-
-    def array(self, *args):
-        r"""
-        array(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
-        PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
-
-        Returns numpy array with bin content (accumulated values). 
-
-        """
-        return _libBornAgainCore.IHistogram_array(self, *args)
-
-    def getArrayObsolete(self, *args):
-        r"""
-        getArrayObsolete(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
-        PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
-
-        Deprecated
-        Use  array() instead. 
-
-        """
-        return _libBornAgainCore.IHistogram_getArrayObsolete(self, *args)
-
-    def reset(self):
-        r"""
-        reset(IHistogram self)
-        void IHistogram::reset()
-
-        Reset histogram content (axes remains) 
-
-        """
-        return _libBornAgainCore.IHistogram_reset(self)
-
-    @staticmethod
-    def createHistogram(source):
-        r"""createHistogram(IntensityData source) -> IHistogram"""
-        return _libBornAgainCore.IHistogram_createHistogram(source)
-
-    @staticmethod
-    def createFrom(*args):
-        r"""
-        createFrom(std::string const & filename) -> IHistogram
-        createFrom(vdouble2d_t data) -> IHistogram
-        """
-        return _libBornAgainCore.IHistogram_createFrom(*args)
-
-    def createOutputData(self, *args):
-        r"""
-        createOutputData(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> IntensityData
-        OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
-
-        creates new  OutputData with histogram's shape and values corresponding to DataType
-
-        creates new  OutputData with histogram's shape and put there values corresponding to DataType 
-
-        """
-        return _libBornAgainCore.IHistogram_createOutputData(self, *args)
-
-    def hasSameShape(self, other):
-        r"""
-        hasSameShape(IHistogram self, IHistogram other) -> bool
-        bool IHistogram::hasSameShape(const IHistogram &other) const
-
-        Returns true if objects a) have same dimensions b) bin boundaries of axes coincide. 
-
-        """
-        return _libBornAgainCore.IHistogram_hasSameShape(self, other)
-
-    def hasSameDimensions(self, other):
-        r"""
-        hasSameDimensions(IHistogram self, IHistogram other) -> bool
-        bool IHistogram::hasSameDimensions(const IHistogram &other) const
-
-        Returns true if object have same rank and number of axes bins. 
-
-        """
-        return _libBornAgainCore.IHistogram_hasSameDimensions(self, other)
-
-    def __iadd__(self, right):
-        r"""__iadd__(IHistogram self, IHistogram right) -> IHistogram"""
-        return _libBornAgainCore.IHistogram___iadd__(self, right)
-
-    def relativeDifferenceHistogram(self, rhs):
-        r"""
-        relativeDifferenceHistogram(IHistogram self, IHistogram rhs) -> IHistogram
-        IHistogram * IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
-
-        returns histogram representing relative difference of two histograms. 
-
-        """
-        return _libBornAgainCore.IHistogram_relativeDifferenceHistogram(self, rhs)
-
-    def save(self, filename):
-        r"""
-        save(IHistogram self, std::string const & filename)
-        void IHistogram::save(const std::string &filename)
-
-        Saves histogram in file Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) 
-
-        """
-        return _libBornAgainCore.IHistogram_save(self, filename)
-
-    def load(self, filename):
-        r"""
-        load(IHistogram self, std::string const & filename)
-        void IHistogram::load(const std::string &filename)
-
-        Loads histogram from file, the shape of array in file should match Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) Only bin content will be loaded, histogram axes remain the same. 
-
-        """
-        return _libBornAgainCore.IHistogram_load(self, filename)
-
-    @deprecated("Deprecated. Use array() instead.")
-    def getArray(self):
-        return self.getArrayObsolete()
-
-
-# Register IHistogram in _libBornAgainCore:
-_libBornAgainCore.IHistogram_swigregister(IHistogram)
-
-def IHistogram_createHistogram(source):
-    r"""IHistogram_createHistogram(IntensityData source) -> IHistogram"""
-    return _libBornAgainCore.IHistogram_createHistogram(source)
-
-def IHistogram_createFrom(*args):
-    r"""
-    IHistogram_createFrom(std::string const & filename) -> IHistogram
-    IHistogram_createFrom(vdouble2d_t data) -> IHistogram
-    """
-    return _libBornAgainCore.IHistogram_createFrom(*args)
-
-class Histogram1D(IHistogram):
-    r"""
-
-
-    One dimensional histogram.
-
-    C++ includes: Histogram1D.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Histogram1D self, int nbinsx, double xlow, double xup) -> Histogram1D
-        __init__(Histogram1D self, int nbinsx, vdouble1d_t xbins) -> Histogram1D
-        __init__(Histogram1D self, IAxis axis) -> Histogram1D
-        __init__(Histogram1D self, IntensityData data) -> Histogram1D
-        Histogram1D::Histogram1D(const OutputData< double > &data)
-
-        Constructor for 1D histograms from basic  OutputData object. 
-
-        """
-        _libBornAgainCore.Histogram1D_swiginit(self, _libBornAgainCore.new_Histogram1D(*args))
-
-    def clone(self):
-        r"""
-        clone(Histogram1D self) -> Histogram1D
-        Histogram1D * Histogram1D::clone() const
-
-        Returns clone of other histogram. 
-
-        """
-        return _libBornAgainCore.Histogram1D_clone(self)
-
-    def getRank(self):
-        r"""
-        getRank(Histogram1D self) -> size_t
-        size_t Histogram1D::getRank() const
-
-        Returns the number of histogram dimensions. 
-
-        """
-        return _libBornAgainCore.Histogram1D_getRank(self)
-
-    def fill(self, x, weight=1.0):
-        r"""
-        fill(Histogram1D self, double x, double weight=1.0) -> int
-        int Histogram1D::fill(double x, double weight=1.0)
-
-        Increment bin with abscissa x with a weight. 
-
-        """
-        return _libBornAgainCore.Histogram1D_fill(self, x, weight)
-
-    def getBinCenters(self):
-        r"""
-        getBinCenters(Histogram1D self) -> vdouble1d_t
-        std::vector< double > Histogram1D::getBinCenters() const
-
-        returns vector of histogram bin centers 
-
-        """
-        return self.getBinCentersNumpy()
-
-    def getBinValues(self):
-        r"""
-        getBinValues(Histogram1D self) -> vdouble1d_t
-        std::vector< double > Histogram1D::getBinValues() const
-
-        returns vector of bin content (the value accumulated by bins) 
-
-        """
-        return self.getBinValuesNumpy()
-
-    def getBinErrors(self):
-        r"""
-        getBinErrors(Histogram1D self) -> vdouble1d_t
-        std::vector< double > Histogram1D::getBinErrors() const
-
-        returns vector of bin errors 
-
-        """
-        return self.getBinErrorsNumpy()
-
-    def getBinCentersNumpy(self):
-        r"""
-        getBinCentersNumpy(Histogram1D self) -> PyObject *
-        PyObject * Histogram1D::getBinCentersNumpy() const
-
-        """
-        return _libBornAgainCore.Histogram1D_getBinCentersNumpy(self)
-
-    def getBinValuesNumpy(self):
-        r"""
-        getBinValuesNumpy(Histogram1D self) -> PyObject *
-        PyObject * Histogram1D::getBinValuesNumpy() const
-
-        """
-        return _libBornAgainCore.Histogram1D_getBinValuesNumpy(self)
-
-    def getBinErrorsNumpy(self):
-        r"""
-        getBinErrorsNumpy(Histogram1D self) -> PyObject *
-        PyObject * Histogram1D::getBinErrorsNumpy() const
-
-        """
-        return _libBornAgainCore.Histogram1D_getBinErrorsNumpy(self)
-
-    def crop(self, xmin, xmax):
-        r"""
-        crop(Histogram1D self, double xmin, double xmax) -> Histogram1D
-        Histogram1D * Histogram1D::crop(double xmin, double xmax)
-
-        Create new histogram by applying crop on axis. 
-
-        """
-        return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
-    __swig_destroy__ = _libBornAgainCore.delete_Histogram1D
-
-# Register Histogram1D in _libBornAgainCore:
-_libBornAgainCore.Histogram1D_swigregister(Histogram1D)
-
-class Histogram2D(IHistogram):
-    r"""
-
-
-    Two dimensional histogram.
-
-    C++ includes: Histogram2D.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Histogram2D self, int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup) -> Histogram2D
-        __init__(Histogram2D self, int nbinsx, vdouble1d_t xbins, int nbinsy, vdouble1d_t ybins) -> Histogram2D
-        __init__(Histogram2D self, IAxis axis_x, IAxis axis_y) -> Histogram2D
-        __init__(Histogram2D self, IntensityData data) -> Histogram2D
-        __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
-        Histogram2D::Histogram2D(std::vector< std::vector< double >> data)
-
-        Constructor for 2D histograms from numpy array (thanks to swig) 
-
-        """
-        _libBornAgainCore.Histogram2D_swiginit(self, _libBornAgainCore.new_Histogram2D(*args))
-
-    def clone(self):
-        r"""
-        clone(Histogram2D self) -> Histogram2D
-        Histogram2D * Histogram2D::clone() const
-
-        Returns clone of other histogram. 
-
-        """
-        return _libBornAgainCore.Histogram2D_clone(self)
-
-    def getRank(self):
-        r"""
-        getRank(Histogram2D self) -> size_t
-        size_t Histogram2D::getRank() const
-
-        Returns the number of histogram dimensions. 
-
-        """
-        return _libBornAgainCore.Histogram2D_getRank(self)
-
-    def fill(self, x, y, weight=1.0):
-        r"""
-        fill(Histogram2D self, double x, double y, double weight=1.0) -> int
-        int Histogram2D::fill(double x, double y, double weight=1.0)
-
-        Increment bin with abscissa x and ordinate y with a weight. 
-
-        """
-        return _libBornAgainCore.Histogram2D_fill(self, x, y, weight)
-
-    def projectionX(self, *args):
-        r"""
-        projectionX(Histogram2D self) -> Histogram1D
-        projectionX(Histogram2D self, double yvalue) -> Histogram1D
-        projectionX(Histogram2D self, double ylow, double yup) -> Histogram1D
-        Histogram1D * Histogram2D::projectionX(double ylow, double yup)
-
-        Project a 2D histogram into 1D histogram along X. The projection is made from all y-bins corresponding to ordinate between ylow and yup.
-
-        Parameters:
-        -----------
-
-        ylow: 
-        lower edje on y-axis
-
-        yup: 
-        upper edje on y-axis 
-
-        """
-        return _libBornAgainCore.Histogram2D_projectionX(self, *args)
-
-    def projectionY(self, *args):
-        r"""
-        projectionY(Histogram2D self) -> Histogram1D
-        projectionY(Histogram2D self, double xvalue) -> Histogram1D
-        projectionY(Histogram2D self, double xlow, double xup) -> Histogram1D
-        Histogram1D * Histogram2D::projectionY(double xlow, double xup)
-
-        Project a 2D histogram into 1D histogram along Y. The projection is made from all x-bins corresponding to abscissa between xlow and xup.
-
-        Parameters:
-        -----------
-
-        xlow: 
-        lower edje on x-axis
-
-        xup: 
-        upper edje on x-axis 
-
-        """
-        return _libBornAgainCore.Histogram2D_projectionY(self, *args)
-
-    def crop(self, xmin, ymin, xmax, ymax):
-        r"""
-        crop(Histogram2D self, double xmin, double ymin, double xmax, double ymax) -> Histogram2D
-        Histogram2D * Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
-
-        Create new histogram by applying rectangular clip. 
-
-        """
-        return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
-
-    def setContent(self, data):
-        r"""
-        setContent(Histogram2D self, vdouble2d_t data)
-        void Histogram2D::setContent(const std::vector< std::vector< double >> &data)
-
-        Sets the values in histograms channels from numpy array,. 
-
-        """
-        return _libBornAgainCore.Histogram2D_setContent(self, data)
-
-    def addContent(self, data):
-        r"""
-        addContent(Histogram2D self, vdouble2d_t data)
-        void Histogram2D::addContent(const std::vector< std::vector< double >> &data)
-
-        Add to values in histograms channels from numpy array,. 
-
-        """
-        return _libBornAgainCore.Histogram2D_addContent(self, data)
-    __swig_destroy__ = _libBornAgainCore.delete_Histogram2D
-
-# Register Histogram2D in _libBornAgainCore:
-_libBornAgainCore.Histogram2D_swigregister(Histogram2D)
-
 class IDetector(ICloneable, INode):
     r"""
 
@@ -20842,88 +20050,6 @@ class Instrument(INode):
 _libBornAgainCore.Instrument_swigregister(Instrument)
 
 
-def RelativeDifference(dat, ref):
-    r"""
-    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
-    double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
-
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
-
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
-
-    """
-    return _libBornAgainCore.RelativeDifference(dat, ref)
-
-def checkRelativeDifference(dat, ref, threshold):
-    r"""
-    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
-    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
-
-    Returns true is relative difference is below threshold; prints informative output. 
-
-    """
-    return _libBornAgainCore.checkRelativeDifference(dat, ref, threshold)
-
-def getRelativeDifference(*args):
-    r"""
-    getRelativeDifference(IntensityData dat, IntensityData ref) -> double
-    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
-    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
-
-    """
-    return _libBornAgainCore.getRelativeDifference(*args)
-
-def coordinateToBinf(*args):
-    r"""
-    coordinateToBinf(double coordinate, IAxis axis) -> double
-    coordinateToBinf(double & x, double & y, IntensityData data)
-    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
-
-    Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
-
-    """
-    return _libBornAgainCore.coordinateToBinf(*args)
-
-def coordinateFromBinf(*args):
-    r"""
-    coordinateFromBinf(double value, IAxis axis) -> double
-    coordinateFromBinf(double & x, double & y, IntensityData data)
-    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
-
-    Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
-
-    """
-    return _libBornAgainCore.coordinateFromBinf(*args)
-
-def create2DArrayfromOutputData(data):
-    r"""
-    create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t
-    std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
-
-    Creates a vector of vectors of double (2D Array) from  OutputData. 
-
-    """
-    return _libBornAgainCore.create2DArrayfromOutputData(data)
-
-def FT2DArray(signal):
-    r"""
-    FT2DArray(vdouble2d_t signal) -> vdouble2d_t
-    std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
-
-    Creates a Fourier Transform of a 2D Array (vector of vectors). 
-
-    """
-    return _libBornAgainCore.FT2DArray(signal)
-
-def ConvertData(*args):
-    r"""
-    ConvertData(Simulation simulation, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult
-    ConvertData(Simulation simulation, vdouble2d_t data, bool put_masked_areas_to_zero=True) -> SimulationResult
-    SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
-
-    """
-    return _libBornAgainCore.ConvertData(*args)
-
 def importArrayToOutputData(*args):
     r"""
     importArrayToOutputData(vdouble1d_t vec) -> IntensityData
@@ -21256,6 +20382,849 @@ class VarianceSimFunction(IVarianceFunction):
 # Register VarianceSimFunction in _libBornAgainCore:
 _libBornAgainCore.VarianceSimFunction_swigregister(VarianceSimFunction)
 
+class IHistogram(object):
+    r"""
+
+
+    Base class for 1D and 2D histograms holding values of double type.
+
+    C++ includes: IHistogram.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    INTEGRAL = _libBornAgainCore.IHistogram_INTEGRAL
+    
+    AVERAGE = _libBornAgainCore.IHistogram_AVERAGE
+    
+    STANDARD_ERROR = _libBornAgainCore.IHistogram_STANDARD_ERROR
+    
+    NENTRIES = _libBornAgainCore.IHistogram_NENTRIES
+    
+    __swig_destroy__ = _libBornAgainCore.delete_IHistogram
+
+    def clone(self):
+        r"""
+        clone(IHistogram self) -> IHistogram
+        virtual IHistogram* IHistogram::clone() const =0
+
+        """
+        return _libBornAgainCore.IHistogram_clone(self)
+
+    def getRank(self):
+        r"""
+        getRank(IHistogram self) -> size_t
+        virtual size_t IHistogram::getRank() const =0
+
+        Returns number of histogram dimensions. 
+
+        """
+        return _libBornAgainCore.IHistogram_getRank(self)
+
+    def getTotalNumberOfBins(self):
+        r"""
+        getTotalNumberOfBins(IHistogram self) -> size_t
+        size_t IHistogram::getTotalNumberOfBins() const
+
+        Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. 
+
+        """
+        return _libBornAgainCore.IHistogram_getTotalNumberOfBins(self)
+
+    def getXaxis(self):
+        r"""
+        getXaxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::getXaxis() const
+
+        returns x-axis 
+
+        """
+        return _libBornAgainCore.IHistogram_getXaxis(self)
+
+    def getYaxis(self):
+        r"""
+        getYaxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::getYaxis() const
+
+        returns y-axis for 2D histograms 
+
+        """
+        return _libBornAgainCore.IHistogram_getYaxis(self)
+
+    def getXmin(self):
+        r"""
+        getXmin(IHistogram self) -> double
+        double IHistogram::getXmin() const
+
+        Returns x-axis min (lower edge of first bin). 
+
+        """
+        return _libBornAgainCore.IHistogram_getXmin(self)
+
+    def getXmax(self):
+        r"""
+        getXmax(IHistogram self) -> double
+        double IHistogram::getXmax() const
+
+        Returns x-axis max (upper edge of last bin). 
+
+        """
+        return _libBornAgainCore.IHistogram_getXmax(self)
+
+    def getNbinsX(self):
+        r"""
+        getNbinsX(IHistogram self) -> size_t
+        size_t IHistogram::getNbinsX() const
+
+        Returns number of bins on x-axis. 
+
+        """
+        return _libBornAgainCore.IHistogram_getNbinsX(self)
+
+    def getYmin(self):
+        r"""
+        getYmin(IHistogram self) -> double
+        double IHistogram::getYmin() const
+
+        Returns y-axis min (lower edge of first bin) for 2D histograms. 
+
+        """
+        return _libBornAgainCore.IHistogram_getYmin(self)
+
+    def getYmax(self):
+        r"""
+        getYmax(IHistogram self) -> double
+        double IHistogram::getYmax() const
+
+        Returns y-axis max (upper edge of last bin) for 2D histograms. 
+
+        """
+        return _libBornAgainCore.IHistogram_getYmax(self)
+
+    def getNbinsY(self):
+        r"""
+        getNbinsY(IHistogram self) -> size_t
+        size_t IHistogram::getNbinsY() const
+
+        Returns number of bins on y-axis. 
+
+        """
+        return _libBornAgainCore.IHistogram_getNbinsY(self)
+
+    def getGlobalBin(self, binx, biny=0):
+        r"""
+        getGlobalBin(IHistogram self, size_t binx, size_t biny=0) -> size_t
+        size_t IHistogram::getGlobalBin(size_t binx, size_t biny=0) const
+
+        Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with x-axis index.
+
+        Parameters:
+        -----------
+
+        binx: 
+        x-axis bin index
+
+        biny: 
+        y-axis bin index (for 2D histograms)
+
+        The global bin index 
+
+        """
+        return _libBornAgainCore.IHistogram_getGlobalBin(self, binx, biny)
+
+    def findGlobalBin(self, x, y):
+        r"""
+        findGlobalBin(IHistogram self, double x, double y) -> size_t
+        size_t IHistogram::findGlobalBin(double x, double y) const
+
+        Returns closest global bin index for given axes coordinates. For 1D.
+
+        Parameters:
+        -----------
+
+        x: 
+        Value on x-axis
+
+        y: 
+        Value on y-axis (for 2D histograms)
+
+        Closest global bin index 
+
+        """
+        return _libBornAgainCore.IHistogram_findGlobalBin(self, x, y)
+
+    def getXaxisIndex(self, i):
+        r"""
+        getXaxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::getXaxisIndex(size_t i) const
+
+        Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
+
+        """
+        return _libBornAgainCore.IHistogram_getXaxisIndex(self, i)
+
+    def getYaxisIndex(self, i):
+        r"""
+        getYaxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::getYaxisIndex(size_t i) const
+
+        Returns y-axis bin index for given globalbin (for 2D histograms). 
+
+        """
+        return _libBornAgainCore.IHistogram_getYaxisIndex(self, i)
+
+    def getXaxisValue(self, i):
+        r"""
+        getXaxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::getXaxisValue(size_t i)
+
+        Returns the value on x-axis corresponding to the global bin index.
+
+        Parameters:
+        -----------
+
+        globalbin: 
+        The global bin index
+
+        The center of corresponding bin of the axis 
+
+        """
+        return _libBornAgainCore.IHistogram_getXaxisValue(self, i)
+
+    def getYaxisValue(self, i):
+        r"""
+        getYaxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::getYaxisValue(size_t i)
+
+        Returns the value on y-axis corresponding to the 2D histogram global bin index.
+
+        Parameters:
+        -----------
+
+        globalbin: 
+        The global bin index
+
+        The center of corresponding bin of the axis 
+
+        """
+        return _libBornAgainCore.IHistogram_getYaxisValue(self, i)
+
+    def getData(self, *args):
+        r"""
+        getData(IHistogram self) -> OutputData< CumulativeValue > const
+        getData(IHistogram self) -> OutputData< CumulativeValue > &
+        OutputData<CumulativeValue>& IHistogram::getData()
+
+        """
+        return _libBornAgainCore.IHistogram_getData(self, *args)
+
+    def getBinContent(self, *args):
+        r"""
+        getBinContent(IHistogram self, size_t i) -> double
+        getBinContent(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::getBinContent(size_t binx, size_t biny) const
+
+        Returns content (accumulated value) of the 2D histogram bin with given indices.
+
+        Parameters:
+        -----------
+
+        binx: 
+        x-axis bin index
+
+        biny: 
+        y-axis bin index
+
+        The value accumulated by the bin (integral) 
+
+        """
+        return _libBornAgainCore.IHistogram_getBinContent(self, *args)
+
+    def setBinContent(self, i, value):
+        r"""
+        setBinContent(IHistogram self, size_t i, double value)
+        void IHistogram::setBinContent(size_t i, double value)
+
+        Sets content of the bin corresponding to the globalbin number. 
+
+        """
+        return _libBornAgainCore.IHistogram_setBinContent(self, i, value)
+
+    def addBinContent(self, i, value):
+        r"""
+        addBinContent(IHistogram self, size_t i, double value)
+        void IHistogram::addBinContent(size_t i, double value)
+
+        Add the value to the bin. 
+
+        """
+        return _libBornAgainCore.IHistogram_addBinContent(self, i, value)
+
+    def getBinError(self, *args):
+        r"""
+        getBinError(IHistogram self, size_t i) -> double
+        getBinError(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::getBinError(size_t binx, size_t biny) const
+
+        Returns error of the bin with given indices (for 2D histograms). 
+
+        """
+        return _libBornAgainCore.IHistogram_getBinError(self, *args)
+
+    def getBinAverage(self, *args):
+        r"""
+        getBinAverage(IHistogram self, size_t i) -> double
+        getBinAverage(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::getBinAverage(size_t binx, size_t biny) const
+
+        Returns average value of the bin with given indices (for 2D histograms). 
+
+        """
+        return _libBornAgainCore.IHistogram_getBinAverage(self, *args)
+
+    def getBinNumberOfEntries(self, *args):
+        r"""
+        getBinNumberOfEntries(IHistogram self, size_t i) -> int
+        getBinNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int
+        int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
+
+        Returns number of entries in the bin with given indices (for 2D histograms). 
+
+        """
+        return _libBornAgainCore.IHistogram_getBinNumberOfEntries(self, *args)
+
+    def getMaximum(self):
+        r"""
+        getMaximum(IHistogram self) -> double
+        double IHistogram::getMaximum() const
+
+        Returns histogram maximum value (maximum of  getBinContent() over all bins) 
+
+        """
+        return _libBornAgainCore.IHistogram_getMaximum(self)
+
+    def getMaximumBinIndex(self):
+        r"""
+        getMaximumBinIndex(IHistogram self) -> size_t
+        size_t IHistogram::getMaximumBinIndex() const
+
+        Returns globalbin index with maximum content. 
+
+        """
+        return _libBornAgainCore.IHistogram_getMaximumBinIndex(self)
+
+    def getMinimum(self):
+        r"""
+        getMinimum(IHistogram self) -> double
+        double IHistogram::getMinimum() const
+
+        Returns histogram minimum value (minimum of  getBinContent() over all bins) 
+
+        """
+        return _libBornAgainCore.IHistogram_getMinimum(self)
+
+    def getMinimumBinIndex(self):
+        r"""
+        getMinimumBinIndex(IHistogram self) -> size_t
+        size_t IHistogram::getMinimumBinIndex() const
+
+        Returns globalbin index with minimum content. 
+
+        """
+        return _libBornAgainCore.IHistogram_getMinimumBinIndex(self)
+
+    def scale(self, value):
+        r"""
+        scale(IHistogram self, double value)
+        void IHistogram::scale(double value)
+
+        Multiply this histogram (every bin content value) by a constant. 
+
+        """
+        return _libBornAgainCore.IHistogram_scale(self, value)
+
+    def integral(self):
+        r"""
+        integral(IHistogram self) -> double
+        double IHistogram::integral() const
+
+        Returns integral of bins content (computed as a sum of all bin content). 
+
+        """
+        return _libBornAgainCore.IHistogram_integral(self)
+
+    def array(self, *args):
+        r"""
+        array(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
+        PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
+
+        Returns numpy array with bin content (accumulated values). 
+
+        """
+        return _libBornAgainCore.IHistogram_array(self, *args)
+
+    def getArrayObsolete(self, *args):
+        r"""
+        getArrayObsolete(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
+        PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
+
+        Deprecated
+        Use  array() instead. 
+
+        """
+        return _libBornAgainCore.IHistogram_getArrayObsolete(self, *args)
+
+    def reset(self):
+        r"""
+        reset(IHistogram self)
+        void IHistogram::reset()
+
+        Reset histogram content (axes remains) 
+
+        """
+        return _libBornAgainCore.IHistogram_reset(self)
+
+    @staticmethod
+    def createHistogram(source):
+        r"""createHistogram(IntensityData source) -> IHistogram"""
+        return _libBornAgainCore.IHistogram_createHistogram(source)
+
+    @staticmethod
+    def createFrom(*args):
+        r"""
+        createFrom(std::string const & filename) -> IHistogram
+        createFrom(vdouble2d_t data) -> IHistogram
+        """
+        return _libBornAgainCore.IHistogram_createFrom(*args)
+
+    def createOutputData(self, *args):
+        r"""
+        createOutputData(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> IntensityData
+        OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+
+        creates new  OutputData with histogram's shape and values corresponding to DataType
+
+        creates new  OutputData with histogram's shape and put there values corresponding to DataType 
+
+        """
+        return _libBornAgainCore.IHistogram_createOutputData(self, *args)
+
+    def hasSameShape(self, other):
+        r"""
+        hasSameShape(IHistogram self, IHistogram other) -> bool
+        bool IHistogram::hasSameShape(const IHistogram &other) const
+
+        Returns true if objects a) have same dimensions b) bin boundaries of axes coincide. 
+
+        """
+        return _libBornAgainCore.IHistogram_hasSameShape(self, other)
+
+    def hasSameDimensions(self, other):
+        r"""
+        hasSameDimensions(IHistogram self, IHistogram other) -> bool
+        bool IHistogram::hasSameDimensions(const IHistogram &other) const
+
+        Returns true if object have same rank and number of axes bins. 
+
+        """
+        return _libBornAgainCore.IHistogram_hasSameDimensions(self, other)
+
+    def __iadd__(self, right):
+        r"""__iadd__(IHistogram self, IHistogram right) -> IHistogram"""
+        return _libBornAgainCore.IHistogram___iadd__(self, right)
+
+    def relativeDifferenceHistogram(self, rhs):
+        r"""
+        relativeDifferenceHistogram(IHistogram self, IHistogram rhs) -> IHistogram
+        IHistogram * IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+
+        returns histogram representing relative difference of two histograms. 
+
+        """
+        return _libBornAgainCore.IHistogram_relativeDifferenceHistogram(self, rhs)
+
+    def save(self, filename):
+        r"""
+        save(IHistogram self, std::string const & filename)
+        void IHistogram::save(const std::string &filename)
+
+        Saves histogram in file Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) 
+
+        """
+        return _libBornAgainCore.IHistogram_save(self, filename)
+
+    def load(self, filename):
+        r"""
+        load(IHistogram self, std::string const & filename)
+        void IHistogram::load(const std::string &filename)
+
+        Loads histogram from file, the shape of array in file should match Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) Only bin content will be loaded, histogram axes remain the same. 
+
+        """
+        return _libBornAgainCore.IHistogram_load(self, filename)
+
+    @deprecated("Deprecated. Use array() instead.")
+    def getArray(self):
+        return self.getArrayObsolete()
+
+
+# Register IHistogram in _libBornAgainCore:
+_libBornAgainCore.IHistogram_swigregister(IHistogram)
+
+def IHistogram_createHistogram(source):
+    r"""IHistogram_createHistogram(IntensityData source) -> IHistogram"""
+    return _libBornAgainCore.IHistogram_createHistogram(source)
+
+def IHistogram_createFrom(*args):
+    r"""
+    IHistogram_createFrom(std::string const & filename) -> IHistogram
+    IHistogram_createFrom(vdouble2d_t data) -> IHistogram
+    """
+    return _libBornAgainCore.IHistogram_createFrom(*args)
+
+class Histogram1D(IHistogram):
+    r"""
+
+
+    One dimensional histogram.
+
+    C++ includes: Histogram1D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Histogram1D self, int nbinsx, double xlow, double xup) -> Histogram1D
+        __init__(Histogram1D self, int nbinsx, vdouble1d_t xbins) -> Histogram1D
+        __init__(Histogram1D self, IAxis axis) -> Histogram1D
+        __init__(Histogram1D self, IntensityData data) -> Histogram1D
+        Histogram1D::Histogram1D(const OutputData< double > &data)
+
+        Constructor for 1D histograms from basic  OutputData object. 
+
+        """
+        _libBornAgainCore.Histogram1D_swiginit(self, _libBornAgainCore.new_Histogram1D(*args))
+
+    def clone(self):
+        r"""
+        clone(Histogram1D self) -> Histogram1D
+        Histogram1D * Histogram1D::clone() const
+
+        Returns clone of other histogram. 
+
+        """
+        return _libBornAgainCore.Histogram1D_clone(self)
+
+    def getRank(self):
+        r"""
+        getRank(Histogram1D self) -> size_t
+        size_t Histogram1D::getRank() const
+
+        Returns the number of histogram dimensions. 
+
+        """
+        return _libBornAgainCore.Histogram1D_getRank(self)
+
+    def fill(self, x, weight=1.0):
+        r"""
+        fill(Histogram1D self, double x, double weight=1.0) -> int
+        int Histogram1D::fill(double x, double weight=1.0)
+
+        Increment bin with abscissa x with a weight. 
+
+        """
+        return _libBornAgainCore.Histogram1D_fill(self, x, weight)
+
+    def getBinCenters(self):
+        r"""
+        getBinCenters(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::getBinCenters() const
+
+        returns vector of histogram bin centers 
+
+        """
+        return self.getBinCentersNumpy()
+
+    def getBinValues(self):
+        r"""
+        getBinValues(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::getBinValues() const
+
+        returns vector of bin content (the value accumulated by bins) 
+
+        """
+        return self.getBinValuesNumpy()
+
+    def getBinErrors(self):
+        r"""
+        getBinErrors(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::getBinErrors() const
+
+        returns vector of bin errors 
+
+        """
+        return self.getBinErrorsNumpy()
+
+    def getBinCentersNumpy(self):
+        r"""
+        getBinCentersNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::getBinCentersNumpy() const
+
+        """
+        return _libBornAgainCore.Histogram1D_getBinCentersNumpy(self)
+
+    def getBinValuesNumpy(self):
+        r"""
+        getBinValuesNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::getBinValuesNumpy() const
+
+        """
+        return _libBornAgainCore.Histogram1D_getBinValuesNumpy(self)
+
+    def getBinErrorsNumpy(self):
+        r"""
+        getBinErrorsNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::getBinErrorsNumpy() const
+
+        """
+        return _libBornAgainCore.Histogram1D_getBinErrorsNumpy(self)
+
+    def crop(self, xmin, xmax):
+        r"""
+        crop(Histogram1D self, double xmin, double xmax) -> Histogram1D
+        Histogram1D * Histogram1D::crop(double xmin, double xmax)
+
+        Create new histogram by applying crop on axis. 
+
+        """
+        return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
+    __swig_destroy__ = _libBornAgainCore.delete_Histogram1D
+
+# Register Histogram1D in _libBornAgainCore:
+_libBornAgainCore.Histogram1D_swigregister(Histogram1D)
+
+class Histogram2D(IHistogram):
+    r"""
+
+
+    Two dimensional histogram.
+
+    C++ includes: Histogram2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Histogram2D self, int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup) -> Histogram2D
+        __init__(Histogram2D self, int nbinsx, vdouble1d_t xbins, int nbinsy, vdouble1d_t ybins) -> Histogram2D
+        __init__(Histogram2D self, IAxis axis_x, IAxis axis_y) -> Histogram2D
+        __init__(Histogram2D self, IntensityData data) -> Histogram2D
+        __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
+        Histogram2D::Histogram2D(std::vector< std::vector< double >> data)
+
+        Constructor for 2D histograms from numpy array (thanks to swig) 
+
+        """
+        _libBornAgainCore.Histogram2D_swiginit(self, _libBornAgainCore.new_Histogram2D(*args))
+
+    def clone(self):
+        r"""
+        clone(Histogram2D self) -> Histogram2D
+        Histogram2D * Histogram2D::clone() const
+
+        Returns clone of other histogram. 
+
+        """
+        return _libBornAgainCore.Histogram2D_clone(self)
+
+    def getRank(self):
+        r"""
+        getRank(Histogram2D self) -> size_t
+        size_t Histogram2D::getRank() const
+
+        Returns the number of histogram dimensions. 
+
+        """
+        return _libBornAgainCore.Histogram2D_getRank(self)
+
+    def fill(self, x, y, weight=1.0):
+        r"""
+        fill(Histogram2D self, double x, double y, double weight=1.0) -> int
+        int Histogram2D::fill(double x, double y, double weight=1.0)
+
+        Increment bin with abscissa x and ordinate y with a weight. 
+
+        """
+        return _libBornAgainCore.Histogram2D_fill(self, x, y, weight)
+
+    def projectionX(self, *args):
+        r"""
+        projectionX(Histogram2D self) -> Histogram1D
+        projectionX(Histogram2D self, double yvalue) -> Histogram1D
+        projectionX(Histogram2D self, double ylow, double yup) -> Histogram1D
+        Histogram1D * Histogram2D::projectionX(double ylow, double yup)
+
+        Project a 2D histogram into 1D histogram along X. The projection is made from all y-bins corresponding to ordinate between ylow and yup.
+
+        Parameters:
+        -----------
+
+        ylow: 
+        lower edje on y-axis
+
+        yup: 
+        upper edje on y-axis 
+
+        """
+        return _libBornAgainCore.Histogram2D_projectionX(self, *args)
+
+    def projectionY(self, *args):
+        r"""
+        projectionY(Histogram2D self) -> Histogram1D
+        projectionY(Histogram2D self, double xvalue) -> Histogram1D
+        projectionY(Histogram2D self, double xlow, double xup) -> Histogram1D
+        Histogram1D * Histogram2D::projectionY(double xlow, double xup)
+
+        Project a 2D histogram into 1D histogram along Y. The projection is made from all x-bins corresponding to abscissa between xlow and xup.
+
+        Parameters:
+        -----------
+
+        xlow: 
+        lower edje on x-axis
+
+        xup: 
+        upper edje on x-axis 
+
+        """
+        return _libBornAgainCore.Histogram2D_projectionY(self, *args)
+
+    def crop(self, xmin, ymin, xmax, ymax):
+        r"""
+        crop(Histogram2D self, double xmin, double ymin, double xmax, double ymax) -> Histogram2D
+        Histogram2D * Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
+
+        Create new histogram by applying rectangular clip. 
+
+        """
+        return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
+
+    def setContent(self, data):
+        r"""
+        setContent(Histogram2D self, vdouble2d_t data)
+        void Histogram2D::setContent(const std::vector< std::vector< double >> &data)
+
+        Sets the values in histograms channels from numpy array,. 
+
+        """
+        return _libBornAgainCore.Histogram2D_setContent(self, data)
+
+    def addContent(self, data):
+        r"""
+        addContent(Histogram2D self, vdouble2d_t data)
+        void Histogram2D::addContent(const std::vector< std::vector< double >> &data)
+
+        Add to values in histograms channels from numpy array,. 
+
+        """
+        return _libBornAgainCore.Histogram2D_addContent(self, data)
+    __swig_destroy__ = _libBornAgainCore.delete_Histogram2D
+
+# Register Histogram2D in _libBornAgainCore:
+_libBornAgainCore.Histogram2D_swigregister(Histogram2D)
+
+
+def RelativeDifference(dat, ref):
+    r"""
+    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
+    double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
+
+    """
+    return _libBornAgainCore.RelativeDifference(dat, ref)
+
+def checkRelativeDifference(dat, ref, threshold):
+    r"""
+    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
+    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+    Returns true is relative difference is below threshold; prints informative output. 
+
+    """
+    return _libBornAgainCore.checkRelativeDifference(dat, ref, threshold)
+
+def getRelativeDifference(*args):
+    r"""
+    getRelativeDifference(IntensityData dat, IntensityData ref) -> double
+    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+
+    """
+    return _libBornAgainCore.getRelativeDifference(*args)
+
+def coordinateToBinf(*args):
+    r"""
+    coordinateToBinf(double coordinate, IAxis axis) -> double
+    coordinateToBinf(double & x, double & y, IntensityData data)
+    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
+
+    """
+    return _libBornAgainCore.coordinateToBinf(*args)
+
+def coordinateFromBinf(*args):
+    r"""
+    coordinateFromBinf(double value, IAxis axis) -> double
+    coordinateFromBinf(double & x, double & y, IntensityData data)
+    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
+
+    """
+    return _libBornAgainCore.coordinateFromBinf(*args)
+
+def create2DArrayfromOutputData(data):
+    r"""
+    create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t
+    std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
+
+    Creates a vector of vectors of double (2D Array) from  OutputData. 
+
+    """
+    return _libBornAgainCore.create2DArrayfromOutputData(data)
+
+def FT2DArray(signal):
+    r"""
+    FT2DArray(vdouble2d_t signal) -> vdouble2d_t
+    std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
+
+    Creates a Fourier Transform of a 2D Array (vector of vectors). 
+
+    """
+    return _libBornAgainCore.FT2DArray(signal)
+
+def ConvertData(*args):
+    r"""
+    ConvertData(Simulation simulation, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult
+    ConvertData(Simulation simulation, vdouble2d_t data, bool put_masked_areas_to_zero=True) -> SimulationResult
+    SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
+
+    """
+    return _libBornAgainCore.ConvertData(*args)
 class IIntensityNormalizer(ICloneable, INode):
     r"""
 

@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_LAYERFILLLIMITS_H
 #define BORNAGAIN_CORE_MULTILAYER_LAYERFILLLIMITS_H
 
-#include "Core/Particle/IParticle.h"
 #include "Core/Scattering/ZLimits.h"
 #include <cstddef>
 #include <utility>

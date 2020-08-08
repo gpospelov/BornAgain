@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/PythonFormatting.h
+//! @file      Core/Parametrization/PythonFormatting.h
 //! @brief     Defines PythonFormatting namespace.
 //!
 //! @homepage  http://www.bornagainproject.org

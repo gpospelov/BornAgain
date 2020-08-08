@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/PyEmbeddedUtils.h
+//! @file      Core/Parametrization/PyEmbeddedUtils.h
 //! @brief     Defines PyEmbeddedUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org

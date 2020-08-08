@@ -12666,7 +12666,7 @@ Merges its region map into the given one (notice non-const reference parameter)
 
 Vertical extension of a particle, specified by bottom and top z coordinate.
 
-C++ includes: IParticle.h
+C++ includes: ZLimits.h
 ";
 
 
@@ -17070,10 +17070,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17235,19 +17235,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d448.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0d452.xml
 
 
-// File: namespace_0d483.xml
+// File: namespace_0d485.xml
 
 
 // File: namespace_0d496.xml
 
 
-// File: namespace_0d517.xml
-
-
-// File: namespace_0d525.xml
+// File: namespace_0d519.xml
 
 
 // File: namespace_0d527.xml
@@ -17256,16 +17253,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d529.xml
 
 
+// File: namespace_0d531.xml
+
+
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d610.xml
+// File: namespace_0d612.xml
 
 
-// File: namespace_0d614.xml
+// File: namespace_0d616.xml
 
 
-// File: namespace_0d635.xml
+// File: namespace_0d637.xml
 
 
 // File: namespace_0d96.xml
@@ -19826,6 +19826,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: ParameterUtils_8h.xml
 
 
+// File: PythonFormatting_8cpp.xml
+
+
+// File: PythonFormatting_8h.xml
+
+
 // File: RangedDistributions_8cpp.xml
 
 
@@ -19940,28 +19946,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: TRange_8h.xml
 
 
-// File: ZLimits_8cpp.xml
-%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
-";
-
-
-// File: ZLimits_8h.xml
-%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  ConvexHull "BA_CORE_API_ ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
-";
-
-
 // File: FormFactorDecoratorMaterial_8cpp.xml
 
 
@@ -20022,6 +20006,28 @@ Returns concatenated rotation (first right, then left).
 ";
 
 %feature("docstring")  IsZRotation "bool IsZRotation(const IRotation &rot)
+";
+
+
+// File: ZLimits_8cpp.xml
+%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
+";
+
+
+// File: ZLimits_8h.xml
+%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  ConvexHull "BA_CORE_API_ ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
 ";
 
 
@@ -20453,12 +20459,6 @@ Template function to create an integrator object
 
 
 // File: PythonCore_8h.xml
-
-
-// File: PythonFormatting_8cpp.xml
-
-
-// File: PythonFormatting_8h.xml
 
 
 // File: SafePointerVector_8h.xml

@@ -29,7 +29,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/Parametrization/PythonFormatting.h"
+#include "Core/PyIO/PythonFormatting.h"
 #include <iomanip>
 
 using namespace PythonFormatting;

@@ -30,7 +30,7 @@
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/Parametrization/PythonFormatting.h"
+#include "Core/PyIO/PythonFormatting.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
 #include <iomanip>
 #include <map>

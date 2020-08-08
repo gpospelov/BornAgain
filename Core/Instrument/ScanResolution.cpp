@@ -14,7 +14,7 @@
 
 #include "Core/Instrument/ScanResolution.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/Parametrization/PythonFormatting.h"
+#include "Core/PyIO/PythonFormatting.h"
 
 namespace
 {

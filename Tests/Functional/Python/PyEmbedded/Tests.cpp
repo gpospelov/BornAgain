@@ -16,10 +16,10 @@
 #include "Core/Export/ExportToPython.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Core/Parametrization/PyEmbeddedUtils.h"
-#include "Core/Parametrization/PyImport.h"
+#include "Core/PyIO/PyEmbeddedUtils.h"
+#include "Core/PyIO/PyImport.h"
 #include "Core/Tools/PythonCore.h"
-#include "Core/Parametrization/PythonFormatting.h"
+#include "Core/PyIO/PythonFormatting.h"
 #include "Core/Tools/SysUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>

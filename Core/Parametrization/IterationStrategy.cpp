@@ -15,7 +15,7 @@
 #include "Core/Parametrization/IterationStrategy.h"
 #include "Core/Basics/Assert.h"
 #include "Core/Parametrization/NodeIterator.h"
-#include "Core/Scattering/ISample.h"
+#include "Core/Parametrization/INode.h"
 
 PreorderStrategy::PreorderStrategy() {}
 
@@ -23,8 +23,6 @@ PreorderStrategy* PreorderStrategy::clone() const
 {
     return new PreorderStrategy();
 }
-
-PreorderStrategy::~PreorderStrategy() {}
 
 IteratorMemento PreorderStrategy::first(const INode* p_root)
 {
@@ -35,9 +33,9 @@ IteratorMemento PreorderStrategy::first(const INode* p_root)
 
 void PreorderStrategy::next(IteratorMemento& iterator_stack) const
 {
-    const INode* p_sample = iterator_stack.getCurrent();
-    ASSERT(p_sample);
-    std::vector<const INode*> children = p_sample->getChildren();
+    const INode* node = iterator_stack.getCurrent();
+    ASSERT(node);
+    std::vector<const INode*> children = node->getChildren();
     if (children.size() > 0) {
         iterator_stack.push_state(IteratorState(children));
         return;
@@ -61,8 +59,6 @@ PostorderStrategy* PostorderStrategy::clone() const
 {
     return new PostorderStrategy();
 }
-
-PostorderStrategy::~PostorderStrategy() {}
 
 IteratorMemento PostorderStrategy::first(const INode* p_root)
 {

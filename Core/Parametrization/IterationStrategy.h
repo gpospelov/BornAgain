@@ -27,8 +27,6 @@ class IteratorMemento;
 class BA_CORE_API_ IterationStrategy
 {
 public:
-    virtual ~IterationStrategy() {}
-
     virtual IterationStrategy* clone() const = 0;
 
     virtual IteratorMemento first(const INode* p_root) = 0;
@@ -44,7 +42,6 @@ public:
 
     virtual PreorderStrategy* clone() const;
 
-    virtual ~PreorderStrategy();
     virtual IteratorMemento first(const INode* p_root);
     virtual void next(IteratorMemento& iterator_stack) const;
     virtual bool isDone(IteratorMemento& iterator_stack) const;
@@ -58,7 +55,6 @@ public:
 
     virtual PostorderStrategy* clone() const;
 
-    virtual ~PostorderStrategy();
     virtual IteratorMemento first(const INode* p_root);
     virtual void next(IteratorMemento& iterator_stack) const;
     virtual bool isDone(IteratorMemento& iterator_stack) const;

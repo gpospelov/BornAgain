@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORMATERIAL_H
 #define BORNAGAIN_CORE_DECORATEDFORMFACTOR_FORMFACTORDECORATORMATERIAL_H
 
-#include "Core/Scattering/IFormFactorDecorator.h"
 #include "Core/Material/Material.h"
+#include "Core/Scattering/IFormFactorDecorator.h"
 #include <memory>
 
 //! Decorates a scalar formfactor with the correct factor for the material's

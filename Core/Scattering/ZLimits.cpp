@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/ZLimits.cpp
+//! @file      Core/Scattering/ZLimits.cpp
 //! @brief     Defines class ZLimits.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Particle/ZLimits.h"
+#include "Core/Scattering/ZLimits.h"
 #include <algorithm>
 #include <stdexcept>
 

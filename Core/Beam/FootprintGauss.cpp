@@ -47,8 +47,7 @@ std::string FootprintGauss::print() const
     return result.str();
 }
 
-FootprintGauss::FootprintGauss(const FootprintGauss& other)
-    : IFootprintFactor(other)
+FootprintGauss::FootprintGauss(const FootprintGauss& other) : IFootprintFactor(other)
 {
     initialize();
 }

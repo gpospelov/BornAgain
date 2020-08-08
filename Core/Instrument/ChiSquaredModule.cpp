@@ -14,8 +14,8 @@
 
 #include "Core/Instrument/ChiSquaredModule.h"
 #include "Core/Basics/Assert.h"
-#include "Core/Intensity/IIntensityFunction.h"
 #include "Core/Instrument/VarianceFunctions.h"
+#include "Core/Intensity/IIntensityFunction.h"
 #include <cmath>
 #include <limits>
 

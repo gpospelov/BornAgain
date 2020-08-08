@@ -19,8 +19,8 @@
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/AxisNames.h"
-#include "Core/Intensity/OutputData.h"
 #include "Core/Instrument/QSpecScan.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 

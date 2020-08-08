@@ -48,8 +48,7 @@ std::string FootprintSquare::print() const
     return result.str();
 }
 
-FootprintSquare::FootprintSquare(const FootprintSquare& other)
-    : IFootprintFactor(other)
+FootprintSquare::FootprintSquare(const FootprintSquare& other) : IFootprintFactor(other)
 {
     initialize();
 }

@@ -15,8 +15,8 @@
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/InputOutput/OutputDataReadFactory.h"
 #include "Core/InputOutput/OutputDataWriteFactory.h"
-#include "Core/Intensity/IHistogram.h"
 #include "Core/Instrument/SimulationResult.h"
+#include "Core/Intensity/IHistogram.h"
 #include "Core/Tools/FileSystemUtils.h"
 #include <exception>
 #include <fstream>

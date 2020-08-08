@@ -17,9 +17,9 @@
 
 #include "Core/Parametrization/INodeVisitor.h" // not forward declared because used by all children
 #include "Core/Parametrization/IParameterized.h"
+#include <limits>
 #include <memory>
 #include <vector>
-#include <limits>
 
 const double INF = std::numeric_limits<double>::infinity();
 

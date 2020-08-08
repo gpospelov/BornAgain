@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Particle/MesoCrystal.h"
+#include "Core/Particle/IClusteredParticles.h"
 #include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Scattering/FormFactorDecoratorRotation.h"
-#include "Core/Particle/IClusteredParticles.h"
 
 MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
                          const IFormFactor& form_factor)

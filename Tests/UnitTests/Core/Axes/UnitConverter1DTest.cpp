@@ -4,8 +4,8 @@
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/Binning/VariableBinAxis.h"
-#include "Core/Intensity/OutputData.h"
 #include "Core/Instrument/QSpecScan.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Parametrization/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 

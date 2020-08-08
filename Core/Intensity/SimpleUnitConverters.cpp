@@ -18,11 +18,11 @@
 
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/AxisNames.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Detector/SphericalDetector.h"
+#include "Core/Instrument/AxisNames.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Intensity/UnitConverterUtils.h"
 #include "Core/Parametrization/Units.h"
 

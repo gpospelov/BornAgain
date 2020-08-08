@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Core/Intensity/Histogram2D.h"
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Detector/RegionOfInterest.h"
+#include "Core/Intensity/Histogram2D.h"
 
 DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}
 

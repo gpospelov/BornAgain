@@ -16,8 +16,8 @@
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetectorResolution.h"
-#include "Core/Intensity/OutputData.h"
 #include "Core/Detector/RegionOfInterest.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Intensity/SimulationArea.h"
 #include "Core/SimulationElement/SimulationElement.h"
 

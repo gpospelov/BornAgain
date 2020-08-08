@@ -172,8 +172,7 @@ TEST_F(SpecularScanTest, AngularScanClone)
     EXPECT_EQ(scan_clone2->footprintFactor()->widthRatio(), f_factor.widthRatio());
     EXPECT_NE(scan_clone2->footprintFactor(), scan.footprintFactor());
     EXPECT_NE(scan_clone2->footprintFactor(), &f_factor);
-    EXPECT_NE(dynamic_cast<const FootprintGauss*>(scan_clone2->footprintFactor()),
-              nullptr);
+    EXPECT_NE(dynamic_cast<const FootprintGauss*>(scan_clone2->footprintFactor()), nullptr);
 }
 
 TEST_F(SpecularScanTest, QScanClone)

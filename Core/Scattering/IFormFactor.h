@@ -17,8 +17,8 @@
 
 #include "Core/Basics/Complex.h"
 #include "Core/Material/Material.h"
-#include "Core/Particle/ZLimits.h"
 #include "Core/Scattering/ISample.h"
+#include "Core/Scattering/ZLimits.h"
 #include "Core/Vector/EigenCore.h"
 #include "Core/Vector/Vectors3D.h"
 

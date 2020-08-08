@@ -336,11 +336,3 @@ SimulationResult IntensityDataFunctions::ConvertData(const Simulation& simulatio
 
     return SimulationResult(*roi_data, *converter);
 }
-
-SimulationResult IntensityDataFunctions::ConvertData(const Simulation& simulation,
-                                                     const std::vector<std::vector<double>>& data,
-                                                     bool put_masked_areas_to_zero)
-{
-    auto output_data = ArrayUtils::createData(data);
-    return IntensityDataFunctions::ConvertData(simulation, *output_data, put_masked_areas_to_zero);
-}

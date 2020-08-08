@@ -96,10 +96,6 @@ BA_CORE_API_ SimulationResult ConvertData(const Simulation& simulation,
                                           const OutputData<double>& data,
                                           bool put_masked_areas_to_zero = true);
 
-BA_CORE_API_ SimulationResult ConvertData(const Simulation& simulation,
-                                          const std::vector<std::vector<double>>& data,
-                                          bool put_masked_areas_to_zero = true);
-
 }; // namespace IntensityDataFunctions
 
 #endif // BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H

@@ -62,15 +62,4 @@ BA_CORE_API_ Material MaterialBySLD();
 BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
                                     kvector_t magnetization = {});
 
-#ifndef SWIG
-
-//! @ingroup materials
-
-//! Creates averaged material. Square refractive index of returned material is arithmetic mean over
-//! _regions_ and _layer_mat_. Magnetization (if present) is averaged linearly.
-BA_CORE_API_ Material CreateAveragedMaterial(const Material& layer_mat,
-                                             const std::vector<HomogeneousRegion>& regions);
-
-#endif // SWIG
-
 #endif // BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H

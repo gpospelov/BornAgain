@@ -1,6 +1,5 @@
 #include "Core/Basics/Exceptions.h"
 #include "Core/Material/MaterialBySLDImpl.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Material/RefractiveMaterialImpl.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Particle/HomogeneousRegion.h"

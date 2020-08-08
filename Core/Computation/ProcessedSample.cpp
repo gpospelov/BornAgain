@@ -16,7 +16,6 @@
 #include "Core/Computation/MultiLayerUtils.h"
 #include "Core/Computation/ProcessedLayout.h"
 #include "Core/Computation/Slice.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MatrixFresnelMap.h"

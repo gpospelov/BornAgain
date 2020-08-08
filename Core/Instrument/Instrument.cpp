@@ -16,7 +16,7 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Detector/SphericalDetector.h"
-#include "Core/Instrument/IResolutionFunction2D.h"
+#include "Core/Detector/IResolutionFunction2D.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/SimulationElement/SimulationElement.h"
 

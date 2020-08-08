@@ -24,7 +24,7 @@
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Instrument/ISpecularScan.h"
-#include "Core/Instrument/ResolutionFunction2DGaussian.h"
+#include "Core/Detector/ResolutionFunction2DGaussian.h"
 #include "Core/Parametrization/ParameterUtils.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"

@@ -7639,6 +7639,14 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_getChildren(self)
+
+    def mainUnits(self):
+        r"""
+        mainUnits(ParticleDistribution self) -> std::string
+        std::string ParticleDistribution::mainUnits() const
+
+        """
+        return _libBornAgainCore.ParticleDistribution_mainUnits(self)
     __swig_destroy__ = _libBornAgainCore.delete_ParticleDistribution
 
 # Register ParticleDistribution in _libBornAgainCore:

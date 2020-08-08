@@ -17073,10 +17073,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17115,52 +17115,52 @@ C++ includes: ZLimits.h
 // File: namespace_0d106.xml
 
 
-// File: namespace_0d139.xml
-
-
 // File: namespace_0d14.xml
 
 
-// File: namespace_0d146.xml
+// File: namespace_0d141.xml
 
 
-// File: namespace_0d151.xml
+// File: namespace_0d147.xml
+
+
+// File: namespace_0d154.xml
+
+
+// File: namespace_0d159.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d160.xml
+// File: namespace_0d168.xml
 
 
-// File: namespace_0d162.xml
+// File: namespace_0d170.xml
 
 
-// File: namespace_0d166.xml
+// File: namespace_0d174.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d204.xml
-
-
-// File: namespace_0d239.xml
+// File: namespace_0d212.xml
 
 
 // File: namespace_0d247.xml
 
 
-// File: namespace_0d253.xml
+// File: namespace_0d255.xml
 
 
-// File: namespace_0d257.xml
+// File: namespace_0d261.xml
+
+
+// File: namespace_0d265.xml
 
 
 // File: namespace_0d28.xml
-
-
-// File: namespace_0d281.xml
 
 
 // File: namespace_0d285.xml
@@ -17247,10 +17247,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d500.xml
 
 
-// File: namespace_0d523.xml
-
-
-// File: namespace_0d531.xml
+// File: namespace_0d525.xml
 
 
 // File: namespace_0d533.xml
@@ -17259,10 +17256,13 @@ C++ includes: ZLimits.h
 // File: namespace_0d535.xml
 
 
-// File: namespace_0d616.xml
+// File: namespace_0d537.xml
 
 
-// File: namespace_0d620.xml
+// File: namespace_0d618.xml
+
+
+// File: namespace_0d622.xml
 
 
 // File: namespace_0d8.xml
@@ -17363,6 +17363,40 @@ vector<vector<double>>
 
 
 // File: namespaceboost_1_1geometry.xml
+
+
+// File: namespaceconvert.xml
+%feature("docstring")  convert::ConvertData "SimulationResult convert::ConvertData(const Simulation &simulation, const OutputData< double > &data, bool put_masked_areas_to_zero=true)
+
+Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
+
+Parameters:
+-----------
+
+simulation: 
+ Simulation object with possible ROI and masks defined.
+
+data: 
+User data with amplitudes with the shape of data matching the detector.
+
+SimulationResult object. 
+";
+
+%feature("docstring")  convert::ConvertData "SimulationResult convert::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
+";
+
+%feature("docstring")  convert::createOutputData "std::unique_ptr< OutputData< double > > convert::createOutputData(const IUnitConverter &converter, AxesUnits units)
+
+Returns zero-valued output data array in specified units. 
+";
+
+%feature("docstring")  convert::createConverterForGISAS "std::unique_ptr< IUnitConverter > convert::createConverterForGISAS(const Instrument &instrument)
+
+Helper factory function to use in  GISASSimulation. Depending on the type of detector, returns either  RectangularConverter or  SphericalConverter. 
+";
+
+%feature("docstring")  convert::createConverter "std::unique_ptr< IUnitConverter > convert::createConverter(const Simulation &simulation)
+";
 
 
 // File: namespaceDataFormatUtils.xml
@@ -18700,6 +18734,12 @@ global helper function for comparison of axes
 // File: ConvolutionDetectorResolution_8h.xml
 
 
+// File: Convolve_8cpp.xml
+
+
+// File: Convolve_8h.xml
+
+
 // File: DetectionProperties_8cpp.xml
 
 
@@ -18739,6 +18779,12 @@ global helper function for comparison of axes
 // File: IDetectorResolution_8h.xml
 
 
+// File: IResolutionFunction2D_8cpp.xml
+
+
+// File: IResolutionFunction2D_8h.xml
+
+
 // File: IsGISAXSDetector_8cpp.xml
 
 
@@ -18755,6 +18801,18 @@ global helper function for comparison of axes
 
 
 // File: RegionOfInterest_8h.xml
+
+
+// File: ResolutionFunction2DGaussian_8cpp.xml
+
+
+// File: ResolutionFunction2DGaussian_8h.xml
+
+
+// File: ScanResolution_8cpp.xml
+
+
+// File: ScanResolution_8h.xml
 
 
 // File: SpecularDetector1D_8cpp.xml
@@ -19147,12 +19205,6 @@ global helper function for comparison of axes
 // File: ChiSquaredModule_8h.xml
 
 
-// File: Convolve_8cpp.xml
-
-
-// File: Convolve_8h.xml
-
-
 // File: CumulativeValue_8cpp.xml
 
 
@@ -19177,12 +19229,6 @@ global helper function for comparison of axes
 // File: Instrument_8h.xml
 
 
-// File: IResolutionFunction2D_8cpp.xml
-
-
-// File: IResolutionFunction2D_8h.xml
-
-
 // File: ISpecularScan_8cpp.xml
 
 
@@ -19199,18 +19245,6 @@ global helper function for comparison of axes
 
 
 // File: QSpecScan_8h.xml
-
-
-// File: ResolutionFunction2DGaussian_8cpp.xml
-
-
-// File: ResolutionFunction2DGaussian_8h.xml
-
-
-// File: ScanResolution_8cpp.xml
-
-
-// File: ScanResolution_8h.xml
 
 
 // File: SimulationResult_8cpp.xml
@@ -20097,6 +20131,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: TruncatedEllipsoid_8h.xml
+
+
+// File: Convert_8cpp.xml
+
+
+// File: Convert_8h.xml
 
 
 // File: DepthProbeSimulation_8cpp.xml

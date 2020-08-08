@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/ScanResolution.cpp
+//! @file      Core/Detector/ScanResolution.cpp
 //! @brief     Implements scan resolution class and derived ones.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/ScanResolution.h"
+#include "Core/Detector/ScanResolution.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/PyIO/PythonFormatting.h"
 

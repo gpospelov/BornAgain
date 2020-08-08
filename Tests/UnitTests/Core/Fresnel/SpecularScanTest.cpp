@@ -3,7 +3,7 @@
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Instrument/ScanResolution.h"
+#include "Core/Detector/ScanResolution.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/SimulationElement/SpecularSimulationElement.h"
 #include "Tests/GTestWrapper/google_test.h"

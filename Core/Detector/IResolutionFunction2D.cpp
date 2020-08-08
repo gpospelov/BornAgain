@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IResolutionFunction2D.h
+//! @file      Core/Detector/IResolutionFunction2D.cpp
 //! @brief     Defines interface class IResolutionFunction2D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/IResolutionFunction2D.h"
+#include "Core/Detector/IResolutionFunction2D.h"
 
 IResolutionFunction2D::IResolutionFunction2D(
     const INode* parent, const std::vector<const char*> PName, const std::vector<const char*> PUnit,

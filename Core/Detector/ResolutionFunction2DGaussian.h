@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/ResolutionFunction2DGaussian.h
+//! @file      Core/Detector/ResolutionFunction2DGaussian.h
 //! @brief     Defines class ResolutionFunction2DGaussian.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_RESOLUTIONFUNCTION2DGAUSSIAN_H
 #define BORNAGAIN_CORE_INSTRUMENT_RESOLUTIONFUNCTION2DGAUSSIAN_H
 
-#include "Core/Instrument/IResolutionFunction2D.h"
+#include "Core/Detector/IResolutionFunction2D.h"
 
 //! Simple gaussian two-dimensional resolution function.
 //! @ingroup algorithms_internal

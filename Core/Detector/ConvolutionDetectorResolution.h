@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_CONVOLUTIONDETECTORRESOLUTION_H
 
 #include "Core/Detector/IDetectorResolution.h"
-#include "Core/Instrument/IResolutionFunction2D.h"
+#include "Core/Detector/IResolutionFunction2D.h"
 
 //! Convolutes the intensity in 1 or 2 dimensions with a resolution function.
 //! @ingroup detector

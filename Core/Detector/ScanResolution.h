@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/ScanResolution.h
+//! @file      Core/Detector/ScanResolution.h
 //! @brief     Defines scan resolution class.
 //!
 //! @homepage  http://www.bornagainproject.org

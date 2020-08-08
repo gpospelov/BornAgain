@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "Core/Instrument/AngularSpecScan.h"
-#include "Core/Instrument/ScanResolution.h"
+#include "Core/Detector/ScanResolution.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/RangedDistributions.h"

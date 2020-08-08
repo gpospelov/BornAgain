@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Convolve.h
+//! @file      Core/Detector/Convolve.h
 //! @brief     Defines class MathFunctions::Convolve.
 //!
 //! @homepage  http://www.bornagainproject.org

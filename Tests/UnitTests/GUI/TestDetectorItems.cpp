@@ -1,6 +1,6 @@
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/IDetector2D.h"
-#include "Core/Instrument/ResolutionFunction2DGaussian.h"
+#include "Core/Detector/ResolutionFunction2DGaussian.h"
 #include "Core/Parametrization/Units.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DetectorItems.h"

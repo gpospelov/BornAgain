@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "Core/Detector/IDetector2D.h"
-#include "Core/Instrument/ResolutionFunction2DGaussian.h"
+#include "Core/Detector/ResolutionFunction2DGaussian.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"
 #include "GUI/coregui/Models/ResolutionFunctionItems.h"

@@ -126,54 +126,6 @@ std::string printDistribution(const IDistribution1D& par_distr, const std::strin
     return result.str();
 }
 
-std::string printRealLimits(const RealLimits& limits, const std::string& units)
-{
-    std::ostringstream result;
-
-    if (limits.isLimitless()) {
-        result << "RealLimits()";
-    }
-
-    else if (limits.isPositive()) {
-        result << "RealLimits.positive()";
-    }
-
-    else if (limits.isNonnegative()) {
-        result << "RealLimits.nonnegative()";
-    }
-
-    else if (limits.isLowerLimited()) {
-        result << "RealLimits.lowerLimited(" << pyfmt::printValue(limits.lowerLimit(), units)
-               << ")";
-    }
-
-    else if (limits.isUpperLimited()) {
-        result << "RealLimits.upperLimited(" << pyfmt::printValue(limits.upperLimit(), units)
-               << ")";
-    }
-
-    else if (limits.isLimited()) {
-        result << "RealLimits.limited(" << pyfmt::printValue(limits.lowerLimit(), units) << ", "
-               << pyfmt::printValue(limits.upperLimit(), units) << ")";
-    }
-
-    return result.str();
-}
-
-//! Prints RealLimits in the form of argument (in the context of ParameterDistribution and
-//! similar). Default RealLimits will not be printed, any other will be printed as
-//! ", ba.RealLimits.limited(1*deg, 2*deg)"
-
-std::string printRealLimitsArg(const RealLimits& limits, const std::string& units)
-{
-    return limits.isLimitless() ? "" : ", ba." + printRealLimits(limits, units);
-}
-
-//! Prints ParameterDistribution.
-//! distVarName is a string representing IDistribution1D variable, e.g. "distr_1"
-//!
-//! ba.ParameterDistribution("/Particle/Height", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm))
-
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
                                        const std::string& distVarName, const std::string& units)
 {
@@ -183,7 +135,7 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
            << "\"" << par_distr.getMainParameterName() << "\""
            << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
            << pyfmt::printDouble(par_distr.getSigmaFactor())
-           << printRealLimitsArg(par_distr.getLimits(), units) << ")";
+           << pyfmt::printRealLimitsArg(par_distr.getLimits(), units) << ")";
 
     return result.str();
 }

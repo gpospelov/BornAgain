@@ -15,7 +15,6 @@
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
-#include "Core/PyIO/PythonFormatting.h"
 #include "Core/Tools/PyFmt.h"
 #include <limits>
 
@@ -92,7 +91,7 @@ std::string RangedDistribution::print() const
     result << pyfmt::indent() << "distribution = " << name();
     result << "(" << m_n_samples << ", " << pyfmt::printDouble(m_sigma_factor);
     if (!m_limits.isLimitless())
-        result << pyfmt2::printRealLimitsArg(m_limits);
+        result << pyfmt::printRealLimitsArg(m_limits);
     result << ")";
     return result.str();
 }

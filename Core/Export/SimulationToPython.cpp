@@ -354,7 +354,7 @@ std::string SimulationToPython::defineParameterDistributions(const Simulation* s
         result << pyfmt::indent() << "simulation.addParameterDistribution(\"" << main_par_name
                << "\", " << s_distr << ", " << nbr_samples << ", "
                << pyfmt::printDouble(sigma_factor)
-               << pyfmt2::printRealLimitsArg(distributions[i].getLimits(), mainParUnits) << ")\n";
+               << pyfmt::printRealLimitsArg(distributions[i].getLimits(), mainParUnits) << ")\n";
     }
     return result.str();
 }

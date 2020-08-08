@@ -21,38 +21,38 @@ TEST_F(PythonFormattingTest, ValueTimesUnits)
 
 TEST_F(PythonFormattingTest, RealLimits)
 {
-    EXPECT_EQ("RealLimits.positive()", pyfmt2::printRealLimits(RealLimits::positive()));
+    EXPECT_EQ("RealLimits.positive()", pyfmt::printRealLimits(RealLimits::positive()));
 
-    EXPECT_EQ("RealLimits.nonnegative()", pyfmt2::printRealLimits(RealLimits::nonnegative()));
+    EXPECT_EQ("RealLimits.nonnegative()", pyfmt::printRealLimits(RealLimits::nonnegative()));
 
     EXPECT_EQ("RealLimits.lowerLimited(1.0)",
-              pyfmt2::printRealLimits(RealLimits::lowerLimited(1.0)));
+              pyfmt::printRealLimits(RealLimits::lowerLimited(1.0)));
     EXPECT_EQ("RealLimits.lowerLimited(1.0*nm)",
-              pyfmt2::printRealLimits(RealLimits::lowerLimited(1.0), "nm"));
+              pyfmt::printRealLimits(RealLimits::lowerLimited(1.0), "nm"));
     EXPECT_EQ("RealLimits.lowerLimited(1.0*deg)",
-              pyfmt2::printRealLimits(RealLimits::lowerLimited(1.0 * Units::deg), "rad"));
+              pyfmt::printRealLimits(RealLimits::lowerLimited(1.0 * Units::deg), "rad"));
 
     EXPECT_EQ("RealLimits.upperLimited(1.0)",
-              pyfmt2::printRealLimits(RealLimits::upperLimited(1.0)));
+              pyfmt::printRealLimits(RealLimits::upperLimited(1.0)));
     EXPECT_EQ("RealLimits.upperLimited(1.0*nm)",
-              pyfmt2::printRealLimits(RealLimits::upperLimited(1.0), "nm"));
+              pyfmt::printRealLimits(RealLimits::upperLimited(1.0), "nm"));
     EXPECT_EQ("RealLimits.upperLimited(1.0*deg)",
-              pyfmt2::printRealLimits(RealLimits::upperLimited(1.0 * Units::deg), "rad"));
+              pyfmt::printRealLimits(RealLimits::upperLimited(1.0 * Units::deg), "rad"));
 
     EXPECT_EQ("RealLimits.limited(1.0, 2.0)",
-              pyfmt2::printRealLimits(RealLimits::limited(1.0, 2.0)));
+              pyfmt::printRealLimits(RealLimits::limited(1.0, 2.0)));
     EXPECT_EQ("RealLimits.limited(1.0*nm, 2.0*nm)",
-              pyfmt2::printRealLimits(RealLimits::limited(1.0, 2.0), "nm"));
+              pyfmt::printRealLimits(RealLimits::limited(1.0, 2.0), "nm"));
     EXPECT_EQ(
         "RealLimits.limited(1.0*deg, 2.0*deg)",
-        pyfmt2::printRealLimits(RealLimits::limited(1.0 * Units::deg, 2.0 * Units::deg), "rad"));
+        pyfmt::printRealLimits(RealLimits::limited(1.0 * Units::deg, 2.0 * Units::deg), "rad"));
 
     // testing printing of real limits in the context of ParameterDistribution and similar
     EXPECT_EQ(
         ", ba.RealLimits.limited(1.0*deg, 2.0*deg)",
-        pyfmt2::printRealLimitsArg(RealLimits::limited(1.0 * Units::deg, 2.0 * Units::deg), "rad"));
+        pyfmt::printRealLimitsArg(RealLimits::limited(1.0 * Units::deg, 2.0 * Units::deg), "rad"));
 
-    EXPECT_EQ("", pyfmt2::printRealLimitsArg(RealLimits::limitless()));
+    EXPECT_EQ("", pyfmt::printRealLimitsArg(RealLimits::limitless()));
 }
 
 TEST_F(PythonFormattingTest, printDistribution)

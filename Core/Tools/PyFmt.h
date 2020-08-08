@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/PyIO/PythonFormatting.h
+//! @file      Core/Tools/PyFmt.h
 //! @brief     Defines namespace pyfmt.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,9 +15,11 @@
 #ifndef BORNAGAIN_CORE_TOOLS_PYFMT_H
 #define BORNAGAIN_CORE_TOOLS_PYFMT_H
 
-#include "Wrap/WinDllMacros.h"
 #include "Core/Vector/Vectors3D.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
+
+class RealLimits;
 
 //! Utility functions for writing Python code snippets.
 
@@ -36,6 +38,10 @@ BA_CORE_API_ std::string printScientificDouble(double input);
 BA_CORE_API_ std::string printDegrees(double input);
 BA_CORE_API_ std::string printValue(double value, const std::string& units = "");
 BA_CORE_API_ std::string printString(const std::string& value);
+
+BA_CORE_API_ std::string printRealLimits(const RealLimits& limits, const std::string& units = "");
+BA_CORE_API_ std::string printRealLimitsArg(const RealLimits& limits,
+                                            const std::string& units = "");
 
 BA_CORE_API_ bool isSquare(double length1, double length2, double angle);
 BA_CORE_API_ bool isHexagonal(double length1, double length2, double angle);

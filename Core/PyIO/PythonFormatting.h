@@ -24,7 +24,6 @@ class IParameterized;
 class IShape2D;
 class RealParameter;
 class ParameterDistribution;
-class RealLimits;
 class IAxis;
 
 //! Utility functions for writing Python code snippets.
@@ -41,10 +40,6 @@ BA_CORE_API_ std::string argumentList(const IParameterized* ip);
 
 BA_CORE_API_ std::string printDistribution(const IDistribution1D& par_distr,
                                            const std::string& units = "");
-
-BA_CORE_API_ std::string printRealLimits(const RealLimits& limits, const std::string& units = "");
-BA_CORE_API_ std::string printRealLimitsArg(const RealLimits& limits,
-                                            const std::string& units = "");
 
 BA_CORE_API_ std::string printParameterDistribution(const ParameterDistribution& par_distr,
                                                     const std::string& distVarName,

@@ -14,8 +14,8 @@
 
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Tools/PyFmt.h"
 #include "Core/Tools/MathFunctions.h"
+#include "Core/Tools/PyFmt.h"
 
 FootprintGauss::FootprintGauss(double width_ratio) : IFootprintFactor(width_ratio)
 {

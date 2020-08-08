@@ -31,7 +31,7 @@
 #include "Fit/Tools/StringUtils.h"
 #include <iomanip>
 
-namespace PythonFormatting
+namespace pyfmt
 {
 
 std::string scriptPreamble()
@@ -46,65 +46,6 @@ std::string scriptPreamble()
 std::string getSampleFunctionName()
 {
     return "get_sample";
-}
-
-//! Returns fixed Python code snippet that defines the function "runSimulation".
-
-std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,
-                             std::function<std::string(double)> printValueFunc)
-{
-    std::ostringstream result;
-    result << std::setprecision(12);
-
-    if (const Polygon* shape = dynamic_cast<const Polygon*>(ishape)) {
-        std::vector<double> xpos, ypos;
-        shape->getPoints(xpos, ypos);
-        result << indent << "points = [";
-        for (size_t i = 0; i < xpos.size(); ++i) {
-            result << "[" << printValueFunc(xpos[i]) << ", " << printValueFunc(ypos[i]) << "]";
-            if (i != xpos.size() - 1)
-                result << ", ";
-        }
-        result << "]\n";
-        result << indent << "simulation.addMask("
-               << "ba.Polygon(points), " << printBool(mask_value) << ")\n";
-
-    } else if (dynamic_cast<const InfinitePlane*>(ishape)) {
-        result << indent << "simulation.maskAll()\n";
-
-    } else if (const Ellipse* shape = dynamic_cast<const Ellipse*>(ishape)) {
-        result << indent << "simulation.addMask(";
-        result << "ba.Ellipse(" << printValueFunc(shape->getCenterX()) << ", "
-               << printValueFunc(shape->getCenterY()) << ", " << printValueFunc(shape->getRadiusX())
-               << ", " << printValueFunc(shape->getRadiusY());
-        if (shape->getTheta() != 0.0)
-            result << ", " << printDegrees(shape->getTheta());
-        result << "), " << printBool(mask_value) << ")\n";
-    }
-
-    else if (const Rectangle* shape = dynamic_cast<const Rectangle*>(ishape)) {
-        result << indent << "simulation.addMask(";
-        result << "ba.Rectangle(" << printValueFunc(shape->getXlow()) << ", "
-               << printValueFunc(shape->getYlow()) << ", " << printValueFunc(shape->getXup())
-               << ", " << printValueFunc(shape->getYup()) << "), " << printBool(mask_value)
-               << ")\n";
-    }
-
-    else if (const VerticalLine* shape = dynamic_cast<const VerticalLine*>(ishape)) {
-        result << indent << "simulation.addMask(";
-        result << "ba.VerticalLine(" << printValueFunc(shape->getXpos()) << "), "
-               << printBool(mask_value) << ")\n";
-    }
-
-    else if (const HorizontalLine* shape = dynamic_cast<const HorizontalLine*>(ishape)) {
-        result << indent << "simulation.addMask(";
-        result << "ba.HorizontalLine(" << printValueFunc(shape->getYpos()) << "), "
-               << printBool(mask_value) << ")\n";
-
-    } else
-        throw std::runtime_error("representShape2D(const IShape2D*) -> Error. Unknown shape");
-
-    return result.str();
 }
 
 std::string printBool(double value)
@@ -217,6 +158,78 @@ bool isDefaultDirection(const kvector_t direction)
     return Numeric::AreAlmostEqual(direction.x(), 0.0)
            && Numeric::AreAlmostEqual(direction.y(), -1.0)
            && Numeric::AreAlmostEqual(direction.z(), 0.0);
+}
+
+std::string indent(size_t width)
+{
+    return std::string(width, ' ');
+}
+
+} // namespace pyfmt
+
+
+
+
+namespace pyfmt2
+{
+
+//! Returns fixed Python code snippet that defines the function "runSimulation".
+
+std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,
+                             std::function<std::string(double)> printValueFunc)
+{
+    std::ostringstream result;
+    result << std::setprecision(12);
+
+    if (const Polygon* shape = dynamic_cast<const Polygon*>(ishape)) {
+        std::vector<double> xpos, ypos;
+        shape->getPoints(xpos, ypos);
+        result << indent << "points = [";
+        for (size_t i = 0; i < xpos.size(); ++i) {
+            result << "[" << printValueFunc(xpos[i]) << ", " << printValueFunc(ypos[i]) << "]";
+            if (i != xpos.size() - 1)
+                result << ", ";
+        }
+        result << "]\n";
+        result << indent << "simulation.addMask("
+               << "ba.Polygon(points), " << printBool(mask_value) << ")\n";
+
+    } else if (dynamic_cast<const InfinitePlane*>(ishape)) {
+        result << indent << "simulation.maskAll()\n";
+
+    } else if (const Ellipse* shape = dynamic_cast<const Ellipse*>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "ba.Ellipse(" << printValueFunc(shape->getCenterX()) << ", "
+               << printValueFunc(shape->getCenterY()) << ", " << printValueFunc(shape->getRadiusX())
+               << ", " << printValueFunc(shape->getRadiusY());
+        if (shape->getTheta() != 0.0)
+            result << ", " << printDegrees(shape->getTheta());
+        result << "), " << printBool(mask_value) << ")\n";
+    }
+
+    else if (const Rectangle* shape = dynamic_cast<const Rectangle*>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "ba.Rectangle(" << printValueFunc(shape->getXlow()) << ", "
+               << printValueFunc(shape->getYlow()) << ", " << printValueFunc(shape->getXup())
+               << ", " << printValueFunc(shape->getYup()) << "), " << printBool(mask_value)
+               << ")\n";
+    }
+
+    else if (const VerticalLine* shape = dynamic_cast<const VerticalLine*>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "ba.VerticalLine(" << printValueFunc(shape->getXpos()) << "), "
+               << printBool(mask_value) << ")\n";
+    }
+
+    else if (const HorizontalLine* shape = dynamic_cast<const HorizontalLine*>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "ba.HorizontalLine(" << printValueFunc(shape->getYpos()) << "), "
+               << printBool(mask_value) << ")\n";
+
+    } else
+        throw std::runtime_error("representShape2D(const IShape2D*) -> Error. Unknown shape");
+
+    return result.str();
 }
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").
@@ -337,9 +350,4 @@ std::string printAxis(const IAxis& axis, const std::string& units, size_t offset
     return result.str();
 }
 
-std::string indent(size_t width)
-{
-    return std::string(width, ' ');
-}
-
-} // namespace PythonFormatting
+} // namespace pyfmt2

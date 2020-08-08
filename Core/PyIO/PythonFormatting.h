@@ -29,15 +29,11 @@ class IAxis;
 
 //! Utility functions for writing Python code snippets.
 
-namespace PythonFormatting
+namespace pyfmt
 {
 
 BA_CORE_API_ std::string scriptPreamble();
 BA_CORE_API_ std::string getSampleFunctionName();
-
-BA_CORE_API_ std::string representShape2D(const std::string& indent, const IShape2D* ishape,
-                                          bool mask_value,
-                                          std::function<std::string(double)> printValueFunc);
 
 BA_CORE_API_ std::string printInt(int value);
 BA_CORE_API_ std::string printBool(double value);
@@ -53,6 +49,20 @@ BA_CORE_API_ bool isSquare(double length1, double length2, double angle);
 BA_CORE_API_ bool isHexagonal(double length1, double length2, double angle);
 BA_CORE_API_ std::string printKvector(const kvector_t value);
 BA_CORE_API_ bool isDefaultDirection(const kvector_t direction);
+
+//! Returns a string of blanks with given width. By default
+//! the width equals standard offset in python files.
+BA_CORE_API_ std::string indent(size_t width = 4u);
+
+} // namespace pyfmt
+
+namespace pyfmt2
+{
+
+BA_CORE_API_ std::string representShape2D(const std::string& indent, const IShape2D* ishape,
+                                          bool mask_value,
+                                          std::function<std::string(double)> printValueFunc);
+
 BA_CORE_API_ std::string valueTimesUnit(const RealParameter* par);
 BA_CORE_API_ std::string argumentList(const IParameterized* ip);
 
@@ -71,9 +81,6 @@ BA_CORE_API_ std::string printParameterDistribution(const ParameterDistribution&
 //! offset is used for alignment and indentation in multiple-line definitions
 BA_CORE_API_ std::string printAxis(const IAxis& axis, const std::string& units, size_t offset);
 
-//! Returns a string of blanks with given width. By default
-//! the width equals standard offset in python files.
-BA_CORE_API_ std::string indent(size_t width = 4u);
-} // namespace PythonFormatting
+} // namespace pyfmt2
 
 #endif // BORNAGAIN_CORE_PYIO_PYTHONFORMATTING_H

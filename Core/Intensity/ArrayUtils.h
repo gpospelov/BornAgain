@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H
-#define BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H
+#ifndef BORNAGAIN_CORE_INTENSITY_ARRAYUTILS_H
+#define BORNAGAIN_CORE_INTENSITY_ARRAYUTILS_H
 
 #include "Core/Intensity/OutputData.h"
 #include "Wrap/WinDllMacros.h"
@@ -170,4 +170,4 @@ template <class T> decltype(auto) ArrayUtils::createVector2D(const T& data)
     return result;
 }
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_ARRAYUTILS_H
+#endif // BORNAGAIN_CORE_INTENSITY_ARRAYUTILS_H

@@ -1,11 +1,11 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
+#include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Parametrization/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 

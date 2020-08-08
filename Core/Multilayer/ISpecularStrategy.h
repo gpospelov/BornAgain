@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
 #define BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
 
-#include "Core/Multilayer/Slice.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Multilayer/Slice.h"
 
 //! Interface for the Fresnel computations, both in the scalar and magnetic case
 //!

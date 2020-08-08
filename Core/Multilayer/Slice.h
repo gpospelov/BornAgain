@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_SLICE_H
-#define BORNAGAIN_CORE_COMPUTATION_SLICE_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_SLICE_H
+#define BORNAGAIN_CORE_MULTILAYER_SLICE_H
 
 #include "Core/Material/Material.h"
 #include <memory>
@@ -64,4 +64,4 @@ private:
     std::unique_ptr<LayerRoughness> mP_top_roughness;
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_SLICE_H
+#endif // BORNAGAIN_CORE_MULTILAYER_SLICE_H

@@ -17,8 +17,8 @@
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetectorResolution.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Intensity/OutputData.h"
 #include "Core/Detector/SimulationArea.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
 IDetector::IDetector()

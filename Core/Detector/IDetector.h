@@ -18,8 +18,8 @@
 #include "Core/Basics/ICloneable.h"
 #include "Core/Binning/IAxis.h"
 #include "Core/Detector/DetectionProperties.h"
-#include "Core/Intensity/IUnitConverter.h"
 #include "Core/Detector/SimulationAreaIterator.h"
+#include "Core/Intensity/IUnitConverter.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Tools/SafePointerVector.h"
 

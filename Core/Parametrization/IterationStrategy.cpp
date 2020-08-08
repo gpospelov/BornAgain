@@ -14,8 +14,8 @@
 
 #include "Core/Parametrization/IterationStrategy.h"
 #include "Core/Basics/Assert.h"
-#include "Core/Parametrization/NodeIterator.h"
 #include "Core/Parametrization/INode.h"
+#include "Core/Parametrization/NodeIterator.h"
 
 PreorderStrategy::PreorderStrategy() {}
 

@@ -15,10 +15,10 @@
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/IDetector.h"
-#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
+#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Intensity/IHistogram.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <iostream>

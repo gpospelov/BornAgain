@@ -14,7 +14,7 @@
 
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/PyIO/PythonFormatting.h"
+#include "Core/Tools/PyFmt.h"
 
 namespace
 {
@@ -45,7 +45,7 @@ public:
 
 protected:
     std::string name() const override { return relative_resolution; }
-    std::string printStdDevs() const override { return PythonFormatting::printDouble(m_reldev); }
+    std::string printStdDevs() const override { return pyfmt::printDouble(m_reldev); }
 
 private:
     double m_reldev; //!< deltas for computing resolutions
@@ -72,7 +72,7 @@ public:
 
 protected:
     std::string name() const override { return absolute_resolution; }
-    std::string printStdDevs() const override { return PythonFormatting::printDouble(m_stddev); }
+    std::string printStdDevs() const override { return pyfmt::printDouble(m_stddev); }
 
 private:
     double m_stddev; //!< deltas for computing resolutions
@@ -196,7 +196,7 @@ std::string ScanResolution::print() const
 {
     std::stringstream result;
     result << *m_distr << "\n";
-    result << PythonFormatting::indent() << "resolution = ";
+    result << pyfmt::indent() << "resolution = ";
     result << "ba." << name();
     result << "("
            << "distribution"

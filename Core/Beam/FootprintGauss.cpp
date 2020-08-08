@@ -14,7 +14,7 @@
 
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/PyIO/PythonFormatting.h"
+#include "Core/Tools/PyFmt.h"
 #include "Core/Tools/MathFunctions.h"
 
 FootprintGauss::FootprintGauss(double width_ratio) : IFootprintFactor(width_ratio)
@@ -40,10 +40,10 @@ double FootprintGauss::calculate(double alpha) const
 std::string FootprintGauss::print() const
 {
     std::stringstream result;
-    result << "\n" << PythonFormatting::indent() << "# Defining footprint:\n";
-    result << PythonFormatting::indent() << "footprint = ";
+    result << "\n" << pyfmt::indent() << "# Defining footprint:\n";
+    result << pyfmt::indent() << "footprint = ";
     result << "ba.FootprintGauss";
-    result << "(" << PythonFormatting::printDouble(widthRatio()) << ")";
+    result << "(" << pyfmt::printDouble(widthRatio()) << ")";
     return result.str();
 }
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/PyIO/PythonFormatting.cpp
-//! @brief     Implements functions from PythonFormatting namespace.
+//! @brief     Implements functions from namespace pyfmt2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -27,148 +27,10 @@
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/Units.h"
+#include "Core/Tools/PyFmt.h"
 #include "Fit/TestEngine/Numeric.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iomanip>
-
-namespace pyfmt
-{
-
-std::string scriptPreamble()
-{
-    const std::string result = "import numpy\n"
-                               "import bornagain as ba\n"
-                               "from bornagain import deg, angstrom, nm, nm2, kvector_t\n\n\n";
-
-    return result;
-}
-
-std::string getSampleFunctionName()
-{
-    return "get_sample";
-}
-
-std::string printBool(double value)
-{
-    return value ? "True" : "False";
-}
-
-std::string printDouble(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(12);
-    if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
-        inter << "0.0";
-        return inter.str();
-    }
-    inter << input;
-    if (inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
-        inter << ".0";
-    return inter.str();
-}
-
-std::string printNm(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(12);
-    inter << printDouble(input) << "*nm";
-    return inter.str();
-}
-
-std::string printNm2(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(12);
-    inter << printDouble(input) << "*nm2";
-    return inter.str();
-}
-
-// 1.000000e+07 -> 1.0e+07
-std::string printScientificDouble(double input)
-{
-    std::ostringstream inter;
-    inter << std::scientific;
-    inter << input;
-
-    std::string::size_type pos = inter.str().find('e');
-    if (pos == std::string::npos)
-        return inter.str();
-
-    std::string part1 = inter.str().substr(0, pos);
-    std::string part2 = inter.str().substr(pos, std::string::npos);
-
-    part1.erase(part1.find_last_not_of('0') + 1, std::string::npos);
-    if (part1.back() == '.')
-        part1 += "0";
-
-    return part1 + part2;
-}
-
-std::string printDegrees(double input)
-{
-    std::ostringstream inter;
-    inter << std::setprecision(11) << Units::rad2deg(input);
-    if (inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
-        inter << ".0";
-    inter << "*deg";
-    return inter.str();
-}
-
-std::string printValue(double value, const std::string& units)
-{
-    if (units == "rad")
-        return printDegrees(value);
-    else if (units == "nm")
-        return printNm(value);
-    else if (units == "")
-        return printDouble(value);
-    else
-        throw std::runtime_error("PythonFormatting::printValue() -> Error. Unknown units '" + units
-                                 + "'");
-}
-
-std::string printString(const std::string& value)
-{
-    std::ostringstream result;
-    result << "\"" << value << "\"";
-    return result.str();
-}
-
-bool isSquare(double length1, double length2, double angle)
-{
-    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_PI_2);
-}
-
-bool isHexagonal(double length1, double length2, double angle)
-{
-    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_TWOPI / 3.0);
-}
-
-std::string printKvector(const kvector_t value)
-{
-    std::ostringstream result;
-    result << "kvector_t(" << printDouble(value.x()) << ", " << printDouble(value.y()) << ", "
-           << printDouble(value.z()) << ")";
-    return result.str();
-}
-
-//! returns true if it is (0, -1, 0) vector
-bool isDefaultDirection(const kvector_t direction)
-{
-    return Numeric::AreAlmostEqual(direction.x(), 0.0)
-           && Numeric::AreAlmostEqual(direction.y(), -1.0)
-           && Numeric::AreAlmostEqual(direction.z(), 0.0);
-}
-
-std::string indent(size_t width)
-{
-    return std::string(width, ' ');
-}
-
-} // namespace pyfmt
-
-
-
 
 namespace pyfmt2
 {
@@ -192,7 +54,7 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
         }
         result << "]\n";
         result << indent << "simulation.addMask("
-               << "ba.Polygon(points), " << printBool(mask_value) << ")\n";
+               << "ba.Polygon(points), " << pyfmt::printBool(mask_value) << ")\n";
 
     } else if (dynamic_cast<const InfinitePlane*>(ishape)) {
         result << indent << "simulation.maskAll()\n";
@@ -203,28 +65,28 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
                << printValueFunc(shape->getCenterY()) << ", " << printValueFunc(shape->getRadiusX())
                << ", " << printValueFunc(shape->getRadiusY());
         if (shape->getTheta() != 0.0)
-            result << ", " << printDegrees(shape->getTheta());
-        result << "), " << printBool(mask_value) << ")\n";
+            result << ", " << pyfmt::printDegrees(shape->getTheta());
+        result << "), " << pyfmt::printBool(mask_value) << ")\n";
     }
 
     else if (const Rectangle* shape = dynamic_cast<const Rectangle*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.Rectangle(" << printValueFunc(shape->getXlow()) << ", "
                << printValueFunc(shape->getYlow()) << ", " << printValueFunc(shape->getXup())
-               << ", " << printValueFunc(shape->getYup()) << "), " << printBool(mask_value)
+               << ", " << printValueFunc(shape->getYup()) << "), " << pyfmt::printBool(mask_value)
                << ")\n";
     }
 
     else if (const VerticalLine* shape = dynamic_cast<const VerticalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.VerticalLine(" << printValueFunc(shape->getXpos()) << "), "
-               << printBool(mask_value) << ")\n";
+               << pyfmt::printBool(mask_value) << ")\n";
     }
 
     else if (const HorizontalLine* shape = dynamic_cast<const HorizontalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.HorizontalLine(" << printValueFunc(shape->getYpos()) << "), "
-               << printBool(mask_value) << ")\n";
+               << pyfmt::printBool(mask_value) << ")\n";
 
     } else
         throw std::runtime_error("representShape2D(const IShape2D*) -> Error. Unknown shape");
@@ -237,8 +99,8 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
 std::string valueTimesUnit(const RealParameter* par)
 {
     if (par->unit() == "rad")
-        return printDegrees(par->value());
-    return printDouble(par->value()) + (par->unit() == "" ? "" : ("*" + par->unit()));
+        return pyfmt::printDegrees(par->value());
+    return pyfmt::printDouble(par->value()) + (par->unit() == "" ? "" : ("*" + par->unit()));
 }
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
@@ -281,16 +143,18 @@ std::string printRealLimits(const RealLimits& limits, const std::string& units)
     }
 
     else if (limits.isLowerLimited()) {
-        result << "RealLimits.lowerLimited(" << printValue(limits.lowerLimit(), units) << ")";
+        result << "RealLimits.lowerLimited(" << pyfmt::printValue(limits.lowerLimit(), units)
+               << ")";
     }
 
     else if (limits.isUpperLimited()) {
-        result << "RealLimits.upperLimited(" << printValue(limits.upperLimit(), units) << ")";
+        result << "RealLimits.upperLimited(" << pyfmt::printValue(limits.upperLimit(), units)
+               << ")";
     }
 
     else if (limits.isLimited()) {
-        result << "RealLimits.limited(" << printValue(limits.lowerLimit(), units) << ", "
-               << printValue(limits.upperLimit(), units) << ")";
+        result << "RealLimits.limited(" << pyfmt::printValue(limits.lowerLimit(), units) << ", "
+               << pyfmt::printValue(limits.upperLimit(), units) << ")";
     }
 
     return result.str();
@@ -318,7 +182,7 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
     result << "ba.ParameterDistribution("
            << "\"" << par_distr.getMainParameterName() << "\""
            << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
-           << printDouble(par_distr.getSigmaFactor())
+           << pyfmt::printDouble(par_distr.getSigmaFactor())
            << printRealLimitsArg(par_distr.getLimits(), units) << ")";
 
     return result.str();
@@ -329,9 +193,9 @@ std::string printAxis(const IAxis& axis, const std::string& units, size_t offset
     std::ostringstream result;
 
     if (auto fixedAxis = dynamic_cast<const FixedBinAxis*>(&axis)) {
-        result << "ba.FixedBinAxis(" << printString(fixedAxis->getName()) << ", "
-               << fixedAxis->size() << ", " << printValue(fixedAxis->getMin(), units) << ", "
-               << printValue(fixedAxis->getMax(), units) << ")";
+        result << "ba.FixedBinAxis(" << pyfmt::printString(fixedAxis->getName()) << ", "
+               << fixedAxis->size() << ", " << pyfmt::printValue(fixedAxis->getMin(), units) << ", "
+               << pyfmt::printValue(fixedAxis->getMax(), units) << ")";
     } else if (auto pointwise_axis = dynamic_cast<const PointwiseAxis*>(&axis)) {
         const std::string py_def_call = "numpy.asarray([";
         const size_t total_offset = offset + py_def_call.size();
@@ -339,12 +203,12 @@ std::string printAxis(const IAxis& axis, const std::string& units, size_t offset
 
         std::vector<double> points = pointwise_axis->getBinCenters();
         for (auto iter = points.begin(); iter != points.end() - 1; ++iter) {
-            result << printValue(*iter, units) << ",\n";
-            result << indent(total_offset);
+            result << pyfmt::printValue(*iter, units) << ",\n";
+            result << pyfmt::indent(total_offset);
         }
-        result << printValue(points.back(), units) << "])";
+        result << pyfmt::printValue(points.back(), units) << "])";
     } else {
-        throw std::runtime_error("PythonFormatting::printAxis() -> Error. Unsupported axis");
+        throw std::runtime_error("pyfmt2::printAxis() -> Error. Unsupported axis");
     }
 
     return result.str();

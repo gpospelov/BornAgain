@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_SIMULATIONAREAITERATOR_H
-#define BORNAGAIN_CORE_INTENSITY_SIMULATIONAREAITERATOR_H
+#ifndef BORNAGAIN_CORE_DETECTOR_SIMULATIONAREAITERATOR_H
+#define BORNAGAIN_CORE_DETECTOR_SIMULATIONAREAITERATOR_H
 
 #include "Wrap/WinDllMacros.h"
 #include <cstdlib>
@@ -58,4 +58,4 @@ inline bool SimulationAreaIterator::operator!=(const SimulationAreaIterator& rig
     return !(*this == right);
 }
 
-#endif // BORNAGAIN_CORE_INTENSITY_SIMULATIONAREAITERATOR_H
+#endif // BORNAGAIN_CORE_DETECTOR_SIMULATIONAREAITERATOR_H

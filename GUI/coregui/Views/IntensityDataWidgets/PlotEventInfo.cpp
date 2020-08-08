@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h"
-#include "Core/PyIO/PythonFormatting.h"
+#include "Core/Tools/PyFmt.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
 PlotEventInfo::PlotEventInfo(PLOT_TYPE type)
@@ -43,6 +43,6 @@ QString PlotEventInfo::statusString() const
 QString PlotEventInfo::valueToString() const
 {
     return m_info_type == PLOT_TYPE::Plot1D || m_log_valued_axis
-               ? QString::fromStdString(PythonFormatting::printScientificDouble(m_value))
+               ? QString::fromStdString(pyfmt::printScientificDouble(m_value))
                : QString::number(m_value, 'f', 2);
 }

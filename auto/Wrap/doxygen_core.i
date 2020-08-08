@@ -12524,6 +12524,9 @@ Returns the distributed parameter data.
 Returns a vector of children (const). 
 ";
 
+%feature("docstring")  ParticleDistribution::mainUnits "std::string ParticleDistribution::mainUnits() const
+";
+
 
 // File: classParticleInTheAirBuilder.xml
 %feature("docstring") ParticleInTheAirBuilder "
@@ -17103,97 +17106,100 @@ C++ includes: ZLimits.h
 ";
 
 
+// File: namespace_0d100.xml
+
+
 // File: namespace_0d102.xml
-
-
-// File: namespace_0d104.xml
 
 
 // File: namespace_0d106.xml
 
 
-// File: namespace_0d110.xml
+// File: namespace_0d139.xml
 
 
-// File: namespace_0d12.xml
+// File: namespace_0d14.xml
 
 
-// File: namespace_0d143.xml
+// File: namespace_0d146.xml
 
 
-// File: namespace_0d150.xml
+// File: namespace_0d151.xml
 
 
-// File: namespace_0d155.xml
+// File: namespace_0d16.xml
 
 
-// File: namespace_0d164.xml
+// File: namespace_0d160.xml
+
+
+// File: namespace_0d162.xml
 
 
 // File: namespace_0d166.xml
 
 
-// File: namespace_0d170.xml
+// File: namespace_0d2.xml
 
 
-// File: namespace_0d18.xml
+// File: namespace_0d204.xml
 
 
-// File: namespace_0d20.xml
+// File: namespace_0d239.xml
 
 
-// File: namespace_0d208.xml
+// File: namespace_0d247.xml
 
 
-// File: namespace_0d243.xml
-
-
-// File: namespace_0d251.xml
+// File: namespace_0d253.xml
 
 
 // File: namespace_0d257.xml
 
 
-// File: namespace_0d261.xml
+// File: namespace_0d28.xml
+
+
+// File: namespace_0d281.xml
 
 
 // File: namespace_0d285.xml
 
 
-// File: namespace_0d289.xml
+// File: namespace_0d305.xml
 
 
-// File: namespace_0d309.xml
+// File: namespace_0d312.xml
 
 
-// File: namespace_0d316.xml
-
-
-// File: namespace_0d32.xml
+// File: namespace_0d318.xml
 
 
 // File: namespace_0d322.xml
 
 
-// File: namespace_0d326.xml
+// File: namespace_0d343.xml
 
 
 // File: namespace_0d347.xml
 
 
+// File: namespace_0d349.xml
+
+
 // File: namespace_0d351.xml
 
 
-// File: namespace_0d353.xml
-
-
-// File: namespace_0d355.xml
+// File: namespace_0d36.xml
 
 
 // File: namespace_0d365.xml
 
 
 // File: namespace_0d377.xml
+
+
+// File: namespace_0d38.xml
 
 
 // File: namespace_0d381.xml
@@ -17203,9 +17209,6 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d399.xml
-
-
-// File: namespace_0d40.xml
 
 
 // File: namespace_0d401.xml
@@ -17221,9 +17224,6 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d416.xml
-
-
-// File: namespace_0d42.xml
 
 
 // File: namespace_0d426.xml
@@ -17259,16 +17259,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d535.xml
 
 
-// File: namespace_0d6.xml
-
-
 // File: namespace_0d616.xml
 
 
 // File: namespace_0d620.xml
 
 
-// File: namespace_0d96.xml
+// File: namespace_0d8.xml
+
+
+// File: namespace_0d92.xml
+
+
+// File: namespace_0d98.xml
 
 
 // File: namespacealgo.xml
@@ -17902,11 +17905,6 @@ Returns default metric name.
 Returns true if given parameter name is related to angles. 
 ";
 
-%feature("docstring")  ParameterUtils::mainParUnits "std::string ParameterUtils::mainParUnits(const ParticleDistribution &distr)
-
-Returns units of main parameter. 
-";
-
 %feature("docstring")  ParameterUtils::poolParameterUnits "std::string ParameterUtils::poolParameterUnits(const IParameterized &node, const std::string &parName)
 
 Returns units of main parameter. 
@@ -18331,18 +18329,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 %feature("docstring")  Units::deg2rad "double Units::deg2rad(double angle)
 ";
-
-
-// File: FormFactorCoherentPart_8cpp.xml
-
-
-// File: FormFactorCoherentPart_8h.xml
-
-
-// File: FormFactorCoherentSum_8cpp.xml
-
-
-// File: FormFactorCoherentSum_8h.xml
 
 
 // File: FTDecayFunctions_8cpp.xml
@@ -19525,6 +19511,18 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: FormFactorBAPol_8h.xml
+
+
+// File: FormFactorCoherentPart_8cpp.xml
+
+
+// File: FormFactorCoherentPart_8h.xml
+
+
+// File: FormFactorCoherentSum_8cpp.xml
+
+
+// File: FormFactorCoherentSum_8h.xml
 
 
 // File: FormFactorDWBA_8cpp.xml

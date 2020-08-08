@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
-#include "Core/Aggregate/FormFactorCoherentSum.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/SimulationElement/SimulationElement.h"

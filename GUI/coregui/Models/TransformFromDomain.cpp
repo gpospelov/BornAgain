@@ -39,7 +39,6 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
-#include "Core/Parametrization/ParameterUtils.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
@@ -228,7 +227,7 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
     distItem->setDomainCacheNames(main_distr_par_name, linked_pars);
 
     double unit_factor(1.0);
-    if (ParameterUtils::mainParUnits(sample) == "rad")
+    if (sample.mainUnits() == "rad")
         unit_factor = 1. / Units::degree;
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;

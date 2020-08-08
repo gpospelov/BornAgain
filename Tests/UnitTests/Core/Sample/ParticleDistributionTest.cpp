@@ -1,7 +1,6 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterUtils.h"
 #include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/includeIncludes/FormFactors.h"
@@ -33,9 +32,9 @@ TEST_F(ParticleDistributionTest, mainParameterUnits)
 
     ParameterDistribution par("/Particle/FullSphere/Radius", gate, 5);
     ParticleDistribution distr(Particle(mat, FormFactorFullSphere(1.0)), par);
-    EXPECT_EQ(ParameterUtils::mainParUnits(distr), "nm");
+    EXPECT_EQ(distr.mainUnits(), "nm");
 
     par = ParameterDistribution("/Particle/Cone/Alpha", gate, 5);
     ParticleDistribution distr2(Particle(mat, FormFactorCone(10.0, 20.0, 70.0 * Units::deg)), par);
-    EXPECT_EQ(ParameterUtils::mainParUnits(distr2), "rad");
+    EXPECT_EQ(distr2.mainUnits(), "rad");
 }

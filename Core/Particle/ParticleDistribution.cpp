@@ -18,6 +18,7 @@
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Parametrization/ParameterUtils.h"
 #include "Core/Particle/IParticle.h"
 #include <map>
 
@@ -86,4 +87,11 @@ std::vector<const INode*> ParticleDistribution::getChildren() const
     if (auto dist = m_par_distribution.getDistribution())
         result.push_back(dist);
     return result;
+}
+
+std::string ParticleDistribution::mainUnits() const
+{
+    return ParameterUtils::poolParameterUnits(
+                prototype(),
+                parameterDistribution().getMainParameterName());
 }

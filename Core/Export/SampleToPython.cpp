@@ -231,7 +231,9 @@ std::string SampleToPython::defineParticleDistributions() const
     int index(1);
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleDistribution* p_particle_distr = it->first;
-        std::string units = ParameterUtils::mainParUnits(*p_particle_distr);
+
+        const std::string units = p_particle_distr->mainUnits();
+
         ParameterDistribution par_distr = p_particle_distr->parameterDistribution();
 
         // building distribution functions

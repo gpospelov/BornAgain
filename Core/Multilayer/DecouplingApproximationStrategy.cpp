@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/DecouplingApproximationStrategy.h"
-#include "Core/Aggregate/FormFactorCoherentSum.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Multilayer/InterferenceFunctionUtils.h"

@@ -13,11 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/IParameterized.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Particle/ParticleDistribution.h"
+#include <memory>
 
 namespace
 {
@@ -39,12 +38,6 @@ bool ParameterUtils::isAngleRelated(const std::string& par_name)
             return true;
     }
     return false;
-}
-
-std::string ParameterUtils::mainParUnits(const ParticleDistribution& distr)
-{
-    return poolParameterUnits(distr.prototype(),
-                              distr.parameterDistribution().getMainParameterName());
 }
 
 std::string ParameterUtils::poolParameterUnits(const IParameterized& node,

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/ProcessedLayout.h"
-#include "Core/Aggregate/FormFactorCoherentSum.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Aggregate/ILayout.h"
 #include "Core/Computation/Slice.h"

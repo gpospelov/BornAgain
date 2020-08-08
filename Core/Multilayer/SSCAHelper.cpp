@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/SSCAHelper.h"
-#include "Core/Aggregate/FormFactorCoherentSum.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Basics/Exceptions.h"
 

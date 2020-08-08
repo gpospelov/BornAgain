@@ -15,8 +15,8 @@
  * For the list of contributors see $ROOTSYS/README/CREDITS.             *
  *************************************************************************/
 
-#ifndef ROOT_w32pragma
-#define ROOT_w32pragma
+#ifndef BORNAGAIN_WRAP_W32PRAGMA_H
+#define BORNAGAIN_WRAP_W32PRAGMA_H
 
 /*************************************************************************
  *                                                                       *
@@ -96,4 +96,4 @@
 
 #endif // _WIN32
 
-#endif // defined ROOT_w32pragma
+#endif // BORNAGAIN_WRAP_W32PRAGMA_H

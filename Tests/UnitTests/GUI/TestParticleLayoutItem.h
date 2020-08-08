@@ -1,3 +1,6 @@
+#ifndef BORNAGAIN_TESTS_UNITTESTS_GUI_TESTPARTICLELAYOUTITEM_H
+#define BORNAGAIN_TESTS_UNITTESTS_GUI_TESTPARTICLELAYOUTITEM_H
+
 #include "Core/Basics/MathConstants.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
@@ -106,3 +109,5 @@ TEST_F(TestParticleLayoutItem, densityValue)
     EXPECT_DOUBLE_EQ(layout->getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble(),
                      expectedDensity);
 }
+
+#endif // BORNAGAIN_TESTS_UNITTESTS_GUI_TESTPARTICLELAYOUTITEM_H

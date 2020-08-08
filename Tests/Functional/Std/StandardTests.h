@@ -12,6 +12,9 @@
 //
 // ************************************************************************** //
 
+#ifndef BORNAGAIN_TESTS_FUNCTIONAL_STD_STANDARDTESTS_H
+#define BORNAGAIN_TESTS_FUNCTIONAL_STD_STANDARDTESTS_H
+
 #include "Tests/GTestWrapper/google_test.h"
 
 class Std : public ::testing::Test
@@ -519,3 +522,5 @@ TEST_F(Std, DepthProbeTest)
 
 #endif // GUI_STD_TEST
 #endif // PYTHON_STD_TEST
+
+#endif // BORNAGAIN_TESTS_FUNCTIONAL_STD_STANDARDTESTS_H

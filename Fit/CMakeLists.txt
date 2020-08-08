@@ -13,7 +13,7 @@ if(BORNAGAIN_PYTHON)
     set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
     file(MAKE_DIRECTORY ${AUTO_DIR})
 
-    if(BORNAGAIN_GENERATE_BINDINGS)
+    if(CONFIGURE_BINDINGS)
 
         set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
@@ -54,7 +54,7 @@ if(BORNAGAIN_PYTHON)
             DEPENDS ${swig_dependencies} ${include_files}
             )
 
-    endif(BORNAGAIN_GENERATE_BINDINGS)
+    endif(CONFIGURE_BINDINGS)
 
     add_custom_target(
         ${lib}_python

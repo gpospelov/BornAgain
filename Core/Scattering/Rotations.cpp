@@ -12,8 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Core/Basics/Assert.h"
 #include "Core/Scattering/Rotations.h"
+#include "Core/Basics/Assert.h"
+#include "Core/Vector/Transform3D.h"
 #include "Core/Parametrization/RealParameter.h"
 
 IRotation::IRotation(const INode* parent, const std::vector<const char*> PName,
@@ -53,6 +54,11 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
 IRotation* IRotation::createIdentity()
 {
     return new RotationZ(0.0);
+}
+
+kvector_t IRotation::transformed(const kvector_t& v) const
+{
+    return getTransform3D().transformed(v);
 }
 
 bool IRotation::isIdentity() const

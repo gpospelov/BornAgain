@@ -8376,6 +8376,10 @@ class IRotation(ICloneable, INode):
         """
         return _libBornAgainCore.IRotation_getTransform3D(self)
 
+    def transformed(self, v):
+        r"""transformed(IRotation self, kvector_t v) -> kvector_t"""
+        return _libBornAgainCore.IRotation_transformed(self, v)
+
     def isIdentity(self):
         r"""
         isIdentity(IRotation self) -> bool
@@ -23001,13 +23005,9 @@ class Material(object):
         """
         return _libBornAgainCore.Material_scalarSubtrSLD(self, wavevectors)
 
-    def transformedMaterial(self, transform):
-        r"""
-        transformedMaterial(Material self, Transform3D const & transform) -> Material
-        Material Material::transformedMaterial(const Transform3D &transform) const
-
-        """
-        return _libBornAgainCore.Material_transformedMaterial(self, transform)
+    def rotatedMaterial(self, transform):
+        r"""rotatedMaterial(Material self, Transform3D const & transform) -> Material"""
+        return _libBornAgainCore.Material_rotatedMaterial(self, transform)
     __swig_destroy__ = _libBornAgainCore.delete_Material
 
 # Register Material in _libBornAgainCore:

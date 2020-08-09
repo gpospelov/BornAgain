@@ -50,7 +50,7 @@ void IParticle::rotate(const IRotation& rotation)
     } else {
         mP_rotation.reset(rotation.clone());
     }
-    m_position = rotation.getTransform3D().transformed(m_position);
+    m_position = rotation.transformed(m_position);
     registerChild(mP_rotation.get());
 }
 
@@ -112,8 +112,7 @@ IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 kvector_t IParticle::composedTranslation(const IRotation* p_rotation, kvector_t translation) const
 {
     if (p_rotation) {
-        Transform3D transform = p_rotation->getTransform3D();
-        return translation + transform.transformed(m_position);
+        return translation + p_rotation->transformed(m_position);
     } else {
         return translation + m_position;
     }

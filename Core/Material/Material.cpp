@@ -102,10 +102,10 @@ Eigen::Matrix2cd Material::polarizedSubtrSLD(const WavevectorInfo& wavevectors) 
     return m_material_impl->polarizedSubtrSLD(wavevectors);
 }
 
-Material Material::transformedMaterial(const Transform3D& transform) const
+Material Material::rotatedMaterial(const Transform3D& transform) const // TODO param:=rotation
 {
     std::unique_ptr<BaseMaterialImpl> material_impl(
-        m_material_impl->transformedMaterial(transform));
+        m_material_impl->rotatedMaterial(transform));
     return Material(std::move(material_impl));
 }
 

@@ -33,6 +33,7 @@
 #include "Core/Scattering/IFormFactor.h"
 #include "Core/Tools/PyFmt.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
+#include "Core/Vector/Transform3D.h"
 #include <iomanip>
 #include <map>
 #include <set>

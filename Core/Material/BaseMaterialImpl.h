@@ -69,7 +69,7 @@ public:
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld) matrix with magnetization corrections
     virtual Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const = 0;
 
-    virtual BaseMaterialImpl* transformedMaterial(const Transform3D& transform) const = 0;
+    virtual BaseMaterialImpl* rotatedMaterial(const Transform3D& transform) const = 0;
 
     //! Prints object data
     virtual void print(std::ostream& ostr) const = 0;

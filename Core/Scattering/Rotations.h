@@ -17,7 +17,9 @@
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Parametrization/INode.h"
-#include "Core/Vector/Transform3D.h"
+#include "Core/Vector/Vectors3D.h"
+
+class Transform3D;
 
 //! Pure virtual interface for rotations.
 //! @ingroup samples
@@ -41,6 +43,8 @@ public:
 
     //! Returns transformation.
     virtual Transform3D getTransform3D() const = 0;
+
+    kvector_t transformed(const kvector_t& v) const;
 
     //! Returns true if rotation matrix is identity matrix (no rotations)
     virtual bool isIdentity() const;

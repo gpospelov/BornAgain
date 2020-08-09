@@ -40,14 +40,14 @@ double IFormFactorBorn::bottomZ(const IRotation& rotation) const
 {
     if (!mP_shape)
         return 0;
-    return BottomZ(mP_shape->vertices(), rotation.getTransform3D());
+    return BottomZ(mP_shape->vertices(), rotation);
 }
 
 double IFormFactorBorn::topZ(const IRotation& rotation) const
 {
     if (!mP_shape)
         return 0;
-    return TopZ(mP_shape->vertices(), rotation.getTransform3D());
+    return TopZ(mP_shape->vertices(), rotation);
 }
 
 bool IFormFactorBorn::canSliceAnalytically(const IRotation& rot) const
@@ -98,19 +98,17 @@ SlicingEffects IFormFactorBorn::computeSlicingEffects(ZLimits limits, const kvec
     return {new_position, dz_bottom, dz_top};
 }
 
-double IFormFactorBorn::BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)
+double IFormFactorBorn::BottomZ(const std::vector<kvector_t>& vertices, const IRotation& rotation)
 {
-    if (vertices.size() == 0)
-        throw std::runtime_error("BottomZ() error: no vertices passed!");
+    ASSERT(vertices.size());
     return algo::min_value(
         vertices.begin(), vertices.end(),
         [&](const kvector_t& vertex) -> double { return rotation.transformed(vertex).z(); });
 }
 
-double IFormFactorBorn::TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)
+double IFormFactorBorn::TopZ(const std::vector<kvector_t>& vertices, const IRotation& rotation)
 {
-    if (vertices.size() == 0)
-        throw std::runtime_error("TopZ() error: no vertices passed!");
+    ASSERT(vertices.size());
     return algo::max_value(
         vertices.begin(), vertices.end(),
         [&](const kvector_t& vertex) -> double { return rotation.transformed(vertex).z(); });

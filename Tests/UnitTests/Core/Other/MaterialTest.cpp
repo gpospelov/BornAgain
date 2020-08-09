@@ -5,6 +5,7 @@
 #include "Core/Particle/HomogeneousRegion.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/WavevectorInfo.h"
+#include "Core/Vector/Transform3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MaterialTest : public ::testing::Test
@@ -52,16 +53,16 @@ TEST_F(MaterialTest, MaterialTransform)
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(1.0, 0.0, 0.0);
     RotationZ transform(90. * Units::degree);
-    kvector_t transformed_mag = transform.getTransform3D().transformed(magnetism);
+    kvector_t transformed_mag = transform.transformed(magnetism);
 
     Material material = HomogeneousMaterial("Material", refIndex, magnetism);
-    Material material2 = material.transformedMaterial(transform.getTransform3D());
+    Material material2 = material.rotatedMaterial(transform.getTransform3D());
     EXPECT_EQ(material_data, material2.materialData());
     EXPECT_EQ(transformed_mag, material2.magnetization());
 
     Material material3 =
         MaterialBySLD("Material", material_data.real(), material_data.imag(), magnetism);
-    Material material4 = material.transformedMaterial(transform.getTransform3D());
+    Material material4 = material.rotatedMaterial(transform.getTransform3D());
     EXPECT_EQ(material_data, material4.materialData());
     EXPECT_EQ(transformed_mag, material4.magnetization());
 }

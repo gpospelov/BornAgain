@@ -487,12 +487,12 @@ void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, dou
 
 double FormFactorPolyhedron::bottomZ(const IRotation& rotation) const
 {
-    return BottomZ(m_vertices, rotation.getTransform3D());
+    return BottomZ(m_vertices, rotation);
 }
 
 double FormFactorPolyhedron::topZ(const IRotation& rotation) const
 {
-    return TopZ(m_vertices, rotation.getTransform3D());
+    return TopZ(m_vertices, rotation);
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom.
@@ -639,12 +639,12 @@ void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvec
 
 double FormFactorPolygonalPrism::bottomZ(const IRotation& rotation) const
 {
-    return BottomZ(m_vertices, rotation.getTransform3D());
+    return BottomZ(m_vertices, rotation);
 }
 
 double FormFactorPolygonalPrism::topZ(const IRotation& rotation) const
 {
-    return TopZ(m_vertices, rotation.getTransform3D());
+    return TopZ(m_vertices, rotation);
 }
 
 //! Returns the volume of this prism.

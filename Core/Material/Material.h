@@ -94,7 +94,7 @@ public:
     Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const;
 #endif
 
-    Material transformedMaterial(const Transform3D& transform) const;
+    Material rotatedMaterial(const Transform3D& transform) const;
 
     friend BA_CORE_API_ std::ostream& operator<<(std::ostream& ostr, const Material& mat);
 

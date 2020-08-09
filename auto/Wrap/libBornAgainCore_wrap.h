@@ -106,7 +106,7 @@ class SwigDirector_INode : public INode, public Swig::Director {
 
 public:
     SwigDirector_INode(PyObject *self);
-    SwigDirector_INode(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const PName, std::vector< char const *, std::allocator< char const * > > const PUnit, std::vector< double, std::allocator< double > > const PMin, std::vector< double, std::allocator< double > > const PMax, std::vector< double, std::allocator< double > > const PDefault, std::vector< double, std::allocator< double > > P);
+    SwigDirector_INode(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const &PName, std::vector< char const *, std::allocator< char const * > > const &PUnit, std::vector< double, std::allocator< double > > const &PMin, std::vector< double, std::allocator< double > > const &PMax, std::vector< double, std::allocator< double > > const &PDefault, std::vector< double, std::allocator< double > > const &P);
     virtual ~SwigDirector_INode();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
@@ -154,7 +154,7 @@ class SwigDirector_ISample : public ISample, public Swig::Director {
 
 public:
     SwigDirector_ISample(PyObject *self);
-    SwigDirector_ISample(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const PName, std::vector< char const *, std::allocator< char const * > > const PUnit, std::vector< double, std::allocator< double > > const PMin, std::vector< double, std::allocator< double > > const PMax, std::vector< double, std::allocator< double > > const PDefault, std::vector< double, std::allocator< double > > P);
+    SwigDirector_ISample(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const &PName, std::vector< char const *, std::allocator< char const * > > const &PUnit, std::vector< double, std::allocator< double > > const &PMin, std::vector< double, std::allocator< double > > const &PMax, std::vector< double, std::allocator< double > > const &PDefault, std::vector< double, std::allocator< double > > const &P);
     virtual ~SwigDirector_ISample();
     virtual ISample *clone() const;
     virtual void transferToCPP();
@@ -205,7 +205,7 @@ class SwigDirector_IFormFactor : public IFormFactor, public Swig::Director {
 
 public:
     SwigDirector_IFormFactor(PyObject *self);
-    SwigDirector_IFormFactor(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const PName, std::vector< char const *, std::allocator< char const * > > const PUnit, std::vector< double, std::allocator< double > > const PMin, std::vector< double, std::allocator< double > > const PMax, std::vector< double, std::allocator< double > > const PDefault, std::vector< double, std::allocator< double > > P);
+    SwigDirector_IFormFactor(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const &PName, std::vector< char const *, std::allocator< char const * > > const &PUnit, std::vector< double, std::allocator< double > > const &PMin, std::vector< double, std::allocator< double > > const &PMax, std::vector< double, std::allocator< double > > const &PDefault, std::vector< double, std::allocator< double > > const &P);
     virtual ~SwigDirector_IFormFactor();
     virtual IFormFactor *clone() const;
     virtual void transferToCPP();
@@ -270,7 +270,7 @@ class SwigDirector_IFormFactorBorn : public IFormFactorBorn, public Swig::Direct
 
 public:
     SwigDirector_IFormFactorBorn(PyObject *self);
-    SwigDirector_IFormFactorBorn(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const PName, std::vector< char const *, std::allocator< char const * > > const PUnit, std::vector< double, std::allocator< double > > const PMin, std::vector< double, std::allocator< double > > const PMax, std::vector< double, std::allocator< double > > const PDefault, std::vector< double, std::allocator< double > > P);
+    SwigDirector_IFormFactorBorn(PyObject *self, INode const *parent, std::vector< char const *, std::allocator< char const * > > const &PName, std::vector< char const *, std::allocator< char const * > > const &PUnit, std::vector< double, std::allocator< double > > const &PMin, std::vector< double, std::allocator< double > > const &PMax, std::vector< double, std::allocator< double > > const &PDefault, std::vector< double, std::allocator< double > > const &P);
     virtual ~SwigDirector_IFormFactorBorn();
     virtual IFormFactorBorn *clone() const;
     virtual void transferToCPP();

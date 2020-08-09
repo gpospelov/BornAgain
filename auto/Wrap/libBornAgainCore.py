@@ -6122,7 +6122,7 @@ class INode(IParameterized):
     def __init__(self, *args):
         r"""
         __init__(INode self) -> INode
-        __init__(INode self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> INode
+        __init__(INode self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> INode
         INode::INode(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
@@ -7912,7 +7912,7 @@ class ISample(ICloneable, INode):
     def __init__(self, *args):
         r"""
         __init__(ISample self) -> ISample
-        __init__(ISample self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> ISample
+        __init__(ISample self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> ISample
         ISample::ISample(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
@@ -7980,7 +7980,7 @@ class IFormFactor(ISample):
     def __init__(self, *args):
         r"""
         __init__(IFormFactor self) -> IFormFactor
-        __init__(IFormFactor self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactor
+        __init__(IFormFactor self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactor
         IFormFactor::IFormFactor(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
@@ -8112,7 +8112,7 @@ class IFormFactorBorn(IFormFactor):
     def __init__(self, *args):
         r"""
         __init__(IFormFactorBorn self) -> IFormFactorBorn
-        __init__(IFormFactorBorn self, INode parent, std::vector< char const *,std::allocator< char const * > > const PName, std::vector< char const *,std::allocator< char const * > > const PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactorBorn
+        __init__(IFormFactorBorn self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactorBorn
         IFormFactorBorn::IFormFactorBorn(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """

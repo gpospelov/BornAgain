@@ -18,10 +18,10 @@
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/WavevectorInfo.h"
 
-IFormFactorBorn::IFormFactorBorn(const INode* parent, const std::vector<const char*> PName,
-                                 const std::vector<const char*> PUnit,
-                                 const std::vector<double> PMin, const std::vector<double> PMax,
-                                 const std::vector<double> PDefault, std::vector<double> P)
+IFormFactorBorn::IFormFactorBorn(const INode* parent, const std::vector<const char*>& PName,
+                                 const std::vector<const char*>& PUnit,
+                                 const std::vector<double>& PMin, const std::vector<double>& PMax,
+                                 const std::vector<double>& PDefault,const std::vector<double>& P)
     : IFormFactor{parent, PName, PUnit, PMin, PMax, PDefault, P}
 {
 }

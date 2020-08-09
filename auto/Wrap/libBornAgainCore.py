@@ -17753,12 +17753,9 @@ class FormFactorGaussSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
-        r"""
-        __init__(FormFactorGaussSphere self, double length) -> FormFactorGaussSphere
-        __init__(FormFactorGaussSphere self, double width, double height) -> FormFactorGaussSphere
-        """
-        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(*args))
+    def __init__(self, mean_radius):
+        r"""__init__(FormFactorGaussSphere self, double mean_radius) -> FormFactorGaussSphere"""
+        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(mean_radius))
 
     def clone(self):
         r"""
@@ -17780,13 +17777,9 @@ class FormFactorGaussSphere(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorGaussSphere_accept(self, visitor)
 
-    def getWidth(self):
-        r"""getWidth(FormFactorGaussSphere self) -> double"""
-        return _libBornAgainCore.FormFactorGaussSphere_getWidth(self)
-
-    def getHeight(self):
-        r"""getHeight(FormFactorGaussSphere self) -> double"""
-        return _libBornAgainCore.FormFactorGaussSphere_getHeight(self)
+    def getMeanRadius(self):
+        r"""getMeanRadius(FormFactorGaussSphere self) -> double"""
+        return _libBornAgainCore.FormFactorGaussSphere_getMeanRadius(self)
 
     def radialExtension(self):
         r"""

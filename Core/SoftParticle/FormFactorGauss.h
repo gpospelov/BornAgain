@@ -17,35 +17,31 @@
 
 #include "Core/Scattering/IFormFactorBorn.h"
 
-//! The form factor of a gaussian.
+//! The form factor of a Gaussian sphere.
 //! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorGaussSphere : public IFormFactorBorn
 {
 public:
-    FormFactorGaussSphere(double length);
-    FormFactorGaussSphere(double width, double height);
+    FormFactorGaussSphere(double mean_radius);
 
     FormFactorGaussSphere* clone() const override final
     {
-        return new FormFactorGaussSphere(m_width, m_height);
+        return new FormFactorGaussSphere(m_mean_radius);
     }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getWidth() const { return m_width; }
-    double getHeight() const { return m_height; }
+    double getMeanRadius() const { return m_mean_radius; }
 
-    double radialExtension() const override final { return m_width; }
+    double radialExtension() const override final { return m_mean_radius; }
 
     complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
-    void onChange() override final;
+    void onChange() override final {};
 
 private:
-    double m_width;
-    double m_height;
-    double m_max_ql;
+    double m_mean_radius;
     void initialize();
 };
 

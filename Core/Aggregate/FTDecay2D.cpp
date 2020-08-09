@@ -27,6 +27,9 @@
 IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma)
     : m_decay_length_x(decay_length_x), m_decay_length_y(decay_length_y), m_gamma(gamma)
 {
+    registerParameter("DecayLengthX", &m_decay_length_x).setUnit("nm").setNonnegative();
+    registerParameter("DecayLengthY", &m_decay_length_y).setUnit("nm").setNonnegative();
+    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
 }
 
 //! Calculates bounding values of reciprocal lattice coordinates that contain the centered
@@ -40,23 +43,6 @@ IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, d
     double qa_max = std::max(std::abs(q_bounds_1.first), std::abs(q_bounds_2.first));
     double qb_max = std::max(std::abs(q_bounds_1.second), std::abs(q_bounds_2.second));
     return {qa_max, qb_max};
-}
-
-void IFTDecayFunction2D::register_decay_lengths()
-{
-    registerParameter("DecayLengthX", &m_decay_length_x).setUnit("nm").setNonnegative();
-    registerParameter("DecayLengthY", &m_decay_length_y).setUnit("nm").setNonnegative();
-}
-
-void IFTDecayFunction2D::register_gamma()
-{
-    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
-}
-
-void IFTDecayFunction2D::init_parameters()
-{
-    register_decay_lengths();
-    register_gamma();
 }
 
 std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(double qX, double qY,
@@ -73,7 +59,6 @@ FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double d
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma)
 {
     setName("FTDecayFunction2DCauchy");
-    init_parameters();
 }
 
 FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const
@@ -93,7 +78,6 @@ FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double dec
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma)
 {
     setName("FTDecayFunction2DGauss");
-    init_parameters();
 }
 
 FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const
@@ -115,13 +99,11 @@ double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
 //! @param gamma: distribution orientation with respect to the first lattice vector in radians
 
 FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y,
-                                               double eta, double gamma)
+                                               double gamma, double eta)
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma), m_eta(eta)
 {
     setName("FTDecayFunction2DVoigt");
-    register_decay_lengths();
     registerParameter("Eta", &m_eta);
-    register_gamma();
 }
 
 FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const

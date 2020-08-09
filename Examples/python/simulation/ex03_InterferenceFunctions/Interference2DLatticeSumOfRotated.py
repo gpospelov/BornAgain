@@ -19,7 +19,7 @@ def get_sample():
     p_interference_function = \
         ba.InterferenceFunction2DLattice.createSquare(25.0*nm)
     pdf = ba.FTDecayFunction2DCauchy(300.0*nm/2.0/numpy.pi,
-                                     100.0*nm/2.0/numpy.pi)
+                                     100.0*nm/2.0/numpy.pi, 0)
     p_interference_function.setDecayFunction(pdf)
 
     particle_layout = ba.ParticleLayout()

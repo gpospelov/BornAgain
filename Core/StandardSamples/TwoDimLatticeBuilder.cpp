@@ -42,7 +42,7 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
                                           30.0 * Units::deg, 10.0 * Units::deg));
 
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI);
+                                100.0 * Units::nanometer / 2.0 / M_PI, 0);
     P_interference_function->setDecayFunction(pdf);
 
     // particles
@@ -78,7 +78,7 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
         InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer)};
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI);
+                                100.0 * Units::nanometer / 2.0 / M_PI, 0);
     P_interference_function->setDecayFunction(pdf);
 
     // particles
@@ -114,7 +114,7 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
     InterferenceFunction2DLattice interference_function(10.0 * Units::nanometer,
                                                         10.0 * Units::nanometer, M_PI / 2.0);
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI);
+                                100.0 * Units::nanometer / 2.0 / M_PI, 0);
     interference_function.setDecayFunction(pdf);
 
     FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 5.0 * Units::nanometer);
@@ -155,7 +155,7 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
         InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 30.0 * Units::degree)};
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI);
+                                100.0 * Units::nanometer / 2.0 / M_PI, 0);
     pdf.setGamma(30.0 * Units::degree);
     P_interference_function->setDecayFunction(pdf);
 

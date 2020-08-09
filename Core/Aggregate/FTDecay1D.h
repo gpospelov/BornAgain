@@ -36,7 +36,6 @@ public:
     double decayLength() const { return m_decay_length; }
 
 protected:
-    void register_decay_length();
     double m_decay_length;
 };
 

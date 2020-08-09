@@ -25,7 +25,7 @@
 class BA_CORE_API_ IFTDecayFunction2D : public ICloneable, public INode
 {
 public:
-    IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma = 0);
+    IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma );
     virtual IFTDecayFunction2D* clone() const = 0;
 
     //! set angle between first lattice vector and X-axis of distribution (both in direct space)
@@ -48,9 +48,6 @@ public:
                                                                    double b, double alpha) const;
 
 protected:
-    void register_decay_lengths();
-    void register_gamma();
-    void init_parameters();
     double m_decay_length_x;
     double m_decay_length_y;
     double m_gamma;
@@ -69,7 +66,7 @@ private:
 class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma = 0);
+    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma);
 
     FTDecayFunction2DCauchy* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
@@ -83,7 +80,7 @@ public:
 class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma = 0);
+    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma);
 
     FTDecayFunction2DGauss* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
@@ -96,8 +93,8 @@ public:
 class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta,
-                           double gamma = 0);
+    FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double gamma,
+                           double eta);
 
     FTDecayFunction2DVoigt* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

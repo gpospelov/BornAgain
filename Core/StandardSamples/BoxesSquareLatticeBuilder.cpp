@@ -46,7 +46,7 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
         InterferenceFunction2DLattice::createSquare(8 * Units::nanometer));
 
-    FTDecayFunction2DCauchy pdf(100.0 * Units::nanometer, 100.0 * Units::nanometer);
+    FTDecayFunction2DCauchy pdf(100.0 * Units::nanometer, 100.0 * Units::nanometer, 0);
     P_interference_function->setDecayFunction(pdf);
 
     // particles

@@ -19,9 +19,7 @@
 #include "Core/Tools/MathFunctions.h"
 #include <algorithm>
 
-IFTDecayFunction1D::IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length) {}
-
-void IFTDecayFunction1D::register_decay_length()
+IFTDecayFunction1D::IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length)
 {
     registerParameter("DecayLength", &m_decay_length);
 }
@@ -30,7 +28,6 @@ FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
     : IFTDecayFunction1D(decay_length)
 {
     setName("FTDecayFunction1DCauchy");
-    register_decay_length();
 }
 
 FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const
@@ -48,7 +45,6 @@ FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
     : IFTDecayFunction1D(decay_length)
 {
     setName("FTDecayFunction1DGauss");
-    register_decay_length();
 }
 
 FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const
@@ -66,7 +62,6 @@ FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
     : IFTDecayFunction1D(decay_length)
 {
     setName("FTDecayFunction1DTriangle");
-    register_decay_length();
 }
 
 FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const
@@ -84,7 +79,6 @@ FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
     : IFTDecayFunction1D(decay_length), m_eta(eta)
 {
     setName("FTDecayFunction1DVoigt");
-    register_decay_length();
     registerParameter("Eta", &m_eta);
 }
 

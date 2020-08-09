@@ -47,14 +47,11 @@ class BA_CORE_API_ Basic2DParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     Basic2DParaCrystalBuilder();
-    virtual ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
 
     MultiLayer* createSample(size_t index = 0);
-    size_t size();
 
 private:
-    FTDistribution2DComponents& pdf_components();
     std::unique_ptr<IFTDistribution2D> m_pdf1;
     std::unique_ptr<IFTDistribution2D> m_pdf2;
 };

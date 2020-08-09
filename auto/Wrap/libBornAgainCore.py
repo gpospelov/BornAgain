@@ -10543,9 +10543,9 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma=0):
+    def __init__(self, decay_length_x, decay_length_y, gamma):
         r"""
-        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
+        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DCauchy
         FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
@@ -10596,9 +10596,9 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma=0):
+    def __init__(self, decay_length_x, decay_length_y, gamma):
         r"""
-        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
+        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DGauss
         FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
@@ -10649,9 +10649,9 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, eta, gamma=0):
+    def __init__(self, decay_length_x, decay_length_y, gamma, eta):
         r"""
-        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
+        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double gamma, double eta) -> FTDecayFunction2DVoigt
         FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0)
 
         Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
@@ -10672,7 +10672,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         distribution orientation with respect to the first lattice vector in radians 
 
         """
-        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, eta, gamma))
+        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, gamma, eta))
 
     def clone(self):
         r"""
@@ -11266,9 +11266,9 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCauchy
         FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -11319,9 +11319,9 @@ class FTDistribution2DGauss(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGauss
         FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -11372,9 +11372,9 @@ class FTDistribution2DGate(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGate
         FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -11425,9 +11425,9 @@ class FTDistribution2DCone(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCone
         FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -11478,9 +11478,9 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, eta, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma, eta):
         r"""
-        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta, double gamma=0) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double gamma, double eta) -> FTDistribution2DVoigt
         FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0)
 
         Constructor of two-dimensional pseudo-Voigt probability distribution.
@@ -11501,7 +11501,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         angle in direct space between first lattice vector and x-axis of the distribution in radians 
 
         """
-        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, eta, gamma))
+        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, gamma, eta))
 
     def clone(self):
         r"""

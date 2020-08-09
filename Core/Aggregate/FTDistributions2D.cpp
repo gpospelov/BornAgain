@@ -28,6 +28,9 @@
 IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma)
     : m_omega_x(omega_x), m_omega_y(omega_y), m_gamma(gamma), m_delta(M_PI_2)
 {
+    registerParameter("OmegaX", &m_omega_x).setUnit("nm").setNonnegative();
+    registerParameter("OmegaY", &m_omega_y).setUnit("nm").setNonnegative();
+    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
 }
 
 double IFTDistribution2D::sumsq(double qx, double qy) const
@@ -35,28 +38,11 @@ double IFTDistribution2D::sumsq(double qx, double qy) const
     return qx * qx * m_omega_x * m_omega_x + qy * qy * m_omega_y * m_omega_y;
 }
 
-void IFTDistribution2D::register_omega()
-{
-    registerParameter("OmegaX", &m_omega_x).setUnit("nm").setNonnegative();
-    registerParameter("OmegaY", &m_omega_y).setUnit("nm").setNonnegative();
-}
-
-void IFTDistribution2D::register_gamma()
-{
-    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
-}
-
-void IFTDistribution2D::init_parameters()
-{
-    register_omega();
-    register_gamma();
-}
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName("FTDistribution2DCauchy");
-    init_parameters();
 }
 
 FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const
@@ -74,11 +60,11 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() 
     return std::make_unique<Distribution2DCauchySampler>(m_omega_x, m_omega_y);
 }
 
+
 FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName("FTDistribution2DGauss");
-    init_parameters();
 }
 
 FTDistribution2DGauss* FTDistribution2DGauss::clone() const
@@ -96,11 +82,11 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() c
     return std::make_unique<Distribution2DGaussSampler>(m_omega_x, m_omega_y);
 }
 
+
 FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName("FTDistribution2DGate");
-    init_parameters();
 }
 
 FTDistribution2DGate* FTDistribution2DGate::clone() const
@@ -119,11 +105,11 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() co
     return std::make_unique<Distribution2DGateSampler>(m_omega_x, m_omega_y);
 }
 
+
 FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName("FTDistribution2DCone");
-    init_parameters();
 }
 
 FTDistribution2DCone* FTDistribution2DCone::clone() const
@@ -147,6 +133,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() co
     return std::make_unique<Distribution2DConeSampler>(m_omega_x, m_omega_y);
 }
 
+
 //! Constructor of two-dimensional pseudo-Voigt probability distribution.
 //! @param omega_x: half-width of the distribution along its x-axis in nanometers
 //! @param omega_y: half-width of the distribution along its y-axis in nanometers
@@ -154,19 +141,17 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() co
 //! @param gamma: angle in direct space between first lattice vector and x-axis
 //! of the distribution in radians
 
-FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta,
-                                             double gamma)
+FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double gamma,
+                                             double eta)
     : IFTDistribution2D(omega_x, omega_y, gamma), m_eta(eta)
 {
     setName("FTDistribution2DVoigt");
-    register_omega();
     registerParameter("Eta", &m_eta);
-    register_gamma();
 }
 
 FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const
 {
-    return new FTDistribution2DVoigt(m_omega_x, m_omega_y, m_eta, m_gamma);
+    return new FTDistribution2DVoigt(m_omega_x, m_omega_y, m_gamma, m_eta);
 }
 
 double FTDistribution2DVoigt::evaluate(double qx, double qy) const

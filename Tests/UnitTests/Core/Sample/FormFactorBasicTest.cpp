@@ -81,8 +81,8 @@ TEST_F(FormFactorBasicTest, AnisoPyramid)
     EXPECT_EQ(width, particle.getWidth());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(alpha, particle.getAlpha());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -117,8 +117,8 @@ TEST_F(FormFactorBasicTest, Box)
     EXPECT_EQ(3., particle.radialExtension());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
 
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     EXPECT_EQ(0., particle.bottomZ(RotationZ(17 * Units::degree)));
     EXPECT_EQ(height, particle.topZ(RotationZ(39 * Units::degree)));
@@ -144,8 +144,8 @@ TEST_F(FormFactorBasicTest, Cone)
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(alpha, particle.getAlpha());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -189,8 +189,8 @@ TEST_F(FormFactorBasicTest, Cuboctahedron)
     EXPECT_EQ(height_ratio, particle.getHeightRatio());
     EXPECT_EQ(alpha, particle.getAlpha());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height * (1 + height_ratio), particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height * (1 + height_ratio), particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -206,8 +206,8 @@ TEST_F(FormFactorBasicTest, Cylinder)
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
 
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     EXPECT_NEAR(-radius, particle.bottomZ(RotationX(90 * Units::degree)), 1e-13);
     EXPECT_NEAR(+radius, particle.topZ(RotationX(90 * Units::degree)), 1e-13);
@@ -234,8 +234,8 @@ TEST_F(FormFactorBasicTest, Dodecahedron)
     FormFactorDodecahedron particle(edge);
     EXPECT_EQ(edge, particle.getEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_NEAR(2 * 1.11352 * edge, particle.topZ(RotationZ()), 1e-4);
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_NEAR(2 * 1.11352 * edge, particle.topZ(RotationZ(.42)), 1e-4);
     // height=2*inradius from web ressource
 
     test_ff(&particle);
@@ -253,8 +253,8 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
     EXPECT_EQ(radiusx, particle.getRadiusX());
     EXPECT_EQ(radiusy, particle.getRadiusY());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -270,8 +270,8 @@ TEST_F(FormFactorBasicTest, CantellatedCube)
     EXPECT_EQ(L, particle.getLength());
     EXPECT_DOUBLE_EQ(t, particle.getRemovedLength());
     EXPECT_DOUBLE_EQ(particle.volume(), volume);
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(L, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(L, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -284,8 +284,8 @@ TEST_F(FormFactorBasicTest, FullSphere)
     FormFactorFullSphere particle(radius);
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(2 * radius, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(2 * radius, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -300,8 +300,8 @@ TEST_F(FormFactorBasicTest, FullSpheroid)
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -314,8 +314,8 @@ TEST_F(FormFactorBasicTest, Icosahedron)
     FormFactorIcosahedron particle(edge);
     EXPECT_EQ(edge, particle.getEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_NEAR(2 * 0.755761 * edge, particle.topZ(RotationZ()), 1e-4);
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_NEAR(2 * 0.755761 * edge, particle.topZ(RotationZ(.42)), 1e-4);
     // height=2*inradius from web ressource
 
     test_ff(&particle);
@@ -331,8 +331,8 @@ TEST_F(FormFactorBasicTest, Prism3)
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -347,8 +347,8 @@ TEST_F(FormFactorBasicTest, Prism6)
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -368,8 +368,8 @@ TEST_F(FormFactorBasicTest, Pyramid)
     EXPECT_EQ(base_edge, particle.getBaseEdge());
     EXPECT_EQ(alpha, particle.getAlpha());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -385,8 +385,8 @@ TEST_F(FormFactorBasicTest, TruncatedSphere)
     FormFactorTruncatedSphere particle(radius, height);
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -403,8 +403,8 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -440,8 +440,8 @@ TEST_F(FormFactorBasicTest, Ripple1Box)
     EXPECT_EQ(width, particle.getWidth());
     EXPECT_EQ(length, particle.getLength());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -456,8 +456,8 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
     EXPECT_EQ(length, particle.getLength());
     EXPECT_DOUBLE_EQ(t, particle.getRemovedLength());
     EXPECT_DOUBLE_EQ(particle.volume(), volume);
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(length, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(length, particle.topZ(RotationZ(.42)));
 
     test_ff(&particle);
 }
@@ -473,8 +473,8 @@ TEST_F(FormFactorBasicTest, Ripple2Box)
     FormFactorRipple2Box particle(length, width, height, d);
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(.42)));
 
     // test_ff( &particle ); WAITING: restore once getRadius returns the umkreis radius
 }

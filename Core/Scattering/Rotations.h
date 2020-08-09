@@ -116,7 +116,7 @@ protected:
 class BA_CORE_API_ RotationZ : public IRotation
 {
 public:
-    RotationZ(double angle = 0.0);
+    RotationZ(double angle);
 
     RotationZ* clone() const { return new RotationZ(m_angle); }
     RotationZ* createInverse() const { return new RotationZ(-m_angle); }

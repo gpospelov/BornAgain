@@ -8666,9 +8666,9 @@ class RotationZ(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, angle=0.0):
+    def __init__(self, angle):
         r"""
-        __init__(RotationZ self, double angle=0.0) -> RotationZ
+        __init__(RotationZ self, double angle) -> RotationZ
         RotationZ::RotationZ(double angle=0.0)
 
         Constructor of rotation around z-axis

@@ -14,11 +14,11 @@
 
 #include "Core/Parametrization/INode.h"
 #include "Core/Basics/Assert.h"
-#include "Core/Basics/Exceptions.h"
 #include "Core/Parametrization/IterationStrategy.h"
 #include "Core/Parametrization/NodeIterator.h"
 #include "Core/Parametrization/NodeUtils.h"
 #include "Core/Parametrization/ParameterPool.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <algorithm>
 #include <exception>
 
@@ -26,8 +26,7 @@ INode::INode(const INode* parent, const std::vector<const char*> PName,
              const std::vector<const char*> PUnit, const std::vector<double> PMin,
              const std::vector<double> PMax, const std::vector<double> PDefault,
              std::vector<double> P)
-    : m_parent{parent}, m_NP{PName.size()}, m_PName{PName}, m_PUnit{PUnit}, m_PMin{PMin}, m_PMax{
-                                                                                              PMax}
+    : m_parent(parent), m_NP(PName.size())
 {
     ASSERT(PUnit.size() == m_NP);
     ASSERT(PMin.size() <= m_NP);
@@ -38,8 +37,24 @@ INode::INode(const INode* parent, const std::vector<const char*> PName,
     if (P.size() < m_NP && PDefault.size() < m_NP)
         throw std::runtime_error("Not enough parameter values supplied to node constructor");
     m_P.resize(m_NP);
-    for (size_t i = 0; i < m_NP; ++i)
+
+    for (size_t i = 0; i < m_NP; ++i) {
         m_P[i] = i < P.size() ? P[i] : PDefault[i];
+
+        auto& reg = registerParameter(PName[i], &m_P[i]);
+        reg.setUnit(PUnit[i]);
+        const double pmi = i<=PMin.size() ? PMin[i] : -INF;
+        const double pma = i<=PMax.size() ? PMax[i] : +INF;
+        if (pmi==-INF) {
+            ASSERT(pma==+INF);
+            // nothing to do
+        } else if (pma==+INF) {
+            ASSERT(pmi==0);
+            reg.setNonnegative();
+        } else {
+            reg.setLimited(pmi, pma);
+        }
+    }
 }
 
 std::string INode::treeToString() const
@@ -49,8 +64,7 @@ std::string INode::treeToString() const
 
 void INode::registerChild(INode* node)
 {
-    if (!node)
-        throw Exceptions::NullPointerException("INode::registerChild -> Error. Null pointer.");
+    ASSERT(node);
     node->setParent(this);
 }
 

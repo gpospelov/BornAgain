@@ -66,10 +66,6 @@ private:
 
 protected:
     const size_t m_NP;
-    const std::vector<const char*> m_PName;
-    const std::vector<const char*> m_PUnit;
-    const std::vector<double> m_PMin;
-    const std::vector<double> m_PMax;
     std::vector<double> m_P;
 };
 

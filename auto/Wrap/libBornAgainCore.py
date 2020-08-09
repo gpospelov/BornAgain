@@ -6286,12 +6286,12 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FormFactorEllipsoidalCylinder arg2)
         visit(INodeVisitor self, FormFactorFullSphere arg2)
         visit(INodeVisitor self, FormFactorFullSpheroid arg2)
-        visit(INodeVisitor self, FormFactorGauss arg2)
+        visit(INodeVisitor self, FormFactorGaussSphere arg2)
         visit(INodeVisitor self, FormFactorHemiEllipsoid arg2)
         visit(INodeVisitor self, FormFactorIcosahedron arg2)
         visit(INodeVisitor self, FormFactorLongBoxGauss arg2)
         visit(INodeVisitor self, FormFactorLongBoxLorentz arg2)
-        visit(INodeVisitor self, FormFactorLorentz arg2)
+        visit(INodeVisitor self, FormFactorLorentzSphere arg2)
         visit(INodeVisitor self, FormFactorPrism3 arg2)
         visit(INodeVisitor self, FormFactorPrism6 arg2)
         visit(INodeVisitor self, FormFactorPyramid arg2)
@@ -17747,169 +17747,135 @@ class FormFactorDebyeBueche(IFormFactorBorn):
 # Register FormFactorDebyeBueche in _libBornAgainCore:
 _libBornAgainCore.FormFactorDebyeBueche_swigregister(FormFactorDebyeBueche)
 
-class FormFactorGauss(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a gaussian.
-
-    C++ includes: FormFactorGauss.h
-
-    """
+class FormFactorGaussSphere(IFormFactorBorn):
+    r"""Proxy of C++ FormFactorGaussSphere class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         r"""
-        __init__(FormFactorGauss self, double length) -> FormFactorGauss
-        __init__(FormFactorGauss self, double width, double height) -> FormFactorGauss
-        FormFactorGauss::FormFactorGauss(double width, double height)
-
+        __init__(FormFactorGaussSphere self, double length) -> FormFactorGaussSphere
+        __init__(FormFactorGaussSphere self, double width, double height) -> FormFactorGaussSphere
         """
-        _libBornAgainCore.FormFactorGauss_swiginit(self, _libBornAgainCore.new_FormFactorGauss(*args))
+        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorGauss self) -> FormFactorGauss
-        FormFactorGauss* FormFactorGauss::clone() const override final
+        clone(FormFactorGaussSphere self) -> FormFactorGaussSphere
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorGauss_clone(self)
+        return _libBornAgainCore.FormFactorGaussSphere_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorGauss self, INodeVisitor visitor)
-        void FormFactorGauss::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorGaussSphere self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorGauss_accept(self, visitor)
+        return _libBornAgainCore.FormFactorGaussSphere_accept(self, visitor)
 
     def getWidth(self):
-        r"""
-        getWidth(FormFactorGauss self) -> double
-        double FormFactorGauss::getWidth() const
-
-        """
-        return _libBornAgainCore.FormFactorGauss_getWidth(self)
+        r"""getWidth(FormFactorGaussSphere self) -> double"""
+        return _libBornAgainCore.FormFactorGaussSphere_getWidth(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorGauss self) -> double
-        double FormFactorGauss::getHeight() const
-
-        """
-        return _libBornAgainCore.FormFactorGauss_getHeight(self)
+        r"""getHeight(FormFactorGaussSphere self) -> double"""
+        return _libBornAgainCore.FormFactorGaussSphere_getHeight(self)
 
     def radialExtension(self):
         r"""
-        radialExtension(FormFactorGauss self) -> double
-        double FormFactorGauss::radialExtension() const override final
+        radialExtension(FormFactorGaussSphere self) -> double
+        virtual double IFormFactor::radialExtension() const =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorGauss_radialExtension(self)
+        return _libBornAgainCore.FormFactorGaussSphere_radialExtension(self)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(FormFactorGauss self, cvector_t q) -> complex_t
-        complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const override final
+        evaluate_for_q(FormFactorGaussSphere self, cvector_t q) -> complex_t
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.FormFactorGauss_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorGauss
+        return _libBornAgainCore.FormFactorGaussSphere_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorGaussSphere
 
-# Register FormFactorGauss in _libBornAgainCore:
-_libBornAgainCore.FormFactorGauss_swigregister(FormFactorGauss)
+# Register FormFactorGaussSphere in _libBornAgainCore:
+_libBornAgainCore.FormFactorGaussSphere_swigregister(FormFactorGaussSphere)
 
-class FormFactorLorentz(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a lorentzian.
-
-    C++ includes: FormFactorLorentz.h
-
-    """
+class FormFactorLorentzSphere(IFormFactorBorn):
+    r"""Proxy of C++ FormFactorLorentzSphere class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         r"""
-        __init__(FormFactorLorentz self, double length) -> FormFactorLorentz
-        __init__(FormFactorLorentz self, double width, double height) -> FormFactorLorentz
-        FormFactorLorentz::FormFactorLorentz(double width, double height)
-
+        __init__(FormFactorLorentzSphere self, double length) -> FormFactorLorentzSphere
+        __init__(FormFactorLorentzSphere self, double width, double height) -> FormFactorLorentzSphere
         """
-        _libBornAgainCore.FormFactorLorentz_swiginit(self, _libBornAgainCore.new_FormFactorLorentz(*args))
+        _libBornAgainCore.FormFactorLorentzSphere_swiginit(self, _libBornAgainCore.new_FormFactorLorentzSphere(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorLorentz self) -> FormFactorLorentz
-        FormFactorLorentz* FormFactorLorentz::clone() const override final
+        clone(FormFactorLorentzSphere self) -> FormFactorLorentzSphere
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorLorentz_clone(self)
+        return _libBornAgainCore.FormFactorLorentzSphere_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorLorentz self, INodeVisitor visitor)
-        void FormFactorLorentz::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorLorentzSphere self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorLorentz_accept(self, visitor)
+        return _libBornAgainCore.FormFactorLorentzSphere_accept(self, visitor)
 
     def getWidth(self):
-        r"""
-        getWidth(FormFactorLorentz self) -> double
-        double FormFactorLorentz::getWidth() const
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_getWidth(self)
+        r"""getWidth(FormFactorLorentzSphere self) -> double"""
+        return _libBornAgainCore.FormFactorLorentzSphere_getWidth(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorLorentz self) -> double
-        double FormFactorLorentz::getHeight() const
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_getHeight(self)
+        r"""getHeight(FormFactorLorentzSphere self) -> double"""
+        return _libBornAgainCore.FormFactorLorentzSphere_getHeight(self)
 
     def radialExtension(self):
         r"""
-        radialExtension(FormFactorLorentz self) -> double
-        double FormFactorLorentz::radialExtension() const override final
+        radialExtension(FormFactorLorentzSphere self) -> double
+        virtual double IFormFactor::radialExtension() const =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLorentz_radialExtension(self)
+        return _libBornAgainCore.FormFactorLorentzSphere_radialExtension(self)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(FormFactorLorentz self, cvector_t q) -> complex_t
-        complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const override final
+        evaluate_for_q(FormFactorLorentzSphere self, cvector_t q) -> complex_t
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.FormFactorLorentz_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLorentz
+        return _libBornAgainCore.FormFactorLorentzSphere_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLorentzSphere
 
-# Register FormFactorLorentz in _libBornAgainCore:
-_libBornAgainCore.FormFactorLorentz_swigregister(FormFactorLorentz)
+# Register FormFactorLorentzSphere in _libBornAgainCore:
+_libBornAgainCore.FormFactorLorentzSphere_swigregister(FormFactorLorentzSphere)
 
 class FormFactorOrnsteinZernike(IFormFactorBorn):
     r"""

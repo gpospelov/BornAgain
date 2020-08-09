@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/SoftParticle/FormFactorGauss.h
-//! @brief     Defines class FormFactorGauss.
+//! @brief     Defines class FormFactorGaussSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,13 +20,16 @@
 //! The form factor of a gaussian.
 //! @ingroup softParticle
 
-class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
+class BA_CORE_API_ FormFactorGaussSphere : public IFormFactorBorn
 {
 public:
-    FormFactorGauss(double length);
-    FormFactorGauss(double width, double height);
+    FormFactorGaussSphere(double length);
+    FormFactorGaussSphere(double width, double height);
 
-    FormFactorGauss* clone() const override final { return new FormFactorGauss(m_width, m_height); }
+    FormFactorGaussSphere* clone() const override final
+    {
+        return new FormFactorGaussSphere(m_width, m_height);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }

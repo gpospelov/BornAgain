@@ -1,6 +1,6 @@
 #include "Core/Binning/ConstKBinAxis.h"
-#include "Core/InputOutput/DataFormatUtils.h"
 #include "Core/Basics/Units.h"
+#include "Core/InputOutput/DataFormatUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 

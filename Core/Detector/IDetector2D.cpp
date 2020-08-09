@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "Core/Detector/IDetector2D.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/DetectorContext.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Detector/SimulationArea.h"
 #include "Core/Mask/InfinitePlane.h"
-#include "Core/Basics/Units.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
 IDetector2D::IDetector2D() = default;

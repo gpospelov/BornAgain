@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/StandardSimulations.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
 #include "Core/Binning/FixedBinAxis.h"
@@ -31,7 +32,6 @@
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Basics/Units.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"

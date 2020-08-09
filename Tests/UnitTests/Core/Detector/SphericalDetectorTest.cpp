@@ -1,5 +1,6 @@
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
@@ -10,7 +11,6 @@
 #include "Core/Intensity/OutputData.h"
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
-#include "Core/Basics/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

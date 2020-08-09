@@ -74,7 +74,8 @@
 
 %{
 #include "BAVersion.h"
-#include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Aggregate/FTDecay1D.h"
+#include "Core/Aggregate/FTDecay2D.h"
 #include "Core/Aggregate/FTDistributions1D.h"
 #include "Core/Aggregate/FTDistributions2D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
@@ -370,10 +371,12 @@
 %include "Core/Particle/ParticleCoreShell.h"
 %include "Core/Particle/ParticleDistribution.h"
 
-%include "Core/Aggregate/FTDecayFunctions.h"
+%include "Core/Aggregate/FTDecay1D.h"
+%include "Core/Aggregate/FTDecay2D.h"
 %include "Core/Aggregate/FTDistributions1D.h"
 %include "Core/Aggregate/FTDistributions2D.h"
-%include "Core/Aggregate/FTDecayFunctions.h"
+%include "Core/Aggregate/FTDecay1D.h"
+%include "Core/Aggregate/FTDecay2D.h"
 %include "Core/Aggregate/IInterferenceFunction.h"
 %include "Core/Aggregate/ILayout.h"
 %include "Core/Aggregate/IPeakShape.h"

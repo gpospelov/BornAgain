@@ -14,12 +14,12 @@
 
 #include "Core/StandardSamples/SlicedParticleBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Basics/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
 #include "Core/Vector/Transform3D.h"

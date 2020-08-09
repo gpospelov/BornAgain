@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/Lattice2DItems.h"
-#include "Core/Lattice/Lattice2D.h"
 #include "Core/Basics/Units.h"
+#include "Core/Lattice/Lattice2D.h"
 
 namespace
 {

@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
+#include "Core/Basics/Units.h"
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Intensity/UnitConverter1D.h"
-#include "Core/Basics/Units.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamItems.h"

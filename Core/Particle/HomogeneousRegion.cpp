@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Particle/HomogeneousRegion.h"
+#include "Core/Basics/Units.h"
 #include "Core/Material/MaterialBySLDImpl.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Material/RefractiveMaterialImpl.h"
-#include "Core/Basics/Units.h"
 #include <functional>
 
 namespace

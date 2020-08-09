@@ -14,10 +14,10 @@
 
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/IDetectorResolution.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Basics/Units.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
 RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)

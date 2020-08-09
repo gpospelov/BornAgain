@@ -14,6 +14,7 @@
 
 #include "Core/StandardSamples/ParticleDistributionsBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorBox.h"
 #include "Core/HardParticle/FormFactorCone.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
@@ -26,7 +27,6 @@
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Basics/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
 

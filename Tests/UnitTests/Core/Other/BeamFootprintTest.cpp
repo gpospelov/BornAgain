@@ -1,7 +1,7 @@
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Basics/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 #include <limits>

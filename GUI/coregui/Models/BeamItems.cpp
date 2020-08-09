@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Models/BeamItems.h"
 #include "Core/Basics/Assert.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/IAxis.h"
-#include "Core/Basics/Units.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamDistributionItem.h"

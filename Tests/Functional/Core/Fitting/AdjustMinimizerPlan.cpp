@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/Core/Fitting/AdjustMinimizerPlan.h"
-#include "Core/Fitting/FitObjective.h"
 #include "Core/Basics/Units.h"
+#include "Core/Fitting/FitObjective.h"
 #include "Fit/Kernel/KernelTypes.h"
 #include "Fit/Kernel/Minimizer.h"
 #include "Fit/Kernel/Parameters.h"

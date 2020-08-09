@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/SoftParticle/FormFactorLorentz.cpp
-//! @brief     Implements class FormFactorLorentz.
+//! @brief     Implements class FormFactorLorentzSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,30 +12,30 @@
 //
 // ************************************************************************** //
 
-#include "Core/SoftParticle/FormFactorLorentz.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h"
+#include "Core/SoftParticle/FormFactorLorentz.h"
 #include "Fit/Tools/RealLimits.h"
 
-FormFactorLorentz::FormFactorLorentz(double width, double height)
+FormFactorLorentzSphere::FormFactorLorentzSphere(double width, double height)
 {
     m_width = width;
     m_height = height;
     initialize();
 }
 
-FormFactorLorentz::FormFactorLorentz(double length) : m_width{length}, m_height{length}
+FormFactorLorentzSphere::FormFactorLorentzSphere(double length) : m_width{length}, m_height{length}
 {
     initialize();
 }
 
-double FormFactorLorentz::radialExtension() const
+double FormFactorLorentzSphere::radialExtension() const
 {
     return m_width / 2.0;
 }
 
-complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
+complex_t FormFactorLorentzSphere::evaluate_for_q(cvector_t q) const
 {
     static const double sigma2 = 4.0 * std::pow(M_PI, 2.0 / 3.0);
     double R = m_width;
@@ -50,14 +50,14 @@ complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
     return result;
 }
 
-void FormFactorLorentz::onChange()
+void FormFactorLorentzSphere::onChange()
 {
     mP_shape.reset(new Box(m_width, m_width, m_height));
 }
 
-void FormFactorLorentz::initialize()
+void FormFactorLorentzSphere::initialize()
 {
-    setName("FormFactorLorentz");
+    setName("FormFactorLorentzSphere");
     registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();

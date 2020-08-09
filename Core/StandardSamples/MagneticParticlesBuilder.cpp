@@ -14,6 +14,7 @@
 
 #include "Core/StandardSamples/MagneticParticlesBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -22,7 +23,6 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Basics/Units.h"
 #include "Core/Particle/Particle.h"
 
 // ----------------------------------------------------------------------------

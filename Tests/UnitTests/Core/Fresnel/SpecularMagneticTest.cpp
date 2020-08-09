@@ -1,3 +1,4 @@
+#include "Core/Basics/Units.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
@@ -5,7 +6,6 @@
 #include "Core/Multilayer/SpecularMagneticOldStrategy.h"
 #include "Core/Multilayer/SpecularScalarTanhStrategy.h"
 #include "Core/Parametrization/SimulationOptions.h"
-#include "Core/Basics/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularMagneticTest : public ::testing::Test

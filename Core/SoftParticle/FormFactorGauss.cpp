@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/SoftParticle/FormFactorGauss.cpp
-//! @brief     Implements class FormFactorGauss.
+//! @brief     Implements class FormFactorGaussSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,26 +12,28 @@
 //
 // ************************************************************************** //
 
-#include "Core/SoftParticle/FormFactorGauss.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h"
+#include "Core/SoftParticle/FormFactorGauss.h"
 #include <limits>
 
-FormFactorGauss::FormFactorGauss(double length) : FormFactorGauss(length, length) {}
+FormFactorGaussSphere::FormFactorGaussSphere(double length) : FormFactorGaussSphere(length, length)
+{
+}
 
-FormFactorGauss::FormFactorGauss(double width, double height)
+FormFactorGaussSphere::FormFactorGaussSphere(double width, double height)
 {
     m_width = width;
     m_height = height;
-    setName("FormFactorGauss");
+    setName("FormFactorGaussSphere");
     registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     m_max_ql = std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);
     onChange();
 }
 
-complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const
+complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const
 {
     complex_t qzHdiv2 = m_height * q.z() / 2.0;
     double qzh = q.z().real() * m_height;
@@ -48,7 +50,7 @@ complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const
            * std::exp(-(qxr * qxr + qyr * qyr + qzh * qzh) / 4.0 / M_PI);
 }
 
-void FormFactorGauss::onChange()
+void FormFactorGaussSphere::onChange()
 {
     mP_shape.reset(new Box(m_width, m_width, m_height));
 }

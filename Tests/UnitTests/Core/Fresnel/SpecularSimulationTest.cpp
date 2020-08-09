@@ -1,6 +1,7 @@
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Basics/Units.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Instrument/AngularSpecScan.h"
@@ -13,7 +14,6 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Basics/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 

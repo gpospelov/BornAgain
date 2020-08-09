@@ -1,5 +1,6 @@
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Basics/Units.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -9,7 +10,6 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Basics/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class DepthProbeSimulationTest : public ::testing::Test

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/SoftParticle/FormFactorLorentz.h
-//! @brief     Defines class FormFactorLorentz.
+//! @brief     Defines class FormFactorLorentzSphere.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,15 +20,15 @@
 //! The form factor of a lorentzian.
 //! @ingroup softParticle
 
-class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
+class BA_CORE_API_ FormFactorLorentzSphere : public IFormFactorBorn
 {
 public:
-    FormFactorLorentz(double length);
-    FormFactorLorentz(double width, double height);
+    FormFactorLorentzSphere(double length);
+    FormFactorLorentzSphere(double width, double height);
 
-    FormFactorLorentz* clone() const override final
+    FormFactorLorentzSphere* clone() const override final
     {
-        return new FormFactorLorentz(m_width, m_height);
+        return new FormFactorLorentzSphere(m_width, m_height);
     }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 

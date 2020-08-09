@@ -14,6 +14,7 @@
 
 #include "Core/Intensity/UnitConverter1D.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
@@ -21,7 +22,6 @@
 #include "Core/Instrument/QSpecScan.h"
 #include "Core/Intensity/AxisNames.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Basics/Units.h"
 
 namespace
 {

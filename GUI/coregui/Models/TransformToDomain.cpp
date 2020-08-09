@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/TransformToDomain.h"
+#include "Core/Basics/Units.h"
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/Basics/Units.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleCoreShell.h"

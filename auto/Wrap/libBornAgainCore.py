@@ -8320,7 +8320,7 @@ class IFormFactorDecorator(IFormFactor):
 # Register IFormFactorDecorator in _libBornAgainCore:
 _libBornAgainCore.IFormFactorDecorator_swigregister(IFormFactorDecorator)
 
-class IRotation(ISample):
+class IRotation(ICloneable, INode):
     r"""
 
 
@@ -8345,7 +8345,6 @@ class IRotation(ISample):
     def createIdentity():
         r"""createIdentity() -> IRotation"""
         return _libBornAgainCore.IRotation_createIdentity()
-    __swig_destroy__ = _libBornAgainCore.delete_IRotation
 
     def clone(self):
         r"""
@@ -8390,6 +8389,7 @@ class IRotation(ISample):
     def zInvariant(self):
         r"""zInvariant(IRotation self) -> bool"""
         return _libBornAgainCore.IRotation_zInvariant(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IRotation
 
 # Register IRotation in _libBornAgainCore:
 _libBornAgainCore.IRotation_swigregister(IRotation)

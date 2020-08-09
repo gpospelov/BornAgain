@@ -15,18 +15,24 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 #define BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 
-#include "Core/Scattering/ISample.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
 #include "Core/Vector/Transform3D.h"
 
 //! Pure virtual interface for rotations.
 //! @ingroup samples
 
-class BA_CORE_API_ IRotation : public ISample
+class BA_CORE_API_ IRotation : public ICloneable, public INode
 {
 public:
     static IRotation* createRotation(const Transform3D& transform);
     static IRotation* createIdentity();
-    virtual ~IRotation() {}
+
+    IRotation() = default;
+    IRotation(const INode* parent, const std::vector<const char*> PName,
+                    const std::vector<const char*> PUnit, const std::vector<double> PMin,
+                    const std::vector<double> PMax, const std::vector<double> PDefault,
+                    std::vector<double> P);
 
     virtual IRotation* clone() const = 0;
 

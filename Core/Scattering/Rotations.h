@@ -38,11 +38,11 @@ public:
 
     //! Returns true if rotation matrix is identity matrix (no rotations)
     virtual bool isIdentity() const;
+
+    bool zInvariant() const;
 };
 
 BA_CORE_API_ IRotation* createProduct(const IRotation& left, const IRotation& right);
-
-bool IsZRotation(const IRotation& rot);
 
 //! The identity rotation, which leaves everything in place.
 

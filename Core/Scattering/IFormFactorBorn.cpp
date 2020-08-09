@@ -52,7 +52,7 @@ double IFormFactorBorn::topZ(const IRotation& rotation) const
 
 bool IFormFactorBorn::canSliceAnalytically(const IRotation& rot) const
 {
-    if (IsZRotation(rot))
+    if (rot.zInvariant())
         return true;
     return false;
 }

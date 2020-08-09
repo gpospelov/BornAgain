@@ -8367,16 +8367,6 @@ class IRotation(ISample):
         """
         return _libBornAgainCore.IRotation_createInverse(self)
 
-    def accept(self, visitor):
-        r"""
-        accept(IRotation self, INodeVisitor visitor)
-        void IRotation::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IRotation_accept(self, visitor)
-
     def getTransform3D(self):
         r"""
         getTransform3D(IRotation self) -> Transform3D
@@ -8396,6 +8386,10 @@ class IRotation(ISample):
 
         """
         return _libBornAgainCore.IRotation_isIdentity(self)
+
+    def zInvariant(self):
+        r"""zInvariant(IRotation self) -> bool"""
+        return _libBornAgainCore.IRotation_zInvariant(self)
 
 # Register IRotation in _libBornAgainCore:
 _libBornAgainCore.IRotation_swigregister(IRotation)
@@ -8418,14 +8412,6 @@ def createProduct(left, right):
 
     """
     return _libBornAgainCore.createProduct(left, right)
-
-def IsZRotation(rot):
-    r"""
-    IsZRotation(IRotation rot) -> bool
-    bool IsZRotation(const IRotation &rot)
-
-    """
-    return _libBornAgainCore.IsZRotation(rot)
 class IdentityRotation(IRotation):
     r"""
 

@@ -50,6 +50,12 @@ bool IRotation::isIdentity() const
     return getTransform3D().isIdentity();
 }
 
+bool IRotation::zInvariant() const
+{
+    return getTransform3D().isZRotation();
+}
+
+
 //! Returns concatenated rotation (first right, then left).
 
 IRotation* createProduct(const IRotation& left, const IRotation& right)
@@ -58,12 +64,6 @@ IRotation* createProduct(const IRotation& left, const IRotation& right)
     Transform3D tr_right = right.getTransform3D();
     IRotation* p_result = IRotation::createRotation(tr_left * tr_right);
     return p_result;
-}
-
-bool IsZRotation(const IRotation& rot)
-{
-    auto transform = rot.getTransform3D();
-    return transform.isZRotation();
 }
 
 // --- IdentityRotation -------------------------------------------------------

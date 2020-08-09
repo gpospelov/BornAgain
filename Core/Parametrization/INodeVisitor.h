@@ -52,11 +52,11 @@ class FormFactorEllipsoidalCylinder;
 class FormFactorFullSphere;
 class FormFactorFullSpheroid;
 class FormFactorGaussSphere;
+class FormFactorHollowSphere;
 class FormFactorHemiEllipsoid;
 class FormFactorIcosahedron;
 class FormFactorLongBoxGauss;
 class FormFactorLongBoxLorentz;
-class FormFactorLorentzSphere;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
@@ -191,10 +191,10 @@ public:
     virtual void visit(const FormFactorFullSpheroid*) {}
     virtual void visit(const FormFactorGaussSphere*) {}
     virtual void visit(const FormFactorHemiEllipsoid*) {}
+    virtual void visit(const FormFactorHollowSphere*) {}
     virtual void visit(const FormFactorIcosahedron*) {}
     virtual void visit(const FormFactorLongBoxGauss*) {}
     virtual void visit(const FormFactorLongBoxLorentz*) {}
-    virtual void visit(const FormFactorLorentzSphere*) {}
     virtual void visit(const FormFactorPrism3*) {}
     virtual void visit(const FormFactorPrism6*) {}
     virtual void visit(const FormFactorPyramid*) {}

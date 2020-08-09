@@ -15,13 +15,8 @@
 #ifndef BORNAGAIN_CORE_INCLUDEINCLUDES_SOFTPARTICLES_H
 #define BORNAGAIN_CORE_INCLUDEINCLUDES_SOFTPARTICLES_H
 
-#include "Core/HardParticle/FormFactorHollowSphere.h"
-#include "Core/SoftParticle/FormFactorDebyeBueche.h"
 #include "Core/SoftParticle/FormFactorGauss.h"
-#include "Core/SoftParticle/FormFactorLorentz.h"
-#include "Core/SoftParticle/FormFactorOrnsteinZernike.h"
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
-#include "Core/includeIncludes/SoftParticles.h"
 
 #endif // BORNAGAIN_CORE_INCLUDEINCLUDES_SOFTPARTICLES_H

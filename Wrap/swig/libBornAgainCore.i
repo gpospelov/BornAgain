@@ -219,10 +219,7 @@
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/Simulation2D.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/SoftParticle/FormFactorDebyeBueche.h"
 #include "Core/SoftParticle/FormFactorGauss.h"
-#include "Core/SoftParticle/FormFactorLorentz.h"
-#include "Core/SoftParticle/FormFactorOrnsteinZernike.h"
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
@@ -442,10 +439,7 @@
 %include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
 %include "Core/HardParticle/Ripples.h"
 
-%include "Core/SoftParticle/FormFactorDebyeBueche.h"
 %include "Core/SoftParticle/FormFactorGauss.h"
-%include "Core/SoftParticle/FormFactorLorentz.h"
-%include "Core/SoftParticle/FormFactorOrnsteinZernike.h"
 %include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 %include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
 

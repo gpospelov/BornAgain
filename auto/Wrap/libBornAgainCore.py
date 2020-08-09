@@ -6288,10 +6288,10 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FormFactorFullSpheroid arg2)
         visit(INodeVisitor self, FormFactorGaussSphere arg2)
         visit(INodeVisitor self, FormFactorHemiEllipsoid arg2)
+        visit(INodeVisitor self, FormFactorHollowSphere arg2)
         visit(INodeVisitor self, FormFactorIcosahedron arg2)
         visit(INodeVisitor self, FormFactorLongBoxGauss arg2)
         visit(INodeVisitor self, FormFactorLongBoxLorentz arg2)
-        visit(INodeVisitor self, FormFactorLorentzSphere arg2)
         visit(INodeVisitor self, FormFactorPrism3 arg2)
         visit(INodeVisitor self, FormFactorPrism6 arg2)
         visit(INodeVisitor self, FormFactorPyramid arg2)
@@ -17682,71 +17682,6 @@ def factor_x_Lorentz(q, l):
 
     """
     return _libBornAgainCore.factor_x_Lorentz(q, l)
-class FormFactorDebyeBueche(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
-
-    C++ includes: FormFactorDebyeBueche.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, I0, xi):
-        r"""
-        __init__(FormFactorDebyeBueche self, double I0, double xi) -> FormFactorDebyeBueche
-        FormFactorDebyeBueche::FormFactorDebyeBueche(double I0, double xi)
-
-        """
-        _libBornAgainCore.FormFactorDebyeBueche_swiginit(self, _libBornAgainCore.new_FormFactorDebyeBueche(I0, xi))
-
-    def clone(self):
-        r"""
-        clone(FormFactorDebyeBueche self) -> FormFactorDebyeBueche
-        FormFactorDebyeBueche* FormFactorDebyeBueche::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorDebyeBueche self, INodeVisitor visitor)
-        void FormFactorDebyeBueche::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_accept(self, visitor)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorDebyeBueche self) -> double
-        double FormFactorDebyeBueche::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorDebyeBueche self, cvector_t q) -> complex_t
-        complex_t FormFactorDebyeBueche::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDebyeBueche
-
-# Register FormFactorDebyeBueche in _libBornAgainCore:
-_libBornAgainCore.FormFactorDebyeBueche_swigregister(FormFactorDebyeBueche)
-
 class FormFactorGaussSphere(IFormFactorBorn):
     r"""Proxy of C++ FormFactorGaussSphere class."""
 
@@ -17804,136 +17739,6 @@ class FormFactorGaussSphere(IFormFactorBorn):
 
 # Register FormFactorGaussSphere in _libBornAgainCore:
 _libBornAgainCore.FormFactorGaussSphere_swigregister(FormFactorGaussSphere)
-
-class FormFactorLorentzSphere(IFormFactorBorn):
-    r"""Proxy of C++ FormFactorLorentzSphere class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(FormFactorLorentzSphere self, double length) -> FormFactorLorentzSphere
-        __init__(FormFactorLorentzSphere self, double width, double height) -> FormFactorLorentzSphere
-        """
-        _libBornAgainCore.FormFactorLorentzSphere_swiginit(self, _libBornAgainCore.new_FormFactorLorentzSphere(*args))
-
-    def clone(self):
-        r"""
-        clone(FormFactorLorentzSphere self) -> FormFactorLorentzSphere
-        IFormFactorBorn* IFormFactorBorn::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorLorentzSphere_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorLorentzSphere self, INodeVisitor visitor)
-        virtual void INode::accept(INodeVisitor *visitor) const =0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorLorentzSphere_accept(self, visitor)
-
-    def getWidth(self):
-        r"""getWidth(FormFactorLorentzSphere self) -> double"""
-        return _libBornAgainCore.FormFactorLorentzSphere_getWidth(self)
-
-    def getHeight(self):
-        r"""getHeight(FormFactorLorentzSphere self) -> double"""
-        return _libBornAgainCore.FormFactorLorentzSphere_getHeight(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorLorentzSphere self) -> double
-        virtual double IFormFactor::radialExtension() const =0
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorLorentzSphere_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorLorentzSphere self, cvector_t q) -> complex_t
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorLorentzSphere_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLorentzSphere
-
-# Register FormFactorLorentzSphere in _libBornAgainCore:
-_libBornAgainCore.FormFactorLorentzSphere_swigregister(FormFactorLorentzSphere)
-
-class FormFactorOrnsteinZernike(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
-
-    C++ includes: FormFactorOrnsteinZernike.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, I0, xi_xy, xi_z):
-        r"""
-        __init__(FormFactorOrnsteinZernike self, double I0, double xi_xy, double xi_z) -> FormFactorOrnsteinZernike
-        FormFactorOrnsteinZernike::FormFactorOrnsteinZernike(double I0, double xi_xy, double xi_z)
-
-        """
-        _libBornAgainCore.FormFactorOrnsteinZernike_swiginit(self, _libBornAgainCore.new_FormFactorOrnsteinZernike(I0, xi_xy, xi_z))
-
-    def clone(self):
-        r"""
-        clone(FormFactorOrnsteinZernike self) -> FormFactorOrnsteinZernike
-        FormFactorOrnsteinZernike* FormFactorOrnsteinZernike::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorOrnsteinZernike self, INodeVisitor visitor)
-        void FormFactorOrnsteinZernike::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_accept(self, visitor)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorOrnsteinZernike self) -> double
-        double FormFactorOrnsteinZernike::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorOrnsteinZernike self, cvector_t q) -> complex_t
-        complex_t FormFactorOrnsteinZernike::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorOrnsteinZernike
-
-# Register FormFactorOrnsteinZernike in _libBornAgainCore:
-_libBornAgainCore.FormFactorOrnsteinZernike_swigregister(FormFactorOrnsteinZernike)
 
 class FormFactorSphereGaussianRadius(IFormFactorBorn):
     r"""

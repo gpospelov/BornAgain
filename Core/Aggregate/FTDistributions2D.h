@@ -28,10 +28,7 @@ class BA_CORE_API_ IFTDistribution2D : public ICloneable, public INode
 {
 public:
     IFTDistribution2D(double omega_x, double omega_y, double gamma);
-    IFTDistribution2D(const INode* parent, const std::vector<const char*>& PName,
-                      const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
-                      const std::vector<double>& PMax, const std::vector<double>& PDefault,
-                      const std::vector<double>& P);
+    IFTDistribution2D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     IFTDistribution2D* clone() const = 0;
 

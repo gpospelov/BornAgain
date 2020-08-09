@@ -26,10 +26,7 @@ class BA_CORE_API_ IFTDecayFunction2D : public ICloneable, public INode
 {
 public:
     IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma);
-    IFTDecayFunction2D(const INode* parent, const std::vector<const char*>& PName,
-                       const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
-                       const std::vector<double>& PMax, const std::vector<double>& PDefault,
-                       const std::vector<double>& P);
+    IFTDecayFunction2D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IFTDecayFunction2D* clone() const = 0;
 

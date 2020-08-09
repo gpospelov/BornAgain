@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/INode.h"
+#include "Core/Basics/Algorithms.h"
 #include "Core/Basics/Assert.h"
 #include "Core/Parametrization/IterationStrategy.h"
 #include "Core/Parametrization/NodeIterator.h"
@@ -22,37 +23,30 @@
 #include <algorithm>
 #include <exception>
 
-INode::INode(const INode* parent, const std::vector<const char*>& PName,
-             const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
-             const std::vector<double>& PMax, const std::vector<double>& PDefault,
-             const std::vector<double>& P)
-    : m_parent(parent), m_NP(PName.size())
+NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other)
 {
-    ASSERT(PUnit.size() == m_NP);
-    ASSERT(PMin.size() <= m_NP);
-    ASSERT(PMax.size() <= m_NP);
-    ASSERT(PDefault.size() <= m_NP);
-    if (P.size() > m_NP)
-        throw std::runtime_error("Too many parameter values supplied to node constructor");
-    if (P.size() < m_NP && PDefault.size() < m_NP)
-        throw std::runtime_error("Not enough parameter values supplied to node constructor");
+    return {other.parent, other.className, other.tooltip, algo::concat(base, other.paraMeta)};
+}
+
+INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
+    : m_parent(meta.parent), /*m_tooltip(meta.tooltip),*/
+      m_NP(meta.paraMeta.size())
+{
     m_P.resize(m_NP);
-
+    setName(meta.className);
     for (size_t i = 0; i < m_NP; ++i) {
-        m_P[i] = i < P.size() ? P[i] : PDefault[i];
-
-        auto& reg = registerParameter(PName[i], &m_P[i]);
-        reg.setUnit(PUnit[i]);
-        const double pmi = i < PMin.size() ? PMin[i] : -INF;
-        const double pma = i < PMax.size() ? PMax[i] : +INF;
-        if (pmi == -INF) {
-            ASSERT(pma == +INF);
+        m_P[i] = PValues[i];
+        const ParaMeta& pm = meta.paraMeta[i];
+        auto& reg = registerParameter(pm.name, &m_P[i]);
+        reg.setUnit(pm.unit);
+        if (pm.vMin == -INF) {
+            ASSERT(pm.vMax == +INF);
             // nothing to do
-        } else if (pma == +INF) {
-            ASSERT(pmi == 0);
+        } else if (pm.vMax == +INF) {
+            ASSERT(pm.vMin == 0);
             reg.setNonnegative();
         } else {
-            reg.setLimited(pmi, pma);
+            reg.setLimited(pm.vMin, pm.vMax);
         }
     }
 }

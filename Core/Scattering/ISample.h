@@ -28,10 +28,7 @@ class BA_CORE_API_ ISample : public ICloneable, public INode
 {
 public:
     ISample() = default;
-    ISample(const INode* parent, const std::vector<const char*>& PName,
-            const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
-            const std::vector<double>& PMax, const std::vector<double>& PDefault,
-            const std::vector<double>& P);
+    ISample(const NodeMeta& meta, const std::vector<double>& PValues);
 
     //! Returns a clone of this ISample object.
     ISample* clone() const override = 0;

@@ -14,13 +14,8 @@
 
 #include "Core/Detector/IResolutionFunction2D.h"
 
-IResolutionFunction2D::IResolutionFunction2D(const INode* parent,
-                                             const std::vector<const char*>& PName,
-                                             const std::vector<const char*>& PUnit,
-                                             const std::vector<double>& PMin,
-                                             const std::vector<double>& PMax,
-                                             const std::vector<double>& PDefault,
-                                             const std::vector<double>& P)
-    : INode{parent, PName, PUnit, PMin, PMax, PDefault, P}
+IResolutionFunction2D::IResolutionFunction2D(const NodeMeta& meta,
+                                             const std::vector<double>& PValues)
+    : INode(meta, PValues)
 {
 }

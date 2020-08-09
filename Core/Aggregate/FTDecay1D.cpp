@@ -13,28 +13,24 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/FTDecay1D.h"
-#include "Core/Basics/Algorithms.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 #include <algorithm>
 
-using algo::concat;
-
 IFTDecayFunction1D::IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length)
 {
     registerParameter("DecayLength", &m_decay_length);
 }
 
-IFTDecayFunction1D::IFTDecayFunction1D(const INode* parent, const std::vector<const char*>& PName,
-                                       const std::vector<const char*>& PUnit,
-                                       const std::vector<double>& PMin,
-                                       const std::vector<double>& PMax,
-                                       const std::vector<double>& /*PDefault*/,
-                                       const std::vector<double>& P)
-    : INode(parent, concat({"DecayLength"}, PName), concat({"nm"}, PUnit), concat({0}, PMin),
-            concat({INF}, PMax), {}, P)
+IFTDecayFunction1D::IFTDecayFunction1D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(nodeMetaUnion(
+                {
+                    {"DecayLength", "nm", "Half-width", 0, INF, 1.},
+                },
+                meta),
+            PValues)
 {
 }
 

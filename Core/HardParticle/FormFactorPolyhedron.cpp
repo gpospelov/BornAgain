@@ -420,14 +420,8 @@ void FormFactorPolyhedron::setLimits(double _q, int _n)
 }
 #endif
 
-FormFactorPolyhedron::FormFactorPolyhedron(const INode* parent,
-                                           const std::vector<const char*>& PName,
-                                           const std::vector<const char*>& PUnit,
-                                           const std::vector<double>& PMin,
-                                           const std::vector<double>& PMax,
-                                           const std::vector<double>& PDefault,
-                                           const std::vector<double>& P)
-    : IFormFactorBorn{parent, PName, PUnit, PMin, PMax, PDefault, P}
+FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues)
+    : IFormFactorBorn(meta, PValues)
 {
 }
 
@@ -611,14 +605,9 @@ void FormFactorPolyhedron::assert_platonic() const
 //  FormFactorPolygonalPrism implementation
 //**************************************************************************************************
 
-FormFactorPolygonalPrism::FormFactorPolygonalPrism(const INode* parent,
-                                                   const std::vector<const char*>& PName,
-                                                   const std::vector<const char*>& PUnit,
-                                                   const std::vector<double>& PMin,
-                                                   const std::vector<double>& PMax,
-                                                   const std::vector<double>& PDefault,
-                                                   const std::vector<double>& P)
-    : IFormFactorBorn{parent, PName, PUnit, PMin, PMax, PDefault, P}
+FormFactorPolygonalPrism::FormFactorPolygonalPrism(const NodeMeta& meta,
+                                                   const std::vector<double>& PValues)
+    : IFormFactorBorn(meta, PValues)
 {
 }
 
@@ -687,14 +676,9 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const
 //  FormFactorPolygonalSurface implementation
 //**************************************************************************************************
 
-FormFactorPolygonalSurface::FormFactorPolygonalSurface(const INode* parent,
-                                                       const std::vector<const char*>& PName,
-                                                       const std::vector<const char*>& PUnit,
-                                                       const std::vector<double>& PMin,
-                                                       const std::vector<double>& PMax,
-                                                       const std::vector<double>& PDefault,
-                                                       const std::vector<double>& P)
-    : IFormFactorBorn{parent, PName, PUnit, PMin, PMax, PDefault, P}
+FormFactorPolygonalSurface::FormFactorPolygonalSurface(const NodeMeta& meta,
+                                                       const std::vector<double>& PValues)
+    : IFormFactorBorn(meta, PValues)
 {
 }
 

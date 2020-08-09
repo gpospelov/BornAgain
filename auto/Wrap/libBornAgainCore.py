@@ -6106,6 +6106,49 @@ def IParameterized_ZComponentName(base_name):
     r"""IParameterized_ZComponentName(std::string const & base_name) -> std::string"""
     return _libBornAgainCore.IParameterized_ZComponentName(base_name)
 
+class ParaMeta(object):
+    r"""Proxy of C++ ParaMeta class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    name = property(_libBornAgainCore.ParaMeta_name_get, _libBornAgainCore.ParaMeta_name_set, doc=r"""name : std::string""")
+    unit = property(_libBornAgainCore.ParaMeta_unit_get, _libBornAgainCore.ParaMeta_unit_set, doc=r"""unit : std::string""")
+    tooltip = property(_libBornAgainCore.ParaMeta_tooltip_get, _libBornAgainCore.ParaMeta_tooltip_set, doc=r"""tooltip : std::string""")
+    vMin = property(_libBornAgainCore.ParaMeta_vMin_get, _libBornAgainCore.ParaMeta_vMin_set, doc=r"""vMin : double""")
+    vMax = property(_libBornAgainCore.ParaMeta_vMax_get, _libBornAgainCore.ParaMeta_vMax_set, doc=r"""vMax : double""")
+    vDefault = property(_libBornAgainCore.ParaMeta_vDefault_get, _libBornAgainCore.ParaMeta_vDefault_set, doc=r"""vDefault : double""")
+
+    def __init__(self):
+        r"""__init__(ParaMeta self) -> ParaMeta"""
+        _libBornAgainCore.ParaMeta_swiginit(self, _libBornAgainCore.new_ParaMeta())
+    __swig_destroy__ = _libBornAgainCore.delete_ParaMeta
+
+# Register ParaMeta in _libBornAgainCore:
+_libBornAgainCore.ParaMeta_swigregister(ParaMeta)
+INF = cvar.INF
+
+class NodeMeta(object):
+    r"""Proxy of C++ NodeMeta class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    parent = property(_libBornAgainCore.NodeMeta_parent_get, _libBornAgainCore.NodeMeta_parent_set, doc=r"""parent : p.INode""")
+    className = property(_libBornAgainCore.NodeMeta_className_get, _libBornAgainCore.NodeMeta_className_set, doc=r"""className : std::string""")
+    tooltip = property(_libBornAgainCore.NodeMeta_tooltip_get, _libBornAgainCore.NodeMeta_tooltip_set, doc=r"""tooltip : std::string""")
+    paraMeta = property(_libBornAgainCore.NodeMeta_paraMeta_get, _libBornAgainCore.NodeMeta_paraMeta_set, doc=r"""paraMeta : std::vector<(ParaMeta,std::allocator<(ParaMeta)>)>""")
+
+    def __init__(self):
+        r"""__init__(NodeMeta self) -> NodeMeta"""
+        _libBornAgainCore.NodeMeta_swiginit(self, _libBornAgainCore.new_NodeMeta())
+    __swig_destroy__ = _libBornAgainCore.delete_NodeMeta
+
+# Register NodeMeta in _libBornAgainCore:
+_libBornAgainCore.NodeMeta_swigregister(NodeMeta)
+
+
+def nodeMetaUnion(base, other):
+    r"""nodeMetaUnion(std::vector< ParaMeta,std::allocator< ParaMeta > > const & base, NodeMeta other) -> NodeMeta"""
+    return _libBornAgainCore.nodeMetaUnion(base, other)
 class INode(IParameterized):
     r"""
 
@@ -6122,7 +6165,7 @@ class INode(IParameterized):
     def __init__(self, *args):
         r"""
         __init__(INode self) -> INode
-        __init__(INode self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> INode
+        __init__(INode self, NodeMeta meta, vdouble1d_t PValues) -> INode
         INode::INode(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
@@ -6224,7 +6267,6 @@ class INode(IParameterized):
 
 # Register INode in _libBornAgainCore:
 _libBornAgainCore.INode_swigregister(INode)
-INF = cvar.INF
 
 class INodeVisitor(object):
     r"""
@@ -7912,7 +7954,7 @@ class ISample(ICloneable, INode):
     def __init__(self, *args):
         r"""
         __init__(ISample self) -> ISample
-        __init__(ISample self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> ISample
+        __init__(ISample self, NodeMeta meta, vdouble1d_t PValues) -> ISample
         ISample::ISample(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
@@ -7980,7 +8022,7 @@ class IFormFactor(ISample):
     def __init__(self, *args):
         r"""
         __init__(IFormFactor self) -> IFormFactor
-        __init__(IFormFactor self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactor
+        __init__(IFormFactor self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactor
         IFormFactor::IFormFactor(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
@@ -8112,7 +8154,7 @@ class IFormFactorBorn(IFormFactor):
     def __init__(self, *args):
         r"""
         __init__(IFormFactorBorn self) -> IFormFactorBorn
-        __init__(IFormFactorBorn self, INode parent, std::vector< char const *,std::allocator< char const * > > const & PName, std::vector< char const *,std::allocator< char const * > > const & PUnit, vdouble1d_t PMin, vdouble1d_t PMax, vdouble1d_t PDefault, vdouble1d_t P) -> IFormFactorBorn
+        __init__(IFormFactorBorn self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactorBorn
         IFormFactorBorn::IFormFactorBorn(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """

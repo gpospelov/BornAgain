@@ -13,14 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/FTDecay2D.h"
-#include "Core/Basics/Algorithms.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 #include <algorithm>
-
-using algo::concat;
 
 //! Constructor of two-dimensional decay function in reciprocal space.
 //! @param decay_length_x: the decay length in nanometers along x-axis of the distribution
@@ -35,15 +32,13 @@ IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_lengt
     registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
 }
 
-IFTDecayFunction2D::IFTDecayFunction2D(const INode* parent, const std::vector<const char*>& PName,
-                                       const std::vector<const char*>& PUnit,
-                                       const std::vector<double>& PMin,
-                                       const std::vector<double>& PMax,
-                                       const std::vector<double>& /*PDefault*/,
-                                       const std::vector<double>& P)
-    : INode(parent, concat({"DecayLengthX", "DecayLengthY", "Gamma"}, PName),
-            concat({"nm", "nm", "rad"}, PUnit), concat({0, 0, -M_PI_2}, PMin),
-            concat({INF, INF, +M_PI_2}, PMax), {}, P)
+IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(nodeMetaUnion({{"DecayLengthX", "nm", "Half-width along x axis", 0, INF, 1.},
+                           {"DecayLengthY", "nm", "Half-width along y axis", 0, INF, 1.},
+                           {"Gamma", "rad", "orientation with respect to the first lattice vector",
+                            -M_PI_2, +M_PI_2, 0}},
+                          meta),
+            PValues)
 {
 }
 

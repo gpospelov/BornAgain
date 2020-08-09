@@ -36,14 +36,14 @@ IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamm
     registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
 }
 
-IFTDistribution2D::IFTDistribution2D(const INode* parent, const std::vector<const char*>& PName,
-                                     const std::vector<const char*>& PUnit,
-                                     const std::vector<double>& PMin,
-                                     const std::vector<double>& PMax,
-                                     const std::vector<double>& /*PDefault*/,
-                                     const std::vector<double>& P)
-    : INode(parent, concat({"DecayLength"}, PName), concat({"nm"}, PUnit), concat({0}, PMin),
-            concat({INF}, PMax), {}, P)
+IFTDistribution2D::IFTDistribution2D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(nodeMetaUnion({{"OmegaX", "nm", "Half-width along x axis", 0, INF, 1.},
+                           {"OmegaY", "nm", "Half-width along y axis", 0, INF, 1.},
+                           {"Gamma", "rad",
+                            "direct-space orientation with respect to the first lattice vector",
+                            -M_PI_2, +M_PI_2, 0}},
+                          meta),
+            PValues)
 {
 }
 

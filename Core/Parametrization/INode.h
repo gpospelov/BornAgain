@@ -23,6 +23,26 @@
 
 const double INF = std::numeric_limits<double>::infinity();
 
+//! Metadata of one model parameter.
+struct BA_CORE_API_ ParaMeta {
+    std::string name;
+    std::string unit;
+    std::string tooltip;
+    double vMin;
+    double vMax;
+    double vDefault;
+};
+
+//! Metadata of one model node.
+struct BA_CORE_API_ NodeMeta {
+    INode* parent;
+    std::string className;
+    std::string tooltip;
+    std::vector<ParaMeta> paraMeta;
+};
+
+NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other);
+
 //! Base class for tree-like structures containing parameterized objects.
 //! @ingroup tools_internal
 
@@ -30,10 +50,7 @@ class BA_CORE_API_ INode : public IParameterized
 {
 public:
     INode() : m_parent{nullptr}, m_NP{0} {}
-    INode(const INode* parent, const std::vector<const char*>& PName,
-          const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
-          const std::vector<double>& PMax, const std::vector<double>& PDefault,
-          const std::vector<double>& P);
+    INode(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual ~INode() {}
 
@@ -63,6 +80,8 @@ public:
 
 private:
     const INode* m_parent;
+    // const std::string m_className;
+    // const std::string m_tooltip;
 
 protected:
     const size_t m_NP;

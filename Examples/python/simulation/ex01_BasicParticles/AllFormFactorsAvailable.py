@@ -31,7 +31,7 @@ formfactors = [
     ba.FormFactorRipple2Box(36.0, 25.0, 14.0, 3.0),
     ba.FormFactorTetrahedron(15.0, 6.0, 60.0*deg),
     ba.FormFactorTruncatedCube(15.0, 6.0),
-    ba.FormFactorTruncatedSphere(5.0, 7.0),
+    ba.FormFactorTruncatedSphere(5.0, 7.0, 0),
     ba.FormFactorTruncatedSpheroid(7.5, 9.0, 1.2),
 ]
 

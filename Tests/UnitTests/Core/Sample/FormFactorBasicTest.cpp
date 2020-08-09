@@ -382,7 +382,7 @@ TEST_F(FormFactorBasicTest, TruncatedSphere)
     double volume = M_PI / 3. * radius * radius * radius
                     * (3. * HdivR - 1. - (HdivR - 1.) * (HdivR - 1.) * (HdivR - 1.));
 
-    FormFactorTruncatedSphere particle(radius, height);
+    FormFactorTruncatedSphere particle(radius, height, 0);
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));

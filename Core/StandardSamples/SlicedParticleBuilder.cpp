@@ -38,9 +38,9 @@ MultiLayer* SlicedCompositionBuilder::buildSample() const
     const double composition_shift = bottom_cup_height;
 
     Particle topCup(topCupMaterial, FormFactorTruncatedSphere(
-                                        sphere_radius, sphere_radius * 2 - bottom_cup_height));
+                        sphere_radius, sphere_radius * 2 - bottom_cup_height, 0));
     Particle bottomCup(bottomCupMaterial,
-                       FormFactorTruncatedSphere(sphere_radius, bottom_cup_height));
+                       FormFactorTruncatedSphere(sphere_radius, bottom_cup_height, 0));
     bottomCup.setRotation(RotationX(180 * Units::deg));
 
     ParticleComposition composition;

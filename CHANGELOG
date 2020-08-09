@@ -5,7 +5,7 @@ BornAgain-1.17.99, work in progress
     3) FormFactorGaussSphere is now a sphere, not an ellipsoid
     4) Withdraw three unused, undocumented, incomplete soft-particle form factors
        (Lorentz, Debye-Bueche, Ornstein-Zernike)
-    5) Withdraw default gamma=0 from 2D decay and distribution functions
+    5) Removed default argument values from node constructors
     6) Swap order of arguments gamma and eta in 2D decay and distribution Voigt functions
   > Changes in build configuration:
     1) Python2 no longer supported

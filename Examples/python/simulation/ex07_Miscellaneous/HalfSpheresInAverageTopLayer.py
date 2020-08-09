@@ -20,7 +20,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 3e-5, 2e-8)
 
     # cylindrical particle
-    half_sphere_ff = ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius)
+    half_sphere_ff = ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius, 0)
     half_sphere = ba.Particle(m_particle, half_sphere_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(half_sphere)

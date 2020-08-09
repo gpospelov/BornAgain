@@ -74,7 +74,7 @@ FormFactorComponents::FormFactorComponents()
 
     add("TruncatedCube", new FormFactorTruncatedCube(15.0, 6.0));
 
-    add("TruncatedSphere", new FormFactorTruncatedSphere(5.0, 7.0));
+    add("TruncatedSphere", new FormFactorTruncatedSphere(5.0, 7.0, 0));
 
     add("TruncatedSpheroid", new FormFactorTruncatedSpheroid(5.0, 7.0, 1.0));
 }

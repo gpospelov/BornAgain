@@ -166,7 +166,7 @@ TEST_F(TestGUICoreObjectCorrespondence, test_TruncatedCube)
 TEST_F(TestGUICoreObjectCorrespondence, test_TruncatedSphere)
 {
     TruncatedSphereItem gui_truncsphere;
-    FormFactorTruncatedSphere core_truncsphere(1.0, 0.5);
+    FormFactorTruncatedSphere core_truncsphere(1.0, 0.5, 0);
     GUICoreObjectCorrespondence(gui_truncsphere, core_truncsphere);
 }
 

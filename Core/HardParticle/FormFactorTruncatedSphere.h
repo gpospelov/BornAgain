@@ -24,7 +24,7 @@
 class BA_CORE_API_ FormFactorTruncatedSphere : public IFormFactorBorn
 {
 public:
-    FormFactorTruncatedSphere(double radius, double height, double dh = 0.0);
+    FormFactorTruncatedSphere(double radius, double height, double dh);
 
     FormFactorTruncatedSphere* clone() const override final
     {

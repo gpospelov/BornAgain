@@ -31,9 +31,9 @@ public:
     //! @param decay_length: half-width of the distribution in nanometers
     IFTDecayFunction1D(double decay_length);
     IFTDecayFunction1D(const INode* parent, const std::vector<const char*>& PName,
-                    const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
-                    const std::vector<double>& PMax, const std::vector<double>& PDefault,
-                   const std::vector<double>& P);
+                       const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
+                       const std::vector<double>& PMax, const std::vector<double>& PDefault,
+                       const std::vector<double>& P);
 
     virtual IFTDecayFunction1D* clone() const = 0;
     virtual double evaluate(double q) const = 0;

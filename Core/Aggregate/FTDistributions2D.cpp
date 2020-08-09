@@ -13,12 +13,15 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Basics/Algorithms.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
+
+using algo::concat;
 
 //! Constructor of two-dimensional probability distribution.
 //! @param omega_x: half-width of the distribution along its x-axis in nanometers
@@ -31,6 +34,17 @@ IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamm
     registerParameter("OmegaX", &m_omega_x).setUnit("nm").setNonnegative();
     registerParameter("OmegaY", &m_omega_y).setUnit("nm").setNonnegative();
     registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+}
+
+IFTDistribution2D::IFTDistribution2D(const INode* parent, const std::vector<const char*>& PName,
+                                     const std::vector<const char*>& PUnit,
+                                     const std::vector<double>& PMin,
+                                     const std::vector<double>& PMax,
+                                     const std::vector<double>& /*PDefault*/,
+                                     const std::vector<double>& P)
+    : INode(parent, concat({"DecayLength"}, PName), concat({"nm"}, PUnit), concat({0}, PMin),
+            concat({INF}, PMax), {}, P)
+{
 }
 
 double IFTDistribution2D::sumsq(double qx, double qy) const

@@ -28,8 +28,11 @@ class BA_CORE_API_ IFTDistribution1D : public ICloneable, public INode
 public:
     //! Constructor of one-dimensional probability distribution.
     //! @param omega: half-width of the distribution in nanometers
-    IFTDistribution1D(double omega) : m_omega(omega) {}
-    virtual ~IFTDistribution1D();
+    IFTDistribution1D(double omega);
+    IFTDistribution1D(const INode* parent, const std::vector<const char*>& PName,
+                      const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
+                      const std::vector<double>& PMax, const std::vector<double>& PDefault,
+                      const std::vector<double>& P);
 
     virtual IFTDistribution1D* clone() const = 0;
 
@@ -48,7 +51,6 @@ public:
 #endif
 
 protected:
-    void init_parameters();
     double m_omega;
 };
 

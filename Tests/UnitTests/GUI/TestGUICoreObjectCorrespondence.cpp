@@ -173,7 +173,7 @@ TEST_F(TestGUICoreObjectCorrespondence, test_TruncatedSphere)
 TEST_F(TestGUICoreObjectCorrespondence, test_TruncatedSpheroid)
 {
     TruncatedSpheroidItem gui_truncspheroid;
-    FormFactorTruncatedSpheroid core_truncspheroid(1.0, 1.5, 1.5);
+    FormFactorTruncatedSpheroid core_truncspheroid(1.0, 1.5, 1.5, 0);
     GUICoreObjectCorrespondence(gui_truncspheroid, core_truncspheroid);
 }
 

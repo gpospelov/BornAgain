@@ -399,7 +399,7 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
     double volume =
         M_PI * radius * height * height / flattening * (1. - height / (3. * flattening * radius));
 
-    FormFactorTruncatedSpheroid particle(radius, height, flattening);
+    FormFactorTruncatedSpheroid particle(radius, height, flattening, 0);
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());

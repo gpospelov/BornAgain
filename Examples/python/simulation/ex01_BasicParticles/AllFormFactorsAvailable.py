@@ -32,7 +32,7 @@ formfactors = [
     ba.FormFactorTetrahedron(15.0, 6.0, 60.0*deg),
     ba.FormFactorTruncatedCube(15.0, 6.0),
     ba.FormFactorTruncatedSphere(5.0, 7.0, 0),
-    ba.FormFactorTruncatedSpheroid(7.5, 9.0, 1.2),
+    ba.FormFactorTruncatedSpheroid(7.5, 9.0, 1.2, 0),
 ]
 
 

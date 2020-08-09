@@ -12,14 +12,13 @@
 //
 // ************************************************************************** //
 
+#include "Core/SoftParticle/FormFactorGauss.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h"
-#include "Core/SoftParticle/FormFactorGauss.h"
 #include <limits>
 
-FormFactorGaussSphere::FormFactorGaussSphere(double mean_radius)
-    : m_mean_radius(mean_radius)
+FormFactorGaussSphere::FormFactorGaussSphere(double mean_radius) : m_mean_radius(mean_radius)
 {
     setName("FormFactorGaussSphere");
     registerParameter("MeanRadius", &m_mean_radius).setUnit("nm").setNonnegative();
@@ -28,8 +27,7 @@ FormFactorGaussSphere::FormFactorGaussSphere(double mean_radius)
 
 complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const
 {
-    const double max_ql =
-        std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);
+    const double max_ql = std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);
 
     double qzh = q.z().real() * m_mean_radius;
     if (std::abs(qzh) > max_ql)

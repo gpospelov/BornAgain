@@ -75,9 +75,8 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
                                                    kvector_t translation) const
 {
     kvector_t center(0.0, 0.0, m_radius);
-    kvector_t rotation_offset = m_position_at_center
-                                    ? kvector_t(0.0, 0.0, 0.0)
-                                    : rot.transformed(center) - center;
+    kvector_t rotation_offset =
+        m_position_at_center ? kvector_t(0.0, 0.0, 0.0) : rot.transformed(center) - center;
     kvector_t new_translation = translation + rotation_offset;
     std::unique_ptr<IRotation> P_identity(IRotation::createIdentity());
     double height = 2.0 * m_radius;

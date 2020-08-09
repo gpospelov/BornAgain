@@ -1,6 +1,6 @@
 #include "Core/Scattering/Rotations.h"
-#include "Tests/GTestWrapper/google_test.h"
 #include "Core/Vector/Transform3D.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 #include <memory>
 

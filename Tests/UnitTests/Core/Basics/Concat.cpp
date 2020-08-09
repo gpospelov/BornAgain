@@ -21,15 +21,18 @@ TEST_F(ConcatTest, SimpleType)
 
 TEST_F(ConcatTest, Struct)
 {
-    struct S { std::string nam; double val;
-        bool operator==(const S& o) const { return nam==o.nam && val==o.val;} };
+    struct S {
+        std::string nam;
+        double val;
+        bool operator==(const S& o) const { return nam == o.nam && val == o.val; }
+    };
     using V = std::vector<S>;
     V A{{"a", 11.}};
     V B{{"b", 2.}, {"c", .3}};
     V N;
 
-    EXPECT_EQ(algo::concat(A, B), (V{{"a", 11.},{"b", 2.}, {"c", .3}}));
-    EXPECT_EQ(algo::concat(A, A), (V{{"a", 11.},{"a", 11.}}));
+    EXPECT_EQ(algo::concat(A, B), (V{{"a", 11.}, {"b", 2.}, {"c", .3}}));
+    EXPECT_EQ(algo::concat(A, A), (V{{"a", 11.}, {"a", 11.}}));
     EXPECT_EQ(algo::concat(A, N), A);
     EXPECT_EQ(algo::concat(N, B), B);
 }

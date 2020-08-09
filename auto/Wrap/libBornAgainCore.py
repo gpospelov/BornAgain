@@ -17547,9 +17547,9 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, height_flattening, dh=0.0):
+    def __init__(self, radius, height, height_flattening, dh):
         r"""
-        __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh=0.0) -> FormFactorTruncatedSpheroid
+        __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh) -> FormFactorTruncatedSpheroid
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
 
         Constructor of a spheroidal dome.

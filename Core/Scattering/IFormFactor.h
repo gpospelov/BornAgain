@@ -44,7 +44,7 @@ public:
     IFormFactor(const INode* parent, const std::vector<const char*>& PName,
                 const std::vector<const char*>& PUnit, const std::vector<double>& PMin,
                 const std::vector<double>& PMax, const std::vector<double>& PDefault,
-               const std::vector<double>& P);
+                const std::vector<double>& P);
 
     ~IFormFactor() = default;
     IFormFactor* clone() const override = 0;

@@ -25,8 +25,7 @@
 class BA_CORE_API_ FormFactorTruncatedSpheroid : public IFormFactorBorn
 {
 public:
-    FormFactorTruncatedSpheroid(double radius, double height, double height_flattening,
-                                double dh = 0.0);
+    FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh);
 
     FormFactorTruncatedSpheroid* clone() const override final
     {

@@ -33,8 +33,6 @@ public:
     //! Returns a new IRotation object that is the current object's inverse
     virtual IRotation* createInverse() const = 0;
 
-    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
-
     //! Returns transformation.
     virtual Transform3D getTransform3D() const = 0;
 

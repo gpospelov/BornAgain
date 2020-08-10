@@ -29,7 +29,7 @@ using algo::concat;
 //! @param gamma: angle in direct space between first lattice vector and x-axis of the distribution
 
 IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma)
-    : m_omega_x(omega_x), m_omega_y(omega_y), m_gamma(gamma), m_delta(M_PI_2)
+    : m_omega_x(omega_x), m_omega_y(omega_y), m_gamma(gamma)
 {
     registerParameter("OmegaX", &m_omega_x).setUnit("nm").setNonnegative();
     registerParameter("OmegaY", &m_omega_y).setUnit("nm").setNonnegative();

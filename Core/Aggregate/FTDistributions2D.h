@@ -35,7 +35,8 @@ public:
     void setGamma(double gamma) { m_gamma = gamma; }
     double gamma() const { return m_gamma; }
 
-    double delta() const { return m_delta; }
+    //! Angle in direct space between X- and Y-axis of distribution.
+    double delta() const { return M_PI_2; }
 
     double omegaX() const { return m_omega_x; }
     double omegaY() const { return m_omega_y; }
@@ -56,8 +57,6 @@ protected:
     double m_omega_y; //!< Half-width of the distribution along its y-axis in nanometers.
     //! Angle in direct space between first lattice vector and X-axis of distribution.
     double m_gamma;
-    //! Angle in direct space between X- and Y-axis of distribution.
-    double m_delta;
 };
 
 //! Two-dimensional Cauchy distribution in Fourier space;

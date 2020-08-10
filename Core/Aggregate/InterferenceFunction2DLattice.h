@@ -28,15 +28,15 @@ class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunction2DLattice(const Lattice2D& lattice);
-    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi = 0.0);
+    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi);
     ~InterferenceFunction2DLattice() final;
 
     InterferenceFunction2DLattice* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi = 0.0);
-    static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi = 0.0);
+    static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi);
+    static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi);
 
     void setDecayFunction(const IFTDecayFunction2D& decay);
 

@@ -215,8 +215,8 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
         throw std::runtime_error("InterferenceFunction2DLattice::initialize_rec_vectors() -> "
                                  "Error. No lattice defined yet");
 
-    BasicLattice base_lattice(m_lattice->length1(), m_lattice->length2(),
-                              m_lattice->latticeAngle(), 0.);
+    BasicLattice base_lattice(m_lattice->length1(), m_lattice->length2(), m_lattice->latticeAngle(),
+                              0.);
     m_sbase = base_lattice.reciprocalBases();
 }
 

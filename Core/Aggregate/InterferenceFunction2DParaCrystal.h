@@ -30,11 +30,11 @@ class IFTDistribution2D;
 class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
 public:
-    InterferenceFunction2DParaCrystal(const Lattice2D& lattice, double damping_length = 0.0,
-                                      double domain_size_1 = 0.0, double domain_size_2 = 0.0);
+    InterferenceFunction2DParaCrystal(const Lattice2D& lattice, double damping_length,
+                                      double domain_size_1, double domain_size_2);
 
-    InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha,
-                                      double xi = 0.0, double damping_length = 0.0);
+    InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi,
+                                      double damping_length);
 
     ~InterferenceFunction2DParaCrystal() final;
 
@@ -43,13 +43,13 @@ public:
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     static InterferenceFunction2DParaCrystal* createSquare(double lattice_length,
-                                                           double damping_length = 0.0,
-                                                           double domain_size_1 = 0.0,
-                                                           double domain_size_2 = 0.0);
+                                                           double damping_length,
+                                                           double domain_size_1,
+                                                           double domain_size_2);
     static InterferenceFunction2DParaCrystal* createHexagonal(double lattice_length,
-                                                              double damping_length = 0.0,
-                                                              double domain_size_1 = 0.0,
-                                                              double domain_size_2 = 0.0);
+                                                              double damping_length,
+                                                              double domain_size_1,
+                                                              double domain_size_2);
 
     void setDomainSizes(double size_1, double size_2);
 

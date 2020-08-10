@@ -44,7 +44,7 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
-        InterferenceFunction2DLattice::createSquare(8 * Units::nanometer));
+        InterferenceFunction2DLattice::createSquare(8 * Units::nanometer, 0));
 
     FTDecayFunction2DCauchy pdf(100.0 * Units::nanometer, 100.0 * Units::nanometer, 0);
     P_interference_function->setDecayFunction(pdf);

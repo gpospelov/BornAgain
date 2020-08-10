@@ -28,7 +28,8 @@
 
 #include <fstream>
 
-namespace {
+namespace
+{
 
 std::stringstream getFromFilteredStream(std::istream& input_stream, const std::string& fname)
 {

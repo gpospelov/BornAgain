@@ -76,7 +76,7 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
-        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer)};
+        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 0)};
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
                                 100.0 * Units::nanometer / 2.0 / M_PI, 0);
     P_interference_function->setDecayFunction(pdf);
@@ -112,7 +112,7 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DLattice interference_function(10.0 * Units::nanometer,
-                                                        10.0 * Units::nanometer, M_PI / 2.0);
+                                                        10.0 * Units::nanometer, M_PI / 2.0, 0);
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
                                 100.0 * Units::nanometer / 2.0 / M_PI, 0);
     interference_function.setDecayFunction(pdf);

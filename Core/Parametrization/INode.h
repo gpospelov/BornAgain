@@ -78,7 +78,7 @@ public:
     ParameterPool* createParameterTree() const;
 
 private:
-    const INode* m_parent {nullptr};
+    const INode* m_parent{nullptr};
     // const std::string m_className;
     // const std::string m_tooltip;
 

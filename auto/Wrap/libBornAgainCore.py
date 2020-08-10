@@ -6132,7 +6132,6 @@ class NodeMeta(object):
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
-    parent = property(_libBornAgainCore.NodeMeta_parent_get, _libBornAgainCore.NodeMeta_parent_set, doc=r"""parent : p.INode""")
     className = property(_libBornAgainCore.NodeMeta_className_get, _libBornAgainCore.NodeMeta_className_set, doc=r"""className : std::string""")
     tooltip = property(_libBornAgainCore.NodeMeta_tooltip_get, _libBornAgainCore.NodeMeta_tooltip_set, doc=r"""tooltip : std::string""")
     paraMeta = property(_libBornAgainCore.NodeMeta_paraMeta_get, _libBornAgainCore.NodeMeta_paraMeta_set, doc=r"""paraMeta : std::vector<(ParaMeta,std::allocator<(ParaMeta)>)>""")

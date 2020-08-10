@@ -25,11 +25,11 @@
 
 NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other)
 {
-    return {other.parent, other.className, other.tooltip, algo::concat(base, other.paraMeta)};
+    return {other.className, other.tooltip, algo::concat(base, other.paraMeta)};
 }
 
 INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
-    : m_parent(meta.parent), /*m_tooltip(meta.tooltip),*/
+    : /*m_tooltip(meta.tooltip),*/
       m_NP(meta.paraMeta.size())
 {
     m_P.resize(m_NP);

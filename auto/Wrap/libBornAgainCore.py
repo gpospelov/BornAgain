@@ -22692,9 +22692,9 @@ class BasicLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length1, length2, angle, rotation_angle=0.0):
+    def __init__(self, length1, length2, angle, rotation_angle):
         r"""
-        __init__(BasicLattice self, double length1, double length2, double angle, double rotation_angle=0.0) -> BasicLattice
+        __init__(BasicLattice self, double length1, double length2, double angle, double rotation_angle) -> BasicLattice
         BasicLattice::BasicLattice(double length1, double length2, double angle, double rotation_angle=0.0)
 
         """
@@ -22828,9 +22828,9 @@ class HexagonalLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, rotation_angle=0.0):
+    def __init__(self, length, rotation_angle):
         r"""
-        __init__(HexagonalLattice self, double length, double rotation_angle=0.0) -> HexagonalLattice
+        __init__(HexagonalLattice self, double length, double rotation_angle) -> HexagonalLattice
         HexagonalLattice::HexagonalLattice(double length, double rotation_angle=0.0)
 
         """

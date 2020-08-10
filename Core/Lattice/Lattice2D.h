@@ -21,7 +21,7 @@
 class BA_CORE_API_ Lattice2D : public ICloneable, public INode
 {
 public:
-    explicit Lattice2D(double rotation_angle = 0.0);
+    explicit Lattice2D(double rotation_angle);
     Lattice2D* clone() const = 0;
 
     struct ReciprocalBases {
@@ -49,7 +49,7 @@ protected:
 class BA_CORE_API_ BasicLattice : public Lattice2D
 {
 public:
-    BasicLattice(double length1, double length2, double angle, double rotation_angle = 0.0);
+    BasicLattice(double length1, double length2, double angle, double rotation_angle);
     BasicLattice* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
@@ -88,7 +88,7 @@ private:
 class BA_CORE_API_ HexagonalLattice : public Lattice2D
 {
 public:
-    explicit HexagonalLattice(double length, double rotation_angle = 0.0);
+    explicit HexagonalLattice(double length, double rotation_angle);
     HexagonalLattice* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 

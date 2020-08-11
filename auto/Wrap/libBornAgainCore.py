@@ -12291,13 +12291,13 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_setDecayFunction(self, decay)
 
-    def getLatticeParameters(self):
-        r"""
-        getLatticeParameters(InterferenceFunction1DLattice self) -> Lattice1DParameters
-        Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
+    def getLength(self):
+        r"""getLength(InterferenceFunction1DLattice self) -> double"""
+        return _libBornAgainCore.InterferenceFunction1DLattice_getLength(self)
 
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
+    def getXi(self):
+        r"""getXi(InterferenceFunction1DLattice self) -> double"""
+        return _libBornAgainCore.InterferenceFunction1DLattice_getXi(self)
 
     def getChildren(self):
         r"""
@@ -22580,43 +22580,6 @@ def Lattice_createTetragonalLattice(a, c):
 def Lattice_createBCTLattice(a, c):
     r"""Lattice_createBCTLattice(double a, double c) -> Lattice"""
     return _libBornAgainCore.Lattice_createBCTLattice(a, c)
-
-class Lattice1DParameters(object):
-    r"""
-
-
-    Basic parameters of a one-dimensional lattice.
-
-    C++ includes: Lattice1DParameters.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Lattice1DParameters self) -> Lattice1DParameters
-        __init__(Lattice1DParameters self, double length, double xi) -> Lattice1DParameters
-        Lattice1DParameters::Lattice1DParameters(double length, double xi)
-
-        Parameters:
-        -----------
-
-        length: 
-         Lattice constant.
-
-        xi: 
-         Lattice rotation angle. 
-
-        """
-        _libBornAgainCore.Lattice1DParameters_swiginit(self, _libBornAgainCore.new_Lattice1DParameters(*args))
-    m_length = property(_libBornAgainCore.Lattice1DParameters_m_length_get, _libBornAgainCore.Lattice1DParameters_m_length_set, doc=r"""m_length : double""")
-    m_xi = property(_libBornAgainCore.Lattice1DParameters_m_xi_get, _libBornAgainCore.Lattice1DParameters_m_xi_set, doc=r"""m_xi : double""")
-    __swig_destroy__ = _libBornAgainCore.delete_Lattice1DParameters
-
-# Register Lattice1DParameters in _libBornAgainCore:
-_libBornAgainCore.Lattice1DParameters_swigregister(Lattice1DParameters)
 
 class Lattice2D(ICloneable, INode):
     r"""Proxy of C++ Lattice2D class."""

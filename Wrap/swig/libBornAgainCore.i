@@ -172,7 +172,6 @@
 #include "Core/Lattice/ILatticeOrientation.h"
 #include "Core/Lattice/ISelectionRule.h"
 #include "Core/Lattice/Lattice.h"
-#include "Core/Lattice/Lattice1DParameters.h"
 #include "Core/Lattice/Lattice2D.h"
 #include "Core/Lattice/LatticeUtils.h"
 #include "Core/Mask/Ellipse.h"
@@ -493,7 +492,6 @@
 %include "Core/Lattice/ILatticeOrientation.h"
 %include "Core/Lattice/ISelectionRule.h"
 %include "Core/Lattice/Lattice.h"
-%include "Core/Lattice/Lattice1DParameters.h"
 %include "Core/Lattice/Lattice2D.h"
 %include "Core/Lattice/LatticeUtils.h"
 

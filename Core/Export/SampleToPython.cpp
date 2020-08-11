@@ -375,10 +375,9 @@ std::string SampleToPython::defineInterferenceFunctions() const
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
         else if (auto p_lattice_1d =
                      dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
-            const Lattice1DParameters latticeParameters = p_lattice_1d->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
-                   << pyfmt::printNm(latticeParameters.m_length) << ", "
-                   << pyfmt::printDegrees(latticeParameters.m_xi) << ")\n";
+                   << pyfmt::printNm(p_lattice_1d->getLength()) << ", "
+                   << pyfmt::printDegrees(p_lattice_1d->getXi()) << ")\n";
 
             auto pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction1D>(*p_lattice_1d);
 

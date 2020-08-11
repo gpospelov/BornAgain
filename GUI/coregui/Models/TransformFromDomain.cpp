@@ -97,10 +97,9 @@ void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ra
 void TransformFromDomain::set1DLatticeItem(SessionItem* item,
                                            const InterferenceFunction1DLattice& sample)
 {
-    Lattice1DParameters lattice_params = sample.getLatticeParameters();
-    item->setItemValue(InterferenceFunction1DLatticeItem::P_LENGTH, lattice_params.m_length);
+    item->setItemValue(InterferenceFunction1DLatticeItem::P_LENGTH, sample.getLength());
     item->setItemValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
-                       Units::rad2deg(lattice_params.m_xi));
+                       Units::rad2deg(sample.getXi()));
 
     auto pdf = OnlyChildOfType<IFTDecayFunction1D>(sample);
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;

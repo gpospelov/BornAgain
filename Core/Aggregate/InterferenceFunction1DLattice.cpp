@@ -15,6 +15,7 @@
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
 #include "Core/Aggregate/FTDecay1D.h"
 #include "Core/Aggregate/FTDecay2D.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -32,18 +33,18 @@ static const int min_points = 4;
 //! @param length: lattice constant in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-    : m_lattice_params(length, xi), m_na{0}
+    : m_length(length), m_xi(xi), m_na{0}
 {
     setName("Interference1DLattice");
-    registerParameter("Length", &m_lattice_params.m_length).setUnit("nm").setNonnegative();
-    registerParameter("Xi", &m_lattice_params.m_xi).setUnit("rad");
+    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("Xi", &m_xi).setUnit("rad");
 }
 
 InterferenceFunction1DLattice::~InterferenceFunction1DLattice() {}
 
 InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 {
-    auto* ret = new InterferenceFunction1DLattice(m_lattice_params.m_length, m_lattice_params.m_xi);
+    auto* ret = new InterferenceFunction1DLattice(m_length, m_xi);
     ret->m_na = m_na;
     if (mP_decay)
         ret->setDecayFunction(*mP_decay);
@@ -57,7 +58,7 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& d
     mP_decay.reset(decay.clone());
     registerChild(mP_decay.get());
     double decay_length = mP_decay->decayLength();
-    double qa_max = m_lattice_params.m_length * nmax / decay_length / M_TWOPI;
+    double qa_max = m_length * nmax / decay_length / M_TWOPI;
     m_na = static_cast<int>(std::lround(std::abs(qa_max) + 0.5));
     m_na = std::max(m_na, min_points);
 }
@@ -69,15 +70,13 @@ std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
 
 double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const
 {
-    if (!mP_decay)
-        throw Exceptions::NullPointerException("InterferenceFunction1DLattice::evaluate"
-                                               " -> Error! No decay function defined.");
+    ASSERT(mP_decay);
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();
     double qx_frac;
-    double xi = m_lattice_params.m_xi;
-    double a = m_lattice_params.m_length;
+    double xi = m_xi;
+    double a = m_length;
     double a_rec = M_TWOPI / a;
 
     // rotate the q vector to xi angle

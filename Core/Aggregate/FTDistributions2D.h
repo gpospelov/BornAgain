@@ -29,6 +29,7 @@ class BA_CORE_API_ IFTDistribution2D : public ICloneable, public INode
 public:
     IFTDistribution2D(double omega_x, double omega_y, double gamma);
     IFTDistribution2D(const NodeMeta& meta, const std::vector<double>& PValues);
+    virtual ~IFTDistribution2D() = default; // required by MSVC?
 
     IFTDistribution2D* clone() const = 0;
 

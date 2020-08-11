@@ -47,6 +47,7 @@ class BA_CORE_API_ Basic2DParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     Basic2DParaCrystalBuilder();
+    ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
 
     MultiLayer* createSample(size_t index = 0);

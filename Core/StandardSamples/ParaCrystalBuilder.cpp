@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
+#include "Core/Aggregate/FTDistributions2D.h"
 #include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Aggregate/ParticleLayout.h"
@@ -70,6 +71,8 @@ Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
       m_pdf2(new FTDistribution2DCauchy(0.3 * Units::nanometer, 0.4 * Units::nanometer, 0))
 {
 }
+
+Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder() = default;
 
 MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 {

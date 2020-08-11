@@ -49,5 +49,5 @@ double WallclockTimer::runTime() const
             : std::chrono::duration_cast<duration_unit>(m_state->m_end_time
                                                         - m_state->m_start_time);
 
-    return diff.count();
+    return (double)diff.count();
 }

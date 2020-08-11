@@ -105,8 +105,9 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
 
 size_t FitObjective::numberOfFitElements() const
 {
-    return std::accumulate(m_fit_objects.begin(), m_fit_objects.end(), 0u,
-                           [](size_t acc, auto& obj) { return acc + obj.numberOfFitElements(); });
+    return std::accumulate(
+        m_fit_objects.begin(), m_fit_objects.end(), 0u,
+        [](size_t acc, auto& obj) -> size_t { return acc + obj.numberOfFitElements(); });
 }
 
 //! Returns simulation result in the form of SimulationResult.

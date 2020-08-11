@@ -11231,6 +11231,7 @@ class IFTDistribution2D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
     def clone(self):
         r"""
@@ -11289,7 +11290,6 @@ class IFTDistribution2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDistribution2D_evaluate(self, qx, qy)
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
 # Register IFTDistribution2D in _libBornAgainCore:
 _libBornAgainCore.IFTDistribution2D_swigregister(IFTDistribution2D)
@@ -18744,7 +18744,6 @@ class ConstantBackground(IBackground):
 
         """
         _libBornAgainCore.ConstantBackground_swiginit(self, _libBornAgainCore.new_ConstantBackground(background_value))
-    __swig_destroy__ = _libBornAgainCore.delete_ConstantBackground
 
     def clone(self):
         r"""
@@ -18779,6 +18778,7 @@ class ConstantBackground(IBackground):
 
         """
         return _libBornAgainCore.ConstantBackground_addBackGround(self, intensity)
+    __swig_destroy__ = _libBornAgainCore.delete_ConstantBackground
 
 # Register ConstantBackground in _libBornAgainCore:
 _libBornAgainCore.ConstantBackground_swigregister(ConstantBackground)

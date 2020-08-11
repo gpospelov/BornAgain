@@ -26,10 +26,11 @@
 class BA_CORE_API_ DetectionProperties : public INode
 {
 public:
+    DetectionProperties(kvector_t direction, double efficiency, double total_transmission);
     DetectionProperties();
     DetectionProperties(const DetectionProperties& other);
 
-    virtual ~DetectionProperties();
+    virtual ~DetectionProperties() = default;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
@@ -46,7 +47,6 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 private:
-    void init_parameters();
     //! Verify if the given analyzer properties are physical
     bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                  double total_transmission) const;

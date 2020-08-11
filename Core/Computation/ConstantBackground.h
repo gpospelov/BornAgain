@@ -25,7 +25,7 @@ class BA_CORE_API_ ConstantBackground : public IBackground
 {
 public:
     ConstantBackground(double background_value);
-    ~ConstantBackground();
+
     ConstantBackground* clone() const override final;
 
     double backgroundValue() const { return m_background_value; }
@@ -35,8 +35,6 @@ public:
     double addBackGround(double intensity) const override final;
 
 private:
-    void init_parameters();
-
     double m_background_value;
 };
 

@@ -26,14 +26,6 @@ static const int nmax = 20;
 static const int min_points = 4;
 } // namespace
 
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
-    : m_integrate_xi(false)
-{
-    setName("Interference2DLattice");
-    setLattice(lattice);
-    init_parameters();
-}
-
 //! Constructor of two-dimensional interference function.
 //! @param length_1: length of the first basis vector in nanometers
 //! @param length_2: length of the second basis vector  in nanometers
@@ -45,7 +37,13 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, do
 {
     setName("Interference2DLattice");
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
-    init_parameters();
+}
+
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
+    : m_integrate_xi(false)
+{
+    setName("Interference2DLattice");
+    setLattice(lattice);
 }
 
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice() {}
@@ -137,7 +135,6 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     if (other.m_decay)
         setDecayFunction(*other.m_decay);
     setIntegrationOverXi(other.integrationOverXi());
-    init_parameters();
 }
 
 void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
@@ -146,8 +143,6 @@ void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
     registerChild(m_lattice.get());
     initialize_rec_vectors();
 }
-
-void InterferenceFunction2DLattice::init_parameters() {}
 
 double InterferenceFunction2DLattice::interferenceForXi(double xi) const
 {

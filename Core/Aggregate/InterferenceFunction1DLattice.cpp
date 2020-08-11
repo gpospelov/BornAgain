@@ -35,15 +35,19 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, doub
     : m_lattice_params(length, xi), m_na{0}
 {
     setName("Interference1DLattice");
-    init_parameters();
+    registerParameter("Length", &m_lattice_params.m_length).setUnit("nm").setNonnegative();
+    registerParameter("Xi", &m_lattice_params.m_xi).setUnit("rad");
 }
 
 InterferenceFunction1DLattice::~InterferenceFunction1DLattice() {}
 
 InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 {
-    InterferenceFunction1DLattice* p_clone = new InterferenceFunction1DLattice(*this);
-    return p_clone;
+    auto* ret = new InterferenceFunction1DLattice(m_lattice_params.m_length, m_lattice_params.m_xi);
+    ret->m_na = m_na;
+    if (mP_decay)
+        ret->setDecayFunction(*mP_decay);
+    return ret;
 }
 
 //! Sets one-dimensional decay function.
@@ -89,20 +93,4 @@ double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const
         result += mP_decay->evaluate(qx);
     }
     return result / a;
-}
-
-InterferenceFunction1DLattice::InterferenceFunction1DLattice(
-    const InterferenceFunction1DLattice& other)
-    : IInterferenceFunction(other), m_lattice_params(other.m_lattice_params), m_na(other.m_na)
-{
-    setName(other.getName());
-    init_parameters();
-    if (other.mP_decay)
-        setDecayFunction(*other.mP_decay);
-}
-
-void InterferenceFunction1DLattice::init_parameters()
-{
-    registerParameter("Length", &m_lattice_params.m_length).setUnit("nm").setNonnegative();
-    registerParameter("Xi", &m_lattice_params.m_xi).setUnit("rad");
 }

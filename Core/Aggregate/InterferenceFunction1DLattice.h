@@ -41,8 +41,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunction1DLattice(const InterferenceFunction1DLattice& other);
-    void init_parameters();
 
     Lattice1DParameters m_lattice_params;
     std::unique_ptr<IFTDecayFunction1D> mP_decay;

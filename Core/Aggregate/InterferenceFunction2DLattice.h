@@ -27,8 +27,8 @@
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
-    InterferenceFunction2DLattice(const Lattice2D& lattice);
     InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi);
+    InterferenceFunction2DLattice(const Lattice2D& lattice);
     ~InterferenceFunction2DLattice() final;
 
     InterferenceFunction2DLattice* clone() const override final;
@@ -57,7 +57,6 @@ private:
     InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
     void setLattice(const Lattice2D& lattice);
 
-    void init_parameters();
     double interferenceForXi(double xi) const;
 
     //! Returns interference from a single reciprocal lattice vector

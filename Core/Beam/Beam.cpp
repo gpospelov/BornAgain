@@ -22,20 +22,29 @@
 // Allow for 90 degrees by adding a relatively small constant to pi/2
 static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;
 
-Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(1.0)
+Beam::Beam(double wavelength, double alpha, double phi, double intensity)
+    : m_wavelength(wavelength), m_alpha(alpha), m_phi(phi), m_intensity(intensity)
 {
     setName("Beam");
-    init_parameters();
+    registerParameter("Intensity", &m_intensity).setNonnegative();
+    registerParameter("Wavelength", &m_wavelength).setUnit("nm").setNonnegative();
+    registerParameter("InclinationAngle", &m_alpha).setUnit("rad").setLimited(0, INCLINATION_LIMIT);
+    registerParameter("AzimuthalAngle", &m_phi).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+    registerVector("BlochVector", &m_bloch_vector, "");
+}
+
+Beam::Beam() :
+    Beam(1.0, 0.0, 0.0, 1.0)
+{
 }
 
 Beam::Beam(const Beam& other)
-    : m_wavelength(other.m_wavelength), m_alpha(other.m_alpha), m_phi(other.m_phi),
-      m_intensity(other.m_intensity), m_bloch_vector(other.m_bloch_vector)
+    : Beam(other.m_wavelength, other.m_alpha, other.m_phi, other.m_intensity)
 {
+    m_bloch_vector = other.m_bloch_vector;
     setName(other.getName());
     if (other.m_shape_factor)
         m_shape_factor.reset(other.m_shape_factor->clone());
-    init_parameters();
     registerChildren();
 }
 
@@ -121,15 +130,6 @@ std::vector<const INode*> Beam::getChildren() const
         return {m_shape_factor.get()};
     else
         return {};
-}
-
-void Beam::init_parameters()
-{
-    registerParameter("Intensity", &m_intensity).setNonnegative();
-    registerParameter("Wavelength", &m_wavelength).setUnit("nm").setNonnegative();
-    registerParameter("InclinationAngle", &m_alpha).setUnit("rad").setLimited(0, INCLINATION_LIMIT);
-    registerParameter("AzimuthalAngle", &m_phi).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
-    registerVector("BlochVector", &m_bloch_vector, "");
 }
 
 void Beam::registerChildren()

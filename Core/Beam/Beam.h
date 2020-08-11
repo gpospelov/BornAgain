@@ -27,7 +27,9 @@ class IFootprintFactor;
 class BA_CORE_API_ Beam : public INode
 {
 public:
+    Beam(double wavelength, double alpha, double phi, double intensity);
     Beam();
+
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);
 
@@ -72,15 +74,15 @@ public:
     std::vector<const INode*> getChildren() const override;
 
 private:
-    void init_parameters();
-    inline void registerChildren();
-
-    void swapContent(Beam& other);
-
-    double m_wavelength, m_alpha, m_phi;              //!< wavelength and angles of beam
+    double m_wavelength;
+    double m_alpha;
+    double m_phi;
     double m_intensity;                               //!< beam intensity (neutrons/sec)
     std::unique_ptr<IFootprintFactor> m_shape_factor; //!< footprint correction handler
     kvector_t m_bloch_vector; //!< Bloch vector encoding the beam's polarization
+
+    inline void registerChildren();
+    void swapContent(Beam& other);
 };
 
 #endif // BORNAGAIN_CORE_BEAM_BEAM_H

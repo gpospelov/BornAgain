@@ -17,8 +17,8 @@ protected:
 };
 
 SphericalConverterTest::SphericalConverterTest()
-    : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5)
-    , m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
+    : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5),
+      m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
 {
     const auto k_i = m_beam.getCentralK();
     m_kiz = k_i.z();

@@ -111,8 +111,8 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     double inclination_angle = Units::deg2rad(getInclinationAngle());
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
 
-    auto result = std::make_unique<Beam>(lambda, inclination_angle,
-                                         azimuthal_angle, getIntensity());
+    auto result =
+        std::make_unique<Beam>(lambda, inclination_angle, azimuthal_angle, getIntensity());
 
     result->setPolarization(GetVectorItem(*this, P_POLARIZATION));
 

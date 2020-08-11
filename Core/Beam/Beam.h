@@ -28,7 +28,6 @@ class BA_CORE_API_ Beam : public INode
 {
 public:
     Beam(double wavelength, double alpha, double phi, double intensity);
-    Beam() : Beam(1.0, 0.0, 0.0, 1.0) {}
 
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);

@@ -25,8 +25,10 @@ protected:
 
 DepthProbeConverterTest::DepthProbeConverterTest()
     : m_inclination_axis("Angles", m_nbins, m_alpha_start, m_alpha_end) // angles in radians
-    , m_z_axis("Positions", m_nbins, m_z_start, m_z_end) // z positions in nm
-    , m_beam(Beam::horizontalBeam())
+      ,
+      m_z_axis("Positions", m_nbins, m_z_start, m_z_end) // z positions in nm
+      ,
+      m_beam(Beam::horizontalBeam())
 {
 }
 

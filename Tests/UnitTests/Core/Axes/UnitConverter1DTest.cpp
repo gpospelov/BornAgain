@@ -27,9 +27,10 @@ protected:
 
 UnitConverter1DTest::UnitConverter1DTest()
     : m_axis("Angles", 5, 0.5, 1.0) // angles in radians
-    , m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
-    , m_qscan(m_q_axis)
-    , m_beam(Beam::horizontalBeam())
+      ,
+      m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
+      ,
+      m_qscan(m_q_axis), m_beam(Beam::horizontalBeam())
 {
 }
 

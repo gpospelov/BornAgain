@@ -48,7 +48,6 @@ Beam::Beam(const Beam& other)
         m_shape_factor.reset(other.m_shape_factor->clone());
         registerChild(m_shape_factor.get());
     }
-
 }
 
 Beam& Beam::operator=(const Beam& other)

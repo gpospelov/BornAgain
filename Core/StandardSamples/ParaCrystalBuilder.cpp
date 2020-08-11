@@ -174,8 +174,8 @@ MultiLayer* RectParaCrystalBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DParaCrystal> P_interference_function{
-        InterferenceFunction2DParaCrystal::createSquare(10 * Units::nanometer,
-                                                        0 * Units::nanometer, 0, 0)};
+        InterferenceFunction2DParaCrystal::createSquare(10 * Units::nanometer, 0 * Units::nanometer,
+                                                        0, 0)};
 
     P_interference_function->setDomainSizes(20.0 * Units::micrometer, 20.0 * Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5 * Units::nanometer, 2.0 * Units::nanometer, 0);

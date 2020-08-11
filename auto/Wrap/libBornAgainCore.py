@@ -13703,7 +13703,6 @@ class Beam(INode):
     def __init__(self, *args):
         r"""
         __init__(Beam self, double wavelength, double alpha, double phi, double intensity) -> Beam
-        __init__(Beam self) -> Beam
         __init__(Beam self, Beam other) -> Beam
         Beam::Beam(const Beam &other)
 

@@ -28,8 +28,7 @@ protected:
 };
 
 RectangularConverterTest::RectangularConverterTest()
-    : m_detector(det_nx, det_width, det_ny, det_height)
-    , m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
+    : m_detector(det_nx, det_width, det_ny, det_height), m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
 {
     m_detector.setPerpendicularToSampleX(det_distance, det_width / 2.0, 0.0);
     m_detector.init(m_beam);

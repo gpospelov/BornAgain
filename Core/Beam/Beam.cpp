@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Beam/Beam.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
@@ -33,9 +34,9 @@ Beam::Beam(double wavelength, double alpha, double phi, double intensity)
     registerVector("BlochVector", &m_bloch_vector, "");
 }
 
-Beam::Beam() :
-    Beam(1.0, 0.0, 0.0, 1.0)
+Beam Beam::horizontalBeam()
 {
+    return Beam(1.0, 0.0, 0.0, 1.0);
 }
 
 Beam::Beam(const Beam& other)
@@ -43,17 +44,26 @@ Beam::Beam(const Beam& other)
 {
     m_bloch_vector = other.m_bloch_vector;
     setName(other.getName());
-    if (other.m_shape_factor)
+    if (other.m_shape_factor) {
         m_shape_factor.reset(other.m_shape_factor->clone());
-    registerChildren();
+        registerChild(m_shape_factor.get());
+    }
+
 }
 
 Beam& Beam::operator=(const Beam& other)
 {
-    if (this != &other) {
-        Beam tmp(other);
-        tmp.swapContent(*this);
-    }
+    m_wavelength = other.m_wavelength;
+    m_alpha = other.m_alpha;
+    m_phi = other.m_phi;
+    m_intensity = other.m_intensity;
+    m_bloch_vector = other.m_bloch_vector;
+    setName(other.getName());
+    if (other.m_shape_factor) {
+        m_shape_factor.reset(other.m_shape_factor->clone());
+        registerChild(m_shape_factor.get());
+    } else
+        m_shape_factor.release();
     return *this;
 }
 
@@ -128,25 +138,5 @@ std::vector<const INode*> Beam::getChildren() const
 {
     if (m_shape_factor)
         return {m_shape_factor.get()};
-    else
-        return {};
-}
-
-void Beam::registerChildren()
-{
-    if (m_shape_factor)
-        registerChild(m_shape_factor.get());
-}
-
-void Beam::swapContent(Beam& other)
-{
-    std::swap(m_wavelength, other.m_wavelength);
-    std::swap(m_alpha, other.m_alpha);
-    std::swap(m_phi, other.m_phi);
-    std::swap(m_intensity, other.m_intensity);
-    std::swap(m_shape_factor, other.m_shape_factor);
-    std::swap(m_bloch_vector, other.m_bloch_vector);
-
-    registerChildren();
-    other.registerChildren();
+    return {};
 }

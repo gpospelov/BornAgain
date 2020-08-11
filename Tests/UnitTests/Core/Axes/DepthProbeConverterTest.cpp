@@ -18,17 +18,16 @@ protected:
     const double m_z_start = -30.0;
     const double m_z_end = 10.0;
     const size_t m_nbins = 100;
-    Beam m_beam;
     FixedBinAxis m_inclination_axis;
     FixedBinAxis m_z_axis;
+    Beam m_beam;
 };
 
 DepthProbeConverterTest::DepthProbeConverterTest()
     : m_inclination_axis("Angles", m_nbins, m_alpha_start, m_alpha_end) // angles in radians
-      ,
-      m_z_axis("Positions", m_nbins, m_z_start, m_z_end) // z positions in nm
+    , m_z_axis("Positions", m_nbins, m_z_start, m_z_end) // z positions in nm
+    , m_beam(Beam::horizontalBeam())
 {
-    m_beam.setCentralK(1.0, 0.0, 0.0); // wavelength = 1.0 nm
 }
 
 void DepthProbeConverterTest::checkMainFunctionality(const DepthProbeConverter& test_object)

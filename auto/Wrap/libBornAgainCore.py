@@ -13711,6 +13711,11 @@ class Beam(INode):
         _libBornAgainCore.Beam_swiginit(self, _libBornAgainCore.new_Beam(*args))
     __swig_destroy__ = _libBornAgainCore.delete_Beam
 
+    @staticmethod
+    def horizontalBeam():
+        r"""horizontalBeam() -> Beam"""
+        return _libBornAgainCore.Beam_horizontalBeam()
+
     def getCentralK(self):
         r"""
         getCentralK(Beam self) -> kvector_t
@@ -13845,6 +13850,10 @@ class Beam(INode):
 
 # Register Beam in _libBornAgainCore:
 _libBornAgainCore.Beam_swigregister(Beam)
+
+def Beam_horizontalBeam():
+    r"""Beam_horizontalBeam() -> Beam"""
+    return _libBornAgainCore.Beam_horizontalBeam()
 
 class IFootprintFactor(ICloneable, INode):
     r"""

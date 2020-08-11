@@ -28,12 +28,14 @@ class BA_CORE_API_ Beam : public INode
 {
 public:
     Beam(double wavelength, double alpha, double phi, double intensity);
-    Beam();
+    Beam() : Beam(1.0, 0.0, 0.0, 1.0) {}
 
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);
 
     virtual ~Beam();
+
+    static Beam horizontalBeam();
 
     //! Returns the wavevector
     kvector_t getCentralK() const;
@@ -80,9 +82,6 @@ private:
     double m_intensity;                               //!< beam intensity (neutrons/sec)
     std::unique_ptr<IFootprintFactor> m_shape_factor; //!< footprint correction handler
     kvector_t m_bloch_vector; //!< Bloch vector encoding the beam's polarization
-
-    inline void registerChildren();
-    void swapContent(Beam& other);
 };
 
 #endif // BORNAGAIN_CORE_BEAM_BEAM_H

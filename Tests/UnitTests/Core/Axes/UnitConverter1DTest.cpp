@@ -19,20 +19,18 @@ public:
 protected:
     void checkConventionalConverter(const UnitConverter1D& test_object);
     void checkQSpecConverter(const UnitConverter1D& test_object);
-    Beam m_beam;
     FixedBinAxis m_axis;
     FixedBinAxis m_q_axis;
     QSpecScan m_qscan;
+    Beam m_beam;
 };
 
 UnitConverter1DTest::UnitConverter1DTest()
     : m_axis("Angles", 5, 0.5, 1.0) // angles in radians
-      ,
-      m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
-      ,
-      m_qscan(m_q_axis)
+    , m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
+    , m_qscan(m_q_axis)
+    , m_beam(Beam::horizontalBeam())
 {
-    m_beam.setCentralK(1.0, 0.0, 0.0); // wavelength = 1.0 nm
 }
 
 void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test_object)

@@ -20,7 +20,8 @@
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
-Instrument::Instrument() : mP_detector(new SphericalDetector)
+Instrument::Instrument()
+    : mP_detector(new SphericalDetector), m_beam(Beam::horizontalBeam())
 {
     setName("Instrument");
     registerChild(mP_detector.get());

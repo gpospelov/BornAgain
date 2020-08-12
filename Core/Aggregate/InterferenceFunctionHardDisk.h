@@ -28,7 +28,11 @@
 class BA_CORE_API_ InterferenceFunctionHardDisk : public IInterferenceFunction
 {
 public:
-    InterferenceFunctionHardDisk(double radius, double density);
+    InterferenceFunctionHardDisk(double radius, double density, double position_var);
+    InterferenceFunctionHardDisk(double radius, double density)
+        : InterferenceFunctionHardDisk(radius, density, 0)
+    {
+    }
     ~InterferenceFunctionHardDisk() final;
 
     InterferenceFunctionHardDisk* clone() const override final;
@@ -41,14 +45,13 @@ public:
     double density() const;
 
 private:
-    InterferenceFunctionHardDisk(const InterferenceFunctionHardDisk& other);
     double iff_without_dw(const kvector_t q) const override final;
-    void init_parameters();
-    void validateParameters() const;
     double packingRatio() const;
     double integrand(double x) const;
+
     double m_radius;
     double m_density;
+
     mutable double m_q, m_c_zero, m_s2, m_packing;
     mutable RealIntegrator m_integrator;
 };

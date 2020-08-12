@@ -21,17 +21,12 @@ IInterferenceFunction::IInterferenceFunction(const NodeMeta& meta,
                                              const std::vector<double>& PValues)
     : ISample(meta, PValues)
 {
+    registerParameter("PositionVariance", &m_position_var).setUnit("nm^2").setNonnegative();
 }
 
-IInterferenceFunction::IInterferenceFunction() : m_position_var{0.0}
+IInterferenceFunction::IInterferenceFunction(double position_var) : m_position_var(position_var)
 {
-    init_parameters();
-}
-
-IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction& other)
-    : m_position_var(other.m_position_var)
-{
-    init_parameters();
+    registerParameter("PositionVariance", &m_position_var).setUnit("nm^2").setNonnegative();
 }
 
 IInterferenceFunction::~IInterferenceFunction() = default;
@@ -63,9 +58,4 @@ double IInterferenceFunction::DWfactor(kvector_t q) const
 double IInterferenceFunction::iff_no_inner(const kvector_t q, double outer_iff) const
 {
     return DWfactor(q) * (iff_without_dw(q) * outer_iff - 1.0) + 1.0;
-}
-
-void IInterferenceFunction::init_parameters()
-{
-    registerParameter("PositionVariance", &m_position_var).setUnit("nm^2").setNonnegative();
 }

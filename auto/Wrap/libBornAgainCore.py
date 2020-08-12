@@ -11581,115 +11581,6 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 # Register FTDistribution2DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
 
-class IInterferenceFunction(ISample):
-    r"""
-
-
-    Pure virtual base class of interference functions.
-
-    C++ includes: IInterferenceFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(IInterferenceFunction self, NodeMeta meta, vdouble1d_t PValues) -> IInterferenceFunction
-        __init__(IInterferenceFunction self) -> IInterferenceFunction
-        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
-        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
-
-        """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
-
-    def clone(self):
-        r"""
-        clone(IInterferenceFunction self) -> IInterferenceFunction
-        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_clone(self)
-
-    def evaluate(self, q, outer_iff=1.0):
-        r"""
-        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
-        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
-
-        Evaluates the interference function for a given wavevector transfer. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
-
-    def setPositionVariance(self, var):
-        r"""
-        setPositionVariance(IInterferenceFunction self, double var)
-        void IInterferenceFunction::setPositionVariance(double var)
-
-        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
-
-    def positionVariance(self):
-        r"""
-        positionVariance(IInterferenceFunction self) -> double
-        double IInterferenceFunction::positionVariance() const
-
-        Returns the position variance. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
-
-    def getParticleDensity(self):
-        r"""
-        getParticleDensity(IInterferenceFunction self) -> double
-        virtual double IInterferenceFunction::getParticleDensity() const
-
-        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
-
-    def supportsMultilayer(self):
-        r"""
-        supportsMultilayer(IInterferenceFunction self) -> bool
-        virtual bool IInterferenceFunction::supportsMultilayer() const
-
-        Indicates if this interference function can be used with a multilayer (DWBA mode) 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
-
-    def DWfactor(self, q):
-        r"""
-        DWfactor(IInterferenceFunction self, kvector_t q) -> double
-        double IInterferenceFunction::DWfactor(kvector_t q) const
-
-        Evaluates the Debye-Waller factor for a given wavevector transfer. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
-
-    def iff_without_dw(self, q):
-        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
-        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IInterferenceFunction(self)
-        return weakref.proxy(self)
-
-# Register IInterferenceFunction in _libBornAgainCore:
-_libBornAgainCore.IInterferenceFunction_swigregister(IInterferenceFunction)
-
 class ILayout(ISample):
     r"""
 
@@ -12197,6 +12088,114 @@ class MisesGaussPeakShape(IPeakShape):
 
 # Register MisesGaussPeakShape in _libBornAgainCore:
 _libBornAgainCore.MisesGaussPeakShape_swigregister(MisesGaussPeakShape)
+
+class IInterferenceFunction(ISample):
+    r"""
+
+
+    Pure virtual base class of interference functions.
+
+    C++ includes: IInterferenceFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(IInterferenceFunction self, NodeMeta meta, vdouble1d_t PValues) -> IInterferenceFunction
+        __init__(IInterferenceFunction self, double position_var) -> IInterferenceFunction
+        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
+
+        """
+        if self.__class__ == IInterferenceFunction:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
+    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
+
+    def clone(self):
+        r"""
+        clone(IInterferenceFunction self) -> IInterferenceFunction
+        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_clone(self)
+
+    def evaluate(self, q, outer_iff=1.0):
+        r"""
+        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
+        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
+
+        Evaluates the interference function for a given wavevector transfer. 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
+
+    def setPositionVariance(self, var):
+        r"""
+        setPositionVariance(IInterferenceFunction self, double var)
+        void IInterferenceFunction::setPositionVariance(double var)
+
+        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
+
+    def positionVariance(self):
+        r"""
+        positionVariance(IInterferenceFunction self) -> double
+        double IInterferenceFunction::positionVariance() const
+
+        Returns the position variance. 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
+
+    def getParticleDensity(self):
+        r"""
+        getParticleDensity(IInterferenceFunction self) -> double
+        virtual double IInterferenceFunction::getParticleDensity() const
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
+
+    def supportsMultilayer(self):
+        r"""
+        supportsMultilayer(IInterferenceFunction self) -> bool
+        virtual bool IInterferenceFunction::supportsMultilayer() const
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
+
+    def DWfactor(self, q):
+        r"""
+        DWfactor(IInterferenceFunction self, kvector_t q) -> double
+        double IInterferenceFunction::DWfactor(kvector_t q) const
+
+        Evaluates the Debye-Waller factor for a given wavevector transfer. 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
+
+    def iff_without_dw(self, q):
+        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IInterferenceFunction(self)
+        return weakref.proxy(self)
+
+# Register IInterferenceFunction in _libBornAgainCore:
+_libBornAgainCore.IInterferenceFunction_swigregister(IInterferenceFunction)
 
 class InterferenceFunction1DLattice(IInterferenceFunction):
     r"""
@@ -13182,13 +13181,14 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, density):
+    def __init__(self, *args):
         r"""
+        __init__(InterferenceFunctionHardDisk self, double radius, double density, double position_var) -> InterferenceFunctionHardDisk
         __init__(InterferenceFunctionHardDisk self, double radius, double density) -> InterferenceFunctionHardDisk
         InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
 
         """
-        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density))
+        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(*args))
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionHardDisk
 
     def clone(self):

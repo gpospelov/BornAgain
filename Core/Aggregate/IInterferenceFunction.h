@@ -25,8 +25,7 @@ class BA_CORE_API_ IInterferenceFunction : public ISample
 {
 public:
     IInterferenceFunction(const NodeMeta& meta, const std::vector<double>& PValues);
-    IInterferenceFunction();
-    IInterferenceFunction(const IInterferenceFunction& other);
+    IInterferenceFunction(double position_var);
     virtual ~IInterferenceFunction();
 
     virtual IInterferenceFunction* clone() const = 0;
@@ -58,8 +57,6 @@ protected:
     //! Calculates the structure factor without Debye-Waller factor
     virtual double iff_without_dw(const kvector_t q) const = 0;
 
-private:
-    void init_parameters();
     double m_position_var;
 };
 

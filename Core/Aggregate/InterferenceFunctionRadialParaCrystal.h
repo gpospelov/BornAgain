@@ -51,7 +51,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunctionRadialParaCrystal(const InterferenceFunctionRadialParaCrystal& other);
     void init_parameters();
 
     double m_peak_distance;  //!< the distance to the first neighbor peak

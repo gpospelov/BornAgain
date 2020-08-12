@@ -33,7 +33,7 @@ static const int min_points = 4;
 //! @param length: lattice constant in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-    : m_length(length), m_xi(xi), m_na{0}
+    : IInterferenceFunction(0), m_length(length), m_xi(xi), m_na{0}
 {
     setName("Interference1DLattice");
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
@@ -45,6 +45,7 @@ InterferenceFunction1DLattice::~InterferenceFunction1DLattice() {}
 InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 {
     auto* ret = new InterferenceFunction1DLattice(m_length, m_xi);
+    ret->setPositionVariance(m_position_var);
     ret->m_na = m_na;
     if (mP_decay)
         ret->setDecayFunction(*mP_decay);

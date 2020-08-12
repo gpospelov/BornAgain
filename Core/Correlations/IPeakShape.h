@@ -19,6 +19,7 @@
 #include "Core/Tools/Integrator.h"
 #include "Core/Vector/Vectors3D.h"
 
+
 //! Pure virtual interface class that defines the peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
@@ -37,6 +38,7 @@ public:
     //! spherical shell are needed
     virtual bool angularDisorder() const { return false; }
 };
+
 
 //! Class that implements an isotropic Gaussian peak shape of a Bragg peak.
 //!
@@ -60,6 +62,7 @@ private:
     double m_domainsize;
 };
 
+
 //! Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
@@ -82,8 +85,9 @@ private:
     double m_domainsize;
 };
 
+
 //! Class that implements a peak shape that is Gaussian in the radial direction and
-//! uses the von Mises-Fisher distribution in the angular direction.
+//! uses the Mises-Fisher distribution in the angular direction.
 //!
 //! @ingroup samples_internal
 
@@ -107,8 +111,9 @@ private:
     double m_kappa;
 };
 
+
 //! Class that implements a peak shape that is Lorentzian in the radial direction and
-//! uses the von Mises-Fisher distribution in the angular direction.
+//! uses the Mises-Fisher distribution in the angular direction.
 //!
 //! @ingroup samples_internal
 
@@ -132,20 +137,21 @@ private:
     double m_kappa;
 };
 
+
 //! Class that implements a peak shape that is Gaussian in the radial direction and a
-//! convolution of a von Mises-Fisher distribution with a von Mises distribution on the
+//! convolution of a Mises-Fisher distribution with a Mises distribution on the
 //! two-sphere
 //!
 //! @ingroup samples_internal
 
-class BA_CORE_API_ VonMisesFisherGaussPeakShape : public IPeakShape
+class BA_CORE_API_ MisesFisherGaussPeakShape : public IPeakShape
 {
 public:
-    VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
+    MisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
                                  double kappa_1, double kappa_2);
-    ~VonMisesFisherGaussPeakShape() override;
+    ~MisesFisherGaussPeakShape() override;
 
-    VonMisesFisherGaussPeakShape* clone() const override;
+    MisesFisherGaussPeakShape* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
@@ -164,19 +170,20 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-//! Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution
+
+//! Class that implements a peak shape that is a convolution of a Mises-Fisher distribution
 //! with a 3d Gaussian
 //!
 //! @ingroup samples_internal
 
-class BA_CORE_API_ VonMisesGaussPeakShape : public IPeakShape
+class BA_CORE_API_ MisesGaussPeakShape : public IPeakShape
 {
 public:
-    VonMisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
+    MisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
                            double kappa);
-    ~VonMisesGaussPeakShape() override;
+    ~MisesGaussPeakShape() override;
 
-    VonMisesGaussPeakShape* clone() const override;
+    MisesGaussPeakShape* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 

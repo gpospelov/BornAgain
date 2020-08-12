@@ -206,8 +206,8 @@ double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
 // ************************************************************************** //
 
 MisesFisherGaussPeakShape::MisesFisherGaussPeakShape(double max_intensity, double radial_size,
-                                                           kvector_t zenith, double kappa_1,
-                                                           double kappa_2)
+                                                     kvector_t zenith, double kappa_1,
+                                                     double kappa_2)
     : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit()),
       m_kappa_1(kappa_1), m_kappa_2(kappa_2)
 {
@@ -218,11 +218,10 @@ MisesFisherGaussPeakShape::~MisesFisherGaussPeakShape() = default;
 MisesFisherGaussPeakShape* MisesFisherGaussPeakShape::clone() const
 {
     return new MisesFisherGaussPeakShape(m_max_intensity, m_radial_size, m_zenith, m_kappa_1,
-                                            m_kappa_2);
+                                         m_kappa_2);
 }
 
-double MisesFisherGaussPeakShape::evaluate(const kvector_t q,
-                                              const kvector_t q_lattice_point) const
+double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
     // radial part
     double q_r = q.mag();
@@ -266,8 +265,8 @@ double MisesFisherGaussPeakShape::integrand(double phi) const
 // class MisesGaussPeakShape
 // ************************************************************************** //
 
-MisesGaussPeakShape::MisesGaussPeakShape(double max_intensity, double radial_size,
-                                               kvector_t zenith, double kappa)
+MisesGaussPeakShape::MisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
+                                         double kappa)
     : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit()),
       m_kappa(kappa)
 {

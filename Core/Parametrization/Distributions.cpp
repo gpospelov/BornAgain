@@ -297,7 +297,6 @@ DistributionCosine::DistributionCosine(double mean, double sigma) : m_mean(mean)
     registerParameter("Sigma", &m_sigma);
 }
 
-
 double DistributionCosine::probabilityDensity(double x) const
 {
     if (m_sigma == 0.0)

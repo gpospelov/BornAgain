@@ -51,7 +51,7 @@ public:
     virtual void rotate(const IRotation& rotation) = 0;
 
 protected:
-    double m_abundance { 1.0 }; // not a Parameter
+    double m_abundance{1.0}; // not a Parameter
 };
 
 #endif // BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H

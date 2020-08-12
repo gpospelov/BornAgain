@@ -19,7 +19,6 @@
 #include "Core/Tools/Integrator.h"
 #include "Core/Vector/Vectors3D.h"
 
-
 //! Pure virtual interface class that defines the peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
@@ -38,7 +37,6 @@ public:
     //! spherical shell are needed
     virtual bool angularDisorder() const { return false; }
 };
-
 
 //! Class that implements an isotropic Gaussian peak shape of a Bragg peak.
 //!
@@ -62,7 +60,6 @@ private:
     double m_domainsize;
 };
 
-
 //! Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
@@ -84,7 +81,6 @@ private:
     double m_max_intensity;
     double m_domainsize;
 };
-
 
 //! Class that implements a peak shape that is Gaussian in the radial direction and
 //! uses the Mises-Fisher distribution in the angular direction.
@@ -111,7 +107,6 @@ private:
     double m_kappa;
 };
 
-
 //! Class that implements a peak shape that is Lorentzian in the radial direction and
 //! uses the Mises-Fisher distribution in the angular direction.
 //!
@@ -137,7 +132,6 @@ private:
     double m_kappa;
 };
 
-
 //! Class that implements a peak shape that is Gaussian in the radial direction and a
 //! convolution of a Mises-Fisher distribution with a Mises distribution on the
 //! two-sphere
@@ -148,7 +142,7 @@ class BA_CORE_API_ MisesFisherGaussPeakShape : public IPeakShape
 {
 public:
     MisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
-                                 double kappa_1, double kappa_2);
+                              double kappa_1, double kappa_2);
     ~MisesFisherGaussPeakShape() override;
 
     MisesFisherGaussPeakShape* clone() const override;
@@ -170,7 +164,6 @@ private:
     mutable RealIntegrator m_integrator;
 };
 
-
 //! Class that implements a peak shape that is a convolution of a Mises-Fisher distribution
 //! with a 3d Gaussian
 //!
@@ -179,8 +172,7 @@ private:
 class BA_CORE_API_ MisesGaussPeakShape : public IPeakShape
 {
 public:
-    MisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
-                           double kappa);
+    MisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa);
     ~MisesGaussPeakShape() override;
 
     MisesGaussPeakShape* clone() const override;

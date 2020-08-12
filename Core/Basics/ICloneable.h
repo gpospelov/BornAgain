@@ -30,7 +30,7 @@ public:
     virtual ~ICloneable() = default;
 
     ICloneable(const ICloneable&) = delete;
-    ICloneable& operator=(const ICloneable&) = delete;
+    ICloneable(ICloneable&&) = default;
 
     virtual ICloneable* clone() const = 0;
     virtual void transferToCPP() {} //!< Used for Python overriding of clone (see swig/tweaks.py)

@@ -33,6 +33,7 @@ class BA_CORE_API_ IDistribution1D : public ICloneable, public INode
 {
 public:
     IDistribution1D() = default;
+    IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IDistribution1D* clone() const = 0;
 

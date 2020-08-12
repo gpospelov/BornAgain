@@ -32,6 +32,12 @@ bool DoubleEqual(double a, double b);
 // class IDistribution1D
 // ************************************************************************** //
 
+IDistribution1D::IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues)
+{
+}
+
+
 //! Returns equidistant samples, using intrinsic parameters, weighted with probabilityDensity().
 
 std::vector<ParameterSample> IDistribution1D::equidistantSamples(size_t nbr_samples,

@@ -6585,7 +6585,6 @@ class IDistribution1D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IDistribution1D
 
     def clone(self):
         r"""
@@ -6674,6 +6673,7 @@ class IDistribution1D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IDistribution1D_setUnits(self, units)
+    __swig_destroy__ = _libBornAgainCore.delete_IDistribution1D
 
 # Register IDistribution1D in _libBornAgainCore:
 _libBornAgainCore.IDistribution1D_swigregister(IDistribution1D)

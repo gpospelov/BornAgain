@@ -16,11 +16,6 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 
-LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_lateralCorrLength(0)
-{
-    initialize();
-}
-
 //! Constructor of layer roughness.
 //! @param sigma: rms of the roughness in nanometers
 //! @param hurstParameter: hurst parameter which describes how jagged the interface,
@@ -29,16 +24,17 @@ LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_lateralCor
 LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
     : m_sigma(sigma), m_hurstParameter(hurstParameter), m_lateralCorrLength(lateralCorrLength)
 {
-    initialize();
-}
-
-void LayerRoughness::initialize()
-{
     setName("LayerBasicRoughness");
     registerParameter("Sigma", &m_sigma);
     registerParameter("Hurst", &m_hurstParameter);
     registerParameter("CorrelationLength", &m_lateralCorrLength).setUnit("nm").setNonnegative();
 }
+
+LayerRoughness::LayerRoughness()
+    : LayerRoughness(0, 0, 0)
+{
+}
+
 
 /* ************************************************************************* */
 //! Power spectral density of the surface roughness is a result of two-dimensional

@@ -14300,8 +14300,8 @@ class LayerRoughness(ISample):
 
     def __init__(self, *args):
         r"""
-        __init__(LayerRoughness self) -> LayerRoughness
         __init__(LayerRoughness self, double sigma, double hurstParameter, double lateralCorrLength) -> LayerRoughness
+        __init__(LayerRoughness self) -> LayerRoughness
         LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
 
         Constructor of layer roughness.

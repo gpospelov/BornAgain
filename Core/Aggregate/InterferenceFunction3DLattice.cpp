@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction3DLattice.h"
-#include "Core/Aggregate/IPeakShape.h"
+#include "Core/Correlations/IPeakShape.h"
 #include "Core/Basics/Exceptions.h"
 #include <algorithm>
 

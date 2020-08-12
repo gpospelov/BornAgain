@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/IDistribution2DSampler.h
+//! @file      Core/Correlations/IDistribution2DSampler.h
 //! @brief     Defines interface class IFTDistribution1D, and children thereof
 //!
 //! @homepage  http://www.bornagainproject.org

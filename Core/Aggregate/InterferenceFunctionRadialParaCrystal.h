@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 #define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
-#include "Core/Aggregate/FTDistributions1D.h"
+#include "Core/Correlations/FTDistributions1D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Basics/Complex.h"
 #include <memory>

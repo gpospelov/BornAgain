@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/TransformFromDomain.h"
-#include "Core/Aggregate/FTDistributions1D.h"
-#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Correlations/FTDistributions1D.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"

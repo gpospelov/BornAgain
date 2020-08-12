@@ -6379,8 +6379,6 @@ class INodeVisitor(object):
         visit(INodeVisitor self, ILayout arg2)
         visit(INodeVisitor self, INode arg2)
         visit(INodeVisitor self, Instrument arg2)
-        visit(INodeVisitor self, IntensityNormalizer arg2)
-        visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
@@ -20618,124 +20616,6 @@ def IHistogram_createFrom(*args):
     IHistogram_createFrom(vdouble2d_t data) -> IHistogram
     """
     return _libBornAgainCore.IHistogram_createFrom(*args)
-
-class IntensityNormalizer(ICloneable, INode):
-    r"""
-
-
-    Standard  OutputData normalizer, with configurable max_intensity.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityNormalizer self, double scale=1.0, double shift=0.0) -> IntensityNormalizer
-        IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityNormalizer_swiginit(self, _libBornAgainCore.new_IntensityNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IntensityNormalizer self) -> IntensityNormalizer
-        IntensityNormalizer * IntensityNormalizer::clone() const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityNormalizer self, INodeVisitor visitor)
-        void IntensityNormalizer::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_accept(self, visitor)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
-        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IntensityNormalizer self, IntensityData data)
-        void IntensityNormalizer::apply(OutputData< double > &data) const final
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, max_intensity):
-        r"""
-        setMaximumIntensity(IntensityNormalizer self, double max_intensity)
-        virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
-
-# Register IntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityNormalizer_swigregister(IntensityNormalizer)
-
-class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
-    r"""
-
-
-    Simplified  OutputData normalizer, with max_intensity=1.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0, double shift=0.0) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityScaleAndShiftNormalizer_swiginit(self, _libBornAgainCore.new_IntensityScaleAndShiftNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
-        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_accept(self, visitor)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
-        void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
-
-    def clone(self):
-        r"""
-        clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
-
-# Register IntensityScaleAndShiftNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
 
 class IIntensityFunction(object):
     r"""

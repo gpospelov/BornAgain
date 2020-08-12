@@ -1,5 +1,5 @@
-#include "Core/Aggregate/FTDistributions1D.h"
-#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Correlations/FTDistributions1D.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"

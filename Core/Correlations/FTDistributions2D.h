@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/FTDistributions2D.h
+//! @file      Core/Correlations/FTDistributions2D.h
 //! @brief     Defines interface class IFTDistribution2D, and children thereof.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
 #define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
 
-#include "Core/Aggregate/IDistribution2DSampler.h"
+#include "Core/Correlations/IDistribution2DSampler.h"
 #include "Core/Basics/ICloneable.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/INode.h"

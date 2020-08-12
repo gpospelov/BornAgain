@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
-#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Aggregate/ParticleLayout.h"

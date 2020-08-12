@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_PARTICLELAYOUT_H
 #define BORNAGAIN_CORE_AGGREGATE_PARTICLELAYOUT_H
 
-#include "Core/Aggregate/ILayout.h"
+#include "Core/Correlations/ILayout.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>

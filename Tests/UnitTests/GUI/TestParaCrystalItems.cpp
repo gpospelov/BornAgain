@@ -1,4 +1,4 @@
-#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "Core/Basics/Units.h"
 #include "Core/Lattice/Lattice2D.h"

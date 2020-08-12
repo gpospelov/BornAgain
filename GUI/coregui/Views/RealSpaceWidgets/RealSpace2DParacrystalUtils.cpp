@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpace2DParacrystalUtils.h"
-#include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "Core/Lattice/Lattice2D.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h"

@@ -14,7 +14,7 @@
 
 #include "Core/Computation/ProcessedLayout.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
-#include "Core/Aggregate/ILayout.h"
+#include "Core/Correlations/ILayout.h"
 #include "Core/Multilayer/FormFactorBAPol.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Multilayer/FormFactorDWBA.h"

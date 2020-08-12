@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/IPeakShape.h
+//! @file      Core/Correlations/IPeakShape.h
 //! @brief     Defines the interface IPeakShape and subclasses.
 //!
 //! @homepage  http://www.bornagainproject.org

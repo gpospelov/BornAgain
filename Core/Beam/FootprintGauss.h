@@ -36,12 +36,6 @@ public:
 
     //! Print python-formatted footprint definition
     std::string print() const override;
-
-protected:
-    FootprintGauss(const FootprintGauss& other);
-
-private:
-    void initialize();
 };
 
 #endif // BORNAGAIN_CORE_BEAM_FOOTPRINTGAUSS_H

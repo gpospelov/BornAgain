@@ -43,12 +43,10 @@ public:
     virtual std::string print() const = 0;
 
 protected:
-    IFootprintFactor(const IFootprintFactor& other);
+    double m_width_ratio; //! Beam to sample width ratio
 
 private:
     void initialize();
-
-    double m_width_ratio; //! Beam to sample width ratio
 };
 
 inline std::ostream& operator<<(std::ostream& os, const IFootprintFactor& f_factor)

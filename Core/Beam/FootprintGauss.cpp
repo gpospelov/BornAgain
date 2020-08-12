@@ -19,12 +19,12 @@
 
 FootprintGauss::FootprintGauss(double width_ratio) : IFootprintFactor(width_ratio)
 {
-    initialize();
+    setName("FootprintGauss");
 }
 
 FootprintGauss* FootprintGauss::clone() const
 {
-    return new FootprintGauss(*this);
+    return new FootprintGauss(m_width_ratio);
 }
 
 double FootprintGauss::calculate(double alpha) const
@@ -45,16 +45,6 @@ std::string FootprintGauss::print() const
     result << "ba.FootprintGauss";
     result << "(" << pyfmt::printDouble(widthRatio()) << ")";
     return result.str();
-}
-
-FootprintGauss::FootprintGauss(const FootprintGauss& other) : IFootprintFactor(other)
-{
-    initialize();
-}
-
-void FootprintGauss::initialize()
-{
-    setName("FootprintGauss");
 }
 
 static_assert(!std::is_copy_constructible<FootprintGauss>::value,

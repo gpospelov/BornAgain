@@ -20,12 +20,12 @@
 
 FootprintSquare::FootprintSquare(double width_ratio) : IFootprintFactor(width_ratio)
 {
-    initialize();
+    setName("FootprintSquare");
 }
 
 FootprintSquare* FootprintSquare::clone() const
 {
-    return new FootprintSquare(*this);
+    return new FootprintSquare(m_width_ratio);
 }
 
 double FootprintSquare::calculate(double alpha) const
@@ -46,16 +46,6 @@ std::string FootprintSquare::print() const
     result << "ba.FootprintSquare";
     result << "(" << pyfmt::printDouble(widthRatio()) << ")";
     return result.str();
-}
-
-FootprintSquare::FootprintSquare(const FootprintSquare& other) : IFootprintFactor(other)
-{
-    initialize();
-}
-
-void FootprintSquare::initialize()
-{
-    setName("FootprintSquare");
 }
 
 static_assert(!std::is_copy_constructible<FootprintSquare>::value,

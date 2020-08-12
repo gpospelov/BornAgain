@@ -262,29 +262,6 @@ TEST_F(DistributionsTest, DistributionGaussianClone)
 
 // -------------------------------------------------------------------------- //
 
-TEST_F(DistributionsTest, DistributionLogNormalConstructorWithOneParameter)
-{
-    // When scale_par == 0.0, only one sample is generated (the mean):
-    DistributionLogNormal distr1(1.0, 0.0);
-    std::vector<double> list1 = distr1.equidistantPoints(5, 0.0);
-    EXPECT_EQ(size_t(1), list1.size());
-    EXPECT_EQ(1.0, list1[0]);
-
-    // Test distribution with scale_par > 0.0:
-    DistributionLogNormal distr2(1.0);
-    EXPECT_EQ(1.0, distr2.getMedian());
-    EXPECT_EQ(1.0, distr2.getScalePar());
-    EXPECT_EQ(std::exp(0.5), distr2.getMean());
-    EXPECT_EQ(1.0 / std::sqrt(M_TWOPI), distr2.probabilityDensity(1.0));
-
-    std::vector<double> list2 = distr2.equidistantPoints(1, 0.0);
-    EXPECT_EQ(distr2.getMedian(), list2[0]);
-
-    std::vector<double> list3 = distr2.equidistantPoints(2, 0.0);
-    EXPECT_EQ(std::exp(-2), list3[0]);
-    EXPECT_EQ(std::exp(-2) + std::exp(2) - std::exp(-2), list3[1]);
-}
-
 TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
 {
     std::unique_ptr<DistributionLogNormal> P_distr_lognormal{new DistributionLogNormal(1.0, 1.0)};

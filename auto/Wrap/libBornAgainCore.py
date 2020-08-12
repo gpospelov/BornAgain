@@ -6699,7 +6699,6 @@ class DistributionGate(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionGate_swiginit(self, _libBornAgainCore.new_DistributionGate(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionGate
 
     def clone(self):
         r"""
@@ -6774,6 +6773,7 @@ class DistributionGate(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionGate_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionGate
 
 # Register DistributionGate in _libBornAgainCore:
 _libBornAgainCore.DistributionGate_swigregister(DistributionGate)
@@ -6799,7 +6799,6 @@ class DistributionLorentz(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionLorentz_swiginit(self, _libBornAgainCore.new_DistributionLorentz(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionLorentz
 
     def clone(self):
         r"""
@@ -6866,6 +6865,7 @@ class DistributionLorentz(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionLorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionLorentz
 
 # Register DistributionLorentz in _libBornAgainCore:
 _libBornAgainCore.DistributionLorentz_swigregister(DistributionLorentz)
@@ -6891,7 +6891,6 @@ class DistributionGaussian(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionGaussian_swiginit(self, _libBornAgainCore.new_DistributionGaussian(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionGaussian
 
     def clone(self):
         r"""
@@ -6958,6 +6957,7 @@ class DistributionGaussian(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionGaussian_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionGaussian
 
 # Register DistributionGaussian in _libBornAgainCore:
 _libBornAgainCore.DistributionGaussian_swigregister(DistributionGaussian)
@@ -6975,15 +6975,13 @@ class DistributionLogNormal(IDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, median, scale_param):
         r"""
-        __init__(DistributionLogNormal self, double scale_param) -> DistributionLogNormal
         __init__(DistributionLogNormal self, double median, double scale_param) -> DistributionLogNormal
         DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
 
         """
-        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionLogNormal
+        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(median, scale_param))
 
     def clone(self):
         r"""
@@ -7068,6 +7066,7 @@ class DistributionLogNormal(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionLogNormal_setUnits(self, units)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionLogNormal
 
 # Register DistributionLogNormal in _libBornAgainCore:
 _libBornAgainCore.DistributionLogNormal_swigregister(DistributionLogNormal)
@@ -7093,7 +7092,6 @@ class DistributionCosine(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionCosine_swiginit(self, _libBornAgainCore.new_DistributionCosine(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionCosine
 
     def clone(self):
         r"""
@@ -7160,6 +7158,7 @@ class DistributionCosine(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionCosine_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionCosine
 
 # Register DistributionCosine in _libBornAgainCore:
 _libBornAgainCore.DistributionCosine_swigregister(DistributionCosine)
@@ -7179,13 +7178,12 @@ class DistributionTrapezoid(IDistribution1D):
 
     def __init__(self, *args):
         r"""
+        __init__(DistributionTrapezoid self, double center, double left, double middle, double right) -> DistributionTrapezoid
         __init__(DistributionTrapezoid self) -> DistributionTrapezoid
-        __init__(DistributionTrapezoid self, double center, double left_width, double middle_width, double right_width) -> DistributionTrapezoid
         DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
 
         """
         _libBornAgainCore.DistributionTrapezoid_swiginit(self, _libBornAgainCore.new_DistributionTrapezoid(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionTrapezoid
 
     def clone(self):
         r"""
@@ -7268,6 +7266,7 @@ class DistributionTrapezoid(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionTrapezoid_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionTrapezoid
 
 # Register DistributionTrapezoid in _libBornAgainCore:
 _libBornAgainCore.DistributionTrapezoid_swigregister(DistributionTrapezoid)

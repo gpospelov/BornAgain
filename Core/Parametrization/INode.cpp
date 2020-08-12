@@ -34,6 +34,7 @@ INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
 {
     m_P.resize(m_NP);
     setName(meta.className);
+    parameterPool()->clear(); // non-trivially needed by a few children
     for (size_t i = 0; i < m_NP; ++i) {
         m_P[i] = PValues[i];
         const ParaMeta& pm = meta.paraMeta[i];

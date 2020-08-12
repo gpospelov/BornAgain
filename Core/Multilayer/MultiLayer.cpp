@@ -27,7 +27,8 @@
 MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
 {
     setName("MultiLayer");
-    init_parameters();
+    registerParameter("CrossCorrelationLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
+    registerVector("ExternalField", &m_ext_field, "");
 }
 
 MultiLayer::~MultiLayer() {}
@@ -124,13 +125,6 @@ std::vector<const INode*> MultiLayer::getChildren() const
             result.push_back(p_interface);
     }
     return result;
-}
-
-void MultiLayer::init_parameters()
-{
-    parameterPool()->clear(); // non-trivially needed
-    registerParameter("CrossCorrelationLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
-    registerVector("ExternalField", &m_ext_field, "");
 }
 
 void MultiLayer::addAndRegisterLayer(Layer* child)

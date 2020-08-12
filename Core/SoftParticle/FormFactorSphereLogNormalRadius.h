@@ -17,6 +17,7 @@
 
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Parametrization/Distributions.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/Tools/SafePointerVector.h"
 #include <memory>
 

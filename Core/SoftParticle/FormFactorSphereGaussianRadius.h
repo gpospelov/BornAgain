@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
 #define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
 
-#include "Core/HardParticle/FormFactorFullSphere.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
 
 //! A sphere with gaussian radius distribution.
@@ -46,7 +46,6 @@ private:
     double m_mean; //!< This is the mean radius
     double m_sigma;
     double m_mean_r3; //!< This is the radius that gives the mean volume
-    std::unique_ptr<FormFactorFullSphere> P_ff_sphere;
 };
 
 #endif // BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H

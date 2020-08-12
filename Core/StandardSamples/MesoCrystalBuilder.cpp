@@ -17,6 +17,7 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Lattice/ISelectionRule.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
@@ -28,7 +29,6 @@
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
-#include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 
 MesoCrystalBuilder::MesoCrystalBuilder() {}
 

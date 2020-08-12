@@ -17,6 +17,7 @@
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
+#include "Core/Vector/SomeFormFactors.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param,
                                                                  size_t n_samples)

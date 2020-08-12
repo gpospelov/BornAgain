@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Intensity/IIntensityNormalizer.h
+//! @file      Core/Intensity/IntensityNormalizer.h
 //! @brief     Defines classes IOutputDataNormalizer,
 //!              OutputDataNormalizer, OutputDataSimpleNormalizer.
 //!
@@ -20,27 +20,10 @@
 #include "Core/Intensity/OutputData.h"
 #include "Core/Parametrization/INode.h"
 
-//! Interface to OutputData normalizers.
-//! @ingroup algorithms_internal
-
-class BA_CORE_API_ IIntensityNormalizer : public ICloneable, public INode
-{
-public:
-    virtual ~IIntensityNormalizer() {}
-
-    virtual IIntensityNormalizer* clone() const = 0;
-
-    virtual OutputData<double>* createNormalizedData(const OutputData<double>& data) const = 0;
-
-    virtual void apply(OutputData<double>& data) const = 0;
-
-    virtual void setMaximumIntensity(double) = 0;
-};
-
 //! Standard OutputData normalizer, with configurable max_intensity.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ IntensityNormalizer : public IIntensityNormalizer
+class BA_CORE_API_ IntensityNormalizer : public ICloneable, public INode
 {
 public:
     IntensityNormalizer(double scale = 1.0, double shift = 0.0);
@@ -53,7 +36,7 @@ public:
 
     virtual OutputData<double>* createNormalizedData(const OutputData<double>& data) const;
 
-    void apply(OutputData<double>& data) const final;
+    void apply(OutputData<double>& data) const;
 
     virtual void setMaximumIntensity(double max_intensity) { m_max_intensity = max_intensity; }
 

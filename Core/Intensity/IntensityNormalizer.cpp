@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Intensity/IIntensityNormalizer.cpp
+//! @file      Core/Intensity/IntensityNormalizer.cpp
 //! @brief     Implements class IntensityNormalizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Intensity/IIntensityNormalizer.h"
+#include "Core/Intensity/IntensityNormalizer.h"
 
 IntensityNormalizer::IntensityNormalizer(double scale, double shift)
     : m_scale(scale), m_shift(shift), m_max_intensity(0.0)

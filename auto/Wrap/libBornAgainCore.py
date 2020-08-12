@@ -20619,59 +20619,7 @@ def IHistogram_createFrom(*args):
     """
     return _libBornAgainCore.IHistogram_createFrom(*args)
 
-class IIntensityNormalizer(ICloneable, INode):
-    r"""
-
-
-    Interface to  OutputData normalizers.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IIntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IIntensityNormalizer self) -> IIntensityNormalizer
-        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_clone(self)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
-        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IIntensityNormalizer self, IntensityData data)
-        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IIntensityNormalizer self, double arg2)
-        virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_setMaximumIntensity(self, arg2)
-
-# Register IIntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IIntensityNormalizer_swigregister(IIntensityNormalizer)
-
-class IntensityNormalizer(IIntensityNormalizer):
+class IntensityNormalizer(ICloneable, INode):
     r"""
 
 

@@ -18,11 +18,15 @@
 #include "Core/Parametrization/RealParameter.h"
 #include <cmath>
 
+Lattice2D::Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues)
+{
+}
+
 Lattice2D::Lattice2D(double xi)
     : m_xi(xi)
 {
     registerParameter("Xi", &m_xi).setUnit("rad");
-
 }
 
 Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const

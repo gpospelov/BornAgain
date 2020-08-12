@@ -16,6 +16,11 @@
 #include "Core/Parametrization/RealParameter.h"
 #include <stdexcept>
 
+IFootprintFactor::IFootprintFactor(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues)
+{
+}
+
 IFootprintFactor::IFootprintFactor(double width_ratio) : m_width_ratio(width_ratio)
 {
     if (m_width_ratio < 0.0)

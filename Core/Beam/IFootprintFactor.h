@@ -27,8 +27,9 @@ class Beam;
 class BA_CORE_API_ IFootprintFactor : public ICloneable, public INode
 {
 public:
-    IFootprintFactor() = delete;
+    IFootprintFactor(const NodeMeta& meta, const std::vector<double>& PValues);
     IFootprintFactor(double width_ratio);
+    IFootprintFactor() = delete;
     virtual ~IFootprintFactor();
 
     virtual IFootprintFactor* clone() const = 0;

@@ -21,6 +21,7 @@
 class BA_CORE_API_ Lattice2D : public ICloneable, public INode
 {
 public:
+    Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues);
     explicit Lattice2D(double xi);
 
     virtual Lattice2D* clone() const = 0;

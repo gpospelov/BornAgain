@@ -59,7 +59,7 @@ MultiLayer* CosineRippleBuilder::buildSample() const
 
 TriangularRippleBuilder::TriangularRippleBuilder() : m_d(0.0 * Units::nanometer)
 {
-    init_parameters();
+    registerParameter("asymetry", &m_d);
 }
 
 MultiLayer* TriangularRippleBuilder::buildSample() const
@@ -89,11 +89,6 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;
-}
-
-void TriangularRippleBuilder::init_parameters()
-{
-    registerParameter("asymetry", &m_d);
 }
 
 // ----------------------------------------------------------------------------

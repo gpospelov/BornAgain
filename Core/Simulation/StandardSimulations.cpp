@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/StandardSimulations.cpp
+//! @file      Core/Simulation/StandardSimulations.cpp
 //! @brief     Implements functions for standard simulations.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/StandardSamples/StandardSimulations.h"
+#include "Core/Simulation/StandardSimulations.h"
 #include "Core/Basics/Units.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"

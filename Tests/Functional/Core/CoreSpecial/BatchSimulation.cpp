@@ -13,8 +13,8 @@
 
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Core/StandardSamples/SimulationFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>

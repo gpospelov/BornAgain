@@ -221,7 +221,7 @@
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Core/StandardSamples/SimulationFactory.h"
+#include "Core/Simulation/SimulationFactory.h"
 #include "Core/Tools/MathFunctions.h"
 #include "Core/Vector/BasicVector3D.h"
 #include "Core/Vector/Vectors3D.h"
@@ -497,6 +497,6 @@
 %include "Core/Material/MaterialFactoryFuncs.h"
 
 %include "Core/StandardSamples/SampleBuilderFactory.h"
-%include "Core/StandardSamples/SimulationFactory.h"
+%include "Core/Simulation/SimulationFactory.h"
 
 %include "extendCore.i"

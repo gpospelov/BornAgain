@@ -24,7 +24,7 @@
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 
-MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
+MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
     setName("MultiLayer");
     registerParameter("CrossCorrelationLength", &m_crossCorrLength).setUnit("nm").setNonnegative();

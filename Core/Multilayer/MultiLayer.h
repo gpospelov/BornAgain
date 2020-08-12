@@ -110,7 +110,7 @@ private:
     //! external magnetic field (in A/m)
     kvector_t m_ext_field;
 
-    RoughnessModel m_roughness_model;
+    RoughnessModel m_roughness_model{RoughnessModel::DEFAULT};
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H

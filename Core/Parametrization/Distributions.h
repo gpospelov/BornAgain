@@ -68,11 +68,6 @@ public:
     virtual void setUnits(const std::string& units);
 
 protected:
-#ifndef SWIG
-    //! this function is called during bad initialization of a subclass
-    [[noreturn]] static void SignalBadInitialization(std::string distribution_name);
-#endif
-
     //! modifies xmin and xmax if they are outside of limits
     void adjustMinMaxForLimits(double& xmin, double& xmax, const RealLimits& limits) const;
 
@@ -110,13 +105,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_min;
     double m_max;
 };
@@ -145,13 +134,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_mean;
     double m_hwhm;
 };
@@ -183,13 +166,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_mean;
     double m_std_dev;
 };
@@ -224,13 +201,7 @@ public:
 
     virtual void setUnits(const std::string& units);
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_median;
     double m_scale_param;
 };
@@ -259,13 +230,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_mean;
     double m_sigma;
 };
@@ -300,13 +265,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     void adjustLimitsToNonZeroSamples(double& min, double& max, size_t nbr_samples) const;
     double m_center;
     double m_left;

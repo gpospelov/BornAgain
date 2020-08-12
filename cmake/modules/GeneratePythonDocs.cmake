@@ -1,7 +1,7 @@
-# Autogenerate a .i file from doxygen comments, provided -DBORNAGAIN_GENERATE_PYTHON_DOCS=ON.
+# Autogenerate a .i file from doxygen comments, provided -DCONFIGURE_PYTHON_DOCS=ON.
 
 function(GeneratePythonDocs PD_TARGET SWIG_DIR)
-    if(BORNAGAIN_GENERATE_PYTHON_DOCS)
+    if(CONFIGURE_PYTHON_DOCS)
 
         configure_file(${SWIG_DIR}/DoxyfileSwig.in ${TMP_DIR}/Doxyfile @ONLY)
 
@@ -17,5 +17,5 @@ function(GeneratePythonDocs PD_TARGET SWIG_DIR)
             DEPENDS ${TMP_DIR}/xml/index.xml
             )
 
-    endif(BORNAGAIN_GENERATE_PYTHON_DOCS)
+    endif(CONFIGURE_PYTHON_DOCS)
 endfunction()

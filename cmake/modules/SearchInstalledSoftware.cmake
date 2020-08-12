@@ -58,7 +58,7 @@ if(BORNAGAIN_TIFF_SUPPORT)
 endif()
 
 # --- Python ---
-if(BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
+if(CONFIGURE_BINDINGS AND CONFIGURE_PYTHON_DOCS)
     find_package(Doxygen REQUIRED)
 endif()
 
@@ -92,17 +92,17 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 endif()
 
 # --- Swig ---
-if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
+if(BORNAGAIN_PYTHON AND CONFIGURE_BINDINGS)
     find_package(SWIG 4.0 REQUIRED)
     include(${SWIG_USE_FILE})
     message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE} with flags '${SWIG_FLAGS}'; CMake definitions in ${SWIG_USE_FILE}")
 endif()
 
 # --- man page generation ---
-if(BORNAGAIN_MANPAGE)
+if(CONFIGURE_MANPAGE)
     find_program(POD2MAN pod2man)
     if(NOT POD2MAN)
-        message(FATAL_ERROR "FATAL: cannot satisfy BORNAGAIN_MANPAGE: pod2man not found")
+        message(FATAL_ERROR "FATAL: cannot satisfy CONFIGURE_MANPAGE: pod2man not found")
     endif()
     message(STATUS "Found pod2man: ${POD2MAN}")
 endif()

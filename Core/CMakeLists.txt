@@ -25,7 +25,7 @@ if(BORNAGAIN_PYTHON)
     file(MAKE_DIRECTORY ${AUTO_DIR})
     include_directories(${AUTO_DIR})
 
-    if(BORNAGAIN_GENERATE_BINDINGS)
+    if(CONFIGURE_BINDINGS)
 
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
         file(MAKE_DIRECTORY ${TMP_DIR})
@@ -72,7 +72,7 @@ if(BORNAGAIN_PYTHON)
             DEPENDS ${swig_dependencies} ${include_files}
             )
 
-    endif(BORNAGAIN_GENERATE_BINDINGS)
+    endif(CONFIGURE_BINDINGS)
 
     add_custom_target(
         ${library_name}_python

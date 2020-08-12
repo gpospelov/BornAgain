@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
-#include "Core/Correlations/FTDecay1D.h"
-#include "Core/Correlations/FTDecay2D.h"
 #include "Core/Basics/Assert.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Correlations/FTDecay1D.h"
+#include "Core/Correlations/FTDecay2D.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <algorithm>
 

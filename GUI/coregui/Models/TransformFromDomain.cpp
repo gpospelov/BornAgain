@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/TransformFromDomain.h"
-#include "Core/Correlations/FTDistributions1D.h"
-#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
@@ -22,6 +20,8 @@
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
+#include "Core/Correlations/FTDistributions1D.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Detector/RegionOfInterest.h"

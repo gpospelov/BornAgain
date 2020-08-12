@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
 #define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
 
-#include "Core/Correlations/IDistribution2DSampler.h"
 #include "Core/Basics/ICloneable.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Correlations/IDistribution2DSampler.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Tools/Integrator.h"
 

@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
 #define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
 
-#include "Core/Correlations/IDistribution1DSampler.h"
 #include "Core/Basics/ICloneable.h"
+#include "Core/Correlations/IDistribution1DSampler.h"
 #include "Core/Parametrization/INode.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that

@@ -22469,13 +22469,13 @@ class BasicLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length1, length2, angle, rotation_angle):
+    def __init__(self, length1, length2, angle, xi):
         r"""
-        __init__(BasicLattice self, double length1, double length2, double angle, double rotation_angle) -> BasicLattice
+        __init__(BasicLattice self, double length1, double length2, double angle, double xi) -> BasicLattice
         BasicLattice::BasicLattice(double length1, double length2, double angle, double rotation_angle=0.0)
 
         """
-        _libBornAgainCore.BasicLattice_swiginit(self, _libBornAgainCore.new_BasicLattice(length1, length2, angle, rotation_angle))
+        _libBornAgainCore.BasicLattice_swiginit(self, _libBornAgainCore.new_BasicLattice(length1, length2, angle, xi))
 
     def clone(self):
         r"""
@@ -22537,13 +22537,13 @@ class SquareLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, rotation_angle=0.0):
+    def __init__(self, length, xi=0.0):
         r"""
-        __init__(SquareLattice self, double length, double rotation_angle=0.0) -> SquareLattice
+        __init__(SquareLattice self, double length, double xi=0.0) -> SquareLattice
         SquareLattice::SquareLattice(double length, double rotation_angle=0.0)
 
         """
-        _libBornAgainCore.SquareLattice_swiginit(self, _libBornAgainCore.new_SquareLattice(length, rotation_angle))
+        _libBornAgainCore.SquareLattice_swiginit(self, _libBornAgainCore.new_SquareLattice(length, xi))
 
     def clone(self):
         r"""
@@ -22605,13 +22605,13 @@ class HexagonalLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, rotation_angle):
+    def __init__(self, length, xi):
         r"""
-        __init__(HexagonalLattice self, double length, double rotation_angle) -> HexagonalLattice
+        __init__(HexagonalLattice self, double length, double xi) -> HexagonalLattice
         HexagonalLattice::HexagonalLattice(double length, double rotation_angle=0.0)
 
         """
-        _libBornAgainCore.HexagonalLattice_swiginit(self, _libBornAgainCore.new_HexagonalLattice(length, rotation_angle))
+        _libBornAgainCore.HexagonalLattice_swiginit(self, _libBornAgainCore.new_HexagonalLattice(length, xi))
 
     def clone(self):
         r"""

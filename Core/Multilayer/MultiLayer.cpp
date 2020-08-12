@@ -31,7 +31,7 @@ MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessMode
     registerVector("ExternalField", &m_ext_field, "");
 }
 
-MultiLayer::~MultiLayer() {}
+MultiLayer::~MultiLayer() = default;
 
 MultiLayer* MultiLayer::clone() const
 {

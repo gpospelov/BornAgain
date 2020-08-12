@@ -327,9 +327,9 @@ bool DistributionCosine::isDelta() const
 // class DistributionTrapezoidal
 // ************************************************************************** //
 
-DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width,
-                                             double right_width)
-    : m_center(center), m_left(left_width), m_middle(middle_width), m_right(right_width)
+DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle,
+                                             double right)
+    : m_center(center), m_left(left), m_middle(middle), m_right(right)
 {
     setName("DistributionTrapezoid");
     if (m_left < 0.0)

@@ -43,12 +43,7 @@ public:
 class BA_CORE_API_ IntensityNormalizer : public IIntensityNormalizer
 {
 public:
-    IntensityNormalizer(double scale = 1.0, double shift = 0.0)
-        : m_scale(scale), m_shift(shift), m_max_intensity(0.0)
-    {
-        setName("Normalizer");
-        init_parameters();
-    }
+    IntensityNormalizer(double scale = 1.0, double shift = 0.0);
 
     virtual ~IntensityNormalizer() {}
 
@@ -63,9 +58,6 @@ public:
     virtual void setMaximumIntensity(double max_intensity) { m_max_intensity = max_intensity; }
 
 protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
     double m_scale;
     double m_shift;
     double m_max_intensity;

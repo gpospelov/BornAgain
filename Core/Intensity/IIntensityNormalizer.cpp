@@ -14,8 +14,10 @@
 
 #include "Core/Intensity/IIntensityNormalizer.h"
 
-void IntensityNormalizer::init_parameters()
+IntensityNormalizer::IntensityNormalizer(double scale, double shift)
+    : m_scale(scale), m_shift(shift), m_max_intensity(0.0)
 {
+    setName("Normalizer");
     registerParameter("scale", &m_scale);
     registerParameter("shift", &m_shift);
 }

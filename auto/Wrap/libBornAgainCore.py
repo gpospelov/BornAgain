@@ -11231,7 +11231,6 @@ class IFTDistribution2D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
     def clone(self):
         r"""
@@ -11290,6 +11289,7 @@ class IFTDistribution2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDistribution2D_evaluate(self, qx, qy)
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
 # Register IFTDistribution2D in _libBornAgainCore:
 _libBornAgainCore.IFTDistribution2D_swigregister(IFTDistribution2D)

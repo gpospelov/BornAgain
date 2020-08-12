@@ -17,6 +17,12 @@
 #include <algorithm>
 #include <stdexcept>
 
+IInterferenceFunction::IInterferenceFunction(const NodeMeta& meta,
+                                             const std::vector<double>& PValues)
+    : ISample(meta, PValues)
+{
+}
+
 IInterferenceFunction::IInterferenceFunction() : m_position_var{0.0}
 {
     init_parameters();

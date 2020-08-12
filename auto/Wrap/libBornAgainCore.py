@@ -11596,6 +11596,7 @@ class IInterferenceFunction(ISample):
 
     def __init__(self, *args):
         r"""
+        __init__(IInterferenceFunction self, NodeMeta meta, vdouble1d_t PValues) -> IInterferenceFunction
         __init__(IInterferenceFunction self) -> IInterferenceFunction
         __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
         IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)

@@ -24,6 +24,7 @@
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {
 public:
+    IInterferenceFunction(const NodeMeta& meta, const std::vector<double>& PValues);
     IInterferenceFunction();
     IInterferenceFunction(const IInterferenceFunction& other);
     virtual ~IInterferenceFunction();

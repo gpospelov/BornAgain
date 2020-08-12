@@ -19,7 +19,6 @@
 #include <memory>
 
 class IVarianceFunction;
-class IIntensityNormalizer;
 class IIntensityFunction;
 
 //! Interface residual calculations.

@@ -32,8 +32,7 @@ class ParameterSample;
 class BA_CORE_API_ IDistribution1D : public ICloneable, public INode
 {
 public:
-    IDistribution1D() {}
-    virtual ~IDistribution1D() {}
+    IDistribution1D() = default;
 
     virtual IDistribution1D* clone() const = 0;
 

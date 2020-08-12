@@ -30,11 +30,7 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double later
     registerParameter("CorrelationLength", &m_lateralCorrLength).setUnit("nm").setNonnegative();
 }
 
-LayerRoughness::LayerRoughness()
-    : LayerRoughness(0, 0, 0)
-{
-}
-
+LayerRoughness::LayerRoughness() : LayerRoughness(0, 0, 0) {}
 
 /* ************************************************************************* */
 //! Power spectral density of the surface roughness is a result of two-dimensional

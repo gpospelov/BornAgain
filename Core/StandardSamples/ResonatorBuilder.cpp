@@ -42,10 +42,7 @@ MultiLayer* ResonatorBuilder::buildSample() const
     Layer l_Pt(m_Pt, 32.0 * Units::nm);
     Layer l_D2O(m_D2O);
 
-    LayerRoughness roughness;
-    roughness.setSigma(2.0 * Units::nm);
-    roughness.setHurstParameter(0.8);
-    roughness.setLatteralCorrLength(10.0 * Units::micrometer);
+    LayerRoughness roughness(2.0 * Units::nm, 0.8, 10.0 * Units::micrometer);
 
     result->addLayer(l_Si);
 

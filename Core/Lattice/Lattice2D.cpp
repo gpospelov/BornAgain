@@ -23,8 +23,7 @@ Lattice2D::Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues)
 {
 }
 
-Lattice2D::Lattice2D(double xi)
-    : m_xi(xi)
+Lattice2D::Lattice2D(double xi) : m_xi(xi)
 {
     registerParameter("Xi", &m_xi).setUnit("rad");
 }
@@ -58,7 +57,6 @@ void Lattice2D::setRotationEnabled(bool enabled) // TODO ASAP replace by generic
     }
 }
 
-
 // --------------------------------------------------------------------------------------------- //
 
 BasicLattice::BasicLattice(double length1, double length2, double angle, double xi)
@@ -84,11 +82,9 @@ double BasicLattice::unitCellArea() const
     return std::abs(m_length1 * m_length2 * std::sin(m_angle));
 }
 
-
 // --------------------------------------------------------------------------------------------- //
 
-SquareLattice::SquareLattice(double length, double xi)
-    : Lattice2D(xi), m_length(length)
+SquareLattice::SquareLattice(double length, double xi) : Lattice2D(xi), m_length(length)
 {
     if (m_length <= 0.0)
         throw std::runtime_error("SquareLattice::SquareLattice() -> Error. Lattice length can't be "
@@ -113,11 +109,9 @@ double SquareLattice::unitCellArea() const
     return std::abs(m_length * m_length);
 }
 
-
 // --------------------------------------------------------------------------------------------- //
 
-HexagonalLattice::HexagonalLattice(double length, double xi)
-    : Lattice2D(xi), m_length(length)
+HexagonalLattice::HexagonalLattice(double length, double xi) : Lattice2D(xi), m_length(length)
 {
     if (m_length <= 0.0)
         throw std::runtime_error("HexagonalLattice::HexagonalLattice() -> Error. "

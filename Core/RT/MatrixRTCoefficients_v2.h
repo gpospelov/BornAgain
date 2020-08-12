@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file     Core/Multilayer/MatrixRTCoefficients_v2.h
+//! @file     Core/RT/MatrixRTCoefficients_v2.h
 //! @brief    Defines class MatrixRTCoefficients_v2.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_V2_H
 #define BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_V2_H
 
-#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Vector/Vectors3D.h"
 #include <vector>
 

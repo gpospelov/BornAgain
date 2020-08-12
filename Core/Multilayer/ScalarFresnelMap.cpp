@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/ScalarFresnelMap.h"
-#include "Core/Multilayer/ScalarRTCoefficients.h"
+#include "Core/RT/ScalarRTCoefficients.h"
 #include "Core/Multilayer/Slice.h"
 #include "Core/SimulationElement/SimulationElement.h"
 #include "Core/Vector/Vectors3D.h"

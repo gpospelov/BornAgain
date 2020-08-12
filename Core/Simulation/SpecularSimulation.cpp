@@ -29,7 +29,7 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Core/Multilayer/SpecularSimulationElement.h"
 
 namespace
 {

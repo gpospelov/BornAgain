@@ -1,4 +1,4 @@
-#include "Core/Multilayer/ScalarRTCoefficients.h"
+#include "Core/RT/ScalarRTCoefficients.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ScalarRTCoefficientsTest : public ::testing::Test

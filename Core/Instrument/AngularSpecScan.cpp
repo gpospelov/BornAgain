@@ -20,7 +20,7 @@
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/PyIO/PythonFormatting.h"
-#include "Core/SimulationElement/SpecularSimulationElement.h"
+#include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Tools/PyFmt.h"
 #include "Fit/Tools/RealLimits.h"
 

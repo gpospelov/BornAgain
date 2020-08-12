@@ -1,4 +1,4 @@
-#include "Core/Multilayer/MatrixRTCoefficients.h"
+#include "Core/RT/MatrixRTCoefficients.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MatrixRTCoefficientsTest : public ::testing::Test

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SimulationElement/SpecularSimulationElement.h
+//! @file      Core/Multilayer/SpecularSimulationElement.h
 //! @brief     Declares the class SpecularSimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org

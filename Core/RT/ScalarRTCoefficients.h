@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/ScalarRTCoefficients.h
+//! @file      Core/RT/ScalarRTCoefficients.h
 //! @brief     Defines class ScalarRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_MULTILAYER_SCALARRTCOEFFICIENTS_H
 
 #include "Core/Basics/Complex.h"
-#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Vector/EigenCore.h"
 
 //! Specular reflection and transmission coefficients in a layer in case

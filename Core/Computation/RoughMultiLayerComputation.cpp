@@ -16,7 +16,7 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Multilayer/IFresnelMap.h"
-#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"

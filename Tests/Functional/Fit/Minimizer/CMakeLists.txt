@@ -9,4 +9,4 @@ target_include_directories(${test}
     PUBLIC ${CMAKE_SOURCE_DIR}/ThirdParty/common/gtest/gtest-1.8.0/include)
 target_link_libraries(${test} BornAgainFit gtest)
 
-gtest_discover_tests(${test} TEST_PREFIX Fit.)
+gtest_discover_tests(${test} DISCOVERY_TIMEOUT 300 TEST_PREFIX Fit.)

@@ -12,4 +12,4 @@ if(BORNAGAIN_GUI)
     target_link_libraries(${test} ${Qt5Core_LIBRARIES})
 endif()
 
-gtest_discover_tests(${test} TEST_PREFIX Core.Unit.)
+gtest_discover_tests(${test} DISCOVERY_TIMEOUT 300 TEST_PREFIX Core.Unit.)

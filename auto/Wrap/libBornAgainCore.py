@@ -13181,14 +13181,13 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, radius, density, position_var=0):
         r"""
-        __init__(InterferenceFunctionHardDisk self, double radius, double density, double position_var) -> InterferenceFunctionHardDisk
-        __init__(InterferenceFunctionHardDisk self, double radius, double density) -> InterferenceFunctionHardDisk
+        __init__(InterferenceFunctionHardDisk self, double radius, double density, double position_var=0) -> InterferenceFunctionHardDisk
         InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
 
         """
-        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(*args))
+        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density, position_var))
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionHardDisk
 
     def clone(self):

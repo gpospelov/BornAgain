@@ -133,6 +133,8 @@ DistributionGate::DistributionGate(double min, double max) : m_min(min), m_max(m
     registerParameter("Max", &m_max);
 }
 
+DistributionGate::DistributionGate() : DistributionGate(0., 1.) {}
+
 double DistributionGate::probabilityDensity(double x) const
 {
     if (x < m_min || x > m_max)
@@ -170,6 +172,8 @@ DistributionLorentz::DistributionLorentz(double mean, double hwhm) : m_mean(mean
     registerParameter("HWHM", &m_hwhm);
 }
 
+DistributionLorentz::DistributionLorentz() : DistributionLorentz(0., 1.) {}
+
 double DistributionLorentz::probabilityDensity(double x) const
 {
     if (m_hwhm == 0.0)
@@ -206,6 +210,8 @@ DistributionGaussian::DistributionGaussian(double mean, double std_dev)
     registerParameter("Mean", &m_mean);
     registerParameter("StdDev", &m_std_dev);
 }
+
+DistributionGaussian::DistributionGaussian() : DistributionGaussian(0., 1.) {}
 
 double DistributionGaussian::probabilityDensity(double x) const
 {
@@ -302,6 +308,8 @@ DistributionCosine::DistributionCosine(double mean, double sigma) : m_mean(mean)
     registerParameter("Sigma", &m_sigma);
 }
 
+DistributionCosine::DistributionCosine() : DistributionCosine(0., 1.) {}
+
 double DistributionCosine::probabilityDensity(double x) const
 {
     if (m_sigma == 0.0)
@@ -347,6 +355,8 @@ DistributionTrapezoid::DistributionTrapezoid(double center, double left, double 
     registerParameter("MiddleWidth", &m_middle);
     registerParameter("RightWidth", &m_right);
 }
+
+DistributionTrapezoid::DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
 
 double DistributionTrapezoid::probabilityDensity(double x) const
 {

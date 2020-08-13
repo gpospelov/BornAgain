@@ -86,7 +86,7 @@ protected:
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
-    DistributionGate() : DistributionGate(0., 1.) {}
+    DistributionGate();
     DistributionGate(double min, double max);
 
     DistributionGate* clone() const final { return new DistributionGate(m_min, m_max); }
@@ -115,7 +115,7 @@ private:
 class BA_CORE_API_ DistributionLorentz : public IDistribution1D
 {
 public:
-    DistributionLorentz() : DistributionLorentz(0., 1.) {}
+    DistributionLorentz();
     DistributionLorentz(double mean, double hwhm);
 
     DistributionLorentz* clone() const final { return new DistributionLorentz(m_mean, m_hwhm); }
@@ -143,7 +143,7 @@ private:
 class BA_CORE_API_ DistributionGaussian : public IDistribution1D
 {
 public:
-    DistributionGaussian() : DistributionGaussian(0., 1.) {}
+    DistributionGaussian();
     DistributionGaussian(double mean, double std_dev);
 
     DistributionGaussian* clone() const final
@@ -208,7 +208,7 @@ private:
 class BA_CORE_API_ DistributionCosine : public IDistribution1D
 {
 public:
-    DistributionCosine() : DistributionCosine(0., 1.) {}
+    DistributionCosine();
     DistributionCosine(double mean, double sigma);
 
     DistributionCosine* clone() const final { return new DistributionCosine(m_mean, m_sigma); }
@@ -236,8 +236,8 @@ private:
 class BA_CORE_API_ DistributionTrapezoid : public IDistribution1D
 {
 public:
+    DistributionTrapezoid();
     DistributionTrapezoid(double center, double left, double middle, double right);
-    DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
 
     DistributionTrapezoid* clone() const final
     {

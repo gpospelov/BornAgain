@@ -13,19 +13,25 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include "Core/Vector/SomeFormFactors.h"
 #include "Fit/Tools/RealLimits.h"
 
-FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
-    : m_mean(mean), m_sigma(sigma), m_mean_r3(0.0)
+FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(const std::vector<double> P)
+    : IFormFactorBorn({"FormFactorSphereGaussianRadius",
+                       "class_tooltip",
+                       {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
+                        {"SigmaRadius", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_mean(m_P[0]), m_sigma(m_P[1])
 {
-    setName("FormFactorSphereGaussianRadius");
     m_mean_r3 = calculateMeanR3();
-    registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
-    registerParameter("SigmaRadius", &m_sigma).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
+    : FormFactorSphereGaussianRadius(std::vector<double>{mean, sigma})
+{
 }
 
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const

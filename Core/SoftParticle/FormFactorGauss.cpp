@@ -14,15 +14,22 @@
 
 #include "Core/SoftParticle/FormFactorGauss.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h"
 #include <limits>
 
-FormFactorGaussSphere::FormFactorGaussSphere(double mean_radius) : m_mean_radius(mean_radius)
+FormFactorGaussSphere::FormFactorGaussSphere(const std::vector<double> P)
+    : IFormFactorBorn({"FormFactorGaussSphere",
+                       "class_tooltip",
+                       {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_mean_radius(m_P[0])
 {
-    setName("FormFactorGaussSphere");
-    registerParameter("MeanRadius", &m_mean_radius).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorGaussSphere::FormFactorGaussSphere(double mean_radius)
+    : FormFactorGaussSphere(std::vector<double>{mean_radius})
+{
 }
 
 complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const

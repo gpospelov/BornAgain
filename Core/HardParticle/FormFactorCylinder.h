@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn
 {
 public:
+    FormFactorCylinder(const std::vector<double> P);
     FormFactorCylinder(double radius, double height);
 
     FormFactorCylinder* clone() const override final
@@ -45,8 +46,8 @@ protected:
     void onChange() override final;
 
 private:
-    double m_radius;
-    double m_height;
+    const double& m_radius;
+    const double& m_height;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H

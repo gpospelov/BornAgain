@@ -25,6 +25,7 @@ class BA_CORE_API_ FormFactorDodecahedron : public FormFactorPolyhedron
 public:
     //! @brief Constructs a regular dodecahedron
     //! @param edge length
+    FormFactorDodecahedron(const std::vector<double> P);
     FormFactorDodecahedron(double edge);
 
     FormFactorDodecahedron* clone() const override final
@@ -40,7 +41,7 @@ protected:
 
 private:
     static const PolyhedralTopology topology;
-    double m_edge;
+    const double& m_edge;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDODECAHEDRON_H

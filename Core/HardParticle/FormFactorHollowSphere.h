@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorHollowSphere : public IFormFactorBorn
 {
 public:
+    FormFactorHollowSphere(const std::vector<double> P);
     FormFactorHollowSphere(double mean, double full_width);
 
     FormFactorHollowSphere* clone() const override final
@@ -40,8 +41,8 @@ protected:
 
 private:
     bool checkParameters() const;
-    double m_mean;       //!< This is the mean radius
-    double m_full_width; //!< This is the full width of the radius distribution
+    const double& m_mean;       //!< This is the mean radius
+    const double& m_full_width; //!< This is the full width of the radius distribution
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHOLLOWSPHERE_H

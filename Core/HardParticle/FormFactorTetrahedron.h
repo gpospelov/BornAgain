@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorTetrahedron : public FormFactorPolyhedron
 {
 public:
+    FormFactorTetrahedron(const std::vector<double> P);
     FormFactorTetrahedron(double base_edge, double height, double alpha);
 
     FormFactorTetrahedron* clone() const override final
@@ -43,9 +44,9 @@ protected:
 
 private:
     static const PolyhedralTopology topology;
-    double m_base_edge;
-    double m_height;
-    double m_alpha;
+    const double& m_base_edge;
+    const double& m_height;
+    const double& m_alpha;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTETRAHEDRON_H

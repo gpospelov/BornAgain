@@ -13,14 +13,19 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorTriangle.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Fit/Tools/RealLimits.h"
 
-FormFactorTriangle::FormFactorTriangle(double base_edge) : m_base_edge(base_edge)
+FormFactorTriangle::FormFactorTriangle(const std::vector<double> P)
+    : FormFactorPolygonalSurface(
+        {"Triangle", "class_tooltip", {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0}}}, P),
+      m_base_edge(m_P[0])
 {
-    setName("Triangle");
-    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorTriangle::FormFactorTriangle(double base_edge)
+    : FormFactorTriangle(std::vector<double>{base_edge})
+{
 }
 
 void FormFactorTriangle::onChange()

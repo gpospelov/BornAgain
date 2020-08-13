@@ -13,16 +13,17 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorDot.h"
-#include "Core/Parametrization/RealParameter.h"
 
 //! Constructor.
 //! @param rscat: radius of a sphere with same forward scattering power, in nanometers
-FormFactorDot::FormFactorDot(double radius) : m_radius(radius)
+FormFactorDot::FormFactorDot(const std::vector<double> P)
+    : IFormFactorBorn({"Dot", "class_tooltip", {{"Radius", "nm", "para_tooltip", 0, +INF, 0}}}, P),
+      m_radius(m_P[0])
 {
-    setName("Dot");
-    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
     onChange();
 }
+
+FormFactorDot::FormFactorDot(double radius) : FormFactorDot(std::vector<double>{radius}) {}
 
 complex_t FormFactorDot::evaluate_for_q(cvector_t) const
 {

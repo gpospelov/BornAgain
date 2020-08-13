@@ -15,17 +15,18 @@
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include "Core/Vector/SomeFormFactors.h"
 
-FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param,
+FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vector<double> P,
                                                                  size_t n_samples)
-    : m_mean(mean), m_scale_param(scale_param), m_n_samples(n_samples)
+    : IFormFactorBorn({"FormFactorSphereLogNormalRadius",
+                       "class_tooltip",
+                       {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
+                        {"ScaleParameter", "", "para_tooltip", -INF, +INF, 0}}},
+                      P),
+      m_mean(m_P[0]), m_scale_param(m_P[1]), m_n_samples(n_samples)
 {
-    setName("FormFactorSphereLogNormalRadius");
-    registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
-    registerParameter("ScaleParameter", &m_scale_param);
 
     DistributionLogNormal distri(m_mean, m_scale_param);
     m_radii.clear();
@@ -36,6 +37,12 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, do
     }
 
     onChange();
+}
+
+FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param,
+                                                                 size_t n_samples)
+    : FormFactorSphereLogNormalRadius(std::vector<double>{mean, scale_param}, n_samples)
+{
 }
 
 FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const

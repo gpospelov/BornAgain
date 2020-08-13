@@ -15,7 +15,6 @@
 #include "Core/HardParticle/FormFactorPyramid.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 
 const PolyhedralTopology FormFactorPyramid::topology = {{
@@ -32,14 +31,21 @@ const PolyhedralTopology FormFactorPyramid::topology = {{
 //! @param base_edge: length of the square base in nanometers
 //! @param height: height of the pyramid in nanometers
 //! @param alpha: dihedral angle between the base and a side face in radians
-FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
-    : FormFactorPolyhedron(), m_base_edge(base_edge), m_height(height), m_alpha(alpha)
+FormFactorPyramid::FormFactorPyramid(const std::vector<double> P)
+    : FormFactorPolyhedron({"Pyramid",
+                            "class_tooltip",
+                            {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Alpha", "rad", "para_tooltip", 0., M_PI, 0}}},
+                           P),
+      m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
-    setName("Pyramid");
-    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI);
     onChange();
+}
+
+FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
+    : FormFactorPyramid(std::vector<double>{base_edge, height, alpha})
+{
 }
 
 IFormFactor* FormFactorPyramid::sliceFormFactor(ZLimits limits, const IRotation& rot,

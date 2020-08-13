@@ -25,6 +25,7 @@
 class BA_CORE_API_ FormFactorHemiEllipsoid : public IFormFactorBorn
 {
 public:
+    FormFactorHemiEllipsoid(const std::vector<double> P);
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
     virtual ~FormFactorHemiEllipsoid() {}
 
@@ -48,9 +49,9 @@ protected:
 private:
     complex_t Integrand(double Z) const;
 
-    double m_radius_x;
-    double m_radius_y;
-    double m_height;
+    const double& m_radius_x;
+    const double& m_radius_y;
+    const double& m_height;
     mutable cvector_t m_q;
     mutable ComplexIntegrator m_integrator;
 };

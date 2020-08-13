@@ -15,7 +15,6 @@
 #include "Core/HardParticle/FormFactorCone6.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 
 const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true},
@@ -32,14 +31,21 @@ const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true
 //! @param base_edge: Edge of the regular hexagonal base in nanometers
 //! @param height: height of a truncated pyramid in nanometers
 //! @param alpha: dihedral angle in radians between base and facet
-FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
-    : FormFactorPolyhedron(), m_base_edge(base_edge), m_height(height), m_alpha(alpha)
+FormFactorCone6::FormFactorCone6(const std::vector<double> P)
+    : FormFactorPolyhedron({"Cone6",
+                            "class_tooltip",
+                            {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                           P),
+      m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
-    setName("Cone6");
-    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
+}
+
+FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
+    : FormFactorCone6(std::vector<double>{base_edge, height, alpha})
+{
 }
 
 IFormFactor* FormFactorCone6::sliceFormFactor(ZLimits limits, const IRotation& rot,

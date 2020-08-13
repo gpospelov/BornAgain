@@ -13,18 +13,24 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorLongBoxGauss.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/Box.h"
 #include "Core/Tools/MathFunctions.h"
 
-FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
-    : m_length(length), m_width(width), m_height(height)
+FormFactorLongBoxGauss::FormFactorLongBoxGauss(const std::vector<double> P)
+    : IFormFactorBorn({"FormFactorLongBoxGauss",
+                       "class_tooltip",
+                       {{"Length", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Width", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])
 {
-    setName("FormFactorLongBoxGauss");
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
+    : FormFactorLongBoxGauss(std::vector<double>{length, width, height})
+{
 }
 
 complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const

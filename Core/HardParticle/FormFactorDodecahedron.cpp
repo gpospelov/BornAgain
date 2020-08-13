@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorDodecahedron.h"
-#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorDodecahedron::topology = {{// bottom:
                                                               {{0, 4, 3, 2, 1}, false},
@@ -35,11 +34,17 @@ const PolyhedralTopology FormFactorDodecahedron::topology = {{// bottom:
 
 //! Constructor of a dodecahedron.
 //! @param edge: length of the edge in nanometers
-FormFactorDodecahedron::FormFactorDodecahedron(double edge) : FormFactorPolyhedron(), m_edge(edge)
+FormFactorDodecahedron::FormFactorDodecahedron(const std::vector<double> P)
+    : FormFactorPolyhedron(
+        {"Dodecahedron", "class_tooltip", {{"Edge", "nm", "para_tooltip", 0, +INF, 0}}}, P),
+      m_edge(m_P[0])
 {
-    setName("Dodecahedron");
-    registerParameter("Edge", &m_edge).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorDodecahedron::FormFactorDodecahedron(double edge)
+    : FormFactorDodecahedron(std::vector<double>{edge})
+{
 }
 
 void FormFactorDodecahedron::onChange()

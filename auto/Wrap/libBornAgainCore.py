@@ -7178,8 +7178,8 @@ class DistributionTrapezoid(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionTrapezoid self, double center, double left, double middle, double right) -> DistributionTrapezoid
         __init__(DistributionTrapezoid self) -> DistributionTrapezoid
+        __init__(DistributionTrapezoid self, double center, double left, double middle, double right) -> DistributionTrapezoid
         DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
 
         """
@@ -15289,8 +15289,9 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorAnisoPyramid self, vdouble1d_t P) -> FormFactorAnisoPyramid
         __init__(FormFactorAnisoPyramid self, double length, double width, double height, double alpha) -> FormFactorAnisoPyramid
         FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
@@ -15312,7 +15313,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorAnisoPyramid_swiginit(self, _libBornAgainCore.new_FormFactorAnisoPyramid(length, width, height, alpha))
+        _libBornAgainCore.FormFactorAnisoPyramid_swiginit(self, _libBornAgainCore.new_FormFactorAnisoPyramid(*args))
 
     def clone(self):
         r"""
@@ -15383,8 +15384,9 @@ class FormFactorBox(FormFactorPolygonalPrism):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorBox self, vdouble1d_t P) -> FormFactorBox
         __init__(FormFactorBox self, double length, double width, double height) -> FormFactorBox
         FormFactorBox::FormFactorBox(double length, double width, double height)
 
@@ -15403,7 +15405,7 @@ class FormFactorBox(FormFactorPolygonalPrism):
         height of the box in nanometers 
 
         """
-        _libBornAgainCore.FormFactorBox_swiginit(self, _libBornAgainCore.new_FormFactorBox(length, width, height))
+        _libBornAgainCore.FormFactorBox_swiginit(self, _libBornAgainCore.new_FormFactorBox(*args))
 
     def clone(self):
         r"""
@@ -15488,8 +15490,9 @@ class FormFactorCantellatedCube(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, removed_length):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCantellatedCube self, vdouble1d_t P) -> FormFactorCantellatedCube
         __init__(FormFactorCantellatedCube self, double length, double removed_length) -> FormFactorCantellatedCube
         FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
 
@@ -15505,7 +15508,7 @@ class FormFactorCantellatedCube(FormFactorPolyhedron):
         removed length from each edge of the cube in nanometers 
 
         """
-        _libBornAgainCore.FormFactorCantellatedCube_swiginit(self, _libBornAgainCore.new_FormFactorCantellatedCube(length, removed_length))
+        _libBornAgainCore.FormFactorCantellatedCube_swiginit(self, _libBornAgainCore.new_FormFactorCantellatedCube(*args))
 
     def clone(self):
         r"""
@@ -15560,8 +15563,9 @@ class FormFactorCone(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCone self, vdouble1d_t P) -> FormFactorCone
         __init__(FormFactorCone self, double radius, double height, double alpha) -> FormFactorCone
         FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 
@@ -15580,7 +15584,7 @@ class FormFactorCone(IFormFactorBorn):
         angle between the base and the side surface in radians 
 
         """
-        _libBornAgainCore.FormFactorCone_swiginit(self, _libBornAgainCore.new_FormFactorCone(radius, height, alpha))
+        _libBornAgainCore.FormFactorCone_swiginit(self, _libBornAgainCore.new_FormFactorCone(*args))
 
     def clone(self):
         r"""
@@ -15663,8 +15667,9 @@ class FormFactorCone6(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCone6 self, vdouble1d_t P) -> FormFactorCone6
         __init__(FormFactorCone6 self, double base_edge, double height, double alpha) -> FormFactorCone6
         FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
@@ -15683,7 +15688,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorCone6_swiginit(self, _libBornAgainCore.new_FormFactorCone6(base_edge, height, alpha))
+        _libBornAgainCore.FormFactorCone6_swiginit(self, _libBornAgainCore.new_FormFactorCone6(*args))
 
     def clone(self):
         r"""
@@ -15746,8 +15751,9 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, height, height_ratio, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCuboctahedron self, vdouble1d_t P) -> FormFactorCuboctahedron
         __init__(FormFactorCuboctahedron self, double length, double height, double height_ratio, double alpha) -> FormFactorCuboctahedron
         FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 
@@ -15769,7 +15775,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorCuboctahedron_swiginit(self, _libBornAgainCore.new_FormFactorCuboctahedron(length, height, height_ratio, alpha))
+        _libBornAgainCore.FormFactorCuboctahedron_swiginit(self, _libBornAgainCore.new_FormFactorCuboctahedron(*args))
 
     def clone(self):
         r"""
@@ -15840,8 +15846,9 @@ class FormFactorCylinder(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCylinder self, vdouble1d_t P) -> FormFactorCylinder
         __init__(FormFactorCylinder self, double radius, double height) -> FormFactorCylinder
         FormFactorCylinder::FormFactorCylinder(double radius, double height)
 
@@ -15857,7 +15864,7 @@ class FormFactorCylinder(IFormFactorBorn):
         height of the cylinder in nanometers 
 
         """
-        _libBornAgainCore.FormFactorCylinder_swiginit(self, _libBornAgainCore.new_FormFactorCylinder(radius, height))
+        _libBornAgainCore.FormFactorCylinder_swiginit(self, _libBornAgainCore.new_FormFactorCylinder(*args))
 
     def clone(self):
         r"""
@@ -15932,8 +15939,9 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, edge):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorDodecahedron self, vdouble1d_t P) -> FormFactorDodecahedron
         __init__(FormFactorDodecahedron self, double edge) -> FormFactorDodecahedron
         FormFactorDodecahedron::FormFactorDodecahedron(double edge)
 
@@ -15954,7 +15962,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         length of the edge in nanometers 
 
         """
-        _libBornAgainCore.FormFactorDodecahedron_swiginit(self, _libBornAgainCore.new_FormFactorDodecahedron(edge))
+        _libBornAgainCore.FormFactorDodecahedron_swiginit(self, _libBornAgainCore.new_FormFactorDodecahedron(*args))
 
     def clone(self):
         r"""
@@ -16001,8 +16009,9 @@ class FormFactorDot(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorDot self, vdouble1d_t P) -> FormFactorDot
         __init__(FormFactorDot self, double radius) -> FormFactorDot
         FormFactorDot::FormFactorDot(double radius)
 
@@ -16015,7 +16024,7 @@ class FormFactorDot(IFormFactorBorn):
         radius of a sphere with same forward scattering power, in nanometers 
 
         """
-        _libBornAgainCore.FormFactorDot_swiginit(self, _libBornAgainCore.new_FormFactorDot(radius))
+        _libBornAgainCore.FormFactorDot_swiginit(self, _libBornAgainCore.new_FormFactorDot(*args))
 
     def clone(self):
         r"""
@@ -16102,8 +16111,9 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius_x, radius_y, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorEllipsoidalCylinder self, vdouble1d_t P) -> FormFactorEllipsoidalCylinder
         __init__(FormFactorEllipsoidalCylinder self, double radius_x, double radius_y, double height) -> FormFactorEllipsoidalCylinder
         FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
 
@@ -16122,7 +16132,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         height of the ellipsoidal cylinder in nanometers 
 
         """
-        _libBornAgainCore.FormFactorEllipsoidalCylinder_swiginit(self, _libBornAgainCore.new_FormFactorEllipsoidalCylinder(radius_x, radius_y, height))
+        _libBornAgainCore.FormFactorEllipsoidalCylinder_swiginit(self, _libBornAgainCore.new_FormFactorEllipsoidalCylinder(*args))
 
     def clone(self):
         r"""
@@ -16205,8 +16215,9 @@ class FormFactorFullSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, position_at_center=False):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorFullSphere self, vdouble1d_t P, bool position_at_center=False) -> FormFactorFullSphere
         __init__(FormFactorFullSphere self, double radius, bool position_at_center=False) -> FormFactorFullSphere
         FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
 
@@ -16219,7 +16230,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         radius of the sphere in nanometers 
 
         """
-        _libBornAgainCore.FormFactorFullSphere_swiginit(self, _libBornAgainCore.new_FormFactorFullSphere(radius, position_at_center))
+        _libBornAgainCore.FormFactorFullSphere_swiginit(self, _libBornAgainCore.new_FormFactorFullSphere(*args))
 
     def clone(self):
         r"""
@@ -16306,8 +16317,9 @@ class FormFactorFullSpheroid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorFullSpheroid self, vdouble1d_t P) -> FormFactorFullSpheroid
         __init__(FormFactorFullSpheroid self, double radius, double height) -> FormFactorFullSpheroid
         FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 
@@ -16323,7 +16335,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         height of the full spheroid in nanometers 
 
         """
-        _libBornAgainCore.FormFactorFullSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorFullSpheroid(radius, height))
+        _libBornAgainCore.FormFactorFullSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorFullSpheroid(*args))
 
     def clone(self):
         r"""
@@ -16398,8 +16410,9 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius_x, radius_y, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorHemiEllipsoid self, vdouble1d_t P) -> FormFactorHemiEllipsoid
         __init__(FormFactorHemiEllipsoid self, double radius_x, double radius_y, double height) -> FormFactorHemiEllipsoid
         FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
 
@@ -16418,7 +16431,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         height of the hemi ellipsoid in nanometers 
 
         """
-        _libBornAgainCore.FormFactorHemiEllipsoid_swiginit(self, _libBornAgainCore.new_FormFactorHemiEllipsoid(radius_x, radius_y, height))
+        _libBornAgainCore.FormFactorHemiEllipsoid_swiginit(self, _libBornAgainCore.new_FormFactorHemiEllipsoid(*args))
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorHemiEllipsoid
 
     def clone(self):
@@ -16501,13 +16514,14 @@ class FormFactorHollowSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean, full_width):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorHollowSphere self, vdouble1d_t P) -> FormFactorHollowSphere
         __init__(FormFactorHollowSphere self, double mean, double full_width) -> FormFactorHollowSphere
         FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
 
         """
-        _libBornAgainCore.FormFactorHollowSphere_swiginit(self, _libBornAgainCore.new_FormFactorHollowSphere(mean, full_width))
+        _libBornAgainCore.FormFactorHollowSphere_swiginit(self, _libBornAgainCore.new_FormFactorHollowSphere(*args))
 
     def clone(self):
         r"""
@@ -16566,8 +16580,9 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, edge):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorIcosahedron self, vdouble1d_t P) -> FormFactorIcosahedron
         __init__(FormFactorIcosahedron self, double edge) -> FormFactorIcosahedron
         FormFactorIcosahedron::FormFactorIcosahedron(double edge)
 
@@ -16580,7 +16595,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         length of the edge in nanometers 
 
         """
-        _libBornAgainCore.FormFactorIcosahedron_swiginit(self, _libBornAgainCore.new_FormFactorIcosahedron(edge))
+        _libBornAgainCore.FormFactorIcosahedron_swiginit(self, _libBornAgainCore.new_FormFactorIcosahedron(*args))
 
     def clone(self):
         r"""
@@ -16627,8 +16642,9 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorLongBoxGauss self, vdouble1d_t P) -> FormFactorLongBoxGauss
         __init__(FormFactorLongBoxGauss self, double length, double width, double height) -> FormFactorLongBoxGauss
         FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
 
@@ -16647,7 +16663,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         of  Box
 
         """
-        _libBornAgainCore.FormFactorLongBoxGauss_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxGauss(length, width, height))
+        _libBornAgainCore.FormFactorLongBoxGauss_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxGauss(*args))
 
     def clone(self):
         r"""
@@ -16730,8 +16746,9 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorLongBoxLorentz self, vdouble1d_t P) -> FormFactorLongBoxLorentz
         __init__(FormFactorLongBoxLorentz self, double length, double width, double height) -> FormFactorLongBoxLorentz
         FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
 
@@ -16750,7 +16767,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         of  Box
 
         """
-        _libBornAgainCore.FormFactorLongBoxLorentz_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxLorentz(length, width, height))
+        _libBornAgainCore.FormFactorLongBoxLorentz_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxLorentz(*args))
 
     def clone(self):
         r"""
@@ -16833,8 +16850,9 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorPrism3 self, vdouble1d_t P) -> FormFactorPrism3
         __init__(FormFactorPrism3 self, double base_edge, double height) -> FormFactorPrism3
         FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
 
@@ -16850,7 +16868,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         height in nanometers 
 
         """
-        _libBornAgainCore.FormFactorPrism3_swiginit(self, _libBornAgainCore.new_FormFactorPrism3(base_edge, height))
+        _libBornAgainCore.FormFactorPrism3_swiginit(self, _libBornAgainCore.new_FormFactorPrism3(*args))
 
     def clone(self):
         r"""
@@ -16897,8 +16915,9 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorPrism6 self, vdouble1d_t P) -> FormFactorPrism6
         __init__(FormFactorPrism6 self, double base_edge, double height) -> FormFactorPrism6
         FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
 
@@ -16914,7 +16933,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         height in nanometers 
 
         """
-        _libBornAgainCore.FormFactorPrism6_swiginit(self, _libBornAgainCore.new_FormFactorPrism6(base_edge, height))
+        _libBornAgainCore.FormFactorPrism6_swiginit(self, _libBornAgainCore.new_FormFactorPrism6(*args))
 
     def clone(self):
         r"""
@@ -16961,8 +16980,9 @@ class FormFactorPyramid(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorPyramid self, vdouble1d_t P) -> FormFactorPyramid
         __init__(FormFactorPyramid self, double base_edge, double height, double alpha) -> FormFactorPyramid
         FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
@@ -16981,7 +17001,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         dihedral angle between the base and a side face in radians 
 
         """
-        _libBornAgainCore.FormFactorPyramid_swiginit(self, _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha))
+        _libBornAgainCore.FormFactorPyramid_swiginit(self, _libBornAgainCore.new_FormFactorPyramid(*args))
 
     def clone(self):
         r"""
@@ -17314,8 +17334,9 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTetrahedron self, vdouble1d_t P) -> FormFactorTetrahedron
         __init__(FormFactorTetrahedron self, double base_edge, double height, double alpha) -> FormFactorTetrahedron
         FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
@@ -17334,7 +17355,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorTetrahedron_swiginit(self, _libBornAgainCore.new_FormFactorTetrahedron(base_edge, height, alpha))
+        _libBornAgainCore.FormFactorTetrahedron_swiginit(self, _libBornAgainCore.new_FormFactorTetrahedron(*args))
 
     def clone(self):
         r"""
@@ -17397,8 +17418,9 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, removed_length):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTruncatedCube self, vdouble1d_t P) -> FormFactorTruncatedCube
         __init__(FormFactorTruncatedCube self, double length, double removed_length) -> FormFactorTruncatedCube
         FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
 
@@ -17414,7 +17436,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         removed length from each edge of the cube in nanometers 
 
         """
-        _libBornAgainCore.FormFactorTruncatedCube_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedCube(length, removed_length))
+        _libBornAgainCore.FormFactorTruncatedCube_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedCube(*args))
 
     def clone(self):
         r"""
@@ -17469,8 +17491,9 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, dh):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTruncatedSphere self, vdouble1d_t P) -> FormFactorTruncatedSphere
         __init__(FormFactorTruncatedSphere self, double radius, double height, double dh) -> FormFactorTruncatedSphere
         FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
 
@@ -17489,7 +17512,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         length of cup truncated from the top 
 
         """
-        _libBornAgainCore.FormFactorTruncatedSphere_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height, dh))
+        _libBornAgainCore.FormFactorTruncatedSphere_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSphere(*args))
 
     def clone(self):
         r"""
@@ -17572,8 +17595,9 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, height_flattening, dh):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTruncatedSpheroid self, vdouble1d_t P) -> FormFactorTruncatedSpheroid
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh) -> FormFactorTruncatedSpheroid
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
 
@@ -17595,7 +17619,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         length of cup truncated from the top 
 
         """
-        _libBornAgainCore.FormFactorTruncatedSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening, dh))
+        _libBornAgainCore.FormFactorTruncatedSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSpheroid(*args))
 
     def clone(self):
         r"""
@@ -17703,9 +17727,12 @@ class FormFactorGaussSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean_radius):
-        r"""__init__(FormFactorGaussSphere self, double mean_radius) -> FormFactorGaussSphere"""
-        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(mean_radius))
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorGaussSphere self, vdouble1d_t P) -> FormFactorGaussSphere
+        __init__(FormFactorGaussSphere self, double mean_radius) -> FormFactorGaussSphere
+        """
+        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(*args))
 
     def clone(self):
         r"""
@@ -17768,13 +17795,14 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean, sigma):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorSphereGaussianRadius self, vdouble1d_t P) -> FormFactorSphereGaussianRadius
         __init__(FormFactorSphereGaussianRadius self, double mean, double sigma) -> FormFactorSphereGaussianRadius
         FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
 
         """
-        _libBornAgainCore.FormFactorSphereGaussianRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereGaussianRadius(mean, sigma))
+        _libBornAgainCore.FormFactorSphereGaussianRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereGaussianRadius(*args))
 
     def clone(self):
         r"""
@@ -17833,13 +17861,14 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean, scale_param, n_samples):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorSphereLogNormalRadius self, vdouble1d_t P, size_t n_samples=0) -> FormFactorSphereLogNormalRadius
         __init__(FormFactorSphereLogNormalRadius self, double mean, double scale_param, size_t n_samples) -> FormFactorSphereLogNormalRadius
         FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples)
 
         """
-        _libBornAgainCore.FormFactorSphereLogNormalRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereLogNormalRadius(mean, scale_param, n_samples))
+        _libBornAgainCore.FormFactorSphereLogNormalRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereLogNormalRadius(*args))
 
     def clone(self):
         r"""

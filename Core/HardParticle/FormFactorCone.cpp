@@ -15,7 +15,6 @@
 #include "Core/HardParticle/FormFactorCone.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/DoubleEllipse.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
@@ -24,10 +23,15 @@
 //! @param radius: radius of the base in nanometers
 //! @param height: height of the cone in nanometers
 //! @param alpha: angle between the base and the side surface in radians
-FormFactorCone::FormFactorCone(double radius, double height, double alpha)
-    : m_radius(radius), m_height(height), m_alpha(alpha)
+FormFactorCone::FormFactorCone(const std::vector<double> P)
+    : IFormFactorBorn({"Cone",
+                       "class_tooltip",
+                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                      P),
+      m_radius(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
-    setName("Cone");
     m_cot_alpha = MathFunctions::cot(m_alpha);
     if (!std::isfinite(m_cot_alpha) || m_cot_alpha < 0)
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
@@ -40,10 +44,12 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
+}
+
+FormFactorCone::FormFactorCone(double radius, double height, double alpha)
+    : FormFactorCone(std::vector<double>{radius, height, alpha})
+{
 }
 
 //! Integrand for complex form factor.

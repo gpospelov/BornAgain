@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorEllipsoidalCylinder : public IFormFactorBorn
 {
 public:
+    FormFactorEllipsoidalCylinder(const std::vector<double> P);
     FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height);
 
     FormFactorEllipsoidalCylinder* clone() const override final
@@ -46,9 +47,9 @@ protected:
     void onChange() override final;
 
 private:
-    double m_radius_x;
-    double m_radius_y;
-    double m_height;
+    const double& m_radius_x;
+    const double& m_radius_y;
+    const double& m_height;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORELLIPSOIDALCYLINDER_H

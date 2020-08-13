@@ -15,7 +15,6 @@
 #include "Core/HardParticle/FormFactorTetrahedron.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 
 const PolyhedralTopology FormFactorTetrahedron::topology = {{{{2, 1, 0}, false},
@@ -29,14 +28,21 @@ const PolyhedralTopology FormFactorTetrahedron::topology = {{{{2, 1, 0}, false},
 //! @param base_edge: length of one edge of the equilateral triangular base in nanometers
 //! @param height: height of the tetrahedron in nanometers
 //! @param alpha: dihedral angle in radians between base and facet
-FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
-    : FormFactorPolyhedron(), m_base_edge(base_edge), m_height(height), m_alpha(alpha)
+FormFactorTetrahedron::FormFactorTetrahedron(const std::vector<double> P)
+    : FormFactorPolyhedron({"Tetrahedron",
+                            "class_tooltip",
+                            {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                           P),
+      m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
-    setName("Tetrahedron");
-    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
+}
+
+FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
+    : FormFactorTetrahedron(std::vector<double>{base_edge, height, alpha})
+{
 }
 
 IFormFactor* FormFactorTetrahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,

@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorGaussSphere : public IFormFactorBorn
 {
 public:
+    FormFactorGaussSphere(const std::vector<double> P);
     FormFactorGaussSphere(double mean_radius);
 
     FormFactorGaussSphere* clone() const override final
@@ -41,7 +42,7 @@ protected:
     void onChange() override final{};
 
 private:
-    double m_mean_radius;
+    const double& m_mean_radius;
     void initialize();
 };
 

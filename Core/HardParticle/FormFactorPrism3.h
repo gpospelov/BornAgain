@@ -22,6 +22,7 @@
 class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
 {
 public:
+    FormFactorPrism3(const std::vector<double> P);
     FormFactorPrism3(double base_edge, double height);
 
     FormFactorPrism3* clone() const override final
@@ -40,8 +41,8 @@ protected:
     double height() const final { return m_height; }
 
 private:
-    double m_base_edge;
-    double m_height;
+    const double& m_base_edge;
+    const double& m_height;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM3_H

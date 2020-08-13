@@ -15,7 +15,6 @@
 #include "Core/HardParticle/FormFactorFullSpheroid.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
@@ -23,13 +22,20 @@
 //! Constructor of full spheroid.
 //! @param radius: radius of the circular cross section in nanometers
 //! @param height: height of the full spheroid in nanometers
-FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
-    : m_radius(radius), m_height(height)
+FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)
+    : IFormFactorBorn({"FullSpheroid",
+                       "class_tooltip",
+                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_radius(m_P[0]), m_height(m_P[1])
 {
-    setName("FullSpheroid");
-    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
+    : FormFactorFullSpheroid(std::vector<double>{radius, height})
+{
 }
 
 complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const

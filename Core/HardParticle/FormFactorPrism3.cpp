@@ -13,19 +13,25 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorPrism3.h"
-#include "Core/Parametrization/RealParameter.h"
 #include <iostream>
 
 //! Constructor of a prism with an equilaterial triangle base.
 //! @param base_edge: length of the base edge in nanometers
 //! @param height: height in nanometers
-FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
-    : m_base_edge(base_edge), m_height(height)
+FormFactorPrism3::FormFactorPrism3(const std::vector<double> P)
+    : FormFactorPolygonalPrism({"Prism3",
+                                "class_tooltip",
+                                {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
+                                 {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                               P),
+      m_base_edge(m_P[0]), m_height(m_P[1])
 {
-    setName("Prism3");
-    registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
+    : FormFactorPrism3(std::vector<double>{base_edge, height})
+{
 }
 
 IFormFactor* FormFactorPrism3::sliceFormFactor(ZLimits limits, const IRotation& rot,

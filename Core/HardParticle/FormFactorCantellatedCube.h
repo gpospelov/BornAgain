@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorCantellatedCube : public FormFactorPolyhedron
 {
 public:
+    FormFactorCantellatedCube(const std::vector<double> P);
     FormFactorCantellatedCube(double length, double removed_length);
 
     FormFactorCantellatedCube* clone() const override final
@@ -39,8 +40,8 @@ protected:
 
 private:
     static const PolyhedralTopology topology;
-    double m_length;
-    double m_removed_length;
+    const double& m_length;
+    const double& m_removed_length;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCANTELLATEDCUBE_H

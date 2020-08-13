@@ -15,7 +15,6 @@
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include "Core/Tools/MathFunctions.h"
 #include "Fit/Tools/RealLimits.h"
@@ -25,15 +24,22 @@
 //! @param radius: radius of the truncated sphere in nanometers
 //! @param height: height of the truncated sphere in nanometers
 //! @param dh: length of cup truncated from the top
-FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
-    : m_radius(radius), m_height(height), m_dh(dh)
+FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector<double> P)
+    : IFormFactorBorn({"TruncatedSphere",
+                       "class_tooltip",
+                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                        {"DeltaHeight", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_radius(m_P[0]), m_height(m_P[1]), m_dh(m_P[2])
 {
-    setName("TruncatedSphere");
     check_initialization();
-    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("DeltaHeight", &m_dh).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
+    : FormFactorTruncatedSphere(std::vector<double>{radius, height, dh})
+{
 }
 
 bool FormFactorTruncatedSphere::check_initialization() const

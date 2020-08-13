@@ -28,7 +28,6 @@ class BA_CORE_API_ IFootprintFactor : public ICloneable, public INode
 {
 public:
     IFootprintFactor(const NodeMeta& meta, const std::vector<double>& PValues);
-    IFootprintFactor(double width_ratio);
     IFootprintFactor() = delete;
     virtual ~IFootprintFactor();
 
@@ -44,7 +43,7 @@ public:
     virtual std::string print() const = 0;
 
 protected:
-    double m_width_ratio; //! Beam to sample width ratio
+    const double& m_width_ratio; //! Beam to sample width ratio
 
 private:
     void initialize();

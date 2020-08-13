@@ -23,6 +23,7 @@
 class BA_CORE_API_ FootprintSquare : public IFootprintFactor
 {
 public:
+    FootprintSquare(const std::vector<double> P);
     FootprintSquare(double width_ratio);
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }

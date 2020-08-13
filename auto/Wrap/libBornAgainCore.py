@@ -13906,13 +13906,14 @@ class FootprintGauss(IFootprintFactor):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, width_ratio):
+    def __init__(self, *args):
         r"""
+        __init__(FootprintGauss self, vdouble1d_t P) -> FootprintGauss
         __init__(FootprintGauss self, double width_ratio) -> FootprintGauss
         FootprintGauss::FootprintGauss(double width_ratio)
 
         """
-        _libBornAgainCore.FootprintGauss_swiginit(self, _libBornAgainCore.new_FootprintGauss(width_ratio))
+        _libBornAgainCore.FootprintGauss_swiginit(self, _libBornAgainCore.new_FootprintGauss(*args))
 
     def accept(self, visitor):
         r"""
@@ -13969,13 +13970,14 @@ class FootprintSquare(IFootprintFactor):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, width_ratio):
+    def __init__(self, *args):
         r"""
+        __init__(FootprintSquare self, vdouble1d_t P) -> FootprintSquare
         __init__(FootprintSquare self, double width_ratio) -> FootprintSquare
         FootprintSquare::FootprintSquare(double width_ratio)
 
         """
-        _libBornAgainCore.FootprintSquare_swiginit(self, _libBornAgainCore.new_FootprintSquare(width_ratio))
+        _libBornAgainCore.FootprintSquare_swiginit(self, _libBornAgainCore.new_FootprintSquare(*args))
 
     def accept(self, visitor):
         r"""

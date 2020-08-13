@@ -79,6 +79,11 @@ double Cauchy3D(double q2, double domainsize)
 // class IPeakShape
 // ************************************************************************** //
 
+IPeakShape::IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues)
+    : ISample(meta, PValues)
+{
+}
+
 IPeakShape::~IPeakShape() = default;
 
 // ************************************************************************** //

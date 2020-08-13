@@ -26,6 +26,9 @@
 class BA_CORE_API_ IPeakShape : public ISample
 {
 public:
+    IPeakShape() = default;
+    IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues);
+
     virtual ~IPeakShape();
 
     virtual IPeakShape* clone() const = 0;

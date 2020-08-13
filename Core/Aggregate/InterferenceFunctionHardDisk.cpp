@@ -20,7 +20,7 @@
 namespace
 {
 static const double p = 7.0 / 3.0 - 4.0 * std::sqrt(3.0) / M_PI;
-double Czero(double packing);
+double Czero(double packing); // TODO ASAP why these variables?
 double S2(double packing);
 double W2(double x);
 } // namespace
@@ -38,12 +38,9 @@ InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double
     registerParameter("TotalParticleDensity", &m_density).setUnit("nm").setNonnegative();
 }
 
-InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() = default;
-
 InterferenceFunctionHardDisk* InterferenceFunctionHardDisk::clone() const
 {
     auto* ret = new InterferenceFunctionHardDisk(m_radius, m_density, m_position_var);
-    ret->setPositionVariance(m_position_var);
     return ret;
 }
 

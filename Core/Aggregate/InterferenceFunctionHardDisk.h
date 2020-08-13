@@ -33,7 +33,7 @@ public:
         : InterferenceFunctionHardDisk(radius, density, 0)
     {
     }
-    ~InterferenceFunctionHardDisk() final;
+    ~InterferenceFunctionHardDisk() final = default;
 
     InterferenceFunctionHardDisk* clone() const override final;
 

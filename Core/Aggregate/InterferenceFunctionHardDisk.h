@@ -28,11 +28,7 @@
 class BA_CORE_API_ InterferenceFunctionHardDisk : public IInterferenceFunction
 {
 public:
-    InterferenceFunctionHardDisk(double radius, double density, double position_var);
-    InterferenceFunctionHardDisk(double radius, double density)
-        : InterferenceFunctionHardDisk(radius, density, 0)
-    {
-    }
+    InterferenceFunctionHardDisk(double radius, double density, double position_var=0);
     ~InterferenceFunctionHardDisk() final = default;
 
     InterferenceFunctionHardDisk* clone() const override final;

@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_SIMULATION_SIMULATION_H
 
 #include "Core/Computation/ProgressHandler.h"
-#include "Core/Instrument/IDetector2D.h"
+#include "Core/Detector/IDetector2D.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Multilayer/SampleProvider.h"
@@ -99,6 +99,9 @@ public:
     void setTerminalProgressMonitor();
 
     std::vector<const INode*> getChildren() const;
+
+    SimulationResult convertData(const OutputData<double>& data,
+                                 bool put_masked_areas_to_zero = true);
 
     friend class MPISimulation;
 

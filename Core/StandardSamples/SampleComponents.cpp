@@ -13,18 +13,18 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/SampleComponents.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 #include "Core/includeIncludes/HardParticles.h"
 
 // ************************************************************************** //
 FTDistribution2DComponents::FTDistribution2DComponents()
 // ************************************************************************** //
 {
-    add("FTDistribution2DCauchy", new FTDistribution2DCauchy(0.5, 1.0));
-    add("FTDistribution2DGauss", new FTDistribution2DGauss(0.5, 1.0));
-    add("FTDistribution2DGate", new FTDistribution2DGate(0.5, 1.0));
-    add("FTDistribution2DCone", new FTDistribution2DCone(0.5, 1.0));
-    add("FTDistribution2DVoigt", new FTDistribution2DVoigt(0.5, 1.0, 0.2));
+    add("FTDistribution2DCauchy", new FTDistribution2DCauchy(0.5, 1.0, 0));
+    add("FTDistribution2DGauss", new FTDistribution2DGauss(0.5, 1.0, 0));
+    add("FTDistribution2DGate", new FTDistribution2DGate(0.5, 1.0, 0));
+    add("FTDistribution2DCone", new FTDistribution2DCone(0.5, 1.0, 0));
+    add("FTDistribution2DVoigt", new FTDistribution2DVoigt(0.5, 1.0, 0, 0.2));
 }
 
 // ************************************************************************** //
@@ -74,7 +74,7 @@ FormFactorComponents::FormFactorComponents()
 
     add("TruncatedCube", new FormFactorTruncatedCube(15.0, 6.0));
 
-    add("TruncatedSphere", new FormFactorTruncatedSphere(5.0, 7.0));
+    add("TruncatedSphere", new FormFactorTruncatedSphere(5.0, 7.0, 0));
 
-    add("TruncatedSpheroid", new FormFactorTruncatedSpheroid(5.0, 7.0, 1.0));
+    add("TruncatedSpheroid", new FormFactorTruncatedSpheroid(5.0, 7.0, 1.0, 0));
 }

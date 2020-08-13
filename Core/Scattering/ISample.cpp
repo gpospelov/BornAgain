@@ -18,6 +18,8 @@
 #include <algorithm>
 #include <sstream>
 
+ISample::ISample(const NodeMeta& meta, const std::vector<double>& PValues) : INode(meta, PValues) {}
+
 std::vector<const Material*> ISample::containedMaterials() const
 {
     std::vector<const Material*> result;

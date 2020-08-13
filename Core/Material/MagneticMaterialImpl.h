@@ -54,7 +54,7 @@ public:
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld) matrix with magnetization corrections
     Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const override final;
 
-    MagneticMaterialImpl* transformedMaterial(const Transform3D& transform) const override final;
+    MagneticMaterialImpl* rotatedMaterial(const Transform3D& transform) const override final;
 
 private:
     void setMagnetization(kvector_t magnetization) { m_magnetization = magnetization; }

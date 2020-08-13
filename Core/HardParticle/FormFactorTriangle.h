@@ -21,7 +21,7 @@
 class BA_CORE_API_ FormFactorTriangle : public FormFactorPolygonalSurface
 {
 public:
-    FormFactorTriangle(const double base_edge);
+    FormFactorTriangle(double base_edge);
 
     FormFactorTriangle* clone() const override final { return new FormFactorTriangle(m_base_edge); }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }

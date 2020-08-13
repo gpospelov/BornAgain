@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DataViewUtils.h"
-#include "Core/Instrument/UnitConverterUtils.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"

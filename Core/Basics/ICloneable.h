@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Basics/ICloneable.h
-//! @brief     Defines the standard mix-in ICloneable.
+//! @brief     Defines and implements the standard mix-in ICloneable.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,8 +26,8 @@
 class BA_CORE_API_ ICloneable
 {
 public:
-    ICloneable();
-    virtual ~ICloneable();
+    ICloneable() = default;
+    virtual ~ICloneable() = default;
 
     ICloneable(const ICloneable&) = delete;
     ICloneable& operator=(const ICloneable&) = delete;

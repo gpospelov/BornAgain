@@ -26,7 +26,7 @@
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
 {
 public:
-    InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length = 0.0);
+    InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length);
     InterferenceFunctionRadialParaCrystal* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }

@@ -1,5 +1,5 @@
 #include "Core/Instrument/SimulationResult.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Tests/GTestWrapper/google_test.h"
 

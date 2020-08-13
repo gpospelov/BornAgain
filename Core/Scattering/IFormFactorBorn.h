@@ -33,7 +33,7 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
 public:
     IFormFactorBorn() = default;
-    ~IFormFactorBorn() override {}
+    IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues);
 
     IFormFactorBorn* clone() const override = 0;
 
@@ -72,10 +72,10 @@ protected:
                                          double height) const;
 
     //! Calculates the z-coordinate of the lowest vertex after rotation
-    static double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
+    static double BottomZ(const std::vector<kvector_t>& vertices, const IRotation& rotation);
 
     //! Calculates the z-coordinate of the highest vertex after rotation
-    static double TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
+    static double TopZ(const std::vector<kvector_t>& vertices, const IRotation& rotation);
 };
 
 //! Nested structure that holds slicing effects on position and removed parts.

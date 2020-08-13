@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 
 // --------------------------------------------------------------------------------------------- //
 

@@ -28,8 +28,8 @@ class DistributionGaussian;
 class DistributionLogNormal;
 class DistributionLorentz;
 class DistributionTrapezoid;
-class FootprintFactorGaussian;
-class FootprintFactorSquare;
+class FootprintGauss;
+class FootprintSquare;
 class FormFactorAnisoPyramid;
 class FormFactorBarGauss;
 class FormFactorBarLorentz;
@@ -51,12 +51,12 @@ class FormFactorDot;
 class FormFactorEllipsoidalCylinder;
 class FormFactorFullSphere;
 class FormFactorFullSpheroid;
-class FormFactorGauss;
+class FormFactorGaussSphere;
+class FormFactorHollowSphere;
 class FormFactorHemiEllipsoid;
 class FormFactorIcosahedron;
 class FormFactorLongBoxGauss;
 class FormFactorLongBoxLorentz;
-class FormFactorLorentz;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
@@ -166,8 +166,8 @@ public:
     virtual void visit(const DistributionLogNormal*) {}
     virtual void visit(const DistributionLorentz*) {}
     virtual void visit(const DistributionTrapezoid*) {}
-    virtual void visit(const FootprintFactorGaussian*) {}
-    virtual void visit(const FootprintFactorSquare*) {}
+    virtual void visit(const FootprintGauss*) {}
+    virtual void visit(const FootprintSquare*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
     virtual void visit(const FormFactorBarGauss*) {}
     virtual void visit(const FormFactorBarLorentz*) {}
@@ -189,12 +189,12 @@ public:
     virtual void visit(const FormFactorEllipsoidalCylinder*) {}
     virtual void visit(const FormFactorFullSphere*) {}
     virtual void visit(const FormFactorFullSpheroid*) {}
-    virtual void visit(const FormFactorGauss*) {}
+    virtual void visit(const FormFactorGaussSphere*) {}
     virtual void visit(const FormFactorHemiEllipsoid*) {}
+    virtual void visit(const FormFactorHollowSphere*) {}
     virtual void visit(const FormFactorIcosahedron*) {}
     virtual void visit(const FormFactorLongBoxGauss*) {}
     virtual void visit(const FormFactorLongBoxLorentz*) {}
-    virtual void visit(const FormFactorLorentz*) {}
     virtual void visit(const FormFactorPrism3*) {}
     virtual void visit(const FormFactorPrism6*) {}
     virtual void visit(const FormFactorPyramid*) {}

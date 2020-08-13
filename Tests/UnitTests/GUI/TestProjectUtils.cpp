@@ -4,11 +4,7 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
-
-namespace
-{
-const QString& projectDir = "test_ProjectUtils";
-}
+#include <iostream>
 
 class TestProjectUtils : public ::testing::Test
 {
@@ -29,8 +25,10 @@ protected:
     }
 };
 
-TEST_F(TestProjectUtils, test_basicFileOperations)
+TEST_F(TestProjectUtils, test_nonXMLDataInDir)
 {
+    const QString projectDir = "test_ProjectUtils";
+
     QDir dir(projectDir);
     if (dir.exists()) {
         EXPECT_TRUE(ProjectUtils::removeRecursively(projectDir) == true);
@@ -40,42 +38,32 @@ TEST_F(TestProjectUtils, test_basicFileOperations)
     GUIHelpers::createSubdir(".", projectDir);
     EXPECT_TRUE(ProjectUtils::exists(projectDir));
 
-    createTestFile(projectDir, "a.txt");
-    EXPECT_TRUE(ProjectUtils::exists(projectDir + "/a.txt"));
-}
-
-TEST_F(TestProjectUtils, test_nonXMLDataInDir)
-{
     EXPECT_EQ(1, 1);
-    QStringList test_nonxml_files = QStringList() << "jobdata_job2_0.int.gz"
-                                                  << "refdata_job2_0.int.gz"
-                                                  << "realdata_box_nanodots_0.int.gz"
-                                                  << "realdata_untitled_0.int.gz";
+    QStringList test_nonxml_files{"jobdata_job2_0.int.gz", "refdata_job2_0.int.gz",
+                                  "realdata_box_nanodots_0.int.gz", "realdata_untitled_0.int.gz"};
 
-    QStringList test_some_other_files = QStringList() << "user_0.int.gz"
-                                                      << "b.txt"
-                                                      << "untitled.pro";
+    QStringList test_some_other_files{"user_0.int.gz", "b.txt", "untitled.pro"};
 
-    // creating files
-    QStringList test_files = QStringList() << test_nonxml_files << test_some_other_files;
-    for (auto name : test_files) {
+    std::cout << "create files ..." << std::endl;
+    for (auto name : test_nonxml_files + test_some_other_files) {
         createTestFile(projectDir, name);
-        EXPECT_TRUE(ProjectUtils::exists(projectDir + "/" + name));
+        ASSERT_TRUE(ProjectUtils::exists(projectDir + "/" + name));
     }
 
-    // Checking nonXMLDataInDir method, should contain only files from test_nonxml_files.
+    std::cout << "check nonXMLDataInDir ..." << std::endl;
+    // Check nonXMLDataInDir method, should contain only files from test_nonxml_files.
     QStringList nonxml = ProjectUtils::nonXMLDataInDir(projectDir);
 
+    std::cout << "sort files ..." << std::endl;
     nonxml.sort();
     test_nonxml_files.sort();
-
     EXPECT_EQ(nonxml.size(), 4);
     EXPECT_EQ(test_nonxml_files, nonxml);
 
-    // removing nonxml files
+    std::cout << "remove nonxml files ..." << std::endl;
     EXPECT_TRUE(ProjectUtils::removeFiles(projectDir, nonxml) == true);
 
-    // checking that no files left
+    std::cout << "check that no files left ..." << std::endl;
     nonxml = ProjectUtils::nonXMLDataInDir(projectDir);
     EXPECT_EQ(nonxml.size(), 0);
 }

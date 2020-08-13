@@ -15,7 +15,8 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H
 #define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H
 
-#include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Aggregate/FTDecay1D.h"
+#include "Core/Aggregate/FTDecay2D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Lattice/Lattice2D.h"
 #include "Core/Tools/Integrator.h"
@@ -26,16 +27,16 @@
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
+    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi);
     InterferenceFunction2DLattice(const Lattice2D& lattice);
-    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi = 0.0);
     ~InterferenceFunction2DLattice() final;
 
     InterferenceFunction2DLattice* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi = 0.0);
-    static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi = 0.0);
+    static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi);
+    static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi);
 
     void setDecayFunction(const IFTDecayFunction2D& decay);
 
@@ -56,7 +57,6 @@ private:
     InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
     void setLattice(const Lattice2D& lattice);
 
-    void init_parameters();
     double interferenceForXi(double xi) const;
 
     //! Returns interference from a single reciprocal lattice vector

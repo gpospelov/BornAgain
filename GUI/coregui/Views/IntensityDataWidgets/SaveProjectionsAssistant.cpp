@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/SaveProjectionsAssistant.h"
-#include "Core/Instrument/Histogram1D.h"
-#include "Core/Instrument/Histogram2D.h"
-#include "Core/Tools/PythonFormatting.h"
+#include "Core/Intensity/Histogram1D.h"
+#include "Core/Intensity/Histogram2D.h"
+#include "Core/Tools/PyFmt.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
@@ -31,13 +31,13 @@ const int bin_values_colwidth = 20;
 
 QString to_scientific_str(double value)
 {
-    auto str = PythonFormatting::printScientificDouble(value);
+    auto str = pyfmt::printScientificDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_values_colwidth);
 }
 
 QString to_double_str(double value)
 {
-    auto str = PythonFormatting::printDouble(value);
+    auto str = pyfmt::printDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_centers_colwidth);
 }
 } // unnamed namespace

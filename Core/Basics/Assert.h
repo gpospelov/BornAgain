@@ -23,7 +23,7 @@
 #include <QtGlobal>
 #define ASSERT(condition)                                                                          \
     if (!(condition))                                                                              \
-    qFatal("Assertion %s failed in %s, line %d", (#condition), __FILE__,  __LINE__)
+    qFatal("Assertion %s failed in %s, line %d", (#condition), __FILE__, __LINE__)
 
 #else // HAVE_QT undefined
 

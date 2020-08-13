@@ -1,12 +1,12 @@
-#include "Core/Instrument/UnitConverter1D.h"
+#include "Core/Intensity/UnitConverter1D.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"
 #include "Core/Binning/VariableBinAxis.h"
-#include "Core/Instrument/OutputData.h"
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Intensity/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test
@@ -19,10 +19,10 @@ public:
 protected:
     void checkConventionalConverter(const UnitConverter1D& test_object);
     void checkQSpecConverter(const UnitConverter1D& test_object);
-    Beam m_beam;
     FixedBinAxis m_axis;
     FixedBinAxis m_q_axis;
     QSpecScan m_qscan;
+    Beam m_beam;
 };
 
 UnitConverter1DTest::UnitConverter1DTest()
@@ -30,9 +30,8 @@ UnitConverter1DTest::UnitConverter1DTest()
       ,
       m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
       ,
-      m_qscan(m_q_axis)
+      m_qscan(m_q_axis), m_beam(Beam::horizontalBeam())
 {
-    m_beam.setCentralK(1.0, 0.0, 0.0); // wavelength = 1.0 nm
 }
 
 void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test_object)

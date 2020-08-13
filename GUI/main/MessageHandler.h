@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/main/MessageHandler.cpp
+//! @file      GUI/main/MessageHandler.h
 //! @brief     Declares function MessageHandler
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,6 +12,11 @@
 //
 // ************************************************************************** //
 
+#ifndef BORNAGAIN_GUI_MAIN_MESSAGEHANDLER_H
+#define BORNAGAIN_GUI_MAIN_MESSAGEHANDLER_H
+
 #include <QApplication>
 
 void MessageHandler(QtMsgType type, const QMessageLogContext&, const QString& msg);
+
+#endif // BORNAGAIN_GUI_MAIN_MESSAGEHANDLER_H

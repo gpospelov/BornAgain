@@ -420,6 +420,11 @@ void FormFactorPolyhedron::setLimits(double _q, int _n)
 }
 #endif
 
+FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues)
+    : IFormFactorBorn(meta, PValues)
+{
+}
+
 //! Called by child classes to set faces and other internal variables.
 
 void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
@@ -479,12 +484,12 @@ void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, dou
 
 double FormFactorPolyhedron::bottomZ(const IRotation& rotation) const
 {
-    return BottomZ(m_vertices, rotation.getTransform3D());
+    return BottomZ(m_vertices, rotation);
 }
 
 double FormFactorPolyhedron::topZ(const IRotation& rotation) const
 {
-    return TopZ(m_vertices, rotation.getTransform3D());
+    return TopZ(m_vertices, rotation);
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom.
@@ -600,12 +605,18 @@ void FormFactorPolyhedron::assert_platonic() const
 //  FormFactorPolygonalPrism implementation
 //**************************************************************************************************
 
+FormFactorPolygonalPrism::FormFactorPolygonalPrism(const NodeMeta& meta,
+                                                   const std::vector<double>& PValues)
+    : IFormFactorBorn(meta, PValues)
+{
+}
+
 void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices)
 {
     m_vertices.clear();
     for (const kvector_t& vertex : vertices) {
         m_vertices.push_back(vertex);
-        m_vertices.push_back(vertex + kvector_t{0, 0, m_height});
+        m_vertices.push_back(vertex + kvector_t{0, 0, height()});
     }
 
     try {
@@ -623,18 +634,18 @@ void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvec
 
 double FormFactorPolygonalPrism::bottomZ(const IRotation& rotation) const
 {
-    return BottomZ(m_vertices, rotation.getTransform3D());
+    return BottomZ(m_vertices, rotation);
 }
 
 double FormFactorPolygonalPrism::topZ(const IRotation& rotation) const
 {
-    return TopZ(m_vertices, rotation.getTransform3D());
+    return TopZ(m_vertices, rotation);
 }
 
 //! Returns the volume of this prism.
 double FormFactorPolygonalPrism::volume() const
 {
-    return m_height * m_base->area();
+    return height() * m_base->area();
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
@@ -647,7 +658,7 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const
         diagnosis.nExpandedFaces = 0;
 #endif
         cvector_t qxy(q.x(), q.y(), 0.);
-        return m_height * exp_I(m_height / 2 * q.z()) * MathFunctions::sinc(m_height / 2 * q.z())
+        return height() * exp_I(height() / 2 * q.z()) * MathFunctions::sinc(height() / 2 * q.z())
                * m_base->ff_2D(qxy);
     } catch (std::logic_error& e) {
         throw std::logic_error("Bug in " + getName() + ": " + e.what()
@@ -664,6 +675,12 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const
 //**************************************************************************************************
 //  FormFactorPolygonalSurface implementation
 //**************************************************************************************************
+
+FormFactorPolygonalSurface::FormFactorPolygonalSurface(const NodeMeta& meta,
+                                                       const std::vector<double>& PValues)
+    : IFormFactorBorn(meta, PValues)
+{
+}
 
 complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const
 {

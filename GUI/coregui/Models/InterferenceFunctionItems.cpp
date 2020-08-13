@@ -13,9 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
-#include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Aggregate/FTDecay1D.h"
+#include "Core/Aggregate/FTDecay2D.h"
 #include "Core/Aggregate/FTDistributions2D.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
 #include "GUI/coregui/Models/FTDistributionItems.h"
@@ -195,7 +196,7 @@ InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
     auto& latticeItem = groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
 
     std::unique_ptr<InterferenceFunction2DParaCrystal> result(
-        new InterferenceFunction2DParaCrystal(*latticeItem.createLattice()));
+        new InterferenceFunction2DParaCrystal(*latticeItem.createLattice(), 0, 0, 0));
 
     result->setDampingLength(getItemValue(P_DAMPING_LENGTH).toDouble());
     result->setDomainSizes(getItemValue(P_DOMAIN_SIZE1).toDouble(),

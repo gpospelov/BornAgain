@@ -1,7 +1,7 @@
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/RectangularDetector.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Detector/RectangularDetector.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Vector/Vectors3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
@@ -28,9 +28,8 @@ protected:
 };
 
 RectangularConverterTest::RectangularConverterTest()
-    : m_detector(det_nx, det_width, det_ny, det_height)
+    : m_detector(det_nx, det_width, det_ny, det_height), m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
 {
-    m_beam.setCentralK(1.0, 1.0 * Units::deg, 0.0);
     m_detector.setPerpendicularToSampleX(det_distance, det_width / 2.0, 0.0);
     m_detector.init(m_beam);
     m_phi = std::atan2(det_width / 2.0, det_distance);

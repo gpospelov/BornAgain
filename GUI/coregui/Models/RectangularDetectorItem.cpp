@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/RectangularDetectorItem.h"
-#include "Core/Instrument/RectangularDetector.h"
+#include "Core/Detector/RectangularDetector.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/ResolutionFunctionItems.h"

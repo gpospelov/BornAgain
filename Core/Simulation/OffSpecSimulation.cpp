@@ -14,8 +14,8 @@
 
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Computation/DWBAComputation.h"
-#include "Core/Instrument/Histogram2D.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
+#include "Core/Intensity/Histogram2D.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"

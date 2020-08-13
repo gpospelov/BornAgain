@@ -155,7 +155,7 @@ InterferenceFunction2DParaCrystal::createHexagonal(double lattice_length, double
                                                    double domain_size_1, double domain_size_2)
 {
     auto result = new InterferenceFunction2DParaCrystal(
-        HexagonalLattice(lattice_length), damping_length, domain_size_1, domain_size_2);
+        HexagonalLattice(lattice_length, 0.), damping_length, domain_size_1, domain_size_2);
     result->setIntegrationOverXi(true);
     return result;
 }

@@ -1,5 +1,5 @@
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputData.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/JobItem.h"

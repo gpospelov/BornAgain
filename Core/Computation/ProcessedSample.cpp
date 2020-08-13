@@ -13,16 +13,15 @@
 // ************************************************************************** //
 
 #include "Core/Computation/ProcessedSample.h"
-#include "Core/Computation/MultiLayerUtils.h"
 #include "Core/Computation/ProcessedLayout.h"
-#include "Core/Computation/Slice.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Computation/SpecularStrategyBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MatrixFresnelMap.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Multilayer/ScalarFresnelMap.h"
-#include "Core/Multilayer/SpecularStrategyBuilder.h"
+#include "Core/Multilayer/Slice.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Particle/HomogeneousRegion.h"
 

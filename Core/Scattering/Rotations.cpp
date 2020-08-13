@@ -13,7 +13,14 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/Rotations.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Vector/Transform3D.h"
+
+IRotation::IRotation(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues)
+{
+}
 
 IRotation* IRotation::createRotation(const Transform3D& transform)
 {
@@ -37,7 +44,7 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
         return new RotationEuler(alpha, beta, gamma);
     }
     }
-    throw std::runtime_error("IRotation::createRotation error: unknown rotation type.");
+    ASSERT(0); // impossible case
 }
 
 IRotation* IRotation::createIdentity()
@@ -45,9 +52,19 @@ IRotation* IRotation::createIdentity()
     return new RotationZ(0.0);
 }
 
+kvector_t IRotation::transformed(const kvector_t& v) const
+{
+    return getTransform3D().transformed(v);
+}
+
 bool IRotation::isIdentity() const
 {
     return getTransform3D().isIdentity();
+}
+
+bool IRotation::zInvariant() const
+{
+    return getTransform3D().isZRotation();
 }
 
 //! Returns concatenated rotation (first right, then left).
@@ -58,12 +75,6 @@ IRotation* createProduct(const IRotation& left, const IRotation& right)
     Transform3D tr_right = right.getTransform3D();
     IRotation* p_result = IRotation::createRotation(tr_left * tr_right);
     return p_result;
-}
-
-bool IsZRotation(const IRotation& rot)
-{
-    auto transform = rot.getTransform3D();
-    return transform.isZRotation();
 }
 
 // --- IdentityRotation -------------------------------------------------------

@@ -21,7 +21,7 @@
 //! @param width: width of the base in nanometers
 //! @param height: height of the box in nanometers
 FormFactorBox::FormFactorBox(double length, double width, double height)
-    : FormFactorPolygonalPrism(height), m_length(length), m_width(width)
+    : m_length(length), m_width(width), m_height(height)
 {
     setName("Box");
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();

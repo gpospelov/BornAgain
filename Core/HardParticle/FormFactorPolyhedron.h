@@ -105,6 +105,7 @@ public:
 #endif
 
     FormFactorPolyhedron() {}
+    FormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;
@@ -138,19 +139,20 @@ private:
 class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn
 {
 public:
-    FormFactorPolygonalPrism(double height) : m_height(height) {}
+    FormFactorPolygonalPrism() = default;
+    FormFactorPolygonalPrism(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;
 
     virtual complex_t evaluate_for_q(cvector_t q) const override;
     virtual double volume() const override;
-    double getHeight() const { return m_height; }
+    double getHeight() const { return height(); }
     virtual double radialExtension() const override { return std::sqrt(m_base->area()); }
 
 protected:
+    virtual double height() const = 0;
     std::unique_ptr<PolyhedralFace> m_base;
-    double m_height;
     void setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices);
     std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
 };
@@ -160,7 +162,8 @@ protected:
 class BA_CORE_API_ FormFactorPolygonalSurface : public IFormFactorBorn
 {
 public:
-    FormFactorPolygonalSurface() {}
+    FormFactorPolygonalSurface() = default;
+    FormFactorPolygonalSurface(const NodeMeta& meta, const std::vector<double>& PValues);
 
     complex_t evaluate_for_q(cvector_t q) const override final;
     double volume() const override { return 0; }

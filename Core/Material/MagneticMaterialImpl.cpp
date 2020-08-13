@@ -71,7 +71,7 @@ Eigen::Matrix2cd MagneticMaterialImpl::polarizedSubtrSLD(const WavevectorInfo& w
     return MaterialUtils::MagnetizationCorrection(unit_factor, magnetization_prefactor, mag_ortho);
 }
 
-MagneticMaterialImpl* MagneticMaterialImpl::transformedMaterial(const Transform3D& transform) const
+MagneticMaterialImpl* MagneticMaterialImpl::rotatedMaterial(const Transform3D& transform) const
 {
     kvector_t transformed_field = transform.transformed(m_magnetization);
     std::unique_ptr<MagneticMaterialImpl> result(this->clone());

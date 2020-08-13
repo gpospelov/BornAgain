@@ -15,36 +15,41 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 #define BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 
-#include "Core/Scattering/ISample.h"
-#include "Core/Vector/Transform3D.h"
+#include "Core/Basics/ICloneable.h"
+#include "Core/Parametrization/INode.h"
+#include "Core/Vector/Vectors3D.h"
+
+class Transform3D;
 
 //! Pure virtual interface for rotations.
 //! @ingroup samples
 
-class BA_CORE_API_ IRotation : public ISample
+class BA_CORE_API_ IRotation : public ICloneable, public INode
 {
 public:
     static IRotation* createRotation(const Transform3D& transform);
     static IRotation* createIdentity();
-    virtual ~IRotation() {}
+
+    IRotation() = default;
+    IRotation(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IRotation* clone() const = 0;
 
     //! Returns a new IRotation object that is the current object's inverse
     virtual IRotation* createInverse() const = 0;
 
-    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
-
     //! Returns transformation.
     virtual Transform3D getTransform3D() const = 0;
 
+    kvector_t transformed(const kvector_t& v) const;
+
     //! Returns true if rotation matrix is identity matrix (no rotations)
     virtual bool isIdentity() const;
+
+    bool zInvariant() const;
 };
 
 BA_CORE_API_ IRotation* createProduct(const IRotation& left, const IRotation& right);
-
-bool IsZRotation(const IRotation& rot);
 
 //! The identity rotation, which leaves everything in place.
 
@@ -108,7 +113,7 @@ protected:
 class BA_CORE_API_ RotationZ : public IRotation
 {
 public:
-    RotationZ(double angle = 0.0);
+    RotationZ(double angle);
 
     RotationZ* clone() const { return new RotationZ(m_angle); }
     RotationZ* createInverse() const { return new RotationZ(-m_angle); }

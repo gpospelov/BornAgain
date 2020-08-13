@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/FootprintItems.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 
 namespace
 {
@@ -57,7 +57,7 @@ FootprintGaussianItem::~FootprintGaussianItem() = default;
 
 std::unique_ptr<IFootprintFactor> FootprintGaussianItem::createFootprint() const
 {
-    return std::make_unique<FootprintFactorGaussian>(getItemValue(P_VALUE).toDouble());
+    return std::make_unique<FootprintGauss>(getItemValue(P_VALUE).toDouble());
 }
 
 // Square footprint
@@ -76,5 +76,5 @@ FootprintSquareItem::~FootprintSquareItem() = default;
 
 std::unique_ptr<IFootprintFactor> FootprintSquareItem::createFootprint() const
 {
-    return std::make_unique<FootprintFactorSquare>(getItemValue(P_VALUE).toDouble());
+    return std::make_unique<FootprintSquare>(getItemValue(P_VALUE).toDouble());
 }

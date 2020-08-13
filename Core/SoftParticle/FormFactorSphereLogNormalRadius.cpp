@@ -23,7 +23,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, do
     : m_mean(mean), m_scale_param(scale_param), m_n_samples(n_samples)
 {
     setName("FormFactorSphereLogNormalRadius");
-    mP_distribution.reset(new DistributionLogNormal(mean, scale_param));
+    mP_distribution.reset(new DistributionLogNormal(m_mean, m_scale_param));
     registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
     registerParameter("ScaleParameter", &m_scale_param);
     if (!mP_distribution)
@@ -32,8 +32,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, do
     m_form_factors.clear();
     m_probabilities.clear();
     for (ParameterSample& sample : mP_distribution->equidistantSamples(m_n_samples)) {
-        double radius = sample.value;
-        m_form_factors.push_back(new FormFactorFullSphere(radius));
+        m_form_factors.push_back(new FormFactorFullSphere(sample.value));
         m_probabilities.push_back(sample.weight);
     }
     onChange();

@@ -1733,372 +1733,178 @@ class vector_pair_double_t(object):
 _libBornAgainCore.vector_pair_double_t_swigregister(vector_pair_double_t)
 
 import libBornAgainFit
-
-def GetMajorVersionNumber():
-    r"""GetMajorVersionNumber() -> int"""
-    return _libBornAgainCore.GetMajorVersionNumber()
-
-def GetMinorVersionNumber():
-    r"""GetMinorVersionNumber() -> int"""
-    return _libBornAgainCore.GetMinorVersionNumber()
-
-def GetPatchVersionNumber():
-    r"""GetPatchVersionNumber() -> int"""
-    return _libBornAgainCore.GetPatchVersionNumber()
-
-def GetName():
-    r"""GetName() -> std::string"""
-    return _libBornAgainCore.GetName()
-
-def GetVersionNumber():
-    r"""GetVersionNumber() -> std::string"""
-    return _libBornAgainCore.GetVersionNumber()
-
-def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
-    r"""
-    vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
-    BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-
-    """
-    return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
-class ICloneable(object):
-    r"""
-
-
-    Interface for polymorphic classes that should not be copied, except by explicit cloning.
-
-    Child classes of  ICloneable must provide clone().
-
-    C++ includes: ICloneable.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
-
-    def clone(self):
-        r"""
-        clone(ICloneable self) -> ICloneable
-        virtual ICloneable* ICloneable::clone() const =0
-
-        """
-        return _libBornAgainCore.ICloneable_clone(self)
-
-    def transferToCPP(self):
-        r"""
-        transferToCPP(ICloneable self)
-        virtual void ICloneable::transferToCPP()
-
-        Used for Python overriding of clone (see swig/tweaks.py) 
-
-        """
-        return self.__disown__()
-
-# Register ICloneable in _libBornAgainCore:
-_libBornAgainCore.ICloneable_swigregister(ICloneable)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
-class IParameterized(object):
-    r"""
-
-
-    Manages a local parameter pool, and a tree of child pools.
-
-    C++ includes: IParameterized.h
-
-    """
+class swig_dummy_type_axisinfo_vector(object):
+    r"""Proxy of C++ std::vector< AxisInfo > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(swig_dummy_type_axisinfo_vector self) -> SwigPyIterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(swig_dummy_type_axisinfo_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(swig_dummy_type_axisinfo_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___bool__(self)
+
+    def __len__(self):
+        r"""__len__(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j) -> swig_dummy_type_axisinfo_vector"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j)
+        __setslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j, swig_dummy_type_axisinfo_vector v)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i)
+        __delitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice) -> swig_dummy_type_axisinfo_vector
+        __getitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i) -> AxisInfo
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice, swig_dummy_type_axisinfo_vector v)
+        __setitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice)
+        __setitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, AxisInfo x)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_pop(self)
+
+    def append(self, x):
+        r"""append(swig_dummy_type_axisinfo_vector self, AxisInfo x)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_append(self, x)
+
+    def empty(self):
+        r"""empty(swig_dummy_type_axisinfo_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_empty(self)
+
+    def size(self):
+        r"""size(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_size(self)
+
+    def swap(self, v):
+        r"""
+        swap(swig_dummy_type_axisinfo_vector self, swig_dummy_type_axisinfo_vector v)
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_swap(self, v)
+
+    def begin(self):
+        r"""begin(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_begin(self)
+
+    def end(self):
+        r"""end(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_end(self)
+
+    def rbegin(self):
+        r"""rbegin(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_rbegin(self)
+
+    def rend(self):
+        r"""rend(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_rend(self)
+
+    def clear(self):
+        r"""clear(swig_dummy_type_axisinfo_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::allocator_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(swig_dummy_type_axisinfo_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos) -> std::vector< AxisInfo >::iterator
+        erase(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator first, std::vector< AxisInfo >::iterator last) -> std::vector< AxisInfo >::iterator
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_erase(self, *args)
 
     def __init__(self, *args):
         r"""
-        __init__(IParameterized self, std::string const & name="") -> IParameterized
-        __init__(IParameterized self, IParameterized other) -> IParameterized
-        IParameterized::IParameterized(const IParameterized &other)
-
+        __init__(swig_dummy_type_axisinfo_vector self) -> swig_dummy_type_axisinfo_vector
+        __init__(swig_dummy_type_axisinfo_vector self, swig_dummy_type_axisinfo_vector other) -> swig_dummy_type_axisinfo_vector
+        __init__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type size) -> swig_dummy_type_axisinfo_vector
+        __init__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type size, AxisInfo value) -> swig_dummy_type_axisinfo_vector
         """
-        if self.__class__ == IParameterized:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.IParameterized_swiginit(self, _libBornAgainCore.new_IParameterized(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_IParameterized
+        _libBornAgainCore.swig_dummy_type_axisinfo_vector_swiginit(self, _libBornAgainCore.new_swig_dummy_type_axisinfo_vector(*args))
 
-    def parameterPool(self):
+    def push_back(self, x):
+        r"""push_back(swig_dummy_type_axisinfo_vector self, AxisInfo x)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_push_back(self, x)
+
+    def front(self):
+        r"""front(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_front(self)
+
+    def back(self):
+        r"""back(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_back(self)
+
+    def assign(self, n, x):
+        r"""assign(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type n, AxisInfo x)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_assign(self, n, x)
+
+    def resize(self, *args):
         r"""
-        parameterPool(IParameterized self) -> ParameterPool
-        ParameterPool* IParameterized::parameterPool() const
-
-        Returns pointer to the parameter pool. 
-
+        resize(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type new_size)
+        resize(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type new_size, AxisInfo x)
         """
-        return _libBornAgainCore.IParameterized_parameterPool(self)
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_resize(self, *args)
 
-    def createParameterTree(self):
+    def insert(self, *args):
         r"""
-        createParameterTree(IParameterized self) -> ParameterPool
-        ParameterPool * IParameterized::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
+        insert(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos, AxisInfo x) -> std::vector< AxisInfo >::iterator
+        insert(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos, std::vector< AxisInfo >::size_type n, AxisInfo x)
         """
-        return _libBornAgainCore.IParameterized_createParameterTree(self)
-
-    def parametersToString(self):
-        r"""
-        parametersToString(IParameterized self) -> std::string
-        std::string IParameterized::parametersToString() const
-
-        Returns multiline string representing available parameters. 
-
-        """
-        return _libBornAgainCore.IParameterized_parametersToString(self)
-
-    def registerParameter(self, name, parpointer):
-        r"""
-        registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter
-        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
-
-    def registerVector(self, *args):
-        r"""
-        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
-        void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
-
-        """
-        return _libBornAgainCore.IParameterized_registerVector(self, *args)
-
-    def setParameterValue(self, name, value):
-        r"""
-        setParameterValue(IParameterized self, std::string const & name, double value)
-        void IParameterized::setParameterValue(const std::string &name, double value)
-
-        """
-        return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
-
-    def setVectorValue(self, base_name, value):
-        r"""
-        setVectorValue(IParameterized self, std::string const & base_name, kvector_t value)
-        void IParameterized::setVectorValue(const std::string &base_name, kvector_t value)
-
-        """
-        return _libBornAgainCore.IParameterized_setVectorValue(self, base_name, value)
-
-    def parameter(self, name):
-        r"""
-        parameter(IParameterized self, std::string const & name) -> RealParameter
-        RealParameter * IParameterized::parameter(const std::string &name) const
-
-        Returns parameter with given 'name'. 
-
-        """
-        return _libBornAgainCore.IParameterized_parameter(self, name)
-
-    def onChange(self):
-        r"""
-        onChange(IParameterized self)
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.IParameterized_onChange(self)
-
-    def removeParameter(self, name):
-        r"""
-        removeParameter(IParameterized self, std::string const & name)
-        void IParameterized::removeParameter(const std::string &name)
-
-        """
-        return _libBornAgainCore.IParameterized_removeParameter(self, name)
-
-    def removeVector(self, base_name):
-        r"""
-        removeVector(IParameterized self, std::string const & base_name)
-        void IParameterized::removeVector(const std::string &base_name)
-
-        """
-        return _libBornAgainCore.IParameterized_removeVector(self, base_name)
-
-    @staticmethod
-    def XComponentName(base_name):
-        r"""XComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainCore.IParameterized_XComponentName(base_name)
-
-    @staticmethod
-    def YComponentName(base_name):
-        r"""YComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainCore.IParameterized_YComponentName(base_name)
-
-    @staticmethod
-    def ZComponentName(base_name):
-        r"""ZComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainCore.IParameterized_ZComponentName(base_name)
-
-    def setName(self, name):
-        r"""
-        setName(IParameterized self, std::string const & name)
-        void IParameterized::setName(const std::string &name)
-
-        """
-        return _libBornAgainCore.IParameterized_setName(self, name)
-
-    def getName(self):
-        r"""
-        getName(IParameterized self) -> std::string const &
-        const std::string& IParameterized::getName() const
-
-        """
-        return _libBornAgainCore.IParameterized_getName(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IParameterized(self)
-        return weakref.proxy(self)
-
-# Register IParameterized in _libBornAgainCore:
-_libBornAgainCore.IParameterized_swigregister(IParameterized)
-
-def IParameterized_XComponentName(base_name):
-    r"""IParameterized_XComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainCore.IParameterized_XComponentName(base_name)
-
-def IParameterized_YComponentName(base_name):
-    r"""IParameterized_YComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainCore.IParameterized_YComponentName(base_name)
-
-def IParameterized_ZComponentName(base_name):
-    r"""IParameterized_ZComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainCore.IParameterized_ZComponentName(base_name)
-
-class INode(IParameterized):
-    r"""
-
-
-    Base class for tree-like structures containing parameterized objects.
-
-    C++ includes: INode.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(INode self) -> INode
-        INode::INode()
-
-        """
-        if self.__class__ == INode:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.INode_swiginit(self, _libBornAgainCore.new_INode(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_INode
-
-    def accept(self, visitor):
-        r"""
-        accept(INode self, INodeVisitor visitor)
-        virtual void INode::accept(INodeVisitor *visitor) const =0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.INode_accept(self, visitor)
-
-    def treeToString(self):
-        r"""
-        treeToString(INode self) -> std::string
-        std::string INode::treeToString() const
-
-        Returns multiline string representing tree structure below the node. 
-
-        """
-        return _libBornAgainCore.INode_treeToString(self)
-
-    def registerChild(self, node):
-        r"""
-        registerChild(INode self, INode node)
-        void INode::registerChild(INode *node)
-
-        """
-        return _libBornAgainCore.INode_registerChild(self, node)
-
-    def getChildren(self):
-        r"""
-        getChildren(INode self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > INode::getChildren() const
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.INode_getChildren(self)
-
-    def setParent(self, newParent):
-        r"""
-        setParent(INode self, INode newParent)
-        void INode::setParent(const INode *newParent)
-
-        """
-        return _libBornAgainCore.INode_setParent(self, newParent)
-
-    def parent(self, *args):
-        r"""
-        parent(INode self) -> INode
-        parent(INode self) -> INode
-        INode * INode::parent()
-
-        """
-        return _libBornAgainCore.INode_parent(self, *args)
-
-    def copyNumber(self, node):
-        r"""
-        copyNumber(INode self, INode node) -> int
-        int INode::copyNumber(const INode *node) const
-
-        Returns copyNumber of child, which takes into account existence of children with same name. 
-
-        """
-        return _libBornAgainCore.INode_copyNumber(self, node)
-
-    def displayName(self):
-        r"""
-        displayName(INode self) -> std::string
-        std::string INode::displayName() const
-
-        Returns display name, composed from the name of node and it's copy number. 
-
-        """
-        return _libBornAgainCore.INode_displayName(self)
-
-    def createParameterTree(self):
-        r"""
-        createParameterTree(INode self) -> ParameterPool
-        ParameterPool * INode::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
-        return _libBornAgainCore.INode_createParameterTree(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_INode(self)
-        return weakref.proxy(self)
-
-# Register INode in _libBornAgainCore:
-_libBornAgainCore.INode_swigregister(INode)
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type n)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_capacity(self)
+    __swig_destroy__ = _libBornAgainCore.delete_swig_dummy_type_axisinfo_vector
+
+# Register swig_dummy_type_axisinfo_vector in _libBornAgainCore:
+_libBornAgainCore.swig_dummy_type_axisinfo_vector_swigregister(swig_dummy_type_axisinfo_vector)
 
 class swig_dummy_type_inode_vector(object):
     r"""Proxy of C++ std::vector< INode * > class."""
@@ -2446,179 +2252,249 @@ class swig_dummy_type_const_inode_vector(object):
 # Register swig_dummy_type_const_inode_vector in _libBornAgainCore:
 _libBornAgainCore.swig_dummy_type_const_inode_vector_swigregister(swig_dummy_type_const_inode_vector)
 
-class swig_dummy_type_axisinfo_vector(object):
-    r"""Proxy of C++ std::vector< AxisInfo > class."""
+class vector_IFormFactorPtr_t(object):
+    r"""Proxy of C++ std::vector< IFormFactor * > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def iterator(self):
-        r"""iterator(swig_dummy_type_axisinfo_vector self) -> SwigPyIterator"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_iterator(self)
+        r"""iterator(vector_IFormFactorPtr_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_iterator(self)
     def __iter__(self):
         return self.iterator()
 
     def __nonzero__(self):
-        r"""__nonzero__(swig_dummy_type_axisinfo_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___nonzero__(self)
+        r"""__nonzero__(vector_IFormFactorPtr_t self) -> bool"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t___nonzero__(self)
 
     def __bool__(self):
-        r"""__bool__(swig_dummy_type_axisinfo_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___bool__(self)
+        r"""__bool__(vector_IFormFactorPtr_t self) -> bool"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t___bool__(self)
 
     def __len__(self):
-        r"""__len__(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___len__(self)
+        r"""__len__(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::size_type"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t___len__(self)
 
     def __getslice__(self, i, j):
-        r"""__getslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j) -> swig_dummy_type_axisinfo_vector"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___getslice__(self, i, j)
+        r"""__getslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j) -> vector_IFormFactorPtr_t"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t___getslice__(self, i, j)
 
     def __setslice__(self, *args):
         r"""
-        __setslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j)
-        __setslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j, swig_dummy_type_axisinfo_vector v)
+        __setslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j)
+        __setslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j, vector_IFormFactorPtr_t v)
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___setslice__(self, *args)
+        return _libBornAgainCore.vector_IFormFactorPtr_t___setslice__(self, *args)
 
     def __delslice__(self, i, j):
-        r"""__delslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j)"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___delslice__(self, i, j)
+        r"""__delslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j)"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t___delslice__(self, i, j)
 
     def __delitem__(self, *args):
         r"""
-        __delitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i)
-        __delitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice)
+        __delitem__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i)
+        __delitem__(vector_IFormFactorPtr_t self, PySliceObject * slice)
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___delitem__(self, *args)
+        return _libBornAgainCore.vector_IFormFactorPtr_t___delitem__(self, *args)
 
     def __getitem__(self, *args):
         r"""
-        __getitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice) -> swig_dummy_type_axisinfo_vector
-        __getitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i) -> AxisInfo
+        __getitem__(vector_IFormFactorPtr_t self, PySliceObject * slice) -> vector_IFormFactorPtr_t
+        __getitem__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i) -> IFormFactor
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___getitem__(self, *args)
+        return _libBornAgainCore.vector_IFormFactorPtr_t___getitem__(self, *args)
 
     def __setitem__(self, *args):
         r"""
-        __setitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice, swig_dummy_type_axisinfo_vector v)
-        __setitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice)
-        __setitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, AxisInfo x)
+        __setitem__(vector_IFormFactorPtr_t self, PySliceObject * slice, vector_IFormFactorPtr_t v)
+        __setitem__(vector_IFormFactorPtr_t self, PySliceObject * slice)
+        __setitem__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, IFormFactor x)
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___setitem__(self, *args)
+        return _libBornAgainCore.vector_IFormFactorPtr_t___setitem__(self, *args)
 
     def pop(self):
-        r"""pop(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_pop(self)
+        r"""pop(vector_IFormFactorPtr_t self) -> IFormFactor"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_pop(self)
 
     def append(self, x):
-        r"""append(swig_dummy_type_axisinfo_vector self, AxisInfo x)"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_append(self, x)
+        r"""append(vector_IFormFactorPtr_t self, IFormFactor x)"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_append(self, x)
 
     def empty(self):
-        r"""empty(swig_dummy_type_axisinfo_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_empty(self)
+        r"""empty(vector_IFormFactorPtr_t self) -> bool"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_empty(self)
 
     def size(self):
-        r"""size(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_size(self)
+        r"""size(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::size_type"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_size(self)
 
     def swap(self, v):
         r"""
-        swap(swig_dummy_type_axisinfo_vector self, swig_dummy_type_axisinfo_vector v)
+        swap(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t v)
         void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
 
         make Swappable 
 
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_swap(self, v)
+        return _libBornAgainCore.vector_IFormFactorPtr_t_swap(self, v)
 
     def begin(self):
-        r"""begin(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::iterator"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_begin(self)
+        r"""begin(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::iterator"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_begin(self)
 
     def end(self):
-        r"""end(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::iterator"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_end(self)
+        r"""end(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::iterator"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_end(self)
 
     def rbegin(self):
-        r"""rbegin(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::reverse_iterator"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_rbegin(self)
+        r"""rbegin(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::reverse_iterator"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_rbegin(self)
 
     def rend(self):
-        r"""rend(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::reverse_iterator"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_rend(self)
+        r"""rend(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::reverse_iterator"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_rend(self)
 
     def clear(self):
-        r"""clear(swig_dummy_type_axisinfo_vector self)"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_clear(self)
+        r"""clear(vector_IFormFactorPtr_t self)"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_clear(self)
 
     def get_allocator(self):
-        r"""get_allocator(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::allocator_type"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_get_allocator(self)
+        r"""get_allocator(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::allocator_type"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_get_allocator(self)
 
     def pop_back(self):
-        r"""pop_back(swig_dummy_type_axisinfo_vector self)"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_pop_back(self)
+        r"""pop_back(vector_IFormFactorPtr_t self)"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_pop_back(self)
 
     def erase(self, *args):
         r"""
-        erase(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos) -> std::vector< AxisInfo >::iterator
-        erase(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator first, std::vector< AxisInfo >::iterator last) -> std::vector< AxisInfo >::iterator
+        erase(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator pos) -> std::vector< IFormFactor * >::iterator
+        erase(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator first, std::vector< IFormFactor * >::iterator last) -> std::vector< IFormFactor * >::iterator
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_erase(self, *args)
+        return _libBornAgainCore.vector_IFormFactorPtr_t_erase(self, *args)
 
     def __init__(self, *args):
         r"""
-        __init__(swig_dummy_type_axisinfo_vector self) -> swig_dummy_type_axisinfo_vector
-        __init__(swig_dummy_type_axisinfo_vector self, swig_dummy_type_axisinfo_vector other) -> swig_dummy_type_axisinfo_vector
-        __init__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type size) -> swig_dummy_type_axisinfo_vector
-        __init__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type size, AxisInfo value) -> swig_dummy_type_axisinfo_vector
+        __init__(vector_IFormFactorPtr_t self) -> vector_IFormFactorPtr_t
+        __init__(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t other) -> vector_IFormFactorPtr_t
+        __init__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type size) -> vector_IFormFactorPtr_t
+        __init__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type size, IFormFactor value) -> vector_IFormFactorPtr_t
         """
-        _libBornAgainCore.swig_dummy_type_axisinfo_vector_swiginit(self, _libBornAgainCore.new_swig_dummy_type_axisinfo_vector(*args))
+        _libBornAgainCore.vector_IFormFactorPtr_t_swiginit(self, _libBornAgainCore.new_vector_IFormFactorPtr_t(*args))
 
     def push_back(self, x):
-        r"""push_back(swig_dummy_type_axisinfo_vector self, AxisInfo x)"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_push_back(self, x)
+        r"""push_back(vector_IFormFactorPtr_t self, IFormFactor x)"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_push_back(self, x)
 
     def front(self):
-        r"""front(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_front(self)
+        r"""front(vector_IFormFactorPtr_t self) -> IFormFactor"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_front(self)
 
     def back(self):
-        r"""back(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_back(self)
+        r"""back(vector_IFormFactorPtr_t self) -> IFormFactor"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_back(self)
 
     def assign(self, n, x):
-        r"""assign(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type n, AxisInfo x)"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_assign(self, n, x)
+        r"""assign(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type n, IFormFactor x)"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_assign(self, n, x)
 
     def resize(self, *args):
         r"""
-        resize(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type new_size)
-        resize(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type new_size, AxisInfo x)
+        resize(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type new_size)
+        resize(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type new_size, IFormFactor x)
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_resize(self, *args)
+        return _libBornAgainCore.vector_IFormFactorPtr_t_resize(self, *args)
 
     def insert(self, *args):
         r"""
-        insert(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos, AxisInfo x) -> std::vector< AxisInfo >::iterator
-        insert(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos, std::vector< AxisInfo >::size_type n, AxisInfo x)
+        insert(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator pos, IFormFactor x) -> std::vector< IFormFactor * >::iterator
+        insert(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator pos, std::vector< IFormFactor * >::size_type n, IFormFactor x)
         """
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_insert(self, *args)
+        return _libBornAgainCore.vector_IFormFactorPtr_t_insert(self, *args)
 
     def reserve(self, n):
-        r"""reserve(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type n)"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_reserve(self, n)
+        r"""reserve(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type n)"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_reserve(self, n)
 
     def capacity(self):
-        r"""capacity(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_capacity(self)
-    __swig_destroy__ = _libBornAgainCore.delete_swig_dummy_type_axisinfo_vector
+        r"""capacity(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::size_type"""
+        return _libBornAgainCore.vector_IFormFactorPtr_t_capacity(self)
+    __swig_destroy__ = _libBornAgainCore.delete_vector_IFormFactorPtr_t
 
-# Register swig_dummy_type_axisinfo_vector in _libBornAgainCore:
-_libBornAgainCore.swig_dummy_type_axisinfo_vector_swigregister(swig_dummy_type_axisinfo_vector)
+# Register vector_IFormFactorPtr_t in _libBornAgainCore:
+_libBornAgainCore.vector_IFormFactorPtr_t_swigregister(vector_IFormFactorPtr_t)
 
+class SampleBuilderFactoryTemp(object):
+    r"""Proxy of C++ IFactory< std::string,IMultiLayerBuilder > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def createItem(self, item_key):
+        r"""createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_createItem(self, item_key)
+
+    def registerItem(self, item_key, CreateFn):
+        r"""registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, item_key, CreateFn)
+
+    def contains(self, item_key):
+        r"""contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
+
+    def size(self):
+        r"""size(SampleBuilderFactoryTemp self) -> size_t"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_size(self)
+
+    def __init__(self):
+        r"""__init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp"""
+        _libBornAgainCore.SampleBuilderFactoryTemp_swiginit(self, _libBornAgainCore.new_SampleBuilderFactoryTemp())
+    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
+
+# Register SampleBuilderFactoryTemp in _libBornAgainCore:
+_libBornAgainCore.SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
+
+class SimulationFactoryTemp(object):
+    r"""Proxy of C++ IFactory< std::string,Simulation > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def createItem(self, item_key):
+        r"""createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation"""
+        return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
+
+    def registerItem(self, item_key, CreateFn):
+        r"""registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn) -> bool"""
+        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, item_key, CreateFn)
+
+    def contains(self, item_key):
+        r"""contains(SimulationFactoryTemp self, std::string const & item_key) -> bool"""
+        return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
+
+    def size(self):
+        r"""size(SimulationFactoryTemp self) -> size_t"""
+        return _libBornAgainCore.SimulationFactoryTemp_size(self)
+
+    def __init__(self):
+        r"""__init__(SimulationFactoryTemp self) -> SimulationFactoryTemp"""
+        _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
+
+# Register SimulationFactoryTemp in _libBornAgainCore:
+_libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
+
+
+def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
+    r"""
+    vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
+    BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+
+    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+
+    """
+    return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
 class kvector_t(object):
     r"""
 
@@ -3381,293 +3257,1078 @@ class vector_cvector_t(object):
 # Register vector_cvector_t in _libBornAgainCore:
 _libBornAgainCore.vector_cvector_t_swigregister(vector_cvector_t)
 
-
-def mul_I(z):
+class IParameterReal(object):
     r"""
-    mul_I(complex_t z) -> complex_t
-    complex_t mul_I(complex_t z)
 
-    Returns product I*z, where I is the imaginary unit. 
+
+    Pure virtual base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
+
+    C++ includes: IParameter.h
 
     """
-    return _libBornAgainCore.mul_I(z)
 
-def exp_I(z):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
+
+    def clone(self, *args):
+        r"""
+        clone(IParameterReal self, std::string const & new_name="") -> IParameterReal
+        virtual IParameter* IParameter< T >::clone(const std::string &new_name="") const =0
+
+        """
+        return _libBornAgainCore.IParameterReal_clone(self, *args)
+
+    def isNull(self):
+        r"""
+        isNull(IParameterReal self) -> bool
+        virtual bool IParameter< T >::isNull() const
+
+        Returns true if wrapped parameter was not initialized with proper real value. 
+
+        """
+        return _libBornAgainCore.IParameterReal_isNull(self)
+
+    def getData(self):
+        r"""
+        getData(IParameterReal self) -> double &
+        T& IParameter< T >::getData() const
+
+        """
+        return _libBornAgainCore.IParameterReal_getData(self)
+
+    def setData(self, data):
+        r"""
+        setData(IParameterReal self, double & data)
+        void IParameter< T >::setData(T &data)
+
+        """
+        return _libBornAgainCore.IParameterReal_setData(self, data)
+
+    def hasSameData(self, other):
+        r"""
+        hasSameData(IParameterReal self, IParameterReal other) -> bool
+        bool IParameter< T >::hasSameData(const IParameter &other)
+
+        Returns true if two parameters are pointing to the same raw data. 
+
+        """
+        return _libBornAgainCore.IParameterReal_hasSameData(self, other)
+
+    def getName(self):
+        r"""
+        getName(IParameterReal self) -> std::string const &
+        const std::string& IParameter< T >::getName() const
+
+        """
+        return _libBornAgainCore.IParameterReal_getName(self)
+
+# Register IParameterReal in _libBornAgainCore:
+_libBornAgainCore.IParameterReal_swigregister(IParameterReal)
+
+class ParameterSample(object):
     r"""
-    exp_I(complex_t z) -> complex_t
-    complex_t exp_I(complex_t z)
-
-    Returns exp(I*z), where I is the imaginary unit. 
-
-    """
-    return _libBornAgainCore.exp_I(z)
-
-def rad2deg(angle):
-    r"""
-    rad2deg(double angle) -> double
-    double Units::rad2deg(double angle)
-
-    """
-    return _libBornAgainCore.rad2deg(angle)
-
-def deg2rad(angle):
-    r"""
-    deg2rad(double angle) -> double
-    double Units::deg2rad(double angle)
-
-    """
-    return _libBornAgainCore.deg2rad(angle)
-class WavevectorInfo(object):
-    r"""
 
 
-    Holds all wavevector information relevant for calculating form factors.
+    A parameter value with a weight, as obtained when sampling from a distribution.
 
-    C++ includes: WavevectorInfo.h
+    C++ includes: ParameterSample.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
+
+    def __init__(self, _value=0., _weight=1.):
+        r"""
+        __init__(ParameterSample self, double _value=0., double _weight=1.) -> ParameterSample
+        ParameterSample::ParameterSample(double _value=0., double _weight=1.)
+
+        """
+        _libBornAgainCore.ParameterSample_swiginit(self, _libBornAgainCore.new_ParameterSample(_value, _weight))
+    value = property(_libBornAgainCore.ParameterSample_value_get, _libBornAgainCore.ParameterSample_value_set, doc=r"""value : double""")
+    weight = property(_libBornAgainCore.ParameterSample_weight_get, _libBornAgainCore.ParameterSample_weight_set, doc=r"""weight : double""")
+    __swig_destroy__ = _libBornAgainCore.delete_ParameterSample
+
+# Register ParameterSample in _libBornAgainCore:
+_libBornAgainCore.ParameterSample_swigregister(ParameterSample)
+
+class ParameterSampleVector(object):
+    r"""Proxy of C++ std::vector< ParameterSample > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(ParameterSampleVector self) -> SwigPyIterator"""
+        return _libBornAgainCore.ParameterSampleVector_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(ParameterSampleVector self) -> bool"""
+        return _libBornAgainCore.ParameterSampleVector___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(ParameterSampleVector self) -> bool"""
+        return _libBornAgainCore.ParameterSampleVector___bool__(self)
+
+    def __len__(self):
+        r"""__len__(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainCore.ParameterSampleVector___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j) -> ParameterSampleVector"""
+        return _libBornAgainCore.ParameterSampleVector___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)
+        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j, ParameterSampleVector v)
+        """
+        return _libBornAgainCore.ParameterSampleVector___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)"""
+        return _libBornAgainCore.ParameterSampleVector___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i)
+        __delitem__(ParameterSampleVector self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.ParameterSampleVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(ParameterSampleVector self, PySliceObject * slice) -> ParameterSampleVector
+        __getitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i) -> ParameterSample
+        """
+        return _libBornAgainCore.ParameterSampleVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(ParameterSampleVector self, PySliceObject * slice, ParameterSampleVector v)
+        __setitem__(ParameterSampleVector self, PySliceObject * slice)
+        __setitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, ParameterSample x)
+        """
+        return _libBornAgainCore.ParameterSampleVector___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainCore.ParameterSampleVector_pop(self)
+
+    def append(self, x):
+        r"""append(ParameterSampleVector self, ParameterSample x)"""
+        return _libBornAgainCore.ParameterSampleVector_append(self, x)
+
+    def empty(self):
+        r"""empty(ParameterSampleVector self) -> bool"""
+        return _libBornAgainCore.ParameterSampleVector_empty(self)
+
+    def size(self):
+        r"""size(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainCore.ParameterSampleVector_size(self)
+
+    def swap(self, v):
+        r"""
+        swap(ParameterSampleVector self, ParameterSampleVector v)
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.ParameterSampleVector_swap(self, v)
+
+    def begin(self):
+        r"""begin(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
+        return _libBornAgainCore.ParameterSampleVector_begin(self)
+
+    def end(self):
+        r"""end(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
+        return _libBornAgainCore.ParameterSampleVector_end(self)
+
+    def rbegin(self):
+        r"""rbegin(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
+        return _libBornAgainCore.ParameterSampleVector_rbegin(self)
+
+    def rend(self):
+        r"""rend(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
+        return _libBornAgainCore.ParameterSampleVector_rend(self)
+
+    def clear(self):
+        r"""clear(ParameterSampleVector self)"""
+        return _libBornAgainCore.ParameterSampleVector_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(ParameterSampleVector self) -> std::vector< ParameterSample >::allocator_type"""
+        return _libBornAgainCore.ParameterSampleVector_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(ParameterSampleVector self)"""
+        return _libBornAgainCore.ParameterSampleVector_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos) -> std::vector< ParameterSample >::iterator
+        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator first, std::vector< ParameterSample >::iterator last) -> std::vector< ParameterSample >::iterator
+        """
+        return _libBornAgainCore.ParameterSampleVector_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(ParameterSampleVector self) -> ParameterSampleVector
+        __init__(ParameterSampleVector self, ParameterSampleVector other) -> ParameterSampleVector
+        __init__(ParameterSampleVector self, std::vector< ParameterSample >::size_type size) -> ParameterSampleVector
+        __init__(ParameterSampleVector self, std::vector< ParameterSample >::size_type size, ParameterSample value) -> ParameterSampleVector
+        """
+        _libBornAgainCore.ParameterSampleVector_swiginit(self, _libBornAgainCore.new_ParameterSampleVector(*args))
+
+    def push_back(self, x):
+        r"""push_back(ParameterSampleVector self, ParameterSample x)"""
+        return _libBornAgainCore.ParameterSampleVector_push_back(self, x)
+
+    def front(self):
+        r"""front(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainCore.ParameterSampleVector_front(self)
+
+    def back(self):
+        r"""back(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainCore.ParameterSampleVector_back(self)
+
+    def assign(self, n, x):
+        r"""assign(ParameterSampleVector self, std::vector< ParameterSample >::size_type n, ParameterSample x)"""
+        return _libBornAgainCore.ParameterSampleVector_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size)
+        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size, ParameterSample x)
+        """
+        return _libBornAgainCore.ParameterSampleVector_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, ParameterSample x) -> std::vector< ParameterSample >::iterator
+        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, std::vector< ParameterSample >::size_type n, ParameterSample x)
+        """
+        return _libBornAgainCore.ParameterSampleVector_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(ParameterSampleVector self, std::vector< ParameterSample >::size_type n)"""
+        return _libBornAgainCore.ParameterSampleVector_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainCore.ParameterSampleVector_capacity(self)
+    __swig_destroy__ = _libBornAgainCore.delete_ParameterSampleVector
+
+# Register ParameterSampleVector in _libBornAgainCore:
+_libBornAgainCore.ParameterSampleVector_swigregister(ParameterSampleVector)
+
+class IntensityData(object):
+    r"""
+
+
+    Template class to store data of any type in multi-dimensional space.
+
+    C++ includes: OutputData.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(IntensityData self) -> IntensityData
+        OutputData< T >::OutputData(const OutputData &)=delete
+
+        """
+        _libBornAgainCore.IntensityData_swiginit(self, _libBornAgainCore.new_IntensityData())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityData
+
+    def clone(self):
+        r"""
+        clone(IntensityData self) -> IntensityData
+        OutputData< T > * OutputData< T >::clone() const
+
+        """
+        return _libBornAgainCore.IntensityData_clone(self)
+
+    def copyFrom(self, x):
+        r"""
+        copyFrom(IntensityData self, IntensityData x)
+        void OutputData< T >::copyFrom(const OutputData< T > &x)
+
+        """
+        return _libBornAgainCore.IntensityData_copyFrom(self, x)
+
+    def meanValues(self):
+        r"""
+        meanValues(IntensityData self) -> IntensityData
+        OutputData< double > * OutputData< T >::meanValues() const
+
+        """
+        return _libBornAgainCore.IntensityData_meanValues(self)
+
+    def addAxis(self, *args):
+        r"""
+        addAxis(IntensityData self, IAxis new_axis)
+        addAxis(IntensityData self, std::string const & name, size_t size, double start, double end)
+        void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)
+
+        """
+        return _libBornAgainCore.IntensityData_addAxis(self, *args)
+
+    def getAxis(self, *args):
+        r"""
+        getAxis(IntensityData self, size_t serial_number) -> IAxis
+        getAxis(IntensityData self, std::string const & axis_name) -> IAxis
+        const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
+
+        returns axis with given name 
+
+        """
+        return _libBornAgainCore.IntensityData_getAxis(self, *args)
+
+    def getRank(self):
+        r"""
+        getRank(IntensityData self) -> size_t
+        size_t OutputData< T >::getRank() const
+
+        Returns number of dimensions. 
+
+        """
+        return _libBornAgainCore.IntensityData_getRank(self)
+
+    def getAllocatedSize(self):
+        r"""
+        getAllocatedSize(IntensityData self) -> size_t
+        size_t OutputData< T >::getAllocatedSize() const
+
+        Returns total size of data buffer (product of bin number in every dimension). 
+
+        """
+        return _libBornAgainCore.IntensityData_getAllocatedSize(self)
+
+    def getAllSizes(self):
+        r"""
+        getAllSizes(IntensityData self) -> std::vector< size_t,std::allocator< size_t > >
+        std::vector< size_t > OutputData< T >::getAllSizes() const
+
+        Returns all sizes of its axes. 
+
+        """
+        return _libBornAgainCore.IntensityData_getAllSizes(self)
+
+    def getRawDataVector(self):
+        r"""
+        getRawDataVector(IntensityData self) -> vdouble1d_t
+        std::vector< T > OutputData< T >::getRawDataVector() const
+
+        Returns copy of raw data vector. 
+
+        """
+        return _libBornAgainCore.IntensityData_getRawDataVector(self)
+
+    def totalSum(self):
+        r"""
+        totalSum(IntensityData self) -> double
+        T OutputData< T >::totalSum() const
+
+        Returns sum of all values in the data structure. 
+
+        """
+        return _libBornAgainCore.IntensityData_totalSum(self)
+
+    def begin(self, *args):
+        r"""
+        begin(IntensityData self) -> OutputData< double >::iterator
+        begin(IntensityData self) -> OutputData< double >::const_iterator
+        OutputData< T >::const_iterator OutputData< T >::begin() const
+
+        Returns read-only iterator that points to the first element. 
+
+        """
+        return _libBornAgainCore.IntensityData_begin(self, *args)
+
+    def end(self, *args):
+        r"""
+        end(IntensityData self) -> OutputData< double >::iterator
+        end(IntensityData self) -> OutputData< double >::const_iterator
+        const_iterator OutputData< T >::end() const
+
+        Returns read-only iterator that points to the one past last element. 
+
+        """
+        return _libBornAgainCore.IntensityData_end(self, *args)
+
+    def getAxesBinIndices(self, global_index):
+        r"""
+        getAxesBinIndices(IntensityData self, size_t global_index) -> vector_integer_t
+        std::vector< int > OutputData< T >::getAxesBinIndices(size_t global_index) const
+
+        Returns vector of axes indices for given global index
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        Vector of bin indices for all axes defined 
+
+        """
+        return _libBornAgainCore.IntensityData_getAxesBinIndices(self, global_index)
+
+    def getAxisBinIndex(self, *args):
+        r"""
+        getAxisBinIndex(IntensityData self, size_t global_index, size_t i_selected_axis) -> size_t
+        getAxisBinIndex(IntensityData self, size_t global_index, std::string const & axis_name) -> size_t
+        size_t OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
+
+        Returns axis bin index for given global index
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        axis_name: 
+        The name of selected axis.
+
+        Corresponding bin index for selected axis 
+
+        """
+        return _libBornAgainCore.IntensityData_getAxisBinIndex(self, *args)
+
+    def toGlobalIndex(self, axes_indices):
+        r"""
+        toGlobalIndex(IntensityData self, std::vector< unsigned int,std::allocator< unsigned int > > const & axes_indices) -> size_t
+        size_t OutputData< T >::toGlobalIndex(const std::vector< unsigned > &axes_indices) const
+
+        Returns global index for specified indices of axes
+
+        Parameters:
+        -----------
+
+        axes_indices: 
+        Vector of axes indices for all specified axes in this dataset
+
+        Corresponding global index 
+
+        """
+        return _libBornAgainCore.IntensityData_toGlobalIndex(self, axes_indices)
+
+    def findGlobalIndex(self, coordinates):
+        r"""
+        findGlobalIndex(IntensityData self, vdouble1d_t coordinates) -> size_t
+        size_t OutputData< T >::findGlobalIndex(const std::vector< double > &coordinates) const
+
+        Returns global index for specified axes values
+
+        Parameters:
+        -----------
+
+        coordinates: 
+        Vector of axes coordinates for all specified axes in this dataset
+
+        Closest global index 
+
+        """
+        return _libBornAgainCore.IntensityData_findGlobalIndex(self, coordinates)
+
+    def getAxisValue(self, *args):
+        r"""
+        getAxisValue(IntensityData self, size_t global_index, size_t i_selected_axis) -> double
+        getAxisValue(IntensityData self, size_t global_index, std::string const & axis_name) -> double
+        double OutputData< T >::getAxisValue(size_t global_index, const std::string &axis_name) const
+
+        Returns the value of selected axis for given global_index.
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        axis_name: 
+        The name of selected axis.
+
+        corresponding bin center of selected axis 
+
+        """
+        return _libBornAgainCore.IntensityData_getAxisValue(self, *args)
+
+    def getAxesValues(self, global_index):
+        r"""
+        getAxesValues(IntensityData self, size_t global_index) -> vdouble1d_t
+        std::vector< double > OutputData< T >::getAxesValues(size_t global_index) const
+
+        Returns values on all defined axes for given globalbin number
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        Vector of corresponding bin centers 
+
+        """
+        return _libBornAgainCore.IntensityData_getAxesValues(self, global_index)
+
+    def getAxisBin(self, *args):
+        r"""
+        getAxisBin(IntensityData self, size_t global_index, size_t i_selected_axis) -> Bin1D
+        getAxisBin(IntensityData self, size_t global_index, std::string const & axis_name) -> Bin1D
+        Bin1D OutputData< T >::getAxisBin(size_t global_index, const std::string &axis_name) const
+
+        Returns bin of selected axis for given global_index.
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        axis_name: 
+        The name of selected axis.
+
+        Corresponding  Bin1D object 
+
+        """
+        return _libBornAgainCore.IntensityData_getAxisBin(self, *args)
+
+    def clear(self):
+        r"""
+        clear(IntensityData self)
+        void OutputData< T >::clear()
+
+        Sets object into initial state (no dimensions, data) 
+
+        """
+        return _libBornAgainCore.IntensityData_clear(self)
+
+    def setAllTo(self, value):
+        r"""
+        setAllTo(IntensityData self, double const & value)
+        void OutputData< T >::setAllTo(const T &value)
+
+        Sets content of output data to specific value. 
+
+        """
+        return _libBornAgainCore.IntensityData_setAllTo(self, value)
+
+    def scaleAll(self, factor):
+        r"""
+        scaleAll(IntensityData self, double const & factor)
+        void OutputData< T >::scaleAll(const T &factor)
+
+        multiply every item of this output data by value 
+
+        """
+        return _libBornAgainCore.IntensityData_scaleAll(self, factor)
+
+    def setAxisSizes(self, rank, n_dims):
+        r"""
+        setAxisSizes(IntensityData self, size_t rank, int * n_dims)
+        void OutputData< T >::setAxisSizes(size_t rank, int *n_dims)
+
+        Adds 'rank' axes with indicated sizes. 
+
+        """
+        return _libBornAgainCore.IntensityData_setAxisSizes(self, rank, n_dims)
+
+    def setRawDataVector(self, data_vector):
+        r"""
+        setRawDataVector(IntensityData self, vdouble1d_t data_vector)
+        void OutputData< T >::setRawDataVector(const std::vector< T > &data_vector)
+
+        Sets new values to raw data vector. 
+
+        """
+        return _libBornAgainCore.IntensityData_setRawDataVector(self, data_vector)
+
+    def setRawDataArray(self, source):
+        r"""
+        setRawDataArray(IntensityData self, double const * source)
+        void OutputData< T >::setRawDataArray(const T *source)
+
+        Sets new values to raw data array. 
+
+        """
+        return _libBornAgainCore.IntensityData_setRawDataArray(self, source)
+
+    def __iadd__(self, right):
+        r"""__iadd__(IntensityData self, IntensityData right) -> IntensityData"""
+        return _libBornAgainCore.IntensityData___iadd__(self, right)
+
+    def __isub__(self, right):
+        r"""__isub__(IntensityData self, IntensityData right) -> IntensityData"""
+        return _libBornAgainCore.IntensityData___isub__(self, right)
+
+    def __itruediv__(self, *args):
+        return _libBornAgainCore.IntensityData___itruediv__(self, *args)
+    __idiv__ = __itruediv__
+
+
+
+    def __imul__(self, right):
+        r"""__imul__(IntensityData self, IntensityData right) -> IntensityData"""
+        return _libBornAgainCore.IntensityData___imul__(self, right)
+
+    def getValue(self, index):
+        r"""
+        getValue(IntensityData self, size_t index) -> double
+        double OutputData< T >::getValue(size_t index) const
+
+        Returns value or summed value, depending on T. 
+
+        """
+        return _libBornAgainCore.IntensityData_getValue(self, index)
+
+    def getArray(self):
+        r"""
+        getArray(IntensityData self) -> PyObject *
+        PyObject* OutputData< T >::getArray() const
+
+        returns data as Python numpy array 
+
+        """
+        return _libBornAgainCore.IntensityData_getArray(self)
+
+    def isInitialized(self):
+        r"""
+        isInitialized(IntensityData self) -> bool
+        bool OutputData< T >::isInitialized() const
+
+        returns true if object is correctly initialized 
+
+        """
+        return _libBornAgainCore.IntensityData_isInitialized(self)
+
+    def allocate(self):
+        r"""
+        allocate(IntensityData self)
+        void OutputData< T >::allocate()
+
+        memory allocation for current dimensions configuration 
+
+        """
+        return _libBornAgainCore.IntensityData_allocate(self)
+
+    def __getitem__(self, i):
+        r"""__getitem__(IntensityData self, unsigned int i) -> double"""
+        return _libBornAgainCore.IntensityData___getitem__(self, i)
+
+    def __setitem__(self, i, value):
+        r"""__setitem__(IntensityData self, unsigned int i, double value) -> double"""
+        return _libBornAgainCore.IntensityData___setitem__(self, i, value)
+
+# Register IntensityData in _libBornAgainCore:
+_libBornAgainCore.IntensityData_swigregister(IntensityData)
+
+class FitObjective(object):
+    r"""
+
+
+    Holds vector of   SimDataPairs (experimental data and simulation results) for use in fitting.
+
+    C++ includes: FitObjective.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(FitObjective self) -> FitObjective
+        FitObjective::FitObjective()
+
+        """
+        if self.__class__ == FitObjective:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.FitObjective_swiginit(self, _libBornAgainCore.new_FitObjective(_self, ))
+    __swig_destroy__ = _libBornAgainCore.delete_FitObjective
+
+    def evaluate_cpp(self, params):
+        r"""
+        evaluate_cpp(FitObjective self, Parameters params) -> double
+        double FitObjective::evaluate(const Fit::Parameters &params)
+
+        """
+        return _libBornAgainCore.FitObjective_evaluate_cpp(self, params)
+
+    def evaluate_residuals_cpp(self, params):
+        r"""
+        evaluate_residuals_cpp(FitObjective self, Parameters params) -> vdouble1d_t
+        std::vector< double > FitObjective::evaluate_residuals(const Fit::Parameters &params)
+
+        """
+        return _libBornAgainCore.FitObjective_evaluate_residuals_cpp(self, params)
+
+    def numberOfFitElements(self):
+        r"""
+        numberOfFitElements(FitObjective self) -> size_t
+        size_t FitObjective::numberOfFitElements() const
+
+        """
+        return _libBornAgainCore.FitObjective_numberOfFitElements(self)
+
+    def simulationResult(self, i_item=0):
+        r"""
+        simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult
+        SimulationResult FitObjective::simulationResult(size_t i_item=0) const
+
+        Returns simulation result in the form of  SimulationResult. 
+
+        """
+        return _libBornAgainCore.FitObjective_simulationResult(self, i_item)
+
+    def experimentalData(self, i_item=0):
+        r"""
+        experimentalData(FitObjective self, size_t i_item=0) -> SimulationResult
+        SimulationResult FitObjective::experimentalData(size_t i_item=0) const
+
+        Returns experimental data in the form of  SimulationResult. 
+
+        """
+        return _libBornAgainCore.FitObjective_experimentalData(self, i_item)
+
+    def uncertaintyData_cpp(self, i_item=0):
+        r"""
+        uncertaintyData_cpp(FitObjective self, size_t i_item=0) -> SimulationResult
+        SimulationResult FitObjective::uncertaintyData(size_t i_item=0) const
+
+        Returns experimental data uncertainties in the form of  SimulationResult. 
+
+        """
+        return _libBornAgainCore.FitObjective_uncertaintyData_cpp(self, i_item)
+
+    def relativeDifference(self, i_item=0):
+        r"""
+        relativeDifference(FitObjective self, size_t i_item=0) -> SimulationResult
+        SimulationResult FitObjective::relativeDifference(size_t i_item=0) const
+
+        Returns relative difference between simulation and experimental data in the form of  SimulationResult. 
+
+        """
+        return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
+
+    def absoluteDifference(self, i_item=0):
+        r"""
+        absoluteDifference(FitObjective self, size_t i_item=0) -> SimulationResult
+        SimulationResult FitObjective::absoluteDifference(size_t i_item=0) const
+
+        Returns absolute value of difference between simulation and experimental data in the form of  SimulationResult. 
+
+        """
+        return _libBornAgainCore.FitObjective_absoluteDifference(self, i_item)
+
+    def experimental_array(self):
+        r"""
+        experimental_array(FitObjective self) -> vdouble1d_t
+        std::vector< double > FitObjective::experimental_array() const
+
+        Returns one dimensional array representing merged experimental data. The area outside of the region of interest is not included, masked data is nullified. 
+
+        """
+        return _libBornAgainCore.FitObjective_experimental_array(self)
+
+    def simulation_array(self):
+        r"""
+        simulation_array(FitObjective self) -> vdouble1d_t
+        std::vector< double > FitObjective::simulation_array() const
+
+        Returns one dimensional array representing merged simulated intensities data. The area outside of the region of interest is not included, masked data is nullified. 
+
+        """
+        return _libBornAgainCore.FitObjective_simulation_array(self)
+
+    def uncertainties_cpp(self):
+        r"""
+        uncertainties_cpp(FitObjective self) -> vdouble1d_t
+        std::vector< double > FitObjective::uncertainties() const
+
+        Returns one-dimensional array representing merged data uncertainties. The area outside of the region of interest is not included, masked data is nullified. 
+
+        """
+        return _libBornAgainCore.FitObjective_uncertainties_cpp(self)
+
+    def weights_array(self):
+        r"""
+        weights_array(FitObjective self) -> vdouble1d_t
+        std::vector< double > FitObjective::weights_array() const
+
+        Returns one-dimensional array representing merged user weights. The area outside of the region of interest is not included, masked data is nullified. 
+
+        """
+        return _libBornAgainCore.FitObjective_weights_array(self)
+
+    def initPrint(self, every_nth):
+        r"""
+        initPrint(FitObjective self, int every_nth)
+        void FitObjective::initPrint(int every_nth)
+
+        Initializes printing to standard output during the fitting.
+
+        Parameters:
+        -----------
+
+        every_nth: 
+        Print every n'th iteration. 
+
+        """
+        return _libBornAgainCore.FitObjective_initPrint(self, every_nth)
+
+    def initPlot_cpp(self, every_nth, callback):
+        r"""
+        initPlot_cpp(FitObjective self, int every_nth, PyObserverCallback callback)
+        void FitObjective::initPlot(int every_nth, fit_observer_t observer)
+
+        """
+        return _libBornAgainCore.FitObjective_initPlot_cpp(self, every_nth, callback)
+
+    def iterationInfo(self):
+        r"""
+        iterationInfo(FitObjective self) -> IterationInfo
+        IterationInfo FitObjective::iterationInfo() const
+
+        """
+        return _libBornAgainCore.FitObjective_iterationInfo(self)
+
+    def minimizerResult(self):
+        r"""
+        minimizerResult(FitObjective self) -> Fit::MinimizerResult
+        Fit::MinimizerResult FitObjective::minimizerResult() const
+
+        """
+        return _libBornAgainCore.FitObjective_minimizerResult(self)
+
+    def finalize_cpp(self, result):
+        r"""
+        finalize_cpp(FitObjective self, Fit::MinimizerResult const & result)
+        void FitObjective::finalize(const Fit::MinimizerResult &result)
+
+        Should be explicitely called on last iteration to notify all observers. 
+
+        """
+        return _libBornAgainCore.FitObjective_finalize_cpp(self, result)
+
+    def fitObjectCount(self):
+        r"""
+        fitObjectCount(FitObjective self) -> unsigned int
+        unsigned FitObjective::fitObjectCount() const
+
+        """
+        return _libBornAgainCore.FitObjective_fitObjectCount(self)
+
+    def run_simulations(self, params):
+        r"""
+        run_simulations(FitObjective self, Parameters params)
+        void FitObjective::run_simulations(const Fit::Parameters &params)
+
+        """
+        return _libBornAgainCore.FitObjective_run_simulations(self, params)
+
+    def setChiSquaredModule(self, module):
+        r"""
+        setChiSquaredModule(FitObjective self, IChiSquaredModule module)
+        void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
+
+        """
+        return _libBornAgainCore.FitObjective_setChiSquaredModule(self, module)
+
+    def setObjectiveMetric(self, *args):
+        r"""
+        setObjectiveMetric(FitObjective self, std::string const & metric)
+        setObjectiveMetric(FitObjective self, std::string const & metric, std::string const & norm)
+        void FitObjective::setObjectiveMetric(std::unique_ptr< ObjectiveMetric > metric)
+
+        """
+        return _libBornAgainCore.FitObjective_setObjectiveMetric(self, *args)
+
+    def containsUncertainties_cpp(self, i_item):
+        r"""
+        containsUncertainties_cpp(FitObjective self, size_t i_item) -> bool
+        bool FitObjective::containsUncertainties(size_t i_item) const
+
+        Returns true if the specified DataPair element contains uncertainties. 
+
+        """
+        return _libBornAgainCore.FitObjective_containsUncertainties_cpp(self, i_item)
+
+    def allPairsHaveUncertainties_cpp(self):
+        r"""
+        allPairsHaveUncertainties_cpp(FitObjective self) -> bool
+        bool FitObjective::allPairsHaveUncertainties() const
+
+        Returns true if all the data pairs in  FitObjective instance contain uncertainties. 
+
+        """
+        return _libBornAgainCore.FitObjective_allPairsHaveUncertainties_cpp(self)
 
     @staticmethod
-    def GetZeroQ():
-        r"""GetZeroQ() -> WavevectorInfo"""
-        return _libBornAgainCore.WavevectorInfo_GetZeroQ()
+    def availableMetricOptions():
+        r"""availableMetricOptions() -> std::string"""
+        return _libBornAgainCore.FitObjective_availableMetricOptions()
 
-    def __init__(self, *args):
+    def addSimulationAndData_cpp(self, *args):
         r"""
-        __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
-        __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
-        WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, vdouble1d_t uncertainties, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, vdouble2d_t uncertainties, double weight=1.0)
+        void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const T &data, const T &uncertainties, double weight=1.0)
+
+        Constructs simulation/data pair for later fit.
+
+        Parameters:
+        -----------
+
+        callback: 
+        simulation builder capable of producing simulations
+
+        data: 
+        experimental data array
+
+        uncertainties: 
+        data uncertainties array
+
+        weight: 
+        weight of dataset in metric calculations 
 
         """
-        _libBornAgainCore.WavevectorInfo_swiginit(self, _libBornAgainCore.new_WavevectorInfo(*args))
+        return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, *args)
 
-    def transformed(self, transform):
-        r"""
-        transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
-        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
-
+    def addSimulationAndData(self, callback, data, *args, **kwargs):
         """
-        return _libBornAgainCore.WavevectorInfo_transformed(self, transform)
+        Sets simulation and experimental data to the fit objective.
+        Optionally accepts experimental data uncertainties and
+        user-defined dataset weight.
 
-    def getKi(self):
-        r"""
-        getKi(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getKi() const
+        Arguments:
 
+        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        The function must use fit parameter dictionary as its input.
+
+        data -- numpy array with experimental data.
+
+        uncertainties -- numpy array with experimental data uncertainties.
+        Array shape must correspond to the shape of data. Optional argument.
+
+        weight -- user-defined weight of the dataset. If not specified, defaults to 1.0.
         """
-        return _libBornAgainCore.WavevectorInfo_getKi(self)
+        if not hasattr(self, 'callback_container'):
+            self.callback_container = []
+        wrp = SimulationBuilderWrapper(callback)
+        self.callback_container.append(wrp)
+        return self.addSimulationAndData_cpp(wrp, data, *args, **kwargs)
 
-    def getKf(self):
-        r"""
-        getKf(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getKf() const
-
+    def convert_params(self, params):
         """
-        return _libBornAgainCore.WavevectorInfo_getKf(self)
-
-    def getQ(self):
-        r"""
-        getQ(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getQ() const
-
+        Converts parameters to what FitObjective::evaluate expects
         """
-        return _libBornAgainCore.WavevectorInfo_getQ(self)
 
-    def getWavelength(self):
-        r"""
-        getWavelength(WavevectorInfo self) -> double
-        double WavevectorInfo::getWavelength() const
+        if str(params.__module__) == "lmfit.parameter":
+            bapars = libBornAgainFit.Parameters()
+            for p in params:
+                bapars.add(p, params[p].value)
+            return bapars
+        else:
+            return params
 
+    def evaluate_residuals(self, params):
+        return self.evaluate_residuals_cpp(self.convert_params(params))
+
+    def evaluate(self, params):
+        return self.evaluate_cpp(self.convert_params(params))
+
+    def convert_result(self, minim_result):
         """
-        return _libBornAgainCore.WavevectorInfo_getWavelength(self)
-    __swig_destroy__ = _libBornAgainCore.delete_WavevectorInfo
-
-# Register WavevectorInfo in _libBornAgainCore:
-_libBornAgainCore.WavevectorInfo_swigregister(WavevectorInfo)
-nanometer = cvar.nanometer
-angstrom = cvar.angstrom
-micrometer = cvar.micrometer
-millimeter = cvar.millimeter
-meter = cvar.meter
-nm = cvar.nm
-nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
-rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
-deg = cvar.deg
-tesla = cvar.tesla
-gauss = cvar.gauss
-
-def WavevectorInfo_GetZeroQ():
-    r"""WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
-    return _libBornAgainCore.WavevectorInfo_GetZeroQ()
-
-class Beam(INode):
-    r"""
-
-
-    Beam defined by wavelength, direction and intensity.
-
-    C++ includes: Beam.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Beam self) -> Beam
-        __init__(Beam self, Beam other) -> Beam
-        Beam::Beam(const Beam &other)
-
+        Converts result reported by arbitrary minimizer to ba.MinimizerResult
         """
-        _libBornAgainCore.Beam_swiginit(self, _libBornAgainCore.new_Beam(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_Beam
 
-    def getCentralK(self):
-        r"""
-        getCentralK(Beam self) -> kvector_t
-        kvector_t Beam::getCentralK() const
+        if str(minim_result.__module__) == "lmfit.minimizer":
+            return libBornAgainFit.MinimizerResult()
+        else:
+            return minim_result
 
-        Returns the wavevector. 
+    def finalize(self, minimizer_result):
+        return self.finalize_cpp(self.convert_result(minimizer_result))
 
+    def create_default_plotter(self):
+        import plot_utils
+        self.m_plotter = plot_utils.PlotterGISAS()
+        return self.m_plotter.plot
+
+    def initPlot(self, every_nth, callback = None):
+        if not callback:
+            callback = self.create_default_plotter()
+
+        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
+        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
+
+    def uncertainties(self):
         """
-        return _libBornAgainCore.Beam_getCentralK(self)
-
-    def setCentralK(self, wavelength, alpha_i, phi_i):
-        r"""
-        setCentralK(Beam self, double wavelength, double alpha_i, double phi_i)
-        void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
-
-        Sets the wavevector in terms of wavelength and incoming angles. 
-
+        Returns one-dimensional array representing merged data uncertainties.
+        If any of the associated data pairs lack uncertainties, returns None.
         """
-        return _libBornAgainCore.Beam_setCentralK(self, wavelength, alpha_i, phi_i)
+        if self.allPairsHaveUncertainties_cpp():
+            return self.uncertainties_cpp()
+        return None
 
-    def getIntensity(self):
-        r"""
-        getIntensity(Beam self) -> double
-        double Beam::getIntensity() const
-
-        Returns the beam intensity in neutrons/sec. 
-
+    def uncertaintyData(self, i=0):
         """
-        return _libBornAgainCore.Beam_getIntensity(self)
-
-    def setIntensity(self, intensity):
-        r"""
-        setIntensity(Beam self, double intensity)
-        void Beam::setIntensity(double intensity)
-
-        Sets the beam intensity in neutrons/sec. 
-
+        Returns uncertainties for i-th simulation-data pair. If
+        no uncertainties are assigned to the data pair, returns
+        None.
         """
-        return _libBornAgainCore.Beam_setIntensity(self, intensity)
+        if self.containsUncertainties_cpp(i):
+            return self.uncertaintyData_cpp(i)
+        return None
 
-    def footprintFactor(self):
-        r"""
-        footprintFactor(Beam self) -> IFootprintFactor
-        const IFootprintFactor * Beam::footprintFactor() const
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_FitObjective(self)
+        return weakref.proxy(self)
 
-        Returns footprint factor. 
+# Register FitObjective in _libBornAgainCore:
+_libBornAgainCore.FitObjective_swigregister(FitObjective)
 
-        """
-        return _libBornAgainCore.Beam_footprintFactor(self)
+def FitObjective_availableMetricOptions():
+    r"""FitObjective_availableMetricOptions() -> std::string"""
+    return _libBornAgainCore.FitObjective_availableMetricOptions()
 
-    def setFootprintFactor(self, shape_factor):
-        r"""
-        setFootprintFactor(Beam self, IFootprintFactor shape_factor)
-        void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
 
-        Sets footprint factor to the beam. 
+def GetMajorVersionNumber():
+    r"""GetMajorVersionNumber() -> int"""
+    return _libBornAgainCore.GetMajorVersionNumber()
 
-        """
-        return _libBornAgainCore.Beam_setFootprintFactor(self, shape_factor)
+def GetMinorVersionNumber():
+    r"""GetMinorVersionNumber() -> int"""
+    return _libBornAgainCore.GetMinorVersionNumber()
 
-    def setWidthRatio(self, width_ratio):
-        r"""
-        setWidthRatio(Beam self, double width_ratio)
-        void Beam::setWidthRatio(double width_ratio)
+def GetPatchVersionNumber():
+    r"""GetPatchVersionNumber() -> int"""
+    return _libBornAgainCore.GetPatchVersionNumber()
 
-        Sets beam to sample width ratio in footprint factor. 
+def GetName():
+    r"""GetName() -> std::string"""
+    return _libBornAgainCore.GetName()
 
-        """
-        return _libBornAgainCore.Beam_setWidthRatio(self, width_ratio)
-
-    def setPolarization(self, bloch_vector):
-        r"""
-        setPolarization(Beam self, kvector_t bloch_vector)
-        void Beam::setPolarization(const kvector_t bloch_vector)
-
-        Sets the polarization density matrix according to the given Bloch vector. 
-
-        """
-        return _libBornAgainCore.Beam_setPolarization(self, bloch_vector)
-
-    def getBlochVector(self):
-        r"""
-        getBlochVector(Beam self) -> kvector_t
-        kvector_t Beam::getBlochVector() const
-
-        """
-        return _libBornAgainCore.Beam_getBlochVector(self)
-
-    def getWavelength(self):
-        r"""
-        getWavelength(Beam self) -> double
-        double Beam::getWavelength() const
-
-        """
-        return _libBornAgainCore.Beam_getWavelength(self)
-
-    def getAlpha(self):
-        r"""
-        getAlpha(Beam self) -> double
-        double Beam::getAlpha() const
-
-        """
-        return _libBornAgainCore.Beam_getAlpha(self)
-
-    def getPhi(self):
-        r"""
-        getPhi(Beam self) -> double
-        double Beam::getPhi() const
-
-        """
-        return _libBornAgainCore.Beam_getPhi(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(Beam self, INodeVisitor visitor)
-        void Beam::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.Beam_accept(self, visitor)
-
-    def getChildren(self):
-        r"""
-        getChildren(Beam self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Beam::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.Beam_getChildren(self)
-
-# Register Beam in _libBornAgainCore:
-_libBornAgainCore.Beam_swigregister(Beam)
-
+def GetVersionNumber():
+    r"""GetVersionNumber() -> std::string"""
+    return _libBornAgainCore.GetVersionNumber()
 class Bin1D(object):
     r"""Proxy of C++ Bin1D class."""
 
@@ -3704,6 +4365,10 @@ class Bin1D(object):
 
 # Register Bin1D in _libBornAgainCore:
 _libBornAgainCore.Bin1D_swigregister(Bin1D)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 
 def BinContains(bin, value):
@@ -3808,6 +4473,66 @@ class Bin1DCVector(object):
 
 # Register Bin1DCVector in _libBornAgainCore:
 _libBornAgainCore.Bin1DCVector_swigregister(Bin1DCVector)
+
+class IPixel(object):
+    r"""
+
+
+    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+
+    C++ includes: IPixel.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IPixel
+
+    def clone(self):
+        r"""
+        clone(IPixel self) -> IPixel
+        virtual IPixel* IPixel::clone() const =0
+
+        """
+        return _libBornAgainCore.IPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
+        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
+
+        """
+        return _libBornAgainCore.IPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
+        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
+
+        """
+        return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(IPixel self, double x, double y) -> double
+        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+
+        """
+        return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(IPixel self) -> double
+        virtual double IPixel::getSolidAngle() const =0
+
+        """
+        return _libBornAgainCore.IPixel_getSolidAngle(self)
+
+# Register IPixel in _libBornAgainCore:
+_libBornAgainCore.IPixel_swigregister(IPixel)
 
 class IAxis(object):
     r"""
@@ -4250,13 +4975,155 @@ class CustomBinAxis(VariableBinAxis):
 # Register CustomBinAxis in _libBornAgainCore:
 _libBornAgainCore.CustomBinAxis_swigregister(CustomBinAxis)
 
-class IShape2D(ICloneable):
+class FixedBinAxis(IAxis):
     r"""
 
 
-    Basic class for all shapes in 2D.
+    Axis with fixed bin size.
 
-    C++ includes: IShape2D.h
+    C++ includes: FixedBinAxis.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, name, nbins, start, end):
+        r"""
+        __init__(FixedBinAxis self, std::string const & name, size_t nbins, double start, double end) -> FixedBinAxis
+        FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
+
+        FixedBinAxis constructor.
+
+        Parameters:
+        -----------
+
+        name: 
+        Axis name
+
+        nbins: 
+        number of bins
+
+        start: 
+        low edge of first bin
+
+        end: 
+        upper edge of last bin 
+
+        """
+        _libBornAgainCore.FixedBinAxis_swiginit(self, _libBornAgainCore.new_FixedBinAxis(name, nbins, start, end))
+    __swig_destroy__ = _libBornAgainCore.delete_FixedBinAxis
+
+    def clone(self):
+        r"""
+        clone(FixedBinAxis self) -> FixedBinAxis
+        FixedBinAxis * FixedBinAxis::clone() const
+
+        clone function 
+
+        """
+        return _libBornAgainCore.FixedBinAxis_clone(self)
+
+    def size(self):
+        r"""
+        size(FixedBinAxis self) -> size_t
+        size_t FixedBinAxis::size() const
+
+        retrieve the number of bins 
+
+        """
+        return _libBornAgainCore.FixedBinAxis_size(self)
+
+    def getBin(self, index):
+        r"""
+        getBin(FixedBinAxis self, size_t index) -> Bin1D
+        Bin1D FixedBinAxis::getBin(size_t index) const
+
+        retrieve a 1d bin for the given index 
+
+        """
+        return _libBornAgainCore.FixedBinAxis_getBin(self, index)
+
+    def getMin(self):
+        r"""
+        getMin(FixedBinAxis self) -> double
+        double FixedBinAxis::getMin() const
+
+        Returns value of first point of axis. 
+
+        """
+        return _libBornAgainCore.FixedBinAxis_getMin(self)
+
+    def getMax(self):
+        r"""
+        getMax(FixedBinAxis self) -> double
+        double FixedBinAxis::getMax() const
+
+        Returns value of last point of axis. 
+
+        """
+        return _libBornAgainCore.FixedBinAxis_getMax(self)
+
+    def getBinCenter(self, index):
+        r"""
+        getBinCenter(FixedBinAxis self, size_t index) -> double
+        double FixedBinAxis::getBinCenter(size_t index) const
+
+        """
+        return _libBornAgainCore.FixedBinAxis_getBinCenter(self, index)
+
+    def findClosestIndex(self, value):
+        r"""
+        findClosestIndex(FixedBinAxis self, double value) -> size_t
+        size_t FixedBinAxis::findClosestIndex(double value) const
+
+        find bin index which is best match for given value 
+
+        """
+        return _libBornAgainCore.FixedBinAxis_findClosestIndex(self, value)
+
+    def getBinCenters(self):
+        r"""
+        getBinCenters(FixedBinAxis self) -> vdouble1d_t
+        std::vector< double > FixedBinAxis::getBinCenters() const
+
+        """
+        return _libBornAgainCore.FixedBinAxis_getBinCenters(self)
+
+    def getBinBoundaries(self):
+        r"""
+        getBinBoundaries(FixedBinAxis self) -> vdouble1d_t
+        std::vector< double > FixedBinAxis::getBinBoundaries() const
+
+        """
+        return _libBornAgainCore.FixedBinAxis_getBinBoundaries(self)
+
+    def createClippedAxis(self, left, right):
+        r"""
+        createClippedAxis(FixedBinAxis self, double left, double right) -> FixedBinAxis
+        FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
+
+        Creates a new clipped axis. 
+
+        """
+        return _libBornAgainCore.FixedBinAxis_createClippedAxis(self, left, right)
+
+    def __getitem__(self, i):
+        r"""__getitem__(FixedBinAxis self, unsigned int i) -> double"""
+        return _libBornAgainCore.FixedBinAxis___getitem__(self, i)
+
+# Register FixedBinAxis in _libBornAgainCore:
+_libBornAgainCore.FixedBinAxis_swigregister(FixedBinAxis)
+
+class ICloneable(object):
+    r"""
+
+
+    Interface for polymorphic classes that should not be copied, except by explicit cloning.
+
+    Child classes of  ICloneable must provide clone().
+
+    C++ includes: ICloneable.h
 
     """
 
@@ -4265,1202 +5132,157 @@ class IShape2D(ICloneable):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
 
     def clone(self):
         r"""
-        clone(IShape2D self) -> IShape2D
-        virtual IShape2D* IShape2D::clone() const =0
+        clone(ICloneable self) -> ICloneable
+        virtual ICloneable* ICloneable::clone() const =0
 
         """
-        return _libBornAgainCore.IShape2D_clone(self)
+        return _libBornAgainCore.ICloneable_clone(self)
 
-    def contains(self, *args):
+    def transferToCPP(self):
         r"""
-        contains(IShape2D self, double x, double y) -> bool
-        contains(IShape2D self, Bin1D binx, Bin1D biny) -> bool
-        virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
+        transferToCPP(ICloneable self)
+        virtual void ICloneable::transferToCPP()
 
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+        Used for Python overriding of clone (see swig/tweaks.py) 
 
         """
-        return _libBornAgainCore.IShape2D_contains(self, *args)
-    __swig_destroy__ = _libBornAgainCore.delete_IShape2D
+        return self.__disown__()
 
-# Register IShape2D in _libBornAgainCore:
-_libBornAgainCore.IShape2D_swigregister(IShape2D)
+# Register ICloneable in _libBornAgainCore:
+_libBornAgainCore.ICloneable_swigregister(ICloneable)
 
-class ISample(ICloneable, INode):
+
+def mul_I(z):
+    r"""
+    mul_I(complex_t z) -> complex_t
+    complex_t mul_I(complex_t z)
+
+    Returns product I*z, where I is the imaginary unit. 
+
+    """
+    return _libBornAgainCore.mul_I(z)
+
+def exp_I(z):
+    r"""
+    exp_I(complex_t z) -> complex_t
+    complex_t exp_I(complex_t z)
+
+    Returns exp(I*z), where I is the imaginary unit. 
+
+    """
+    return _libBornAgainCore.exp_I(z)
+
+def rad2deg(angle):
+    r"""
+    rad2deg(double angle) -> double
+    double Units::rad2deg(double angle)
+
+    """
+    return _libBornAgainCore.rad2deg(angle)
+
+def deg2rad(angle):
+    r"""
+    deg2rad(double angle) -> double
+    double Units::deg2rad(double angle)
+
+    """
+    return _libBornAgainCore.deg2rad(angle)
+class WavevectorInfo(object):
     r"""
 
 
-    Pure virtual base class for sample components and properties related to scattering.
+    Holds all wavevector information relevant for calculating form factors.
 
-    C++ includes: ISample.h
+    C++ includes: WavevectorInfo.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def clone(self):
-        r"""
-        clone(ISample self) -> ISample
-        ISample* ISample::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ISample_clone(self)
-
-    def material(self):
-        r"""
-        material(ISample self) -> Material
-        virtual const Material* ISample::material() const
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.ISample_material(self)
-
-    def containedMaterials(self):
-        r"""
-        containedMaterials(ISample self) -> std::vector< Material const *,std::allocator< Material const * > >
-        std::vector< const Material * > ISample::containedMaterials() const
-
-        Returns set of unique materials contained in this  ISample. 
-
-        """
-        return _libBornAgainCore.ISample_containedMaterials(self)
-
-    def __init__(self):
-        r"""
-        __init__(ISample self) -> ISample
-
-
-        Pure virtual base class for sample components and properties related to scattering.
-
-        C++ includes: ISample.h
-
-        """
-        if self.__class__ == ISample:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.ISample_swiginit(self, _libBornAgainCore.new_ISample(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_ISample
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_ISample(self)
-        return weakref.proxy(self)
-
-# Register ISample in _libBornAgainCore:
-_libBornAgainCore.ISample_swigregister(ISample)
-
-class IChiSquaredModule(ICloneable):
-    r"""
-
-
-    Interface residual calculations.
-
-    C++ includes: IChiSquaredModule.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IChiSquaredModule
-
-    def clone(self):
-        r"""
-        clone(IChiSquaredModule self) -> IChiSquaredModule
-        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
-
-        clone method 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_clone(self)
-
-    def varianceFunction(self):
-        r"""
-        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
-        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
-
-        Returns squared function. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_varianceFunction(self)
-
-    def setVarianceFunction(self, variance_function):
-        r"""
-        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
-        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
-
-        Sets squared function. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_setVarianceFunction(self, variance_function)
-
-    def getIntensityFunction(self):
-        r"""
-        getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
-        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
-
-        Returns data rescaler. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_getIntensityFunction(self)
-
-    def setIntensityFunction(self, intensity_function):
-        r"""
-        setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)
-        void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
-
-        Sets data rescaler. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_setIntensityFunction(self, intensity_function)
-
-    def residual(self, a, b, weight):
-        r"""
-        residual(IChiSquaredModule self, double a, double b, double weight) -> double
-        virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_residual(self, a, b, weight)
-
-# Register IChiSquaredModule in _libBornAgainCore:
-_libBornAgainCore.IChiSquaredModule_swigregister(IChiSquaredModule)
-
-class IObserver(object):
-    r"""
-
-
-    Observer interface from Observer pattern.
-
-    C++ includes: IObserver.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IObserver
-
-    def notify(self, subject):
-        r"""
-        notify(IObserver self, IObservable subject)
-        virtual void IObserver::notify(IObservable *subject)=0
-
-        method which is used by observable subject to notify change in status 
-
-        """
-        return _libBornAgainCore.IObserver_notify(self, subject)
-
-# Register IObserver in _libBornAgainCore:
-_libBornAgainCore.IObserver_swigregister(IObserver)
-
-class IObservable(object):
-    r"""
-
-
-    Observable interface from Observer pattern
-
-    C++ includes: IObserver.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IObservable
-
-    def attachObserver(self, obj):
-        r"""
-        attachObserver(IObservable self, IObservable::observer_t obj)
-        void IObservable::attachObserver(observer_t obj)
-
-        attach observer to the list of observers 
-
-        """
-        return _libBornAgainCore.IObservable_attachObserver(self, obj)
-
-    def notifyObservers(self):
-        r"""
-        notifyObservers(IObservable self)
-        void IObservable::notifyObservers()
-
-        notify observers about change in status 
-
-        """
-        return _libBornAgainCore.IObservable_notifyObservers(self)
-
-    def __init__(self):
-        r"""
-        __init__(IObservable self) -> IObservable
-
-
-        Observable interface from Observer pattern
-
-        C++ includes: IObserver.h
-
-        """
-        _libBornAgainCore.IObservable_swiginit(self, _libBornAgainCore.new_IObservable())
-
-# Register IObservable in _libBornAgainCore:
-_libBornAgainCore.IObservable_swigregister(IObservable)
-
-class IIntensityFunction(object):
-    r"""
-
-
-    Interface for applying arbitrary function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
-
-    def clone(self):
-        r"""
-        clone(IIntensityFunction self) -> IIntensityFunction
-        virtual IIntensityFunction* IIntensityFunction::clone() const =0
-
-        """
-        return _libBornAgainCore.IIntensityFunction_clone(self)
-
-    def evaluate(self, value):
-        r"""
-        evaluate(IIntensityFunction self, double value) -> double
-        virtual double IIntensityFunction::evaluate(double value) const =0
-
-        """
-        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
-
-# Register IIntensityFunction in _libBornAgainCore:
-_libBornAgainCore.IIntensityFunction_swigregister(IIntensityFunction)
-
-class IntensityFunctionLog(IIntensityFunction):
-    r"""
-
-
-    Algorithm for applying log function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IntensityFunctionLog self) -> IntensityFunctionLog
-        IntensityFunctionLog * IntensityFunctionLog::clone() const
-
-        """
-        return _libBornAgainCore.IntensityFunctionLog_clone(self)
-
-    def evaluate(self, value):
-        r"""
-        evaluate(IntensityFunctionLog self, double value) -> double
-        double IntensityFunctionLog::evaluate(double value) const
-
-        """
-        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
-
-    def __init__(self):
-        r"""
-        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
-
-
-        Algorithm for applying log function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
-        _libBornAgainCore.IntensityFunctionLog_swiginit(self, _libBornAgainCore.new_IntensityFunctionLog())
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
-
-# Register IntensityFunctionLog in _libBornAgainCore:
-_libBornAgainCore.IntensityFunctionLog_swigregister(IntensityFunctionLog)
-
-class IntensityFunctionSqrt(IIntensityFunction):
-    r"""
-
-
-    Algorithm for applying sqrt function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
-
-        """
-        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
-
-    def evaluate(self, value):
-        r"""
-        evaluate(IntensityFunctionSqrt self, double value) -> double
-        double IntensityFunctionSqrt::evaluate(double value) const
-
-        """
-        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
-
-    def __init__(self):
-        r"""
-        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-
-
-        Algorithm for applying sqrt function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
-        _libBornAgainCore.IntensityFunctionSqrt_swiginit(self, _libBornAgainCore.new_IntensityFunctionSqrt())
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
-
-# Register IntensityFunctionSqrt in _libBornAgainCore:
-_libBornAgainCore.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
-
-class IIntensityNormalizer(ICloneable, INode):
-    r"""
-
-
-    Interface to  OutputData normalizers.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IIntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IIntensityNormalizer self) -> IIntensityNormalizer
-        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_clone(self)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
-        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IIntensityNormalizer self, IntensityData data)
-        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IIntensityNormalizer self, double arg2)
-        virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_setMaximumIntensity(self, arg2)
-
-# Register IIntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IIntensityNormalizer_swigregister(IIntensityNormalizer)
-
-class IntensityNormalizer(IIntensityNormalizer):
-    r"""
-
-
-    Standard  OutputData normalizer, with configurable max_intensity.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityNormalizer self, double scale=1.0, double shift=0.0) -> IntensityNormalizer
-        IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityNormalizer_swiginit(self, _libBornAgainCore.new_IntensityNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IntensityNormalizer self) -> IntensityNormalizer
-        IntensityNormalizer * IntensityNormalizer::clone() const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityNormalizer self, INodeVisitor visitor)
-        void IntensityNormalizer::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_accept(self, visitor)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
-        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IntensityNormalizer self, IntensityData data)
-        void IntensityNormalizer::apply(OutputData< double > &data) const final
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, max_intensity):
-        r"""
-        setMaximumIntensity(IntensityNormalizer self, double max_intensity)
-        virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
-
-# Register IntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityNormalizer_swigregister(IntensityNormalizer)
-
-class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
-    r"""
-
-
-    Simplified  OutputData normalizer, with max_intensity=1.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0, double shift=0.0) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityScaleAndShiftNormalizer_swiginit(self, _libBornAgainCore.new_IntensityScaleAndShiftNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
-        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_accept(self, visitor)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
-        void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
-
-    def clone(self):
-        r"""
-        clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
-
-# Register IntensityScaleAndShiftNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
-
-class IVarianceFunction(object):
-    r"""
-
-
-    Variance function interface.
-
-    C++ includes: VarianceFunctions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IVarianceFunction
-
-    def clone(self):
-        r"""
-        clone(IVarianceFunction self) -> IVarianceFunction
-        virtual IVarianceFunction* IVarianceFunction::clone() const =0
-
-        """
-        return _libBornAgainCore.IVarianceFunction_clone(self)
-
-    def variance(self, real_value, simulated_value):
-        r"""
-        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
-        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
-
-        """
-        return _libBornAgainCore.IVarianceFunction_variance(self, real_value, simulated_value)
-
-# Register IVarianceFunction in _libBornAgainCore:
-_libBornAgainCore.IVarianceFunction_swigregister(IVarianceFunction)
-
-class VarianceConstantFunction(IVarianceFunction):
-    r"""
-
-
-    Returns 1.0 as variance value
-
-    C++ includes: VarianceFunctions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(VarianceConstantFunction self) -> VarianceConstantFunction
-        VarianceConstantFunction * VarianceConstantFunction::clone() const override
-
-        """
-        return _libBornAgainCore.VarianceConstantFunction_clone(self)
-
-    def variance(self, arg2, arg3):
-        r"""
-        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
-        double VarianceConstantFunction::variance(double, double) const override
-
-        """
-        return _libBornAgainCore.VarianceConstantFunction_variance(self, arg2, arg3)
-
-    def __init__(self):
-        r"""
-        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
-
-
-        Returns 1.0 as variance value
-
-        C++ includes: VarianceFunctions.h
-
-        """
-        _libBornAgainCore.VarianceConstantFunction_swiginit(self, _libBornAgainCore.new_VarianceConstantFunction())
-    __swig_destroy__ = _libBornAgainCore.delete_VarianceConstantFunction
-
-# Register VarianceConstantFunction in _libBornAgainCore:
-_libBornAgainCore.VarianceConstantFunction_swigregister(VarianceConstantFunction)
-
-class VarianceSimFunction(IVarianceFunction):
-    r"""
-
-
-    Returns max(sim, epsilon)
-
-    C++ includes: VarianceFunctions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, epsilon=1.0):
-        r"""
-        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
-        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
-
-        """
-        _libBornAgainCore.VarianceSimFunction_swiginit(self, _libBornAgainCore.new_VarianceSimFunction(epsilon))
-
-    def clone(self):
-        r"""
-        clone(VarianceSimFunction self) -> VarianceSimFunction
-        VarianceSimFunction * VarianceSimFunction::clone() const override
-
-        """
-        return _libBornAgainCore.VarianceSimFunction_clone(self)
-
-    def variance(self, exp, sim):
-        r"""
-        variance(VarianceSimFunction self, double exp, double sim) -> double
-        double VarianceSimFunction::variance(double exp, double sim) const override
-
-        """
-        return _libBornAgainCore.VarianceSimFunction_variance(self, exp, sim)
-    __swig_destroy__ = _libBornAgainCore.delete_VarianceSimFunction
-
-# Register VarianceSimFunction in _libBornAgainCore:
-_libBornAgainCore.VarianceSimFunction_swigregister(VarianceSimFunction)
-
-class ChiSquaredModule(IChiSquaredModule):
-    r"""
-
-
-    Calculation of chi2 between two data sets.
-
-    C++ includes: ChiSquaredModule.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
+    @staticmethod
+    def GetZeroQ():
+        r"""GetZeroQ() -> WavevectorInfo"""
+        return _libBornAgainCore.WavevectorInfo_GetZeroQ()
 
     def __init__(self, *args):
         r"""
-        __init__(ChiSquaredModule self) -> ChiSquaredModule
-        __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
-        ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
+        __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
+        __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
+        WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
 
         """
-        _libBornAgainCore.ChiSquaredModule_swiginit(self, _libBornAgainCore.new_ChiSquaredModule(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_ChiSquaredModule
+        _libBornAgainCore.WavevectorInfo_swiginit(self, _libBornAgainCore.new_WavevectorInfo(*args))
 
-    def clone(self):
+    def transformed(self, transform):
         r"""
-        clone(ChiSquaredModule self) -> ChiSquaredModule
-        virtual ChiSquaredModule* ChiSquaredModule::clone() const
-
-        clone method 
+        transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
+        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
 
         """
-        return _libBornAgainCore.ChiSquaredModule_clone(self)
+        return _libBornAgainCore.WavevectorInfo_transformed(self, transform)
 
-    def residual(self, a, b, weight):
+    def getKi(self):
         r"""
-        residual(ChiSquaredModule self, double a, double b, double weight) -> double
-        double ChiSquaredModule::residual(double a, double b, double weight)
+        getKi(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getKi() const
 
         """
-        return _libBornAgainCore.ChiSquaredModule_residual(self, a, b, weight)
+        return _libBornAgainCore.WavevectorInfo_getKi(self)
 
-# Register ChiSquaredModule in _libBornAgainCore:
-_libBornAgainCore.ChiSquaredModule_swigregister(ChiSquaredModule)
-
-class FitOptions(object):
-    r"""Proxy of C++ FitOptions class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""__init__(FitOptions self) -> FitOptions"""
-        _libBornAgainCore.FitOptions_swiginit(self, _libBornAgainCore.new_FitOptions())
-
-    def derivEpsilon(self):
-        r"""derivEpsilon(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_derivEpsilon(self)
-
-    def setDerivEpsilon(self, deriv_epsilon):
-        r"""setDerivEpsilon(FitOptions self, double deriv_epsilon)"""
-        return _libBornAgainCore.FitOptions_setDerivEpsilon(self, deriv_epsilon)
-
-    def stepFactor(self):
-        r"""stepFactor(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_stepFactor(self)
-
-    def setStepFactor(self, step_factor):
-        r"""setStepFactor(FitOptions self, double step_factor)"""
-        return _libBornAgainCore.FitOptions_setStepFactor(self, step_factor)
-    __swig_destroy__ = _libBornAgainCore.delete_FitOptions
-
-# Register FitOptions in _libBornAgainCore:
-_libBornAgainCore.FitOptions_swigregister(FitOptions)
-
-class PyBuilderCallback(object):
-    r"""
-
-
-    Builds simulation object using a Python callable. Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
-
-    C++ includes: PyFittingCallbacks.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
+    def getKf(self):
         r"""
-        __init__(PyBuilderCallback self) -> PyBuilderCallback
-        PyBuilderCallback::PyBuilderCallback()
+        getKf(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getKf() const
 
         """
-        if self.__class__ == PyBuilderCallback:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.PyBuilderCallback_swiginit(self, _libBornAgainCore.new_PyBuilderCallback(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_PyBuilderCallback
+        return _libBornAgainCore.WavevectorInfo_getKf(self)
 
-    def build_simulation(self, arg0):
+    def getQ(self):
         r"""
-        build_simulation(PyBuilderCallback self, Parameters arg0) -> Simulation
-        Simulation * PyBuilderCallback::build_simulation(Fit::Parameters)
+        getQ(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getQ() const
 
         """
-        return _libBornAgainCore.PyBuilderCallback_build_simulation(self, arg0)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_PyBuilderCallback(self)
-        return weakref.proxy(self)
+        return _libBornAgainCore.WavevectorInfo_getQ(self)
 
-# Register PyBuilderCallback in _libBornAgainCore:
-_libBornAgainCore.PyBuilderCallback_swigregister(PyBuilderCallback)
-
-class PyObserverCallback(object):
-    r"""
-
-
-    Observer for  FitObjective based on Python callable. Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
-
-    C++ includes: PyFittingCallbacks.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
+    def getWavelength(self):
         r"""
-        __init__(PyObserverCallback self) -> PyObserverCallback
-        PyObserverCallback::PyObserverCallback()
+        getWavelength(WavevectorInfo self) -> double
+        double WavevectorInfo::getWavelength() const
 
         """
-        if self.__class__ == PyObserverCallback:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.PyObserverCallback_swiginit(self, _libBornAgainCore.new_PyObserverCallback(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_PyObserverCallback
-
-    def update(self, arg0):
-        r"""
-        update(PyObserverCallback self, FitObjective arg0)
-        void PyObserverCallback::update(const FitObjective &)
-
-        """
-        return _libBornAgainCore.PyObserverCallback_update(self, arg0)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_PyObserverCallback(self)
-        return weakref.proxy(self)
-
-# Register PyObserverCallback in _libBornAgainCore:
-_libBornAgainCore.PyObserverCallback_swigregister(PyObserverCallback)
-
-class FitObjective(object):
-    r"""
-
-
-    Holds vector of   SimDataPairs (experimental data and simulation results) for use in fitting.
-
-    C++ includes: FitObjective.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(FitObjective self) -> FitObjective
-        FitObjective::FitObjective()
-
-        """
-        if self.__class__ == FitObjective:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.FitObjective_swiginit(self, _libBornAgainCore.new_FitObjective(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_FitObjective
-
-    def evaluate_cpp(self, params):
-        r"""
-        evaluate_cpp(FitObjective self, Parameters params) -> double
-        double FitObjective::evaluate(const Fit::Parameters &params)
-
-        """
-        return _libBornAgainCore.FitObjective_evaluate_cpp(self, params)
-
-    def evaluate_residuals_cpp(self, params):
-        r"""
-        evaluate_residuals_cpp(FitObjective self, Parameters params) -> vdouble1d_t
-        std::vector< double > FitObjective::evaluate_residuals(const Fit::Parameters &params)
-
-        """
-        return _libBornAgainCore.FitObjective_evaluate_residuals_cpp(self, params)
-
-    def numberOfFitElements(self):
-        r"""
-        numberOfFitElements(FitObjective self) -> size_t
-        size_t FitObjective::numberOfFitElements() const
-
-        """
-        return _libBornAgainCore.FitObjective_numberOfFitElements(self)
-
-    def simulationResult(self, i_item=0):
-        r"""
-        simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult
-        SimulationResult FitObjective::simulationResult(size_t i_item=0) const
-
-        Returns simulation result in the form of  SimulationResult. 
-
-        """
-        return _libBornAgainCore.FitObjective_simulationResult(self, i_item)
-
-    def experimentalData(self, i_item=0):
-        r"""
-        experimentalData(FitObjective self, size_t i_item=0) -> SimulationResult
-        SimulationResult FitObjective::experimentalData(size_t i_item=0) const
-
-        Returns experimental data in the form of  SimulationResult. 
-
-        """
-        return _libBornAgainCore.FitObjective_experimentalData(self, i_item)
-
-    def uncertaintyData_cpp(self, i_item=0):
-        r"""
-        uncertaintyData_cpp(FitObjective self, size_t i_item=0) -> SimulationResult
-        SimulationResult FitObjective::uncertaintyData(size_t i_item=0) const
-
-        Returns experimental data uncertainties in the form of  SimulationResult. 
-
-        """
-        return _libBornAgainCore.FitObjective_uncertaintyData_cpp(self, i_item)
-
-    def relativeDifference(self, i_item=0):
-        r"""
-        relativeDifference(FitObjective self, size_t i_item=0) -> SimulationResult
-        SimulationResult FitObjective::relativeDifference(size_t i_item=0) const
-
-        Returns relative difference between simulation and experimental data in the form of  SimulationResult. 
-
-        """
-        return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
-
-    def absoluteDifference(self, i_item=0):
-        r"""
-        absoluteDifference(FitObjective self, size_t i_item=0) -> SimulationResult
-        SimulationResult FitObjective::absoluteDifference(size_t i_item=0) const
-
-        Returns absolute value of difference between simulation and experimental data in the form of  SimulationResult. 
-
-        """
-        return _libBornAgainCore.FitObjective_absoluteDifference(self, i_item)
-
-    def experimental_array(self):
-        r"""
-        experimental_array(FitObjective self) -> vdouble1d_t
-        std::vector< double > FitObjective::experimental_array() const
-
-        Returns one dimensional array representing merged experimental data. The area outside of the region of interest is not included, masked data is nullified. 
-
-        """
-        return _libBornAgainCore.FitObjective_experimental_array(self)
-
-    def simulation_array(self):
-        r"""
-        simulation_array(FitObjective self) -> vdouble1d_t
-        std::vector< double > FitObjective::simulation_array() const
-
-        Returns one dimensional array representing merged simulated intensities data. The area outside of the region of interest is not included, masked data is nullified. 
-
-        """
-        return _libBornAgainCore.FitObjective_simulation_array(self)
-
-    def uncertainties_cpp(self):
-        r"""
-        uncertainties_cpp(FitObjective self) -> vdouble1d_t
-        std::vector< double > FitObjective::uncertainties() const
-
-        Returns one-dimensional array representing merged data uncertainties. The area outside of the region of interest is not included, masked data is nullified. 
-
-        """
-        return _libBornAgainCore.FitObjective_uncertainties_cpp(self)
-
-    def weights_array(self):
-        r"""
-        weights_array(FitObjective self) -> vdouble1d_t
-        std::vector< double > FitObjective::weights_array() const
-
-        Returns one-dimensional array representing merged user weights. The area outside of the region of interest is not included, masked data is nullified. 
-
-        """
-        return _libBornAgainCore.FitObjective_weights_array(self)
-
-    def initPrint(self, every_nth):
-        r"""
-        initPrint(FitObjective self, int every_nth)
-        void FitObjective::initPrint(int every_nth)
-
-        Initializes printing to standard output during the fitting.
-
-        Parameters:
-        -----------
-
-        every_nth: 
-        Print every n'th iteration. 
-
-        """
-        return _libBornAgainCore.FitObjective_initPrint(self, every_nth)
-
-    def initPlot_cpp(self, every_nth, callback):
-        r"""
-        initPlot_cpp(FitObjective self, int every_nth, PyObserverCallback callback)
-        void FitObjective::initPlot(int every_nth, fit_observer_t observer)
-
-        """
-        return _libBornAgainCore.FitObjective_initPlot_cpp(self, every_nth, callback)
-
-    def iterationInfo(self):
-        r"""
-        iterationInfo(FitObjective self) -> IterationInfo
-        IterationInfo FitObjective::iterationInfo() const
-
-        """
-        return _libBornAgainCore.FitObjective_iterationInfo(self)
-
-    def minimizerResult(self):
-        r"""
-        minimizerResult(FitObjective self) -> Fit::MinimizerResult
-        Fit::MinimizerResult FitObjective::minimizerResult() const
-
-        """
-        return _libBornAgainCore.FitObjective_minimizerResult(self)
-
-    def finalize_cpp(self, result):
-        r"""
-        finalize_cpp(FitObjective self, Fit::MinimizerResult const & result)
-        void FitObjective::finalize(const Fit::MinimizerResult &result)
-
-        Should be explicitely called on last iteration to notify all observers. 
-
-        """
-        return _libBornAgainCore.FitObjective_finalize_cpp(self, result)
-
-    def fitObjectCount(self):
-        r"""
-        fitObjectCount(FitObjective self) -> unsigned int
-        unsigned FitObjective::fitObjectCount() const
-
-        """
-        return _libBornAgainCore.FitObjective_fitObjectCount(self)
-
-    def run_simulations(self, params):
-        r"""
-        run_simulations(FitObjective self, Parameters params)
-        void FitObjective::run_simulations(const Fit::Parameters &params)
-
-        """
-        return _libBornAgainCore.FitObjective_run_simulations(self, params)
-
-    def setChiSquaredModule(self, module):
-        r"""
-        setChiSquaredModule(FitObjective self, IChiSquaredModule module)
-        void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
-
-        """
-        return _libBornAgainCore.FitObjective_setChiSquaredModule(self, module)
-
-    def setObjectiveMetric(self, *args):
-        r"""
-        setObjectiveMetric(FitObjective self, std::string const & metric)
-        setObjectiveMetric(FitObjective self, std::string const & metric, std::string const & norm)
-        void FitObjective::setObjectiveMetric(std::unique_ptr< ObjectiveMetric > metric)
-
-        """
-        return _libBornAgainCore.FitObjective_setObjectiveMetric(self, *args)
-
-    def containsUncertainties_cpp(self, i_item):
-        r"""
-        containsUncertainties_cpp(FitObjective self, size_t i_item) -> bool
-        bool FitObjective::containsUncertainties(size_t i_item) const
-
-        Returns true if the specified DataPair element contains uncertainties. 
-
-        """
-        return _libBornAgainCore.FitObjective_containsUncertainties_cpp(self, i_item)
-
-    def allPairsHaveUncertainties_cpp(self):
-        r"""
-        allPairsHaveUncertainties_cpp(FitObjective self) -> bool
-        bool FitObjective::allPairsHaveUncertainties() const
-
-        Returns true if all the data pairs in  FitObjective instance contain uncertainties. 
-
-        """
-        return _libBornAgainCore.FitObjective_allPairsHaveUncertainties_cpp(self)
-
-    @staticmethod
-    def availableMetricOptions():
-        r"""availableMetricOptions() -> std::string"""
-        return _libBornAgainCore.FitObjective_availableMetricOptions()
-
-    def addSimulationAndData_cpp(self, *args):
-        r"""
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, double weight=1.0)
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, vdouble1d_t uncertainties, double weight=1.0)
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, double weight=1.0)
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, vdouble2d_t uncertainties, double weight=1.0)
-        void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const T &data, const T &uncertainties, double weight=1.0)
-
-        Constructs simulation/data pair for later fit.
-
-        Parameters:
-        -----------
-
-        callback: 
-        simulation builder capable of producing simulations
-
-        data: 
-        experimental data array
-
-        uncertainties: 
-        data uncertainties array
-
-        weight: 
-        weight of dataset in metric calculations 
-
-        """
-        return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, *args)
-
-    def addSimulationAndData(self, callback, data, *args, **kwargs):
-        """
-        Sets simulation and experimental data to the fit objective.
-        Optionally accepts experimental data uncertainties and
-        user-defined dataset weight.
-
-        Arguments:
-
-        callback -- user-defined function returning fully-defined bornagain.Simulation object.
-        The function must use fit parameter dictionary as its input.
-
-        data -- numpy array with experimental data.
-
-        uncertainties -- numpy array with experimental data uncertainties.
-        Array shape must correspond to the shape of data. Optional argument.
-
-        weight -- user-defined weight of the dataset. If not specified, defaults to 1.0.
-        """
-        if not hasattr(self, 'callback_container'):
-            self.callback_container = []
-        wrp = SimulationBuilderWrapper(callback)
-        self.callback_container.append(wrp)
-        return self.addSimulationAndData_cpp(wrp, data, *args, **kwargs)
-
-    def convert_params(self, params):
-        """
-        Converts parameters to what FitObjective::evaluate expects
-        """
-
-        if str(params.__module__) == "lmfit.parameter":
-            bapars = libBornAgainFit.Parameters()
-            for p in params:
-                bapars.add(p, params[p].value)
-            return bapars
-        else:
-            return params
-
-    def evaluate_residuals(self, params):
-        return self.evaluate_residuals_cpp(self.convert_params(params))
-
-    def evaluate(self, params):
-        return self.evaluate_cpp(self.convert_params(params))
-
-    def convert_result(self, minim_result):
-        """
-        Converts result reported by arbitrary minimizer to ba.MinimizerResult
-        """
-
-        if str(minim_result.__module__) == "lmfit.minimizer":
-            return libBornAgainFit.MinimizerResult()
-        else:
-            return minim_result
-
-    def finalize(self, minimizer_result):
-        return self.finalize_cpp(self.convert_result(minimizer_result))
-
-    def create_default_plotter(self):
-        import plot_utils
-        self.m_plotter = plot_utils.PlotterGISAS()
-        return self.m_plotter.plot
-
-    def initPlot(self, every_nth, callback = None):
-        if not callback:
-            callback = self.create_default_plotter()
-
-        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
-        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
-
-    def uncertainties(self):
-        """
-        Returns one-dimensional array representing merged data uncertainties.
-        If any of the associated data pairs lack uncertainties, returns None.
-        """
-        if self.allPairsHaveUncertainties_cpp():
-            return self.uncertainties_cpp()
-        return None
-
-    def uncertaintyData(self, i=0):
-        """
-        Returns uncertainties for i-th simulation-data pair. If
-        no uncertainties are assigned to the data pair, returns
-        None.
-        """
-        if self.containsUncertainties_cpp(i):
-            return self.uncertaintyData_cpp(i)
-        return None
-
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_FitObjective(self)
-        return weakref.proxy(self)
-
-# Register FitObjective in _libBornAgainCore:
-_libBornAgainCore.FitObjective_swigregister(FitObjective)
-
-def FitObjective_availableMetricOptions():
-    r"""FitObjective_availableMetricOptions() -> std::string"""
-    return _libBornAgainCore.FitObjective_availableMetricOptions()
+        return _libBornAgainCore.WavevectorInfo_getWavelength(self)
+    __swig_destroy__ = _libBornAgainCore.delete_WavevectorInfo
+
+# Register WavevectorInfo in _libBornAgainCore:
+_libBornAgainCore.WavevectorInfo_swigregister(WavevectorInfo)
+nanometer = cvar.nanometer
+angstrom = cvar.angstrom
+micrometer = cvar.micrometer
+millimeter = cvar.millimeter
+meter = cvar.meter
+nm = cvar.nm
+nm2 = cvar.nm2
+barn = cvar.barn
+radian = cvar.radian
+milliradian = cvar.milliradian
+degree = cvar.degree
+steradian = cvar.steradian
+rad = cvar.rad
+mrad = cvar.mrad
+sr = cvar.sr
+deg = cvar.deg
+tesla = cvar.tesla
+gauss = cvar.gauss
+
+def WavevectorInfo_GetZeroQ():
+    r"""WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
+    return _libBornAgainCore.WavevectorInfo_GetZeroQ()
 
 
 def StandardNormal(x):
@@ -5647,118 +5469,803 @@ def GeneratePoissonRandom(average):
 
     """
     return _libBornAgainCore.GeneratePoissonRandom(average)
-class IMultiLayerBuilder(IParameterized):
+class IShape2D(ICloneable):
     r"""
 
 
-    Interface to the class capable to build samples to simulate.
+    Basic class for all shapes in 2D.
 
-    C++ includes: IMultiLayerBuilder.h
+    C++ includes: IShape2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IShape2D self) -> IShape2D
+        virtual IShape2D* IShape2D::clone() const =0
+
+        """
+        return _libBornAgainCore.IShape2D_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(IShape2D self, double x, double y) -> bool
+        contains(IShape2D self, Bin1D binx, Bin1D biny) -> bool
+        virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainCore.IShape2D_contains(self, *args)
+    __swig_destroy__ = _libBornAgainCore.delete_IShape2D
+
+# Register IShape2D in _libBornAgainCore:
+_libBornAgainCore.IShape2D_swigregister(IShape2D)
+
+class Ellipse(IShape2D):
+    r"""
+
+
+    Ellipse shape.
+
+    C++ includes: Ellipse.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, xcenter, ycenter, xradius, yradius, theta=0.0):
         r"""
-        __init__(IMultiLayerBuilder self) -> IMultiLayerBuilder
-        IMultiLayerBuilder::IMultiLayerBuilder()
+        __init__(Ellipse self, double xcenter, double ycenter, double xradius, double yradius, double theta=0.0) -> Ellipse
+        Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta=0.0)
+
+        Parameters:
+        -----------
+
+        xcenter: 
+        x-coordinate of  Ellipse's center
+
+        ycenter: 
+        y-coordinate of  Ellipse's center
+
+        xradius: 
+        Radius along x-axis
+
+        yradius: 
+        Radius along y-axis
+
+        theta: 
+        Angle of  Ellipse rotation in radians 
 
         """
-        if self.__class__ == IMultiLayerBuilder:
+        _libBornAgainCore.Ellipse_swiginit(self, _libBornAgainCore.new_Ellipse(xcenter, ycenter, xradius, yradius, theta))
+
+    def clone(self):
+        r"""
+        clone(Ellipse self) -> Ellipse
+        Ellipse* Ellipse::clone() const
+
+        """
+        return _libBornAgainCore.Ellipse_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Ellipse self, double x, double y) -> bool
+        contains(Ellipse self, Bin1D binx, Bin1D biny) -> bool
+        bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
+
+        """
+        return _libBornAgainCore.Ellipse_contains(self, *args)
+
+    def getCenterX(self):
+        r"""
+        getCenterX(Ellipse self) -> double
+        double Ellipse::getCenterX() const
+
+        """
+        return _libBornAgainCore.Ellipse_getCenterX(self)
+
+    def getCenterY(self):
+        r"""
+        getCenterY(Ellipse self) -> double
+        double Ellipse::getCenterY() const
+
+        """
+        return _libBornAgainCore.Ellipse_getCenterY(self)
+
+    def getRadiusX(self):
+        r"""
+        getRadiusX(Ellipse self) -> double
+        double Ellipse::getRadiusX() const
+
+        """
+        return _libBornAgainCore.Ellipse_getRadiusX(self)
+
+    def getRadiusY(self):
+        r"""
+        getRadiusY(Ellipse self) -> double
+        double Ellipse::getRadiusY() const
+
+        """
+        return _libBornAgainCore.Ellipse_getRadiusY(self)
+
+    def getTheta(self):
+        r"""
+        getTheta(Ellipse self) -> double
+        double Ellipse::getTheta() const
+
+        """
+        return _libBornAgainCore.Ellipse_getTheta(self)
+    __swig_destroy__ = _libBornAgainCore.delete_Ellipse
+
+# Register Ellipse in _libBornAgainCore:
+_libBornAgainCore.Ellipse_swigregister(Ellipse)
+
+class Line(IShape2D):
+    r"""
+
+
+    A line segment.
+
+    C++ includes: Line.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, x1, y1, x2, y2):
+        r"""
+        __init__(Line self, double x1, double y1, double x2, double y2) -> Line
+        Line::Line(double x1, double y1, double x2, double y2)
+
+        """
+        _libBornAgainCore.Line_swiginit(self, _libBornAgainCore.new_Line(x1, y1, x2, y2))
+
+    def clone(self):
+        r"""
+        clone(Line self) -> Line
+        Line* Line::clone() const
+
+        """
+        return _libBornAgainCore.Line_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Line self, double x, double y) -> bool
+        contains(Line self, Bin1D binx, Bin1D biny) -> bool
+        bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainCore.Line_contains(self, *args)
+    __swig_destroy__ = _libBornAgainCore.delete_Line
+
+# Register Line in _libBornAgainCore:
+_libBornAgainCore.Line_swigregister(Line)
+
+class VerticalLine(IShape2D):
+    r"""
+
+
+    An infinite vertical line.
+
+    C++ includes: Line.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, x):
+        r"""
+        __init__(VerticalLine self, double x) -> VerticalLine
+        VerticalLine::VerticalLine(double x)
+
+        Parameters:
+        -----------
+
+        x: 
+        The value at which it crosses x-axes 
+
+        """
+        _libBornAgainCore.VerticalLine_swiginit(self, _libBornAgainCore.new_VerticalLine(x))
+
+    def clone(self):
+        r"""
+        clone(VerticalLine self) -> VerticalLine
+        VerticalLine* VerticalLine::clone() const
+
+        """
+        return _libBornAgainCore.VerticalLine_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(VerticalLine self, double x, double y) -> bool
+        contains(VerticalLine self, Bin1D binx, Bin1D biny) -> bool
+        bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainCore.VerticalLine_contains(self, *args)
+
+    def getXpos(self):
+        r"""
+        getXpos(VerticalLine self) -> double
+        double VerticalLine::getXpos() const
+
+        """
+        return _libBornAgainCore.VerticalLine_getXpos(self)
+    __swig_destroy__ = _libBornAgainCore.delete_VerticalLine
+
+# Register VerticalLine in _libBornAgainCore:
+_libBornAgainCore.VerticalLine_swigregister(VerticalLine)
+
+class HorizontalLine(IShape2D):
+    r"""
+
+
+    An infinite horizontal line.
+
+    C++ includes: Line.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, y):
+        r"""
+        __init__(HorizontalLine self, double y) -> HorizontalLine
+        HorizontalLine::HorizontalLine(double y)
+
+        Parameters:
+        -----------
+
+        y: 
+        The value at which it crosses y-axes 
+
+        """
+        _libBornAgainCore.HorizontalLine_swiginit(self, _libBornAgainCore.new_HorizontalLine(y))
+
+    def clone(self):
+        r"""
+        clone(HorizontalLine self) -> HorizontalLine
+        HorizontalLine* HorizontalLine::clone() const
+
+        """
+        return _libBornAgainCore.HorizontalLine_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(HorizontalLine self, double x, double y) -> bool
+        contains(HorizontalLine self, Bin1D binx, Bin1D biny) -> bool
+        bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainCore.HorizontalLine_contains(self, *args)
+
+    def getYpos(self):
+        r"""
+        getYpos(HorizontalLine self) -> double
+        double HorizontalLine::getYpos() const
+
+        """
+        return _libBornAgainCore.HorizontalLine_getYpos(self)
+    __swig_destroy__ = _libBornAgainCore.delete_HorizontalLine
+
+# Register HorizontalLine in _libBornAgainCore:
+_libBornAgainCore.HorizontalLine_swigregister(HorizontalLine)
+
+class Polygon(IShape2D):
+    r"""
+
+
+    A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+
+    C++ includes: Polygon.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Polygon self, vdouble1d_t x, vdouble1d_t y) -> Polygon
+        __init__(Polygon self, vdouble2d_t points) -> Polygon
+        __init__(Polygon self, PolygonPrivate const * d) -> Polygon
+        Polygon::Polygon(const PolygonPrivate *d)
+
+        """
+        _libBornAgainCore.Polygon_swiginit(self, _libBornAgainCore.new_Polygon(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_Polygon
+
+    def clone(self):
+        r"""
+        clone(Polygon self) -> Polygon
+        virtual Polygon* Polygon::clone() const
+
+        """
+        return _libBornAgainCore.Polygon_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Polygon self, double x, double y) -> bool
+        contains(Polygon self, Bin1D binx, Bin1D biny) -> bool
+        bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainCore.Polygon_contains(self, *args)
+
+    def getArea(self):
+        r"""
+        getArea(Polygon self) -> double
+        double Polygon::getArea() const
+
+        """
+        return _libBornAgainCore.Polygon_getArea(self)
+
+    def getPoints(self, xpos, ypos):
+        r"""
+        getPoints(Polygon self, vdouble1d_t xpos, vdouble1d_t ypos)
+        void Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const
+
+        """
+        return _libBornAgainCore.Polygon_getPoints(self, xpos, ypos)
+
+# Register Polygon in _libBornAgainCore:
+_libBornAgainCore.Polygon_swigregister(Polygon)
+
+class Rectangle(IShape2D):
+    r"""
+
+
+    The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
+
+    C++ includes: Rectangle.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, xlow, ylow, xup, yup):
+        r"""
+        __init__(Rectangle self, double xlow, double ylow, double xup, double yup) -> Rectangle
+        Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
+
+        Parameters:
+        -----------
+
+        xlow: 
+        x-coordinate of lower left corner
+
+        ylow: 
+        y-coordinate of lower left corner
+
+        xup: 
+        x-coordinate of upper right corner
+
+        yup: 
+        y-coordinate of upper right corner 
+
+        """
+        _libBornAgainCore.Rectangle_swiginit(self, _libBornAgainCore.new_Rectangle(xlow, ylow, xup, yup))
+
+    def clone(self):
+        r"""
+        clone(Rectangle self) -> Rectangle
+        Rectangle* Rectangle::clone() const
+
+        """
+        return _libBornAgainCore.Rectangle_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Rectangle self, double x, double y) -> bool
+        contains(Rectangle self, Bin1D binx, Bin1D biny) -> bool
+        bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainCore.Rectangle_contains(self, *args)
+
+    def getArea(self):
+        r"""
+        getArea(Rectangle self) -> double
+        double Rectangle::getArea() const
+
+        """
+        return _libBornAgainCore.Rectangle_getArea(self)
+
+    def getXlow(self):
+        r"""
+        getXlow(Rectangle self) -> double
+        double Rectangle::getXlow() const
+
+        """
+        return _libBornAgainCore.Rectangle_getXlow(self)
+
+    def getYlow(self):
+        r"""
+        getYlow(Rectangle self) -> double
+        double Rectangle::getYlow() const
+
+        """
+        return _libBornAgainCore.Rectangle_getYlow(self)
+
+    def getXup(self):
+        r"""
+        getXup(Rectangle self) -> double
+        double Rectangle::getXup() const
+
+        """
+        return _libBornAgainCore.Rectangle_getXup(self)
+
+    def getYup(self):
+        r"""
+        getYup(Rectangle self) -> double
+        double Rectangle::getYup() const
+
+        """
+        return _libBornAgainCore.Rectangle_getYup(self)
+    __swig_destroy__ = _libBornAgainCore.delete_Rectangle
+
+# Register Rectangle in _libBornAgainCore:
+_libBornAgainCore.Rectangle_swigregister(Rectangle)
+
+class IParameterized(object):
+    r"""
+
+
+    Manages a local parameter pool, and a tree of child pools.
+
+    C++ includes: IParameterized.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(IParameterized self, std::string const & name="") -> IParameterized
+        __init__(IParameterized self, IParameterized other) -> IParameterized
+        IParameterized::IParameterized(const IParameterized &other)
+
+        """
+        if self.__class__ == IParameterized:
             _self = None
         else:
             _self = self
-        _libBornAgainCore.IMultiLayerBuilder_swiginit(self, _libBornAgainCore.new_IMultiLayerBuilder(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
-
-    def buildSample(self):
-        r"""
-        buildSample(IMultiLayerBuilder self) -> MultiLayer
-        virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
-
-    def createSample(self, index=0):
-        r"""
-        createSample(IMultiLayerBuilder self, size_t index=0) -> MultiLayer
-        virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_createSample(self, index)
-
-    def size(self):
-        r"""
-        size(IMultiLayerBuilder self) -> size_t
-        virtual size_t IMultiLayerBuilder::size()
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_size(self)
-
-    def registerParameter(self, name, parpointer):
-        r"""
-        registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
-        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
-
-    def setParameterValue(self, name, value):
-        r"""
-        setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)
-        void IParameterized::setParameterValue(const std::string &name, double value)
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
-
-    def parametersToString(self):
-        r"""
-        parametersToString(IMultiLayerBuilder self) -> std::string
-        std::string IParameterized::parametersToString() const
-
-        Returns multiline string representing available parameters. 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_parametersToString(self)
-
-    def createParameterTree(self):
-        r"""
-        createParameterTree(IMultiLayerBuilder self) -> ParameterPool
-        ParameterPool * IParameterized::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_createParameterTree(self)
+        _libBornAgainCore.IParameterized_swiginit(self, _libBornAgainCore.new_IParameterized(_self, *args))
+    __swig_destroy__ = _libBornAgainCore.delete_IParameterized
 
     def parameterPool(self):
         r"""
-        parameterPool(IMultiLayerBuilder self) -> ParameterPool
+        parameterPool(IParameterized self) -> ParameterPool
         ParameterPool* IParameterized::parameterPool() const
 
         Returns pointer to the parameter pool. 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_parameterPool(self)
+        return _libBornAgainCore.IParameterized_parameterPool(self)
+
+    def createParameterTree(self):
+        r"""
+        createParameterTree(IParameterized self) -> ParameterPool
+        ParameterPool * IParameterized::createParameterTree() const
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
+        return _libBornAgainCore.IParameterized_createParameterTree(self)
+
+    def parametersToString(self):
+        r"""
+        parametersToString(IParameterized self) -> std::string
+        std::string IParameterized::parametersToString() const
+
+        Returns multiline string representing available parameters. 
+
+        """
+        return _libBornAgainCore.IParameterized_parametersToString(self)
+
+    def registerParameter(self, name, parpointer):
+        r"""
+        registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter
+        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+        """
+        return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
+
+    def registerVector(self, *args):
+        r"""
+        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
+        void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
+
+        """
+        return _libBornAgainCore.IParameterized_registerVector(self, *args)
+
+    def setParameterValue(self, name, value):
+        r"""
+        setParameterValue(IParameterized self, std::string const & name, double value)
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        """
+        return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
+
+    def setVectorValue(self, base_name, value):
+        r"""
+        setVectorValue(IParameterized self, std::string const & base_name, kvector_t value)
+        void IParameterized::setVectorValue(const std::string &base_name, kvector_t value)
+
+        """
+        return _libBornAgainCore.IParameterized_setVectorValue(self, base_name, value)
+
+    def parameter(self, name):
+        r"""
+        parameter(IParameterized self, std::string const & name) -> RealParameter
+        RealParameter * IParameterized::parameter(const std::string &name) const
+
+        Returns parameter with given 'name'. 
+
+        """
+        return _libBornAgainCore.IParameterized_parameter(self, name)
 
     def onChange(self):
         r"""
-        onChange(IMultiLayerBuilder self)
+        onChange(IParameterized self)
         virtual void IParameterized::onChange()
 
         Action to be taken in inherited class when a parameter has changed. 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+        return _libBornAgainCore.IParameterized_onChange(self)
+
+    def removeParameter(self, name):
+        r"""
+        removeParameter(IParameterized self, std::string const & name)
+        void IParameterized::removeParameter(const std::string &name)
+
+        """
+        return _libBornAgainCore.IParameterized_removeParameter(self, name)
+
+    def removeVector(self, base_name):
+        r"""
+        removeVector(IParameterized self, std::string const & base_name)
+        void IParameterized::removeVector(const std::string &base_name)
+
+        """
+        return _libBornAgainCore.IParameterized_removeVector(self, base_name)
+
+    @staticmethod
+    def XComponentName(base_name):
+        r"""XComponentName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_XComponentName(base_name)
+
+    @staticmethod
+    def YComponentName(base_name):
+        r"""YComponentName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_YComponentName(base_name)
+
+    @staticmethod
+    def ZComponentName(base_name):
+        r"""ZComponentName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_ZComponentName(base_name)
+
+    def setName(self, name):
+        r"""
+        setName(IParameterized self, std::string const & name)
+        void IParameterized::setName(const std::string &name)
+
+        """
+        return _libBornAgainCore.IParameterized_setName(self, name)
+
+    def getName(self):
+        r"""
+        getName(IParameterized self) -> std::string const &
+        const std::string& IParameterized::getName() const
+
+        """
+        return _libBornAgainCore.IParameterized_getName(self)
     def __disown__(self):
         self.this.disown()
-        _libBornAgainCore.disown_IMultiLayerBuilder(self)
+        _libBornAgainCore.disown_IParameterized(self)
         return weakref.proxy(self)
 
-# Register IMultiLayerBuilder in _libBornAgainCore:
-_libBornAgainCore.IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
+# Register IParameterized in _libBornAgainCore:
+_libBornAgainCore.IParameterized_swigregister(IParameterized)
+
+def IParameterized_XComponentName(base_name):
+    r"""IParameterized_XComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_XComponentName(base_name)
+
+def IParameterized_YComponentName(base_name):
+    r"""IParameterized_YComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_YComponentName(base_name)
+
+def IParameterized_ZComponentName(base_name):
+    r"""IParameterized_ZComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_ZComponentName(base_name)
+
+class ParaMeta(object):
+    r"""Proxy of C++ ParaMeta class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    name = property(_libBornAgainCore.ParaMeta_name_get, _libBornAgainCore.ParaMeta_name_set, doc=r"""name : std::string""")
+    unit = property(_libBornAgainCore.ParaMeta_unit_get, _libBornAgainCore.ParaMeta_unit_set, doc=r"""unit : std::string""")
+    tooltip = property(_libBornAgainCore.ParaMeta_tooltip_get, _libBornAgainCore.ParaMeta_tooltip_set, doc=r"""tooltip : std::string""")
+    vMin = property(_libBornAgainCore.ParaMeta_vMin_get, _libBornAgainCore.ParaMeta_vMin_set, doc=r"""vMin : double""")
+    vMax = property(_libBornAgainCore.ParaMeta_vMax_get, _libBornAgainCore.ParaMeta_vMax_set, doc=r"""vMax : double""")
+    vDefault = property(_libBornAgainCore.ParaMeta_vDefault_get, _libBornAgainCore.ParaMeta_vDefault_set, doc=r"""vDefault : double""")
+
+    def __init__(self):
+        r"""__init__(ParaMeta self) -> ParaMeta"""
+        _libBornAgainCore.ParaMeta_swiginit(self, _libBornAgainCore.new_ParaMeta())
+    __swig_destroy__ = _libBornAgainCore.delete_ParaMeta
+
+# Register ParaMeta in _libBornAgainCore:
+_libBornAgainCore.ParaMeta_swigregister(ParaMeta)
+INF = cvar.INF
+
+class NodeMeta(object):
+    r"""Proxy of C++ NodeMeta class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    className = property(_libBornAgainCore.NodeMeta_className_get, _libBornAgainCore.NodeMeta_className_set, doc=r"""className : std::string""")
+    tooltip = property(_libBornAgainCore.NodeMeta_tooltip_get, _libBornAgainCore.NodeMeta_tooltip_set, doc=r"""tooltip : std::string""")
+    paraMeta = property(_libBornAgainCore.NodeMeta_paraMeta_get, _libBornAgainCore.NodeMeta_paraMeta_set, doc=r"""paraMeta : std::vector<(ParaMeta,std::allocator<(ParaMeta)>)>""")
+
+    def __init__(self):
+        r"""__init__(NodeMeta self) -> NodeMeta"""
+        _libBornAgainCore.NodeMeta_swiginit(self, _libBornAgainCore.new_NodeMeta())
+    __swig_destroy__ = _libBornAgainCore.delete_NodeMeta
+
+# Register NodeMeta in _libBornAgainCore:
+_libBornAgainCore.NodeMeta_swigregister(NodeMeta)
+
+
+def nodeMetaUnion(base, other):
+    r"""nodeMetaUnion(std::vector< ParaMeta,std::allocator< ParaMeta > > const & base, NodeMeta other) -> NodeMeta"""
+    return _libBornAgainCore.nodeMetaUnion(base, other)
+class INode(IParameterized):
+    r"""
+
+
+    Base class for tree-like structures containing parameterized objects.
+
+    C++ includes: INode.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(INode self) -> INode
+        __init__(INode self, NodeMeta meta, vdouble1d_t PValues) -> INode
+        INode::INode(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+
+        """
+        if self.__class__ == INode:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.INode_swiginit(self, _libBornAgainCore.new_INode(_self, *args))
+    __swig_destroy__ = _libBornAgainCore.delete_INode
+
+    def accept(self, visitor):
+        r"""
+        accept(INode self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.INode_accept(self, visitor)
+
+    def treeToString(self):
+        r"""
+        treeToString(INode self) -> std::string
+        std::string INode::treeToString() const
+
+        Returns multiline string representing tree structure below the node. 
+
+        """
+        return _libBornAgainCore.INode_treeToString(self)
+
+    def registerChild(self, node):
+        r"""
+        registerChild(INode self, INode node)
+        void INode::registerChild(INode *node)
+
+        """
+        return _libBornAgainCore.INode_registerChild(self, node)
+
+    def getChildren(self):
+        r"""
+        getChildren(INode self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.INode_getChildren(self)
+
+    def setParent(self, newParent):
+        r"""
+        setParent(INode self, INode newParent)
+        void INode::setParent(const INode *newParent)
+
+        """
+        return _libBornAgainCore.INode_setParent(self, newParent)
+
+    def parent(self, *args):
+        r"""
+        parent(INode self) -> INode
+        parent(INode self) -> INode
+        INode * INode::parent()
+
+        """
+        return _libBornAgainCore.INode_parent(self, *args)
+
+    def copyNumber(self, node):
+        r"""
+        copyNumber(INode self, INode node) -> int
+        int INode::copyNumber(const INode *node) const
+
+        Returns copyNumber of child, which takes into account existence of children with same name. 
+
+        """
+        return _libBornAgainCore.INode_copyNumber(self, node)
+
+    def displayName(self):
+        r"""
+        displayName(INode self) -> std::string
+        std::string INode::displayName() const
+
+        Returns display name, composed from the name of node and it's copy number. 
+
+        """
+        return _libBornAgainCore.INode_displayName(self)
+
+    def createParameterTree(self):
+        r"""
+        createParameterTree(INode self) -> ParameterPool
+        ParameterPool * INode::createParameterTree() const
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
+        return _libBornAgainCore.INode_createParameterTree(self)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_INode(self)
+        return weakref.proxy(self)
+
+# Register INode in _libBornAgainCore:
+_libBornAgainCore.INode_swigregister(INode)
 
 class INodeVisitor(object):
     r"""
@@ -5797,8 +6304,8 @@ class INodeVisitor(object):
         visit(INodeVisitor self, DistributionLogNormal arg2)
         visit(INodeVisitor self, DistributionLorentz arg2)
         visit(INodeVisitor self, DistributionTrapezoid arg2)
-        visit(INodeVisitor self, FootprintFactorGaussian arg2)
-        visit(INodeVisitor self, FootprintFactorSquare arg2)
+        visit(INodeVisitor self, FootprintGauss arg2)
+        visit(INodeVisitor self, FootprintSquare arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBarGauss const * arg2)
         visit(INodeVisitor self, FormFactorBarLorentz const * arg2)
@@ -5820,12 +6327,12 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FormFactorEllipsoidalCylinder arg2)
         visit(INodeVisitor self, FormFactorFullSphere arg2)
         visit(INodeVisitor self, FormFactorFullSpheroid arg2)
-        visit(INodeVisitor self, FormFactorGauss arg2)
+        visit(INodeVisitor self, FormFactorGaussSphere arg2)
         visit(INodeVisitor self, FormFactorHemiEllipsoid arg2)
+        visit(INodeVisitor self, FormFactorHollowSphere arg2)
         visit(INodeVisitor self, FormFactorIcosahedron arg2)
         visit(INodeVisitor self, FormFactorLongBoxGauss arg2)
         visit(INodeVisitor self, FormFactorLongBoxLorentz arg2)
-        visit(INodeVisitor self, FormFactorLorentz arg2)
         visit(INodeVisitor self, FormFactorPrism3 arg2)
         visit(INodeVisitor self, FormFactorPrism6 arg2)
         visit(INodeVisitor self, FormFactorPyramid arg2)
@@ -5956,156 +6463,114 @@ def VisitNodesPostorder(node, visitor):
 
     """
     return _libBornAgainCore.VisitNodesPostorder(node, visitor)
-class IClusteredParticles(ISample):
+class RealParameter(IParameterReal):
     r"""
 
 
-    An ordered assembly of particles. Currently, the only child class is  Crystal.
+    Wraps a parameter of type double. In addition to name and on-change callback held by the parent class  IParameter, this class holds Limits, Attributes (currently only fixed or not), and a  Unit.
 
-    C++ includes: IClusteredParticles.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IClusteredParticles self) -> IClusteredParticles
-        IClusteredParticles* IClusteredParticles::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IClusteredParticles self, INodeVisitor visitor)
-        void IClusteredParticles::accept(INodeVisitor *visitor) const override=0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_accept(self, visitor)
-
-    def createTotalFormFactor(self, arg2, arg3, arg4):
-        r"""
-        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
-
-        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
-
-    def homogeneousRegions(self):
-        r"""
-        homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
-        virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
-
-        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_homogeneousRegions(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IClusteredParticles
-
-# Register IClusteredParticles in _libBornAgainCore:
-_libBornAgainCore.IClusteredParticles_swigregister(IClusteredParticles)
-
-class Crystal(IClusteredParticles):
-    r"""
-
-
-    A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
-
-    C++ includes: Crystal.h
+    C++ includes: RealParameter.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, lattice_basis, lattice):
+    def __init__(self, *args):
         r"""
-        __init__(Crystal self, IParticle lattice_basis, Lattice lattice) -> Crystal
-        Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name="", std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
+        RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name="", const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 
         """
-        _libBornAgainCore.Crystal_swiginit(self, _libBornAgainCore.new_Crystal(lattice_basis, lattice))
-    __swig_destroy__ = _libBornAgainCore.delete_Crystal
+        _libBornAgainCore.RealParameter_swiginit(self, _libBornAgainCore.new_RealParameter(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
 
-    def clone(self):
+    def clone(self, *args):
         r"""
-        clone(Crystal self) -> Crystal
-        Crystal * Crystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
+        clone(RealParameter self, std::string const & new_name="") -> RealParameter
+        RealParameter * RealParameter::clone(const std::string &new_name="") const
 
         """
-        return _libBornAgainCore.Crystal_clone(self)
+        return _libBornAgainCore.RealParameter_clone(self, *args)
 
-    def accept(self, visitor):
+    def setValue(self, value):
         r"""
-        accept(Crystal self, INodeVisitor visitor)
-        void Crystal::accept(INodeVisitor *visitor) const override final
+        setValue(RealParameter self, double value)
+        void RealParameter::setValue(double value)
 
-        Calls the  INodeVisitor's visit method. 
+        Sets value of wrapped parameter and emit signal. 
 
         """
-        return _libBornAgainCore.Crystal_accept(self, visitor)
+        return _libBornAgainCore.RealParameter_setValue(self, value)
 
-    def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
+    def value(self):
         r"""
-        createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
+        value(RealParameter self) -> double
+        double RealParameter::value() const
 
-        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+        Returns value of wrapped parameter. 
 
         """
-        return _libBornAgainCore.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
+        return _libBornAgainCore.RealParameter_value(self)
 
-    def homogeneousRegions(self):
+    def setLimits(self, limits):
         r"""
-        homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
-        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final
-
-        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+        setLimits(RealParameter self, RealLimits limits) -> RealParameter
+        RealParameter & RealParameter::setLimits(const RealLimits &limits)
 
         """
-        return _libBornAgainCore.Crystal_homogeneousRegions(self)
+        return _libBornAgainCore.RealParameter_setLimits(self, limits)
 
-    def transformedLattice(self, p_rotation=None):
+    def limits(self):
         r"""
-        transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice
-        Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
+        limits(RealParameter self) -> RealLimits
+        RealLimits RealParameter::limits() const
 
         """
-        return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
+        return _libBornAgainCore.RealParameter_limits(self)
 
-    def setPositionVariance(self, position_variance):
+    def setLimited(self, lower, upper):
         r"""
-        setPositionVariance(Crystal self, double position_variance)
-        void Crystal::setPositionVariance(double position_variance)
+        setLimited(RealParameter self, double lower, double upper) -> RealParameter
+        RealParameter & RealParameter::setLimited(double lower, double upper)
 
         """
-        return _libBornAgainCore.Crystal_setPositionVariance(self, position_variance)
+        return _libBornAgainCore.RealParameter_setLimited(self, lower, upper)
 
-    def getChildren(self):
+    def setPositive(self):
         r"""
-        getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Crystal::getChildren() const override final
-
-        Returns a vector of children (const). 
+        setPositive(RealParameter self) -> RealParameter
+        RealParameter & RealParameter::setPositive()
 
         """
-        return _libBornAgainCore.Crystal_getChildren(self)
+        return _libBornAgainCore.RealParameter_setPositive(self)
 
-# Register Crystal in _libBornAgainCore:
-_libBornAgainCore.Crystal_swigregister(Crystal)
+    def setNonnegative(self):
+        r"""
+        setNonnegative(RealParameter self) -> RealParameter
+        RealParameter & RealParameter::setNonnegative()
+
+        """
+        return _libBornAgainCore.RealParameter_setNonnegative(self)
+
+    def setUnit(self, name):
+        r"""
+        setUnit(RealParameter self, std::string const & name) -> RealParameter
+        RealParameter & RealParameter::setUnit(const std::string &name)
+
+        """
+        return _libBornAgainCore.RealParameter_setUnit(self, name)
+
+    def unit(self):
+        r"""
+        unit(RealParameter self) -> std::string
+        std::string RealParameter::unit() const
+
+        """
+        return _libBornAgainCore.RealParameter_unit(self)
+
+# Register RealParameter in _libBornAgainCore:
+_libBornAgainCore.RealParameter_swigregister(RealParameter)
 
 class IDistribution1D(ICloneable, INode):
     r"""
@@ -6809,13 +7274,13 @@ class DistributionTrapezoid(IDistribution1D):
 # Register DistributionTrapezoid in _libBornAgainCore:
 _libBornAgainCore.DistributionTrapezoid_swigregister(DistributionTrapezoid)
 
-class DetectorMask(object):
+class ParameterDistribution(IParameterized):
     r"""
 
 
-    Collection of detector masks.
+    A parametric distribution function, for use with any model parameter.
 
-    C++ includes: DetectorMask.h
+    C++ includes: ParameterDistribution.h
 
     """
 
@@ -6824,214 +7289,2930 @@ class DetectorMask(object):
 
     def __init__(self, *args):
         r"""
-        __init__(DetectorMask self) -> DetectorMask
-        __init__(DetectorMask self, DetectorMask other) -> DetectorMask
-        DetectorMask::DetectorMask(const DetectorMask &other)
+        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits=RealLimits()) -> ParameterDistribution
+        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double xmin, double xmax) -> ParameterDistribution
+        __init__(ParameterDistribution self, ParameterDistribution other) -> ParameterDistribution
+        ParameterDistribution::ParameterDistribution(const ParameterDistribution &other)
 
         """
-        _libBornAgainCore.DetectorMask_swiginit(self, _libBornAgainCore.new_DetectorMask(*args))
+        _libBornAgainCore.ParameterDistribution_swiginit(self, _libBornAgainCore.new_ParameterDistribution(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_ParameterDistribution
 
-    def addMask(self, shape, mask_value):
+    def linkParameter(self, par_name):
         r"""
-        addMask(DetectorMask self, IShape2D shape, bool mask_value)
-        void DetectorMask::addMask(const IShape2D &shape, bool mask_value)
-
-        Add mask to the stack of detector masks. The value "true" means that the area will be excluded from the analysis.
-
-        Parameters:
-        -----------
-
-        shape: 
-        The shape of mask.
-
-        mask_value: 
-        The value of mask 
+        linkParameter(ParameterDistribution self, std::string par_name) -> ParameterDistribution
+        ParameterDistribution & ParameterDistribution::linkParameter(std::string par_name)
 
         """
-        return _libBornAgainCore.DetectorMask_addMask(self, shape, mask_value)
+        return _libBornAgainCore.ParameterDistribution_linkParameter(self, par_name)
 
-    def initMaskData(self, *args):
+    def getMainParameterName(self):
         r"""
-        initMaskData(DetectorMask self, IDetector2D detector)
-        initMaskData(DetectorMask self, IntensityData data)
-        void DetectorMask::initMaskData(const OutputData< double > &data)
+        getMainParameterName(ParameterDistribution self) -> std::string
+        std::string ParameterDistribution::getMainParameterName() const
+
+        get the main parameter's name 
 
         """
-        return _libBornAgainCore.DetectorMask_initMaskData(self, *args)
+        return _libBornAgainCore.ParameterDistribution_getMainParameterName(self)
 
-    def isMasked(self, index):
+    def getNbrSamples(self):
         r"""
-        isMasked(DetectorMask self, size_t index) -> bool
-        bool DetectorMask::isMasked(size_t index) const
+        getNbrSamples(ParameterDistribution self) -> size_t
+        size_t ParameterDistribution::getNbrSamples() const
+
+        get number of samples for this distribution 
 
         """
-        return _libBornAgainCore.DetectorMask_isMasked(self, index)
+        return _libBornAgainCore.ParameterDistribution_getNbrSamples(self)
 
-    def getMaskData(self):
+    def getSigmaFactor(self):
         r"""
-        getMaskData(DetectorMask self) -> OutputData< bool > const *
-        const OutputData<bool>* DetectorMask::getMaskData() const
+        getSigmaFactor(ParameterDistribution self) -> double
+        double ParameterDistribution::getSigmaFactor() const
+
+        get the sigma factor 
 
         """
-        return _libBornAgainCore.DetectorMask_getMaskData(self)
+        return _libBornAgainCore.ParameterDistribution_getSigmaFactor(self)
 
-    def createHistogram(self):
+    def getDistribution(self, *args):
         r"""
-        createHistogram(DetectorMask self) -> Histogram2D
-        Histogram2D * DetectorMask::createHistogram() const
+        getDistribution(ParameterDistribution self) -> IDistribution1D
+        getDistribution(ParameterDistribution self) -> IDistribution1D
+        IDistribution1D * ParameterDistribution::getDistribution()
 
         """
-        return _libBornAgainCore.DetectorMask_createHistogram(self)
+        return _libBornAgainCore.ParameterDistribution_getDistribution(self, *args)
 
-    def removeMasks(self):
+    def generateSamples(self):
         r"""
-        removeMasks(DetectorMask self)
-        void DetectorMask::removeMasks()
+        generateSamples(ParameterDistribution self) -> ParameterSampleVector
+        std::vector< ParameterSample > ParameterDistribution::generateSamples() const
 
-        remove all masks and return object to initial state 
+        generate list of sampled values with their weight 
 
         """
-        return _libBornAgainCore.DetectorMask_removeMasks(self)
+        return _libBornAgainCore.ParameterDistribution_generateSamples(self)
 
-    def hasMasks(self):
+    def getLinkedParameterNames(self):
         r"""
-        hasMasks(DetectorMask self) -> bool
-        bool DetectorMask::hasMasks() const
+        getLinkedParameterNames(ParameterDistribution self) -> vector_string_t
+        std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
 
-        returns true if has masks 
+        get list of linked parameter names 
 
         """
-        return _libBornAgainCore.DetectorMask_hasMasks(self)
+        return _libBornAgainCore.ParameterDistribution_getLinkedParameterNames(self)
 
-    def numberOfMaskedChannels(self):
+    def getLimits(self):
         r"""
-        numberOfMaskedChannels(DetectorMask self) -> int
-        int DetectorMask::numberOfMaskedChannels() const
+        getLimits(ParameterDistribution self) -> RealLimits
+        RealLimits ParameterDistribution::getLimits() const
 
         """
-        return _libBornAgainCore.DetectorMask_numberOfMaskedChannels(self)
+        return _libBornAgainCore.ParameterDistribution_getLimits(self)
 
-    def numberOfMasks(self):
+    def getMinValue(self):
         r"""
-        numberOfMasks(DetectorMask self) -> size_t
-        size_t DetectorMask::numberOfMasks() const
+        getMinValue(ParameterDistribution self) -> double
+        double ParameterDistribution::getMinValue() const
 
         """
-        return _libBornAgainCore.DetectorMask_numberOfMasks(self)
+        return _libBornAgainCore.ParameterDistribution_getMinValue(self)
 
-    def getMaskShape(self, mask_index, mask_value):
+    def getMaxValue(self):
         r"""
-        getMaskShape(DetectorMask self, size_t mask_index, bool & mask_value) -> IShape2D
-        const IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
+        getMaxValue(ParameterDistribution self) -> double
+        double ParameterDistribution::getMaxValue() const
 
         """
-        return _libBornAgainCore.DetectorMask_getMaskShape(self, mask_index, mask_value)
-    __swig_destroy__ = _libBornAgainCore.delete_DetectorMask
+        return _libBornAgainCore.ParameterDistribution_getMaxValue(self)
 
-# Register DetectorMask in _libBornAgainCore:
-_libBornAgainCore.DetectorMask_swigregister(DetectorMask)
+# Register ParameterDistribution in _libBornAgainCore:
+_libBornAgainCore.ParameterDistribution_swigregister(ParameterDistribution)
 
-class Ellipse(IShape2D):
+class ParameterPool(ICloneable):
     r"""
 
 
-    Ellipse shape.
+    Container with parameters for  IParameterized object.
 
-    C++ includes: Ellipse.h
+    C++ includes: ParameterPool.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, xcenter, ycenter, xradius, yradius, theta=0.0):
+    def __init__(self):
         r"""
-        __init__(Ellipse self, double xcenter, double ycenter, double xradius, double yradius, double theta=0.0) -> Ellipse
-        Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta=0.0)
+        __init__(ParameterPool self) -> ParameterPool
+        ParameterPool::ParameterPool()
+
+        Constructs an empty parameter pool. 
+
+        """
+        _libBornAgainCore.ParameterPool_swiginit(self, _libBornAgainCore.new_ParameterPool())
+    __swig_destroy__ = _libBornAgainCore.delete_ParameterPool
+
+    def clone(self):
+        r"""
+        clone(ParameterPool self) -> ParameterPool
+        ParameterPool * ParameterPool::clone() const
+
+        Returns a literal clone. 
+
+        """
+        return _libBornAgainCore.ParameterPool_clone(self)
+
+    def copyToExternalPool(self, prefix, other_pool):
+        r"""
+        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool other_pool)
+        void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *other_pool) const
+
+        Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
+
+        """
+        return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, other_pool)
+
+    def clear(self):
+        r"""
+        clear(ParameterPool self)
+        void ParameterPool::clear()
+
+        Clears the parameter map. 
+
+        """
+        return _libBornAgainCore.ParameterPool_clear(self)
+
+    def size(self):
+        r"""
+        size(ParameterPool self) -> size_t
+        size_t ParameterPool::size() const
+
+        Returns number of parameters in the pool. 
+
+        """
+        return _libBornAgainCore.ParameterPool_size(self)
+
+    def addParameter(self, newPar):
+        r"""
+        addParameter(ParameterPool self, RealParameter newPar) -> RealParameter
+        RealParameter & ParameterPool::addParameter(RealParameter *newPar)
+
+        Adds parameter to the pool, and returns reference to the input pointer.
+
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
+
+        """
+        return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
+
+    def parameter(self, *args):
+        r"""
+        parameter(ParameterPool self, std::string const & name) -> RealParameter
+        parameter(ParameterPool self, std::string const & name) -> RealParameter
+        const RealParameter * ParameterPool::parameter(const std::string &name) const
+
+        Returns parameter with given  name. 
+
+        """
+        return _libBornAgainCore.ParameterPool_parameter(self, *args)
+
+    def parameters(self):
+        r"""
+        parameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const
+        const std::vector<RealParameter*> ParameterPool::parameters() const
+
+        Returns full vector of parameters. 
+
+        """
+        return _libBornAgainCore.ParameterPool_parameters(self)
+
+    def getMatchedParameters(self, pattern):
+        r"""
+        getMatchedParameters(ParameterPool self, std::string const & pattern) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
+        std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &pattern) const
+
+        Returns nonempty vector of parameters that match the  pattern ('*' allowed), or throws. 
+
+        """
+        return _libBornAgainCore.ParameterPool_getMatchedParameters(self, pattern)
+
+    def getUniqueMatch(self, pattern):
+        r"""
+        getUniqueMatch(ParameterPool self, std::string const & pattern) -> RealParameter
+        RealParameter * ParameterPool::getUniqueMatch(const std::string &pattern) const
+
+        Returns the one parameter that matches the  pattern (wildcards '*' allowed), or throws. 
+
+        """
+        return _libBornAgainCore.ParameterPool_getUniqueMatch(self, pattern)
+
+    def setParameterValue(self, name, value):
+        r"""
+        setParameterValue(ParameterPool self, std::string const & name, double value)
+        void ParameterPool::setParameterValue(const std::string &name, double value)
+
+        Sets parameter value. 
+
+        """
+        return _libBornAgainCore.ParameterPool_setParameterValue(self, name, value)
+
+    def setMatchedParametersValue(self, wildcards, value):
+        r"""
+        setMatchedParametersValue(ParameterPool self, std::string const & wildcards, double value) -> int
+        int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
+
+        Sets value of the nonzero parameters that match  pattern ('*' allowed), or throws. 
+
+        """
+        return _libBornAgainCore.ParameterPool_setMatchedParametersValue(self, wildcards, value)
+
+    def setUniqueMatchValue(self, pattern, value):
+        r"""
+        setUniqueMatchValue(ParameterPool self, std::string const & pattern, double value)
+        void ParameterPool::setUniqueMatchValue(const std::string &pattern, double value)
+
+        Sets value of the one parameter that matches  pattern ('*' allowed), or throws. 
+
+        """
+        return _libBornAgainCore.ParameterPool_setUniqueMatchValue(self, pattern, value)
+
+    def parameterNames(self):
+        r"""
+        parameterNames(ParameterPool self) -> vector_string_t
+        std::vector< std::string > ParameterPool::parameterNames() const
+
+        """
+        return _libBornAgainCore.ParameterPool_parameterNames(self)
+
+    def removeParameter(self, name):
+        r"""
+        removeParameter(ParameterPool self, std::string const & name)
+        void ParameterPool::removeParameter(const std::string &name)
+
+        Removes parameter with given name from the pool. 
+
+        """
+        return _libBornAgainCore.ParameterPool_removeParameter(self, name)
+
+    def __getitem__(self, index):
+        r"""__getitem__(ParameterPool self, size_t index) -> RealParameter"""
+        return _libBornAgainCore.ParameterPool___getitem__(self, index)
+
+    def __iter__(self):
+        return ParameterPoolIterator(self)
+
+
+# Register ParameterPool in _libBornAgainCore:
+_libBornAgainCore.ParameterPool_swigregister(ParameterPool)
+
+class RangedDistributionGate(object):
+    r"""
+
+
+    Uniform distribution function.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionGate self) -> RangedDistributionGate
+        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionGate
+        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGate
+        RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainCore.RangedDistributionGate_swiginit(self, _libBornAgainCore.new_RangedDistributionGate(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionGate self) -> RangedDistributionGate
+        RangedDistributionGate * RangedDistributionGate::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionGate_clone(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGate
+
+# Register RangedDistributionGate in _libBornAgainCore:
+_libBornAgainCore.RangedDistributionGate_swigregister(RangedDistributionGate)
+
+class RangedDistributionLorentz(object):
+    r"""
+
+
+    Lorentz distribution with median and hwhm.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionLorentz self) -> RangedDistributionLorentz
+        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionLorentz
+        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, double min, double max) -> RangedDistributionLorentz
+        RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainCore.RangedDistributionLorentz_swiginit(self, _libBornAgainCore.new_RangedDistributionLorentz(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionLorentz self) -> RangedDistributionLorentz
+        RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionLorentz_clone(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLorentz
+
+# Register RangedDistributionLorentz in _libBornAgainCore:
+_libBornAgainCore.RangedDistributionLorentz_swigregister(RangedDistributionLorentz)
+
+class RangedDistributionGaussian(object):
+    r"""
+
+
+    Gaussian distribution with standard deviation std_dev.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionGaussian self) -> RangedDistributionGaussian
+        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionGaussian
+        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGaussian
+        RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainCore.RangedDistributionGaussian_swiginit(self, _libBornAgainCore.new_RangedDistributionGaussian(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionGaussian self) -> RangedDistributionGaussian
+        RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionGaussian_clone(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGaussian
+
+# Register RangedDistributionGaussian in _libBornAgainCore:
+_libBornAgainCore.RangedDistributionGaussian_swigregister(RangedDistributionGaussian)
+
+class RangedDistributionLogNormal(object):
+    r"""
+
+
+    Log-normal distribution.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
+        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionLogNormal
+        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionLogNormal
+        RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainCore.RangedDistributionLogNormal_swiginit(self, _libBornAgainCore.new_RangedDistributionLogNormal(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
+        RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionLogNormal_clone(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLogNormal
+
+# Register RangedDistributionLogNormal in _libBornAgainCore:
+_libBornAgainCore.RangedDistributionLogNormal_swigregister(RangedDistributionLogNormal)
+
+class RangedDistributionCosine(object):
+    r"""
+
+
+    Cosine distribution.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionCosine self) -> RangedDistributionCosine
+        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionCosine
+        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionCosine
+        RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainCore.RangedDistributionCosine_swiginit(self, _libBornAgainCore.new_RangedDistributionCosine(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionCosine self) -> RangedDistributionCosine
+        RangedDistributionCosine * RangedDistributionCosine::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionCosine_clone(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionCosine
+
+# Register RangedDistributionCosine in _libBornAgainCore:
+_libBornAgainCore.RangedDistributionCosine_swigregister(RangedDistributionCosine)
+
+class SimulationOptions(object):
+    r"""
+
+
+    Collect the different options for simulation.
+
+    SimulationOptions
+
+    C++ includes: SimulationOptions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(SimulationOptions self) -> SimulationOptions
+        SimulationOptions::SimulationOptions()
+
+        """
+        _libBornAgainCore.SimulationOptions_swiginit(self, _libBornAgainCore.new_SimulationOptions())
+
+    def isIntegrate(self):
+        r"""
+        isIntegrate(SimulationOptions self) -> bool
+        bool SimulationOptions::isIntegrate() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_isIntegrate(self)
+
+    def getMcPoints(self):
+        r"""
+        getMcPoints(SimulationOptions self) -> size_t
+        size_t SimulationOptions::getMcPoints() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_getMcPoints(self)
+
+    def setMonteCarloIntegration(self, flag=True, mc_points=50):
+        r"""
+        setMonteCarloIntegration(SimulationOptions self, bool flag=True, size_t mc_points=50)
+        void SimulationOptions::setMonteCarloIntegration(bool flag=true, size_t mc_points=50)
+
+        Enables/disables MonetCarlo integration.
 
         Parameters:
         -----------
 
-        xcenter: 
-        x-coordinate of  Ellipse's center
+        flag: 
+        If true, MonteCarlo integration will be used, otherwise analytical calculations
 
-        ycenter: 
-        y-coordinate of  Ellipse's center
-
-        xradius: 
-        Radius along x-axis
-
-        yradius: 
-        Radius along y-axis
-
-        theta: 
-        Angle of  Ellipse rotation in radians 
+        mc_points: 
+        Number of points for MonteCarlo integrator 
 
         """
-        _libBornAgainCore.Ellipse_swiginit(self, _libBornAgainCore.new_Ellipse(xcenter, ycenter, xradius, yradius, theta))
+        return _libBornAgainCore.SimulationOptions_setMonteCarloIntegration(self, flag, mc_points)
+
+    def setNumberOfThreads(self, nthreads):
+        r"""
+        setNumberOfThreads(SimulationOptions self, int nthreads)
+        void SimulationOptions::setNumberOfThreads(int nthreads)
+
+        Sets number of threads to use during the simulation (0 - take the default value from the hardware) 
+
+        """
+        return _libBornAgainCore.SimulationOptions_setNumberOfThreads(self, nthreads)
+
+    def getNumberOfThreads(self):
+        r"""
+        getNumberOfThreads(SimulationOptions self) -> unsigned int
+        unsigned SimulationOptions::getNumberOfThreads() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_getNumberOfThreads(self)
+
+    def setNumberOfBatches(self, nbatches):
+        r"""
+        setNumberOfBatches(SimulationOptions self, int nbatches)
+        void SimulationOptions::setNumberOfBatches(int nbatches)
+
+        Sets number of batches to split. 
+
+        """
+        return _libBornAgainCore.SimulationOptions_setNumberOfBatches(self, nbatches)
+
+    def getNumberOfBatches(self):
+        r"""
+        getNumberOfBatches(SimulationOptions self) -> unsigned int
+        unsigned SimulationOptions::getNumberOfBatches() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_getNumberOfBatches(self)
+
+    def getCurrentBatch(self):
+        r"""
+        getCurrentBatch(SimulationOptions self) -> unsigned int
+        unsigned SimulationOptions::getCurrentBatch() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_getCurrentBatch(self)
+
+    def setThreadInfo(self, thread_info):
+        r"""
+        setThreadInfo(SimulationOptions self, ThreadInfo thread_info)
+        void SimulationOptions::setThreadInfo(const ThreadInfo &thread_info)
+
+        Sets the batch and thread information to be used. 
+
+        """
+        return _libBornAgainCore.SimulationOptions_setThreadInfo(self, thread_info)
+
+    def getHardwareConcurrency(self):
+        r"""
+        getHardwareConcurrency(SimulationOptions self) -> unsigned int
+        unsigned SimulationOptions::getHardwareConcurrency() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
+
+    def setIncludeSpecular(self, include_specular):
+        r"""
+        setIncludeSpecular(SimulationOptions self, bool include_specular)
+        void SimulationOptions::setIncludeSpecular(bool include_specular)
+
+        """
+        return _libBornAgainCore.SimulationOptions_setIncludeSpecular(self, include_specular)
+
+    def includeSpecular(self):
+        r"""
+        includeSpecular(SimulationOptions self) -> bool
+        bool SimulationOptions::includeSpecular() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_includeSpecular(self)
+
+    def setUseAvgMaterials(self, use_avg_materials):
+        r"""
+        setUseAvgMaterials(SimulationOptions self, bool use_avg_materials)
+        void SimulationOptions::setUseAvgMaterials(bool use_avg_materials)
+
+        """
+        return _libBornAgainCore.SimulationOptions_setUseAvgMaterials(self, use_avg_materials)
+
+    def useAvgMaterials(self):
+        r"""
+        useAvgMaterials(SimulationOptions self) -> bool
+        bool SimulationOptions::useAvgMaterials() const
+
+        """
+        return _libBornAgainCore.SimulationOptions_useAvgMaterials(self)
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
+
+# Register SimulationOptions in _libBornAgainCore:
+_libBornAgainCore.SimulationOptions_swigregister(SimulationOptions)
+
+class ThreadInfo(object):
+    r"""
+
+
+    Information to run simulation with dedicated number of threads.
+
+    C++ includes: ThreadInfo.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(ThreadInfo self) -> ThreadInfo
+        ThreadInfo::ThreadInfo()
+
+        """
+        _libBornAgainCore.ThreadInfo_swiginit(self, _libBornAgainCore.new_ThreadInfo())
+    n_threads = property(_libBornAgainCore.ThreadInfo_n_threads_get, _libBornAgainCore.ThreadInfo_n_threads_set, doc=r"""n_threads : unsigned int""")
+    n_batches = property(_libBornAgainCore.ThreadInfo_n_batches_get, _libBornAgainCore.ThreadInfo_n_batches_set, doc=r"""n_batches : unsigned int""")
+    current_batch = property(_libBornAgainCore.ThreadInfo_current_batch_get, _libBornAgainCore.ThreadInfo_current_batch_set, doc=r"""current_batch : unsigned int""")
+    __swig_destroy__ = _libBornAgainCore.delete_ThreadInfo
+
+# Register ThreadInfo in _libBornAgainCore:
+_libBornAgainCore.ThreadInfo_swigregister(ThreadInfo)
+
+class ISample(ICloneable, INode):
+    r"""
+
+
+    Pure virtual base class for sample components and properties related to scattering.
+
+    C++ includes: ISample.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ISample self) -> ISample
+        __init__(ISample self, NodeMeta meta, vdouble1d_t PValues) -> ISample
+        ISample::ISample(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+
+        """
+        if self.__class__ == ISample:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.ISample_swiginit(self, _libBornAgainCore.new_ISample(_self, *args))
 
     def clone(self):
         r"""
-        clone(Ellipse self) -> Ellipse
-        Ellipse* Ellipse::clone() const
+        clone(ISample self) -> ISample
+        ISample* ISample::clone() const override=0
+
+        Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.Ellipse_clone(self)
+        return _libBornAgainCore.ISample_clone(self)
 
-    def contains(self, *args):
+    def material(self):
         r"""
-        contains(Ellipse self, double x, double y) -> bool
-        contains(Ellipse self, Bin1D binx, Bin1D biny) -> bool
-        bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
+        material(ISample self) -> Material
+        virtual const Material* ISample::material() const
 
-        Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.Ellipse_contains(self, *args)
+        return _libBornAgainCore.ISample_material(self)
 
-    def getCenterX(self):
+    def containedMaterials(self):
         r"""
-        getCenterX(Ellipse self) -> double
-        double Ellipse::getCenterX() const
+        containedMaterials(ISample self) -> std::vector< Material const *,std::allocator< Material const * > >
+        std::vector< const Material * > ISample::containedMaterials() const
+
+        Returns set of unique materials contained in this  ISample. 
 
         """
-        return _libBornAgainCore.Ellipse_getCenterX(self)
+        return _libBornAgainCore.ISample_containedMaterials(self)
+    __swig_destroy__ = _libBornAgainCore.delete_ISample
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_ISample(self)
+        return weakref.proxy(self)
 
-    def getCenterY(self):
+# Register ISample in _libBornAgainCore:
+_libBornAgainCore.ISample_swigregister(ISample)
+
+class IFormFactor(ISample):
+    r"""
+
+
+    Pure virtual base class for all form factors.
+
+    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
+
+    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
+
+    C++ includes: IFormFactor.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
         r"""
-        getCenterY(Ellipse self) -> double
-        double Ellipse::getCenterY() const
+        __init__(IFormFactor self) -> IFormFactor
+        __init__(IFormFactor self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactor
+        IFormFactor::IFormFactor(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
 
         """
-        return _libBornAgainCore.Ellipse_getCenterY(self)
+        if self.__class__ == IFormFactor:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.IFormFactor_swiginit(self, _libBornAgainCore.new_IFormFactor(_self, *args))
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactor
 
-    def getRadiusX(self):
+    def clone(self):
         r"""
-        getRadiusX(Ellipse self) -> double
-        double Ellipse::getRadiusX() const
+        clone(IFormFactor self) -> IFormFactor
+        IFormFactor* IFormFactor::clone() const override=0
+
+        Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.Ellipse_getRadiusX(self)
+        return _libBornAgainCore.IFormFactor_clone(self)
 
-    def getRadiusY(self):
+    def createSlicedFormFactor(self, limits, rot, translation):
         r"""
-        getRadiusY(Ellipse self) -> double
-        double Ellipse::getRadiusY() const
+        createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor
+        IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
+
+        Creates a (possibly sliced) form factor with the given rotation and translation. 
 
         """
-        return _libBornAgainCore.Ellipse_getRadiusY(self)
+        return _libBornAgainCore.IFormFactor_createSlicedFormFactor(self, limits, rot, translation)
 
-    def getTheta(self):
+    def setAmbientMaterial(self, arg0):
         r"""
-        getTheta(Ellipse self) -> double
-        double Ellipse::getTheta() const
+        setAmbientMaterial(IFormFactor self, Material arg0)
+        virtual void IFormFactor::setAmbientMaterial(Material)=0
+
+        Passes the material in which this particle is embedded. 
 
         """
-        return _libBornAgainCore.Ellipse_getTheta(self)
-    __swig_destroy__ = _libBornAgainCore.delete_Ellipse
+        return _libBornAgainCore.IFormFactor_setAmbientMaterial(self, arg0)
 
-# Register Ellipse in _libBornAgainCore:
-_libBornAgainCore.Ellipse_swigregister(Ellipse)
+    def evaluate(self, wavevectors):
+        r"""
+        evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t
+        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
+
+        Returns scattering amplitude for complex wavevectors ki, kf. 
+
+        """
+        return _libBornAgainCore.IFormFactor_evaluate(self, wavevectors)
+
+    def volume(self):
+        r"""
+        volume(IFormFactor self) -> double
+        double IFormFactor::volume() const
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
+        return _libBornAgainCore.IFormFactor_volume(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(IFormFactor self) -> double
+        virtual double IFormFactor::radialExtension() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.IFormFactor_radialExtension(self)
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(IFormFactor self, IRotation rotation) -> double
+        virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactor_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(IFormFactor self, IRotation rotation) -> double
+        virtual double IFormFactor::topZ(const IRotation &rotation) const =0
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactor_topZ(self, rotation)
+
+    def canSliceAnalytically(self, rot):
+        r"""canSliceAnalytically(IFormFactor self, IRotation rot) -> bool"""
+        return _libBornAgainCore.IFormFactor_canSliceAnalytically(self, rot)
+
+    def sliceFormFactor(self, limits, rot, translation):
+        r"""sliceFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainCore.IFormFactor_sliceFormFactor(self, limits, rot, translation)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IFormFactor(self)
+        return weakref.proxy(self)
+
+# Register IFormFactor in _libBornAgainCore:
+_libBornAgainCore.IFormFactor_swigregister(IFormFactor)
+
+
+def CreateTransformedFormFactor(formfactor, rot, translation):
+    r"""
+    CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
+    IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+
+    """
+    return _libBornAgainCore.CreateTransformedFormFactor(formfactor, rot, translation)
+class IFormFactorBorn(IFormFactor):
+    r"""
+
+
+    Pure virtual base class for Born form factors.
+
+    In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
+
+    C++ includes: IFormFactorBorn.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(IFormFactorBorn self) -> IFormFactorBorn
+        __init__(IFormFactorBorn self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactorBorn
+        IFormFactorBorn::IFormFactorBorn(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+
+        """
+        if self.__class__ == IFormFactorBorn:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.IFormFactorBorn_swiginit(self, _libBornAgainCore.new_IFormFactorBorn(_self, *args))
+
+    def clone(self):
+        r"""
+        clone(IFormFactorBorn self) -> IFormFactorBorn
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_clone(self)
+
+    def setAmbientMaterial(self, arg0):
+        r"""
+        setAmbientMaterial(IFormFactorBorn self, Material arg0)
+        void IFormFactorBorn::setAmbientMaterial(Material) override
+
+        Passes the material in which this particle is embedded. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_setAmbientMaterial(self, arg0)
+
+    def evaluate(self, wavevectors):
+        r"""
+        evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
+        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
+
+        Returns scattering amplitude for complex wavevectors ki, kf. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_evaluate(self, wavevectors)
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(IFormFactorBorn self, IRotation rotation) -> double
+        double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(IFormFactorBorn self, IRotation rotation) -> double
+        double IFormFactorBorn::topZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_topZ(self, rotation)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
+
+    def canSliceAnalytically(self, rot):
+        r"""canSliceAnalytically(IFormFactorBorn self, IRotation rot) -> bool"""
+        return _libBornAgainCore.IFormFactorBorn_canSliceAnalytically(self, rot)
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorBorn
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IFormFactorBorn(self)
+        return weakref.proxy(self)
+
+    def sliceFormFactor(self, limits, rot, translation):
+        r"""sliceFormFactor(IFormFactorBorn self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainCore.IFormFactorBorn_sliceFormFactor(self, limits, rot, translation)
+
+# Register IFormFactorBorn in _libBornAgainCore:
+_libBornAgainCore.IFormFactorBorn_swigregister(IFormFactorBorn)
+
+class SlicingEffects(object):
+    r"""
+
+
+    Nested structure that holds slicing effects on position and removed parts.
+
+    C++ includes: IFormFactorBorn.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    position = property(_libBornAgainCore.SlicingEffects_position_get, _libBornAgainCore.SlicingEffects_position_set, doc=r"""position : kvector_t""")
+    dz_bottom = property(_libBornAgainCore.SlicingEffects_dz_bottom_get, _libBornAgainCore.SlicingEffects_dz_bottom_set, doc=r"""dz_bottom : double""")
+    dz_top = property(_libBornAgainCore.SlicingEffects_dz_top_get, _libBornAgainCore.SlicingEffects_dz_top_set, doc=r"""dz_top : double""")
+
+    def __init__(self):
+        r"""
+        __init__(SlicingEffects self) -> SlicingEffects
+
+
+        Nested structure that holds slicing effects on position and removed parts.
+
+        C++ includes: IFormFactorBorn.h
+
+        """
+        _libBornAgainCore.SlicingEffects_swiginit(self, _libBornAgainCore.new_SlicingEffects())
+    __swig_destroy__ = _libBornAgainCore.delete_SlicingEffects
+
+# Register SlicingEffects in _libBornAgainCore:
+_libBornAgainCore.SlicingEffects_swigregister(SlicingEffects)
+
+class IFormFactorDecorator(IFormFactor):
+    r"""
+
+
+    Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
+
+    This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
+
+    C++ includes: IFormFactorDecorator.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorDecorator
+
+    def clone(self):
+        r"""
+        clone(IFormFactorDecorator self) -> IFormFactorDecorator
+        IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_clone(self)
+
+    def setAmbientMaterial(self, material):
+        r"""
+        setAmbientMaterial(IFormFactorDecorator self, Material material)
+        void IFormFactorDecorator::setAmbientMaterial(Material material) override
+
+        Passes the material in which this particle is embedded. 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_setAmbientMaterial(self, material)
+
+    def volume(self):
+        r"""
+        volume(IFormFactorDecorator self) -> double
+        double IFormFactorDecorator::volume() const override
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_volume(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(IFormFactorDecorator self) -> double
+        double IFormFactorDecorator::radialExtension() const override
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_radialExtension(self)
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(IFormFactorDecorator self, IRotation rotation) -> double
+        double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(IFormFactorDecorator self, IRotation rotation) -> double
+        double IFormFactorDecorator::topZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_topZ(self, rotation)
+
+    def getFormFactor(self):
+        r"""
+        getFormFactor(IFormFactorDecorator self) -> IFormFactor
+        const IFormFactor* IFormFactorDecorator::getFormFactor() const
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_getFormFactor(self)
+
+# Register IFormFactorDecorator in _libBornAgainCore:
+_libBornAgainCore.IFormFactorDecorator_swigregister(IFormFactorDecorator)
+
+class IRotation(ICloneable, INode):
+    r"""
+
+
+    Pure virtual interface for rotations.
+
+    C++ includes: Rotations.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    @staticmethod
+    def createRotation(transform):
+        r"""createRotation(Transform3D const & transform) -> IRotation"""
+        return _libBornAgainCore.IRotation_createRotation(transform)
+
+    @staticmethod
+    def createIdentity():
+        r"""createIdentity() -> IRotation"""
+        return _libBornAgainCore.IRotation_createIdentity()
+
+    def clone(self):
+        r"""
+        clone(IRotation self) -> IRotation
+        virtual IRotation* IRotation::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IRotation_clone(self)
+
+    def createInverse(self):
+        r"""
+        createInverse(IRotation self) -> IRotation
+        virtual IRotation* IRotation::createInverse() const =0
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.IRotation_createInverse(self)
+
+    def getTransform3D(self):
+        r"""
+        getTransform3D(IRotation self) -> Transform3D
+        virtual Transform3D IRotation::getTransform3D() const =0
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.IRotation_getTransform3D(self)
+
+    def transformed(self, v):
+        r"""transformed(IRotation self, kvector_t v) -> kvector_t"""
+        return _libBornAgainCore.IRotation_transformed(self, v)
+
+    def isIdentity(self):
+        r"""
+        isIdentity(IRotation self) -> bool
+        bool IRotation::isIdentity() const
+
+        Returns true if rotation matrix is identity matrix (no rotations) 
+
+        """
+        return _libBornAgainCore.IRotation_isIdentity(self)
+
+    def zInvariant(self):
+        r"""zInvariant(IRotation self) -> bool"""
+        return _libBornAgainCore.IRotation_zInvariant(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IRotation
+
+# Register IRotation in _libBornAgainCore:
+_libBornAgainCore.IRotation_swigregister(IRotation)
+
+def IRotation_createRotation(transform):
+    r"""IRotation_createRotation(Transform3D const & transform) -> IRotation"""
+    return _libBornAgainCore.IRotation_createRotation(transform)
+
+def IRotation_createIdentity():
+    r"""IRotation_createIdentity() -> IRotation"""
+    return _libBornAgainCore.IRotation_createIdentity()
+
+
+def createProduct(left, right):
+    r"""
+    createProduct(IRotation left, IRotation right) -> IRotation
+    BA_CORE_API_ IRotation* createProduct(const IRotation &left, const IRotation &right)
+
+    Returns concatenated rotation (first right, then left). 
+
+    """
+    return _libBornAgainCore.createProduct(left, right)
+class IdentityRotation(IRotation):
+    r"""
+
+
+    The identity rotation, which leaves everything in place.
+
+    C++ includes: Rotations.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(IdentityRotation self) -> IdentityRotation
+        IdentityRotation::IdentityRotation()=default
+
+        """
+        _libBornAgainCore.IdentityRotation_swiginit(self, _libBornAgainCore.new_IdentityRotation())
+
+    def clone(self):
+        r"""
+        clone(IdentityRotation self) -> IdentityRotation
+        IdentityRotation* IdentityRotation::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_clone(self)
+
+    def createInverse(self):
+        r"""
+        createInverse(IdentityRotation self) -> IdentityRotation
+        IdentityRotation* IdentityRotation::createInverse() const
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_createInverse(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IdentityRotation self, INodeVisitor visitor)
+        void IdentityRotation::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_accept(self, visitor)
+
+    def getTransform3D(self):
+        r"""
+        getTransform3D(IdentityRotation self) -> Transform3D
+        Transform3D IdentityRotation::getTransform3D() const
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_getTransform3D(self)
+
+    def isIdentity(self):
+        r"""
+        isIdentity(IdentityRotation self) -> bool
+        bool IdentityRotation::isIdentity() const
+
+        Returns true if rotation matrix is identity matrix (no rotations) 
+
+        """
+        return _libBornAgainCore.IdentityRotation_isIdentity(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IdentityRotation
+
+# Register IdentityRotation in _libBornAgainCore:
+_libBornAgainCore.IdentityRotation_swigregister(IdentityRotation)
+
+class RotationX(IRotation):
+    r"""
+
+
+    A rotation about the x axis.
+
+    C++ includes: Rotations.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, angle):
+        r"""
+        __init__(RotationX self, double angle) -> RotationX
+        RotationX::RotationX(double angle)
+
+        Constructor of rotation around x-axis
+
+        Parameters:
+        -----------
+
+        angle: 
+        rotation angle around x-axis in radians 
+
+        """
+        _libBornAgainCore.RotationX_swiginit(self, _libBornAgainCore.new_RotationX(angle))
+
+    def clone(self):
+        r"""
+        clone(RotationX self) -> RotationX
+        RotationX* RotationX::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.RotationX_clone(self)
+
+    def createInverse(self):
+        r"""
+        createInverse(RotationX self) -> RotationX
+        RotationX* RotationX::createInverse() const
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.RotationX_createInverse(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(RotationX self, INodeVisitor visitor)
+        void RotationX::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.RotationX_accept(self, visitor)
+
+    def getAngle(self):
+        r"""
+        getAngle(RotationX self) -> double
+        double RotationX::getAngle() const
+
+        """
+        return _libBornAgainCore.RotationX_getAngle(self)
+
+    def getTransform3D(self):
+        r"""
+        getTransform3D(RotationX self) -> Transform3D
+        Transform3D RotationX::getTransform3D() const
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.RotationX_getTransform3D(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RotationX
+
+# Register RotationX in _libBornAgainCore:
+_libBornAgainCore.RotationX_swigregister(RotationX)
+
+class RotationY(IRotation):
+    r"""
+
+
+    A rotation about the y axis.
+
+    C++ includes: Rotations.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, angle):
+        r"""
+        __init__(RotationY self, double angle) -> RotationY
+        RotationY::RotationY(double angle)
+
+        Constructor of rotation around y-axis
+
+        Parameters:
+        -----------
+
+        angle: 
+        rotation angle around y-axis in radians 
+
+        """
+        _libBornAgainCore.RotationY_swiginit(self, _libBornAgainCore.new_RotationY(angle))
+
+    def clone(self):
+        r"""
+        clone(RotationY self) -> RotationY
+        RotationY* RotationY::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.RotationY_clone(self)
+
+    def createInverse(self):
+        r"""
+        createInverse(RotationY self) -> RotationY
+        RotationY* RotationY::createInverse() const
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.RotationY_createInverse(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(RotationY self, INodeVisitor visitor)
+        void RotationY::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.RotationY_accept(self, visitor)
+
+    def getAngle(self):
+        r"""
+        getAngle(RotationY self) -> double
+        double RotationY::getAngle() const
+
+        """
+        return _libBornAgainCore.RotationY_getAngle(self)
+
+    def getTransform3D(self):
+        r"""
+        getTransform3D(RotationY self) -> Transform3D
+        Transform3D RotationY::getTransform3D() const
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.RotationY_getTransform3D(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RotationY
+
+# Register RotationY in _libBornAgainCore:
+_libBornAgainCore.RotationY_swigregister(RotationY)
+
+class RotationZ(IRotation):
+    r"""
+
+
+    A rotation about the z axis.
+
+    C++ includes: Rotations.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, angle):
+        r"""
+        __init__(RotationZ self, double angle) -> RotationZ
+        RotationZ::RotationZ(double angle=0.0)
+
+        Constructor of rotation around z-axis
+
+        Parameters:
+        -----------
+
+        angle: 
+        rotation angle around z-axis in radians 
+
+        """
+        _libBornAgainCore.RotationZ_swiginit(self, _libBornAgainCore.new_RotationZ(angle))
+
+    def clone(self):
+        r"""
+        clone(RotationZ self) -> RotationZ
+        RotationZ* RotationZ::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.RotationZ_clone(self)
+
+    def createInverse(self):
+        r"""
+        createInverse(RotationZ self) -> RotationZ
+        RotationZ* RotationZ::createInverse() const
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.RotationZ_createInverse(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(RotationZ self, INodeVisitor visitor)
+        void RotationZ::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.RotationZ_accept(self, visitor)
+
+    def getAngle(self):
+        r"""
+        getAngle(RotationZ self) -> double
+        double RotationZ::getAngle() const
+
+        """
+        return _libBornAgainCore.RotationZ_getAngle(self)
+
+    def getTransform3D(self):
+        r"""
+        getTransform3D(RotationZ self) -> Transform3D
+        Transform3D RotationZ::getTransform3D() const
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.RotationZ_getTransform3D(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RotationZ
+
+# Register RotationZ in _libBornAgainCore:
+_libBornAgainCore.RotationZ_swigregister(RotationZ)
+
+class RotationEuler(IRotation):
+    r"""
+
+
+    A sequence of rotations about the z-x'-z'' axes.
+
+    C++ includes: Rotations.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, alpha, beta, gamma):
+        r"""
+        __init__(RotationEuler self, double alpha, double beta, double gamma) -> RotationEuler
+        RotationEuler::RotationEuler(double alpha, double beta, double gamma)
+
+        Constructor of Euler rotation (sequence of three rotations following Euler angles notation z-x'-z').
+
+        Parameters:
+        -----------
+
+        alpha: 
+        first Euler angle in radians
+
+        beta: 
+        second Euler angle in radians
+
+        gamma: 
+        third Euler angle in radians 
+
+        """
+        _libBornAgainCore.RotationEuler_swiginit(self, _libBornAgainCore.new_RotationEuler(alpha, beta, gamma))
+
+    def clone(self):
+        r"""
+        clone(RotationEuler self) -> RotationEuler
+        RotationEuler* RotationEuler::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.RotationEuler_clone(self)
+
+    def createInverse(self):
+        r"""
+        createInverse(RotationEuler self) -> IRotation
+        IRotation * RotationEuler::createInverse() const
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.RotationEuler_createInverse(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(RotationEuler self, INodeVisitor visitor)
+        void RotationEuler::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.RotationEuler_accept(self, visitor)
+
+    def getAlpha(self):
+        r"""
+        getAlpha(RotationEuler self) -> double
+        double RotationEuler::getAlpha() const
+
+        """
+        return _libBornAgainCore.RotationEuler_getAlpha(self)
+
+    def getBeta(self):
+        r"""
+        getBeta(RotationEuler self) -> double
+        double RotationEuler::getBeta() const
+
+        """
+        return _libBornAgainCore.RotationEuler_getBeta(self)
+
+    def getGamma(self):
+        r"""
+        getGamma(RotationEuler self) -> double
+        double RotationEuler::getGamma() const
+
+        """
+        return _libBornAgainCore.RotationEuler_getGamma(self)
+
+    def getTransform3D(self):
+        r"""
+        getTransform3D(RotationEuler self) -> Transform3D
+        Transform3D RotationEuler::getTransform3D() const
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.RotationEuler_getTransform3D(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RotationEuler
+
+# Register RotationEuler in _libBornAgainCore:
+_libBornAgainCore.RotationEuler_swigregister(RotationEuler)
+
+class FitOptions(object):
+    r"""Proxy of C++ FitOptions class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""__init__(FitOptions self) -> FitOptions"""
+        _libBornAgainCore.FitOptions_swiginit(self, _libBornAgainCore.new_FitOptions())
+
+    def derivEpsilon(self):
+        r"""derivEpsilon(FitOptions self) -> double"""
+        return _libBornAgainCore.FitOptions_derivEpsilon(self)
+
+    def setDerivEpsilon(self, deriv_epsilon):
+        r"""setDerivEpsilon(FitOptions self, double deriv_epsilon)"""
+        return _libBornAgainCore.FitOptions_setDerivEpsilon(self, deriv_epsilon)
+
+    def stepFactor(self):
+        r"""stepFactor(FitOptions self) -> double"""
+        return _libBornAgainCore.FitOptions_stepFactor(self)
+
+    def setStepFactor(self, step_factor):
+        r"""setStepFactor(FitOptions self, double step_factor)"""
+        return _libBornAgainCore.FitOptions_setStepFactor(self, step_factor)
+    __swig_destroy__ = _libBornAgainCore.delete_FitOptions
+
+# Register FitOptions in _libBornAgainCore:
+_libBornAgainCore.FitOptions_swigregister(FitOptions)
+
+class IObserver(object):
+    r"""
+
+
+    Observer interface from Observer pattern.
+
+    C++ includes: IObserver.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IObserver
+
+    def notify(self, subject):
+        r"""
+        notify(IObserver self, IObservable subject)
+        virtual void IObserver::notify(IObservable *subject)=0
+
+        method which is used by observable subject to notify change in status 
+
+        """
+        return _libBornAgainCore.IObserver_notify(self, subject)
+
+# Register IObserver in _libBornAgainCore:
+_libBornAgainCore.IObserver_swigregister(IObserver)
+
+class IObservable(object):
+    r"""
+
+
+    Observable interface from Observer pattern
+
+    C++ includes: IObserver.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IObservable
+
+    def attachObserver(self, obj):
+        r"""
+        attachObserver(IObservable self, IObservable::observer_t obj)
+        void IObservable::attachObserver(observer_t obj)
+
+        attach observer to the list of observers 
+
+        """
+        return _libBornAgainCore.IObservable_attachObserver(self, obj)
+
+    def notifyObservers(self):
+        r"""
+        notifyObservers(IObservable self)
+        void IObservable::notifyObservers()
+
+        notify observers about change in status 
+
+        """
+        return _libBornAgainCore.IObservable_notifyObservers(self)
+
+    def __init__(self):
+        r"""
+        __init__(IObservable self) -> IObservable
+
+
+        Observable interface from Observer pattern
+
+        C++ includes: IObserver.h
+
+        """
+        _libBornAgainCore.IObservable_swiginit(self, _libBornAgainCore.new_IObservable())
+
+# Register IObservable in _libBornAgainCore:
+_libBornAgainCore.IObservable_swigregister(IObservable)
+
+class IterationInfo(object):
+    r"""
+
+
+    Stores fit iteration info to track fit flow from various observers. Used in context of  FitObjective.
+
+    C++ includes: IterationInfo.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(IterationInfo self) -> IterationInfo
+        IterationInfo::IterationInfo()
+
+        """
+        _libBornAgainCore.IterationInfo_swiginit(self, _libBornAgainCore.new_IterationInfo())
+
+    def update(self, params, chi2):
+        r"""
+        update(IterationInfo self, Parameters params, double chi2)
+        void IterationInfo::update(const Fit::Parameters &params, double chi2)
+
+        """
+        return _libBornAgainCore.IterationInfo_update(self, params, chi2)
+
+    def iterationCount(self):
+        r"""
+        iterationCount(IterationInfo self) -> unsigned int
+        unsigned IterationInfo::iterationCount() const
+
+        Returns current number of minimizer iterations. 
+
+        """
+        return _libBornAgainCore.IterationInfo_iterationCount(self)
+
+    def chi2(self):
+        r"""
+        chi2(IterationInfo self) -> double
+        double IterationInfo::chi2() const
+
+        """
+        return _libBornAgainCore.IterationInfo_chi2(self)
+
+    def parameters(self):
+        r"""
+        parameters(IterationInfo self) -> Parameters
+        Fit::Parameters IterationInfo::parameters() const
+
+        """
+        return _libBornAgainCore.IterationInfo_parameters(self)
+
+    def parameterMap(self):
+        r"""
+        parameterMap(IterationInfo self) -> map_string_double_t
+        std::map< std::string, double > IterationInfo::parameterMap() const
+
+        Returns map of fit parameter names and its current values. 
+
+        """
+        return _libBornAgainCore.IterationInfo_parameterMap(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IterationInfo
+
+# Register IterationInfo in _libBornAgainCore:
+_libBornAgainCore.IterationInfo_swigregister(IterationInfo)
+
+class PyBuilderCallback(object):
+    r"""
+
+
+    Builds simulation object using a Python callable. Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
+
+    C++ includes: PyFittingCallbacks.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(PyBuilderCallback self) -> PyBuilderCallback
+        PyBuilderCallback::PyBuilderCallback()
+
+        """
+        if self.__class__ == PyBuilderCallback:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.PyBuilderCallback_swiginit(self, _libBornAgainCore.new_PyBuilderCallback(_self, ))
+    __swig_destroy__ = _libBornAgainCore.delete_PyBuilderCallback
+
+    def build_simulation(self, arg0):
+        r"""
+        build_simulation(PyBuilderCallback self, Parameters arg0) -> Simulation
+        Simulation * PyBuilderCallback::build_simulation(Fit::Parameters)
+
+        """
+        return _libBornAgainCore.PyBuilderCallback_build_simulation(self, arg0)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_PyBuilderCallback(self)
+        return weakref.proxy(self)
+
+# Register PyBuilderCallback in _libBornAgainCore:
+_libBornAgainCore.PyBuilderCallback_swigregister(PyBuilderCallback)
+
+class PyObserverCallback(object):
+    r"""
+
+
+    Observer for  FitObjective based on Python callable. Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
+
+    C++ includes: PyFittingCallbacks.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(PyObserverCallback self) -> PyObserverCallback
+        PyObserverCallback::PyObserverCallback()
+
+        """
+        if self.__class__ == PyObserverCallback:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.PyObserverCallback_swiginit(self, _libBornAgainCore.new_PyObserverCallback(_self, ))
+    __swig_destroy__ = _libBornAgainCore.delete_PyObserverCallback
+
+    def update(self, arg0):
+        r"""
+        update(PyObserverCallback self, FitObjective arg0)
+        void PyObserverCallback::update(const FitObjective &)
+
+        """
+        return _libBornAgainCore.PyObserverCallback_update(self, arg0)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_PyObserverCallback(self)
+        return weakref.proxy(self)
+
+# Register PyObserverCallback in _libBornAgainCore:
+_libBornAgainCore.PyObserverCallback_swigregister(PyObserverCallback)
+
+class FormFactorCrystal(IFormFactor):
+    r"""
+
+
+    The form factor of a  MesoCrystal.
+
+    C++ includes: FormFactorCrystal.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice, basis_form_factor, meso_form_factor, position_variance=0.0):
+        r"""
+        __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
+        FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
+
+        """
+        _libBornAgainCore.FormFactorCrystal_swiginit(self, _libBornAgainCore.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor, position_variance))
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCrystal
+
+    def clone(self):
+        r"""
+        clone(FormFactorCrystal self) -> FormFactorCrystal
+        FormFactorCrystal* FormFactorCrystal::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorCrystal self, INodeVisitor visitor)
+        void FormFactorCrystal::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_accept(self, visitor)
+
+    def setAmbientMaterial(self, material):
+        r"""
+        setAmbientMaterial(FormFactorCrystal self, Material material)
+        void FormFactorCrystal::setAmbientMaterial(Material material) override
+
+        Passes the material in which this particle is embedded. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_setAmbientMaterial(self, material)
+
+    def volume(self):
+        r"""
+        volume(FormFactorCrystal self) -> double
+        double FormFactorCrystal::volume() const override final
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_volume(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(FormFactorCrystal self) -> double
+        double FormFactorCrystal::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_radialExtension(self)
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(FormFactorCrystal self, IRotation rotation) -> double
+        double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(FormFactorCrystal self, IRotation rotation) -> double
+        double FormFactorCrystal::topZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_topZ(self, rotation)
+
+    def evaluate(self, wavevectors):
+        r"""
+        evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
+        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
+
+        Returns scattering amplitude for complex wavevectors ki, kf. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_evaluate(self, wavevectors)
+
+# Register FormFactorCrystal in _libBornAgainCore:
+_libBornAgainCore.FormFactorCrystal_swigregister(FormFactorCrystal)
+
+class FormFactorWeighted(IFormFactor):
+    r"""
+
+
+    Coherent sum of different scalar  IFormFactor's with different weights.
+
+    Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
+
+    C++ includes: FormFactorWeighted.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(FormFactorWeighted self) -> FormFactorWeighted
+        FormFactorWeighted::FormFactorWeighted()
+
+        """
+        _libBornAgainCore.FormFactorWeighted_swiginit(self, _libBornAgainCore.new_FormFactorWeighted())
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorWeighted
+
+    def clone(self):
+        r"""
+        clone(FormFactorWeighted self) -> FormFactorWeighted
+        FormFactorWeighted * FormFactorWeighted::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorWeighted self, INodeVisitor visitor)
+        void FormFactorWeighted::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_accept(self, visitor)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(FormFactorWeighted self) -> double
+        double FormFactorWeighted::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_radialExtension(self)
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(FormFactorWeighted self, IRotation rotation) -> double
+        double FormFactorWeighted::bottomZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(FormFactorWeighted self, IRotation rotation) -> double
+        double FormFactorWeighted::topZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_topZ(self, rotation)
+
+    def addFormFactor(self, form_factor, weight=1.0):
+        r"""
+        addFormFactor(FormFactorWeighted self, IFormFactor form_factor, double weight=1.0)
+        void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_addFormFactor(self, form_factor, weight)
+
+    def setAmbientMaterial(self, material):
+        r"""
+        setAmbientMaterial(FormFactorWeighted self, Material material)
+        void FormFactorWeighted::setAmbientMaterial(Material material) override final
+
+        Passes the material in which this particle is embedded. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_setAmbientMaterial(self, material)
+
+    def evaluate(self, wavevectors):
+        r"""
+        evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
+        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
+
+        Returns scattering amplitude for complex wavevectors ki, kf. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_evaluate(self, wavevectors)
+
+# Register FormFactorWeighted in _libBornAgainCore:
+_libBornAgainCore.FormFactorWeighted_swigregister(FormFactorWeighted)
+
+class IAbstractParticle(ISample):
+    r"""
+
+
+    Interface for a generic particle.
+
+    Inherited by  IParticle and  ParticleDistribution.
+
+    C++ includes: IAbstractParticle.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IAbstractParticle
+
+    def clone(self):
+        r"""
+        clone(IAbstractParticle self) -> IAbstractParticle
+        virtual IAbstractParticle* IAbstractParticle::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IAbstractParticle self, INodeVisitor visitor)
+        void IAbstractParticle::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
+
+    def abundance(self):
+        r"""
+        abundance(IAbstractParticle self) -> double
+        double IAbstractParticle::abundance() const
+
+        """
+        return _libBornAgainCore.IAbstractParticle_abundance(self)
+
+    def setAbundance(self, abundance):
+        r"""
+        setAbundance(IAbstractParticle self, double abundance)
+        void IAbstractParticle::setAbundance(double abundance)
+
+        Sets particle abundance.
+
+        Parameters:
+        -----------
+
+        abundance: 
+        proportion of this type of particles normalized to the total number of particles in the layout. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
+
+    def translate(self, translation):
+        r"""
+        translate(IAbstractParticle self, kvector_t translation)
+        virtual void IAbstractParticle::translate(kvector_t translation)=0
+
+        Translates the particle with the given vector. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_translate(self, translation)
+
+    def rotate(self, rotation):
+        r"""
+        rotate(IAbstractParticle self, IRotation rotation)
+        virtual void IAbstractParticle::rotate(const IRotation &rotation)=0
+
+        Applies the given rotation to the particle. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_rotate(self, rotation)
+
+# Register IAbstractParticle in _libBornAgainCore:
+_libBornAgainCore.IAbstractParticle_swigregister(IAbstractParticle)
+
+class IClusteredParticles(ISample):
+    r"""
+
+
+    An ordered assembly of particles. Currently, the only child class is  Crystal.
+
+    C++ includes: IClusteredParticles.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IClusteredParticles self) -> IClusteredParticles
+        IClusteredParticles* IClusteredParticles::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IClusteredParticles_clone(self)
+
+    def createTotalFormFactor(self, arg2, arg3, arg4):
+        r"""
+        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
+        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
+
+        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+
+        """
+        return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
+
+    def homogeneousRegions(self):
+        r"""
+        homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
+        virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
+
+        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+
+        """
+        return _libBornAgainCore.IClusteredParticles_homogeneousRegions(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IClusteredParticles
+
+# Register IClusteredParticles in _libBornAgainCore:
+_libBornAgainCore.IClusteredParticles_swigregister(IClusteredParticles)
+
+class Crystal(IClusteredParticles):
+    r"""
+
+
+    A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
+
+    C++ includes: Crystal.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice_basis, lattice):
+        r"""
+        __init__(Crystal self, IParticle lattice_basis, Lattice lattice) -> Crystal
+        Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
+
+        """
+        _libBornAgainCore.Crystal_swiginit(self, _libBornAgainCore.new_Crystal(lattice_basis, lattice))
+    __swig_destroy__ = _libBornAgainCore.delete_Crystal
+
+    def clone(self):
+        r"""
+        clone(Crystal self) -> Crystal
+        Crystal * Crystal::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.Crystal_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(Crystal self, INodeVisitor visitor)
+        void Crystal::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.Crystal_accept(self, visitor)
+
+    def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
+        r"""
+        createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
+
+        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+
+        """
+        return _libBornAgainCore.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
+
+    def homogeneousRegions(self):
+        r"""
+        homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
+        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final
+
+        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+
+        """
+        return _libBornAgainCore.Crystal_homogeneousRegions(self)
+
+    def transformedLattice(self, p_rotation=None):
+        r"""
+        transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice
+        Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
+
+        """
+        return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
+
+    def setPositionVariance(self, position_variance):
+        r"""
+        setPositionVariance(Crystal self, double position_variance)
+        void Crystal::setPositionVariance(double position_variance)
+
+        """
+        return _libBornAgainCore.Crystal_setPositionVariance(self, position_variance)
+
+    def getChildren(self):
+        r"""
+        getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > Crystal::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.Crystal_getChildren(self)
+
+# Register Crystal in _libBornAgainCore:
+_libBornAgainCore.Crystal_swigregister(Crystal)
+
+class IParticle(IAbstractParticle):
+    r"""
+
+
+    Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
+
+    C++ includes: IParticle.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IParticle
+
+    def clone(self):
+        r"""
+        clone(IParticle self) -> IParticle
+        IParticle* IParticle::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IParticle_clone(self)
+
+    def createFormFactor(self):
+        r"""
+        createFormFactor(IParticle self) -> IFormFactor
+        IFormFactor * IParticle::createFormFactor() const
+
+        Create a form factor for this particle. 
+
+        """
+        return _libBornAgainCore.IParticle_createFormFactor(self)
+
+    def createSlicedParticle(self, limits):
+        r"""
+        createSlicedParticle(IParticle self, ZLimits limits) -> SlicedParticle
+        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
+
+        Create a sliced form factor for this particle. 
+
+        """
+        return _libBornAgainCore.IParticle_createSlicedParticle(self, limits)
+
+    def position(self):
+        r"""
+        position(IParticle self) -> kvector_t
+        kvector_t IParticle::position() const
+
+        Returns particle position. 
+
+        """
+        return _libBornAgainCore.IParticle_position(self)
+
+    def setPosition(self, *args):
+        r"""
+        setPosition(IParticle self, kvector_t position)
+        setPosition(IParticle self, double x, double y, double z)
+        void IParticle::setPosition(double x, double y, double z)
+
+        Sets relative position of the particle's reference point in the coordinate system of parent.
+
+        Parameters:
+        -----------
+
+        x: 
+        x-coordinate in nanometers
+
+        y: 
+        y-coordinate in nanometers
+
+        z: 
+        z-coordinate in nanometers 
+
+        """
+        return _libBornAgainCore.IParticle_setPosition(self, *args)
+
+    def translate(self, translation):
+        r"""
+        translate(IParticle self, kvector_t translation)
+        void IParticle::translate(kvector_t translation) override final
+
+        Translates the particle. 
+
+        """
+        return _libBornAgainCore.IParticle_translate(self, translation)
+
+    def rotation(self):
+        r"""
+        rotation(IParticle self) -> IRotation
+        const IRotation * IParticle::rotation() const
+
+        Returns rotation object. 
+
+        """
+        return _libBornAgainCore.IParticle_rotation(self)
+
+    def setRotation(self, rotation):
+        r"""
+        setRotation(IParticle self, IRotation rotation)
+        void IParticle::setRotation(const IRotation &rotation)
+
+        Sets transformation. 
+
+        """
+        return _libBornAgainCore.IParticle_setRotation(self, rotation)
+
+    def rotate(self, rotation):
+        r"""
+        rotate(IParticle self, IRotation rotation)
+        void IParticle::rotate(const IRotation &rotation) override final
+
+        Rotates the particle. 
+
+        """
+        return _libBornAgainCore.IParticle_rotate(self, rotation)
+
+    def getChildren(self):
+        r"""
+        getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > IParticle::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.IParticle_getChildren(self)
+
+    def registerAbundance(self, make_registered=True):
+        r"""
+        registerAbundance(IParticle self, bool make_registered=True)
+        void IParticle::registerAbundance(bool make_registered=true)
+
+        """
+        return _libBornAgainCore.IParticle_registerAbundance(self, make_registered)
+
+    def registerPosition(self, make_registered=True):
+        r"""
+        registerPosition(IParticle self, bool make_registered=True)
+        void IParticle::registerPosition(bool make_registered=true)
+
+        Registers the three components of its position. 
+
+        """
+        return _libBornAgainCore.IParticle_registerPosition(self, make_registered)
+
+    def decompose(self):
+        r"""
+        decompose(IParticle self) -> SafePointerVector< IParticle >
+        SafePointerVector< IParticle > IParticle::decompose() const
+
+        Decompose in constituent  IParticle objects. 
+
+        """
+        return _libBornAgainCore.IParticle_decompose(self)
+
+    def bottomTopZ(self):
+        r"""
+        bottomTopZ(IParticle self) -> ParticleLimits
+        ParticleLimits IParticle::bottomTopZ() const
+
+        Top and bottom z-coordinate. 
+
+        """
+        return _libBornAgainCore.IParticle_bottomTopZ(self)
+
+# Register IParticle in _libBornAgainCore:
+_libBornAgainCore.IParticle_swigregister(IParticle)
+
+class MesoCrystal(IParticle):
+    r"""
+
+
+    A particle with an internal structure of smaller particles.
+
+    C++ includes: MesoCrystal.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, particle_structure, form_factor):
+        r"""
+        __init__(MesoCrystal self, IClusteredParticles particle_structure, IFormFactor form_factor) -> MesoCrystal
+        MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
+
+        """
+        _libBornAgainCore.MesoCrystal_swiginit(self, _libBornAgainCore.new_MesoCrystal(particle_structure, form_factor))
+    __swig_destroy__ = _libBornAgainCore.delete_MesoCrystal
+
+    def clone(self):
+        r"""
+        clone(MesoCrystal self) -> MesoCrystal
+        MesoCrystal * MesoCrystal::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.MesoCrystal_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(MesoCrystal self, INodeVisitor visitor)
+        void MesoCrystal::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.MesoCrystal_accept(self, visitor)
+
+    def createSlicedParticle(self, limits):
+        r"""
+        createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
+        SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
+
+        Create a sliced form factor for this particle. 
+
+        """
+        return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
+
+    def getChildren(self):
+        r"""
+        getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > MesoCrystal::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.MesoCrystal_getChildren(self)
+
+# Register MesoCrystal in _libBornAgainCore:
+_libBornAgainCore.MesoCrystal_swigregister(MesoCrystal)
+
+class Particle(IParticle):
+    r"""
+
+
+    A particle with a form factor and refractive index.
+
+    C++ includes: Particle.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Particle self) -> Particle
+        __init__(Particle self, Material material) -> Particle
+        __init__(Particle self, Material material, IFormFactor form_factor) -> Particle
+        __init__(Particle self, Material material, IFormFactor form_factor, IRotation rotation) -> Particle
+        Particle::Particle(Material material, const IFormFactor &form_factor, const IRotation &rotation)
+
+        """
+        _libBornAgainCore.Particle_swiginit(self, _libBornAgainCore.new_Particle(*args))
+
+    def clone(self):
+        r"""
+        clone(Particle self) -> Particle
+        Particle * Particle::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.Particle_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(Particle self, INodeVisitor visitor)
+        void Particle::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.Particle_accept(self, visitor)
+
+    def createSlicedParticle(self, limits):
+        r"""
+        createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
+        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
+
+        Create a sliced form factor for this particle. 
+
+        """
+        return _libBornAgainCore.Particle_createSlicedParticle(self, limits)
+
+    def setMaterial(self, material):
+        r"""
+        setMaterial(Particle self, Material material)
+        void Particle::setMaterial(Material material)
+
+        """
+        return _libBornAgainCore.Particle_setMaterial(self, material)
+
+    def material(self):
+        r"""
+        material(Particle self) -> Material
+        const Material* Particle::material() const override final
+
+        Returns nullptr, unless overwritten to return a specific material. 
+
+        """
+        return _libBornAgainCore.Particle_material(self)
+
+    def setFormFactor(self, form_factor):
+        r"""
+        setFormFactor(Particle self, IFormFactor form_factor)
+        void Particle::setFormFactor(const IFormFactor &form_factor)
+
+        """
+        return _libBornAgainCore.Particle_setFormFactor(self, form_factor)
+
+    def getChildren(self):
+        r"""
+        getChildren(Particle self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > Particle::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.Particle_getChildren(self)
+    __swig_destroy__ = _libBornAgainCore.delete_Particle
+
+# Register Particle in _libBornAgainCore:
+_libBornAgainCore.Particle_swigregister(Particle)
+
+class ParticleComposition(IParticle):
+    r"""
+
+
+    A composition of particles at fixed positions
+
+    C++ includes: ParticleComposition.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ParticleComposition self) -> ParticleComposition
+        __init__(ParticleComposition self, IParticle particle, vector_kvector_t positions) -> ParticleComposition
+        ParticleComposition::ParticleComposition(const IParticle &particle, std::vector< kvector_t > positions)
+
+        """
+        _libBornAgainCore.ParticleComposition_swiginit(self, _libBornAgainCore.new_ParticleComposition(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_ParticleComposition
+
+    def clone(self):
+        r"""
+        clone(ParticleComposition self) -> ParticleComposition
+        ParticleComposition * ParticleComposition::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(ParticleComposition self, INodeVisitor visitor)
+        void ParticleComposition::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_accept(self, visitor)
+
+    def createFormFactor(self):
+        r"""
+        createFormFactor(ParticleComposition self) -> IFormFactor
+        IFormFactor * ParticleComposition::createFormFactor() const override final
+
+        Create a form factor for this particle. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_createFormFactor(self)
+
+    def addParticle(self, *args):
+        r"""
+        addParticle(ParticleComposition self, IParticle particle)
+        addParticle(ParticleComposition self, IParticle particle, kvector_t position)
+        void ParticleComposition::addParticle(const IParticle &particle, kvector_t position)
+
+        """
+        return _libBornAgainCore.ParticleComposition_addParticle(self, *args)
+
+    def addParticles(self, particle, positions):
+        r"""
+        addParticles(ParticleComposition self, IParticle particle, vector_kvector_t positions)
+        void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
+
+        """
+        return _libBornAgainCore.ParticleComposition_addParticles(self, particle, positions)
+
+    def nbrParticles(self):
+        r"""
+        nbrParticles(ParticleComposition self) -> size_t
+        size_t ParticleComposition::nbrParticles() const
+
+        Returns number of different particles. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_nbrParticles(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > ParticleComposition::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.ParticleComposition_getChildren(self)
+
+    def decompose(self):
+        r"""
+        decompose(ParticleComposition self) -> SafePointerVector< IParticle >
+        SafePointerVector< IParticle > ParticleComposition::decompose() const override final
+
+        Decompose in constituent  IParticle objects. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_decompose(self)
+
+    def bottomTopZ(self):
+        r"""
+        bottomTopZ(ParticleComposition self) -> ParticleLimits
+        ParticleLimits ParticleComposition::bottomTopZ() const override final
+
+        Top and bottom z-coordinate. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_bottomTopZ(self)
+
+# Register ParticleComposition in _libBornAgainCore:
+_libBornAgainCore.ParticleComposition_swigregister(ParticleComposition)
+
+class ParticleCoreShell(IParticle):
+    r"""
+
+
+    A particle with a core/shell geometry.
+
+    C++ includes: ParticleCoreShell.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ParticleCoreShell self, Particle shell, Particle core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0)) -> ParticleCoreShell
+        ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
+
+        """
+        _libBornAgainCore.ParticleCoreShell_swiginit(self, _libBornAgainCore.new_ParticleCoreShell(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_ParticleCoreShell
+
+    def clone(self):
+        r"""
+        clone(ParticleCoreShell self) -> ParticleCoreShell
+        ParticleCoreShell * ParticleCoreShell::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(ParticleCoreShell self, INodeVisitor visitor)
+        void ParticleCoreShell::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
+
+    def createSlicedParticle(self, limits):
+        r"""
+        createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
+        SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
+
+        Create a sliced form factor for this particle. 
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_createSlicedParticle(self, limits)
+
+    def coreParticle(self):
+        r"""
+        coreParticle(ParticleCoreShell self) -> Particle
+        const Particle * ParticleCoreShell::coreParticle() const
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_coreParticle(self)
+
+    def shellParticle(self):
+        r"""
+        shellParticle(ParticleCoreShell self) -> Particle
+        const Particle * ParticleCoreShell::shellParticle() const
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_shellParticle(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > ParticleCoreShell::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_getChildren(self)
+
+# Register ParticleCoreShell in _libBornAgainCore:
+_libBornAgainCore.ParticleCoreShell_swigregister(ParticleCoreShell)
+
+class ParticleDistribution(IAbstractParticle):
+    r"""
+
+
+    A particle type that is a parametric distribution of  IParticle's.
+
+    C++ includes: ParticleDistribution.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, prototype, par_distr):
+        r"""
+        __init__(ParticleDistribution self, IParticle prototype, ParameterDistribution par_distr) -> ParticleDistribution
+        ParticleDistribution::ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr)
+
+        """
+        _libBornAgainCore.ParticleDistribution_swiginit(self, _libBornAgainCore.new_ParticleDistribution(prototype, par_distr))
+
+    def clone(self):
+        r"""
+        clone(ParticleDistribution self) -> ParticleDistribution
+        ParticleDistribution * ParticleDistribution::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(ParticleDistribution self, INodeVisitor visitor)
+        void ParticleDistribution::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
+
+    def translate(self, translation):
+        r"""
+        translate(ParticleDistribution self, kvector_t translation)
+        void ParticleDistribution::translate(kvector_t translation) override final
+
+        Translates the particle with the given vector. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_translate(self, translation)
+
+    def rotate(self, rotation):
+        r"""
+        rotate(ParticleDistribution self, IRotation rotation)
+        void ParticleDistribution::rotate(const IRotation &rotation) override final
+
+        Applies the given rotation to the particle. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_rotate(self, rotation)
+
+    def generateParticles(self):
+        r"""
+        generateParticles(ParticleDistribution self) -> SafePointerVector< IParticle >
+        SafePointerVector< IParticle > ParticleDistribution::generateParticles() const
+
+        Returns list of new particles generated according to a distribution.
+
+        Returns particle clones with parameter values drawn from distribution. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_generateParticles(self)
+
+    def prototype(self):
+        r"""
+        prototype(ParticleDistribution self) -> IParticle
+        const IParticle& ParticleDistribution::prototype() const
+
+        Returns the prototype particle, used for generating multiple ones. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_prototype(self)
+
+    def parameterDistribution(self):
+        r"""
+        parameterDistribution(ParticleDistribution self) -> ParameterDistribution
+        ParameterDistribution ParticleDistribution::parameterDistribution() const
+
+        Returns the distributed parameter data. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_parameterDistribution(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > ParticleDistribution::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_getChildren(self)
+
+    def mainUnits(self):
+        r"""
+        mainUnits(ParticleDistribution self) -> std::string
+        std::string ParticleDistribution::mainUnits() const
+
+        """
+        return _libBornAgainCore.ParticleDistribution_mainUnits(self)
+    __swig_destroy__ = _libBornAgainCore.delete_ParticleDistribution
+
+# Register ParticleDistribution in _libBornAgainCore:
+_libBornAgainCore.ParticleDistribution_swigregister(ParticleDistribution)
 
 class IFTDecayFunction1D(ICloneable, INode):
     r"""
@@ -7403,9 +10584,9 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma=0):
+    def __init__(self, decay_length_x, decay_length_y, gamma):
         r"""
-        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
+        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DCauchy
         FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
@@ -7456,9 +10637,9 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma=0):
+    def __init__(self, decay_length_x, decay_length_y, gamma):
         r"""
-        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
+        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DGauss
         FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
@@ -7509,9 +10690,9 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, eta, gamma=0):
+    def __init__(self, decay_length_x, decay_length_y, gamma, eta):
         r"""
-        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
+        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double gamma, double eta) -> FTDecayFunction2DVoigt
         FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0)
 
         Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
@@ -7532,7 +10713,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         distribution orientation with respect to the first lattice vector in radians 
 
         """
-        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, eta, gamma))
+        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, gamma, eta))
 
     def clone(self):
         r"""
@@ -7589,7 +10770,6 @@ class IFTDistribution1D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
 
     def clone(self):
         r"""
@@ -7634,6 +10814,7 @@ class IFTDistribution1D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDistribution1D_qSecondDerivative(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
 
 # Register IFTDistribution1D in _libBornAgainCore:
 _libBornAgainCore.IFTDistribution1D_swigregister(IFTDistribution1D)
@@ -8050,6 +11231,7 @@ class IFTDistribution2D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
     def clone(self):
         r"""
@@ -8108,7 +11290,6 @@ class IFTDistribution2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDistribution2D_evaluate(self, qx, qy)
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
 # Register IFTDistribution2D in _libBornAgainCore:
 _libBornAgainCore.IFTDistribution2D_swigregister(IFTDistribution2D)
@@ -8126,9 +11307,9 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCauchy
         FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -8179,9 +11360,9 @@ class FTDistribution2DGauss(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGauss
         FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -8232,9 +11413,9 @@ class FTDistribution2DGate(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGate
         FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -8285,9 +11466,9 @@ class FTDistribution2DCone(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma):
         r"""
-        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCone
         FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma=0)
 
         """
@@ -8338,9 +11519,9 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, eta, gamma=0):
+    def __init__(self, omega_x, omega_y, gamma, eta):
         r"""
-        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta, double gamma=0) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double gamma, double eta) -> FTDistribution2DVoigt
         FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0)
 
         Constructor of two-dimensional pseudo-Voigt probability distribution.
@@ -8361,7 +11542,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         angle in direct space between first lattice vector and x-axis of the distribution in radians 
 
         """
-        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, eta, gamma))
+        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, gamma, eta))
 
     def clone(self):
         r"""
@@ -8403,596 +11584,121 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 # Register FTDistribution2DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
 
-class FixedBinAxis(IAxis):
+class IInterferenceFunction(ISample):
     r"""
 
 
-    Axis with fixed bin size.
+    Pure virtual base class of interference functions.
 
-    C++ includes: FixedBinAxis.h
+    C++ includes: IInterferenceFunction.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
-
-    def __init__(self, name, nbins, start, end):
-        r"""
-        __init__(FixedBinAxis self, std::string const & name, size_t nbins, double start, double end) -> FixedBinAxis
-        FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
-
-        FixedBinAxis constructor.
-
-        Parameters:
-        -----------
-
-        name: 
-        Axis name
-
-        nbins: 
-        number of bins
-
-        start: 
-        low edge of first bin
-
-        end: 
-        upper edge of last bin 
-
-        """
-        _libBornAgainCore.FixedBinAxis_swiginit(self, _libBornAgainCore.new_FixedBinAxis(name, nbins, start, end))
-    __swig_destroy__ = _libBornAgainCore.delete_FixedBinAxis
-
-    def clone(self):
-        r"""
-        clone(FixedBinAxis self) -> FixedBinAxis
-        FixedBinAxis * FixedBinAxis::clone() const
-
-        clone function 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_clone(self)
-
-    def size(self):
-        r"""
-        size(FixedBinAxis self) -> size_t
-        size_t FixedBinAxis::size() const
-
-        retrieve the number of bins 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_size(self)
-
-    def getBin(self, index):
-        r"""
-        getBin(FixedBinAxis self, size_t index) -> Bin1D
-        Bin1D FixedBinAxis::getBin(size_t index) const
-
-        retrieve a 1d bin for the given index 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBin(self, index)
-
-    def getMin(self):
-        r"""
-        getMin(FixedBinAxis self) -> double
-        double FixedBinAxis::getMin() const
-
-        Returns value of first point of axis. 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getMin(self)
-
-    def getMax(self):
-        r"""
-        getMax(FixedBinAxis self) -> double
-        double FixedBinAxis::getMax() const
-
-        Returns value of last point of axis. 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getMax(self)
-
-    def getBinCenter(self, index):
-        r"""
-        getBinCenter(FixedBinAxis self, size_t index) -> double
-        double FixedBinAxis::getBinCenter(size_t index) const
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBinCenter(self, index)
-
-    def findClosestIndex(self, value):
-        r"""
-        findClosestIndex(FixedBinAxis self, double value) -> size_t
-        size_t FixedBinAxis::findClosestIndex(double value) const
-
-        find bin index which is best match for given value 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_findClosestIndex(self, value)
-
-    def getBinCenters(self):
-        r"""
-        getBinCenters(FixedBinAxis self) -> vdouble1d_t
-        std::vector< double > FixedBinAxis::getBinCenters() const
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBinCenters(self)
-
-    def getBinBoundaries(self):
-        r"""
-        getBinBoundaries(FixedBinAxis self) -> vdouble1d_t
-        std::vector< double > FixedBinAxis::getBinBoundaries() const
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBinBoundaries(self)
-
-    def createClippedAxis(self, left, right):
-        r"""
-        createClippedAxis(FixedBinAxis self, double left, double right) -> FixedBinAxis
-        FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
-
-        Creates a new clipped axis. 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_createClippedAxis(self, left, right)
-
-    def __getitem__(self, i):
-        r"""__getitem__(FixedBinAxis self, unsigned int i) -> double"""
-        return _libBornAgainCore.FixedBinAxis___getitem__(self, i)
-
-# Register FixedBinAxis in _libBornAgainCore:
-_libBornAgainCore.FixedBinAxis_swigregister(FixedBinAxis)
-
-class IFormFactor(ISample):
-    r"""
-
-
-    Pure virtual base class for all form factors.
-
-    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-
-    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
-
-    C++ includes: IFormFactor.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(IFormFactor self) -> IFormFactor
-        IFormFactor::IFormFactor()
-
-        """
-        if self.__class__ == IFormFactor:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.IFormFactor_swiginit(self, _libBornAgainCore.new_IFormFactor(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_IFormFactor
-
-    def clone(self):
-        r"""
-        clone(IFormFactor self) -> IFormFactor
-        IFormFactor* IFormFactor::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IFormFactor_clone(self)
-
-    def createSlicedFormFactor(self, limits, rot, translation):
-        r"""
-        createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor
-        IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
-
-        Creates a (possibly sliced) form factor with the given rotation and translation. 
-
-        """
-        return _libBornAgainCore.IFormFactor_createSlicedFormFactor(self, limits, rot, translation)
-
-    def setAmbientMaterial(self, arg0):
-        r"""
-        setAmbientMaterial(IFormFactor self, Material arg0)
-        virtual void IFormFactor::setAmbientMaterial(Material)=0
-
-        Passes the material in which this particle is embedded. 
-
-        """
-        return _libBornAgainCore.IFormFactor_setAmbientMaterial(self, arg0)
-
-    def evaluate(self, wavevectors):
-        r"""
-        evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t
-        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
-
-        """
-        return _libBornAgainCore.IFormFactor_evaluate(self, wavevectors)
-
-    def volume(self):
-        r"""
-        volume(IFormFactor self) -> double
-        double IFormFactor::volume() const
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.IFormFactor_volume(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(IFormFactor self) -> double
-        virtual double IFormFactor::radialExtension() const =0
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.IFormFactor_radialExtension(self)
-
-    def bottomZ(self, rotation):
-        r"""
-        bottomZ(IFormFactor self, IRotation rotation) -> double
-        virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
-        return _libBornAgainCore.IFormFactor_bottomZ(self, rotation)
-
-    def topZ(self, rotation):
-        r"""
-        topZ(IFormFactor self, IRotation rotation) -> double
-        virtual double IFormFactor::topZ(const IRotation &rotation) const =0
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
-        return _libBornAgainCore.IFormFactor_topZ(self, rotation)
-
-    def canSliceAnalytically(self, rot):
-        r"""canSliceAnalytically(IFormFactor self, IRotation rot) -> bool"""
-        return _libBornAgainCore.IFormFactor_canSliceAnalytically(self, rot)
-
-    def sliceFormFactor(self, limits, rot, translation):
-        r"""sliceFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
-        return _libBornAgainCore.IFormFactor_sliceFormFactor(self, limits, rot, translation)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IFormFactor(self)
-        return weakref.proxy(self)
-
-# Register IFormFactor in _libBornAgainCore:
-_libBornAgainCore.IFormFactor_swigregister(IFormFactor)
-
-
-def CreateTransformedFormFactor(formfactor, rot, translation):
-    r"""
-    CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
-    IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-
-    """
-    return _libBornAgainCore.CreateTransformedFormFactor(formfactor, rot, translation)
-class vector_IFormFactorPtr_t(object):
-    r"""Proxy of C++ std::vector< IFormFactor * > class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def iterator(self):
-        r"""iterator(vector_IFormFactorPtr_t self) -> SwigPyIterator"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_iterator(self)
-    def __iter__(self):
-        return self.iterator()
-
-    def __nonzero__(self):
-        r"""__nonzero__(vector_IFormFactorPtr_t self) -> bool"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t___nonzero__(self)
-
-    def __bool__(self):
-        r"""__bool__(vector_IFormFactorPtr_t self) -> bool"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t___bool__(self)
-
-    def __len__(self):
-        r"""__len__(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::size_type"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t___len__(self)
-
-    def __getslice__(self, i, j):
-        r"""__getslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j) -> vector_IFormFactorPtr_t"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t___getslice__(self, i, j)
-
-    def __setslice__(self, *args):
-        r"""
-        __setslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j)
-        __setslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j, vector_IFormFactorPtr_t v)
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t___setslice__(self, *args)
-
-    def __delslice__(self, i, j):
-        r"""__delslice__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, std::vector< IFormFactor * >::difference_type j)"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t___delslice__(self, i, j)
-
-    def __delitem__(self, *args):
-        r"""
-        __delitem__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i)
-        __delitem__(vector_IFormFactorPtr_t self, PySliceObject * slice)
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t___delitem__(self, *args)
-
-    def __getitem__(self, *args):
-        r"""
-        __getitem__(vector_IFormFactorPtr_t self, PySliceObject * slice) -> vector_IFormFactorPtr_t
-        __getitem__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i) -> IFormFactor
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t___getitem__(self, *args)
-
-    def __setitem__(self, *args):
-        r"""
-        __setitem__(vector_IFormFactorPtr_t self, PySliceObject * slice, vector_IFormFactorPtr_t v)
-        __setitem__(vector_IFormFactorPtr_t self, PySliceObject * slice)
-        __setitem__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::difference_type i, IFormFactor x)
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t___setitem__(self, *args)
-
-    def pop(self):
-        r"""pop(vector_IFormFactorPtr_t self) -> IFormFactor"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_pop(self)
-
-    def append(self, x):
-        r"""append(vector_IFormFactorPtr_t self, IFormFactor x)"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_append(self, x)
-
-    def empty(self):
-        r"""empty(vector_IFormFactorPtr_t self) -> bool"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_empty(self)
-
-    def size(self):
-        r"""size(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::size_type"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_size(self)
-
-    def swap(self, v):
-        r"""
-        swap(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t_swap(self, v)
-
-    def begin(self):
-        r"""begin(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::iterator"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_begin(self)
-
-    def end(self):
-        r"""end(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::iterator"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_end(self)
-
-    def rbegin(self):
-        r"""rbegin(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::reverse_iterator"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_rbegin(self)
-
-    def rend(self):
-        r"""rend(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::reverse_iterator"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_rend(self)
-
-    def clear(self):
-        r"""clear(vector_IFormFactorPtr_t self)"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_clear(self)
-
-    def get_allocator(self):
-        r"""get_allocator(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::allocator_type"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_get_allocator(self)
-
-    def pop_back(self):
-        r"""pop_back(vector_IFormFactorPtr_t self)"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_pop_back(self)
-
-    def erase(self, *args):
-        r"""
-        erase(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator pos) -> std::vector< IFormFactor * >::iterator
-        erase(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator first, std::vector< IFormFactor * >::iterator last) -> std::vector< IFormFactor * >::iterator
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t_erase(self, *args)
 
     def __init__(self, *args):
         r"""
-        __init__(vector_IFormFactorPtr_t self) -> vector_IFormFactorPtr_t
-        __init__(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t other) -> vector_IFormFactorPtr_t
-        __init__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type size) -> vector_IFormFactorPtr_t
-        __init__(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type size, IFormFactor value) -> vector_IFormFactorPtr_t
-        """
-        _libBornAgainCore.vector_IFormFactorPtr_t_swiginit(self, _libBornAgainCore.new_vector_IFormFactorPtr_t(*args))
-
-    def push_back(self, x):
-        r"""push_back(vector_IFormFactorPtr_t self, IFormFactor x)"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_push_back(self, x)
-
-    def front(self):
-        r"""front(vector_IFormFactorPtr_t self) -> IFormFactor"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_front(self)
-
-    def back(self):
-        r"""back(vector_IFormFactorPtr_t self) -> IFormFactor"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_back(self)
-
-    def assign(self, n, x):
-        r"""assign(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type n, IFormFactor x)"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_assign(self, n, x)
-
-    def resize(self, *args):
-        r"""
-        resize(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type new_size)
-        resize(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type new_size, IFormFactor x)
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t_resize(self, *args)
-
-    def insert(self, *args):
-        r"""
-        insert(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator pos, IFormFactor x) -> std::vector< IFormFactor * >::iterator
-        insert(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::iterator pos, std::vector< IFormFactor * >::size_type n, IFormFactor x)
-        """
-        return _libBornAgainCore.vector_IFormFactorPtr_t_insert(self, *args)
-
-    def reserve(self, n):
-        r"""reserve(vector_IFormFactorPtr_t self, std::vector< IFormFactor * >::size_type n)"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_reserve(self, n)
-
-    def capacity(self):
-        r"""capacity(vector_IFormFactorPtr_t self) -> std::vector< IFormFactor * >::size_type"""
-        return _libBornAgainCore.vector_IFormFactorPtr_t_capacity(self)
-    __swig_destroy__ = _libBornAgainCore.delete_vector_IFormFactorPtr_t
-
-# Register vector_IFormFactorPtr_t in _libBornAgainCore:
-_libBornAgainCore.vector_IFormFactorPtr_t_swigregister(vector_IFormFactorPtr_t)
-
-class IFormFactorBorn(IFormFactor):
-    r"""
-
-
-    Pure virtual base class for Born form factors.
-
-    In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
-
-    C++ includes: IFormFactorBorn.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(IFormFactorBorn self) -> IFormFactorBorn
-        IFormFactorBorn::IFormFactorBorn()=default
+        __init__(IInterferenceFunction self) -> IInterferenceFunction
+        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
+        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
 
         """
-        if self.__class__ == IFormFactorBorn:
+        if self.__class__ == IInterferenceFunction:
             _self = None
         else:
             _self = self
-        _libBornAgainCore.IFormFactorBorn_swiginit(self, _libBornAgainCore.new_IFormFactorBorn(_self, ))
-    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorBorn
+        _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
+    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
 
     def clone(self):
         r"""
-        clone(IFormFactorBorn self) -> IFormFactorBorn
-        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+        clone(IInterferenceFunction self) -> IInterferenceFunction
+        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.IFormFactorBorn_clone(self)
+        return _libBornAgainCore.IInterferenceFunction_clone(self)
 
-    def setAmbientMaterial(self, arg0):
+    def evaluate(self, q, outer_iff=1.0):
         r"""
-        setAmbientMaterial(IFormFactorBorn self, Material arg0)
-        void IFormFactorBorn::setAmbientMaterial(Material) override
+        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
+        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
-        Passes the material in which this particle is embedded. 
+        Evaluates the interference function for a given wavevector transfer. 
 
         """
-        return _libBornAgainCore.IFormFactorBorn_setAmbientMaterial(self, arg0)
+        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
 
-    def evaluate(self, wavevectors):
+    def setPositionVariance(self, var):
         r"""
-        evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
-        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
+        setPositionVariance(IInterferenceFunction self, double var)
+        void IInterferenceFunction::setPositionVariance(double var)
 
-        Returns scattering amplitude for complex wavevectors ki, kf. 
+        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
 
         """
-        return _libBornAgainCore.IFormFactorBorn_evaluate(self, wavevectors)
+        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
 
-    def bottomZ(self, rotation):
+    def positionVariance(self):
         r"""
-        bottomZ(IFormFactorBorn self, IRotation rotation) -> double
-        double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
+        positionVariance(IInterferenceFunction self) -> double
+        double IInterferenceFunction::positionVariance() const
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+        Returns the position variance. 
 
         """
-        return _libBornAgainCore.IFormFactorBorn_bottomZ(self, rotation)
+        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
 
-    def topZ(self, rotation):
+    def getParticleDensity(self):
         r"""
-        topZ(IFormFactorBorn self, IRotation rotation) -> double
-        double IFormFactorBorn::topZ(const IRotation &rotation) const override
+        getParticleDensity(IInterferenceFunction self) -> double
+        virtual double IInterferenceFunction::getParticleDensity() const
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 
         """
-        return _libBornAgainCore.IFormFactorBorn_topZ(self, rotation)
+        return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
 
-    def evaluate_for_q(self, q):
+    def supportsMultilayer(self):
         r"""
-        evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+        supportsMultilayer(IInterferenceFunction self) -> bool
+        virtual bool IInterferenceFunction::supportsMultilayer() const
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
 
         """
-        return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
+        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
 
-    def canSliceAnalytically(self, rot):
-        r"""canSliceAnalytically(IFormFactorBorn self, IRotation rot) -> bool"""
-        return _libBornAgainCore.IFormFactorBorn_canSliceAnalytically(self, rot)
+    def DWfactor(self, q):
+        r"""
+        DWfactor(IInterferenceFunction self, kvector_t q) -> double
+        double IInterferenceFunction::DWfactor(kvector_t q) const
+
+        Evaluates the Debye-Waller factor for a given wavevector transfer. 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
+
+    def iff_without_dw(self, q):
+        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
     def __disown__(self):
         self.this.disown()
-        _libBornAgainCore.disown_IFormFactorBorn(self)
+        _libBornAgainCore.disown_IInterferenceFunction(self)
         return weakref.proxy(self)
 
-    def sliceFormFactor(self, limits, rot, translation):
-        r"""sliceFormFactor(IFormFactorBorn self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
-        return _libBornAgainCore.IFormFactorBorn_sliceFormFactor(self, limits, rot, translation)
+# Register IInterferenceFunction in _libBornAgainCore:
+_libBornAgainCore.IInterferenceFunction_swigregister(IInterferenceFunction)
 
-# Register IFormFactorBorn in _libBornAgainCore:
-_libBornAgainCore.IFormFactorBorn_swigregister(IFormFactorBorn)
-
-class SlicingEffects(object):
+class ILayout(ISample):
     r"""
 
 
-    Nested structure that holds slicing effects on position and removed parts.
+    Pure virtual interface class to equip a sample layer with scattering properties. Currently only inherited by  ParticleLayout; in the future also by domain structure.
 
-    C++ includes: IFormFactorBorn.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    position = property(_libBornAgainCore.SlicingEffects_position_get, _libBornAgainCore.SlicingEffects_position_set, doc=r"""position : kvector_t""")
-    dz_bottom = property(_libBornAgainCore.SlicingEffects_dz_bottom_get, _libBornAgainCore.SlicingEffects_dz_bottom_set, doc=r"""dz_bottom : double""")
-    dz_top = property(_libBornAgainCore.SlicingEffects_dz_top_get, _libBornAgainCore.SlicingEffects_dz_top_set, doc=r"""dz_top : double""")
-
-    def __init__(self):
-        r"""
-        __init__(SlicingEffects self) -> SlicingEffects
-
-
-        Nested structure that holds slicing effects on position and removed parts.
-
-        C++ includes: IFormFactorBorn.h
-
-        """
-        _libBornAgainCore.SlicingEffects_swiginit(self, _libBornAgainCore.new_SlicingEffects())
-    __swig_destroy__ = _libBornAgainCore.delete_SlicingEffects
-
-# Register SlicingEffects in _libBornAgainCore:
-_libBornAgainCore.SlicingEffects_swigregister(SlicingEffects)
-
-class IFormFactorDecorator(IFormFactor):
-    r"""
-
-
-    Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
-
-    This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
-
-    C++ includes: IFormFactorDecorator.h
+    C++ includes: ILayout.h
 
     """
 
@@ -9001,88 +11707,2933 @@ class IFormFactorDecorator(IFormFactor):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorDecorator
+    __swig_destroy__ = _libBornAgainCore.delete_ILayout
 
     def clone(self):
         r"""
-        clone(IFormFactorDecorator self) -> IFormFactorDecorator
-        IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
+        clone(ILayout self) -> ILayout
+        virtual ILayout* ILayout::clone() const =0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_clone(self)
+        return _libBornAgainCore.ILayout_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(IFormFactorDecorator self, INodeVisitor visitor)
-        void IFormFactorDecorator::accept(INodeVisitor *visitor) const override=0
+        accept(ILayout self, INodeVisitor visitor)
+        virtual void ILayout::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_accept(self, visitor)
+        return _libBornAgainCore.ILayout_accept(self, visitor)
 
-    def setAmbientMaterial(self, material):
+    def particles(self):
         r"""
-        setAmbientMaterial(IFormFactorDecorator self, Material material)
-        void IFormFactorDecorator::setAmbientMaterial(Material material) override
+        particles(ILayout self) -> SafePointerVector< IParticle >
+        virtual SafePointerVector<IParticle> ILayout::particles() const =0
 
-        Passes the material in which this particle is embedded. 
+        Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_setAmbientMaterial(self, material)
+        return _libBornAgainCore.ILayout_particles(self)
 
-    def volume(self):
+    def interferenceFunction(self):
         r"""
-        volume(IFormFactorDecorator self) -> double
-        double IFormFactorDecorator::volume() const override
+        interferenceFunction(ILayout self) -> IInterferenceFunction
+        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
 
-        Returns the total volume of the particle of this form factor's shape. 
+        Returns the interference function. 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_volume(self)
+        return _libBornAgainCore.ILayout_interferenceFunction(self)
 
-    def radialExtension(self):
+    def getTotalAbundance(self):
         r"""
-        radialExtension(IFormFactorDecorator self) -> double
-        double IFormFactorDecorator::radialExtension() const override
+        getTotalAbundance(ILayout self) -> double
+        virtual double ILayout::getTotalAbundance() const =0
 
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        Get total abundance of all particles. 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_radialExtension(self)
+        return _libBornAgainCore.ILayout_getTotalAbundance(self)
 
-    def bottomZ(self, rotation):
+    def totalParticleSurfaceDensity(self):
         r"""
-        bottomZ(IFormFactorDecorator self, IRotation rotation) -> double
-        double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
+        totalParticleSurfaceDensity(ILayout self) -> double
+        virtual double ILayout::totalParticleSurfaceDensity() const =0
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+        Returns surface density of all particles. 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_bottomZ(self, rotation)
+        return _libBornAgainCore.ILayout_totalParticleSurfaceDensity(self)
 
-    def topZ(self, rotation):
+    def setTotalParticleSurfaceDensity(self, particle_density):
         r"""
-        topZ(IFormFactorDecorator self, IRotation rotation) -> double
-        double IFormFactorDecorator::topZ(const IRotation &rotation) const override
+        setTotalParticleSurfaceDensity(ILayout self, double particle_density)
+        virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+        Sets surface density of all particles. 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_topZ(self, rotation)
+        return _libBornAgainCore.ILayout_setTotalParticleSurfaceDensity(self, particle_density)
 
-    def getFormFactor(self):
+    def weight(self):
         r"""
-        getFormFactor(IFormFactorDecorator self) -> IFormFactor
-        const IFormFactor* IFormFactorDecorator::getFormFactor() const
+        weight(ILayout self) -> double
+        double ILayout::weight() const
+
+        Returns the relative weight of this layout. 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_getFormFactor(self)
+        return _libBornAgainCore.ILayout_weight(self)
 
-# Register IFormFactorDecorator in _libBornAgainCore:
-_libBornAgainCore.IFormFactorDecorator_swigregister(IFormFactorDecorator)
+    def setWeight(self, weight):
+        r"""
+        setWeight(ILayout self, double weight)
+        void ILayout::setWeight(double weight)
+
+        Sets the relative weight of this layout. 
+
+        """
+        return _libBornAgainCore.ILayout_setWeight(self, weight)
+
+# Register ILayout in _libBornAgainCore:
+_libBornAgainCore.ILayout_swigregister(ILayout)
+
+class IPeakShape(ISample):
+    r"""
+
+
+    Pure virtual interface class that defines the peak shape of a Bragg peak.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IPeakShape
+
+    def clone(self):
+        r"""
+        clone(IPeakShape self) -> IPeakShape
+        virtual IPeakShape* IPeakShape::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IPeakShape_clone(self)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(IPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.IPeakShape_evaluate(self, q, q_lattice_point)
+
+    def angularDisorder(self):
+        r"""
+        angularDisorder(IPeakShape self) -> bool
+        virtual bool IPeakShape::angularDisorder() const
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.IPeakShape_angularDisorder(self)
+
+# Register IPeakShape in _libBornAgainCore:
+_libBornAgainCore.IPeakShape_swigregister(IPeakShape)
+
+class IsotropicGaussPeakShape(IPeakShape):
+    r"""
+
+
+    Class that implements an isotropic Gaussian peak shape of a Bragg peak.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, domainsize):
+        r"""
+        __init__(IsotropicGaussPeakShape self, double max_intensity, double domainsize) -> IsotropicGaussPeakShape
+        IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
+
+        """
+        _libBornAgainCore.IsotropicGaussPeakShape_swiginit(self, _libBornAgainCore.new_IsotropicGaussPeakShape(max_intensity, domainsize))
+    __swig_destroy__ = _libBornAgainCore.delete_IsotropicGaussPeakShape
+
+    def clone(self):
+        r"""
+        clone(IsotropicGaussPeakShape self) -> IsotropicGaussPeakShape
+        IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IsotropicGaussPeakShape_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IsotropicGaussPeakShape self, INodeVisitor visitor)
+        void IsotropicGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IsotropicGaussPeakShape_accept(self, visitor)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(IsotropicGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.IsotropicGaussPeakShape_evaluate(self, q, q_lattice_point)
+
+# Register IsotropicGaussPeakShape in _libBornAgainCore:
+_libBornAgainCore.IsotropicGaussPeakShape_swigregister(IsotropicGaussPeakShape)
+
+class IsotropicLorentzPeakShape(IPeakShape):
+    r"""
+
+
+    Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, domainsize):
+        r"""
+        __init__(IsotropicLorentzPeakShape self, double max_intensity, double domainsize) -> IsotropicLorentzPeakShape
+        IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
+
+        """
+        _libBornAgainCore.IsotropicLorentzPeakShape_swiginit(self, _libBornAgainCore.new_IsotropicLorentzPeakShape(max_intensity, domainsize))
+    __swig_destroy__ = _libBornAgainCore.delete_IsotropicLorentzPeakShape
+
+    def clone(self):
+        r"""
+        clone(IsotropicLorentzPeakShape self) -> IsotropicLorentzPeakShape
+        IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IsotropicLorentzPeakShape self, INodeVisitor visitor)
+        void IsotropicLorentzPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_accept(self, visitor)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(IsotropicLorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_evaluate(self, q, q_lattice_point)
+
+# Register IsotropicLorentzPeakShape in _libBornAgainCore:
+_libBornAgainCore.IsotropicLorentzPeakShape_swigregister(IsotropicLorentzPeakShape)
+
+class GaussFisherPeakShape(IPeakShape):
+    r"""
+
+
+    Class that implements a peak shape that is Gaussian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, kappa):
+        r"""
+        __init__(GaussFisherPeakShape self, double max_intensity, double radial_size, double kappa) -> GaussFisherPeakShape
+        GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
+
+        """
+        _libBornAgainCore.GaussFisherPeakShape_swiginit(self, _libBornAgainCore.new_GaussFisherPeakShape(max_intensity, radial_size, kappa))
+    __swig_destroy__ = _libBornAgainCore.delete_GaussFisherPeakShape
+
+    def clone(self):
+        r"""
+        clone(GaussFisherPeakShape self) -> GaussFisherPeakShape
+        GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(GaussFisherPeakShape self, INodeVisitor visitor)
+        void GaussFisherPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_accept(self, visitor)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(GaussFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_evaluate(self, q, q_lattice_point)
+
+    def angularDisorder(self):
+        r"""
+        angularDisorder(GaussFisherPeakShape self) -> bool
+        bool GaussFisherPeakShape::angularDisorder() const override
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_angularDisorder(self)
+
+# Register GaussFisherPeakShape in _libBornAgainCore:
+_libBornAgainCore.GaussFisherPeakShape_swigregister(GaussFisherPeakShape)
+
+class LorentzFisherPeakShape(IPeakShape):
+    r"""
+
+
+    Class that implements a peak shape that is Lorentzian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, kappa):
+        r"""
+        __init__(LorentzFisherPeakShape self, double max_intensity, double radial_size, double kappa) -> LorentzFisherPeakShape
+        LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa)
+
+        """
+        _libBornAgainCore.LorentzFisherPeakShape_swiginit(self, _libBornAgainCore.new_LorentzFisherPeakShape(max_intensity, radial_size, kappa))
+    __swig_destroy__ = _libBornAgainCore.delete_LorentzFisherPeakShape
+
+    def clone(self):
+        r"""
+        clone(LorentzFisherPeakShape self) -> LorentzFisherPeakShape
+        LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(LorentzFisherPeakShape self, INodeVisitor visitor)
+        void LorentzFisherPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_accept(self, visitor)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(LorentzFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_evaluate(self, q, q_lattice_point)
+
+    def angularDisorder(self):
+        r"""
+        angularDisorder(LorentzFisherPeakShape self) -> bool
+        bool LorentzFisherPeakShape::angularDisorder() const override
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_angularDisorder(self)
+
+# Register LorentzFisherPeakShape in _libBornAgainCore:
+_libBornAgainCore.LorentzFisherPeakShape_swigregister(LorentzFisherPeakShape)
+
+class VonMisesFisherGaussPeakShape(IPeakShape):
+    r"""
+
+
+    Class that implements a peak shape that is Gaussian in the radial direction and a convolution of a von Mises-Fisher distribution with a von Mises distribution on the two-sphere
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, zenith, kappa_1, kappa_2):
+        r"""
+        __init__(VonMisesFisherGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2) -> VonMisesFisherGaussPeakShape
+        VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
+
+        """
+        _libBornAgainCore.VonMisesFisherGaussPeakShape_swiginit(self, _libBornAgainCore.new_VonMisesFisherGaussPeakShape(max_intensity, radial_size, zenith, kappa_1, kappa_2))
+    __swig_destroy__ = _libBornAgainCore.delete_VonMisesFisherGaussPeakShape
+
+    def clone(self):
+        r"""
+        clone(VonMisesFisherGaussPeakShape self) -> VonMisesFisherGaussPeakShape
+        VonMisesFisherGaussPeakShape * VonMisesFisherGaussPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(VonMisesFisherGaussPeakShape self, INodeVisitor visitor)
+        void VonMisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_accept(self, visitor)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(VonMisesFisherGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_evaluate(self, q, q_lattice_point)
+
+    def angularDisorder(self):
+        r"""
+        angularDisorder(VonMisesFisherGaussPeakShape self) -> bool
+        bool VonMisesFisherGaussPeakShape::angularDisorder() const override
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_angularDisorder(self)
+
+# Register VonMisesFisherGaussPeakShape in _libBornAgainCore:
+_libBornAgainCore.VonMisesFisherGaussPeakShape_swigregister(VonMisesFisherGaussPeakShape)
+
+class VonMisesGaussPeakShape(IPeakShape):
+    r"""
+
+
+    Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution with a 3d Gaussian
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, zenith, kappa):
+        r"""
+        __init__(VonMisesGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa) -> VonMisesGaussPeakShape
+        VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa)
+
+        """
+        _libBornAgainCore.VonMisesGaussPeakShape_swiginit(self, _libBornAgainCore.new_VonMisesGaussPeakShape(max_intensity, radial_size, zenith, kappa))
+    __swig_destroy__ = _libBornAgainCore.delete_VonMisesGaussPeakShape
+
+    def clone(self):
+        r"""
+        clone(VonMisesGaussPeakShape self) -> VonMisesGaussPeakShape
+        VonMisesGaussPeakShape * VonMisesGaussPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.VonMisesGaussPeakShape_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(VonMisesGaussPeakShape self, INodeVisitor visitor)
+        void VonMisesGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.VonMisesGaussPeakShape_accept(self, visitor)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(VonMisesGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.VonMisesGaussPeakShape_evaluate(self, q, q_lattice_point)
+
+    def angularDisorder(self):
+        r"""
+        angularDisorder(VonMisesGaussPeakShape self) -> bool
+        bool VonMisesGaussPeakShape::angularDisorder() const override
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.VonMisesGaussPeakShape_angularDisorder(self)
+
+# Register VonMisesGaussPeakShape in _libBornAgainCore:
+_libBornAgainCore.VonMisesGaussPeakShape_swigregister(VonMisesGaussPeakShape)
+
+class InterferenceFunction1DLattice(IInterferenceFunction):
+    r"""
+
+
+    Interference function of a 1D lattice.
+
+    C++ includes: InterferenceFunction1DLattice.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, length, xi):
+        r"""
+        __init__(InterferenceFunction1DLattice self, double length, double xi) -> InterferenceFunction1DLattice
+        InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
+
+        Constructor of interference function of one-dimensional lattice.
+
+        Parameters:
+        -----------
+
+        length: 
+        lattice constant in nanometers
+
+        xi: 
+        rotation of lattice with respect to x-axis in radians 
+
+        """
+        _libBornAgainCore.InterferenceFunction1DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction1DLattice(length, xi))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction1DLattice
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
+        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction1DLattice_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunction1DLattice self, INodeVisitor visitor)
+        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
+
+    def setDecayFunction(self, decay):
+        r"""
+        setDecayFunction(InterferenceFunction1DLattice self, IFTDecayFunction1D decay)
+        void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &decay)
+
+        Sets one-dimensional decay function.
+
+        Parameters:
+        -----------
+
+        decay: 
+        one-dimensional decay function in reciprocal space 
+
+        """
+        return _libBornAgainCore.InterferenceFunction1DLattice_setDecayFunction(self, decay)
+
+    def getLength(self):
+        r"""getLength(InterferenceFunction1DLattice self) -> double"""
+        return _libBornAgainCore.InterferenceFunction1DLattice_getLength(self)
+
+    def getXi(self):
+        r"""getXi(InterferenceFunction1DLattice self) -> double"""
+        return _libBornAgainCore.InterferenceFunction1DLattice_getXi(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction1DLattice_getChildren(self)
+
+# Register InterferenceFunction1DLattice in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunction1DLattice_swigregister(InterferenceFunction1DLattice)
+
+class InterferenceFunction2DLattice(IInterferenceFunction):
+    r"""
+
+
+    Interference function of a 2D lattice.
+
+    C++ includes: InterferenceFunction2DLattice.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double alpha, double xi) -> InterferenceFunction2DLattice
+        __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
+        InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0)
+
+        Constructor of two-dimensional interference function.
+
+        Parameters:
+        -----------
+
+        length_1: 
+        length of the first basis vector in nanometers
+
+        length_2: 
+        length of the second basis vector in nanometers
+
+        alpha: 
+        angle between the basis vectors in radians
+
+        xi: 
+        rotation of the lattice with respect to the x-axis (beam direction) in radians 
+
+        """
+        _libBornAgainCore.InterferenceFunction2DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction2DLattice(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DLattice
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
+        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunction2DLattice self, INodeVisitor visitor)
+        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_accept(self, visitor)
+
+    @staticmethod
+    def createSquare(lattice_length, xi):
+        r"""createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
+
+    @staticmethod
+    def createHexagonal(lattice_length, xi):
+        r"""createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
+
+    def setDecayFunction(self, decay):
+        r"""
+        setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)
+        void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &decay)
+
+        Sets two-dimensional decay function.
+
+        Parameters:
+        -----------
+
+        decay: 
+        two-dimensional decay function in reciprocal space 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, decay)
+
+    def setIntegrationOverXi(self, integrate_xi):
+        r"""
+        setIntegrationOverXi(InterferenceFunction2DLattice self, bool integrate_xi)
+        void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_setIntegrationOverXi(self, integrate_xi)
+
+    def integrationOverXi(self):
+        r"""
+        integrationOverXi(InterferenceFunction2DLattice self) -> bool
+        bool InterferenceFunction2DLattice::integrationOverXi() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_integrationOverXi(self)
+
+    def lattice(self):
+        r"""
+        lattice(InterferenceFunction2DLattice self) -> Lattice2D
+        const Lattice2D & InterferenceFunction2DLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_lattice(self)
+
+    def getParticleDensity(self):
+        r"""
+        getParticleDensity(InterferenceFunction2DLattice self) -> double
+        double InterferenceFunction2DLattice::getParticleDensity() const override final
+
+        Returns the particle density associated with this 2d lattice. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_getParticleDensity(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_getChildren(self)
+
+    def onChange(self):
+        r"""
+        onChange(InterferenceFunction2DLattice self)
+        void InterferenceFunction2DLattice::onChange() override final
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_onChange(self)
+
+# Register InterferenceFunction2DLattice in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunction2DLattice_swigregister(InterferenceFunction2DLattice)
+
+def InterferenceFunction2DLattice_createSquare(lattice_length, xi):
+    r"""InterferenceFunction2DLattice_createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
+    return _libBornAgainCore.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
+
+def InterferenceFunction2DLattice_createHexagonal(lattice_length, xi):
+    r"""InterferenceFunction2DLattice_createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
+    return _libBornAgainCore.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
+
+class InterferenceFunction2DParaCrystal(IInterferenceFunction):
+    r"""
+
+
+    Interference function of a 2D paracrystal.
+
+    C++ includes: InterferenceFunction2DParaCrystal.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha, double xi, double damping_length) -> InterferenceFunction2DParaCrystal
+        InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0)
+
+        Constructor of interference function of two-dimensional paracrystal.
+
+        Parameters:
+        -----------
+
+        length_1: 
+        length of first lattice vector in nanometers
+
+        length_2: 
+        length of second lattice vector in nanometers
+
+        alpha: 
+        angle between lattice vectors in radians
+
+        xi: 
+        rotation of lattice with respect to x-axis (beam direction) in radians
+
+        damping_length: 
+        the damping (coherence) length of the paracrystal in nanometers 
+
+        """
+        _libBornAgainCore.InterferenceFunction2DParaCrystal_swiginit(self, _libBornAgainCore.new_InterferenceFunction2DParaCrystal(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DParaCrystal
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
+        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunction2DParaCrystal self, INodeVisitor visitor)
+        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
+
+    @staticmethod
+    def createSquare(lattice_length, damping_length, domain_size_1, domain_size_2):
+        r"""createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
+
+    @staticmethod
+    def createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2):
+        r"""createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
+
+    def setDomainSizes(self, size_1, size_2):
+        r"""
+        setDomainSizes(InterferenceFunction2DParaCrystal self, double size_1, double size_2)
+        void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
+
+        Sets the sizes of coherence domains.
+
+        Parameters:
+        -----------
+
+        size_1: 
+        coherence domain size along the first basis vector in nanometers
+
+        size_2: 
+        coherence domain size along the second basis vector in nanometers 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDomainSizes(self, size_1, size_2)
+
+    def setProbabilityDistributions(self, pdf_1, pdf_2):
+        r"""
+        setProbabilityDistributions(InterferenceFunction2DParaCrystal self, IFTDistribution2D pdf_1, IFTDistribution2D pdf_2)
+        void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDistribution2D &pdf_1, const IFTDistribution2D &pdf_2)
+
+        Sets the probability distributions (Fourier transformed) for the two lattice directions.
+
+        Parameters:
+        -----------
+
+        pdf_1: 
+        probability distribution in first lattice direction
+
+        pdf_2: 
+        probability distribution in second lattice direction 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setProbabilityDistributions(self, pdf_1, pdf_2)
+
+    def setDampingLength(self, damping_length):
+        r"""
+        setDampingLength(InterferenceFunction2DParaCrystal self, double damping_length)
+        void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
+
+        Sets the damping length.
+
+        Parameters:
+        -----------
+
+        damping_length: 
+        the damping (coherence) length of the paracrystal in nanometers 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDampingLength(self, damping_length)
+
+    def domainSizes(self):
+        r"""
+        domainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
+        std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_domainSizes(self)
+
+    def setIntegrationOverXi(self, integrate_xi):
+        r"""
+        setIntegrationOverXi(InterferenceFunction2DParaCrystal self, bool integrate_xi)
+        void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
+
+        Enables/disables averaging over the lattice rotation angle.
+
+        Parameters:
+        -----------
+
+        integrate_xi: 
+        integration flag 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setIntegrationOverXi(self, integrate_xi)
+
+    def integrationOverXi(self):
+        r"""
+        integrationOverXi(InterferenceFunction2DParaCrystal self) -> bool
+        bool InterferenceFunction2DParaCrystal::integrationOverXi() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_integrationOverXi(self)
+
+    def dampingLength(self):
+        r"""
+        dampingLength(InterferenceFunction2DParaCrystal self) -> double
+        double InterferenceFunction2DParaCrystal::dampingLength() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_dampingLength(self)
+
+    def lattice(self):
+        r"""
+        lattice(InterferenceFunction2DParaCrystal self) -> Lattice2D
+        const Lattice2D & InterferenceFunction2DParaCrystal::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_lattice(self)
+
+    def getParticleDensity(self):
+        r"""
+        getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
+        double InterferenceFunction2DParaCrystal::getParticleDensity() const override final
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getParticleDensity(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getChildren(self)
+
+    def pdf1(self):
+        r"""
+        pdf1(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D
+        const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf1(self)
+
+    def pdf2(self):
+        r"""
+        pdf2(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D
+        const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf2(self)
+
+# Register InterferenceFunction2DParaCrystal in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
+
+def InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2):
+    r"""InterferenceFunction2DParaCrystal_createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
+    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
+
+def InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2):
+    r"""InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
+    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
+
+class InterferenceFunction2DSuperLattice(IInterferenceFunction):
+    r"""
+
+
+    Interference function of a 2D superlattice with a configurable interference function for each lattice site.
+
+    C++ includes: InterferenceFunction2DSuperLattice.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(InterferenceFunction2DSuperLattice self, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
+        __init__(InterferenceFunction2DSuperLattice self, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
+        InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+
+        Constructor of two-dimensional interference function.
+
+        Parameters:
+        -----------
+
+        length_1: 
+        length of first lattice vector in nanometers
+
+        length_2: 
+        length of second lattice vector in nanometers
+
+        alpha: 
+        angle between lattice vectors in radians
+
+        xi: 
+        rotation of lattice with respect to x-axis (beam direction) in radians 
+
+        """
+        _libBornAgainCore.InterferenceFunction2DSuperLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction2DSuperLattice(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DSuperLattice
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
+        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
+        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_accept(self, visitor)
+
+    def setSubstructureIFF(self, sub_iff):
+        r"""
+        setSubstructureIFF(InterferenceFunction2DSuperLattice self, IInterferenceFunction sub_iff)
+        void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction &sub_iff)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setSubstructureIFF(self, sub_iff)
+
+    def substructureIFF(self):
+        r"""
+        substructureIFF(InterferenceFunction2DSuperLattice self) -> IInterferenceFunction
+        const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_substructureIFF(self)
+
+    @staticmethod
+    def createSquare(lattice_length, xi, size_1, size_2):
+        r"""createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
+
+    @staticmethod
+    def createHexagonal(lattice_length, xi, size_1, size_2):
+        r"""createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+
+    def evaluate(self, q, outer_iff=1.0):
+        r"""
+        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
+        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
+
+        Evaluates the interference function for a given wavevector transfer. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q, outer_iff)
+
+    def domainSize1(self):
+        r"""
+        domainSize1(InterferenceFunction2DSuperLattice self) -> unsigned int
+        unsigned InterferenceFunction2DSuperLattice::domainSize1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize1(self)
+
+    def domainSize2(self):
+        r"""
+        domainSize2(InterferenceFunction2DSuperLattice self) -> unsigned int
+        unsigned InterferenceFunction2DSuperLattice::domainSize2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
+
+    def setIntegrationOverXi(self, integrate_xi):
+        r"""
+        setIntegrationOverXi(InterferenceFunction2DSuperLattice self, bool integrate_xi)
+        void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setIntegrationOverXi(self, integrate_xi)
+
+    def integrationOverXi(self):
+        r"""
+        integrationOverXi(InterferenceFunction2DSuperLattice self) -> bool
+        bool InterferenceFunction2DSuperLattice::integrationOverXi() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_integrationOverXi(self)
+
+    def lattice(self):
+        r"""
+        lattice(InterferenceFunction2DSuperLattice self) -> Lattice2D
+        const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_lattice(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_getChildren(self)
+
+# Register InterferenceFunction2DSuperLattice in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunction2DSuperLattice_swigregister(InterferenceFunction2DSuperLattice)
+
+def InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2):
+    r"""InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
+
+def InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2):
+    r"""InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+
+class InterferenceFunction3DLattice(IInterferenceFunction):
+    r"""
+
+
+    Interference function of a 3D lattice.
+
+    C++ includes: InterferenceFunction3DLattice.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice):
+        r"""
+        __init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice
+        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
+
+        """
+        _libBornAgainCore.InterferenceFunction3DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction3DLattice(lattice))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction3DLattice
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
+        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
+        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
+
+    def setPeakShape(self, peak_shape):
+        r"""
+        setPeakShape(InterferenceFunction3DLattice self, IPeakShape peak_shape)
+        void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
+
+    def lattice(self):
+        r"""
+        lattice(InterferenceFunction3DLattice self) -> Lattice
+        const Lattice & InterferenceFunction3DLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_lattice(self)
+
+    def supportsMultilayer(self):
+        r"""
+        supportsMultilayer(InterferenceFunction3DLattice self) -> bool
+        bool InterferenceFunction3DLattice::supportsMultilayer() const override final
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_supportsMultilayer(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_getChildren(self)
+
+    def onChange(self):
+        r"""
+        onChange(InterferenceFunction3DLattice self)
+        void InterferenceFunction3DLattice::onChange() override final
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_onChange(self)
+
+# Register InterferenceFunction3DLattice in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunction3DLattice_swigregister(InterferenceFunction3DLattice)
+
+class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
+    r"""
+
+
+    Interference function of a finite 2D lattice.
+
+    C++ includes: InterferenceFunctionFinite2DLattice.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(InterferenceFunctionFinite2DLattice self, Lattice2D lattice, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
+        __init__(InterferenceFunctionFinite2DLattice self, double length_1, double length_2, double alpha, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
+        InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
+
+        Constructor of two-dimensional finite lattice interference function.
+
+        Parameters:
+        -----------
+
+        length_1: 
+        length of first lattice vector in nanometers
+
+        length_2: 
+        length of second lattice vector in nanometers
+
+        alpha: 
+        angle between lattice vectors in radians
+
+        xi: 
+        rotation of lattice with respect to x-axis (beam direction) in radians
+
+        N_1: 
+        number of lattice cells in the first lattice direction
+
+        N_2: 
+        number of lattice cells in the second lattice direction 
+
+        """
+        _libBornAgainCore.InterferenceFunctionFinite2DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunctionFinite2DLattice(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite2DLattice
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
+        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunctionFinite2DLattice self, INodeVisitor visitor)
+        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_accept(self, visitor)
+
+    @staticmethod
+    def createSquare(lattice_length, xi, N_1, N_2):
+        r"""createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
+
+    @staticmethod
+    def createHexagonal(lattice_length, xi, N_1, N_2):
+        r"""createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
+
+    def numberUnitCells1(self):
+        r"""
+        numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int
+        unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells1(self)
+
+    def numberUnitCells2(self):
+        r"""
+        numberUnitCells2(InterferenceFunctionFinite2DLattice self) -> unsigned int
+        unsigned InterferenceFunctionFinite2DLattice::numberUnitCells2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells2(self)
+
+    def setIntegrationOverXi(self, integrate_xi):
+        r"""
+        setIntegrationOverXi(InterferenceFunctionFinite2DLattice self, bool integrate_xi)
+        void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setIntegrationOverXi(self, integrate_xi)
+
+    def integrationOverXi(self):
+        r"""
+        integrationOverXi(InterferenceFunctionFinite2DLattice self) -> bool
+        bool InterferenceFunctionFinite2DLattice::integrationOverXi() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_integrationOverXi(self)
+
+    def lattice(self):
+        r"""
+        lattice(InterferenceFunctionFinite2DLattice self) -> Lattice2D
+        const Lattice2D & InterferenceFunctionFinite2DLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_lattice(self)
+
+    def getParticleDensity(self):
+        r"""
+        getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double
+        double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final
+
+        Returns the particle density associated with this 2d lattice. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getParticleDensity(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getChildren(self)
+
+# Register InterferenceFunctionFinite2DLattice in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunctionFinite2DLattice_swigregister(InterferenceFunctionFinite2DLattice)
+
+def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2):
+    r"""InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
+
+def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2):
+    r"""InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
+
+class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
+    r"""
+
+
+    Interference function of a finite 3D lattice.
+
+    C++ includes: InterferenceFunctionFinite3DLattice.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice, N_1, N_2, N_3):
+        r"""
+        __init__(InterferenceFunctionFinite3DLattice self, Lattice lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
+        InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+
+        Constructor of three-dimensional finite lattice interference function.
+
+        Parameters:
+        -----------
+
+        lattice: 
+        object specifying a 2d lattice structure
+
+        N_1: 
+        number of lattice cells in the first lattice direction
+
+        N_2: 
+        number of lattice cells in the second lattice direction 
+
+        """
+        _libBornAgainCore.InterferenceFunctionFinite3DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunctionFinite3DLattice(lattice, N_1, N_2, N_3))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite3DLattice
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
+        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunctionFinite3DLattice self, INodeVisitor visitor)
+        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_accept(self, visitor)
+
+    def numberUnitCells1(self):
+        r"""
+        numberUnitCells1(InterferenceFunctionFinite3DLattice self) -> unsigned int
+        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells1(self)
+
+    def numberUnitCells2(self):
+        r"""
+        numberUnitCells2(InterferenceFunctionFinite3DLattice self) -> unsigned int
+        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells2(self)
+
+    def numberUnitCells3(self):
+        r"""
+        numberUnitCells3(InterferenceFunctionFinite3DLattice self) -> unsigned int
+        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells3() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells3(self)
+
+    def lattice(self):
+        r"""
+        lattice(InterferenceFunctionFinite3DLattice self) -> Lattice
+        const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_lattice(self)
+
+    def supportsMultilayer(self):
+        r"""
+        supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool
+        bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_supportsMultilayer(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_getChildren(self)
+
+# Register InterferenceFunctionFinite3DLattice in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunctionFinite3DLattice_swigregister(InterferenceFunctionFinite3DLattice)
+
+class InterferenceFunctionHardDisk(IInterferenceFunction):
+    r"""
+
+
+    Percus-Yevick hard disk interference function.
+
+    M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direct correlation function of hard discs within the Percus-Yevick equation, Molecular Physics, 85:2, 423-428, DOI: 10.1080/00268979500101211
+
+    C++ includes: InterferenceFunctionHardDisk.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, radius, density):
+        r"""
+        __init__(InterferenceFunctionHardDisk self, double radius, double density) -> InterferenceFunctionHardDisk
+        InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
+
+        """
+        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density))
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionHardDisk
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk
+        InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunctionHardDisk self, INodeVisitor visitor)
+        void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_accept(self, visitor)
+
+    def getParticleDensity(self):
+        r"""
+        getParticleDensity(InterferenceFunctionHardDisk self) -> double
+        double InterferenceFunctionHardDisk::getParticleDensity() const override final
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_getParticleDensity(self)
+
+    def radius(self):
+        r"""
+        radius(InterferenceFunctionHardDisk self) -> double
+        double InterferenceFunctionHardDisk::radius() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_radius(self)
+
+    def density(self):
+        r"""
+        density(InterferenceFunctionHardDisk self) -> double
+        double InterferenceFunctionHardDisk::density() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_density(self)
+
+# Register InterferenceFunctionHardDisk in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunctionHardDisk_swigregister(InterferenceFunctionHardDisk)
+
+class InterferenceFunctionNone(IInterferenceFunction):
+    r"""
+
+
+    Default interference function (i.e. absence of any interference).
+
+    C++ includes: InterferenceFunctionNone.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(InterferenceFunctionNone self) -> InterferenceFunctionNone
+        InterferenceFunctionNone::InterferenceFunctionNone()
+
+        """
+        _libBornAgainCore.InterferenceFunctionNone_swiginit(self, _libBornAgainCore.new_InterferenceFunctionNone())
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
+        InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionNone_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunctionNone self, INodeVisitor visitor)
+        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionNone
+
+# Register InterferenceFunctionNone in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunctionNone_swigregister(InterferenceFunctionNone)
+
+class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
+    r"""
+
+
+    Interference function of radial paracrystal.
+
+    C++ includes: InterferenceFunctionRadialParaCrystal.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, peak_distance, damping_length):
+        r"""
+        __init__(InterferenceFunctionRadialParaCrystal self, double peak_distance, double damping_length) -> InterferenceFunctionRadialParaCrystal
+        InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
+
+        Constructor of interference function of radial paracrystal.
+
+        Parameters:
+        -----------
+
+        peak_distance: 
+        average distance to the next neighbor in nanometers
+
+        damping_length: 
+        the damping (coherence) length of the paracrystal in nanometers 
+
+        """
+        _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swiginit(self, _libBornAgainCore.new_InterferenceFunctionRadialParaCrystal(peak_distance, damping_length))
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
+        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
+        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
+
+    def setKappa(self, kappa):
+        r"""
+        setKappa(InterferenceFunctionRadialParaCrystal self, double kappa)
+        void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
+
+        Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
+
+        Parameters:
+        -----------
+
+        size: 
+        spacing coupling parameter 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
+
+    def kappa(self):
+        r"""
+        kappa(InterferenceFunctionRadialParaCrystal self) -> double
+        double InterferenceFunctionRadialParaCrystal::kappa() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_kappa(self)
+
+    def setDomainSize(self, size):
+        r"""
+        setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
+        void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+
+        Sets domain size (finite size corrections).
+
+        Parameters:
+        -----------
+
+        size: 
+        size of coherence domain along the lattice main axis in nanometers 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
+
+    def domainSize(self):
+        r"""
+        domainSize(InterferenceFunctionRadialParaCrystal self) -> double
+        double InterferenceFunctionRadialParaCrystal::domainSize() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
+
+    def FTPDF(self, qpar):
+        r"""
+        FTPDF(InterferenceFunctionRadialParaCrystal self, double qpar) -> complex_t
+        complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_FTPDF(self, qpar)
+
+    def setProbabilityDistribution(self, pdf):
+        r"""
+        setProbabilityDistribution(InterferenceFunctionRadialParaCrystal self, IFTDistribution1D pdf)
+        void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
+
+        Sets one-dimensional probability distribution.
+
+        Parameters:
+        -----------
+
+        pdf: 
+        probability distribution (Fourier transform of probability density) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
+
+    def peakDistance(self):
+        r"""
+        peakDistance(InterferenceFunctionRadialParaCrystal self) -> double
+        double InterferenceFunctionRadialParaCrystal::peakDistance() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_peakDistance(self)
+
+    def dampingLength(self):
+        r"""
+        dampingLength(InterferenceFunctionRadialParaCrystal self) -> double
+        double InterferenceFunctionRadialParaCrystal::dampingLength() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_dampingLength(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getChildren(self)
+
+    def randomSample(self):
+        r"""
+        randomSample(InterferenceFunctionRadialParaCrystal self) -> double
+        double InterferenceFunctionRadialParaCrystal::randomSample() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_randomSample(self)
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
+
+# Register InterferenceFunctionRadialParaCrystal in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
+
+class InterferenceFunctionTwin(IInterferenceFunction):
+    r"""
+
+
+    Interference function for two particles at a mean distance and given standard deviation from each other in a given direction.
+
+    C++ includes: InterferenceFunctionTwin.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, direction, mean_distance, std_dev):
+        r"""
+        __init__(InterferenceFunctionTwin self, kvector_t direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
+        InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
+
+        """
+        _libBornAgainCore.InterferenceFunctionTwin_swiginit(self, _libBornAgainCore.new_InterferenceFunctionTwin(direction, mean_distance, std_dev))
+
+    def clone(self):
+        r"""
+        clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin
+        InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(InterferenceFunctionTwin self, INodeVisitor visitor)
+        void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_accept(self, visitor)
+
+    def direction(self):
+        r"""
+        direction(InterferenceFunctionTwin self) -> kvector_t
+        kvector_t InterferenceFunctionTwin::direction() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_direction(self)
+
+    def meanDistance(self):
+        r"""
+        meanDistance(InterferenceFunctionTwin self) -> double
+        double InterferenceFunctionTwin::meanDistance() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_meanDistance(self)
+
+    def stdDev(self):
+        r"""
+        stdDev(InterferenceFunctionTwin self) -> double
+        double InterferenceFunctionTwin::stdDev() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_stdDev(self)
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionTwin
+
+# Register InterferenceFunctionTwin in _libBornAgainCore:
+_libBornAgainCore.InterferenceFunctionTwin_swigregister(InterferenceFunctionTwin)
+
+class ParticleLayout(ILayout):
+    r"""
+
+
+    Decorator class that adds particles to  ISample objects.
+
+    C++ includes: ParticleLayout.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ParticleLayout self) -> ParticleLayout
+        __init__(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0) -> ParticleLayout
+        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance=-1.0)
+
+        """
+        _libBornAgainCore.ParticleLayout_swiginit(self, _libBornAgainCore.new_ParticleLayout(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_ParticleLayout
+
+    def clone(self):
+        r"""
+        clone(ParticleLayout self) -> ParticleLayout
+        ParticleLayout * ParticleLayout::clone() const final override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(ParticleLayout self, INodeVisitor visitor)
+        void ParticleLayout::accept(INodeVisitor *visitor) const final override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_accept(self, visitor)
+
+    def addParticle(self, *args):
+        r"""
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position={}, IRotation rotation=IdentityRotation())
+        void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position={}, const IRotation &rotation=IdentityRotation())
+
+        Adds particle to the layout with abundance, position and the rotation defined.
+
+        Parameters:
+        -----------
+
+        particle: 
+        to be added
+
+        abundance: 
+         Particle abundance
+
+        position: 
+         Particle position
+
+        rotation: 
+         Particle rotation 
+
+        """
+        return _libBornAgainCore.ParticleLayout_addParticle(self, *args)
+
+    def particles(self):
+        r"""
+        particles(ParticleLayout self) -> SafePointerVector< IParticle >
+        SafePointerVector< IParticle > ParticleLayout::particles() const final override
+
+        Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
+
+        """
+        return _libBornAgainCore.ParticleLayout_particles(self)
+
+    def interferenceFunction(self):
+        r"""
+        interferenceFunction(ParticleLayout self) -> IInterferenceFunction
+        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
+
+        Returns the interference function. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
+
+    def getTotalAbundance(self):
+        r"""
+        getTotalAbundance(ParticleLayout self) -> double
+        double ParticleLayout::getTotalAbundance() const final override
+
+        Get total abundance of all particles. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_getTotalAbundance(self)
+
+    def setInterferenceFunction(self, interference_function):
+        r"""
+        setInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
+        void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
+
+        Adds interference functions. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_setInterferenceFunction(self, interference_function)
+
+    def totalParticleSurfaceDensity(self):
+        r"""
+        totalParticleSurfaceDensity(ParticleLayout self) -> double
+        double ParticleLayout::totalParticleSurfaceDensity() const final override
+
+        Returns surface density of all particles. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_totalParticleSurfaceDensity(self)
+
+    def setTotalParticleSurfaceDensity(self, particle_density):
+        r"""
+        setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)
+        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
+
+        Sets total particle surface density.
+
+        Parameters:
+        -----------
+
+        particle_density: 
+        number of particles per square nanometer 
+
+        """
+        return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
+
+    def getChildren(self):
+        r"""
+        getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > ParticleLayout::getChildren() const final override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.ParticleLayout_getChildren(self)
+
+# Register ParticleLayout in _libBornAgainCore:
+_libBornAgainCore.ParticleLayout_swigregister(ParticleLayout)
+
+class Beam(INode):
+    r"""
+
+
+    Beam defined by wavelength, direction and intensity.
+
+    C++ includes: Beam.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Beam self, double wavelength, double alpha, double phi, double intensity) -> Beam
+        __init__(Beam self, Beam other) -> Beam
+        Beam::Beam(const Beam &other)
+
+        """
+        _libBornAgainCore.Beam_swiginit(self, _libBornAgainCore.new_Beam(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_Beam
+
+    @staticmethod
+    def horizontalBeam():
+        r"""horizontalBeam() -> Beam"""
+        return _libBornAgainCore.Beam_horizontalBeam()
+
+    def getCentralK(self):
+        r"""
+        getCentralK(Beam self) -> kvector_t
+        kvector_t Beam::getCentralK() const
+
+        Returns the wavevector. 
+
+        """
+        return _libBornAgainCore.Beam_getCentralK(self)
+
+    def setCentralK(self, wavelength, alpha_i, phi_i):
+        r"""
+        setCentralK(Beam self, double wavelength, double alpha_i, double phi_i)
+        void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
+
+        Sets the wavevector in terms of wavelength and incoming angles. 
+
+        """
+        return _libBornAgainCore.Beam_setCentralK(self, wavelength, alpha_i, phi_i)
+
+    def getIntensity(self):
+        r"""
+        getIntensity(Beam self) -> double
+        double Beam::getIntensity() const
+
+        Returns the beam intensity in neutrons/sec. 
+
+        """
+        return _libBornAgainCore.Beam_getIntensity(self)
+
+    def setIntensity(self, intensity):
+        r"""
+        setIntensity(Beam self, double intensity)
+        void Beam::setIntensity(double intensity)
+
+        Sets the beam intensity in neutrons/sec. 
+
+        """
+        return _libBornAgainCore.Beam_setIntensity(self, intensity)
+
+    def footprintFactor(self):
+        r"""
+        footprintFactor(Beam self) -> IFootprintFactor
+        const IFootprintFactor * Beam::footprintFactor() const
+
+        Returns footprint factor. 
+
+        """
+        return _libBornAgainCore.Beam_footprintFactor(self)
+
+    def setFootprintFactor(self, shape_factor):
+        r"""
+        setFootprintFactor(Beam self, IFootprintFactor shape_factor)
+        void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
+
+        Sets footprint factor to the beam. 
+
+        """
+        return _libBornAgainCore.Beam_setFootprintFactor(self, shape_factor)
+
+    def setWidthRatio(self, width_ratio):
+        r"""
+        setWidthRatio(Beam self, double width_ratio)
+        void Beam::setWidthRatio(double width_ratio)
+
+        Sets beam to sample width ratio in footprint factor. 
+
+        """
+        return _libBornAgainCore.Beam_setWidthRatio(self, width_ratio)
+
+    def setPolarization(self, bloch_vector):
+        r"""
+        setPolarization(Beam self, kvector_t bloch_vector)
+        void Beam::setPolarization(const kvector_t bloch_vector)
+
+        Sets the polarization density matrix according to the given Bloch vector. 
+
+        """
+        return _libBornAgainCore.Beam_setPolarization(self, bloch_vector)
+
+    def getBlochVector(self):
+        r"""
+        getBlochVector(Beam self) -> kvector_t
+        kvector_t Beam::getBlochVector() const
+
+        """
+        return _libBornAgainCore.Beam_getBlochVector(self)
+
+    def getWavelength(self):
+        r"""
+        getWavelength(Beam self) -> double
+        double Beam::getWavelength() const
+
+        """
+        return _libBornAgainCore.Beam_getWavelength(self)
+
+    def getAlpha(self):
+        r"""
+        getAlpha(Beam self) -> double
+        double Beam::getAlpha() const
+
+        """
+        return _libBornAgainCore.Beam_getAlpha(self)
+
+    def getPhi(self):
+        r"""
+        getPhi(Beam self) -> double
+        double Beam::getPhi() const
+
+        """
+        return _libBornAgainCore.Beam_getPhi(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(Beam self, INodeVisitor visitor)
+        void Beam::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.Beam_accept(self, visitor)
+
+    def getChildren(self):
+        r"""
+        getChildren(Beam self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > Beam::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.Beam_getChildren(self)
+
+# Register Beam in _libBornAgainCore:
+_libBornAgainCore.Beam_swigregister(Beam)
+
+def Beam_horizontalBeam():
+    r"""Beam_horizontalBeam() -> Beam"""
+    return _libBornAgainCore.Beam_horizontalBeam()
+
+class IFootprintFactor(ICloneable, INode):
+    r"""
+
+
+    Abstract base for classes that calculate the beam footprint factor
+
+    C++ includes: IFootprintFactor.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFootprintFactor
+
+    def clone(self):
+        r"""
+        clone(IFootprintFactor self) -> IFootprintFactor
+        virtual IFootprintFactor* IFootprintFactor::clone() const =0
+
+        """
+        return _libBornAgainCore.IFootprintFactor_clone(self)
+
+    def setWidthRatio(self, width_ratio):
+        r"""
+        setWidthRatio(IFootprintFactor self, double width_ratio)
+        void IFootprintFactor::setWidthRatio(double width_ratio)
+
+        """
+        return _libBornAgainCore.IFootprintFactor_setWidthRatio(self, width_ratio)
+
+    def widthRatio(self):
+        r"""
+        widthRatio(IFootprintFactor self) -> double
+        double IFootprintFactor::widthRatio() const
+
+        """
+        return _libBornAgainCore.IFootprintFactor_widthRatio(self)
+
+    def calculate(self, alpha):
+        r"""
+        calculate(IFootprintFactor self, double alpha) -> double
+        virtual double IFootprintFactor::calculate(double alpha) const =0
+
+        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+
+        """
+        return _libBornAgainCore.IFootprintFactor_calculate(self, alpha)
+
+    def _print(self):
+        r"""
+        _print(IFootprintFactor self) -> std::string
+        virtual std::string IFootprintFactor::print() const =0
+
+        Print python-formatted footprint definition. 
+
+        """
+        return _libBornAgainCore.IFootprintFactor__print(self)
+
+# Register IFootprintFactor in _libBornAgainCore:
+_libBornAgainCore.IFootprintFactor_swigregister(IFootprintFactor)
+
+class FootprintGauss(IFootprintFactor):
+    r"""
+
+
+    Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\[ \\exp{-1/2} \\] from the peak intensity.
+
+    C++ includes: FootprintGauss.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, width_ratio):
+        r"""
+        __init__(FootprintGauss self, double width_ratio) -> FootprintGauss
+        FootprintGauss::FootprintGauss(double width_ratio)
+
+        """
+        _libBornAgainCore.FootprintGauss_swiginit(self, _libBornAgainCore.new_FootprintGauss(width_ratio))
+
+    def accept(self, visitor):
+        r"""
+        accept(FootprintGauss self, INodeVisitor visitor)
+        void FootprintGauss::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FootprintGauss_accept(self, visitor)
+
+    def clone(self):
+        r"""
+        clone(FootprintGauss self) -> FootprintGauss
+        FootprintGauss * FootprintGauss::clone() const override
+
+        """
+        return _libBornAgainCore.FootprintGauss_clone(self)
+
+    def calculate(self, alpha):
+        r"""
+        calculate(FootprintGauss self, double alpha) -> double
+        double FootprintGauss::calculate(double alpha) const override
+
+        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+
+        """
+        return _libBornAgainCore.FootprintGauss_calculate(self, alpha)
+
+    def _print(self):
+        r"""
+        _print(FootprintGauss self) -> std::string
+        std::string FootprintGauss::print() const override
+
+        Print python-formatted footprint definition. 
+
+        """
+        return _libBornAgainCore.FootprintGauss__print(self)
+    __swig_destroy__ = _libBornAgainCore.delete_FootprintGauss
+
+# Register FootprintGauss in _libBornAgainCore:
+_libBornAgainCore.FootprintGauss_swigregister(FootprintGauss)
+
+class FootprintSquare(IFootprintFactor):
+    r"""
+
+
+    Calculates footprint coefficient for a square beam
+
+    C++ includes: FootprintSquare.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, width_ratio):
+        r"""
+        __init__(FootprintSquare self, double width_ratio) -> FootprintSquare
+        FootprintSquare::FootprintSquare(double width_ratio)
+
+        """
+        _libBornAgainCore.FootprintSquare_swiginit(self, _libBornAgainCore.new_FootprintSquare(width_ratio))
+
+    def accept(self, visitor):
+        r"""
+        accept(FootprintSquare self, INodeVisitor visitor)
+        void FootprintSquare::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FootprintSquare_accept(self, visitor)
+
+    def clone(self):
+        r"""
+        clone(FootprintSquare self) -> FootprintSquare
+        FootprintSquare * FootprintSquare::clone() const override
+
+        """
+        return _libBornAgainCore.FootprintSquare_clone(self)
+
+    def calculate(self, alpha):
+        r"""
+        calculate(FootprintSquare self, double alpha) -> double
+        double FootprintSquare::calculate(double alpha) const override
+
+        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+
+        """
+        return _libBornAgainCore.FootprintSquare_calculate(self, alpha)
+
+    def _print(self):
+        r"""
+        _print(FootprintSquare self) -> std::string
+        std::string FootprintSquare::print() const override
+
+        Print python-formatted footprint definition. 
+
+        """
+        return _libBornAgainCore.FootprintSquare__print(self)
+    __swig_destroy__ = _libBornAgainCore.delete_FootprintSquare
+
+# Register FootprintSquare in _libBornAgainCore:
+_libBornAgainCore.FootprintSquare_swigregister(FootprintSquare)
+
+class IMultiLayerBuilder(IParameterized):
+    r"""
+
+
+    Interface to the class capable to build samples to simulate.
+
+    C++ includes: IMultiLayerBuilder.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(IMultiLayerBuilder self) -> IMultiLayerBuilder
+        IMultiLayerBuilder::IMultiLayerBuilder()
+
+        """
+        if self.__class__ == IMultiLayerBuilder:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.IMultiLayerBuilder_swiginit(self, _libBornAgainCore.new_IMultiLayerBuilder(_self, ))
+    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
+
+    def buildSample(self):
+        r"""
+        buildSample(IMultiLayerBuilder self) -> MultiLayer
+        virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
+
+    def createSample(self, index=0):
+        r"""
+        createSample(IMultiLayerBuilder self, size_t index=0) -> MultiLayer
+        virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_createSample(self, index)
+
+    def size(self):
+        r"""
+        size(IMultiLayerBuilder self) -> size_t
+        virtual size_t IMultiLayerBuilder::size()
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_size(self)
+
+    def registerParameter(self, name, parpointer):
+        r"""
+        registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
+        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
+
+    def setParameterValue(self, name, value):
+        r"""
+        setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
+
+    def parametersToString(self):
+        r"""
+        parametersToString(IMultiLayerBuilder self) -> std::string
+        std::string IParameterized::parametersToString() const
+
+        Returns multiline string representing available parameters. 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_parametersToString(self)
+
+    def createParameterTree(self):
+        r"""
+        createParameterTree(IMultiLayerBuilder self) -> ParameterPool
+        ParameterPool * IParameterized::createParameterTree() const
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_createParameterTree(self)
+
+    def parameterPool(self):
+        r"""
+        parameterPool(IMultiLayerBuilder self) -> ParameterPool
+        ParameterPool* IParameterized::parameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_parameterPool(self)
+
+    def onChange(self):
+        r"""
+        onChange(IMultiLayerBuilder self)
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IMultiLayerBuilder(self)
+        return weakref.proxy(self)
+
+# Register IMultiLayerBuilder in _libBornAgainCore:
+_libBornAgainCore.IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
+
+class Layer(ISample):
+    r"""
+
+
+    A layer, with thickness (in nanometer) and material.
+
+    C++ includes: Layer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, material, thickness=0):
+        r"""
+        __init__(Layer self, Material material, double thickness=0) -> Layer
+        Layer::Layer(Material material, double thickness=0)
+
+        Constructor of a layer with thickness and material
+
+        Parameters:
+        -----------
+
+        material: 
+        material the layer is made of
+
+        thickness: 
+        thickness of a layer in nanometers 
+
+        """
+        _libBornAgainCore.Layer_swiginit(self, _libBornAgainCore.new_Layer(material, thickness))
+    __swig_destroy__ = _libBornAgainCore.delete_Layer
+
+    def clone(self):
+        r"""
+        clone(Layer self) -> Layer
+        Layer * Layer::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.Layer_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(Layer self, INodeVisitor visitor)
+        void Layer::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.Layer_accept(self, visitor)
+
+    def setThickness(self, thickness):
+        r"""
+        setThickness(Layer self, double thickness)
+        void Layer::setThickness(double thickness)
+
+        Sets layer thickness in nanometers. 
+
+        """
+        return _libBornAgainCore.Layer_setThickness(self, thickness)
+
+    def thickness(self):
+        r"""
+        thickness(Layer self) -> double
+        double Layer::thickness() const
+
+        """
+        return _libBornAgainCore.Layer_thickness(self)
+
+    def material(self):
+        r"""
+        material(Layer self) -> Material
+        const Material* Layer::material() const override final
+
+        Returns nullptr, unless overwritten to return a specific material. 
+
+        """
+        return _libBornAgainCore.Layer_material(self)
+
+    def setMaterial(self, material):
+        r"""
+        setMaterial(Layer self, Material material)
+        void Layer::setMaterial(Material material)
+
+        """
+        return _libBornAgainCore.Layer_setMaterial(self, material)
+
+    def addLayout(self, decoration):
+        r"""
+        addLayout(Layer self, ILayout decoration)
+        void Layer::addLayout(const ILayout &decoration)
+
+        """
+        return _libBornAgainCore.Layer_addLayout(self, decoration)
+
+    def numberOfLayouts(self):
+        r"""
+        numberOfLayouts(Layer self) -> size_t
+        size_t Layer::numberOfLayouts() const
+
+        """
+        return _libBornAgainCore.Layer_numberOfLayouts(self)
+
+    def layouts(self):
+        r"""
+        layouts(Layer self) -> std::vector< ILayout const *,std::allocator< ILayout const * > >
+        std::vector< const ILayout * > Layer::layouts() const
+
+        """
+        return _libBornAgainCore.Layer_layouts(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(Layer self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > Layer::getChildren() const override final
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.Layer_getChildren(self)
+
+    def registerThickness(self, make_registered=True):
+        r"""
+        registerThickness(Layer self, bool make_registered=True)
+        void Layer::registerThickness(bool make_registered=true)
+
+        """
+        return _libBornAgainCore.Layer_registerThickness(self, make_registered)
+
+    def setNumberOfSlices(self, n_slices):
+        r"""
+        setNumberOfSlices(Layer self, unsigned int n_slices)
+        void Layer::setNumberOfSlices(unsigned int n_slices)
+
+        """
+        return _libBornAgainCore.Layer_setNumberOfSlices(self, n_slices)
+
+    def numberOfSlices(self):
+        r"""
+        numberOfSlices(Layer self) -> unsigned int
+        unsigned int Layer::numberOfSlices() const
+
+        """
+        return _libBornAgainCore.Layer_numberOfSlices(self)
+
+# Register Layer in _libBornAgainCore:
+_libBornAgainCore.Layer_swigregister(Layer)
+
+class LayerRoughness(ISample):
+    r"""
+
+
+    A roughness of interface between two layers.
+
+    Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces"
+
+    C++ includes: LayerRoughness.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(LayerRoughness self) -> LayerRoughness
+        __init__(LayerRoughness self, double sigma, double hurstParameter, double lateralCorrLength) -> LayerRoughness
+        LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
+
+        Constructor of layer roughness.
+
+        Parameters:
+        -----------
+
+        sigma: 
+        rms of the roughness in nanometers
+
+        hurstParameter: 
+        hurst parameter which describes how jagged the interface, dimensionless [0.0, 1.0], where 0.0 gives more spikes, 1.0 more smoothness
+
+        lateralCorrLength: 
+        lateral correlation length of the roughness in nanometers 
+
+        """
+        _libBornAgainCore.LayerRoughness_swiginit(self, _libBornAgainCore.new_LayerRoughness(*args))
+
+    def clone(self):
+        r"""
+        clone(LayerRoughness self) -> LayerRoughness
+        LayerRoughness* LayerRoughness::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(LayerRoughness self, INodeVisitor visitor)
+        virtual void LayerRoughness::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_accept(self, visitor)
+
+    def getSpectralFun(self, kvec):
+        r"""
+        getSpectralFun(LayerRoughness self, kvector_t kvec) -> double
+        double LayerRoughness::getSpectralFun(const kvector_t kvec) const
+
+        Returns power spectral density of the surface roughness.
+
+        Power spectral density of the surface roughness is a result of two-dimensional Fourier transform of the correlation function of the roughness profile.
+
+        Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces" 
+
+        """
+        return _libBornAgainCore.LayerRoughness_getSpectralFun(self, kvec)
+
+    def getCorrFun(self, k):
+        r"""
+        getCorrFun(LayerRoughness self, kvector_t k) -> double
+        double LayerRoughness::getCorrFun(const kvector_t k) const
+
+        Correlation function of the roughness profile. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_getCorrFun(self, k)
+
+    def setSigma(self, sigma):
+        r"""
+        setSigma(LayerRoughness self, double sigma)
+        void LayerRoughness::setSigma(double sigma)
+
+        Sets rms of roughness. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_setSigma(self, sigma)
+
+    def getSigma(self):
+        r"""
+        getSigma(LayerRoughness self) -> double
+        double LayerRoughness::getSigma() const
+
+        Returns rms of roughness. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_getSigma(self)
+
+    def setHurstParameter(self, hurstParameter):
+        r"""
+        setHurstParameter(LayerRoughness self, double hurstParameter)
+        void LayerRoughness::setHurstParameter(double hurstParameter)
+
+        Sets hurst parameter. It describes how jagged the surface is. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_setHurstParameter(self, hurstParameter)
+
+    def getHurstParameter(self):
+        r"""
+        getHurstParameter(LayerRoughness self) -> double
+        double LayerRoughness::getHurstParameter() const
+
+        Returns hurst parameter. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_getHurstParameter(self)
+
+    def setLatteralCorrLength(self, lateralCorrLength):
+        r"""
+        setLatteralCorrLength(LayerRoughness self, double lateralCorrLength)
+        void LayerRoughness::setLatteralCorrLength(double lateralCorrLength)
+
+        Sets lateral correlation length. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_setLatteralCorrLength(self, lateralCorrLength)
+
+    def getLatteralCorrLength(self):
+        r"""
+        getLatteralCorrLength(LayerRoughness self) -> double
+        double LayerRoughness::getLatteralCorrLength() const
+
+        Returns lateral correlation length. 
+
+        """
+        return _libBornAgainCore.LayerRoughness_getLatteralCorrLength(self)
+    __swig_destroy__ = _libBornAgainCore.delete_LayerRoughness
+
+# Register LayerRoughness in _libBornAgainCore:
+_libBornAgainCore.LayerRoughness_swigregister(LayerRoughness)
+
+class MultiLayer(ISample):
+    r"""
+
+
+    Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
+
+    ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
+
+    C++ includes: MultiLayer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(MultiLayer self) -> MultiLayer
+        MultiLayer::MultiLayer()
+
+        """
+        _libBornAgainCore.MultiLayer_swiginit(self, _libBornAgainCore.new_MultiLayer())
+    __swig_destroy__ = _libBornAgainCore.delete_MultiLayer
+
+    def clone(self):
+        r"""
+        clone(MultiLayer self) -> MultiLayer
+        MultiLayer * MultiLayer::clone() const final override
+
+        Returns a clone of multilayer with clones of all layers and interfaces between layers 
+
+        """
+        return _libBornAgainCore.MultiLayer_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(MultiLayer self, INodeVisitor visitor)
+        void MultiLayer::accept(INodeVisitor *visitor) const final override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.MultiLayer_accept(self, visitor)
+
+    def numberOfLayers(self):
+        r"""
+        numberOfLayers(MultiLayer self) -> size_t
+        size_t MultiLayer::numberOfLayers() const
+
+        """
+        return _libBornAgainCore.MultiLayer_numberOfLayers(self)
+
+    def addLayer(self, layer):
+        r"""
+        addLayer(MultiLayer self, Layer layer)
+        void MultiLayer::addLayer(const Layer &layer)
+
+        Adds object to multilayer.
+
+        Adds layer with default (zero) roughness. 
+
+        """
+        return _libBornAgainCore.MultiLayer_addLayer(self, layer)
+
+    def addLayerWithTopRoughness(self, layer, roughness):
+        r"""
+        addLayerWithTopRoughness(MultiLayer self, Layer layer, LayerRoughness roughness)
+        void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
+
+        Adds layer with top roughness. 
+
+        """
+        return _libBornAgainCore.MultiLayer_addLayerWithTopRoughness(self, layer, roughness)
+
+    def layer(self, i_layer):
+        r"""
+        layer(MultiLayer self, size_t i_layer) -> Layer
+        const Layer * MultiLayer::layer(size_t i_layer) const
+
+        Returns layer with given index. 
+
+        """
+        return _libBornAgainCore.MultiLayer_layer(self, i_layer)
+
+    def layerInterface(self, i_interface):
+        r"""
+        layerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
+        const LayerInterface * MultiLayer::layerInterface(size_t i_interface) const
+
+        Returns interface with given index. 
+
+        """
+        return _libBornAgainCore.MultiLayer_layerInterface(self, i_interface)
+
+    def setCrossCorrLength(self, crossCorrLength):
+        r"""
+        setCrossCorrLength(MultiLayer self, double crossCorrLength)
+        void MultiLayer::setCrossCorrLength(double crossCorrLength)
+
+        Sets cross correlation length of roughnesses between interfaces. 
+
+        """
+        return _libBornAgainCore.MultiLayer_setCrossCorrLength(self, crossCorrLength)
+
+    def crossCorrLength(self):
+        r"""
+        crossCorrLength(MultiLayer self) -> double
+        double MultiLayer::crossCorrLength() const
+
+        Returns cross correlation length of roughnesses between interfaces. 
+
+        """
+        return _libBornAgainCore.MultiLayer_crossCorrLength(self)
+
+    def setExternalField(self, ext_field):
+        r"""
+        setExternalField(MultiLayer self, kvector_t ext_field)
+        void MultiLayer::setExternalField(kvector_t ext_field)
+
+        Sets the external field applied to the multilayer (units: A/m) 
+
+        """
+        return _libBornAgainCore.MultiLayer_setExternalField(self, ext_field)
+
+    def externalField(self):
+        r"""
+        externalField(MultiLayer self) -> kvector_t
+        kvector_t MultiLayer::externalField() const
+
+        Returns the external field applied to the multilayer (units: A/m) 
+
+        """
+        return _libBornAgainCore.MultiLayer_externalField(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > MultiLayer::getChildren() const final override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.MultiLayer_getChildren(self)
+
+    def setRoughnessModel(self, roughnessModel):
+        r"""
+        setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)
+        void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
+
+        """
+        return _libBornAgainCore.MultiLayer_setRoughnessModel(self, roughnessModel)
+
+    def roughnessModel(self):
+        r"""
+        roughnessModel(MultiLayer self) -> RoughnessModel
+        RoughnessModel MultiLayer::roughnessModel() const
+
+        """
+        return _libBornAgainCore.MultiLayer_roughnessModel(self)
+
+# Register MultiLayer in _libBornAgainCore:
+_libBornAgainCore.MultiLayer_swigregister(MultiLayer)
+
+class RoughnessModel(object):
+    r"""Proxy of C++ RoughnessModelWrap class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainCore.RoughnessModel_DEFAULT
+    
+    TANH = _libBornAgainCore.RoughnessModel_TANH
+    
+    NEVOT_CROCE = _libBornAgainCore.RoughnessModel_NEVOT_CROCE
+    
+    __swig_destroy__ = _libBornAgainCore.delete_RoughnessModel
+
+# Register RoughnessModel in _libBornAgainCore:
+_libBornAgainCore.RoughnessModel_swigregister(RoughnessModel)
 
 class PolygonalTopology(object):
     r"""
@@ -9750,30 +15301,6 @@ class ProfileRipple2(IFormFactorBorn):
 # Register ProfileRipple2 in _libBornAgainCore:
 _libBornAgainCore.ProfileRipple2_swigregister(ProfileRipple2)
 
-
-def factor_x_box(q, l):
-    r"""
-    factor_x_box(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_box(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_box(q, l)
-
-def factor_x_Gauss(q, l):
-    r"""
-    factor_x_Gauss(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_Gauss(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_Gauss(q, l)
-
-def factor_x_Lorentz(q, l):
-    r"""
-    factor_x_Lorentz(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_Lorentz(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_Lorentz(q, l)
 class FormFactorAnisoPyramid(FormFactorPolyhedron):
     r"""
 
@@ -10231,111 +15758,6 @@ class FormFactorCone6(FormFactorPolyhedron):
 # Register FormFactorCone6 in _libBornAgainCore:
 _libBornAgainCore.FormFactorCone6_swigregister(FormFactorCone6)
 
-class FormFactorCrystal(IFormFactor):
-    r"""
-
-
-    The form factor of a  MesoCrystal.
-
-    C++ includes: FormFactorCrystal.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, lattice, basis_form_factor, meso_form_factor, position_variance=0.0):
-        r"""
-        __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
-        FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
-
-        """
-        _libBornAgainCore.FormFactorCrystal_swiginit(self, _libBornAgainCore.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor, position_variance))
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCrystal
-
-    def clone(self):
-        r"""
-        clone(FormFactorCrystal self) -> FormFactorCrystal
-        FormFactorCrystal* FormFactorCrystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorCrystal self, INodeVisitor visitor)
-        void FormFactorCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_accept(self, visitor)
-
-    def setAmbientMaterial(self, material):
-        r"""
-        setAmbientMaterial(FormFactorCrystal self, Material material)
-        void FormFactorCrystal::setAmbientMaterial(Material material) override
-
-        Passes the material in which this particle is embedded. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_setAmbientMaterial(self, material)
-
-    def volume(self):
-        r"""
-        volume(FormFactorCrystal self) -> double
-        double FormFactorCrystal::volume() const override final
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_volume(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorCrystal self) -> double
-        double FormFactorCrystal::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_radialExtension(self)
-
-    def bottomZ(self, rotation):
-        r"""
-        bottomZ(FormFactorCrystal self, IRotation rotation) -> double
-        double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_bottomZ(self, rotation)
-
-    def topZ(self, rotation):
-        r"""
-        topZ(FormFactorCrystal self, IRotation rotation) -> double
-        double FormFactorCrystal::topZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_topZ(self, rotation)
-
-    def evaluate(self, wavevectors):
-        r"""
-        evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
-        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_evaluate(self, wavevectors)
-
-# Register FormFactorCrystal in _libBornAgainCore:
-_libBornAgainCore.FormFactorCrystal_swigregister(FormFactorCrystal)
-
 class FormFactorCuboctahedron(FormFactorPolyhedron):
     r"""
 
@@ -10521,71 +15943,6 @@ class FormFactorCylinder(IFormFactorBorn):
 
 # Register FormFactorCylinder in _libBornAgainCore:
 _libBornAgainCore.FormFactorCylinder_swigregister(FormFactorCylinder)
-
-class FormFactorDebyeBueche(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
-
-    C++ includes: FormFactorDebyeBueche.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, I0, xi):
-        r"""
-        __init__(FormFactorDebyeBueche self, double I0, double xi) -> FormFactorDebyeBueche
-        FormFactorDebyeBueche::FormFactorDebyeBueche(double I0, double xi)
-
-        """
-        _libBornAgainCore.FormFactorDebyeBueche_swiginit(self, _libBornAgainCore.new_FormFactorDebyeBueche(I0, xi))
-
-    def clone(self):
-        r"""
-        clone(FormFactorDebyeBueche self) -> FormFactorDebyeBueche
-        FormFactorDebyeBueche* FormFactorDebyeBueche::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorDebyeBueche self, INodeVisitor visitor)
-        void FormFactorDebyeBueche::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_accept(self, visitor)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorDebyeBueche self) -> double
-        double FormFactorDebyeBueche::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorDebyeBueche self, cvector_t q) -> complex_t
-        complex_t FormFactorDebyeBueche::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorDebyeBueche_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDebyeBueche
-
-# Register FormFactorDebyeBueche in _libBornAgainCore:
-_libBornAgainCore.FormFactorDebyeBueche_swigregister(FormFactorDebyeBueche)
 
 class FormFactorDodecahedron(FormFactorPolyhedron):
     r"""
@@ -11053,88 +16410,6 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 # Register FormFactorFullSpheroid in _libBornAgainCore:
 _libBornAgainCore.FormFactorFullSpheroid_swigregister(FormFactorFullSpheroid)
 
-class FormFactorGauss(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a gaussian.
-
-    C++ includes: FormFactorGauss.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(FormFactorGauss self, double length) -> FormFactorGauss
-        __init__(FormFactorGauss self, double width, double height) -> FormFactorGauss
-        FormFactorGauss::FormFactorGauss(double width, double height)
-
-        """
-        _libBornAgainCore.FormFactorGauss_swiginit(self, _libBornAgainCore.new_FormFactorGauss(*args))
-
-    def clone(self):
-        r"""
-        clone(FormFactorGauss self) -> FormFactorGauss
-        FormFactorGauss* FormFactorGauss::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorGauss_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorGauss self, INodeVisitor visitor)
-        void FormFactorGauss::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorGauss_accept(self, visitor)
-
-    def getWidth(self):
-        r"""
-        getWidth(FormFactorGauss self) -> double
-        double FormFactorGauss::getWidth() const
-
-        """
-        return _libBornAgainCore.FormFactorGauss_getWidth(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(FormFactorGauss self) -> double
-        double FormFactorGauss::getHeight() const
-
-        """
-        return _libBornAgainCore.FormFactorGauss_getHeight(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorGauss self) -> double
-        double FormFactorGauss::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorGauss_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorGauss self, cvector_t q) -> complex_t
-        complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorGauss_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorGauss
-
-# Register FormFactorGauss in _libBornAgainCore:
-_libBornAgainCore.FormFactorGauss_swigregister(FormFactorGauss)
-
 class FormFactorHemiEllipsoid(IFormFactorBorn):
     r"""
 
@@ -11237,6 +16512,71 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
 # Register FormFactorHemiEllipsoid in _libBornAgainCore:
 _libBornAgainCore.FormFactorHemiEllipsoid_swigregister(FormFactorHemiEllipsoid)
+
+class FormFactorHollowSphere(IFormFactorBorn):
+    r"""
+
+
+    Integrated full sphere form factor over a uniform distribution of radii.
+
+    C++ includes: FormFactorHollowSphere.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, mean, full_width):
+        r"""
+        __init__(FormFactorHollowSphere self, double mean, double full_width) -> FormFactorHollowSphere
+        FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
+
+        """
+        _libBornAgainCore.FormFactorHollowSphere_swiginit(self, _libBornAgainCore.new_FormFactorHollowSphere(mean, full_width))
+
+    def clone(self):
+        r"""
+        clone(FormFactorHollowSphere self) -> FormFactorHollowSphere
+        FormFactorHollowSphere* FormFactorHollowSphere::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorHollowSphere_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorHollowSphere self, INodeVisitor visitor)
+        void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorHollowSphere_accept(self, visitor)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(FormFactorHollowSphere self) -> double
+        double FormFactorHollowSphere::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorHollowSphere_radialExtension(self)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(FormFactorHollowSphere self, cvector_t q) -> complex_t
+        complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const override final
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.FormFactorHollowSphere_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorHollowSphere
+
+# Register FormFactorHollowSphere in _libBornAgainCore:
+_libBornAgainCore.FormFactorHollowSphere_swigregister(FormFactorHollowSphere)
 
 class FormFactorIcosahedron(FormFactorPolyhedron):
     r"""
@@ -11504,153 +16844,6 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 
 # Register FormFactorLongBoxLorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorLongBoxLorentz_swigregister(FormFactorLongBoxLorentz)
-
-class FormFactorLorentz(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a lorentzian.
-
-    C++ includes: FormFactorLorentz.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(FormFactorLorentz self, double length) -> FormFactorLorentz
-        __init__(FormFactorLorentz self, double width, double height) -> FormFactorLorentz
-        FormFactorLorentz::FormFactorLorentz(double width, double height)
-
-        """
-        _libBornAgainCore.FormFactorLorentz_swiginit(self, _libBornAgainCore.new_FormFactorLorentz(*args))
-
-    def clone(self):
-        r"""
-        clone(FormFactorLorentz self) -> FormFactorLorentz
-        FormFactorLorentz* FormFactorLorentz::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorLorentz self, INodeVisitor visitor)
-        void FormFactorLorentz::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_accept(self, visitor)
-
-    def getWidth(self):
-        r"""
-        getWidth(FormFactorLorentz self) -> double
-        double FormFactorLorentz::getWidth() const
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_getWidth(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(FormFactorLorentz self) -> double
-        double FormFactorLorentz::getHeight() const
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_getHeight(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorLorentz self) -> double
-        double FormFactorLorentz::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorLorentz self, cvector_t q) -> complex_t
-        complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorLorentz_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLorentz
-
-# Register FormFactorLorentz in _libBornAgainCore:
-_libBornAgainCore.FormFactorLorentz_swigregister(FormFactorLorentz)
-
-class FormFactorOrnsteinZernike(IFormFactorBorn):
-    r"""
-
-
-    The form factor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
-
-    C++ includes: FormFactorOrnsteinZernike.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, I0, xi_xy, xi_z):
-        r"""
-        __init__(FormFactorOrnsteinZernike self, double I0, double xi_xy, double xi_z) -> FormFactorOrnsteinZernike
-        FormFactorOrnsteinZernike::FormFactorOrnsteinZernike(double I0, double xi_xy, double xi_z)
-
-        """
-        _libBornAgainCore.FormFactorOrnsteinZernike_swiginit(self, _libBornAgainCore.new_FormFactorOrnsteinZernike(I0, xi_xy, xi_z))
-
-    def clone(self):
-        r"""
-        clone(FormFactorOrnsteinZernike self) -> FormFactorOrnsteinZernike
-        FormFactorOrnsteinZernike* FormFactorOrnsteinZernike::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorOrnsteinZernike self, INodeVisitor visitor)
-        void FormFactorOrnsteinZernike::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_accept(self, visitor)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorOrnsteinZernike self) -> double
-        double FormFactorOrnsteinZernike::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorOrnsteinZernike self, cvector_t q) -> complex_t
-        complex_t FormFactorOrnsteinZernike::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorOrnsteinZernike_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorOrnsteinZernike
-
-# Register FormFactorOrnsteinZernike in _libBornAgainCore:
-_libBornAgainCore.FormFactorOrnsteinZernike_swigregister(FormFactorOrnsteinZernike)
 
 class FormFactorPrism3(FormFactorPolygonalPrism):
     r"""
@@ -12133,201 +17326,6 @@ class FormFactorRipple2Lorentz(ProfileRipple2):
 # Register FormFactorRipple2Lorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorRipple2Lorentz_swigregister(FormFactorRipple2Lorentz)
 
-class FormFactorSphereGaussianRadius(IFormFactorBorn):
-    r"""
-
-
-    A sphere with gaussian radius distribution.
-
-    C++ includes: FormFactorSphereGaussianRadius.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, mean, sigma):
-        r"""
-        __init__(FormFactorSphereGaussianRadius self, double mean, double sigma) -> FormFactorSphereGaussianRadius
-        FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
-
-        """
-        _libBornAgainCore.FormFactorSphereGaussianRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereGaussianRadius(mean, sigma))
-
-    def clone(self):
-        r"""
-        clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
-        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereGaussianRadius_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorSphereGaussianRadius self, INodeVisitor visitor)
-        void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereGaussianRadius_accept(self, visitor)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorSphereGaussianRadius self) -> double
-        double FormFactorSphereGaussianRadius::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorSphereGaussianRadius_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
-        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereGaussianRadius
-
-# Register FormFactorSphereGaussianRadius in _libBornAgainCore:
-_libBornAgainCore.FormFactorSphereGaussianRadius_swigregister(FormFactorSphereGaussianRadius)
-
-class FormFactorSphereLogNormalRadius(IFormFactorBorn):
-    r"""
-
-
-    A sphere with log normal radius distribution.
-
-    C++ includes: FormFactorSphereLogNormalRadius.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, mean, scale_param, n_samples):
-        r"""
-        __init__(FormFactorSphereLogNormalRadius self, double mean, double scale_param, size_t n_samples) -> FormFactorSphereLogNormalRadius
-        FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples)
-
-        """
-        _libBornAgainCore.FormFactorSphereLogNormalRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereLogNormalRadius(mean, scale_param, n_samples))
-
-    def clone(self):
-        r"""
-        clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
-        FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorSphereLogNormalRadius self, INodeVisitor visitor)
-        void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius_accept(self, visitor)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorSphereLogNormalRadius self) -> double
-        double FormFactorSphereLogNormalRadius::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
-        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
-
-# Register FormFactorSphereLogNormalRadius in _libBornAgainCore:
-_libBornAgainCore.FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
-
-class FormFactorSphereUniformRadius(IFormFactorBorn):
-    r"""
-
-
-    Integrated full sphere form factor over a uniform distribution of radii.
-
-    C++ includes: FormFactorSphereUniformRadius.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, mean, full_width):
-        r"""
-        __init__(FormFactorSphereUniformRadius self, double mean, double full_width) -> FormFactorSphereUniformRadius
-        FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double full_width)
-
-        """
-        _libBornAgainCore.FormFactorSphereUniformRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereUniformRadius(mean, full_width))
-
-    def clone(self):
-        r"""
-        clone(FormFactorSphereUniformRadius self) -> FormFactorSphereUniformRadius
-        FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereUniformRadius_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorSphereUniformRadius self, INodeVisitor visitor)
-        void FormFactorSphereUniformRadius::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereUniformRadius_accept(self, visitor)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorSphereUniformRadius self) -> double
-        double FormFactorSphereUniformRadius::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorSphereUniformRadius_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorSphereUniformRadius self, cvector_t q) -> complex_t
-        complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorSphereUniformRadius_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereUniformRadius
-
-# Register FormFactorSphereUniformRadius in _libBornAgainCore:
-_libBornAgainCore.FormFactorSphereUniformRadius_swigregister(FormFactorSphereUniformRadius)
-
 class FormFactorTetrahedron(FormFactorPolyhedron):
     r"""
 
@@ -12496,9 +17494,9 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, dh=0.0):
+    def __init__(self, radius, height, dh):
         r"""
-        __init__(FormFactorTruncatedSphere self, double radius, double height, double dh=0.0) -> FormFactorTruncatedSphere
+        __init__(FormFactorTruncatedSphere self, double radius, double height, double dh) -> FormFactorTruncatedSphere
         FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
 
         Constructor of a spherical dome.
@@ -12599,9 +17597,9 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, height_flattening, dh=0.0):
+    def __init__(self, radius, height, height_flattening, dh):
         r"""
-        __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh=0.0) -> FormFactorTruncatedSpheroid
+        __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh) -> FormFactorTruncatedSpheroid
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
 
         Constructor of a spheroidal dome.
@@ -12700,300 +17698,217 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 # Register FormFactorTruncatedSpheroid in _libBornAgainCore:
 _libBornAgainCore.FormFactorTruncatedSpheroid_swigregister(FormFactorTruncatedSpheroid)
 
-class FormFactorWeighted(IFormFactor):
+
+def factor_x_box(q, l):
     r"""
-
-
-    Coherent sum of different scalar  IFormFactor's with different weights.
-
-    Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
-
-    C++ includes: FormFactorWeighted.h
+    factor_x_box(complex_t q, double l) -> complex_t
+    complex_t ripples::factor_x_box(complex_t q, double l)
 
     """
+    return _libBornAgainCore.factor_x_box(q, l)
+
+def factor_x_Gauss(q, l):
+    r"""
+    factor_x_Gauss(complex_t q, double l) -> complex_t
+    complex_t ripples::factor_x_Gauss(complex_t q, double l)
+
+    """
+    return _libBornAgainCore.factor_x_Gauss(q, l)
+
+def factor_x_Lorentz(q, l):
+    r"""
+    factor_x_Lorentz(complex_t q, double l) -> complex_t
+    complex_t ripples::factor_x_Lorentz(complex_t q, double l)
+
+    """
+    return _libBornAgainCore.factor_x_Lorentz(q, l)
+class FormFactorGaussSphere(IFormFactorBorn):
+    r"""Proxy of C++ FormFactorGaussSphere class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
-        r"""
-        __init__(FormFactorWeighted self) -> FormFactorWeighted
-        FormFactorWeighted::FormFactorWeighted()
-
-        """
-        _libBornAgainCore.FormFactorWeighted_swiginit(self, _libBornAgainCore.new_FormFactorWeighted())
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorWeighted
+    def __init__(self, mean_radius):
+        r"""__init__(FormFactorGaussSphere self, double mean_radius) -> FormFactorGaussSphere"""
+        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(mean_radius))
 
     def clone(self):
         r"""
-        clone(FormFactorWeighted self) -> FormFactorWeighted
-        FormFactorWeighted * FormFactorWeighted::clone() const override final
+        clone(FormFactorGaussSphere self) -> FormFactorGaussSphere
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorWeighted_clone(self)
+        return _libBornAgainCore.FormFactorGaussSphere_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorWeighted self, INodeVisitor visitor)
-        void FormFactorWeighted::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorGaussSphere self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorWeighted_accept(self, visitor)
+        return _libBornAgainCore.FormFactorGaussSphere_accept(self, visitor)
+
+    def getMeanRadius(self):
+        r"""getMeanRadius(FormFactorGaussSphere self) -> double"""
+        return _libBornAgainCore.FormFactorGaussSphere_getMeanRadius(self)
 
     def radialExtension(self):
         r"""
-        radialExtension(FormFactorWeighted self) -> double
-        double FormFactorWeighted::radialExtension() const override final
+        radialExtension(FormFactorGaussSphere self) -> double
+        virtual double IFormFactor::radialExtension() const =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorWeighted_radialExtension(self)
+        return _libBornAgainCore.FormFactorGaussSphere_radialExtension(self)
 
-    def bottomZ(self, rotation):
+    def evaluate_for_q(self, q):
         r"""
-        bottomZ(FormFactorWeighted self, IRotation rotation) -> double
-        double FormFactorWeighted::bottomZ(const IRotation &rotation) const override final
+        evaluate_for_q(FormFactorGaussSphere self, cvector_t q) -> complex_t
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.FormFactorWeighted_bottomZ(self, rotation)
+        return _libBornAgainCore.FormFactorGaussSphere_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorGaussSphere
 
-    def topZ(self, rotation):
-        r"""
-        topZ(FormFactorWeighted self, IRotation rotation) -> double
-        double FormFactorWeighted::topZ(const IRotation &rotation) const override final
+# Register FormFactorGaussSphere in _libBornAgainCore:
+_libBornAgainCore.FormFactorGaussSphere_swigregister(FormFactorGaussSphere)
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
-        return _libBornAgainCore.FormFactorWeighted_topZ(self, rotation)
-
-    def addFormFactor(self, form_factor, weight=1.0):
-        r"""
-        addFormFactor(FormFactorWeighted self, IFormFactor form_factor, double weight=1.0)
-        void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
-
-        """
-        return _libBornAgainCore.FormFactorWeighted_addFormFactor(self, form_factor, weight)
-
-    def setAmbientMaterial(self, material):
-        r"""
-        setAmbientMaterial(FormFactorWeighted self, Material material)
-        void FormFactorWeighted::setAmbientMaterial(Material material) override final
-
-        Passes the material in which this particle is embedded. 
-
-        """
-        return _libBornAgainCore.FormFactorWeighted_setAmbientMaterial(self, material)
-
-    def evaluate(self, wavevectors):
-        r"""
-        evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
-        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
-
-        """
-        return _libBornAgainCore.FormFactorWeighted_evaluate(self, wavevectors)
-
-# Register FormFactorWeighted in _libBornAgainCore:
-_libBornAgainCore.FormFactorWeighted_swigregister(FormFactorWeighted)
-
-class IFootprintFactor(ICloneable, INode):
+class FormFactorSphereGaussianRadius(IFormFactorBorn):
     r"""
 
 
-    Abstract base for classes that calculate the beam footprint factor
+    A sphere with gaussian radius distribution.
 
-    C++ includes: IFootprintFactor.h
+    C++ includes: FormFactorSphereGaussianRadius.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFootprintFactor
+
+    def __init__(self, mean, sigma):
+        r"""
+        __init__(FormFactorSphereGaussianRadius self, double mean, double sigma) -> FormFactorSphereGaussianRadius
+        FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
+
+        """
+        _libBornAgainCore.FormFactorSphereGaussianRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereGaussianRadius(mean, sigma))
 
     def clone(self):
         r"""
-        clone(IFootprintFactor self) -> IFootprintFactor
-        virtual IFootprintFactor* IFootprintFactor::clone() const =0
+        clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
+        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const override final
+
+        Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.IFootprintFactor_clone(self)
-
-    def setWidthRatio(self, width_ratio):
-        r"""
-        setWidthRatio(IFootprintFactor self, double width_ratio)
-        void IFootprintFactor::setWidthRatio(double width_ratio)
-
-        """
-        return _libBornAgainCore.IFootprintFactor_setWidthRatio(self, width_ratio)
-
-    def widthRatio(self):
-        r"""
-        widthRatio(IFootprintFactor self) -> double
-        double IFootprintFactor::widthRatio() const
-
-        """
-        return _libBornAgainCore.IFootprintFactor_widthRatio(self)
-
-    def calculate(self, alpha):
-        r"""
-        calculate(IFootprintFactor self, double alpha) -> double
-        virtual double IFootprintFactor::calculate(double alpha) const =0
-
-        Calculate footprint correction coefficient from the beam incident angle  alpha. 
-
-        """
-        return _libBornAgainCore.IFootprintFactor_calculate(self, alpha)
-
-    def _print(self):
-        r"""
-        _print(IFootprintFactor self) -> std::string
-        virtual std::string IFootprintFactor::print() const =0
-
-        Print python-formatted footprint definition. 
-
-        """
-        return _libBornAgainCore.IFootprintFactor__print(self)
-
-# Register IFootprintFactor in _libBornAgainCore:
-_libBornAgainCore.IFootprintFactor_swigregister(IFootprintFactor)
-
-class FootprintFactorGaussian(IFootprintFactor):
-    r"""
-
-
-    Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\[ \\exp{-1/2} \\] from the peak intensity.
-
-    C++ includes: FootprintFactorGaussian.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, width_ratio):
-        r"""
-        __init__(FootprintFactorGaussian self, double width_ratio) -> FootprintFactorGaussian
-        FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio)
-
-        """
-        _libBornAgainCore.FootprintFactorGaussian_swiginit(self, _libBornAgainCore.new_FootprintFactorGaussian(width_ratio))
+        return _libBornAgainCore.FormFactorSphereGaussianRadius_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FootprintFactorGaussian self, INodeVisitor visitor)
-        void FootprintFactorGaussian::accept(INodeVisitor *visitor) const override
+        accept(FormFactorSphereGaussianRadius self, INodeVisitor visitor)
+        void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FootprintFactorGaussian_accept(self, visitor)
+        return _libBornAgainCore.FormFactorSphereGaussianRadius_accept(self, visitor)
 
-    def clone(self):
+    def radialExtension(self):
         r"""
-        clone(FootprintFactorGaussian self) -> FootprintFactorGaussian
-        FootprintFactorGaussian * FootprintFactorGaussian::clone() const override
+        radialExtension(FormFactorSphereGaussianRadius self) -> double
+        double FormFactorSphereGaussianRadius::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FootprintFactorGaussian_clone(self)
+        return _libBornAgainCore.FormFactorSphereGaussianRadius_radialExtension(self)
 
-    def calculate(self, alpha):
+    def evaluate_for_q(self, q):
         r"""
-        calculate(FootprintFactorGaussian self, double alpha) -> double
-        double FootprintFactorGaussian::calculate(double alpha) const override
+        evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
+        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const override final
 
-        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.FootprintFactorGaussian_calculate(self, alpha)
+        return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereGaussianRadius
 
-    def _print(self):
-        r"""
-        _print(FootprintFactorGaussian self) -> std::string
-        std::string FootprintFactorGaussian::print() const override
+# Register FormFactorSphereGaussianRadius in _libBornAgainCore:
+_libBornAgainCore.FormFactorSphereGaussianRadius_swigregister(FormFactorSphereGaussianRadius)
 
-        Print python-formatted footprint definition. 
-
-        """
-        return _libBornAgainCore.FootprintFactorGaussian__print(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorGaussian
-
-# Register FootprintFactorGaussian in _libBornAgainCore:
-_libBornAgainCore.FootprintFactorGaussian_swigregister(FootprintFactorGaussian)
-
-class FootprintFactorSquare(IFootprintFactor):
+class FormFactorSphereLogNormalRadius(IFormFactorBorn):
     r"""
 
 
-    Calculates footprint coefficient for a square beam
+    A sphere with log normal radius distribution.
 
-    C++ includes: FootprintFactorSquare.h
+    C++ includes: FormFactorSphereLogNormalRadius.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, width_ratio):
+    def __init__(self, mean, scale_param, n_samples):
         r"""
-        __init__(FootprintFactorSquare self, double width_ratio) -> FootprintFactorSquare
-        FootprintFactorSquare::FootprintFactorSquare(double width_ratio)
+        __init__(FormFactorSphereLogNormalRadius self, double mean, double scale_param, size_t n_samples) -> FormFactorSphereLogNormalRadius
+        FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples)
 
         """
-        _libBornAgainCore.FootprintFactorSquare_swiginit(self, _libBornAgainCore.new_FootprintFactorSquare(width_ratio))
+        _libBornAgainCore.FormFactorSphereLogNormalRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereLogNormalRadius(mean, scale_param, n_samples))
+
+    def clone(self):
+        r"""
+        clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
+        FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorSphereLogNormalRadius_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FootprintFactorSquare self, INodeVisitor visitor)
-        void FootprintFactorSquare::accept(INodeVisitor *visitor) const override
+        accept(FormFactorSphereLogNormalRadius self, INodeVisitor visitor)
+        void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FootprintFactorSquare_accept(self, visitor)
+        return _libBornAgainCore.FormFactorSphereLogNormalRadius_accept(self, visitor)
 
-    def clone(self):
+    def radialExtension(self):
         r"""
-        clone(FootprintFactorSquare self) -> FootprintFactorSquare
-        FootprintFactorSquare * FootprintFactorSquare::clone() const override
+        radialExtension(FormFactorSphereLogNormalRadius self) -> double
+        double FormFactorSphereLogNormalRadius::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FootprintFactorSquare_clone(self)
+        return _libBornAgainCore.FormFactorSphereLogNormalRadius_radialExtension(self)
 
-    def calculate(self, alpha):
+    def evaluate_for_q(self, q):
         r"""
-        calculate(FootprintFactorSquare self, double alpha) -> double
-        double FootprintFactorSquare::calculate(double alpha) const override
+        evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
+        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const override final
 
-        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.FootprintFactorSquare_calculate(self, alpha)
+        return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
 
-    def _print(self):
-        r"""
-        _print(FootprintFactorSquare self) -> std::string
-        std::string FootprintFactorSquare::print() const override
-
-        Print python-formatted footprint definition. 
-
-        """
-        return _libBornAgainCore.FootprintFactorSquare__print(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorSquare
-
-# Register FootprintFactorSquare in _libBornAgainCore:
-_libBornAgainCore.FootprintFactorSquare_swigregister(FootprintFactorSquare)
+# Register FormFactorSphereLogNormalRadius in _libBornAgainCore:
+_libBornAgainCore.FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
 class Simulation(ICloneable, INode):
     r"""
@@ -13245,6 +18160,10 @@ class Simulation(ICloneable, INode):
         """
         return _libBornAgainCore.Simulation_getChildren(self)
 
+    def convertData(self, data, put_masked_areas_to_zero=True):
+        r"""convertData(Simulation self, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult"""
+        return _libBornAgainCore.Simulation_convertData(self, data, put_masked_areas_to_zero)
+
     def setSampleBuilder(self, ptr):
         self.samplebuilder = ptr
         self.setSampleBuilderCpp(ptr)
@@ -13381,162 +18300,6 @@ class Simulation2D(Simulation):
 # Register Simulation2D in _libBornAgainCore:
 _libBornAgainCore.Simulation2D_swigregister(Simulation2D)
 
-class SimulationOptions(object):
-    r"""
-
-
-    Collect the different options for simulation.
-
-    SimulationOptions
-
-    C++ includes: SimulationOptions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(SimulationOptions self) -> SimulationOptions
-        SimulationOptions::SimulationOptions()
-
-        """
-        _libBornAgainCore.SimulationOptions_swiginit(self, _libBornAgainCore.new_SimulationOptions())
-
-    def isIntegrate(self):
-        r"""
-        isIntegrate(SimulationOptions self) -> bool
-        bool SimulationOptions::isIntegrate() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_isIntegrate(self)
-
-    def getMcPoints(self):
-        r"""
-        getMcPoints(SimulationOptions self) -> size_t
-        size_t SimulationOptions::getMcPoints() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_getMcPoints(self)
-
-    def setMonteCarloIntegration(self, flag=True, mc_points=50):
-        r"""
-        setMonteCarloIntegration(SimulationOptions self, bool flag=True, size_t mc_points=50)
-        void SimulationOptions::setMonteCarloIntegration(bool flag=true, size_t mc_points=50)
-
-        Enables/disables MonetCarlo integration.
-
-        Parameters:
-        -----------
-
-        flag: 
-        If true, MonteCarlo integration will be used, otherwise analytical calculations
-
-        mc_points: 
-        Number of points for MonteCarlo integrator 
-
-        """
-        return _libBornAgainCore.SimulationOptions_setMonteCarloIntegration(self, flag, mc_points)
-
-    def setNumberOfThreads(self, nthreads):
-        r"""
-        setNumberOfThreads(SimulationOptions self, int nthreads)
-        void SimulationOptions::setNumberOfThreads(int nthreads)
-
-        Sets number of threads to use during the simulation (0 - take the default value from the hardware) 
-
-        """
-        return _libBornAgainCore.SimulationOptions_setNumberOfThreads(self, nthreads)
-
-    def getNumberOfThreads(self):
-        r"""
-        getNumberOfThreads(SimulationOptions self) -> unsigned int
-        unsigned SimulationOptions::getNumberOfThreads() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_getNumberOfThreads(self)
-
-    def setNumberOfBatches(self, nbatches):
-        r"""
-        setNumberOfBatches(SimulationOptions self, int nbatches)
-        void SimulationOptions::setNumberOfBatches(int nbatches)
-
-        Sets number of batches to split. 
-
-        """
-        return _libBornAgainCore.SimulationOptions_setNumberOfBatches(self, nbatches)
-
-    def getNumberOfBatches(self):
-        r"""
-        getNumberOfBatches(SimulationOptions self) -> unsigned int
-        unsigned SimulationOptions::getNumberOfBatches() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_getNumberOfBatches(self)
-
-    def getCurrentBatch(self):
-        r"""
-        getCurrentBatch(SimulationOptions self) -> unsigned int
-        unsigned SimulationOptions::getCurrentBatch() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_getCurrentBatch(self)
-
-    def setThreadInfo(self, thread_info):
-        r"""
-        setThreadInfo(SimulationOptions self, ThreadInfo thread_info)
-        void SimulationOptions::setThreadInfo(const ThreadInfo &thread_info)
-
-        Sets the batch and thread information to be used. 
-
-        """
-        return _libBornAgainCore.SimulationOptions_setThreadInfo(self, thread_info)
-
-    def getHardwareConcurrency(self):
-        r"""
-        getHardwareConcurrency(SimulationOptions self) -> unsigned int
-        unsigned SimulationOptions::getHardwareConcurrency() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
-
-    def setIncludeSpecular(self, include_specular):
-        r"""
-        setIncludeSpecular(SimulationOptions self, bool include_specular)
-        void SimulationOptions::setIncludeSpecular(bool include_specular)
-
-        """
-        return _libBornAgainCore.SimulationOptions_setIncludeSpecular(self, include_specular)
-
-    def includeSpecular(self):
-        r"""
-        includeSpecular(SimulationOptions self) -> bool
-        bool SimulationOptions::includeSpecular() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_includeSpecular(self)
-
-    def setUseAvgMaterials(self, use_avg_materials):
-        r"""
-        setUseAvgMaterials(SimulationOptions self, bool use_avg_materials)
-        void SimulationOptions::setUseAvgMaterials(bool use_avg_materials)
-
-        """
-        return _libBornAgainCore.SimulationOptions_setUseAvgMaterials(self, use_avg_materials)
-
-    def useAvgMaterials(self):
-        r"""
-        useAvgMaterials(SimulationOptions self) -> bool
-        bool SimulationOptions::useAvgMaterials() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_useAvgMaterials(self)
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
-
-# Register SimulationOptions in _libBornAgainCore:
-_libBornAgainCore.SimulationOptions_swigregister(SimulationOptions)
-
 class GISASSimulation(Simulation2D):
     r"""
 
@@ -13621,6 +18384,1736 @@ class GISASSimulation(Simulation2D):
 
 # Register GISASSimulation in _libBornAgainCore:
 _libBornAgainCore.GISASSimulation_swigregister(GISASSimulation)
+
+class DepthProbeSimulation(Simulation):
+    r"""Proxy of C++ DepthProbeSimulation class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DepthProbeSimulation self) -> DepthProbeSimulation
+        __init__(DepthProbeSimulation self, MultiLayer sample) -> DepthProbeSimulation
+        __init__(DepthProbeSimulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder) -> DepthProbeSimulation
+        DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+
+        """
+        _libBornAgainCore.DepthProbeSimulation_swiginit(self, _libBornAgainCore.new_DepthProbeSimulation(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_DepthProbeSimulation
+
+    def clone(self):
+        r"""
+        clone(DepthProbeSimulation self) -> DepthProbeSimulation
+        DepthProbeSimulation * DepthProbeSimulation::clone() const override
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(DepthProbeSimulation self, INodeVisitor visitor)
+        void DepthProbeSimulation::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_accept(self, visitor)
+
+    def result(self):
+        r"""
+        result(DepthProbeSimulation self) -> SimulationResult
+        SimulationResult DepthProbeSimulation::result() const override
+
+        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_result(self)
+
+    def setBeamParameters(self, _lambda, nbins, alpha_i_min, alpha_i_max, beam_shape=None):
+        r"""
+        setBeamParameters(DepthProbeSimulation self, double _lambda, int nbins, double alpha_i_min, double alpha_i_max, IFootprintFactor beam_shape=None)
+        void DepthProbeSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
+
+        Sets beam parameters with alpha_i of the beam defined in the range. 
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_setBeamParameters(self, _lambda, nbins, alpha_i_min, alpha_i_max, beam_shape)
+
+    def setZSpan(self, n_bins, z_min, z_max):
+        r"""
+        setZSpan(DepthProbeSimulation self, size_t n_bins, double z_min, double z_max)
+        void DepthProbeSimulation::setZSpan(size_t n_bins, double z_min, double z_max)
+
+        Set z positions for intensity calculations. Negative z's correspond to the area under sample surface. The more negative z is, the deeper layer corresponds to it. 
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_setZSpan(self, n_bins, z_min, z_max)
+
+    def getAlphaAxis(self):
+        r"""
+        getAlphaAxis(DepthProbeSimulation self) -> IAxis
+        const IAxis * DepthProbeSimulation::getAlphaAxis() const
+
+        Returns a pointer to incident angle axis. 
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_getAlphaAxis(self)
+
+    def getZAxis(self):
+        r"""
+        getZAxis(DepthProbeSimulation self) -> IAxis
+        const IAxis * DepthProbeSimulation::getZAxis() const
+
+        Returns a pointer to z-position axis. 
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_getZAxis(self)
+
+    def intensityMapSize(self):
+        r"""
+        intensityMapSize(DepthProbeSimulation self) -> size_t
+        size_t DepthProbeSimulation::intensityMapSize() const override
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
+        return _libBornAgainCore.DepthProbeSimulation_intensityMapSize(self)
+
+# Register DepthProbeSimulation in _libBornAgainCore:
+_libBornAgainCore.DepthProbeSimulation_swigregister(DepthProbeSimulation)
+
+class SpecularSimulation(Simulation):
+    r"""
+
+
+    Main class to run a specular simulation.
+
+    C++ includes: SpecularSimulation.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(SpecularSimulation self) -> SpecularSimulation
+        __init__(SpecularSimulation self, MultiLayer sample) -> SpecularSimulation
+        __init__(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder) -> SpecularSimulation
+        SpecularSimulation::SpecularSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+
+        """
+        _libBornAgainCore.SpecularSimulation_swiginit(self, _libBornAgainCore.new_SpecularSimulation(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_SpecularSimulation
+
+    def clone(self):
+        r"""
+        clone(SpecularSimulation self) -> SpecularSimulation
+        SpecularSimulation * SpecularSimulation::clone() const override
+
+        """
+        return _libBornAgainCore.SpecularSimulation_clone(self)
+
+    def prepareSimulation(self):
+        r"""
+        prepareSimulation(SpecularSimulation self)
+        void SpecularSimulation::prepareSimulation() override
+
+        Put into a clean state for running a simulation. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_prepareSimulation(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(SpecularSimulation self, INodeVisitor visitor)
+        void SpecularSimulation::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_accept(self, visitor)
+
+    def result(self):
+        r"""
+        result(SpecularSimulation self) -> SimulationResult
+        SimulationResult SpecularSimulation::result() const override
+
+        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_result(self)
+
+    def setScan(self, scan):
+        r"""
+        setScan(SpecularSimulation self, ISpecularScan const & scan)
+        void SpecularSimulation::setScan(const ISpecularScan &scan)
+
+        Sets chosen specular scan to the simulation. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_setScan(self, scan)
+
+    def coordinateAxis(self):
+        r"""
+        coordinateAxis(SpecularSimulation self) -> IAxis
+        const IAxis * SpecularSimulation::coordinateAxis() const
+
+        Returns a pointer to coordinate axis. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_coordinateAxis(self)
+
+    def footprintFactor(self):
+        r"""
+        footprintFactor(SpecularSimulation self) -> IFootprintFactor
+        const IFootprintFactor * SpecularSimulation::footprintFactor() const
+
+        Returns a pointer to footprint factor holder. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_footprintFactor(self)
+
+    def intensityMapSize(self):
+        r"""
+        intensityMapSize(SpecularSimulation self) -> size_t
+        size_t SpecularSimulation::intensityMapSize() const override
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_intensityMapSize(self)
+
+    def setSampleBuilder(self, ptr):
+        self.samplebuilder = ptr
+        self.setSampleBuilderCpp(ptr)
+
+
+# Register SpecularSimulation in _libBornAgainCore:
+_libBornAgainCore.SpecularSimulation_swigregister(SpecularSimulation)
+
+class OffSpecSimulation(Simulation2D):
+    r"""
+
+
+    Main class to run an off-specular simulation.
+
+    C++ includes: OffSpecSimulation.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(OffSpecSimulation self) -> OffSpecSimulation
+        __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
+        __init__(OffSpecSimulation self, std::shared_ptr< IMultiLayerBuilder > const p_sample_builder) -> OffSpecSimulation
+        OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class IMultiLayerBuilder > p_sample_builder)
+
+        """
+        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
+
+    def clone(self):
+        r"""
+        clone(OffSpecSimulation self) -> OffSpecSimulation
+        OffSpecSimulation* OffSpecSimulation::clone() const override
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(OffSpecSimulation self, INodeVisitor visitor)
+        void OffSpecSimulation::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_accept(self, visitor)
+
+    def prepareSimulation(self):
+        r"""
+        prepareSimulation(OffSpecSimulation self)
+        void OffSpecSimulation::prepareSimulation() final
+
+        Put into a clean state for running a simulation. 
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_prepareSimulation(self)
+
+    def result(self):
+        r"""
+        result(OffSpecSimulation self) -> SimulationResult
+        SimulationResult OffSpecSimulation::result() const override
+
+        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_result(self)
+
+    def setBeamParameters(self, wavelength, alpha_axis, phi_i):
+        r"""
+        setBeamParameters(OffSpecSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
+        void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
+
+        Sets beam parameters from here (forwarded to  Instrument) 
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, wavelength, alpha_axis, phi_i)
+
+    def beamAxis(self):
+        r"""
+        beamAxis(OffSpecSimulation self) -> IAxis
+        const IAxis * OffSpecSimulation::beamAxis() const
+
+        Returns axis of the beam. 
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_beamAxis(self)
+
+    def intensityMapSize(self):
+        r"""
+        intensityMapSize(OffSpecSimulation self) -> size_t
+        size_t OffSpecSimulation::intensityMapSize() const override
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_intensityMapSize(self)
+
+# Register OffSpecSimulation in _libBornAgainCore:
+_libBornAgainCore.OffSpecSimulation_swigregister(OffSpecSimulation)
+
+class IBackground(ICloneable, INode):
+    r"""
+
+
+    Interface for a simulating the background signal
+
+    C++ includes: IBackground.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IBackground
+
+    def clone(self):
+        r"""
+        clone(IBackground self) -> IBackground
+        virtual IBackground* IBackground::clone() const =0
+
+        """
+        return _libBornAgainCore.IBackground_clone(self)
+
+    def addBackGround(self, element):
+        r"""
+        addBackGround(IBackground self, double element) -> double
+        virtual double IBackground::addBackGround(double element) const =0
+
+        """
+        return _libBornAgainCore.IBackground_addBackGround(self, element)
+
+# Register IBackground in _libBornAgainCore:
+_libBornAgainCore.IBackground_swigregister(IBackground)
+
+class ConstantBackground(IBackground):
+    r"""
+
+
+    Class representing a constant background signal
+
+    C++ includes: ConstantBackground.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, background_value):
+        r"""
+        __init__(ConstantBackground self, double background_value) -> ConstantBackground
+        ConstantBackground::ConstantBackground(double background_value)
+
+        """
+        _libBornAgainCore.ConstantBackground_swiginit(self, _libBornAgainCore.new_ConstantBackground(background_value))
+
+    def clone(self):
+        r"""
+        clone(ConstantBackground self) -> ConstantBackground
+        ConstantBackground * ConstantBackground::clone() const override final
+
+        """
+        return _libBornAgainCore.ConstantBackground_clone(self)
+
+    def backgroundValue(self):
+        r"""
+        backgroundValue(ConstantBackground self) -> double
+        double ConstantBackground::backgroundValue() const
+
+        """
+        return _libBornAgainCore.ConstantBackground_backgroundValue(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(ConstantBackground self, INodeVisitor visitor)
+        void ConstantBackground::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ConstantBackground_accept(self, visitor)
+
+    def addBackGround(self, intensity):
+        r"""
+        addBackGround(ConstantBackground self, double intensity) -> double
+        double ConstantBackground::addBackGround(double intensity) const override final
+
+        """
+        return _libBornAgainCore.ConstantBackground_addBackGround(self, intensity)
+    __swig_destroy__ = _libBornAgainCore.delete_ConstantBackground
+
+# Register ConstantBackground in _libBornAgainCore:
+_libBornAgainCore.ConstantBackground_swigregister(ConstantBackground)
+
+class PoissonNoiseBackground(IBackground):
+    r"""
+
+
+    Class representing Poisson noise on top of the scattered intensity
+
+    C++ includes: PoissonNoiseBackground.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(PoissonNoiseBackground self) -> PoissonNoiseBackground
+        PoissonNoiseBackground::PoissonNoiseBackground()
+
+        """
+        _libBornAgainCore.PoissonNoiseBackground_swiginit(self, _libBornAgainCore.new_PoissonNoiseBackground())
+    __swig_destroy__ = _libBornAgainCore.delete_PoissonNoiseBackground
+
+    def clone(self):
+        r"""
+        clone(PoissonNoiseBackground self) -> PoissonNoiseBackground
+        PoissonNoiseBackground * PoissonNoiseBackground::clone() const override final
+
+        """
+        return _libBornAgainCore.PoissonNoiseBackground_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(PoissonNoiseBackground self, INodeVisitor visitor)
+        void PoissonNoiseBackground::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.PoissonNoiseBackground_accept(self, visitor)
+
+    def addBackGround(self, intensity):
+        r"""
+        addBackGround(PoissonNoiseBackground self, double intensity) -> double
+        double PoissonNoiseBackground::addBackGround(double intensity) const override final
+
+        """
+        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, intensity)
+
+# Register PoissonNoiseBackground in _libBornAgainCore:
+_libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
+
+
+def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
+    r"""
+    MaterialProfile_cpp(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
+    BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+    Calculate average material profile for given multilayer. 
+
+    """
+    return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
+
+def DefaultMaterialProfileLimits(multilayer):
+    r"""
+    DefaultMaterialProfileLimits(MultiLayer multilayer) -> pair_double_t
+    BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+    Get default z limits for generating a material profile. 
+
+    """
+    return _libBornAgainCore.DefaultMaterialProfileLimits(multilayer)
+
+def GenerateZValues(n_points, z_min, z_max):
+    r"""
+    GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
+    BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+    Generate z values (equidistant) for use in MaterialProfile. 
+
+    """
+    return _libBornAgainCore.GenerateZValues(n_points, z_min, z_max)
+class IntensityDataIOFactory(object):
+    r"""
+
+
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+    Usage:
+
+    C++ includes: IntensityDataIOFactory.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    @staticmethod
+    def readOutputData(file_name):
+        r"""readOutputData(std::string const & file_name) -> IntensityData"""
+        return _libBornAgainCore.IntensityDataIOFactory_readOutputData(file_name)
+
+    @staticmethod
+    def readReflectometryData(file_name):
+        r"""readReflectometryData(std::string const & file_name) -> IntensityData"""
+        return _libBornAgainCore.IntensityDataIOFactory_readReflectometryData(file_name)
+
+    @staticmethod
+    def readIntensityData(file_name):
+        r"""readIntensityData(std::string const & file_name) -> IHistogram"""
+        return _libBornAgainCore.IntensityDataIOFactory_readIntensityData(file_name)
+
+    @staticmethod
+    def writeOutputData(data, file_name):
+        r"""writeOutputData(IntensityData data, std::string const & file_name)"""
+        return _libBornAgainCore.IntensityDataIOFactory_writeOutputData(data, file_name)
+
+    @staticmethod
+    def writeIntensityData(histogram, file_name):
+        r"""writeIntensityData(IHistogram histogram, std::string const & file_name)"""
+        return _libBornAgainCore.IntensityDataIOFactory_writeIntensityData(histogram, file_name)
+
+    @staticmethod
+    def writeSimulationResult(result, file_name):
+        r"""writeSimulationResult(SimulationResult result, std::string const & file_name)"""
+        return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
+
+
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+        Usage:
+
+        C++ includes: IntensityDataIOFactory.h
+
+        """
+        _libBornAgainCore.IntensityDataIOFactory_swiginit(self, _libBornAgainCore.new_IntensityDataIOFactory())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityDataIOFactory
+
+# Register IntensityDataIOFactory in _libBornAgainCore:
+_libBornAgainCore.IntensityDataIOFactory_swigregister(IntensityDataIOFactory)
+
+def IntensityDataIOFactory_readOutputData(file_name):
+    r"""IntensityDataIOFactory_readOutputData(std::string const & file_name) -> IntensityData"""
+    return _libBornAgainCore.IntensityDataIOFactory_readOutputData(file_name)
+
+def IntensityDataIOFactory_readReflectometryData(file_name):
+    r"""IntensityDataIOFactory_readReflectometryData(std::string const & file_name) -> IntensityData"""
+    return _libBornAgainCore.IntensityDataIOFactory_readReflectometryData(file_name)
+
+def IntensityDataIOFactory_readIntensityData(file_name):
+    r"""IntensityDataIOFactory_readIntensityData(std::string const & file_name) -> IHistogram"""
+    return _libBornAgainCore.IntensityDataIOFactory_readIntensityData(file_name)
+
+def IntensityDataIOFactory_writeOutputData(data, file_name):
+    r"""IntensityDataIOFactory_writeOutputData(IntensityData data, std::string const & file_name)"""
+    return _libBornAgainCore.IntensityDataIOFactory_writeOutputData(data, file_name)
+
+def IntensityDataIOFactory_writeIntensityData(histogram, file_name):
+    r"""IntensityDataIOFactory_writeIntensityData(IHistogram histogram, std::string const & file_name)"""
+    return _libBornAgainCore.IntensityDataIOFactory_writeIntensityData(histogram, file_name)
+
+def IntensityDataIOFactory_writeSimulationResult(result, file_name):
+    r"""IntensityDataIOFactory_writeSimulationResult(SimulationResult result, std::string const & file_name)"""
+    return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
+
+class IDetector(ICloneable, INode):
+    r"""
+
+
+    Abstract detector interface.
+
+    C++ includes: IDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IDetector self) -> IDetector
+        IDetector* IDetector::clone() const override=0
+
+        """
+        return _libBornAgainCore.IDetector_clone(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IDetector
+
+    def init(self, arg2):
+        r"""
+        init(IDetector self, Beam arg2)
+        virtual void IDetector::init(const Beam &)
+
+        Inits detector with the beam settings. 
+
+        """
+        return _libBornAgainCore.IDetector_init(self, arg2)
+
+    def clear(self):
+        r"""
+        clear(IDetector self)
+        void IDetector::clear()
+
+        """
+        return _libBornAgainCore.IDetector_clear(self)
+
+    def addAxis(self, axis):
+        r"""
+        addAxis(IDetector self, IAxis axis)
+        void IDetector::addAxis(const IAxis &axis)
+
+        """
+        return _libBornAgainCore.IDetector_addAxis(self, axis)
+
+    def getAxis(self, index):
+        r"""
+        getAxis(IDetector self, size_t index) -> IAxis
+        const IAxis & IDetector::getAxis(size_t index) const
+
+        """
+        return _libBornAgainCore.IDetector_getAxis(self, index)
+
+    def dimension(self):
+        r"""
+        dimension(IDetector self) -> size_t
+        size_t IDetector::dimension() const
+
+        Returns actual dimensionality of the detector (number of defined axes) 
+
+        """
+        return _libBornAgainCore.IDetector_dimension(self)
+
+    def axisBinIndex(self, index, selected_axis):
+        r"""
+        axisBinIndex(IDetector self, size_t index, size_t selected_axis) -> size_t
+        size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
+
+        Calculate axis index for given global index. 
+
+        """
+        return _libBornAgainCore.IDetector_axisBinIndex(self, index, selected_axis)
+
+    def totalSize(self):
+        r"""
+        totalSize(IDetector self) -> size_t
+        size_t IDetector::totalSize() const
+
+        Returns total number of pixels. 
+
+        """
+        return _libBornAgainCore.IDetector_totalSize(self)
+
+    def detectorMask(self):
+        r"""
+        detectorMask(IDetector self) -> DetectorMask
+        virtual const DetectorMask* IDetector::detectorMask() const =0
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainCore.IDetector_detectorMask(self)
+
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
+        r"""
+        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
+        void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+        Sets the polarization analyzer characteristics of the detector. 
+
+        """
+        return _libBornAgainCore.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+    def setDetectorResolution(self, p_detector_resolution):
+        r"""
+        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
+        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+        Sets the detector resolution. 
+
+        """
+        return _libBornAgainCore.IDetector_setDetectorResolution(self, p_detector_resolution)
+
+    def setResolutionFunction(self, resFunc):
+        r"""
+        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
+        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+
+        """
+        return _libBornAgainCore.IDetector_setResolutionFunction(self, resFunc)
+
+    def applyDetectorResolution(self, p_intensity_map):
+        r"""
+        applyDetectorResolution(IDetector self, IntensityData p_intensity_map)
+        void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const
+
+        Applies the detector resolution to the given intensity maps. 
+
+        """
+        return _libBornAgainCore.IDetector_applyDetectorResolution(self, p_intensity_map)
+
+    def removeDetectorResolution(self):
+        r"""
+        removeDetectorResolution(IDetector self)
+        void IDetector::removeDetectorResolution()
+
+        Removes detector resolution function. 
+
+        """
+        return _libBornAgainCore.IDetector_removeDetectorResolution(self)
+
+    def detectorResolution(self):
+        r"""
+        detectorResolution(IDetector self) -> IDetectorResolution
+        const IDetectorResolution * IDetector::detectorResolution() const
+
+        Returns a pointer to detector resolution object. 
+
+        """
+        return _libBornAgainCore.IDetector_detectorResolution(self)
+
+    def regionOfInterest(self):
+        r"""
+        regionOfInterest(IDetector self) -> RegionOfInterest const *
+        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
+
+        Returns region of interest if exists. 
+
+        """
+        return _libBornAgainCore.IDetector_regionOfInterest(self)
+
+    def resetRegionOfInterest(self):
+        r"""
+        resetRegionOfInterest(IDetector self)
+        virtual void IDetector::resetRegionOfInterest()=0
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
+        return _libBornAgainCore.IDetector_resetRegionOfInterest(self)
+
+    def detectionProperties(self):
+        r"""
+        detectionProperties(IDetector self) -> DetectionProperties const &
+        const DetectionProperties& IDetector::detectionProperties() const
+
+        Returns detection properties. 
+
+        """
+        return _libBornAgainCore.IDetector_detectionProperties(self)
+
+    def createDetectorIntensity(self, elements):
+        r"""
+        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
+        OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
+
+        Returns new intensity map with detector resolution applied. Map will be cropped to ROI if ROI is present. 
+
+        """
+        return _libBornAgainCore.IDetector_createDetectorIntensity(self, elements)
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(IDetector self) -> AxesUnits
+        virtual AxesUnits IDetector::defaultAxesUnits() const
+
+        Return default axes units. 
+
+        """
+        return _libBornAgainCore.IDetector_defaultAxesUnits(self)
+
+    def numberOfSimulationElements(self):
+        r"""
+        numberOfSimulationElements(IDetector self) -> size_t
+        size_t IDetector::numberOfSimulationElements() const
+
+        Returns number of simulation elements. 
+
+        """
+        return _libBornAgainCore.IDetector_numberOfSimulationElements(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(IDetector self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > IDetector::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.IDetector_getChildren(self)
+
+    def iterate(self, func, visit_masks=False):
+        r"""
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
+        void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+
+        """
+        return _libBornAgainCore.IDetector_iterate(self, func, visit_masks)
+
+# Register IDetector in _libBornAgainCore:
+_libBornAgainCore.IDetector_swigregister(IDetector)
+
+class IDetector2D(IDetector):
+    r"""
+
+
+    Abstract 2D detector interface.
+
+    C++ includes: IDetector2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IDetector2D self) -> IDetector2D
+        IDetector2D* IDetector2D::clone() const override=0
+
+        """
+        return _libBornAgainCore.IDetector2D_clone(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IDetector2D
+
+    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
+        r"""
+        setDetectorParameters(IDetector2D self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
+        void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
+
+        Sets detector parameters using angle ranges. 
+
+        """
+        return _libBornAgainCore.IDetector2D_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
+
+    def setDetectorAxes(self, axis0, axis1):
+        r"""
+        setDetectorAxes(IDetector2D self, IAxis axis0, IAxis axis1)
+        void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
+
+        Sets detector parameters using axes. 
+
+        """
+        return _libBornAgainCore.IDetector2D_setDetectorAxes(self, axis0, axis1)
+
+    def removeMasks(self):
+        r"""
+        removeMasks(IDetector2D self)
+        void IDetector2D::removeMasks()
+
+        Removes all masks from the detector. 
+
+        """
+        return _libBornAgainCore.IDetector2D_removeMasks(self)
+
+    def detectorMask(self):
+        r"""
+        detectorMask(IDetector2D self) -> DetectorMask
+        const DetectorMask * IDetector2D::detectorMask() const override
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainCore.IDetector2D_detectorMask(self)
+
+    def addMask(self, shape, mask_value=True):
+        r"""
+        addMask(IDetector2D self, IShape2D shape, bool mask_value=True)
+        void IDetector2D::addMask(const IShape2D &shape, bool mask_value=true)
+
+        Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
+
+        Parameters:
+        -----------
+
+        shape: 
+        The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
+
+        mask_value: 
+        The value of mask 
+
+        """
+        return _libBornAgainCore.IDetector2D_addMask(self, shape, mask_value)
+
+    def maskAll(self):
+        r"""
+        maskAll(IDetector2D self)
+        void IDetector2D::maskAll()
+
+        Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
+
+        """
+        return _libBornAgainCore.IDetector2D_maskAll(self)
+
+    def regionOfInterest(self):
+        r"""
+        regionOfInterest(IDetector2D self) -> RegionOfInterest const *
+        const RegionOfInterest * IDetector2D::regionOfInterest() const override
+
+        Returns region of interest if exists. 
+
+        """
+        return _libBornAgainCore.IDetector2D_regionOfInterest(self)
+
+    def setRegionOfInterest(self, xlow, ylow, xup, yup):
+        r"""
+        setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)
+        void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+        Sets rectangular region of interest with lower left and upper right corners defined. 
+
+        """
+        return _libBornAgainCore.IDetector2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+
+    def resetRegionOfInterest(self):
+        r"""
+        resetRegionOfInterest(IDetector2D self)
+        void IDetector2D::resetRegionOfInterest() override
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
+        return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
+
+    def active_indices(self):
+        r"""
+        active_indices(IDetector2D self) -> std::vector< size_t,std::allocator< size_t > >
+        std::vector< size_t > IDetector2D::active_indices() const
+
+        Returns vector of unmasked detector indices. 
+
+        """
+        return _libBornAgainCore.IDetector2D_active_indices(self)
+
+    def createPixel(self, index):
+        r"""
+        createPixel(IDetector2D self, size_t index) -> IPixel
+        virtual IPixel* IDetector2D::createPixel(size_t index) const =0
+
+        Create an  IPixel for the given  OutputData object and index. 
+
+        """
+        return _libBornAgainCore.IDetector2D_createPixel(self, index)
+
+    def getIndexOfSpecular(self, beam):
+        r"""
+        getIndexOfSpecular(IDetector2D self, Beam beam) -> size_t
+        virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
+
+        Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
+
+        """
+        return _libBornAgainCore.IDetector2D_getIndexOfSpecular(self, beam)
+
+# Register IDetector2D in _libBornAgainCore:
+_libBornAgainCore.IDetector2D_swigregister(IDetector2D)
+
+class SphericalPixel(IPixel):
+    r"""
+
+
+    A pixel in a  SphericalDetector.
+
+    C++ includes: SphericalDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, alpha_bin, phi_bin):
+        r"""
+        __init__(SphericalPixel self, Bin1D alpha_bin, Bin1D phi_bin) -> SphericalPixel
+        SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
+
+        """
+        _libBornAgainCore.SphericalPixel_swiginit(self, _libBornAgainCore.new_SphericalPixel(alpha_bin, phi_bin))
+
+    def clone(self):
+        r"""
+        clone(SphericalPixel self) -> SphericalPixel
+        SphericalPixel * SphericalPixel::clone() const override
+
+        """
+        return _libBornAgainCore.SphericalPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(SphericalPixel self, double x, double y) -> SphericalPixel
+        SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const override
+
+        """
+        return _libBornAgainCore.SphericalPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(SphericalPixel self, double x, double y, double wavelength) -> kvector_t
+        kvector_t SphericalPixel::getK(double x, double y, double wavelength) const override
+
+        """
+        return _libBornAgainCore.SphericalPixel_getK(self, x, y, wavelength)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(SphericalPixel self, double x, double y) -> double
+        double SphericalPixel::getIntegrationFactor(double x, double y) const override
+
+        """
+        return _libBornAgainCore.SphericalPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(SphericalPixel self) -> double
+        double SphericalPixel::getSolidAngle() const override
+
+        """
+        return _libBornAgainCore.SphericalPixel_getSolidAngle(self)
+    __swig_destroy__ = _libBornAgainCore.delete_SphericalPixel
+
+# Register SphericalPixel in _libBornAgainCore:
+_libBornAgainCore.SphericalPixel_swigregister(SphericalPixel)
+
+class SphericalDetector(IDetector2D):
+    r"""
+
+
+    A spherical detector with axes and resolution function.
+
+    C++ includes: SphericalDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(SphericalDetector self) -> SphericalDetector
+        __init__(SphericalDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalDetector
+        __init__(SphericalDetector self, SphericalDetector other) -> SphericalDetector
+        SphericalDetector::SphericalDetector(const SphericalDetector &other)
+
+        """
+        _libBornAgainCore.SphericalDetector_swiginit(self, _libBornAgainCore.new_SphericalDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(SphericalDetector self) -> SphericalDetector
+        SphericalDetector * SphericalDetector::clone() const override
+
+        """
+        return _libBornAgainCore.SphericalDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(SphericalDetector self, INodeVisitor visitor)
+        void SphericalDetector::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.SphericalDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(SphericalDetector self) -> AxesUnits
+        AxesUnits SphericalDetector::defaultAxesUnits() const override
+
+        return default axes units 
+
+        """
+        return _libBornAgainCore.SphericalDetector_defaultAxesUnits(self)
+
+# Register SphericalDetector in _libBornAgainCore:
+_libBornAgainCore.SphericalDetector_swigregister(SphericalDetector)
+
+class DetectorMask(object):
+    r"""
+
+
+    Collection of detector masks.
+
+    C++ includes: DetectorMask.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DetectorMask self) -> DetectorMask
+        __init__(DetectorMask self, DetectorMask other) -> DetectorMask
+        DetectorMask::DetectorMask(const DetectorMask &other)
+
+        """
+        _libBornAgainCore.DetectorMask_swiginit(self, _libBornAgainCore.new_DetectorMask(*args))
+
+    def addMask(self, shape, mask_value):
+        r"""
+        addMask(DetectorMask self, IShape2D shape, bool mask_value)
+        void DetectorMask::addMask(const IShape2D &shape, bool mask_value)
+
+        Add mask to the stack of detector masks. The value "true" means that the area will be excluded from the analysis.
+
+        Parameters:
+        -----------
+
+        shape: 
+        The shape of mask.
+
+        mask_value: 
+        The value of mask 
+
+        """
+        return _libBornAgainCore.DetectorMask_addMask(self, shape, mask_value)
+
+    def initMaskData(self, *args):
+        r"""
+        initMaskData(DetectorMask self, IDetector2D detector)
+        initMaskData(DetectorMask self, IntensityData data)
+        void DetectorMask::initMaskData(const OutputData< double > &data)
+
+        """
+        return _libBornAgainCore.DetectorMask_initMaskData(self, *args)
+
+    def isMasked(self, index):
+        r"""
+        isMasked(DetectorMask self, size_t index) -> bool
+        bool DetectorMask::isMasked(size_t index) const
+
+        """
+        return _libBornAgainCore.DetectorMask_isMasked(self, index)
+
+    def getMaskData(self):
+        r"""
+        getMaskData(DetectorMask self) -> OutputData< bool > const *
+        const OutputData<bool>* DetectorMask::getMaskData() const
+
+        """
+        return _libBornAgainCore.DetectorMask_getMaskData(self)
+
+    def createHistogram(self):
+        r"""
+        createHistogram(DetectorMask self) -> Histogram2D
+        Histogram2D * DetectorMask::createHistogram() const
+
+        """
+        return _libBornAgainCore.DetectorMask_createHistogram(self)
+
+    def removeMasks(self):
+        r"""
+        removeMasks(DetectorMask self)
+        void DetectorMask::removeMasks()
+
+        remove all masks and return object to initial state 
+
+        """
+        return _libBornAgainCore.DetectorMask_removeMasks(self)
+
+    def hasMasks(self):
+        r"""
+        hasMasks(DetectorMask self) -> bool
+        bool DetectorMask::hasMasks() const
+
+        returns true if has masks 
+
+        """
+        return _libBornAgainCore.DetectorMask_hasMasks(self)
+
+    def numberOfMaskedChannels(self):
+        r"""
+        numberOfMaskedChannels(DetectorMask self) -> int
+        int DetectorMask::numberOfMaskedChannels() const
+
+        """
+        return _libBornAgainCore.DetectorMask_numberOfMaskedChannels(self)
+
+    def numberOfMasks(self):
+        r"""
+        numberOfMasks(DetectorMask self) -> size_t
+        size_t DetectorMask::numberOfMasks() const
+
+        """
+        return _libBornAgainCore.DetectorMask_numberOfMasks(self)
+
+    def getMaskShape(self, mask_index, mask_value):
+        r"""
+        getMaskShape(DetectorMask self, size_t mask_index, bool & mask_value) -> IShape2D
+        const IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
+
+        """
+        return _libBornAgainCore.DetectorMask_getMaskShape(self, mask_index, mask_value)
+    __swig_destroy__ = _libBornAgainCore.delete_DetectorMask
+
+# Register DetectorMask in _libBornAgainCore:
+_libBornAgainCore.DetectorMask_swigregister(DetectorMask)
+
+class IsGISAXSDetector(SphericalDetector):
+    r"""
+
+
+    A spherical detector used for validation with IsGISAXS results.
+
+    C++ includes: IsGISAXSDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(IsGISAXSDetector self) -> IsGISAXSDetector
+        __init__(IsGISAXSDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> IsGISAXSDetector
+        __init__(IsGISAXSDetector self, IsGISAXSDetector other) -> IsGISAXSDetector
+        IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
+
+        """
+        _libBornAgainCore.IsGISAXSDetector_swiginit(self, _libBornAgainCore.new_IsGISAXSDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(IsGISAXSDetector self) -> IsGISAXSDetector
+        IsGISAXSDetector * IsGISAXSDetector::clone() const override
+
+        """
+        return _libBornAgainCore.IsGISAXSDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IsGISAXSDetector self, INodeVisitor visitor)
+        void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IsGISAXSDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_IsGISAXSDetector
+
+# Register IsGISAXSDetector in _libBornAgainCore:
+_libBornAgainCore.IsGISAXSDetector_swigregister(IsGISAXSDetector)
+
+class RectangularPixel(IPixel):
+    r"""
+
+
+    A pixel in a  RectangularDetector.
+
+    C++ includes: RectangularDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, corner_pos, width, height):
+        r"""
+        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
+        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
+
+        """
+        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
+
+    def clone(self):
+        r"""
+        clone(RectangularPixel self) -> RectangularPixel
+        RectangularPixel * RectangularPixel::clone() const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
+        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
+        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
+
+    def getPosition(self, x, y):
+        r"""
+        getPosition(RectangularPixel self, double x, double y) -> kvector_t
+        kvector_t RectangularPixel::getPosition(double x, double y) const
+
+        """
+        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
+        double RectangularPixel::getIntegrationFactor(double x, double y) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(RectangularPixel self) -> double
+        double RectangularPixel::getSolidAngle() const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
+
+# Register RectangularPixel in _libBornAgainCore:
+_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
+
+class RectangularDetector(IDetector2D):
+    r"""
+
+
+    A flat rectangular detector with axes and resolution function.
+
+    C++ includes: RectangularDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    GENERIC = _libBornAgainCore.RectangularDetector_GENERIC
+    
+    PERPENDICULAR_TO_SAMPLE = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_SAMPLE
+    
+    PERPENDICULAR_TO_DIRECT_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_DIRECT_BEAM
+    
+    PERPENDICULAR_TO_REFLECTED_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM
+    
+    PERPENDICULAR_TO_REFLECTED_BEAM_DPOS = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
+    
+
+    def __init__(self, *args):
+        r"""
+        __init__(RectangularDetector self, size_t nxbins, double width, size_t nybins, double height) -> RectangularDetector
+        __init__(RectangularDetector self, RectangularDetector other) -> RectangularDetector
+        RectangularDetector::RectangularDetector(const RectangularDetector &other)
+
+        """
+        _libBornAgainCore.RectangularDetector_swiginit(self, _libBornAgainCore.new_RectangularDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(RectangularDetector self) -> RectangularDetector
+        RectangularDetector * RectangularDetector::clone() const override
+
+        """
+        return _libBornAgainCore.RectangularDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(RectangularDetector self, INodeVisitor visitor)
+        void RectangularDetector::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.RectangularDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularDetector
+
+    def init(self, beam):
+        r"""
+        init(RectangularDetector self, Beam beam)
+        void RectangularDetector::init(const Beam &beam) override
+
+        Inits detector with the beam settings. 
+
+        """
+        return _libBornAgainCore.RectangularDetector_init(self, beam)
+
+    def setPosition(self, *args):
+        r"""
+        setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction=kvector_t(0.0, -1.0, 0.0))
+        void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPosition(self, *args)
+
+    def setPerpendicularToSampleX(self, distance, u0, v0):
+        r"""
+        setPerpendicularToSampleX(RectangularDetector self, double distance, double u0, double v0)
+        void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPerpendicularToSampleX(self, distance, u0, v0)
+
+    def setPerpendicularToDirectBeam(self, distance, u0, v0):
+        r"""
+        setPerpendicularToDirectBeam(RectangularDetector self, double distance, double u0, double v0)
+        void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPerpendicularToDirectBeam(self, distance, u0, v0)
+
+    def setPerpendicularToReflectedBeam(self, distance, u0=0.0, v0=0.0):
+        r"""
+        setPerpendicularToReflectedBeam(RectangularDetector self, double distance, double u0=0.0, double v0=0.0)
+        void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0=0.0, double v0=0.0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setPerpendicularToReflectedBeam(self, distance, u0, v0)
+
+    def setDirectBeamPosition(self, u0, v0):
+        r"""
+        setDirectBeamPosition(RectangularDetector self, double u0, double v0)
+        void RectangularDetector::setDirectBeamPosition(double u0, double v0)
+
+        """
+        return _libBornAgainCore.RectangularDetector_setDirectBeamPosition(self, u0, v0)
+
+    def getWidth(self):
+        r"""
+        getWidth(RectangularDetector self) -> double
+        double RectangularDetector::getWidth() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getWidth(self)
+
+    def getHeight(self):
+        r"""
+        getHeight(RectangularDetector self) -> double
+        double RectangularDetector::getHeight() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getHeight(self)
+
+    def getNbinsX(self):
+        r"""
+        getNbinsX(RectangularDetector self) -> size_t
+        size_t RectangularDetector::getNbinsX() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getNbinsX(self)
+
+    def getNbinsY(self):
+        r"""
+        getNbinsY(RectangularDetector self) -> size_t
+        size_t RectangularDetector::getNbinsY() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getNbinsY(self)
+
+    def getNormalVector(self):
+        r"""
+        getNormalVector(RectangularDetector self) -> kvector_t
+        kvector_t RectangularDetector::getNormalVector() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getNormalVector(self)
+
+    def getU0(self):
+        r"""
+        getU0(RectangularDetector self) -> double
+        double RectangularDetector::getU0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getU0(self)
+
+    def getV0(self):
+        r"""
+        getV0(RectangularDetector self) -> double
+        double RectangularDetector::getV0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getV0(self)
+
+    def getDirectionVector(self):
+        r"""
+        getDirectionVector(RectangularDetector self) -> kvector_t
+        kvector_t RectangularDetector::getDirectionVector() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDirectionVector(self)
+
+    def getDistance(self):
+        r"""
+        getDistance(RectangularDetector self) -> double
+        double RectangularDetector::getDistance() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDistance(self)
+
+    def getDirectBeamU0(self):
+        r"""
+        getDirectBeamU0(RectangularDetector self) -> double
+        double RectangularDetector::getDirectBeamU0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDirectBeamU0(self)
+
+    def getDirectBeamV0(self):
+        r"""
+        getDirectBeamV0(RectangularDetector self) -> double
+        double RectangularDetector::getDirectBeamV0() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDirectBeamV0(self)
+
+    def getDetectorArrangment(self):
+        r"""
+        getDetectorArrangment(RectangularDetector self) -> RectangularDetector::EDetectorArrangement
+        RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(RectangularDetector self) -> AxesUnits
+        AxesUnits RectangularDetector::defaultAxesUnits() const override
+
+        return default axes units 
+
+        """
+        return _libBornAgainCore.RectangularDetector_defaultAxesUnits(self)
+
+    def regionOfInterestPixel(self):
+        r"""
+        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel
+        RectangularPixel * RectangularDetector::regionOfInterestPixel() const
+
+        """
+        return _libBornAgainCore.RectangularDetector_regionOfInterestPixel(self)
+
+# Register RectangularDetector in _libBornAgainCore:
+_libBornAgainCore.RectangularDetector_swigregister(RectangularDetector)
+
+class IDetectorResolution(ICloneable, INode):
+    r"""
+
+
+    Interface for detector resolution algorithms
+
+    C++ includes: IDetectorResolution.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IDetectorResolution
+
+    def applyDetectorResolution(self, p_intensity_map):
+        r"""
+        applyDetectorResolution(IDetectorResolution self, IntensityData p_intensity_map)
+        virtual void IDetectorResolution::applyDetectorResolution(OutputData< double > *p_intensity_map) const =0
+
+        Apply the resolution function to the intensity data. 
+
+        """
+        return _libBornAgainCore.IDetectorResolution_applyDetectorResolution(self, p_intensity_map)
+
+    def clone(self):
+        r"""
+        clone(IDetectorResolution self) -> IDetectorResolution
+        virtual IDetectorResolution* IDetectorResolution::clone() const =0
+
+        """
+        return _libBornAgainCore.IDetectorResolution_clone(self)
+
+# Register IDetectorResolution in _libBornAgainCore:
+_libBornAgainCore.IDetectorResolution_swigregister(IDetectorResolution)
+
+class IResolutionFunction2D(ICloneable, INode):
+    r"""
+
+
+    Interface providing two-dimensional resolution function.
+
+    C++ includes: IResolutionFunction2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IResolutionFunction2D
+
+    def evaluateCDF(self, x, y):
+        r"""
+        evaluateCDF(IResolutionFunction2D self, double x, double y) -> double
+        virtual double IResolutionFunction2D::evaluateCDF(double x, double y) const =0
+
+        """
+        return _libBornAgainCore.IResolutionFunction2D_evaluateCDF(self, x, y)
+
+    def clone(self):
+        r"""
+        clone(IResolutionFunction2D self) -> IResolutionFunction2D
+        virtual IResolutionFunction2D* IResolutionFunction2D::clone() const =0
+
+        """
+        return _libBornAgainCore.IResolutionFunction2D_clone(self)
+
+# Register IResolutionFunction2D in _libBornAgainCore:
+_libBornAgainCore.IResolutionFunction2D_swigregister(IResolutionFunction2D)
+
+class ResolutionFunction2DGaussian(IResolutionFunction2D):
+    r"""
+
+
+    Simple gaussian two-dimensional resolution function.
+
+    C++ includes: ResolutionFunction2DGaussian.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, sigma_x, sigma_y):
+        r"""
+        __init__(ResolutionFunction2DGaussian self, double sigma_x, double sigma_y) -> ResolutionFunction2DGaussian
+        ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
+
+        """
+        _libBornAgainCore.ResolutionFunction2DGaussian_swiginit(self, _libBornAgainCore.new_ResolutionFunction2DGaussian(sigma_x, sigma_y))
+
+    def evaluateCDF(self, x, y):
+        r"""
+        evaluateCDF(ResolutionFunction2DGaussian self, double x, double y) -> double
+        double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
+
+        """
+        return _libBornAgainCore.ResolutionFunction2DGaussian_evaluateCDF(self, x, y)
+
+    def clone(self):
+        r"""
+        clone(ResolutionFunction2DGaussian self) -> ResolutionFunction2DGaussian
+        ResolutionFunction2DGaussian* ResolutionFunction2DGaussian::clone() const
+
+        """
+        return _libBornAgainCore.ResolutionFunction2DGaussian_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(ResolutionFunction2DGaussian self, INodeVisitor visitor)
+        void ResolutionFunction2DGaussian::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ResolutionFunction2DGaussian_accept(self, visitor)
+
+    def getSigmaX(self):
+        r"""
+        getSigmaX(ResolutionFunction2DGaussian self) -> double
+        double ResolutionFunction2DGaussian::getSigmaX() const
+
+        """
+        return _libBornAgainCore.ResolutionFunction2DGaussian_getSigmaX(self)
+
+    def getSigmaY(self):
+        r"""
+        getSigmaY(ResolutionFunction2DGaussian self) -> double
+        double ResolutionFunction2DGaussian::getSigmaY() const
+
+        """
+        return _libBornAgainCore.ResolutionFunction2DGaussian_getSigmaY(self)
+    __swig_destroy__ = _libBornAgainCore.delete_ResolutionFunction2DGaussian
+
+# Register ResolutionFunction2DGaussian in _libBornAgainCore:
+_libBornAgainCore.ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
+
+class ScanResolution(ICloneable):
+    r"""
+
+
+    Container for reflectivity resolution data.
+
+    C++ includes: ScanResolution.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ScanResolution
+
+    @staticmethod
+    def scanRelativeResolution(*args):
+        r"""
+        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
+
+    @staticmethod
+    def scanAbsoluteResolution(*args):
+        r"""
+        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
+
+# Register ScanResolution in _libBornAgainCore:
+_libBornAgainCore.ScanResolution_swigregister(ScanResolution)
+
+def ScanResolution_scanRelativeResolution(*args):
+    r"""
+    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
+
+def ScanResolution_scanAbsoluteResolution(*args):
+    r"""
+    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
 
 class IHistogram(object):
     r"""
@@ -14126,6 +20619,430 @@ def IHistogram_createFrom(*args):
     """
     return _libBornAgainCore.IHistogram_createFrom(*args)
 
+class IIntensityNormalizer(ICloneable, INode):
+    r"""
+
+
+    Interface to  OutputData normalizers.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityNormalizer
+
+    def clone(self):
+        r"""
+        clone(IIntensityNormalizer self) -> IIntensityNormalizer
+        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_clone(self)
+
+    def createNormalizedData(self, data):
+        r"""
+        createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
+        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
+
+    def apply(self, data):
+        r"""
+        apply(IIntensityNormalizer self, IntensityData data)
+        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
+
+    def setMaximumIntensity(self, arg2):
+        r"""
+        setMaximumIntensity(IIntensityNormalizer self, double arg2)
+        virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
+
+        """
+        return _libBornAgainCore.IIntensityNormalizer_setMaximumIntensity(self, arg2)
+
+# Register IIntensityNormalizer in _libBornAgainCore:
+_libBornAgainCore.IIntensityNormalizer_swigregister(IIntensityNormalizer)
+
+class IntensityNormalizer(IIntensityNormalizer):
+    r"""
+
+
+    Standard  OutputData normalizer, with configurable max_intensity.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, scale=1.0, shift=0.0):
+        r"""
+        __init__(IntensityNormalizer self, double scale=1.0, double shift=0.0) -> IntensityNormalizer
+        IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
+
+        """
+        _libBornAgainCore.IntensityNormalizer_swiginit(self, _libBornAgainCore.new_IntensityNormalizer(scale, shift))
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityNormalizer
+
+    def clone(self):
+        r"""
+        clone(IntensityNormalizer self) -> IntensityNormalizer
+        IntensityNormalizer * IntensityNormalizer::clone() const
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IntensityNormalizer self, INodeVisitor visitor)
+        void IntensityNormalizer::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_accept(self, visitor)
+
+    def createNormalizedData(self, data):
+        r"""
+        createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
+        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
+
+    def apply(self, data):
+        r"""
+        apply(IntensityNormalizer self, IntensityData data)
+        void IntensityNormalizer::apply(OutputData< double > &data) const final
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_apply(self, data)
+
+    def setMaximumIntensity(self, max_intensity):
+        r"""
+        setMaximumIntensity(IntensityNormalizer self, double max_intensity)
+        virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
+
+# Register IntensityNormalizer in _libBornAgainCore:
+_libBornAgainCore.IntensityNormalizer_swigregister(IntensityNormalizer)
+
+class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
+    r"""
+
+
+    Simplified  OutputData normalizer, with max_intensity=1.
+
+    C++ includes: IIntensityNormalizer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, scale=1.0, shift=0.0):
+        r"""
+        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0, double shift=0.0) -> IntensityScaleAndShiftNormalizer
+        IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
+
+        """
+        _libBornAgainCore.IntensityScaleAndShiftNormalizer_swiginit(self, _libBornAgainCore.new_IntensityScaleAndShiftNormalizer(scale, shift))
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
+
+    def accept(self, visitor):
+        r"""
+        accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
+        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_accept(self, visitor)
+
+    def setMaximumIntensity(self, arg2):
+        r"""
+        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
+        void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
+
+    def clone(self):
+        r"""
+        clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
+        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
+
+# Register IntensityScaleAndShiftNormalizer in _libBornAgainCore:
+_libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
+
+class IIntensityFunction(object):
+    r"""
+
+
+    Interface for applying arbitrary function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
+
+    def clone(self):
+        r"""
+        clone(IIntensityFunction self) -> IIntensityFunction
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IIntensityFunction self, double value) -> double
+        virtual double IIntensityFunction::evaluate(double value) const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
+
+# Register IIntensityFunction in _libBornAgainCore:
+_libBornAgainCore.IIntensityFunction_swigregister(IIntensityFunction)
+
+class IntensityFunctionLog(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying log function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionLog self) -> IntensityFunctionLog
+        IntensityFunctionLog * IntensityFunctionLog::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionLog self, double value) -> double
+        double IntensityFunctionLog::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
+
+
+        Algorithm for applying log function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionLog_swiginit(self, _libBornAgainCore.new_IntensityFunctionLog())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+
+# Register IntensityFunctionLog in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionLog_swigregister(IntensityFunctionLog)
+
+class IntensityFunctionSqrt(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying sqrt function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionSqrt self, double value) -> double
+        double IntensityFunctionSqrt::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+
+        Algorithm for applying sqrt function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionSqrt_swiginit(self, _libBornAgainCore.new_IntensityFunctionSqrt())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+
+# Register IntensityFunctionSqrt in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
+
+class AxesUnits(object):
+    r"""
+
+
+    Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
+    
+    NBINS = _libBornAgainCore.AxesUnits_NBINS
+    
+    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
+    
+    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
+    
+    MM = _libBornAgainCore.AxesUnits_MM
+    
+    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
+    
+    QXQY = _libBornAgainCore.AxesUnits_QXQY
+    
+    RQ4 = _libBornAgainCore.AxesUnits_RQ4
+    
+    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
+
+# Register AxesUnits in _libBornAgainCore:
+_libBornAgainCore.AxesUnits_swigregister(AxesUnits)
+
+class IUnitConverter(ICloneable):
+    r"""
+
+
+    Interface to provide axis translations to different units for simulation output
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IUnitConverter
+
+    def clone(self):
+        r"""
+        clone(IUnitConverter self) -> IUnitConverter
+        virtual IUnitConverter* IUnitConverter::clone() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_clone(self)
+
+    def dimension(self):
+        r"""
+        dimension(IUnitConverter self) -> size_t
+        virtual size_t IUnitConverter::dimension() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_dimension(self)
+
+    def calculateMin(self, i_axis, units_type):
+        r"""
+        calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
+
+    def calculateMax(self, i_axis, units_type):
+        r"""
+        calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
+
+    def axisSize(self, i_axis):
+        r"""
+        axisSize(IUnitConverter self, size_t i_axis) -> size_t
+        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
+
+    def axisName(self, *args):
+        r"""
+        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) -> std::string
+        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
+
+        """
+        return _libBornAgainCore.IUnitConverter_axisName(self, *args)
+
+    def availableUnits(self):
+        r"""
+        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
+        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_availableUnits(self)
+
+    def defaultUnits(self):
+        r"""
+        defaultUnits(IUnitConverter self) -> AxesUnits
+        virtual AxesUnits IUnitConverter::defaultUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_defaultUnits(self)
+
+    def substituteDefaultUnits(self, units):
+        r"""
+        substituteDefaultUnits(IUnitConverter self, AxesUnits units) -> AxesUnits
+        AxesUnits IUnitConverter::substituteDefaultUnits(AxesUnits units) const
+
+        """
+        return _libBornAgainCore.IUnitConverter_substituteDefaultUnits(self, units)
+
+# Register IUnitConverter in _libBornAgainCore:
+_libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
+
 class Histogram1D(IHistogram):
     r"""
 
@@ -14383,45 +21300,164 @@ class Histogram2D(IHistogram):
 # Register Histogram2D in _libBornAgainCore:
 _libBornAgainCore.Histogram2D_swigregister(Histogram2D)
 
-class AxisInfo(object):
+
+def RelativeDifference(dat, ref):
+    r"""
+    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
+    double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
+
+    """
+    return _libBornAgainCore.RelativeDifference(dat, ref)
+
+def checkRelativeDifference(dat, ref, threshold):
+    r"""
+    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
+    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+    Returns true is relative difference is below threshold; prints informative output. 
+
+    """
+    return _libBornAgainCore.checkRelativeDifference(dat, ref, threshold)
+
+def getRelativeDifference(*args):
+    r"""
+    getRelativeDifference(IntensityData dat, IntensityData ref) -> double
+    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+
+    """
+    return _libBornAgainCore.getRelativeDifference(*args)
+
+def coordinateToBinf(*args):
+    r"""
+    coordinateToBinf(double coordinate, IAxis axis) -> double
+    coordinateToBinf(double & x, double & y, IntensityData data)
+    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
+
+    """
+    return _libBornAgainCore.coordinateToBinf(*args)
+
+def coordinateFromBinf(*args):
+    r"""
+    coordinateFromBinf(double value, IAxis axis) -> double
+    coordinateFromBinf(double & x, double & y, IntensityData data)
+    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
+
+    """
+    return _libBornAgainCore.coordinateFromBinf(*args)
+
+def create2DArrayfromOutputData(data):
+    r"""
+    create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t
+    std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
+
+    Creates a vector of vectors of double (2D Array) from  OutputData. 
+
+    """
+    return _libBornAgainCore.create2DArrayfromOutputData(data)
+
+def FT2DArray(signal):
+    r"""
+    FT2DArray(vdouble2d_t signal) -> vdouble2d_t
+    std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
+
+    Creates a Fourier Transform of a 2D Array (vector of vectors). 
+
+    """
+    return _libBornAgainCore.FT2DArray(signal)
+class IChiSquaredModule(ICloneable):
     r"""
 
 
-    Information about an axis in specific units. Can be used for plotting.
+    Interface residual calculations.
 
-    C++ includes: SimulationResult.h
+    C++ includes: IChiSquaredModule.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    m_name = property(_libBornAgainCore.AxisInfo_m_name_get, _libBornAgainCore.AxisInfo_m_name_set, doc=r"""m_name : std::string""")
-    m_min = property(_libBornAgainCore.AxisInfo_m_min_get, _libBornAgainCore.AxisInfo_m_min_set, doc=r"""m_min : double""")
-    m_max = property(_libBornAgainCore.AxisInfo_m_max_get, _libBornAgainCore.AxisInfo_m_max_set, doc=r"""m_max : double""")
+    __swig_destroy__ = _libBornAgainCore.delete_IChiSquaredModule
 
-    def __init__(self):
+    def clone(self):
         r"""
-        __init__(AxisInfo self) -> AxisInfo
+        clone(IChiSquaredModule self) -> IChiSquaredModule
+        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
 
-
-        Information about an axis in specific units. Can be used for plotting.
-
-        C++ includes: SimulationResult.h
+        clone method 
 
         """
-        _libBornAgainCore.AxisInfo_swiginit(self, _libBornAgainCore.new_AxisInfo())
-    __swig_destroy__ = _libBornAgainCore.delete_AxisInfo
+        return _libBornAgainCore.IChiSquaredModule_clone(self)
 
-# Register AxisInfo in _libBornAgainCore:
-_libBornAgainCore.AxisInfo_swigregister(AxisInfo)
+    def varianceFunction(self):
+        r"""
+        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
+        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
 
-class SimulationResult(object):
+        Returns squared function. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_varianceFunction(self)
+
+    def setVarianceFunction(self, variance_function):
+        r"""
+        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
+        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
+
+        Sets squared function. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setVarianceFunction(self, variance_function)
+
+    def getIntensityFunction(self):
+        r"""
+        getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
+        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
+
+        Returns data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_getIntensityFunction(self)
+
+    def setIntensityFunction(self, intensity_function):
+        r"""
+        setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)
+        void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+
+        Sets data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setIntensityFunction(self, intensity_function)
+
+    def residual(self, a, b, weight):
+        r"""
+        residual(IChiSquaredModule self, double a, double b, double weight) -> double
+        virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_residual(self, a, b, weight)
+
+# Register IChiSquaredModule in _libBornAgainCore:
+_libBornAgainCore.IChiSquaredModule_swigregister(IChiSquaredModule)
+
+class AngularSpecScan(object):
     r"""
 
 
-    Wrapper around  OutputData<double> that also provides unit conversions.
+    Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
 
-    C++ includes: SimulationResult.h
+    C++ includes: AngularSpecScan.h
 
     """
 
@@ -14430,619 +21466,109 @@ class SimulationResult(object):
 
     def __init__(self, *args):
         r"""
-        __init__(SimulationResult self) -> SimulationResult
-        __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
-        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
-        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
-        SimulationResult::SimulationResult(SimulationResult &&other)
+        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
+        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
 
         """
-        _libBornAgainCore.SimulationResult_swiginit(self, _libBornAgainCore.new_SimulationResult(*args))
-
-    def histogram2d(self, *args):
-        r"""
-        histogram2d(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> Histogram2D
-        Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
-
-        """
-        return _libBornAgainCore.SimulationResult_histogram2d(self, *args)
-
-    def axisInfo(self, *args):
-        r"""
-        axisInfo(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> swig_dummy_type_axisinfo_vector
-        std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
-
-        Provide  AxisInfo for each axis and the given units. 
-
-        """
-        return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
-
-    def converter(self):
-        r"""
-        converter(SimulationResult self) -> IUnitConverter
-        const IUnitConverter & SimulationResult::converter() const
-
-        Returns underlying unit converter. 
-
-        """
-        return _libBornAgainCore.SimulationResult_converter(self)
-
-    def size(self):
-        r"""
-        size(SimulationResult self) -> size_t
-        size_t SimulationResult::size() const
-
-        """
-        return _libBornAgainCore.SimulationResult_size(self)
-
-    def array(self, *args):
-        r"""
-        array(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> PyObject
-        PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
-
-        returns intensity data as Python numpy array 
-
-        """
-        return _libBornAgainCore.SimulationResult_array(self, *args)
-
-    def axis(self, *args):
-        r"""
-        axis(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
-        axis(SimulationResult self, size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
-        std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
-
-        Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
-
-        """
-        return _libBornAgainCore.SimulationResult_axis(self, *args)
-
-    def __getitem__(self, i):
-        r"""__getitem__(SimulationResult self, unsigned int i) -> double"""
-        return _libBornAgainCore.SimulationResult___getitem__(self, i)
-
-    def __setitem__(self, i, value):
-        r"""__setitem__(SimulationResult self, unsigned int i, double value) -> double"""
-        return _libBornAgainCore.SimulationResult___setitem__(self, i, value)
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
-
-# Register SimulationResult in _libBornAgainCore:
-_libBornAgainCore.SimulationResult_swigregister(SimulationResult)
-
-class IBackground(ICloneable, INode):
-    r"""
-
-
-    Interface for a simulating the background signal
-
-    C++ includes: IBackground.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IBackground
+        _libBornAgainCore.AngularSpecScan_swiginit(self, _libBornAgainCore.new_AngularSpecScan(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
 
     def clone(self):
         r"""
-        clone(IBackground self) -> IBackground
-        virtual IBackground* IBackground::clone() const =0
+        clone(AngularSpecScan self) -> AngularSpecScan
+        AngularSpecScan * AngularSpecScan::clone() const override
 
         """
-        return _libBornAgainCore.IBackground_clone(self)
+        return _libBornAgainCore.AngularSpecScan_clone(self)
 
-    def addBackGround(self, element):
+    def setFootprintFactor(self, f_factor):
         r"""
-        addBackGround(IBackground self, double element) -> double
-        virtual double IBackground::addBackGround(double element) const =0
+        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
+        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+        Sets footprint correction factor. 
 
         """
-        return _libBornAgainCore.IBackground_addBackGround(self, element)
+        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
 
-# Register IBackground in _libBornAgainCore:
-_libBornAgainCore.IBackground_swigregister(IBackground)
+    def setWavelengthResolution(self, resolution):
+        r"""
+        setWavelengthResolution(AngularSpecScan self, ScanResolution resolution)
+        void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
 
-class ConstantBackground(IBackground):
+        Sets wavelength resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setWavelengthResolution(self, resolution)
+
+    def setRelativeWavelengthResolution(self, *args):
+        r"""
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets wavelength resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
+
+    def setAbsoluteWavelengthResolution(self, *args):
+        r"""
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets wavelength resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
+
+    def setAngleResolution(self, resolution):
+        r"""
+        setAngleResolution(AngularSpecScan self, ScanResolution resolution)
+        void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+        Sets angle resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAngleResolution(self, resolution)
+
+    def setRelativeAngularResolution(self, *args):
+        r"""
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets angular resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeAngularResolution(self, *args)
+
+    def setAbsoluteAngularResolution(self, *args):
+        r"""
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets angular resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
+
+# Register AngularSpecScan in _libBornAgainCore:
+_libBornAgainCore.AngularSpecScan_swigregister(AngularSpecScan)
+
+class ChiSquaredModule(IChiSquaredModule):
     r"""
 
 
-    Class representing a constant background signal
+    Calculation of chi2 between two data sets.
 
-    C++ includes: ConstantBackground.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, background_value):
-        r"""
-        __init__(ConstantBackground self, double background_value) -> ConstantBackground
-        ConstantBackground::ConstantBackground(double background_value)
-
-        """
-        _libBornAgainCore.ConstantBackground_swiginit(self, _libBornAgainCore.new_ConstantBackground(background_value))
-    __swig_destroy__ = _libBornAgainCore.delete_ConstantBackground
-
-    def clone(self):
-        r"""
-        clone(ConstantBackground self) -> ConstantBackground
-        ConstantBackground * ConstantBackground::clone() const override final
-
-        """
-        return _libBornAgainCore.ConstantBackground_clone(self)
-
-    def backgroundValue(self):
-        r"""
-        backgroundValue(ConstantBackground self) -> double
-        double ConstantBackground::backgroundValue() const
-
-        """
-        return _libBornAgainCore.ConstantBackground_backgroundValue(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ConstantBackground self, INodeVisitor visitor)
-        void ConstantBackground::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ConstantBackground_accept(self, visitor)
-
-    def addBackGround(self, intensity):
-        r"""
-        addBackGround(ConstantBackground self, double intensity) -> double
-        double ConstantBackground::addBackGround(double intensity) const override final
-
-        """
-        return _libBornAgainCore.ConstantBackground_addBackGround(self, intensity)
-
-# Register ConstantBackground in _libBornAgainCore:
-_libBornAgainCore.ConstantBackground_swigregister(ConstantBackground)
-
-class IDetector(ICloneable, INode):
-    r"""
-
-
-    Abstract detector interface.
-
-    C++ includes: IDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IDetector self) -> IDetector
-        IDetector* IDetector::clone() const override=0
-
-        """
-        return _libBornAgainCore.IDetector_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IDetector
-
-    def init(self, arg2):
-        r"""
-        init(IDetector self, Beam arg2)
-        virtual void IDetector::init(const Beam &)
-
-        Inits detector with the beam settings. 
-
-        """
-        return _libBornAgainCore.IDetector_init(self, arg2)
-
-    def clear(self):
-        r"""
-        clear(IDetector self)
-        void IDetector::clear()
-
-        """
-        return _libBornAgainCore.IDetector_clear(self)
-
-    def addAxis(self, axis):
-        r"""
-        addAxis(IDetector self, IAxis axis)
-        void IDetector::addAxis(const IAxis &axis)
-
-        """
-        return _libBornAgainCore.IDetector_addAxis(self, axis)
-
-    def getAxis(self, index):
-        r"""
-        getAxis(IDetector self, size_t index) -> IAxis
-        const IAxis & IDetector::getAxis(size_t index) const
-
-        """
-        return _libBornAgainCore.IDetector_getAxis(self, index)
-
-    def dimension(self):
-        r"""
-        dimension(IDetector self) -> size_t
-        size_t IDetector::dimension() const
-
-        Returns actual dimensionality of the detector (number of defined axes) 
-
-        """
-        return _libBornAgainCore.IDetector_dimension(self)
-
-    def axisBinIndex(self, index, selected_axis):
-        r"""
-        axisBinIndex(IDetector self, size_t index, size_t selected_axis) -> size_t
-        size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
-
-        Calculate axis index for given global index. 
-
-        """
-        return _libBornAgainCore.IDetector_axisBinIndex(self, index, selected_axis)
-
-    def totalSize(self):
-        r"""
-        totalSize(IDetector self) -> size_t
-        size_t IDetector::totalSize() const
-
-        Returns total number of pixels. 
-
-        """
-        return _libBornAgainCore.IDetector_totalSize(self)
-
-    def detectorMask(self):
-        r"""
-        detectorMask(IDetector self) -> DetectorMask
-        virtual const DetectorMask* IDetector::detectorMask() const =0
-
-        Returns detector masks container. 
-
-        """
-        return _libBornAgainCore.IDetector_detectorMask(self)
-
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
-        r"""
-        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
-        void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-        Sets the polarization analyzer characteristics of the detector. 
-
-        """
-        return _libBornAgainCore.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
-
-    def setDetectorResolution(self, p_detector_resolution):
-        r"""
-        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
-        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
-
-        Sets the detector resolution. 
-
-        """
-        return _libBornAgainCore.IDetector_setDetectorResolution(self, p_detector_resolution)
-
-    def setResolutionFunction(self, resFunc):
-        r"""
-        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
-        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
-
-        """
-        return _libBornAgainCore.IDetector_setResolutionFunction(self, resFunc)
-
-    def applyDetectorResolution(self, p_intensity_map):
-        r"""
-        applyDetectorResolution(IDetector self, IntensityData p_intensity_map)
-        void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const
-
-        Applies the detector resolution to the given intensity maps. 
-
-        """
-        return _libBornAgainCore.IDetector_applyDetectorResolution(self, p_intensity_map)
-
-    def removeDetectorResolution(self):
-        r"""
-        removeDetectorResolution(IDetector self)
-        void IDetector::removeDetectorResolution()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainCore.IDetector_removeDetectorResolution(self)
-
-    def detectorResolution(self):
-        r"""
-        detectorResolution(IDetector self) -> IDetectorResolution
-        const IDetectorResolution * IDetector::detectorResolution() const
-
-        Returns a pointer to detector resolution object. 
-
-        """
-        return _libBornAgainCore.IDetector_detectorResolution(self)
-
-    def regionOfInterest(self):
-        r"""
-        regionOfInterest(IDetector self) -> RegionOfInterest const *
-        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
-
-        Returns region of interest if exists. 
-
-        """
-        return _libBornAgainCore.IDetector_regionOfInterest(self)
-
-    def resetRegionOfInterest(self):
-        r"""
-        resetRegionOfInterest(IDetector self)
-        virtual void IDetector::resetRegionOfInterest()=0
-
-        Resets region of interest making whole detector plane available for the simulation. 
-
-        """
-        return _libBornAgainCore.IDetector_resetRegionOfInterest(self)
-
-    def detectionProperties(self):
-        r"""
-        detectionProperties(IDetector self) -> DetectionProperties const &
-        const DetectionProperties& IDetector::detectionProperties() const
-
-        Returns detection properties. 
-
-        """
-        return _libBornAgainCore.IDetector_detectionProperties(self)
-
-    def createDetectorIntensity(self, elements):
-        r"""
-        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
-        OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
-
-        Returns new intensity map with detector resolution applied. Map will be cropped to ROI if ROI is present. 
-
-        """
-        return _libBornAgainCore.IDetector_createDetectorIntensity(self, elements)
-
-    def defaultAxesUnits(self):
-        r"""
-        defaultAxesUnits(IDetector self) -> AxesUnits
-        virtual AxesUnits IDetector::defaultAxesUnits() const
-
-        Return default axes units. 
-
-        """
-        return _libBornAgainCore.IDetector_defaultAxesUnits(self)
-
-    def numberOfSimulationElements(self):
-        r"""
-        numberOfSimulationElements(IDetector self) -> size_t
-        size_t IDetector::numberOfSimulationElements() const
-
-        Returns number of simulation elements. 
-
-        """
-        return _libBornAgainCore.IDetector_numberOfSimulationElements(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(IDetector self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > IDetector::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.IDetector_getChildren(self)
-
-    def iterate(self, func, visit_masks=False):
-        r"""
-        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
-        void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
-
-        """
-        return _libBornAgainCore.IDetector_iterate(self, func, visit_masks)
-
-# Register IDetector in _libBornAgainCore:
-_libBornAgainCore.IDetector_swigregister(IDetector)
-
-class IDetector2D(IDetector):
-    r"""
-
-
-    Abstract 2D detector interface.
-
-    C++ includes: IDetector2D.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IDetector2D self) -> IDetector2D
-        IDetector2D* IDetector2D::clone() const override=0
-
-        """
-        return _libBornAgainCore.IDetector2D_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IDetector2D
-
-    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
-        r"""
-        setDetectorParameters(IDetector2D self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-        void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-        Sets detector parameters using angle ranges. 
-
-        """
-        return _libBornAgainCore.IDetector2D_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
-
-    def setDetectorAxes(self, axis0, axis1):
-        r"""
-        setDetectorAxes(IDetector2D self, IAxis axis0, IAxis axis1)
-        void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
-
-        Sets detector parameters using axes. 
-
-        """
-        return _libBornAgainCore.IDetector2D_setDetectorAxes(self, axis0, axis1)
-
-    def removeMasks(self):
-        r"""
-        removeMasks(IDetector2D self)
-        void IDetector2D::removeMasks()
-
-        Removes all masks from the detector. 
-
-        """
-        return _libBornAgainCore.IDetector2D_removeMasks(self)
-
-    def detectorMask(self):
-        r"""
-        detectorMask(IDetector2D self) -> DetectorMask
-        const DetectorMask * IDetector2D::detectorMask() const override
-
-        Returns detector masks container. 
-
-        """
-        return _libBornAgainCore.IDetector2D_detectorMask(self)
-
-    def addMask(self, shape, mask_value=True):
-        r"""
-        addMask(IDetector2D self, IShape2D shape, bool mask_value=True)
-        void IDetector2D::addMask(const IShape2D &shape, bool mask_value=true)
-
-        Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
-
-        Parameters:
-        -----------
-
-        shape: 
-        The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
-
-        mask_value: 
-        The value of mask 
-
-        """
-        return _libBornAgainCore.IDetector2D_addMask(self, shape, mask_value)
-
-    def maskAll(self):
-        r"""
-        maskAll(IDetector2D self)
-        void IDetector2D::maskAll()
-
-        Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
-
-        """
-        return _libBornAgainCore.IDetector2D_maskAll(self)
-
-    def regionOfInterest(self):
-        r"""
-        regionOfInterest(IDetector2D self) -> RegionOfInterest const *
-        const RegionOfInterest * IDetector2D::regionOfInterest() const override
-
-        Returns region of interest if exists. 
-
-        """
-        return _libBornAgainCore.IDetector2D_regionOfInterest(self)
-
-    def setRegionOfInterest(self, xlow, ylow, xup, yup):
-        r"""
-        setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)
-        void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
-
-        Sets rectangular region of interest with lower left and upper right corners defined. 
-
-        """
-        return _libBornAgainCore.IDetector2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
-
-    def resetRegionOfInterest(self):
-        r"""
-        resetRegionOfInterest(IDetector2D self)
-        void IDetector2D::resetRegionOfInterest() override
-
-        Resets region of interest making whole detector plane available for the simulation. 
-
-        """
-        return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
-
-    def active_indices(self):
-        r"""
-        active_indices(IDetector2D self) -> std::vector< size_t,std::allocator< size_t > >
-        std::vector< size_t > IDetector2D::active_indices() const
-
-        Returns vector of unmasked detector indices. 
-
-        """
-        return _libBornAgainCore.IDetector2D_active_indices(self)
-
-    def createPixel(self, index):
-        r"""
-        createPixel(IDetector2D self, size_t index) -> IPixel
-        virtual IPixel* IDetector2D::createPixel(size_t index) const =0
-
-        Create an  IPixel for the given  OutputData object and index. 
-
-        """
-        return _libBornAgainCore.IDetector2D_createPixel(self, index)
-
-    def getIndexOfSpecular(self, beam):
-        r"""
-        getIndexOfSpecular(IDetector2D self, Beam beam) -> size_t
-        virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
-
-        Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
-
-        """
-        return _libBornAgainCore.IDetector2D_getIndexOfSpecular(self, beam)
-
-# Register IDetector2D in _libBornAgainCore:
-_libBornAgainCore.IDetector2D_swigregister(IDetector2D)
-
-class IDetectorResolution(ICloneable, INode):
-    r"""
-
-
-    Interface for detector resolution algorithms
-
-    C++ includes: IDetectorResolution.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IDetectorResolution
-
-    def applyDetectorResolution(self, p_intensity_map):
-        r"""
-        applyDetectorResolution(IDetectorResolution self, IntensityData p_intensity_map)
-        virtual void IDetectorResolution::applyDetectorResolution(OutputData< double > *p_intensity_map) const =0
-
-        Apply the resolution function to the intensity data. 
-
-        """
-        return _libBornAgainCore.IDetectorResolution_applyDetectorResolution(self, p_intensity_map)
-
-    def clone(self):
-        r"""
-        clone(IDetectorResolution self) -> IDetectorResolution
-        virtual IDetectorResolution* IDetectorResolution::clone() const =0
-
-        """
-        return _libBornAgainCore.IDetectorResolution_clone(self)
-
-# Register IDetectorResolution in _libBornAgainCore:
-_libBornAgainCore.IDetectorResolution_swigregister(IDetectorResolution)
-
-class IInterferenceFunction(ISample):
-    r"""
-
-
-    Pure virtual base class of interference functions.
-
-    C++ includes: IInterferenceFunction.h
+    C++ includes: ChiSquaredModule.h
 
     """
 
@@ -15051,1648 +21577,34 @@ class IInterferenceFunction(ISample):
 
     def __init__(self, *args):
         r"""
-        __init__(IInterferenceFunction self) -> IInterferenceFunction
-        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
-        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
+        __init__(ChiSquaredModule self) -> ChiSquaredModule
+        __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
+        ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
 
         """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
+        _libBornAgainCore.ChiSquaredModule_swiginit(self, _libBornAgainCore.new_ChiSquaredModule(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_ChiSquaredModule
 
     def clone(self):
         r"""
-        clone(IInterferenceFunction self) -> IInterferenceFunction
-        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
+        clone(ChiSquaredModule self) -> ChiSquaredModule
+        virtual ChiSquaredModule* ChiSquaredModule::clone() const
 
-        Returns a clone of this  ISample object. 
+        clone method 
 
         """
-        return _libBornAgainCore.IInterferenceFunction_clone(self)
+        return _libBornAgainCore.ChiSquaredModule_clone(self)
 
-    def accept(self, visitor):
+    def residual(self, a, b, weight):
         r"""
-        accept(IInterferenceFunction self, INodeVisitor visitor)
-        virtual void IInterferenceFunction::accept(INodeVisitor *visitor) const =0
+        residual(ChiSquaredModule self, double a, double b, double weight) -> double
+        double ChiSquaredModule::residual(double a, double b, double weight)
 
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_accept(self, visitor)
-
-    def evaluate(self, q, outer_iff=1.0):
-        r"""
-        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
-        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
-
-        Evaluates the interference function for a given wavevector transfer. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
-
-    def setPositionVariance(self, var):
-        r"""
-        setPositionVariance(IInterferenceFunction self, double var)
-        void IInterferenceFunction::setPositionVariance(double var)
-
-        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
-
-    def positionVariance(self):
-        r"""
-        positionVariance(IInterferenceFunction self) -> double
-        double IInterferenceFunction::positionVariance() const
-
-        Returns the position variance. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
-
-    def getParticleDensity(self):
-        r"""
-        getParticleDensity(IInterferenceFunction self) -> double
-        virtual double IInterferenceFunction::getParticleDensity() const
-
-        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
-
-    def supportsMultilayer(self):
-        r"""
-        supportsMultilayer(IInterferenceFunction self) -> bool
-        virtual bool IInterferenceFunction::supportsMultilayer() const
-
-        Indicates if this interference function can be used with a multilayer (DWBA mode) 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
-
-    def DWfactor(self, q):
-        r"""
-        DWfactor(IInterferenceFunction self, kvector_t q) -> double
-        double IInterferenceFunction::DWfactor(kvector_t q) const
-
-        Evaluates the Debye-Waller factor for a given wavevector transfer. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
-
-    def iff_without_dw(self, q):
-        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
-        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IInterferenceFunction(self)
-        return weakref.proxy(self)
-
-# Register IInterferenceFunction in _libBornAgainCore:
-_libBornAgainCore.IInterferenceFunction_swigregister(IInterferenceFunction)
-
-class ILayout(ISample):
-    r"""
-
-
-    Pure virtual interface class to equip a sample layer with scattering properties. Currently only inherited by  ParticleLayout; in the future also by domain structure.
-
-    C++ includes: ILayout.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ILayout
-
-    def clone(self):
-        r"""
-        clone(ILayout self) -> ILayout
-        virtual ILayout* ILayout::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ILayout_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ILayout self, INodeVisitor visitor)
-        virtual void ILayout::accept(INodeVisitor *visitor) const =0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ILayout_accept(self, visitor)
-
-    def particles(self):
-        r"""
-        particles(ILayout self) -> SafePointerVector< IParticle >
-        virtual SafePointerVector<IParticle> ILayout::particles() const =0
-
-        Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
-
-        """
-        return _libBornAgainCore.ILayout_particles(self)
-
-    def interferenceFunction(self):
-        r"""
-        interferenceFunction(ILayout self) -> IInterferenceFunction
-        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
-
-        Returns the interference function. 
-
-        """
-        return _libBornAgainCore.ILayout_interferenceFunction(self)
-
-    def getTotalAbundance(self):
-        r"""
-        getTotalAbundance(ILayout self) -> double
-        virtual double ILayout::getTotalAbundance() const =0
-
-        Get total abundance of all particles. 
-
-        """
-        return _libBornAgainCore.ILayout_getTotalAbundance(self)
-
-    def totalParticleSurfaceDensity(self):
-        r"""
-        totalParticleSurfaceDensity(ILayout self) -> double
-        virtual double ILayout::totalParticleSurfaceDensity() const =0
-
-        Returns surface density of all particles. 
-
-        """
-        return _libBornAgainCore.ILayout_totalParticleSurfaceDensity(self)
-
-    def setTotalParticleSurfaceDensity(self, particle_density):
-        r"""
-        setTotalParticleSurfaceDensity(ILayout self, double particle_density)
-        virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0
-
-        Sets surface density of all particles. 
-
-        """
-        return _libBornAgainCore.ILayout_setTotalParticleSurfaceDensity(self, particle_density)
-
-    def weight(self):
-        r"""
-        weight(ILayout self) -> double
-        double ILayout::weight() const
-
-        Returns the relative weight of this layout. 
-
-        """
-        return _libBornAgainCore.ILayout_weight(self)
-
-    def setWeight(self, weight):
-        r"""
-        setWeight(ILayout self, double weight)
-        void ILayout::setWeight(double weight)
-
-        Sets the relative weight of this layout. 
-
-        """
-        return _libBornAgainCore.ILayout_setWeight(self, weight)
-
-# Register ILayout in _libBornAgainCore:
-_libBornAgainCore.ILayout_swigregister(ILayout)
-
-class IAbstractParticle(ISample):
-    r"""
-
-
-    Interface for a generic particle.
-
-    Inherited by  IParticle and  ParticleDistribution.
-
-    C++ includes: IAbstractParticle.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IAbstractParticle
-
-    def clone(self):
-        r"""
-        clone(IAbstractParticle self) -> IAbstractParticle
-        virtual IAbstractParticle* IAbstractParticle::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IAbstractParticle self, INodeVisitor visitor)
-        void IAbstractParticle::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
-
-    def abundance(self):
-        r"""
-        abundance(IAbstractParticle self) -> double
-        double IAbstractParticle::abundance() const
-
-        """
-        return _libBornAgainCore.IAbstractParticle_abundance(self)
-
-    def setAbundance(self, abundance):
-        r"""
-        setAbundance(IAbstractParticle self, double abundance)
-        void IAbstractParticle::setAbundance(double abundance)
-
-        Sets particle abundance.
-
-        Parameters:
-        -----------
-
-        abundance: 
-        proportion of this type of particles normalized to the total number of particles in the layout. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
-
-    def translate(self, translation):
-        r"""
-        translate(IAbstractParticle self, kvector_t translation)
-        virtual void IAbstractParticle::translate(kvector_t translation)=0
-
-        Translates the particle with the given vector. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_translate(self, translation)
-
-    def rotate(self, rotation):
-        r"""
-        rotate(IAbstractParticle self, IRotation rotation)
-        virtual void IAbstractParticle::rotate(const IRotation &rotation)=0
-
-        Applies the given rotation to the particle. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_rotate(self, rotation)
-
-# Register IAbstractParticle in _libBornAgainCore:
-_libBornAgainCore.IAbstractParticle_swigregister(IAbstractParticle)
-
-class IParameterReal(object):
-    r"""
-
-
-    Pure virtual base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
-
-    C++ includes: IParameter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
-
-    def clone(self, *args):
-        r"""
-        clone(IParameterReal self, std::string const & new_name="") -> IParameterReal
-        virtual IParameter* IParameter< T >::clone(const std::string &new_name="") const =0
-
-        """
-        return _libBornAgainCore.IParameterReal_clone(self, *args)
-
-    def isNull(self):
-        r"""
-        isNull(IParameterReal self) -> bool
-        virtual bool IParameter< T >::isNull() const
-
-        Returns true if wrapped parameter was not initialized with proper real value. 
-
-        """
-        return _libBornAgainCore.IParameterReal_isNull(self)
-
-    def getData(self):
-        r"""
-        getData(IParameterReal self) -> double &
-        T& IParameter< T >::getData() const
-
-        """
-        return _libBornAgainCore.IParameterReal_getData(self)
-
-    def setData(self, data):
-        r"""
-        setData(IParameterReal self, double & data)
-        void IParameter< T >::setData(T &data)
-
-        """
-        return _libBornAgainCore.IParameterReal_setData(self, data)
-
-    def hasSameData(self, other):
-        r"""
-        hasSameData(IParameterReal self, IParameterReal other) -> bool
-        bool IParameter< T >::hasSameData(const IParameter &other)
-
-        Returns true if two parameters are pointing to the same raw data. 
-
-        """
-        return _libBornAgainCore.IParameterReal_hasSameData(self, other)
-
-    def getName(self):
-        r"""
-        getName(IParameterReal self) -> std::string const &
-        const std::string& IParameter< T >::getName() const
-
-        """
-        return _libBornAgainCore.IParameterReal_getName(self)
-
-# Register IParameterReal in _libBornAgainCore:
-_libBornAgainCore.IParameterReal_swigregister(IParameterReal)
-
-class ParticleLimits(object):
-    r"""
-
-
-    Vertical extension of a particle, specified by bottom and top z coordinate.
-
-    C++ includes: IParticle.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    m_bottom = property(_libBornAgainCore.ParticleLimits_m_bottom_get, _libBornAgainCore.ParticleLimits_m_bottom_set, doc=r"""m_bottom : double""")
-    m_top = property(_libBornAgainCore.ParticleLimits_m_top_get, _libBornAgainCore.ParticleLimits_m_top_set, doc=r"""m_top : double""")
-
-    def __init__(self):
-        r"""
-        __init__(ParticleLimits self) -> ParticleLimits
-
-
-        Vertical extension of a particle, specified by bottom and top z coordinate.
-
-        C++ includes: IParticle.h
-
-        """
-        _libBornAgainCore.ParticleLimits_swiginit(self, _libBornAgainCore.new_ParticleLimits())
-    __swig_destroy__ = _libBornAgainCore.delete_ParticleLimits
-
-# Register ParticleLimits in _libBornAgainCore:
-_libBornAgainCore.ParticleLimits_swigregister(ParticleLimits)
-
-class IParticle(IAbstractParticle):
-    r"""
-
-
-    Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
-
-    C++ includes: IParticle.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IParticle
-
-    def clone(self):
-        r"""
-        clone(IParticle self) -> IParticle
-        IParticle* IParticle::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IParticle_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IParticle self, INodeVisitor visitor)
-        void IParticle::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IParticle_accept(self, visitor)
-
-    def createFormFactor(self):
-        r"""
-        createFormFactor(IParticle self) -> IFormFactor
-        IFormFactor * IParticle::createFormFactor() const
-
-        Create a form factor for this particle. 
-
-        """
-        return _libBornAgainCore.IParticle_createFormFactor(self)
-
-    def createSlicedParticle(self, limits):
-        r"""
-        createSlicedParticle(IParticle self, ZLimits limits) -> SlicedParticle
-        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.IParticle_createSlicedParticle(self, limits)
-
-    def position(self):
-        r"""
-        position(IParticle self) -> kvector_t
-        kvector_t IParticle::position() const
-
-        Returns particle position. 
-
-        """
-        return _libBornAgainCore.IParticle_position(self)
-
-    def setPosition(self, *args):
-        r"""
-        setPosition(IParticle self, kvector_t position)
-        setPosition(IParticle self, double x, double y, double z)
-        void IParticle::setPosition(double x, double y, double z)
-
-        Sets relative position of the particle's reference point in the coordinate system of parent.
-
-        Parameters:
-        -----------
-
-        x: 
-        x-coordinate in nanometers
-
-        y: 
-        y-coordinate in nanometers
-
-        z: 
-        z-coordinate in nanometers 
-
-        """
-        return _libBornAgainCore.IParticle_setPosition(self, *args)
-
-    def translate(self, translation):
-        r"""
-        translate(IParticle self, kvector_t translation)
-        void IParticle::translate(kvector_t translation) override final
-
-        Translates the particle. 
-
-        """
-        return _libBornAgainCore.IParticle_translate(self, translation)
-
-    def rotation(self):
-        r"""
-        rotation(IParticle self) -> IRotation
-        const IRotation * IParticle::rotation() const
-
-        Returns rotation object. 
-
-        """
-        return _libBornAgainCore.IParticle_rotation(self)
-
-    def setRotation(self, rotation):
-        r"""
-        setRotation(IParticle self, IRotation rotation)
-        void IParticle::setRotation(const IRotation &rotation)
-
-        Sets transformation. 
-
-        """
-        return _libBornAgainCore.IParticle_setRotation(self, rotation)
-
-    def rotate(self, rotation):
-        r"""
-        rotate(IParticle self, IRotation rotation)
-        void IParticle::rotate(const IRotation &rotation) override final
-
-        Rotates the particle. 
-
-        """
-        return _libBornAgainCore.IParticle_rotate(self, rotation)
-
-    def getChildren(self):
-        r"""
-        getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > IParticle::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.IParticle_getChildren(self)
-
-    def registerAbundance(self, make_registered=True):
-        r"""
-        registerAbundance(IParticle self, bool make_registered=True)
-        void IParticle::registerAbundance(bool make_registered=true)
-
-        """
-        return _libBornAgainCore.IParticle_registerAbundance(self, make_registered)
-
-    def registerPosition(self, make_registered=True):
-        r"""
-        registerPosition(IParticle self, bool make_registered=True)
-        void IParticle::registerPosition(bool make_registered=true)
-
-        Registers the three components of its position. 
-
-        """
-        return _libBornAgainCore.IParticle_registerPosition(self, make_registered)
-
-    def decompose(self):
-        r"""
-        decompose(IParticle self) -> SafePointerVector< IParticle >
-        SafePointerVector< IParticle > IParticle::decompose() const
-
-        Decompose in constituent  IParticle objects. 
-
-        """
-        return _libBornAgainCore.IParticle_decompose(self)
-
-    def bottomTopZ(self):
-        r"""
-        bottomTopZ(IParticle self) -> ParticleLimits
-        ParticleLimits IParticle::bottomTopZ() const
-
-        Top and bottom z-coordinate. 
-
-        """
-        return _libBornAgainCore.IParticle_bottomTopZ(self)
-
-# Register IParticle in _libBornAgainCore:
-_libBornAgainCore.IParticle_swigregister(IParticle)
-
-class IPeakShape(ISample):
-    r"""
-
-
-    Pure virtual interface class that defines the peak shape of a Bragg peak.
-
-    C++ includes: IPeakShape.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IPeakShape
-
-    def clone(self):
-        r"""
-        clone(IPeakShape self) -> IPeakShape
-        virtual IPeakShape* IPeakShape::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IPeakShape_clone(self)
-
-    def evaluate(self, q, q_lattice_point):
-        r"""
-        evaluate(IPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
-
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-
-        """
-        return _libBornAgainCore.IPeakShape_evaluate(self, q, q_lattice_point)
-
-    def angularDisorder(self):
-        r"""
-        angularDisorder(IPeakShape self) -> bool
-        virtual bool IPeakShape::angularDisorder() const
-
-        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-
-        """
-        return _libBornAgainCore.IPeakShape_angularDisorder(self)
-
-# Register IPeakShape in _libBornAgainCore:
-_libBornAgainCore.IPeakShape_swigregister(IPeakShape)
-
-class IsotropicGaussPeakShape(IPeakShape):
-    r"""
-
-
-    Class that implements an isotropic Gaussian peak shape of a Bragg peak.
-
-    C++ includes: IPeakShape.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, max_intensity, domainsize):
-        r"""
-        __init__(IsotropicGaussPeakShape self, double max_intensity, double domainsize) -> IsotropicGaussPeakShape
-        IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
-
-        """
-        _libBornAgainCore.IsotropicGaussPeakShape_swiginit(self, _libBornAgainCore.new_IsotropicGaussPeakShape(max_intensity, domainsize))
-    __swig_destroy__ = _libBornAgainCore.delete_IsotropicGaussPeakShape
-
-    def clone(self):
-        r"""
-        clone(IsotropicGaussPeakShape self) -> IsotropicGaussPeakShape
-        IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IsotropicGaussPeakShape_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IsotropicGaussPeakShape self, INodeVisitor visitor)
-        void IsotropicGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IsotropicGaussPeakShape_accept(self, visitor)
-
-    def evaluate(self, q, q_lattice_point):
-        r"""
-        evaluate(IsotropicGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-
-        """
-        return _libBornAgainCore.IsotropicGaussPeakShape_evaluate(self, q, q_lattice_point)
-
-# Register IsotropicGaussPeakShape in _libBornAgainCore:
-_libBornAgainCore.IsotropicGaussPeakShape_swigregister(IsotropicGaussPeakShape)
-
-class IsotropicLorentzPeakShape(IPeakShape):
-    r"""
-
-
-    Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
-
-    C++ includes: IPeakShape.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, max_intensity, domainsize):
-        r"""
-        __init__(IsotropicLorentzPeakShape self, double max_intensity, double domainsize) -> IsotropicLorentzPeakShape
-        IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
-
-        """
-        _libBornAgainCore.IsotropicLorentzPeakShape_swiginit(self, _libBornAgainCore.new_IsotropicLorentzPeakShape(max_intensity, domainsize))
-    __swig_destroy__ = _libBornAgainCore.delete_IsotropicLorentzPeakShape
-
-    def clone(self):
-        r"""
-        clone(IsotropicLorentzPeakShape self) -> IsotropicLorentzPeakShape
-        IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IsotropicLorentzPeakShape_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IsotropicLorentzPeakShape self, INodeVisitor visitor)
-        void IsotropicLorentzPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IsotropicLorentzPeakShape_accept(self, visitor)
-
-    def evaluate(self, q, q_lattice_point):
-        r"""
-        evaluate(IsotropicLorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-
-        """
-        return _libBornAgainCore.IsotropicLorentzPeakShape_evaluate(self, q, q_lattice_point)
-
-# Register IsotropicLorentzPeakShape in _libBornAgainCore:
-_libBornAgainCore.IsotropicLorentzPeakShape_swigregister(IsotropicLorentzPeakShape)
-
-class GaussFisherPeakShape(IPeakShape):
-    r"""
-
-
-    Class that implements a peak shape that is Gaussian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
-
-    C++ includes: IPeakShape.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, max_intensity, radial_size, kappa):
-        r"""
-        __init__(GaussFisherPeakShape self, double max_intensity, double radial_size, double kappa) -> GaussFisherPeakShape
-        GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
-
-        """
-        _libBornAgainCore.GaussFisherPeakShape_swiginit(self, _libBornAgainCore.new_GaussFisherPeakShape(max_intensity, radial_size, kappa))
-    __swig_destroy__ = _libBornAgainCore.delete_GaussFisherPeakShape
-
-    def clone(self):
-        r"""
-        clone(GaussFisherPeakShape self) -> GaussFisherPeakShape
-        GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.GaussFisherPeakShape_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(GaussFisherPeakShape self, INodeVisitor visitor)
-        void GaussFisherPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.GaussFisherPeakShape_accept(self, visitor)
-
-    def evaluate(self, q, q_lattice_point):
-        r"""
-        evaluate(GaussFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-
-        """
-        return _libBornAgainCore.GaussFisherPeakShape_evaluate(self, q, q_lattice_point)
-
-    def angularDisorder(self):
-        r"""
-        angularDisorder(GaussFisherPeakShape self) -> bool
-        bool GaussFisherPeakShape::angularDisorder() const override
-
-        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-
-        """
-        return _libBornAgainCore.GaussFisherPeakShape_angularDisorder(self)
-
-# Register GaussFisherPeakShape in _libBornAgainCore:
-_libBornAgainCore.GaussFisherPeakShape_swigregister(GaussFisherPeakShape)
-
-class LorentzFisherPeakShape(IPeakShape):
-    r"""
-
-
-    Class that implements a peak shape that is Lorentzian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
-
-    C++ includes: IPeakShape.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, max_intensity, radial_size, kappa):
-        r"""
-        __init__(LorentzFisherPeakShape self, double max_intensity, double radial_size, double kappa) -> LorentzFisherPeakShape
-        LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa)
-
-        """
-        _libBornAgainCore.LorentzFisherPeakShape_swiginit(self, _libBornAgainCore.new_LorentzFisherPeakShape(max_intensity, radial_size, kappa))
-    __swig_destroy__ = _libBornAgainCore.delete_LorentzFisherPeakShape
-
-    def clone(self):
-        r"""
-        clone(LorentzFisherPeakShape self) -> LorentzFisherPeakShape
-        LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.LorentzFisherPeakShape_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(LorentzFisherPeakShape self, INodeVisitor visitor)
-        void LorentzFisherPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.LorentzFisherPeakShape_accept(self, visitor)
-
-    def evaluate(self, q, q_lattice_point):
-        r"""
-        evaluate(LorentzFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-
-        """
-        return _libBornAgainCore.LorentzFisherPeakShape_evaluate(self, q, q_lattice_point)
-
-    def angularDisorder(self):
-        r"""
-        angularDisorder(LorentzFisherPeakShape self) -> bool
-        bool LorentzFisherPeakShape::angularDisorder() const override
-
-        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-
-        """
-        return _libBornAgainCore.LorentzFisherPeakShape_angularDisorder(self)
-
-# Register LorentzFisherPeakShape in _libBornAgainCore:
-_libBornAgainCore.LorentzFisherPeakShape_swigregister(LorentzFisherPeakShape)
-
-class VonMisesFisherGaussPeakShape(IPeakShape):
-    r"""
-
-
-    Class that implements a peak shape that is Gaussian in the radial direction and a convolution of a von Mises-Fisher distribution with a von Mises distribution on the two-sphere
-
-    C++ includes: IPeakShape.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, max_intensity, radial_size, zenith, kappa_1, kappa_2):
-        r"""
-        __init__(VonMisesFisherGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2) -> VonMisesFisherGaussPeakShape
-        VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
-
-        """
-        _libBornAgainCore.VonMisesFisherGaussPeakShape_swiginit(self, _libBornAgainCore.new_VonMisesFisherGaussPeakShape(max_intensity, radial_size, zenith, kappa_1, kappa_2))
-    __swig_destroy__ = _libBornAgainCore.delete_VonMisesFisherGaussPeakShape
-
-    def clone(self):
-        r"""
-        clone(VonMisesFisherGaussPeakShape self) -> VonMisesFisherGaussPeakShape
-        VonMisesFisherGaussPeakShape * VonMisesFisherGaussPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(VonMisesFisherGaussPeakShape self, INodeVisitor visitor)
-        void VonMisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_accept(self, visitor)
-
-    def evaluate(self, q, q_lattice_point):
-        r"""
-        evaluate(VonMisesFisherGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-
-        """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_evaluate(self, q, q_lattice_point)
-
-    def angularDisorder(self):
-        r"""
-        angularDisorder(VonMisesFisherGaussPeakShape self) -> bool
-        bool VonMisesFisherGaussPeakShape::angularDisorder() const override
-
-        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-
-        """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_angularDisorder(self)
-
-# Register VonMisesFisherGaussPeakShape in _libBornAgainCore:
-_libBornAgainCore.VonMisesFisherGaussPeakShape_swigregister(VonMisesFisherGaussPeakShape)
-
-class VonMisesGaussPeakShape(IPeakShape):
-    r"""
-
-
-    Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution with a 3d Gaussian
-
-    C++ includes: IPeakShape.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, max_intensity, radial_size, zenith, kappa):
-        r"""
-        __init__(VonMisesGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa) -> VonMisesGaussPeakShape
-        VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa)
-
-        """
-        _libBornAgainCore.VonMisesGaussPeakShape_swiginit(self, _libBornAgainCore.new_VonMisesGaussPeakShape(max_intensity, radial_size, zenith, kappa))
-    __swig_destroy__ = _libBornAgainCore.delete_VonMisesGaussPeakShape
-
-    def clone(self):
-        r"""
-        clone(VonMisesGaussPeakShape self) -> VonMisesGaussPeakShape
-        VonMisesGaussPeakShape * VonMisesGaussPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.VonMisesGaussPeakShape_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(VonMisesGaussPeakShape self, INodeVisitor visitor)
-        void VonMisesGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.VonMisesGaussPeakShape_accept(self, visitor)
-
-    def evaluate(self, q, q_lattice_point):
-        r"""
-        evaluate(VonMisesGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-
-        """
-        return _libBornAgainCore.VonMisesGaussPeakShape_evaluate(self, q, q_lattice_point)
-
-    def angularDisorder(self):
-        r"""
-        angularDisorder(VonMisesGaussPeakShape self) -> bool
-        bool VonMisesGaussPeakShape::angularDisorder() const override
-
-        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-
-        """
-        return _libBornAgainCore.VonMisesGaussPeakShape_angularDisorder(self)
-
-# Register VonMisesGaussPeakShape in _libBornAgainCore:
-_libBornAgainCore.VonMisesGaussPeakShape_swigregister(VonMisesGaussPeakShape)
-
-class IResolutionFunction2D(ICloneable, INode):
-    r"""
-
-
-    Interface providing two-dimensional resolution function.
-
-    C++ includes: IResolutionFunction2D.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IResolutionFunction2D
-
-    def evaluateCDF(self, x, y):
-        r"""
-        evaluateCDF(IResolutionFunction2D self, double x, double y) -> double
-        virtual double IResolutionFunction2D::evaluateCDF(double x, double y) const =0
-
-        """
-        return _libBornAgainCore.IResolutionFunction2D_evaluateCDF(self, x, y)
-
-    def clone(self):
-        r"""
-        clone(IResolutionFunction2D self) -> IResolutionFunction2D
-        virtual IResolutionFunction2D* IResolutionFunction2D::clone() const =0
-
-        """
-        return _libBornAgainCore.IResolutionFunction2D_clone(self)
-
-# Register IResolutionFunction2D in _libBornAgainCore:
-_libBornAgainCore.IResolutionFunction2D_swigregister(IResolutionFunction2D)
-
-class IRotation(ISample):
-    r"""
-
-
-    Pure virtual interface for rotations.
-
-    C++ includes: Rotations.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    @staticmethod
-    def createRotation(transform):
-        r"""createRotation(Transform3D const & transform) -> IRotation"""
-        return _libBornAgainCore.IRotation_createRotation(transform)
-
-    @staticmethod
-    def createIdentity():
-        r"""createIdentity() -> IRotation"""
-        return _libBornAgainCore.IRotation_createIdentity()
-    __swig_destroy__ = _libBornAgainCore.delete_IRotation
-
-    def clone(self):
-        r"""
-        clone(IRotation self) -> IRotation
-        virtual IRotation* IRotation::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IRotation_clone(self)
-
-    def createInverse(self):
-        r"""
-        createInverse(IRotation self) -> IRotation
-        virtual IRotation* IRotation::createInverse() const =0
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
-        return _libBornAgainCore.IRotation_createInverse(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IRotation self, INodeVisitor visitor)
-        void IRotation::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IRotation_accept(self, visitor)
-
-    def getTransform3D(self):
-        r"""
-        getTransform3D(IRotation self) -> Transform3D
-        virtual Transform3D IRotation::getTransform3D() const =0
-
-        Returns transformation. 
-
-        """
-        return _libBornAgainCore.IRotation_getTransform3D(self)
-
-    def isIdentity(self):
-        r"""
-        isIdentity(IRotation self) -> bool
-        bool IRotation::isIdentity() const
-
-        Returns true if rotation matrix is identity matrix (no rotations) 
-
-        """
-        return _libBornAgainCore.IRotation_isIdentity(self)
-
-# Register IRotation in _libBornAgainCore:
-_libBornAgainCore.IRotation_swigregister(IRotation)
-
-def IRotation_createRotation(transform):
-    r"""IRotation_createRotation(Transform3D const & transform) -> IRotation"""
-    return _libBornAgainCore.IRotation_createRotation(transform)
-
-def IRotation_createIdentity():
-    r"""IRotation_createIdentity() -> IRotation"""
-    return _libBornAgainCore.IRotation_createIdentity()
-
-
-def createProduct(left, right):
-    r"""
-    createProduct(IRotation left, IRotation right) -> IRotation
-    BA_CORE_API_ IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-    Returns concatenated rotation (first right, then left). 
-
-    """
-    return _libBornAgainCore.createProduct(left, right)
-
-def IsZRotation(rot):
-    r"""
-    IsZRotation(IRotation rot) -> bool
-    bool IsZRotation(const IRotation &rot)
-
-    """
-    return _libBornAgainCore.IsZRotation(rot)
-class IdentityRotation(IRotation):
-    r"""
-
-
-    The identity rotation, which leaves everything in place.
-
-    C++ includes: Rotations.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(IdentityRotation self) -> IdentityRotation
-        IdentityRotation::IdentityRotation()=default
-
-        """
-        _libBornAgainCore.IdentityRotation_swiginit(self, _libBornAgainCore.new_IdentityRotation())
-
-    def clone(self):
-        r"""
-        clone(IdentityRotation self) -> IdentityRotation
-        IdentityRotation* IdentityRotation::clone() const
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IdentityRotation_clone(self)
-
-    def createInverse(self):
-        r"""
-        createInverse(IdentityRotation self) -> IdentityRotation
-        IdentityRotation* IdentityRotation::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
-        return _libBornAgainCore.IdentityRotation_createInverse(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IdentityRotation self, INodeVisitor visitor)
-        void IdentityRotation::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IdentityRotation_accept(self, visitor)
-
-    def getTransform3D(self):
-        r"""
-        getTransform3D(IdentityRotation self) -> Transform3D
-        Transform3D IdentityRotation::getTransform3D() const
-
-        Returns transformation. 
-
-        """
-        return _libBornAgainCore.IdentityRotation_getTransform3D(self)
-
-    def isIdentity(self):
-        r"""
-        isIdentity(IdentityRotation self) -> bool
-        bool IdentityRotation::isIdentity() const
-
-        Returns true if rotation matrix is identity matrix (no rotations) 
-
-        """
-        return _libBornAgainCore.IdentityRotation_isIdentity(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IdentityRotation
-
-# Register IdentityRotation in _libBornAgainCore:
-_libBornAgainCore.IdentityRotation_swigregister(IdentityRotation)
-
-class RotationX(IRotation):
-    r"""
-
-
-    A rotation about the x axis.
-
-    C++ includes: Rotations.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, angle):
-        r"""
-        __init__(RotationX self, double angle) -> RotationX
-        RotationX::RotationX(double angle)
-
-        Constructor of rotation around x-axis
-
-        Parameters:
-        -----------
-
-        angle: 
-        rotation angle around x-axis in radians 
-
-        """
-        _libBornAgainCore.RotationX_swiginit(self, _libBornAgainCore.new_RotationX(angle))
-
-    def clone(self):
-        r"""
-        clone(RotationX self) -> RotationX
-        RotationX* RotationX::clone() const
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.RotationX_clone(self)
-
-    def createInverse(self):
-        r"""
-        createInverse(RotationX self) -> RotationX
-        RotationX* RotationX::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
-        return _libBornAgainCore.RotationX_createInverse(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(RotationX self, INodeVisitor visitor)
-        void RotationX::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.RotationX_accept(self, visitor)
-
-    def getAngle(self):
-        r"""
-        getAngle(RotationX self) -> double
-        double RotationX::getAngle() const
-
-        """
-        return _libBornAgainCore.RotationX_getAngle(self)
-
-    def getTransform3D(self):
-        r"""
-        getTransform3D(RotationX self) -> Transform3D
-        Transform3D RotationX::getTransform3D() const
-
-        Returns transformation. 
-
-        """
-        return _libBornAgainCore.RotationX_getTransform3D(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RotationX
-
-# Register RotationX in _libBornAgainCore:
-_libBornAgainCore.RotationX_swigregister(RotationX)
-
-class RotationY(IRotation):
-    r"""
-
-
-    A rotation about the y axis.
-
-    C++ includes: Rotations.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, angle):
-        r"""
-        __init__(RotationY self, double angle) -> RotationY
-        RotationY::RotationY(double angle)
-
-        Constructor of rotation around y-axis
-
-        Parameters:
-        -----------
-
-        angle: 
-        rotation angle around y-axis in radians 
-
-        """
-        _libBornAgainCore.RotationY_swiginit(self, _libBornAgainCore.new_RotationY(angle))
-
-    def clone(self):
-        r"""
-        clone(RotationY self) -> RotationY
-        RotationY* RotationY::clone() const
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.RotationY_clone(self)
-
-    def createInverse(self):
-        r"""
-        createInverse(RotationY self) -> RotationY
-        RotationY* RotationY::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
-        return _libBornAgainCore.RotationY_createInverse(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(RotationY self, INodeVisitor visitor)
-        void RotationY::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.RotationY_accept(self, visitor)
-
-    def getAngle(self):
-        r"""
-        getAngle(RotationY self) -> double
-        double RotationY::getAngle() const
-
-        """
-        return _libBornAgainCore.RotationY_getAngle(self)
-
-    def getTransform3D(self):
-        r"""
-        getTransform3D(RotationY self) -> Transform3D
-        Transform3D RotationY::getTransform3D() const
-
-        Returns transformation. 
-
-        """
-        return _libBornAgainCore.RotationY_getTransform3D(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RotationY
-
-# Register RotationY in _libBornAgainCore:
-_libBornAgainCore.RotationY_swigregister(RotationY)
-
-class RotationZ(IRotation):
-    r"""
-
-
-    A rotation about the z axis.
-
-    C++ includes: Rotations.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, angle=0.0):
-        r"""
-        __init__(RotationZ self, double angle=0.0) -> RotationZ
-        RotationZ::RotationZ(double angle=0.0)
-
-        Constructor of rotation around z-axis
-
-        Parameters:
-        -----------
-
-        angle: 
-        rotation angle around z-axis in radians 
-
-        """
-        _libBornAgainCore.RotationZ_swiginit(self, _libBornAgainCore.new_RotationZ(angle))
-
-    def clone(self):
-        r"""
-        clone(RotationZ self) -> RotationZ
-        RotationZ* RotationZ::clone() const
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.RotationZ_clone(self)
-
-    def createInverse(self):
-        r"""
-        createInverse(RotationZ self) -> RotationZ
-        RotationZ* RotationZ::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
-        return _libBornAgainCore.RotationZ_createInverse(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(RotationZ self, INodeVisitor visitor)
-        void RotationZ::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.RotationZ_accept(self, visitor)
-
-    def getAngle(self):
-        r"""
-        getAngle(RotationZ self) -> double
-        double RotationZ::getAngle() const
-
-        """
-        return _libBornAgainCore.RotationZ_getAngle(self)
-
-    def getTransform3D(self):
-        r"""
-        getTransform3D(RotationZ self) -> Transform3D
-        Transform3D RotationZ::getTransform3D() const
-
-        Returns transformation. 
-
-        """
-        return _libBornAgainCore.RotationZ_getTransform3D(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RotationZ
-
-# Register RotationZ in _libBornAgainCore:
-_libBornAgainCore.RotationZ_swigregister(RotationZ)
-
-class RotationEuler(IRotation):
-    r"""
-
-
-    A sequence of rotations about the z-x'-z'' axes.
-
-    C++ includes: Rotations.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, alpha, beta, gamma):
-        r"""
-        __init__(RotationEuler self, double alpha, double beta, double gamma) -> RotationEuler
-        RotationEuler::RotationEuler(double alpha, double beta, double gamma)
-
-        Constructor of Euler rotation (sequence of three rotations following Euler angles notation z-x'-z').
-
-        Parameters:
-        -----------
-
-        alpha: 
-        first Euler angle in radians
-
-        beta: 
-        second Euler angle in radians
-
-        gamma: 
-        third Euler angle in radians 
-
-        """
-        _libBornAgainCore.RotationEuler_swiginit(self, _libBornAgainCore.new_RotationEuler(alpha, beta, gamma))
-
-    def clone(self):
-        r"""
-        clone(RotationEuler self) -> RotationEuler
-        RotationEuler* RotationEuler::clone() const
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.RotationEuler_clone(self)
-
-    def createInverse(self):
-        r"""
-        createInverse(RotationEuler self) -> IRotation
-        IRotation * RotationEuler::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
-        return _libBornAgainCore.RotationEuler_createInverse(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(RotationEuler self, INodeVisitor visitor)
-        void RotationEuler::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.RotationEuler_accept(self, visitor)
-
-    def getAlpha(self):
-        r"""
-        getAlpha(RotationEuler self) -> double
-        double RotationEuler::getAlpha() const
-
-        """
-        return _libBornAgainCore.RotationEuler_getAlpha(self)
-
-    def getBeta(self):
-        r"""
-        getBeta(RotationEuler self) -> double
-        double RotationEuler::getBeta() const
-
-        """
-        return _libBornAgainCore.RotationEuler_getBeta(self)
-
-    def getGamma(self):
-        r"""
-        getGamma(RotationEuler self) -> double
-        double RotationEuler::getGamma() const
-
-        """
-        return _libBornAgainCore.RotationEuler_getGamma(self)
-
-    def getTransform3D(self):
-        r"""
-        getTransform3D(RotationEuler self) -> Transform3D
-        Transform3D RotationEuler::getTransform3D() const
-
-        Returns transformation. 
-
-        """
-        return _libBornAgainCore.RotationEuler_getTransform3D(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RotationEuler
-
-# Register RotationEuler in _libBornAgainCore:
-_libBornAgainCore.RotationEuler_swigregister(RotationEuler)
-
-class ISelectionRule(object):
-    r"""
-
-
-    Pure virtual base class for selection rules.
-
-    C++ includes: ISelectionRule.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ISelectionRule
-
-    def clone(self):
-        r"""
-        clone(ISelectionRule self) -> ISelectionRule
-        virtual ISelectionRule* ISelectionRule::clone() const =0
-
-        """
-        return _libBornAgainCore.ISelectionRule_clone(self)
-
-    def coordinateSelected(self, coordinate):
-        r"""
-        coordinateSelected(ISelectionRule self, ivector_t const & coordinate) -> bool
-        virtual bool ISelectionRule::coordinateSelected(const ivector_t &coordinate) const =0
-
-        """
-        return _libBornAgainCore.ISelectionRule_coordinateSelected(self, coordinate)
-
-# Register ISelectionRule in _libBornAgainCore:
-_libBornAgainCore.ISelectionRule_swigregister(ISelectionRule)
-
-class SimpleSelectionRule(ISelectionRule):
-    r"""
-
-
-    Selection rule (v*q)modulus!=0, defined by vector v(a,b,c) and modulus.
-
-    C++ includes: ISelectionRule.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, a, b, c, modulus):
-        r"""
-        __init__(SimpleSelectionRule self, int a, int b, int c, int modulus) -> SimpleSelectionRule
-        SimpleSelectionRule::SimpleSelectionRule(int a, int b, int c, int modulus)
-
-        """
-        _libBornAgainCore.SimpleSelectionRule_swiginit(self, _libBornAgainCore.new_SimpleSelectionRule(a, b, c, modulus))
-    __swig_destroy__ = _libBornAgainCore.delete_SimpleSelectionRule
-
-    def clone(self):
-        r"""
-        clone(SimpleSelectionRule self) -> SimpleSelectionRule
-        SimpleSelectionRule * SimpleSelectionRule::clone() const
-
-        """
-        return _libBornAgainCore.SimpleSelectionRule_clone(self)
-
-    def coordinateSelected(self, coordinate):
-        r"""
-        coordinateSelected(SimpleSelectionRule self, ivector_t const & coordinate) -> bool
-        bool SimpleSelectionRule::coordinateSelected(const ivector_t &coordinate) const
-
         """
-        return _libBornAgainCore.SimpleSelectionRule_coordinateSelected(self, coordinate)
+        return _libBornAgainCore.ChiSquaredModule_residual(self, a, b, weight)
 
-# Register SimpleSelectionRule in _libBornAgainCore:
-_libBornAgainCore.SimpleSelectionRule_swigregister(SimpleSelectionRule)
+# Register ChiSquaredModule in _libBornAgainCore:
+_libBornAgainCore.ChiSquaredModule_swigregister(ChiSquaredModule)
 
 class Instrument(INode):
     r"""
@@ -16905,271 +21817,124 @@ class Instrument(INode):
 _libBornAgainCore.Instrument_swigregister(Instrument)
 
 
-def RelativeDifference(dat, ref):
+def importArrayToOutputData(*args):
     r"""
-    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
-    double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
+    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
+    OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
 
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
-
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
+    for importing 2D array of doubles from python into  OutputData
 
     """
-    return _libBornAgainCore.RelativeDifference(dat, ref)
-
-def checkRelativeDifference(dat, ref, threshold):
-    r"""
-    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
-    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
-
-    Returns true is relative difference is below threshold; prints informative output. 
-
-    """
-    return _libBornAgainCore.checkRelativeDifference(dat, ref, threshold)
-
-def getRelativeDifference(*args):
-    r"""
-    getRelativeDifference(IntensityData dat, IntensityData ref) -> double
-    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
-    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
-
-    """
-    return _libBornAgainCore.getRelativeDifference(*args)
-
-def coordinateToBinf(*args):
-    r"""
-    coordinateToBinf(double coordinate, IAxis axis) -> double
-    coordinateToBinf(double & x, double & y, IntensityData data)
-    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
-
-    Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
-
-    """
-    return _libBornAgainCore.coordinateToBinf(*args)
-
-def coordinateFromBinf(*args):
-    r"""
-    coordinateFromBinf(double value, IAxis axis) -> double
-    coordinateFromBinf(double & x, double & y, IntensityData data)
-    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
-
-    Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
-
-    """
-    return _libBornAgainCore.coordinateFromBinf(*args)
-
-def create2DArrayfromOutputData(data):
-    r"""
-    create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t
-    std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
-
-    Creates a vector of vectors of double (2D Array) from  OutputData. 
-
-    """
-    return _libBornAgainCore.create2DArrayfromOutputData(data)
-
-def FT2DArray(signal):
-    r"""
-    FT2DArray(vdouble2d_t signal) -> vdouble2d_t
-    std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
-
-    Creates a Fourier Transform of a 2D Array (vector of vectors). 
-
-    """
-    return _libBornAgainCore.FT2DArray(signal)
-
-def ConvertData(*args):
-    r"""
-    ConvertData(Simulation simulation, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult
-    ConvertData(Simulation simulation, vdouble2d_t data, bool put_masked_areas_to_zero=True) -> SimulationResult
-    SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
-
-    """
-    return _libBornAgainCore.ConvertData(*args)
-class IntensityDataIOFactory(object):
+    return _libBornAgainCore.importArrayToOutputData(*args)
+class QSpecScan(object):
     r"""
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
 
-    Usage:
-
-    C++ includes: IntensityDataIOFactory.h
+    C++ includes: QSpecScan.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    @staticmethod
-    def readOutputData(file_name):
-        r"""readOutputData(std::string const & file_name) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataIOFactory_readOutputData(file_name)
+    def __init__(self, *args):
+        r"""
+        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
+        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
+        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
+        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
 
-    @staticmethod
-    def readReflectometryData(file_name):
-        r"""readReflectometryData(std::string const & file_name) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataIOFactory_readReflectometryData(file_name)
+        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
 
-    @staticmethod
-    def readIntensityData(file_name):
-        r"""readIntensityData(std::string const & file_name) -> IHistogram"""
-        return _libBornAgainCore.IntensityDataIOFactory_readIntensityData(file_name)
+        """
+        _libBornAgainCore.QSpecScan_swiginit(self, _libBornAgainCore.new_QSpecScan(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
 
-    @staticmethod
-    def writeOutputData(data, file_name):
-        r"""writeOutputData(IntensityData data, std::string const & file_name)"""
-        return _libBornAgainCore.IntensityDataIOFactory_writeOutputData(data, file_name)
+    def clone(self):
+        r"""
+        clone(QSpecScan self) -> QSpecScan
+        QSpecScan * QSpecScan::clone() const override
 
-    @staticmethod
-    def writeIntensityData(histogram, file_name):
-        r"""writeIntensityData(IHistogram histogram, std::string const & file_name)"""
-        return _libBornAgainCore.IntensityDataIOFactory_writeIntensityData(histogram, file_name)
+        """
+        return _libBornAgainCore.QSpecScan_clone(self)
 
-    @staticmethod
-    def writeSimulationResult(result, file_name):
-        r"""writeSimulationResult(SimulationResult result, std::string const & file_name)"""
-        return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
+    def setQResolution(self, resolution):
+        r"""
+        setQResolution(QSpecScan self, ScanResolution resolution)
+        void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+        Sets q resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setQResolution(self, resolution)
+
+    def setRelativeQResolution(self, *args):
+        r"""
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets qz resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setRelativeQResolution(self, *args)
+
+    def setAbsoluteQResolution(self, *args):
+        r"""
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets qz resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
+
+# Register QSpecScan in _libBornAgainCore:
+_libBornAgainCore.QSpecScan_swigregister(QSpecScan)
+
+class AxisInfo(object):
+    r"""
+
+
+    Information about an axis in specific units. Can be used for plotting.
+
+    C++ includes: SimulationResult.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    m_name = property(_libBornAgainCore.AxisInfo_m_name_get, _libBornAgainCore.AxisInfo_m_name_set, doc=r"""m_name : std::string""")
+    m_min = property(_libBornAgainCore.AxisInfo_m_min_get, _libBornAgainCore.AxisInfo_m_min_set, doc=r"""m_min : double""")
+    m_max = property(_libBornAgainCore.AxisInfo_m_max_get, _libBornAgainCore.AxisInfo_m_max_set, doc=r"""m_max : double""")
 
     def __init__(self):
         r"""
-        __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
+        __init__(AxisInfo self) -> AxisInfo
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+        Information about an axis in specific units. Can be used for plotting.
 
-        Usage:
-
-        C++ includes: IntensityDataIOFactory.h
+        C++ includes: SimulationResult.h
 
         """
-        _libBornAgainCore.IntensityDataIOFactory_swiginit(self, _libBornAgainCore.new_IntensityDataIOFactory())
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityDataIOFactory
+        _libBornAgainCore.AxisInfo_swiginit(self, _libBornAgainCore.new_AxisInfo())
+    __swig_destroy__ = _libBornAgainCore.delete_AxisInfo
 
-# Register IntensityDataIOFactory in _libBornAgainCore:
-_libBornAgainCore.IntensityDataIOFactory_swigregister(IntensityDataIOFactory)
+# Register AxisInfo in _libBornAgainCore:
+_libBornAgainCore.AxisInfo_swigregister(AxisInfo)
 
-def IntensityDataIOFactory_readOutputData(file_name):
-    r"""IntensityDataIOFactory_readOutputData(std::string const & file_name) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataIOFactory_readOutputData(file_name)
-
-def IntensityDataIOFactory_readReflectometryData(file_name):
-    r"""IntensityDataIOFactory_readReflectometryData(std::string const & file_name) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataIOFactory_readReflectometryData(file_name)
-
-def IntensityDataIOFactory_readIntensityData(file_name):
-    r"""IntensityDataIOFactory_readIntensityData(std::string const & file_name) -> IHistogram"""
-    return _libBornAgainCore.IntensityDataIOFactory_readIntensityData(file_name)
-
-def IntensityDataIOFactory_writeOutputData(data, file_name):
-    r"""IntensityDataIOFactory_writeOutputData(IntensityData data, std::string const & file_name)"""
-    return _libBornAgainCore.IntensityDataIOFactory_writeOutputData(data, file_name)
-
-def IntensityDataIOFactory_writeIntensityData(histogram, file_name):
-    r"""IntensityDataIOFactory_writeIntensityData(IHistogram histogram, std::string const & file_name)"""
-    return _libBornAgainCore.IntensityDataIOFactory_writeIntensityData(histogram, file_name)
-
-def IntensityDataIOFactory_writeSimulationResult(result, file_name):
-    r"""IntensityDataIOFactory_writeSimulationResult(SimulationResult result, std::string const & file_name)"""
-    return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
-
-class InterferenceFunction1DLattice(IInterferenceFunction):
+class SimulationResult(object):
     r"""
 
 
-    Interference function of a 1D lattice.
+    Wrapper around  OutputData<double> that also provides unit conversions.
 
-    C++ includes: InterferenceFunction1DLattice.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, length, xi):
-        r"""
-        __init__(InterferenceFunction1DLattice self, double length, double xi) -> InterferenceFunction1DLattice
-        InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-
-        Constructor of interference function of one-dimensional lattice.
-
-        Parameters:
-        -----------
-
-        length: 
-        lattice constant in nanometers
-
-        xi: 
-        rotation of lattice with respect to x-axis in radians 
-
-        """
-        _libBornAgainCore.InterferenceFunction1DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction1DLattice(length, xi))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction1DLattice
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
-        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunction1DLattice self, INodeVisitor visitor)
-        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
-
-    def setDecayFunction(self, decay):
-        r"""
-        setDecayFunction(InterferenceFunction1DLattice self, IFTDecayFunction1D decay)
-        void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &decay)
-
-        Sets one-dimensional decay function.
-
-        Parameters:
-        -----------
-
-        decay: 
-        one-dimensional decay function in reciprocal space 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_setDecayFunction(self, decay)
-
-    def getLatticeParameters(self):
-        r"""
-        getLatticeParameters(InterferenceFunction1DLattice self) -> Lattice1DParameters
-        Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_getChildren(self)
-
-# Register InterferenceFunction1DLattice in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunction1DLattice_swigregister(InterferenceFunction1DLattice)
-
-class InterferenceFunction2DLattice(IInterferenceFunction):
-    r"""
-
-
-    Interference function of a 2D lattice.
-
-    C++ includes: InterferenceFunction2DLattice.h
+    C++ includes: SimulationResult.h
 
     """
 
@@ -17178,1226 +21943,99 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
     def __init__(self, *args):
         r"""
-        __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
-        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double alpha, double xi=0.0) -> InterferenceFunction2DLattice
-        InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0)
-
-        Constructor of two-dimensional interference function.
-
-        Parameters:
-        -----------
-
-        length_1: 
-        length of the first basis vector in nanometers
-
-        length_2: 
-        length of the second basis vector in nanometers
-
-        alpha: 
-        angle between the basis vectors in radians
-
-        xi: 
-        rotation of the lattice with respect to the x-axis (beam direction) in radians 
+        __init__(SimulationResult self) -> SimulationResult
+        __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
+        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
+        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
+        SimulationResult::SimulationResult(SimulationResult &&other)
 
         """
-        _libBornAgainCore.InterferenceFunction2DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction2DLattice(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DLattice
+        _libBornAgainCore.SimulationResult_swiginit(self, _libBornAgainCore.new_SimulationResult(*args))
 
-    def clone(self):
+    def histogram2d(self, *args):
         r"""
-        clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
-        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
+        histogram2d(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> Histogram2D
+        Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_clone(self)
+        return _libBornAgainCore.SimulationResult_histogram2d(self, *args)
 
-    def accept(self, visitor):
+    def axisInfo(self, *args):
         r"""
-        accept(InterferenceFunction2DLattice self, INodeVisitor visitor)
-        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
+        axisInfo(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> swig_dummy_type_axisinfo_vector
+        std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
 
-        Calls the  INodeVisitor's visit method. 
+        Provide  AxisInfo for each axis and the given units. 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_accept(self, visitor)
+        return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
 
-    @staticmethod
-    def createSquare(lattice_length, xi=0.0):
-        r"""createSquare(double lattice_length, double xi=0.0) -> InterferenceFunction2DLattice"""
-        return _libBornAgainCore.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi=0.0):
-        r"""createHexagonal(double lattice_length, double xi=0.0) -> InterferenceFunction2DLattice"""
-        return _libBornAgainCore.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
-
-    def setDecayFunction(self, decay):
+    def converter(self):
         r"""
-        setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)
-        void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &decay)
+        converter(SimulationResult self) -> IUnitConverter
+        const IUnitConverter & SimulationResult::converter() const
 
-        Sets two-dimensional decay function.
-
-        Parameters:
-        -----------
-
-        decay: 
-        two-dimensional decay function in reciprocal space 
+        Returns underlying unit converter. 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, decay)
+        return _libBornAgainCore.SimulationResult_converter(self)
 
-    def setIntegrationOverXi(self, integrate_xi):
+    def size(self):
         r"""
-        setIntegrationOverXi(InterferenceFunction2DLattice self, bool integrate_xi)
-        void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
+        size(SimulationResult self) -> size_t
+        size_t SimulationResult::size() const
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_setIntegrationOverXi(self, integrate_xi)
+        return _libBornAgainCore.SimulationResult_size(self)
 
-    def integrationOverXi(self):
+    def array(self, *args):
         r"""
-        integrationOverXi(InterferenceFunction2DLattice self) -> bool
-        bool InterferenceFunction2DLattice::integrationOverXi() const
+        array(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> PyObject
+        PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
+
+        returns intensity data as Python numpy array 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_integrationOverXi(self)
+        return _libBornAgainCore.SimulationResult_array(self, *args)
 
-    def lattice(self):
+    def axis(self, *args):
         r"""
-        lattice(InterferenceFunction2DLattice self) -> Lattice2D
-        const Lattice2D & InterferenceFunction2DLattice::lattice() const
+        axis(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
+        std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
+
+        Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_lattice(self)
+        return _libBornAgainCore.SimulationResult_axis(self, *args)
 
-    def getParticleDensity(self):
-        r"""
-        getParticleDensity(InterferenceFunction2DLattice self) -> double
-        double InterferenceFunction2DLattice::getParticleDensity() const override final
+    def __getitem__(self, i):
+        r"""__getitem__(SimulationResult self, unsigned int i) -> double"""
+        return _libBornAgainCore.SimulationResult___getitem__(self, i)
 
-        Returns the particle density associated with this 2d lattice. 
+    def __setitem__(self, i, value):
+        r"""__setitem__(SimulationResult self, unsigned int i, double value) -> double"""
+        return _libBornAgainCore.SimulationResult___setitem__(self, i, value)
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
 
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_getParticleDensity(self)
+# Register SimulationResult in _libBornAgainCore:
+_libBornAgainCore.SimulationResult_swigregister(SimulationResult)
 
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
 
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_getChildren(self)
-
-    def onChange(self):
-        r"""
-        onChange(InterferenceFunction2DLattice self)
-        void InterferenceFunction2DLattice::onChange() override final
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_onChange(self)
-
-# Register InterferenceFunction2DLattice in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunction2DLattice_swigregister(InterferenceFunction2DLattice)
-
-def InterferenceFunction2DLattice_createSquare(lattice_length, xi=0.0):
-    r"""InterferenceFunction2DLattice_createSquare(double lattice_length, double xi=0.0) -> InterferenceFunction2DLattice"""
-    return _libBornAgainCore.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
-
-def InterferenceFunction2DLattice_createHexagonal(lattice_length, xi=0.0):
-    r"""InterferenceFunction2DLattice_createHexagonal(double lattice_length, double xi=0.0) -> InterferenceFunction2DLattice"""
-    return _libBornAgainCore.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
-
-class InterferenceFunction2DParaCrystal(IInterferenceFunction):
+def FindPeaks(*args):
     r"""
-
-
-    Interference function of a 2D paracrystal.
-
-    C++ includes: InterferenceFunction2DParaCrystal.h
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pair_double_t
+    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 
     """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-        InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0)
-
-        Constructor of interference function of two-dimensional paracrystal.
-
-        Parameters:
-        -----------
-
-        length_1: 
-        length of first lattice vector in nanometers
-
-        length_2: 
-        length of second lattice vector in nanometers
-
-        alpha: 
-        angle between lattice vectors in radians
-
-        xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians
-
-        damping_length: 
-        the damping (coherence) length of the paracrystal in nanometers 
-
-        """
-        _libBornAgainCore.InterferenceFunction2DParaCrystal_swiginit(self, _libBornAgainCore.new_InterferenceFunction2DParaCrystal(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DParaCrystal
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
-        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunction2DParaCrystal self, INodeVisitor visitor)
-        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
-
-    @staticmethod
-    def createSquare(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
-        r"""createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal"""
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
-        r"""createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal"""
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-    def setDomainSizes(self, size_1, size_2):
-        r"""
-        setDomainSizes(InterferenceFunction2DParaCrystal self, double size_1, double size_2)
-        void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
-
-        Sets the sizes of coherence domains.
-
-        Parameters:
-        -----------
-
-        size_1: 
-        coherence domain size along the first basis vector in nanometers
-
-        size_2: 
-        coherence domain size along the second basis vector in nanometers 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDomainSizes(self, size_1, size_2)
-
-    def setProbabilityDistributions(self, pdf_1, pdf_2):
-        r"""
-        setProbabilityDistributions(InterferenceFunction2DParaCrystal self, IFTDistribution2D pdf_1, IFTDistribution2D pdf_2)
-        void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDistribution2D &pdf_1, const IFTDistribution2D &pdf_2)
-
-        Sets the probability distributions (Fourier transformed) for the two lattice directions.
-
-        Parameters:
-        -----------
-
-        pdf_1: 
-        probability distribution in first lattice direction
-
-        pdf_2: 
-        probability distribution in second lattice direction 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setProbabilityDistributions(self, pdf_1, pdf_2)
-
-    def setDampingLength(self, damping_length):
-        r"""
-        setDampingLength(InterferenceFunction2DParaCrystal self, double damping_length)
-        void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
-
-        Sets the damping length.
-
-        Parameters:
-        -----------
-
-        damping_length: 
-        the damping (coherence) length of the paracrystal in nanometers 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDampingLength(self, damping_length)
-
-    def domainSizes(self):
-        r"""
-        domainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
-        std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_domainSizes(self)
-
-    def setIntegrationOverXi(self, integrate_xi):
-        r"""
-        setIntegrationOverXi(InterferenceFunction2DParaCrystal self, bool integrate_xi)
-        void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
-
-        Enables/disables averaging over the lattice rotation angle.
-
-        Parameters:
-        -----------
-
-        integrate_xi: 
-        integration flag 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setIntegrationOverXi(self, integrate_xi)
-
-    def integrationOverXi(self):
-        r"""
-        integrationOverXi(InterferenceFunction2DParaCrystal self) -> bool
-        bool InterferenceFunction2DParaCrystal::integrationOverXi() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_integrationOverXi(self)
-
-    def dampingLength(self):
-        r"""
-        dampingLength(InterferenceFunction2DParaCrystal self) -> double
-        double InterferenceFunction2DParaCrystal::dampingLength() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_dampingLength(self)
-
-    def lattice(self):
-        r"""
-        lattice(InterferenceFunction2DParaCrystal self) -> Lattice2D
-        const Lattice2D & InterferenceFunction2DParaCrystal::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_lattice(self)
-
-    def getParticleDensity(self):
-        r"""
-        getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
-        double InterferenceFunction2DParaCrystal::getParticleDensity() const override final
-
-        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getParticleDensity(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getChildren(self)
-
-    def pdf1(self):
-        r"""
-        pdf1(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D
-        const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf1() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf1(self)
-
-    def pdf2(self):
-        r"""
-        pdf2(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D
-        const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf2() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf2(self)
-
-# Register InterferenceFunction2DParaCrystal in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
-
-def InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
-    r"""InterferenceFunction2DParaCrystal_createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal"""
-    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-def InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
-    r"""InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal"""
-    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-class InterferenceFunction2DSuperLattice(IInterferenceFunction):
+    return _libBornAgainCore.FindPeaks(*args)
+class IVarianceFunction(object):
     r"""
 
 
-    Interference function of a 2D superlattice with a configurable interference function for each lattice site.
+    Variance function interface.
 
-    C++ includes: InterferenceFunction2DSuperLattice.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(InterferenceFunction2DSuperLattice self, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
-        __init__(InterferenceFunction2DSuperLattice self, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
-        InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
-
-        Constructor of two-dimensional interference function.
-
-        Parameters:
-        -----------
-
-        length_1: 
-        length of first lattice vector in nanometers
-
-        length_2: 
-        length of second lattice vector in nanometers
-
-        alpha: 
-        angle between lattice vectors in radians
-
-        xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians 
-
-        """
-        _libBornAgainCore.InterferenceFunction2DSuperLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction2DSuperLattice(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DSuperLattice
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
-        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
-        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_accept(self, visitor)
-
-    def setSubstructureIFF(self, sub_iff):
-        r"""
-        setSubstructureIFF(InterferenceFunction2DSuperLattice self, IInterferenceFunction sub_iff)
-        void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction &sub_iff)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setSubstructureIFF(self, sub_iff)
-
-    def substructureIFF(self):
-        r"""
-        substructureIFF(InterferenceFunction2DSuperLattice self) -> IInterferenceFunction
-        const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_substructureIFF(self)
-
-    @staticmethod
-    def createSquare(lattice_length, xi, size_1, size_2):
-        r"""createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi, size_1, size_2):
-        r"""createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
-    def evaluate(self, q, outer_iff=1.0):
-        r"""
-        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
-        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
-
-        Evaluates the interference function for a given wavevector transfer. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q, outer_iff)
-
-    def domainSize1(self):
-        r"""
-        domainSize1(InterferenceFunction2DSuperLattice self) -> unsigned int
-        unsigned InterferenceFunction2DSuperLattice::domainSize1() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize1(self)
-
-    def domainSize2(self):
-        r"""
-        domainSize2(InterferenceFunction2DSuperLattice self) -> unsigned int
-        unsigned InterferenceFunction2DSuperLattice::domainSize2() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
-
-    def setIntegrationOverXi(self, integrate_xi):
-        r"""
-        setIntegrationOverXi(InterferenceFunction2DSuperLattice self, bool integrate_xi)
-        void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setIntegrationOverXi(self, integrate_xi)
-
-    def integrationOverXi(self):
-        r"""
-        integrationOverXi(InterferenceFunction2DSuperLattice self) -> bool
-        bool InterferenceFunction2DSuperLattice::integrationOverXi() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_integrationOverXi(self)
-
-    def lattice(self):
-        r"""
-        lattice(InterferenceFunction2DSuperLattice self) -> Lattice2D
-        const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_lattice(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_getChildren(self)
-
-# Register InterferenceFunction2DSuperLattice in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunction2DSuperLattice_swigregister(InterferenceFunction2DSuperLattice)
-
-def InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2):
-    r"""InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-def InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2):
-    r"""InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
-class InterferenceFunction3DLattice(IInterferenceFunction):
-    r"""
-
-
-    Interference function of a 3D lattice.
-
-    C++ includes: InterferenceFunction3DLattice.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, lattice):
-        r"""
-        __init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice
-        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
-
-        """
-        _libBornAgainCore.InterferenceFunction3DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction3DLattice(lattice))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction3DLattice
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
-        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
-        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
-
-    def setPeakShape(self, peak_shape):
-        r"""
-        setPeakShape(InterferenceFunction3DLattice self, IPeakShape peak_shape)
-        void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
-
-    def lattice(self):
-        r"""
-        lattice(InterferenceFunction3DLattice self) -> Lattice
-        const Lattice & InterferenceFunction3DLattice::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_lattice(self)
-
-    def supportsMultilayer(self):
-        r"""
-        supportsMultilayer(InterferenceFunction3DLattice self) -> bool
-        bool InterferenceFunction3DLattice::supportsMultilayer() const override final
-
-        Indicates if this interference function can be used with a multilayer (DWBA mode) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_supportsMultilayer(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_getChildren(self)
-
-    def onChange(self):
-        r"""
-        onChange(InterferenceFunction3DLattice self)
-        void InterferenceFunction3DLattice::onChange() override final
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_onChange(self)
-
-# Register InterferenceFunction3DLattice in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunction3DLattice_swigregister(InterferenceFunction3DLattice)
-
-class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
-    r"""
-
-
-    Interference function of a finite 2D lattice.
-
-    C++ includes: InterferenceFunctionFinite2DLattice.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(InterferenceFunctionFinite2DLattice self, Lattice2D lattice, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
-        __init__(InterferenceFunctionFinite2DLattice self, double length_1, double length_2, double alpha, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
-        InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
-
-        Constructor of two-dimensional finite lattice interference function.
-
-        Parameters:
-        -----------
-
-        length_1: 
-        length of first lattice vector in nanometers
-
-        length_2: 
-        length of second lattice vector in nanometers
-
-        alpha: 
-        angle between lattice vectors in radians
-
-        xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians
-
-        N_1: 
-        number of lattice cells in the first lattice direction
-
-        N_2: 
-        number of lattice cells in the second lattice direction 
-
-        """
-        _libBornAgainCore.InterferenceFunctionFinite2DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunctionFinite2DLattice(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite2DLattice
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
-        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunctionFinite2DLattice self, INodeVisitor visitor)
-        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_accept(self, visitor)
-
-    @staticmethod
-    def createSquare(lattice_length, xi, N_1, N_2):
-        r"""createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi, N_1, N_2):
-        r"""createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
-
-    def numberUnitCells1(self):
-        r"""
-        numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int
-        unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells1(self)
-
-    def numberUnitCells2(self):
-        r"""
-        numberUnitCells2(InterferenceFunctionFinite2DLattice self) -> unsigned int
-        unsigned InterferenceFunctionFinite2DLattice::numberUnitCells2() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells2(self)
-
-    def setIntegrationOverXi(self, integrate_xi):
-        r"""
-        setIntegrationOverXi(InterferenceFunctionFinite2DLattice self, bool integrate_xi)
-        void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setIntegrationOverXi(self, integrate_xi)
-
-    def integrationOverXi(self):
-        r"""
-        integrationOverXi(InterferenceFunctionFinite2DLattice self) -> bool
-        bool InterferenceFunctionFinite2DLattice::integrationOverXi() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_integrationOverXi(self)
-
-    def lattice(self):
-        r"""
-        lattice(InterferenceFunctionFinite2DLattice self) -> Lattice2D
-        const Lattice2D & InterferenceFunctionFinite2DLattice::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_lattice(self)
-
-    def getParticleDensity(self):
-        r"""
-        getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double
-        double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final
-
-        Returns the particle density associated with this 2d lattice. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getParticleDensity(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getChildren(self)
-
-# Register InterferenceFunctionFinite2DLattice in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunctionFinite2DLattice_swigregister(InterferenceFunctionFinite2DLattice)
-
-def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2):
-    r"""InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
-
-def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2):
-    r"""InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
-
-class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
-    r"""
-
-
-    Interference function of a finite 3D lattice.
-
-    C++ includes: InterferenceFunctionFinite3DLattice.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, lattice, N_1, N_2, N_3):
-        r"""
-        __init__(InterferenceFunctionFinite3DLattice self, Lattice lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
-        InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
-
-        Constructor of three-dimensional finite lattice interference function.
-
-        Parameters:
-        -----------
-
-        lattice: 
-        object specifying a 2d lattice structure
-
-        N_1: 
-        number of lattice cells in the first lattice direction
-
-        N_2: 
-        number of lattice cells in the second lattice direction 
-
-        """
-        _libBornAgainCore.InterferenceFunctionFinite3DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunctionFinite3DLattice(lattice, N_1, N_2, N_3))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite3DLattice
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
-        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunctionFinite3DLattice self, INodeVisitor visitor)
-        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_accept(self, visitor)
-
-    def numberUnitCells1(self):
-        r"""
-        numberUnitCells1(InterferenceFunctionFinite3DLattice self) -> unsigned int
-        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells1() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells1(self)
-
-    def numberUnitCells2(self):
-        r"""
-        numberUnitCells2(InterferenceFunctionFinite3DLattice self) -> unsigned int
-        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells2() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells2(self)
-
-    def numberUnitCells3(self):
-        r"""
-        numberUnitCells3(InterferenceFunctionFinite3DLattice self) -> unsigned int
-        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells3() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells3(self)
-
-    def lattice(self):
-        r"""
-        lattice(InterferenceFunctionFinite3DLattice self) -> Lattice
-        const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_lattice(self)
-
-    def supportsMultilayer(self):
-        r"""
-        supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool
-        bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
-
-        Indicates if this interference function can be used with a multilayer (DWBA mode) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_supportsMultilayer(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_getChildren(self)
-
-# Register InterferenceFunctionFinite3DLattice in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunctionFinite3DLattice_swigregister(InterferenceFunctionFinite3DLattice)
-
-class InterferenceFunctionHardDisk(IInterferenceFunction):
-    r"""
-
-
-    Percus-Yevick hard disk interference function.
-
-    M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direct correlation function of hard discs within the Percus-Yevick equation, Molecular Physics, 85:2, 423-428, DOI: 10.1080/00268979500101211
-
-    C++ includes: InterferenceFunctionHardDisk.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, radius, density):
-        r"""
-        __init__(InterferenceFunctionHardDisk self, double radius, double density) -> InterferenceFunctionHardDisk
-        InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
-
-        """
-        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density))
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionHardDisk
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk
-        InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionHardDisk_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunctionHardDisk self, INodeVisitor visitor)
-        void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionHardDisk_accept(self, visitor)
-
-    def getParticleDensity(self):
-        r"""
-        getParticleDensity(InterferenceFunctionHardDisk self) -> double
-        double InterferenceFunctionHardDisk::getParticleDensity() const override final
-
-        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionHardDisk_getParticleDensity(self)
-
-    def radius(self):
-        r"""
-        radius(InterferenceFunctionHardDisk self) -> double
-        double InterferenceFunctionHardDisk::radius() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionHardDisk_radius(self)
-
-    def density(self):
-        r"""
-        density(InterferenceFunctionHardDisk self) -> double
-        double InterferenceFunctionHardDisk::density() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionHardDisk_density(self)
-
-# Register InterferenceFunctionHardDisk in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunctionHardDisk_swigregister(InterferenceFunctionHardDisk)
-
-class InterferenceFunctionNone(IInterferenceFunction):
-    r"""
-
-
-    Default interference function (i.e. absence of any interference).
-
-    C++ includes: InterferenceFunctionNone.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(InterferenceFunctionNone self) -> InterferenceFunctionNone
-        InterferenceFunctionNone::InterferenceFunctionNone()
-
-        """
-        _libBornAgainCore.InterferenceFunctionNone_swiginit(self, _libBornAgainCore.new_InterferenceFunctionNone())
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
-        InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionNone_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunctionNone self, INodeVisitor visitor)
-        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionNone
-
-# Register InterferenceFunctionNone in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunctionNone_swigregister(InterferenceFunctionNone)
-
-class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
-    r"""
-
-
-    Interference function of radial paracrystal.
-
-    C++ includes: InterferenceFunctionRadialParaCrystal.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, peak_distance, damping_length=0.0):
-        r"""
-        __init__(InterferenceFunctionRadialParaCrystal self, double peak_distance, double damping_length=0.0) -> InterferenceFunctionRadialParaCrystal
-        InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
-
-        Constructor of interference function of radial paracrystal.
-
-        Parameters:
-        -----------
-
-        peak_distance: 
-        average distance to the next neighbor in nanometers
-
-        damping_length: 
-        the damping (coherence) length of the paracrystal in nanometers 
-
-        """
-        _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swiginit(self, _libBornAgainCore.new_InterferenceFunctionRadialParaCrystal(peak_distance, damping_length))
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
-        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
-        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
-
-    def setKappa(self, kappa):
-        r"""
-        setKappa(InterferenceFunctionRadialParaCrystal self, double kappa)
-        void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
-
-        Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
-
-        Parameters:
-        -----------
-
-        size: 
-        spacing coupling parameter 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
-
-    def kappa(self):
-        r"""
-        kappa(InterferenceFunctionRadialParaCrystal self) -> double
-        double InterferenceFunctionRadialParaCrystal::kappa() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_kappa(self)
-
-    def setDomainSize(self, size):
-        r"""
-        setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
-        void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
-
-        Sets domain size (finite size corrections).
-
-        Parameters:
-        -----------
-
-        size: 
-        size of coherence domain along the lattice main axis in nanometers 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
-
-    def domainSize(self):
-        r"""
-        domainSize(InterferenceFunctionRadialParaCrystal self) -> double
-        double InterferenceFunctionRadialParaCrystal::domainSize() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
-
-    def FTPDF(self, qpar):
-        r"""
-        FTPDF(InterferenceFunctionRadialParaCrystal self, double qpar) -> complex_t
-        complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_FTPDF(self, qpar)
-
-    def setProbabilityDistribution(self, pdf):
-        r"""
-        setProbabilityDistribution(InterferenceFunctionRadialParaCrystal self, IFTDistribution1D pdf)
-        void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
-
-        Sets one-dimensional probability distribution.
-
-        Parameters:
-        -----------
-
-        pdf: 
-        probability distribution (Fourier transform of probability density) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
-
-    def peakDistance(self):
-        r"""
-        peakDistance(InterferenceFunctionRadialParaCrystal self) -> double
-        double InterferenceFunctionRadialParaCrystal::peakDistance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_peakDistance(self)
-
-    def dampingLength(self):
-        r"""
-        dampingLength(InterferenceFunctionRadialParaCrystal self) -> double
-        double InterferenceFunctionRadialParaCrystal::dampingLength() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_dampingLength(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getChildren(self)
-
-    def randomSample(self):
-        r"""
-        randomSample(InterferenceFunctionRadialParaCrystal self) -> double
-        double InterferenceFunctionRadialParaCrystal::randomSample() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_randomSample(self)
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
-
-# Register InterferenceFunctionRadialParaCrystal in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
-
-class InterferenceFunctionTwin(IInterferenceFunction):
-    r"""
-
-
-    Interference function for two particles at a mean distance and given standard deviation from each other in a given direction.
-
-    C++ includes: InterferenceFunctionTwin.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, direction, mean_distance, std_dev):
-        r"""
-        __init__(InterferenceFunctionTwin self, kvector_t direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
-        InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
-
-        """
-        _libBornAgainCore.InterferenceFunctionTwin_swiginit(self, _libBornAgainCore.new_InterferenceFunctionTwin(direction, mean_distance, std_dev))
-
-    def clone(self):
-        r"""
-        clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin
-        InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionTwin_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(InterferenceFunctionTwin self, INodeVisitor visitor)
-        void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionTwin_accept(self, visitor)
-
-    def direction(self):
-        r"""
-        direction(InterferenceFunctionTwin self) -> kvector_t
-        kvector_t InterferenceFunctionTwin::direction() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionTwin_direction(self)
-
-    def meanDistance(self):
-        r"""
-        meanDistance(InterferenceFunctionTwin self) -> double
-        double InterferenceFunctionTwin::meanDistance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionTwin_meanDistance(self)
-
-    def stdDev(self):
-        r"""
-        stdDev(InterferenceFunctionTwin self) -> double
-        double InterferenceFunctionTwin::stdDev() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionTwin_stdDev(self)
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionTwin
-
-# Register InterferenceFunctionTwin in _libBornAgainCore:
-_libBornAgainCore.InterferenceFunctionTwin_swigregister(InterferenceFunctionTwin)
-
-class IPixel(object):
-    r"""
-
-
-    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
-
-    C++ includes: IPixel.h
+    C++ includes: VarianceFunctions.h
 
     """
 
@@ -18406,215 +22044,112 @@ class IPixel(object):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IPixel
+    __swig_destroy__ = _libBornAgainCore.delete_IVarianceFunction
 
     def clone(self):
         r"""
-        clone(IPixel self) -> IPixel
-        virtual IPixel* IPixel::clone() const =0
+        clone(IVarianceFunction self) -> IVarianceFunction
+        virtual IVarianceFunction* IVarianceFunction::clone() const =0
 
         """
-        return _libBornAgainCore.IPixel_clone(self)
+        return _libBornAgainCore.IVarianceFunction_clone(self)
 
-    def createZeroSizePixel(self, x, y):
+    def variance(self, real_value, simulated_value):
         r"""
-        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
-        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
+        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
+        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
 
         """
-        return _libBornAgainCore.IPixel_createZeroSizePixel(self, x, y)
+        return _libBornAgainCore.IVarianceFunction_variance(self, real_value, simulated_value)
 
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
-        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
+# Register IVarianceFunction in _libBornAgainCore:
+_libBornAgainCore.IVarianceFunction_swigregister(IVarianceFunction)
 
-        """
-        return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(IPixel self, double x, double y) -> double
-        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
-
-        """
-        return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(IPixel self) -> double
-        virtual double IPixel::getSolidAngle() const =0
-
-        """
-        return _libBornAgainCore.IPixel_getSolidAngle(self)
-
-# Register IPixel in _libBornAgainCore:
-_libBornAgainCore.IPixel_swigregister(IPixel)
-
-class SphericalPixel(IPixel):
+class VarianceConstantFunction(IVarianceFunction):
     r"""
 
 
-    A pixel in a  SphericalDetector.
+    Returns 1.0 as variance value
 
-    C++ includes: SphericalDetector.h
+    C++ includes: VarianceFunctions.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, alpha_bin, phi_bin):
-        r"""
-        __init__(SphericalPixel self, Bin1D alpha_bin, Bin1D phi_bin) -> SphericalPixel
-        SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
-
-        """
-        _libBornAgainCore.SphericalPixel_swiginit(self, _libBornAgainCore.new_SphericalPixel(alpha_bin, phi_bin))
-
     def clone(self):
         r"""
-        clone(SphericalPixel self) -> SphericalPixel
-        SphericalPixel * SphericalPixel::clone() const override
+        clone(VarianceConstantFunction self) -> VarianceConstantFunction
+        VarianceConstantFunction * VarianceConstantFunction::clone() const override
 
         """
-        return _libBornAgainCore.SphericalPixel_clone(self)
+        return _libBornAgainCore.VarianceConstantFunction_clone(self)
 
-    def createZeroSizePixel(self, x, y):
+    def variance(self, arg2, arg3):
         r"""
-        createZeroSizePixel(SphericalPixel self, double x, double y) -> SphericalPixel
-        SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const override
+        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
+        double VarianceConstantFunction::variance(double, double) const override
 
         """
-        return _libBornAgainCore.SphericalPixel_createZeroSizePixel(self, x, y)
+        return _libBornAgainCore.VarianceConstantFunction_variance(self, arg2, arg3)
 
-    def getK(self, x, y, wavelength):
+    def __init__(self):
         r"""
-        getK(SphericalPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t SphericalPixel::getK(double x, double y, double wavelength) const override
+        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
+
+
+        Returns 1.0 as variance value
+
+        C++ includes: VarianceFunctions.h
 
         """
-        return _libBornAgainCore.SphericalPixel_getK(self, x, y, wavelength)
+        _libBornAgainCore.VarianceConstantFunction_swiginit(self, _libBornAgainCore.new_VarianceConstantFunction())
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceConstantFunction
 
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(SphericalPixel self, double x, double y) -> double
-        double SphericalPixel::getIntegrationFactor(double x, double y) const override
+# Register VarianceConstantFunction in _libBornAgainCore:
+_libBornAgainCore.VarianceConstantFunction_swigregister(VarianceConstantFunction)
 
-        """
-        return _libBornAgainCore.SphericalPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(SphericalPixel self) -> double
-        double SphericalPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_SphericalPixel
-
-# Register SphericalPixel in _libBornAgainCore:
-_libBornAgainCore.SphericalPixel_swigregister(SphericalPixel)
-
-class SphericalDetector(IDetector2D):
+class VarianceSimFunction(IVarianceFunction):
     r"""
 
 
-    A spherical detector with axes and resolution function.
+    Returns max(sim, epsilon)
 
-    C++ includes: SphericalDetector.h
+    C++ includes: VarianceFunctions.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, epsilon=1.0):
         r"""
-        __init__(SphericalDetector self) -> SphericalDetector
-        __init__(SphericalDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalDetector
-        __init__(SphericalDetector self, SphericalDetector other) -> SphericalDetector
-        SphericalDetector::SphericalDetector(const SphericalDetector &other)
+        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
+        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
 
         """
-        _libBornAgainCore.SphericalDetector_swiginit(self, _libBornAgainCore.new_SphericalDetector(*args))
+        _libBornAgainCore.VarianceSimFunction_swiginit(self, _libBornAgainCore.new_VarianceSimFunction(epsilon))
 
     def clone(self):
         r"""
-        clone(SphericalDetector self) -> SphericalDetector
-        SphericalDetector * SphericalDetector::clone() const override
+        clone(VarianceSimFunction self) -> VarianceSimFunction
+        VarianceSimFunction * VarianceSimFunction::clone() const override
 
         """
-        return _libBornAgainCore.SphericalDetector_clone(self)
+        return _libBornAgainCore.VarianceSimFunction_clone(self)
 
-    def accept(self, visitor):
+    def variance(self, exp, sim):
         r"""
-        accept(SphericalDetector self, INodeVisitor visitor)
-        void SphericalDetector::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
+        variance(VarianceSimFunction self, double exp, double sim) -> double
+        double VarianceSimFunction::variance(double exp, double sim) const override
 
         """
-        return _libBornAgainCore.SphericalDetector_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
+        return _libBornAgainCore.VarianceSimFunction_variance(self, exp, sim)
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceSimFunction
 
-    def defaultAxesUnits(self):
-        r"""
-        defaultAxesUnits(SphericalDetector self) -> AxesUnits
-        AxesUnits SphericalDetector::defaultAxesUnits() const override
-
-        return default axes units 
-
-        """
-        return _libBornAgainCore.SphericalDetector_defaultAxesUnits(self)
-
-# Register SphericalDetector in _libBornAgainCore:
-_libBornAgainCore.SphericalDetector_swigregister(SphericalDetector)
-
-class IsGISAXSDetector(SphericalDetector):
-    r"""
-
-
-    A spherical detector used for validation with IsGISAXS results.
-
-    C++ includes: IsGISAXSDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(IsGISAXSDetector self) -> IsGISAXSDetector
-        __init__(IsGISAXSDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> IsGISAXSDetector
-        __init__(IsGISAXSDetector self, IsGISAXSDetector other) -> IsGISAXSDetector
-        IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
-
-        """
-        _libBornAgainCore.IsGISAXSDetector_swiginit(self, _libBornAgainCore.new_IsGISAXSDetector(*args))
-
-    def clone(self):
-        r"""
-        clone(IsGISAXSDetector self) -> IsGISAXSDetector
-        IsGISAXSDetector * IsGISAXSDetector::clone() const override
-
-        """
-        return _libBornAgainCore.IsGISAXSDetector_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IsGISAXSDetector self, INodeVisitor visitor)
-        void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IsGISAXSDetector_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_IsGISAXSDetector
-
-# Register IsGISAXSDetector in _libBornAgainCore:
-_libBornAgainCore.IsGISAXSDetector_swigregister(IsGISAXSDetector)
+# Register VarianceSimFunction in _libBornAgainCore:
+_libBornAgainCore.VarianceSimFunction_swigregister(VarianceSimFunction)
 
 class ILatticeOrientation(object):
     r"""Proxy of C++ ILatticeOrientation class."""
@@ -18737,6 +22272,83 @@ class MillerIndexOrientation(ILatticeOrientation):
 
 # Register MillerIndexOrientation in _libBornAgainCore:
 _libBornAgainCore.MillerIndexOrientation_swigregister(MillerIndexOrientation)
+
+class ISelectionRule(object):
+    r"""
+
+
+    Pure virtual base class for selection rules.
+
+    C++ includes: ISelectionRule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ISelectionRule
+
+    def clone(self):
+        r"""
+        clone(ISelectionRule self) -> ISelectionRule
+        virtual ISelectionRule* ISelectionRule::clone() const =0
+
+        """
+        return _libBornAgainCore.ISelectionRule_clone(self)
+
+    def coordinateSelected(self, coordinate):
+        r"""
+        coordinateSelected(ISelectionRule self, ivector_t const & coordinate) -> bool
+        virtual bool ISelectionRule::coordinateSelected(const ivector_t &coordinate) const =0
+
+        """
+        return _libBornAgainCore.ISelectionRule_coordinateSelected(self, coordinate)
+
+# Register ISelectionRule in _libBornAgainCore:
+_libBornAgainCore.ISelectionRule_swigregister(ISelectionRule)
+
+class SimpleSelectionRule(ISelectionRule):
+    r"""
+
+
+    Selection rule (v*q)modulus!=0, defined by vector v(a,b,c) and modulus.
+
+    C++ includes: ISelectionRule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, a, b, c, modulus):
+        r"""
+        __init__(SimpleSelectionRule self, int a, int b, int c, int modulus) -> SimpleSelectionRule
+        SimpleSelectionRule::SimpleSelectionRule(int a, int b, int c, int modulus)
+
+        """
+        _libBornAgainCore.SimpleSelectionRule_swiginit(self, _libBornAgainCore.new_SimpleSelectionRule(a, b, c, modulus))
+    __swig_destroy__ = _libBornAgainCore.delete_SimpleSelectionRule
+
+    def clone(self):
+        r"""
+        clone(SimpleSelectionRule self) -> SimpleSelectionRule
+        SimpleSelectionRule * SimpleSelectionRule::clone() const
+
+        """
+        return _libBornAgainCore.SimpleSelectionRule_clone(self)
+
+    def coordinateSelected(self, coordinate):
+        r"""
+        coordinateSelected(SimpleSelectionRule self, ivector_t const & coordinate) -> bool
+        bool SimpleSelectionRule::coordinateSelected(const ivector_t &coordinate) const
+
+        """
+        return _libBornAgainCore.SimpleSelectionRule_coordinateSelected(self, coordinate)
+
+# Register SimpleSelectionRule in _libBornAgainCore:
+_libBornAgainCore.SimpleSelectionRule_swigregister(SimpleSelectionRule)
 
 class Lattice(INode):
     r"""
@@ -18969,67 +22581,6 @@ def Lattice_createBCTLattice(a, c):
     r"""Lattice_createBCTLattice(double a, double c) -> Lattice"""
     return _libBornAgainCore.Lattice_createBCTLattice(a, c)
 
-
-def CreateFCCLattice(lattice_constant, orientation):
-    r"""
-    CreateFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainCore.CreateFCCLattice(lattice_constant, orientation)
-
-def CreateHCPLattice(a, c, orientation):
-    r"""
-    CreateHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainCore.CreateHCPLattice(a, c, orientation)
-
-def CreateBCTLattice(a, c, orientation):
-    r"""
-    CreateBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainCore.CreateBCTLattice(a, c, orientation)
-class Lattice1DParameters(object):
-    r"""
-
-
-    Basic parameters of a one-dimensional lattice.
-
-    C++ includes: Lattice1DParameters.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Lattice1DParameters self) -> Lattice1DParameters
-        __init__(Lattice1DParameters self, double length, double xi) -> Lattice1DParameters
-        Lattice1DParameters::Lattice1DParameters(double length, double xi)
-
-        Parameters:
-        -----------
-
-        length: 
-         Lattice constant.
-
-        xi: 
-         Lattice rotation angle. 
-
-        """
-        _libBornAgainCore.Lattice1DParameters_swiginit(self, _libBornAgainCore.new_Lattice1DParameters(*args))
-    m_length = property(_libBornAgainCore.Lattice1DParameters_m_length_get, _libBornAgainCore.Lattice1DParameters_m_length_set, doc=r"""m_length : double""")
-    m_xi = property(_libBornAgainCore.Lattice1DParameters_m_xi_get, _libBornAgainCore.Lattice1DParameters_m_xi_set, doc=r"""m_xi : double""")
-    __swig_destroy__ = _libBornAgainCore.delete_Lattice1DParameters
-
-# Register Lattice1DParameters in _libBornAgainCore:
-_libBornAgainCore.Lattice1DParameters_swigregister(Lattice1DParameters)
-
 class Lattice2D(ICloneable, INode):
     r"""Proxy of C++ Lattice2D class."""
 
@@ -19113,9 +22664,9 @@ class BasicLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length1, length2, angle, rotation_angle=0.0):
+    def __init__(self, length1, length2, angle, rotation_angle):
         r"""
-        __init__(BasicLattice self, double length1, double length2, double angle, double rotation_angle=0.0) -> BasicLattice
+        __init__(BasicLattice self, double length1, double length2, double angle, double rotation_angle) -> BasicLattice
         BasicLattice::BasicLattice(double length1, double length2, double angle, double rotation_angle=0.0)
 
         """
@@ -19249,9 +22800,9 @@ class HexagonalLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, rotation_angle=0.0):
+    def __init__(self, length, rotation_angle):
         r"""
-        __init__(HexagonalLattice self, double length, double rotation_angle=0.0) -> HexagonalLattice
+        __init__(HexagonalLattice self, double length, double rotation_angle) -> HexagonalLattice
         HexagonalLattice::HexagonalLattice(double length, double rotation_angle=0.0)
 
         """
@@ -19311,462 +22862,30 @@ class HexagonalLattice(Lattice2D):
 # Register HexagonalLattice in _libBornAgainCore:
 _libBornAgainCore.HexagonalLattice_swigregister(HexagonalLattice)
 
-class Layer(ISample):
+
+def CreateFCCLattice(lattice_constant, orientation):
     r"""
-
-
-    A layer, with thickness (in nanometer) and material.
-
-    C++ includes: Layer.h
+    CreateFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
 
     """
+    return _libBornAgainCore.CreateFCCLattice(lattice_constant, orientation)
 
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, material, thickness=0):
-        r"""
-        __init__(Layer self, Material material, double thickness=0) -> Layer
-        Layer::Layer(Material material, double thickness=0)
-
-        Constructor of a layer with thickness and material
-
-        Parameters:
-        -----------
-
-        material: 
-        material the layer is made of
-
-        thickness: 
-        thickness of a layer in nanometers 
-
-        """
-        _libBornAgainCore.Layer_swiginit(self, _libBornAgainCore.new_Layer(material, thickness))
-    __swig_destroy__ = _libBornAgainCore.delete_Layer
-
-    def clone(self):
-        r"""
-        clone(Layer self) -> Layer
-        Layer * Layer::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.Layer_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(Layer self, INodeVisitor visitor)
-        void Layer::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.Layer_accept(self, visitor)
-
-    def setThickness(self, thickness):
-        r"""
-        setThickness(Layer self, double thickness)
-        void Layer::setThickness(double thickness)
-
-        Sets layer thickness in nanometers. 
-
-        """
-        return _libBornAgainCore.Layer_setThickness(self, thickness)
-
-    def thickness(self):
-        r"""
-        thickness(Layer self) -> double
-        double Layer::thickness() const
-
-        """
-        return _libBornAgainCore.Layer_thickness(self)
-
-    def material(self):
-        r"""
-        material(Layer self) -> Material
-        const Material* Layer::material() const override final
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.Layer_material(self)
-
-    def setMaterial(self, material):
-        r"""
-        setMaterial(Layer self, Material material)
-        void Layer::setMaterial(Material material)
-
-        """
-        return _libBornAgainCore.Layer_setMaterial(self, material)
-
-    def addLayout(self, decoration):
-        r"""
-        addLayout(Layer self, ILayout decoration)
-        void Layer::addLayout(const ILayout &decoration)
-
-        """
-        return _libBornAgainCore.Layer_addLayout(self, decoration)
-
-    def numberOfLayouts(self):
-        r"""
-        numberOfLayouts(Layer self) -> size_t
-        size_t Layer::numberOfLayouts() const
-
-        """
-        return _libBornAgainCore.Layer_numberOfLayouts(self)
-
-    def layouts(self):
-        r"""
-        layouts(Layer self) -> std::vector< ILayout const *,std::allocator< ILayout const * > >
-        std::vector< const ILayout * > Layer::layouts() const
-
-        """
-        return _libBornAgainCore.Layer_layouts(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(Layer self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Layer::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.Layer_getChildren(self)
-
-    def registerThickness(self, make_registered=True):
-        r"""
-        registerThickness(Layer self, bool make_registered=True)
-        void Layer::registerThickness(bool make_registered=true)
-
-        """
-        return _libBornAgainCore.Layer_registerThickness(self, make_registered)
-
-    def setNumberOfSlices(self, n_slices):
-        r"""
-        setNumberOfSlices(Layer self, unsigned int n_slices)
-        void Layer::setNumberOfSlices(unsigned int n_slices)
-
-        """
-        return _libBornAgainCore.Layer_setNumberOfSlices(self, n_slices)
-
-    def numberOfSlices(self):
-        r"""
-        numberOfSlices(Layer self) -> unsigned int
-        unsigned int Layer::numberOfSlices() const
-
-        """
-        return _libBornAgainCore.Layer_numberOfSlices(self)
-
-# Register Layer in _libBornAgainCore:
-_libBornAgainCore.Layer_swigregister(Layer)
-
-class LayerRoughness(ISample):
+def CreateHCPLattice(a, c, orientation):
     r"""
-
-
-    A roughness of interface between two layers.
-
-    Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces"
-
-    C++ includes: LayerRoughness.h
+    CreateHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation &orientation)
 
     """
+    return _libBornAgainCore.CreateHCPLattice(a, c, orientation)
 
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(LayerRoughness self) -> LayerRoughness
-        __init__(LayerRoughness self, double sigma, double hurstParameter, double lateralCorrLength) -> LayerRoughness
-        LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
-
-        Constructor of layer roughness.
-
-        Parameters:
-        -----------
-
-        sigma: 
-        rms of the roughness in nanometers
-
-        hurstParameter: 
-        hurst parameter which describes how jagged the interface, dimensionless [0.0, 1.0], where 0.0 gives more spikes, 1.0 more smoothness
-
-        lateralCorrLength: 
-        lateral correlation length of the roughness in nanometers 
-
-        """
-        _libBornAgainCore.LayerRoughness_swiginit(self, _libBornAgainCore.new_LayerRoughness(*args))
-
-    def clone(self):
-        r"""
-        clone(LayerRoughness self) -> LayerRoughness
-        LayerRoughness* LayerRoughness::clone() const
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(LayerRoughness self, INodeVisitor visitor)
-        virtual void LayerRoughness::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_accept(self, visitor)
-
-    def getSpectralFun(self, kvec):
-        r"""
-        getSpectralFun(LayerRoughness self, kvector_t kvec) -> double
-        double LayerRoughness::getSpectralFun(const kvector_t kvec) const
-
-        Returns power spectral density of the surface roughness.
-
-        Power spectral density of the surface roughness is a result of two-dimensional Fourier transform of the correlation function of the roughness profile.
-
-        Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces" 
-
-        """
-        return _libBornAgainCore.LayerRoughness_getSpectralFun(self, kvec)
-
-    def getCorrFun(self, k):
-        r"""
-        getCorrFun(LayerRoughness self, kvector_t k) -> double
-        double LayerRoughness::getCorrFun(const kvector_t k) const
-
-        Correlation function of the roughness profile. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_getCorrFun(self, k)
-
-    def setSigma(self, sigma):
-        r"""
-        setSigma(LayerRoughness self, double sigma)
-        void LayerRoughness::setSigma(double sigma)
-
-        Sets rms of roughness. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_setSigma(self, sigma)
-
-    def getSigma(self):
-        r"""
-        getSigma(LayerRoughness self) -> double
-        double LayerRoughness::getSigma() const
-
-        Returns rms of roughness. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_getSigma(self)
-
-    def setHurstParameter(self, hurstParameter):
-        r"""
-        setHurstParameter(LayerRoughness self, double hurstParameter)
-        void LayerRoughness::setHurstParameter(double hurstParameter)
-
-        Sets hurst parameter. It describes how jagged the surface is. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_setHurstParameter(self, hurstParameter)
-
-    def getHurstParameter(self):
-        r"""
-        getHurstParameter(LayerRoughness self) -> double
-        double LayerRoughness::getHurstParameter() const
-
-        Returns hurst parameter. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_getHurstParameter(self)
-
-    def setLatteralCorrLength(self, lateralCorrLength):
-        r"""
-        setLatteralCorrLength(LayerRoughness self, double lateralCorrLength)
-        void LayerRoughness::setLatteralCorrLength(double lateralCorrLength)
-
-        Sets lateral correlation length. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_setLatteralCorrLength(self, lateralCorrLength)
-
-    def getLatteralCorrLength(self):
-        r"""
-        getLatteralCorrLength(LayerRoughness self) -> double
-        double LayerRoughness::getLatteralCorrLength() const
-
-        Returns lateral correlation length. 
-
-        """
-        return _libBornAgainCore.LayerRoughness_getLatteralCorrLength(self)
-    __swig_destroy__ = _libBornAgainCore.delete_LayerRoughness
-
-# Register LayerRoughness in _libBornAgainCore:
-_libBornAgainCore.LayerRoughness_swigregister(LayerRoughness)
-
-class Line(IShape2D):
+def CreateBCTLattice(a, c, orientation):
     r"""
-
-
-    A line segment.
-
-    C++ includes: Line.h
+    CreateBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 
     """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, x1, y1, x2, y2):
-        r"""
-        __init__(Line self, double x1, double y1, double x2, double y2) -> Line
-        Line::Line(double x1, double y1, double x2, double y2)
-
-        """
-        _libBornAgainCore.Line_swiginit(self, _libBornAgainCore.new_Line(x1, y1, x2, y2))
-
-    def clone(self):
-        r"""
-        clone(Line self) -> Line
-        Line* Line::clone() const
-
-        """
-        return _libBornAgainCore.Line_clone(self)
-
-    def contains(self, *args):
-        r"""
-        contains(Line self, double x, double y) -> bool
-        contains(Line self, Bin1D binx, Bin1D biny) -> bool
-        bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
-        """
-        return _libBornAgainCore.Line_contains(self, *args)
-    __swig_destroy__ = _libBornAgainCore.delete_Line
-
-# Register Line in _libBornAgainCore:
-_libBornAgainCore.Line_swigregister(Line)
-
-class VerticalLine(IShape2D):
-    r"""
-
-
-    An infinite vertical line.
-
-    C++ includes: Line.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, x):
-        r"""
-        __init__(VerticalLine self, double x) -> VerticalLine
-        VerticalLine::VerticalLine(double x)
-
-        Parameters:
-        -----------
-
-        x: 
-        The value at which it crosses x-axes 
-
-        """
-        _libBornAgainCore.VerticalLine_swiginit(self, _libBornAgainCore.new_VerticalLine(x))
-
-    def clone(self):
-        r"""
-        clone(VerticalLine self) -> VerticalLine
-        VerticalLine* VerticalLine::clone() const
-
-        """
-        return _libBornAgainCore.VerticalLine_clone(self)
-
-    def contains(self, *args):
-        r"""
-        contains(VerticalLine self, double x, double y) -> bool
-        contains(VerticalLine self, Bin1D binx, Bin1D biny) -> bool
-        bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
-        """
-        return _libBornAgainCore.VerticalLine_contains(self, *args)
-
-    def getXpos(self):
-        r"""
-        getXpos(VerticalLine self) -> double
-        double VerticalLine::getXpos() const
-
-        """
-        return _libBornAgainCore.VerticalLine_getXpos(self)
-    __swig_destroy__ = _libBornAgainCore.delete_VerticalLine
-
-# Register VerticalLine in _libBornAgainCore:
-_libBornAgainCore.VerticalLine_swigregister(VerticalLine)
-
-class HorizontalLine(IShape2D):
-    r"""
-
-
-    An infinite horizontal line.
-
-    C++ includes: Line.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, y):
-        r"""
-        __init__(HorizontalLine self, double y) -> HorizontalLine
-        HorizontalLine::HorizontalLine(double y)
-
-        Parameters:
-        -----------
-
-        y: 
-        The value at which it crosses y-axes 
-
-        """
-        _libBornAgainCore.HorizontalLine_swiginit(self, _libBornAgainCore.new_HorizontalLine(y))
-
-    def clone(self):
-        r"""
-        clone(HorizontalLine self) -> HorizontalLine
-        HorizontalLine* HorizontalLine::clone() const
-
-        """
-        return _libBornAgainCore.HorizontalLine_clone(self)
-
-    def contains(self, *args):
-        r"""
-        contains(HorizontalLine self, double x, double y) -> bool
-        contains(HorizontalLine self, Bin1D binx, Bin1D biny) -> bool
-        bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
-        """
-        return _libBornAgainCore.HorizontalLine_contains(self, *args)
-
-    def getYpos(self):
-        r"""
-        getYpos(HorizontalLine self) -> double
-        double HorizontalLine::getYpos() const
-
-        """
-        return _libBornAgainCore.HorizontalLine_getYpos(self)
-    __swig_destroy__ = _libBornAgainCore.delete_HorizontalLine
-
-# Register HorizontalLine in _libBornAgainCore:
-_libBornAgainCore.HorizontalLine_swigregister(HorizontalLine)
-
+    return _libBornAgainCore.CreateBCTLattice(a, c, orientation)
 class Material(object):
     r"""
 
@@ -19899,13 +23018,9 @@ class Material(object):
         """
         return _libBornAgainCore.Material_scalarSubtrSLD(self, wavevectors)
 
-    def transformedMaterial(self, transform):
-        r"""
-        transformedMaterial(Material self, Transform3D const & transform) -> Material
-        Material Material::transformedMaterial(const Transform3D &transform) const
-
-        """
-        return _libBornAgainCore.Material_transformedMaterial(self, transform)
+    def rotatedMaterial(self, transform):
+        r"""rotatedMaterial(Material self, Transform3D const & transform) -> Material"""
+        return _libBornAgainCore.Material_rotatedMaterial(self, transform)
     __swig_destroy__ = _libBornAgainCore.delete_Material
 
 # Register Material in _libBornAgainCore:
@@ -19915,9 +23030,9 @@ _libBornAgainCore.Material_swigregister(Material)
 def HomogeneousMaterial(*args):
     r"""
     HomogeneousMaterial() -> Material
-    HomogeneousMaterial(std::string const & name, double delta, double beta, kvector_t magnetization=kvector_t()) -> Material
-    HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization=kvector_t()) -> Material
-    BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization=kvector_t())
+    HomogeneousMaterial(std::string const & name, double delta, double beta, kvector_t magnetization={}) -> Material
+    HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization={}) -> Material
+    BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
 
     Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\delta$ and  $\\beta$ for refractive index  $n = 1 - \\delta + i \\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
 
@@ -19927,8 +23042,8 @@ def HomogeneousMaterial(*args):
 def MaterialBySLD(*args):
     r"""
     MaterialBySLD() -> Material
-    MaterialBySLD(std::string const & name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t()) -> Material
-    BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t())
+    MaterialBySLD(std::string const & name, double sld_real, double sld_imag, kvector_t magnetization={}) -> Material
+    BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
 
     Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
@@ -19949,2960 +23064,6 @@ def MaterialBySLD(*args):
 
     """
     return _libBornAgainCore.MaterialBySLD(*args)
-class MesoCrystal(IParticle):
-    r"""
-
-
-    A particle with an internal structure of smaller particles.
-
-    C++ includes: MesoCrystal.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, particle_structure, form_factor):
-        r"""
-        __init__(MesoCrystal self, IClusteredParticles particle_structure, IFormFactor form_factor) -> MesoCrystal
-        MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
-
-        """
-        _libBornAgainCore.MesoCrystal_swiginit(self, _libBornAgainCore.new_MesoCrystal(particle_structure, form_factor))
-    __swig_destroy__ = _libBornAgainCore.delete_MesoCrystal
-
-    def clone(self):
-        r"""
-        clone(MesoCrystal self) -> MesoCrystal
-        MesoCrystal * MesoCrystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.MesoCrystal_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(MesoCrystal self, INodeVisitor visitor)
-        void MesoCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.MesoCrystal_accept(self, visitor)
-
-    def createSlicedParticle(self, limits):
-        r"""
-        createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
-        SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
-
-    def getChildren(self):
-        r"""
-        getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > MesoCrystal::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.MesoCrystal_getChildren(self)
-
-# Register MesoCrystal in _libBornAgainCore:
-_libBornAgainCore.MesoCrystal_swigregister(MesoCrystal)
-
-class MultiLayer(ISample):
-    r"""
-
-
-    Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
-
-    ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
-
-    C++ includes: MultiLayer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(MultiLayer self) -> MultiLayer
-        MultiLayer::MultiLayer()
-
-        """
-        _libBornAgainCore.MultiLayer_swiginit(self, _libBornAgainCore.new_MultiLayer())
-    __swig_destroy__ = _libBornAgainCore.delete_MultiLayer
-
-    def clone(self):
-        r"""
-        clone(MultiLayer self) -> MultiLayer
-        MultiLayer * MultiLayer::clone() const final override
-
-        Returns a clone of multilayer with clones of all layers and interfaces between layers 
-
-        """
-        return _libBornAgainCore.MultiLayer_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(MultiLayer self, INodeVisitor visitor)
-        void MultiLayer::accept(INodeVisitor *visitor) const final override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.MultiLayer_accept(self, visitor)
-
-    def numberOfLayers(self):
-        r"""
-        numberOfLayers(MultiLayer self) -> size_t
-        size_t MultiLayer::numberOfLayers() const
-
-        """
-        return _libBornAgainCore.MultiLayer_numberOfLayers(self)
-
-    def addLayer(self, layer):
-        r"""
-        addLayer(MultiLayer self, Layer layer)
-        void MultiLayer::addLayer(const Layer &layer)
-
-        Adds object to multilayer.
-
-        Adds layer with default (zero) roughness. 
-
-        """
-        return _libBornAgainCore.MultiLayer_addLayer(self, layer)
-
-    def addLayerWithTopRoughness(self, layer, roughness):
-        r"""
-        addLayerWithTopRoughness(MultiLayer self, Layer layer, LayerRoughness roughness)
-        void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
-
-        Adds layer with top roughness. 
-
-        """
-        return _libBornAgainCore.MultiLayer_addLayerWithTopRoughness(self, layer, roughness)
-
-    def layer(self, i_layer):
-        r"""
-        layer(MultiLayer self, size_t i_layer) -> Layer
-        const Layer * MultiLayer::layer(size_t i_layer) const
-
-        Returns layer with given index. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layer(self, i_layer)
-
-    def layerInterface(self, i_interface):
-        r"""
-        layerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
-        const LayerInterface * MultiLayer::layerInterface(size_t i_interface) const
-
-        Returns interface with given index. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerInterface(self, i_interface)
-
-    def setCrossCorrLength(self, crossCorrLength):
-        r"""
-        setCrossCorrLength(MultiLayer self, double crossCorrLength)
-        void MultiLayer::setCrossCorrLength(double crossCorrLength)
-
-        Sets cross correlation length of roughnesses between interfaces. 
-
-        """
-        return _libBornAgainCore.MultiLayer_setCrossCorrLength(self, crossCorrLength)
-
-    def crossCorrLength(self):
-        r"""
-        crossCorrLength(MultiLayer self) -> double
-        double MultiLayer::crossCorrLength() const
-
-        Returns cross correlation length of roughnesses between interfaces. 
-
-        """
-        return _libBornAgainCore.MultiLayer_crossCorrLength(self)
-
-    def setExternalField(self, ext_field):
-        r"""
-        setExternalField(MultiLayer self, kvector_t ext_field)
-        void MultiLayer::setExternalField(kvector_t ext_field)
-
-        Sets the external field applied to the multilayer (units: A/m) 
-
-        """
-        return _libBornAgainCore.MultiLayer_setExternalField(self, ext_field)
-
-    def externalField(self):
-        r"""
-        externalField(MultiLayer self) -> kvector_t
-        kvector_t MultiLayer::externalField() const
-
-        Returns the external field applied to the multilayer (units: A/m) 
-
-        """
-        return _libBornAgainCore.MultiLayer_externalField(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > MultiLayer::getChildren() const final override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.MultiLayer_getChildren(self)
-
-    def setRoughnessModel(self, roughnessModel):
-        r"""
-        setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)
-        void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
-
-        """
-        return _libBornAgainCore.MultiLayer_setRoughnessModel(self, roughnessModel)
-
-    def roughnessModel(self):
-        r"""
-        roughnessModel(MultiLayer self) -> RoughnessModel
-        RoughnessModel MultiLayer::roughnessModel() const
-
-        """
-        return _libBornAgainCore.MultiLayer_roughnessModel(self)
-
-# Register MultiLayer in _libBornAgainCore:
-_libBornAgainCore.MultiLayer_swigregister(MultiLayer)
-
-
-def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
-    r"""
-    MaterialProfile_cpp(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
-    BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-    Calculate average material profile for given multilayer. 
-
-    """
-    return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
-
-def DefaultMaterialProfileLimits(multilayer):
-    r"""
-    DefaultMaterialProfileLimits(MultiLayer multilayer) -> pair_double_t
-    BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-    Get default z limits for generating a material profile. 
-
-    """
-    return _libBornAgainCore.DefaultMaterialProfileLimits(multilayer)
-
-def GenerateZValues(n_points, z_min, z_max):
-    r"""
-    GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
-    BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-    Generate z values (equidistant) for use in MaterialProfile. 
-
-    """
-    return _libBornAgainCore.GenerateZValues(n_points, z_min, z_max)
-class OffSpecSimulation(Simulation2D):
-    r"""
-
-
-    Main class to run an off-specular simulation.
-
-    C++ includes: OffSpecSimulation.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(OffSpecSimulation self) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, std::shared_ptr< IMultiLayerBuilder > const p_sample_builder) -> OffSpecSimulation
-        OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class IMultiLayerBuilder > p_sample_builder)
-
-        """
-        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
-
-    def clone(self):
-        r"""
-        clone(OffSpecSimulation self) -> OffSpecSimulation
-        OffSpecSimulation* OffSpecSimulation::clone() const override
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(OffSpecSimulation self, INodeVisitor visitor)
-        void OffSpecSimulation::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_accept(self, visitor)
-
-    def prepareSimulation(self):
-        r"""
-        prepareSimulation(OffSpecSimulation self)
-        void OffSpecSimulation::prepareSimulation() final
-
-        Put into a clean state for running a simulation. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_prepareSimulation(self)
-
-    def result(self):
-        r"""
-        result(OffSpecSimulation self) -> SimulationResult
-        SimulationResult OffSpecSimulation::result() const override
-
-        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_result(self)
-
-    def setBeamParameters(self, wavelength, alpha_axis, phi_i):
-        r"""
-        setBeamParameters(OffSpecSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
-        void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
-
-        Sets beam parameters from here (forwarded to  Instrument) 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, wavelength, alpha_axis, phi_i)
-
-    def beamAxis(self):
-        r"""
-        beamAxis(OffSpecSimulation self) -> IAxis
-        const IAxis * OffSpecSimulation::beamAxis() const
-
-        Returns axis of the beam. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_beamAxis(self)
-
-    def intensityMapSize(self):
-        r"""
-        intensityMapSize(OffSpecSimulation self) -> size_t
-        size_t OffSpecSimulation::intensityMapSize() const override
-
-        Returns the total number of the intensity values in the simulation result. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_intensityMapSize(self)
-
-# Register OffSpecSimulation in _libBornAgainCore:
-_libBornAgainCore.OffSpecSimulation_swigregister(OffSpecSimulation)
-
-class IntensityData(object):
-    r"""
-
-
-    Template class to store data of any type in multi-dimensional space.
-
-    C++ includes: OutputData.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(IntensityData self) -> IntensityData
-        OutputData< T >::OutputData(const OutputData &)=delete
-
-        """
-        _libBornAgainCore.IntensityData_swiginit(self, _libBornAgainCore.new_IntensityData())
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityData
-
-    def clone(self):
-        r"""
-        clone(IntensityData self) -> IntensityData
-        OutputData< T > * OutputData< T >::clone() const
-
-        """
-        return _libBornAgainCore.IntensityData_clone(self)
-
-    def copyFrom(self, x):
-        r"""
-        copyFrom(IntensityData self, IntensityData x)
-        void OutputData< T >::copyFrom(const OutputData< T > &x)
-
-        """
-        return _libBornAgainCore.IntensityData_copyFrom(self, x)
-
-    def meanValues(self):
-        r"""
-        meanValues(IntensityData self) -> IntensityData
-        OutputData< double > * OutputData< T >::meanValues() const
-
-        """
-        return _libBornAgainCore.IntensityData_meanValues(self)
-
-    def addAxis(self, *args):
-        r"""
-        addAxis(IntensityData self, IAxis new_axis)
-        addAxis(IntensityData self, std::string const & name, size_t size, double start, double end)
-        void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)
-
-        """
-        return _libBornAgainCore.IntensityData_addAxis(self, *args)
-
-    def getAxis(self, *args):
-        r"""
-        getAxis(IntensityData self, size_t serial_number) -> IAxis
-        getAxis(IntensityData self, std::string const & axis_name) -> IAxis
-        const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
-
-        returns axis with given name 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxis(self, *args)
-
-    def getRank(self):
-        r"""
-        getRank(IntensityData self) -> size_t
-        size_t OutputData< T >::getRank() const
-
-        Returns number of dimensions. 
-
-        """
-        return _libBornAgainCore.IntensityData_getRank(self)
-
-    def getAllocatedSize(self):
-        r"""
-        getAllocatedSize(IntensityData self) -> size_t
-        size_t OutputData< T >::getAllocatedSize() const
-
-        Returns total size of data buffer (product of bin number in every dimension). 
-
-        """
-        return _libBornAgainCore.IntensityData_getAllocatedSize(self)
-
-    def getAllSizes(self):
-        r"""
-        getAllSizes(IntensityData self) -> std::vector< size_t,std::allocator< size_t > >
-        std::vector< size_t > OutputData< T >::getAllSizes() const
-
-        Returns all sizes of its axes. 
-
-        """
-        return _libBornAgainCore.IntensityData_getAllSizes(self)
-
-    def getRawDataVector(self):
-        r"""
-        getRawDataVector(IntensityData self) -> vdouble1d_t
-        std::vector< T > OutputData< T >::getRawDataVector() const
-
-        Returns copy of raw data vector. 
-
-        """
-        return _libBornAgainCore.IntensityData_getRawDataVector(self)
-
-    def totalSum(self):
-        r"""
-        totalSum(IntensityData self) -> double
-        T OutputData< T >::totalSum() const
-
-        Returns sum of all values in the data structure. 
-
-        """
-        return _libBornAgainCore.IntensityData_totalSum(self)
-
-    def begin(self, *args):
-        r"""
-        begin(IntensityData self) -> OutputData< double >::iterator
-        begin(IntensityData self) -> OutputData< double >::const_iterator
-        OutputData< T >::const_iterator OutputData< T >::begin() const
-
-        Returns read-only iterator that points to the first element. 
-
-        """
-        return _libBornAgainCore.IntensityData_begin(self, *args)
-
-    def end(self, *args):
-        r"""
-        end(IntensityData self) -> OutputData< double >::iterator
-        end(IntensityData self) -> OutputData< double >::const_iterator
-        const_iterator OutputData< T >::end() const
-
-        Returns read-only iterator that points to the one past last element. 
-
-        """
-        return _libBornAgainCore.IntensityData_end(self, *args)
-
-    def getAxesBinIndices(self, global_index):
-        r"""
-        getAxesBinIndices(IntensityData self, size_t global_index) -> vector_integer_t
-        std::vector< int > OutputData< T >::getAxesBinIndices(size_t global_index) const
-
-        Returns vector of axes indices for given global index
-
-        Parameters:
-        -----------
-
-        global_index: 
-        The global index of this data structure.
-
-        Vector of bin indices for all axes defined 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxesBinIndices(self, global_index)
-
-    def getAxisBinIndex(self, *args):
-        r"""
-        getAxisBinIndex(IntensityData self, size_t global_index, size_t i_selected_axis) -> size_t
-        getAxisBinIndex(IntensityData self, size_t global_index, std::string const & axis_name) -> size_t
-        size_t OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
-
-        Returns axis bin index for given global index
-
-        Parameters:
-        -----------
-
-        global_index: 
-        The global index of this data structure.
-
-        axis_name: 
-        The name of selected axis.
-
-        Corresponding bin index for selected axis 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxisBinIndex(self, *args)
-
-    def toGlobalIndex(self, axes_indices):
-        r"""
-        toGlobalIndex(IntensityData self, std::vector< unsigned int,std::allocator< unsigned int > > const & axes_indices) -> size_t
-        size_t OutputData< T >::toGlobalIndex(const std::vector< unsigned > &axes_indices) const
-
-        Returns global index for specified indices of axes
-
-        Parameters:
-        -----------
-
-        axes_indices: 
-        Vector of axes indices for all specified axes in this dataset
-
-        Corresponding global index 
-
-        """
-        return _libBornAgainCore.IntensityData_toGlobalIndex(self, axes_indices)
-
-    def findGlobalIndex(self, coordinates):
-        r"""
-        findGlobalIndex(IntensityData self, vdouble1d_t coordinates) -> size_t
-        size_t OutputData< T >::findGlobalIndex(const std::vector< double > &coordinates) const
-
-        Returns global index for specified axes values
-
-        Parameters:
-        -----------
-
-        coordinates: 
-        Vector of axes coordinates for all specified axes in this dataset
-
-        Closest global index 
-
-        """
-        return _libBornAgainCore.IntensityData_findGlobalIndex(self, coordinates)
-
-    def getAxisValue(self, *args):
-        r"""
-        getAxisValue(IntensityData self, size_t global_index, size_t i_selected_axis) -> double
-        getAxisValue(IntensityData self, size_t global_index, std::string const & axis_name) -> double
-        double OutputData< T >::getAxisValue(size_t global_index, const std::string &axis_name) const
-
-        Returns the value of selected axis for given global_index.
-
-        Parameters:
-        -----------
-
-        global_index: 
-        The global index of this data structure.
-
-        axis_name: 
-        The name of selected axis.
-
-        corresponding bin center of selected axis 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxisValue(self, *args)
-
-    def getAxesValues(self, global_index):
-        r"""
-        getAxesValues(IntensityData self, size_t global_index) -> vdouble1d_t
-        std::vector< double > OutputData< T >::getAxesValues(size_t global_index) const
-
-        Returns values on all defined axes for given globalbin number
-
-        Parameters:
-        -----------
-
-        global_index: 
-        The global index of this data structure.
-
-        Vector of corresponding bin centers 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxesValues(self, global_index)
-
-    def getAxisBin(self, *args):
-        r"""
-        getAxisBin(IntensityData self, size_t global_index, size_t i_selected_axis) -> Bin1D
-        getAxisBin(IntensityData self, size_t global_index, std::string const & axis_name) -> Bin1D
-        Bin1D OutputData< T >::getAxisBin(size_t global_index, const std::string &axis_name) const
-
-        Returns bin of selected axis for given global_index.
-
-        Parameters:
-        -----------
-
-        global_index: 
-        The global index of this data structure.
-
-        axis_name: 
-        The name of selected axis.
-
-        Corresponding  Bin1D object 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxisBin(self, *args)
-
-    def clear(self):
-        r"""
-        clear(IntensityData self)
-        void OutputData< T >::clear()
-
-        Sets object into initial state (no dimensions, data) 
-
-        """
-        return _libBornAgainCore.IntensityData_clear(self)
-
-    def setAllTo(self, value):
-        r"""
-        setAllTo(IntensityData self, double const & value)
-        void OutputData< T >::setAllTo(const T &value)
-
-        Sets content of output data to specific value. 
-
-        """
-        return _libBornAgainCore.IntensityData_setAllTo(self, value)
-
-    def scaleAll(self, factor):
-        r"""
-        scaleAll(IntensityData self, double const & factor)
-        void OutputData< T >::scaleAll(const T &factor)
-
-        multiply every item of this output data by value 
-
-        """
-        return _libBornAgainCore.IntensityData_scaleAll(self, factor)
-
-    def setAxisSizes(self, rank, n_dims):
-        r"""
-        setAxisSizes(IntensityData self, size_t rank, int * n_dims)
-        void OutputData< T >::setAxisSizes(size_t rank, int *n_dims)
-
-        Adds 'rank' axes with indicated sizes. 
-
-        """
-        return _libBornAgainCore.IntensityData_setAxisSizes(self, rank, n_dims)
-
-    def setRawDataVector(self, data_vector):
-        r"""
-        setRawDataVector(IntensityData self, vdouble1d_t data_vector)
-        void OutputData< T >::setRawDataVector(const std::vector< T > &data_vector)
-
-        Sets new values to raw data vector. 
-
-        """
-        return _libBornAgainCore.IntensityData_setRawDataVector(self, data_vector)
-
-    def setRawDataArray(self, source):
-        r"""
-        setRawDataArray(IntensityData self, double const * source)
-        void OutputData< T >::setRawDataArray(const T *source)
-
-        Sets new values to raw data array. 
-
-        """
-        return _libBornAgainCore.IntensityData_setRawDataArray(self, source)
-
-    def __iadd__(self, right):
-        r"""__iadd__(IntensityData self, IntensityData right) -> IntensityData"""
-        return _libBornAgainCore.IntensityData___iadd__(self, right)
-
-    def __isub__(self, right):
-        r"""__isub__(IntensityData self, IntensityData right) -> IntensityData"""
-        return _libBornAgainCore.IntensityData___isub__(self, right)
-
-    def __itruediv__(self, *args):
-        return _libBornAgainCore.IntensityData___itruediv__(self, *args)
-    __idiv__ = __itruediv__
-
-
-
-    def __imul__(self, right):
-        r"""__imul__(IntensityData self, IntensityData right) -> IntensityData"""
-        return _libBornAgainCore.IntensityData___imul__(self, right)
-
-    def getValue(self, index):
-        r"""
-        getValue(IntensityData self, size_t index) -> double
-        double OutputData< T >::getValue(size_t index) const
-
-        Returns value or summed value, depending on T. 
-
-        """
-        return _libBornAgainCore.IntensityData_getValue(self, index)
-
-    def getArray(self):
-        r"""
-        getArray(IntensityData self) -> PyObject *
-        PyObject* OutputData< T >::getArray() const
-
-        returns data as Python numpy array 
-
-        """
-        return _libBornAgainCore.IntensityData_getArray(self)
-
-    def isInitialized(self):
-        r"""
-        isInitialized(IntensityData self) -> bool
-        bool OutputData< T >::isInitialized() const
-
-        returns true if object is correctly initialized 
-
-        """
-        return _libBornAgainCore.IntensityData_isInitialized(self)
-
-    def allocate(self):
-        r"""
-        allocate(IntensityData self)
-        void OutputData< T >::allocate()
-
-        memory allocation for current dimensions configuration 
-
-        """
-        return _libBornAgainCore.IntensityData_allocate(self)
-
-    def __getitem__(self, i):
-        r"""__getitem__(IntensityData self, unsigned int i) -> double"""
-        return _libBornAgainCore.IntensityData___getitem__(self, i)
-
-    def __setitem__(self, i, value):
-        r"""__setitem__(IntensityData self, unsigned int i, double value) -> double"""
-        return _libBornAgainCore.IntensityData___setitem__(self, i, value)
-
-# Register IntensityData in _libBornAgainCore:
-_libBornAgainCore.IntensityData_swigregister(IntensityData)
-
-class ParameterDistribution(IParameterized):
-    r"""
-
-
-    A parametric distribution function, for use with any model parameter.
-
-    C++ includes: ParameterDistribution.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits=RealLimits()) -> ParameterDistribution
-        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double xmin, double xmax) -> ParameterDistribution
-        __init__(ParameterDistribution self, ParameterDistribution other) -> ParameterDistribution
-        ParameterDistribution::ParameterDistribution(const ParameterDistribution &other)
-
-        """
-        _libBornAgainCore.ParameterDistribution_swiginit(self, _libBornAgainCore.new_ParameterDistribution(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_ParameterDistribution
-
-    def linkParameter(self, par_name):
-        r"""
-        linkParameter(ParameterDistribution self, std::string par_name) -> ParameterDistribution
-        ParameterDistribution & ParameterDistribution::linkParameter(std::string par_name)
-
-        """
-        return _libBornAgainCore.ParameterDistribution_linkParameter(self, par_name)
-
-    def getMainParameterName(self):
-        r"""
-        getMainParameterName(ParameterDistribution self) -> std::string
-        std::string ParameterDistribution::getMainParameterName() const
-
-        get the main parameter's name 
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getMainParameterName(self)
-
-    def getNbrSamples(self):
-        r"""
-        getNbrSamples(ParameterDistribution self) -> size_t
-        size_t ParameterDistribution::getNbrSamples() const
-
-        get number of samples for this distribution 
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getNbrSamples(self)
-
-    def getSigmaFactor(self):
-        r"""
-        getSigmaFactor(ParameterDistribution self) -> double
-        double ParameterDistribution::getSigmaFactor() const
-
-        get the sigma factor 
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getSigmaFactor(self)
-
-    def getDistribution(self, *args):
-        r"""
-        getDistribution(ParameterDistribution self) -> IDistribution1D
-        getDistribution(ParameterDistribution self) -> IDistribution1D
-        IDistribution1D * ParameterDistribution::getDistribution()
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getDistribution(self, *args)
-
-    def generateSamples(self):
-        r"""
-        generateSamples(ParameterDistribution self) -> ParameterSampleVector
-        std::vector< ParameterSample > ParameterDistribution::generateSamples() const
-
-        generate list of sampled values with their weight 
-
-        """
-        return _libBornAgainCore.ParameterDistribution_generateSamples(self)
-
-    def getLinkedParameterNames(self):
-        r"""
-        getLinkedParameterNames(ParameterDistribution self) -> vector_string_t
-        std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
-
-        get list of linked parameter names 
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getLinkedParameterNames(self)
-
-    def getLimits(self):
-        r"""
-        getLimits(ParameterDistribution self) -> RealLimits
-        RealLimits ParameterDistribution::getLimits() const
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getLimits(self)
-
-    def getMinValue(self):
-        r"""
-        getMinValue(ParameterDistribution self) -> double
-        double ParameterDistribution::getMinValue() const
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getMinValue(self)
-
-    def getMaxValue(self):
-        r"""
-        getMaxValue(ParameterDistribution self) -> double
-        double ParameterDistribution::getMaxValue() const
-
-        """
-        return _libBornAgainCore.ParameterDistribution_getMaxValue(self)
-
-# Register ParameterDistribution in _libBornAgainCore:
-_libBornAgainCore.ParameterDistribution_swigregister(ParameterDistribution)
-
-class ParameterPool(ICloneable):
-    r"""
-
-
-    Container with parameters for  IParameterized object.
-
-    C++ includes: ParameterPool.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(ParameterPool self) -> ParameterPool
-        ParameterPool::ParameterPool()
-
-        Constructs an empty parameter pool. 
-
-        """
-        _libBornAgainCore.ParameterPool_swiginit(self, _libBornAgainCore.new_ParameterPool())
-    __swig_destroy__ = _libBornAgainCore.delete_ParameterPool
-
-    def clone(self):
-        r"""
-        clone(ParameterPool self) -> ParameterPool
-        ParameterPool * ParameterPool::clone() const
-
-        Returns a literal clone. 
-
-        """
-        return _libBornAgainCore.ParameterPool_clone(self)
-
-    def copyToExternalPool(self, prefix, other_pool):
-        r"""
-        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool other_pool)
-        void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *other_pool) const
-
-        Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
-
-        """
-        return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, other_pool)
-
-    def clear(self):
-        r"""
-        clear(ParameterPool self)
-        void ParameterPool::clear()
-
-        Clears the parameter map. 
-
-        """
-        return _libBornAgainCore.ParameterPool_clear(self)
-
-    def size(self):
-        r"""
-        size(ParameterPool self) -> size_t
-        size_t ParameterPool::size() const
-
-        Returns number of parameters in the pool. 
-
-        """
-        return _libBornAgainCore.ParameterPool_size(self)
-
-    def addParameter(self, newPar):
-        r"""
-        addParameter(ParameterPool self, RealParameter newPar) -> RealParameter
-        RealParameter & ParameterPool::addParameter(RealParameter *newPar)
-
-        Adds parameter to the pool, and returns reference to the input pointer.
-
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
-
-        """
-        return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
-
-    def parameter(self, *args):
-        r"""
-        parameter(ParameterPool self, std::string const & name) -> RealParameter
-        parameter(ParameterPool self, std::string const & name) -> RealParameter
-        const RealParameter * ParameterPool::parameter(const std::string &name) const
-
-        Returns parameter with given  name. 
-
-        """
-        return _libBornAgainCore.ParameterPool_parameter(self, *args)
-
-    def parameters(self):
-        r"""
-        parameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const
-        const std::vector<RealParameter*> ParameterPool::parameters() const
-
-        Returns full vector of parameters. 
-
-        """
-        return _libBornAgainCore.ParameterPool_parameters(self)
-
-    def getMatchedParameters(self, pattern):
-        r"""
-        getMatchedParameters(ParameterPool self, std::string const & pattern) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
-        std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &pattern) const
-
-        Returns nonempty vector of parameters that match the  pattern ('*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_getMatchedParameters(self, pattern)
-
-    def getUniqueMatch(self, pattern):
-        r"""
-        getUniqueMatch(ParameterPool self, std::string const & pattern) -> RealParameter
-        RealParameter * ParameterPool::getUniqueMatch(const std::string &pattern) const
-
-        Returns the one parameter that matches the  pattern (wildcards '*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_getUniqueMatch(self, pattern)
-
-    def setParameterValue(self, name, value):
-        r"""
-        setParameterValue(ParameterPool self, std::string const & name, double value)
-        void ParameterPool::setParameterValue(const std::string &name, double value)
-
-        Sets parameter value. 
-
-        """
-        return _libBornAgainCore.ParameterPool_setParameterValue(self, name, value)
-
-    def setMatchedParametersValue(self, wildcards, value):
-        r"""
-        setMatchedParametersValue(ParameterPool self, std::string const & wildcards, double value) -> int
-        int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
-
-        Sets value of the nonzero parameters that match  pattern ('*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_setMatchedParametersValue(self, wildcards, value)
-
-    def setUniqueMatchValue(self, pattern, value):
-        r"""
-        setUniqueMatchValue(ParameterPool self, std::string const & pattern, double value)
-        void ParameterPool::setUniqueMatchValue(const std::string &pattern, double value)
-
-        Sets value of the one parameter that matches  pattern ('*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_setUniqueMatchValue(self, pattern, value)
-
-    def parameterNames(self):
-        r"""
-        parameterNames(ParameterPool self) -> vector_string_t
-        std::vector< std::string > ParameterPool::parameterNames() const
-
-        """
-        return _libBornAgainCore.ParameterPool_parameterNames(self)
-
-    def removeParameter(self, name):
-        r"""
-        removeParameter(ParameterPool self, std::string const & name)
-        void ParameterPool::removeParameter(const std::string &name)
-
-        Removes parameter with given name from the pool. 
-
-        """
-        return _libBornAgainCore.ParameterPool_removeParameter(self, name)
-
-    def __getitem__(self, index):
-        r"""__getitem__(ParameterPool self, size_t index) -> RealParameter"""
-        return _libBornAgainCore.ParameterPool___getitem__(self, index)
-
-    def __iter__(self):
-        return ParameterPoolIterator(self)
-
-
-# Register ParameterPool in _libBornAgainCore:
-_libBornAgainCore.ParameterPool_swigregister(ParameterPool)
-
-class ParameterSample(object):
-    r"""
-
-
-    A parameter value with a weight, as obtained when sampling from a distribution.
-
-    C++ includes: ParameterSample.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, _value=0., _weight=1.):
-        r"""
-        __init__(ParameterSample self, double _value=0., double _weight=1.) -> ParameterSample
-        ParameterSample::ParameterSample(double _value=0., double _weight=1.)
-
-        """
-        _libBornAgainCore.ParameterSample_swiginit(self, _libBornAgainCore.new_ParameterSample(_value, _weight))
-    value = property(_libBornAgainCore.ParameterSample_value_get, _libBornAgainCore.ParameterSample_value_set, doc=r"""value : double""")
-    weight = property(_libBornAgainCore.ParameterSample_weight_get, _libBornAgainCore.ParameterSample_weight_set, doc=r"""weight : double""")
-    __swig_destroy__ = _libBornAgainCore.delete_ParameterSample
-
-# Register ParameterSample in _libBornAgainCore:
-_libBornAgainCore.ParameterSample_swigregister(ParameterSample)
-
-class ParameterSampleVector(object):
-    r"""Proxy of C++ std::vector< ParameterSample > class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def iterator(self):
-        r"""iterator(ParameterSampleVector self) -> SwigPyIterator"""
-        return _libBornAgainCore.ParameterSampleVector_iterator(self)
-    def __iter__(self):
-        return self.iterator()
-
-    def __nonzero__(self):
-        r"""__nonzero__(ParameterSampleVector self) -> bool"""
-        return _libBornAgainCore.ParameterSampleVector___nonzero__(self)
-
-    def __bool__(self):
-        r"""__bool__(ParameterSampleVector self) -> bool"""
-        return _libBornAgainCore.ParameterSampleVector___bool__(self)
-
-    def __len__(self):
-        r"""__len__(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
-        return _libBornAgainCore.ParameterSampleVector___len__(self)
-
-    def __getslice__(self, i, j):
-        r"""__getslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j) -> ParameterSampleVector"""
-        return _libBornAgainCore.ParameterSampleVector___getslice__(self, i, j)
-
-    def __setslice__(self, *args):
-        r"""
-        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)
-        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j, ParameterSampleVector v)
-        """
-        return _libBornAgainCore.ParameterSampleVector___setslice__(self, *args)
-
-    def __delslice__(self, i, j):
-        r"""__delslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)"""
-        return _libBornAgainCore.ParameterSampleVector___delslice__(self, i, j)
-
-    def __delitem__(self, *args):
-        r"""
-        __delitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i)
-        __delitem__(ParameterSampleVector self, PySliceObject * slice)
-        """
-        return _libBornAgainCore.ParameterSampleVector___delitem__(self, *args)
-
-    def __getitem__(self, *args):
-        r"""
-        __getitem__(ParameterSampleVector self, PySliceObject * slice) -> ParameterSampleVector
-        __getitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i) -> ParameterSample
-        """
-        return _libBornAgainCore.ParameterSampleVector___getitem__(self, *args)
-
-    def __setitem__(self, *args):
-        r"""
-        __setitem__(ParameterSampleVector self, PySliceObject * slice, ParameterSampleVector v)
-        __setitem__(ParameterSampleVector self, PySliceObject * slice)
-        __setitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, ParameterSample x)
-        """
-        return _libBornAgainCore.ParameterSampleVector___setitem__(self, *args)
-
-    def pop(self):
-        r"""pop(ParameterSampleVector self) -> ParameterSample"""
-        return _libBornAgainCore.ParameterSampleVector_pop(self)
-
-    def append(self, x):
-        r"""append(ParameterSampleVector self, ParameterSample x)"""
-        return _libBornAgainCore.ParameterSampleVector_append(self, x)
-
-    def empty(self):
-        r"""empty(ParameterSampleVector self) -> bool"""
-        return _libBornAgainCore.ParameterSampleVector_empty(self)
-
-    def size(self):
-        r"""size(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
-        return _libBornAgainCore.ParameterSampleVector_size(self)
-
-    def swap(self, v):
-        r"""
-        swap(ParameterSampleVector self, ParameterSampleVector v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
-        return _libBornAgainCore.ParameterSampleVector_swap(self, v)
-
-    def begin(self):
-        r"""begin(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
-        return _libBornAgainCore.ParameterSampleVector_begin(self)
-
-    def end(self):
-        r"""end(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
-        return _libBornAgainCore.ParameterSampleVector_end(self)
-
-    def rbegin(self):
-        r"""rbegin(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
-        return _libBornAgainCore.ParameterSampleVector_rbegin(self)
-
-    def rend(self):
-        r"""rend(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
-        return _libBornAgainCore.ParameterSampleVector_rend(self)
-
-    def clear(self):
-        r"""clear(ParameterSampleVector self)"""
-        return _libBornAgainCore.ParameterSampleVector_clear(self)
-
-    def get_allocator(self):
-        r"""get_allocator(ParameterSampleVector self) -> std::vector< ParameterSample >::allocator_type"""
-        return _libBornAgainCore.ParameterSampleVector_get_allocator(self)
-
-    def pop_back(self):
-        r"""pop_back(ParameterSampleVector self)"""
-        return _libBornAgainCore.ParameterSampleVector_pop_back(self)
-
-    def erase(self, *args):
-        r"""
-        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos) -> std::vector< ParameterSample >::iterator
-        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator first, std::vector< ParameterSample >::iterator last) -> std::vector< ParameterSample >::iterator
-        """
-        return _libBornAgainCore.ParameterSampleVector_erase(self, *args)
-
-    def __init__(self, *args):
-        r"""
-        __init__(ParameterSampleVector self) -> ParameterSampleVector
-        __init__(ParameterSampleVector self, ParameterSampleVector other) -> ParameterSampleVector
-        __init__(ParameterSampleVector self, std::vector< ParameterSample >::size_type size) -> ParameterSampleVector
-        __init__(ParameterSampleVector self, std::vector< ParameterSample >::size_type size, ParameterSample value) -> ParameterSampleVector
-        """
-        _libBornAgainCore.ParameterSampleVector_swiginit(self, _libBornAgainCore.new_ParameterSampleVector(*args))
-
-    def push_back(self, x):
-        r"""push_back(ParameterSampleVector self, ParameterSample x)"""
-        return _libBornAgainCore.ParameterSampleVector_push_back(self, x)
-
-    def front(self):
-        r"""front(ParameterSampleVector self) -> ParameterSample"""
-        return _libBornAgainCore.ParameterSampleVector_front(self)
-
-    def back(self):
-        r"""back(ParameterSampleVector self) -> ParameterSample"""
-        return _libBornAgainCore.ParameterSampleVector_back(self)
-
-    def assign(self, n, x):
-        r"""assign(ParameterSampleVector self, std::vector< ParameterSample >::size_type n, ParameterSample x)"""
-        return _libBornAgainCore.ParameterSampleVector_assign(self, n, x)
-
-    def resize(self, *args):
-        r"""
-        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size)
-        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size, ParameterSample x)
-        """
-        return _libBornAgainCore.ParameterSampleVector_resize(self, *args)
-
-    def insert(self, *args):
-        r"""
-        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, ParameterSample x) -> std::vector< ParameterSample >::iterator
-        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, std::vector< ParameterSample >::size_type n, ParameterSample x)
-        """
-        return _libBornAgainCore.ParameterSampleVector_insert(self, *args)
-
-    def reserve(self, n):
-        r"""reserve(ParameterSampleVector self, std::vector< ParameterSample >::size_type n)"""
-        return _libBornAgainCore.ParameterSampleVector_reserve(self, n)
-
-    def capacity(self):
-        r"""capacity(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
-        return _libBornAgainCore.ParameterSampleVector_capacity(self)
-    __swig_destroy__ = _libBornAgainCore.delete_ParameterSampleVector
-
-# Register ParameterSampleVector in _libBornAgainCore:
-_libBornAgainCore.ParameterSampleVector_swigregister(ParameterSampleVector)
-
-class Particle(IParticle):
-    r"""
-
-
-    A particle with a form factor and refractive index.
-
-    C++ includes: Particle.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Particle self) -> Particle
-        __init__(Particle self, Material material) -> Particle
-        __init__(Particle self, Material material, IFormFactor form_factor) -> Particle
-        __init__(Particle self, Material material, IFormFactor form_factor, IRotation rotation) -> Particle
-        Particle::Particle(Material material, const IFormFactor &form_factor, const IRotation &rotation)
-
-        """
-        _libBornAgainCore.Particle_swiginit(self, _libBornAgainCore.new_Particle(*args))
-
-    def clone(self):
-        r"""
-        clone(Particle self) -> Particle
-        Particle * Particle::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.Particle_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(Particle self, INodeVisitor visitor)
-        void Particle::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.Particle_accept(self, visitor)
-
-    def createSlicedParticle(self, limits):
-        r"""
-        createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
-        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.Particle_createSlicedParticle(self, limits)
-
-    def setMaterial(self, material):
-        r"""
-        setMaterial(Particle self, Material material)
-        void Particle::setMaterial(Material material)
-
-        """
-        return _libBornAgainCore.Particle_setMaterial(self, material)
-
-    def material(self):
-        r"""
-        material(Particle self) -> Material
-        const Material* Particle::material() const override final
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.Particle_material(self)
-
-    def setFormFactor(self, form_factor):
-        r"""
-        setFormFactor(Particle self, IFormFactor form_factor)
-        void Particle::setFormFactor(const IFormFactor &form_factor)
-
-        """
-        return _libBornAgainCore.Particle_setFormFactor(self, form_factor)
-
-    def getChildren(self):
-        r"""
-        getChildren(Particle self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Particle::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.Particle_getChildren(self)
-    __swig_destroy__ = _libBornAgainCore.delete_Particle
-
-# Register Particle in _libBornAgainCore:
-_libBornAgainCore.Particle_swigregister(Particle)
-
-class ParticleComposition(IParticle):
-    r"""
-
-
-    A composition of particles at fixed positions
-
-    C++ includes: ParticleComposition.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(ParticleComposition self) -> ParticleComposition
-        __init__(ParticleComposition self, IParticle particle, vector_kvector_t positions) -> ParticleComposition
-        ParticleComposition::ParticleComposition(const IParticle &particle, std::vector< kvector_t > positions)
-
-        """
-        _libBornAgainCore.ParticleComposition_swiginit(self, _libBornAgainCore.new_ParticleComposition(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_ParticleComposition
-
-    def clone(self):
-        r"""
-        clone(ParticleComposition self) -> ParticleComposition
-        ParticleComposition * ParticleComposition::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ParticleComposition self, INodeVisitor visitor)
-        void ParticleComposition::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_accept(self, visitor)
-
-    def createFormFactor(self):
-        r"""
-        createFormFactor(ParticleComposition self) -> IFormFactor
-        IFormFactor * ParticleComposition::createFormFactor() const override final
-
-        Create a form factor for this particle. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_createFormFactor(self)
-
-    def addParticle(self, *args):
-        r"""
-        addParticle(ParticleComposition self, IParticle particle)
-        addParticle(ParticleComposition self, IParticle particle, kvector_t position)
-        void ParticleComposition::addParticle(const IParticle &particle, kvector_t position)
-
-        """
-        return _libBornAgainCore.ParticleComposition_addParticle(self, *args)
-
-    def addParticles(self, particle, positions):
-        r"""
-        addParticles(ParticleComposition self, IParticle particle, vector_kvector_t positions)
-        void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
-
-        """
-        return _libBornAgainCore.ParticleComposition_addParticles(self, particle, positions)
-
-    def nbrParticles(self):
-        r"""
-        nbrParticles(ParticleComposition self) -> size_t
-        size_t ParticleComposition::nbrParticles() const
-
-        Returns number of different particles. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_nbrParticles(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleComposition::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.ParticleComposition_getChildren(self)
-
-    def decompose(self):
-        r"""
-        decompose(ParticleComposition self) -> SafePointerVector< IParticle >
-        SafePointerVector< IParticle > ParticleComposition::decompose() const override final
-
-        Decompose in constituent  IParticle objects. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_decompose(self)
-
-    def bottomTopZ(self):
-        r"""
-        bottomTopZ(ParticleComposition self) -> ParticleLimits
-        ParticleLimits ParticleComposition::bottomTopZ() const override final
-
-        Top and bottom z-coordinate. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_bottomTopZ(self)
-
-# Register ParticleComposition in _libBornAgainCore:
-_libBornAgainCore.ParticleComposition_swigregister(ParticleComposition)
-
-class ParticleCoreShell(IParticle):
-    r"""
-
-
-    A particle with a core/shell geometry.
-
-    C++ includes: ParticleCoreShell.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(ParticleCoreShell self, Particle shell, Particle core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0)) -> ParticleCoreShell
-        ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0))
-
-        """
-        _libBornAgainCore.ParticleCoreShell_swiginit(self, _libBornAgainCore.new_ParticleCoreShell(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_ParticleCoreShell
-
-    def clone(self):
-        r"""
-        clone(ParticleCoreShell self) -> ParticleCoreShell
-        ParticleCoreShell * ParticleCoreShell::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ParticleCoreShell self, INodeVisitor visitor)
-        void ParticleCoreShell::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
-
-    def createSlicedParticle(self, limits):
-        r"""
-        createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
-        SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_createSlicedParticle(self, limits)
-
-    def coreParticle(self):
-        r"""
-        coreParticle(ParticleCoreShell self) -> Particle
-        const Particle * ParticleCoreShell::coreParticle() const
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_coreParticle(self)
-
-    def shellParticle(self):
-        r"""
-        shellParticle(ParticleCoreShell self) -> Particle
-        const Particle * ParticleCoreShell::shellParticle() const
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_shellParticle(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleCoreShell::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_getChildren(self)
-
-# Register ParticleCoreShell in _libBornAgainCore:
-_libBornAgainCore.ParticleCoreShell_swigregister(ParticleCoreShell)
-
-class ParticleDistribution(IAbstractParticle):
-    r"""
-
-
-    A particle type that is a parametric distribution of  IParticle's.
-
-    C++ includes: ParticleDistribution.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, prototype, par_distr):
-        r"""
-        __init__(ParticleDistribution self, IParticle prototype, ParameterDistribution par_distr) -> ParticleDistribution
-        ParticleDistribution::ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr)
-
-        """
-        _libBornAgainCore.ParticleDistribution_swiginit(self, _libBornAgainCore.new_ParticleDistribution(prototype, par_distr))
-
-    def clone(self):
-        r"""
-        clone(ParticleDistribution self) -> ParticleDistribution
-        ParticleDistribution * ParticleDistribution::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ParticleDistribution self, INodeVisitor visitor)
-        void ParticleDistribution::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
-
-    def translate(self, translation):
-        r"""
-        translate(ParticleDistribution self, kvector_t translation)
-        void ParticleDistribution::translate(kvector_t translation) override final
-
-        Translates the particle with the given vector. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_translate(self, translation)
-
-    def rotate(self, rotation):
-        r"""
-        rotate(ParticleDistribution self, IRotation rotation)
-        void ParticleDistribution::rotate(const IRotation &rotation) override final
-
-        Applies the given rotation to the particle. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_rotate(self, rotation)
-
-    def generateParticles(self):
-        r"""
-        generateParticles(ParticleDistribution self) -> SafePointerVector< IParticle >
-        SafePointerVector< IParticle > ParticleDistribution::generateParticles() const
-
-        Returns list of new particles generated according to a distribution.
-
-        Returns particle clones with parameter values drawn from distribution. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_generateParticles(self)
-
-    def prototype(self):
-        r"""
-        prototype(ParticleDistribution self) -> IParticle
-        const IParticle& ParticleDistribution::prototype() const
-
-        Returns the prototype particle, used for generating multiple ones. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_prototype(self)
-
-    def parameterDistribution(self):
-        r"""
-        parameterDistribution(ParticleDistribution self) -> ParameterDistribution
-        ParameterDistribution ParticleDistribution::parameterDistribution() const
-
-        Returns the distributed parameter data. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_parameterDistribution(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleDistribution::getChildren() const override final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_getChildren(self)
-    __swig_destroy__ = _libBornAgainCore.delete_ParticleDistribution
-
-# Register ParticleDistribution in _libBornAgainCore:
-_libBornAgainCore.ParticleDistribution_swigregister(ParticleDistribution)
-
-class ParticleLayout(ILayout):
-    r"""
-
-
-    Decorator class that adds particles to  ISample objects.
-
-    C++ includes: ParticleLayout.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(ParticleLayout self) -> ParticleLayout
-        __init__(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0) -> ParticleLayout
-        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance=-1.0)
-
-        """
-        _libBornAgainCore.ParticleLayout_swiginit(self, _libBornAgainCore.new_ParticleLayout(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_ParticleLayout
-
-    def clone(self):
-        r"""
-        clone(ParticleLayout self) -> ParticleLayout
-        ParticleLayout * ParticleLayout::clone() const final override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ParticleLayout self, INodeVisitor visitor)
-        void ParticleLayout::accept(INodeVisitor *visitor) const final override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_accept(self, visitor)
-
-    def addParticle(self, *args):
-        r"""
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position=kvector_t(), IRotation rotation=IdentityRotation())
-        void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position=kvector_t(), const IRotation &rotation=IdentityRotation())
-
-        Adds particle to the layout with abundance, position and the rotation defined.
-
-        Parameters:
-        -----------
-
-        particle: 
-        to be added
-
-        abundance: 
-         Particle abundance
-
-        position: 
-         Particle position
-
-        rotation: 
-         Particle rotation 
-
-        """
-        return _libBornAgainCore.ParticleLayout_addParticle(self, *args)
-
-    def particles(self):
-        r"""
-        particles(ParticleLayout self) -> SafePointerVector< IParticle >
-        SafePointerVector< IParticle > ParticleLayout::particles() const final override
-
-        Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
-
-        """
-        return _libBornAgainCore.ParticleLayout_particles(self)
-
-    def interferenceFunction(self):
-        r"""
-        interferenceFunction(ParticleLayout self) -> IInterferenceFunction
-        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
-
-        Returns the interference function. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
-
-    def getTotalAbundance(self):
-        r"""
-        getTotalAbundance(ParticleLayout self) -> double
-        double ParticleLayout::getTotalAbundance() const final override
-
-        Get total abundance of all particles. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_getTotalAbundance(self)
-
-    def setInterferenceFunction(self, interference_function):
-        r"""
-        setInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
-        void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
-
-        Adds interference functions. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_setInterferenceFunction(self, interference_function)
-
-    def totalParticleSurfaceDensity(self):
-        r"""
-        totalParticleSurfaceDensity(ParticleLayout self) -> double
-        double ParticleLayout::totalParticleSurfaceDensity() const final override
-
-        Returns surface density of all particles. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_totalParticleSurfaceDensity(self)
-
-    def setTotalParticleSurfaceDensity(self, particle_density):
-        r"""
-        setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)
-        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
-
-        Sets total particle surface density.
-
-        Parameters:
-        -----------
-
-        particle_density: 
-        number of particles per square nanometer 
-
-        """
-        return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
-
-    def getChildren(self):
-        r"""
-        getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleLayout::getChildren() const final override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.ParticleLayout_getChildren(self)
-
-# Register ParticleLayout in _libBornAgainCore:
-_libBornAgainCore.ParticleLayout_swigregister(ParticleLayout)
-
-
-def importArrayToOutputData(*args):
-    r"""
-    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
-    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
-    OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
-
-    for importing 2D array of doubles from python into  OutputData
-
-    """
-    return _libBornAgainCore.importArrayToOutputData(*args)
-class PoissonNoiseBackground(IBackground):
-    r"""
-
-
-    Class representing Poisson noise on top of the scattered intensity
-
-    C++ includes: PoissonNoiseBackground.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(PoissonNoiseBackground self) -> PoissonNoiseBackground
-        PoissonNoiseBackground::PoissonNoiseBackground()
-
-        """
-        _libBornAgainCore.PoissonNoiseBackground_swiginit(self, _libBornAgainCore.new_PoissonNoiseBackground())
-    __swig_destroy__ = _libBornAgainCore.delete_PoissonNoiseBackground
-
-    def clone(self):
-        r"""
-        clone(PoissonNoiseBackground self) -> PoissonNoiseBackground
-        PoissonNoiseBackground * PoissonNoiseBackground::clone() const override final
-
-        """
-        return _libBornAgainCore.PoissonNoiseBackground_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(PoissonNoiseBackground self, INodeVisitor visitor)
-        void PoissonNoiseBackground::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.PoissonNoiseBackground_accept(self, visitor)
-
-    def addBackGround(self, intensity):
-        r"""
-        addBackGround(PoissonNoiseBackground self, double intensity) -> double
-        double PoissonNoiseBackground::addBackGround(double intensity) const override final
-
-        """
-        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, intensity)
-
-# Register PoissonNoiseBackground in _libBornAgainCore:
-_libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
-
-class Polygon(IShape2D):
-    r"""
-
-
-    A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
-
-    C++ includes: Polygon.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Polygon self, vdouble1d_t x, vdouble1d_t y) -> Polygon
-        __init__(Polygon self, vdouble2d_t points) -> Polygon
-        __init__(Polygon self, PolygonPrivate const * d) -> Polygon
-        Polygon::Polygon(const PolygonPrivate *d)
-
-        """
-        _libBornAgainCore.Polygon_swiginit(self, _libBornAgainCore.new_Polygon(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_Polygon
-
-    def clone(self):
-        r"""
-        clone(Polygon self) -> Polygon
-        virtual Polygon* Polygon::clone() const
-
-        """
-        return _libBornAgainCore.Polygon_clone(self)
-
-    def contains(self, *args):
-        r"""
-        contains(Polygon self, double x, double y) -> bool
-        contains(Polygon self, Bin1D binx, Bin1D biny) -> bool
-        bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
-        """
-        return _libBornAgainCore.Polygon_contains(self, *args)
-
-    def getArea(self):
-        r"""
-        getArea(Polygon self) -> double
-        double Polygon::getArea() const
-
-        """
-        return _libBornAgainCore.Polygon_getArea(self)
-
-    def getPoints(self, xpos, ypos):
-        r"""
-        getPoints(Polygon self, vdouble1d_t xpos, vdouble1d_t ypos)
-        void Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const
-
-        """
-        return _libBornAgainCore.Polygon_getPoints(self, xpos, ypos)
-
-# Register Polygon in _libBornAgainCore:
-_libBornAgainCore.Polygon_swigregister(Polygon)
-
-class RangedDistributionGate(object):
-    r"""
-
-
-    Uniform distribution function.
-
-    C++ includes: RangedDistributions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(RangedDistributionGate self) -> RangedDistributionGate
-        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionGate
-        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGate
-        RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)
-
-        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
-
-        """
-        _libBornAgainCore.RangedDistributionGate_swiginit(self, _libBornAgainCore.new_RangedDistributionGate(*args))
-
-    def clone(self):
-        r"""
-        clone(RangedDistributionGate self) -> RangedDistributionGate
-        RangedDistributionGate * RangedDistributionGate::clone() const override
-
-        """
-        return _libBornAgainCore.RangedDistributionGate_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGate
-
-# Register RangedDistributionGate in _libBornAgainCore:
-_libBornAgainCore.RangedDistributionGate_swigregister(RangedDistributionGate)
-
-class RangedDistributionLorentz(object):
-    r"""
-
-
-    Lorentz distribution with median and hwhm.
-
-    C++ includes: RangedDistributions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(RangedDistributionLorentz self) -> RangedDistributionLorentz
-        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionLorentz
-        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, double min, double max) -> RangedDistributionLorentz
-        RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)
-
-        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). 
-
-        """
-        _libBornAgainCore.RangedDistributionLorentz_swiginit(self, _libBornAgainCore.new_RangedDistributionLorentz(*args))
-
-    def clone(self):
-        r"""
-        clone(RangedDistributionLorentz self) -> RangedDistributionLorentz
-        RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
-
-        """
-        return _libBornAgainCore.RangedDistributionLorentz_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLorentz
-
-# Register RangedDistributionLorentz in _libBornAgainCore:
-_libBornAgainCore.RangedDistributionLorentz_swigregister(RangedDistributionLorentz)
-
-class RangedDistributionGaussian(object):
-    r"""
-
-
-    Gaussian distribution with standard deviation std_dev.
-
-    C++ includes: RangedDistributions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(RangedDistributionGaussian self) -> RangedDistributionGaussian
-        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionGaussian
-        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGaussian
-        RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)
-
-        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
-
-        """
-        _libBornAgainCore.RangedDistributionGaussian_swiginit(self, _libBornAgainCore.new_RangedDistributionGaussian(*args))
-
-    def clone(self):
-        r"""
-        clone(RangedDistributionGaussian self) -> RangedDistributionGaussian
-        RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
-
-        """
-        return _libBornAgainCore.RangedDistributionGaussian_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGaussian
-
-# Register RangedDistributionGaussian in _libBornAgainCore:
-_libBornAgainCore.RangedDistributionGaussian_swigregister(RangedDistributionGaussian)
-
-class RangedDistributionLogNormal(object):
-    r"""
-
-
-    Log-normal distribution.
-
-    C++ includes: RangedDistributions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
-        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionLogNormal
-        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionLogNormal
-        RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)
-
-        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
-
-        """
-        _libBornAgainCore.RangedDistributionLogNormal_swiginit(self, _libBornAgainCore.new_RangedDistributionLogNormal(*args))
-
-    def clone(self):
-        r"""
-        clone(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
-        RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
-
-        """
-        return _libBornAgainCore.RangedDistributionLogNormal_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLogNormal
-
-# Register RangedDistributionLogNormal in _libBornAgainCore:
-_libBornAgainCore.RangedDistributionLogNormal_swigregister(RangedDistributionLogNormal)
-
-class RangedDistributionCosine(object):
-    r"""
-
-
-    Cosine distribution.
-
-    C++ includes: RangedDistributions.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(RangedDistributionCosine self) -> RangedDistributionCosine
-        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, RealLimits limits=RealLimits::limitless()) -> RangedDistributionCosine
-        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionCosine
-        RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)
-
-        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
-
-        """
-        _libBornAgainCore.RangedDistributionCosine_swiginit(self, _libBornAgainCore.new_RangedDistributionCosine(*args))
-
-    def clone(self):
-        r"""
-        clone(RangedDistributionCosine self) -> RangedDistributionCosine
-        RangedDistributionCosine * RangedDistributionCosine::clone() const override
-
-        """
-        return _libBornAgainCore.RangedDistributionCosine_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionCosine
-
-# Register RangedDistributionCosine in _libBornAgainCore:
-_libBornAgainCore.RangedDistributionCosine_swigregister(RangedDistributionCosine)
-
-class RealParameter(IParameterReal):
-    r"""
-
-
-    Wraps a parameter of type double. In addition to name and on-change callback held by the parent class  IParameter, this class holds Limits, Attributes (currently only fixed or not), and a  Unit.
-
-    C++ includes: RealParameter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name="", std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
-        RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name="", const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
-
-        """
-        _libBornAgainCore.RealParameter_swiginit(self, _libBornAgainCore.new_RealParameter(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
-
-    def clone(self, *args):
-        r"""
-        clone(RealParameter self, std::string const & new_name="") -> RealParameter
-        RealParameter * RealParameter::clone(const std::string &new_name="") const
-
-        """
-        return _libBornAgainCore.RealParameter_clone(self, *args)
-
-    def setValue(self, value):
-        r"""
-        setValue(RealParameter self, double value)
-        void RealParameter::setValue(double value)
-
-        Sets value of wrapped parameter and emit signal. 
-
-        """
-        return _libBornAgainCore.RealParameter_setValue(self, value)
-
-    def value(self):
-        r"""
-        value(RealParameter self) -> double
-        double RealParameter::value() const
-
-        Returns value of wrapped parameter. 
-
-        """
-        return _libBornAgainCore.RealParameter_value(self)
-
-    def setLimits(self, limits):
-        r"""
-        setLimits(RealParameter self, RealLimits limits) -> RealParameter
-        RealParameter & RealParameter::setLimits(const RealLimits &limits)
-
-        """
-        return _libBornAgainCore.RealParameter_setLimits(self, limits)
-
-    def limits(self):
-        r"""
-        limits(RealParameter self) -> RealLimits
-        RealLimits RealParameter::limits() const
-
-        """
-        return _libBornAgainCore.RealParameter_limits(self)
-
-    def setLimited(self, lower, upper):
-        r"""
-        setLimited(RealParameter self, double lower, double upper) -> RealParameter
-        RealParameter & RealParameter::setLimited(double lower, double upper)
-
-        """
-        return _libBornAgainCore.RealParameter_setLimited(self, lower, upper)
-
-    def setPositive(self):
-        r"""
-        setPositive(RealParameter self) -> RealParameter
-        RealParameter & RealParameter::setPositive()
-
-        """
-        return _libBornAgainCore.RealParameter_setPositive(self)
-
-    def setNonnegative(self):
-        r"""
-        setNonnegative(RealParameter self) -> RealParameter
-        RealParameter & RealParameter::setNonnegative()
-
-        """
-        return _libBornAgainCore.RealParameter_setNonnegative(self)
-
-    def setUnit(self, name):
-        r"""
-        setUnit(RealParameter self, std::string const & name) -> RealParameter
-        RealParameter & RealParameter::setUnit(const std::string &name)
-
-        """
-        return _libBornAgainCore.RealParameter_setUnit(self, name)
-
-    def unit(self):
-        r"""
-        unit(RealParameter self) -> std::string
-        std::string RealParameter::unit() const
-
-        """
-        return _libBornAgainCore.RealParameter_unit(self)
-
-# Register RealParameter in _libBornAgainCore:
-_libBornAgainCore.RealParameter_swigregister(RealParameter)
-
-class Rectangle(IShape2D):
-    r"""
-
-
-    The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
-
-    C++ includes: Rectangle.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, xlow, ylow, xup, yup):
-        r"""
-        __init__(Rectangle self, double xlow, double ylow, double xup, double yup) -> Rectangle
-        Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
-
-        Parameters:
-        -----------
-
-        xlow: 
-        x-coordinate of lower left corner
-
-        ylow: 
-        y-coordinate of lower left corner
-
-        xup: 
-        x-coordinate of upper right corner
-
-        yup: 
-        y-coordinate of upper right corner 
-
-        """
-        _libBornAgainCore.Rectangle_swiginit(self, _libBornAgainCore.new_Rectangle(xlow, ylow, xup, yup))
-
-    def clone(self):
-        r"""
-        clone(Rectangle self) -> Rectangle
-        Rectangle* Rectangle::clone() const
-
-        """
-        return _libBornAgainCore.Rectangle_clone(self)
-
-    def contains(self, *args):
-        r"""
-        contains(Rectangle self, double x, double y) -> bool
-        contains(Rectangle self, Bin1D binx, Bin1D biny) -> bool
-        bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
-        """
-        return _libBornAgainCore.Rectangle_contains(self, *args)
-
-    def getArea(self):
-        r"""
-        getArea(Rectangle self) -> double
-        double Rectangle::getArea() const
-
-        """
-        return _libBornAgainCore.Rectangle_getArea(self)
-
-    def getXlow(self):
-        r"""
-        getXlow(Rectangle self) -> double
-        double Rectangle::getXlow() const
-
-        """
-        return _libBornAgainCore.Rectangle_getXlow(self)
-
-    def getYlow(self):
-        r"""
-        getYlow(Rectangle self) -> double
-        double Rectangle::getYlow() const
-
-        """
-        return _libBornAgainCore.Rectangle_getYlow(self)
-
-    def getXup(self):
-        r"""
-        getXup(Rectangle self) -> double
-        double Rectangle::getXup() const
-
-        """
-        return _libBornAgainCore.Rectangle_getXup(self)
-
-    def getYup(self):
-        r"""
-        getYup(Rectangle self) -> double
-        double Rectangle::getYup() const
-
-        """
-        return _libBornAgainCore.Rectangle_getYup(self)
-    __swig_destroy__ = _libBornAgainCore.delete_Rectangle
-
-# Register Rectangle in _libBornAgainCore:
-_libBornAgainCore.Rectangle_swigregister(Rectangle)
-
-class RectangularPixel(IPixel):
-    r"""
-
-
-    A pixel in a  RectangularDetector.
-
-    C++ includes: RectangularDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, corner_pos, width, height):
-        r"""
-        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
-        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-
-        """
-        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
-
-    def clone(self):
-        r"""
-        clone(RectangularPixel self) -> RectangularPixel
-        RectangularPixel * RectangularPixel::clone() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
-        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
-
-    def getPosition(self, x, y):
-        r"""
-        getPosition(RectangularPixel self, double x, double y) -> kvector_t
-        kvector_t RectangularPixel::getPosition(double x, double y) const
-
-        """
-        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
-        double RectangularPixel::getIntegrationFactor(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(RectangularPixel self) -> double
-        double RectangularPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
-
-# Register RectangularPixel in _libBornAgainCore:
-_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
-
-class RectangularDetector(IDetector2D):
-    r"""
-
-
-    A flat rectangular detector with axes and resolution function.
-
-    C++ includes: RectangularDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    GENERIC = _libBornAgainCore.RectangularDetector_GENERIC
-    
-    PERPENDICULAR_TO_SAMPLE = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_SAMPLE
-    
-    PERPENDICULAR_TO_DIRECT_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_DIRECT_BEAM
-    
-    PERPENDICULAR_TO_REFLECTED_BEAM = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM
-    
-    PERPENDICULAR_TO_REFLECTED_BEAM_DPOS = _libBornAgainCore.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
-    
-
-    def __init__(self, *args):
-        r"""
-        __init__(RectangularDetector self, size_t nxbins, double width, size_t nybins, double height) -> RectangularDetector
-        __init__(RectangularDetector self, RectangularDetector other) -> RectangularDetector
-        RectangularDetector::RectangularDetector(const RectangularDetector &other)
-
-        """
-        _libBornAgainCore.RectangularDetector_swiginit(self, _libBornAgainCore.new_RectangularDetector(*args))
-
-    def clone(self):
-        r"""
-        clone(RectangularDetector self) -> RectangularDetector
-        RectangularDetector * RectangularDetector::clone() const override
-
-        """
-        return _libBornAgainCore.RectangularDetector_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(RectangularDetector self, INodeVisitor visitor)
-        void RectangularDetector::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.RectangularDetector_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularDetector
-
-    def init(self, beam):
-        r"""
-        init(RectangularDetector self, Beam beam)
-        void RectangularDetector::init(const Beam &beam) override
-
-        Inits detector with the beam settings. 
-
-        """
-        return _libBornAgainCore.RectangularDetector_init(self, beam)
-
-    def setPosition(self, *args):
-        r"""
-        setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction=kvector_t(0.0, -1.0, 0.0))
-        void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPosition(self, *args)
-
-    def setPerpendicularToSampleX(self, distance, u0, v0):
-        r"""
-        setPerpendicularToSampleX(RectangularDetector self, double distance, double u0, double v0)
-        void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPerpendicularToSampleX(self, distance, u0, v0)
-
-    def setPerpendicularToDirectBeam(self, distance, u0, v0):
-        r"""
-        setPerpendicularToDirectBeam(RectangularDetector self, double distance, double u0, double v0)
-        void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPerpendicularToDirectBeam(self, distance, u0, v0)
-
-    def setPerpendicularToReflectedBeam(self, distance, u0=0.0, v0=0.0):
-        r"""
-        setPerpendicularToReflectedBeam(RectangularDetector self, double distance, double u0=0.0, double v0=0.0)
-        void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0=0.0, double v0=0.0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setPerpendicularToReflectedBeam(self, distance, u0, v0)
-
-    def setDirectBeamPosition(self, u0, v0):
-        r"""
-        setDirectBeamPosition(RectangularDetector self, double u0, double v0)
-        void RectangularDetector::setDirectBeamPosition(double u0, double v0)
-
-        """
-        return _libBornAgainCore.RectangularDetector_setDirectBeamPosition(self, u0, v0)
-
-    def getWidth(self):
-        r"""
-        getWidth(RectangularDetector self) -> double
-        double RectangularDetector::getWidth() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getWidth(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(RectangularDetector self) -> double
-        double RectangularDetector::getHeight() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getHeight(self)
-
-    def getNbinsX(self):
-        r"""
-        getNbinsX(RectangularDetector self) -> size_t
-        size_t RectangularDetector::getNbinsX() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getNbinsX(self)
-
-    def getNbinsY(self):
-        r"""
-        getNbinsY(RectangularDetector self) -> size_t
-        size_t RectangularDetector::getNbinsY() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getNbinsY(self)
-
-    def getNormalVector(self):
-        r"""
-        getNormalVector(RectangularDetector self) -> kvector_t
-        kvector_t RectangularDetector::getNormalVector() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getNormalVector(self)
-
-    def getU0(self):
-        r"""
-        getU0(RectangularDetector self) -> double
-        double RectangularDetector::getU0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getU0(self)
-
-    def getV0(self):
-        r"""
-        getV0(RectangularDetector self) -> double
-        double RectangularDetector::getV0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getV0(self)
-
-    def getDirectionVector(self):
-        r"""
-        getDirectionVector(RectangularDetector self) -> kvector_t
-        kvector_t RectangularDetector::getDirectionVector() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDirectionVector(self)
-
-    def getDistance(self):
-        r"""
-        getDistance(RectangularDetector self) -> double
-        double RectangularDetector::getDistance() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDistance(self)
-
-    def getDirectBeamU0(self):
-        r"""
-        getDirectBeamU0(RectangularDetector self) -> double
-        double RectangularDetector::getDirectBeamU0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDirectBeamU0(self)
-
-    def getDirectBeamV0(self):
-        r"""
-        getDirectBeamV0(RectangularDetector self) -> double
-        double RectangularDetector::getDirectBeamV0() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDirectBeamV0(self)
-
-    def getDetectorArrangment(self):
-        r"""
-        getDetectorArrangment(RectangularDetector self) -> RectangularDetector::EDetectorArrangement
-        RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
-
-    def defaultAxesUnits(self):
-        r"""
-        defaultAxesUnits(RectangularDetector self) -> AxesUnits
-        AxesUnits RectangularDetector::defaultAxesUnits() const override
-
-        return default axes units 
-
-        """
-        return _libBornAgainCore.RectangularDetector_defaultAxesUnits(self)
-
-    def regionOfInterestPixel(self):
-        r"""
-        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel
-        RectangularPixel * RectangularDetector::regionOfInterestPixel() const
-
-        """
-        return _libBornAgainCore.RectangularDetector_regionOfInterestPixel(self)
-
-# Register RectangularDetector in _libBornAgainCore:
-_libBornAgainCore.RectangularDetector_swigregister(RectangularDetector)
-
-class ResolutionFunction2DGaussian(IResolutionFunction2D):
-    r"""
-
-
-    Simple gaussian two-dimensional resolution function.
-
-    C++ includes: ResolutionFunction2DGaussian.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, sigma_x, sigma_y):
-        r"""
-        __init__(ResolutionFunction2DGaussian self, double sigma_x, double sigma_y) -> ResolutionFunction2DGaussian
-        ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
-
-        """
-        _libBornAgainCore.ResolutionFunction2DGaussian_swiginit(self, _libBornAgainCore.new_ResolutionFunction2DGaussian(sigma_x, sigma_y))
-
-    def evaluateCDF(self, x, y):
-        r"""
-        evaluateCDF(ResolutionFunction2DGaussian self, double x, double y) -> double
-        double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
-
-        """
-        return _libBornAgainCore.ResolutionFunction2DGaussian_evaluateCDF(self, x, y)
-
-    def clone(self):
-        r"""
-        clone(ResolutionFunction2DGaussian self) -> ResolutionFunction2DGaussian
-        ResolutionFunction2DGaussian* ResolutionFunction2DGaussian::clone() const
-
-        """
-        return _libBornAgainCore.ResolutionFunction2DGaussian_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ResolutionFunction2DGaussian self, INodeVisitor visitor)
-        void ResolutionFunction2DGaussian::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ResolutionFunction2DGaussian_accept(self, visitor)
-
-    def getSigmaX(self):
-        r"""
-        getSigmaX(ResolutionFunction2DGaussian self) -> double
-        double ResolutionFunction2DGaussian::getSigmaX() const
-
-        """
-        return _libBornAgainCore.ResolutionFunction2DGaussian_getSigmaX(self)
-
-    def getSigmaY(self):
-        r"""
-        getSigmaY(ResolutionFunction2DGaussian self) -> double
-        double ResolutionFunction2DGaussian::getSigmaY() const
-
-        """
-        return _libBornAgainCore.ResolutionFunction2DGaussian_getSigmaY(self)
-    __swig_destroy__ = _libBornAgainCore.delete_ResolutionFunction2DGaussian
-
-# Register ResolutionFunction2DGaussian in _libBornAgainCore:
-_libBornAgainCore.ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
-
-class RoughnessModel(object):
-    r"""Proxy of C++ RoughnessModelWrap class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.RoughnessModel_DEFAULT
-    
-    TANH = _libBornAgainCore.RoughnessModel_TANH
-    
-    NEVOT_CROCE = _libBornAgainCore.RoughnessModel_NEVOT_CROCE
-    
-    __swig_destroy__ = _libBornAgainCore.delete_RoughnessModel
-
-# Register RoughnessModel in _libBornAgainCore:
-_libBornAgainCore.RoughnessModel_swigregister(RoughnessModel)
-
-class DepthProbeSimulation(Simulation):
-    r"""Proxy of C++ DepthProbeSimulation class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(DepthProbeSimulation self) -> DepthProbeSimulation
-        __init__(DepthProbeSimulation self, MultiLayer sample) -> DepthProbeSimulation
-        __init__(DepthProbeSimulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder) -> DepthProbeSimulation
-        DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
-
-        """
-        _libBornAgainCore.DepthProbeSimulation_swiginit(self, _libBornAgainCore.new_DepthProbeSimulation(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DepthProbeSimulation
-
-    def clone(self):
-        r"""
-        clone(DepthProbeSimulation self) -> DepthProbeSimulation
-        DepthProbeSimulation * DepthProbeSimulation::clone() const override
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(DepthProbeSimulation self, INodeVisitor visitor)
-        void DepthProbeSimulation::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_accept(self, visitor)
-
-    def result(self):
-        r"""
-        result(DepthProbeSimulation self) -> SimulationResult
-        SimulationResult DepthProbeSimulation::result() const override
-
-        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_result(self)
-
-    def setBeamParameters(self, _lambda, nbins, alpha_i_min, alpha_i_max, beam_shape=None):
-        r"""
-        setBeamParameters(DepthProbeSimulation self, double _lambda, int nbins, double alpha_i_min, double alpha_i_max, IFootprintFactor beam_shape=None)
-        void DepthProbeSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
-
-        Sets beam parameters with alpha_i of the beam defined in the range. 
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_setBeamParameters(self, _lambda, nbins, alpha_i_min, alpha_i_max, beam_shape)
-
-    def setZSpan(self, n_bins, z_min, z_max):
-        r"""
-        setZSpan(DepthProbeSimulation self, size_t n_bins, double z_min, double z_max)
-        void DepthProbeSimulation::setZSpan(size_t n_bins, double z_min, double z_max)
-
-        Set z positions for intensity calculations. Negative z's correspond to the area under sample surface. The more negative z is, the deeper layer corresponds to it. 
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_setZSpan(self, n_bins, z_min, z_max)
-
-    def getAlphaAxis(self):
-        r"""
-        getAlphaAxis(DepthProbeSimulation self) -> IAxis
-        const IAxis * DepthProbeSimulation::getAlphaAxis() const
-
-        Returns a pointer to incident angle axis. 
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_getAlphaAxis(self)
-
-    def getZAxis(self):
-        r"""
-        getZAxis(DepthProbeSimulation self) -> IAxis
-        const IAxis * DepthProbeSimulation::getZAxis() const
-
-        Returns a pointer to z-position axis. 
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_getZAxis(self)
-
-    def intensityMapSize(self):
-        r"""
-        intensityMapSize(DepthProbeSimulation self) -> size_t
-        size_t DepthProbeSimulation::intensityMapSize() const override
-
-        Returns the total number of the intensity values in the simulation result. 
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_intensityMapSize(self)
-
-# Register DepthProbeSimulation in _libBornAgainCore:
-_libBornAgainCore.DepthProbeSimulation_swigregister(DepthProbeSimulation)
-
-class SpecularSimulation(Simulation):
-    r"""
-
-
-    Main class to run a specular simulation.
-
-    C++ includes: SpecularSimulation.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(SpecularSimulation self) -> SpecularSimulation
-        __init__(SpecularSimulation self, MultiLayer sample) -> SpecularSimulation
-        __init__(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder) -> SpecularSimulation
-        SpecularSimulation::SpecularSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
-
-        """
-        _libBornAgainCore.SpecularSimulation_swiginit(self, _libBornAgainCore.new_SpecularSimulation(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_SpecularSimulation
-
-    def clone(self):
-        r"""
-        clone(SpecularSimulation self) -> SpecularSimulation
-        SpecularSimulation * SpecularSimulation::clone() const override
-
-        """
-        return _libBornAgainCore.SpecularSimulation_clone(self)
-
-    def prepareSimulation(self):
-        r"""
-        prepareSimulation(SpecularSimulation self)
-        void SpecularSimulation::prepareSimulation() override
-
-        Put into a clean state for running a simulation. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_prepareSimulation(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(SpecularSimulation self, INodeVisitor visitor)
-        void SpecularSimulation::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_accept(self, visitor)
-
-    def result(self):
-        r"""
-        result(SpecularSimulation self) -> SimulationResult
-        SimulationResult SpecularSimulation::result() const override
-
-        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_result(self)
-
-    def setScan(self, scan):
-        r"""
-        setScan(SpecularSimulation self, ISpecularScan const & scan)
-        void SpecularSimulation::setScan(const ISpecularScan &scan)
-
-        Sets chosen specular scan to the simulation. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_setScan(self, scan)
-
-    def coordinateAxis(self):
-        r"""
-        coordinateAxis(SpecularSimulation self) -> IAxis
-        const IAxis * SpecularSimulation::coordinateAxis() const
-
-        Returns a pointer to coordinate axis. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_coordinateAxis(self)
-
-    def footprintFactor(self):
-        r"""
-        footprintFactor(SpecularSimulation self) -> IFootprintFactor
-        const IFootprintFactor * SpecularSimulation::footprintFactor() const
-
-        Returns a pointer to footprint factor holder. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_footprintFactor(self)
-
-    def intensityMapSize(self):
-        r"""
-        intensityMapSize(SpecularSimulation self) -> size_t
-        size_t SpecularSimulation::intensityMapSize() const override
-
-        Returns the total number of the intensity values in the simulation result. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_intensityMapSize(self)
-
-    def setSampleBuilder(self, ptr):
-        self.samplebuilder = ptr
-        self.setSampleBuilderCpp(ptr)
-
-
-# Register SpecularSimulation in _libBornAgainCore:
-_libBornAgainCore.SpecularSimulation_swigregister(SpecularSimulation)
-
-class ThreadInfo(object):
-    r"""
-
-
-    Information to run simulation with dedicated number of threads.
-
-    C++ includes: ThreadInfo.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(ThreadInfo self) -> ThreadInfo
-        ThreadInfo::ThreadInfo()
-
-        """
-        _libBornAgainCore.ThreadInfo_swiginit(self, _libBornAgainCore.new_ThreadInfo())
-    n_threads = property(_libBornAgainCore.ThreadInfo_n_threads_get, _libBornAgainCore.ThreadInfo_n_threads_set, doc=r"""n_threads : unsigned int""")
-    n_batches = property(_libBornAgainCore.ThreadInfo_n_batches_get, _libBornAgainCore.ThreadInfo_n_batches_set, doc=r"""n_batches : unsigned int""")
-    current_batch = property(_libBornAgainCore.ThreadInfo_current_batch_get, _libBornAgainCore.ThreadInfo_current_batch_set, doc=r"""current_batch : unsigned int""")
-    __swig_destroy__ = _libBornAgainCore.delete_ThreadInfo
-
-# Register ThreadInfo in _libBornAgainCore:
-_libBornAgainCore.ThreadInfo_swigregister(ThreadInfo)
-
-class SampleBuilderFactoryTemp(object):
-    r"""Proxy of C++ IFactory< std::string,IMultiLayerBuilder > class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def createItem(self, item_key):
-        r"""createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder"""
-        return _libBornAgainCore.SampleBuilderFactoryTemp_createItem(self, item_key)
-
-    def registerItem(self, item_key, CreateFn):
-        r"""registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool"""
-        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, item_key, CreateFn)
-
-    def contains(self, item_key):
-        r"""contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool"""
-        return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
-
-    def size(self):
-        r"""size(SampleBuilderFactoryTemp self) -> size_t"""
-        return _libBornAgainCore.SampleBuilderFactoryTemp_size(self)
-
-    def __init__(self):
-        r"""__init__(SampleBuilderFactoryTemp self) -> SampleBuilderFactoryTemp"""
-        _libBornAgainCore.SampleBuilderFactoryTemp_swiginit(self, _libBornAgainCore.new_SampleBuilderFactoryTemp())
-    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
-
-# Register SampleBuilderFactoryTemp in _libBornAgainCore:
-_libBornAgainCore.SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
-
 class SampleBuilderFactory(SampleBuilderFactoryTemp):
     r"""
 
@@ -22938,36 +23099,6 @@ class SampleBuilderFactory(SampleBuilderFactoryTemp):
 # Register SampleBuilderFactory in _libBornAgainCore:
 _libBornAgainCore.SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
-class SimulationFactoryTemp(object):
-    r"""Proxy of C++ IFactory< std::string,Simulation > class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def createItem(self, item_key):
-        r"""createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation"""
-        return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
-
-    def registerItem(self, item_key, CreateFn):
-        r"""registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn) -> bool"""
-        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, item_key, CreateFn)
-
-    def contains(self, item_key):
-        r"""contains(SimulationFactoryTemp self, std::string const & item_key) -> bool"""
-        return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
-
-    def size(self):
-        r"""size(SimulationFactoryTemp self) -> size_t"""
-        return _libBornAgainCore.SimulationFactoryTemp_size(self)
-
-    def __init__(self):
-        r"""__init__(SimulationFactoryTemp self) -> SimulationFactoryTemp"""
-        _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
-
-# Register SimulationFactoryTemp in _libBornAgainCore:
-_libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
-
 class SimulationFactory(SimulationFactoryTemp):
     r"""
 
@@ -22992,433 +23123,6 @@ class SimulationFactory(SimulationFactoryTemp):
 
 # Register SimulationFactory in _libBornAgainCore:
 _libBornAgainCore.SimulationFactory_swigregister(SimulationFactory)
-
-class AxesUnits(object):
-    r"""
-
-
-    Wrapper for detector axes units, required for a better representation of detector axes units in python
-
-    C++ includes: IUnitConverter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
-    
-    NBINS = _libBornAgainCore.AxesUnits_NBINS
-    
-    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
-    
-    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
-    
-    MM = _libBornAgainCore.AxesUnits_MM
-    
-    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
-    
-    QXQY = _libBornAgainCore.AxesUnits_QXQY
-    
-    RQ4 = _libBornAgainCore.AxesUnits_RQ4
-    
-    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
-
-# Register AxesUnits in _libBornAgainCore:
-_libBornAgainCore.AxesUnits_swigregister(AxesUnits)
-
-class IUnitConverter(ICloneable):
-    r"""
-
-
-    Interface to provide axis translations to different units for simulation output
-
-    C++ includes: IUnitConverter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IUnitConverter
-
-    def clone(self):
-        r"""
-        clone(IUnitConverter self) -> IUnitConverter
-        virtual IUnitConverter* IUnitConverter::clone() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_clone(self)
-
-    def dimension(self):
-        r"""
-        dimension(IUnitConverter self) -> size_t
-        virtual size_t IUnitConverter::dimension() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_dimension(self)
-
-    def calculateMin(self, i_axis, units_type):
-        r"""
-        calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
-        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
-
-    def calculateMax(self, i_axis, units_type):
-        r"""
-        calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
-        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
-
-    def axisSize(self, i_axis):
-        r"""
-        axisSize(IUnitConverter self, size_t i_axis) -> size_t
-        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
-
-    def axisName(self, *args):
-        r"""
-        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) -> std::string
-        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
-
-        """
-        return _libBornAgainCore.IUnitConverter_axisName(self, *args)
-
-    def availableUnits(self):
-        r"""
-        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_availableUnits(self)
-
-    def defaultUnits(self):
-        r"""
-        defaultUnits(IUnitConverter self) -> AxesUnits
-        virtual AxesUnits IUnitConverter::defaultUnits() const =0
-
-        """
-        return _libBornAgainCore.IUnitConverter_defaultUnits(self)
-
-# Register IUnitConverter in _libBornAgainCore:
-_libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
-
-class IterationInfo(object):
-    r"""
-
-
-    Stores fit iteration info to track fit flow from various observers. Used in context of  FitObjective.
-
-    C++ includes: IterationInfo.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(IterationInfo self) -> IterationInfo
-        IterationInfo::IterationInfo()
-
-        """
-        _libBornAgainCore.IterationInfo_swiginit(self, _libBornAgainCore.new_IterationInfo())
-
-    def update(self, params, chi2):
-        r"""
-        update(IterationInfo self, Parameters params, double chi2)
-        void IterationInfo::update(const Fit::Parameters &params, double chi2)
-
-        """
-        return _libBornAgainCore.IterationInfo_update(self, params, chi2)
-
-    def iterationCount(self):
-        r"""
-        iterationCount(IterationInfo self) -> unsigned int
-        unsigned IterationInfo::iterationCount() const
-
-        Returns current number of minimizer iterations. 
-
-        """
-        return _libBornAgainCore.IterationInfo_iterationCount(self)
-
-    def chi2(self):
-        r"""
-        chi2(IterationInfo self) -> double
-        double IterationInfo::chi2() const
-
-        """
-        return _libBornAgainCore.IterationInfo_chi2(self)
-
-    def parameters(self):
-        r"""
-        parameters(IterationInfo self) -> Parameters
-        Fit::Parameters IterationInfo::parameters() const
-
-        """
-        return _libBornAgainCore.IterationInfo_parameters(self)
-
-    def parameterMap(self):
-        r"""
-        parameterMap(IterationInfo self) -> map_string_double_t
-        std::map< std::string, double > IterationInfo::parameterMap() const
-
-        Returns map of fit parameter names and its current values. 
-
-        """
-        return _libBornAgainCore.IterationInfo_parameterMap(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IterationInfo
-
-# Register IterationInfo in _libBornAgainCore:
-_libBornAgainCore.IterationInfo_swigregister(IterationInfo)
-
-
-def FindPeaks(*args):
-    r"""
-    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pair_double_t
-    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
-
-    """
-    return _libBornAgainCore.FindPeaks(*args)
-class ScanResolution(ICloneable):
-    r"""
-
-
-    Container for reflectivity resolution data.
-
-    C++ includes: ScanResolution.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ScanResolution
-
-    @staticmethod
-    def scanRelativeResolution(*args):
-        r"""
-        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-        """
-        return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
-
-    @staticmethod
-    def scanAbsoluteResolution(*args):
-        r"""
-        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-        """
-        return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
-
-# Register ScanResolution in _libBornAgainCore:
-_libBornAgainCore.ScanResolution_swigregister(ScanResolution)
-
-def ScanResolution_scanRelativeResolution(*args):
-    r"""
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-    """
-    return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
-
-def ScanResolution_scanAbsoluteResolution(*args):
-    r"""
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
-    """
-    return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
-
-class AngularSpecScan(object):
-    r"""
-
-
-    Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
-
-    C++ includes: AngularSpecScan.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
-        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
-        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
-        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
-
-        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
-
-        """
-        _libBornAgainCore.AngularSpecScan_swiginit(self, _libBornAgainCore.new_AngularSpecScan(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
-
-    def clone(self):
-        r"""
-        clone(AngularSpecScan self) -> AngularSpecScan
-        AngularSpecScan * AngularSpecScan::clone() const override
-
-        """
-        return _libBornAgainCore.AngularSpecScan_clone(self)
-
-    def setFootprintFactor(self, f_factor):
-        r"""
-        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
-        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
-
-        Sets footprint correction factor. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
-
-    def setWavelengthResolution(self, resolution):
-        r"""
-        setWavelengthResolution(AngularSpecScan self, ScanResolution resolution)
-        void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
-
-        Sets wavelength resolution values via  ScanResolution object. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setWavelengthResolution(self, resolution)
-
-    def setRelativeWavelengthResolution(self, *args):
-        r"""
-        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
-
-        Sets wavelength resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
-
-    def setAbsoluteWavelengthResolution(self, *args):
-        r"""
-        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
-
-        Sets wavelength resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
-
-    def setAngleResolution(self, resolution):
-        r"""
-        setAngleResolution(AngularSpecScan self, ScanResolution resolution)
-        void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
-
-        Sets angle resolution values via  ScanResolution object. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setAngleResolution(self, resolution)
-
-    def setRelativeAngularResolution(self, *args):
-        r"""
-        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
-
-        Sets angular resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setRelativeAngularResolution(self, *args)
-
-    def setAbsoluteAngularResolution(self, *args):
-        r"""
-        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
-
-        Sets angular resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
-
-# Register AngularSpecScan in _libBornAgainCore:
-_libBornAgainCore.AngularSpecScan_swigregister(AngularSpecScan)
-
-class QSpecScan(object):
-    r"""
-
-
-    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
-
-    C++ includes: QSpecScan.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
-        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
-        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
-        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
-
-        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
-
-        """
-        _libBornAgainCore.QSpecScan_swiginit(self, _libBornAgainCore.new_QSpecScan(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
-
-    def clone(self):
-        r"""
-        clone(QSpecScan self) -> QSpecScan
-        QSpecScan * QSpecScan::clone() const override
-
-        """
-        return _libBornAgainCore.QSpecScan_clone(self)
-
-    def setQResolution(self, resolution):
-        r"""
-        setQResolution(QSpecScan self, ScanResolution resolution)
-        void QSpecScan::setQResolution(const ScanResolution &resolution)
-
-        Sets q resolution values via  ScanResolution object. 
-
-        """
-        return _libBornAgainCore.QSpecScan_setQResolution(self, resolution)
-
-    def setRelativeQResolution(self, *args):
-        r"""
-        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
-
-        Sets qz resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
-
-        """
-        return _libBornAgainCore.QSpecScan_setRelativeQResolution(self, *args)
-
-    def setAbsoluteQResolution(self, *args):
-        r"""
-        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
-
-        Sets qz resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
-
-        """
-        return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
-
-# Register QSpecScan in _libBornAgainCore:
-_libBornAgainCore.QSpecScan_swigregister(QSpecScan)
 
 
 def ScanRelativeResolution(distribution, rel_dev):

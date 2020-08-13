@@ -13,15 +13,16 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/LatticeBuilder.h"
-#include "Core/Aggregate/FTDecayFunctions.h"
+#include "Core/Aggregate/FTDecay1D.h"
+#include "Core/Aggregate/FTDecay2D.h"
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
 
 Lattice1DBuilder::Lattice1DBuilder()

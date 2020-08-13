@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
+#include "Core/Basics/Units.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
@@ -44,8 +44,8 @@ public:
 
     struct TestResult {
         std::string simulation_type;
-        int nrepetitions;
-        int nthreads;
+        size_t nrepetitions;
+        size_t nthreads;
         long time_msec;
         double scale_par;
     };
@@ -63,7 +63,7 @@ private:
     test_map_t run_measurements(std::vector<size_t> threads_data,
                                 std::vector<SimData> sim_data) const;
     void fancy_print(const test_map_t& results) const;
-    TestResult test_case(const std::string& sim_type, int nrepetitions, int nthreads) const;
+    TestResult test_case(const std::string& sim_type, size_t nrepetitions, size_t nthreads) const;
 };
 
 namespace
@@ -222,14 +222,14 @@ void MultiThreadPerformanceTest::fancy_print(const test_map_t& results) const
 //! Runs simulation of given type with fixed number of threads.
 
 MultiThreadPerformanceTest::TestResult
-MultiThreadPerformanceTest::test_case(const std::string& sim_type, int nrepetitions,
-                                      int nthreads) const
+MultiThreadPerformanceTest::test_case(const std::string& sim_type, size_t nrepetitions,
+                                      size_t nthreads) const
 {
     auto simulation = builders[sim_type]();
     simulation->getOptions().setNumberOfThreads(nthreads);
 
     const auto start_time = now();
-    for (int i_rep = 0; i_rep < nrepetitions; i_rep++)
+    for (size_t i_rep = 0; i_rep < nrepetitions; i_rep++)
         simulation->runSimulation();
 
     return {sim_type, nrepetitions, nthreads, static_cast<int>(duration(now() - start_time)), 0.0};

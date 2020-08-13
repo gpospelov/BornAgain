@@ -25,17 +25,19 @@ namespace
 const double CosineDistributionFactor = 1.0 / 3.0 - 2.0 / M_PI / M_PI;
 }
 
-IFTDistribution1D::~IFTDistribution1D() = default;
-
-void IFTDistribution1D::init_parameters()
+IFTDistribution1D::IFTDistribution1D(double omega) : m_omega(omega)
 {
     registerParameter("Omega", &m_omega);
+}
+
+IFTDistribution1D::IFTDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(nodeMetaUnion({{"Omega", "nm", "Half-width", 0, INF, 1.}}, meta), PValues)
+{
 }
 
 FTDistribution1DCauchy::FTDistribution1DCauchy(double omega) : IFTDistribution1D(omega)
 {
     setName("FTDistribution1DCauchy");
-    init_parameters();
 }
 
 FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
@@ -62,7 +64,6 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() 
 FTDistribution1DGauss::FTDistribution1DGauss(double omega) : IFTDistribution1D(omega)
 {
     setName("FTDistribution1DGauss");
-    init_parameters();
 }
 
 FTDistribution1DGauss* FTDistribution1DGauss::clone() const
@@ -89,7 +90,6 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() c
 FTDistribution1DGate::FTDistribution1DGate(double omega) : IFTDistribution1D(omega)
 {
     setName("FTDistribution1DGate");
-    init_parameters();
 }
 
 FTDistribution1DGate* FTDistribution1DGate::clone() const
@@ -115,7 +115,6 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() co
 FTDistribution1DTriangle::FTDistribution1DTriangle(double omega) : IFTDistribution1D(omega)
 {
     setName("FTDistribution1DTriangle");
-    init_parameters();
 }
 
 FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const
@@ -142,7 +141,6 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler(
 FTDistribution1DCosine::FTDistribution1DCosine(double omega) : IFTDistribution1D(omega)
 {
     setName("FTDistribution1DCosine");
-    init_parameters();
 }
 
 FTDistribution1DCosine* FTDistribution1DCosine::clone() const
@@ -172,7 +170,6 @@ FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
     : IFTDistribution1D(omega), m_eta(eta)
 {
     setName("FTDistribution1DVoigt");
-    init_parameters();
     registerParameter("Eta", &m_eta);
 }
 

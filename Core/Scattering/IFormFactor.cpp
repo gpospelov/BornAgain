@@ -14,9 +14,9 @@
 
 #include "Core/Scattering/IFormFactor.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorPositionFactor.h"
-#include "Core/DecoratedFormFactor/FormFactorDecoratorRotation.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Core/Scattering/FormFactorDecoratorRotation.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/WavevectorInfo.h"
 #include <memory>
@@ -30,7 +30,10 @@ bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRo
                         kvector_t translation);
 } // namespace
 
-IFormFactor::~IFormFactor() {}
+IFormFactor::IFormFactor(const NodeMeta& meta, const std::vector<double>& PValues)
+    : ISample(meta, PValues)
+{
+}
 
 IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation& rot,
                                                  kvector_t translation) const

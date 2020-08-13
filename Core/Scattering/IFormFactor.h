@@ -17,8 +17,8 @@
 
 #include "Core/Basics/Complex.h"
 #include "Core/Material/Material.h"
-#include "Core/Particle/ZLimits.h"
 #include "Core/Scattering/ISample.h"
+#include "Core/Scattering/ZLimits.h"
 #include "Core/Vector/EigenCore.h"
 #include "Core/Vector/Vectors3D.h"
 
@@ -40,8 +40,10 @@ class WavevectorInfo;
 class BA_CORE_API_ IFormFactor : public ISample
 {
 public:
-    IFormFactor() {}
-    ~IFormFactor() override;
+    IFormFactor() = default;
+    IFormFactor(const NodeMeta& meta, const std::vector<double>& PValues);
+
+    ~IFormFactor() = default;
     IFormFactor* clone() const override = 0;
 
     //! Creates a (possibly sliced) form factor with the given rotation and translation

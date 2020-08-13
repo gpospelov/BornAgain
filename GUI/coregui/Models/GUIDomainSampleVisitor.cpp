@@ -14,11 +14,11 @@
 
 #include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Computation/MultiLayerUtils.h"
+#include "Core/Basics/Units.h"
 #include "Core/Material/Material.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"

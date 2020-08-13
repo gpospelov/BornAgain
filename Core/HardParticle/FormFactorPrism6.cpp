@@ -19,7 +19,7 @@
 //! @param base_edge: length of the hexagonal base in nanometers
 //! @param height: height in nanometers
 FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
-    : FormFactorPolygonalPrism(height), m_base_edge(base_edge)
+    : m_base_edge(base_edge), m_height(height)
 {
     setName("Prism6");
     registerParameter("BaseEdge", &m_base_edge).setUnit("nm").setNonnegative();

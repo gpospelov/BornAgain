@@ -11,7 +11,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/StandardSamples/SimulationFactory.h"

@@ -48,6 +48,8 @@ public:
 
     std::vector<const INode*> getChildren() const override final;
 
+    std::string mainUnits() const;
+
 private:
     std::unique_ptr<IParticle> mP_particle;
     ParameterDistribution m_par_distribution;

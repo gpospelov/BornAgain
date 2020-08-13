@@ -1,8 +1,8 @@
 #include "Core/Particle/Particle.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Parametrization/Units.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleTest : public ::testing::Test

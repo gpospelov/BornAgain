@@ -37,9 +37,11 @@ protected:
                                  kvector_t translation) const override final;
 
     void onChange() override final;
+    double height() const final { return m_height; }
 
 private:
     double m_base_edge;
+    double m_height;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM3_H

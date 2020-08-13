@@ -1,5 +1,5 @@
-#include "Core/Instrument/RectangularDetector.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Detector/RectangularDetector.h"
+#include "Core/Basics/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Fit/TestEngine/Numeric.h"
 #include "Tests/GTestWrapper/google_test.h"

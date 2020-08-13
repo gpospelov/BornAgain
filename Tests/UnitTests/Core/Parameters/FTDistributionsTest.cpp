@@ -132,7 +132,7 @@ TEST_F(FTDistributionsTest, FTDistribution1DVoigtClone)
 
 TEST_F(FTDistributionsTest, FTDistribution2DCauchyConstructor)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_cauchy{new FTDistribution2DCauchy(1.0, 2.0)};
+    std::unique_ptr<IFTDistribution2D> P_2d_cauchy{new FTDistribution2DCauchy(1.0, 2.0, 0)};
     EXPECT_EQ(1.0, P_2d_cauchy->omegaX());
     EXPECT_EQ(2.0, P_2d_cauchy->omegaY());
     EXPECT_EQ(2.0, P_2d_cauchy->parameter("OmegaY")->value());
@@ -153,7 +153,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyConstructor)
 
 TEST_F(FTDistributionsTest, FTDistribution2DCauchyClone)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_cauchy{new FTDistribution2DCauchy(5.0, 2.3)};
+    std::unique_ptr<IFTDistribution2D> P_2d_cauchy{new FTDistribution2DCauchy(5.0, 2.3, 0)};
     std::unique_ptr<IFTDistribution2D> P_clone{P_2d_cauchy->clone()};
 
     EXPECT_EQ(5.0, P_clone->omegaX());
@@ -165,7 +165,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyClone)
 
 TEST_F(FTDistributionsTest, FTDistribution2DGaussConstructor)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_gauss{new FTDistribution2DGauss(1.0, 2.0)};
+    std::unique_ptr<IFTDistribution2D> P_2d_gauss{new FTDistribution2DGauss(1.0, 2.0, 0)};
     EXPECT_EQ(1.0, P_2d_gauss->omegaX());
     EXPECT_EQ(2.0, P_2d_gauss->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_gauss->delta());
@@ -178,7 +178,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussConstructor)
 
 TEST_F(FTDistributionsTest, FTDistribution2DGaussClone)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_gauss{new FTDistribution2DGauss(5.0, 2.3)};
+    std::unique_ptr<IFTDistribution2D> P_2d_gauss{new FTDistribution2DGauss(5.0, 2.3, 0)};
     std::unique_ptr<IFTDistribution2D> P_clone{P_2d_gauss->clone()};
 
     EXPECT_EQ(5.0, P_clone->omegaX());
@@ -190,7 +190,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGaussClone)
 
 TEST_F(FTDistributionsTest, FTDistribution2DGateConstructor)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_gate{new FTDistribution2DGate(1.0, 2.0)};
+    std::unique_ptr<IFTDistribution2D> P_2d_gate{new FTDistribution2DGate(1.0, 2.0, 0)};
     EXPECT_EQ(1.0, P_2d_gate->omegaX());
     EXPECT_EQ(2.0, P_2d_gate->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_gate->delta());
@@ -203,7 +203,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGateConstructor)
 
 TEST_F(FTDistributionsTest, FTDistribution2DGateClone)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_gate{new FTDistribution2DGate(5.0, 2.3)};
+    std::unique_ptr<IFTDistribution2D> P_2d_gate{new FTDistribution2DGate(5.0, 2.3, 0)};
     std::unique_ptr<IFTDistribution2D> P_clone{P_2d_gate->clone()};
 
     EXPECT_EQ(5.0, P_clone->omegaX());
@@ -215,7 +215,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DGateClone)
 
 TEST_F(FTDistributionsTest, FTDistribution2DConeConstructor)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_cone{new FTDistribution2DCone(1.0, 2.0)};
+    std::unique_ptr<IFTDistribution2D> P_2d_cone{new FTDistribution2DCone(1.0, 2.0, 0)};
     EXPECT_EQ(1.0, P_2d_cone->omegaX());
     EXPECT_EQ(2.0, P_2d_cone->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_cone->delta());
@@ -228,7 +228,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DConeConstructor)
 
 TEST_F(FTDistributionsTest, FTDistribution2DConeClone)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_cone{new FTDistribution2DCone(5.0, 2.3)};
+    std::unique_ptr<IFTDistribution2D> P_2d_cone{new FTDistribution2DCone(5.0, 2.3, 0)};
     std::unique_ptr<IFTDistribution2D> P_clone{P_2d_cone->clone()};
 
     EXPECT_EQ(5.0, P_clone->omegaX());
@@ -240,7 +240,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DConeClone)
 
 TEST_F(FTDistributionsTest, FTDistribution2DVoigtConstructor)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_voigt{new FTDistribution2DVoigt(1.0, 2.0, 3.5)};
+    std::unique_ptr<IFTDistribution2D> P_2d_voigt{new FTDistribution2DVoigt(1.0, 2.0, 0, 3.5)};
     EXPECT_EQ(1.0, P_2d_voigt->omegaX());
     EXPECT_EQ(2.0, P_2d_voigt->omegaY());
     EXPECT_EQ(M_PI / 2.0, P_2d_voigt->delta());
@@ -253,7 +253,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtConstructor)
 
 TEST_F(FTDistributionsTest, FTDistribution2DVoigtClone)
 {
-    std::unique_ptr<IFTDistribution2D> P_2d_voigt{new FTDistribution2DVoigt(5.0, 2.3, -5.6)};
+    std::unique_ptr<IFTDistribution2D> P_2d_voigt{new FTDistribution2DVoigt(5.0, 2.3, 0, -5.6)};
     std::unique_ptr<IFTDistribution2D> P_clone{P_2d_voigt->clone()};
 
     EXPECT_EQ(5.0, P_clone->omegaX());

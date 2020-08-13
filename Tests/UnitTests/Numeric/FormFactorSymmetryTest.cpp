@@ -88,7 +88,7 @@ TEST_F(FFSymmetryTest, HemiEllipsoid)
 
 TEST_F(FFSymmetryTest, TruncatedSphere)
 {
-    FormFactorTruncatedSphere p(.79, .34);
+    FormFactorTruncatedSphere p(.79, .34, 0);
     run_test(
         &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3.13698); }, 1e-10,
         1e-99, 2e2);

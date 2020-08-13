@@ -29,6 +29,7 @@
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/HardParticle/FormFactorFullSpheroid.h"
 #include "Core/HardParticle/FormFactorHemiEllipsoid.h"
+#include "Core/HardParticle/FormFactorHollowSphere.h"
 #include "Core/HardParticle/FormFactorIcosahedron.h"
 #include "Core/HardParticle/FormFactorLongBoxGauss.h"
 #include "Core/HardParticle/FormFactorLongBoxLorentz.h"

@@ -27,6 +27,9 @@ class Material;
 class BA_CORE_API_ ISample : public ICloneable, public INode
 {
 public:
+    ISample() = default;
+    ISample(const NodeMeta& meta, const std::vector<double>& PValues);
+
     //! Returns a clone of this ISample object.
     ISample* clone() const override = 0;
 

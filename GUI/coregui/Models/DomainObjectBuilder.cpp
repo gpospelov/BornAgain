@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
-#include "Core/Instrument/IDetector2D.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
-#include "Core/Instrument/UnitConverter1D.h"
-#include "Core/Instrument/UnitConverterUtils.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
+#include "Core/Detector/IDetector2D.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
+#include "Core/Intensity/UnitConverter1D.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/ComboProperty.h"

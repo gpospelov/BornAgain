@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_UTILS_IMPORTDATAINFO_H
 #define BORNAGAIN_GUI_COREGUI_UTILS_IMPORTDATAINFO_H
 
-#include "Core/Instrument/IUnitConverter.h"
+#include "Core/Intensity/IUnitConverter.h"
 #include "Wrap/WinDllMacros.h"
 #include <QString>
 #include <memory>

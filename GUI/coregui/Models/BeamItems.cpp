@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Models/BeamItems.h"
 #include "Core/Basics/Assert.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/IAxis.h"
-#include "Core/Parametrization/Units.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamDistributionItem.h"
@@ -107,13 +107,12 @@ void BeamItem::setAzimuthalAngle(double value)
 
 std::unique_ptr<Beam> BeamItem::createBeam() const
 {
-    auto result = std::make_unique<Beam>();
-
-    result->setIntensity(getIntensity());
     double lambda = getWavelength();
     double inclination_angle = Units::deg2rad(getInclinationAngle());
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
-    result->setCentralK(lambda, inclination_angle, azimuthal_angle);
+
+    auto result =
+        std::make_unique<Beam>(lambda, inclination_angle, azimuthal_angle, getIntensity());
 
     result->setPolarization(GetVectorItem(*this, P_POLARIZATION));
 

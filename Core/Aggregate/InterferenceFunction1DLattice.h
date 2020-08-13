@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
-#include "Core/Lattice/Lattice1DParameters.h"
 
 class IFTDecayFunction1D;
 
@@ -35,16 +34,16 @@ public:
 
     void setDecayFunction(const IFTDecayFunction1D& decay);
 
-    Lattice1DParameters getLatticeParameters() const { return m_lattice_params; }
+    double getLength() const { return m_length; }
+    double getXi() const { return m_xi; }
 
     std::vector<const INode*> getChildren() const override final;
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunction1DLattice(const InterferenceFunction1DLattice& other);
-    void init_parameters();
 
-    Lattice1DParameters m_lattice_params;
+    double m_length;
+    double m_xi;
     std::unique_ptr<IFTDecayFunction1D> mP_decay;
     int m_na; //!< determines the number of reciprocal lattice points to use
 };

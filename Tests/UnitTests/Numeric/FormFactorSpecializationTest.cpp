@@ -73,7 +73,7 @@ TEST_F(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
 {
     const double R = 1.07;
     FormFactorHemiEllipsoid p0(R, R, R);
-    FormFactorTruncatedSphere p1(R, R);
+    FormFactorTruncatedSphere p1(R, R, 0);
     run_test(&p0, &p1, 1e-10, 1e-99, 5e2);
 }
 
@@ -88,7 +88,7 @@ TEST_F(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
 TEST_F(FFSpecializationTest, TruncatedSphereAsSphere)
 {
     const double R = 1.;
-    FormFactorTruncatedSphere p0(R, 2 * R);
+    FormFactorTruncatedSphere p0(R, 2 * R, 0);
     FormFactorFullSphere p1(R);
     run_test(&p0, &p1, 1e-11, .02, 5e1);
 }

@@ -35,7 +35,6 @@ public:
     void setStrategy(IOutputDataReadStrategy* read_strategy);
 
 private:
-    OutputData<double>* getFromFilteredStream(std::istream& input_stream);
     std::string m_file_name;
     std::unique_ptr<IOutputDataReadStrategy> m_read_strategy;
 };

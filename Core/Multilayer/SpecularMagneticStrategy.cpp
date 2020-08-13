@@ -14,8 +14,8 @@
 
 #include "Core/Multilayer/SpecularMagneticStrategy.h"
 #include "Core/Basics/PhysicalConstants.h"
-#include "Core/Computation/Slice.h"
 #include "Core/Multilayer/KzComputation.h"
+#include "Core/Multilayer/Slice.h"
 
 namespace
 {

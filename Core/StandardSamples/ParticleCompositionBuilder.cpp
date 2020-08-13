@@ -15,12 +15,12 @@
 #include "Core/StandardSamples/ParticleCompositionBuilder.h"
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
 
@@ -54,8 +54,8 @@ MultiLayer* ParticleCompositionBuilder::buildSample() const
     particle_layout.addParticle(basis);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference{
-        InterferenceFunction2DLattice::createHexagonal(radius * 2.0)};
-    FTDecayFunction2DCauchy pdf(10 * Units::nanometer, 10 * Units::nanometer);
+        InterferenceFunction2DLattice::createHexagonal(radius * 2.0, 0)};
+    FTDecayFunction2DCauchy pdf(10 * Units::nanometer, 10 * Units::nanometer, 0);
     P_interference->setDecayFunction(pdf);
 
     particle_layout.setInterferenceFunction(*P_interference);

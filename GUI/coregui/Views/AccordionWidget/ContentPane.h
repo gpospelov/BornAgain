@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 // This file is part of qAccordion. An Accordion widget for Qt
-// Copyright © 2015 Christian Rapp <0x2a at posteo dot org>
+// Copyright (C) 2015 Christian Rapp <0x2a at posteo dot org>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -111,7 +111,7 @@ public:
      * @brief Set the content frame
      * @param content QFrame* with your content
      *
-     * Set / change the content frame of this content pane with \p content. The
+     * Set / change the content frame of this content pane with content. The
      * lifecycle
      */
     void setContentFrame(QFrame* content);
@@ -186,8 +186,7 @@ public:
      * @param stylesheet CSS Style Sheet as string
      *
      * @details
-     * Set a \p stylesheet for the header for a special effect when the mouse
-     * hovers over it.
+     * Set a stylesheet for the header for a special effect when the mouse hovers over it.
      * @sa
      * setHeaderStylesheet() for additional details.
      */

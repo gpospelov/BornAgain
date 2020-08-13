@@ -30,8 +30,6 @@ class BA_CORE_API_ IClusteredParticles : public ISample
 public:
     IClusteredParticles* clone() const override = 0;
 
-    void accept(INodeVisitor* visitor) const override = 0;
-
     //! Creates a total form factor for the mesocrystal with a specific shape and content
     //! The bulk content of the mesocrystal is encapsulated by the IClusteredParticles object itself
     virtual IFormFactor* createTotalFormFactor(const IFormFactor&, const IRotation*,

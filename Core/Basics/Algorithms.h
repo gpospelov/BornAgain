@@ -33,6 +33,9 @@ double min_value(const Iterator& begin, const Iterator& end, const Evaluator& ev
 template <typename Evaluator, typename Iterator>
 double max_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate);
 
+//! Returns the concatenation of two std::vector%s.
+template <class T> std::vector<T> concat(const std::vector<T>& v1, const std::vector<T>& v2);
+
 } // namespace algo
 
 // ************************************************************************** //
@@ -59,6 +62,13 @@ double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluat
     while (++it != end)
         ret = std::max(ret, evaluate(*it));
     return ret;
+}
+
+template <class T> std::vector<T> algo::concat(const std::vector<T>& v1, const std::vector<T>& v2)
+{
+    std::vector<T> v = v1;
+    v.insert(v.end(), v2.begin(), v2.end());
+    return v;
 }
 
 #endif // BORNAGAIN_CORE_BASICS_ALGORITHMS_H

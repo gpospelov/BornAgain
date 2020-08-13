@@ -15,20 +15,21 @@
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "Core/Aggregate/FTDistributions1D.h"
 #include "Core/Aggregate/FTDistributions2D.h"
+#include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
+#include "Core/Detector/ConvolutionDetectorResolution.h"
+#include "Core/Detector/RectangularDetector.h"
+#include "Core/Detector/RegionOfInterest.h"
+#include "Core/Detector/ResolutionFunction2DGaussian.h"
+#include "Core/Detector/ScanResolution.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Instrument/AngularSpecScan.h"
-#include "Core/Instrument/ConvolutionDetectorResolution.h"
-#include "Core/Instrument/RectangularDetector.h"
-#include "Core/Instrument/RegionOfInterest.h"
-#include "Core/Instrument/ResolutionFunction2DGaussian.h"
-#include "Core/Instrument/ScanResolution.h"
-#include "Core/Instrument/SphericalDetector.h"
 #include "Core/Mask/Ellipse.h"
 #include "Core/Mask/InfinitePlane.h"
 #include "Core/Mask/Line.h"
@@ -39,9 +40,7 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
-#include "Core/Parametrization/ParameterUtils.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Simulation/GISASSimulation.h"
@@ -98,10 +97,9 @@ void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ra
 void TransformFromDomain::set1DLatticeItem(SessionItem* item,
                                            const InterferenceFunction1DLattice& sample)
 {
-    Lattice1DParameters lattice_params = sample.getLatticeParameters();
-    item->setItemValue(InterferenceFunction1DLatticeItem::P_LENGTH, lattice_params.m_length);
+    item->setItemValue(InterferenceFunction1DLatticeItem::P_LENGTH, sample.getLength());
     item->setItemValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
-                       Units::rad2deg(lattice_params.m_xi));
+                       Units::rad2deg(sample.getXi()));
 
     auto pdf = OnlyChildOfType<IFTDecayFunction1D>(sample);
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
@@ -228,7 +226,7 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
     distItem->setDomainCacheNames(main_distr_par_name, linked_pars);
 
     double unit_factor(1.0);
-    if (ParameterUtils::mainParUnits(sample) == "rad")
+    if (sample.mainUnits() == "rad")
         unit_factor = 1. / Units::degree;
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
@@ -618,12 +616,12 @@ void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
 {
     if (!footprint)
         return;
-    if (const auto gaussian_fp = dynamic_cast<const FootprintFactorGaussian*>(footprint)) {
+    if (const auto gaussian_fp = dynamic_cast<const FootprintGauss*>(footprint)) {
         auto gaussian_fp_item =
             beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT, "GaussianFootrpint");
         const double value = gaussian_fp->widthRatio();
         gaussian_fp_item->setItemValue(FootprintGaussianItem::P_VALUE, value);
-    } else if (const auto square_fp = dynamic_cast<const FootprintFactorSquare*>(footprint)) {
+    } else if (const auto square_fp = dynamic_cast<const FootprintSquare*>(footprint)) {
         auto square_fp_item =
             beam_item->setGroupProperty(SpecularBeamItem::P_FOOPTPRINT, "SquareFootprint");
         const double value = square_fp->widthRatio();

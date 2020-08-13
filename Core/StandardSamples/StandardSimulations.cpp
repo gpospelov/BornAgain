@@ -13,16 +13,17 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/StandardSimulations.h"
-#include "Core/Beam/FootprintFactorGaussian.h"
-#include "Core/Beam/FootprintFactorSquare.h"
+#include "Core/Basics/Units.h"
+#include "Core/Beam/FootprintGauss.h"
+#include "Core/Beam/FootprintSquare.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
+#include "Core/Detector/IsGISAXSDetector.h"
+#include "Core/Detector/RectangularDetector.h"
+#include "Core/Detector/ResolutionFunction2DGaussian.h"
+#include "Core/Detector/ScanResolution.h"
 #include "Core/Instrument/AngularSpecScan.h"
-#include "Core/Instrument/IsGISAXSDetector.h"
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Instrument/RectangularDetector.h"
-#include "Core/Instrument/ResolutionFunction2DGaussian.h"
-#include "Core/Instrument/ScanResolution.h"
 #include "Core/Mask/Ellipse.h"
 #include "Core/Mask/Line.h"
 #include "Core/Mask/Polygon.h"
@@ -31,7 +32,6 @@
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
@@ -447,7 +447,7 @@ SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-    auto gaussian_ff = std::make_unique<FootprintFactorGaussian>(1.0);
+    auto gaussian_ff = std::make_unique<FootprintGauss>(1.0);
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(gaussian_ff.get());
 
@@ -462,7 +462,7 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-    auto square_ff = std::make_unique<FootprintFactorSquare>(1.0);
+    auto square_ff = std::make_unique<FootprintSquare>(1.0);
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(square_ff.get());
 

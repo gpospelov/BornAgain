@@ -17,17 +17,11 @@
 
 #include "Core/Particle/IAbstractParticle.h"
 #include "Core/Particle/SlicedParticle.h"
-#include "Core/Particle/ZLimits.h"
 #include "Core/Scattering/Rotations.h"
+#include "Core/Scattering/ZLimits.h"
 #include "Core/Tools/SafePointerVector.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>
-
-//! Vertical extension of a particle, specified by bottom and top z coordinate.
-struct ParticleLimits {
-    double m_bottom;
-    double m_top;
-};
 
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
 //! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
@@ -39,8 +33,6 @@ class BA_CORE_API_ IParticle : public IAbstractParticle
 public:
     ~IParticle() {}
     IParticle* clone() const override = 0;
-
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Create a form factor for this particle
     virtual IFormFactor* createFormFactor() const;

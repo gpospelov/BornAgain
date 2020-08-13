@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DepthProbeInstrumentItem.h"
-#include "Core/Instrument/SimpleUnitConverters.h"
-#include "Core/Parametrization/Units.h"
+#include "Core/Basics/Units.h"
+#include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamDistributionItem.h"

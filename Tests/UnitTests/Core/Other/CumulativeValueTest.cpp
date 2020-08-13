@@ -1,4 +1,4 @@
-#include "Core/Instrument/CumulativeValue.h"
+#include "Core/Intensity/CumulativeValue.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class CumulativeValueTest : public ::testing::Test

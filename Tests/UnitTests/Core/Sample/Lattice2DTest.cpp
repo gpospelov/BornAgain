@@ -7,12 +7,12 @@ class Lattice2DTest : public ::testing::Test
 
 TEST_F(Lattice2DTest, basicLattice)
 {
-    const double length1(1.0), length2(2.0), angle(3.0);
-    BasicLattice lattice(length1, length2, angle);
+    const double length1(1.0), length2(2.0), angle(3.0), rotangle(0.7);
+    BasicLattice lattice(length1, length2, angle, rotangle);
     EXPECT_EQ(lattice.length1(), length1);
     EXPECT_EQ(lattice.length2(), length2);
     EXPECT_EQ(lattice.latticeAngle(), angle);
-    EXPECT_EQ(lattice.rotationAngle(), 0.0);
+    EXPECT_EQ(lattice.rotationAngle(), rotangle);
 
     const double new_value(42.0);
 

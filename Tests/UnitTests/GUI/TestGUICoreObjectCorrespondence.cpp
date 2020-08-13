@@ -1,5 +1,5 @@
+#include "Core/Basics/Units.h"
 #include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/includeIncludes/FormFactors.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
@@ -166,14 +166,14 @@ TEST_F(TestGUICoreObjectCorrespondence, test_TruncatedCube)
 TEST_F(TestGUICoreObjectCorrespondence, test_TruncatedSphere)
 {
     TruncatedSphereItem gui_truncsphere;
-    FormFactorTruncatedSphere core_truncsphere(1.0, 0.5);
+    FormFactorTruncatedSphere core_truncsphere(1.0, 0.5, 0);
     GUICoreObjectCorrespondence(gui_truncsphere, core_truncsphere);
 }
 
 TEST_F(TestGUICoreObjectCorrespondence, test_TruncatedSpheroid)
 {
     TruncatedSpheroidItem gui_truncspheroid;
-    FormFactorTruncatedSpheroid core_truncspheroid(1.0, 1.5, 1.5);
+    FormFactorTruncatedSpheroid core_truncspheroid(1.0, 1.5, 1.5, 0);
     GUICoreObjectCorrespondence(gui_truncspheroid, core_truncspheroid);
 }
 

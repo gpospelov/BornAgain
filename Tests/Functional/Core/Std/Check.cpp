@@ -16,7 +16,7 @@
 #include "BATesting.h"
 #include "Core/Basics/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Simulation/Simulation.h"

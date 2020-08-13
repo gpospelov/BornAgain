@@ -1,4 +1,4 @@
-#include "Core/Aggregate/FormFactorCoherentSum.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/HardParticle/FormFactorDot.h"
 #include "Tests/GTestWrapper/google_test.h"

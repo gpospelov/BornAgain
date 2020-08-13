@@ -15,11 +15,11 @@
 #include "BAVersion.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/PyIO/PyEmbeddedUtils.h"
+#include "Core/PyIO/PyImport.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Core/Tools/PyEmbeddedUtils.h"
-#include "Core/Tools/PyImport.h"
+#include "Core/Tools/PyFmt.h"
 #include "Core/Tools/PythonCore.h"
-#include "Core/Tools/PythonFormatting.h"
 #include "Core/Tools/SysUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
@@ -375,10 +375,10 @@ TEST_F(PyEmbedded, ExportToPythonAndBack)
     auto code = ExportToPython::generateSampleCode(*sample);
 
     std::stringstream snippet;
-    snippet << PythonFormatting::scriptPreamble() << code;
+    snippet << pyfmt::scriptPreamble() << code;
 
-    auto multilayer = PyImport::createFromPython(
-        snippet.str(), PythonFormatting::getSampleFunctionName(), BABuild::buildLibDir());
+    auto multilayer = PyImport::createFromPython(snippet.str(), pyfmt::getSampleFunctionName(),
+                                                 BABuild::buildLibDir());
     auto new_code = ExportToPython::generateSampleCode(*multilayer);
 
     EXPECT_TRUE(code == new_code);

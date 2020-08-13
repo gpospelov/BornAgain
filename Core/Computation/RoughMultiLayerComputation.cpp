@@ -15,13 +15,13 @@
 #include "Core/Computation/RoughMultiLayerComputation.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Computation/ProcessedSample.h"
-#include "Core/Computation/Slice.h"
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/Multilayer/ILayerRTCoefficients.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Multilayer/Slice.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
 #include <cerf>

@@ -14,13 +14,13 @@
 
 #include "Core/Instrument/Instrument.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/DetectorFunctions.h"
-#include "Core/Instrument/Histogram2D.h"
-#include "Core/Instrument/IResolutionFunction2D.h"
-#include "Core/Instrument/SphericalDetector.h"
+#include "Core/Detector/DetectorFunctions.h"
+#include "Core/Detector/IResolutionFunction2D.h"
+#include "Core/Detector/SphericalDetector.h"
+#include "Core/Intensity/Histogram2D.h"
 #include "Core/SimulationElement/SimulationElement.h"
 
-Instrument::Instrument() : mP_detector(new SphericalDetector)
+Instrument::Instrument() : mP_detector(new SphericalDetector), m_beam(Beam::horizontalBeam())
 {
     setName("Instrument");
     registerChild(mP_detector.get());

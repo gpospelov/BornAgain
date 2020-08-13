@@ -1,5 +1,5 @@
-#include "Core/Instrument/OutputDataIterator.h"
-#include "Core/Instrument/OutputData.h"
+#include "Core/Intensity/OutputDataIterator.h"
+#include "Core/Intensity/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class OutputDataIteratorTest : public ::testing::Test

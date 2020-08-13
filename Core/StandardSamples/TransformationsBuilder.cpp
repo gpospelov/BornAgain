@@ -14,12 +14,12 @@
 
 #include "Core/StandardSamples/TransformationsBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorBox.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Parametrization/Units.h"
 #include "Core/Particle/Particle.h"
 
 MultiLayer* TransformBoxBuilder::buildSample() const

@@ -23,7 +23,7 @@
 class ParameterSample;
 
 // ************************************************************************** //
-// interface class IDistribution1D
+// interface IDistribution1D
 // ************************************************************************** //
 
 //! Interface for one-dimensional distributions.
@@ -77,7 +77,7 @@ protected:
 };
 
 // ************************************************************************** //
-// specific distribution classes
+// class DistributionGate
 // ************************************************************************** //
 
 //! Uniform distribution function with half width hwhm.
@@ -86,8 +86,8 @@ protected:
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
-    DistributionGate();
     DistributionGate(double min, double max);
+    DistributionGate();
 
     DistributionGate* clone() const final { return new DistributionGate(m_min, m_max); }
 
@@ -109,14 +109,18 @@ private:
     double m_max;
 };
 
+// ************************************************************************** //
+// class DistributionLorentz
+// ************************************************************************** //
+
 //! Lorentz distribution with half width hwhm.
 //! @ingroup paramDistribution
 
 class BA_CORE_API_ DistributionLorentz : public IDistribution1D
 {
 public:
-    DistributionLorentz();
     DistributionLorentz(double mean, double hwhm);
+    DistributionLorentz();
 
     DistributionLorentz* clone() const final { return new DistributionLorentz(m_mean, m_hwhm); }
 
@@ -137,14 +141,18 @@ private:
     double m_hwhm;
 };
 
+// ************************************************************************** //
+// class Distribution
+// ************************************************************************** //
+
 //! Gaussian distribution with standard deviation std_dev.
 //! @ingroup paramDistribution
 
 class BA_CORE_API_ DistributionGaussian : public IDistribution1D
 {
 public:
-    DistributionGaussian();
     DistributionGaussian(double mean, double std_dev);
+    DistributionGaussian();
 
     DistributionGaussian* clone() const final
     {
@@ -168,14 +176,18 @@ private:
     double m_std_dev;
 };
 
+// ************************************************************************** //
+// class DistributionLogNormal
+// ************************************************************************** //
+
 //! Log-normal distribution.
 //! @ingroup paramDistribution
 
 class BA_CORE_API_ DistributionLogNormal : public IDistribution1D
 {
 public:
-    DistributionLogNormal() = delete;
     DistributionLogNormal(double median, double scale_param);
+    DistributionLogNormal() = delete;
 
     DistributionLogNormal* clone() const final
     {
@@ -202,14 +214,18 @@ private:
     double m_scale_param;
 };
 
+// ************************************************************************** //
+// class DistributionCosine
+// ************************************************************************** //
+
 //! Cosine distribution.
 //! @ingroup paramDistribution
 
 class BA_CORE_API_ DistributionCosine : public IDistribution1D
 {
 public:
-    DistributionCosine();
     DistributionCosine(double mean, double sigma);
+    DistributionCosine();
 
     DistributionCosine* clone() const final { return new DistributionCosine(m_mean, m_sigma); }
 
@@ -230,14 +246,18 @@ private:
     double m_sigma;
 };
 
+// ************************************************************************** //
+// class DistributionTrapezoid
+// ************************************************************************** //
+
 //! Trapezoidal distribution.
 //! @ingroup paramDistribution
 
 class BA_CORE_API_ DistributionTrapezoid : public IDistribution1D
 {
 public:
-    DistributionTrapezoid();
     DistributionTrapezoid(double center, double left, double middle, double right);
+    DistributionTrapezoid();
 
     DistributionTrapezoid* clone() const final
     {

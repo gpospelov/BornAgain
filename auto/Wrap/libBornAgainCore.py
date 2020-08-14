@@ -6693,8 +6693,9 @@ class DistributionGate(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionGate self) -> DistributionGate
+        __init__(DistributionGate self, vdouble1d_t P) -> DistributionGate
         __init__(DistributionGate self, double min, double max) -> DistributionGate
+        __init__(DistributionGate self) -> DistributionGate
         DistributionGate::DistributionGate(double min, double max)
 
         """
@@ -6793,8 +6794,9 @@ class DistributionLorentz(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionLorentz self) -> DistributionLorentz
+        __init__(DistributionLorentz self, vdouble1d_t P) -> DistributionLorentz
         __init__(DistributionLorentz self, double mean, double hwhm) -> DistributionLorentz
+        __init__(DistributionLorentz self) -> DistributionLorentz
         DistributionLorentz::DistributionLorentz(double mean, double hwhm)
 
         """
@@ -6885,8 +6887,9 @@ class DistributionGaussian(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionGaussian self) -> DistributionGaussian
+        __init__(DistributionGaussian self, vdouble1d_t P) -> DistributionGaussian
         __init__(DistributionGaussian self, double mean, double std_dev) -> DistributionGaussian
+        __init__(DistributionGaussian self) -> DistributionGaussian
         DistributionGaussian::DistributionGaussian(double mean, double std_dev)
 
         """
@@ -6975,13 +6978,14 @@ class DistributionLogNormal(IDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, median, scale_param):
+    def __init__(self, *args):
         r"""
+        __init__(DistributionLogNormal self, vdouble1d_t P) -> DistributionLogNormal
         __init__(DistributionLogNormal self, double median, double scale_param) -> DistributionLogNormal
         DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
 
         """
-        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(median, scale_param))
+        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(*args))
 
     def clone(self):
         r"""
@@ -7086,8 +7090,9 @@ class DistributionCosine(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionCosine self) -> DistributionCosine
+        __init__(DistributionCosine self, vdouble1d_t P) -> DistributionCosine
         __init__(DistributionCosine self, double mean, double sigma) -> DistributionCosine
+        __init__(DistributionCosine self) -> DistributionCosine
         DistributionCosine::DistributionCosine(double mean, double sigma)
 
         """
@@ -7178,8 +7183,9 @@ class DistributionTrapezoid(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionTrapezoid self) -> DistributionTrapezoid
+        __init__(DistributionTrapezoid self, vdouble1d_t P) -> DistributionTrapezoid
         __init__(DistributionTrapezoid self, double center, double left, double middle, double right) -> DistributionTrapezoid
+        __init__(DistributionTrapezoid self) -> DistributionTrapezoid
         DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
 
         """

@@ -32,7 +32,6 @@ class ParameterSample;
 class BA_CORE_API_ IDistribution1D : public ICloneable, public INode
 {
 public:
-    IDistribution1D() = default;
     IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IDistribution1D* clone() const = 0;
@@ -86,6 +85,7 @@ protected:
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
+    DistributionGate(const std::vector<double> P);
     DistributionGate(double min, double max);
     DistributionGate();
 
@@ -105,8 +105,8 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 private:
-    double m_min;
-    double m_max;
+    const double& m_min;
+    const double& m_max;
 };
 
 // ************************************************************************** //
@@ -119,6 +119,7 @@ private:
 class BA_CORE_API_ DistributionLorentz : public IDistribution1D
 {
 public:
+    DistributionLorentz(const std::vector<double> P);
     DistributionLorentz(double mean, double hwhm);
     DistributionLorentz();
 
@@ -137,8 +138,8 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 private:
-    double m_mean;
-    double m_hwhm;
+    const double& m_mean;
+    const double& m_hwhm;
 };
 
 // ************************************************************************** //
@@ -151,6 +152,7 @@ private:
 class BA_CORE_API_ DistributionGaussian : public IDistribution1D
 {
 public:
+    DistributionGaussian(const std::vector<double> P);
     DistributionGaussian(double mean, double std_dev);
     DistributionGaussian();
 
@@ -172,8 +174,8 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 private:
-    double m_mean;
-    double m_std_dev;
+    const double& m_mean;
+    const double& m_std_dev;
 };
 
 // ************************************************************************** //
@@ -186,6 +188,7 @@ private:
 class BA_CORE_API_ DistributionLogNormal : public IDistribution1D
 {
 public:
+    DistributionLogNormal(const std::vector<double> P);
     DistributionLogNormal(double median, double scale_param);
     DistributionLogNormal() = delete;
 
@@ -210,8 +213,8 @@ public:
     virtual void setUnits(const std::string& units);
 
 private:
-    double m_median;
-    double m_scale_param;
+    const double& m_median;
+    const double& m_scale_param;
 };
 
 // ************************************************************************** //
@@ -224,6 +227,7 @@ private:
 class BA_CORE_API_ DistributionCosine : public IDistribution1D
 {
 public:
+    DistributionCosine(const std::vector<double> P);
     DistributionCosine(double mean, double sigma);
     DistributionCosine();
 
@@ -242,8 +246,8 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 private:
-    double m_mean;
-    double m_sigma;
+    const double& m_mean;
+    const double& m_sigma;
 };
 
 // ************************************************************************** //
@@ -256,6 +260,7 @@ private:
 class BA_CORE_API_ DistributionTrapezoid : public IDistribution1D
 {
 public:
+    DistributionTrapezoid(const std::vector<double> P);
     DistributionTrapezoid(double center, double left, double middle, double right);
     DistributionTrapezoid();
 
@@ -280,10 +285,10 @@ public:
 
 private:
     void adjustLimitsToNonZeroSamples(double& min, double& max, size_t nbr_samples) const;
-    double m_center;
-    double m_left;
-    double m_middle;
-    double m_right;
+    const double& m_center;
+    const double& m_left;
+    const double& m_middle;
+    const double& m_right;
 };
 
 #endif // BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H

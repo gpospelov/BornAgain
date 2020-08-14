@@ -101,10 +101,9 @@ Transform3D IdentityRotation::getTransform3D() const
 //! Constructor of rotation around x-axis
 //! @param angle: rotation angle around x-axis in radians
 RotationX::RotationX(const std::vector<double> P)
-    : IRotation({"XRotation",
-                 "class_tooltip",
-                 {{"Angle", "rad", "Angle around x axis", -INF, +INF, 0}}},
-                P),
+    : IRotation(
+        {"XRotation", "class_tooltip", {{"Angle", "rad", "Angle around x axis", -INF, +INF, 0}}},
+        P),
       m_angle(m_P[0])
 {
 }
@@ -123,10 +122,9 @@ Transform3D RotationX::getTransform3D() const
 //! Constructor of rotation around y-axis
 //! @param angle: rotation angle around y-axis in radians
 RotationY::RotationY(const std::vector<double> P)
-    : IRotation({"YRotation",
-                 "class_tooltip",
-                 {{"Angle", "rad", "Angle around y axis", -INF, +INF, 0}}},
-                P),
+    : IRotation(
+        {"YRotation", "class_tooltip", {{"Angle", "rad", "Angle around y axis", -INF, +INF, 0}}},
+        P),
       m_angle(m_P[0])
 {
 }
@@ -147,10 +145,9 @@ Transform3D RotationY::getTransform3D() const
 //! Constructor of rotation around z-axis
 //! @param angle: rotation angle around z-axis in radians
 RotationZ::RotationZ(const std::vector<double> P)
-    : IRotation({"ZRotation",
-                 "class_tooltip",
-                 {{"Angle", "rad", "Angle around z axis", -INF, +INF, 0}}},
-                P),
+    : IRotation(
+        {"ZRotation", "class_tooltip", {{"Angle", "rad", "Angle around z axis", -INF, +INF, 0}}},
+        P),
       m_angle(m_P[0])
 {
 }

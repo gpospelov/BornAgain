@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_FTDECAY1D_H
-#define BORNAGAIN_CORE_AGGREGATE_FTDECAY1D_H
+#ifndef BORNAGAIN_CORE_CORRELATIONS_FTDECAY1D_H
+#define BORNAGAIN_CORE_CORRELATIONS_FTDECAY1D_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Basics/MathConstants.h"
@@ -100,4 +100,4 @@ private:
     const double& m_eta;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_FTDECAY1D_H
+#endif // BORNAGAIN_CORE_CORRELATIONS_FTDECAY1D_H

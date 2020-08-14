@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H
-#define BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H
+#ifndef BORNAGAIN_CORE_EXPORT_ORDEREDMAP_H
+#define BORNAGAIN_CORE_EXPORT_ORDEREDMAP_H
 
 #include "Core/Basics/Assert.h"
 #include <iostream>
@@ -108,4 +108,4 @@ private:
     list_t m_list;
 };
 
-#endif // BORNAGAIN_CORE_TOOLS_ORDEREDMAP_H
+#endif // BORNAGAIN_CORE_EXPORT_ORDEREDMAP_H

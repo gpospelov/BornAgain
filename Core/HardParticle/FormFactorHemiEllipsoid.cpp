@@ -15,6 +15,7 @@
 #include "Core/HardParticle/FormFactorHemiEllipsoid.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
 
@@ -72,7 +73,7 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
         return M_TWOPI * R * W * H / 3.;
-    return M_TWOPI * m_integrator.integrate([&](double Z) { return Integrand(Z); }, 0., H);
+    return M_TWOPI * ComplexIntegrator().integrate([&](double Z) { return Integrand(Z); }, 0., H);
 }
 
 void FormFactorHemiEllipsoid::onChange()

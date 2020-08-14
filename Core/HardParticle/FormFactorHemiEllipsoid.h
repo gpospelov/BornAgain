@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHEMIELLIPSOID_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
-#include "Core/Tools/Integrator.h"
 
 //! An hemi ellipsoid,
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
@@ -53,7 +52,6 @@ private:
     const double& m_radius_y;
     const double& m_height;
     mutable cvector_t m_q;
-    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORHEMIELLIPSOID_H

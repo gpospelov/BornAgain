@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H
 
 #include "Core/Scattering/ISample.h"
-#include "Core/Tools/Integrator.h"
 #include "Core/Vector/Vectors3D.h"
 
 //! Pure virtual interface class that defines the peak shape of a Bragg peak.
@@ -164,7 +163,6 @@ private:
     double m_kappa_1, m_kappa_2;
     mutable double m_theta, m_phi;
     mutable kvector_t m_ux, m_uy, m_up;
-    mutable RealIntegrator m_integrator;
 };
 
 //! Class that implements a peak shape that is a convolution of a Mises-Fisher distribution
@@ -194,7 +192,6 @@ private:
     double m_kappa;
     mutable double m_theta, m_phi, m_qr;
     mutable kvector_t m_ux, m_uy, m_p;
-    mutable RealIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H

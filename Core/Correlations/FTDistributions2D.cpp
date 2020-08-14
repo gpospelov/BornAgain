@@ -16,6 +16,7 @@
 #include "Core/Basics/Algorithms.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
 
@@ -155,7 +156,7 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
     if (scaled_q < std::numeric_limits<double>::epsilon())
         return 1.0 - 3.0 * scaled_q * scaled_q / 40.0;
     // second part of the integrand: \f$u^2\cdot J_0(u)\f$
-    double integral = m_integrator.integrate(
+    double integral = RealIntegrator().integrate(
         [](double x) -> double { return x * x * MathFunctions::Bessel_J0(x); }, 0.0, scaled_q);
     return 6.0 * (MathFunctions::Bessel_J1c(scaled_q) - integral / scaled_q / scaled_q / scaled_q);
 }

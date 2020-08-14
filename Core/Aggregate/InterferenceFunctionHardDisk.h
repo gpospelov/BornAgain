@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONHARDDISK_H
 
 #include "Core/Aggregate/IInterferenceFunction.h"
-#include "Core/Tools/Integrator.h"
 
 //! Percus-Yevick hard disk interference function.
 //!
@@ -49,7 +48,6 @@ private:
     double m_density;
 
     mutable double m_q, m_c_zero, m_s2, m_packing;
-    mutable RealIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONHARDDISK_H

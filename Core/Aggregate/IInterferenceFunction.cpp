@@ -29,8 +29,6 @@ IInterferenceFunction::IInterferenceFunction(double position_var) : m_position_v
     registerParameter("PositionVariance", &m_position_var).setUnit("nm^2").setNonnegative();
 }
 
-IInterferenceFunction::~IInterferenceFunction() = default;
-
 // Default implementation of evaluate assumes no inner structure
 // It is only to be overriden in case of the presence of such inner structure. See for example
 // InterferenceFunction2DSuperLattice for such a case.

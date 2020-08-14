@@ -12116,7 +12116,6 @@ class IInterferenceFunction(ISample):
         else:
             _self = self
         _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
 
     def clone(self):
         r"""
@@ -12191,6 +12190,7 @@ class IInterferenceFunction(ISample):
     def iff_without_dw(self, q):
         r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
         return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IInterferenceFunction(self)

@@ -19,7 +19,6 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Correlations/IDistribution2DSampler.h"
 #include "Core/Parametrization/INode.h"
-#include "Core/Tools/Integrator.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
@@ -129,9 +128,6 @@ public:
 #ifndef SWIG
     std::unique_ptr<IDistribution2DSampler> createSampler() const final;
 #endif
-
-private:
-    mutable RealIntegrator m_integrator;
 };
 
 //! Two-dimensional Voigt distribution in Fourier space;

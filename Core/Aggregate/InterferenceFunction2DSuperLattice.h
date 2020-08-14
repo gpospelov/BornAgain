@@ -17,7 +17,6 @@
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Lattice/Lattice2D.h"
-#include "Core/Tools/Integrator.h"
 
 //! Interference function of a 2D superlattice with a configurable interference function for
 //! each lattice site.
@@ -68,7 +67,6 @@ private:
     mutable double m_qx;
     mutable double m_qy;
     mutable double m_xi;
-    mutable RealIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DSUPERLATTICE_H

@@ -16,6 +16,7 @@
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 
 #include <limits>
@@ -114,8 +115,8 @@ double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) co
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(mP_lattice->rotationAngle());
-    return m_integrator.integrate([&](double xi) -> double { return interferenceForXi(xi); }, 0.0,
-                                  M_TWOPI)
+    return RealIntegrator().integrate([&](double xi) -> double { return interferenceForXi(xi); },
+                                      0.0, M_TWOPI)
            / M_TWOPI;
 }
 

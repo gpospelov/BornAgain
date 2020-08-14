@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHEROID_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
-#include "Core/Tools/Integrator.h"
 
 //! A truncated spheroid.
 //! An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
@@ -58,7 +57,6 @@ private:
     const double& m_height_flattening;
     const double& m_dh;
     mutable cvector_t m_q;
-    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHEROID_H

@@ -14,8 +14,8 @@
 
 #include "Core/Correlations/IPeakShape.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
-
 #include <limits>
 
 namespace
@@ -252,8 +252,8 @@ double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_
     m_theta = std::acos(q.unit().dot(m_zenith));
     double pre_1 = FisherPrefactor(m_kappa_1);
     double pre_2 = MisesPrefactor(m_kappa_2);
-    double integral =
-        m_integrator.integrate([&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
+    double integral = RealIntegrator().integrate(
+        [&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * radial_part * pre_1 * pre_2 * integral;
 }
 
@@ -300,8 +300,8 @@ double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattic
     m_phi = std::acos(q_ortho.unit().dot(m_ux));
     m_theta = std::acos(q.unit().dot(m_zenith));
     double pre = MisesPrefactor(m_kappa);
-    double integral =
-        m_integrator.integrate([&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
+    double integral = RealIntegrator().integrate(
+        [&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * pre * integral;
 }
 

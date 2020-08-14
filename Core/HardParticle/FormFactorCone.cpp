@@ -16,6 +16,7 @@
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Shapes/DoubleEllipse.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
 
@@ -73,7 +74,7 @@ complex_t FormFactorCone::evaluate_for_q(cvector_t q) const
         return M_PI / 3. * (R * R * H + (R * R - R2 * R2) * (apex_height - H));
     } else {
         complex_t integral =
-            m_integrator.integrate([&](double Z) { return Integrand(Z); }, 0., m_height);
+            ComplexIntegrator().integrate([&](double Z) { return Integrand(Z); }, 0., m_height);
         return M_TWOPI * integral;
     }
 }

@@ -19,7 +19,6 @@
 #include "Core/Basics/Complex.h"
 #include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Lattice/Lattice2D.h"
-#include "Core/Tools/Integrator.h"
 #include <memory>
 
 class IFTDistribution2D;
@@ -91,7 +90,6 @@ private:
     double m_domain_sizes[2]; //!< Coherence domain sizes
     mutable double m_qx;
     mutable double m_qy;
-    mutable RealIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H

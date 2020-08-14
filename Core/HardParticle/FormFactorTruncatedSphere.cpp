@@ -16,6 +16,7 @@
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 #include "Fit/Tools/RealLimits.h"
 #include <limits>
@@ -76,8 +77,8 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const
                   - m_dh * m_dh * (3. * m_radius - m_dh));
     }
     // else
-    complex_t integral = m_integrator.integrate([&](double Z) { return Integrand(Z); },
-                                                m_radius - m_height, m_radius - m_dh);
+    complex_t integral = ComplexIntegrator().integrate([&](double Z) { return Integrand(Z); },
+                                                       m_radius - m_height, m_radius - m_dh);
     return M_TWOPI * integral * exp_I(q.z() * (m_height - m_radius));
 }
 

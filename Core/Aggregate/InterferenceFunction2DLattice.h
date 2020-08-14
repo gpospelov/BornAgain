@@ -19,7 +19,6 @@
 #include "Core/Correlations/FTDecay1D.h"
 #include "Core/Correlations/FTDecay2D.h"
 #include "Core/Lattice/Lattice2D.h"
-#include "Core/Tools/Integrator.h"
 
 //! Interference function of a 2D lattice.
 //! @ingroup interference
@@ -82,7 +81,6 @@ private:
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
     mutable double m_qx;
     mutable double m_qy;
-    mutable RealIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H

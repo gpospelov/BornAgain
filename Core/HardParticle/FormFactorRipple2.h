@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H
 
-#include "Core/HardParticle/ProfileRipple2.h"
+#include "Core/HardParticle/IProfileRipple.h"
 
 //! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating

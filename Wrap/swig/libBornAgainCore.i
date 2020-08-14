@@ -150,7 +150,6 @@
 #include "Core/HardParticle/FormFactorTruncatedCube.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
-#include "Core/HardParticle/Ripples.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/ChiSquaredModule.h"
@@ -406,8 +405,7 @@
 %include "Core/HardParticle/FormFactorPolyhedron.h"
 %include "Core/HardParticle/FormFactorPolyhedron.h"
 %include "Core/HardParticle/ProfileBar.h"
-%include "Core/HardParticle/ProfileRipple1.h"
-%include "Core/HardParticle/ProfileRipple2.h"
+%include "Core/HardParticle/IProfileRipple.h"
 
 %include "Core/HardParticle/FormFactorAnisoPyramid.h"
 %include "Core/HardParticle/FormFactorBox.h"
@@ -435,7 +433,6 @@
 %include "Core/HardParticle/FormFactorTruncatedCube.h"
 %include "Core/HardParticle/FormFactorTruncatedSphere.h"
 %include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
-%include "Core/HardParticle/Ripples.h"
 
 %include "Core/SoftParticle/FormFactorGauss.h"
 %include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"

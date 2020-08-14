@@ -15134,6 +15134,51 @@ class ProfileBar(IFormFactorBorn):
 # Register ProfileBar in _libBornAgainCore:
 _libBornAgainCore.ProfileBar_swigregister(ProfileBar)
 
+class IProfileRipple(IFormFactorBorn):
+    r"""Proxy of C++ IProfileRipple class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def getLength(self):
+        r"""getLength(IProfileRipple self) -> double"""
+        return _libBornAgainCore.IProfileRipple_getLength(self)
+
+    def getHeight(self):
+        r"""getHeight(IProfileRipple self) -> double"""
+        return _libBornAgainCore.IProfileRipple_getHeight(self)
+
+    def getWidth(self):
+        r"""getWidth(IProfileRipple self) -> double"""
+        return _libBornAgainCore.IProfileRipple_getWidth(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(IProfileRipple self) -> double
+        virtual double IFormFactor::radialExtension() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.IProfileRipple_radialExtension(self)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(IProfileRipple self, cvector_t q) -> complex_t
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.IProfileRipple_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_IProfileRipple
+
+# Register IProfileRipple in _libBornAgainCore:
+_libBornAgainCore.IProfileRipple_swigregister(IProfileRipple)
+
 class ProfileRipple1(IFormFactorBorn):
     r"""
 
@@ -17691,38 +17736,6 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 # Register FormFactorTruncatedSpheroid in _libBornAgainCore:
 _libBornAgainCore.FormFactorTruncatedSpheroid_swigregister(FormFactorTruncatedSpheroid)
 
-
-def factor_x_box(q, l):
-    r"""
-    factor_x_box(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_box(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_box(q, l)
-
-def factor_x_Gauss(q, l):
-    r"""
-    factor_x_Gauss(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_Gauss(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_Gauss(q, l)
-
-def factor_x_Lorentz(q, l):
-    r"""
-    factor_x_Lorentz(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_Lorentz(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_Lorentz(q, l)
-
-def profile_yz_cosine(qy, qz, width, height):
-    r"""profile_yz_cosine(complex_t qy, complex_t qz, double width, double height) -> complex_t"""
-    return _libBornAgainCore.profile_yz_cosine(qy, qz, width, height)
-
-def profile_yz_triangular(qy, qz, width, height, asymmetry):
-    r"""profile_yz_triangular(complex_t qy, complex_t qz, double width, double height, double asymmetry) -> complex_t"""
-    return _libBornAgainCore.profile_yz_triangular(qy, qz, width, height, asymmetry)
 class FormFactorGaussSphere(IFormFactorBorn):
     r"""Proxy of C++ FormFactorGaussSphere class."""
 

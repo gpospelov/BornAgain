@@ -8542,8 +8542,9 @@ class RotationX(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, angle):
+    def __init__(self, *args):
         r"""
+        __init__(RotationX self, vdouble1d_t P) -> RotationX
         __init__(RotationX self, double angle) -> RotationX
         RotationX::RotationX(double angle)
 
@@ -8556,7 +8557,7 @@ class RotationX(IRotation):
         rotation angle around x-axis in radians 
 
         """
-        _libBornAgainCore.RotationX_swiginit(self, _libBornAgainCore.new_RotationX(angle))
+        _libBornAgainCore.RotationX_swiginit(self, _libBornAgainCore.new_RotationX(*args))
 
     def clone(self):
         r"""
@@ -8623,8 +8624,9 @@ class RotationY(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, angle):
+    def __init__(self, *args):
         r"""
+        __init__(RotationY self, vdouble1d_t P) -> RotationY
         __init__(RotationY self, double angle) -> RotationY
         RotationY::RotationY(double angle)
 
@@ -8637,7 +8639,7 @@ class RotationY(IRotation):
         rotation angle around y-axis in radians 
 
         """
-        _libBornAgainCore.RotationY_swiginit(self, _libBornAgainCore.new_RotationY(angle))
+        _libBornAgainCore.RotationY_swiginit(self, _libBornAgainCore.new_RotationY(*args))
 
     def clone(self):
         r"""
@@ -8704,8 +8706,9 @@ class RotationZ(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, angle):
+    def __init__(self, *args):
         r"""
+        __init__(RotationZ self, vdouble1d_t P) -> RotationZ
         __init__(RotationZ self, double angle) -> RotationZ
         RotationZ::RotationZ(double angle=0.0)
 
@@ -8718,7 +8721,7 @@ class RotationZ(IRotation):
         rotation angle around z-axis in radians 
 
         """
-        _libBornAgainCore.RotationZ_swiginit(self, _libBornAgainCore.new_RotationZ(angle))
+        _libBornAgainCore.RotationZ_swiginit(self, _libBornAgainCore.new_RotationZ(*args))
 
     def clone(self):
         r"""
@@ -8785,8 +8788,9 @@ class RotationEuler(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, alpha, beta, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(RotationEuler self, vdouble1d_t P) -> RotationEuler
         __init__(RotationEuler self, double alpha, double beta, double gamma) -> RotationEuler
         RotationEuler::RotationEuler(double alpha, double beta, double gamma)
 
@@ -8805,7 +8809,7 @@ class RotationEuler(IRotation):
         third Euler angle in radians 
 
         """
-        _libBornAgainCore.RotationEuler_swiginit(self, _libBornAgainCore.new_RotationEuler(alpha, beta, gamma))
+        _libBornAgainCore.RotationEuler_swiginit(self, _libBornAgainCore.new_RotationEuler(*args))
 
     def clone(self):
         r"""

@@ -404,7 +404,7 @@
 
 %include "Core/HardParticle/FormFactorPolyhedron.h"
 %include "Core/HardParticle/FormFactorPolyhedron.h"
-%include "Core/HardParticle/ProfileBar.h"
+%include "Core/HardParticle/IProfileBar.h"
 %include "Core/HardParticle/IProfileRipple.h"
 
 %include "Core/HardParticle/FormFactorAnisoPyramid.h"

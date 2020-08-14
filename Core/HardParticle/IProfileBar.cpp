@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticle/ProfileBar.cpp
+//! @file      Core/HardParticle/IProfileBar.cpp
 //! @brief     Implements class ProfileBar.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/HardParticle/ProfileBar.h"
+#include "Core/HardParticle/IProfileBar.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
@@ -24,7 +24,7 @@
 //! @param length: length of the rectangular base in nanometers
 //! @param width: width of the rectangular base in nanometers
 //! @param height: height of the ripple in nanometers
-ProfileBar::ProfileBar(double length, double width, double height)
+IProfileBar::IProfileBar(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
     check_initialization();
@@ -34,12 +34,12 @@ ProfileBar::ProfileBar(double length, double width, double height)
     onChange();
 }
 
-bool ProfileBar::check_initialization() const
+bool IProfileBar::check_initialization() const
 {
     bool result(true);
     if (m_height <= 0.0 || m_width <= 0.0 || m_length <= 0.0) {
         std::ostringstream ostr;
-        ostr << "ProfileBar() -> Error in class initialization with parameters ";
+        ostr << "IProfileBar() -> Error in class initialization with parameters ";
         ostr << " height:" << m_height;
         ostr << " width:" << m_width;
         ostr << " length:" << m_length << "\n\n";
@@ -49,13 +49,13 @@ bool ProfileBar::check_initialization() const
     return result;
 }
 
-double ProfileBar::radialExtension() const
+double IProfileBar::radialExtension() const
 {
     return (m_width + m_length) / 4.0;
 }
 
 //! Complex form factor.
-complex_t ProfileBar::factor_yz(complex_t qy, complex_t qz) const
+complex_t IProfileBar::factor_yz(complex_t qy, complex_t qz) const
 {
     const complex_t qyWdiv2 = m_width * qy / 2.0;
     const complex_t qzHdiv2 = m_height * qz / 2.0;
@@ -64,7 +64,7 @@ complex_t ProfileBar::factor_yz(complex_t qy, complex_t qz) const
            * MathFunctions::sinc(qzHdiv2);
 }
 
-void ProfileBar::onChange()
+void IProfileBar::onChange()
 {
     mP_shape.reset(new Box(m_length, m_width, m_height));
 }

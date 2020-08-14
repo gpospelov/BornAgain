@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticle/ProfileBar.h
-//! @brief     Defines class ProfileBar.
+//! @file      Core/HardParticle/IProfileBar.h
+//! @brief     Defines class IProfileBar.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,10 +20,10 @@
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
-class BA_CORE_API_ ProfileBar : public IFormFactorBorn
+class BA_CORE_API_ IProfileBar : public IFormFactorBorn
 {
 public:
-    ProfileBar(double length, double width, double height);
+    IProfileBar(double length, double width, double height);
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }

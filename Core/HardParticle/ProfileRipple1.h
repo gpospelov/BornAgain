@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_HARDPARTICLE_PROFILERIPPLE1_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
-#include "Core/Tools/Integrator.h"
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 

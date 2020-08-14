@@ -14,8 +14,8 @@
 
 #include "Core/HardParticle/ProfileRipple1.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/HardParticle/Ripples.h"
 #include "Core/Shapes/RippleCosine.h" // from Shapes/
 #include "Core/Tools/MathFunctions.h"
 #include "Fit/Tools/RealLimits.h"
@@ -41,28 +41,7 @@ double ProfileRipple1::radialExtension() const
 //! Complex form factor.
 complex_t ProfileRipple1::factor_yz(complex_t qy, complex_t qz) const
 {
-    complex_t factor = m_width / M_PI;
-
-    // analytical expressions for some particular cases
-    if (qz == 0.) {
-        if (qy == 0.)
-            return factor * M_PI_2 * m_height;
-        complex_t aaa = qy * m_width / (M_TWOPI);
-        complex_t aaa2 = aaa * aaa;
-        if (aaa2 == 1.)
-            return factor * M_PI_4 * m_height;
-        return factor * M_PI_2 * m_height * MathFunctions::sinc(qy * m_width * 0.5) / (1.0 - aaa2);
-    }
-
-    // numerical integration otherwise
-    const complex_t ay = qy * m_width / M_TWOPI;
-    const complex_t az = complex_t(0, 1) * qz * (m_height / 2);
-
-    const auto integrand = [&](double u) -> complex_t {
-        return sin(u) * exp(az * std::cos(u)) * (ay == 0. ? u : sin(ay * u) / ay);
-    };
-    complex_t integral = ComplexIntegrator().integrate(integrand, 0, M_PI);
-    return factor * integral * exp(az) * (m_height / 2);
+    return ripples::profile_yz_cosine(qy, qz, m_width, m_height);
 }
 
 void ProfileRipple1::onChange()

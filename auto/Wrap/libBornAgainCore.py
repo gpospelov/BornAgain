@@ -17715,6 +17715,14 @@ def factor_x_Lorentz(q, l):
 
     """
     return _libBornAgainCore.factor_x_Lorentz(q, l)
+
+def profile_yz_cosine(qy, qz, width, height):
+    r"""profile_yz_cosine(complex_t qy, complex_t qz, double width, double height) -> complex_t"""
+    return _libBornAgainCore.profile_yz_cosine(qy, qz, width, height)
+
+def profile_yz_triangular(qy, qz, width, height, asymmetry):
+    r"""profile_yz_triangular(complex_t qy, complex_t qz, double width, double height, double asymmetry) -> complex_t"""
+    return _libBornAgainCore.profile_yz_triangular(qy, qz, width, height, asymmetry)
 class FormFactorGaussSphere(IFormFactorBorn):
     r"""Proxy of C++ FormFactorGaussSphere class."""
 

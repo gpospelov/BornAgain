@@ -155,8 +155,7 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
         InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 30.0 * Units::degree)};
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI,
-                                30.0 * Units::degree);
+                                100.0 * Units::nanometer / 2.0 / M_PI, 30.0 * Units::degree);
     P_interference_function->setDecayFunction(pdf);
 
     ParticleLayout particle_layout;

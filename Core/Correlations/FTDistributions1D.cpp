@@ -29,7 +29,7 @@ const double CosineDistributionFactor = 1.0 / 3.0 - 2.0 / M_PI / M_PI;
 
 IFTDistribution1D::IFTDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(nodeMetaUnion({{"Omega", "nm", "Half-width", 0, INF, 1.}}, meta), PValues),
-            m_omega(m_P[0])
+      m_omega(m_P[0])
 {
 }
 

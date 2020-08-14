@@ -18,7 +18,7 @@
 #include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/Tools/Integrator.h"
 
-//! Base class for form factors with a cosine ripple profile in the yz plane.
+//! Base class for form factors with a triangular ripple profile in the yz plane.
 
 class BA_CORE_API_ ProfileRipple2 : public IFormFactorBorn
 {

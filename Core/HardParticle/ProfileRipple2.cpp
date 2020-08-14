@@ -15,6 +15,7 @@
 #include "Core/HardParticle/ProfileRipple2.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/HardParticle/Ripples.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/RippleSawtooth.h" // from Shapes/
 #include "Core/Tools/MathFunctions.h"
@@ -42,32 +43,7 @@ double ProfileRipple2::radialExtension() const
 //! Complex form factor.
 complex_t ProfileRipple2::factor_yz(complex_t qy, complex_t qz) const
 {
-    complex_t result;
-    const complex_t factor = m_height * m_width;
-    const complex_t qyW2 = qy * m_width * 0.5;
-    const complex_t qyd = qy * m_asymmetry;
-    const complex_t qzH = qz * m_height;
-    const complex_t a = qzH + qyd;
-    // dimensionless scale factors
-    const double a_scale = std::abs(a);
-    const double w_scale = std::abs(qyW2);
-
-    if (w_scale < 1.e-5) {    // |q_y*W| << 1
-        if (a_scale < 1e-5) { // |q_y*W| << 1 && |q_z*H + q_y*d| << 1
-            // relative error is O((q_y*W)^2) and O((q_z*H + q_y*d)^2)
-            result = exp_I(-qyd) * (0.5 + mul_I(a) / 6.);
-        } else {
-            // relative error is O((q_y*W)^2)
-            result = exp_I(-qyd) * (1.0 + mul_I(a) - exp_I(a)) / (a * a);
-        }
-    } else {
-        const complex_t gamma_p = (a + qyW2) * 0.5;
-        const complex_t gamma_m = (a - qyW2) * 0.5;
-        result = exp_I(gamma_m) * MathFunctions::sinc(gamma_p)
-                 - exp_I(gamma_p) * MathFunctions::sinc(gamma_m);
-        result = mul_I(exp_I(-qyd) * result / (qyW2 * 2.));
-    }
-    return factor * result;
+    return ripples::profile_yz_triangular(qy, qz, m_width, m_height, m_asymmetry);
 }
 
 void ProfileRipple2::onChange()

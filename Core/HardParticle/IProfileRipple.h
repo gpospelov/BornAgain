@@ -42,6 +42,18 @@ protected:
     virtual complex_t factor_yz(complex_t qy, complex_t qz) const = 0;
 };
 
+//! Base class for form factors with a rectangular ripple (bar) profile in the yz plane.
+
+class BA_CORE_API_ ProfileRectangularRipple : public IProfileRipple
+{
+public:
+    ProfileRectangularRipple(const NodeMeta& meta, const std::vector<double>& PValues);
+
+private:
+    virtual void onChange() override final;
+    complex_t factor_yz(complex_t qy, complex_t qz) const final;
+};
+
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
 class BA_CORE_API_ ProfileRipple1 : public IProfileRipple

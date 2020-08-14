@@ -14,6 +14,7 @@
 
 #include "Core/HardParticle/IProfileRipple.h"
 #include "Core/HardParticle/Ripples.h"
+#include "Core/Shapes/Box.h"
 #include "Core/Shapes/RippleCosine.h"
 #include "Core/Shapes/RippleSawtooth.h"
 
@@ -39,6 +40,27 @@ double IProfileRipple::radialExtension() const
 complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
 {
     return factor_x(q.x()) * factor_yz(q.y(), q.z());
+}
+
+// ************************************************************************** //
+// interface ProfileRectangularRipple
+// ************************************************************************** //
+
+ProfileRectangularRipple::ProfileRectangularRipple(const NodeMeta& meta, const std::vector<double>& PValues)
+    : IProfileRipple(meta, PValues)
+{
+    onChange();
+}
+
+//! Complex form factor.
+complex_t ProfileRectangularRipple::factor_yz(complex_t qy, complex_t qz) const
+{
+    return ripples::profile_yz_bar(qy, qz, m_width, m_height);
+}
+
+void ProfileRectangularRipple::onChange()
+{
+    mP_shape.reset(new Box(m_length, m_width, m_height));
 }
 
 // ************************************************************************** //

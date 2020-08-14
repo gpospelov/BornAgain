@@ -15,11 +15,11 @@
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBAR_H
 
-#include "Core/HardParticle/IProfileBar.h"
+#include "Core/HardParticle/IProfileRipple.h"
 
 //! The form factor of an elongated bar, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorBarGauss : public IProfileBar
+class BA_CORE_API_ FormFactorBarGauss : public ProfileRectangularRipple
 {
 public:
     FormFactorBarGauss(const std::vector<double> P);
@@ -33,7 +33,7 @@ private:
 
 //! The form factor of an elongated, with Lorentz form factor in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorBarLorentz : public IProfileBar
+class BA_CORE_API_ FormFactorBarLorentz : public ProfileRectangularRipple
 {
 public:
     FormFactorBarLorentz(const std::vector<double> P);

@@ -15070,51 +15070,6 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
 # Register FormFactorPolygonalSurface in _libBornAgainCore:
 _libBornAgainCore.FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
 
-class IProfileBar(IFormFactorBorn):
-    r"""Proxy of C++ IProfileBar class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def getLength(self):
-        r"""getLength(IProfileBar self) -> double"""
-        return _libBornAgainCore.IProfileBar_getLength(self)
-
-    def getHeight(self):
-        r"""getHeight(IProfileBar self) -> double"""
-        return _libBornAgainCore.IProfileBar_getHeight(self)
-
-    def getWidth(self):
-        r"""getWidth(IProfileBar self) -> double"""
-        return _libBornAgainCore.IProfileBar_getWidth(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(IProfileBar self) -> double
-        virtual double IFormFactor::radialExtension() const =0
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.IProfileBar_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(IProfileBar self, cvector_t q) -> complex_t
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.IProfileBar_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_IProfileBar
-
-# Register IProfileBar in _libBornAgainCore:
-_libBornAgainCore.IProfileBar_swigregister(IProfileBar)
-
 class IProfileRipple(IFormFactorBorn):
     r"""Proxy of C++ IProfileRipple class."""
 
@@ -15159,6 +15114,19 @@ class IProfileRipple(IFormFactorBorn):
 
 # Register IProfileRipple in _libBornAgainCore:
 _libBornAgainCore.IProfileRipple_swigregister(IProfileRipple)
+
+class ProfileRectangularRipple(IProfileRipple):
+    r"""Proxy of C++ ProfileRectangularRipple class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ProfileRectangularRipple
+
+# Register ProfileRectangularRipple in _libBornAgainCore:
+_libBornAgainCore.ProfileRectangularRipple_swigregister(ProfileRectangularRipple)
 
 class ProfileRipple1(IProfileRipple):
     r"""

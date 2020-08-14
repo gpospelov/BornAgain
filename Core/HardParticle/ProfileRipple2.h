@@ -48,8 +48,6 @@ protected:
 
 private:
     complex_t factor_yz(complex_t qy, complex_t qz) const;
-    bool check_initialization() const;
-    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_PROFILERIPPLE2_H

@@ -27,26 +27,10 @@
 ProfileRipple1::ProfileRipple1(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
-    check_initialization();
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
     registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
-}
-
-bool ProfileRipple1::check_initialization() const
-{
-    bool result(true);
-    if (m_height <= 0.0 || m_width <= 0.0 || m_length <= 0.0) {
-        std::ostringstream ostr;
-        ostr << "ProfileRipple1() -> Error in class initialization with parameters ";
-        ostr << " height:" << m_height;
-        ostr << " width:" << m_width;
-        ostr << " length:" << m_length << "\n\n";
-        ostr << "Check for 'height>0.0 && width>0.0 && length>0.0' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
 }
 
 double ProfileRipple1::radialExtension() const
@@ -77,7 +61,7 @@ complex_t ProfileRipple1::factor_yz(complex_t qy, complex_t qz) const
     const auto integrand = [&](double u) -> complex_t {
         return sin(u) * exp(az * std::cos(u)) * (ay == 0. ? u : sin(ay * u) / ay);
     };
-    complex_t integral = m_integrator.integrate(integrand, 0, M_PI);
+    complex_t integral = ComplexIntegrator().integrate(integrand, 0, M_PI);
     return factor * integral * exp(az) * (m_height / 2);
 }
 

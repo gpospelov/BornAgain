@@ -27,27 +27,11 @@
 ProfileRipple2::ProfileRipple2(double length, double width, double height, double asymmetry)
     : m_length(length), m_width(width), m_height(height), m_asymmetry(asymmetry)
 {
-    check_initialization();
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
     registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     registerParameter("AsymmetryLength", &m_asymmetry).setUnit("nm");
     onChange();
-}
-
-bool ProfileRipple2::check_initialization() const
-{
-    bool result(true);
-    if (m_height <= 0.0 || m_width <= 0.0 || m_length <= 0.0) {
-        std::ostringstream ostr;
-        ostr << "ProfileRipple2() -> Error in class initialization with parameters ";
-        ostr << " height:" << m_height;
-        ostr << " width:" << m_width;
-        ostr << " length:" << m_length << "\n\n";
-        ostr << "Check for 'height>0.0 && width>0.0 && length>0.0' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
 }
 
 double ProfileRipple2::radialExtension() const

@@ -22,6 +22,7 @@
 class BA_CORE_API_ FormFactorRipple2Box : public ProfileRipple2
 {
 public:
+    FormFactorRipple2Box(const std::vector<double> P);
     FormFactorRipple2Box(double length, double width, double height, double asymmetry);
     FormFactorRipple2Box* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
@@ -35,6 +36,7 @@ private:
 class BA_CORE_API_ FormFactorRipple2Gauss : public ProfileRipple2
 {
 public:
+    FormFactorRipple2Gauss(const std::vector<double> P);
     FormFactorRipple2Gauss(double length, double width, double height, double asymmetry);
     FormFactorRipple2Gauss* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
@@ -48,6 +50,7 @@ private:
 class BA_CORE_API_ FormFactorRipple2Lorentz : public ProfileRipple2
 {
 public:
+    FormFactorRipple2Lorentz(const std::vector<double> P);
     FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry);
     FormFactorRipple2Lorentz* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;

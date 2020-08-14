@@ -22,7 +22,7 @@
 class BA_CORE_API_ IProfileRipple : public IFormFactorBorn
 {
 public:
-    IProfileRipple(double length, double width, double height);
+    IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
@@ -33,9 +33,9 @@ public:
     complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
-    double m_length;
-    double m_width;
-    double m_height;
+    const double& m_length;
+    const double& m_width;
+    const double& m_height;
 
     virtual void onChange() override = 0;
     virtual complex_t factor_x(complex_t qx) const = 0;
@@ -47,7 +47,7 @@ protected:
 class BA_CORE_API_ ProfileRipple1 : public IProfileRipple
 {
 public:
-    ProfileRipple1(double length, double width, double height);
+    ProfileRipple1(const NodeMeta& meta, const std::vector<double>& PValues);
 
 private:
     virtual void onChange() override final;
@@ -59,12 +59,12 @@ private:
 class BA_CORE_API_ ProfileRipple2 : public IProfileRipple
 {
 public:
-    ProfileRipple2(double length, double width, double height, double asymmetry);
+    ProfileRipple2(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double getAsymmetry() const { return m_asymmetry; }
 
 protected:
-    double m_asymmetry;
+    const double& m_asymmetry;
 
 private:
     virtual void onChange() override final;

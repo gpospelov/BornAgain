@@ -14,7 +14,6 @@
 
 #include "Core/HardParticle/IProfileRipple.h"
 #include "Core/HardParticle/Ripples.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/RippleCosine.h"
 #include "Core/Shapes/RippleSawtooth.h"
 
@@ -22,16 +21,14 @@
 // interface IProfileRipple
 // ************************************************************************** //
 
-//! @brief Constructor of cosine ripple.
-//! @param length: length of the rectangular base in nanometers
-//! @param width: width of the rectangular base in nanometers
-//! @param height: height of the ripple in nanometers
-IProfileRipple::IProfileRipple(double length, double width, double height)
-    : m_length(length), m_width(width), m_height(height)
+IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues)
+    : IFormFactorBorn(nodeMetaUnion({{"Length", "nm", "Characteristic length", 0, INF, 1.},
+                           {"Width", "nm", "Width", 0, INF, 1.},
+                           {"Height", "nm", "Maximum height", 0, INF, 1.}},
+            meta),
+            PValues),
+      m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])
 {
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
 }
 
 double IProfileRipple::radialExtension() const
@@ -48,12 +45,8 @@ complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
 // interface ProfileRipple1
 // ************************************************************************** //
 
-//! @brief Constructor of cosine ripple.
-//! @param length: length of the rectangular base in nanometers
-//! @param width: width of the rectangular base in nanometers
-//! @param height: height of the ripple in nanometers
-ProfileRipple1::ProfileRipple1(double length, double width, double height)
-    : IProfileRipple(length, width, height)
+ProfileRipple1::ProfileRipple1(const NodeMeta& meta, const std::vector<double>& PValues)
+    : IProfileRipple(meta, PValues)
 {
     onChange();
 }
@@ -73,14 +66,12 @@ void ProfileRipple1::onChange()
 // interface ProfileRipple2
 // ************************************************************************** //
 
-//! @brief Constructor of triangular ripple.
-//! @param length: length of the rectangular base in nanometers
-//! @param width: width of the rectangular base in nanometers
-//! @param height: height of the ripple in nanometers
-ProfileRipple2::ProfileRipple2(double length, double width, double height, double asymmetry)
-    : IProfileRipple(length, width, height), m_asymmetry(asymmetry)
+ProfileRipple2::ProfileRipple2(const NodeMeta& meta, const std::vector<double>& PValues)
+    : IProfileRipple(nodeMetaUnion({{"AsymmetryLength", "nm", "Asymmetry of width", -INF, INF, 0.}},
+                                   meta),
+            PValues),
+      m_asymmetry(m_P[3])
 {
-    registerParameter("AsymmetryLength", &m_asymmetry).setUnit("nm");
     onChange();
 }
 

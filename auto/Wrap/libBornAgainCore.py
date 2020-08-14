@@ -17015,13 +17015,14 @@ class FormFactorRipple1Box(ProfileRipple1):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorRipple1Box self, vdouble1d_t P) -> FormFactorRipple1Box
         __init__(FormFactorRipple1Box self, double length, double width, double height) -> FormFactorRipple1Box
         FormFactorRipple1Box::FormFactorRipple1Box(double length, double width, double height)
 
         """
-        _libBornAgainCore.FormFactorRipple1Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Box(length, width, height))
+        _libBornAgainCore.FormFactorRipple1Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Box(*args))
 
     def clone(self):
         r"""
@@ -17060,13 +17061,14 @@ class FormFactorRipple1Gauss(ProfileRipple1):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorRipple1Gauss self, vdouble1d_t P) -> FormFactorRipple1Gauss
         __init__(FormFactorRipple1Gauss self, double length, double width, double height) -> FormFactorRipple1Gauss
         FormFactorRipple1Gauss::FormFactorRipple1Gauss(double length, double width, double height)
 
         """
-        _libBornAgainCore.FormFactorRipple1Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Gauss(length, width, height))
+        _libBornAgainCore.FormFactorRipple1Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Gauss(*args))
 
     def clone(self):
         r"""
@@ -17105,13 +17107,14 @@ class FormFactorRipple1Lorentz(ProfileRipple1):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorRipple1Lorentz self, vdouble1d_t P) -> FormFactorRipple1Lorentz
         __init__(FormFactorRipple1Lorentz self, double length, double width, double height) -> FormFactorRipple1Lorentz
         FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(double length, double width, double height)
 
         """
-        _libBornAgainCore.FormFactorRipple1Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Lorentz(length, width, height))
+        _libBornAgainCore.FormFactorRipple1Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Lorentz(*args))
 
     def clone(self):
         r"""
@@ -17150,13 +17153,14 @@ class FormFactorRipple2Box(ProfileRipple2):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymmetry):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorRipple2Box self, vdouble1d_t P) -> FormFactorRipple2Box
         __init__(FormFactorRipple2Box self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Box
         FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height, double asymmetry)
 
         """
-        _libBornAgainCore.FormFactorRipple2Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Box(length, width, height, asymmetry))
+        _libBornAgainCore.FormFactorRipple2Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Box(*args))
 
     def clone(self):
         r"""
@@ -17195,13 +17199,14 @@ class FormFactorRipple2Gauss(ProfileRipple2):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymmetry):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorRipple2Gauss self, vdouble1d_t P) -> FormFactorRipple2Gauss
         __init__(FormFactorRipple2Gauss self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Gauss
         FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height, double asymmetry)
 
         """
-        _libBornAgainCore.FormFactorRipple2Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Gauss(length, width, height, asymmetry))
+        _libBornAgainCore.FormFactorRipple2Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Gauss(*args))
 
     def clone(self):
         r"""
@@ -17240,13 +17245,14 @@ class FormFactorRipple2Lorentz(ProfileRipple2):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, asymmetry):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorRipple2Lorentz self, vdouble1d_t P) -> FormFactorRipple2Lorentz
         __init__(FormFactorRipple2Lorentz self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Lorentz
         FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry)
 
         """
-        _libBornAgainCore.FormFactorRipple2Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Lorentz(length, width, height, asymmetry))
+        _libBornAgainCore.FormFactorRipple2Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Lorentz(*args))
 
     def clone(self):
         r"""

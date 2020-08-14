@@ -18551,13 +18551,14 @@ class ConstantBackground(IBackground):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, background_value):
+    def __init__(self, *args):
         r"""
+        __init__(ConstantBackground self, vdouble1d_t P) -> ConstantBackground
         __init__(ConstantBackground self, double background_value) -> ConstantBackground
         ConstantBackground::ConstantBackground(double background_value)
 
         """
-        _libBornAgainCore.ConstantBackground_swiginit(self, _libBornAgainCore.new_ConstantBackground(background_value))
+        _libBornAgainCore.ConstantBackground_swiginit(self, _libBornAgainCore.new_ConstantBackground(*args))
 
     def clone(self):
         r"""
@@ -18610,14 +18611,14 @@ class PoissonNoiseBackground(IBackground):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
+        __init__(PoissonNoiseBackground self, vdouble1d_t P) -> PoissonNoiseBackground
         __init__(PoissonNoiseBackground self) -> PoissonNoiseBackground
         PoissonNoiseBackground::PoissonNoiseBackground()
 
         """
-        _libBornAgainCore.PoissonNoiseBackground_swiginit(self, _libBornAgainCore.new_PoissonNoiseBackground())
-    __swig_destroy__ = _libBornAgainCore.delete_PoissonNoiseBackground
+        _libBornAgainCore.PoissonNoiseBackground_swiginit(self, _libBornAgainCore.new_PoissonNoiseBackground(*args))
 
     def clone(self):
         r"""
@@ -18644,6 +18645,7 @@ class PoissonNoiseBackground(IBackground):
 
         """
         return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, intensity)
+    __swig_destroy__ = _libBornAgainCore.delete_PoissonNoiseBackground
 
 # Register PoissonNoiseBackground in _libBornAgainCore:
 _libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)

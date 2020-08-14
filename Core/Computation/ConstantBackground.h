@@ -24,6 +24,7 @@
 class BA_CORE_API_ ConstantBackground : public IBackground
 {
 public:
+    ConstantBackground(const std::vector<double> P);
     ConstantBackground(double background_value);
 
     ConstantBackground* clone() const override final;
@@ -35,7 +36,7 @@ public:
     double addBackGround(double intensity) const override final;
 
 private:
-    double m_background_value;
+    const double& m_background_value;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_CONSTANTBACKGROUND_H

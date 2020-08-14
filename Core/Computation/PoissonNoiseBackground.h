@@ -25,7 +25,6 @@ class BA_CORE_API_ PoissonNoiseBackground : public IBackground
 {
 public:
     PoissonNoiseBackground();
-    ~PoissonNoiseBackground();
     PoissonNoiseBackground* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }

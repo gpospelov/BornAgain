@@ -76,7 +76,7 @@ double Cauchy3D(double q2, double domainsize)
 } // namespace
 
 // ************************************************************************** //
-// class IPeakShape
+// interface IPeakShape
 // ************************************************************************** //
 
 IPeakShape::IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues)

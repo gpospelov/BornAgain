@@ -21,6 +21,7 @@
 #include "Core/Parametrization/INode.h"
 #include "Core/Tools/Integrator.h"
 
+
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
 
@@ -59,6 +60,7 @@ protected:
     double m_gamma;
 };
 
+
 //! Two-dimensional Cauchy distribution in Fourier space;
 //! corresponds to a normalized exp(-r) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
@@ -76,6 +78,7 @@ public:
     std::unique_ptr<IDistribution2DSampler> createSampler() const final;
 #endif
 };
+
 
 //! Two-dimensional Gauss distribution in Fourier space;
 //! corresponds to normalized exp(-r^2/2) in real space
@@ -95,6 +98,7 @@ public:
 #endif
 };
 
+
 //! Two-dimensional gate distribution in Fourier space;
 //! corresponds to normalized constant if r<1 (and 0 otherwise) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
@@ -112,6 +116,7 @@ public:
     std::unique_ptr<IDistribution2DSampler> createSampler() const final;
 #endif
 };
+
 
 //! Two-dimensional cone distribution in Fourier space;
 //! corresponds to 1-r if r<1 (and 0 otherwise) in real space
@@ -133,6 +138,7 @@ public:
 private:
     mutable RealIntegrator m_integrator;
 };
+
 
 //! Two-dimensional Voigt distribution in Fourier space;
 //! corresponds to eta*Gauss + (1-eta)*Cauchy

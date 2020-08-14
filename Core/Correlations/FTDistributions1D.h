@@ -19,6 +19,7 @@
 #include "Core/Correlations/IDistribution1DSampler.h"
 #include "Core/Parametrization/INode.h"
 
+
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
 //! @ingroup distribution_internal
@@ -51,6 +52,7 @@ protected:
     double m_omega;
 };
 
+
 //! Exponential IFTDistribution1D exp(-|omega*x|);
 //! its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
 //! @ingroup distributionFT
@@ -69,6 +71,7 @@ public:
     std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
+
 
 //! Gaussian IFTDistribution1D;
 //! its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
@@ -89,6 +92,7 @@ public:
 #endif
 };
 
+
 //! Square gate IFTDistribution1D;
 //! its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
 //! @ingroup distributionFT
@@ -107,6 +111,7 @@ public:
     std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
+
 
 //! Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise];
 //! its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
@@ -127,6 +132,7 @@ public:
 #endif
 };
 
+
 //! IFTDistribution1D consisting of one cosine wave
 //! [1+cos(pi*x/omega) if |x|<omega, and 0 otherwise];
 //! its Fourier transform evaluate(q) starts at evaluate(0)=1.
@@ -146,6 +152,7 @@ public:
     std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
+
 
 //! IFTDistribution1D that provides a Fourier transform evaluate(q) in form
 //! of a pseudo-Voigt decay function eta*Gauss + (1-eta)*Cauchy, with both components

@@ -23,10 +23,9 @@
 
 using algo::concat;
 
-//! Constructor of two-dimensional probability distribution.
-//! @param omega_x: half-width of the distribution along its x-axis in nanometers
-//! @param omega_y: half-width of the distribution along its y-axis in nanometers
-//! @param gamma: angle in direct space between first lattice vector and x-axis of the distribution
+// ************************************************************************** //
+// interface IFTDistribution1D
+// ************************************************************************** //
 
 IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma)
     : m_omega_x(omega_x), m_omega_y(omega_y), m_gamma(gamma)
@@ -52,6 +51,10 @@ double IFTDistribution2D::sumsq(double qx, double qy) const
     return qx * qx * m_omega_x * m_omega_x + qy * qy * m_omega_y * m_omega_y;
 }
 
+// ************************************************************************** //
+// class FTDistribution2DCauchy
+// ************************************************************************** //
+
 FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
@@ -72,6 +75,10 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() 
 {
     return std::make_unique<Distribution2DCauchySampler>(m_omega_x, m_omega_y);
 }
+
+// ************************************************************************** //
+// class FTDistribution2DGauss
+// ************************************************************************** //
 
 FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
@@ -94,6 +101,10 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() c
     return std::make_unique<Distribution2DGaussSampler>(m_omega_x, m_omega_y);
 }
 
+// ************************************************************************** //
+// class FTDistribution2DGate
+// ************************************************************************** //
+
 FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
@@ -115,6 +126,10 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() co
 {
     return std::make_unique<Distribution2DGateSampler>(m_omega_x, m_omega_y);
 }
+
+// ************************************************************************** //
+// class FTDistribution2DCone
+// ************************************************************************** //
 
 FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
@@ -142,6 +157,10 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() co
 {
     return std::make_unique<Distribution2DConeSampler>(m_omega_x, m_omega_y);
 }
+
+// ************************************************************************** //
+// class FTDistribution2DVoigt
+// ************************************************************************** //
 
 //! Constructor of two-dimensional pseudo-Voigt probability distribution.
 //! @param omega_x: half-width of the distribution along its x-axis in nanometers

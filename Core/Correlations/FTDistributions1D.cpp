@@ -25,6 +25,10 @@ namespace
 const double CosineDistributionFactor = 1.0 / 3.0 - 2.0 / M_PI / M_PI;
 }
 
+// ************************************************************************** //
+// interface IFTDistribution1D
+// ************************************************************************** //
+
 IFTDistribution1D::IFTDistribution1D(double omega) : m_omega(omega)
 {
     registerParameter("Omega", &m_omega);
@@ -34,6 +38,10 @@ IFTDistribution1D::IFTDistribution1D(const NodeMeta& meta, const std::vector<dou
     : INode(nodeMetaUnion({{"Omega", "nm", "Half-width", 0, INF, 1.}}, meta), PValues)
 {
 }
+
+// ************************************************************************** //
+// class FTDistribution1DCauchy
+// ************************************************************************** //
 
 FTDistribution1DCauchy::FTDistribution1DCauchy(double omega) : IFTDistribution1D(omega)
 {
@@ -61,6 +69,10 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() 
     return std::make_unique<Distribution1DCauchySampler>(1 / m_omega);
 }
 
+// ************************************************************************** //
+// class FTDistribution1DGauss
+// ************************************************************************** //
+
 FTDistribution1DGauss::FTDistribution1DGauss(double omega) : IFTDistribution1D(omega)
 {
     setName("FTDistribution1DGauss");
@@ -87,6 +99,10 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() c
     return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
 }
 
+// ************************************************************************** //
+// class FTDistribution1DGate
+// ************************************************************************** //
+
 FTDistribution1DGate::FTDistribution1DGate(double omega) : IFTDistribution1D(omega)
 {
     setName("FTDistribution1DGate");
@@ -111,6 +127,10 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() co
 {
     return std::make_unique<Distribution1DGateSampler>(-m_omega, m_omega);
 }
+
+// ************************************************************************** //
+// class FTDistribution1DTriangle
+// ************************************************************************** //
 
 FTDistribution1DTriangle::FTDistribution1DTriangle(double omega) : IFTDistribution1D(omega)
 {
@@ -137,6 +157,10 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler(
 {
     return std::make_unique<Distribution1DTriangleSampler>(m_omega);
 }
+
+// ************************************************************************** //
+// class FTDistribution1DCosine
+// ************************************************************************** //
 
 FTDistribution1DCosine::FTDistribution1DCosine(double omega) : IFTDistribution1D(omega)
 {
@@ -165,6 +189,10 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() 
 {
     return std::make_unique<Distribution1DCosineSampler>(m_omega);
 }
+
+// ************************************************************************** //
+// class FTDistribution1DVoigt
+// ************************************************************************** //
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
     : IFTDistribution1D(omega), m_eta(eta)

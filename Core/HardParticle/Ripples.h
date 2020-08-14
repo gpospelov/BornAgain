@@ -28,7 +28,7 @@ complex_t factor_x_Lorentz(complex_t q, double l);
 complex_t profile_yz_bar(complex_t qy, complex_t qz, double width, double height);
 complex_t profile_yz_cosine(complex_t qy, complex_t qz, double width, double height);
 complex_t profile_yz_triangular(complex_t qy, complex_t qz, double width, double height,
-                                         double asymmetry);
+                                double asymmetry);
 
 } // namespace ripples
 

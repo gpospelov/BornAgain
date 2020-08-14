@@ -24,10 +24,10 @@
 
 IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactorBorn(nodeMetaUnion({{"Length", "nm", "Characteristic length", 0, INF, 1.},
-                           {"Width", "nm", "Width", 0, INF, 1.},
-                           {"Height", "nm", "Height", 0, INF, 1.}},
-            meta),
-            PValues),
+                                     {"Width", "nm", "Width", 0, INF, 1.},
+                                     {"Height", "nm", "Height", 0, INF, 1.}},
+                                    meta),
+                      PValues),
       m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])
 {
 }
@@ -46,7 +46,8 @@ complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
 // interface ProfileRectangularRipple
 // ************************************************************************** //
 
-ProfileRectangularRipple::ProfileRectangularRipple(const NodeMeta& meta, const std::vector<double>& PValues)
+ProfileRectangularRipple::ProfileRectangularRipple(const NodeMeta& meta,
+                                                   const std::vector<double>& PValues)
     : IProfileRipple(meta, PValues)
 {
     onChange();
@@ -89,9 +90,9 @@ void ProfileRipple1::onChange()
 // ************************************************************************** //
 
 ProfileRipple2::ProfileRipple2(const NodeMeta& meta, const std::vector<double>& PValues)
-    : IProfileRipple(nodeMetaUnion({{"AsymmetryLength", "nm", "Asymmetry of width", -INF, INF, 0.}},
-                                   meta),
-            PValues),
+    : IProfileRipple(
+        nodeMetaUnion({{"AsymmetryLength", "nm", "Asymmetry of width", -INF, INF, 0.}}, meta),
+        PValues),
       m_asymmetry(m_P[3])
 {
     onChange();

@@ -20,14 +20,14 @@
 // ************************************************************************** //
 
 FormFactorBarGauss::FormFactorBarGauss(const std::vector<double> P)
- : ProfileRectangularRipple({"BarGauss", "class_tooltip", {}}, P)
+    : ProfileRectangularRipple({"BarGauss", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorBarGauss::FormFactorBarGauss(double length, double width, double height)
- : FormFactorBarGauss(std::vector<double>{length, width, height})
-{}
-
+    : FormFactorBarGauss(std::vector<double>{length, width, height})
+{
+}
 
 FormFactorBarGauss* FormFactorBarGauss::clone() const
 {
@@ -49,14 +49,14 @@ complex_t FormFactorBarGauss::factor_x(complex_t qx) const
 // ************************************************************************** //
 
 FormFactorBarLorentz::FormFactorBarLorentz(const std::vector<double> P)
- : ProfileRectangularRipple({"BarLorentz", "class_tooltip", {}}, P)
+    : ProfileRectangularRipple({"BarLorentz", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorBarLorentz::FormFactorBarLorentz(double length, double width, double height)
- : FormFactorBarLorentz(std::vector<double>{length, width, height})
-{}
-
+    : FormFactorBarLorentz(std::vector<double>{length, width, height})
+{
+}
 
 FormFactorBarLorentz* FormFactorBarLorentz::clone() const
 {

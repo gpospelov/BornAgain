@@ -20,14 +20,14 @@
 // ************************************************************************** //
 
 FormFactorRipple1Box::FormFactorRipple1Box(const std::vector<double> P)
- : ProfileRipple1({"Ripple1Box", "class_tooltip", {}}, P)
+    : ProfileRipple1({"Ripple1Box", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorRipple1Box::FormFactorRipple1Box(double length, double width, double height)
- : FormFactorRipple1Box(std::vector<double>{length, width, height})
-{}
-
+    : FormFactorRipple1Box(std::vector<double>{length, width, height})
+{
+}
 
 FormFactorRipple1Box* FormFactorRipple1Box::clone() const
 {
@@ -49,14 +49,14 @@ complex_t FormFactorRipple1Box::factor_x(complex_t qx) const
 // ************************************************************************** //
 
 FormFactorRipple1Gauss::FormFactorRipple1Gauss(const std::vector<double> P)
- : ProfileRipple1({"Ripple1Gauss", "class_tooltip", {}}, P)
+    : ProfileRipple1({"Ripple1Gauss", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorRipple1Gauss::FormFactorRipple1Gauss(double length, double width, double height)
- : FormFactorRipple1Gauss(std::vector<double>{length, width, height})
-{}
-
+    : FormFactorRipple1Gauss(std::vector<double>{length, width, height})
+{
+}
 
 FormFactorRipple1Gauss* FormFactorRipple1Gauss::clone() const
 {
@@ -78,14 +78,14 @@ complex_t FormFactorRipple1Gauss::factor_x(complex_t qx) const
 // ************************************************************************** //
 
 FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(const std::vector<double> P)
- : ProfileRipple1({"Ripple1Lorentz", "class_tooltip", {}}, P)
+    : ProfileRipple1({"Ripple1Lorentz", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(double length, double width, double height)
- : FormFactorRipple1Lorentz(std::vector<double>{length, width, height})
-{}
-
+    : FormFactorRipple1Lorentz(std::vector<double>{length, width, height})
+{
+}
 
 FormFactorRipple1Lorentz* FormFactorRipple1Lorentz::clone() const
 {

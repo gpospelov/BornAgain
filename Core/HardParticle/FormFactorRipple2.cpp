@@ -20,15 +20,15 @@
 // ************************************************************************** //
 
 FormFactorRipple2Box::FormFactorRipple2Box(const std::vector<double> P)
- : ProfileRipple2({"Ripple2Box", "class_tooltip", {}}, P)
+    : ProfileRipple2({"Ripple2Box", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height,
                                            double asymmetry)
- : FormFactorRipple2Box(std::vector<double>{length, width, height, asymmetry})
-{}
-
+    : FormFactorRipple2Box(std::vector<double>{length, width, height, asymmetry})
+{
+}
 
 FormFactorRipple2Box* FormFactorRipple2Box::clone() const
 {
@@ -50,15 +50,15 @@ complex_t FormFactorRipple2Box::factor_x(complex_t qx) const
 // ************************************************************************** //
 
 FormFactorRipple2Gauss::FormFactorRipple2Gauss(const std::vector<double> P)
- : ProfileRipple2({"Ripple2Gauss", "class_tooltip", {}}, P)
+    : ProfileRipple2({"Ripple2Gauss", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height,
                                                double asymmetry)
- : FormFactorRipple2Gauss(std::vector<double>{length, width, height, asymmetry})
-{}
-
+    : FormFactorRipple2Gauss(std::vector<double>{length, width, height, asymmetry})
+{
+}
 
 FormFactorRipple2Gauss* FormFactorRipple2Gauss::clone() const
 {
@@ -80,15 +80,15 @@ complex_t FormFactorRipple2Gauss::factor_x(complex_t qx) const
 // ************************************************************************** //
 
 FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(const std::vector<double> P)
- : ProfileRipple2({"Ripple2Lorentz", "class_tooltip", {}}, P)
+    : ProfileRipple2({"Ripple2Lorentz", "class_tooltip", {}}, P)
 {
 }
 
 FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height,
                                                    double asymmetry)
- : FormFactorRipple2Lorentz(std::vector<double>{length, width, height, asymmetry})
-{}
-
+    : FormFactorRipple2Lorentz(std::vector<double>{length, width, height, asymmetry})
+{
+}
 
 FormFactorRipple2Lorentz* FormFactorRipple2Lorentz::clone() const
 {

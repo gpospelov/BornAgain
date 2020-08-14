@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/Ripples.h"
-#include "Core/Tools/Integrator.h"
 #include "Core/Basics/MathConstants.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 
 complex_t ripples::factor_x_box(complex_t q, double r)

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_PERFORMANCE_BENCHMARK_H
 #define BORNAGAIN_TESTS_PERFORMANCE_BENCHMARK_H
 
-#include "Core/Tools/OrderedMap.h"
+#include "Core/Export/OrderedMap.h"
 #include "Fit/Tools/WallclockTimer.h"
 #include <functional>
 #include <map>

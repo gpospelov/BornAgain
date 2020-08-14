@@ -18611,14 +18611,13 @@ class PoissonNoiseBackground(IBackground):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self):
         r"""
-        __init__(PoissonNoiseBackground self, vdouble1d_t P) -> PoissonNoiseBackground
         __init__(PoissonNoiseBackground self) -> PoissonNoiseBackground
         PoissonNoiseBackground::PoissonNoiseBackground()
 
         """
-        _libBornAgainCore.PoissonNoiseBackground_swiginit(self, _libBornAgainCore.new_PoissonNoiseBackground(*args))
+        _libBornAgainCore.PoissonNoiseBackground_swiginit(self, _libBornAgainCore.new_PoissonNoiseBackground())
 
     def clone(self):
         r"""

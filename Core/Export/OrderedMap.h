@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/OrderedMap.h
+//! @file      Core/Export/OrderedMap.h
 //! @brief     Defines class OrderedMap.
 //!
 //! @homepage  http://www.bornagainproject.org

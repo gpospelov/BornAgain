@@ -16,8 +16,10 @@
 #include <stdexcept>
 
 IFootprintFactor::IFootprintFactor(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(nodeMetaUnion({{"BeamToSampleWidthRatio", "", "ratio of beam width to sample width",
-                            0, INF, 1.}}, meta), PValues),
+    : INode(nodeMetaUnion(
+                {{"BeamToSampleWidthRatio", "", "ratio of beam width to sample width", 0, INF, 1.}},
+                meta),
+            PValues),
       m_width_ratio(m_P[0])
 {
     if (m_P[0] < 0.0)

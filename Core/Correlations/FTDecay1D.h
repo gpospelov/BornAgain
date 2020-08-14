@@ -27,9 +27,6 @@
 class BA_CORE_API_ IFTDecayFunction1D : public ICloneable, public INode
 {
 public:
-    //! Constructor of one-dimensional decay function.
-    //! @param decay_length: half-width of the distribution in nanometers
-    IFTDecayFunction1D(double decay_length);
     IFTDecayFunction1D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IFTDecayFunction1D* clone() const = 0;
@@ -37,7 +34,7 @@ public:
     double decayLength() const { return m_decay_length; }
 
 protected:
-    double m_decay_length;
+    const double& m_decay_length;
 };
 
 //! One-dimensional Cauchy decay function in reciprocal space;
@@ -46,6 +43,7 @@ protected:
 class BA_CORE_API_ FTDecayFunction1DCauchy : public IFTDecayFunction1D
 {
 public:
+    FTDecayFunction1DCauchy(const std::vector<double> P);
     FTDecayFunction1DCauchy(double decay_length);
 
     FTDecayFunction1DCauchy* clone() const;
@@ -59,6 +57,7 @@ public:
 class BA_CORE_API_ FTDecayFunction1DGauss : public IFTDecayFunction1D
 {
 public:
+    FTDecayFunction1DGauss(const std::vector<double> P);
     FTDecayFunction1DGauss(double decay_length);
 
     FTDecayFunction1DGauss* clone() const;
@@ -72,6 +71,7 @@ public:
 class BA_CORE_API_ FTDecayFunction1DTriangle : public IFTDecayFunction1D
 {
 public:
+    FTDecayFunction1DTriangle(const std::vector<double> P);
     FTDecayFunction1DTriangle(double decay_length);
 
     FTDecayFunction1DTriangle* clone() const;
@@ -88,6 +88,7 @@ public:
     //! Constructor of pseudo-Voigt decay function.
     //! @param decay_length: half-width of the distribution in nanometers
     //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
+    FTDecayFunction1DVoigt(const std::vector<double> P);
     FTDecayFunction1DVoigt(double decay_length, double eta);
 
     FTDecayFunction1DVoigt* clone() const;
@@ -96,7 +97,7 @@ public:
     double eEta() const { return m_eta; }
 
 private:
-    double m_eta;
+    const double& m_eta;
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_FTDECAY1D_H

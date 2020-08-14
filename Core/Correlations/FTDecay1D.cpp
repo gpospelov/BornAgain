@@ -14,30 +14,31 @@
 
 #include "Core/Correlations/FTDecay1D.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 #include <algorithm>
 
-IFTDecayFunction1D::IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length)
-{
-    registerParameter("DecayLength", &m_decay_length);
-}
+// ************************************************************************** //
+// interface IIFTDecayFunction1D
+// ************************************************************************** //
 
 IFTDecayFunction1D::IFTDecayFunction1D(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(nodeMetaUnion(
-                {
-                    {"DecayLength", "nm", "Half-width", 0, INF, 1.},
-                },
-                meta),
-            PValues)
+    : INode(nodeMetaUnion({{"DecayLength", "nm", "half width", 0, INF, 1.}}, meta), PValues),
+      m_decay_length(m_P[0])
+{
+}
+
+// ************************************************************************** //
+// class FTDecayFunction1DCauchy
+// ************************************************************************** //
+
+FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(const std::vector<double> P)
+    : IFTDecayFunction1D({"FTDecayFunction1DCauchy", "class_tooltip", {}}, P)
 {
 }
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
-    : IFTDecayFunction1D(decay_length)
+    : FTDecayFunction1DCauchy(std::vector<double>{decay_length})
 {
-    setName("FTDecayFunction1DCauchy");
 }
 
 FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const
@@ -51,10 +52,18 @@ double FTDecayFunction1DCauchy::evaluate(double q) const
     return m_decay_length * 2.0 / (1.0 + sum_sq);
 }
 
-FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
-    : IFTDecayFunction1D(decay_length)
+// ************************************************************************** //
+// class FTDecayFunction1DGauss
+// ************************************************************************** //
+
+FTDecayFunction1DGauss::FTDecayFunction1DGauss(const std::vector<double> P)
+    : IFTDecayFunction1D({"FTDecayFunction1DGauss", "class_tooltip", {}}, P)
 {
-    setName("FTDecayFunction1DGauss");
+}
+
+FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
+    : FTDecayFunction1DGauss(std::vector<double>{decay_length})
+{
 }
 
 FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const
@@ -68,10 +77,18 @@ double FTDecayFunction1DGauss::evaluate(double q) const
     return m_decay_length * std::sqrt(M_TWOPI) * std::exp(-sum_sq / 2.0);
 }
 
-FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
-    : IFTDecayFunction1D(decay_length)
+// ************************************************************************** //
+// class FTDecayFunction1DTriangle
+// ************************************************************************** //
+
+FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(const std::vector<double> P)
+    : IFTDecayFunction1D({"FTDecayFunction1DTriangle", "class_tooltip", {}}, P)
 {
-    setName("FTDecayFunction1DTriangle");
+}
+
+FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
+    : FTDecayFunction1DTriangle(std::vector<double>{decay_length})
+{
 }
 
 FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const
@@ -85,11 +102,21 @@ double FTDecayFunction1DTriangle::evaluate(double q) const
     return m_decay_length * sincqw2 * sincqw2;
 }
 
-FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
-    : IFTDecayFunction1D(decay_length), m_eta(eta)
+// ************************************************************************** //
+// class FTDecayFunction1DVoigt
+// ************************************************************************** //
+
+FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(const std::vector<double> P)
+    : IFTDecayFunction1D(
+        {"FTDecayFunction1DVoigt", "class_tooltip", {{"Eta", "", "para_tooltip", -INF, +INF, 0}}},
+        P),
+      m_eta(m_P[0])
 {
-    setName("FTDecayFunction1DVoigt");
-    registerParameter("Eta", &m_eta);
+}
+
+FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
+    : FTDecayFunction1DVoigt(std::vector<double>{decay_length, eta})
+{
 }
 
 FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const

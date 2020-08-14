@@ -25,13 +25,12 @@
 class BA_CORE_API_ IFTDecayFunction2D : public ICloneable, public INode
 {
 public:
-    IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma);
     IFTDecayFunction2D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IFTDecayFunction2D* clone() const = 0;
 
     //! set angle between first lattice vector and X-axis of distribution (both in direct space)
-    void setGamma(double gamma) { m_gamma = gamma; }
+    void setGamma(double gamma) { m_P[2] = gamma; }
 
     //! get angle between first lattice vector and X-axis of distribution (both in direct space)
     double gamma() const { return m_gamma; }
@@ -50,9 +49,9 @@ public:
                                                                    double b, double alpha) const;
 
 protected:
-    double m_decay_length_x;
-    double m_decay_length_y;
-    double m_gamma;
+    const double& m_decay_length_x;
+    const double& m_decay_length_y;
+    const double& m_gamma;
 
 private:
     //! transform reciprocal coordinate system of this decay function to the reciprocal
@@ -68,6 +67,7 @@ private:
 class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
+    FTDecayFunction2DCauchy(const std::vector<double> P);
     FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma);
 
     FTDecayFunction2DCauchy* clone() const;
@@ -82,6 +82,7 @@ public:
 class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
+    FTDecayFunction2DGauss(const std::vector<double> P);
     FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma);
 
     FTDecayFunction2DGauss* clone() const;
@@ -95,6 +96,7 @@ public:
 class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:
+    FTDecayFunction2DVoigt(const std::vector<double> P);
     FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double gamma, double eta);
 
     FTDecayFunction2DVoigt* clone() const;
@@ -103,7 +105,7 @@ public:
     double eta() const { return m_eta; }
 
 protected:
-    double m_eta;
+    const double& m_eta;
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_FTDECAY2D_H

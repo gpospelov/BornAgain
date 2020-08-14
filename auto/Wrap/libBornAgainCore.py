@@ -10268,13 +10268,14 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DCauchy self, vdouble1d_t P) -> FTDecayFunction1DCauchy
         __init__(FTDecayFunction1DCauchy self, double decay_length) -> FTDecayFunction1DCauchy
         FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
 
         """
-        _libBornAgainCore.FTDecayFunction1DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DCauchy(decay_length))
+        _libBornAgainCore.FTDecayFunction1DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DCauchy(*args))
 
     def clone(self):
         r"""
@@ -10319,13 +10320,14 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DGauss self, vdouble1d_t P) -> FTDecayFunction1DGauss
         __init__(FTDecayFunction1DGauss self, double decay_length) -> FTDecayFunction1DGauss
         FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
 
         """
-        _libBornAgainCore.FTDecayFunction1DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DGauss(decay_length))
+        _libBornAgainCore.FTDecayFunction1DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DGauss(*args))
 
     def clone(self):
         r"""
@@ -10370,13 +10372,14 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DTriangle self, vdouble1d_t P) -> FTDecayFunction1DTriangle
         __init__(FTDecayFunction1DTriangle self, double decay_length) -> FTDecayFunction1DTriangle
         FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
 
         """
-        _libBornAgainCore.FTDecayFunction1DTriangle_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DTriangle(decay_length))
+        _libBornAgainCore.FTDecayFunction1DTriangle_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DTriangle(*args))
 
     def clone(self):
         r"""
@@ -10421,8 +10424,9 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DVoigt self, vdouble1d_t P) -> FTDecayFunction1DVoigt
         __init__(FTDecayFunction1DVoigt self, double decay_length, double eta) -> FTDecayFunction1DVoigt
         FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
 
@@ -10438,7 +10442,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 
         """
-        _libBornAgainCore.FTDecayFunction1DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DVoigt(decay_length, eta))
+        _libBornAgainCore.FTDecayFunction1DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DVoigt(*args))
 
     def clone(self):
         r"""
@@ -10581,13 +10585,14 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction2DCauchy self, vdouble1d_t P) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DCauchy
         FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDecayFunction2DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DCauchy(decay_length_x, decay_length_y, gamma))
+        _libBornAgainCore.FTDecayFunction2DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DCauchy(*args))
 
     def clone(self):
         r"""
@@ -10634,13 +10639,14 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction2DGauss self, vdouble1d_t P) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DGauss
         FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDecayFunction2DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DGauss(decay_length_x, decay_length_y, gamma))
+        _libBornAgainCore.FTDecayFunction2DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DGauss(*args))
 
     def clone(self):
         r"""
@@ -10687,8 +10693,9 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction2DVoigt self, vdouble1d_t P) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double gamma, double eta) -> FTDecayFunction2DVoigt
         FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0)
 
@@ -10710,7 +10717,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         distribution orientation with respect to the first lattice vector in radians 
 
         """
-        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, gamma, eta))
+        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(*args))
 
     def clone(self):
         r"""

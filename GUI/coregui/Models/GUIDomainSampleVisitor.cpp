@@ -352,66 +352,66 @@ void GUIDomainSampleVisitor::visit(const FormFactorPyramid* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorRipple1Box* p_sample)
+void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleBox* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
-    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Ripple1Box");
-    p_ff_item->setItemValue(Ripple1BoxItem::P_LENGTH, p_sample->getLength());
-    p_ff_item->setItemValue(Ripple1BoxItem::P_WIDTH, p_sample->getWidth());
-    p_ff_item->setItemValue(Ripple1BoxItem::P_HEIGHT, p_sample->getHeight());
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "CosineRippleBox");
+    p_ff_item->setItemValue(CosineRippleBoxItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(CosineRippleBoxItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(CosineRippleBoxItem::P_HEIGHT, p_sample->getHeight());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorRipple1Gauss* p_sample)
+void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleGauss* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
-    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Ripple1Gauss");
-    p_ff_item->setItemValue(Ripple1GaussItem::P_LENGTH, p_sample->getLength());
-    p_ff_item->setItemValue(Ripple1GaussItem::P_WIDTH, p_sample->getWidth());
-    p_ff_item->setItemValue(Ripple1GaussItem::P_HEIGHT, p_sample->getHeight());
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "CosineRippleGauss");
+    p_ff_item->setItemValue(CosineRippleGaussItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(CosineRippleGaussItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(CosineRippleGaussItem::P_HEIGHT, p_sample->getHeight());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorRipple1Lorentz* p_sample)
+void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleLorentz* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
-    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Ripple1Lorentz");
-    p_ff_item->setItemValue(Ripple1LorentzItem::P_LENGTH, p_sample->getLength());
-    p_ff_item->setItemValue(Ripple1LorentzItem::P_WIDTH, p_sample->getWidth());
-    p_ff_item->setItemValue(Ripple1LorentzItem::P_HEIGHT, p_sample->getHeight());
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "CosineRippleLorentz");
+    p_ff_item->setItemValue(CosineRippleLorentzItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(CosineRippleLorentzItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(CosineRippleLorentzItem::P_HEIGHT, p_sample->getHeight());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorRipple2Box* p_sample)
+void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleBox* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
-    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Ripple2Box");
-    p_ff_item->setItemValue(Ripple2BoxItem::P_LENGTH, p_sample->getLength());
-    p_ff_item->setItemValue(Ripple2BoxItem::P_WIDTH, p_sample->getWidth());
-    p_ff_item->setItemValue(Ripple2BoxItem::P_HEIGHT, p_sample->getHeight());
-    p_ff_item->setItemValue(Ripple2BoxItem::P_ASYMMETRY, p_sample->getAsymmetry());
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "SawtoothRippleBox");
+    p_ff_item->setItemValue(SawtoothRippleBoxItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(SawtoothRippleBoxItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(SawtoothRippleBoxItem::P_HEIGHT, p_sample->getHeight());
+    p_ff_item->setItemValue(SawtoothRippleBoxItem::P_ASYMMETRY, p_sample->getAsymmetry());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorRipple2Gauss* p_sample)
+void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleGauss* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
-    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Ripple2Gauss");
-    p_ff_item->setItemValue(Ripple2GaussItem::P_LENGTH, p_sample->getLength());
-    p_ff_item->setItemValue(Ripple2GaussItem::P_WIDTH, p_sample->getWidth());
-    p_ff_item->setItemValue(Ripple2GaussItem::P_HEIGHT, p_sample->getHeight());
-    p_ff_item->setItemValue(Ripple2GaussItem::P_ASYMMETRY, p_sample->getAsymmetry());
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "SawtoothRippleGauss");
+    p_ff_item->setItemValue(SawtoothRippleGaussItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(SawtoothRippleGaussItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(SawtoothRippleGaussItem::P_HEIGHT, p_sample->getHeight());
+    p_ff_item->setItemValue(SawtoothRippleGaussItem::P_ASYMMETRY, p_sample->getAsymmetry());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorRipple2Lorentz* p_sample)
+void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleLorentz* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
-    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Ripple2Lorentz");
-    p_ff_item->setItemValue(Ripple2LorentzItem::P_LENGTH, p_sample->getLength());
-    p_ff_item->setItemValue(Ripple2LorentzItem::P_WIDTH, p_sample->getWidth());
-    p_ff_item->setItemValue(Ripple2LorentzItem::P_HEIGHT, p_sample->getHeight());
-    p_ff_item->setItemValue(Ripple2LorentzItem::P_ASYMMETRY, p_sample->getAsymmetry());
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "SawtoothRippleLorentz");
+    p_ff_item->setItemValue(SawtoothRippleLorentzItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(SawtoothRippleLorentzItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(SawtoothRippleLorentzItem::P_HEIGHT, p_sample->getHeight());
+    p_ff_item->setItemValue(SawtoothRippleLorentzItem::P_ASYMMETRY, p_sample->getAsymmetry());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 

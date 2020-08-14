@@ -6336,12 +6336,12 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FormFactorPrism3 arg2)
         visit(INodeVisitor self, FormFactorPrism6 arg2)
         visit(INodeVisitor self, FormFactorPyramid arg2)
-        visit(INodeVisitor self, FormFactorRipple1Box arg2)
-        visit(INodeVisitor self, FormFactorRipple1Gauss arg2)
-        visit(INodeVisitor self, FormFactorRipple1Lorentz arg2)
-        visit(INodeVisitor self, FormFactorRipple2Box arg2)
-        visit(INodeVisitor self, FormFactorRipple2Gauss arg2)
-        visit(INodeVisitor self, FormFactorRipple2Lorentz arg2)
+        visit(INodeVisitor self, FormFactorCosineRippleBox arg2)
+        visit(INodeVisitor self, FormFactorCosineRippleGauss arg2)
+        visit(INodeVisitor self, FormFactorCosineRippleLorentz arg2)
+        visit(INodeVisitor self, FormFactorSawtoothRippleBox arg2)
+        visit(INodeVisitor self, FormFactorSawtoothRippleGauss arg2)
+        visit(INodeVisitor self, FormFactorSawtoothRippleLorentz arg2)
         visit(INodeVisitor self, FormFactorSphereGaussianRadius arg2)
         visit(INodeVisitor self, FormFactorSphereLogNormalRadius arg2)
         visit(INodeVisitor self, FormFactorTetrahedron arg2)
@@ -15115,48 +15115,34 @@ class IProfileRipple(IFormFactorBorn):
 # Register IProfileRipple in _libBornAgainCore:
 _libBornAgainCore.IProfileRipple_swigregister(IProfileRipple)
 
-class ProfileRectangularRipple(IProfileRipple):
-    r"""Proxy of C++ ProfileRectangularRipple class."""
+class IProfileRectangularRipple(IProfileRipple):
+    r"""Proxy of C++ IProfileRectangularRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ProfileRectangularRipple
+    __swig_destroy__ = _libBornAgainCore.delete_IProfileRectangularRipple
 
-# Register ProfileRectangularRipple in _libBornAgainCore:
-_libBornAgainCore.ProfileRectangularRipple_swigregister(ProfileRectangularRipple)
+# Register IProfileRectangularRipple in _libBornAgainCore:
+_libBornAgainCore.IProfileRectangularRipple_swigregister(IProfileRectangularRipple)
 
-class ProfileRipple1(IProfileRipple):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: ProfileRipple1.h
-
-    """
+class ICosineRipple(IProfileRipple):
+    r"""Proxy of C++ ICosineRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ProfileRipple1
+    __swig_destroy__ = _libBornAgainCore.delete_ICosineRipple
 
-# Register ProfileRipple1 in _libBornAgainCore:
-_libBornAgainCore.ProfileRipple1_swigregister(ProfileRipple1)
+# Register ICosineRipple in _libBornAgainCore:
+_libBornAgainCore.ICosineRipple_swigregister(ICosineRipple)
 
-class ProfileRipple2(IProfileRipple):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: ProfileRipple2.h
-
-    """
+class ISawtoothRipple(IProfileRipple):
+    r"""Proxy of C++ ISawtoothRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -15165,16 +15151,12 @@ class ProfileRipple2(IProfileRipple):
     __repr__ = _swig_repr
 
     def getAsymmetry(self):
-        r"""
-        getAsymmetry(ProfileRipple2 self) -> double
-        double ProfileRipple2::getAsymmetry() const
+        r"""getAsymmetry(ISawtoothRipple self) -> double"""
+        return _libBornAgainCore.ISawtoothRipple_getAsymmetry(self)
+    __swig_destroy__ = _libBornAgainCore.delete_ISawtoothRipple
 
-        """
-        return _libBornAgainCore.ProfileRipple2_getAsymmetry(self)
-    __swig_destroy__ = _libBornAgainCore.delete_ProfileRipple2
-
-# Register ProfileRipple2 in _libBornAgainCore:
-_libBornAgainCore.ProfileRipple2_swigregister(ProfileRipple2)
+# Register ISawtoothRipple in _libBornAgainCore:
+_libBornAgainCore.ISawtoothRipple_swigregister(ISawtoothRipple)
 
 class FormFactorAnisoPyramid(FormFactorPolyhedron):
     r"""
@@ -15637,6 +15619,117 @@ class FormFactorCone6(FormFactorPolyhedron):
 
 # Register FormFactorCone6 in _libBornAgainCore:
 _libBornAgainCore.FormFactorCone6_swigregister(FormFactorCone6)
+
+class FormFactorCosineRippleBox(ICosineRipple):
+    r"""Proxy of C++ FormFactorCosineRippleBox class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorCosineRippleBox self, vdouble1d_t P) -> FormFactorCosineRippleBox
+        __init__(FormFactorCosineRippleBox self, double length, double width, double height) -> FormFactorCosineRippleBox
+        """
+        _libBornAgainCore.FormFactorCosineRippleBox_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleBox(*args))
+
+    def clone(self):
+        r"""
+        clone(FormFactorCosineRippleBox self) -> FormFactorCosineRippleBox
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleBox_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorCosineRippleBox self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleBox_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleBox
+
+# Register FormFactorCosineRippleBox in _libBornAgainCore:
+_libBornAgainCore.FormFactorCosineRippleBox_swigregister(FormFactorCosineRippleBox)
+
+class FormFactorCosineRippleGauss(ICosineRipple):
+    r"""Proxy of C++ FormFactorCosineRippleGauss class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorCosineRippleGauss self, vdouble1d_t P) -> FormFactorCosineRippleGauss
+        __init__(FormFactorCosineRippleGauss self, double length, double width, double height) -> FormFactorCosineRippleGauss
+        """
+        _libBornAgainCore.FormFactorCosineRippleGauss_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleGauss(*args))
+
+    def clone(self):
+        r"""
+        clone(FormFactorCosineRippleGauss self) -> FormFactorCosineRippleGauss
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleGauss_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorCosineRippleGauss self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleGauss_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleGauss
+
+# Register FormFactorCosineRippleGauss in _libBornAgainCore:
+_libBornAgainCore.FormFactorCosineRippleGauss_swigregister(FormFactorCosineRippleGauss)
+
+class FormFactorCosineRippleLorentz(ICosineRipple):
+    r"""Proxy of C++ FormFactorCosineRippleLorentz class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorCosineRippleLorentz self, vdouble1d_t P) -> FormFactorCosineRippleLorentz
+        __init__(FormFactorCosineRippleLorentz self, double length, double width, double height) -> FormFactorCosineRippleLorentz
+        """
+        _libBornAgainCore.FormFactorCosineRippleLorentz_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleLorentz(*args))
+
+    def clone(self):
+        r"""
+        clone(FormFactorCosineRippleLorentz self) -> FormFactorCosineRippleLorentz
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleLorentz_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorCosineRippleLorentz self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleLorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleLorentz
+
+# Register FormFactorCosineRippleLorentz in _libBornAgainCore:
+_libBornAgainCore.FormFactorCosineRippleLorentz_swigregister(FormFactorCosineRippleLorentz)
 
 class FormFactorCuboctahedron(FormFactorPolyhedron):
     r"""
@@ -16951,281 +17044,116 @@ class FormFactorPyramid(FormFactorPolyhedron):
 # Register FormFactorPyramid in _libBornAgainCore:
 _libBornAgainCore.FormFactorPyramid_swigregister(FormFactorPyramid)
 
-class FormFactorRipple1Box(ProfileRipple1):
-    r"""
-
-
-    The form factor for a cosine ripple, with box profile in elongation direction.
-
-    C++ includes: FormFactorRipple1.h
-
-    """
+class FormFactorSawtoothRippleBox(ISawtoothRipple):
+    r"""Proxy of C++ FormFactorSawtoothRippleBox class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         r"""
-        __init__(FormFactorRipple1Box self, vdouble1d_t P) -> FormFactorRipple1Box
-        __init__(FormFactorRipple1Box self, double length, double width, double height) -> FormFactorRipple1Box
-        FormFactorRipple1Box::FormFactorRipple1Box(double length, double width, double height)
-
+        __init__(FormFactorSawtoothRippleBox self, vdouble1d_t P) -> FormFactorSawtoothRippleBox
+        __init__(FormFactorSawtoothRippleBox self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleBox
         """
-        _libBornAgainCore.FormFactorRipple1Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Box(*args))
+        _libBornAgainCore.FormFactorSawtoothRippleBox_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleBox(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorRipple1Box self) -> FormFactorRipple1Box
-        FormFactorRipple1Box * FormFactorRipple1Box::clone() const override final
+        clone(FormFactorSawtoothRippleBox self) -> FormFactorSawtoothRippleBox
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Box_clone(self)
+        return _libBornAgainCore.FormFactorSawtoothRippleBox_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorRipple1Box self, INodeVisitor visitor)
-        void FormFactorRipple1Box::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorSawtoothRippleBox self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Box_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1Box
+        return _libBornAgainCore.FormFactorSawtoothRippleBox_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleBox
 
-# Register FormFactorRipple1Box in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple1Box_swigregister(FormFactorRipple1Box)
+# Register FormFactorSawtoothRippleBox in _libBornAgainCore:
+_libBornAgainCore.FormFactorSawtoothRippleBox_swigregister(FormFactorSawtoothRippleBox)
 
-class FormFactorRipple1Gauss(ProfileRipple1):
-    r"""
-
-
-    The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-    C++ includes: FormFactorRipple1.h
-
-    """
+class FormFactorSawtoothRippleGauss(ISawtoothRipple):
+    r"""Proxy of C++ FormFactorSawtoothRippleGauss class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         r"""
-        __init__(FormFactorRipple1Gauss self, vdouble1d_t P) -> FormFactorRipple1Gauss
-        __init__(FormFactorRipple1Gauss self, double length, double width, double height) -> FormFactorRipple1Gauss
-        FormFactorRipple1Gauss::FormFactorRipple1Gauss(double length, double width, double height)
-
+        __init__(FormFactorSawtoothRippleGauss self, vdouble1d_t P) -> FormFactorSawtoothRippleGauss
+        __init__(FormFactorSawtoothRippleGauss self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleGauss
         """
-        _libBornAgainCore.FormFactorRipple1Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Gauss(*args))
+        _libBornAgainCore.FormFactorSawtoothRippleGauss_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleGauss(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorRipple1Gauss self) -> FormFactorRipple1Gauss
-        FormFactorRipple1Gauss * FormFactorRipple1Gauss::clone() const override final
+        clone(FormFactorSawtoothRippleGauss self) -> FormFactorSawtoothRippleGauss
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Gauss_clone(self)
+        return _libBornAgainCore.FormFactorSawtoothRippleGauss_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorRipple1Gauss self, INodeVisitor visitor)
-        void FormFactorRipple1Gauss::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorSawtoothRippleGauss self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Gauss_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1Gauss
+        return _libBornAgainCore.FormFactorSawtoothRippleGauss_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleGauss
 
-# Register FormFactorRipple1Gauss in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple1Gauss_swigregister(FormFactorRipple1Gauss)
+# Register FormFactorSawtoothRippleGauss in _libBornAgainCore:
+_libBornAgainCore.FormFactorSawtoothRippleGauss_swigregister(FormFactorSawtoothRippleGauss)
 
-class FormFactorRipple1Lorentz(ProfileRipple1):
-    r"""
-
-
-    The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-    C++ includes: FormFactorRipple1.h
-
-    """
+class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
+    r"""Proxy of C++ FormFactorSawtoothRippleLorentz class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         r"""
-        __init__(FormFactorRipple1Lorentz self, vdouble1d_t P) -> FormFactorRipple1Lorentz
-        __init__(FormFactorRipple1Lorentz self, double length, double width, double height) -> FormFactorRipple1Lorentz
-        FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(double length, double width, double height)
-
+        __init__(FormFactorSawtoothRippleLorentz self, vdouble1d_t P) -> FormFactorSawtoothRippleLorentz
+        __init__(FormFactorSawtoothRippleLorentz self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleLorentz
         """
-        _libBornAgainCore.FormFactorRipple1Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Lorentz(*args))
+        _libBornAgainCore.FormFactorSawtoothRippleLorentz_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleLorentz(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorRipple1Lorentz self) -> FormFactorRipple1Lorentz
-        FormFactorRipple1Lorentz * FormFactorRipple1Lorentz::clone() const override final
+        clone(FormFactorSawtoothRippleLorentz self) -> FormFactorSawtoothRippleLorentz
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Lorentz_clone(self)
+        return _libBornAgainCore.FormFactorSawtoothRippleLorentz_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorRipple1Lorentz self, INodeVisitor visitor)
-        void FormFactorRipple1Lorentz::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorSawtoothRippleLorentz self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Lorentz_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1Lorentz
+        return _libBornAgainCore.FormFactorSawtoothRippleLorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleLorentz
 
-# Register FormFactorRipple1Lorentz in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple1Lorentz_swigregister(FormFactorRipple1Lorentz)
-
-class FormFactorRipple2Box(ProfileRipple2):
-    r"""
-
-
-    The form factor for a cosine ripple, with box profile in elongation direction.
-
-    C++ includes: FormFactorRipple2.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(FormFactorRipple2Box self, vdouble1d_t P) -> FormFactorRipple2Box
-        __init__(FormFactorRipple2Box self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Box
-        FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height, double asymmetry)
-
-        """
-        _libBornAgainCore.FormFactorRipple2Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Box(*args))
-
-    def clone(self):
-        r"""
-        clone(FormFactorRipple2Box self) -> FormFactorRipple2Box
-        FormFactorRipple2Box * FormFactorRipple2Box::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Box_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorRipple2Box self, INodeVisitor visitor)
-        void FormFactorRipple2Box::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Box_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Box
-
-# Register FormFactorRipple2Box in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple2Box_swigregister(FormFactorRipple2Box)
-
-class FormFactorRipple2Gauss(ProfileRipple2):
-    r"""
-
-
-    The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-    C++ includes: FormFactorRipple2.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(FormFactorRipple2Gauss self, vdouble1d_t P) -> FormFactorRipple2Gauss
-        __init__(FormFactorRipple2Gauss self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Gauss
-        FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height, double asymmetry)
-
-        """
-        _libBornAgainCore.FormFactorRipple2Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Gauss(*args))
-
-    def clone(self):
-        r"""
-        clone(FormFactorRipple2Gauss self) -> FormFactorRipple2Gauss
-        FormFactorRipple2Gauss * FormFactorRipple2Gauss::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Gauss_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorRipple2Gauss self, INodeVisitor visitor)
-        void FormFactorRipple2Gauss::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Gauss_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Gauss
-
-# Register FormFactorRipple2Gauss in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple2Gauss_swigregister(FormFactorRipple2Gauss)
-
-class FormFactorRipple2Lorentz(ProfileRipple2):
-    r"""
-
-
-    The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-    C++ includes: FormFactorRipple2.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(FormFactorRipple2Lorentz self, vdouble1d_t P) -> FormFactorRipple2Lorentz
-        __init__(FormFactorRipple2Lorentz self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Lorentz
-        FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry)
-
-        """
-        _libBornAgainCore.FormFactorRipple2Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Lorentz(*args))
-
-    def clone(self):
-        r"""
-        clone(FormFactorRipple2Lorentz self) -> FormFactorRipple2Lorentz
-        FormFactorRipple2Lorentz * FormFactorRipple2Lorentz::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Lorentz_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorRipple2Lorentz self, INodeVisitor visitor)
-        void FormFactorRipple2Lorentz::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Lorentz_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Lorentz
-
-# Register FormFactorRipple2Lorentz in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple2Lorentz_swigregister(FormFactorRipple2Lorentz)
+# Register FormFactorSawtoothRippleLorentz in _libBornAgainCore:
+_libBornAgainCore.FormFactorSawtoothRippleLorentz_swigregister(FormFactorSawtoothRippleLorentz)
 
 class FormFactorTetrahedron(FormFactorPolyhedron):
     r"""

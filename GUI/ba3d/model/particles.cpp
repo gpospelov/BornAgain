@@ -45,12 +45,12 @@ QString const& name(EShape k)
         "Box",
         "HemiEllipsoid",
         "Dot",
-        "Ripple1Box",
-        "Ripple1Gauss",
-        "Ripple1Lorentz",
-        "Ripple2Box",
-        "Ripple2Gauss",
-        "Ripple2Lorentz",
+        "CosineRippleBox",
+        "CosineRippleGauss",
+        "CosineRippleLorentz",
+        "SawtoothRippleBox",
+        "SawtoothRippleGauss",
+        "SawtoothRippleLorentz",
         "AnisoPyramid",
     };
     return names[uint(k)];
@@ -263,7 +263,7 @@ Pyramid::Pyramid(float L, float H, float alpha)
     set();
 }
 
-Ripple1Box::Ripple1Box(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+CosineRippleBox::CosineRippleBox(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);
@@ -272,7 +272,8 @@ Ripple1Box::Ripple1Box(float L, float W, float H) : Particle(Key(BaseShape::Ripp
     set();
 }
 
-Ripple1Gauss::Ripple1Gauss(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+CosineRippleGauss::CosineRippleGauss(float L, float W, float H)
+    : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);
@@ -281,7 +282,8 @@ Ripple1Gauss::Ripple1Gauss(float L, float W, float H) : Particle(Key(BaseShape::
     set();
 }
 
-Ripple1Lorentz::Ripple1Lorentz(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+CosineRippleLorentz::CosineRippleLorentz(float L, float W, float H)
+    : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);
@@ -290,7 +292,8 @@ Ripple1Lorentz::Ripple1Lorentz(float L, float W, float H) : Particle(Key(BaseSha
     set();
 }
 
-Ripple2Box::Ripple2Box(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+SawtoothRippleBox::SawtoothRippleBox(float L, float W, float H)
+    : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);
@@ -299,7 +302,8 @@ Ripple2Box::Ripple2Box(float L, float W, float H) : Particle(Key(BaseShape::Ripp
     set();
 }
 
-Ripple2Gauss::Ripple2Gauss(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+SawtoothRippleGauss::SawtoothRippleGauss(float L, float W, float H)
+    : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);
@@ -308,7 +312,8 @@ Ripple2Gauss::Ripple2Gauss(float L, float W, float H) : Particle(Key(BaseShape::
     set();
 }
 
-Ripple2Lorentz::Ripple2Lorentz(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+SawtoothRippleLorentz::SawtoothRippleLorentz(float L, float W, float H)
+    : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);

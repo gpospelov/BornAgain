@@ -20,7 +20,7 @@
 // ************************************************************************** //
 
 FormFactorBarGauss::FormFactorBarGauss(const std::vector<double> P)
-    : ProfileRectangularRipple({"BarGauss", "class_tooltip", {}}, P)
+    : IProfileRectangularRipple({"BarGauss", "class_tooltip", {}}, P)
 {
 }
 
@@ -49,7 +49,7 @@ complex_t FormFactorBarGauss::factor_x(complex_t qx) const
 // ************************************************************************** //
 
 FormFactorBarLorentz::FormFactorBarLorentz(const std::vector<double> P)
-    : ProfileRectangularRipple({"BarLorentz", "class_tooltip", {}}, P)
+    : IProfileRectangularRipple({"BarLorentz", "class_tooltip", {}}, P)
 {
 }
 

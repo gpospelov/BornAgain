@@ -135,17 +135,17 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Pyramid)
     GUICoreObjectCorrespondence(gui_pyramid, core_pyramid);
 }
 
-TEST_F(TestGUICoreObjectCorrespondence, test_Ripple1Box)
+TEST_F(TestGUICoreObjectCorrespondence, test_CosineRippleBox)
 {
-    Ripple1BoxItem gui_ripple1;
-    FormFactorRipple1Box core_ripple1(10.0, 2.0, 1.0);
+    CosineRippleBoxItem gui_ripple1;
+    FormFactorCosineRippleBox core_ripple1(10.0, 2.0, 1.0);
     GUICoreObjectCorrespondence(gui_ripple1, core_ripple1);
 }
 
-TEST_F(TestGUICoreObjectCorrespondence, test_Ripple2Box)
+TEST_F(TestGUICoreObjectCorrespondence, test_SawtoothRippleBox)
 {
-    Ripple2BoxItem gui_ripple2;
-    FormFactorRipple2Box core_ripple2(10.0, 2.0, 1.0, 0.1);
+    SawtoothRippleBoxItem gui_ripple2;
+    FormFactorSawtoothRippleBox core_ripple2(10.0, 2.0, 1.0, 0.1);
     GUICoreObjectCorrespondence(gui_ripple2, core_ripple2);
 }
 

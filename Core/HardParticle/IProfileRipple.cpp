@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/IProfileRipple.cpp
-//! @brief     Implements class ProfileRipple2.
+//! @brief     Implements class ISawtoothRipple.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -43,53 +43,53 @@ complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
 }
 
 // ************************************************************************** //
-// interface ProfileRectangularRipple
+// interface IProfileRectangularRipple
 // ************************************************************************** //
 
-ProfileRectangularRipple::ProfileRectangularRipple(const NodeMeta& meta,
-                                                   const std::vector<double>& PValues)
+IProfileRectangularRipple::IProfileRectangularRipple(const NodeMeta& meta,
+                                                     const std::vector<double>& PValues)
     : IProfileRipple(meta, PValues)
 {
     onChange();
 }
 
 //! Complex form factor.
-complex_t ProfileRectangularRipple::factor_yz(complex_t qy, complex_t qz) const
+complex_t IProfileRectangularRipple::factor_yz(complex_t qy, complex_t qz) const
 {
     return ripples::profile_yz_bar(qy, qz, m_width, m_height);
 }
 
-void ProfileRectangularRipple::onChange()
+void IProfileRectangularRipple::onChange()
 {
     mP_shape.reset(new Box(m_length, m_width, m_height));
 }
 
 // ************************************************************************** //
-// interface ProfileRipple1
+// interface ICosineRipple
 // ************************************************************************** //
 
-ProfileRipple1::ProfileRipple1(const NodeMeta& meta, const std::vector<double>& PValues)
+ICosineRipple::ICosineRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IProfileRipple(meta, PValues)
 {
     onChange();
 }
 
 //! Complex form factor.
-complex_t ProfileRipple1::factor_yz(complex_t qy, complex_t qz) const
+complex_t ICosineRipple::factor_yz(complex_t qy, complex_t qz) const
 {
     return ripples::profile_yz_cosine(qy, qz, m_width, m_height);
 }
 
-void ProfileRipple1::onChange()
+void ICosineRipple::onChange()
 {
     mP_shape.reset(new RippleCosine(m_length, m_width, m_height));
 }
 
 // ************************************************************************** //
-// interface ProfileRipple2
+// interface ISawtoothRipple
 // ************************************************************************** //
 
-ProfileRipple2::ProfileRipple2(const NodeMeta& meta, const std::vector<double>& PValues)
+ISawtoothRipple::ISawtoothRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IProfileRipple(
         nodeMetaUnion({{"AsymmetryLength", "nm", "Asymmetry of width", -INF, INF, 0.}}, meta),
         PValues),
@@ -99,12 +99,12 @@ ProfileRipple2::ProfileRipple2(const NodeMeta& meta, const std::vector<double>& 
 }
 
 //! Complex form factor.
-complex_t ProfileRipple2::factor_yz(complex_t qy, complex_t qz) const
+complex_t ISawtoothRipple::factor_yz(complex_t qy, complex_t qz) const
 {
     return ripples::profile_yz_triangular(qy, qz, m_width, m_height, m_asymmetry);
 }
 
-void ProfileRipple2::onChange()
+void ISawtoothRipple::onChange()
 {
     mP_shape.reset(new RippleSawtooth(m_length, m_width, m_height, m_asymmetry));
 }

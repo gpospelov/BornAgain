@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/IProfileRipple.h
-//! @brief     Defines interface classes IProfileRipple, ProfileRipple1, ProfileRipple2.
+//! @brief     Defines interface classes IProfileRipple, ICosineRipple, ISawtoothRipple.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -44,10 +44,10 @@ protected:
 
 //! Base class for form factors with a rectangular ripple (bar) profile in the yz plane.
 
-class BA_CORE_API_ ProfileRectangularRipple : public IProfileRipple
+class BA_CORE_API_ IProfileRectangularRipple : public IProfileRipple
 {
 public:
-    ProfileRectangularRipple(const NodeMeta& meta, const std::vector<double>& PValues);
+    IProfileRectangularRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
 private:
     virtual void onChange() override final;
@@ -56,10 +56,10 @@ private:
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
-class BA_CORE_API_ ProfileRipple1 : public IProfileRipple
+class BA_CORE_API_ ICosineRipple : public IProfileRipple
 {
 public:
-    ProfileRipple1(const NodeMeta& meta, const std::vector<double>& PValues);
+    ICosineRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
 private:
     virtual void onChange() override final;
@@ -68,10 +68,10 @@ private:
 
 //! Base class for form factors with a triangular ripple profile in the yz plane.
 
-class BA_CORE_API_ ProfileRipple2 : public IProfileRipple
+class BA_CORE_API_ ISawtoothRipple : public IProfileRipple
 {
 public:
-    ProfileRipple2(const NodeMeta& meta, const std::vector<double>& PValues);
+    ISawtoothRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double getAsymmetry() const { return m_asymmetry; }
 

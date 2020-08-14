@@ -99,18 +99,18 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R)
         return new HemiEllipsoid(R, R, D);
     case EShape::Dot:
         return new Dot();
-    case EShape::Ripple1Box:
-        return new Ripple1Box(D, D, D); // TODO ripples should be elongated
-    case EShape::Ripple1Gauss:
-        return new Ripple1Gauss(D, D, D); // TODO ripples should be elongated
-    case EShape::Ripple1Lorentz:
-        return new Ripple1Lorentz(D, D, D); // TODO ripples should be elongated
-    case EShape::Ripple2Box:
-        return new Ripple2Box(D, D, D); // TODO ripples should be elongated
-    case EShape::Ripple2Gauss:
-        return new Ripple2Gauss(D, D, D); // TODO ripples should be elongated
-    case EShape::Ripple2Lorentz:
-        return new Ripple2Lorentz(D, D, D); // TODO ripples should be elongated
+    case EShape::CosineRippleBox:
+        return new CosineRippleBox(D, D, D); // TODO ripples should be elongated
+    case EShape::CosineRippleGauss:
+        return new CosineRippleGauss(D, D, D); // TODO ripples should be elongated
+    case EShape::CosineRippleLorentz:
+        return new CosineRippleLorentz(D, D, D); // TODO ripples should be elongated
+    case EShape::SawtoothRippleBox:
+        return new SawtoothRippleBox(D, D, D); // TODO ripples should be elongated
+    case EShape::SawtoothRippleGauss:
+        return new SawtoothRippleGauss(D, D, D); // TODO ripples should be elongated
+    case EShape::SawtoothRippleLorentz:
+        return new SawtoothRippleLorentz(D, D, D); // TODO ripples should be elongated
     case EShape::AnisoPyramid:
         return new AnisoPyramid(R, D, D, 1.3f);
     }

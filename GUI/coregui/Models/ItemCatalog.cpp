@@ -115,12 +115,12 @@ ItemCatalog::ItemCatalog()
     add("Prism3", create_new<Prism3Item>);
     add("Prism6", create_new<Prism6Item>);
     add("Pyramid", create_new<PyramidItem>);
-    add("Ripple1Box", create_new<Ripple1BoxItem>);
-    add("Ripple1Gauss", create_new<Ripple1GaussItem>);
-    add("Ripple1Lorentz", create_new<Ripple1LorentzItem>);
-    add("Ripple2Box", create_new<Ripple2BoxItem>);
-    add("Ripple2Gauss", create_new<Ripple2GaussItem>);
-    add("Ripple2Lorentz", create_new<Ripple2LorentzItem>);
+    add("CosineRippleBox", create_new<CosineRippleBoxItem>);
+    add("CosineRippleGauss", create_new<CosineRippleGaussItem>);
+    add("CosineRippleLorentz", create_new<CosineRippleLorentzItem>);
+    add("SawtoothRippleBox", create_new<SawtoothRippleBoxItem>);
+    add("SawtoothRippleGauss", create_new<SawtoothRippleGaussItem>);
+    add("SawtoothRippleLorentz", create_new<SawtoothRippleLorentzItem>);
     add("Tetrahedron", create_new<TetrahedronItem>);
     add("TruncatedCube", create_new<TruncatedCubeItem>);
     add("TruncatedSphere", create_new<TruncatedSphereItem>);

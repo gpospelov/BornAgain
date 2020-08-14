@@ -15,8 +15,6 @@
 #include "Core/Correlations/FTDistributions1D.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
 
@@ -29,13 +27,9 @@ const double CosineDistributionFactor = 1.0 / 3.0 - 2.0 / M_PI / M_PI;
 // interface IFTDistribution1D
 // ************************************************************************** //
 
-IFTDistribution1D::IFTDistribution1D(double omega) : m_omega(omega)
-{
-    registerParameter("Omega", &m_omega);
-}
-
 IFTDistribution1D::IFTDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(nodeMetaUnion({{"Omega", "nm", "Half-width", 0, INF, 1.}}, meta), PValues)
+    : INode(nodeMetaUnion({{"Omega", "nm", "Half-width", 0, INF, 1.}}, meta), PValues),
+            m_omega(m_P[0])
 {
 }
 
@@ -43,9 +37,14 @@ IFTDistribution1D::IFTDistribution1D(const NodeMeta& meta, const std::vector<dou
 // class FTDistribution1DCauchy
 // ************************************************************************** //
 
-FTDistribution1DCauchy::FTDistribution1DCauchy(double omega) : IFTDistribution1D(omega)
+FTDistribution1DCauchy::FTDistribution1DCauchy(const std::vector<double> P)
+    : IFTDistribution1D({"FTDistribution1DCauchy", "class_tooltip", {}}, P)
 {
-    setName("FTDistribution1DCauchy");
+}
+
+FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
+    : FTDistribution1DCauchy(std::vector<double>{omega})
+{
 }
 
 FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
@@ -73,9 +72,14 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() 
 // class FTDistribution1DGauss
 // ************************************************************************** //
 
-FTDistribution1DGauss::FTDistribution1DGauss(double omega) : IFTDistribution1D(omega)
+FTDistribution1DGauss::FTDistribution1DGauss(const std::vector<double> P)
+    : IFTDistribution1D({"FTDistribution1DGauss", "class_tooltip", {}}, P)
 {
-    setName("FTDistribution1DGauss");
+}
+
+FTDistribution1DGauss::FTDistribution1DGauss(double omega)
+    : FTDistribution1DGauss(std::vector<double>{omega})
+{
 }
 
 FTDistribution1DGauss* FTDistribution1DGauss::clone() const
@@ -103,9 +107,14 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() c
 // class FTDistribution1DGate
 // ************************************************************************** //
 
-FTDistribution1DGate::FTDistribution1DGate(double omega) : IFTDistribution1D(omega)
+FTDistribution1DGate::FTDistribution1DGate(const std::vector<double> P)
+    : IFTDistribution1D({"FTDistribution1DGate", "class_tooltip", {}}, P)
 {
-    setName("FTDistribution1DGate");
+}
+
+FTDistribution1DGate::FTDistribution1DGate(double omega)
+    : FTDistribution1DGate(std::vector<double>{omega})
+{
 }
 
 FTDistribution1DGate* FTDistribution1DGate::clone() const
@@ -132,9 +141,14 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() co
 // class FTDistribution1DTriangle
 // ************************************************************************** //
 
-FTDistribution1DTriangle::FTDistribution1DTriangle(double omega) : IFTDistribution1D(omega)
+FTDistribution1DTriangle::FTDistribution1DTriangle(const std::vector<double> P)
+    : IFTDistribution1D({"FTDistribution1DTriangle", "class_tooltip", {}}, P)
 {
-    setName("FTDistribution1DTriangle");
+}
+
+FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
+    : FTDistribution1DTriangle(std::vector<double>{omega})
+{
 }
 
 FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const
@@ -162,9 +176,14 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler(
 // class FTDistribution1DCosine
 // ************************************************************************** //
 
-FTDistribution1DCosine::FTDistribution1DCosine(double omega) : IFTDistribution1D(omega)
+FTDistribution1DCosine::FTDistribution1DCosine(const std::vector<double> P)
+    : IFTDistribution1D({"FTDistribution1DCosine", "class_tooltip", {}}, P)
 {
-    setName("FTDistribution1DCosine");
+}
+
+FTDistribution1DCosine::FTDistribution1DCosine(double omega)
+    : FTDistribution1DCosine(std::vector<double>{omega})
+{
 }
 
 FTDistribution1DCosine* FTDistribution1DCosine::clone() const
@@ -194,11 +213,17 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() 
 // class FTDistribution1DVoigt
 // ************************************************************************** //
 
-FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
-    : IFTDistribution1D(omega), m_eta(eta)
+FTDistribution1DVoigt::FTDistribution1DVoigt(const std::vector<double> P)
+    : IFTDistribution1D(
+        {"FTDistribution1DVoigt", "class_tooltip", {{"Eta", "", "para_tooltip", -INF, +INF, 0}}},
+        P),
+      m_eta(m_P[1])
 {
-    setName("FTDistribution1DVoigt");
-    registerParameter("Eta", &m_eta);
+}
+
+FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
+    : FTDistribution1DVoigt(std::vector<double>{omega, eta})
+{
 }
 
 FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const

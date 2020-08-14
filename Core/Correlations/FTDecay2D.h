@@ -29,17 +29,12 @@ public:
 
     virtual IFTDecayFunction2D* clone() const = 0;
 
-    //! set angle between first lattice vector and X-axis of distribution (both in direct space)
-    void setGamma(double gamma) { m_P[2] = gamma; }
-
-    //! get angle between first lattice vector and X-axis of distribution (both in direct space)
-    double gamma() const { return m_gamma; }
-
     //! get decay length in distribution's X-direction
     double decayLengthX() const { return m_decay_length_x; }
-
     //! get decay length in distribution's  Y-direction
     double decayLengthY() const { return m_decay_length_y; }
+    //! get angle between first lattice vector and X-axis of distribution (both in direct space)
+    double gamma() const { return m_gamma; }
 
     //! evaluate Fourier transformed decay function for q in X,Y coordinates
     virtual double evaluate(double qx, double qy) const = 0;

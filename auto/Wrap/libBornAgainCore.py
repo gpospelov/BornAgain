@@ -10506,26 +10506,6 @@ class IFTDecayFunction2D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDecayFunction2D_clone(self)
 
-    def setGamma(self, gamma):
-        r"""
-        setGamma(IFTDecayFunction2D self, double gamma)
-        void IFTDecayFunction2D::setGamma(double gamma)
-
-        set angle between first lattice vector and X-axis of distribution (both in direct space) 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_setGamma(self, gamma)
-
-    def gamma(self):
-        r"""
-        gamma(IFTDecayFunction2D self) -> double
-        double IFTDecayFunction2D::gamma() const
-
-        get angle between first lattice vector and X-axis of distribution (both in direct space) 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_gamma(self)
-
     def decayLengthX(self):
         r"""
         decayLengthX(IFTDecayFunction2D self) -> double
@@ -10545,6 +10525,16 @@ class IFTDecayFunction2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDecayFunction2D_decayLengthY(self)
+
+    def gamma(self):
+        r"""
+        gamma(IFTDecayFunction2D self) -> double
+        double IFTDecayFunction2D::gamma() const
+
+        get angle between first lattice vector and X-axis of distribution (both in direct space) 
+
+        """
+        return _libBornAgainCore.IFTDecayFunction2D_gamma(self)
 
     def evaluate(self, qx, qy):
         r"""
@@ -10793,14 +10783,6 @@ class IFTDistribution1D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDistribution1D_evaluate(self, q)
 
-    def setOmega(self, omega):
-        r"""
-        setOmega(IFTDistribution1D self, double omega)
-        void IFTDistribution1D::setOmega(double omega)
-
-        """
-        return _libBornAgainCore.IFTDistribution1D_setOmega(self, omega)
-
     def omega(self):
         r"""
         omega(IFTDistribution1D self) -> double
@@ -10836,13 +10818,14 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DCauchy self, vdouble1d_t P) -> FTDistribution1DCauchy
         __init__(FTDistribution1DCauchy self, double omega) -> FTDistribution1DCauchy
         FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution1DCauchy(omega))
+        _libBornAgainCore.FTDistribution1DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution1DCauchy(*args))
 
     def clone(self):
         r"""
@@ -10899,13 +10882,14 @@ class FTDistribution1DGauss(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DGauss self, vdouble1d_t P) -> FTDistribution1DGauss
         __init__(FTDistribution1DGauss self, double omega) -> FTDistribution1DGauss
         FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution1DGauss(omega))
+        _libBornAgainCore.FTDistribution1DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution1DGauss(*args))
 
     def clone(self):
         r"""
@@ -10962,13 +10946,14 @@ class FTDistribution1DGate(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DGate self, vdouble1d_t P) -> FTDistribution1DGate
         __init__(FTDistribution1DGate self, double omega) -> FTDistribution1DGate
         FTDistribution1DGate::FTDistribution1DGate(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DGate_swiginit(self, _libBornAgainCore.new_FTDistribution1DGate(omega))
+        _libBornAgainCore.FTDistribution1DGate_swiginit(self, _libBornAgainCore.new_FTDistribution1DGate(*args))
 
     def clone(self):
         r"""
@@ -11025,13 +11010,14 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DTriangle self, vdouble1d_t P) -> FTDistribution1DTriangle
         __init__(FTDistribution1DTriangle self, double omega) -> FTDistribution1DTriangle
         FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DTriangle_swiginit(self, _libBornAgainCore.new_FTDistribution1DTriangle(omega))
+        _libBornAgainCore.FTDistribution1DTriangle_swiginit(self, _libBornAgainCore.new_FTDistribution1DTriangle(*args))
 
     def clone(self):
         r"""
@@ -11088,13 +11074,14 @@ class FTDistribution1DCosine(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DCosine self, vdouble1d_t P) -> FTDistribution1DCosine
         __init__(FTDistribution1DCosine self, double omega) -> FTDistribution1DCosine
         FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DCosine_swiginit(self, _libBornAgainCore.new_FTDistribution1DCosine(omega))
+        _libBornAgainCore.FTDistribution1DCosine_swiginit(self, _libBornAgainCore.new_FTDistribution1DCosine(*args))
 
     def clone(self):
         r"""
@@ -11151,8 +11138,9 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DVoigt self, vdouble1d_t P) -> FTDistribution1DVoigt
         __init__(FTDistribution1DVoigt self, double omega, double eta) -> FTDistribution1DVoigt
         FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 
@@ -11168,7 +11156,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 
         """
-        _libBornAgainCore.FTDistribution1DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution1DVoigt(omega, eta))
+        _libBornAgainCore.FTDistribution1DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution1DVoigt(*args))
 
     def clone(self):
         r"""
@@ -11244,13 +11232,21 @@ class IFTDistribution2D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDistribution2D_clone(self)
 
-    def setGamma(self, gamma):
+    def omegaX(self):
         r"""
-        setGamma(IFTDistribution2D self, double gamma)
-        void IFTDistribution2D::setGamma(double gamma)
+        omegaX(IFTDistribution2D self) -> double
+        double IFTDistribution2D::omegaX() const
 
         """
-        return _libBornAgainCore.IFTDistribution2D_setGamma(self, gamma)
+        return _libBornAgainCore.IFTDistribution2D_omegaX(self)
+
+    def omegaY(self):
+        r"""
+        omegaY(IFTDistribution2D self) -> double
+        double IFTDistribution2D::omegaY() const
+
+        """
+        return _libBornAgainCore.IFTDistribution2D_omegaY(self)
 
     def gamma(self):
         r"""
@@ -11267,22 +11263,6 @@ class IFTDistribution2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDistribution2D_delta(self)
-
-    def omegaX(self):
-        r"""
-        omegaX(IFTDistribution2D self) -> double
-        double IFTDistribution2D::omegaX() const
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_omegaX(self)
-
-    def omegaY(self):
-        r"""
-        omegaY(IFTDistribution2D self) -> double
-        double IFTDistribution2D::omegaY() const
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_omegaY(self)
 
     def evaluate(self, qx, qy):
         r"""
@@ -11311,13 +11291,14 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DCauchy self, vdouble1d_t P) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCauchy
         FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution2DCauchy(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution2DCauchy(*args))
 
     def clone(self):
         r"""
@@ -11364,13 +11345,14 @@ class FTDistribution2DGauss(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DGauss self, vdouble1d_t P) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGauss
         FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution2DGauss(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution2DGauss(*args))
 
     def clone(self):
         r"""
@@ -11417,13 +11399,14 @@ class FTDistribution2DGate(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DGate self, vdouble1d_t P) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGate
         FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DGate_swiginit(self, _libBornAgainCore.new_FTDistribution2DGate(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DGate_swiginit(self, _libBornAgainCore.new_FTDistribution2DGate(*args))
 
     def clone(self):
         r"""
@@ -11470,13 +11453,14 @@ class FTDistribution2DCone(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DCone self, vdouble1d_t P) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCone
         FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DCone_swiginit(self, _libBornAgainCore.new_FTDistribution2DCone(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DCone_swiginit(self, _libBornAgainCore.new_FTDistribution2DCone(*args))
 
     def clone(self):
         r"""
@@ -11523,8 +11507,9 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DVoigt self, vdouble1d_t P) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double gamma, double eta) -> FTDistribution2DVoigt
         FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0)
 
@@ -11546,7 +11531,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         angle in direct space between first lattice vector and x-axis of the distribution in radians 
 
         """
-        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, gamma, eta))
+        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(*args))
 
     def clone(self):
         r"""

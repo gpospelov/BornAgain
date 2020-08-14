@@ -32,7 +32,6 @@ IProfileRipple::IProfileRipple(double length, double width, double height)
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
     registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
     registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    onChange();
 }
 
 double IProfileRipple::radialExtension() const
@@ -45,17 +44,6 @@ complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
     return factor_x(q.x()) * factor_yz(q.y(), q.z());
 }
 
-//! Complex form factor.
-complex_t IProfileRipple::factor_yz(complex_t qy, complex_t qz) const
-{
-    return ripples::profile_yz_cosine(qy, qz, m_width, m_height);
-}
-
-void IProfileRipple::onChange()
-{
-    mP_shape.reset(new RippleCosine(m_length, m_width, m_height));
-}
-
 // ************************************************************************** //
 // interface ProfileRipple1
 // ************************************************************************** //
@@ -65,22 +53,9 @@ void IProfileRipple::onChange()
 //! @param width: width of the rectangular base in nanometers
 //! @param height: height of the ripple in nanometers
 ProfileRipple1::ProfileRipple1(double length, double width, double height)
-    : m_length(length), m_width(width), m_height(height)
+    : IProfileRipple(length, width, height)
 {
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
-}
-
-double ProfileRipple1::radialExtension() const
-{
-    return (m_width + m_length) / 4.0;
-}
-
-complex_t ProfileRipple1::evaluate_for_q(cvector_t q) const
-{
-    return factor_x(q.x()) * factor_yz(q.y(), q.z());
 }
 
 //! Complex form factor.
@@ -103,23 +78,10 @@ void ProfileRipple1::onChange()
 //! @param width: width of the rectangular base in nanometers
 //! @param height: height of the ripple in nanometers
 ProfileRipple2::ProfileRipple2(double length, double width, double height, double asymmetry)
-    : m_length(length), m_width(width), m_height(height), m_asymmetry(asymmetry)
+    : IProfileRipple(length, width, height), m_asymmetry(asymmetry)
 {
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     registerParameter("AsymmetryLength", &m_asymmetry).setUnit("nm");
     onChange();
-}
-
-double ProfileRipple2::radialExtension() const
-{
-    return (m_width + m_length) / 4.0;
-}
-
-complex_t ProfileRipple2::evaluate_for_q(cvector_t q) const
-{
-    return factor_x(q.x()) * factor_yz(q.y(), q.z());
 }
 
 //! Complex form factor.

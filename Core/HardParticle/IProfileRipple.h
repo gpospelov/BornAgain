@@ -33,71 +33,42 @@ public:
     complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
-    void onChange() override final;
-    virtual complex_t factor_x(complex_t qx) const = 0;
-
     double m_length;
     double m_width;
     double m_height;
 
-private:
-    complex_t factor_yz(complex_t qy, complex_t qz) const;
+    virtual void onChange() override = 0;
+    virtual complex_t factor_x(complex_t qx) const = 0;
+    virtual complex_t factor_yz(complex_t qy, complex_t qz) const = 0;
 };
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
-class BA_CORE_API_ ProfileRipple1 : public IFormFactorBorn
+class BA_CORE_API_ ProfileRipple1 : public IProfileRipple
 {
 public:
     ProfileRipple1(double length, double width, double height);
 
-    double getLength() const { return m_length; }
-    double getHeight() const { return m_height; }
-    double getWidth() const { return m_width; }
-
-    double radialExtension() const override final;
-
-    complex_t evaluate_for_q(cvector_t q) const override final;
-
-protected:
-    void onChange() override final;
-    virtual complex_t factor_x(complex_t qx) const = 0;
-
-    double m_length;
-    double m_width;
-    double m_height;
-
 private:
-    complex_t factor_yz(complex_t qy, complex_t qz) const;
+    virtual void onChange() override final;
+    complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 
 //! Base class for form factors with a triangular ripple profile in the yz plane.
 
-class BA_CORE_API_ ProfileRipple2 : public IFormFactorBorn
+class BA_CORE_API_ ProfileRipple2 : public IProfileRipple
 {
 public:
     ProfileRipple2(double length, double width, double height, double asymmetry);
 
-    double getLength() const { return m_length; }
-    double getHeight() const { return m_height; }
-    double getWidth() const { return m_width; }
     double getAsymmetry() const { return m_asymmetry; }
 
-    double radialExtension() const override final;
-
-    complex_t evaluate_for_q(cvector_t q) const override final;
-
 protected:
-    void onChange() override final;
-    virtual complex_t factor_x(complex_t qx) const = 0;
-
-    double m_length;
-    double m_width;
-    double m_height;
     double m_asymmetry;
 
 private:
-    complex_t factor_yz(complex_t qy, complex_t qz) const;
+    virtual void onChange() override final;
+    complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_PROFILERIPPLE2_H

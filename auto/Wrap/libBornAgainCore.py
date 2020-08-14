@@ -15179,7 +15179,7 @@ class IProfileRipple(IFormFactorBorn):
 # Register IProfileRipple in _libBornAgainCore:
 _libBornAgainCore.IProfileRipple_swigregister(IProfileRipple)
 
-class ProfileRipple1(IFormFactorBorn):
+class ProfileRipple1(IProfileRipple):
     r"""
 
 
@@ -15194,56 +15194,12 @@ class ProfileRipple1(IFormFactorBorn):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def getLength(self):
-        r"""
-        getLength(ProfileRipple1 self) -> double
-        double ProfileRipple1::getLength() const
-
-        """
-        return _libBornAgainCore.ProfileRipple1_getLength(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(ProfileRipple1 self) -> double
-        double ProfileRipple1::getHeight() const
-
-        """
-        return _libBornAgainCore.ProfileRipple1_getHeight(self)
-
-    def getWidth(self):
-        r"""
-        getWidth(ProfileRipple1 self) -> double
-        double ProfileRipple1::getWidth() const
-
-        """
-        return _libBornAgainCore.ProfileRipple1_getWidth(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(ProfileRipple1 self) -> double
-        double ProfileRipple1::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.ProfileRipple1_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(ProfileRipple1 self, cvector_t q) -> complex_t
-        complex_t ProfileRipple1::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.ProfileRipple1_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_ProfileRipple1
 
 # Register ProfileRipple1 in _libBornAgainCore:
 _libBornAgainCore.ProfileRipple1_swigregister(ProfileRipple1)
 
-class ProfileRipple2(IFormFactorBorn):
+class ProfileRipple2(IProfileRipple):
     r"""
 
 
@@ -15259,30 +15215,6 @@ class ProfileRipple2(IFormFactorBorn):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
-    def getLength(self):
-        r"""
-        getLength(ProfileRipple2 self) -> double
-        double ProfileRipple2::getLength() const
-
-        """
-        return _libBornAgainCore.ProfileRipple2_getLength(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(ProfileRipple2 self) -> double
-        double ProfileRipple2::getHeight() const
-
-        """
-        return _libBornAgainCore.ProfileRipple2_getHeight(self)
-
-    def getWidth(self):
-        r"""
-        getWidth(ProfileRipple2 self) -> double
-        double ProfileRipple2::getWidth() const
-
-        """
-        return _libBornAgainCore.ProfileRipple2_getWidth(self)
-
     def getAsymmetry(self):
         r"""
         getAsymmetry(ProfileRipple2 self) -> double
@@ -15290,26 +15222,6 @@ class ProfileRipple2(IFormFactorBorn):
 
         """
         return _libBornAgainCore.ProfileRipple2_getAsymmetry(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(ProfileRipple2 self) -> double
-        double ProfileRipple2::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.ProfileRipple2_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(ProfileRipple2 self, cvector_t q) -> complex_t
-        complex_t ProfileRipple2::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.ProfileRipple2_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_ProfileRipple2
 
 # Register ProfileRipple2 in _libBornAgainCore:

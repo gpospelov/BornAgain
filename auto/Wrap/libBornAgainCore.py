@@ -19171,71 +19171,6 @@ class IDetector2D(IDetector):
 # Register IDetector2D in _libBornAgainCore:
 _libBornAgainCore.IDetector2D_swigregister(IDetector2D)
 
-class SphericalPixel(IPixel):
-    r"""
-
-
-    A pixel in a  SphericalDetector.
-
-    C++ includes: SphericalDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, alpha_bin, phi_bin):
-        r"""
-        __init__(SphericalPixel self, Bin1D alpha_bin, Bin1D phi_bin) -> SphericalPixel
-        SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
-
-        """
-        _libBornAgainCore.SphericalPixel_swiginit(self, _libBornAgainCore.new_SphericalPixel(alpha_bin, phi_bin))
-
-    def clone(self):
-        r"""
-        clone(SphericalPixel self) -> SphericalPixel
-        SphericalPixel * SphericalPixel::clone() const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(SphericalPixel self, double x, double y) -> SphericalPixel
-        SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(SphericalPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t SphericalPixel::getK(double x, double y, double wavelength) const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_getK(self, x, y, wavelength)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(SphericalPixel self, double x, double y) -> double
-        double SphericalPixel::getIntegrationFactor(double x, double y) const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(SphericalPixel self) -> double
-        double SphericalPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_SphericalPixel
-
-# Register SphericalPixel in _libBornAgainCore:
-_libBornAgainCore.SphericalPixel_swigregister(SphericalPixel)
-
 class SphericalDetector(IDetector2D):
     r"""
 
@@ -19458,79 +19393,6 @@ class IsGISAXSDetector(SphericalDetector):
 # Register IsGISAXSDetector in _libBornAgainCore:
 _libBornAgainCore.IsGISAXSDetector_swigregister(IsGISAXSDetector)
 
-class RectangularPixel(IPixel):
-    r"""
-
-
-    A pixel in a  RectangularDetector.
-
-    C++ includes: RectangularDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, corner_pos, width, height):
-        r"""
-        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
-        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-
-        """
-        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
-
-    def clone(self):
-        r"""
-        clone(RectangularPixel self) -> RectangularPixel
-        RectangularPixel * RectangularPixel::clone() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
-        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
-
-    def getPosition(self, x, y):
-        r"""
-        getPosition(RectangularPixel self, double x, double y) -> kvector_t
-        kvector_t RectangularPixel::getPosition(double x, double y) const
-
-        """
-        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
-        double RectangularPixel::getIntegrationFactor(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(RectangularPixel self) -> double
-        double RectangularPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
-
-# Register RectangularPixel in _libBornAgainCore:
-_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
-
 class RectangularDetector(IDetector2D):
     r"""
 
@@ -19740,7 +19602,7 @@ class RectangularDetector(IDetector2D):
 
     def regionOfInterestPixel(self):
         r"""
-        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel
+        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel *
         RectangularPixel * RectangularDetector::regionOfInterestPixel() const
 
         """

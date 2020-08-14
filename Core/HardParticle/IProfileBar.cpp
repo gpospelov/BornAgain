@@ -13,40 +13,17 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/IProfileBar.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Core/HardParticle/Ripples.h"
 #include "Core/Shapes/Box.h" // from Shapes/
-#include "Core/Tools/MathFunctions.h"
-#include "Fit/Tools/RealLimits.h"
 
-//! @brief Constructor of elongated bar
-//! @param length: length of the rectangular base in nanometers
-//! @param width: width of the rectangular base in nanometers
-//! @param height: height of the ripple in nanometers
-IProfileBar::IProfileBar(double length, double width, double height)
-    : m_length(length), m_width(width), m_height(height)
+IProfileBar::IProfileBar(const NodeMeta& meta, const std::vector<double>& PValues)
+    : IFormFactorBorn(nodeMetaUnion({{"Length", "nm", "Length", 0, INF, 1.},
+                           {"Width", "nm", "Width", 0, INF, 1.},
+                           {"Height", "nm", "Height", 0, INF, 1.}},
+            meta),
+            PValues),
+      m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])
 {
-    check_initialization();
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    onChange();
-}
-
-bool IProfileBar::check_initialization() const
-{
-    bool result(true);
-    if (m_height <= 0.0 || m_width <= 0.0 || m_length <= 0.0) {
-        std::ostringstream ostr;
-        ostr << "IProfileBar() -> Error in class initialization with parameters ";
-        ostr << " height:" << m_height;
-        ostr << " width:" << m_width;
-        ostr << " length:" << m_length << "\n\n";
-        ostr << "Check for 'height>0.0 && width>0.0 && length>0.0' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
 }
 
 double IProfileBar::radialExtension() const
@@ -57,11 +34,7 @@ double IProfileBar::radialExtension() const
 //! Complex form factor.
 complex_t IProfileBar::factor_yz(complex_t qy, complex_t qz) const
 {
-    const complex_t qyWdiv2 = m_width * qy / 2.0;
-    const complex_t qzHdiv2 = m_height * qz / 2.0;
-
-    return m_height * m_width * exp_I(qzHdiv2) * MathFunctions::sinc(qyWdiv2)
-           * MathFunctions::sinc(qzHdiv2);
+    return ripples::profile_yz_bar(qy, qz, m_width, m_height);
 }
 
 void IProfileBar::onChange()

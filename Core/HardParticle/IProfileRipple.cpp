@@ -24,7 +24,7 @@
 IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactorBorn(nodeMetaUnion({{"Length", "nm", "Characteristic length", 0, INF, 1.},
                            {"Width", "nm", "Width", 0, INF, 1.},
-                           {"Height", "nm", "Maximum height", 0, INF, 1.}},
+                           {"Height", "nm", "Height", 0, INF, 1.}},
             meta),
             PValues),
       m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])

@@ -22,6 +22,7 @@
 class BA_CORE_API_ FormFactorBarGauss : public IProfileBar
 {
 public:
+    FormFactorBarGauss(const std::vector<double> P);
     FormFactorBarGauss(double length, double width, double height);
     FormFactorBarGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final;
@@ -35,6 +36,7 @@ private:
 class BA_CORE_API_ FormFactorBarLorentz : public IProfileBar
 {
 public:
+    FormFactorBarLorentz(const std::vector<double> P);
     FormFactorBarLorentz(double length, double width, double height);
     FormFactorBarLorentz* clone() const final;
     void accept(INodeVisitor* visitor) const final;

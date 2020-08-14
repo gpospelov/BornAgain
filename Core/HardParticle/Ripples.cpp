@@ -32,6 +32,16 @@ complex_t ripples::factor_x_Lorentz(complex_t q, double r)
     return r / (1.0 + (q * r) * (q * r));
 }
 
+//! Complex form factor of rectangular ripple (bar).
+complex_t ripples::profile_yz_bar(complex_t qy, complex_t qz, double width, double height)
+{
+    const complex_t qyWdiv2 = width * qy / 2.0;
+    const complex_t qzHdiv2 = height * qz / 2.0;
+
+    return height * width * exp_I(qzHdiv2) * MathFunctions::sinc(qyWdiv2)
+           * MathFunctions::sinc(qzHdiv2);
+}
+
 //! Complex form factor of triangular ripple.
 complex_t ripples::profile_yz_cosine(complex_t qy, complex_t qz, double width, double height)
 {

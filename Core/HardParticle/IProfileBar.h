@@ -16,14 +16,13 @@
 #define BORNAGAIN_CORE_HARDPARTICLE_PROFILEBAR_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
-#include "Core/Tools/Integrator.h"
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
 class BA_CORE_API_ IProfileBar : public IFormFactorBorn
 {
 public:
-    IProfileBar(double length, double width, double height);
+    IProfileBar(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
@@ -40,14 +39,12 @@ protected:
     void onChange() override final;
     virtual complex_t factor_x(complex_t qx) const = 0;
 
-    double m_length;
-    double m_width;
-    double m_height;
+    const double& m_length;
+    const double& m_width;
+    const double& m_height;
 
 private:
     complex_t factor_yz(complex_t qy, complex_t qz) const;
-    bool check_initialization() const;
-    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_PROFILEBAR_H

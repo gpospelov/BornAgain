@@ -15070,15 +15070,8 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
 # Register FormFactorPolygonalSurface in _libBornAgainCore:
 _libBornAgainCore.FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
 
-class ProfileBar(IFormFactorBorn):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: ProfileBar.h
-
-    """
+class IProfileBar(IFormFactorBorn):
+    r"""Proxy of C++ IProfileBar class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -15087,52 +15080,40 @@ class ProfileBar(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def getLength(self):
-        r"""
-        getLength(ProfileBar self) -> double
-        double ProfileBar::getLength() const
-
-        """
-        return _libBornAgainCore.ProfileBar_getLength(self)
+        r"""getLength(IProfileBar self) -> double"""
+        return _libBornAgainCore.IProfileBar_getLength(self)
 
     def getHeight(self):
-        r"""
-        getHeight(ProfileBar self) -> double
-        double ProfileBar::getHeight() const
-
-        """
-        return _libBornAgainCore.ProfileBar_getHeight(self)
+        r"""getHeight(IProfileBar self) -> double"""
+        return _libBornAgainCore.IProfileBar_getHeight(self)
 
     def getWidth(self):
-        r"""
-        getWidth(ProfileBar self) -> double
-        double ProfileBar::getWidth() const
-
-        """
-        return _libBornAgainCore.ProfileBar_getWidth(self)
+        r"""getWidth(IProfileBar self) -> double"""
+        return _libBornAgainCore.IProfileBar_getWidth(self)
 
     def radialExtension(self):
         r"""
-        radialExtension(ProfileBar self) -> double
-        double ProfileBar::radialExtension() const override final
+        radialExtension(IProfileBar self) -> double
+        virtual double IFormFactor::radialExtension() const =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.ProfileBar_radialExtension(self)
+        return _libBornAgainCore.IProfileBar_radialExtension(self)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(ProfileBar self, cvector_t q) -> complex_t
-        complex_t ProfileBar::evaluate_for_q(cvector_t q) const override final
+        evaluate_for_q(IProfileBar self, cvector_t q) -> complex_t
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.ProfileBar_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_ProfileBar
+        return _libBornAgainCore.IProfileBar_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_IProfileBar
 
-# Register ProfileBar in _libBornAgainCore:
-_libBornAgainCore.ProfileBar_swigregister(ProfileBar)
+# Register IProfileBar in _libBornAgainCore:
+_libBornAgainCore.IProfileBar_swigregister(IProfileBar)
 
 class IProfileRipple(IFormFactorBorn):
     r"""Proxy of C++ IProfileRipple class."""

@@ -15,21 +15,27 @@
 #include "Core/HardParticle/FormFactorHollowSphere.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
-FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
-    : m_mean(mean), m_full_width(full_width)
+FormFactorHollowSphere::FormFactorHollowSphere(const std::vector<double> P)
+    : IFormFactorBorn({"FormFactorHollowSphere",
+                       "class_tooltip",
+                       {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
+                        {"FullWidth", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_mean(m_P[0]), m_full_width(m_P[1])
 {
     if (!checkParameters())
         throw Exceptions::ClassInitializationException(
             "FormFactorHollowSphere::FormFactorHollowSphere:"
             " mean radius must be bigger than the half width");
-    setName("FormFactorHollowSphere");
-    registerParameter("MeanRadius", &m_mean).setUnit("nm").setNonnegative();
-    registerParameter("FullWidth", &m_full_width).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
+    : FormFactorHollowSphere(std::vector<double>{mean, full_width})
+{
 }
 
 complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const

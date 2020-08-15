@@ -14,8 +14,8 @@
 
 #include "Core/HardParticle/FormFactorHemiEllipsoid.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
+#include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
 
@@ -23,14 +23,21 @@
 //! @param radius_x: radius of the ellipse base in the x-direction, in nanometers
 //! @param radius_y: radius of the ellipse base in the y-direction, in nanometers
 //! @param height: height of the hemi ellipsoid in nanometers
-FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
-    : m_radius_x(radius_x), m_radius_y(radius_y), m_height(height)
+FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector<double> P)
+    : IFormFactorBorn({"HemiEllipsoid",
+                       "class_tooltip",
+                       {{"RadiusX", "nm", "para_tooltip", 0, +INF, 0},
+                        {"RadiusY", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_radius_x(m_P[0]), m_radius_y(m_P[1]), m_height(m_P[2])
 {
-    setName("HemiEllipsoid");
-    registerParameter("RadiusX", &m_radius_x).setUnit("nm").setNonnegative();
-    registerParameter("RadiusY", &m_radius_y).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
+    : FormFactorHemiEllipsoid(std::vector<double>{radius_x, radius_y, height})
+{
 }
 
 double FormFactorHemiEllipsoid::radialExtension() const
@@ -66,7 +73,7 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
         return M_TWOPI * R * W * H / 3.;
-    return M_TWOPI * m_integrator.integrate([&](double Z) { return Integrand(Z); }, 0., H);
+    return M_TWOPI * ComplexIntegrator().integrate([&](double Z) { return Integrand(Z); }, 0., H);
 }
 
 void FormFactorHemiEllipsoid::onChange()

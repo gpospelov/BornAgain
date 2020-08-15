@@ -11,9 +11,9 @@ results = []
 for i in range(n):
     omega=90*i/(n-1)
     title = r'$\omega=%d^\circ$' % omega
-    ff = ba.FormFactorRipple1(25*nanometer, 10*nanometer, 8*nanometer )
+    ff = ba.FormFactorCosineRipple(25*nanometer, 10*nanometer, 8*nanometer )
     trafo = ba.RotationZ(omega*degree)
     data = bp.run_simulation(det,ff,trafo)
     results.append( bp.Result(i, data, title) )
     
-bp.make_plot( results, det, "ff_Ripple1" )
+bp.make_plot( results, det, "ff_CosineRipple" )

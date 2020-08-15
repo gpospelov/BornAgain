@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
-#define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
+#ifndef BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS1D_H
+#define BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS1D_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Correlations/IDistribution1DSampler.h"
@@ -26,9 +26,6 @@
 class BA_CORE_API_ IFTDistribution1D : public ICloneable, public INode
 {
 public:
-    //! Constructor of one-dimensional probability distribution.
-    //! @param omega: half-width of the distribution in nanometers
-    IFTDistribution1D(double omega);
     IFTDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IFTDistribution1D* clone() const = 0;
@@ -37,7 +34,6 @@ public:
     //! is a decay function starting at evaluate(0)=1.
     virtual double evaluate(double q) const = 0;
 
-    void setOmega(double omega) { m_omega = omega; }
     double omega() const { return m_omega; }
 
     //! Returns the negative of the second order derivative in q space around q=0
@@ -48,7 +44,7 @@ public:
 #endif
 
 protected:
-    double m_omega;
+    const double& m_omega;
 };
 
 //! Exponential IFTDistribution1D exp(-|omega*x|);
@@ -58,6 +54,7 @@ protected:
 class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
 public:
+    FTDistribution1DCauchy(const std::vector<double> P);
     FTDistribution1DCauchy(double omega);
 
     FTDistribution1DCauchy* clone() const override final;
@@ -77,6 +74,7 @@ public:
 class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
 public:
+    FTDistribution1DGauss(const std::vector<double> P);
     FTDistribution1DGauss(double omega);
 
     FTDistribution1DGauss* clone() const override final;
@@ -96,6 +94,7 @@ public:
 class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
 public:
+    FTDistribution1DGate(const std::vector<double> P);
     FTDistribution1DGate(double omega);
 
     FTDistribution1DGate* clone() const override final;
@@ -115,6 +114,7 @@ public:
 class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 {
 public:
+    FTDistribution1DTriangle(const std::vector<double> P);
     FTDistribution1DTriangle(double omega);
 
     FTDistribution1DTriangle* clone() const override final;
@@ -135,6 +135,7 @@ public:
 class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
 public:
+    FTDistribution1DCosine(const std::vector<double> P);
     FTDistribution1DCosine(double omega);
 
     FTDistribution1DCosine* clone() const override final;
@@ -158,6 +159,7 @@ public:
     //! Constructor of one-dimensional pseudo-Voigt probability distribution.
     //! @param omega: half-width of the distribution in nanometers
     //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
+    FTDistribution1DVoigt(const std::vector<double> P);
     FTDistribution1DVoigt(double omega, double eta);
 
     FTDistribution1DVoigt* clone() const override final;
@@ -171,7 +173,7 @@ public:
 #endif
 
 protected:
-    double m_eta;
+    const double& m_eta;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS1D_H
+#endif // BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS1D_H

@@ -124,13 +124,21 @@ IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_val
 // class DistributionGate
 // ************************************************************************** //
 
-DistributionGate::DistributionGate(double min, double max) : m_min(min), m_max(max)
+DistributionGate::DistributionGate(const std::vector<double> P)
+    : IDistribution1D(
+        {"DistributionGate",
+         "class_tooltip",
+         {{"Min", "", "para_tooltip", -INF, +INF, 0}, {"Max", "", "para_tooltip", -INF, +INF, 0}}},
+        P),
+      m_min(m_P[0]), m_max(m_P[1])
 {
-    setName("DistributionGate");
     if (m_max < m_min)
         throw Exceptions::ClassInitializationException("DistributionGate: max<min");
-    registerParameter("Min", &m_min);
-    registerParameter("Max", &m_max);
+}
+
+DistributionGate::DistributionGate(double min, double max)
+    : DistributionGate(std::vector<double>{min, max})
+{
 }
 
 DistributionGate::DistributionGate() : DistributionGate(0., 1.) {}
@@ -144,10 +152,9 @@ double DistributionGate::probabilityDensity(double x) const
     return 1.0 / (m_max - m_min);
 }
 
-std::vector<double> DistributionGate::equidistantPoints(size_t nbr_samples, double sigma_factor,
+std::vector<double> DistributionGate::equidistantPoints(size_t nbr_samples, double /*sigma_factor*/,
                                                         const RealLimits& limits) const
 {
-    (void)sigma_factor;
     double xmin = m_min;
     double xmax = m_max;
     adjustMinMaxForLimits(xmin, xmax, limits);
@@ -163,13 +170,21 @@ bool DistributionGate::isDelta() const
 // class DistributionLorentz
 // ************************************************************************** //
 
-DistributionLorentz::DistributionLorentz(double mean, double hwhm) : m_mean(mean), m_hwhm(hwhm)
+DistributionLorentz::DistributionLorentz(const std::vector<double> P)
+    : IDistribution1D({"DistributionLorentz",
+                       "class_tooltip",
+                       {{"Mean", "", "para_tooltip", -INF, +INF, 0},
+                        {"HWHM", "", "para_tooltip", -INF, +INF, 0}}},
+                      P),
+      m_mean(m_P[0]), m_hwhm(m_P[1])
 {
-    setName("DistributionLorentz");
     if (m_hwhm < 0.0)
         throw Exceptions::ClassInitializationException("DistributionLorentz: hwhm<0");
-    registerParameter("Mean", &m_mean);
-    registerParameter("HWHM", &m_hwhm);
+}
+
+DistributionLorentz::DistributionLorentz(double mean, double hwhm)
+    : DistributionLorentz(std::vector<double>{mean, hwhm})
+{
 }
 
 DistributionLorentz::DistributionLorentz() : DistributionLorentz(0., 1.) {}
@@ -201,14 +216,21 @@ bool DistributionLorentz::isDelta() const
 // class DistributionGaussian
 // ************************************************************************** //
 
-DistributionGaussian::DistributionGaussian(double mean, double std_dev)
-    : m_mean(mean), m_std_dev(std_dev)
+DistributionGaussian::DistributionGaussian(const std::vector<double> P)
+    : IDistribution1D({"DistributionGaussian",
+                       "class_tooltip",
+                       {{"Mean", "", "para_tooltip", -INF, +INF, 0},
+                        {"StdDev", "", "para_tooltip", -INF, +INF, 0}}},
+                      P),
+      m_mean(m_P[0]), m_std_dev(m_P[1])
 {
-    setName("DistributionGaussian");
     if (m_std_dev < 0.0)
         throw Exceptions::ClassInitializationException("DistributionGaussian: std_dev < 0");
-    registerParameter("Mean", &m_mean);
-    registerParameter("StdDev", &m_std_dev);
+}
+
+DistributionGaussian::DistributionGaussian(double mean, double std_dev)
+    : DistributionGaussian(std::vector<double>{mean, std_dev})
+{
 }
 
 DistributionGaussian::DistributionGaussian() : DistributionGaussian(0., 1.) {}
@@ -241,17 +263,26 @@ bool DistributionGaussian::isDelta() const
 // class DistributionLogNormal
 // ************************************************************************** //
 
-DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
-    : m_median(median), m_scale_param(scale_param)
+DistributionLogNormal::DistributionLogNormal(const std::vector<double> P)
+    : IDistribution1D({"DistributionLogNormal",
+                       "class_tooltip",
+                       {{"Median", "", "para_tooltip", -INF, +INF, 0},
+                        {"ScaleParameter", "", "para_tooltip", -INF, +INF, 0}}},
+                      P),
+      m_median(m_P[0]), m_scale_param(m_P[1])
 {
-    setName("DistributionLogNormal");
     if (m_scale_param < 0.0)
         throw Exceptions::ClassInitializationException("DistributionLogNormal: scale_param < 0");
     if (m_median <= 0.0)
         throw Exceptions::ClassInitializationException("DistributionLogNormal: median < 0");
-    registerParameter("Median", &m_median);
-    registerParameter("ScaleParameter", &m_scale_param);
 }
+
+DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
+    : DistributionLogNormal(std::vector<double>{median, scale_param})
+{
+}
+
+DistributionTrapezoid::DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
 
 double DistributionLogNormal::probabilityDensity(double x) const
 {
@@ -299,13 +330,21 @@ void DistributionLogNormal::setUnits(const std::string& units)
 // class DistributionCosine
 // ************************************************************************** //
 
-DistributionCosine::DistributionCosine(double mean, double sigma) : m_mean(mean), m_sigma(sigma)
+DistributionCosine::DistributionCosine(const std::vector<double> P)
+    : IDistribution1D({"DistributionCosine",
+                       "class_tooltip",
+                       {{"Mean", "", "para_tooltip", -INF, +INF, 0},
+                        {"Sigma", "", "para_tooltip", -INF, +INF, 0}}},
+                      P),
+      m_mean(m_P[0]), m_sigma(m_P[1])
 {
-    setName("DistributionCosine");
     if (m_sigma < 0.0)
         throw Exceptions::ClassInitializationException("DistributionCosine: sigma<0");
-    registerParameter("Mean", &m_mean);
-    registerParameter("Sigma", &m_sigma);
+}
+
+DistributionCosine::DistributionCosine(double mean, double sigma)
+    : DistributionCosine(std::vector<double>{mean, sigma})
+{
 }
 
 DistributionCosine::DistributionCosine() : DistributionCosine(0., 1.) {}
@@ -339,24 +378,29 @@ bool DistributionCosine::isDelta() const
 // class DistributionTrapezoidal
 // ************************************************************************** //
 
-DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle,
-                                             double right)
-    : m_center(center), m_left(left), m_middle(middle), m_right(right)
+DistributionTrapezoid::DistributionTrapezoid(const std::vector<double> P)
+    : IDistribution1D({"DistributionTrapezoid",
+                       "class_tooltip",
+                       {{"Center", "", "para_tooltip", -INF, +INF, 0},
+                        {"LeftWidth", "", "para_tooltip", -INF, +INF, 0},
+                        {"MiddleWidth", "", "para_tooltip", -INF, +INF, 0},
+                        {"RightWidth", "", "para_tooltip", -INF, +INF, 0}}},
+                      P),
+      m_center(m_P[0]), m_left(m_P[1]), m_middle(m_P[2]), m_right(m_P[3])
 {
-    setName("DistributionTrapezoid");
     if (m_left < 0.0)
         throw Exceptions::ClassInitializationException("DistributionTrapezoid: leftWidth < 0");
     if (m_middle < 0.0)
         throw Exceptions::ClassInitializationException("DistributionTrapezoid: middleWidth < 0");
     if (m_right < 0.0)
         throw Exceptions::ClassInitializationException("DistributionTrapezoid: rightWidth < 0");
-    registerParameter("Center", &m_center);
-    registerParameter("LeftWidth", &m_left);
-    registerParameter("MiddleWidth", &m_middle);
-    registerParameter("RightWidth", &m_right);
 }
 
-DistributionTrapezoid::DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
+DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle,
+                                             double right)
+    : DistributionTrapezoid(std::vector<double>{center, left, middle, right})
+{
+}
 
 double DistributionTrapezoid::probabilityDensity(double x) const
 {

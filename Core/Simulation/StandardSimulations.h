@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_STANDARDSIMULATIONS_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_STANDARDSIMULATIONS_H
+#ifndef BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
+#define BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
 
 #include "Wrap/WinDllMacros.h"
 
@@ -82,4 +82,4 @@ BA_CORE_API_ DepthProbeSimulation* BasicDepthProbe();
 
 } // namespace StandardSimulations
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_STANDARDSIMULATIONS_H
+#endif // BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H

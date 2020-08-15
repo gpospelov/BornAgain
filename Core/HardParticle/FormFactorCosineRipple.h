@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticle/FormFactorRipple1.h
-//! @brief     Defines classes FormFactorRipple1*.
+//! @file      Core/HardParticle/FormFactorCosineRipple.h
+//! @brief     Defines classes FormFactorCosineRipple*.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,18 +12,19 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE1_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE1_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H
 
-#include "Core/HardParticle/ProfileRipple1.h"
+#include "Core/HardParticle/IProfileRipple.h"
 
 //! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorRipple1Box : public ProfileRipple1
+class BA_CORE_API_ FormFactorCosineRippleBox : public ICosineRipple
 {
 public:
-    FormFactorRipple1Box(double length, double width, double height);
-    FormFactorRipple1Box* clone() const override final;
+    FormFactorCosineRippleBox(const std::vector<double> P);
+    FormFactorCosineRippleBox(double length, double width, double height);
+    FormFactorCosineRippleBox* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
 
 private:
@@ -32,11 +33,12 @@ private:
 
 //! The form factor for a cosine ripple, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorRipple1Gauss : public ProfileRipple1
+class BA_CORE_API_ FormFactorCosineRippleGauss : public ICosineRipple
 {
 public:
-    FormFactorRipple1Gauss(double length, double width, double height);
-    FormFactorRipple1Gauss* clone() const override final;
+    FormFactorCosineRippleGauss(const std::vector<double> P);
+    FormFactorCosineRippleGauss(double length, double width, double height);
+    FormFactorCosineRippleGauss* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
 
 private:
@@ -45,15 +47,16 @@ private:
 
 //! The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorRipple1Lorentz : public ProfileRipple1
+class BA_CORE_API_ FormFactorCosineRippleLorentz : public ICosineRipple
 {
 public:
-    FormFactorRipple1Lorentz(double length, double width, double height);
-    FormFactorRipple1Lorentz* clone() const override final;
+    FormFactorCosineRippleLorentz(const std::vector<double> P);
+    FormFactorCosineRippleLorentz(double length, double width, double height);
+    FormFactorCosineRippleLorentz* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
 
 private:
     complex_t factor_x(complex_t qx) const override final;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE1_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H

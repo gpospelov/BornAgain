@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_IDISTRIBUTION2DSAMPLER_H
-#define BORNAGAIN_CORE_AGGREGATE_IDISTRIBUTION2DSAMPLER_H
+#ifndef BORNAGAIN_CORE_CORRELATIONS_IDISTRIBUTION2DSAMPLER_H
+#define BORNAGAIN_CORE_CORRELATIONS_IDISTRIBUTION2DSAMPLER_H
 
 #include "Wrap/WinDllMacros.h"
 #include <utility>
@@ -79,4 +79,4 @@ private:
     double m_omega_x, m_omega_y;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_IDISTRIBUTION2DSAMPLER_H
+#endif // BORNAGAIN_CORE_CORRELATIONS_IDISTRIBUTION2DSAMPLER_H

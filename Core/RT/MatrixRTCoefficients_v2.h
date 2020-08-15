@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_V2_H
-#define BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_V2_H
+#ifndef BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_V2_H
+#define BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_V2_H
 
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Vector/Vectors3D.h"
@@ -65,4 +65,4 @@ private:
                          //!< the second eigenmode
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_V2_H
+#endif // BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_V2_H

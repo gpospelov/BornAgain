@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorIcosahedron.h"
-#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorIcosahedron::topology = {{// bottom:
                                                              {{0, 2, 1}, false},
@@ -45,11 +44,17 @@ const PolyhedralTopology FormFactorIcosahedron::topology = {{// bottom:
 
 //! Constructor of a icosahedron.
 //! @param edge: length of the edge in nanometers
-FormFactorIcosahedron::FormFactorIcosahedron(double edge) : FormFactorPolyhedron(), m_edge(edge)
+FormFactorIcosahedron::FormFactorIcosahedron(const std::vector<double> P)
+    : FormFactorPolyhedron(
+        {"Icosahedron", "class_tooltip", {{"Edge", "nm", "para_tooltip", 0, +INF, 0}}}, P),
+      m_edge(m_P[0])
 {
-    setName("Icosahedron");
-    registerParameter("Edge", &m_edge).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorIcosahedron::FormFactorIcosahedron(double edge)
+    : FormFactorIcosahedron(std::vector<double>{edge})
+{
 }
 
 void FormFactorIcosahedron::onChange()

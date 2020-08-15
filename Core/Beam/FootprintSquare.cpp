@@ -18,9 +18,14 @@
 #include <algorithm>
 #include <stdexcept>
 
-FootprintSquare::FootprintSquare(double width_ratio) : IFootprintFactor(width_ratio)
+FootprintSquare::FootprintSquare(const std::vector<double> P)
+    : IFootprintFactor({"FootprintSquare", "class_tooltip", {}}, P)
 {
-    setName("FootprintSquare");
+}
+
+FootprintSquare::FootprintSquare(double width_ratio)
+    : FootprintSquare(std::vector<double>{width_ratio})
+{
 }
 
 FootprintSquare* FootprintSquare::clone() const

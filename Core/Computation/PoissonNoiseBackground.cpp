@@ -16,11 +16,9 @@
 #include "Core/Tools/MathFunctions.h"
 
 PoissonNoiseBackground::PoissonNoiseBackground()
+    : IBackground({"PoissonNoiseBackground", "class_tooltip", {}}, {})
 {
-    setName("PoissonNoiseBackground");
 }
-
-PoissonNoiseBackground::~PoissonNoiseBackground() = default;
 
 PoissonNoiseBackground* PoissonNoiseBackground::clone() const
 {

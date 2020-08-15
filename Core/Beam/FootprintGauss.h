@@ -25,6 +25,7 @@
 class BA_CORE_API_ FootprintGauss : public IFootprintFactor
 {
 public:
+    FootprintGauss(const std::vector<double> P);
     FootprintGauss(double width_ratio);
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }

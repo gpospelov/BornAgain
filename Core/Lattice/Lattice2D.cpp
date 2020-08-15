@@ -18,6 +18,10 @@
 #include "Core/Parametrization/RealParameter.h"
 #include <cmath>
 
+// ************************************************************************** //
+// class Lattice2D
+// ************************************************************************** //
+
 Lattice2D::Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(meta, PValues)
 {
@@ -57,7 +61,9 @@ void Lattice2D::setRotationEnabled(bool enabled) // TODO ASAP replace by generic
     }
 }
 
-// --------------------------------------------------------------------------------------------- //
+// ************************************************************************** //
+// class BasicLattice
+// ************************************************************************** //
 
 BasicLattice::BasicLattice(double length1, double length2, double angle, double xi)
     : Lattice2D(xi), m_length1(length1), m_length2(length2), m_angle(angle)
@@ -82,7 +88,9 @@ double BasicLattice::unitCellArea() const
     return std::abs(m_length1 * m_length2 * std::sin(m_angle));
 }
 
-// --------------------------------------------------------------------------------------------- //
+// ************************************************************************** //
+// class SquareLattice
+// ************************************************************************** //
 
 SquareLattice::SquareLattice(double length, double xi) : Lattice2D(xi), m_length(length)
 {
@@ -109,7 +117,9 @@ double SquareLattice::unitCellArea() const
     return std::abs(m_length * m_length);
 }
 
-// --------------------------------------------------------------------------------------------- //
+// ************************************************************************** //
+// class HexagonalLattice
+// ************************************************************************** //
 
 HexagonalLattice::HexagonalLattice(double length, double xi) : Lattice2D(xi), m_length(length)
 {

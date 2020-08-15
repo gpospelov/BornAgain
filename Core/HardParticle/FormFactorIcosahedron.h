@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorIcosahedron : public FormFactorPolyhedron
 {
 public:
+    FormFactorIcosahedron(const std::vector<double> P);
     FormFactorIcosahedron(double edge);
 
     FormFactorIcosahedron* clone() const override final
@@ -38,7 +39,7 @@ protected:
 
 private:
     static const PolyhedralTopology topology;
-    double m_edge;
+    const double& m_edge;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORICOSAHEDRON_H

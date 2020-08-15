@@ -17,7 +17,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ff = ba.FormFactorRipple1Box(100*nm, 20*nm, 4*nm)
+    ff = ba.FormFactorCosineRippleBox(100*nm, 20*nm, 4*nm)
     particle = ba.Particle(m_particle, ff)
 
     particle_layout = ba.ParticleLayout()

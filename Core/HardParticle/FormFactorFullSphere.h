@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
 public:
+    FormFactorFullSphere(const std::vector<double> P, bool position_at_center = false);
     FormFactorFullSphere(double radius, bool position_at_center = false);
 
     FormFactorFullSphere* clone() const override final
@@ -50,7 +51,7 @@ protected:
     void onChange() override final;
 
 private:
-    double m_radius;
+    const double& m_radius;
     bool m_position_at_center;
 };
 

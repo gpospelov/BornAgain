@@ -13,13 +13,19 @@
 // ************************************************************************** //
 
 #include "Core/Computation/ConstantBackground.h"
-#include "Core/Parametrization/RealParameter.h"
+
+ConstantBackground::ConstantBackground(const std::vector<double> P)
+    : IBackground({"ConstantBackground",
+                   "class_tooltip",
+                   {{"BackgroundValue", "", "para_tooltip", 0, +INF, 0}}},
+                  P),
+      m_background_value(m_P[0])
+{
+}
 
 ConstantBackground::ConstantBackground(double background_value)
-    : m_background_value(background_value)
+    : ConstantBackground(std::vector<double>{background_value})
 {
-    setName("ConstantBackground");
-    registerParameter("BackgroundValue", &m_background_value).setNonnegative();
 }
 
 ConstantBackground* ConstantBackground::clone() const

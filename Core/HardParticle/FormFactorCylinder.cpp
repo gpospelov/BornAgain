@@ -14,20 +14,26 @@
 
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Shapes/DoubleEllipse.h"
 #include "Core/Tools/MathFunctions.h"
 
 //! Constructor of a cylinder with a circular base.
 //! @param radius: radius of the circular base in nanometers
 //! @param height: height of the cylinder in nanometers
-FormFactorCylinder::FormFactorCylinder(double radius, double height)
-    : m_radius(radius), m_height(height)
+FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)
+    : IFormFactorBorn({"Cylinder",
+                       "class_tooltip",
+                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
+                        {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                      P),
+      m_radius(m_P[0]), m_height(m_P[1])
 {
-    setName("Cylinder");
-    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorCylinder::FormFactorCylinder(double radius, double height)
+    : FormFactorCylinder(std::vector<double>{radius, height})
+{
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const

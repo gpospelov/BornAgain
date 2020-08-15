@@ -14,8 +14,11 @@
 
 #include "Core/Scattering/Rotations.h"
 #include "Core/Basics/Assert.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Vector/Transform3D.h"
+
+// ************************************************************************** //
+// interface IRotation
+// ************************************************************************** //
 
 IRotation::IRotation(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(meta, PValues)
@@ -77,72 +80,103 @@ IRotation* createProduct(const IRotation& left, const IRotation& right)
     return p_result;
 }
 
-// --- IdentityRotation -------------------------------------------------------
+// ************************************************************************** //
+// class IdentityRotation
+// ************************************************************************** //
+
+IdentityRotation::IdentityRotation()
+    : IRotation({"IdentityRotation", "Identity rotation, does nothing", {}}, {})
+{
+}
 
 Transform3D IdentityRotation::getTransform3D() const
 {
     return Transform3D::createIdentity();
 }
 
-// --- RotationX --------------------------------------------------------------
+// ************************************************************************** //
+// class RotationX
+// ************************************************************************** //
 
 //! Constructor of rotation around x-axis
 //! @param angle: rotation angle around x-axis in radians
-RotationX::RotationX(double angle) : m_angle(angle)
+RotationX::RotationX(const std::vector<double> P)
+    : IRotation(
+        {"XRotation", "class_tooltip", {{"Angle", "rad", "Angle around x axis", -INF, +INF, 0}}},
+        P),
+      m_angle(m_P[0])
 {
-    setName("XRotation");
-    registerParameter("Angle", &m_angle).setUnit("rad");
 }
+
+RotationX::RotationX(double angle) : RotationX(std::vector<double>{angle}) {}
 
 Transform3D RotationX::getTransform3D() const
 {
     return Transform3D::createRotateX(m_angle);
 }
 
-// --- RotationY --------------------------------------------------------------
+// ************************************************************************** //
+// class RotationY
+// ************************************************************************** //
 
 //! Constructor of rotation around y-axis
 //! @param angle: rotation angle around y-axis in radians
-RotationY::RotationY(double angle) : m_angle(angle)
+RotationY::RotationY(const std::vector<double> P)
+    : IRotation(
+        {"YRotation", "class_tooltip", {{"Angle", "rad", "Angle around y axis", -INF, +INF, 0}}},
+        P),
+      m_angle(m_P[0])
 {
-    setName("YRotation");
-    registerParameter("Angle", &m_angle).setUnit("rad");
 }
+
+RotationY::RotationY(double angle) : RotationY(std::vector<double>{angle}) {}
 
 Transform3D RotationY::getTransform3D() const
 {
     return Transform3D::createRotateY(m_angle);
 }
 
+// ************************************************************************** //
+// class RotationZ
+// ************************************************************************** //
+
 // --- RotationZ --------------------------------------------------------------
 
 //! Constructor of rotation around z-axis
 //! @param angle: rotation angle around z-axis in radians
-RotationZ::RotationZ(double angle) : m_angle(angle)
+RotationZ::RotationZ(const std::vector<double> P)
+    : IRotation(
+        {"ZRotation", "class_tooltip", {{"Angle", "rad", "Angle around z axis", -INF, +INF, 0}}},
+        P),
+      m_angle(m_P[0])
 {
-    setName("ZRotation");
-    registerParameter("Angle", &m_angle).setUnit("rad");
 }
+
+RotationZ::RotationZ(double angle) : RotationZ(std::vector<double>{angle}) {}
 
 Transform3D RotationZ::getTransform3D() const
 {
     return Transform3D::createRotateZ(m_angle);
 }
 
-// --- RotationEuler ----------------------------------------------------------
+// ************************************************************************** //
+// class RotationEuler
+// ************************************************************************** //
 
-//! Constructor of Euler rotation (sequence of three rotations following Euler angles
-//! notation z-x'-z').
-//! @param alpha: first Euler angle in radians
-//! @param beta: second Euler angle in radians
-//! @param gamma: third Euler angle in radians
-RotationEuler::RotationEuler(double alpha, double beta, double gamma)
-    : m_alpha(alpha), m_beta(beta), m_gamma(gamma)
+RotationEuler::RotationEuler(const std::vector<double> P)
+    : IRotation({"EulerRotation",
+                 "Sequence of three rotations around z-x'-z''",
+                 {{"Alpha", "rad", "First Euler angle, rotation around z axis", -INF, +INF, 0},
+                  {"Beta", "rad", "Second Euler angle, rotation around x' axis", -INF, +INF, 0},
+                  {"Gamma", "rad", "Third Euler angle, rotation around z'' axis", -INF, +INF, 0}}},
+                P),
+      m_alpha(m_P[0]), m_beta(m_P[1]), m_gamma(m_P[2])
 {
-    setName("EulerRotation");
-    registerParameter("Alpha", &m_alpha).setUnit("rad");
-    registerParameter("Beta", &m_beta).setUnit("rad");
-    registerParameter("Gamma", &m_gamma).setUnit("rad");
+}
+
+RotationEuler::RotationEuler(double alpha, double beta, double gamma)
+    : RotationEuler(std::vector<double>{alpha, beta, gamma})
+{
 }
 
 IRotation* RotationEuler::createInverse() const

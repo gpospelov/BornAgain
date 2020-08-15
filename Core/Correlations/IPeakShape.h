@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_IPEAKSHAPE_H
-#define BORNAGAIN_CORE_AGGREGATE_IPEAKSHAPE_H
+#ifndef BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H
+#define BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H
 
 #include "Core/Scattering/ISample.h"
-#include "Core/Tools/Integrator.h"
 #include "Core/Vector/Vectors3D.h"
 
 //! Pure virtual interface class that defines the peak shape of a Bragg peak.
@@ -63,7 +62,7 @@ private:
     double m_domainsize;
 };
 
-//! Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
+//! An isotropic Lorentzian peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
 
@@ -85,7 +84,7 @@ private:
     double m_domainsize;
 };
 
-//! Class that implements a peak shape that is Gaussian in the radial direction and
+//! A peak shape that is Gaussian in the radial direction and
 //! uses the Mises-Fisher distribution in the angular direction.
 //!
 //! @ingroup samples_internal
@@ -110,8 +109,8 @@ private:
     double m_kappa;
 };
 
-//! Class that implements a peak shape that is Lorentzian in the radial direction and
-//! uses the Mises-Fisher distribution in the angular direction.
+//! A peak shape that is Lorentzian in the radial direction and uses the
+//! Mises-Fisher distribution in the angular direction.
 //!
 //! @ingroup samples_internal
 
@@ -135,9 +134,8 @@ private:
     double m_kappa;
 };
 
-//! Class that implements a peak shape that is Gaussian in the radial direction and a
-//! convolution of a Mises-Fisher distribution with a Mises distribution on the
-//! two-sphere
+//! A peak shape that is Gaussian in the radial direction and a convolution of a
+//! Mises-Fisher distribution with a Mises distribution on the two-sphere.
 //!
 //! @ingroup samples_internal
 
@@ -157,18 +155,17 @@ public:
     bool angularDisorder() const override { return true; }
 
 private:
-    double integrand(double phi) const;
     double m_max_intensity;
     double m_radial_size;
     kvector_t m_zenith;
     double m_kappa_1, m_kappa_2;
+
+    double integrand(double phi) const;
     mutable double m_theta, m_phi;
     mutable kvector_t m_ux, m_uy, m_up;
-    mutable RealIntegrator m_integrator;
 };
 
-//! Class that implements a peak shape that is a convolution of a Mises-Fisher distribution
-//! with a 3d Gaussian
+//! A peak shape that is a convolution of a Mises-Fisher distribution with a 3d Gaussian.
 //!
 //! @ingroup samples_internal
 
@@ -187,14 +184,14 @@ public:
     bool angularDisorder() const override { return true; }
 
 private:
-    double integrand(double phi) const;
     double m_max_intensity;
     double m_radial_size;
     kvector_t m_zenith;
     double m_kappa;
+
+    double integrand(double phi) const;
     mutable double m_theta, m_phi, m_qr;
     mutable kvector_t m_ux, m_uy, m_p;
-    mutable RealIntegrator m_integrator;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_IPEAKSHAPE_H
+#endif // BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H

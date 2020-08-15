@@ -45,12 +45,12 @@ enum class EShape {
     Box,
     HemiEllipsoid,
     Dot,
-    Ripple1Box,
-    Ripple1Gauss,
-    Ripple1Lorentz,
-    Ripple2Box,
-    Ripple2Gauss,
-    Ripple2Lorentz,
+    CosineRippleBox,
+    CosineRippleGauss,
+    CosineRippleLorentz,
+    SawtoothRippleBox,
+    SawtoothRippleGauss,
+    SawtoothRippleLorentz,
     AnisoPyramid,
 };
 
@@ -210,46 +210,46 @@ public:
     HemiEllipsoid(float Ra, float Rb, float H);
 };
 
-class Ripple1Box : public Particle
+class CosineRippleBox : public Particle
 {
 public:
-    Ripple1Box(float L, float W, float H);
+    CosineRippleBox(float L, float W, float H);
 };
 
-class Ripple1Gauss : public Particle
+class CosineRippleGauss : public Particle
 {
 public:
-    Ripple1Gauss(float L, float W, float H);
+    CosineRippleGauss(float L, float W, float H);
 };
 
-class Ripple1Lorentz : public Particle
+class CosineRippleLorentz : public Particle
 {
 public:
-    Ripple1Lorentz(float L, float W, float H);
+    CosineRippleLorentz(float L, float W, float H);
 };
 
-class Ripple2Box : public Particle
+class SawtoothRippleBox : public Particle
 {
 public:
-    Ripple2Box(float L, float W, float H);
+    SawtoothRippleBox(float L, float W, float H);
 };
 
-class Ripple2Gauss : public Particle
+class SawtoothRippleGauss : public Particle
 {
 public:
-    Ripple2Gauss(float L, float W, float H);
+    SawtoothRippleGauss(float L, float W, float H);
 };
 
-class Ripple2Lorentz : public Particle
+class SawtoothRippleLorentz : public Particle
 {
 public:
-    Ripple2Lorentz(float L, float W, float H);
+    SawtoothRippleLorentz(float L, float W, float H);
 };
 
-class Ripple2 : public Particle
+class SawtoothRipple : public Particle
 {
 public:
-    Ripple2(float L, float W, float H, float asymmetry);
+    SawtoothRipple(float L, float W, float H, float asymmetry);
 };
 
 class AnisoPyramid : public Particle

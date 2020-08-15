@@ -60,12 +60,12 @@ class FormFactorLongBoxLorentz;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
-class FormFactorRipple1Box;
-class FormFactorRipple1Gauss;
-class FormFactorRipple1Lorentz;
-class FormFactorRipple2Box;
-class FormFactorRipple2Gauss;
-class FormFactorRipple2Lorentz;
+class FormFactorCosineRippleBox;
+class FormFactorCosineRippleGauss;
+class FormFactorCosineRippleLorentz;
+class FormFactorSawtoothRippleBox;
+class FormFactorSawtoothRippleGauss;
+class FormFactorSawtoothRippleLorentz;
 class FormFactorSphereGaussianRadius;
 class FormFactorSphereLogNormalRadius;
 class FormFactorTetrahedron;
@@ -196,12 +196,12 @@ public:
     virtual void visit(const FormFactorPrism3*) {}
     virtual void visit(const FormFactorPrism6*) {}
     virtual void visit(const FormFactorPyramid*) {}
-    virtual void visit(const FormFactorRipple1Box*) {}
-    virtual void visit(const FormFactorRipple1Gauss*) {}
-    virtual void visit(const FormFactorRipple1Lorentz*) {}
-    virtual void visit(const FormFactorRipple2Box*) {}
-    virtual void visit(const FormFactorRipple2Gauss*) {}
-    virtual void visit(const FormFactorRipple2Lorentz*) {}
+    virtual void visit(const FormFactorCosineRippleBox*) {}
+    virtual void visit(const FormFactorCosineRippleGauss*) {}
+    virtual void visit(const FormFactorCosineRippleLorentz*) {}
+    virtual void visit(const FormFactorSawtoothRippleBox*) {}
+    virtual void visit(const FormFactorSawtoothRippleGauss*) {}
+    virtual void visit(const FormFactorSawtoothRippleLorentz*) {}
     virtual void visit(const FormFactorSphereGaussianRadius*) {}
     virtual void visit(const FormFactorSphereLogNormalRadius*) {}
     virtual void visit(const FormFactorTetrahedron*) {}

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_H
-#define BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_H
+#define BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_H
 
 #include "Core/RT/ILayerRTCoefficients.h"
 
@@ -67,4 +67,4 @@ public:
                                      //!< lambda=0
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_MATRIXRTCOEFFICIENTS_H
+#endif // BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_H

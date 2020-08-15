@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticle/FormFactorRipple2.h
-//! @brief     Defines classes FormFactorRipple2*.
+//! @file      Core/HardParticle/FormFactorSawtoothRipple.h
+//! @brief     Defines classes FormFactorSawtoothRipple*.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,18 +12,19 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORSAWTOOTHRIPPLE_H
+#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORSAWTOOTHRIPPLE_H
 
-#include "Core/HardParticle/ProfileRipple2.h"
+#include "Core/HardParticle/IProfileRipple.h"
 
 //! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorRipple2Box : public ProfileRipple2
+class BA_CORE_API_ FormFactorSawtoothRippleBox : public ISawtoothRipple
 {
 public:
-    FormFactorRipple2Box(double length, double width, double height, double asymmetry);
-    FormFactorRipple2Box* clone() const override final;
+    FormFactorSawtoothRippleBox(const std::vector<double> P);
+    FormFactorSawtoothRippleBox(double length, double width, double height, double asymmetry);
+    FormFactorSawtoothRippleBox* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
 
 private:
@@ -32,11 +33,12 @@ private:
 
 //! The form factor for a cosine ripple, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorRipple2Gauss : public ProfileRipple2
+class BA_CORE_API_ FormFactorSawtoothRippleGauss : public ISawtoothRipple
 {
 public:
-    FormFactorRipple2Gauss(double length, double width, double height, double asymmetry);
-    FormFactorRipple2Gauss* clone() const override final;
+    FormFactorSawtoothRippleGauss(const std::vector<double> P);
+    FormFactorSawtoothRippleGauss(double length, double width, double height, double asymmetry);
+    FormFactorSawtoothRippleGauss* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
 
 private:
@@ -45,15 +47,16 @@ private:
 
 //! The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
 //! @ingroup legacyGrating
-class BA_CORE_API_ FormFactorRipple2Lorentz : public ProfileRipple2
+class BA_CORE_API_ FormFactorSawtoothRippleLorentz : public ISawtoothRipple
 {
 public:
-    FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry);
-    FormFactorRipple2Lorentz* clone() const override final;
+    FormFactorSawtoothRippleLorentz(const std::vector<double> P);
+    FormFactorSawtoothRippleLorentz(double length, double width, double height, double asymmetry);
+    FormFactorSawtoothRippleLorentz* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
 
 private:
     complex_t factor_x(complex_t qx) const override final;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORRIPPLE2_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORSAWTOOTHRIPPLE_H

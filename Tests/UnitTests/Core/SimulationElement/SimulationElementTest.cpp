@@ -1,7 +1,7 @@
 #include "Core/SimulationElement/SimulationElement.h"
 #include "Core/Basics/Units.h"
 #include "Core/Binning/Bin.h"
-#include "Core/Detector/SphericalDetector.h"
+#include "Core/Detector/SphericalPixel.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

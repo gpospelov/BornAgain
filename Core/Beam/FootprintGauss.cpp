@@ -17,9 +17,14 @@
 #include "Core/Tools/MathFunctions.h"
 #include "Core/Tools/PyFmt.h"
 
-FootprintGauss::FootprintGauss(double width_ratio) : IFootprintFactor(width_ratio)
+FootprintGauss::FootprintGauss(const std::vector<double> P)
+    : IFootprintFactor({"FootprintGauss", "class_tooltip", {}}, P)
 {
-    setName("FootprintGauss");
+}
+
+FootprintGauss::FootprintGauss(double width_ratio)
+    : FootprintGauss(std::vector<double>{width_ratio})
+{
 }
 
 FootprintGauss* FootprintGauss::clone() const

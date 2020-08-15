@@ -16,8 +16,8 @@
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
-#include "Core/HardParticle/FormFactorRipple1.h"
-#include "Core/HardParticle/FormFactorRipple2.h"
+#include "Core/HardParticle/FormFactorCosineRipple.h"
+#include "Core/HardParticle/FormFactorSawtoothRipple.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
@@ -35,7 +35,7 @@ MultiLayer* CosineRippleBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
-    FormFactorRipple1Box ff_ripple1(100.0, 20.0, 4.0);
+    FormFactorCosineRippleBox ff_ripple1(100.0, 20.0, 4.0);
     Particle ripple(particle_material, ff_ripple1);
 
     ParticleLayout particle_layout;
@@ -71,7 +71,7 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
-    FormFactorRipple2Box ff_ripple2(100.0, 20.0, 4.0, m_d);
+    FormFactorSawtoothRippleBox ff_ripple2(100.0, 20.0, 4.0, m_d);
     Particle ripple(particle_material, ff_ripple2);
 
     ParticleLayout particle_layout;

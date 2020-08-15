@@ -30,7 +30,6 @@ public:
     static IRotation* createRotation(const Transform3D& transform);
     static IRotation* createIdentity();
 
-    IRotation() = default;
     IRotation(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IRotation* clone() const = 0;
@@ -53,10 +52,10 @@ BA_CORE_API_ IRotation* createProduct(const IRotation& left, const IRotation& ri
 
 //! The identity rotation, which leaves everything in place.
 
-class BA_CORE_API_ IdentityRotation : public IRotation
+class BA_CORE_API_ IdentityRotation : public IRotation // TODO get rid of this class
 {
 public:
-    IdentityRotation() = default;
+    IdentityRotation();
 
     IdentityRotation* clone() const { return new IdentityRotation(); }
     IdentityRotation* createInverse() const { return new IdentityRotation(); }
@@ -73,6 +72,7 @@ public:
 class BA_CORE_API_ RotationX : public IRotation
 {
 public:
+    RotationX(const std::vector<double> P);
     RotationX(double angle);
 
     RotationX* clone() const { return new RotationX(m_angle); }
@@ -85,7 +85,7 @@ public:
     Transform3D getTransform3D() const;
 
 protected:
-    double m_angle;
+    const double& m_angle;
 };
 
 //! A rotation about the y axis.
@@ -93,6 +93,7 @@ protected:
 class BA_CORE_API_ RotationY : public IRotation
 {
 public:
+    RotationY(const std::vector<double> P);
     RotationY(double angle);
 
     RotationY* clone() const { return new RotationY(m_angle); }
@@ -105,7 +106,7 @@ public:
     Transform3D getTransform3D() const;
 
 protected:
-    double m_angle;
+    const double& m_angle;
 };
 
 //! A rotation about the z axis.
@@ -113,6 +114,7 @@ protected:
 class BA_CORE_API_ RotationZ : public IRotation
 {
 public:
+    RotationZ(const std::vector<double> P);
     RotationZ(double angle);
 
     RotationZ* clone() const { return new RotationZ(m_angle); }
@@ -125,7 +127,7 @@ public:
     Transform3D getTransform3D() const;
 
 protected:
-    double m_angle;
+    const double& m_angle;
 };
 
 //! A sequence of rotations about the z-x'-z'' axes.
@@ -133,6 +135,7 @@ protected:
 class BA_CORE_API_ RotationEuler : public IRotation
 {
 public:
+    RotationEuler(const std::vector<double> P);
     RotationEuler(double alpha, double beta, double gamma);
 
     RotationEuler* clone() const { return new RotationEuler(m_alpha, m_beta, m_gamma); }

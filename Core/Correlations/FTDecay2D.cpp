@@ -14,23 +14,12 @@
 
 #include "Core/Correlations/FTDecay2D.h"
 #include "Core/Basics/MathConstants.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 #include <algorithm>
 
-//! Constructor of two-dimensional decay function in reciprocal space.
-//! @param decay_length_x: the decay length in nanometers along x-axis of the distribution
-//! @param decay_length_y: the decay length in nanometers along y-axis of the distribution
-//! @param gamma: distribution orientation with respect to the corresponding lattice vector
-//! in radians
-IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma)
-    : m_decay_length_x(decay_length_x), m_decay_length_y(decay_length_y), m_gamma(gamma)
-{
-    registerParameter("DecayLengthX", &m_decay_length_x).setUnit("nm").setNonnegative();
-    registerParameter("DecayLengthY", &m_decay_length_y).setUnit("nm").setNonnegative();
-    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
-}
+// ************************************************************************** //
+// interface IIFTDecayFunction1D
+// ************************************************************************** //
 
 IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(nodeMetaUnion({{"DecayLengthX", "nm", "Half-width along x axis", 0, INF, 1.},
@@ -38,7 +27,8 @@ IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta& meta, const std::vector<d
                            {"Gamma", "rad", "orientation with respect to the first lattice vector",
                             -M_PI_2, +M_PI_2, 0}},
                           meta),
-            PValues)
+            PValues),
+      m_decay_length_x(m_P[0]), m_decay_length_y(m_P[1]), m_gamma(m_P[2])
 {
 }
 
@@ -64,11 +54,19 @@ std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(d
     return {qa, qb};
 }
 
+// ************************************************************************** //
+// class FTDecayFunction2DCauchy
+// ************************************************************************** //
+
+FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(const std::vector<double> P)
+    : IFTDecayFunction2D({"FTDecayFunction2DCauchy", "class_tooltip", {}}, P)
+{
+}
+
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
                                                  double gamma)
-    : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma)
+    : FTDecayFunction2DCauchy(std::vector<double>{decay_length_x, decay_length_y, gamma})
 {
-    setName("FTDecayFunction2DCauchy");
 }
 
 FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const
@@ -83,11 +81,19 @@ double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
     return M_TWOPI * m_decay_length_x * m_decay_length_y * std::pow(1.0 + sum_sq, -1.5);
 }
 
+// ************************************************************************** //
+// class FTDecayFunction2DGauss
+// ************************************************************************** //
+
+FTDecayFunction2DGauss::FTDecayFunction2DGauss(const std::vector<double> P)
+    : IFTDecayFunction2D({"FTDecayFunction2DGauss", "class_tooltip", {}}, P)
+{
+}
+
 FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y,
                                                double gamma)
-    : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma)
+    : FTDecayFunction2DGauss(std::vector<double>{decay_length_x, decay_length_y, gamma})
 {
-    setName("FTDecayFunction2DGauss");
 }
 
 FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const
@@ -102,18 +108,28 @@ double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
     return M_TWOPI * m_decay_length_x * m_decay_length_y * std::exp(-sum_sq / 2.0);
 }
 
+// ************************************************************************** //
+// class FTDecayFunction2DVoigt
+// ************************************************************************** //
+
 //! Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
 //! @param decay_length_x: the decay length in nanometers along x-axis of the distribution
 //! @param decay_length_y: the decay length in nanometers along y-axis of the distribution
 //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
 //! @param gamma: distribution orientation with respect to the first lattice vector in radians
 
+FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector<double> P)
+    : IFTDecayFunction2D(
+        {"FTDecayFunction2DVoigt", "class_tooltip", {{"Eta", "", "para_tooltip", -INF, +INF, 0}}},
+        P),
+      m_eta(m_P[0])
+{
+}
+
 FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y,
                                                double gamma, double eta)
-    : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma), m_eta(eta)
+    : FTDecayFunction2DVoigt(std::vector<double>{decay_length_x, decay_length_y, gamma, eta})
 {
-    setName("FTDecayFunction2DVoigt");
-    registerParameter("Eta", &m_eta);
 }
 
 FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const

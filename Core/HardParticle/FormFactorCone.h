@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE_H
 
 #include "Core/Scattering/IFormFactorBorn.h"
-#include "Core/Tools/Integrator.h"
 
 //! A conical frustum (cone truncated parallel to the base) with circular base.
 //! @ingroup hardParticle
@@ -24,6 +23,7 @@
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
+    FormFactorCone(const std::vector<double> P);
     FormFactorCone(double radius, double height, double alpha);
 
     FormFactorCone* clone() const override final
@@ -49,12 +49,11 @@ protected:
 private:
     complex_t Integrand(double Z) const;
 
-    double m_radius;
-    double m_height;
-    double m_alpha;
+    const double& m_radius;
+    const double& m_height;
+    const double& m_alpha;
     double m_cot_alpha;
     mutable cvector_t m_q;
-    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCONE_H

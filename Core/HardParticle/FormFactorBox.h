@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorBox : public FormFactorPolygonalPrism
 {
 public:
+    FormFactorBox(const std::vector<double> P);
     FormFactorBox(double length, double width, double height);
 
     FormFactorBox* clone() const override final
@@ -47,9 +48,9 @@ protected:
     double height() const final { return m_height; }
 
 private:
-    double m_length;
-    double m_width;
-    double m_height;
+    const double& m_length;
+    const double& m_width;
+    const double& m_height;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H

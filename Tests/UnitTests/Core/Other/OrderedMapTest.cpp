@@ -1,4 +1,4 @@
-#include "Core/Tools/OrderedMap.h"
+#include "Core/Export/OrderedMap.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class OrderedMapTest : public ::testing::Test

@@ -28,12 +28,12 @@ Geometry::Mesh Geometry::meshRipple(float numSides, float ratio_asymmetry_W)
     // Values are chosen such that length, width and height are 1
     float const R = .5f;
     float const H = 2 * R;                             // L = W = H = 2*R
-    float const asymmetry = ratio_asymmetry_W * 2 * R; // for Ripple1 asymmetry is inherently 0
+    float const asymmetry = ratio_asymmetry_W * 2 * R; // for CosineRipple asymmetry is inherently 0
 
     Vertices vfront(slices), vback(slices);
 
     if (numSides == 3) {
-        // Ripple2: saw-tooth (3 rectangular sides and 2 triangular front and back)
+        // SawtoothRipple: saw-tooth (3 rectangular sides and 2 triangular front and back)
         vfront[0] = Vector3D(-R, -R, 0);
         vfront[1] = Vector3D(-R, asymmetry, H);
         vfront[2] = Vector3D(-R, R, 0);
@@ -42,7 +42,7 @@ Geometry::Mesh Geometry::meshRipple(float numSides, float ratio_asymmetry_W)
         vback[1] = Vector3D(R, asymmetry, H);
         vback[2] = Vector3D(R, R, 0);
     } else if (numSides == 0) {
-        // Ripple1: cosine ripple
+        // CosineRipple: cosine ripple
         for (int s = 0; s < slices; ++s) {
             float th = static_cast<float>(M_PI * s / (slices + 1));
             float y = -R * cosf(th);

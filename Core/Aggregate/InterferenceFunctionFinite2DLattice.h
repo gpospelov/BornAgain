@@ -17,7 +17,6 @@
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Lattice/Lattice2D.h"
-#include "Core/Tools/Integrator.h"
 
 //! Interference function of a finite 2D lattice.
 //! @ingroup interference
@@ -63,7 +62,6 @@ private:
     unsigned m_N_1, m_N_2; //!< Size of the finite lattice in lattice units
     mutable double m_qx;
     mutable double m_qy;
-    mutable RealIntegrator m_integrator;
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONFINITE2DLATTICE_H

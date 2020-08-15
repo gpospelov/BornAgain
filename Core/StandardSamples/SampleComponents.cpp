@@ -66,9 +66,9 @@ FormFactorComponents::FormFactorComponents()
 
     add("Pyramid", new FormFactorPyramid(10.0, 5.0, Units::deg2rad(54.73)));
 
-    add("Ripple1Box", new FormFactorRipple1Box(100.0, 20.0, 4.0));
+    add("CosineRippleBox", new FormFactorCosineRippleBox(100.0, 20.0, 4.0));
 
-    add("Ripple2Box", new FormFactorRipple2Box(100.0, 20.0, 4.0, 0.0));
+    add("SawtoothRippleBox", new FormFactorSawtoothRippleBox(100.0, 20.0, 4.0, 0.0));
 
     add("Tetrahedron", new FormFactorTetrahedron(10.0, 4.0, Units::deg2rad(54.73)));
 

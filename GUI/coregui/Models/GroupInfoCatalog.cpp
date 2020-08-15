@@ -36,12 +36,12 @@ GroupInfoCatalog::GroupInfoCatalog()
     info.add("Prism3", "Prism3");
     info.add("Prism6", "Prism6");
     info.add("Pyramid", "Pyramid");
-    info.add("Ripple1Box", "Ripple1Box");
-    info.add("Ripple1Gauss", "Ripple1Gauss");
-    info.add("Ripple1Lorentz", "Ripple1Lorentz");
-    info.add("Ripple2Box", "Ripple2Box");
-    info.add("Ripple2Gauss", "Ripple2Gauss");
-    info.add("Ripple2Lorentz", "Ripple2Lorentz");
+    info.add("CosineRippleBox", "CosineRippleBox");
+    info.add("CosineRippleGauss", "CosineRippleGauss");
+    info.add("CosineRippleLorentz", "CosineRippleLorentz");
+    info.add("SawtoothRippleBox", "SawtoothRippleBox");
+    info.add("SawtoothRippleGauss", "SawtoothRippleGauss");
+    info.add("SawtoothRippleLorentz", "SawtoothRippleLorentz");
     info.add("Tetrahedron", "Tetrahedron");
     info.add("TruncatedCube", "Truncated Cube");
     info.add("TruncatedSphere", "Truncated Sphere");

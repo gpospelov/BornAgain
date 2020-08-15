@@ -12,14 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
-#define BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
+#ifndef BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS2D_H
+#define BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS2D_H
 
 #include "Core/Basics/ICloneable.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Correlations/IDistribution2DSampler.h"
 #include "Core/Parametrization/INode.h"
-#include "Core/Tools/Integrator.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
@@ -27,19 +26,16 @@
 class BA_CORE_API_ IFTDistribution2D : public ICloneable, public INode
 {
 public:
-    IFTDistribution2D(double omega_x, double omega_y, double gamma);
     IFTDistribution2D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     IFTDistribution2D* clone() const = 0;
 
-    void setGamma(double gamma) { m_gamma = gamma; }
+    double omegaX() const { return m_omega_x; }
+    double omegaY() const { return m_omega_y; }
     double gamma() const { return m_gamma; }
 
     //! Angle in direct space between X- and Y-axis of distribution.
     double delta() const { return M_PI_2; }
-
-    double omegaX() const { return m_omega_x; }
-    double omegaY() const { return m_omega_y; }
 
     //! evaluate Fourier transformed distribution for q in X,Y coordinates
     //! the original distribution (in real space) is assumed to be normalized:
@@ -53,10 +49,9 @@ public:
 protected:
     double sumsq(double qx, double qy) const;
 
-    double m_omega_x; //!< Half-width of the distribution along its x-axis in nanometers.
-    double m_omega_y; //!< Half-width of the distribution along its y-axis in nanometers.
-    //! Angle in direct space between first lattice vector and X-axis of distribution.
-    double m_gamma;
+    const double& m_omega_x;
+    const double& m_omega_y;
+    const double& m_gamma;
 };
 
 //! Two-dimensional Cauchy distribution in Fourier space;
@@ -67,6 +62,7 @@ protected:
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
+    FTDistribution2DCauchy(const std::vector<double> P);
     FTDistribution2DCauchy(double omega_x, double omega_y, double gamma);
 
     FTDistribution2DCauchy* clone() const final;
@@ -85,6 +81,7 @@ public:
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
+    FTDistribution2DGauss(const std::vector<double> P);
     FTDistribution2DGauss(double omega_x, double omega_y, double gamma);
 
     FTDistribution2DGauss* clone() const final;
@@ -103,6 +100,7 @@ public:
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
 public:
+    FTDistribution2DGate(const std::vector<double> P);
     FTDistribution2DGate(double omega_x, double omega_y, double gamma);
 
     FTDistribution2DGate* clone() const final;
@@ -121,6 +119,7 @@ public:
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
 public:
+    FTDistribution2DCone(const std::vector<double> P);
     FTDistribution2DCone(double omega_x, double omega_y, double gamma);
 
     FTDistribution2DCone* clone() const final;
@@ -129,9 +128,6 @@ public:
 #ifndef SWIG
     std::unique_ptr<IDistribution2DSampler> createSampler() const final;
 #endif
-
-private:
-    mutable RealIntegrator m_integrator;
 };
 
 //! Two-dimensional Voigt distribution in Fourier space;
@@ -141,6 +137,7 @@ private:
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
+    FTDistribution2DVoigt(const std::vector<double> P);
     FTDistribution2DVoigt(double omega_x, double omega_y, double gamma, double eta);
 
     FTDistribution2DVoigt* clone() const final;
@@ -152,7 +149,7 @@ public:
 #endif
 
 protected:
-    double m_eta;
+    const double& m_eta;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_FTDISTRIBUTIONS2D_H
+#endif // BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS2D_H

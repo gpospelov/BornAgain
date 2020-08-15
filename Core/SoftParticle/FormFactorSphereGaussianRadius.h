@@ -24,6 +24,7 @@
 class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
 public:
+    FormFactorSphereGaussianRadius(const std::vector<double> P);
     FormFactorSphereGaussianRadius(double mean, double sigma);
 
     FormFactorSphereGaussianRadius* clone() const override final
@@ -43,8 +44,8 @@ protected:
 private:
     double calculateMeanR3() const;
 
-    double m_mean; //!< This is the mean radius
-    double m_sigma;
+    const double& m_mean; //!< This is the mean radius
+    const double& m_sigma;
     double m_mean_r3; //!< This is the radius that gives the mean volume
 };
 

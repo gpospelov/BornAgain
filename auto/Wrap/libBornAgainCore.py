@@ -6336,12 +6336,12 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FormFactorPrism3 arg2)
         visit(INodeVisitor self, FormFactorPrism6 arg2)
         visit(INodeVisitor self, FormFactorPyramid arg2)
-        visit(INodeVisitor self, FormFactorRipple1Box arg2)
-        visit(INodeVisitor self, FormFactorRipple1Gauss arg2)
-        visit(INodeVisitor self, FormFactorRipple1Lorentz arg2)
-        visit(INodeVisitor self, FormFactorRipple2Box arg2)
-        visit(INodeVisitor self, FormFactorRipple2Gauss arg2)
-        visit(INodeVisitor self, FormFactorRipple2Lorentz arg2)
+        visit(INodeVisitor self, FormFactorCosineRippleBox arg2)
+        visit(INodeVisitor self, FormFactorCosineRippleGauss arg2)
+        visit(INodeVisitor self, FormFactorCosineRippleLorentz arg2)
+        visit(INodeVisitor self, FormFactorSawtoothRippleBox arg2)
+        visit(INodeVisitor self, FormFactorSawtoothRippleGauss arg2)
+        visit(INodeVisitor self, FormFactorSawtoothRippleLorentz arg2)
         visit(INodeVisitor self, FormFactorSphereGaussianRadius arg2)
         visit(INodeVisitor self, FormFactorSphereLogNormalRadius arg2)
         visit(INodeVisitor self, FormFactorTetrahedron arg2)
@@ -6693,8 +6693,9 @@ class DistributionGate(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionGate self) -> DistributionGate
+        __init__(DistributionGate self, vdouble1d_t P) -> DistributionGate
         __init__(DistributionGate self, double min, double max) -> DistributionGate
+        __init__(DistributionGate self) -> DistributionGate
         DistributionGate::DistributionGate(double min, double max)
 
         """
@@ -6793,8 +6794,9 @@ class DistributionLorentz(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionLorentz self) -> DistributionLorentz
+        __init__(DistributionLorentz self, vdouble1d_t P) -> DistributionLorentz
         __init__(DistributionLorentz self, double mean, double hwhm) -> DistributionLorentz
+        __init__(DistributionLorentz self) -> DistributionLorentz
         DistributionLorentz::DistributionLorentz(double mean, double hwhm)
 
         """
@@ -6885,8 +6887,9 @@ class DistributionGaussian(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionGaussian self) -> DistributionGaussian
+        __init__(DistributionGaussian self, vdouble1d_t P) -> DistributionGaussian
         __init__(DistributionGaussian self, double mean, double std_dev) -> DistributionGaussian
+        __init__(DistributionGaussian self) -> DistributionGaussian
         DistributionGaussian::DistributionGaussian(double mean, double std_dev)
 
         """
@@ -6975,13 +6978,14 @@ class DistributionLogNormal(IDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, median, scale_param):
+    def __init__(self, *args):
         r"""
+        __init__(DistributionLogNormal self, vdouble1d_t P) -> DistributionLogNormal
         __init__(DistributionLogNormal self, double median, double scale_param) -> DistributionLogNormal
         DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
 
         """
-        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(median, scale_param))
+        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(*args))
 
     def clone(self):
         r"""
@@ -7086,8 +7090,9 @@ class DistributionCosine(IDistribution1D):
 
     def __init__(self, *args):
         r"""
-        __init__(DistributionCosine self) -> DistributionCosine
+        __init__(DistributionCosine self, vdouble1d_t P) -> DistributionCosine
         __init__(DistributionCosine self, double mean, double sigma) -> DistributionCosine
+        __init__(DistributionCosine self) -> DistributionCosine
         DistributionCosine::DistributionCosine(double mean, double sigma)
 
         """
@@ -7178,6 +7183,7 @@ class DistributionTrapezoid(IDistribution1D):
 
     def __init__(self, *args):
         r"""
+        __init__(DistributionTrapezoid self, vdouble1d_t P) -> DistributionTrapezoid
         __init__(DistributionTrapezoid self, double center, double left, double middle, double right) -> DistributionTrapezoid
         __init__(DistributionTrapezoid self) -> DistributionTrapezoid
         DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
@@ -8542,8 +8548,9 @@ class RotationX(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, angle):
+    def __init__(self, *args):
         r"""
+        __init__(RotationX self, vdouble1d_t P) -> RotationX
         __init__(RotationX self, double angle) -> RotationX
         RotationX::RotationX(double angle)
 
@@ -8556,7 +8563,7 @@ class RotationX(IRotation):
         rotation angle around x-axis in radians 
 
         """
-        _libBornAgainCore.RotationX_swiginit(self, _libBornAgainCore.new_RotationX(angle))
+        _libBornAgainCore.RotationX_swiginit(self, _libBornAgainCore.new_RotationX(*args))
 
     def clone(self):
         r"""
@@ -8623,8 +8630,9 @@ class RotationY(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, angle):
+    def __init__(self, *args):
         r"""
+        __init__(RotationY self, vdouble1d_t P) -> RotationY
         __init__(RotationY self, double angle) -> RotationY
         RotationY::RotationY(double angle)
 
@@ -8637,7 +8645,7 @@ class RotationY(IRotation):
         rotation angle around y-axis in radians 
 
         """
-        _libBornAgainCore.RotationY_swiginit(self, _libBornAgainCore.new_RotationY(angle))
+        _libBornAgainCore.RotationY_swiginit(self, _libBornAgainCore.new_RotationY(*args))
 
     def clone(self):
         r"""
@@ -8704,8 +8712,9 @@ class RotationZ(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, angle):
+    def __init__(self, *args):
         r"""
+        __init__(RotationZ self, vdouble1d_t P) -> RotationZ
         __init__(RotationZ self, double angle) -> RotationZ
         RotationZ::RotationZ(double angle=0.0)
 
@@ -8718,7 +8727,7 @@ class RotationZ(IRotation):
         rotation angle around z-axis in radians 
 
         """
-        _libBornAgainCore.RotationZ_swiginit(self, _libBornAgainCore.new_RotationZ(angle))
+        _libBornAgainCore.RotationZ_swiginit(self, _libBornAgainCore.new_RotationZ(*args))
 
     def clone(self):
         r"""
@@ -8785,8 +8794,9 @@ class RotationEuler(IRotation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, alpha, beta, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(RotationEuler self, vdouble1d_t P) -> RotationEuler
         __init__(RotationEuler self, double alpha, double beta, double gamma) -> RotationEuler
         RotationEuler::RotationEuler(double alpha, double beta, double gamma)
 
@@ -8805,7 +8815,7 @@ class RotationEuler(IRotation):
         third Euler angle in radians 
 
         """
-        _libBornAgainCore.RotationEuler_swiginit(self, _libBornAgainCore.new_RotationEuler(alpha, beta, gamma))
+        _libBornAgainCore.RotationEuler_swiginit(self, _libBornAgainCore.new_RotationEuler(*args))
 
     def clone(self):
         r"""
@@ -10268,13 +10278,14 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DCauchy self, vdouble1d_t P) -> FTDecayFunction1DCauchy
         __init__(FTDecayFunction1DCauchy self, double decay_length) -> FTDecayFunction1DCauchy
         FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
 
         """
-        _libBornAgainCore.FTDecayFunction1DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DCauchy(decay_length))
+        _libBornAgainCore.FTDecayFunction1DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DCauchy(*args))
 
     def clone(self):
         r"""
@@ -10319,13 +10330,14 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DGauss self, vdouble1d_t P) -> FTDecayFunction1DGauss
         __init__(FTDecayFunction1DGauss self, double decay_length) -> FTDecayFunction1DGauss
         FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
 
         """
-        _libBornAgainCore.FTDecayFunction1DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DGauss(decay_length))
+        _libBornAgainCore.FTDecayFunction1DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DGauss(*args))
 
     def clone(self):
         r"""
@@ -10370,13 +10382,14 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DTriangle self, vdouble1d_t P) -> FTDecayFunction1DTriangle
         __init__(FTDecayFunction1DTriangle self, double decay_length) -> FTDecayFunction1DTriangle
         FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
 
         """
-        _libBornAgainCore.FTDecayFunction1DTriangle_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DTriangle(decay_length))
+        _libBornAgainCore.FTDecayFunction1DTriangle_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DTriangle(*args))
 
     def clone(self):
         r"""
@@ -10421,8 +10434,9 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction1DVoigt self, vdouble1d_t P) -> FTDecayFunction1DVoigt
         __init__(FTDecayFunction1DVoigt self, double decay_length, double eta) -> FTDecayFunction1DVoigt
         FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
 
@@ -10438,7 +10452,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 
         """
-        _libBornAgainCore.FTDecayFunction1DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DVoigt(decay_length, eta))
+        _libBornAgainCore.FTDecayFunction1DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction1DVoigt(*args))
 
     def clone(self):
         r"""
@@ -10502,26 +10516,6 @@ class IFTDecayFunction2D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDecayFunction2D_clone(self)
 
-    def setGamma(self, gamma):
-        r"""
-        setGamma(IFTDecayFunction2D self, double gamma)
-        void IFTDecayFunction2D::setGamma(double gamma)
-
-        set angle between first lattice vector and X-axis of distribution (both in direct space) 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_setGamma(self, gamma)
-
-    def gamma(self):
-        r"""
-        gamma(IFTDecayFunction2D self) -> double
-        double IFTDecayFunction2D::gamma() const
-
-        get angle between first lattice vector and X-axis of distribution (both in direct space) 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_gamma(self)
-
     def decayLengthX(self):
         r"""
         decayLengthX(IFTDecayFunction2D self) -> double
@@ -10541,6 +10535,16 @@ class IFTDecayFunction2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDecayFunction2D_decayLengthY(self)
+
+    def gamma(self):
+        r"""
+        gamma(IFTDecayFunction2D self) -> double
+        double IFTDecayFunction2D::gamma() const
+
+        get angle between first lattice vector and X-axis of distribution (both in direct space) 
+
+        """
+        return _libBornAgainCore.IFTDecayFunction2D_gamma(self)
 
     def evaluate(self, qx, qy):
         r"""
@@ -10581,13 +10585,14 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction2DCauchy self, vdouble1d_t P) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DCauchy
         FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDecayFunction2DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DCauchy(decay_length_x, decay_length_y, gamma))
+        _libBornAgainCore.FTDecayFunction2DCauchy_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DCauchy(*args))
 
     def clone(self):
         r"""
@@ -10634,13 +10639,14 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction2DGauss self, vdouble1d_t P) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma) -> FTDecayFunction2DGauss
         FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDecayFunction2DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DGauss(decay_length_x, decay_length_y, gamma))
+        _libBornAgainCore.FTDecayFunction2DGauss_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DGauss(*args))
 
     def clone(self):
         r"""
@@ -10687,8 +10693,9 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, decay_length_x, decay_length_y, gamma, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDecayFunction2DVoigt self, vdouble1d_t P) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double gamma, double eta) -> FTDecayFunction2DVoigt
         FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0)
 
@@ -10710,7 +10717,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         distribution orientation with respect to the first lattice vector in radians 
 
         """
-        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, gamma, eta))
+        _libBornAgainCore.FTDecayFunction2DVoigt_swiginit(self, _libBornAgainCore.new_FTDecayFunction2DVoigt(*args))
 
     def clone(self):
         r"""
@@ -10786,14 +10793,6 @@ class IFTDistribution1D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDistribution1D_evaluate(self, q)
 
-    def setOmega(self, omega):
-        r"""
-        setOmega(IFTDistribution1D self, double omega)
-        void IFTDistribution1D::setOmega(double omega)
-
-        """
-        return _libBornAgainCore.IFTDistribution1D_setOmega(self, omega)
-
     def omega(self):
         r"""
         omega(IFTDistribution1D self) -> double
@@ -10829,13 +10828,14 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DCauchy self, vdouble1d_t P) -> FTDistribution1DCauchy
         __init__(FTDistribution1DCauchy self, double omega) -> FTDistribution1DCauchy
         FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution1DCauchy(omega))
+        _libBornAgainCore.FTDistribution1DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution1DCauchy(*args))
 
     def clone(self):
         r"""
@@ -10892,13 +10892,14 @@ class FTDistribution1DGauss(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DGauss self, vdouble1d_t P) -> FTDistribution1DGauss
         __init__(FTDistribution1DGauss self, double omega) -> FTDistribution1DGauss
         FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution1DGauss(omega))
+        _libBornAgainCore.FTDistribution1DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution1DGauss(*args))
 
     def clone(self):
         r"""
@@ -10955,13 +10956,14 @@ class FTDistribution1DGate(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DGate self, vdouble1d_t P) -> FTDistribution1DGate
         __init__(FTDistribution1DGate self, double omega) -> FTDistribution1DGate
         FTDistribution1DGate::FTDistribution1DGate(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DGate_swiginit(self, _libBornAgainCore.new_FTDistribution1DGate(omega))
+        _libBornAgainCore.FTDistribution1DGate_swiginit(self, _libBornAgainCore.new_FTDistribution1DGate(*args))
 
     def clone(self):
         r"""
@@ -11018,13 +11020,14 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DTriangle self, vdouble1d_t P) -> FTDistribution1DTriangle
         __init__(FTDistribution1DTriangle self, double omega) -> FTDistribution1DTriangle
         FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DTriangle_swiginit(self, _libBornAgainCore.new_FTDistribution1DTriangle(omega))
+        _libBornAgainCore.FTDistribution1DTriangle_swiginit(self, _libBornAgainCore.new_FTDistribution1DTriangle(*args))
 
     def clone(self):
         r"""
@@ -11081,13 +11084,14 @@ class FTDistribution1DCosine(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DCosine self, vdouble1d_t P) -> FTDistribution1DCosine
         __init__(FTDistribution1DCosine self, double omega) -> FTDistribution1DCosine
         FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 
         """
-        _libBornAgainCore.FTDistribution1DCosine_swiginit(self, _libBornAgainCore.new_FTDistribution1DCosine(omega))
+        _libBornAgainCore.FTDistribution1DCosine_swiginit(self, _libBornAgainCore.new_FTDistribution1DCosine(*args))
 
     def clone(self):
         r"""
@@ -11144,8 +11148,9 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution1DVoigt self, vdouble1d_t P) -> FTDistribution1DVoigt
         __init__(FTDistribution1DVoigt self, double omega, double eta) -> FTDistribution1DVoigt
         FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 
@@ -11161,7 +11166,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 
         """
-        _libBornAgainCore.FTDistribution1DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution1DVoigt(omega, eta))
+        _libBornAgainCore.FTDistribution1DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution1DVoigt(*args))
 
     def clone(self):
         r"""
@@ -11237,13 +11242,21 @@ class IFTDistribution2D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDistribution2D_clone(self)
 
-    def setGamma(self, gamma):
+    def omegaX(self):
         r"""
-        setGamma(IFTDistribution2D self, double gamma)
-        void IFTDistribution2D::setGamma(double gamma)
+        omegaX(IFTDistribution2D self) -> double
+        double IFTDistribution2D::omegaX() const
 
         """
-        return _libBornAgainCore.IFTDistribution2D_setGamma(self, gamma)
+        return _libBornAgainCore.IFTDistribution2D_omegaX(self)
+
+    def omegaY(self):
+        r"""
+        omegaY(IFTDistribution2D self) -> double
+        double IFTDistribution2D::omegaY() const
+
+        """
+        return _libBornAgainCore.IFTDistribution2D_omegaY(self)
 
     def gamma(self):
         r"""
@@ -11260,22 +11273,6 @@ class IFTDistribution2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDistribution2D_delta(self)
-
-    def omegaX(self):
-        r"""
-        omegaX(IFTDistribution2D self) -> double
-        double IFTDistribution2D::omegaX() const
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_omegaX(self)
-
-    def omegaY(self):
-        r"""
-        omegaY(IFTDistribution2D self) -> double
-        double IFTDistribution2D::omegaY() const
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_omegaY(self)
 
     def evaluate(self, qx, qy):
         r"""
@@ -11304,13 +11301,14 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DCauchy self, vdouble1d_t P) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCauchy
         FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution2DCauchy(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DCauchy_swiginit(self, _libBornAgainCore.new_FTDistribution2DCauchy(*args))
 
     def clone(self):
         r"""
@@ -11357,13 +11355,14 @@ class FTDistribution2DGauss(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DGauss self, vdouble1d_t P) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGauss
         FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution2DGauss(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DGauss_swiginit(self, _libBornAgainCore.new_FTDistribution2DGauss(*args))
 
     def clone(self):
         r"""
@@ -11410,13 +11409,14 @@ class FTDistribution2DGate(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DGate self, vdouble1d_t P) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma) -> FTDistribution2DGate
         FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DGate_swiginit(self, _libBornAgainCore.new_FTDistribution2DGate(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DGate_swiginit(self, _libBornAgainCore.new_FTDistribution2DGate(*args))
 
     def clone(self):
         r"""
@@ -11463,13 +11463,14 @@ class FTDistribution2DCone(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DCone self, vdouble1d_t P) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma) -> FTDistribution2DCone
         FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma=0)
 
         """
-        _libBornAgainCore.FTDistribution2DCone_swiginit(self, _libBornAgainCore.new_FTDistribution2DCone(omega_x, omega_y, gamma))
+        _libBornAgainCore.FTDistribution2DCone_swiginit(self, _libBornAgainCore.new_FTDistribution2DCone(*args))
 
     def clone(self):
         r"""
@@ -11516,8 +11517,9 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, omega_x, omega_y, gamma, eta):
+    def __init__(self, *args):
         r"""
+        __init__(FTDistribution2DVoigt self, vdouble1d_t P) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double gamma, double eta) -> FTDistribution2DVoigt
         FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0)
 
@@ -11539,7 +11541,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         angle in direct space between first lattice vector and x-axis of the distribution in radians 
 
         """
-        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, gamma, eta))
+        _libBornAgainCore.FTDistribution2DVoigt_swiginit(self, _libBornAgainCore.new_FTDistribution2DVoigt(*args))
 
     def clone(self):
         r"""
@@ -12114,7 +12116,6 @@ class IInterferenceFunction(ISample):
         else:
             _self = self
         _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
 
     def clone(self):
         r"""
@@ -12189,6 +12190,7 @@ class IInterferenceFunction(ISample):
     def iff_without_dw(self, q):
         r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
         return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IInterferenceFunction(self)
@@ -13906,13 +13908,14 @@ class FootprintGauss(IFootprintFactor):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, width_ratio):
+    def __init__(self, *args):
         r"""
+        __init__(FootprintGauss self, vdouble1d_t P) -> FootprintGauss
         __init__(FootprintGauss self, double width_ratio) -> FootprintGauss
         FootprintGauss::FootprintGauss(double width_ratio)
 
         """
-        _libBornAgainCore.FootprintGauss_swiginit(self, _libBornAgainCore.new_FootprintGauss(width_ratio))
+        _libBornAgainCore.FootprintGauss_swiginit(self, _libBornAgainCore.new_FootprintGauss(*args))
 
     def accept(self, visitor):
         r"""
@@ -13969,13 +13972,14 @@ class FootprintSquare(IFootprintFactor):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, width_ratio):
+    def __init__(self, *args):
         r"""
+        __init__(FootprintSquare self, vdouble1d_t P) -> FootprintSquare
         __init__(FootprintSquare self, double width_ratio) -> FootprintSquare
         FootprintSquare::FootprintSquare(double width_ratio)
 
         """
-        _libBornAgainCore.FootprintSquare_swiginit(self, _libBornAgainCore.new_FootprintSquare(width_ratio))
+        _libBornAgainCore.FootprintSquare_swiginit(self, _libBornAgainCore.new_FootprintSquare(*args))
 
     def accept(self, visitor):
         r"""
@@ -15076,15 +15080,8 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
 # Register FormFactorPolygonalSurface in _libBornAgainCore:
 _libBornAgainCore.FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
 
-class ProfileBar(IFormFactorBorn):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: ProfileBar.h
-
-    """
+class IProfileRipple(IFormFactorBorn):
+    r"""Proxy of C++ IProfileRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -15093,188 +15090,83 @@ class ProfileBar(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def getLength(self):
-        r"""
-        getLength(ProfileBar self) -> double
-        double ProfileBar::getLength() const
-
-        """
-        return _libBornAgainCore.ProfileBar_getLength(self)
+        r"""getLength(IProfileRipple self) -> double"""
+        return _libBornAgainCore.IProfileRipple_getLength(self)
 
     def getHeight(self):
-        r"""
-        getHeight(ProfileBar self) -> double
-        double ProfileBar::getHeight() const
-
-        """
-        return _libBornAgainCore.ProfileBar_getHeight(self)
+        r"""getHeight(IProfileRipple self) -> double"""
+        return _libBornAgainCore.IProfileRipple_getHeight(self)
 
     def getWidth(self):
-        r"""
-        getWidth(ProfileBar self) -> double
-        double ProfileBar::getWidth() const
-
-        """
-        return _libBornAgainCore.ProfileBar_getWidth(self)
+        r"""getWidth(IProfileRipple self) -> double"""
+        return _libBornAgainCore.IProfileRipple_getWidth(self)
 
     def radialExtension(self):
         r"""
-        radialExtension(ProfileBar self) -> double
-        double ProfileBar::radialExtension() const override final
+        radialExtension(IProfileRipple self) -> double
+        virtual double IFormFactor::radialExtension() const =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.ProfileBar_radialExtension(self)
+        return _libBornAgainCore.IProfileRipple_radialExtension(self)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(ProfileBar self, cvector_t q) -> complex_t
-        complex_t ProfileBar::evaluate_for_q(cvector_t q) const override final
+        evaluate_for_q(IProfileRipple self, cvector_t q) -> complex_t
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.ProfileBar_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_ProfileBar
+        return _libBornAgainCore.IProfileRipple_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_IProfileRipple
 
-# Register ProfileBar in _libBornAgainCore:
-_libBornAgainCore.ProfileBar_swigregister(ProfileBar)
+# Register IProfileRipple in _libBornAgainCore:
+_libBornAgainCore.IProfileRipple_swigregister(IProfileRipple)
 
-class ProfileRipple1(IFormFactorBorn):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: ProfileRipple1.h
-
-    """
+class IProfileRectangularRipple(IProfileRipple):
+    r"""Proxy of C++ IProfileRectangularRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IProfileRectangularRipple
 
-    def getLength(self):
-        r"""
-        getLength(ProfileRipple1 self) -> double
-        double ProfileRipple1::getLength() const
+# Register IProfileRectangularRipple in _libBornAgainCore:
+_libBornAgainCore.IProfileRectangularRipple_swigregister(IProfileRectangularRipple)
 
-        """
-        return _libBornAgainCore.ProfileRipple1_getLength(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(ProfileRipple1 self) -> double
-        double ProfileRipple1::getHeight() const
-
-        """
-        return _libBornAgainCore.ProfileRipple1_getHeight(self)
-
-    def getWidth(self):
-        r"""
-        getWidth(ProfileRipple1 self) -> double
-        double ProfileRipple1::getWidth() const
-
-        """
-        return _libBornAgainCore.ProfileRipple1_getWidth(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(ProfileRipple1 self) -> double
-        double ProfileRipple1::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.ProfileRipple1_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(ProfileRipple1 self, cvector_t q) -> complex_t
-        complex_t ProfileRipple1::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.ProfileRipple1_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_ProfileRipple1
-
-# Register ProfileRipple1 in _libBornAgainCore:
-_libBornAgainCore.ProfileRipple1_swigregister(ProfileRipple1)
-
-class ProfileRipple2(IFormFactorBorn):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: ProfileRipple2.h
-
-    """
+class ICosineRipple(IProfileRipple):
+    r"""Proxy of C++ ICosineRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ICosineRipple
 
-    def getLength(self):
-        r"""
-        getLength(ProfileRipple2 self) -> double
-        double ProfileRipple2::getLength() const
+# Register ICosineRipple in _libBornAgainCore:
+_libBornAgainCore.ICosineRipple_swigregister(ICosineRipple)
 
-        """
-        return _libBornAgainCore.ProfileRipple2_getLength(self)
+class ISawtoothRipple(IProfileRipple):
+    r"""Proxy of C++ ISawtoothRipple class."""
 
-    def getHeight(self):
-        r"""
-        getHeight(ProfileRipple2 self) -> double
-        double ProfileRipple2::getHeight() const
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
-        """
-        return _libBornAgainCore.ProfileRipple2_getHeight(self)
-
-    def getWidth(self):
-        r"""
-        getWidth(ProfileRipple2 self) -> double
-        double ProfileRipple2::getWidth() const
-
-        """
-        return _libBornAgainCore.ProfileRipple2_getWidth(self)
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
 
     def getAsymmetry(self):
-        r"""
-        getAsymmetry(ProfileRipple2 self) -> double
-        double ProfileRipple2::getAsymmetry() const
+        r"""getAsymmetry(ISawtoothRipple self) -> double"""
+        return _libBornAgainCore.ISawtoothRipple_getAsymmetry(self)
+    __swig_destroy__ = _libBornAgainCore.delete_ISawtoothRipple
 
-        """
-        return _libBornAgainCore.ProfileRipple2_getAsymmetry(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(ProfileRipple2 self) -> double
-        double ProfileRipple2::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.ProfileRipple2_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(ProfileRipple2 self, cvector_t q) -> complex_t
-        complex_t ProfileRipple2::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.ProfileRipple2_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_ProfileRipple2
-
-# Register ProfileRipple2 in _libBornAgainCore:
-_libBornAgainCore.ProfileRipple2_swigregister(ProfileRipple2)
+# Register ISawtoothRipple in _libBornAgainCore:
+_libBornAgainCore.ISawtoothRipple_swigregister(ISawtoothRipple)
 
 class FormFactorAnisoPyramid(FormFactorPolyhedron):
     r"""
@@ -15289,8 +15181,9 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorAnisoPyramid self, vdouble1d_t P) -> FormFactorAnisoPyramid
         __init__(FormFactorAnisoPyramid self, double length, double width, double height, double alpha) -> FormFactorAnisoPyramid
         FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
@@ -15312,7 +15205,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorAnisoPyramid_swiginit(self, _libBornAgainCore.new_FormFactorAnisoPyramid(length, width, height, alpha))
+        _libBornAgainCore.FormFactorAnisoPyramid_swiginit(self, _libBornAgainCore.new_FormFactorAnisoPyramid(*args))
 
     def clone(self):
         r"""
@@ -15383,8 +15276,9 @@ class FormFactorBox(FormFactorPolygonalPrism):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorBox self, vdouble1d_t P) -> FormFactorBox
         __init__(FormFactorBox self, double length, double width, double height) -> FormFactorBox
         FormFactorBox::FormFactorBox(double length, double width, double height)
 
@@ -15403,7 +15297,7 @@ class FormFactorBox(FormFactorPolygonalPrism):
         height of the box in nanometers 
 
         """
-        _libBornAgainCore.FormFactorBox_swiginit(self, _libBornAgainCore.new_FormFactorBox(length, width, height))
+        _libBornAgainCore.FormFactorBox_swiginit(self, _libBornAgainCore.new_FormFactorBox(*args))
 
     def clone(self):
         r"""
@@ -15488,8 +15382,9 @@ class FormFactorCantellatedCube(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, removed_length):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCantellatedCube self, vdouble1d_t P) -> FormFactorCantellatedCube
         __init__(FormFactorCantellatedCube self, double length, double removed_length) -> FormFactorCantellatedCube
         FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
 
@@ -15505,7 +15400,7 @@ class FormFactorCantellatedCube(FormFactorPolyhedron):
         removed length from each edge of the cube in nanometers 
 
         """
-        _libBornAgainCore.FormFactorCantellatedCube_swiginit(self, _libBornAgainCore.new_FormFactorCantellatedCube(length, removed_length))
+        _libBornAgainCore.FormFactorCantellatedCube_swiginit(self, _libBornAgainCore.new_FormFactorCantellatedCube(*args))
 
     def clone(self):
         r"""
@@ -15560,8 +15455,9 @@ class FormFactorCone(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCone self, vdouble1d_t P) -> FormFactorCone
         __init__(FormFactorCone self, double radius, double height, double alpha) -> FormFactorCone
         FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 
@@ -15580,7 +15476,7 @@ class FormFactorCone(IFormFactorBorn):
         angle between the base and the side surface in radians 
 
         """
-        _libBornAgainCore.FormFactorCone_swiginit(self, _libBornAgainCore.new_FormFactorCone(radius, height, alpha))
+        _libBornAgainCore.FormFactorCone_swiginit(self, _libBornAgainCore.new_FormFactorCone(*args))
 
     def clone(self):
         r"""
@@ -15663,8 +15559,9 @@ class FormFactorCone6(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCone6 self, vdouble1d_t P) -> FormFactorCone6
         __init__(FormFactorCone6 self, double base_edge, double height, double alpha) -> FormFactorCone6
         FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
@@ -15683,7 +15580,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorCone6_swiginit(self, _libBornAgainCore.new_FormFactorCone6(base_edge, height, alpha))
+        _libBornAgainCore.FormFactorCone6_swiginit(self, _libBornAgainCore.new_FormFactorCone6(*args))
 
     def clone(self):
         r"""
@@ -15733,6 +15630,117 @@ class FormFactorCone6(FormFactorPolyhedron):
 # Register FormFactorCone6 in _libBornAgainCore:
 _libBornAgainCore.FormFactorCone6_swigregister(FormFactorCone6)
 
+class FormFactorCosineRippleBox(ICosineRipple):
+    r"""Proxy of C++ FormFactorCosineRippleBox class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorCosineRippleBox self, vdouble1d_t P) -> FormFactorCosineRippleBox
+        __init__(FormFactorCosineRippleBox self, double length, double width, double height) -> FormFactorCosineRippleBox
+        """
+        _libBornAgainCore.FormFactorCosineRippleBox_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleBox(*args))
+
+    def clone(self):
+        r"""
+        clone(FormFactorCosineRippleBox self) -> FormFactorCosineRippleBox
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleBox_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorCosineRippleBox self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleBox_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleBox
+
+# Register FormFactorCosineRippleBox in _libBornAgainCore:
+_libBornAgainCore.FormFactorCosineRippleBox_swigregister(FormFactorCosineRippleBox)
+
+class FormFactorCosineRippleGauss(ICosineRipple):
+    r"""Proxy of C++ FormFactorCosineRippleGauss class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorCosineRippleGauss self, vdouble1d_t P) -> FormFactorCosineRippleGauss
+        __init__(FormFactorCosineRippleGauss self, double length, double width, double height) -> FormFactorCosineRippleGauss
+        """
+        _libBornAgainCore.FormFactorCosineRippleGauss_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleGauss(*args))
+
+    def clone(self):
+        r"""
+        clone(FormFactorCosineRippleGauss self) -> FormFactorCosineRippleGauss
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleGauss_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorCosineRippleGauss self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleGauss_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleGauss
+
+# Register FormFactorCosineRippleGauss in _libBornAgainCore:
+_libBornAgainCore.FormFactorCosineRippleGauss_swigregister(FormFactorCosineRippleGauss)
+
+class FormFactorCosineRippleLorentz(ICosineRipple):
+    r"""Proxy of C++ FormFactorCosineRippleLorentz class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorCosineRippleLorentz self, vdouble1d_t P) -> FormFactorCosineRippleLorentz
+        __init__(FormFactorCosineRippleLorentz self, double length, double width, double height) -> FormFactorCosineRippleLorentz
+        """
+        _libBornAgainCore.FormFactorCosineRippleLorentz_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleLorentz(*args))
+
+    def clone(self):
+        r"""
+        clone(FormFactorCosineRippleLorentz self) -> FormFactorCosineRippleLorentz
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleLorentz_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(FormFactorCosineRippleLorentz self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorCosineRippleLorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleLorentz
+
+# Register FormFactorCosineRippleLorentz in _libBornAgainCore:
+_libBornAgainCore.FormFactorCosineRippleLorentz_swigregister(FormFactorCosineRippleLorentz)
+
 class FormFactorCuboctahedron(FormFactorPolyhedron):
     r"""
 
@@ -15746,8 +15754,9 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, height, height_ratio, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCuboctahedron self, vdouble1d_t P) -> FormFactorCuboctahedron
         __init__(FormFactorCuboctahedron self, double length, double height, double height_ratio, double alpha) -> FormFactorCuboctahedron
         FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 
@@ -15769,7 +15778,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorCuboctahedron_swiginit(self, _libBornAgainCore.new_FormFactorCuboctahedron(length, height, height_ratio, alpha))
+        _libBornAgainCore.FormFactorCuboctahedron_swiginit(self, _libBornAgainCore.new_FormFactorCuboctahedron(*args))
 
     def clone(self):
         r"""
@@ -15840,8 +15849,9 @@ class FormFactorCylinder(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorCylinder self, vdouble1d_t P) -> FormFactorCylinder
         __init__(FormFactorCylinder self, double radius, double height) -> FormFactorCylinder
         FormFactorCylinder::FormFactorCylinder(double radius, double height)
 
@@ -15857,7 +15867,7 @@ class FormFactorCylinder(IFormFactorBorn):
         height of the cylinder in nanometers 
 
         """
-        _libBornAgainCore.FormFactorCylinder_swiginit(self, _libBornAgainCore.new_FormFactorCylinder(radius, height))
+        _libBornAgainCore.FormFactorCylinder_swiginit(self, _libBornAgainCore.new_FormFactorCylinder(*args))
 
     def clone(self):
         r"""
@@ -15932,8 +15942,9 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, edge):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorDodecahedron self, vdouble1d_t P) -> FormFactorDodecahedron
         __init__(FormFactorDodecahedron self, double edge) -> FormFactorDodecahedron
         FormFactorDodecahedron::FormFactorDodecahedron(double edge)
 
@@ -15954,7 +15965,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         length of the edge in nanometers 
 
         """
-        _libBornAgainCore.FormFactorDodecahedron_swiginit(self, _libBornAgainCore.new_FormFactorDodecahedron(edge))
+        _libBornAgainCore.FormFactorDodecahedron_swiginit(self, _libBornAgainCore.new_FormFactorDodecahedron(*args))
 
     def clone(self):
         r"""
@@ -16001,8 +16012,9 @@ class FormFactorDot(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorDot self, vdouble1d_t P) -> FormFactorDot
         __init__(FormFactorDot self, double radius) -> FormFactorDot
         FormFactorDot::FormFactorDot(double radius)
 
@@ -16015,7 +16027,7 @@ class FormFactorDot(IFormFactorBorn):
         radius of a sphere with same forward scattering power, in nanometers 
 
         """
-        _libBornAgainCore.FormFactorDot_swiginit(self, _libBornAgainCore.new_FormFactorDot(radius))
+        _libBornAgainCore.FormFactorDot_swiginit(self, _libBornAgainCore.new_FormFactorDot(*args))
 
     def clone(self):
         r"""
@@ -16102,8 +16114,9 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius_x, radius_y, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorEllipsoidalCylinder self, vdouble1d_t P) -> FormFactorEllipsoidalCylinder
         __init__(FormFactorEllipsoidalCylinder self, double radius_x, double radius_y, double height) -> FormFactorEllipsoidalCylinder
         FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
 
@@ -16122,7 +16135,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         height of the ellipsoidal cylinder in nanometers 
 
         """
-        _libBornAgainCore.FormFactorEllipsoidalCylinder_swiginit(self, _libBornAgainCore.new_FormFactorEllipsoidalCylinder(radius_x, radius_y, height))
+        _libBornAgainCore.FormFactorEllipsoidalCylinder_swiginit(self, _libBornAgainCore.new_FormFactorEllipsoidalCylinder(*args))
 
     def clone(self):
         r"""
@@ -16205,8 +16218,9 @@ class FormFactorFullSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, position_at_center=False):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorFullSphere self, vdouble1d_t P, bool position_at_center=False) -> FormFactorFullSphere
         __init__(FormFactorFullSphere self, double radius, bool position_at_center=False) -> FormFactorFullSphere
         FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
 
@@ -16219,7 +16233,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         radius of the sphere in nanometers 
 
         """
-        _libBornAgainCore.FormFactorFullSphere_swiginit(self, _libBornAgainCore.new_FormFactorFullSphere(radius, position_at_center))
+        _libBornAgainCore.FormFactorFullSphere_swiginit(self, _libBornAgainCore.new_FormFactorFullSphere(*args))
 
     def clone(self):
         r"""
@@ -16306,8 +16320,9 @@ class FormFactorFullSpheroid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorFullSpheroid self, vdouble1d_t P) -> FormFactorFullSpheroid
         __init__(FormFactorFullSpheroid self, double radius, double height) -> FormFactorFullSpheroid
         FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 
@@ -16323,7 +16338,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         height of the full spheroid in nanometers 
 
         """
-        _libBornAgainCore.FormFactorFullSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorFullSpheroid(radius, height))
+        _libBornAgainCore.FormFactorFullSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorFullSpheroid(*args))
 
     def clone(self):
         r"""
@@ -16398,8 +16413,9 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius_x, radius_y, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorHemiEllipsoid self, vdouble1d_t P) -> FormFactorHemiEllipsoid
         __init__(FormFactorHemiEllipsoid self, double radius_x, double radius_y, double height) -> FormFactorHemiEllipsoid
         FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
 
@@ -16418,7 +16434,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         height of the hemi ellipsoid in nanometers 
 
         """
-        _libBornAgainCore.FormFactorHemiEllipsoid_swiginit(self, _libBornAgainCore.new_FormFactorHemiEllipsoid(radius_x, radius_y, height))
+        _libBornAgainCore.FormFactorHemiEllipsoid_swiginit(self, _libBornAgainCore.new_FormFactorHemiEllipsoid(*args))
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorHemiEllipsoid
 
     def clone(self):
@@ -16501,13 +16517,14 @@ class FormFactorHollowSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean, full_width):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorHollowSphere self, vdouble1d_t P) -> FormFactorHollowSphere
         __init__(FormFactorHollowSphere self, double mean, double full_width) -> FormFactorHollowSphere
         FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
 
         """
-        _libBornAgainCore.FormFactorHollowSphere_swiginit(self, _libBornAgainCore.new_FormFactorHollowSphere(mean, full_width))
+        _libBornAgainCore.FormFactorHollowSphere_swiginit(self, _libBornAgainCore.new_FormFactorHollowSphere(*args))
 
     def clone(self):
         r"""
@@ -16566,8 +16583,9 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, edge):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorIcosahedron self, vdouble1d_t P) -> FormFactorIcosahedron
         __init__(FormFactorIcosahedron self, double edge) -> FormFactorIcosahedron
         FormFactorIcosahedron::FormFactorIcosahedron(double edge)
 
@@ -16580,7 +16598,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         length of the edge in nanometers 
 
         """
-        _libBornAgainCore.FormFactorIcosahedron_swiginit(self, _libBornAgainCore.new_FormFactorIcosahedron(edge))
+        _libBornAgainCore.FormFactorIcosahedron_swiginit(self, _libBornAgainCore.new_FormFactorIcosahedron(*args))
 
     def clone(self):
         r"""
@@ -16627,8 +16645,9 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorLongBoxGauss self, vdouble1d_t P) -> FormFactorLongBoxGauss
         __init__(FormFactorLongBoxGauss self, double length, double width, double height) -> FormFactorLongBoxGauss
         FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
 
@@ -16647,7 +16666,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         of  Box
 
         """
-        _libBornAgainCore.FormFactorLongBoxGauss_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxGauss(length, width, height))
+        _libBornAgainCore.FormFactorLongBoxGauss_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxGauss(*args))
 
     def clone(self):
         r"""
@@ -16730,8 +16749,9 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorLongBoxLorentz self, vdouble1d_t P) -> FormFactorLongBoxLorentz
         __init__(FormFactorLongBoxLorentz self, double length, double width, double height) -> FormFactorLongBoxLorentz
         FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
 
@@ -16750,7 +16770,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         of  Box
 
         """
-        _libBornAgainCore.FormFactorLongBoxLorentz_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxLorentz(length, width, height))
+        _libBornAgainCore.FormFactorLongBoxLorentz_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxLorentz(*args))
 
     def clone(self):
         r"""
@@ -16833,8 +16853,9 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorPrism3 self, vdouble1d_t P) -> FormFactorPrism3
         __init__(FormFactorPrism3 self, double base_edge, double height) -> FormFactorPrism3
         FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
 
@@ -16850,7 +16871,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         height in nanometers 
 
         """
-        _libBornAgainCore.FormFactorPrism3_swiginit(self, _libBornAgainCore.new_FormFactorPrism3(base_edge, height))
+        _libBornAgainCore.FormFactorPrism3_swiginit(self, _libBornAgainCore.new_FormFactorPrism3(*args))
 
     def clone(self):
         r"""
@@ -16897,8 +16918,9 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorPrism6 self, vdouble1d_t P) -> FormFactorPrism6
         __init__(FormFactorPrism6 self, double base_edge, double height) -> FormFactorPrism6
         FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
 
@@ -16914,7 +16936,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         height in nanometers 
 
         """
-        _libBornAgainCore.FormFactorPrism6_swiginit(self, _libBornAgainCore.new_FormFactorPrism6(base_edge, height))
+        _libBornAgainCore.FormFactorPrism6_swiginit(self, _libBornAgainCore.new_FormFactorPrism6(*args))
 
     def clone(self):
         r"""
@@ -16961,8 +16983,9 @@ class FormFactorPyramid(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorPyramid self, vdouble1d_t P) -> FormFactorPyramid
         __init__(FormFactorPyramid self, double base_edge, double height, double alpha) -> FormFactorPyramid
         FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
@@ -16981,7 +17004,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         dihedral angle between the base and a side face in radians 
 
         """
-        _libBornAgainCore.FormFactorPyramid_swiginit(self, _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha))
+        _libBornAgainCore.FormFactorPyramid_swiginit(self, _libBornAgainCore.new_FormFactorPyramid(*args))
 
     def clone(self):
         r"""
@@ -17031,275 +17054,116 @@ class FormFactorPyramid(FormFactorPolyhedron):
 # Register FormFactorPyramid in _libBornAgainCore:
 _libBornAgainCore.FormFactorPyramid_swigregister(FormFactorPyramid)
 
-class FormFactorRipple1Box(ProfileRipple1):
-    r"""
-
-
-    The form factor for a cosine ripple, with box profile in elongation direction.
-
-    C++ includes: FormFactorRipple1.h
-
-    """
+class FormFactorSawtoothRippleBox(ISawtoothRipple):
+    r"""Proxy of C++ FormFactorSawtoothRippleBox class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
-        __init__(FormFactorRipple1Box self, double length, double width, double height) -> FormFactorRipple1Box
-        FormFactorRipple1Box::FormFactorRipple1Box(double length, double width, double height)
-
+        __init__(FormFactorSawtoothRippleBox self, vdouble1d_t P) -> FormFactorSawtoothRippleBox
+        __init__(FormFactorSawtoothRippleBox self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleBox
         """
-        _libBornAgainCore.FormFactorRipple1Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Box(length, width, height))
+        _libBornAgainCore.FormFactorSawtoothRippleBox_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleBox(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorRipple1Box self) -> FormFactorRipple1Box
-        FormFactorRipple1Box * FormFactorRipple1Box::clone() const override final
+        clone(FormFactorSawtoothRippleBox self) -> FormFactorSawtoothRippleBox
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Box_clone(self)
+        return _libBornAgainCore.FormFactorSawtoothRippleBox_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorRipple1Box self, INodeVisitor visitor)
-        void FormFactorRipple1Box::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorSawtoothRippleBox self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Box_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1Box
+        return _libBornAgainCore.FormFactorSawtoothRippleBox_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleBox
 
-# Register FormFactorRipple1Box in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple1Box_swigregister(FormFactorRipple1Box)
+# Register FormFactorSawtoothRippleBox in _libBornAgainCore:
+_libBornAgainCore.FormFactorSawtoothRippleBox_swigregister(FormFactorSawtoothRippleBox)
 
-class FormFactorRipple1Gauss(ProfileRipple1):
-    r"""
-
-
-    The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-    C++ includes: FormFactorRipple1.h
-
-    """
+class FormFactorSawtoothRippleGauss(ISawtoothRipple):
+    r"""Proxy of C++ FormFactorSawtoothRippleGauss class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
-        __init__(FormFactorRipple1Gauss self, double length, double width, double height) -> FormFactorRipple1Gauss
-        FormFactorRipple1Gauss::FormFactorRipple1Gauss(double length, double width, double height)
-
+        __init__(FormFactorSawtoothRippleGauss self, vdouble1d_t P) -> FormFactorSawtoothRippleGauss
+        __init__(FormFactorSawtoothRippleGauss self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleGauss
         """
-        _libBornAgainCore.FormFactorRipple1Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Gauss(length, width, height))
+        _libBornAgainCore.FormFactorSawtoothRippleGauss_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleGauss(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorRipple1Gauss self) -> FormFactorRipple1Gauss
-        FormFactorRipple1Gauss * FormFactorRipple1Gauss::clone() const override final
+        clone(FormFactorSawtoothRippleGauss self) -> FormFactorSawtoothRippleGauss
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Gauss_clone(self)
+        return _libBornAgainCore.FormFactorSawtoothRippleGauss_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorRipple1Gauss self, INodeVisitor visitor)
-        void FormFactorRipple1Gauss::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorSawtoothRippleGauss self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Gauss_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1Gauss
+        return _libBornAgainCore.FormFactorSawtoothRippleGauss_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleGauss
 
-# Register FormFactorRipple1Gauss in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple1Gauss_swigregister(FormFactorRipple1Gauss)
+# Register FormFactorSawtoothRippleGauss in _libBornAgainCore:
+_libBornAgainCore.FormFactorSawtoothRippleGauss_swigregister(FormFactorSawtoothRippleGauss)
 
-class FormFactorRipple1Lorentz(ProfileRipple1):
-    r"""
-
-
-    The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-    C++ includes: FormFactorRipple1.h
-
-    """
+class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
+    r"""Proxy of C++ FormFactorSawtoothRippleLorentz class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, width, height):
+    def __init__(self, *args):
         r"""
-        __init__(FormFactorRipple1Lorentz self, double length, double width, double height) -> FormFactorRipple1Lorentz
-        FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(double length, double width, double height)
-
+        __init__(FormFactorSawtoothRippleLorentz self, vdouble1d_t P) -> FormFactorSawtoothRippleLorentz
+        __init__(FormFactorSawtoothRippleLorentz self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleLorentz
         """
-        _libBornAgainCore.FormFactorRipple1Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple1Lorentz(length, width, height))
+        _libBornAgainCore.FormFactorSawtoothRippleLorentz_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleLorentz(*args))
 
     def clone(self):
         r"""
-        clone(FormFactorRipple1Lorentz self) -> FormFactorRipple1Lorentz
-        FormFactorRipple1Lorentz * FormFactorRipple1Lorentz::clone() const override final
+        clone(FormFactorSawtoothRippleLorentz self) -> FormFactorSawtoothRippleLorentz
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Lorentz_clone(self)
+        return _libBornAgainCore.FormFactorSawtoothRippleLorentz_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorRipple1Lorentz self, INodeVisitor visitor)
-        void FormFactorRipple1Lorentz::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorSawtoothRippleLorentz self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple1Lorentz_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1Lorentz
+        return _libBornAgainCore.FormFactorSawtoothRippleLorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleLorentz
 
-# Register FormFactorRipple1Lorentz in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple1Lorentz_swigregister(FormFactorRipple1Lorentz)
-
-class FormFactorRipple2Box(ProfileRipple2):
-    r"""
-
-
-    The form factor for a cosine ripple, with box profile in elongation direction.
-
-    C++ includes: FormFactorRipple2.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, length, width, height, asymmetry):
-        r"""
-        __init__(FormFactorRipple2Box self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Box
-        FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height, double asymmetry)
-
-        """
-        _libBornAgainCore.FormFactorRipple2Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Box(length, width, height, asymmetry))
-
-    def clone(self):
-        r"""
-        clone(FormFactorRipple2Box self) -> FormFactorRipple2Box
-        FormFactorRipple2Box * FormFactorRipple2Box::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Box_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorRipple2Box self, INodeVisitor visitor)
-        void FormFactorRipple2Box::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Box_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Box
-
-# Register FormFactorRipple2Box in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple2Box_swigregister(FormFactorRipple2Box)
-
-class FormFactorRipple2Gauss(ProfileRipple2):
-    r"""
-
-
-    The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-    C++ includes: FormFactorRipple2.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, length, width, height, asymmetry):
-        r"""
-        __init__(FormFactorRipple2Gauss self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Gauss
-        FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height, double asymmetry)
-
-        """
-        _libBornAgainCore.FormFactorRipple2Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Gauss(length, width, height, asymmetry))
-
-    def clone(self):
-        r"""
-        clone(FormFactorRipple2Gauss self) -> FormFactorRipple2Gauss
-        FormFactorRipple2Gauss * FormFactorRipple2Gauss::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Gauss_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorRipple2Gauss self, INodeVisitor visitor)
-        void FormFactorRipple2Gauss::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Gauss_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Gauss
-
-# Register FormFactorRipple2Gauss in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple2Gauss_swigregister(FormFactorRipple2Gauss)
-
-class FormFactorRipple2Lorentz(ProfileRipple2):
-    r"""
-
-
-    The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-    C++ includes: FormFactorRipple2.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, length, width, height, asymmetry):
-        r"""
-        __init__(FormFactorRipple2Lorentz self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Lorentz
-        FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry)
-
-        """
-        _libBornAgainCore.FormFactorRipple2Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Lorentz(length, width, height, asymmetry))
-
-    def clone(self):
-        r"""
-        clone(FormFactorRipple2Lorentz self) -> FormFactorRipple2Lorentz
-        FormFactorRipple2Lorentz * FormFactorRipple2Lorentz::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Lorentz_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorRipple2Lorentz self, INodeVisitor visitor)
-        void FormFactorRipple2Lorentz::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorRipple2Lorentz_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Lorentz
-
-# Register FormFactorRipple2Lorentz in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple2Lorentz_swigregister(FormFactorRipple2Lorentz)
+# Register FormFactorSawtoothRippleLorentz in _libBornAgainCore:
+_libBornAgainCore.FormFactorSawtoothRippleLorentz_swigregister(FormFactorSawtoothRippleLorentz)
 
 class FormFactorTetrahedron(FormFactorPolyhedron):
     r"""
@@ -17314,8 +17178,9 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, base_edge, height, alpha):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTetrahedron self, vdouble1d_t P) -> FormFactorTetrahedron
         __init__(FormFactorTetrahedron self, double base_edge, double height, double alpha) -> FormFactorTetrahedron
         FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
@@ -17334,7 +17199,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         dihedral angle in radians between base and facet 
 
         """
-        _libBornAgainCore.FormFactorTetrahedron_swiginit(self, _libBornAgainCore.new_FormFactorTetrahedron(base_edge, height, alpha))
+        _libBornAgainCore.FormFactorTetrahedron_swiginit(self, _libBornAgainCore.new_FormFactorTetrahedron(*args))
 
     def clone(self):
         r"""
@@ -17397,8 +17262,9 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, removed_length):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTruncatedCube self, vdouble1d_t P) -> FormFactorTruncatedCube
         __init__(FormFactorTruncatedCube self, double length, double removed_length) -> FormFactorTruncatedCube
         FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
 
@@ -17414,7 +17280,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         removed length from each edge of the cube in nanometers 
 
         """
-        _libBornAgainCore.FormFactorTruncatedCube_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedCube(length, removed_length))
+        _libBornAgainCore.FormFactorTruncatedCube_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedCube(*args))
 
     def clone(self):
         r"""
@@ -17469,8 +17335,9 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, dh):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTruncatedSphere self, vdouble1d_t P) -> FormFactorTruncatedSphere
         __init__(FormFactorTruncatedSphere self, double radius, double height, double dh) -> FormFactorTruncatedSphere
         FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
 
@@ -17489,7 +17356,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         length of cup truncated from the top 
 
         """
-        _libBornAgainCore.FormFactorTruncatedSphere_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height, dh))
+        _libBornAgainCore.FormFactorTruncatedSphere_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSphere(*args))
 
     def clone(self):
         r"""
@@ -17572,8 +17439,9 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, height_flattening, dh):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorTruncatedSpheroid self, vdouble1d_t P) -> FormFactorTruncatedSpheroid
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh) -> FormFactorTruncatedSpheroid
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
 
@@ -17595,7 +17463,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         length of cup truncated from the top 
 
         """
-        _libBornAgainCore.FormFactorTruncatedSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening, dh))
+        _libBornAgainCore.FormFactorTruncatedSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSpheroid(*args))
 
     def clone(self):
         r"""
@@ -17673,39 +17541,18 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 # Register FormFactorTruncatedSpheroid in _libBornAgainCore:
 _libBornAgainCore.FormFactorTruncatedSpheroid_swigregister(FormFactorTruncatedSpheroid)
 
-
-def factor_x_box(q, l):
-    r"""
-    factor_x_box(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_box(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_box(q, l)
-
-def factor_x_Gauss(q, l):
-    r"""
-    factor_x_Gauss(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_Gauss(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_Gauss(q, l)
-
-def factor_x_Lorentz(q, l):
-    r"""
-    factor_x_Lorentz(complex_t q, double l) -> complex_t
-    complex_t ripples::factor_x_Lorentz(complex_t q, double l)
-
-    """
-    return _libBornAgainCore.factor_x_Lorentz(q, l)
 class FormFactorGaussSphere(IFormFactorBorn):
     r"""Proxy of C++ FormFactorGaussSphere class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean_radius):
-        r"""__init__(FormFactorGaussSphere self, double mean_radius) -> FormFactorGaussSphere"""
-        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(mean_radius))
+    def __init__(self, *args):
+        r"""
+        __init__(FormFactorGaussSphere self, vdouble1d_t P) -> FormFactorGaussSphere
+        __init__(FormFactorGaussSphere self, double mean_radius) -> FormFactorGaussSphere
+        """
+        _libBornAgainCore.FormFactorGaussSphere_swiginit(self, _libBornAgainCore.new_FormFactorGaussSphere(*args))
 
     def clone(self):
         r"""
@@ -17768,13 +17615,14 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean, sigma):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorSphereGaussianRadius self, vdouble1d_t P) -> FormFactorSphereGaussianRadius
         __init__(FormFactorSphereGaussianRadius self, double mean, double sigma) -> FormFactorSphereGaussianRadius
         FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
 
         """
-        _libBornAgainCore.FormFactorSphereGaussianRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereGaussianRadius(mean, sigma))
+        _libBornAgainCore.FormFactorSphereGaussianRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereGaussianRadius(*args))
 
     def clone(self):
         r"""
@@ -17833,13 +17681,14 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, mean, scale_param, n_samples):
+    def __init__(self, *args):
         r"""
+        __init__(FormFactorSphereLogNormalRadius self, vdouble1d_t P, size_t n_samples=0) -> FormFactorSphereLogNormalRadius
         __init__(FormFactorSphereLogNormalRadius self, double mean, double scale_param, size_t n_samples) -> FormFactorSphereLogNormalRadius
         FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples)
 
         """
-        _libBornAgainCore.FormFactorSphereLogNormalRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereLogNormalRadius(mean, scale_param, n_samples))
+        _libBornAgainCore.FormFactorSphereLogNormalRadius_swiginit(self, _libBornAgainCore.new_FormFactorSphereLogNormalRadius(*args))
 
     def clone(self):
         r"""
@@ -18712,13 +18561,14 @@ class ConstantBackground(IBackground):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, background_value):
+    def __init__(self, *args):
         r"""
+        __init__(ConstantBackground self, vdouble1d_t P) -> ConstantBackground
         __init__(ConstantBackground self, double background_value) -> ConstantBackground
         ConstantBackground::ConstantBackground(double background_value)
 
         """
-        _libBornAgainCore.ConstantBackground_swiginit(self, _libBornAgainCore.new_ConstantBackground(background_value))
+        _libBornAgainCore.ConstantBackground_swiginit(self, _libBornAgainCore.new_ConstantBackground(*args))
 
     def clone(self):
         r"""
@@ -18778,7 +18628,6 @@ class PoissonNoiseBackground(IBackground):
 
         """
         _libBornAgainCore.PoissonNoiseBackground_swiginit(self, _libBornAgainCore.new_PoissonNoiseBackground())
-    __swig_destroy__ = _libBornAgainCore.delete_PoissonNoiseBackground
 
     def clone(self):
         r"""
@@ -18805,6 +18654,7 @@ class PoissonNoiseBackground(IBackground):
 
         """
         return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, intensity)
+    __swig_destroy__ = _libBornAgainCore.delete_PoissonNoiseBackground
 
 # Register PoissonNoiseBackground in _libBornAgainCore:
 _libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
@@ -19321,71 +19171,6 @@ class IDetector2D(IDetector):
 # Register IDetector2D in _libBornAgainCore:
 _libBornAgainCore.IDetector2D_swigregister(IDetector2D)
 
-class SphericalPixel(IPixel):
-    r"""
-
-
-    A pixel in a  SphericalDetector.
-
-    C++ includes: SphericalDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, alpha_bin, phi_bin):
-        r"""
-        __init__(SphericalPixel self, Bin1D alpha_bin, Bin1D phi_bin) -> SphericalPixel
-        SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
-
-        """
-        _libBornAgainCore.SphericalPixel_swiginit(self, _libBornAgainCore.new_SphericalPixel(alpha_bin, phi_bin))
-
-    def clone(self):
-        r"""
-        clone(SphericalPixel self) -> SphericalPixel
-        SphericalPixel * SphericalPixel::clone() const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(SphericalPixel self, double x, double y) -> SphericalPixel
-        SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(SphericalPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t SphericalPixel::getK(double x, double y, double wavelength) const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_getK(self, x, y, wavelength)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(SphericalPixel self, double x, double y) -> double
-        double SphericalPixel::getIntegrationFactor(double x, double y) const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(SphericalPixel self) -> double
-        double SphericalPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.SphericalPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_SphericalPixel
-
-# Register SphericalPixel in _libBornAgainCore:
-_libBornAgainCore.SphericalPixel_swigregister(SphericalPixel)
-
 class SphericalDetector(IDetector2D):
     r"""
 
@@ -19608,79 +19393,6 @@ class IsGISAXSDetector(SphericalDetector):
 # Register IsGISAXSDetector in _libBornAgainCore:
 _libBornAgainCore.IsGISAXSDetector_swigregister(IsGISAXSDetector)
 
-class RectangularPixel(IPixel):
-    r"""
-
-
-    A pixel in a  RectangularDetector.
-
-    C++ includes: RectangularDetector.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, corner_pos, width, height):
-        r"""
-        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
-        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-
-        """
-        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
-
-    def clone(self):
-        r"""
-        clone(RectangularPixel self) -> RectangularPixel
-        RectangularPixel * RectangularPixel::clone() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
-        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
-
-    def getPosition(self, x, y):
-        r"""
-        getPosition(RectangularPixel self, double x, double y) -> kvector_t
-        kvector_t RectangularPixel::getPosition(double x, double y) const
-
-        """
-        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
-        double RectangularPixel::getIntegrationFactor(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(RectangularPixel self) -> double
-        double RectangularPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
-
-# Register RectangularPixel in _libBornAgainCore:
-_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
-
 class RectangularDetector(IDetector2D):
     r"""
 
@@ -19890,7 +19602,7 @@ class RectangularDetector(IDetector2D):
 
     def regionOfInterestPixel(self):
         r"""
-        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel
+        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel *
         RectangularPixel * RectangularDetector::regionOfInterestPixel() const
 
         """

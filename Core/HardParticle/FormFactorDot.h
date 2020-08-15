@@ -23,6 +23,7 @@
 class BA_CORE_API_ FormFactorDot : public IFormFactorBorn
 {
 public:
+    FormFactorDot(const std::vector<double> P);
     FormFactorDot(double radius);
 
     FormFactorDot* clone() const override final { return new FormFactorDot(m_radius); }
@@ -41,7 +42,7 @@ protected:
     bool canSliceAnalytically(const IRotation&) const override final { return false; }
 
 private:
-    double m_radius;
+    const double& m_radius;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H

@@ -16,7 +16,6 @@
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorPyramid.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {{{{3, 2, 1, 0}, true},
@@ -37,17 +36,23 @@ const PolyhedralTopology FormFactorCuboctahedron::topology = {{{{3, 2, 1, 0}, tr
 //! @param height: height of the lower pyramid in nanometers
 //! @param height_ratio: ratio of heights of top to bottom pyramids
 //! @param alpha: dihedral angle in radians between base and facet
+FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector<double> P)
+    : FormFactorPolyhedron({"Cuboctahedron",
+                            "class_tooltip",
+                            {{"Length", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                             {"HeightRatio", "nm", "para_tooltip", 0, +INF, 0},
+                             {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                           P),
+      m_length(m_P[0]), m_height(m_P[1]), m_height_ratio(m_P[2]), m_alpha(m_P[3])
+{
+    onChange();
+}
+
 FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio,
                                                  double alpha)
-    : FormFactorPolyhedron(), m_length(length), m_height(height), m_height_ratio(height_ratio),
-      m_alpha(alpha)
+    : FormFactorCuboctahedron(std::vector<double>{length, height, height_ratio, alpha})
 {
-    setName("Cuboctahedron");
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("HeightRatio", &m_height_ratio).setUnit("nm").setNonnegative();
-    registerParameter("Alpha", &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
-    onChange();
 }
 
 IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,

@@ -428,14 +428,14 @@ TEST_F(FormFactorBasicTest, Tetrahedron)
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Ripple1Box)
+TEST_F(FormFactorBasicTest, CosineRippleBox)
 {
     double width = 20.;
     double height = 4.;
     double length = 100.0;
     double volume = 0.5 * height * width * length;
 
-    FormFactorRipple1Box particle(length, width, height);
+    FormFactorCosineRippleBox particle(length, width, height);
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(width, particle.getWidth());
     EXPECT_EQ(length, particle.getLength());
@@ -462,7 +462,7 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Ripple2Box)
+TEST_F(FormFactorBasicTest, SawtoothRippleBox)
 {
     double width = 20.;
     double height = 4.;
@@ -470,7 +470,7 @@ TEST_F(FormFactorBasicTest, Ripple2Box)
     double d = 0.3; // asymmetry
     double volume = 0.5 * height * width * length;
 
-    FormFactorRipple2Box particle(length, width, height, d);
+    FormFactorSawtoothRippleBox particle(length, width, height, d);
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
     EXPECT_EQ(0., particle.bottomZ(RotationZ(.42)));

@@ -14,7 +14,6 @@
 
 #include "Core/HardParticle/FormFactorCantellatedCube.h"
 #include "Core/Basics/Exceptions.h"
-#include "Core/Parametrization/RealParameter.h"
 
 const PolyhedralTopology FormFactorCantellatedCube::topology = {
     {
@@ -50,13 +49,20 @@ const PolyhedralTopology FormFactorCantellatedCube::topology = {
 //! Constructor of a truncated cube.
 //! @param length: length of the full cube's edge in nanometers
 //! @param removed_length: removed length from each edge of the cube in nanometers
-FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
-    : FormFactorPolyhedron(), m_length(length), m_removed_length(removed_length)
+FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector<double> P)
+    : FormFactorPolyhedron({"CantellatedCube",
+                            "class_tooltip",
+                            {{"Length", "nm", "para_tooltip", 0, +INF, 0},
+                             {"RemovedLength", "nm", "para_tooltip", 0, +INF, 0}}},
+                           P),
+      m_length(m_P[0]), m_removed_length(m_P[1])
 {
-    setName("CantellatedCube");
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("RemovedLength", &m_removed_length).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
+    : FormFactorCantellatedCube(std::vector<double>{length, removed_length})
+{
 }
 
 void FormFactorCantellatedCube::onChange()

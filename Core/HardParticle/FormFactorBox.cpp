@@ -13,21 +13,27 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorBox.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Tools/MathFunctions.h"
 
 //! Constructor of a rectangular cuboid.
 //! @param length: length of the base in nanometers
 //! @param width: width of the base in nanometers
 //! @param height: height of the box in nanometers
-FormFactorBox::FormFactorBox(double length, double width, double height)
-    : m_length(length), m_width(width), m_height(height)
+FormFactorBox::FormFactorBox(const std::vector<double> P)
+    : FormFactorPolygonalPrism({"Box",
+                                "class_tooltip",
+                                {{"Length", "nm", "para_tooltip", 0, +INF, 0},
+                                 {"Width", "nm", "para_tooltip", 0, +INF, 0},
+                                 {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                               P),
+      m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])
 {
-    setName("Box");
-    registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("Width", &m_width).setUnit("nm").setNonnegative();
-    registerParameter("Height", &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorBox::FormFactorBox(double length, double width, double height)
+    : FormFactorBox(std::vector<double>{length, width, height})
+{
 }
 
 complex_t FormFactorBox::evaluate_for_q(cvector_t q) const

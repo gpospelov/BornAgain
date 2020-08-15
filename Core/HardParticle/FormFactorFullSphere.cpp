@@ -15,19 +15,23 @@
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/FormFactorWeighted.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/SomeFormFactors.h"
 
 //! Constructor of a full sphere.
 //! @param radius: radius of the sphere in nanometers
-FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center)
-    : m_radius(radius), m_position_at_center(position_at_center)
+FormFactorFullSphere::FormFactorFullSphere(const std::vector<double> P, bool position_at_center)
+    : IFormFactorBorn(
+        {"FullSphere", "class_tooltip", {{"Radius", "nm", "para_tooltip", 0, +INF, 0}}}, P),
+      m_radius(m_P[0]), m_position_at_center(position_at_center)
 {
-    setName("FullSphere");
-    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
     onChange();
+}
+
+FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center)
+    : FormFactorFullSphere(std::vector<double>{radius}, position_at_center)
+{
 }
 
 double FormFactorFullSphere::bottomZ(const IRotation& rotation) const

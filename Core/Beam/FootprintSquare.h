@@ -34,12 +34,6 @@ public:
 
     //! Print python-formatted footprint definition
     std::string print() const override;
-
-protected:
-    FootprintSquare(const FootprintSquare& other);
-
-private:
-    void initialize();
 };
 
 #endif // BORNAGAIN_CORE_BEAM_FOOTPRINTSQUARE_H

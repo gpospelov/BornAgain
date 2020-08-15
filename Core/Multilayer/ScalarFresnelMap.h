@@ -17,7 +17,7 @@
 
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/Multilayer/ISpecularStrategy.h"
-#include "Core/Multilayer/ScalarRTCoefficients.h"
+#include "Core/RT/ScalarRTCoefficients.h"
 #include <cstddef>
 #include <unordered_map>
 #include <utility>

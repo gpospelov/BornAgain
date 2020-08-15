@@ -7,6 +7,7 @@ BornAgain-1.17.99, work in progress
        (Lorentz, Debye-Bueche, Ornstein-Zernike)
     5) Removed default argument values from node constructors
     6) Swap order of arguments gamma and eta in 2D decay and distribution Voigt functions
+    7) FormFactorSphereLogNormalRadius is now positioned at center, not at bottom
   > Changes in build configuration:
     1) Python2 no longer supported
     2) OpenGL can no longer be deselected

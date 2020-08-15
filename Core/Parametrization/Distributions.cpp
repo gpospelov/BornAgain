@@ -32,6 +32,11 @@ bool DoubleEqual(double a, double b);
 // class IDistribution1D
 // ************************************************************************** //
 
+IDistribution1D::IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues)
+{
+}
+
 //! Returns equidistant samples, using intrinsic parameters, weighted with probabilityDensity().
 
 std::vector<ParameterSample> IDistribution1D::equidistantSamples(size_t nbr_samples,
@@ -80,12 +85,6 @@ void IDistribution1D::setUnits(const std::string& units)
         par->setUnit(units);
 }
 
-void IDistribution1D::SignalBadInitialization(std::string distribution_name)
-{
-    throw Exceptions::ClassInitializationException(distribution_name
-                                                   + ": not correctly initialized");
-}
-
 void IDistribution1D::adjustMinMaxForLimits(double& xmin, double& xmax,
                                             const RealLimits& limits) const
 {
@@ -128,9 +127,13 @@ IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_val
 DistributionGate::DistributionGate(double min, double max) : m_min(min), m_max(max)
 {
     setName("DistributionGate");
-    checkInitialization();
-    init_parameters();
+    if (m_max < m_min)
+        throw Exceptions::ClassInitializationException("DistributionGate: max<min");
+    registerParameter("Min", &m_min);
+    registerParameter("Max", &m_max);
 }
+
+DistributionGate::DistributionGate() : DistributionGate(0., 1.) {}
 
 double DistributionGate::probabilityDensity(double x) const
 {
@@ -151,23 +154,9 @@ std::vector<double> DistributionGate::equidistantPoints(size_t nbr_samples, doub
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-void DistributionGate::init_parameters()
-{
-    registerParameter("Min", &m_min);
-    registerParameter("Max", &m_max);
-}
-
 bool DistributionGate::isDelta() const
 {
     return DoubleEqual(m_min, m_max);
-}
-
-bool DistributionGate::checkInitialization() const
-{
-    if (m_max < m_min) {
-        SignalBadInitialization("DistributionGate");
-    }
-    return true;
 }
 
 // ************************************************************************** //
@@ -177,9 +166,13 @@ bool DistributionGate::checkInitialization() const
 DistributionLorentz::DistributionLorentz(double mean, double hwhm) : m_mean(mean), m_hwhm(hwhm)
 {
     setName("DistributionLorentz");
-    checkInitialization();
-    init_parameters();
+    if (m_hwhm < 0.0)
+        throw Exceptions::ClassInitializationException("DistributionLorentz: hwhm<0");
+    registerParameter("Mean", &m_mean);
+    registerParameter("HWHM", &m_hwhm);
 }
+
+DistributionLorentz::DistributionLorentz() : DistributionLorentz(0., 1.) {}
 
 double DistributionLorentz::probabilityDensity(double x) const
 {
@@ -199,23 +192,9 @@ std::vector<double> DistributionLorentz::equidistantPoints(size_t nbr_samples, d
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-void DistributionLorentz::init_parameters()
-{
-    registerParameter("Mean", &m_mean);
-    registerParameter("HWHM", &m_hwhm);
-}
-
 bool DistributionLorentz::isDelta() const
 {
     return m_hwhm == 0.0;
-}
-
-bool DistributionLorentz::checkInitialization() const
-{
-    if (m_hwhm < 0.0) {
-        SignalBadInitialization("DistributionLorentz");
-    }
-    return true;
 }
 
 // ************************************************************************** //
@@ -226,9 +205,13 @@ DistributionGaussian::DistributionGaussian(double mean, double std_dev)
     : m_mean(mean), m_std_dev(std_dev)
 {
     setName("DistributionGaussian");
-    checkInitialization();
-    init_parameters();
+    if (m_std_dev < 0.0)
+        throw Exceptions::ClassInitializationException("DistributionGaussian: std_dev < 0");
+    registerParameter("Mean", &m_mean);
+    registerParameter("StdDev", &m_std_dev);
 }
+
+DistributionGaussian::DistributionGaussian() : DistributionGaussian(0., 1.) {}
 
 double DistributionGaussian::probabilityDensity(double x) const
 {
@@ -249,23 +232,9 @@ std::vector<double> DistributionGaussian::equidistantPoints(size_t nbr_samples, 
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-void DistributionGaussian::init_parameters()
-{
-    registerParameter("Mean", &m_mean);
-    registerParameter("StdDev", &m_std_dev);
-}
-
 bool DistributionGaussian::isDelta() const
 {
     return m_std_dev == 0.0;
-}
-
-bool DistributionGaussian::checkInitialization() const
-{
-    if (m_std_dev < 0.0) {
-        SignalBadInitialization("DistributionGaussian");
-    }
-    return true;
 }
 
 // ************************************************************************** //
@@ -276,8 +245,12 @@ DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
     : m_median(median), m_scale_param(scale_param)
 {
     setName("DistributionLogNormal");
-    checkInitialization();
-    init_parameters();
+    if (m_scale_param < 0.0)
+        throw Exceptions::ClassInitializationException("DistributionLogNormal: scale_param < 0");
+    if (m_median <= 0.0)
+        throw Exceptions::ClassInitializationException("DistributionLogNormal: median < 0");
+    registerParameter("Median", &m_median);
+    registerParameter("ScaleParameter", &m_scale_param);
 }
 
 double DistributionLogNormal::probabilityDensity(double x) const
@@ -311,12 +284,6 @@ std::vector<double> DistributionLogNormal::equidistantPoints(size_t nbr_samples,
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-void DistributionLogNormal::init_parameters()
-{
-    registerParameter("Median", &m_median);
-    registerParameter("ScaleParameter", &m_scale_param);
-}
-
 bool DistributionLogNormal::isDelta() const
 {
     return m_scale_param == 0.0;
@@ -328,14 +295,6 @@ void DistributionLogNormal::setUnits(const std::string& units)
     // scale parameter remains unitless
 }
 
-bool DistributionLogNormal::checkInitialization() const
-{
-    if (m_scale_param < 0.0 || m_median <= 0.0) {
-        SignalBadInitialization("DistributionLogNormal");
-    }
-    return true;
-}
-
 // ************************************************************************** //
 // class DistributionCosine
 // ************************************************************************** //
@@ -343,9 +302,13 @@ bool DistributionLogNormal::checkInitialization() const
 DistributionCosine::DistributionCosine(double mean, double sigma) : m_mean(mean), m_sigma(sigma)
 {
     setName("DistributionCosine");
-    checkInitialization();
-    init_parameters();
+    if (m_sigma < 0.0)
+        throw Exceptions::ClassInitializationException("DistributionCosine: sigma<0");
+    registerParameter("Mean", &m_mean);
+    registerParameter("Sigma", &m_sigma);
 }
+
+DistributionCosine::DistributionCosine() : DistributionCosine(0., 1.) {}
 
 double DistributionCosine::probabilityDensity(double x) const
 {
@@ -367,37 +330,33 @@ std::vector<double> DistributionCosine::equidistantPoints(size_t nbr_samples, do
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-void DistributionCosine::init_parameters()
-{
-    registerParameter("Mean", &m_mean);
-    registerParameter("Sigma", &m_sigma);
-}
-
 bool DistributionCosine::isDelta() const
 {
     return m_sigma == 0.0;
-}
-
-bool DistributionCosine::checkInitialization() const
-{
-    if (m_sigma < 0.0) {
-        SignalBadInitialization("DistributionCosine");
-    }
-    return true;
 }
 
 // ************************************************************************** //
 // class DistributionTrapezoidal
 // ************************************************************************** //
 
-DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width,
-                                             double right_width)
-    : m_center(center), m_left(left_width), m_middle(middle_width), m_right(right_width)
+DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle,
+                                             double right)
+    : m_center(center), m_left(left), m_middle(middle), m_right(right)
 {
     setName("DistributionTrapezoid");
-    checkInitialization();
-    init_parameters();
+    if (m_left < 0.0)
+        throw Exceptions::ClassInitializationException("DistributionTrapezoid: leftWidth < 0");
+    if (m_middle < 0.0)
+        throw Exceptions::ClassInitializationException("DistributionTrapezoid: middleWidth < 0");
+    if (m_right < 0.0)
+        throw Exceptions::ClassInitializationException("DistributionTrapezoid: rightWidth < 0");
+    registerParameter("Center", &m_center);
+    registerParameter("LeftWidth", &m_left);
+    registerParameter("MiddleWidth", &m_middle);
+    registerParameter("RightWidth", &m_right);
 }
+
+DistributionTrapezoid::DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
 
 double DistributionTrapezoid::probabilityDensity(double x) const
 {
@@ -428,22 +387,6 @@ std::vector<double> DistributionTrapezoid::equidistantPoints(size_t nbr_samples,
 bool DistributionTrapezoid::isDelta() const
 {
     return (m_left + m_middle + m_right) == 0.0;
-}
-
-void DistributionTrapezoid::init_parameters()
-{
-    registerParameter("Center", &m_center);
-    registerParameter("LeftWidth", &m_left);
-    registerParameter("MiddleWidth", &m_middle);
-    registerParameter("RightWidth", &m_right);
-}
-
-bool DistributionTrapezoid::checkInitialization() const
-{
-    if (m_left < 0.0 || m_middle < 0.0 || m_right < 0.0) {
-        SignalBadInitialization("DistributionTrapezoid");
-    }
-    return true;
 }
 
 void DistributionTrapezoid::adjustLimitsToNonZeroSamples(double& min, double& max,

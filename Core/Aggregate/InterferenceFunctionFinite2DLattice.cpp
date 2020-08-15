@@ -28,11 +28,10 @@ using MathFunctions::Laue;
 //! @param N_2: number of lattice cells in the second lattice direction
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const Lattice2D& lattice,
                                                                          unsigned N_1, unsigned N_2)
-    : m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
+    : IInterferenceFunction(0), m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
 {
     setName("InterferenceFinite2DLattice");
     setLattice(lattice);
-    init_parameters();
 }
 
 //! Constructor of two-dimensional finite lattice interference function.
@@ -46,18 +45,18 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double 
                                                                          double length_2,
                                                                          double alpha, double xi,
                                                                          unsigned N_1, unsigned N_2)
-    : m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
+    : InterferenceFunctionFinite2DLattice(BasicLattice(length_1, length_2, alpha, xi), N_1, N_2)
 {
-    setName("InterferenceFinite2DLattice");
-    setLattice(BasicLattice(length_1, length_2, alpha, xi));
-    init_parameters();
 }
 
 InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() = default;
 
 InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone() const
 {
-    return new InterferenceFunctionFinite2DLattice(*this);
+    auto* ret = new InterferenceFunctionFinite2DLattice(*mP_lattice, m_N_1, m_N_2);
+    ret->setPositionVariance(m_position_var);
+    ret->setIntegrationOverXi(integrationOverXi());
+    return ret;
 }
 
 //! Creates square lattice.
@@ -109,8 +108,6 @@ std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() con
     return std::vector<const INode*>() << mP_lattice;
 }
 
-void InterferenceFunctionFinite2DLattice::init_parameters() {}
-
 double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) const
 {
     m_qx = q.x();
@@ -120,17 +117,6 @@ double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) co
     return m_integrator.integrate([&](double xi) -> double { return interferenceForXi(xi); }, 0.0,
                                   M_TWOPI)
            / M_TWOPI;
-}
-
-InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
-    const InterferenceFunctionFinite2DLattice& other)
-    : IInterferenceFunction(other), m_N_1(other.m_N_1), m_N_2(other.m_N_2)
-{
-    setName(other.getName());
-    if (other.mP_lattice)
-        setLattice(*other.mP_lattice);
-    setIntegrationOverXi(other.integrationOverXi());
-    init_parameters();
 }
 
 void InterferenceFunctionFinite2DLattice::setLattice(const Lattice2D& lattice)

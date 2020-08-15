@@ -26,10 +26,10 @@
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/SimulationElement/SpecularSimulationElement.h"
 
 namespace
 {

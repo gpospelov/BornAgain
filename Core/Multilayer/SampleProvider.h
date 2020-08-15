@@ -28,7 +28,7 @@ class BA_CORE_API_ SampleProvider : public INode
 {
 public:
     SampleProvider();
-    SampleProvider(const SampleProvider& other);
+    SampleProvider(const SampleProvider& other); // TODO ASAP can't we clone?
     SampleProvider& operator=(const SampleProvider& other);
     ~SampleProvider();
 

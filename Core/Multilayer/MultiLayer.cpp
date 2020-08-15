@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Aggregate/ILayout.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/Correlations/ILayout.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerFillLimits.h"
@@ -24,13 +24,14 @@
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 
-MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
+MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
     setName("MultiLayer");
-    init_parameters();
+    registerParameter("CrossCorrelationLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
+    registerVector("ExternalField", &m_ext_field, "");
 }
 
-MultiLayer::~MultiLayer() {}
+MultiLayer::~MultiLayer() = default;
 
 MultiLayer* MultiLayer::clone() const
 {
@@ -124,13 +125,6 @@ std::vector<const INode*> MultiLayer::getChildren() const
             result.push_back(p_interface);
     }
     return result;
-}
-
-void MultiLayer::init_parameters()
-{
-    parameterPool()->clear(); // non-trivially needed
-    registerParameter("CrossCorrelationLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
-    registerVector("ExternalField", &m_ext_field, "");
 }
 
 void MultiLayer::addAndRegisterLayer(Layer* child)

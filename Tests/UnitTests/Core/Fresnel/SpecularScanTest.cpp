@@ -4,8 +4,8 @@
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/QSpecScan.h"
+#include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/SimulationElement/SpecularSimulationElement.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test

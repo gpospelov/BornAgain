@@ -13,17 +13,11 @@ protected:
         ParameterizedObject() : m_real_par1(0), m_real_par2(0)
         {
             setName("Parameterized");
-            init_parameters();
-        }
-        double m_real_par1;
-        double m_real_par2;
-
-    protected:
-        virtual void init_parameters()
-        {
             registerParameter("par1", &m_real_par1);
             registerParameter("par2", &m_real_par2);
         }
+        double m_real_par1;
+        double m_real_par2;
     };
     ParameterizedObject m_parameterized;
 };

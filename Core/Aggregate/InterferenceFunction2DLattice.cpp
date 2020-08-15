@@ -26,6 +26,13 @@ static const int nmax = 20;
 static const int min_points = 4;
 } // namespace
 
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
+    : IInterferenceFunction(0), m_integrate_xi(false)
+{
+    setName("Interference2DLattice");
+    setLattice(lattice);
+}
+
 //! Constructor of two-dimensional interference function.
 //! @param length_1: length of the first basis vector in nanometers
 //! @param length_2: length of the second basis vector  in nanometers
@@ -33,24 +40,20 @@ static const int min_points = 4;
 //! @param xi: rotation of the lattice with respect to the x-axis (beam direction) in radians
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
                                                              double alpha, double xi)
-    : m_integrate_xi(false), m_na(0), m_nb(0)
+    : InterferenceFunction2DLattice(BasicLattice(length_1, length_2, alpha, xi))
 {
-    setName("Interference2DLattice");
-    setLattice(BasicLattice(length_1, length_2, alpha, xi));
 }
 
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
-    : m_integrate_xi(false)
-{
-    setName("Interference2DLattice");
-    setLattice(lattice);
-}
-
-InterferenceFunction2DLattice::~InterferenceFunction2DLattice() {}
+InterferenceFunction2DLattice::~InterferenceFunction2DLattice() = default;
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
 {
-    return new InterferenceFunction2DLattice(*this);
+    auto* ret = new InterferenceFunction2DLattice(*m_lattice);
+    ret->setPositionVariance(m_position_var);
+    ret->setIntegrationOverXi(integrationOverXi());
+    if (m_decay)
+        ret->setDecayFunction(*m_decay);
+    return ret;
 }
 
 //! Creates square lattice.
@@ -123,18 +126,6 @@ double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const
     return m_integrator.integrate([&](double xi) -> double { return interferenceForXi(xi); }, 0.0,
                                   M_TWOPI)
            / M_TWOPI;
-}
-
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(
-    const InterferenceFunction2DLattice& other)
-    : IInterferenceFunction(other)
-{
-    setName(other.getName());
-    if (other.m_lattice)
-        setLattice(*other.m_lattice);
-    if (other.m_decay)
-        setDecayFunction(*other.m_decay);
-    setIntegrationOverXi(other.integrationOverXi());
 }
 
 void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)

@@ -73,8 +73,6 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
     }
 }
 
-void ConvolutionDetectorResolution::init_parameters() {}
-
 void ConvolutionDetectorResolution::setResolutionFunction(const IResolutionFunction2D& resFunc)
 {
     mp_res_function_2d.reset(resFunc.clone());

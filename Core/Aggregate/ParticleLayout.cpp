@@ -44,8 +44,6 @@ ParticleLayout::ParticleLayout() : mP_interference_function{nullptr}, m_total_pa
     registerWeight();
 }
 
-ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
-
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
     : mP_interference_function{nullptr}, m_total_particle_density{0.01}
 {
@@ -54,6 +52,8 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
     registerParticleDensity();
     registerWeight();
 }
+
+ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
 
 ParticleLayout* ParticleLayout::clone() const
 {

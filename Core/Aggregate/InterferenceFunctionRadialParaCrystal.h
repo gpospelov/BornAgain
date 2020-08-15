@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 #define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
-#include "Core/Aggregate/FTDistributions1D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Basics/Complex.h"
+#include "Core/Correlations/FTDistributions1D.h"
 #include <memory>
 
 //! Interference function of radial paracrystal.
@@ -51,7 +51,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunctionRadialParaCrystal(const InterferenceFunctionRadialParaCrystal& other);
     void init_parameters();
 
     double m_peak_distance;  //!< the distance to the first neighbor peak

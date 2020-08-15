@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H
 #define BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H
 
-#include "Core/Multilayer/ILayerRTCoefficients.h"
 #include "Core/Multilayer/ISpecularStrategy.h"
 #include "Core/Multilayer/Slice.h"
+#include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Vector/Vectors3D.h"
 #include "Wrap/WinDllMacros.h"
 #include <memory>

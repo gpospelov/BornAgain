@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/LatticeBuilder.h"
-#include "Core/Aggregate/FTDecay1D.h"
-#include "Core/Aggregate/FTDecay2D.h"
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
+#include "Core/Correlations/FTDecay1D.h"
+#include "Core/Correlations/FTDecay2D.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

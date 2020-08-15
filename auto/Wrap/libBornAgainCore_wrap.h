@@ -419,8 +419,8 @@ private:
 class SwigDirector_IInterferenceFunction : public IInterferenceFunction, public Swig::Director {
 
 public:
-    SwigDirector_IInterferenceFunction(PyObject *self);
-    SwigDirector_IInterferenceFunction(PyObject *self, IInterferenceFunction const &other);
+    SwigDirector_IInterferenceFunction(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
+    SwigDirector_IInterferenceFunction(PyObject *self, double position_var);
     virtual ~SwigDirector_IInterferenceFunction();
     virtual IInterferenceFunction *clone() const;
     virtual void transferToCPP();

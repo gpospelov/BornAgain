@@ -17,7 +17,7 @@
 #include "Core/Computation/DelayedProgressCounter.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Multilayer/IFresnelMap.h"
-#include "Core/Multilayer/ILayerRTCoefficients.h"
+#include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/SimulationElement/DepthProbeElement.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)

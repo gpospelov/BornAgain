@@ -31,7 +31,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunctionNone(const InterferenceFunctionNone& other);
 };
 
 #endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H

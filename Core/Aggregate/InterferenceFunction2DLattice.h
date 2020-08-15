@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H
 #define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DLATTICE_H
 
-#include "Core/Aggregate/FTDecay1D.h"
-#include "Core/Aggregate/FTDecay2D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
+#include "Core/Correlations/FTDecay1D.h"
+#include "Core/Correlations/FTDecay2D.h"
 #include "Core/Lattice/Lattice2D.h"
 #include "Core/Tools/Integrator.h"
 
@@ -54,7 +54,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
     void setLattice(const Lattice2D& lattice);
 
     double interferenceForXi(double xi) const;

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/MultiLayerUtils.h"
-#include "Core/Aggregate/ILayout.h"
+#include "Core/Correlations/ILayout.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerFillLimits.h"

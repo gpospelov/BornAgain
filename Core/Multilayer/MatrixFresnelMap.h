@@ -16,9 +16,9 @@
 #define BORNAGAIN_CORE_MULTILAYER_MATRIXFRESNELMAP_H
 
 #include "Core/Multilayer/IFresnelMap.h"
-#include "Core/Multilayer/MatrixRTCoefficients.h"
-#include "Core/Multilayer/MatrixRTCoefficients_v2.h"
 #include "Core/Multilayer/SpecularMagneticStrategy.h"
+#include "Core/RT/MatrixRTCoefficients.h"
+#include "Core/RT/MatrixRTCoefficients_v2.h"
 #include <cstddef>
 #include <memory>
 #include <unordered_map>

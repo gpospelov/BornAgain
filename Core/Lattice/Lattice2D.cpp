@@ -18,15 +18,23 @@
 #include "Core/Parametrization/RealParameter.h"
 #include <cmath>
 
-Lattice2D::Lattice2D(double rotation_angle) : m_xi(rotation_angle) {}
+Lattice2D::Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues)
+{
+}
+
+Lattice2D::Lattice2D(double xi) : m_xi(xi)
+{
+    registerParameter("Xi", &m_xi).setUnit("rad");
+}
 
 Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const
 {
-    double sinalpha = std::sin(latticeAngle());
-    double ainv = M_TWOPI / length1() / sinalpha;
-    double binv = M_TWOPI / length2() / sinalpha;
-    double xi = rotationAngle();
-    double xialpha = xi + latticeAngle();
+    const double sinalpha = std::sin(latticeAngle());
+    const double ainv = M_TWOPI / length1() / sinalpha;
+    const double binv = M_TWOPI / length2() / sinalpha;
+    const double xi = rotationAngle();
+    const double xialpha = xi + latticeAngle();
 
     return {+ainv * std::sin(xialpha), -ainv * std::cos(xialpha), -binv * std::sin(xi),
             +binv * std::cos(xi)};
@@ -38,20 +46,12 @@ void Lattice2D::onChange()
         parent()->onChange();
 }
 
-Lattice2D::Lattice2D(const Lattice2D& other) : ICloneable()
-{
-    m_xi = other.m_xi;
-    setName(other.getName());
-}
-
-void Lattice2D::setRotationEnabled(bool enabled)
+void Lattice2D::setRotationEnabled(bool enabled) // TODO ASAP replace by generic mechanism
 {
     if (enabled) {
         if (parameter("Xi"))
             return;
-
         registerParameter("Xi", &m_xi).setUnit("rad");
-
     } else {
         removeParameter("Xi");
     }
@@ -59,20 +59,22 @@ void Lattice2D::setRotationEnabled(bool enabled)
 
 // --------------------------------------------------------------------------------------------- //
 
-BasicLattice::BasicLattice(double length1, double length2, double angle, double rotation_angle)
-    : Lattice2D(rotation_angle), m_length1(length1), m_length2(length2), m_angle(angle)
+BasicLattice::BasicLattice(double length1, double length2, double angle, double xi)
+    : Lattice2D(xi), m_length1(length1), m_length2(length2), m_angle(angle)
 {
     if (m_length1 <= 0.0 || m_length2 <= 0.0)
         throw std::runtime_error("BasicLattice::BasicLattice() -> Error. Lattice length can't be "
                                  "negative or zero.");
 
     setName("BasicLattice");
-    init_parameters();
+    registerParameter("LatticeLength1", &m_length1).setUnit("nm").setPositive();
+    registerParameter("LatticeLength2", &m_length2).setUnit("nm").setPositive();
+    registerParameter("Alpha", &m_angle).setUnit("rad");
 }
 
 BasicLattice* BasicLattice::clone() const
 {
-    return new BasicLattice(*this);
+    return new BasicLattice(m_length1, m_length2, m_angle, m_xi);
 }
 
 double BasicLattice::unitCellArea() const
@@ -80,37 +82,21 @@ double BasicLattice::unitCellArea() const
     return std::abs(m_length1 * m_length2 * std::sin(m_angle));
 }
 
-BasicLattice::BasicLattice(const BasicLattice& other)
-    : Lattice2D(other), m_length1(other.m_length1), m_length2(other.m_length2),
-      m_angle(other.m_angle)
-{
-    init_parameters();
-}
-
-void BasicLattice::init_parameters()
-{
-    registerParameter("LatticeLength1", &m_length1).setUnit("nm").setPositive();
-    registerParameter("LatticeLength2", &m_length2).setUnit("nm").setPositive();
-    registerParameter("Alpha", &m_angle).setUnit("rad");
-    registerParameter("Xi", &m_xi).setUnit("rad");
-}
-
 // --------------------------------------------------------------------------------------------- //
 
-SquareLattice::SquareLattice(double length, double rotation_angle)
-    : Lattice2D(rotation_angle), m_length(length)
+SquareLattice::SquareLattice(double length, double xi) : Lattice2D(xi), m_length(length)
 {
     if (m_length <= 0.0)
         throw std::runtime_error("SquareLattice::SquareLattice() -> Error. Lattice length can't be "
                                  "negative or zero.");
 
     setName("SquareLattice");
-    init_parameters();
+    registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
 }
 
 SquareLattice* SquareLattice::clone() const
 {
-    return new SquareLattice(*this);
+    return new SquareLattice(m_length, m_xi);
 }
 
 double SquareLattice::latticeAngle() const
@@ -123,34 +109,21 @@ double SquareLattice::unitCellArea() const
     return std::abs(m_length * m_length);
 }
 
-SquareLattice::SquareLattice(const SquareLattice& other)
-    : Lattice2D(other), m_length(other.m_length)
-{
-    init_parameters();
-}
-
-void SquareLattice::init_parameters()
-{
-    registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
-    registerParameter("Xi", &m_xi).setUnit("rad");
-}
-
 // --------------------------------------------------------------------------------------------- //
 
-HexagonalLattice::HexagonalLattice(double length, double rotation_angle)
-    : Lattice2D(rotation_angle), m_length(length)
+HexagonalLattice::HexagonalLattice(double length, double xi) : Lattice2D(xi), m_length(length)
 {
     if (m_length <= 0.0)
         throw std::runtime_error("HexagonalLattice::HexagonalLattice() -> Error. "
                                  "Lattice length can't be negative or zero.");
 
     setName("HexagonalLattice");
-    init_parameters();
+    registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
 }
 
 HexagonalLattice* HexagonalLattice::clone() const
 {
-    return new HexagonalLattice(*this);
+    return new HexagonalLattice(m_length, m_xi);
 }
 
 double HexagonalLattice::latticeAngle() const
@@ -162,16 +135,4 @@ double HexagonalLattice::unitCellArea() const
 {
     static const double sinval = std::sin(latticeAngle());
     return std::abs(m_length * m_length * sinval);
-}
-
-HexagonalLattice::HexagonalLattice(const HexagonalLattice& other)
-    : Lattice2D(other), m_length(other.m_length)
-{
-    init_parameters();
-}
-
-void HexagonalLattice::init_parameters()
-{
-    registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
-    registerParameter("Xi", &m_xi).setUnit("rad");
 }

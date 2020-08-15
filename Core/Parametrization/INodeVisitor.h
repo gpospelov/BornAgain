@@ -103,8 +103,6 @@ class IInterferenceFunction;
 class ILayout;
 class INode;
 class Instrument;
-class IntensityNormalizer;
-class IntensityScaleAndShiftNormalizer;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
@@ -241,8 +239,6 @@ public:
     virtual void visit(const ILayout*) {}
     virtual void visit(const INode*) {}
     virtual void visit(const Instrument*) {}
-    virtual void visit(const IntensityNormalizer*) {}
-    virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
     virtual void visit(const InterferenceFunction2DLattice*) {}
     virtual void visit(const InterferenceFunction2DParaCrystal*) {}

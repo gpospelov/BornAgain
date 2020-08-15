@@ -32,8 +32,8 @@ class ParameterSample;
 class BA_CORE_API_ IDistribution1D : public ICloneable, public INode
 {
 public:
-    IDistribution1D() {}
-    virtual ~IDistribution1D() {}
+    IDistribution1D() = default;
+    IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues);
 
     virtual IDistribution1D* clone() const = 0;
 
@@ -68,11 +68,6 @@ public:
     virtual void setUnits(const std::string& units);
 
 protected:
-#ifndef SWIG
-    //! this function is called during bad initialization of a subclass
-    [[noreturn]] static void SignalBadInitialization(std::string distribution_name);
-#endif
-
     //! modifies xmin and xmax if they are outside of limits
     void adjustMinMaxForLimits(double& xmin, double& xmax, const RealLimits& limits) const;
 
@@ -91,9 +86,8 @@ protected:
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
-    DistributionGate() : DistributionGate(0., 1.) {}
+    DistributionGate();
     DistributionGate(double min, double max);
-    virtual ~DistributionGate() {}
 
     DistributionGate* clone() const final { return new DistributionGate(m_min, m_max); }
 
@@ -110,13 +104,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_min;
     double m_max;
 };
@@ -127,9 +115,8 @@ private:
 class BA_CORE_API_ DistributionLorentz : public IDistribution1D
 {
 public:
-    DistributionLorentz() : DistributionLorentz(0., 1.) {}
+    DistributionLorentz();
     DistributionLorentz(double mean, double hwhm);
-    virtual ~DistributionLorentz() {}
 
     DistributionLorentz* clone() const final { return new DistributionLorentz(m_mean, m_hwhm); }
 
@@ -145,13 +132,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_mean;
     double m_hwhm;
 };
@@ -162,9 +143,8 @@ private:
 class BA_CORE_API_ DistributionGaussian : public IDistribution1D
 {
 public:
-    DistributionGaussian() : DistributionGaussian(0., 1.) {}
+    DistributionGaussian();
     DistributionGaussian(double mean, double std_dev);
-    virtual ~DistributionGaussian() {}
 
     DistributionGaussian* clone() const final
     {
@@ -183,13 +163,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_mean;
     double m_std_dev;
 };
@@ -200,9 +174,8 @@ private:
 class BA_CORE_API_ DistributionLogNormal : public IDistribution1D
 {
 public:
-    DistributionLogNormal(double scale_param) : DistributionLogNormal(1., scale_param) {}
+    DistributionLogNormal() = delete;
     DistributionLogNormal(double median, double scale_param);
-    virtual ~DistributionLogNormal() {}
 
     DistributionLogNormal* clone() const final
     {
@@ -224,13 +197,7 @@ public:
 
     virtual void setUnits(const std::string& units);
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_median;
     double m_scale_param;
 };
@@ -241,9 +208,8 @@ private:
 class BA_CORE_API_ DistributionCosine : public IDistribution1D
 {
 public:
-    DistributionCosine() : DistributionCosine(0., 1.) {}
+    DistributionCosine();
     DistributionCosine(double mean, double sigma);
-    virtual ~DistributionCosine() {}
 
     DistributionCosine* clone() const final { return new DistributionCosine(m_mean, m_sigma); }
 
@@ -259,13 +225,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     double m_mean;
     double m_sigma;
 };
@@ -276,10 +236,8 @@ private:
 class BA_CORE_API_ DistributionTrapezoid : public IDistribution1D
 {
 public:
-    DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
-    DistributionTrapezoid(double center, double left_width, double middle_width,
-                          double right_width);
-    virtual ~DistributionTrapezoid() {}
+    DistributionTrapezoid();
+    DistributionTrapezoid(double center, double left, double middle, double right);
 
     DistributionTrapezoid* clone() const final
     {
@@ -300,13 +258,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
-
 private:
-    //! check initialization
-    bool checkInitialization() const;
     void adjustLimitsToNonZeroSamples(double& min, double& max, size_t nbr_samples) const;
     double m_center;
     double m_left;

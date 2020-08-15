@@ -6379,8 +6379,6 @@ class INodeVisitor(object):
         visit(INodeVisitor self, ILayout arg2)
         visit(INodeVisitor self, INode arg2)
         visit(INodeVisitor self, Instrument arg2)
-        visit(INodeVisitor self, IntensityNormalizer arg2)
-        visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
@@ -6587,7 +6585,6 @@ class IDistribution1D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IDistribution1D
 
     def clone(self):
         r"""
@@ -6676,6 +6673,7 @@ class IDistribution1D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IDistribution1D_setUnits(self, units)
+    __swig_destroy__ = _libBornAgainCore.delete_IDistribution1D
 
 # Register IDistribution1D in _libBornAgainCore:
 _libBornAgainCore.IDistribution1D_swigregister(IDistribution1D)
@@ -6701,7 +6699,6 @@ class DistributionGate(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionGate_swiginit(self, _libBornAgainCore.new_DistributionGate(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionGate
 
     def clone(self):
         r"""
@@ -6776,6 +6773,7 @@ class DistributionGate(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionGate_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionGate
 
 # Register DistributionGate in _libBornAgainCore:
 _libBornAgainCore.DistributionGate_swigregister(DistributionGate)
@@ -6801,7 +6799,6 @@ class DistributionLorentz(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionLorentz_swiginit(self, _libBornAgainCore.new_DistributionLorentz(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionLorentz
 
     def clone(self):
         r"""
@@ -6868,6 +6865,7 @@ class DistributionLorentz(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionLorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionLorentz
 
 # Register DistributionLorentz in _libBornAgainCore:
 _libBornAgainCore.DistributionLorentz_swigregister(DistributionLorentz)
@@ -6893,7 +6891,6 @@ class DistributionGaussian(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionGaussian_swiginit(self, _libBornAgainCore.new_DistributionGaussian(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionGaussian
 
     def clone(self):
         r"""
@@ -6960,6 +6957,7 @@ class DistributionGaussian(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionGaussian_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionGaussian
 
 # Register DistributionGaussian in _libBornAgainCore:
 _libBornAgainCore.DistributionGaussian_swigregister(DistributionGaussian)
@@ -6977,15 +6975,13 @@ class DistributionLogNormal(IDistribution1D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, median, scale_param):
         r"""
-        __init__(DistributionLogNormal self, double scale_param) -> DistributionLogNormal
         __init__(DistributionLogNormal self, double median, double scale_param) -> DistributionLogNormal
         DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
 
         """
-        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionLogNormal
+        _libBornAgainCore.DistributionLogNormal_swiginit(self, _libBornAgainCore.new_DistributionLogNormal(median, scale_param))
 
     def clone(self):
         r"""
@@ -7070,6 +7066,7 @@ class DistributionLogNormal(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionLogNormal_setUnits(self, units)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionLogNormal
 
 # Register DistributionLogNormal in _libBornAgainCore:
 _libBornAgainCore.DistributionLogNormal_swigregister(DistributionLogNormal)
@@ -7095,7 +7092,6 @@ class DistributionCosine(IDistribution1D):
 
         """
         _libBornAgainCore.DistributionCosine_swiginit(self, _libBornAgainCore.new_DistributionCosine(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionCosine
 
     def clone(self):
         r"""
@@ -7162,6 +7158,7 @@ class DistributionCosine(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionCosine_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionCosine
 
 # Register DistributionCosine in _libBornAgainCore:
 _libBornAgainCore.DistributionCosine_swigregister(DistributionCosine)
@@ -7181,13 +7178,12 @@ class DistributionTrapezoid(IDistribution1D):
 
     def __init__(self, *args):
         r"""
+        __init__(DistributionTrapezoid self, double center, double left, double middle, double right) -> DistributionTrapezoid
         __init__(DistributionTrapezoid self) -> DistributionTrapezoid
-        __init__(DistributionTrapezoid self, double center, double left_width, double middle_width, double right_width) -> DistributionTrapezoid
         DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
 
         """
         _libBornAgainCore.DistributionTrapezoid_swiginit(self, _libBornAgainCore.new_DistributionTrapezoid(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_DistributionTrapezoid
 
     def clone(self):
         r"""
@@ -7270,6 +7266,7 @@ class DistributionTrapezoid(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionTrapezoid_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionTrapezoid
 
 # Register DistributionTrapezoid in _libBornAgainCore:
 _libBornAgainCore.DistributionTrapezoid_swigregister(DistributionTrapezoid)
@@ -11231,7 +11228,6 @@ class IFTDistribution2D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
     def clone(self):
         r"""
@@ -11290,6 +11286,7 @@ class IFTDistribution2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IFTDistribution2D_evaluate(self, qx, qy)
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution2D
 
 # Register IFTDistribution2D in _libBornAgainCore:
 _libBornAgainCore.IFTDistribution2D_swigregister(IFTDistribution2D)
@@ -11583,114 +11580,6 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 
 # Register FTDistribution2DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
-
-class IInterferenceFunction(ISample):
-    r"""
-
-
-    Pure virtual base class of interference functions.
-
-    C++ includes: IInterferenceFunction.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(IInterferenceFunction self) -> IInterferenceFunction
-        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
-        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
-
-        """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
-
-    def clone(self):
-        r"""
-        clone(IInterferenceFunction self) -> IInterferenceFunction
-        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_clone(self)
-
-    def evaluate(self, q, outer_iff=1.0):
-        r"""
-        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
-        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
-
-        Evaluates the interference function for a given wavevector transfer. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
-
-    def setPositionVariance(self, var):
-        r"""
-        setPositionVariance(IInterferenceFunction self, double var)
-        void IInterferenceFunction::setPositionVariance(double var)
-
-        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
-
-    def positionVariance(self):
-        r"""
-        positionVariance(IInterferenceFunction self) -> double
-        double IInterferenceFunction::positionVariance() const
-
-        Returns the position variance. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
-
-    def getParticleDensity(self):
-        r"""
-        getParticleDensity(IInterferenceFunction self) -> double
-        virtual double IInterferenceFunction::getParticleDensity() const
-
-        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
-
-    def supportsMultilayer(self):
-        r"""
-        supportsMultilayer(IInterferenceFunction self) -> bool
-        virtual bool IInterferenceFunction::supportsMultilayer() const
-
-        Indicates if this interference function can be used with a multilayer (DWBA mode) 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
-
-    def DWfactor(self, q):
-        r"""
-        DWfactor(IInterferenceFunction self, kvector_t q) -> double
-        double IInterferenceFunction::DWfactor(kvector_t q) const
-
-        Evaluates the Debye-Waller factor for a given wavevector transfer. 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
-
-    def iff_without_dw(self, q):
-        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
-        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IInterferenceFunction(self)
-        return weakref.proxy(self)
-
-# Register IInterferenceFunction in _libBornAgainCore:
-_libBornAgainCore.IInterferenceFunction_swigregister(IInterferenceFunction)
 
 class ILayout(ISample):
     r"""
@@ -12092,135 +11981,221 @@ class LorentzFisherPeakShape(IPeakShape):
 # Register LorentzFisherPeakShape in _libBornAgainCore:
 _libBornAgainCore.LorentzFisherPeakShape_swigregister(LorentzFisherPeakShape)
 
-class VonMisesFisherGaussPeakShape(IPeakShape):
-    r"""
-
-
-    Class that implements a peak shape that is Gaussian in the radial direction and a convolution of a von Mises-Fisher distribution with a von Mises distribution on the two-sphere
-
-    C++ includes: IPeakShape.h
-
-    """
+class MisesFisherGaussPeakShape(IPeakShape):
+    r"""Proxy of C++ MisesFisherGaussPeakShape class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, max_intensity, radial_size, zenith, kappa_1, kappa_2):
-        r"""
-        __init__(VonMisesFisherGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2) -> VonMisesFisherGaussPeakShape
-        VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
-
-        """
-        _libBornAgainCore.VonMisesFisherGaussPeakShape_swiginit(self, _libBornAgainCore.new_VonMisesFisherGaussPeakShape(max_intensity, radial_size, zenith, kappa_1, kappa_2))
-    __swig_destroy__ = _libBornAgainCore.delete_VonMisesFisherGaussPeakShape
+        r"""__init__(MisesFisherGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2) -> MisesFisherGaussPeakShape"""
+        _libBornAgainCore.MisesFisherGaussPeakShape_swiginit(self, _libBornAgainCore.new_MisesFisherGaussPeakShape(max_intensity, radial_size, zenith, kappa_1, kappa_2))
+    __swig_destroy__ = _libBornAgainCore.delete_MisesFisherGaussPeakShape
 
     def clone(self):
         r"""
-        clone(VonMisesFisherGaussPeakShape self) -> VonMisesFisherGaussPeakShape
-        VonMisesFisherGaussPeakShape * VonMisesFisherGaussPeakShape::clone() const override
+        clone(MisesFisherGaussPeakShape self) -> MisesFisherGaussPeakShape
+        virtual IPeakShape* IPeakShape::clone() const =0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_clone(self)
+        return _libBornAgainCore.MisesFisherGaussPeakShape_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(VonMisesFisherGaussPeakShape self, INodeVisitor visitor)
-        void VonMisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
+        accept(MisesFisherGaussPeakShape self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_accept(self, visitor)
+        return _libBornAgainCore.MisesFisherGaussPeakShape_accept(self, visitor)
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(VonMisesFisherGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+        evaluate(MisesFisherGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 
         """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_evaluate(self, q, q_lattice_point)
+        return _libBornAgainCore.MisesFisherGaussPeakShape_evaluate(self, q, q_lattice_point)
 
     def angularDisorder(self):
         r"""
-        angularDisorder(VonMisesFisherGaussPeakShape self) -> bool
-        bool VonMisesFisherGaussPeakShape::angularDisorder() const override
+        angularDisorder(MisesFisherGaussPeakShape self) -> bool
+        virtual bool IPeakShape::angularDisorder() const
 
         Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
 
         """
-        return _libBornAgainCore.VonMisesFisherGaussPeakShape_angularDisorder(self)
+        return _libBornAgainCore.MisesFisherGaussPeakShape_angularDisorder(self)
 
-# Register VonMisesFisherGaussPeakShape in _libBornAgainCore:
-_libBornAgainCore.VonMisesFisherGaussPeakShape_swigregister(VonMisesFisherGaussPeakShape)
+# Register MisesFisherGaussPeakShape in _libBornAgainCore:
+_libBornAgainCore.MisesFisherGaussPeakShape_swigregister(MisesFisherGaussPeakShape)
 
-class VonMisesGaussPeakShape(IPeakShape):
+class MisesGaussPeakShape(IPeakShape):
+    r"""Proxy of C++ MisesGaussPeakShape class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, zenith, kappa):
+        r"""__init__(MisesGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa) -> MisesGaussPeakShape"""
+        _libBornAgainCore.MisesGaussPeakShape_swiginit(self, _libBornAgainCore.new_MisesGaussPeakShape(max_intensity, radial_size, zenith, kappa))
+    __swig_destroy__ = _libBornAgainCore.delete_MisesGaussPeakShape
+
+    def clone(self):
+        r"""
+        clone(MisesGaussPeakShape self) -> MisesGaussPeakShape
+        virtual IPeakShape* IPeakShape::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.MisesGaussPeakShape_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(MisesGaussPeakShape self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.MisesGaussPeakShape_accept(self, visitor)
+
+    def evaluate(self, q, q_lattice_point):
+        r"""
+        evaluate(MisesGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.MisesGaussPeakShape_evaluate(self, q, q_lattice_point)
+
+    def angularDisorder(self):
+        r"""
+        angularDisorder(MisesGaussPeakShape self) -> bool
+        virtual bool IPeakShape::angularDisorder() const
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.MisesGaussPeakShape_angularDisorder(self)
+
+# Register MisesGaussPeakShape in _libBornAgainCore:
+_libBornAgainCore.MisesGaussPeakShape_swigregister(MisesGaussPeakShape)
+
+class IInterferenceFunction(ISample):
     r"""
 
 
-    Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution with a 3d Gaussian
+    Pure virtual base class of interference functions.
 
-    C++ includes: IPeakShape.h
+    C++ includes: IInterferenceFunction.h
 
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, max_intensity, radial_size, zenith, kappa):
+    def __init__(self, *args):
         r"""
-        __init__(VonMisesGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa) -> VonMisesGaussPeakShape
-        VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa)
+        __init__(IInterferenceFunction self, NodeMeta meta, vdouble1d_t PValues) -> IInterferenceFunction
+        __init__(IInterferenceFunction self, double position_var) -> IInterferenceFunction
+        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
 
         """
-        _libBornAgainCore.VonMisesGaussPeakShape_swiginit(self, _libBornAgainCore.new_VonMisesGaussPeakShape(max_intensity, radial_size, zenith, kappa))
-    __swig_destroy__ = _libBornAgainCore.delete_VonMisesGaussPeakShape
+        if self.__class__ == IInterferenceFunction:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
+    __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
 
     def clone(self):
         r"""
-        clone(VonMisesGaussPeakShape self) -> VonMisesGaussPeakShape
-        VonMisesGaussPeakShape * VonMisesGaussPeakShape::clone() const override
+        clone(IInterferenceFunction self) -> IInterferenceFunction
+        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.VonMisesGaussPeakShape_clone(self)
+        return _libBornAgainCore.IInterferenceFunction_clone(self)
 
-    def accept(self, visitor):
+    def evaluate(self, q, outer_iff=1.0):
         r"""
-        accept(VonMisesGaussPeakShape self, INodeVisitor visitor)
-        void VonMisesGaussPeakShape::accept(INodeVisitor *visitor) const override
+        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
+        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
-        Calls the  INodeVisitor's visit method. 
+        Evaluates the interference function for a given wavevector transfer. 
 
         """
-        return _libBornAgainCore.VonMisesGaussPeakShape_accept(self, visitor)
+        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
 
-    def evaluate(self, q, q_lattice_point):
+    def setPositionVariance(self, var):
         r"""
-        evaluate(VonMisesGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-        double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+        setPositionVariance(IInterferenceFunction self, double var)
+        void IInterferenceFunction::setPositionVariance(double var)
 
-        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
 
         """
-        return _libBornAgainCore.VonMisesGaussPeakShape_evaluate(self, q, q_lattice_point)
+        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
 
-    def angularDisorder(self):
+    def positionVariance(self):
         r"""
-        angularDisorder(VonMisesGaussPeakShape self) -> bool
-        bool VonMisesGaussPeakShape::angularDisorder() const override
+        positionVariance(IInterferenceFunction self) -> double
+        double IInterferenceFunction::positionVariance() const
 
-        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+        Returns the position variance. 
 
         """
-        return _libBornAgainCore.VonMisesGaussPeakShape_angularDisorder(self)
+        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
 
-# Register VonMisesGaussPeakShape in _libBornAgainCore:
-_libBornAgainCore.VonMisesGaussPeakShape_swigregister(VonMisesGaussPeakShape)
+    def getParticleDensity(self):
+        r"""
+        getParticleDensity(IInterferenceFunction self) -> double
+        virtual double IInterferenceFunction::getParticleDensity() const
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
+
+    def supportsMultilayer(self):
+        r"""
+        supportsMultilayer(IInterferenceFunction self) -> bool
+        virtual bool IInterferenceFunction::supportsMultilayer() const
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
+
+    def DWfactor(self, q):
+        r"""
+        DWfactor(IInterferenceFunction self, kvector_t q) -> double
+        double IInterferenceFunction::DWfactor(kvector_t q) const
+
+        Evaluates the Debye-Waller factor for a given wavevector transfer. 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
+
+    def iff_without_dw(self, q):
+        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_IInterferenceFunction(self)
+        return weakref.proxy(self)
+
+# Register IInterferenceFunction in _libBornAgainCore:
+_libBornAgainCore.IInterferenceFunction_swigregister(IInterferenceFunction)
 
 class InterferenceFunction1DLattice(IInterferenceFunction):
     r"""
@@ -13206,13 +13181,13 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, radius, density):
+    def __init__(self, radius, density, position_var=0):
         r"""
-        __init__(InterferenceFunctionHardDisk self, double radius, double density) -> InterferenceFunctionHardDisk
+        __init__(InterferenceFunctionHardDisk self, double radius, double density, double position_var=0) -> InterferenceFunctionHardDisk
         InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
 
         """
-        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density))
+        _libBornAgainCore.InterferenceFunctionHardDisk_swiginit(self, _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density, position_var))
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionHardDisk
 
     def clone(self):
@@ -14324,8 +14299,8 @@ class LayerRoughness(ISample):
 
     def __init__(self, *args):
         r"""
-        __init__(LayerRoughness self) -> LayerRoughness
         __init__(LayerRoughness self, double sigma, double hurstParameter, double lateralCorrLength) -> LayerRoughness
+        __init__(LayerRoughness self) -> LayerRoughness
         LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
 
         Constructor of layer roughness.
@@ -20619,176 +20594,6 @@ def IHistogram_createFrom(*args):
     """
     return _libBornAgainCore.IHistogram_createFrom(*args)
 
-class IIntensityNormalizer(ICloneable, INode):
-    r"""
-
-
-    Interface to  OutputData normalizers.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IIntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IIntensityNormalizer self) -> IIntensityNormalizer
-        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_clone(self)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
-        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IIntensityNormalizer self, IntensityData data)
-        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IIntensityNormalizer self, double arg2)
-        virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
-
-        """
-        return _libBornAgainCore.IIntensityNormalizer_setMaximumIntensity(self, arg2)
-
-# Register IIntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IIntensityNormalizer_swigregister(IIntensityNormalizer)
-
-class IntensityNormalizer(IIntensityNormalizer):
-    r"""
-
-
-    Standard  OutputData normalizer, with configurable max_intensity.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityNormalizer self, double scale=1.0, double shift=0.0) -> IntensityNormalizer
-        IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityNormalizer_swiginit(self, _libBornAgainCore.new_IntensityNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityNormalizer
-
-    def clone(self):
-        r"""
-        clone(IntensityNormalizer self) -> IntensityNormalizer
-        IntensityNormalizer * IntensityNormalizer::clone() const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityNormalizer self, INodeVisitor visitor)
-        void IntensityNormalizer::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_accept(self, visitor)
-
-    def createNormalizedData(self, data):
-        r"""
-        createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
-        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
-
-    def apply(self, data):
-        r"""
-        apply(IntensityNormalizer self, IntensityData data)
-        void IntensityNormalizer::apply(OutputData< double > &data) const final
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_apply(self, data)
-
-    def setMaximumIntensity(self, max_intensity):
-        r"""
-        setMaximumIntensity(IntensityNormalizer self, double max_intensity)
-        virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
-
-        """
-        return _libBornAgainCore.IntensityNormalizer_setMaximumIntensity(self, max_intensity)
-
-# Register IntensityNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityNormalizer_swigregister(IntensityNormalizer)
-
-class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
-    r"""
-
-
-    Simplified  OutputData normalizer, with max_intensity=1.
-
-    C++ includes: IIntensityNormalizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, scale=1.0, shift=0.0):
-        r"""
-        __init__(IntensityScaleAndShiftNormalizer self, double scale=1.0, double shift=0.0) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
-
-        """
-        _libBornAgainCore.IntensityScaleAndShiftNormalizer_swiginit(self, _libBornAgainCore.new_IntensityScaleAndShiftNormalizer(scale, shift))
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
-
-    def accept(self, visitor):
-        r"""
-        accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
-        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_accept(self, visitor)
-
-    def setMaximumIntensity(self, arg2):
-        r"""
-        setMaximumIntensity(IntensityScaleAndShiftNormalizer self, double arg2)
-        void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_setMaximumIntensity(self, arg2)
-
-    def clone(self):
-        r"""
-        clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
-        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
-
-        """
-        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
-
-# Register IntensityScaleAndShiftNormalizer in _libBornAgainCore:
-_libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
-
 class IIntensityFunction(object):
     r"""
 
@@ -22664,13 +22469,13 @@ class BasicLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length1, length2, angle, rotation_angle):
+    def __init__(self, length1, length2, angle, xi):
         r"""
-        __init__(BasicLattice self, double length1, double length2, double angle, double rotation_angle) -> BasicLattice
+        __init__(BasicLattice self, double length1, double length2, double angle, double xi) -> BasicLattice
         BasicLattice::BasicLattice(double length1, double length2, double angle, double rotation_angle=0.0)
 
         """
-        _libBornAgainCore.BasicLattice_swiginit(self, _libBornAgainCore.new_BasicLattice(length1, length2, angle, rotation_angle))
+        _libBornAgainCore.BasicLattice_swiginit(self, _libBornAgainCore.new_BasicLattice(length1, length2, angle, xi))
 
     def clone(self):
         r"""
@@ -22732,13 +22537,13 @@ class SquareLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, rotation_angle=0.0):
+    def __init__(self, length, xi=0.0):
         r"""
-        __init__(SquareLattice self, double length, double rotation_angle=0.0) -> SquareLattice
+        __init__(SquareLattice self, double length, double xi=0.0) -> SquareLattice
         SquareLattice::SquareLattice(double length, double rotation_angle=0.0)
 
         """
-        _libBornAgainCore.SquareLattice_swiginit(self, _libBornAgainCore.new_SquareLattice(length, rotation_angle))
+        _libBornAgainCore.SquareLattice_swiginit(self, _libBornAgainCore.new_SquareLattice(length, xi))
 
     def clone(self):
         r"""
@@ -22800,13 +22605,13 @@ class HexagonalLattice(Lattice2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, length, rotation_angle):
+    def __init__(self, length, xi):
         r"""
-        __init__(HexagonalLattice self, double length, double rotation_angle) -> HexagonalLattice
+        __init__(HexagonalLattice self, double length, double xi) -> HexagonalLattice
         HexagonalLattice::HexagonalLattice(double length, double rotation_angle=0.0)
 
         """
-        _libBornAgainCore.HexagonalLattice_swiginit(self, _libBornAgainCore.new_HexagonalLattice(length, rotation_angle))
+        _libBornAgainCore.HexagonalLattice_swiginit(self, _libBornAgainCore.new_HexagonalLattice(length, xi))
 
     def clone(self):
         r"""

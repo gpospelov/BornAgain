@@ -20,24 +20,28 @@
 namespace
 {
 static const double p = 7.0 / 3.0 - 4.0 * std::sqrt(3.0) / M_PI;
-double Czero(double packing);
+double Czero(double packing); // TODO ASAP why these variables?
 double S2(double packing);
 double W2(double x);
 } // namespace
 
-InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
-    : m_radius(radius), m_density(density)
+InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density,
+                                                           double position_var)
+    : IInterferenceFunction(position_var), m_radius(radius), m_density(density)
 {
     setName("InterferenceHardDisk");
-    validateParameters();
-    init_parameters();
+    if (m_radius < 0.0 || m_density < 0.0 || packingRatio() > 0.65)
+        throw std::runtime_error("InterferenceFunctionHardDisk::validateParameters: "
+                                 "radius and density must be positive and packing ratio between "
+                                 "0 and 0.65");
+    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
+    registerParameter("TotalParticleDensity", &m_density).setUnit("nm").setNonnegative();
 }
-
-InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() = default;
 
 InterferenceFunctionHardDisk* InterferenceFunctionHardDisk::clone() const
 {
-    return new InterferenceFunctionHardDisk(*this);
+    auto* ret = new InterferenceFunctionHardDisk(m_radius, m_density, m_position_var);
+    return ret;
 }
 
 double InterferenceFunctionHardDisk::getParticleDensity() const
@@ -55,15 +59,6 @@ double InterferenceFunctionHardDisk::density() const
     return m_density;
 }
 
-InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(
-    const InterferenceFunctionHardDisk& other)
-    : IInterferenceFunction(other), m_radius(other.m_radius), m_density(other.m_density)
-{
-    setName("InterferenceHardDisk");
-    validateParameters();
-    init_parameters();
-}
-
 double InterferenceFunctionHardDisk::iff_without_dw(const kvector_t q) const
 {
     double qx = q.x();
@@ -77,20 +72,6 @@ double InterferenceFunctionHardDisk::iff_without_dw(const kvector_t q) const
         * m_integrator.integrate([&](double x) -> double { return integrand(x); }, 0.0, 1.0);
     double rho = 4.0 * m_packing / M_PI;
     return 1.0 / (1.0 - rho * c_q);
-}
-
-void InterferenceFunctionHardDisk::init_parameters()
-{
-    registerParameter("Radius", &m_radius).setUnit("nm").setNonnegative();
-    registerParameter("TotalParticleDensity", &m_density).setUnit("nm").setNonnegative();
-}
-
-void InterferenceFunctionHardDisk::validateParameters() const
-{
-    if (m_radius < 0.0 || m_density < 0.0 || packingRatio() > 0.65)
-        throw std::runtime_error("InterferenceFunctionHardDisk::validateParameters: "
-                                 "radius and density must be positive and packing ratio between "
-                                 "0 and 0.65");
 }
 
 double InterferenceFunctionHardDisk::packingRatio() const

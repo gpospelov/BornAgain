@@ -44,7 +44,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunctionFinite3DLattice(const InterferenceFunctionFinite3DLattice& other);
     void setLattice(const Lattice& lattice);
 
     std::unique_ptr<Lattice> mP_lattice;

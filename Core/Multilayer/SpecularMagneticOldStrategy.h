@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICOLDSTRATEGY_H
 
 #include "Core/Multilayer/ISpecularStrategy.h"
-#include "Core/Multilayer/MatrixRTCoefficients.h"
+#include "Core/RT/MatrixRTCoefficients.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>

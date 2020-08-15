@@ -16,12 +16,17 @@
 #include "Core/Parametrization/RealParameter.h"
 #include <stdexcept>
 
+IFootprintFactor::IFootprintFactor(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues)
+{
+}
+
 IFootprintFactor::IFootprintFactor(double width_ratio) : m_width_ratio(width_ratio)
 {
     if (m_width_ratio < 0.0)
         throw std::runtime_error(
             "Error in IFootprintFactor::IFootprintFactor: width ratio is negative");
-    initialize();
+    registerParameter("BeamToSampleWidthRatio", &m_width_ratio).setNonnegative();
 }
 
 IFootprintFactor::~IFootprintFactor() = default;
@@ -32,15 +37,4 @@ void IFootprintFactor::setWidthRatio(double width_ratio)
         throw std::runtime_error(
             "Error in IFootprintFactor::setWidthRatio: width ratio is negative");
     m_width_ratio = width_ratio;
-}
-
-IFootprintFactor::IFootprintFactor(const IFootprintFactor& other)
-    : ICloneable(), m_width_ratio(other.m_width_ratio)
-{
-    initialize();
-}
-
-void IFootprintFactor::initialize()
-{
-    registerParameter("BeamToSampleWidthRatio", &m_width_ratio).setNonnegative();
 }

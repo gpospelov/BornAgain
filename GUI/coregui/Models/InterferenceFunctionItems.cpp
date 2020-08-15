@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
-#include "Core/Aggregate/FTDecay1D.h"
-#include "Core/Aggregate/FTDecay2D.h"
-#include "Core/Aggregate/FTDistributions2D.h"
 #include "Core/Basics/Units.h"
+#include "Core/Correlations/FTDecay1D.h"
+#include "Core/Correlations/FTDecay2D.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/includeIncludes/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
 #include "GUI/coregui/Models/FTDistributionItems.h"

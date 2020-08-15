@@ -50,8 +50,6 @@ public:
 protected:
     ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other);
 
-    virtual void init_parameters();
-
 private:
     void setResolutionFunction(const IResolutionFunction2D& resFunc);
     void apply1dConvolution(OutputData<double>* p_intensity_map) const;

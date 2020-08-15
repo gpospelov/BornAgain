@@ -36,9 +36,6 @@ public:
     TriangularRippleBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_d;
 };

@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H
 #define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
-#include "Core/Aggregate/FTDistributions2D.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Basics/Complex.h"
+#include "Core/Correlations/FTDistributions2D.h"
 #include "Core/Lattice/Lattice2D.h"
 #include "Core/Tools/Integrator.h"
 #include <memory>
@@ -76,10 +76,8 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal& other);
     void setLattice(const Lattice2D& lattice);
 
-    void init_parameters();
     double interferenceForXi(double xi) const;
     double interference1D(double qx, double qy, double xi, size_t index) const;
     complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
@@ -88,7 +86,7 @@ private:
 
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<IFTDistribution2D> m_pdf1, m_pdf2;
-    std::unique_ptr<Lattice2D> m_lattice;
+    std::unique_ptr<Lattice2D> m_lattice; // TODO ASAP name as in other i-fcts
     double m_damping_length;  //!< Damping length for removing delta function singularity at q=0.
     double m_domain_sizes[2]; //!< Coherence domain sizes
     mutable double m_qx;

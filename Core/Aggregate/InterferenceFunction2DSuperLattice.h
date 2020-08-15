@@ -56,10 +56,8 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    InterferenceFunction2DSuperLattice(const InterferenceFunction2DSuperLattice& other);
     void setLattice(const Lattice2D& lattice);
 
-    void init_parameters();
     double interferenceForXi(double xi) const;
 
     bool m_integrate_xi; //!< Integrate over the orientation xi

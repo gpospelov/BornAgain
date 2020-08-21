@@ -27,7 +27,6 @@ complex_t GetImExponential(complex_t exponent);
 // The factor 1e-18 is here to have unit: 1/T*nm^-2
 constexpr double magnetic_prefactor = PhysConsts::m_n * PhysConsts::g_factor_n * PhysConsts::mu_N
                                       / PhysConsts::h_bar / PhysConsts::h_bar * 1e-18;
-constexpr complex_t I(0.0, 1.0);
 } // namespace
 
 ISpecularStrategy::coeffs_t SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,

@@ -27,6 +27,7 @@ class BA_CORE_API_ MatrixRTCoefficients_v2 : public ILayerRTCoefficients
 {
 public:
     friend class SpecularMagneticStrategy;
+    friend class SpecularMagnetic_v3ConsistencyTest_ScalarMagneticAmplitudes_Test;
 
     MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b);
     MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2& other);
@@ -46,6 +47,8 @@ public:
     Eigen::Vector2cd R2min() const override;
     //! Returns z-part of the two wavevector eigenmodes
     Eigen::Vector2cd getKz() const override;
+
+    Eigen::Matrix2cd getReflectionMatrix() const override;
 
 private:
     double m_kz_sign; //! wave propagation direction (-1 for direct one, 1 for time reverse)

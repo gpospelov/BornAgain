@@ -69,7 +69,7 @@ void SpecularMatrixTerm::eval(SpecularSimulationElement& elem,
 }
 
 double SpecularMatrixTerm::intensity(const SpecularSimulationElement& elem,
-                                     ISpecularStrategy::single_coeff_t& coeff) const
+                                     const ISpecularStrategy::coefficient_pointer_type& coeff) const
 {
     const auto& polarization = elem.polarizationHandler().getPolarization();
     const auto& analyzer = elem.polarizationHandler().getAnalyzerOperator();

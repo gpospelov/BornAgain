@@ -33,6 +33,10 @@ class Slice;
 class BA_CORE_API_ SpecularMagneticStrategy : public ISpecularStrategy
 {
 public:
+    using coefficient_type         = MatrixRTCoefficients_v2;
+    using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;
+    using coeffs_t                 = std::vector<coefficient_pointer_type>;
+
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
     ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
@@ -42,6 +46,7 @@ public:
     ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
                                         const std::vector<complex_t>& kz) const;
 
+private:
     static std::vector<MatrixRTCoefficients_v2> computeTR(const std::vector<Slice>& slices,
                                                           const std::vector<complex_t>& kzs);
 

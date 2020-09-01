@@ -250,7 +250,9 @@ if(WIN32)
 
     set(DLL_MSG "")
     foreach(LIB IN LISTS FFTW3_LIBRARIES TIFF_LIBRARIES Cerf_LIBRARIES)
+        # From LIB, which has the form X.lib or X.dll.a, we now derive the DLL path X.dll.
         string(REPLACE ".lib" ".dll" DLL "${LIB}")
+        string(REPLACE ".dll.a" ".dll" DLL "${DLL}")
         if (NOT EXISTS ${DLL})
             message(FATAL_ERROR "Dynamic load library ${DLL} (derived from ${LIB}) does not exist")
         endif()

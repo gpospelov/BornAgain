@@ -236,7 +236,7 @@ Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld being the scattering length densi
 Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections. 
 ";
 
-%feature("docstring")  BaseMaterialImpl::transformedMaterial "virtual BaseMaterialImpl* BaseMaterialImpl::transformedMaterial(const Transform3D &transform) const =0
+%feature("docstring")  BaseMaterialImpl::rotatedMaterial "virtual BaseMaterialImpl* BaseMaterialImpl::rotatedMaterial(const Transform3D &transform) const =0
 ";
 
 %feature("docstring")  BaseMaterialImpl::print "virtual void BaseMaterialImpl::print(std::ostream &ostr) const =0
@@ -285,14 +285,11 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  Basic2DParaCrystalBuilder::createSample "MultiLayer * Basic2DParaCrystalBuilder::createSample(size_t index=0)
 ";
 
-%feature("docstring")  Basic2DParaCrystalBuilder::size "size_t Basic2DParaCrystalBuilder::size()
-";
-
 
 // File: classBasicLattice.xml
 %feature("docstring") BasicLattice "";
 
-%feature("docstring")  BasicLattice::BasicLattice "BasicLattice::BasicLattice(double length1, double length2, double angle, double rotation_angle=0.0)
+%feature("docstring")  BasicLattice::BasicLattice "BasicLattice::BasicLattice(double length1, double length2, double angle, double xi)
 ";
 
 %feature("docstring")  BasicLattice::clone "BasicLattice * BasicLattice::clone() const
@@ -319,7 +316,7 @@ Calls the  INodeVisitor's visit method.
 // File: classBasicVector3D.xml
 %feature("docstring") BasicVector3D "
 
-Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recongnition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
+Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
 
 C++ includes: BasicVector3D.h
 ";
@@ -424,14 +421,14 @@ Returns this, trivially converted to complex type.
 Returns real parts. 
 ";
 
-%feature("docstring")  BasicVector3D::dot "auto BasicVector3D< T >::dot(const BasicVector3D< U > &v) const -> decltype(this->x() *v.x())
+%feature("docstring")  BasicVector3D::dot "auto BasicVector3D< T >::dot(const BasicVector3D< U > &v) const
 
 Returns dot product of vectors (antilinear in the first [=self] argument).
 
 Returns dot product of (complex) vectors (antilinear in the first [=self] argument). 
 ";
 
-%feature("docstring")  BasicVector3D::cross "auto BasicVector3D< T >::cross(const BasicVector3D< U > &v) const -> BasicVector3D< decltype(this->x() *v.x())>
+%feature("docstring")  BasicVector3D::cross "auto BasicVector3D< T >::cross(const BasicVector3D< U > &v) const
 
 Returns cross product of vectors (linear in both arguments).
 
@@ -486,7 +483,7 @@ Beam defined by wavelength, direction and intensity.
 C++ includes: Beam.h
 ";
 
-%feature("docstring")  Beam::Beam "Beam::Beam()
+%feature("docstring")  Beam::Beam "Beam::Beam(double wavelength, double alpha, double phi, double intensity)
 ";
 
 %feature("docstring")  Beam::Beam "Beam::Beam(const Beam &other)
@@ -933,10 +930,10 @@ Class representing a constant background signal
 C++ includes: ConstantBackground.h
 ";
 
-%feature("docstring")  ConstantBackground::ConstantBackground "ConstantBackground::ConstantBackground(double background_value)
+%feature("docstring")  ConstantBackground::ConstantBackground "ConstantBackground::ConstantBackground(const std::vector< double > P)
 ";
 
-%feature("docstring")  ConstantBackground::~ConstantBackground "ConstantBackground::~ConstantBackground()
+%feature("docstring")  ConstantBackground::ConstantBackground "ConstantBackground::ConstantBackground(double background_value)
 ";
 
 %feature("docstring")  ConstantBackground::clone "ConstantBackground * ConstantBackground::clone() const override final
@@ -1549,13 +1546,16 @@ Detector properties (efficiency, transmission).
 C++ includes: DetectionProperties.h
 ";
 
+%feature("docstring")  DetectionProperties::DetectionProperties "DetectionProperties::DetectionProperties(kvector_t direction, double efficiency, double total_transmission)
+";
+
 %feature("docstring")  DetectionProperties::DetectionProperties "DetectionProperties::DetectionProperties()
 ";
 
 %feature("docstring")  DetectionProperties::DetectionProperties "DetectionProperties::DetectionProperties(const DetectionProperties &other)
 ";
 
-%feature("docstring")  DetectionProperties::~DetectionProperties "DetectionProperties::~DetectionProperties()
+%feature("docstring")  DetectionProperties::~DetectionProperties "virtual DetectionProperties::~DetectionProperties()=default
 ";
 
 %feature("docstring")  DetectionProperties::setAnalyzerProperties "void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
@@ -1776,13 +1776,13 @@ Cosine distribution.
 C++ includes: Distributions.h
 ";
 
-%feature("docstring")  DistributionCosine::DistributionCosine "DistributionCosine::DistributionCosine()
+%feature("docstring")  DistributionCosine::DistributionCosine "DistributionCosine::DistributionCosine(const std::vector< double > P)
 ";
 
 %feature("docstring")  DistributionCosine::DistributionCosine "DistributionCosine::DistributionCosine(double mean, double sigma)
 ";
 
-%feature("docstring")  DistributionCosine::~DistributionCosine "virtual DistributionCosine::~DistributionCosine()
+%feature("docstring")  DistributionCosine::DistributionCosine "DistributionCosine::DistributionCosine()
 ";
 
 %feature("docstring")  DistributionCosine::clone "DistributionCosine* DistributionCosine::clone() const final
@@ -1825,13 +1825,13 @@ Uniform distribution function with half width hwhm.
 C++ includes: Distributions.h
 ";
 
-%feature("docstring")  DistributionGate::DistributionGate "DistributionGate::DistributionGate()
+%feature("docstring")  DistributionGate::DistributionGate "DistributionGate::DistributionGate(const std::vector< double > P)
 ";
 
 %feature("docstring")  DistributionGate::DistributionGate "DistributionGate::DistributionGate(double min, double max)
 ";
 
-%feature("docstring")  DistributionGate::~DistributionGate "virtual DistributionGate::~DistributionGate()
+%feature("docstring")  DistributionGate::DistributionGate "DistributionGate::DistributionGate()
 ";
 
 %feature("docstring")  DistributionGate::clone "DistributionGate* DistributionGate::clone() const final
@@ -1877,13 +1877,13 @@ Gaussian distribution with standard deviation std_dev.
 C++ includes: Distributions.h
 ";
 
-%feature("docstring")  DistributionGaussian::DistributionGaussian "DistributionGaussian::DistributionGaussian()
+%feature("docstring")  DistributionGaussian::DistributionGaussian "DistributionGaussian::DistributionGaussian(const std::vector< double > P)
 ";
 
 %feature("docstring")  DistributionGaussian::DistributionGaussian "DistributionGaussian::DistributionGaussian(double mean, double std_dev)
 ";
 
-%feature("docstring")  DistributionGaussian::~DistributionGaussian "virtual DistributionGaussian::~DistributionGaussian()
+%feature("docstring")  DistributionGaussian::DistributionGaussian "DistributionGaussian::DistributionGaussian()
 ";
 
 %feature("docstring")  DistributionGaussian::clone "DistributionGaussian* DistributionGaussian::clone() const final
@@ -1967,13 +1967,13 @@ Log-normal distribution.
 C++ includes: Distributions.h
 ";
 
-%feature("docstring")  DistributionLogNormal::DistributionLogNormal "DistributionLogNormal::DistributionLogNormal(double scale_param)
+%feature("docstring")  DistributionLogNormal::DistributionLogNormal "DistributionLogNormal::DistributionLogNormal(const std::vector< double > P)
 ";
 
 %feature("docstring")  DistributionLogNormal::DistributionLogNormal "DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
 ";
 
-%feature("docstring")  DistributionLogNormal::~DistributionLogNormal "virtual DistributionLogNormal::~DistributionLogNormal()
+%feature("docstring")  DistributionLogNormal::DistributionLogNormal "DistributionLogNormal::DistributionLogNormal()=delete
 ";
 
 %feature("docstring")  DistributionLogNormal::clone "DistributionLogNormal* DistributionLogNormal::clone() const final
@@ -2024,13 +2024,13 @@ Lorentz distribution with half width hwhm.
 C++ includes: Distributions.h
 ";
 
-%feature("docstring")  DistributionLorentz::DistributionLorentz "DistributionLorentz::DistributionLorentz()
+%feature("docstring")  DistributionLorentz::DistributionLorentz "DistributionLorentz::DistributionLorentz(const std::vector< double > P)
 ";
 
 %feature("docstring")  DistributionLorentz::DistributionLorentz "DistributionLorentz::DistributionLorentz(double mean, double hwhm)
 ";
 
-%feature("docstring")  DistributionLorentz::~DistributionLorentz "virtual DistributionLorentz::~DistributionLorentz()
+%feature("docstring")  DistributionLorentz::DistributionLorentz "DistributionLorentz::DistributionLorentz()
 ";
 
 %feature("docstring")  DistributionLorentz::clone "DistributionLorentz* DistributionLorentz::clone() const final
@@ -2073,13 +2073,13 @@ Trapezoidal distribution.
 C++ includes: Distributions.h
 ";
 
+%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid(const std::vector< double > P)
+";
+
+%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle, double right)
+";
+
 %feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid()
-";
-
-%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
-";
-
-%feature("docstring")  DistributionTrapezoid::~DistributionTrapezoid "virtual DistributionTrapezoid::~DistributionTrapezoid()
 ";
 
 %feature("docstring")  DistributionTrapezoid::clone "DistributionTrapezoid* DistributionTrapezoid::clone() const final
@@ -2696,6 +2696,9 @@ Calculates footprint coefficient for a gaussian beam  Beam width is interpreted 
 C++ includes: FootprintGauss.h
 ";
 
+%feature("docstring")  FootprintGauss::FootprintGauss "FootprintGauss::FootprintGauss(const std::vector< double > P)
+";
+
 %feature("docstring")  FootprintGauss::FootprintGauss "FootprintGauss::FootprintGauss(double width_ratio)
 ";
 
@@ -2724,6 +2727,9 @@ Print python-formatted footprint definition.
 Calculates footprint coefficient for a square beam
 
 C++ includes: FootprintSquare.h
+";
+
+%feature("docstring")  FootprintSquare::FootprintSquare "FootprintSquare::FootprintSquare(const std::vector< double > P)
 ";
 
 %feature("docstring")  FootprintSquare::FootprintSquare "FootprintSquare::FootprintSquare(double width_ratio)
@@ -2763,7 +2769,7 @@ A frustum (truncated pyramid) with rectangular base.
 C++ includes: FormFactorAnisoPyramid.h
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
+%feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector< double > P)
 
 Constructor of a truncated pyramid with a rectangular base.
 
@@ -2781,6 +2787,9 @@ height of pyramid in nm
 
 alpha: 
 dihedral angle in radians between base and facet 
+";
+
+%feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const override final
@@ -2874,15 +2883,18 @@ The form factor of an elongated bar, with Gaussian profile in elongation directi
 C++ includes: FormFactorBar.h
 ";
 
+%feature("docstring")  FormFactorBarGauss::FormFactorBarGauss "FormFactorBarGauss::FormFactorBarGauss(const std::vector< double > P)
+";
+
 %feature("docstring")  FormFactorBarGauss::FormFactorBarGauss "FormFactorBarGauss::FormFactorBarGauss(double length, double width, double height)
 ";
 
-%feature("docstring")  FormFactorBarGauss::clone "FormFactorBarGauss * FormFactorBarGauss::clone() const override final
+%feature("docstring")  FormFactorBarGauss::clone "FormFactorBarGauss * FormFactorBarGauss::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorBarGauss::accept "void FormFactorBarGauss::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorBarGauss::accept "void FormFactorBarGauss::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -2896,15 +2908,18 @@ The form factor of an elongated, with Lorentz form factor in elongation directio
 C++ includes: FormFactorBar.h
 ";
 
+%feature("docstring")  FormFactorBarLorentz::FormFactorBarLorentz "FormFactorBarLorentz::FormFactorBarLorentz(const std::vector< double > P)
+";
+
 %feature("docstring")  FormFactorBarLorentz::FormFactorBarLorentz "FormFactorBarLorentz::FormFactorBarLorentz(double length, double width, double height)
 ";
 
-%feature("docstring")  FormFactorBarLorentz::clone "FormFactorBarLorentz * FormFactorBarLorentz::clone() const override final
+%feature("docstring")  FormFactorBarLorentz::clone "FormFactorBarLorentz * FormFactorBarLorentz::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorBarLorentz::accept "void FormFactorBarLorentz::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorBarLorentz::accept "void FormFactorBarLorentz::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -2918,7 +2933,7 @@ A rectangular prism (parallelepiped).
 C++ includes: FormFactorBox.h
 ";
 
-%feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(double length, double width, double height)
+%feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(const std::vector< double > P)
 
 Constructor of a rectangular cuboid.
 
@@ -2933,6 +2948,9 @@ width of the base in nanometers
 
 height: 
 height of the box in nanometers 
+";
+
+%feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(double length, double width, double height)
 ";
 
 %feature("docstring")  FormFactorBox::clone "FormFactorBox* FormFactorBox::clone() const override final
@@ -2975,7 +2993,7 @@ A cube, with truncation of all edges and corners, as in Croset (2017) Fig 7
 C++ includes: FormFactorCantellatedCube.h
 ";
 
-%feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
+%feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector< double > P)
 
 Constructor of a truncated cube.
 
@@ -2987,6 +3005,9 @@ length of the full cube's edge in nanometers
 
 removed_length: 
 removed length from each edge of the cube in nanometers 
+";
+
+%feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
 ";
 
 %feature("docstring")  FormFactorCantellatedCube::clone "FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const override final
@@ -3089,7 +3110,7 @@ A conical frustum (cone truncated parallel to the base) with circular base.
 C++ includes: FormFactorCone.h
 ";
 
-%feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(double radius, double height, double alpha)
+%feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(const std::vector< double > P)
 
 Constructor of a truncated cone with circular base.
 
@@ -3104,6 +3125,9 @@ height of the cone in nanometers
 
 alpha: 
 angle between the base and the side surface in radians 
+";
+
+%feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 ";
 
 %feature("docstring")  FormFactorCone::clone "FormFactorCone* FormFactorCone::clone() const override final
@@ -3144,7 +3168,7 @@ A frustum (truncated pyramid) with regular hexagonal base.
 C++ includes: FormFactorCone6.h
 ";
 
-%feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
+%feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(const std::vector< double > P)
 
 Constructor of a truncated pyramid, based on a regular hexagon
 
@@ -3159,6 +3183,9 @@ height of a truncated pyramid in nanometers
 
 alpha: 
 dihedral angle in radians between base and facet 
+";
+
+%feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 ";
 
 %feature("docstring")  FormFactorCone6::clone "FormFactorCone6* FormFactorCone6::clone() const override final
@@ -3238,6 +3265,81 @@ Calculates and returns a polarized form factor calculation in DWBA.
 ";
 
 
+// File: classFormFactorCosineRippleBox.xml
+%feature("docstring") FormFactorCosineRippleBox "
+
+The form factor for a cosine ripple, with box profile in elongation direction.
+
+C++ includes: FormFactorCosineRipple.h
+";
+
+%feature("docstring")  FormFactorCosineRippleBox::FormFactorCosineRippleBox "FormFactorCosineRippleBox::FormFactorCosineRippleBox(const std::vector< double > P)
+";
+
+%feature("docstring")  FormFactorCosineRippleBox::FormFactorCosineRippleBox "FormFactorCosineRippleBox::FormFactorCosineRippleBox(double length, double width, double height)
+";
+
+%feature("docstring")  FormFactorCosineRippleBox::clone "FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorCosineRippleBox::accept "void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classFormFactorCosineRippleGauss.xml
+%feature("docstring") FormFactorCosineRippleGauss "
+
+The form factor for a cosine ripple, with Gaussian profile in elongation direction.
+
+C++ includes: FormFactorCosineRipple.h
+";
+
+%feature("docstring")  FormFactorCosineRippleGauss::FormFactorCosineRippleGauss "FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(const std::vector< double > P)
+";
+
+%feature("docstring")  FormFactorCosineRippleGauss::FormFactorCosineRippleGauss "FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(double length, double width, double height)
+";
+
+%feature("docstring")  FormFactorCosineRippleGauss::clone "FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorCosineRippleGauss::accept "void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classFormFactorCosineRippleLorentz.xml
+%feature("docstring") FormFactorCosineRippleLorentz "
+
+The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
+
+C++ includes: FormFactorCosineRipple.h
+";
+
+%feature("docstring")  FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz "FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(const std::vector< double > P)
+";
+
+%feature("docstring")  FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz "FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(double length, double width, double height)
+";
+
+%feature("docstring")  FormFactorCosineRippleLorentz::clone "FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorCosineRippleLorentz::accept "void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
 // File: classFormFactorCrystal.xml
 %feature("docstring") FormFactorCrystal "
 
@@ -3306,7 +3408,7 @@ A truncated bifrustum with quadratic base.
 C++ includes: FormFactorCuboctahedron.h
 ";
 
-%feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
+%feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector< double > P)
 
 Constructor of cuboctahedron (compound of two truncated pyramids with a common square base and opposite orientations).
 
@@ -3324,6 +3426,9 @@ ratio of heights of top to bottom pyramids
 
 alpha: 
 dihedral angle in radians between base and facet 
+";
+
+%feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::clone "FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const override final
@@ -3357,7 +3462,7 @@ A circular cylinder.
 C++ includes: FormFactorCylinder.h
 ";
 
-%feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(double radius, double height)
+%feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(const std::vector< double > P)
 
 Constructor of a cylinder with a circular base.
 
@@ -3369,6 +3474,9 @@ radius of the circular base in nanometers
 
 height: 
 height of the cylinder in nanometers 
+";
+
+%feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(double radius, double height)
 ";
 
 %feature("docstring")  FormFactorCylinder::clone "FormFactorCylinder* FormFactorCylinder::clone() const override final
@@ -3393,38 +3501,6 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorCylinder::evaluate_for_q "complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorDebyeBueche.xml
-%feature("docstring") FormFactorDebyeBueche "
-
-The form factor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
-
-C++ includes: FormFactorDebyeBueche.h
-";
-
-%feature("docstring")  FormFactorDebyeBueche::FormFactorDebyeBueche "FormFactorDebyeBueche::FormFactorDebyeBueche(double I0, double xi)
-";
-
-%feature("docstring")  FormFactorDebyeBueche::clone "FormFactorDebyeBueche* FormFactorDebyeBueche::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDebyeBueche::accept "void FormFactorDebyeBueche::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorDebyeBueche::radialExtension "double FormFactorDebyeBueche::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorDebyeBueche::evaluate_for_q "complex_t FormFactorDebyeBueche::evaluate_for_q(cvector_t q) const override final
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
@@ -3569,7 +3645,7 @@ A regular dodecahedron.
 C++ includes: FormFactorDodecahedron.h
 ";
 
-%feature("docstring")  FormFactorDodecahedron::FormFactorDodecahedron "FormFactorDodecahedron::FormFactorDodecahedron(double edge)
+%feature("docstring")  FormFactorDodecahedron::FormFactorDodecahedron "FormFactorDodecahedron::FormFactorDodecahedron(const std::vector< double > P)
 
 Constructs a regular dodecahedron.
 
@@ -3586,6 +3662,9 @@ Parameters:
 
 edge: 
 length of the edge in nanometers 
+";
+
+%feature("docstring")  FormFactorDodecahedron::FormFactorDodecahedron "FormFactorDodecahedron::FormFactorDodecahedron(double edge)
 ";
 
 %feature("docstring")  FormFactorDodecahedron::clone "FormFactorDodecahedron* FormFactorDodecahedron::clone() const override final
@@ -3610,7 +3689,7 @@ A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 C++ includes: FormFactorDot.h
 ";
 
-%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(double radius)
+%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(const std::vector< double > P)
 
 Constructor.
 
@@ -3619,6 +3698,9 @@ Parameters:
 
 rscat: 
 radius of a sphere with same forward scattering power, in nanometers 
+";
+
+%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(double radius)
 ";
 
 %feature("docstring")  FormFactorDot::clone "FormFactorDot* FormFactorDot::clone() const override final
@@ -3788,7 +3870,7 @@ A cylinder with elliptical base.
 C++ includes: FormFactorEllipsoidalCylinder.h
 ";
 
-%feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
+%feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(const std::vector< double > P)
 
 Constructor of a cylinder with an ellipse cross section.
 
@@ -3803,6 +3885,9 @@ radius of the ellipse base in the y-direction, in nanometers
 
 height: 
 height of the ellipsoidal cylinder in nanometers 
+";
+
+%feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::clone "FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const override final
@@ -3843,7 +3928,7 @@ A full sphere.
 C++ includes: FormFactorFullSphere.h
 ";
 
-%feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
+%feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(const std::vector< double > P, bool position_at_center=false)
 
 Constructor of a full sphere.
 
@@ -3852,6 +3937,9 @@ Parameters:
 
 radius: 
 radius of the sphere in nanometers 
+";
+
+%feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
 ";
 
 %feature("docstring")  FormFactorFullSphere::clone "FormFactorFullSphere* FormFactorFullSphere::clone() const override final
@@ -3896,7 +3984,7 @@ A full spheroid (an ellipsoid with two equal axes, hence with circular cross sec
 C++ includes: FormFactorFullSpheroid.h
 ";
 
-%feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
+%feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector< double > P)
 
 Constructor of full spheroid.
 
@@ -3908,6 +3996,9 @@ radius of the circular cross section in nanometers
 
 height: 
 height of the full spheroid in nanometers 
+";
+
+%feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::clone "FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const override final
@@ -3937,42 +4028,39 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorGauss.xml
-%feature("docstring") FormFactorGauss "
+// File: classFormFactorGaussSphere.xml
+%feature("docstring") FormFactorGaussSphere "
 
-The form factor of a gaussian.
+The form factor of a Gaussian sphere.
 
 C++ includes: FormFactorGauss.h
 ";
 
-%feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double length)
+%feature("docstring")  FormFactorGaussSphere::FormFactorGaussSphere "FormFactorGaussSphere::FormFactorGaussSphere(const std::vector< double > P)
 ";
 
-%feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double width, double height)
+%feature("docstring")  FormFactorGaussSphere::FormFactorGaussSphere "FormFactorGaussSphere::FormFactorGaussSphere(double mean_radius)
 ";
 
-%feature("docstring")  FormFactorGauss::clone "FormFactorGauss* FormFactorGauss::clone() const override final
+%feature("docstring")  FormFactorGaussSphere::clone "FormFactorGaussSphere* FormFactorGaussSphere::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorGauss::accept "void FormFactorGauss::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorGaussSphere::accept "void FormFactorGaussSphere::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorGauss::getWidth "double FormFactorGauss::getWidth() const
+%feature("docstring")  FormFactorGaussSphere::getMeanRadius "double FormFactorGaussSphere::getMeanRadius() const
 ";
 
-%feature("docstring")  FormFactorGauss::getHeight "double FormFactorGauss::getHeight() const
-";
-
-%feature("docstring")  FormFactorGauss::radialExtension "double FormFactorGauss::radialExtension() const override final
+%feature("docstring")  FormFactorGaussSphere::radialExtension "double FormFactorGaussSphere::radialExtension() const override final
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorGauss::evaluate_for_q "complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const override final
+%feature("docstring")  FormFactorGaussSphere::evaluate_for_q "complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const override final
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
@@ -3986,7 +4074,7 @@ An hemi ellipsoid, obtained by truncating a full ellipsoid in the middle plane s
 C++ includes: FormFactorHemiEllipsoid.h
 ";
 
-%feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
+%feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector< double > P)
 
 Constructor of horizontally oriented ellipsoid, truncated at the central plane.
 
@@ -4001,6 +4089,9 @@ radius of the ellipse base in the y-direction, in nanometers
 
 height: 
 height of the hemi ellipsoid in nanometers 
+";
+
+%feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid "virtual FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
@@ -4044,6 +4135,9 @@ Integrated full sphere form factor over a uniform distribution of radii.
 C++ includes: FormFactorHollowSphere.h
 ";
 
+%feature("docstring")  FormFactorHollowSphere::FormFactorHollowSphere "FormFactorHollowSphere::FormFactorHollowSphere(const std::vector< double > P)
+";
+
 %feature("docstring")  FormFactorHollowSphere::FormFactorHollowSphere "FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
 ";
 
@@ -4076,7 +4170,7 @@ A regular icosahedron.
 C++ includes: FormFactorIcosahedron.h
 ";
 
-%feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(double edge)
+%feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(const std::vector< double > P)
 
 Constructor of a icosahedron.
 
@@ -4085,6 +4179,9 @@ Parameters:
 
 edge: 
 length of the edge in nanometers 
+";
+
+%feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(double edge)
 ";
 
 %feature("docstring")  FormFactorIcosahedron::clone "FormFactorIcosahedron* FormFactorIcosahedron::clone() const override final
@@ -4109,7 +4206,7 @@ The form factor for a long rectangular box.
 C++ includes: FormFactorLongBoxGauss.h
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
+%feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(const std::vector< double > P)
 
 Box constructor.
 
@@ -4124,6 +4221,9 @@ of  Box's base
 
 height: 
 of  Box
+";
+
+%feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::clone "FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const override final
@@ -4164,7 +4264,7 @@ The form factor for a long rectangular box.
 C++ includes: FormFactorLongBoxLorentz.h
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
+%feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(const std::vector< double > P)
 
 Box constructor.
 
@@ -4179,6 +4279,9 @@ of  Box's base
 
 height: 
 of  Box
+";
+
+%feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::clone "FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const override final
@@ -4211,79 +4314,6 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorLorentz.xml
-%feature("docstring") FormFactorLorentz "
-
-The form factor of a lorentzian.
-
-C++ includes: FormFactorLorentz.h
-";
-
-%feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double length)
-";
-
-%feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double width, double height)
-";
-
-%feature("docstring")  FormFactorLorentz::clone "FormFactorLorentz* FormFactorLorentz::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLorentz::accept "void FormFactorLorentz::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLorentz::getWidth "double FormFactorLorentz::getWidth() const
-";
-
-%feature("docstring")  FormFactorLorentz::getHeight "double FormFactorLorentz::getHeight() const
-";
-
-%feature("docstring")  FormFactorLorentz::radialExtension "double FormFactorLorentz::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorOrnsteinZernike.xml
-%feature("docstring") FormFactorOrnsteinZernike "
-
-The form factor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
-
-C++ includes: FormFactorOrnsteinZernike.h
-";
-
-%feature("docstring")  FormFactorOrnsteinZernike::FormFactorOrnsteinZernike "FormFactorOrnsteinZernike::FormFactorOrnsteinZernike(double I0, double xi_xy, double xi_z)
-";
-
-%feature("docstring")  FormFactorOrnsteinZernike::clone "FormFactorOrnsteinZernike* FormFactorOrnsteinZernike::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorOrnsteinZernike::accept "void FormFactorOrnsteinZernike::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorOrnsteinZernike::radialExtension "double FormFactorOrnsteinZernike::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorOrnsteinZernike::evaluate_for_q "complex_t FormFactorOrnsteinZernike::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
 // File: classFormFactorPolygonalPrism.xml
 %feature("docstring") FormFactorPolygonalPrism "
 
@@ -4295,7 +4325,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism()=default
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  FormFactorPolygonalPrism::bottomZ "double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
@@ -4338,7 +4368,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface()=default
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const override final
@@ -4368,7 +4398,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
 ";
 
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
@@ -4415,7 +4445,7 @@ A prism based on an equilateral triangle.
 C++ includes: FormFactorPrism3.h
 ";
 
-%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
+%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(const std::vector< double > P)
 
 Constructor of a prism with an equilaterial triangle base.
 
@@ -4427,6 +4457,9 @@ length of the base edge in nanometers
 
 height: 
 height in nanometers 
+";
+
+%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
 ";
 
 %feature("docstring")  FormFactorPrism3::clone "FormFactorPrism3* FormFactorPrism3::clone() const override final
@@ -4451,7 +4484,7 @@ A prism based on a regular hexagonal.
 C++ includes: FormFactorPrism6.h
 ";
 
-%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
+%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(const std::vector< double > P)
 
 Constructor of a prism with a regular hexagonal base.
 
@@ -4463,6 +4496,9 @@ length of the hexagonal base in nanometers
 
 height: 
 height in nanometers 
+";
+
+%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
 ";
 
 %feature("docstring")  FormFactorPrism6::clone "FormFactorPrism6* FormFactorPrism6::clone() const override final
@@ -4487,7 +4523,7 @@ A frustum with a quadratic base.
 C++ includes: FormFactorPyramid.h
 ";
 
-%feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
+%feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(const std::vector< double > P)
 
 Constructor of a truncated pyramid with a square base
 
@@ -4502,6 +4538,9 @@ height of the pyramid in nanometers
 
 alpha: 
 dihedral angle between the base and a side face in radians 
+";
+
+%feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 ";
 
 %feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid* FormFactorPyramid::clone() const override final
@@ -4524,133 +4563,76 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classFormFactorRipple1Box.xml
-%feature("docstring") FormFactorRipple1Box "
+// File: classFormFactorSawtoothRippleBox.xml
+%feature("docstring") FormFactorSawtoothRippleBox "
 
 The form factor for a cosine ripple, with box profile in elongation direction.
 
-C++ includes: FormFactorRipple1.h
+C++ includes: FormFactorSawtoothRipple.h
 ";
 
-%feature("docstring")  FormFactorRipple1Box::FormFactorRipple1Box "FormFactorRipple1Box::FormFactorRipple1Box(double length, double width, double height)
+%feature("docstring")  FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox "FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox(const std::vector< double > P)
 ";
 
-%feature("docstring")  FormFactorRipple1Box::clone "FormFactorRipple1Box * FormFactorRipple1Box::clone() const override final
+%feature("docstring")  FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox "FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox(double length, double width, double height, double asymmetry)
+";
+
+%feature("docstring")  FormFactorSawtoothRippleBox::clone "FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple1Box::accept "void FormFactorRipple1Box::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorSawtoothRippleBox::accept "void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
 
-// File: classFormFactorRipple1Gauss.xml
-%feature("docstring") FormFactorRipple1Gauss "
+// File: classFormFactorSawtoothRippleGauss.xml
+%feature("docstring") FormFactorSawtoothRippleGauss "
 
 The form factor for a cosine ripple, with Gaussian profile in elongation direction.
 
-C++ includes: FormFactorRipple1.h
+C++ includes: FormFactorSawtoothRipple.h
 ";
 
-%feature("docstring")  FormFactorRipple1Gauss::FormFactorRipple1Gauss "FormFactorRipple1Gauss::FormFactorRipple1Gauss(double length, double width, double height)
+%feature("docstring")  FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss "FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss(const std::vector< double > P)
 ";
 
-%feature("docstring")  FormFactorRipple1Gauss::clone "FormFactorRipple1Gauss * FormFactorRipple1Gauss::clone() const override final
+%feature("docstring")  FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss "FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss(double length, double width, double height, double asymmetry)
+";
+
+%feature("docstring")  FormFactorSawtoothRippleGauss::clone "FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple1Gauss::accept "void FormFactorRipple1Gauss::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorSawtoothRippleGauss::accept "void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
 
-// File: classFormFactorRipple1Lorentz.xml
-%feature("docstring") FormFactorRipple1Lorentz "
+// File: classFormFactorSawtoothRippleLorentz.xml
+%feature("docstring") FormFactorSawtoothRippleLorentz "
 
 The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
 
-C++ includes: FormFactorRipple1.h
+C++ includes: FormFactorSawtoothRipple.h
 ";
 
-%feature("docstring")  FormFactorRipple1Lorentz::FormFactorRipple1Lorentz "FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(double length, double width, double height)
+%feature("docstring")  FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz "FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz(const std::vector< double > P)
 ";
 
-%feature("docstring")  FormFactorRipple1Lorentz::clone "FormFactorRipple1Lorentz * FormFactorRipple1Lorentz::clone() const override final
+%feature("docstring")  FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz "FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz(double length, double width, double height, double asymmetry)
+";
+
+%feature("docstring")  FormFactorSawtoothRippleLorentz::clone "FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple1Lorentz::accept "void FormFactorRipple1Lorentz::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-
-// File: classFormFactorRipple2Box.xml
-%feature("docstring") FormFactorRipple2Box "
-
-The form factor for a cosine ripple, with box profile in elongation direction.
-
-C++ includes: FormFactorRipple2.h
-";
-
-%feature("docstring")  FormFactorRipple2Box::FormFactorRipple2Box "FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height, double asymmetry)
-";
-
-%feature("docstring")  FormFactorRipple2Box::clone "FormFactorRipple2Box * FormFactorRipple2Box::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorRipple2Box::accept "void FormFactorRipple2Box::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-
-// File: classFormFactorRipple2Gauss.xml
-%feature("docstring") FormFactorRipple2Gauss "
-
-The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-C++ includes: FormFactorRipple2.h
-";
-
-%feature("docstring")  FormFactorRipple2Gauss::FormFactorRipple2Gauss "FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height, double asymmetry)
-";
-
-%feature("docstring")  FormFactorRipple2Gauss::clone "FormFactorRipple2Gauss * FormFactorRipple2Gauss::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorRipple2Gauss::accept "void FormFactorRipple2Gauss::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-
-// File: classFormFactorRipple2Lorentz.xml
-%feature("docstring") FormFactorRipple2Lorentz "
-
-The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-C++ includes: FormFactorRipple2.h
-";
-
-%feature("docstring")  FormFactorRipple2Lorentz::FormFactorRipple2Lorentz "FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry)
-";
-
-%feature("docstring")  FormFactorRipple2Lorentz::clone "FormFactorRipple2Lorentz * FormFactorRipple2Lorentz::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorRipple2Lorentz::accept "void FormFactorRipple2Lorentz::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorSawtoothRippleLorentz::accept "void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -4662,6 +4644,9 @@ Calls the  INodeVisitor's visit method.
 A sphere with gaussian radius distribution.
 
 C++ includes: FormFactorSphereGaussianRadius.h
+";
+
+%feature("docstring")  FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius "FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(const std::vector< double > P)
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius "FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
@@ -4696,10 +4681,13 @@ A sphere with log normal radius distribution.
 C++ includes: FormFactorSphereLogNormalRadius.h
 ";
 
+%feature("docstring")  FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius "FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vector< double > P, size_t n_samples=0)
+";
+
 %feature("docstring")  FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius "FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples)
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::clone "FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const override final
+%feature("docstring")  FormFactorSphereLogNormalRadius::clone "FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
@@ -4728,7 +4716,7 @@ A frustum with equilateral trigonal base.
 C++ includes: FormFactorTetrahedron.h
 ";
 
-%feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
+%feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(const std::vector< double > P)
 
 Constructor of a truncated tethrahedron.
 
@@ -4743,6 +4731,9 @@ height of the tetrahedron in nanometers
 
 alpha: 
 dihedral angle in radians between base and facet 
+";
+
+%feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 ";
 
 %feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron* FormFactorTetrahedron::clone() const override final
@@ -4773,6 +4764,9 @@ A planar equilateral triangle, for testing form factor computations.
 C++ includes: FormFactorTriangle.h
 ";
 
+%feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(const std::vector< double > P)
+";
+
 %feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(double base_edge)
 ";
 
@@ -4798,7 +4792,7 @@ A cube, with tetrahedral truncation of all corners
 C++ includes: FormFactorTruncatedCube.h
 ";
 
-%feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
+%feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(const std::vector< double > P)
 
 Constructor of a truncated cube.
 
@@ -4810,6 +4804,9 @@ length of the full cube's edge in nanometers
 
 removed_length: 
 removed length from each edge of the cube in nanometers 
+";
+
+%feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const override final
@@ -4837,7 +4834,7 @@ A truncated Sphere.
 C++ includes: FormFactorTruncatedSphere.h
 ";
 
-%feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
+%feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector< double > P)
 
 Constructor of a spherical dome.
 
@@ -4852,6 +4849,9 @@ height of the truncated sphere in nanometers
 
 dh: 
 length of cup truncated from the top 
+";
+
+%feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::clone "FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const override final
@@ -4892,7 +4892,7 @@ A truncated spheroid. An ellipsoid with two equal axis, truncated by a plane per
 C++ includes: FormFactorTruncatedSpheroid.h
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
+%feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(const std::vector< double > P)
 
 Constructor of a spheroidal dome.
 
@@ -4910,6 +4910,9 @@ ratio of the height of the corresponding full spheroid to its diameter
 
 dh: 
 length of cup truncated from the top 
+";
+
+%feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh)
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::clone "FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const override final
@@ -5051,7 +5054,10 @@ prepare arrays for 2D Fourier Transformation (FT) of the given vector
 
 One-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-|x|/decay_length) in real space.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay1D.h
+";
+
+%feature("docstring")  FTDecayFunction1DCauchy::FTDecayFunction1DCauchy "FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(const std::vector< double > P)
 ";
 
 %feature("docstring")  FTDecayFunction1DCauchy::FTDecayFunction1DCauchy "FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
@@ -5074,7 +5080,10 @@ Calls the  INodeVisitor's visit method.
 
 One-dimensional Gauss decay function in reciprocal space; corresponds to exp[-x^2/(2*decay_length^2)] in real space.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay1D.h
+";
+
+%feature("docstring")  FTDecayFunction1DGauss::FTDecayFunction1DGauss "FTDecayFunction1DGauss::FTDecayFunction1DGauss(const std::vector< double > P)
 ";
 
 %feature("docstring")  FTDecayFunction1DGauss::FTDecayFunction1DGauss "FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
@@ -5097,7 +5106,10 @@ Calls the  INodeVisitor's visit method.
 
 One-dimensional triangle decay function in reciprocal space; corresponds to 1-|x|/decay_length if |x|<decay_length (and 0 otherwise) in real space.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay1D.h
+";
+
+%feature("docstring")  FTDecayFunction1DTriangle::FTDecayFunction1DTriangle "FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(const std::vector< double > P)
 ";
 
 %feature("docstring")  FTDecayFunction1DTriangle::FTDecayFunction1DTriangle "FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
@@ -5120,10 +5132,10 @@ Calls the  INodeVisitor's visit method.
 
 One-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to eta*Gauss + (1-eta)*Cauchy.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay1D.h
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
+%feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(const std::vector< double > P)
 
 Constructor of pseudo-Voigt decay function.
 
@@ -5135,6 +5147,9 @@ half-width of the distribution in nanometers
 
 eta: 
 parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
+";
+
+%feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
 ";
 
 %feature("docstring")  FTDecayFunction1DVoigt::clone "FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const
@@ -5157,10 +5172,13 @@ Calls the  INodeVisitor's visit method.
 
 Two-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-r) in real space, with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay2D.h
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0)
+%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(const std::vector< double > P)
+";
+
+%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma)
 ";
 
 %feature("docstring")  FTDecayFunction2DCauchy::clone "FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const
@@ -5182,10 +5200,13 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 
 Two-dimensional Gauss decay function in reciprocal space; corresponds to exp(-r^2/2) in real space, with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay2D.h
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0)
+%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(const std::vector< double > P)
+";
+
+%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma)
 ";
 
 %feature("docstring")  FTDecayFunction2DGauss::clone "FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const
@@ -5207,10 +5228,10 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 
 Two-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to eta*Gauss + (1-eta)*Cauchy.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay2D.h
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0)
+%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector< double > P)
 
 Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
 
@@ -5228,6 +5249,9 @@ parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
 
 gamma: 
 distribution orientation with respect to the first lattice vector in radians 
+";
+
+%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double gamma, double eta)
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::clone "FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const
@@ -5253,6 +5277,9 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 Exponential  IFTDistribution1D exp(-|omega*x|); its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
 
 C++ includes: FTDistributions1D.h
+";
+
+%feature("docstring")  FTDistribution1DCauchy::FTDistribution1DCauchy "FTDistribution1DCauchy::FTDistribution1DCauchy(const std::vector< double > P)
 ";
 
 %feature("docstring")  FTDistribution1DCauchy::FTDistribution1DCauchy "FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
@@ -5288,6 +5315,9 @@ IFTDistribution1D consisting of one cosine wave [1+cos(pi*x/omega) if |x|<omega,
 C++ includes: FTDistributions1D.h
 ";
 
+%feature("docstring")  FTDistribution1DCosine::FTDistribution1DCosine "FTDistribution1DCosine::FTDistribution1DCosine(const std::vector< double > P)
+";
+
 %feature("docstring")  FTDistribution1DCosine::FTDistribution1DCosine "FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 ";
 
@@ -5319,6 +5349,9 @@ Returns the negative of the second order derivative in q space around q=0.
 Square gate  IFTDistribution1D; its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
 
 C++ includes: FTDistributions1D.h
+";
+
+%feature("docstring")  FTDistribution1DGate::FTDistribution1DGate "FTDistribution1DGate::FTDistribution1DGate(const std::vector< double > P)
 ";
 
 %feature("docstring")  FTDistribution1DGate::FTDistribution1DGate "FTDistribution1DGate::FTDistribution1DGate(double omega)
@@ -5354,6 +5387,9 @@ Gaussian  IFTDistribution1D; its Fourier transform evaluate(q) is a Gaussian sta
 C++ includes: FTDistributions1D.h
 ";
 
+%feature("docstring")  FTDistribution1DGauss::FTDistribution1DGauss "FTDistribution1DGauss::FTDistribution1DGauss(const std::vector< double > P)
+";
+
 %feature("docstring")  FTDistribution1DGauss::FTDistribution1DGauss "FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 ";
 
@@ -5385,6 +5421,9 @@ Returns the negative of the second order derivative in q space around q=0.
 Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
 C++ includes: FTDistributions1D.h
+";
+
+%feature("docstring")  FTDistribution1DTriangle::FTDistribution1DTriangle "FTDistribution1DTriangle::FTDistribution1DTriangle(const std::vector< double > P)
 ";
 
 %feature("docstring")  FTDistribution1DTriangle::FTDistribution1DTriangle "FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
@@ -5420,7 +5459,7 @@ IFTDistribution1D that provides a Fourier transform evaluate(q) in form of a pse
 C++ includes: FTDistributions1D.h
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
+%feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(const std::vector< double > P)
 
 Constructor of one-dimensional pseudo-Voigt probability distribution.
 
@@ -5432,6 +5471,9 @@ half-width of the distribution in nanometers
 
 eta: 
 parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
+";
+
+%feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const override final
@@ -5467,7 +5509,10 @@ Two-dimensional Cauchy distribution in Fourier space; corresponds to a normalize
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0)
+%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(const std::vector< double > P)
+";
+
+%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma)
 ";
 
 %feature("docstring")  FTDistribution2DCauchy::clone "FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const final
@@ -5507,7 +5552,10 @@ Two-dimensional cone distribution in Fourier space; corresponds to 1-r if r<1 (a
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma=0)
+%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(const std::vector< double > P)
+";
+
+%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)
 ";
 
 %feature("docstring")  FTDistribution2DCone::clone "FTDistribution2DCone * FTDistribution2DCone::clone() const final
@@ -5535,7 +5583,10 @@ Two-dimensional gate distribution in Fourier space; corresponds to normalized co
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma=0)
+%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(const std::vector< double > P)
+";
+
+%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)
 ";
 
 %feature("docstring")  FTDistribution2DGate::clone "FTDistribution2DGate * FTDistribution2DGate::clone() const final
@@ -5563,7 +5614,10 @@ Two-dimensional Gauss distribution in Fourier space; corresponds to normalized e
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0)
+%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(const std::vector< double > P)
+";
+
+%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma)
 ";
 
 %feature("docstring")  FTDistribution2DGauss::clone "FTDistribution2DGauss * FTDistribution2DGauss::clone() const final
@@ -5591,7 +5645,7 @@ Two-dimensional Voigt distribution in Fourier space; corresponds to eta*Gauss + 
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0)
+%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector< double > P)
 
 Constructor of two-dimensional pseudo-Voigt probability distribution.
 
@@ -5609,6 +5663,9 @@ parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
 
 gamma: 
 angle in direct space between first lattice vector and x-axis of the distribution in radians 
+";
+
+%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double gamma, double eta)
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::clone "FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const final
@@ -5634,7 +5691,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classGaussFisherPeakShape.xml
 %feature("docstring") GaussFisherPeakShape "
 
-Class that implements a peak shape that is Gaussian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
+A peak shape that is Gaussian in the radial direction and uses the Mises-Fisher distribution in the angular direction.
 
 C++ includes: IPeakShape.h
 ";
@@ -5754,7 +5811,7 @@ C++ includes: PercusYevickBuilder.h
 // File: classHexagonalLattice.xml
 %feature("docstring") HexagonalLattice "";
 
-%feature("docstring")  HexagonalLattice::HexagonalLattice "HexagonalLattice::HexagonalLattice(double length, double rotation_angle=0.0)
+%feature("docstring")  HexagonalLattice::HexagonalLattice "HexagonalLattice::HexagonalLattice(double length, double xi)
 ";
 
 %feature("docstring")  HexagonalLattice::clone "HexagonalLattice * HexagonalLattice::clone() const
@@ -6115,10 +6172,13 @@ Inherited by  IParticle and  ParticleDistribution.
 C++ includes: IAbstractParticle.h
 ";
 
-%feature("docstring")  IAbstractParticle::IAbstractParticle "IAbstractParticle::IAbstractParticle()
+%feature("docstring")  IAbstractParticle::IAbstractParticle "IAbstractParticle::IAbstractParticle()=default
 ";
 
-%feature("docstring")  IAbstractParticle::~IAbstractParticle "IAbstractParticle::~IAbstractParticle()
+%feature("docstring")  IAbstractParticle::IAbstractParticle "IAbstractParticle::IAbstractParticle(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IAbstractParticle::~IAbstractParticle "virtual IAbstractParticle::~IAbstractParticle()=default
 ";
 
 %feature("docstring")  IAbstractParticle::clone "virtual IAbstractParticle* IAbstractParticle::clone() const =0
@@ -6242,6 +6302,9 @@ Interface for a simulating the background signal
 C++ includes: IBackground.h
 ";
 
+%feature("docstring")  IBackground::IBackground "IBackground::IBackground(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
 %feature("docstring")  IBackground::~IBackground "IBackground::~IBackground()
 ";
 
@@ -6305,13 +6368,16 @@ Child classes of  ICloneable must provide clone().
 C++ includes: ICloneable.h
 ";
 
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()=default
 ";
 
-%feature("docstring")  ICloneable::~ICloneable "ICloneable::~ICloneable()
+%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()=default
 ";
 
 %feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
+";
+
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(ICloneable &&)=default
 ";
 
 %feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
@@ -6373,6 +6439,18 @@ C++ includes: IComputation.h
 ";
 
 
+// File: classICosineRipple.xml
+%feature("docstring") ICosineRipple "
+
+Base class for form factors with a cosine ripple profile in the yz plane.
+
+C++ includes: IProfileRipple.h
+";
+
+%feature("docstring")  ICosineRipple::ICosineRipple "ICosineRipple::ICosineRipple(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+
 // File: classIdentityRotation.xml
 %feature("docstring") IdentityRotation "
 
@@ -6381,12 +6459,10 @@ The identity rotation, which leaves everything in place.
 C++ includes: Rotations.h
 ";
 
-%feature("docstring")  IdentityRotation::IdentityRotation "IdentityRotation::IdentityRotation()=default
+%feature("docstring")  IdentityRotation::IdentityRotation "IdentityRotation::IdentityRotation()
 ";
 
 %feature("docstring")  IdentityRotation::clone "IdentityRotation* IdentityRotation::clone() const
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IdentityRotation::createInverse "IdentityRotation* IdentityRotation::createInverse() const
@@ -6656,10 +6732,7 @@ Interface for one-dimensional distributions.
 C++ includes: Distributions.h
 ";
 
-%feature("docstring")  IDistribution1D::IDistribution1D "IDistribution1D::IDistribution1D()
-";
-
-%feature("docstring")  IDistribution1D::~IDistribution1D "virtual IDistribution1D::~IDistribution1D()
+%feature("docstring")  IDistribution1D::IDistribution1D "IDistribution1D::IDistribution1D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IDistribution1D::clone "virtual IDistribution1D* IDistribution1D::clone() const =0
@@ -6740,10 +6813,10 @@ Abstract base for classes that calculate the beam footprint factor
 C++ includes: IFootprintFactor.h
 ";
 
-%feature("docstring")  IFootprintFactor::IFootprintFactor "IFootprintFactor::IFootprintFactor()=delete
+%feature("docstring")  IFootprintFactor::IFootprintFactor "IFootprintFactor::IFootprintFactor(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
-%feature("docstring")  IFootprintFactor::IFootprintFactor "IFootprintFactor::IFootprintFactor(double width_ratio)
+%feature("docstring")  IFootprintFactor::IFootprintFactor "IFootprintFactor::IFootprintFactor()=delete
 ";
 
 %feature("docstring")  IFootprintFactor::~IFootprintFactor "IFootprintFactor::~IFootprintFactor()
@@ -6784,7 +6857,7 @@ C++ includes: IFormFactor.h
 %feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()=default
 ";
 
-%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IFormFactor::~IFormFactor "IFormFactor::~IFormFactor()=default
@@ -6854,7 +6927,7 @@ C++ includes: IFormFactorBorn.h
 %feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()=default
 ";
 
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0
@@ -6984,18 +7057,10 @@ Disables caching of previously computed Fresnel coefficients.
 
 Interface for a one-dimensional decay function, with evaluate(q) returning the Fourier transform, normalized to  $\\\\int dq\\\\; {\\\\rm evaluate}(q) = 1$.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay1D.h
 ";
 
-%feature("docstring")  IFTDecayFunction1D::IFTDecayFunction1D "IFTDecayFunction1D::IFTDecayFunction1D(double decay_length)
-
-Constructor of one-dimensional decay function.
-
-Parameters:
------------
-
-decay_length: 
-half-width of the distribution in nanometers 
+%feature("docstring")  IFTDecayFunction1D::IFTDecayFunction1D "IFTDecayFunction1D::IFTDecayFunction1D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IFTDecayFunction1D::clone "virtual IFTDecayFunction1D* IFTDecayFunction1D::clone() const =0
@@ -7013,37 +7078,13 @@ half-width of the distribution in nanometers
 
 Interface for two-dimensional decay function in reciprocal space.
 
-C++ includes: FTDecayFunctions.h
+C++ includes: FTDecay2D.h
 ";
 
-%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0)
-
-Constructor of two-dimensional decay function in reciprocal space.
-
-Parameters:
------------
-
-decay_length_x: 
-the decay length in nanometers along x-axis of the distribution
-
-decay_length_y: 
-the decay length in nanometers along y-axis of the distribution
-
-gamma: 
-distribution orientation with respect to the corresponding lattice vector in radians 
+%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IFTDecayFunction2D::clone "virtual IFTDecayFunction2D* IFTDecayFunction2D::clone() const =0
-";
-
-%feature("docstring")  IFTDecayFunction2D::setGamma "void IFTDecayFunction2D::setGamma(double gamma)
-
-set angle between first lattice vector and X-axis of distribution (both in direct space) 
-";
-
-%feature("docstring")  IFTDecayFunction2D::gamma "double IFTDecayFunction2D::gamma() const
-
-get angle between first lattice vector and X-axis of distribution (both in direct space) 
 ";
 
 %feature("docstring")  IFTDecayFunction2D::decayLengthX "double IFTDecayFunction2D::decayLengthX() const
@@ -7054,6 +7095,11 @@ get decay length in distribution's X-direction
 %feature("docstring")  IFTDecayFunction2D::decayLengthY "double IFTDecayFunction2D::decayLengthY() const
 
 get decay length in distribution's Y-direction 
+";
+
+%feature("docstring")  IFTDecayFunction2D::gamma "double IFTDecayFunction2D::gamma() const
+
+get angle between first lattice vector and X-axis of distribution (both in direct space) 
 ";
 
 %feature("docstring")  IFTDecayFunction2D::evaluate "virtual double IFTDecayFunction2D::evaluate(double qx, double qy) const =0
@@ -7077,18 +7123,7 @@ Interface for a one-dimensional distribution, with normalization adjusted so tha
 C++ includes: FTDistributions1D.h
 ";
 
-%feature("docstring")  IFTDistribution1D::IFTDistribution1D "IFTDistribution1D::IFTDistribution1D(double omega)
-
-Constructor of one-dimensional probability distribution.
-
-Parameters:
------------
-
-omega: 
-half-width of the distribution in nanometers 
-";
-
-%feature("docstring")  IFTDistribution1D::~IFTDistribution1D "IFTDistribution1D::~IFTDistribution1D()
+%feature("docstring")  IFTDistribution1D::IFTDistribution1D "IFTDistribution1D::IFTDistribution1D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IFTDistribution1D::clone "virtual IFTDistribution1D* IFTDistribution1D::clone() const =0
@@ -7097,9 +7132,6 @@ half-width of the distribution in nanometers
 %feature("docstring")  IFTDistribution1D::evaluate "virtual double IFTDistribution1D::evaluate(double q) const =0
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
-";
-
-%feature("docstring")  IFTDistribution1D::setOmega "void IFTDistribution1D::setOmega(double omega)
 ";
 
 %feature("docstring")  IFTDistribution1D::omega "double IFTDistribution1D::omega() const
@@ -7122,39 +7154,24 @@ Interface for two-dimensional distributions in Fourier space.
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma=0)
-
-Constructor of two-dimensional probability distribution.
-
-Parameters:
------------
-
-omega_x: 
-half-width of the distribution along its x-axis in nanometers
-
-omega_y: 
-half-width of the distribution along its y-axis in nanometers
-
-gamma: 
-angle in direct space between first lattice vector and x-axis of the distribution 
+%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IFTDistribution2D::clone "IFTDistribution2D* IFTDistribution2D::clone() const =0
-";
-
-%feature("docstring")  IFTDistribution2D::setGamma "void IFTDistribution2D::setGamma(double gamma)
-";
-
-%feature("docstring")  IFTDistribution2D::gamma "double IFTDistribution2D::gamma() const
-";
-
-%feature("docstring")  IFTDistribution2D::delta "double IFTDistribution2D::delta() const
 ";
 
 %feature("docstring")  IFTDistribution2D::omegaX "double IFTDistribution2D::omegaX() const
 ";
 
 %feature("docstring")  IFTDistribution2D::omegaY "double IFTDistribution2D::omegaY() const
+";
+
+%feature("docstring")  IFTDistribution2D::gamma "double IFTDistribution2D::gamma() const
+";
+
+%feature("docstring")  IFTDistribution2D::delta "double IFTDistribution2D::delta() const
+
+Angle in direct space between X- and Y-axis of distribution. 
 ";
 
 %feature("docstring")  IFTDistribution2D::evaluate "virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
@@ -7482,30 +7499,6 @@ C++ includes: IIntensityFunction.h
 ";
 
 
-// File: classIIntensityNormalizer.xml
-%feature("docstring") IIntensityNormalizer "
-
-Interface to  OutputData normalizers.
-
-C++ includes: IIntensityNormalizer.h
-";
-
-%feature("docstring")  IIntensityNormalizer::~IIntensityNormalizer "virtual IIntensityNormalizer::~IIntensityNormalizer()
-";
-
-%feature("docstring")  IIntensityNormalizer::clone "virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
-";
-
-%feature("docstring")  IIntensityNormalizer::createNormalizedData "virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
-";
-
-%feature("docstring")  IIntensityNormalizer::apply "virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
-";
-
-%feature("docstring")  IIntensityNormalizer::setMaximumIntensity "virtual void IIntensityNormalizer::setMaximumIntensity(double)=0
-";
-
-
 // File: classIInterferenceFunction.xml
 %feature("docstring") IInterferenceFunction "
 
@@ -7514,13 +7507,10 @@ Pure virtual base class of interference functions.
 C++ includes: IInterferenceFunction.h
 ";
 
-%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction()
+%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
-%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
-";
-
-%feature("docstring")  IInterferenceFunction::~IInterferenceFunction "IInterferenceFunction::~IInterferenceFunction()
+%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction(double position_var)
 ";
 
 %feature("docstring")  IInterferenceFunction::clone "virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
@@ -7789,7 +7779,7 @@ C++ includes: INode.h
 %feature("docstring")  INode::INode "INode::INode()
 ";
 
-%feature("docstring")  INode::INode "INode::INode(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  INode::INode "INode::INode(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  INode::~INode "virtual INode::~INode()
@@ -7956,10 +7946,13 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorFullSpheroid *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorGauss *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorGaussSphere *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorHemiEllipsoid *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorHollowSphere *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorIcosahedron *)
@@ -7971,9 +7964,6 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorLongBoxLorentz *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorLorentz *)
-";
-
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorPrism3 *)
 ";
 
@@ -7983,22 +7973,22 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorPyramid *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1Box *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCosineRippleBox *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1Gauss *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCosineRippleGauss *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1Lorentz *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCosineRippleLorentz *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2Box *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorSawtoothRippleBox *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2Gauss *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorSawtoothRippleGauss *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2Lorentz *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorSawtoothRippleLorentz *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorSphereGaussianRadius *)
@@ -8110,12 +8100,6 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Instrument *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IntensityNormalizer *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IntensityScaleAndShiftNormalizer *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction1DLattice *)
@@ -8424,64 +8408,6 @@ C++ includes: IIntensityFunction.h
 ";
 
 
-// File: classIntensityNormalizer.xml
-%feature("docstring") IntensityNormalizer "
-
-Standard  OutputData normalizer, with configurable max_intensity.
-
-C++ includes: IIntensityNormalizer.h
-";
-
-%feature("docstring")  IntensityNormalizer::IntensityNormalizer "IntensityNormalizer::IntensityNormalizer(double scale=1.0, double shift=0.0)
-";
-
-%feature("docstring")  IntensityNormalizer::~IntensityNormalizer "virtual IntensityNormalizer::~IntensityNormalizer()
-";
-
-%feature("docstring")  IntensityNormalizer::clone "IntensityNormalizer * IntensityNormalizer::clone() const
-";
-
-%feature("docstring")  IntensityNormalizer::accept "void IntensityNormalizer::accept(INodeVisitor *visitor) const
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  IntensityNormalizer::createNormalizedData "OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
-";
-
-%feature("docstring")  IntensityNormalizer::apply "void IntensityNormalizer::apply(OutputData< double > &data) const final
-";
-
-%feature("docstring")  IntensityNormalizer::setMaximumIntensity "virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
-";
-
-
-// File: classIntensityScaleAndShiftNormalizer.xml
-%feature("docstring") IntensityScaleAndShiftNormalizer "
-
-Simplified  OutputData normalizer, with max_intensity=1.
-
-C++ includes: IIntensityNormalizer.h
-";
-
-%feature("docstring")  IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer "IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
-";
-
-%feature("docstring")  IntensityScaleAndShiftNormalizer::~IntensityScaleAndShiftNormalizer "IntensityScaleAndShiftNormalizer::~IntensityScaleAndShiftNormalizer() final
-";
-
-%feature("docstring")  IntensityScaleAndShiftNormalizer::accept "void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  IntensityScaleAndShiftNormalizer::setMaximumIntensity "void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
-";
-
-%feature("docstring")  IntensityScaleAndShiftNormalizer::clone "IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
-";
-
-
 // File: classInterferenceFunction1DLattice.xml
 %feature("docstring") InterferenceFunction1DLattice "
 
@@ -8528,7 +8454,10 @@ decay:
 one-dimensional decay function in reciprocal space 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::getLatticeParameters "Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
+%feature("docstring")  InterferenceFunction1DLattice::getLength "double InterferenceFunction1DLattice::getLength() const
+";
+
+%feature("docstring")  InterferenceFunction1DLattice::getXi "double InterferenceFunction1DLattice::getXi() const
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::getChildren "std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
@@ -8545,10 +8474,7 @@ Interference function of a 2D lattice.
 C++ includes: InterferenceFunction2DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D &lattice)
-";
-
-%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0)
+%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi)
 
 Constructor of two-dimensional interference function.
 
@@ -8566,6 +8492,9 @@ angle between the basis vectors in radians
 
 xi: 
 rotation of the lattice with respect to the x-axis (beam direction) in radians 
+";
+
+%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D &lattice)
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::~InterferenceFunction2DLattice "InterferenceFunction2DLattice::~InterferenceFunction2DLattice() final
@@ -8625,10 +8554,10 @@ Interference function of a 2D paracrystal.
 C++ includes: InterferenceFunction2DParaCrystal.h
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D &lattice, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0)
+%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D &lattice, double damping_length, double domain_size_1, double domain_size_2)
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0)
+%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi, double damping_length)
 
 Constructor of interference function of two-dimensional paracrystal.
 
@@ -9026,10 +8955,10 @@ M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direc
 C++ includes: InterferenceFunctionHardDisk.h
 ";
 
-%feature("docstring")  InterferenceFunctionHardDisk::InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
+%feature("docstring")  InterferenceFunctionHardDisk::InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density, double position_var=0)
 ";
 
-%feature("docstring")  InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() final
+%feature("docstring")  InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() final=default
 ";
 
 %feature("docstring")  InterferenceFunctionHardDisk::clone "InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
@@ -9084,7 +9013,7 @@ Interference function of radial paracrystal.
 C++ includes: InterferenceFunctionRadialParaCrystal.h
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal "InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal "InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length)
 
 Constructor of interference function of radial paracrystal.
 
@@ -9486,6 +9415,12 @@ Pure virtual interface class that defines the peak shape of a Bragg peak.
 C++ includes: IPeakShape.h
 ";
 
+%feature("docstring")  IPeakShape::IPeakShape "IPeakShape::IPeakShape()=default
+";
+
+%feature("docstring")  IPeakShape::IPeakShape "IPeakShape::IPeakShape(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
 %feature("docstring")  IPeakShape::~IPeakShape "IPeakShape::~IPeakShape()
 ";
 
@@ -9532,6 +9467,49 @@ C++ includes: IPixel.h
 ";
 
 
+// File: classIProfileRectangularRipple.xml
+%feature("docstring") IProfileRectangularRipple "
+
+Base class for form factors with a rectangular ripple (bar) profile in the yz plane.
+
+C++ includes: IProfileRipple.h
+";
+
+%feature("docstring")  IProfileRectangularRipple::IProfileRectangularRipple "IProfileRectangularRipple::IProfileRectangularRipple(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+
+// File: classIProfileRipple.xml
+%feature("docstring") IProfileRipple "
+
+Base class for form factors with a cosine ripple profile in the yz plane.
+
+C++ includes: IProfileRipple.h
+";
+
+%feature("docstring")  IProfileRipple::IProfileRipple "IProfileRipple::IProfileRipple(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IProfileRipple::getLength "double IProfileRipple::getLength() const
+";
+
+%feature("docstring")  IProfileRipple::getHeight "double IProfileRipple::getHeight() const
+";
+
+%feature("docstring")  IProfileRipple::getWidth "double IProfileRipple::getWidth() const
+";
+
+%feature("docstring")  IProfileRipple::radialExtension "double IProfileRipple::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IProfileRipple::evaluate_for_q "complex_t IProfileRipple::evaluate_for_q(cvector_t q) const override final
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
 // File: classIRegistry.xml
 %feature("docstring") IRegistry "
 
@@ -9561,7 +9539,7 @@ C++ includes: IResolutionFunction2D.h
 %feature("docstring")  IResolutionFunction2D::IResolutionFunction2D "IResolutionFunction2D::IResolutionFunction2D()=default
 ";
 
-%feature("docstring")  IResolutionFunction2D::IResolutionFunction2D "IResolutionFunction2D::IResolutionFunction2D(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  IResolutionFunction2D::IResolutionFunction2D "IResolutionFunction2D::IResolutionFunction2D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IResolutionFunction2D::~IResolutionFunction2D "virtual IResolutionFunction2D::~IResolutionFunction2D()
@@ -9582,12 +9560,10 @@ Pure virtual interface for rotations.
 C++ includes: Rotations.h
 ";
 
-%feature("docstring")  IRotation::~IRotation "virtual IRotation::~IRotation()
+%feature("docstring")  IRotation::IRotation "IRotation::IRotation(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  IRotation::clone "virtual IRotation* IRotation::clone() const =0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IRotation::createInverse "virtual IRotation* IRotation::createInverse() const =0
@@ -9595,19 +9571,20 @@ Returns a clone of this  ISample object.
 Returns a new  IRotation object that is the current object's inverse. 
 ";
 
-%feature("docstring")  IRotation::accept "void IRotation::accept(INodeVisitor *visitor) const
-
-Calls the  INodeVisitor's visit method. 
-";
-
 %feature("docstring")  IRotation::getTransform3D "virtual Transform3D IRotation::getTransform3D() const =0
 
 Returns transformation. 
 ";
 
+%feature("docstring")  IRotation::transformed "kvector_t IRotation::transformed(const kvector_t &v) const
+";
+
 %feature("docstring")  IRotation::isIdentity "bool IRotation::isIdentity() const
 
 Returns true if rotation matrix is identity matrix (no rotations) 
+";
+
+%feature("docstring")  IRotation::zInvariant "bool IRotation::zInvariant() const
 ";
 
 
@@ -9622,7 +9599,7 @@ C++ includes: ISample.h
 %feature("docstring")  ISample::ISample "ISample::ISample()=default
 ";
 
-%feature("docstring")  ISample::ISample "ISample::ISample(const INode *parent, const std::vector< const char * > PName, const std::vector< const char * > PUnit, const std::vector< double > PMin, const std::vector< double > PMax, const std::vector< double > PDefault, std::vector< double > P)
+%feature("docstring")  ISample::ISample "ISample::ISample(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
 %feature("docstring")  ISample::clone "ISample* ISample::clone() const override=0
@@ -9638,6 +9615,21 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  ISample::containedMaterials "std::vector< const Material * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 
+";
+
+
+// File: classISawtoothRipple.xml
+%feature("docstring") ISawtoothRipple "
+
+Base class for form factors with a triangular ripple profile in the yz plane.
+
+C++ includes: IProfileRipple.h
+";
+
+%feature("docstring")  ISawtoothRipple::ISawtoothRipple "ISawtoothRipple::ISawtoothRipple(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  ISawtoothRipple::getAsymmetry "double ISawtoothRipple::getAsymmetry() const
 ";
 
 
@@ -9774,7 +9766,7 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 // File: classIsotropicLorentzPeakShape.xml
 %feature("docstring") IsotropicLorentzPeakShape "
 
-Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
+An isotropic Lorentzian peak shape of a Bragg peak.
 
 C++ includes: IPeakShape.h
 ";
@@ -9916,9 +9908,6 @@ Abstract base class for tree traversal strategies, for use in  INodeVisitor.
 For definition of different strategies see https://en.wikipedia.org/wiki/Tree_traversal.
 
 C++ includes: IterationStrategy.h
-";
-
-%feature("docstring")  IterationStrategy::~IterationStrategy "virtual IterationStrategy::~IterationStrategy()
 ";
 
 %feature("docstring")  IterationStrategy::clone "virtual IterationStrategy* IterationStrategy::clone() const =0
@@ -10201,37 +10190,16 @@ C++ includes: LatticeBuilder.h
 ";
 
 
-// File: classLattice1DParameters.xml
-%feature("docstring") Lattice1DParameters "
-
-Basic parameters of a one-dimensional lattice.
-
-C++ includes: Lattice1DParameters.h
-";
-
-%feature("docstring")  Lattice1DParameters::Lattice1DParameters "Lattice1DParameters::Lattice1DParameters()
-";
-
-%feature("docstring")  Lattice1DParameters::Lattice1DParameters "Lattice1DParameters::Lattice1DParameters(double length, double xi)
-
-Parameters:
------------
-
-length: 
- Lattice constant.
-
-xi: 
- Lattice rotation angle. 
-";
-
-
 // File: classLattice2D.xml
 %feature("docstring") Lattice2D "";
 
-%feature("docstring")  Lattice2D::Lattice2D "Lattice2D::Lattice2D(double rotation_angle=0.0)
+%feature("docstring")  Lattice2D::Lattice2D "Lattice2D::Lattice2D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
-%feature("docstring")  Lattice2D::clone "Lattice2D* Lattice2D::clone() const =0
+%feature("docstring")  Lattice2D::Lattice2D "Lattice2D::Lattice2D(double xi)
+";
+
+%feature("docstring")  Lattice2D::clone "virtual Lattice2D* Lattice2D::clone() const =0
 ";
 
 %feature("docstring")  Lattice2D::length1 "virtual double Lattice2D::length1() const =0
@@ -10408,9 +10376,6 @@ Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 
 C++ includes: LayerRoughness.h
 ";
 
-%feature("docstring")  LayerRoughness::LayerRoughness "LayerRoughness::LayerRoughness()
-";
-
 %feature("docstring")  LayerRoughness::LayerRoughness "LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
 
 Constructor of layer roughness.
@@ -10426,6 +10391,9 @@ hurst parameter which describes how jagged the interface, dimensionless [0.0, 1.
 
 lateralCorrLength: 
 lateral correlation length of the roughness in nanometers 
+";
+
+%feature("docstring")  LayerRoughness::LayerRoughness "LayerRoughness::LayerRoughness()
 ";
 
 %feature("docstring")  LayerRoughness::clone "LayerRoughness* LayerRoughness::clone() const
@@ -10690,7 +10658,7 @@ user-defined weighting factors. Used linearly, no matter which norm is chosen.
 // File: classLorentzFisherPeakShape.xml
 %feature("docstring") LorentzFisherPeakShape "
 
-Class that implements a peak shape that is Lorentzian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
+A peak shape that is Lorentzian in the radial direction and uses the Mises-Fisher distribution in the angular direction.
 
 C++ includes: IPeakShape.h
 ";
@@ -10796,7 +10764,7 @@ Returns the magnetization (in A/m)
 Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections. 
 ";
 
-%feature("docstring")  MagneticMaterialImpl::transformedMaterial "MagneticMaterialImpl * MagneticMaterialImpl::transformedMaterial(const Transform3D &transform) const override final
+%feature("docstring")  MagneticMaterialImpl::rotatedMaterial "MagneticMaterialImpl * MagneticMaterialImpl::rotatedMaterial(const Transform3D &transform) const override final
 ";
 
 
@@ -10946,7 +10914,7 @@ Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scatter
 Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections. 
 ";
 
-%feature("docstring")  Material::transformedMaterial "Material Material::transformedMaterial(const Transform3D &transform) const
+%feature("docstring")  Material::rotatedMaterial "Material Material::rotatedMaterial(const Transform3D &transform) const
 ";
 
 
@@ -11224,6 +11192,76 @@ This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,
 ";
 
 
+// File: classMisesFisherGaussPeakShape.xml
+%feature("docstring") MisesFisherGaussPeakShape "
+
+A peak shape that is Gaussian in the radial direction and a convolution of a Mises-Fisher distribution with a Mises distribution on the two-sphere.
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  MisesFisherGaussPeakShape::MisesFisherGaussPeakShape "MisesFisherGaussPeakShape::MisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
+";
+
+%feature("docstring")  MisesFisherGaussPeakShape::~MisesFisherGaussPeakShape "MisesFisherGaussPeakShape::~MisesFisherGaussPeakShape() override
+";
+
+%feature("docstring")  MisesFisherGaussPeakShape::clone "MisesFisherGaussPeakShape * MisesFisherGaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  MisesFisherGaussPeakShape::accept "void MisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  MisesFisherGaussPeakShape::evaluate "double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+%feature("docstring")  MisesFisherGaussPeakShape::angularDisorder "bool MisesFisherGaussPeakShape::angularDisorder() const override
+
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+";
+
+
+// File: classMisesGaussPeakShape.xml
+%feature("docstring") MisesGaussPeakShape "
+
+A peak shape that is a convolution of a Mises-Fisher distribution with a 3d Gaussian.
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  MisesGaussPeakShape::MisesGaussPeakShape "MisesGaussPeakShape::MisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa)
+";
+
+%feature("docstring")  MisesGaussPeakShape::~MisesGaussPeakShape "MisesGaussPeakShape::~MisesGaussPeakShape() override
+";
+
+%feature("docstring")  MisesGaussPeakShape::clone "MisesGaussPeakShape * MisesGaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  MisesGaussPeakShape::accept "void MisesGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  MisesGaussPeakShape::evaluate "double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+%feature("docstring")  MisesGaussPeakShape::angularDisorder "bool MisesGaussPeakShape::angularDisorder() const override
+
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+";
+
+
 // File: classMPISimulation.xml
 %feature("docstring") MPISimulation "";
 
@@ -11394,6 +11432,15 @@ C++ includes: NodeIterator.h
 ";
 
 %feature("docstring")  NodeIterator::depth "int NodeIterator< Strategy >::depth() const
+";
+
+
+// File: structNodeMeta.xml
+%feature("docstring") NodeMeta "
+
+Metadata of one model node.
+
+C++ includes: INode.h
 ";
 
 
@@ -12109,6 +12156,15 @@ Writes output data to file.
 %feature("docstring")  OutputDataWriter::setStrategy "void OutputDataWriter::setStrategy(IOutputDataWriteStrategy *write_strategy)
 
 Sets concrete writing strategy. 
+";
+
+
+// File: structParaMeta.xml
+%feature("docstring") ParaMeta "
+
+Metadata of one model parameter.
+
+C++ includes: INode.h
 ";
 
 
@@ -12832,9 +12888,6 @@ C++ includes: PoissonNoiseBackground.h
 %feature("docstring")  PoissonNoiseBackground::PoissonNoiseBackground "PoissonNoiseBackground::PoissonNoiseBackground()
 ";
 
-%feature("docstring")  PoissonNoiseBackground::~PoissonNoiseBackground "PoissonNoiseBackground::~PoissonNoiseBackground()
-";
-
 %feature("docstring")  PoissonNoiseBackground::clone "PoissonNoiseBackground * PoissonNoiseBackground::clone() const override final
 ";
 
@@ -13073,9 +13126,6 @@ C++ includes: IterationStrategy.h
 %feature("docstring")  PostorderStrategy::clone "PostorderStrategy * PostorderStrategy::clone() const
 ";
 
-%feature("docstring")  PostorderStrategy::~PostorderStrategy "PostorderStrategy::~PostorderStrategy()
-";
-
 %feature("docstring")  PostorderStrategy::first "IteratorMemento PostorderStrategy::first(const INode *p_root)
 ";
 
@@ -13098,9 +13148,6 @@ C++ includes: IterationStrategy.h
 ";
 
 %feature("docstring")  PreorderStrategy::clone "PreorderStrategy * PreorderStrategy::clone() const
-";
-
-%feature("docstring")  PreorderStrategy::~PreorderStrategy "PreorderStrategy::~PreorderStrategy()
 ";
 
 %feature("docstring")  PreorderStrategy::first "IteratorMemento PreorderStrategy::first(const INode *p_root)
@@ -13206,51 +13253,6 @@ Fourier transform of the correlation function of roughnesses between the interfa
 ";
 
 
-// File: classProfileBar.xml
-%feature("docstring") ProfileBar "
-
-Base class for form factors with a cosine ripple profile in the yz plane.
-
-C++ includes: ProfileBar.h
-";
-
-%feature("docstring")  ProfileBar::ProfileBar "ProfileBar::ProfileBar(double length, double width, double height)
-
-Constructor of elongated bar.
-
-Parameters:
------------
-
-length: 
-length of the rectangular base in nanometers
-
-width: 
-width of the rectangular base in nanometers
-
-height: 
-height of the ripple in nanometers 
-";
-
-%feature("docstring")  ProfileBar::getLength "double ProfileBar::getLength() const
-";
-
-%feature("docstring")  ProfileBar::getHeight "double ProfileBar::getHeight() const
-";
-
-%feature("docstring")  ProfileBar::getWidth "double ProfileBar::getWidth() const
-";
-
-%feature("docstring")  ProfileBar::radialExtension "double ProfileBar::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  ProfileBar::evaluate_for_q "complex_t ProfileBar::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
 // File: classProfileHelper.xml
 %feature("docstring") ProfileHelper "
 
@@ -13271,99 +13273,6 @@ C++ includes: ProfileHelper.h
 ";
 
 %feature("docstring")  ProfileHelper::defaultLimits "std::pair< double, double > ProfileHelper::defaultLimits() const
-";
-
-
-// File: classProfileRipple1.xml
-%feature("docstring") ProfileRipple1 "
-
-Base class for form factors with a cosine ripple profile in the yz plane.
-
-C++ includes: ProfileRipple1.h
-";
-
-%feature("docstring")  ProfileRipple1::ProfileRipple1 "ProfileRipple1::ProfileRipple1(double length, double width, double height)
-
-Constructor of cosine ripple.
-
-Parameters:
------------
-
-length: 
-length of the rectangular base in nanometers
-
-width: 
-width of the rectangular base in nanometers
-
-height: 
-height of the ripple in nanometers 
-";
-
-%feature("docstring")  ProfileRipple1::getLength "double ProfileRipple1::getLength() const
-";
-
-%feature("docstring")  ProfileRipple1::getHeight "double ProfileRipple1::getHeight() const
-";
-
-%feature("docstring")  ProfileRipple1::getWidth "double ProfileRipple1::getWidth() const
-";
-
-%feature("docstring")  ProfileRipple1::radialExtension "double ProfileRipple1::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  ProfileRipple1::evaluate_for_q "complex_t ProfileRipple1::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classProfileRipple2.xml
-%feature("docstring") ProfileRipple2 "
-
-Base class for form factors with a cosine ripple profile in the yz plane.
-
-C++ includes: ProfileRipple2.h
-";
-
-%feature("docstring")  ProfileRipple2::ProfileRipple2 "ProfileRipple2::ProfileRipple2(double length, double width, double height, double asymmetry)
-
-Constructor of triangular ripple.
-
-Parameters:
------------
-
-length: 
-length of the rectangular base in nanometers
-
-width: 
-width of the rectangular base in nanometers
-
-height: 
-height of the ripple in nanometers 
-";
-
-%feature("docstring")  ProfileRipple2::getLength "double ProfileRipple2::getLength() const
-";
-
-%feature("docstring")  ProfileRipple2::getHeight "double ProfileRipple2::getHeight() const
-";
-
-%feature("docstring")  ProfileRipple2::getWidth "double ProfileRipple2::getWidth() const
-";
-
-%feature("docstring")  ProfileRipple2::getAsymmetry "double ProfileRipple2::getAsymmetry() const
-";
-
-%feature("docstring")  ProfileRipple2::radialExtension "double ProfileRipple2::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  ProfileRipple2::evaluate_for_q "complex_t ProfileRipple2::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -13999,7 +13908,7 @@ return default axes units
 
 A pixel in a  RectangularDetector.
 
-C++ includes: RectangularDetector.h
+C++ includes: RectangularPixel.h
 ";
 
 %feature("docstring")  RectangularPixel::RectangularPixel "RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
@@ -14346,26 +14255,13 @@ A sequence of rotations about the z-x'-z'' axes.
 C++ includes: Rotations.h
 ";
 
+%feature("docstring")  RotationEuler::RotationEuler "RotationEuler::RotationEuler(const std::vector< double > P)
+";
+
 %feature("docstring")  RotationEuler::RotationEuler "RotationEuler::RotationEuler(double alpha, double beta, double gamma)
-
-Constructor of Euler rotation (sequence of three rotations following Euler angles notation z-x'-z').
-
-Parameters:
------------
-
-alpha: 
-first Euler angle in radians
-
-beta: 
-second Euler angle in radians
-
-gamma: 
-third Euler angle in radians 
 ";
 
 %feature("docstring")  RotationEuler::clone "RotationEuler* RotationEuler::clone() const
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  RotationEuler::createInverse "IRotation * RotationEuler::createInverse() const
@@ -14401,7 +14297,7 @@ A rotation about the x axis.
 C++ includes: Rotations.h
 ";
 
-%feature("docstring")  RotationX::RotationX "RotationX::RotationX(double angle)
+%feature("docstring")  RotationX::RotationX "RotationX::RotationX(const std::vector< double > P)
 
 Constructor of rotation around x-axis
 
@@ -14412,9 +14308,10 @@ angle:
 rotation angle around x-axis in radians 
 ";
 
-%feature("docstring")  RotationX::clone "RotationX* RotationX::clone() const
+%feature("docstring")  RotationX::RotationX "RotationX::RotationX(double angle)
+";
 
-Returns a clone of this  ISample object. 
+%feature("docstring")  RotationX::clone "RotationX* RotationX::clone() const
 ";
 
 %feature("docstring")  RotationX::createInverse "RotationX* RotationX::createInverse() const
@@ -14444,7 +14341,7 @@ A rotation about the y axis.
 C++ includes: Rotations.h
 ";
 
-%feature("docstring")  RotationY::RotationY "RotationY::RotationY(double angle)
+%feature("docstring")  RotationY::RotationY "RotationY::RotationY(const std::vector< double > P)
 
 Constructor of rotation around y-axis
 
@@ -14455,9 +14352,10 @@ angle:
 rotation angle around y-axis in radians 
 ";
 
-%feature("docstring")  RotationY::clone "RotationY* RotationY::clone() const
+%feature("docstring")  RotationY::RotationY "RotationY::RotationY(double angle)
+";
 
-Returns a clone of this  ISample object. 
+%feature("docstring")  RotationY::clone "RotationY* RotationY::clone() const
 ";
 
 %feature("docstring")  RotationY::createInverse "RotationY* RotationY::createInverse() const
@@ -14487,7 +14385,7 @@ A rotation about the z axis.
 C++ includes: Rotations.h
 ";
 
-%feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(double angle=0.0)
+%feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(const std::vector< double > P)
 
 Constructor of rotation around z-axis
 
@@ -14498,9 +14396,10 @@ angle:
 rotation angle around z-axis in radians 
 ";
 
-%feature("docstring")  RotationZ::clone "RotationZ* RotationZ::clone() const
+%feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(double angle)
+";
 
-Returns a clone of this  ISample object. 
+%feature("docstring")  RotationZ::clone "RotationZ* RotationZ::clone() const
 ";
 
 %feature("docstring")  RotationZ::createInverse "RotationZ* RotationZ::createInverse() const
@@ -15295,6 +15194,22 @@ Initializes a progress monitor that prints to stdout.
 %feature("docstring")  Simulation::getChildren "std::vector< const INode * > Simulation::getChildren() const
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  Simulation::convertData "SimulationResult Simulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
+
+Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
+
+Parameters:
+-----------
+
+simulation: 
+ Simulation object with possible ROI and masks defined.
+
+data: 
+User data with amplitudes with the shape of data matching the detector.
+
+SimulationResult object. 
 ";
 
 
@@ -16324,7 +16239,7 @@ return default axes units
 
 A pixel in a  SphericalDetector.
 
-C++ includes: SphericalDetector.h
+C++ includes: SphericalPixel.h
 ";
 
 %feature("docstring")  SphericalPixel::SphericalPixel "SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
@@ -16349,7 +16264,7 @@ C++ includes: SphericalDetector.h
 // File: classSquareLattice.xml
 %feature("docstring") SquareLattice "";
 
-%feature("docstring")  SquareLattice::SquareLattice "SquareLattice::SquareLattice(double length, double rotation_angle=0.0)
+%feature("docstring")  SquareLattice::SquareLattice "SquareLattice::SquareLattice(double length, double xi=0.0)
 ";
 
 %feature("docstring")  SquareLattice::clone "SquareLattice * SquareLattice::clone() const
@@ -16976,76 +16891,6 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
-// File: classVonMisesFisherGaussPeakShape.xml
-%feature("docstring") VonMisesFisherGaussPeakShape "
-
-Class that implements a peak shape that is Gaussian in the radial direction and a convolution of a von Mises-Fisher distribution with a von Mises distribution on the two-sphere
-
-C++ includes: IPeakShape.h
-";
-
-%feature("docstring")  VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
-";
-
-%feature("docstring")  VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape() override
-";
-
-%feature("docstring")  VonMisesFisherGaussPeakShape::clone "VonMisesFisherGaussPeakShape * VonMisesFisherGaussPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  VonMisesFisherGaussPeakShape::accept "void VonMisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  VonMisesFisherGaussPeakShape::evaluate "double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-";
-
-%feature("docstring")  VonMisesFisherGaussPeakShape::angularDisorder "bool VonMisesFisherGaussPeakShape::angularDisorder() const override
-
-Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-";
-
-
-// File: classVonMisesGaussPeakShape.xml
-%feature("docstring") VonMisesGaussPeakShape "
-
-Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution with a 3d Gaussian
-
-C++ includes: IPeakShape.h
-";
-
-%feature("docstring")  VonMisesGaussPeakShape::VonMisesGaussPeakShape "VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa)
-";
-
-%feature("docstring")  VonMisesGaussPeakShape::~VonMisesGaussPeakShape "VonMisesGaussPeakShape::~VonMisesGaussPeakShape() override
-";
-
-%feature("docstring")  VonMisesGaussPeakShape::clone "VonMisesGaussPeakShape * VonMisesGaussPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  VonMisesGaussPeakShape::accept "void VonMisesGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  VonMisesGaussPeakShape::evaluate "double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
-
-Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
-";
-
-%feature("docstring")  VonMisesGaussPeakShape::angularDisorder "bool VonMisesGaussPeakShape::angularDisorder() const override
-
-Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-";
-
-
 // File: classWavevectorInfo.xml
 %feature("docstring") WavevectorInfo "
 
@@ -17076,10 +16921,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17109,25 +16954,16 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d100.xml
-
-
-// File: namespace_0d102.xml
-
-
 // File: namespace_0d106.xml
 
 
-// File: namespace_0d14.xml
+// File: namespace_0d112.xml
 
 
-// File: namespace_0d141.xml
+// File: namespace_0d116.xml
 
 
 // File: namespace_0d147.xml
-
-
-// File: namespace_0d154.xml
 
 
 // File: namespace_0d159.xml
@@ -17136,145 +16972,157 @@ C++ includes: ZLimits.h
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d168.xml
+// File: namespace_0d167.xml
 
 
-// File: namespace_0d170.xml
+// File: namespace_0d172.xml
 
 
-// File: namespace_0d174.xml
+// File: namespace_0d181.xml
+
+
+// File: namespace_0d183.xml
+
+
+// File: namespace_0d187.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d212.xml
+// File: namespace_0d227.xml
 
 
-// File: namespace_0d247.xml
+// File: namespace_0d24.xml
 
 
-// File: namespace_0d255.xml
+// File: namespace_0d256.xml
 
 
-// File: namespace_0d261.xml
+// File: namespace_0d260.xml
 
 
-// File: namespace_0d265.xml
+// File: namespace_0d264.xml
 
 
-// File: namespace_0d28.xml
+// File: namespace_0d270.xml
 
 
-// File: namespace_0d285.xml
+// File: namespace_0d274.xml
 
 
-// File: namespace_0d305.xml
+// File: namespace_0d288.xml
 
 
 // File: namespace_0d312.xml
 
 
-// File: namespace_0d318.xml
+// File: namespace_0d319.xml
 
 
-// File: namespace_0d320.xml
+// File: namespace_0d321.xml
 
 
-// File: namespace_0d341.xml
+// File: namespace_0d323.xml
 
 
-// File: namespace_0d345.xml
+// File: namespace_0d343.xml
 
 
 // File: namespace_0d347.xml
 
 
-// File: namespace_0d349.xml
+// File: namespace_0d351.xml
 
 
-// File: namespace_0d36.xml
+// File: namespace_0d365.xml
 
 
-// File: namespace_0d363.xml
+// File: namespace_0d376.xml
 
 
-// File: namespace_0d375.xml
+// File: namespace_0d380.xml
 
 
-// File: namespace_0d379.xml
+// File: namespace_0d390.xml
 
 
-// File: namespace_0d38.xml
+// File: namespace_0d392.xml
 
 
-// File: namespace_0d391.xml
+// File: namespace_0d394.xml
 
 
-// File: namespace_0d397.xml
+// File: namespace_0d4.xml
 
 
-// File: namespace_0d399.xml
+// File: namespace_0d402.xml
+
+
+// File: namespace_0d404.xml
 
 
 // File: namespace_0d406.xml
 
 
-// File: namespace_0d408.xml
+// File: namespace_0d410.xml
 
 
 // File: namespace_0d412.xml
 
 
-// File: namespace_0d414.xml
+// File: namespace_0d422.xml
 
 
-// File: namespace_0d424.xml
+// File: namespace_0d435.xml
 
 
-// File: namespace_0d437.xml
+// File: namespace_0d444.xml
 
 
 // File: namespace_0d446.xml
 
 
-// File: namespace_0d448.xml
+// File: namespace_0d462.xml
 
 
-// File: namespace_0d481.xml
+// File: namespace_0d483.xml
 
 
-// File: namespace_0d488.xml
+// File: namespace_0d490.xml
 
 
-// File: namespace_0d498.xml
+// File: namespace_0d499.xml
 
 
-// File: namespace_0d523.xml
+// File: namespace_0d522.xml
 
 
-// File: namespace_0d531.xml
+// File: namespace_0d530.xml
 
 
-// File: namespace_0d533.xml
+// File: namespace_0d532.xml
 
 
-// File: namespace_0d535.xml
+// File: namespace_0d536.xml
 
 
-// File: namespace_0d618.xml
+// File: namespace_0d538.xml
 
 
-// File: namespace_0d622.xml
+// File: namespace_0d611.xml
 
 
-// File: namespace_0d8.xml
+// File: namespace_0d86.xml
 
 
-// File: namespace_0d92.xml
+// File: namespace_0d88.xml
 
 
-// File: namespace_0d98.xml
+// File: namespace_0d90.xml
+
+
+// File: namespace_0d94.xml
 
 
 // File: namespacealgo.xml
@@ -17286,6 +17134,11 @@ Returns the minimum value of function evaluate as applied to the elements of an 
 %feature("docstring")  algo::max_value "double algo::max_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
 
 Returns the maximum value of function evaluate as applied to the elements of an iterator range. 
+";
+
+%feature("docstring")  algo::concat "std::vector< T > algo::concat(const std::vector< T > &v1, const std::vector< T > &v2)
+
+Returns the concatenation of two std::vectors. 
 ";
 
 
@@ -17366,40 +17219,6 @@ vector<vector<double>>
 
 
 // File: namespaceboost_1_1geometry.xml
-
-
-// File: namespaceconvert.xml
-%feature("docstring")  convert::ConvertData "SimulationResult convert::ConvertData(const Simulation &simulation, const OutputData< double > &data, bool put_masked_areas_to_zero=true)
-
-Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
-
-Parameters:
------------
-
-simulation: 
- Simulation object with possible ROI and masks defined.
-
-data: 
-User data with amplitudes with the shape of data matching the detector.
-
-SimulationResult object. 
-";
-
-%feature("docstring")  convert::ConvertData "SimulationResult convert::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
-";
-
-%feature("docstring")  convert::createOutputData "std::unique_ptr< OutputData< double > > convert::createOutputData(const IUnitConverter &converter, AxesUnits units)
-
-Returns zero-valued output data array in specified units. 
-";
-
-%feature("docstring")  convert::createConverterForGISAS "std::unique_ptr< IUnitConverter > convert::createConverterForGISAS(const Instrument &instrument)
-
-Helper factory function to use in  GISASSimulation. Depending on the type of detector, returns either  RectangularConverter or  SphericalConverter. 
-";
-
-%feature("docstring")  convert::createConverter "std::unique_ptr< IUnitConverter > convert::createConverter(const Simulation &simulation)
-";
 
 
 // File: namespaceDataFormatUtils.xml
@@ -17637,25 +17456,6 @@ Creates  OutputData from a 2D Array.
 %feature("docstring")  IntensityDataFunctions::createFFT "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createFFT(const OutputData< double > &data)
 
 Creates Fourier Transform ( OutputData format) of intensity map ( OutputData format). 
-";
-
-%feature("docstring")  IntensityDataFunctions::ConvertData "SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const OutputData< double > &data, bool put_masked_areas_to_zero=true)
-
-Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
-
-Parameters:
------------
-
-simulation: 
- Simulation object with possible ROI and masks defined.
-
-data: 
-User data with amplitudes with the shape of data matching the detector.
-
-SimulationResult object. 
-";
-
-%feature("docstring")  IntensityDataFunctions::ConvertData "SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
 ";
 
 
@@ -18006,6 +17806,102 @@ Returns string representing python stack trace.
 ";
 
 
+// File: namespacepyfmt.xml
+%feature("docstring")  pyfmt::scriptPreamble "BA_CORE_API_ std::string pyfmt::scriptPreamble()
+";
+
+%feature("docstring")  pyfmt::getSampleFunctionName "BA_CORE_API_ std::string pyfmt::getSampleFunctionName()
+";
+
+%feature("docstring")  pyfmt::printBool "BA_CORE_API_ std::string pyfmt::printBool(double value)
+";
+
+%feature("docstring")  pyfmt::printDouble "BA_CORE_API_ std::string pyfmt::printDouble(double input)
+";
+
+%feature("docstring")  pyfmt::printNm "BA_CORE_API_ std::string pyfmt::printNm(double input)
+";
+
+%feature("docstring")  pyfmt::printNm2 "BA_CORE_API_ std::string pyfmt::printNm2(double input)
+";
+
+%feature("docstring")  pyfmt::printScientificDouble "BA_CORE_API_ std::string pyfmt::printScientificDouble(double input)
+";
+
+%feature("docstring")  pyfmt::printDegrees "BA_CORE_API_ std::string pyfmt::printDegrees(double input)
+";
+
+%feature("docstring")  pyfmt::printValue "BA_CORE_API_ std::string pyfmt::printValue(double value, const std::string &units)
+";
+
+%feature("docstring")  pyfmt::printString "BA_CORE_API_ std::string pyfmt::printString(const std::string &value)
+";
+
+%feature("docstring")  pyfmt::printRealLimits "BA_CORE_API_ std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
+";
+
+%feature("docstring")  pyfmt::printRealLimitsArg "BA_CORE_API_ std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
+
+Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
+";
+
+%feature("docstring")  pyfmt::isSquare "BA_CORE_API_ bool pyfmt::isSquare(double length1, double length2, double angle)
+
+Prints  ParameterDistribution. distVarName is a string representing  IDistribution1D variable, e.g. \"distr_1\"
+
+ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
+";
+
+%feature("docstring")  pyfmt::isHexagonal "BA_CORE_API_ bool pyfmt::isHexagonal(double length1, double length2, double angle)
+";
+
+%feature("docstring")  pyfmt::printKvector "BA_CORE_API_ std::string pyfmt::printKvector(const kvector_t value)
+";
+
+%feature("docstring")  pyfmt::isDefaultDirection "BA_CORE_API_ bool pyfmt::isDefaultDirection(const kvector_t direction)
+
+returns true if it is (0, -1, 0) vector 
+";
+
+%feature("docstring")  pyfmt::indent "BA_CORE_API_ std::string pyfmt::indent(size_t width)
+
+Returns a string of blanks with given width. By default the width equals standard offset in python files. 
+";
+
+%feature("docstring")  pyfmt::printInt "BA_CORE_API_ std::string pyfmt::printInt(int value)
+";
+
+
+// File: namespacepyfmt2.xml
+%feature("docstring")  pyfmt2::representShape2D "BA_CORE_API_ std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
+
+Returns fixed Python code snippet that defines the function \"runSimulation\". 
+";
+
+%feature("docstring")  pyfmt2::valueTimesUnit "BA_CORE_API_ std::string pyfmt2::valueTimesUnit(const RealParameter *par)
+
+Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::argumentList "BA_CORE_API_ std::string pyfmt2::argumentList(const IParameterized *ip)
+
+Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::printDistribution "BA_CORE_API_ std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
+
+Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
+";
+
+%feature("docstring")  pyfmt2::printParameterDistribution "BA_CORE_API_ std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
+";
+
+%feature("docstring")  pyfmt2::printAxis "BA_CORE_API_ std::string pyfmt2::printAxis(const IAxis &axis, const std::string &units, size_t offset)
+
+Prints python-script definition for given axis. offset is used for alignment and indentation in multiple-line definitions 
+";
+
+
 // File: namespacePyImport.xml
 %feature("docstring")  PyImport::createFromPython "std::unique_ptr< MultiLayer > PyImport::createFromPython(const std::string &script, const std::string &functionName, const std::string &path=\"\")
 
@@ -18039,100 +17935,6 @@ A path to import BornAgain library. If empty, relies on PYTHONPATH
 ";
 
 
-// File: namespacePythonFormatting.xml
-%feature("docstring")  PythonFormatting::scriptPreamble "BA_CORE_API_ std::string PythonFormatting::scriptPreamble()
-";
-
-%feature("docstring")  PythonFormatting::getSampleFunctionName "BA_CORE_API_ std::string PythonFormatting::getSampleFunctionName()
-";
-
-%feature("docstring")  PythonFormatting::representShape2D "BA_CORE_API_ std::string PythonFormatting::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
-
-Returns fixed Python code snippet that defines the function \"runSimulation\". 
-";
-
-%feature("docstring")  PythonFormatting::printBool "BA_CORE_API_ std::string PythonFormatting::printBool(double value)
-";
-
-%feature("docstring")  PythonFormatting::printDouble "BA_CORE_API_ std::string PythonFormatting::printDouble(double input)
-";
-
-%feature("docstring")  PythonFormatting::printNm "BA_CORE_API_ std::string PythonFormatting::printNm(double input)
-";
-
-%feature("docstring")  PythonFormatting::printNm2 "BA_CORE_API_ std::string PythonFormatting::printNm2(double input)
-";
-
-%feature("docstring")  PythonFormatting::printScientificDouble "BA_CORE_API_ std::string PythonFormatting::printScientificDouble(double input)
-";
-
-%feature("docstring")  PythonFormatting::printDegrees "BA_CORE_API_ std::string PythonFormatting::printDegrees(double input)
-";
-
-%feature("docstring")  PythonFormatting::printValue "BA_CORE_API_ std::string PythonFormatting::printValue(double value, const std::string &units)
-";
-
-%feature("docstring")  PythonFormatting::printString "BA_CORE_API_ std::string PythonFormatting::printString(const std::string &value)
-";
-
-%feature("docstring")  PythonFormatting::isSquare "BA_CORE_API_ bool PythonFormatting::isSquare(double length1, double length2, double angle)
-";
-
-%feature("docstring")  PythonFormatting::isHexagonal "BA_CORE_API_ bool PythonFormatting::isHexagonal(double length1, double length2, double angle)
-";
-
-%feature("docstring")  PythonFormatting::printKvector "BA_CORE_API_ std::string PythonFormatting::printKvector(const kvector_t value)
-";
-
-%feature("docstring")  PythonFormatting::isDefaultDirection "BA_CORE_API_ bool PythonFormatting::isDefaultDirection(const kvector_t direction)
-
-returns true if it is (0, -1, 0) vector 
-";
-
-%feature("docstring")  PythonFormatting::valueTimesUnit "BA_CORE_API_ std::string PythonFormatting::valueTimesUnit(const RealParameter *par)
-
-Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
-";
-
-%feature("docstring")  PythonFormatting::argumentList "BA_CORE_API_ std::string PythonFormatting::argumentList(const IParameterized *ip)
-
-Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
-";
-
-%feature("docstring")  PythonFormatting::printDistribution "BA_CORE_API_ std::string PythonFormatting::printDistribution(const IDistribution1D &par_distr, const std::string &units)
-
-Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
-";
-
-%feature("docstring")  PythonFormatting::printRealLimits "BA_CORE_API_ std::string PythonFormatting::printRealLimits(const RealLimits &limits, const std::string &units)
-";
-
-%feature("docstring")  PythonFormatting::printRealLimitsArg "BA_CORE_API_ std::string PythonFormatting::printRealLimitsArg(const RealLimits &limits, const std::string &units)
-
-Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
-";
-
-%feature("docstring")  PythonFormatting::printParameterDistribution "BA_CORE_API_ std::string PythonFormatting::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
-
-Prints  ParameterDistribution. distVarName is a string representing  IDistribution1D variable, e.g. \"distr_1\"
-
-ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
-";
-
-%feature("docstring")  PythonFormatting::printAxis "BA_CORE_API_ std::string PythonFormatting::printAxis(const IAxis &axis, const std::string &units, size_t offset)
-
-Prints python-script definition for given axis. offset is used for alignment and indentation in multiple-line definitions 
-";
-
-%feature("docstring")  PythonFormatting::indent "BA_CORE_API_ std::string PythonFormatting::indent(size_t width)
-
-Returns a string of blanks with given width. By default the width equals standard offset in python files. 
-";
-
-%feature("docstring")  PythonFormatting::printInt "BA_CORE_API_ std::string PythonFormatting::printInt(int value)
-";
-
-
 // File: namespaceripples.xml
 %feature("docstring")  ripples::factor_x_box "complex_t ripples::factor_x_box(complex_t q, double l)
 ";
@@ -18141,6 +17943,30 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 %feature("docstring")  ripples::factor_x_Lorentz "complex_t ripples::factor_x_Lorentz(complex_t q, double l)
+";
+
+%feature("docstring")  ripples::profile_yz_bar "complex_t ripples::profile_yz_bar(complex_t qy, complex_t qz, double width, double height)
+
+Complex form factor of rectangular ripple (bar). 
+";
+
+%feature("docstring")  ripples::profile_yz_cosine "complex_t ripples::profile_yz_cosine(complex_t qy, complex_t qz, double width, double height)
+
+Complex form factor of triangular ripple. 
+";
+
+%feature("docstring")  ripples::profile_yz_triangular "complex_t ripples::profile_yz_triangular(complex_t qy, complex_t qz, double width, double height, double asymmetry)
+
+Complex form factor of triangular ripple. 
+";
+
+
+// File: namespacesomeff.xml
+%feature("docstring")  someff::ffSphere "complex_t someff::ffSphere(cvector_t q, double R)
+
+Returns the form factor of a sphere of radius R.
+
+Used by the hard sphere and by several soft sphere classes. 
 ";
 
 
@@ -18365,46 +18191,10 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 ";
 
 
-// File: FTDecayFunctions_8cpp.xml
-
-
-// File: FTDecayFunctions_8h.xml
-
-
-// File: FTDistributions1D_8cpp.xml
-
-
-// File: FTDistributions1D_8h.xml
-
-
-// File: FTDistributions2D_8cpp.xml
-
-
-// File: FTDistributions2D_8h.xml
-
-
-// File: IDistribution1DSampler_8cpp.xml
-
-
-// File: IDistribution1DSampler_8h.xml
-
-
-// File: IDistribution2DSampler_8cpp.xml
-
-
-// File: IDistribution2DSampler_8h.xml
-
-
 // File: IInterferenceFunction_8cpp.xml
 
 
 // File: IInterferenceFunction_8h.xml
-
-
-// File: ILayout_8cpp.xml
-
-
-// File: ILayout_8h.xml
 
 
 // File: InterferenceFunction1DLattice_8cpp.xml
@@ -18473,12 +18263,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: InterferenceFunctionTwin_8h.xml
 
 
-// File: IPeakShape_8cpp.xml
-
-
-// File: IPeakShape_8h.xml
-
-
 // File: ParticleLayout_8cpp.xml
 
 
@@ -18509,9 +18293,6 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: Exceptions_8h.xml
 
 
-// File: ICloneable_8cpp.xml
-
-
 // File: ICloneable_8h.xml
 
 
@@ -18522,6 +18303,9 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: PhysicalConstants_8h.xml
+
+
+// File: Units_8h.xml
 
 
 // File: Beam_8cpp.xml
@@ -18662,10 +18446,44 @@ global helper function for comparison of axes
 // File: IComputation_8h.xml
 
 
-// File: MultiLayerUtils_8cpp.xml
+// File: LayoutStrategyBuilder_8cpp.xml
 
 
-// File: MultiLayerUtils_8h.xml
+// File: LayoutStrategyBuilder_8h.xml
+
+
+// File: MultiLayerFuncs_8cpp.xml
+%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer. 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
+
+
+// File: MultiLayerFuncs_8h.xml
+%feature("docstring")  MaterialProfile "BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer. 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
 
 
 // File: ParticleLayoutComputation_8cpp.xml
@@ -18710,12 +18528,6 @@ global helper function for comparison of axes
 // File: RoughMultiLayerComputation_8h.xml
 
 
-// File: Slice_8cpp.xml
-
-
-// File: Slice_8h.xml
-
-
 // File: SpecularComputation_8cpp.xml
 
 
@@ -18726,6 +18538,60 @@ global helper function for comparison of axes
 
 
 // File: SpecularComputationTerm_8h.xml
+
+
+// File: SpecularStrategyBuilder_8cpp.xml
+
+
+// File: SpecularStrategyBuilder_8h.xml
+
+
+// File: FTDecay1D_8cpp.xml
+
+
+// File: FTDecay1D_8h.xml
+
+
+// File: FTDecay2D_8cpp.xml
+
+
+// File: FTDecay2D_8h.xml
+
+
+// File: FTDistributions1D_8cpp.xml
+
+
+// File: FTDistributions1D_8h.xml
+
+
+// File: FTDistributions2D_8cpp.xml
+
+
+// File: FTDistributions2D_8h.xml
+
+
+// File: IDistribution1DSampler_8cpp.xml
+
+
+// File: IDistribution1DSampler_8h.xml
+
+
+// File: IDistribution2DSampler_8cpp.xml
+
+
+// File: IDistribution2DSampler_8h.xml
+
+
+// File: ILayout_8cpp.xml
+
+
+// File: ILayout_8h.xml
+
+
+// File: IPeakShape_8cpp.xml
+
+
+// File: IPeakShape_8h.xml
 
 
 // File: ConvolutionDetectorResolution_8cpp.xml
@@ -18797,6 +18663,12 @@ global helper function for comparison of axes
 // File: RectangularDetector_8h.xml
 
 
+// File: RectangularPixel_8cpp.xml
+
+
+// File: RectangularPixel_8h.xml
+
+
 // File: RegionOfInterest_8cpp.xml
 
 
@@ -18815,6 +18687,18 @@ global helper function for comparison of axes
 // File: ScanResolution_8h.xml
 
 
+// File: SimulationArea_8cpp.xml
+
+
+// File: SimulationArea_8h.xml
+
+
+// File: SimulationAreaIterator_8cpp.xml
+
+
+// File: SimulationAreaIterator_8h.xml
+
+
 // File: SpecularDetector1D_8cpp.xml
 
 
@@ -18827,6 +18711,12 @@ global helper function for comparison of axes
 // File: SphericalDetector_8h.xml
 
 
+// File: SphericalPixel_8cpp.xml
+
+
+// File: SphericalPixel_8h.xml
+
+
 // File: ExportToPython_8cpp.xml
 
 
@@ -18834,6 +18724,9 @@ global helper function for comparison of axes
 
 
 // File: INodeUtils_8h.xml
+
+
+// File: OrderedMap_8h.xml
 
 
 // File: SampleLabelHandler_8cpp.xml
@@ -18950,6 +18843,12 @@ global helper function for comparison of axes
 // File: FormFactorCone6_8h.xml
 
 
+// File: FormFactorCosineRipple_8cpp.xml
+
+
+// File: FormFactorCosineRipple_8h.xml
+
+
 // File: FormFactorCuboctahedron_8cpp.xml
 
 
@@ -19046,16 +18945,10 @@ global helper function for comparison of axes
 // File: FormFactorPyramid_8h.xml
 
 
-// File: FormFactorRipple1_8cpp.xml
+// File: FormFactorSawtoothRipple_8cpp.xml
 
 
-// File: FormFactorRipple1_8h.xml
-
-
-// File: FormFactorRipple2_8cpp.xml
-
-
-// File: FormFactorRipple2_8h.xml
+// File: FormFactorSawtoothRipple_8h.xml
 
 
 // File: FormFactorTetrahedron_8cpp.xml
@@ -19088,22 +18981,10 @@ global helper function for comparison of axes
 // File: FormFactorTruncatedSpheroid_8h.xml
 
 
-// File: ProfileBar_8cpp.xml
+// File: IProfileRipple_8cpp.xml
 
 
-// File: ProfileBar_8h.xml
-
-
-// File: ProfileRipple1_8cpp.xml
-
-
-// File: ProfileRipple1_8h.xml
-
-
-// File: ProfileRipple2_8cpp.xml
-
-
-// File: ProfileRipple2_8h.xml
+// File: IProfileRipple_8h.xml
 
 
 // File: Ripples_8cpp.xml
@@ -19187,28 +19068,10 @@ global helper function for comparison of axes
 // File: AngularSpecScan_8h.xml
 
 
-// File: ArrayUtils_8cpp.xml
-
-
-// File: ArrayUtils_8h.xml
-
-
-// File: AxisNames_8cpp.xml
-
-
-// File: AxisNames_8h.xml
-
-
 // File: ChiSquaredModule_8cpp.xml
 
 
 // File: ChiSquaredModule_8h.xml
-
-
-// File: CumulativeValue_8cpp.xml
-
-
-// File: CumulativeValue_8h.xml
 
 
 // File: FourierTransform_8cpp.xml
@@ -19265,6 +19128,24 @@ global helper function for comparison of axes
 // File: VarianceFunctions_8h.xml
 
 
+// File: ArrayUtils_8cpp.xml
+
+
+// File: ArrayUtils_8h.xml
+
+
+// File: AxisNames_8cpp.xml
+
+
+// File: AxisNames_8h.xml
+
+
+// File: CumulativeValue_8cpp.xml
+
+
+// File: CumulativeValue_8h.xml
+
+
 // File: Histogram1D_8cpp.xml
 
 
@@ -19287,12 +19168,6 @@ global helper function for comparison of axes
 
 
 // File: IIntensityFunction_8h.xml
-
-
-// File: IIntensityNormalizer_8cpp.xml
-
-
-// File: IIntensityNormalizer_8h.xml
 
 
 // File: IntensityDataFunctions_8cpp.xml
@@ -19334,18 +19209,6 @@ make Swappable
 // File: SimpleUnitConverters_8h.xml
 
 
-// File: SimulationArea_8cpp.xml
-
-
-// File: SimulationArea_8h.xml
-
-
-// File: SimulationAreaIterator_8cpp.xml
-
-
-// File: SimulationAreaIterator_8h.xml
-
-
 // File: UnitConverter1D_8cpp.xml
 
 
@@ -19365,9 +19228,6 @@ make Swappable
 
 
 // File: Lattice_8h.xml
-
-
-// File: Lattice1DParameters_8h.xml
 
 
 // File: Lattice2D_8cpp.xml
@@ -19468,11 +19328,6 @@ magnetization:
 magnetization (in A/m) 
 ";
 
-%feature("docstring")  CreateAveragedMaterial "Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
-
-Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
-";
-
 
 // File: MaterialFactoryFuncs_8h.xml
 %feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial()
@@ -19507,11 +19362,6 @@ imaginary part of the scattering length density, inverse square angstroms
 
 magnetization: 
 magnetization (in A/m) 
-";
-
-%feature("docstring")  CreateAveragedMaterial "BA_CORE_API_ Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
-
-Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
 ";
 
 
@@ -19577,9 +19427,6 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: IInterferenceFunctionStrategy_8h.xml
 
 
-// File: ILayerRTCoefficients_8h.xml
-
-
 // File: IMultiLayerBuilder_8cpp.xml
 
 
@@ -19625,28 +19472,10 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: LayerRoughness_8h.xml
 
 
-// File: LayoutStrategyBuilder_8cpp.xml
-
-
-// File: LayoutStrategyBuilder_8h.xml
-
-
 // File: MatrixFresnelMap_8cpp.xml
 
 
 // File: MatrixFresnelMap_8h.xml
-
-
-// File: MatrixRTCoefficients_8cpp.xml
-
-
-// File: MatrixRTCoefficients_8h.xml
-
-
-// File: MatrixRTCoefficients__v2_8cpp.xml
-
-
-// File: MatrixRTCoefficients__v2_8h.xml
 
 
 // File: MultiLayer_8cpp.xml
@@ -19655,38 +19484,10 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: MultiLayer_8h.xml
 
 
-// File: MultiLayerFuncs_8cpp.xml
-%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer. 
-";
-
-%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in MaterialProfile. 
-";
+// File: MultiLayerUtils_8cpp.xml
 
 
-// File: MultiLayerFuncs_8h.xml
-%feature("docstring")  MaterialProfile "BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer. 
-";
-
-%feature("docstring")  DefaultMaterialProfileLimits "BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  GenerateZValues "BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in MaterialProfile. 
-";
+// File: MultiLayerUtils_8h.xml
 
 
 // File: RoughnessModels_8cpp.xml
@@ -19713,7 +19514,16 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: ScalarFresnelMap_8h.xml
 
 
-// File: ScalarRTCoefficients_8h.xml
+// File: Slice_8cpp.xml
+
+
+// File: Slice_8h.xml
+
+
+// File: SlicedFormFactorList_8cpp.xml
+
+
+// File: SlicedFormFactorList_8h.xml
 
 
 // File: SpecularMagneticOldStrategy_8cpp.xml
@@ -19746,10 +19556,10 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: SpecularScalarTanhStrategy_8h.xml
 
 
-// File: SpecularStrategyBuilder_8cpp.xml
+// File: SpecularSimulationElement_8cpp.xml
 
 
-// File: SpecularStrategyBuilder_8h.xml
+// File: SpecularSimulationElement_8h.xml
 
 
 // File: SSCAHelper_8cpp.xml
@@ -19777,9 +19587,13 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: INode_8cpp.xml
+%feature("docstring")  nodeMetaUnion "NodeMeta nodeMetaUnion(const std::vector< ParaMeta > &base, const NodeMeta &other)
+";
 
 
 // File: INode_8h.xml
+%feature("docstring")  nodeMetaUnion "NodeMeta nodeMetaUnion(const std::vector< ParaMeta > &base, const NodeMeta &other)
+";
 
 
 // File: INodeVisitor_8cpp.xml
@@ -19876,9 +19690,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: Unit_8h.xml
 
 
-// File: Units_8h.xml
-
-
 // File: Crystal_8cpp.xml
 
 
@@ -19903,7 +19714,18 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorWeighted_8h.xml
 
 
+// File: HomogeneousRegion_8cpp.xml
+%feature("docstring")  CreateAveragedMaterial "Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+
+Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
+";
+
+
 // File: HomogeneousRegion_8h.xml
+%feature("docstring")  CreateAveragedMaterial "BA_CORE_API_ Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+
+Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
+";
 
 
 // File: IAbstractParticle_8cpp.xml
@@ -19951,15 +19773,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: ParticleDistribution_8h.xml
 
 
-// File: SlicedFormFactorList_8cpp.xml
-
-
-// File: SlicedFormFactorList_8h.xml
-
-
-// File: SlicedParticle_8cpp.xml
-
-
 // File: SlicedParticle_8h.xml
 
 
@@ -19982,6 +19795,24 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: PythonFormatting_8h.xml
+
+
+// File: ILayerRTCoefficients_8h.xml
+
+
+// File: MatrixRTCoefficients_8cpp.xml
+
+
+// File: MatrixRTCoefficients_8h.xml
+
+
+// File: MatrixRTCoefficients__v2_8cpp.xml
+
+
+// File: MatrixRTCoefficients__v2_8h.xml
+
+
+// File: ScalarRTCoefficients_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml
@@ -20033,17 +19864,11 @@ Generate z values (equidistant) for use in MaterialProfile.
 Returns concatenated rotation (first right, then left). 
 ";
 
-%feature("docstring")  IsZRotation "bool IsZRotation(const IRotation &rot)
-";
-
 
 // File: Rotations_8h.xml
 %feature("docstring")  createProduct "BA_CORE_API_ IRotation* createProduct(const IRotation &left, const IRotation &right)
 
 Returns concatenated rotation (first right, then left). 
-";
-
-%feature("docstring")  IsZRotation "bool IsZRotation(const IRotation &rot)
 ";
 
 
@@ -20127,12 +19952,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: TruncatedEllipsoid_8h.xml
 
 
-// File: Convert_8cpp.xml
-
-
-// File: Convert_8h.xml
-
-
 // File: DepthProbeSimulation_8cpp.xml
 
 
@@ -20169,10 +19988,22 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: Simulation2D_8h.xml
 
 
+// File: SimulationFactory_8cpp.xml
+
+
+// File: SimulationFactory_8h.xml
+
+
 // File: SpecularSimulation_8cpp.xml
 
 
 // File: SpecularSimulation_8h.xml
+
+
+// File: StandardSimulations_8cpp.xml
+
+
+// File: StandardSimulations_8h.xml
 
 
 // File: UnitConverterUtils_8cpp.xml
@@ -20199,34 +20030,10 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: SimulationElement_8h.xml
 
 
-// File: SpecularSimulationElement_8cpp.xml
-
-
-// File: SpecularSimulationElement_8h.xml
-
-
-// File: FormFactorDebyeBueche_8cpp.xml
-
-
-// File: FormFactorDebyeBueche_8h.xml
-
-
 // File: FormFactorGauss_8cpp.xml
 
 
 // File: FormFactorGauss_8h.xml
-
-
-// File: FormFactorLorentz_8cpp.xml
-
-
-// File: FormFactorLorentz_8h.xml
-
-
-// File: FormFactorOrnsteinZernike_8cpp.xml
-
-
-// File: FormFactorOrnsteinZernike_8h.xml
 
 
 // File: FormFactorSphereGaussianRadius_8cpp.xml
@@ -20408,12 +20215,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: SampleComponents_8h.xml
 
 
-// File: SimulationFactory_8cpp.xml
-
-
-// File: SimulationFactory_8h.xml
-
-
 // File: SizeDistributionModelsBuilder_8cpp.xml
 
 
@@ -20430,12 +20231,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SlicedParticleBuilder_8h.xml
-
-
-// File: StandardSimulations_8cpp.xml
-
-
-// File: StandardSimulations_8h.xml
 
 
 // File: ThickAbsorptiveSampleBuilder_8cpp.xml
@@ -20487,10 +20282,13 @@ Template function to create an integrator object
 // File: MathFunctions_8h.xml
 
 
-// File: OrderedMap_8h.xml
-
-
 // File: Precomputed_8h.xml
+
+
+// File: PyFmt_8cpp.xml
+
+
+// File: PyFmt_8h.xml
 
 
 // File: PyObject_8h.xml
@@ -20523,6 +20321,12 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: EigenCore_8h.xml
+
+
+// File: SomeFormFactors_8cpp.xml
+
+
+// File: SomeFormFactors_8h.xml
 
 
 // File: Transform3D_8cpp.xml
@@ -20559,6 +20363,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
+
+
+// File: dir_fa96dd1f1e0fa8c53ad7561c23a2a056.xml
 
 
 // File: dir_44f78a63fb6824b6161080fb024dfdfe.xml
@@ -20604,6 +20411,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_437a42df1810106c8392af0ca05a14b2.xml
+
+
+// File: dir_8e60847f0ac26e3d8a13e8a06357123f.xml
 
 
 // File: dir_6babb1605c026604526d064f820d612b.xml

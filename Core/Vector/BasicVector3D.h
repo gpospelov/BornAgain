@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Vector/BasicVector3D.h
-//! @brief     Declares template class BasicVector3D.
+//! @brief     Declares and partly implements template class BasicVector3D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_VECTOR_BASICVECTOR3D_H
 
 //! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
-//! then reworked beyond recongnition. Removed split of point and vector semantics.
+//! then reworked beyond recognition. Removed split of point and vector semantics.
 //! Transforms are relegated to a separate class Transform3D.
 
 #include "Wrap/WinDllMacros.h"
@@ -99,7 +99,7 @@ public:
 
     //! Multiplies this with a scalar, and returns result.
 #ifndef SWIG
-    template <class U> auto operator*=(U a) -> BasicVector3D<decltype(this->x() * a)>&
+    template <class U> auto operator*=(U a)
     {
         v_[0] *= a;
         v_[1] *= a;
@@ -110,7 +110,7 @@ public:
 
     //! Divides this by a scalar, and returns result.
 #ifndef SWIG
-    template <class U> auto operator/=(U a) -> BasicVector3D<decltype(this->x() * a)>&
+    template <class U> auto operator/=(U a)
     {
         v_[0] /= a;
         v_[1] /= a;
@@ -165,13 +165,13 @@ public:
 
     //! Returns dot product of vectors (antilinear in the first [=self] argument).
 #ifndef SWIG
-    template <class U> auto dot(const BasicVector3D<U>& v) const -> decltype(this->x() * v.x());
+    template <class U> auto dot(const BasicVector3D<U>& v) const;
 #endif // SWIG
 
     //! Returns cross product of vectors (linear in both arguments).
 #ifndef SWIG
     template <class U>
-    auto cross(const BasicVector3D<U>& v) const -> BasicVector3D<decltype(this->x() * v.x())>;
+    auto cross(const BasicVector3D<U>& v) const;
 #endif // SWIG
 
     //! Returns angle with respect to another vector.
@@ -253,7 +253,7 @@ inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D
 //! @relates BasicVector3D
 #ifndef SWIG
 template <class T, class U>
-inline auto operator*(const BasicVector3D<T>& v, const U a) -> BasicVector3D<decltype(v.x() * a)>
+inline auto operator*(const BasicVector3D<T>& v, const U a)
 {
     return BasicVector3D<decltype(v.x() * a)>(v.x() * a, v.y() * a, v.z() * a);
 }
@@ -263,7 +263,7 @@ inline auto operator*(const BasicVector3D<T>& v, const U a) -> BasicVector3D<dec
 //! @relates BasicVector3D
 #ifndef SWIG
 template <class T, class U>
-inline auto operator*(const U a, const BasicVector3D<T>& v) -> BasicVector3D<decltype(a * v.x())>
+inline auto operator*(const U a, const BasicVector3D<T>& v)
 {
     return BasicVector3D<decltype(a * v.x())>(a * v.x(), a * v.y(), a * v.z());
 }
@@ -311,7 +311,7 @@ BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _a
 #ifndef SWIG
 template <class T>
 template <class U>
-inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const -> decltype(this->x() * v.x())
+inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const
 {
     BasicVector3D<T> left_star = this->conj();
     return left_star.x() * v.x() + left_star.y() * v.y() + left_star.z() * v.z();
@@ -323,7 +323,6 @@ inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const -> decltype(t
 template <class T>
 template <class U>
 inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const
-    -> BasicVector3D<decltype(this->x() * v.x())>
 {
     return BasicVector3D<decltype(this->x() * v.x())>(
         y() * v.z() - v.y() * z(), z() * v.x() - v.z() * x(), x() * v.y() - v.x() * y());

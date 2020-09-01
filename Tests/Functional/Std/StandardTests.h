@@ -595,6 +595,70 @@ TEST_F(Std, PolarizedFeNiBiLayerSpinFlipMP)
                     "FeNiBiLayerSpinFlipBuilder", 1e-7));
 }
 
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipTanhPP)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhPP", "BasicSpecularPP",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhPP_Q", "BasicQSpecularPP",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+}
+
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipTanhMM)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhMM", "BasicSpecularMM",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhMM_Q", "BasicQSpecularMM",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+}
+
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipTanhPM)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhPM", "BasicSpecularPM",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhPM_Q", "BasicQSpecularPM",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+}
+
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipTanhMP)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhMP", "BasicSpecularMP",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipTanhMP_Q", "BasicQSpecularMP",
+                    "FeNiBiLayerSpinFlipTanhBuilder", 1e-7));
+}
+
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipNCPP)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCPP", "BasicSpecularPP",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCPP_Q", "BasicQSpecularPP",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+}
+
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipNCMM)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCMM", "BasicSpecularMM",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCMM_Q", "BasicQSpecularMM",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+}
+
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipNCPM)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCPM", "BasicSpecularPM",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCPM_Q", "BasicQSpecularPM",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+}
+
+TEST_F(Std, PolarizedFeNiBiLayerSpinFlipNCMP)
+{
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCMP", "BasicSpecularMP",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+    EXPECT_TRUE(run("PolarizedFeNiBiLayerSpinFlipNCMP_Q", "BasicQSpecularMP",
+                    "FeNiBiLayerSpinFlipNCBuilder", 1e-7));
+}
+
 TEST_F(Std, DepthProbeTest)
 {
     EXPECT_TRUE(run("DepthProbeTest", "BasicDepthProbe", "HomogeneousMultilayerBuilder", 1e-10));

@@ -249,7 +249,7 @@ if(WIN32)
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
     set(DLL_MSG "")
-    foreach(LIB IN LISTS FFTW3_LIBRARIES TIFF_LIBRARIES)
+    foreach(LIB IN LISTS FFTW3_LIBRARIES TIFF_LIBRARIES Cerf_LIBRARIES)
         string(REPLACE ".lib" ".dll" DLL "${LIB}")
         if (NOT EXISTS ${DLL})
             message(FATAL_ERROR "Dynamic load library ${DLL} (derived from ${LIB}) does not exist")

@@ -81,8 +81,8 @@ public:
             throw std::runtime_error("Cannot perform scalar computation "
                                      "for non-colinear magnetization");
 
-        magnetizationVector = kvector_t(magnetizationMagnitude * std::sin(angle * Units::degree),
-                                    magnetizationMagnitude * std::cos(angle * Units::degree), 0);
+        magnetizationVector = kvector_t(magnetizationMagnitude * std::sin(angle),
+                                        magnetizationMagnitude * std::cos(angle), 0);
         sample = constructSample();
     }
 
@@ -110,6 +110,27 @@ class BA_CORE_API_ FeNiBiLayerNCBuilder : public IMultiLayerBuilder
 {
 public:
     FeNiBiLayerNCBuilder() {}
+    MultiLayer* buildSample() const;
+};
+
+class BA_CORE_API_ FeNiBiLayerSpinFlipBuilder : public IMultiLayerBuilder
+{
+public:
+    FeNiBiLayerSpinFlipBuilder() {}
+    MultiLayer* buildSample() const;
+};
+
+class BA_CORE_API_ FeNiBiLayerSpinFlipTanhBuilder : public IMultiLayerBuilder
+{
+public:
+    FeNiBiLayerSpinFlipTanhBuilder() {}
+    MultiLayer* buildSample() const;
+};
+
+class BA_CORE_API_ FeNiBiLayerSpinFlipNCBuilder : public IMultiLayerBuilder
+{
+public:
+    FeNiBiLayerSpinFlipNCBuilder() {}
     MultiLayer* buildSample() const;
 };
 

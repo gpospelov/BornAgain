@@ -121,6 +121,12 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("FeNiBiLayerNCBuilder", create_new<FeNiBiLayerNCBuilder>);
 
+    registerItem("FeNiBiLayerSpinFlipBuilder", create_new<FeNiBiLayerSpinFlipBuilder>);
+
+    registerItem("FeNiBiLayerSpinFlipTanhBuilder", create_new<FeNiBiLayerSpinFlipTanhBuilder>);
+
+    registerItem("FeNiBiLayerSpinFlipNCBuilder", create_new<FeNiBiLayerSpinFlipNCBuilder>);
+
     registerItem("MagneticRotationBuilder", create_new<MagneticRotationBuilder>);
 
     registerItem("MagneticSpheresBuilder", create_new<MagneticSpheresBuilder>);

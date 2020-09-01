@@ -20,6 +20,7 @@
 #include "Core/StandardSamples/CustomMorphologyBuilder.h"
 #include "Core/StandardSamples/CylindersAndPrismsBuilder.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
+#include "Core/StandardSamples/FeNiBiLayerBuilder.h"
 #include "Core/StandardSamples/HomogeneousMultilayerBuilder.h"
 #include "Core/StandardSamples/LatticeBuilder.h"
 #include "Core/StandardSamples/LayersWithAbsorptionBuilder.h"
@@ -113,6 +114,12 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem("SimpleMagneticLayerBuilder", create_new<SimpleMagneticLayerBuilder>);
 
     registerItem("MagneticLayerBuilder", create_new<MagneticLayerBuilder>);
+
+    registerItem("FeNiBiLayerBuilder", create_new<FeNiBiLayerBuilder>);
+
+    registerItem("FeNiBiLayerTanhBuilder", create_new<FeNiBiLayerTanhBuilder>);
+
+    registerItem("FeNiBiLayerNCBuilder", create_new<FeNiBiLayerNCBuilder>);
 
     registerItem("MagneticRotationBuilder", create_new<MagneticRotationBuilder>);
 

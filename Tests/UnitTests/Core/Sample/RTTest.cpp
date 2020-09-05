@@ -34,7 +34,7 @@ protected:
     {
         std::vector<ScalarRTCoefficients> result;
         for (auto& coeff : inputCoeffs)
-            result.push_back(*dynamic_cast<const ScalarRTCoefficients*>(coeff.release()));
+            result.push_back(*dynamic_cast<const ScalarRTCoefficients*>(coeff.get()));
 
         return result;
     }

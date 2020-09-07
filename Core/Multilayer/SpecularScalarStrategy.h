@@ -51,9 +51,9 @@ private:
 
     static void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer);
 
-    bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
-                              const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                              size_t slice_index) const;
+    void calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
+                              const std::vector<Slice>& slices,
+                              const std::vector<complex_t>& kz) const;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H

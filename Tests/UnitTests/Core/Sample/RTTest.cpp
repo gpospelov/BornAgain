@@ -30,7 +30,7 @@ protected:
         EXPECT_NEAR(coeff1.t_r(1).real(), coeff2.t_r(1).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(1).imag(), coeff2.t_r(1).imag(), 1e-10);
     }
-    std::vector<ScalarRTCoefficients> getCoeffs(SpecularScalarTanhStrategy::coeffs_t&& inputCoeffs)
+    std::vector<ScalarRTCoefficients> getCoeffs(ISpecularStrategy::coeffs_t&& inputCoeffs)
     {
         std::vector<ScalarRTCoefficients> result;
         for (auto& coeff : inputCoeffs)

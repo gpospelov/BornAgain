@@ -27,7 +27,6 @@ class BA_CORE_API_ MatrixRTCoefficients_v2 : public ILayerRTCoefficients
 {
 public:
     friend class SpecularMagneticStrategy;
-    friend class SpecularMagnetic_v3ConsistencyTest_ScalarMagneticAmplitudes_Test;
 
     MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b);
     MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2& other);

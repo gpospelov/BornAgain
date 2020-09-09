@@ -113,10 +113,7 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
     auto dumpingFactor = complex_t(1, 0);
     for (size_t j = 1; j < N; ++j) {
         dumpingFactor = dumpingFactor * factors[j - 1];
-        if (std::isinf(std::norm(dumpingFactor))) {
-            setZeroBelow(coeff, j - 1);
-            break;
-        }
+
         coeff[j].t_r(0) = dumpingFactor;
         coeff[j].t_r(1) *= dumpingFactor;
     }

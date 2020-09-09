@@ -94,7 +94,7 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
         if (const auto roughness = GetBottomRoughness(slices, i))
             sigma = roughness->getSigma();
 
-        auto mpmm = transition(kz[i], kz[i + 1], sigma, slices[i].thickness(), coeff[i + 1].t_r);
+        auto mpmm = transition(kz[i], kz[i + 1], sigma);
         auto mp = std::get<0>(mpmm);
         auto mm = std::get<1>(mpmm);
 
@@ -104,7 +104,6 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
         S = 1. / S * delta;
         factors[i] = S;
 
-        coeff[i].t_r(0) = 1;
         coeff[i].t_r(1) = delta * (mm + mp * coeff[i+1].t_r(1)) * S;
     }
 

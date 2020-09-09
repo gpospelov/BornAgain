@@ -47,7 +47,7 @@ public:
                                                 const std::vector<complex_t>& kz) const override;
 
 private:
-    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma,
+    virtual std::pair<complex_t, complex_t> transition(complex_t kzi, complex_t kzi1, double sigma,
                                         double thickness, const Eigen::Vector2cd& t_r1) const = 0;
 
     std::vector<ScalarRTCoefficients> computeTR(const std::vector<Slice>& slices,

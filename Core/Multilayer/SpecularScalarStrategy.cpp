@@ -94,21 +94,18 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
         if (const auto roughness = GetBottomRoughness(slices, i))
             sigma = roughness->getSigma();
 
-        coeff[i].t_r = transition(kz[i], kz[i + 1], sigma, slices[i].thickness(), coeff[i + 1].t_r);
+        auto mpmm = transition(kz[i], kz[i + 1], sigma, slices[i].thickness(), coeff[i + 1].t_r);
+        auto mp = std::get<0>(mpmm);
+        auto mm = std::get<1>(mpmm);
 
-        if (std::isinf(std::norm(coeff[i].t_r(0))) || std::isnan(std::norm(coeff[i].t_r(0)))) {
-            coeff[i].t_r(0) = 1.0;
-            coeff[i].t_r(1) = 0.0;
+        auto delta = exp_I(kz[i] * slices[i].thickness());
 
-            setZeroBelow(coeff, i);
-        }
+        complex_t S = mp + mm * coeff[i+1].t_r(1);
+        S = 1. / S * delta;
+        factors[i] = S;
 
-        // normalize the t-coefficient in each step of the computation
-        // this avoids an overflow in the backwards propagation
-        // the used factors are stored in order to correct the amplitudes
-        // in forward direction at the end of the computation
-        factors[i] = coeff[i].t_r(0);
-        coeff[i].t_r = coeff[i].t_r / coeff[i].t_r(0);
+        coeff[i].t_r(0) = 1;
+        coeff[i].t_r(1) = delta * (mm + mp * coeff[i+1].t_r(1)) * S;
     }
 
     // now correct all amplitudes by dividing the with the remaining factors in forward direction
@@ -121,7 +118,8 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
             setZeroBelow(coeff, j - 1);
             break;
         }
-        coeff[j].t_r = coeff[j].t_r / dumpingFactor;
+        coeff[j].t_r(0) = dumpingFactor;
+        coeff[j].t_r(1) *= dumpingFactor;
     }
 }
 

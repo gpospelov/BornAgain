@@ -15,7 +15,8 @@
 #include "Core/Multilayer/SpecularScalarNCStrategy.h"
 #include <Eigen/Dense>
 
-Eigen::Vector2cd SpecularScalarNCStrategy::transition(complex_t kzi, complex_t kzi1, double sigma,
+std::pair<complex_t, complex_t>
+SpecularScalarNCStrategy::transition(complex_t kzi, complex_t kzi1, double sigma,
                                                       double thickness,
                                                       const Eigen::Vector2cd& t_r1) const
 {
@@ -31,8 +32,8 @@ Eigen::Vector2cd SpecularScalarNCStrategy::transition(complex_t kzi, complex_t k
     const complex_t a00 = 0.5 * (1. + kz_ratio) * roughness_diff;
     const complex_t a01 = 0.5 * (1. - kz_ratio) * roughness_sum;
 
-    Eigen::Vector2cd result;
-    result << (a00 * t_r1(0) + a01 * t_r1(1)) / phase_shift,
-        (a01 * t_r1(0) + a00 * t_r1(1)) * phase_shift;
-    return result;
+//    Eigen::Vector2cd result;
+//    result << (a00 * t_r1(0) + a01 * t_r1(1)) / phase_shift,
+//        (a01 * t_r1(0) + a00 * t_r1(1)) * phase_shift;
+    return {a00, a01};
 }

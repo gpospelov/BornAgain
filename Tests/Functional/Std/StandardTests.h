@@ -515,6 +515,18 @@ TEST_F(Std, PolarizedQAngleReflectivityMM)
                     "SimpleMagneticLayerBuilder", 1e-10));
 }
 
+TEST_F(Std, MagneticRotationReflectivity)
+{
+    EXPECT_TRUE(run("MagneticRotationReflectivityPP", "BasicSpecularPP",
+                    "SimpleMagneticRotationBuilder", 1e-10));
+    EXPECT_TRUE(run("MagneticRotationReflectivityMM", "BasicSpecularMM",
+                    "SimpleMagneticRotationBuilder", 1e-10));
+    EXPECT_TRUE(run("MagneticRotationReflectivityPM", "BasicSpecularPM",
+                    "SimpleMagneticRotationBuilder", 1e-10));
+    EXPECT_TRUE(run("MagneticRotationReflectivityMP", "BasicSpecularMP",
+                    "SimpleMagneticRotationBuilder", 1e-10));
+}
+
 TEST_F(Std, PolarizedFeNiBiLayerPP)
 {
     EXPECT_TRUE(run("PolarizedFeNiBiLayerPP", "BasicSpecularPP",

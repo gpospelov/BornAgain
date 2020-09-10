@@ -15,10 +15,12 @@
 #include "Core/StandardSamples/MagneticLayersBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
+#include "Core/Multilayer/LayerRoughness.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Multilayer/RoughnessModels.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 
@@ -101,6 +103,61 @@ MultiLayer* MagneticLayerBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
+
+SimpleMagneticRotationBuilder::SimpleMagneticRotationBuilder() = default;
+
+MultiLayer* SimpleMagneticRotationBuilder::buildSample() const
+{
+}
+
+MultiLayer* SimpleMagneticRotationBuilder::builder(double sigmaRoughness,
+                                                  RoughnessModel roughnessModel)
+{
+    MultiLayer* multi_layer = new MultiLayer();
+
+    kvector_t substr_field = kvector_t(0.0, 1e6, 0.0);
+    kvector_t layer_field(1e6, 0.0, 0.0);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
+    Material layer_material = HomogeneousMaterial("MagLayer", 6e-4, 2e-8, layer_field);
+
+    auto roughness = LayerRoughness();
+    roughness.setSigma(sigmaRoughness * Units::angstrom);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+    Layer layer(layer_material);
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayerWithTopRoughness(layer, roughness);
+    multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
+    multi_layer->setRoughnessModel(roughnessModel);
+    return multi_layer;
+}
+
+size_t SimpleMagneticRotationBuilder::size(){return 3;}
+
+MultiLayer* SimpleMagneticRotationBuilder::createSample(size_t index){
+
+    switch(index){
+
+        case 0:
+            return builder(0.);
+
+        case 1:
+            setName("Tanh");
+            return builder(2., RoughnessModel::TANH);
+
+        case 2:
+            setName("NC");
+            return builder(2., RoughnessModel::NEVOT_CROCE);
+
+        default:
+            throw std::runtime_error("SimpleMagneticRotationBuilder::createSample() -> Error. "
+                                 "Sample index is out of range.");
+    }
+
+}
+
 
 MagneticRotationBuilder::MagneticRotationBuilder() : m_sphere_radius(5 * Units::nanometer) {}
 

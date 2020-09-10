@@ -113,6 +113,8 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("SimpleMagneticLayerBuilder", create_new<SimpleMagneticLayerBuilder>);
 
+    registerItem("SimpleMagneticRotationBuilder", create_new<SimpleMagneticRotationBuilder>);
+
     registerItem("MagneticLayerBuilder", create_new<MagneticLayerBuilder>);
 
     registerItem("FeNiBiLayerBuilder", create_new<FeNiBiLayerBuilder>);

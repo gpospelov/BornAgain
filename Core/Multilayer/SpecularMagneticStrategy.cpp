@@ -194,7 +194,9 @@ void SpecularMagneticStrategy::propagateBackwardsForwards(
         coeff[i].m_w_min = l * coeff[i + 1].m_w_min;
 
         // rotate and normalize polarization
-        const auto [S, norm] = findNormalizationCoefficients(coeff[i]);
+        const auto Snorm = findNormalizationCoefficients(coeff[i]);
+        auto S = Snorm.first;
+        auto norm = Snorm.second;
 
         SMatrices[i] = S;
         Normalization[i] = norm;

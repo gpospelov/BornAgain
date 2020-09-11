@@ -20,7 +20,7 @@ project(BornAgain
      # TODO modernize FindCerf to get rid of AssertLibraryFunction to restore restriction to CXX
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
 include(CTest) # equivalent to "enable_testing() ???
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck)

@@ -63,10 +63,10 @@ class BA_CORE_API_ SimpleMagneticRotationBuilder : public IMultiLayerBuilder
 {
 public:
     SimpleMagneticRotationBuilder();
-    MultiLayer* buildSample() const;
+    MultiLayer* buildSample() const override;
 
-    MultiLayer* createSample(size_t index = 0);
-    size_t size();
+    MultiLayer* createSample(size_t index = 0) override;
+    size_t size() override;
 protected:
     MultiLayer* builder(double sigmaRoughness = 0.,
                         RoughnessModel roughnessModel = RoughnessModel::TANH) const;

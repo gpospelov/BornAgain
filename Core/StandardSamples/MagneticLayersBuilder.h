@@ -69,7 +69,7 @@ public:
     size_t size();
 protected:
     MultiLayer* builder(double sigmaRoughness = 0.,
-                        RoughnessModel roughnessModel = RoughnessModel::TANH);
+                        RoughnessModel roughnessModel = RoughnessModel::TANH) const;
 };
 
 //! Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.

@@ -108,10 +108,11 @@ SimpleMagneticRotationBuilder::SimpleMagneticRotationBuilder() = default;
 
 MultiLayer* SimpleMagneticRotationBuilder::buildSample() const
 {
+    return builder();
 }
 
 MultiLayer* SimpleMagneticRotationBuilder::builder(double sigmaRoughness,
-                                                  RoughnessModel roughnessModel)
+                                                  RoughnessModel roughnessModel) const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -136,7 +137,8 @@ MultiLayer* SimpleMagneticRotationBuilder::builder(double sigmaRoughness,
 
 size_t SimpleMagneticRotationBuilder::size(){return 3;}
 
-MultiLayer* SimpleMagneticRotationBuilder::createSample(size_t index){
+MultiLayer* SimpleMagneticRotationBuilder::createSample(size_t index)
+{
 
     switch(index){
 

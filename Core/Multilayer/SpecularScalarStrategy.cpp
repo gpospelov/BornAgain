@@ -94,11 +94,11 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
         if (const auto roughness = GetBottomRoughness(slices, i))
             sigma = roughness->getSigma();
 
-        auto mpmm = transition(kz[i], kz[i + 1], sigma);
-        auto mp = std::get<0>(mpmm);
-        auto mm = std::get<1>(mpmm);
+        const auto mpmm = transition(kz[i], kz[i + 1], sigma);
+        const complex_t mp = mpmm.first;
+        const complex_t mm = mpmm.second;
 
-        auto delta = exp_I(kz[i] * slices[i].thickness());
+        const complex_t delta = exp_I(kz[i] * slices[i].thickness());
 
         complex_t S = mp + mm * coeff[i+1].t_r(1);
         S = 1. / S * delta;
@@ -110,7 +110,7 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
     // now correct all amplitudes by dividing the with the remaining factors in forward direction
     // at some point this divison underflows, which is the point when all further amplitudes are set
     // to zero
-    auto dumpingFactor = complex_t(1, 0);
+    complex_t dumpingFactor = 1;
     for (size_t j = 1; j < N; ++j) {
         dumpingFactor = dumpingFactor * factors[j - 1];
 

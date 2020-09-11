@@ -111,10 +111,10 @@ void SpecularMagneticNewStrategy::calculateUpwards(
 
         // compute the 2x2 submatrices in the write-up denoted as P+, P- and delta
         auto mpmm = computeBackwardsSubmatrices(coeff[i], coeff[i + 1], sigma);
-        auto mp = std::get<0>(mpmm);
-        auto mm = std::get<1>(mpmm);
+        const Eigen::Matrix2cd mp = mpmm.first;
+        const Eigen::Matrix2cd mm = mpmm.second;
 
-        auto delta = coeff[i].computeDeltaMatrix(slices[i].thickness());
+        const Eigen::Matrix2cd delta = coeff[i].computeDeltaMatrix(slices[i].thickness());
 
         // compute the rotation matrix
         Eigen::Matrix2cd S, Si;
@@ -124,11 +124,6 @@ void SpecularMagneticNewStrategy::calculateUpwards(
         auto norm = S(0, 0) * S(1, 1) - S(0, 1) * S(1, 0);
         S = S * delta;
 
-        // check whether the computation overflowed due to e.g. thick layers
-//        if (std::isinf(norm.real()) || std::isinf(norm.imag())
-//            || std::isnan(norm.real()) || std::isinf(norm.imag()))
-//            throw std::runtime_error("Pushed beyond numerical limits");
-
         // store the rotation matrix and normalization constant in order to rotate
         // the coefficients for all lower slices at the end of the computation
         SMatrices[i] = S;
@@ -137,10 +132,6 @@ void SpecularMagneticNewStrategy::calculateUpwards(
         // compute the reflection matrix and
         // rotate the polarization such that we have pure incoming states (T = I)
         S /= norm;
-//        S(0, 0) = complexDivision(S(0, 0), norm);
-//        S(0, 1) = complexDivision(S(0, 1), norm);
-//        S(1, 0) = complexDivision(S(1, 0), norm);
-//        S(1, 1) = complexDivision(S(1, 1), norm);
 
         // T is always equal to the identity at this point, no need to store
         coeff[i].m_R = delta * (mm + mp * coeff[i+1].m_R) * S;

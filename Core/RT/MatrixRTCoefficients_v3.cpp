@@ -134,12 +134,12 @@ Eigen::Vector2cd MatrixRTCoefficients_v3::getKz() const
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::pMatrixHelper(double sign) const
 {
-    auto alpha = m_lambda(1) + m_lambda(0);
-    auto beta = m_lambda(1) - m_lambda(0);
+    const complex_t alpha = m_lambda(1) + m_lambda(0);
+    const complex_t beta = m_lambda(1) - m_lambda(0);
 
     Eigen::Matrix2cd result;
 
-    auto b = m_b;
+    kvector_t b = m_b;
 
     result << alpha + sign * beta * b.z(), sign * beta * (b.x() - I * b.y()),
         sign * beta * (b.x() + I * b.y()), alpha - sign * beta * b.z();
@@ -149,7 +149,7 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::pMatrixHelper(double sign) const
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::computeP() const
 {
-    auto result = pMatrixHelper(1.);
+    Eigen::Matrix2cd result = pMatrixHelper(1.);
     result *= 0.5;
 
     return result;
@@ -157,13 +157,13 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeP() const
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
 {
-    auto alpha = m_lambda(1) + m_lambda(0);
-    auto beta = m_lambda(1) - m_lambda(0);
+    const complex_t alpha = m_lambda(1) + m_lambda(0);
+    const complex_t beta = m_lambda(1) - m_lambda(0);
 
     if (std::abs(alpha * alpha - beta * beta) < std::numeric_limits<double>::epsilon() * 10)
         throw std::runtime_error("Singular p_m");
 
-    auto result = pMatrixHelper(-1.);
+    Eigen::Matrix2cd result = pMatrixHelper(-1.);
     result *= 2. / (alpha * alpha - beta * beta);
 
     return result;
@@ -172,15 +172,15 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
 Eigen::Matrix2cd MatrixRTCoefficients_v3::computeDeltaMatrix(double thickness)
 {
     Eigen::Matrix2cd result;
-    auto alpha = 0.5 * thickness * (m_lambda(1) + m_lambda(0));
+    const auto alpha = 0.5 * thickness * (m_lambda(1) + m_lambda(0));
 
-    auto exp2 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(
+    const auto exp2 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(
         {GetImExponential(thickness * m_lambda(1)), GetImExponential(thickness * m_lambda(0))}));
 
     // Compute resulting phase matrix according to exp(i p_m d_m) = exp1 * Q * exp2 * Q.adjoint();
     if (std::abs(m_b.mag() - 1.) < std::numeric_limits<double>::epsilon() * 10.) {
         Eigen::Matrix2cd Q;
-        auto factor1 = 2. * (1. + m_b.z());
+        const double factor1 = 2. * (1. + m_b.z());
         Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
 
         result = Q * exp2 * Q.adjoint() / factor1;

@@ -186,7 +186,7 @@ void SpecularMagneticStrategy::propagateBackwardsForwards(
         const size_t i = static_cast<size_t>(index);
         const double t = slices[i].thickness();
         const auto kz = coeff[i].getKz();
-        Eigen::Matrix4cd l = coeff[i].R1 * GetImExponential(kz(0) * t)
+        const Eigen::Matrix4cd l = coeff[i].R1 * GetImExponential(kz(0) * t)
                              + coeff[i].T1 * GetImExponential(-kz(0) * t)
                              + coeff[i].R2 * GetImExponential(kz(1) * t)
                              + coeff[i].T2 * GetImExponential(-kz(1) * t);
@@ -194,9 +194,7 @@ void SpecularMagneticStrategy::propagateBackwardsForwards(
         coeff[i].m_w_min = l * coeff[i + 1].m_w_min;
 
         // rotate and normalize polarization
-        auto r = findNormalizationCoefficients(coeff[i]);
-        auto S = std::get<0>(r);
-        auto norm = std::get<1>(r);
+        const auto [S, norm] = findNormalizationCoefficients(coeff[i]);
 
         SMatrices[i] = S;
         Normalization[i] = norm;
@@ -206,14 +204,14 @@ void SpecularMagneticStrategy::propagateBackwardsForwards(
         const complex_t a_min = S(0, 1) / norm;
         const complex_t b_min = S(1, 1) / norm;
 
-        Eigen::Vector4cd w_plus = a_plus * coeff[i].m_w_plus + b_plus * coeff[i].m_w_min;
-        Eigen::Vector4cd w_min = a_min * coeff[i].m_w_plus + b_min * coeff[i].m_w_min;
+        const Eigen::Vector4cd w_plus = a_plus * coeff[i].m_w_plus + b_plus * coeff[i].m_w_min;
+        const Eigen::Vector4cd w_min = a_min * coeff[i].m_w_plus + b_min * coeff[i].m_w_min;
 
         coeff[i].m_w_plus = std::move(w_plus);
         coeff[i].m_w_min = std::move(w_min);
     }
 
-    auto dumpingFactor = complex_t(1, 0);
+    complex_t dumpingFactor = 1;
     Eigen::Matrix2cd S = Eigen::Matrix2cd::Identity();
     for (size_t i = 1; i < coeff.size(); ++i) {
         dumpingFactor = dumpingFactor * Normalization[i - 1];
@@ -248,13 +246,13 @@ SpecularMagneticStrategy::findNormalizationCoefficients(const MatrixRTCoefficien
     Eigen::Matrix2cd S;
     S << Ta(0), Tb(0), Ta(1), Tb(1);
 
-    Eigen::Matrix2cd result;
-    result << S(1, 1), -S(0, 1), -S(1, 0), S(0, 0);
-    auto d1 = S(1, 1) - S(0, 1);
-    auto d2 = S(1, 0) - S(0, 0);
-    auto denom = S(0, 0) * d1 - d2 * S(0, 1);
+    Eigen::Matrix2cd SInverse;
+    SInverse << S(1, 1), -S(0, 1), -S(1, 0), S(0, 0);
+    const complex_t d1 = S(1, 1) - S(0, 1);
+    const complex_t d2 = S(1, 0) - S(0, 0);
+    const complex_t denominator = S(0, 0) * d1 - d2 * S(0, 1);
 
-    return {result, denom};
+    return {SInverse, denominator};
 }
 
 namespace

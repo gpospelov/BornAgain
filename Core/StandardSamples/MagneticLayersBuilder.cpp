@@ -117,7 +117,7 @@ MultiLayer* SimpleMagneticRotationBuilder::builder(double sigmaRoughness,
     MultiLayer* multi_layer = new MultiLayer();
 
     kvector_t substr_field = kvector_t(0.0, 1e6, 0.0);
-    kvector_t layer_field(1e6, 0.0, 0.0);
+    kvector_t layer_field = kvector_t(1e6, 1e6, 0.0);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
     Material layer_material = HomogeneousMaterial("MagLayer", 6e-4, 2e-8, layer_field);
@@ -127,7 +127,7 @@ MultiLayer* SimpleMagneticRotationBuilder::builder(double sigmaRoughness,
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
-    Layer layer(layer_material);
+    Layer layer(layer_material, 200*Units::angstrom);
     multi_layer->addLayer(air_layer);
     multi_layer->addLayerWithTopRoughness(layer, roughness);
     multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);

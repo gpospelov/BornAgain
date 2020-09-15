@@ -21,8 +21,8 @@ SpecularScalarNCStrategy::transition(complex_t kzi, complex_t kzi1, double sigma
     complex_t roughness_diff = 1;
     complex_t roughness_sum = 1;
     if (sigma > 0.0) {
-        roughness_diff = exp(-(kzi1 - kzi) * (kzi1 - kzi) * sigma * sigma / 2.);
-        roughness_sum = exp(-(kzi1 + kzi) * (kzi1 + kzi) * sigma * sigma / 2.);
+        roughness_diff = std::exp(-(kzi1 - kzi) * (kzi1 - kzi) * sigma * sigma / 2.);
+        roughness_sum = std::exp(-(kzi1 + kzi) * (kzi1 + kzi) * sigma * sigma / 2.);
     }
     const complex_t kz_ratio = kzi1 / kzi;
 

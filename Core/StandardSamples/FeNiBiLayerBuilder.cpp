@@ -26,6 +26,10 @@ auto constexpr rhoMconst = -PhysConsts::m_n * PhysConsts::g_factor_n * PhysConst
                            / PhysConsts::h_bar / PhysConsts::h_bar * 1e-27;
 }
 
+const complex_t FeNiBiLayer::sldFe;
+const complex_t FeNiBiLayer::sldAu;
+const complex_t FeNiBiLayer::sldNi;
+
 std::unique_ptr<MultiLayer> FeNiBiLayer::constructSample()
 {
     auto sample = std::make_unique<MultiLayer>();

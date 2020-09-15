@@ -27,6 +27,7 @@ Eigen::Vector2cd checkForUnderflow(const Eigen::Vector2cd& eigenvs);
 // The factor 1e-18 is here to have unit: 1/T*nm^-2
 constexpr double magnetic_prefactor = PhysConsts::m_n * PhysConsts::g_factor_n * PhysConsts::mu_N
                                       / PhysConsts::h_bar / PhysConsts::h_bar / 4. / M_PI * 1e-18;
+const auto eps = std::numeric_limits<double>::epsilon() * 10.;
 const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
                                          const size_t slice_index);
 } // namespace
@@ -72,15 +73,15 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
         auto B = slices[i].bField() - B_0;
         auto magnetic_SLD = magneticSLD(B);
         result.emplace_back(kz_sign, checkForUnderflow(eigenvalues(kzs[i], magnetic_SLD)),
-                            B.mag() > std::numeric_limits<double>::epsilon() * 10
+                            B.mag() > eps
                                 ? B / B.mag()
                                 : kvector_t{0.0, 0.0, 0.0},
                             magnetic_SLD);
     }
 
-    if (std::abs(kzs[0]) < std::sqrt(10 * std::numeric_limits<double>::epsilon())) {
+    if (std::abs(kzs[0]) < std::sqrt(eps)) {
         for (size_t i = 0, size = slices.size(); i < size; ++i) {
-            if (std::abs(kzs[i]) >= std::sqrt(10 * std::numeric_limits<double>::epsilon())) {
+            if (std::abs(kzs[i]) >= std::sqrt(eps)) {
                 result[i].m_T << 0, 0, 0, 0;
                 result[i].m_R << 0, 0, 0, 0;
             }

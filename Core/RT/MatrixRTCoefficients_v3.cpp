@@ -19,6 +19,7 @@
 namespace
 {
 complex_t GetImExponential(complex_t exponent);
+const auto eps = std::numeric_limits<double>::epsilon() * 10.;
 } // namespace
 
 MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues,
@@ -26,9 +27,7 @@ MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2c
     : m_kz_sign(kz_sign), m_lambda(std::move(eigenvalues)), m_b(std::move(b)),
       m_magnetic_SLD(magnetic_SLD)
 {
-    ASSERT(std::abs(m_b.mag() - 1) < std::numeric_limits<double>::epsilon() * 10
-           || (m_b.mag() < std::numeric_limits<double>::epsilon() * 10
-               && magnetic_SLD < std::numeric_limits<double>::epsilon() * 10));
+    ASSERT(std::abs(m_b.mag() - 1) < eps || (m_b.mag() < eps && magnetic_SLD < eps));
 
     m_T << 1, 0, 0, 1;
     m_R << -1, 0, 0, -1;
@@ -50,16 +49,16 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenva
 
     auto exp2 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(selection));
 
-    if (std::abs(m_b.mag() - 1.) < std::numeric_limits<double>::epsilon() * 10.) {
+    if (std::abs(m_b.mag() - 1.) < eps) {
         Eigen::Matrix2cd Q;
         auto factor1 = 2. * (1. + m_b.z());
         Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
         result = Q * exp2 * Q.adjoint() / factor1;
 
-    } else if (m_b.mag() < std::numeric_limits<double>::epsilon() * 10. && eigenvalue != 0.)
+    } else if (m_b.mag() < eps && eigenvalue != 0.)
         result = exp2;
     //        result = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
-    else if (m_b.mag() < std::numeric_limits<double>::epsilon() * 10. && eigenvalue == 0.)
+    else if (m_b.mag() < eps && eigenvalue == 0.)
         result = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
     else
         throw std::runtime_error("Broken magnetic field vector");
@@ -160,7 +159,7 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
     const complex_t alpha = m_lambda(1) + m_lambda(0);
     const complex_t beta = m_lambda(1) - m_lambda(0);
 
-    if (std::abs(alpha * alpha - beta * beta) < std::numeric_limits<double>::epsilon() * 10)
+    if (std::abs(alpha * alpha - beta * beta) < eps)
         throw std::runtime_error("Singular p_m");
 
     Eigen::Matrix2cd result = pMatrixHelper(-1.);
@@ -178,14 +177,14 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeDeltaMatrix(double thickness)
         {GetImExponential(thickness * m_lambda(1)), GetImExponential(thickness * m_lambda(0))}));
 
     // Compute resulting phase matrix according to exp(i p_m d_m) = exp1 * Q * exp2 * Q.adjoint();
-    if (std::abs(m_b.mag() - 1.) < std::numeric_limits<double>::epsilon() * 10.) {
+    if (std::abs(m_b.mag() - 1.) < eps) {
         Eigen::Matrix2cd Q;
         const double factor1 = 2. * (1. + m_b.z());
         Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
 
         result = Q * exp2 * Q.adjoint() / factor1;
 
-    } else if (m_b.mag() < 10 * std::numeric_limits<double>::epsilon()) {
+    } else if (m_b.mag() < eps) {
         result = Eigen::Matrix2cd::Identity() * GetImExponential(alpha);
 
     } else

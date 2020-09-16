@@ -24,51 +24,49 @@ SpecularMagneticNewNCStrategy::computeRoughnessMatrices(const MatrixRTCoefficien
                                                         const MatrixRTCoefficients_v3& coeff_i1,
                                                         double sigma) const
 {
-    auto beta_i  = coeff_i.m_lambda(1) - coeff_i.m_lambda(0);
-    auto beta_i1 = coeff_i1.m_lambda(1) - coeff_i1.m_lambda(0);
+    complex_t beta_i  = coeff_i.m_lambda(1) - coeff_i.m_lambda(0);
+    complex_t beta_i1 = coeff_i1.m_lambda(1) - coeff_i1.m_lambda(0);
 
     auto roughness_matrix = [sigma, &coeff_i, &coeff_i1, beta_i, beta_i1](double sign){
 
-        auto alpha_p = coeff_i1.m_lambda(0) + coeff_i1.m_lambda(1) +
+        const complex_t alpha_p = coeff_i1.m_lambda(0) + coeff_i1.m_lambda(1) +
                         sign * (coeff_i.m_lambda(0) + coeff_i.m_lambda(1));
         auto b_p_vec = beta_i1 * coeff_i1.m_b + sign * beta_i * coeff_i.m_b;
 
         auto square = [](auto & v){
             return v.x() * v.x() + v.y() * v.y() + v.z() * v.z();
         };
-        auto beta_p = std::sqrt(checkForUnderflow(square(b_p_vec)));
+        complex_t beta_p = std::sqrt(checkForUnderflow(square(b_p_vec)));
         b_p_vec /= beta_p;
 
-        auto alpha_pp = -(alpha_p * alpha_p + beta_p * beta_p) * sigma * sigma / 8.;
-        auto beta_pp  = - alpha_p * beta_p * sigma * sigma / 4.;
+        const complex_t alpha_pp = -(alpha_p * alpha_p + beta_p * beta_p) * sigma * sigma / 8.;
+        const complex_t beta_pp  = - alpha_p * beta_p * sigma * sigma / 4.;
 
         Eigen::Matrix2cd QL, QR;
 
-        auto factor1 = std::sqrt(2. * (1. + b_p_vec.z()));
-        auto factor2 = std::sqrt(2. * (1. - b_p_vec.z()));
+        const complex_t factor1 = std::sqrt(2. * (1. + b_p_vec.z()));
+        const complex_t factor2 = std::sqrt(2. * (1. - b_p_vec.z()));
         QL << (b_p_vec.z() + 1.)/factor1,                (b_p_vec.z() - 1.)/factor2,
                 (b_p_vec.x() + I * b_p_vec.y())/factor1, (b_p_vec.x() + I * b_p_vec.y())/factor2;
         QR << (b_p_vec.z() + 1.)/factor1,   (b_p_vec.x() - I * b_p_vec.y())/factor1,
                 (b_p_vec.z() - 1.)/factor2, (b_p_vec.x() - I * b_p_vec.y())/factor2;
 
-        auto exp1 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(
-                            {std::exp(alpha_pp), std::exp(alpha_pp)}));
+        const Eigen::Matrix2cd exp1 = Eigen::DiagonalMatrix<complex_t, 2>(
+                            {std::exp(alpha_pp), std::exp(alpha_pp)});
 
-        Eigen::Matrix2cd roughnessMatrix;
         if( std::abs(beta_p) > std::numeric_limits<double>::epsilon() * 10. )
         {
             Eigen::Matrix2cd exp2 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(
                                 {std::exp(beta_pp), std::exp(-beta_pp)}));
-            roughnessMatrix = exp1 * QL * exp2 * QR;
+            return Eigen::Matrix2cd{exp1 * QL * exp2 * QR};
+        }
 
-        }else
-            roughnessMatrix = exp1;
 
-        return roughnessMatrix;
+        return exp1;
     };
 
-    auto roughness_sum  = roughness_matrix(1.);
-    auto roughness_diff = roughness_matrix(-1.);
+    const Eigen::Matrix2cd roughness_sum  = roughness_matrix(1.);
+    const Eigen::Matrix2cd roughness_diff = roughness_matrix(-1.);
 
     return {roughness_sum, roughness_diff};
 }
@@ -81,14 +79,14 @@ SpecularMagneticNewNCStrategy::computeBackwardsSubmatrices(const MatrixRTCoeffic
     Eigen::Matrix2cd roughness_sum{Eigen::Matrix2cd::Identity()};
     Eigen::Matrix2cd roughness_diff{Eigen::Matrix2cd::Identity()};
     if (sigma != 0.) {
-        auto ret = computeRoughnessMatrices(coeff_i, coeff_i1, sigma);
+        const auto ret = computeRoughnessMatrices(coeff_i, coeff_i1, sigma);
         roughness_sum = std::get<0>(ret);
         roughness_diff = std::get<1>(ret);
     }
 
-    auto P = Eigen::Matrix2cd(coeff_i.computeInverseP() * coeff_i1.computeP());
-    auto mp = 0.5 * (Eigen::Matrix2cd::Identity() + P) * roughness_diff;
-    auto mm = 0.5 * (Eigen::Matrix2cd::Identity() - P) * roughness_sum;
+    const auto P = Eigen::Matrix2cd(coeff_i.computeInverseP() * coeff_i1.computeP());
+    const auto mp = 0.5 * (Eigen::Matrix2cd::Identity() + P) * roughness_diff;
+    const auto mm = 0.5 * (Eigen::Matrix2cd::Identity() - P) * roughness_sum;
 
     return {mp, mm};
 }

@@ -97,7 +97,7 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
 void SpecularMagneticNewStrategy::calculateUpwards(
     std::vector<MatrixRTCoefficients_v3>& coeff, const std::vector<Slice>& slices) const
 {
-    auto N = slices.size();
+    const auto N = slices.size();
     std::vector<Eigen::Matrix2cd> SMatrices(N-1);
     std::vector<complex_t> Normalization(N-1);
 
@@ -111,7 +111,7 @@ void SpecularMagneticNewStrategy::calculateUpwards(
             sigma = roughness->getSigma();
 
         // compute the 2x2 submatrices in the write-up denoted as P+, P- and delta
-        auto mpmm = computeBackwardsSubmatrices(coeff[i], coeff[i + 1], sigma);
+        const auto mpmm = computeBackwardsSubmatrices(coeff[i], coeff[i + 1], sigma);
         const Eigen::Matrix2cd mp = mpmm.first;
         const Eigen::Matrix2cd mm = mpmm.second;
 
@@ -122,7 +122,7 @@ void SpecularMagneticNewStrategy::calculateUpwards(
         Si = mp + mm * coeff[i+1].m_R;
         S << Si(1, 1) , -Si(0, 1),
              -Si(1, 0), Si(0, 0);
-        auto norm = S(0, 0) * S(1, 1) - S(0, 1) * S(1, 0);
+        const complex_t norm = S(0, 0) * S(1, 1) - S(0, 1) * S(1, 0);
         S = S * delta;
 
         // store the rotation matrix and normalization constant in order to rotate
@@ -142,7 +142,7 @@ void SpecularMagneticNewStrategy::calculateUpwards(
     // normalization constants. In addition rotate the polarization by the amount
     // that was rotated above the current interface
     // if the normalization overflows, all amplitudes below that point are set to zero
-    auto dumpingFactor = complex_t(1, 0);
+    complex_t dumpingFactor = 1;
     Eigen::Matrix2cd S = Eigen::Matrix2cd::Identity();
     for (size_t i = 1; i < N; ++i) {
         dumpingFactor = dumpingFactor * Normalization[i - 1];

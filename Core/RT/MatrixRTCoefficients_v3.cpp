@@ -14,7 +14,6 @@
 
 #include "Core/RT/MatrixRTCoefficients_v3.h"
 #include "Core/Basics/Assert.h"
-#include <iostream>
 
 namespace
 {
@@ -45,25 +44,21 @@ MatrixRTCoefficients_v3* MatrixRTCoefficients_v3::clone() const
 Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenvalue,
                                                                Eigen::Vector2d selection) const
 {
-    Eigen::Matrix2cd result;
-
-    auto exp2 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(selection));
+    const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(selection);
 
     if (std::abs(m_b.mag() - 1.) < eps) {
         Eigen::Matrix2cd Q;
-        auto factor1 = 2. * (1. + m_b.z());
+        const double factor1 = 2. * (1. + m_b.z());
         Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
-        result = Q * exp2 * Q.adjoint() / factor1;
+        return Q * exp2 * Q.adjoint() / factor1;
 
     } else if (m_b.mag() < eps && eigenvalue != 0.)
-        result = exp2;
+        return exp2;
     //        result = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
     else if (m_b.mag() < eps && eigenvalue == 0.)
-        result = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
-    else
-        throw std::runtime_error("Broken magnetic field vector");
+        return Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
 
-    return result;
+    throw std::runtime_error("Broken magnetic field vector");
 }
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::T1Matrix() const
@@ -78,52 +73,42 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::T2Matrix() const
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::T1plus() const
 {
-    auto mat = T1Matrix();
-    return mat * m_T.col(0);
-    ;
+    return T1Matrix() * m_T.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::R1plus() const
 {
-    auto mat = T1Matrix();
-    return mat * m_R.col(0);
-    ;
+    return T1Matrix() * m_R.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::T2plus() const
 {
-    auto mat = T2Matrix();
-    return mat * m_T.col(0);
+    return T2Matrix() * m_T.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::R2plus() const
 {
-    auto mat = T2Matrix();
-    return mat * m_R.col(0);
+    return T2Matrix() * m_R.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::T1min() const
 {
-    auto mat = T1Matrix();
-    return mat * m_T.col(1);
+    return T1Matrix() * m_T.col(1);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::R1min() const
 {
-    auto mat = T1Matrix();
-    return mat * m_R.col(1);
+    return T1Matrix() * m_R.col(1);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::T2min() const
 {
-    auto mat = T2Matrix();
-    return mat * m_T.col(1);
+    return T2Matrix() * m_T.col(1);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::R2min() const
 {
-    auto mat = T2Matrix();
-    return mat * m_R.col(1);
+    return T2Matrix() * m_R.col(1);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::getKz() const
@@ -171,10 +156,10 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
 Eigen::Matrix2cd MatrixRTCoefficients_v3::computeDeltaMatrix(double thickness)
 {
     Eigen::Matrix2cd result;
-    const auto alpha = 0.5 * thickness * (m_lambda(1) + m_lambda(0));
+    const complex_t alpha = 0.5 * thickness * (m_lambda(1) + m_lambda(0));
 
-    const auto exp2 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(
-        {GetImExponential(thickness * m_lambda(1)), GetImExponential(thickness * m_lambda(0))}));
+    const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(
+        {GetImExponential(thickness * m_lambda(1)), GetImExponential(thickness * m_lambda(0))});
 
     // Compute resulting phase matrix according to exp(i p_m d_m) = exp1 * Q * exp2 * Q.adjoint();
     if (std::abs(m_b.mag() - 1.) < eps) {
@@ -182,15 +167,12 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeDeltaMatrix(double thickness)
         const double factor1 = 2. * (1. + m_b.z());
         Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
 
-        result = Q * exp2 * Q.adjoint() / factor1;
+        return Q * exp2 * Q.adjoint() / factor1;
 
-    } else if (m_b.mag() < eps) {
-        result = Eigen::Matrix2cd::Identity() * GetImExponential(alpha);
+    } else if (m_b.mag() < eps)
+        return Eigen::Matrix2cd::Identity() * GetImExponential(alpha);
 
-    } else
-        throw std::runtime_error("Broken magnetic field vector");
-
-    return result;
+    throw std::runtime_error("Broken magnetic field vector");
 }
 
 namespace

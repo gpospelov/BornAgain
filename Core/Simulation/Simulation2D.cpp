@@ -34,7 +34,7 @@ Simulation2D::~Simulation2D() = default;
 void Simulation2D::prepareSimulation()
 {
     Simulation::prepareSimulation();
-    detector_context = m_instrument.detector2D().createContext();
+    m_detector_context = m_instrument.detector2D().createContext();
 }
 
 void Simulation2D::removeMasks()
@@ -64,9 +64,9 @@ Simulation2D::Simulation2D(const Simulation2D& other)
 
 size_t Simulation2D::numberOfSimulationElements() const
 {
-    if (!detector_context)
+    if (!m_detector_context)
         throw std::runtime_error("Error in numberOfSimulationElements(): no detector context");
-    return detector_context->numberOfSimulationElements();
+    return m_detector_context->numberOfSimulationElements();
 }
 
 void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
@@ -102,15 +102,16 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     const Eigen::Matrix2cd analyzer_operator = detector.detectionProperties().analyzerOperator();
     const size_t spec_index = detector.getIndexOfSpecular(beam);
 
+    const size_t N = m_detector_context->numberOfSimulationElements();
+
     std::vector<SimulationElement> result;
-    result.reserve(detector_context->numberOfSimulationElements());
-    for (size_t element_index = 0; element_index < detector_context->numberOfSimulationElements();
-         ++element_index) {
+    result.reserve(N);
+    for (size_t element_index = 0; element_index < N; ++element_index) {
         SimulationElement element(wavelength, alpha_i, phi_i,
-                                  detector_context->createPixel(element_index));
+                                  m_detector_context->createPixel(element_index));
         element.setPolarization(beam_polarization);
         element.setAnalyzerOperator(analyzer_operator);
-        if (detector_context->detectorIndex(element_index) == spec_index)
+        if (m_detector_context->detectorIndex(element_index) == spec_index)
             element.setSpecular(true);
         result.emplace_back(std::move(element));
     }

@@ -133,12 +133,6 @@ const IDetector* Instrument::getDetector() const
     return mP_detector.get();
 }
 
-IDetector* Instrument::getDetector()
-{
-    ASSERT(mP_detector);
-    return mP_detector.get();
-}
-
 const IDetector& Instrument::detector() const
 {
     ASSERT(mP_detector);

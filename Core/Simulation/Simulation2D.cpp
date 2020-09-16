@@ -93,18 +93,16 @@ std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(si
 
 std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Beam& beam)
 {
-    std::vector<SimulationElement> result;
-
     const double wavelength = beam.getWavelength();
     const double alpha_i = -beam.getAlpha(); // Defined to be always positive in Beam
     const double phi_i = beam.getPhi();
+    const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
 
     const IDetector2D& detector = m_instrument.detector2D();
-
-    const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
     const Eigen::Matrix2cd analyzer_operator = detector.detectionProperties().analyzerOperator();
     const size_t spec_index = detector.getIndexOfSpecular(beam);
 
+    std::vector<SimulationElement> result;
     result.reserve(detector_context->numberOfSimulationElements());
     for (size_t element_index = 0; element_index < detector_context->numberOfSimulationElements();
          ++element_index) {

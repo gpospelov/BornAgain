@@ -56,7 +56,6 @@ public:
 
     double getBeamIntensity() const;
 
-    IDetector* getDetector();
     const IDetector* getDetector() const;
     IDetector& detector();
     const IDetector& detector() const;

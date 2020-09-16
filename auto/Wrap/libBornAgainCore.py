@@ -20978,14 +20978,13 @@ class Instrument(INode):
         """
         return _libBornAgainCore.Instrument_getBeamIntensity(self)
 
-    def getDetector(self, *args):
+    def getDetector(self):
         r"""
-        getDetector(Instrument self) -> IDetector
         getDetector(Instrument self) -> IDetector
         const IDetector * Instrument::getDetector() const
 
         """
-        return _libBornAgainCore.Instrument_getDetector(self, *args)
+        return _libBornAgainCore.Instrument_getDetector(self)
 
     def detector(self, *args):
         r"""

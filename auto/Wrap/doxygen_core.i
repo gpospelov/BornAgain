@@ -7648,6 +7648,9 @@ Scalar value getters; these throw errors by default as they should only be used 
 %feature("docstring")  ILayerRTCoefficients::getScalarKz "virtual complex_t ILayerRTCoefficients::getScalarKz() const
 ";
 
+%feature("docstring")  ILayerRTCoefficients::getReflectionMatrix "virtual Eigen::Matrix2cd ILayerRTCoefficients::getReflectionMatrix() const
+";
+
 
 // File: classILayout.xml
 %feature("docstring") ILayout "
@@ -8284,6 +8287,9 @@ Returns the detector data.
 ";
 
 %feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
+";
+
+%feature("docstring")  Instrument::detector2D "IDetector2D & Instrument::detector2D()
 ";
 
 %feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
@@ -9862,6 +9868,12 @@ C++ includes: ISpecularStrategy.h
 %feature("docstring")  ISpecularStrategy::~ISpecularStrategy "virtual ISpecularStrategy::~ISpecularStrategy()=default
 ";
 
+%feature("docstring")  ISpecularStrategy::ISpecularStrategy "ISpecularStrategy::ISpecularStrategy()=default
+";
+
+%feature("docstring")  ISpecularStrategy::ISpecularStrategy "ISpecularStrategy::ISpecularStrategy(const ISpecularStrategy &other)=delete
+";
+
 %feature("docstring")  ISpecularStrategy::Execute "virtual coeffs_t ISpecularStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const =0
 ";
 
@@ -11101,6 +11113,9 @@ The following functions return the transmitted and reflected amplitudes for diff
 %feature("docstring")  MatrixRTCoefficients_v2::getKz "Eigen::Vector2cd MatrixRTCoefficients_v2::getKz() const override
 
 Returns z-part of the two wavevector eigenmodes. 
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::getReflectionMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v2::getReflectionMatrix() const override
 ";
 
 
@@ -17099,9 +17114,6 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d530.xml
-
-
-// File: namespace_0d532.xml
 
 
 // File: namespace_0d536.xml

@@ -35,7 +35,7 @@ Instrument::Instrument(const Instrument& other) : m_beam(other.m_beam)
     setName(other.getName());
 }
 
-Instrument::~Instrument() {}
+Instrument::~Instrument() = default;
 
 Instrument& Instrument::operator=(const Instrument& other)
 {
@@ -137,6 +137,12 @@ IDetector* Instrument::getDetector()
     return mP_detector.get();
 }
 
+IDetector2D& Instrument::detector2D()
+{
+    check2D();
+    return *dynamic_cast<IDetector2D*>(mP_detector.get());
+}
+
 const IAxis& Instrument::getDetectorAxis(size_t index) const
 {
     return mP_detector->getAxis(index);
@@ -151,4 +157,10 @@ void Instrument::setAnalyzerProperties(const kvector_t direction, double efficie
                                        double total_transmission)
 {
     mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
+}
+
+void Instrument::check2D()
+{
+    if (!dynamic_cast<IDetector2D*>(mP_detector.get()))
+        throw std::runtime_error("Error: Detector is not twodimensional");
 }

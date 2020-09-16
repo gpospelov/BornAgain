@@ -61,6 +61,7 @@ public:
     //! Returns the detector data
     const IDetector* getDetector() const;
     IDetector* getDetector();
+    IDetector2D& detector2D();
 
     const DetectorMask* getDetectorMask() const;
 
@@ -98,6 +99,9 @@ public:
 protected:
     std::unique_ptr<IDetector> mP_detector;
     Beam m_beam;
+
+private:
+    void check2D();
 };
 
 #endif // BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H

@@ -18927,15 +18927,15 @@ class IDetector2D(IDetector):
         """
         return _libBornAgainCore.IDetector2D_createPixel(self, index)
 
-    def getIndexOfSpecular(self, beam):
+    def indexOfSpecular(self, beam):
         r"""
-        getIndexOfSpecular(IDetector2D self, Beam beam) -> size_t
-        virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
+        indexOfSpecular(IDetector2D self, Beam beam) -> size_t
+        virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
 
         Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
 
         """
-        return _libBornAgainCore.IDetector2D_getIndexOfSpecular(self, beam)
+        return _libBornAgainCore.IDetector2D_indexOfSpecular(self, beam)
 
 # Register IDetector2D in _libBornAgainCore:
 _libBornAgainCore.IDetector2D_swigregister(IDetector2D)

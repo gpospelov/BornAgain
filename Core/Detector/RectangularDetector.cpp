@@ -209,7 +209,7 @@ std::string RectangularDetector::axisName(size_t index) const
     }
 }
 
-size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
+size_t RectangularDetector::indexOfSpecular(const Beam& beam) const
 {
     if (dimension() != 2)
         return totalSize();

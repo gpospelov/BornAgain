@@ -100,7 +100,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
 
     const IDetector2D& detector = m_instrument.detector2D();
     const Eigen::Matrix2cd analyzer_operator = detector.detectionProperties().analyzerOperator();
-    const size_t spec_index = detector.getIndexOfSpecular(beam);
+    const size_t spec_index = detector.indexOfSpecular(beam);
 
     const size_t N = m_detector_context->numberOfSimulationElements();
 

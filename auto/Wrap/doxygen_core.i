@@ -8267,8 +8267,6 @@ Sets the beam wavelength and incoming angles.
 ";
 
 %feature("docstring")  Instrument::setBeamIntensity "void Instrument::setBeamIntensity(double intensity)
-
-Sets the beam's intensity. 
 ";
 
 %feature("docstring")  Instrument::setBeamPolarization "void Instrument::setBeamPolarization(const kvector_t bloch_vector)
@@ -8277,32 +8275,33 @@ Sets the beam's polarization according to the given Bloch vector.
 ";
 
 %feature("docstring")  Instrument::getBeamIntensity "double Instrument::getBeamIntensity() const
-
-Returns the beam's intensity. 
-";
-
-%feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
-
-Returns the detector data. 
 ";
 
 %feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
 ";
 
+%feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
+";
+
+%feature("docstring")  Instrument::detector "IDetector & Instrument::detector()
+";
+
+%feature("docstring")  Instrument::detector "const IDetector & Instrument::detector() const
+";
+
 %feature("docstring")  Instrument::detector2D "IDetector2D & Instrument::detector2D()
+";
+
+%feature("docstring")  Instrument::detector2D "const IDetector2D & Instrument::detector2D() const
 ";
 
 %feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
 ";
 
 %feature("docstring")  Instrument::getDetectorAxis "const IAxis & Instrument::getDetectorAxis(size_t index) const
-
-Returns a detector axis. 
 ";
 
 %feature("docstring")  Instrument::getDetectorDimension "size_t Instrument::getDetectorDimension() const
-
-Returns the detector's dimension. 
 ";
 
 %feature("docstring")  Instrument::setDetector "void Instrument::setDetector(const IDetector &detector)

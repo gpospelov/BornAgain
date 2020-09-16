@@ -37,7 +37,7 @@ UnitConverterUtils::createOutputData(const IUnitConverter& converter, AxesUnits 
 std::unique_ptr<IUnitConverter>
 UnitConverterUtils::createConverterForGISAS(const Instrument& instrument)
 {
-    const auto detector = instrument.getDetector();
+    const IDetector* detector = instrument.getDetector();
 
     if (const auto spher_detector = dynamic_cast<const SphericalDetector*>(detector))
         return std::make_unique<SphericalConverter>(*spher_detector, instrument.getBeam());

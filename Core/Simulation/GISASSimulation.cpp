@@ -66,12 +66,8 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
 
 size_t GISASSimulation::intensityMapSize() const
 {
-    auto detector = getInstrument().getDetector();
-    if (!detector)
-        throw std::runtime_error(
-            "Error in GISASSimulation::intensityMapSize: attempt to access non-initialized data.");
     size_t result = 0;
-    detector->iterate([&result](IDetector::const_iterator) { ++result; }, true);
+    getInstrument().detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
     return result;
 }
 

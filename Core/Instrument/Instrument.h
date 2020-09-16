@@ -49,26 +49,25 @@ public:
     //! Sets the beam wavelength and incoming angles
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
-    //! Sets the beam's intensity
     void setBeamIntensity(double intensity);
 
     //! Sets the beam's polarization according to the given Bloch vector
     void setBeamPolarization(const kvector_t bloch_vector);
 
-    //! Returns the beam's intensity
     double getBeamIntensity() const;
 
-    //! Returns the detector data
-    const IDetector* getDetector() const;
     IDetector* getDetector();
+    const IDetector* getDetector() const;
+    IDetector& detector();
+    const IDetector& detector() const;
+
     IDetector2D& detector2D();
+    const IDetector2D& detector2D() const;
 
     const DetectorMask* getDetectorMask() const;
 
-    //! Returns a detector axis
     const IAxis& getDetectorAxis(size_t index) const;
 
-    //! Returns the detector's dimension
     size_t getDetectorDimension() const;
 
     //! Sets the detector (axes can be overwritten later)
@@ -99,9 +98,6 @@ public:
 protected:
     std::unique_ptr<IDetector> mP_detector;
     Beam m_beam;
-
-private:
-    void check2D();
 };
 
 #endif // BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H

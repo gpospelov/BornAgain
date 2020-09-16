@@ -20957,8 +20957,6 @@ class Instrument(INode):
         setBeamIntensity(Instrument self, double intensity)
         void Instrument::setBeamIntensity(double intensity)
 
-        Sets the beam's intensity. 
-
         """
         return _libBornAgainCore.Instrument_setBeamIntensity(self, intensity)
 
@@ -20977,8 +20975,6 @@ class Instrument(INode):
         getBeamIntensity(Instrument self) -> double
         double Instrument::getBeamIntensity() const
 
-        Returns the beam's intensity. 
-
         """
         return _libBornAgainCore.Instrument_getBeamIntensity(self)
 
@@ -20986,18 +20982,28 @@ class Instrument(INode):
         r"""
         getDetector(Instrument self) -> IDetector
         getDetector(Instrument self) -> IDetector
-        IDetector * Instrument::getDetector()
+        const IDetector * Instrument::getDetector() const
 
         """
         return _libBornAgainCore.Instrument_getDetector(self, *args)
 
-    def detector2D(self):
+    def detector(self, *args):
         r"""
-        detector2D(Instrument self) -> IDetector2D
-        IDetector2D & Instrument::detector2D()
+        detector(Instrument self) -> IDetector
+        detector(Instrument self) -> IDetector
+        const IDetector & Instrument::detector() const
 
         """
-        return _libBornAgainCore.Instrument_detector2D(self)
+        return _libBornAgainCore.Instrument_detector(self, *args)
+
+    def detector2D(self, *args):
+        r"""
+        detector2D(Instrument self) -> IDetector2D
+        detector2D(Instrument self) -> IDetector2D
+        const IDetector2D & Instrument::detector2D() const
+
+        """
+        return _libBornAgainCore.Instrument_detector2D(self, *args)
 
     def getDetectorMask(self):
         r"""
@@ -21012,8 +21018,6 @@ class Instrument(INode):
         getDetectorAxis(Instrument self, size_t index) -> IAxis
         const IAxis & Instrument::getDetectorAxis(size_t index) const
 
-        Returns a detector axis. 
-
         """
         return _libBornAgainCore.Instrument_getDetectorAxis(self, index)
 
@@ -21021,8 +21025,6 @@ class Instrument(INode):
         r"""
         getDetectorDimension(Instrument self) -> size_t
         size_t Instrument::getDetectorDimension() const
-
-        Returns the detector's dimension. 
 
         """
         return _libBornAgainCore.Instrument_getDetectorDimension(self)

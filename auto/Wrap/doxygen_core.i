@@ -6690,7 +6690,7 @@ Returns vector of unmasked detector indices.
 Create an  IPixel for the given  OutputData object and index. 
 ";
 
-%feature("docstring")  IDetector2D::getIndexOfSpecular "virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
+%feature("docstring")  IDetector2D::indexOfSpecular "virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
 
 Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
 ";

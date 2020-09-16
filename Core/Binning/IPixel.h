@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Binning/IPixel.h
-//! @brief     Defines interface IPixel.
+//! @brief     Defines pure virtual interface IPixel (has no cpp file)
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

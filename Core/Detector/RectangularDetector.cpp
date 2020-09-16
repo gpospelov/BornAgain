@@ -213,16 +213,16 @@ size_t RectangularDetector::indexOfSpecular(const Beam& beam) const
 {
     if (dimension() != 2)
         return totalSize();
-    double alpha = beam.getAlpha();
-    double phi = beam.getPhi();
-    kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
-    kvector_t normal_unit = m_normal_to_detector.unit();
-    double kd = k_spec.dot(normal_unit);
+    const double alpha = beam.getAlpha();
+    const double phi = beam.getPhi();
+    const kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
+    const kvector_t normal_unit = m_normal_to_detector.unit();
+    const double kd = k_spec.dot(normal_unit);
     if (kd <= 0.0)
         return totalSize();
-    kvector_t k_orth = (k_spec / kd - normal_unit) * m_distance;
-    double u = k_orth.dot(m_u_unit) + m_u0;
-    double v = k_orth.dot(m_v_unit) + m_v0;
+    const kvector_t k_orth = (k_spec / kd - normal_unit) * m_distance;
+    const double u = k_orth.dot(m_u_unit) + m_u0;
+    const double v = k_orth.dot(m_v_unit) + m_v0;
     const IAxis& u_axis = getAxis(0);
     const IAxis& v_axis = getAxis(1);
     if (u_axis.contains(u) && v_axis.contains(v))

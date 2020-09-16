@@ -44,11 +44,11 @@ int run(const std::string& test_name, const std::string& sim_name,
 
     int number_of_failed_tests = 0;
     for (size_t iSample = 0; iSample < builder->size(); ++iSample) {
-        std::cout << "- run subtest " << iSample << "/" << builder->size() << ": "
-                  << builder->getName() << "\n";
-
         std::unique_ptr<MultiLayer> sample(builder->createSample(iSample));
         simulation->setSample(*sample);
+
+        std::cout << "- run subtest " << iSample << "/" << builder->size() << ": "
+                  << builder->getName() << "\n";
 
         std::string full_name = test_name;
         if (builder->getName() != "SampleBuilder")

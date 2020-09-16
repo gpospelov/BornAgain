@@ -71,8 +71,12 @@ BA_CORE_API_ SpecularSimulation* TOFRWithPointwiseResolution();
 // polarized specular:
 BA_CORE_API_ SpecularSimulation* BasicSpecularPP();
 BA_CORE_API_ SpecularSimulation* BasicSpecularMM();
+BA_CORE_API_ SpecularSimulation* BasicSpecularPM();
+BA_CORE_API_ SpecularSimulation* BasicSpecularMP();
 BA_CORE_API_ SpecularSimulation* BasicSpecularQPP();
 BA_CORE_API_ SpecularSimulation* BasicSpecularQMM();
+BA_CORE_API_ SpecularSimulation* BasicSpecularQPM();
+BA_CORE_API_ SpecularSimulation* BasicSpecularQMP();
 
 // OffSpec simulations
 BA_CORE_API_ OffSpecSimulation* MiniOffSpec();

@@ -16,6 +16,7 @@
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/RoughnessModels.h"
 
 class ISample;
 
@@ -53,6 +54,22 @@ public:
 
 private:
     double m_sphere_radius;
+};
+
+//! Builds sample: magnetic layer on a magnetic substrate with the fields rotated by 90°
+//! @ingroup standard_samples
+
+class BA_CORE_API_ SimpleMagneticRotationBuilder : public IMultiLayerBuilder
+{
+public:
+    SimpleMagneticRotationBuilder();
+    MultiLayer* buildSample() const override;
+
+    MultiLayer* createSample(size_t index = 0) override;
+    size_t size() override;
+protected:
+    MultiLayer* builder(double sigmaRoughness = 0.,
+                        RoughnessModel roughnessModel = RoughnessModel::TANH) const;
 };
 
 //! Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.

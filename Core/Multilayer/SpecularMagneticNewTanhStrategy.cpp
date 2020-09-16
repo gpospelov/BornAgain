@@ -34,8 +34,7 @@ SpecularMagneticNewTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficien
     if (std::abs(b.mag() - 1.) < std::numeric_limits<double>::epsilon() * 10.) {
         Eigen::Matrix2cd Q;
         const double factor1 = 2. * (1. + b.z());
-        Q << (1. + b.z()),    (I * b.y() - b.x()),
-                (b.x() + I * b.y()), (b.z() + 1.);
+        Q << (1. + b.z()), (I * b.y() - b.x()), (b.x() + I * b.y()), (b.z() + 1.);
 
         complex_t l1 = std::sqrt(MathFunctions::tanhc(sigeff * coeff.m_lambda(1)));
         complex_t l2 = std::sqrt(MathFunctions::tanhc(sigeff * coeff.m_lambda(0)));

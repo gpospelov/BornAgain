@@ -24,48 +24,43 @@ SpecularMagneticNewNCStrategy::computeRoughnessMatrices(const MatrixRTCoefficien
                                                         const MatrixRTCoefficients_v3& coeff_i1,
                                                         double sigma) const
 {
-    complex_t beta_i  = coeff_i.m_lambda(1) - coeff_i.m_lambda(0);
+    complex_t beta_i = coeff_i.m_lambda(1) - coeff_i.m_lambda(0);
     complex_t beta_i1 = coeff_i1.m_lambda(1) - coeff_i1.m_lambda(0);
 
-    auto roughness_matrix = [sigma, &coeff_i, &coeff_i1, beta_i, beta_i1](double sign){
-
-        const complex_t alpha_p = coeff_i1.m_lambda(0) + coeff_i1.m_lambda(1) +
-                        sign * (coeff_i.m_lambda(0) + coeff_i.m_lambda(1));
+    auto roughness_matrix = [sigma, &coeff_i, &coeff_i1, beta_i, beta_i1](double sign) {
+        const complex_t alpha_p = coeff_i1.m_lambda(0) + coeff_i1.m_lambda(1)
+                                  + sign * (coeff_i.m_lambda(0) + coeff_i.m_lambda(1));
         auto b_p_vec = beta_i1 * coeff_i1.m_b + sign * beta_i * coeff_i.m_b;
 
-        auto square = [](auto & v){
-            return v.x() * v.x() + v.y() * v.y() + v.z() * v.z();
-        };
+        auto square = [](auto& v) { return v.x() * v.x() + v.y() * v.y() + v.z() * v.z(); };
         complex_t beta_p = std::sqrt(checkForUnderflow(square(b_p_vec)));
         b_p_vec /= beta_p;
 
         const complex_t alpha_pp = -(alpha_p * alpha_p + beta_p * beta_p) * sigma * sigma / 8.;
-        const complex_t beta_pp  = - alpha_p * beta_p * sigma * sigma / 4.;
+        const complex_t beta_pp = -alpha_p * beta_p * sigma * sigma / 4.;
 
         Eigen::Matrix2cd QL, QR;
 
         const complex_t factor1 = std::sqrt(2. * (1. + b_p_vec.z()));
         const complex_t factor2 = std::sqrt(2. * (1. - b_p_vec.z()));
-        QL << (b_p_vec.z() + 1.)/factor1,                (b_p_vec.z() - 1.)/factor2,
-                (b_p_vec.x() + I * b_p_vec.y())/factor1, (b_p_vec.x() + I * b_p_vec.y())/factor2;
-        QR << (b_p_vec.z() + 1.)/factor1,   (b_p_vec.x() - I * b_p_vec.y())/factor1,
-                (b_p_vec.z() - 1.)/factor2, (b_p_vec.x() - I * b_p_vec.y())/factor2;
+        QL << (b_p_vec.z() + 1.) / factor1, (b_p_vec.z() - 1.) / factor2,
+            (b_p_vec.x() + I * b_p_vec.y()) / factor1, (b_p_vec.x() + I * b_p_vec.y()) / factor2;
+        QR << (b_p_vec.z() + 1.) / factor1, (b_p_vec.x() - I * b_p_vec.y()) / factor1,
+            (b_p_vec.z() - 1.) / factor2, (b_p_vec.x() - I * b_p_vec.y()) / factor2;
 
-        const Eigen::Matrix2cd exp1 = Eigen::DiagonalMatrix<complex_t, 2>(
-                            {std::exp(alpha_pp), std::exp(alpha_pp)});
+        const Eigen::Matrix2cd exp1 =
+            Eigen::DiagonalMatrix<complex_t, 2>({std::exp(alpha_pp), std::exp(alpha_pp)});
 
-        if( std::abs(beta_p) > std::numeric_limits<double>::epsilon() * 10. )
-        {
-            Eigen::Matrix2cd exp2 = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>(
-                                {std::exp(beta_pp), std::exp(-beta_pp)}));
+        if (std::abs(beta_p) > std::numeric_limits<double>::epsilon() * 10.) {
+            Eigen::Matrix2cd exp2 = Eigen::Matrix2cd(
+                Eigen::DiagonalMatrix<complex_t, 2>({std::exp(beta_pp), std::exp(-beta_pp)}));
             return Eigen::Matrix2cd{exp1 * QL * exp2 * QR};
         }
-
 
         return exp1;
     };
 
-    const Eigen::Matrix2cd roughness_sum  = roughness_matrix(1.);
+    const Eigen::Matrix2cd roughness_sum = roughness_matrix(1.);
     const Eigen::Matrix2cd roughness_diff = roughness_matrix(-1.);
 
     return {roughness_sum, roughness_diff};
@@ -97,4 +92,4 @@ complex_t checkForUnderflow(complex_t val)
 {
     return std::abs(val.imag()) < 1e-80 && val.real() < 0 ? complex_t(val.real(), 1e-40) : val;
 }
-}
+} // namespace

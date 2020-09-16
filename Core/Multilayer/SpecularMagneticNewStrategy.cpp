@@ -73,10 +73,7 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
         auto B = slices[i].bField() - B_0;
         auto magnetic_SLD = magneticSLD(B);
         result.emplace_back(kz_sign, checkForUnderflow(eigenvalues(kzs[i], magnetic_SLD)),
-                            B.mag() > eps
-                                ? B / B.mag()
-                                : kvector_t{0.0, 0.0, 0.0},
-                            magnetic_SLD);
+                            B.mag() > eps ? B / B.mag() : kvector_t{0.0, 0.0, 0.0}, magnetic_SLD);
     }
 
     if (std::abs(kzs[0]) < std::sqrt(eps)) {
@@ -94,12 +91,12 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
     return result;
 }
 
-void SpecularMagneticNewStrategy::calculateUpwards(
-    std::vector<MatrixRTCoefficients_v3>& coeff, const std::vector<Slice>& slices) const
+void SpecularMagneticNewStrategy::calculateUpwards(std::vector<MatrixRTCoefficients_v3>& coeff,
+                                                   const std::vector<Slice>& slices) const
 {
     const auto N = slices.size();
-    std::vector<Eigen::Matrix2cd> SMatrices(N-1);
-    std::vector<complex_t> Normalization(N-1);
+    std::vector<Eigen::Matrix2cd> SMatrices(N - 1);
+    std::vector<complex_t> Normalization(N - 1);
 
     // bottom boundary condition
     coeff.back().m_T = Eigen::Matrix2cd::Identity();
@@ -119,9 +116,8 @@ void SpecularMagneticNewStrategy::calculateUpwards(
 
         // compute the rotation matrix
         Eigen::Matrix2cd S, Si;
-        Si = mp + mm * coeff[i+1].m_R;
-        S << Si(1, 1) , -Si(0, 1),
-             -Si(1, 0), Si(0, 0);
+        Si = mp + mm * coeff[i + 1].m_R;
+        S << Si(1, 1), -Si(0, 1), -Si(1, 0), Si(0, 0);
         const complex_t norm = S(0, 0) * S(1, 1) - S(0, 1) * S(1, 0);
         S = S * delta;
 
@@ -135,7 +131,7 @@ void SpecularMagneticNewStrategy::calculateUpwards(
         S /= norm;
 
         // T is always equal to the identity at this point, no need to store
-        coeff[i].m_R = delta * (mm + mp * coeff[i+1].m_R) * S;
+        coeff[i].m_R = delta * (mm + mp * coeff[i + 1].m_R) * S;
     }
 
     // now correct all amplitudes in forward direction by dividing with the remaining
@@ -149,18 +145,17 @@ void SpecularMagneticNewStrategy::calculateUpwards(
         S = SMatrices[i - 1] * S;
 
         if (std::isinf(std::norm(dumpingFactor))) {
-            std::for_each(coeff.begin() + i, coeff.end(),
-                          [](auto& coeff) { coeff.m_T = Eigen::Matrix2cd::Zero();
-                                            coeff.m_R = Eigen::Matrix2cd::Zero(); });
+            std::for_each(coeff.begin() + i, coeff.end(), [](auto& coeff) {
+                coeff.m_T = Eigen::Matrix2cd::Zero();
+                coeff.m_R = Eigen::Matrix2cd::Zero();
+            });
             break;
         }
 
-        coeff[i].m_T = S/dumpingFactor; // T * S omitted, since T is always I
-        coeff[i].m_R *= S/dumpingFactor;
+        coeff[i].m_T = S / dumpingFactor; // T * S omitted, since T is always I
+        coeff[i].m_R *= S / dumpingFactor;
     }
-
 }
-
 
 namespace
 {

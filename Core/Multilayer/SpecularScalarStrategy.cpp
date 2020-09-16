@@ -88,8 +88,8 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
 
     coeff.back().t_r(0) = 1.0;
     coeff.back().t_r(1) = 0.0;
-    std::vector<complex_t> factors(N-1);
-    for(int i = N - 2; i >= 0; i-- ){
+    std::vector<complex_t> factors(N - 1);
+    for (int i = N - 2; i >= 0; i--) {
         double sigma = 0.0;
         if (const auto roughness = GetBottomRoughness(slices, i))
             sigma = roughness->getSigma();
@@ -100,11 +100,11 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
 
         const complex_t delta = exp_I(kz[i] * slices[i].thickness());
 
-        complex_t S = mp + mm * coeff[i+1].t_r(1);
+        complex_t S = mp + mm * coeff[i + 1].t_r(1);
         S = 1. / S * delta;
         factors[i] = S;
 
-        coeff[i].t_r(1) = delta * (mm + mp * coeff[i+1].t_r(1)) * S;
+        coeff[i].t_r(1) = delta * (mm + mp * coeff[i + 1].t_r(1)) * S;
     }
 
     // now correct all amplitudes by dividing the with the remaining factors in forward direction

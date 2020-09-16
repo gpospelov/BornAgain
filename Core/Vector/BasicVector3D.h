@@ -170,8 +170,7 @@ public:
 
     //! Returns cross product of vectors (linear in both arguments).
 #ifndef SWIG
-    template <class U>
-    auto cross(const BasicVector3D<U>& v) const;
+    template <class U> auto cross(const BasicVector3D<U>& v) const;
 #endif // SWIG
 
     //! Returns angle with respect to another vector.
@@ -252,8 +251,7 @@ inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D
 //! Multiplication vector by scalar.
 //! @relates BasicVector3D
 #ifndef SWIG
-template <class T, class U>
-inline auto operator*(const BasicVector3D<T>& v, const U a)
+template <class T, class U> inline auto operator*(const BasicVector3D<T>& v, const U a)
 {
     return BasicVector3D<decltype(v.x() * a)>(v.x() * a, v.y() * a, v.z() * a);
 }
@@ -262,8 +260,7 @@ inline auto operator*(const BasicVector3D<T>& v, const U a)
 //! Multiplication scalar by vector.
 //! @relates BasicVector3D
 #ifndef SWIG
-template <class T, class U>
-inline auto operator*(const U a, const BasicVector3D<T>& v)
+template <class T, class U> inline auto operator*(const U a, const BasicVector3D<T>& v)
 {
     return BasicVector3D<decltype(a * v.x())>(a * v.x(), a * v.y(), a * v.z());
 }

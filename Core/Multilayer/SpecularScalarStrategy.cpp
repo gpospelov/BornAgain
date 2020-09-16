@@ -88,8 +88,8 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
 
     coeff.back().t_r(0) = 1.0;
     coeff.back().t_r(1) = 0.0;
-    std::vector<complex_t> factors(N-1);
-    for(int i = N - 2; i >= 0; i-- ){
+    std::vector<complex_t> factors(N - 1);
+    for (int i = N - 2; i >= 0; i--) {
         double sigma = 0.0;
         if (const auto roughness = GetBottomRoughness(slices, i))
             sigma = roughness->getSigma();

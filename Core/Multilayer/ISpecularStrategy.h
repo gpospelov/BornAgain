@@ -33,7 +33,7 @@ public:
     ISpecularStrategy& operator=(const ISpecularStrategy& other) = delete;
     ISpecularStrategy(const ISpecularStrategy& other) = delete;
 
-    using coefficient_type         = ILayerRTCoefficients;
+    using coefficient_type = ILayerRTCoefficients;
     using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;
     using coeffs_t = std::vector<coefficient_pointer_type>;
 

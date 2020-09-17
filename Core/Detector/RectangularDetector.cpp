@@ -59,6 +59,7 @@ void RectangularDetector::setPosition(const kvector_t normal_to_detector, double
 {
     m_detector_arrangement = GENERIC;
     m_normal_to_detector = normal_to_detector;
+    m_distance = m_normal_to_detector.mag();
     m_u0 = u0;
     m_v0 = v0;
     m_direction = direction;
@@ -214,35 +215,20 @@ size_t RectangularDetector::indexOfSpecular(const Beam& beam) const
     if (dimension() != 2)
         return totalSize();
     const double alpha = beam.getAlpha();
-    const double phi = .1+0*beam.getPhi();
+    const double phi = beam.getPhi();
     const kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
     const kvector_t normal_unit = m_normal_to_detector.unit();
     const double kd = k_spec.dot(normal_unit);
-    std::cout << "DEBUG alpha =" << alpha << std::endl;
-    std::cout << "DEBUG phi   =" << phi << std::endl;
-    std::cout << "DEBUG k_spec=" << k_spec << std::endl;
-    std::cout << "DEBUG normal=" << normal_unit << std::endl;
-    std::cout << "DEBUG m_dist=" << m_distance << std::endl;
-    std::cout << "DEBUG kd    =" << kd << std::endl;
     if (kd <= 0.0)
         return totalSize();
     ASSERT(m_distance!=0);
     const kvector_t rpix = k_spec * (m_distance / kd);
-    std::cout << "DEBUG rpix  =" << rpix << std::endl;
     const double u = rpix.dot(m_u_unit) + m_u0;
     const double v = rpix.dot(m_v_unit) + m_v0;
-    std::cout << "DEBUG u=" << u << std::endl;
-    std::cout << "DEBUG v=" << v << std::endl;
     const IAxis& u_axis = getAxis(0); // the x axis, GISAS only
     const IAxis& v_axis = getAxis(1); // the y axis, in reflectometer plane
-    std::cout << "DEBUG u axis=" << u_axis.getMin() << " ... " << u_axis.getMax() << std::endl;
-    std::cout << "DEBUG v axis=" << v_axis.getMin() << " ... " << v_axis.getMax() << std::endl;
-    std::cout << "DEBUG contain u=" << u_axis.contains(u) << std::endl;
-    std::cout << "DEBUG contain v=" << v_axis.contains(v) << std::endl;
     if (!u_axis.contains(u) || !v_axis.contains(v))
         return totalSize();
-    std::cout << "DEBUG idx u=" << u_axis.findClosestIndex(u) << std::endl;
-    std::cout << "DEBUG idx v=" << v_axis.findClosestIndex(v) << std::endl;
     return getGlobalIndex(u_axis.findClosestIndex(u), v_axis.findClosestIndex(v));
 }
 
@@ -299,9 +285,6 @@ void RectangularDetector::initUandV(double alpha_i)
     m_u_unit = u_direction.unit();
     m_v_unit = m_u_unit.cross(m_normal_to_detector).unit();
 
-    std::cout << "DEBUG initUandV u unit=" << m_u_unit << std::endl;
-    std::cout << "DEBUG initUandV v unit=" << m_v_unit << std::endl;
-
     if (m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
         kvector_t z(0.0, 0.0, 1.0);
         kvector_t normal_unit = m_normal_to_detector.unit();
@@ -310,7 +293,5 @@ void RectangularDetector::initUandV(double alpha_i)
         double vz = zp.dot(m_v_unit) / zp.mag();
         m_u0 = m_dbeam_u0 + m_distance * std::tan(2 * alpha_i) * uz;
         m_v0 = m_dbeam_v0 + m_distance * std::tan(2 * alpha_i) * vz;
-        std::cout << "DEBUG initUandV u0=" << m_u0 << std::endl;
-        std::cout << "DEBUG initUandV v0=" << m_v0 << std::endl;
     }
 }

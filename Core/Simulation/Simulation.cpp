@@ -260,12 +260,12 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
     auto roi_data =
         UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
 
-    auto detector = getInstrument().getDetector();
+    const IDetector& detector = getInstrument().detector();
 
     if (roi_data->hasSameDimensions(data)) {
         // data is already cropped to ROI
         if (put_masked_areas_to_zero) {
-            detector->iterate(
+            detector.iterate(
                 [&](IDetector::const_iterator it) {
                     (*roi_data)[it.roiIndex()] = data[it.roiIndex()];
                 },
@@ -274,9 +274,9 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
             roi_data->setRawDataVector(data.getRawDataVector());
         }
 
-    } else if (DetectorFunctions::hasSameDimensions(*detector, data)) {
+    } else if (DetectorFunctions::hasSameDimensions(detector, data)) {
         // exp data has same shape as the detector, we have to put orig data to smaller roi map
-        detector->iterate(
+        detector.iterate(
             [&](IDetector::const_iterator it) {
                 (*roi_data)[it.roiIndex()] = data[it.detectorIndex()];
             },

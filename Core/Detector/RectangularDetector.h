@@ -55,9 +55,9 @@ public:
                      const kvector_t direction = kvector_t(0.0, -1.0, 0.0));
 
     void setPerpendicularToSampleX(double distance, double u0, double v0);
-
     void setPerpendicularToDirectBeam(double distance, double u0, double v0);
     void setPerpendicularToReflectedBeam(double distance, double u0 = 0.0, double v0 = 0.0);
+
     void setDirectBeamPosition(double u0, double v0);
 
     double getWidth() const;
@@ -88,7 +88,7 @@ protected:
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is
     //! returned. This corresponds to an overflow index.
-    size_t getIndexOfSpecular(const Beam& beam) const override;
+    size_t indexOfSpecular(const Beam& beam) const override;
 
     //! swap function
     void swapContent(RectangularDetector& other);

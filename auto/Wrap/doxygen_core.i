@@ -6690,7 +6690,7 @@ Returns vector of unmasked detector indices.
 Create an  IPixel for the given  OutputData object and index. 
 ";
 
-%feature("docstring")  IDetector2D::getIndexOfSpecular "virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
+%feature("docstring")  IDetector2D::indexOfSpecular "virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
 
 Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
 ";
@@ -7648,6 +7648,9 @@ Scalar value getters; these throw errors by default as they should only be used 
 %feature("docstring")  ILayerRTCoefficients::getScalarKz "virtual complex_t ILayerRTCoefficients::getScalarKz() const
 ";
 
+%feature("docstring")  ILayerRTCoefficients::getReflectionMatrix "virtual Eigen::Matrix2cd ILayerRTCoefficients::getReflectionMatrix() const
+";
+
 
 // File: classILayout.xml
 %feature("docstring") ILayout "
@@ -8264,8 +8267,6 @@ Sets the beam wavelength and incoming angles.
 ";
 
 %feature("docstring")  Instrument::setBeamIntensity "void Instrument::setBeamIntensity(double intensity)
-
-Sets the beam's intensity. 
 ";
 
 %feature("docstring")  Instrument::setBeamPolarization "void Instrument::setBeamPolarization(const kvector_t bloch_vector)
@@ -8274,29 +8275,30 @@ Sets the beam's polarization according to the given Bloch vector.
 ";
 
 %feature("docstring")  Instrument::getBeamIntensity "double Instrument::getBeamIntensity() const
-
-Returns the beam's intensity. 
 ";
 
 %feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
-
-Returns the detector data. 
 ";
 
-%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
+%feature("docstring")  Instrument::detector "IDetector & Instrument::detector()
+";
+
+%feature("docstring")  Instrument::detector "const IDetector & Instrument::detector() const
+";
+
+%feature("docstring")  Instrument::detector2D "IDetector2D & Instrument::detector2D()
+";
+
+%feature("docstring")  Instrument::detector2D "const IDetector2D & Instrument::detector2D() const
 ";
 
 %feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
 ";
 
 %feature("docstring")  Instrument::getDetectorAxis "const IAxis & Instrument::getDetectorAxis(size_t index) const
-
-Returns a detector axis. 
 ";
 
 %feature("docstring")  Instrument::getDetectorDimension "size_t Instrument::getDetectorDimension() const
-
-Returns the detector's dimension. 
 ";
 
 %feature("docstring")  Instrument::setDetector "void Instrument::setDetector(const IDetector &detector)
@@ -9862,6 +9864,12 @@ C++ includes: ISpecularStrategy.h
 %feature("docstring")  ISpecularStrategy::~ISpecularStrategy "virtual ISpecularStrategy::~ISpecularStrategy()=default
 ";
 
+%feature("docstring")  ISpecularStrategy::ISpecularStrategy "ISpecularStrategy::ISpecularStrategy()=default
+";
+
+%feature("docstring")  ISpecularStrategy::ISpecularStrategy "ISpecularStrategy::ISpecularStrategy(const ISpecularStrategy &other)=delete
+";
+
 %feature("docstring")  ISpecularStrategy::Execute "virtual coeffs_t ISpecularStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const =0
 ";
 
@@ -11101,6 +11109,9 @@ The following functions return the transmitted and reflected amplitudes for diff
 %feature("docstring")  MatrixRTCoefficients_v2::getKz "Eigen::Vector2cd MatrixRTCoefficients_v2::getKz() const override
 
 Returns z-part of the two wavevector eigenmodes. 
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::getReflectionMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v2::getReflectionMatrix() const override
 ";
 
 
@@ -17099,9 +17110,6 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d530.xml
-
-
-// File: namespace_0d532.xml
 
 
 // File: namespace_0d536.xml

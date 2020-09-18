@@ -96,11 +96,11 @@ protected:
 
     std::vector<SimulationElement> m_sim_elements;
     std::vector<double> m_cache;
-    std::unique_ptr<DetectorContext> detector_context;
 
 private:
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
+    std::unique_ptr<DetectorContext> m_detector_context;
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H

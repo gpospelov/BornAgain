@@ -187,9 +187,9 @@ void SpecularMagneticStrategy::propagateBackwardsForwards(
         const double t = slices[i].thickness();
         const auto kz = coeff[i].getKz();
         const Eigen::Matrix4cd l = coeff[i].R1 * GetImExponential(kz(0) * t)
-                             + coeff[i].T1 * GetImExponential(-kz(0) * t)
-                             + coeff[i].R2 * GetImExponential(kz(1) * t)
-                             + coeff[i].T2 * GetImExponential(-kz(1) * t);
+                                   + coeff[i].T1 * GetImExponential(-kz(0) * t)
+                                   + coeff[i].R2 * GetImExponential(kz(1) * t)
+                                   + coeff[i].T2 * GetImExponential(-kz(1) * t);
         coeff[i].m_w_plus = l * coeff[i + 1].m_w_plus;
         coeff[i].m_w_min = l * coeff[i + 1].m_w_min;
 

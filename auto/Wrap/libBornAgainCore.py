@@ -18927,15 +18927,15 @@ class IDetector2D(IDetector):
         """
         return _libBornAgainCore.IDetector2D_createPixel(self, index)
 
-    def getIndexOfSpecular(self, beam):
+    def indexOfSpecular(self, beam):
         r"""
-        getIndexOfSpecular(IDetector2D self, Beam beam) -> size_t
-        virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
+        indexOfSpecular(IDetector2D self, Beam beam) -> size_t
+        virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
 
         Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
 
         """
-        return _libBornAgainCore.IDetector2D_getIndexOfSpecular(self, beam)
+        return _libBornAgainCore.IDetector2D_indexOfSpecular(self, beam)
 
 # Register IDetector2D in _libBornAgainCore:
 _libBornAgainCore.IDetector2D_swigregister(IDetector2D)
@@ -20957,8 +20957,6 @@ class Instrument(INode):
         setBeamIntensity(Instrument self, double intensity)
         void Instrument::setBeamIntensity(double intensity)
 
-        Sets the beam's intensity. 
-
         """
         return _libBornAgainCore.Instrument_setBeamIntensity(self, intensity)
 
@@ -20977,19 +20975,34 @@ class Instrument(INode):
         getBeamIntensity(Instrument self) -> double
         double Instrument::getBeamIntensity() const
 
-        Returns the beam's intensity. 
-
         """
         return _libBornAgainCore.Instrument_getBeamIntensity(self)
 
-    def getDetector(self, *args):
+    def getDetector(self):
         r"""
         getDetector(Instrument self) -> IDetector
-        getDetector(Instrument self) -> IDetector
-        IDetector * Instrument::getDetector()
+        const IDetector * Instrument::getDetector() const
 
         """
-        return _libBornAgainCore.Instrument_getDetector(self, *args)
+        return _libBornAgainCore.Instrument_getDetector(self)
+
+    def detector(self, *args):
+        r"""
+        detector(Instrument self) -> IDetector
+        detector(Instrument self) -> IDetector
+        const IDetector & Instrument::detector() const
+
+        """
+        return _libBornAgainCore.Instrument_detector(self, *args)
+
+    def detector2D(self, *args):
+        r"""
+        detector2D(Instrument self) -> IDetector2D
+        detector2D(Instrument self) -> IDetector2D
+        const IDetector2D & Instrument::detector2D() const
+
+        """
+        return _libBornAgainCore.Instrument_detector2D(self, *args)
 
     def getDetectorMask(self):
         r"""
@@ -21004,8 +21017,6 @@ class Instrument(INode):
         getDetectorAxis(Instrument self, size_t index) -> IAxis
         const IAxis & Instrument::getDetectorAxis(size_t index) const
 
-        Returns a detector axis. 
-
         """
         return _libBornAgainCore.Instrument_getDetectorAxis(self, index)
 
@@ -21013,8 +21024,6 @@ class Instrument(INode):
         r"""
         getDetectorDimension(Instrument self) -> size_t
         size_t Instrument::getDetectorDimension() const
-
-        Returns the detector's dimension. 
 
         """
         return _libBornAgainCore.Instrument_getDetectorDimension(self)

@@ -56,6 +56,8 @@ std::vector<MatrixRTCoefficients_v3>
 SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
                                        const std::vector<complex_t>& kzs) const
 {
+    const size_t N = slices.size();
+
     if (slices.size() != kzs.size())
         throw std::runtime_error(
             "Error in SpecularMagnetic_::execute: kz vector and slices size shall coinside.");
@@ -63,9 +65,9 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
         return {};
 
     std::vector<MatrixRTCoefficients_v3> result;
-    result.reserve(slices.size());
+    result.reserve(N);
 
-    const double kz_sign = kzs.front().real() > 0.0 ? 1.0 : -1.0; // save sign to restore it later
+    const double kz_sign = kzs.front().real() >= 0.0 ? 1.0 : -1.0; // save sign to restore it later
 
     auto B_0 = slices.front().bField();
     result.emplace_back(kz_sign, eigenvalues(kzs.front(), 0.0), kvector_t{0.0, 0.0, 0.0}, 0.0);
@@ -76,12 +78,16 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
                             B.mag() > eps ? B / B.mag() : kvector_t{0.0, 0.0, 0.0}, magnetic_SLD);
     }
 
-    if (std::abs(kzs[0]) < std::sqrt(eps)) {
-        for (size_t i = 0, size = slices.size(); i < size; ++i) {
-            if (std::abs(kzs[i]) >= std::sqrt(eps)) {
-                result[i].m_T << 0, 0, 0, 0;
-                result[i].m_R << 0, 0, 0, 0;
-            }
+    if(N == 1){
+        result[0].m_T = Eigen::Matrix2cd::Identity();
+        result[0].m_R = Eigen::Matrix2cd::Zero();
+        return result;
+    }else if(kzs[0] == 0.0){
+        result[0].m_T =  Eigen::Matrix2cd::Identity();
+        result[0].m_R = -Eigen::Matrix2cd::Identity();
+        for (size_t i = 1; i < N; ++i) {
+            result[i].m_T.setZero();
+            result[i].m_R.setZero();
         }
         return result;
     }

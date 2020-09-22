@@ -54,9 +54,9 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenva
 
     } else if (m_b.mag() < eps && eigenvalue != 0.)
         return exp2;
-    //        result = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
+
     else if (m_b.mag() < eps && eigenvalue == 0.)
-        return Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
+        return exp2;
 
     throw std::runtime_error("Broken magnetic field vector");
 }
@@ -145,7 +145,8 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
     const complex_t beta = m_lambda(1) - m_lambda(0);
 
     if (std::abs(alpha * alpha - beta * beta) < eps)
-        throw std::runtime_error("Singular p_m");
+//        throw std::runtime_error("Singular p_m");
+        return Eigen::Matrix2cd::Zero();
 
     Eigen::Matrix2cd result = pMatrixHelper(-1.);
     result *= 2. / (alpha * alpha - beta * beta);

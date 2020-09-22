@@ -29,29 +29,6 @@ protected:
     template <typename Strategy> void test_degenerate();
 };
 
-template <typename Strategy> void SpecularMagneticTest::test_degenerate()
-{
-    kvector_t v;
-
-    Eigen::Vector2cd Tp_ref{0.5, 0.0};
-    Eigen::Vector2cd Rp_ref{-0.5, 0.0};
-    Eigen::Vector2cd Tm_ref{0.0, 0.5};
-    Eigen::Vector2cd Rm_ref{0.0, -0.5};
-
-    auto sample = sample_degenerate();
-    auto result = std::make_unique<Strategy>()->Execute(sample->slices(), v);
-    for (auto& coeff : result) {
-        EXPECT_NEAR_VECTOR2CD(coeff->T1plus(), Tp_ref, eps);
-        EXPECT_NEAR_VECTOR2CD(coeff->T2plus(), Tp_ref, eps);
-        EXPECT_NEAR_VECTOR2CD(coeff->T1min(), Tm_ref, eps);
-        EXPECT_NEAR_VECTOR2CD(coeff->T2min(), Tm_ref, eps);
-        EXPECT_NEAR_VECTOR2CD(coeff->R1plus(), Rp_ref, eps);
-        EXPECT_NEAR_VECTOR2CD(coeff->R2plus(), Rp_ref, eps);
-        EXPECT_NEAR_VECTOR2CD(coeff->R1min(), Rm_ref, eps);
-        EXPECT_NEAR_VECTOR2CD(coeff->R2min(), Rm_ref, eps);
-    }
-}
-
 template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhStrategy>()
 {
     kvector_t v;
@@ -118,11 +95,6 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_degenerate()
     Material air = HomogeneousMaterial("air", 0, 1.0);
     mLayer.addLayer(Layer(air, 0 * Units::nanometer));
     return std::make_unique<ProcessedSample>(mLayer, SimulationOptions());
-}
-
-TEST_F(SpecularMagneticTest, degenerate)
-{
-    test_degenerate<SpecularMagneticStrategy>();
 }
 
 TEST_F(SpecularMagneticTest, degenerate_new)

@@ -27,15 +27,7 @@ protected:
 
     template<typename Strategy>
     void test_degenerate();
-
-    void ifEqual(const Eigen::Vector2cd& lhs, const Eigen::Vector2cd& rhs);
 };
-
-void SpecularMagneticTest::ifEqual(const Eigen::Vector2cd& lhs, const Eigen::Vector2cd& rhs)
-{
-    EXPECT_NEAR(0.0, std::abs(lhs(0) - rhs(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(lhs(1) - rhs(1)), eps);
-}
 
 template<typename Strategy>
 void SpecularMagneticTest::test_degenerate()
@@ -50,14 +42,14 @@ void SpecularMagneticTest::test_degenerate()
     auto sample = sample_degenerate();
     auto result = std::make_unique<Strategy>()->Execute(sample->slices(), v);
     for (auto& coeff : result) {
-        ifEqual(coeff->T1plus(), Tp_ref);
-        ifEqual(coeff->T2plus(), Tp_ref);
-        ifEqual(coeff->T1min(), Tm_ref);
-        ifEqual(coeff->T2min(), Tm_ref);
-        ifEqual(coeff->R1plus(), Rp_ref);
-        ifEqual(coeff->R2plus(), Rp_ref);
-        ifEqual(coeff->R1min(), Rm_ref);
-        ifEqual(coeff->R2min(), Rm_ref);
+        EXPECT_NEAR_VECTOR2CD(coeff->T1plus(), Tp_ref, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->T2plus(), Tp_ref, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->T1min(), Tm_ref, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->T2min(), Tm_ref, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R1plus(), Rp_ref, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R2plus(), Rp_ref, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R1min(), Rm_ref, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R2min(), Rm_ref, eps);
     }
 }
 
@@ -88,12 +80,12 @@ void SpecularMagneticTest::testZeroField(const kvector_t& k,
         Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();
         Eigen::Vector2cd RMM = RTMatrix.R1min() + RTMatrix.R2min();
 
-        ifEqual(TPS, TPM);
-        ifEqual(RPS, RPM);
-        ifEqual(TMS, TMM);
-        ifEqual(RMS, RMM);
+        EXPECT_NEAR_VECTOR2CD(TPS, TPM, eps);
+        EXPECT_NEAR_VECTOR2CD(RPS, RPM, eps);
+        EXPECT_NEAR_VECTOR2CD(TMS, TMM, eps);
+        EXPECT_NEAR_VECTOR2CD(RMS, RMM, eps);
 
-        ifEqual(RTScalar.getKz(), RTMatrix.getKz());
+        EXPECT_NEAR_VECTOR2CD(RTScalar.getKz(), RTMatrix.getKz(), eps);
     }
 }
 

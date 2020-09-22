@@ -144,8 +144,7 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
     const complex_t alpha = m_lambda(1) + m_lambda(0);
     const complex_t beta = m_lambda(1) - m_lambda(0);
 
-    if (std::abs(alpha * alpha - beta * beta) < eps)
-//        throw std::runtime_error("Singular p_m");
+    if (std::abs(alpha * alpha - beta * beta) == 0.)
         return Eigen::Matrix2cd::Zero();
 
     Eigen::Matrix2cd result = pMatrixHelper(-1.);

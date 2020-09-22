@@ -82,7 +82,8 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
         result[0].m_T = Eigen::Matrix2cd::Identity();
         result[0].m_R = Eigen::Matrix2cd::Zero();
         return result;
-    }else if(kzs[0] == 0.0){
+
+    }else if( kzs[0] == 0. ){
         result[0].m_T =  Eigen::Matrix2cd::Identity();
         result[0].m_R = -Eigen::Matrix2cd::Identity();
         for (size_t i = 1; i < N; ++i) {

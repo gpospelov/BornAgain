@@ -52,10 +52,7 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenva
         Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
         return Q * exp2 * Q.adjoint() / factor1;
 
-    } else if (m_b.mag() < eps && eigenvalue != 0.)
-        return exp2;
-
-    else if (m_b.mag() < eps && eigenvalue == 0.)
+    } else if (m_b.mag() < eps)
         return exp2;
 
     throw std::runtime_error("Broken magnetic field vector");

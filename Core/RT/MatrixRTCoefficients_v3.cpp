@@ -41,8 +41,7 @@ MatrixRTCoefficients_v3* MatrixRTCoefficients_v3::clone() const
     return new MatrixRTCoefficients_v3(*this);
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenvalue,
-                                                               Eigen::Vector2d selection) const
+Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(Eigen::Vector2d selection) const
 {
     const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(selection);
 
@@ -60,12 +59,12 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenva
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::T1Matrix() const
 {
-    return TransformationMatrix(m_lambda(1), {0., 1.});
+    return TransformationMatrix({0., 1.});
 }
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::T2Matrix() const
 {
-    return TransformationMatrix(m_lambda(0), {1., 0.});
+    return TransformationMatrix({1., 0.});
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::T1plus() const

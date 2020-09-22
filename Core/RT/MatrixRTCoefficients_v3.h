@@ -74,7 +74,7 @@ private:
     Eigen::Matrix2cd m_R;
 
     // helper functions to compute DWBA compatible amplitudes used in the T1plus() etc. functions
-    Eigen::Matrix2cd TransformationMatrix(complex_t eigenvalue, Eigen::Vector2d selection) const;
+    Eigen::Matrix2cd TransformationMatrix(Eigen::Vector2d selection) const;
     Eigen::Matrix2cd T1Matrix() const;
     Eigen::Matrix2cd T2Matrix() const;
 

@@ -9,6 +9,7 @@
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>
+#include "Core/Multilayer/KzComputation.h"
 
 constexpr double eps = 1e-10;
 
@@ -56,8 +57,10 @@ void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSamp
                                          const ProcessedSample& sample_zerofield)
 {
     auto coeffs_scalar =
-        std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(), k);
-    auto coeffs_zerofield = std::make_unique<Strategy>()->Execute(sample_zerofield.slices(), k);
+        std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(),
+                                            KzComputation::computeKzFromRefIndices(sample_scalar.slices(), k) );
+    auto coeffs_zerofield = std::make_unique<Strategy>()->Execute(sample_zerofield.slices(),
+                                            KzComputation::computeKzFromRefIndices(sample_zerofield.slices(), k) );
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
@@ -146,5 +149,5 @@ TEST_F(SpecularMagneticTest, zerofield)
 
 TEST_F(SpecularMagneticTest, zerofield_new)
 {
-    testcase_zerofield<SpecularMagneticNewTanhStrategy>({-0.0, -0.1, -2.0, -10.0});
+    testcase_zerofield<SpecularMagneticNewTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0});
 }

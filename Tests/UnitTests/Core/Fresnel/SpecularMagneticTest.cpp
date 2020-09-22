@@ -52,6 +52,33 @@ template <typename Strategy> void SpecularMagneticTest::test_degenerate()
     }
 }
 
+template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhStrategy>()
+{
+    kvector_t v;
+
+    Eigen::Vector2cd T1p{0.0, 0.0};
+    Eigen::Vector2cd T2p{1.0, 0.0};
+    Eigen::Vector2cd R1p{0.0, 0.0};
+    Eigen::Vector2cd R2p{0.0, 0.0};
+    Eigen::Vector2cd T1m{0.0, 1.0};
+    Eigen::Vector2cd T2m{0.0, 0.0};
+    Eigen::Vector2cd R1m{0.0, 0.0};
+    Eigen::Vector2cd R2m{0.0, 0.0};
+
+    auto sample = sample_degenerate();
+    auto result = std::make_unique<SpecularMagneticNewTanhStrategy>()->Execute(sample->slices(), v);
+    for (auto& coeff : result) {
+        EXPECT_NEAR_VECTOR2CD(coeff->T1plus(), T1p, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->T2plus(), T2p, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->T1min(), T1m, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->T2min(), T2m, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R1plus(), R1p, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R2plus(), R2p, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R1min(), R1m, eps);
+        EXPECT_NEAR_VECTOR2CD(coeff->R2min(), R2m, eps);
+    }
+}
+
 template <typename Strategy>
 void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample_scalar,
                                          const ProcessedSample& sample_zerofield)
@@ -67,22 +94,19 @@ void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSamp
     for (size_t i = 0; i < coeffs_scalar.size(); ++i) {
         const ScalarRTCoefficients& RTScalar =
             *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[i].get());
-        Eigen::Vector2cd TPS = RTScalar.T1plus() + RTScalar.T2plus();
-        Eigen::Vector2cd RPS = RTScalar.R1plus() + RTScalar.R2plus();
-        Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();
-        Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
         auto& RTMatrix =
             *dynamic_cast<const typename Strategy::coefficient_type*>(coeffs_zerofield[i].get());
-        Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
-        Eigen::Vector2cd RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
-        Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();
-        Eigen::Vector2cd RMM = RTMatrix.R1min() + RTMatrix.R2min();
 
-        EXPECT_NEAR_VECTOR2CD(TPS, TPM, eps);
-        EXPECT_NEAR_VECTOR2CD(RPS, RPM, eps);
-        EXPECT_NEAR_VECTOR2CD(TMS, TMM, eps);
-        EXPECT_NEAR_VECTOR2CD(RMS, RMM, eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.T1plus(), RTScalar.T1plus(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.T2plus(), RTScalar.T2plus(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.R1plus(), RTScalar.R1plus(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.R2plus(), RTScalar.R2plus(), eps);
+
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.T1min(), RTScalar.T1min(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.T2min(), RTScalar.T2min(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.R1min(), RTScalar.R1min(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix.R2min(), RTScalar.R2min(), eps);
 
         EXPECT_NEAR_VECTOR2CD(RTScalar.getKz(), RTMatrix.getKz(), eps);
     }

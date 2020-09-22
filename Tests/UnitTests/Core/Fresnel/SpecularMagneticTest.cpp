@@ -23,7 +23,7 @@ protected:
     template<typename Strategy>
     void testZeroField(const kvector_t& k, const ProcessedSample& m_layer_scalar,
                        const ProcessedSample& m_layer_zerofield);
-    template<typename Strategy> void testcase_zerofield();
+    template<typename Strategy> void testcase_zerofield(std::vector<double> && angles);
 
     template<typename Strategy>
     void test_degenerate();
@@ -142,25 +142,22 @@ SpecularMagneticTest::sample_zerofield()
 }
 
 template<typename Strategy>
-void SpecularMagneticTest::testcase_zerofield()
+void SpecularMagneticTest::testcase_zerofield(std::vector<double> && angles)
 {
-    kvector_t k1 = vecOfLambdaAlphaPhi(1.0, -0.1 * Units::deg, 0.0);
-    kvector_t k2 = vecOfLambdaAlphaPhi(1.0, -2.0 * Units::deg, 0.0);
-    kvector_t k3 = vecOfLambdaAlphaPhi(1.0, -10.0 * Units::deg, 0.0);
-
-    auto samples = sample_zerofield();
-
-    testZeroField<Strategy>(k1, *std::get<0>(samples), *std::get<1>(samples));
-    testZeroField<Strategy>(k2, *std::get<0>(samples), *std::get<1>(samples));
-    testZeroField<Strategy>(k3, *std::get<0>(samples), *std::get<1>(samples));
+    for(auto & angle : angles)
+    {
+        auto samples = sample_zerofield();
+        kvector_t k = vecOfLambdaAlphaPhi(1.0, angle * Units::deg, 0.0);
+        testZeroField<Strategy>(k, *std::get<0>(samples), *std::get<1>(samples));
+    }
 }
 
 TEST_F(SpecularMagneticTest, zerofield)
 {
-    testcase_zerofield<SpecularMagneticStrategy>();
+    testcase_zerofield<SpecularMagneticStrategy>({-0.1, -2.0, -10.0});
 }
 
 TEST_F(SpecularMagneticTest, zerofield_new)
 {
-    testcase_zerofield<SpecularMagneticNewTanhStrategy>();
+    testcase_zerofield<SpecularMagneticNewTanhStrategy>({-0.0, -0.1, -2.0, -10.0});
 }

@@ -16,14 +16,12 @@ constexpr double eps = 1e-10;
 class SpecularMagneticTest : public ::testing::Test
 {
 protected:
-    std::pair<std::unique_ptr<ProcessedSample>, std::unique_ptr<ProcessedSample>>
-    sample_zerofield();
+    std::unique_ptr<ProcessedSample> sample_zerofield();
 
     std::unique_ptr<ProcessedSample> sample_degenerate();
     //! Compares results with scalar case
     template <typename Strategy>
-    void testZeroField(const kvector_t& k, const ProcessedSample& m_layer_scalar,
-                       const ProcessedSample& m_layer_zerofield);
+    void testZeroField(const kvector_t& k, const ProcessedSample& sample);
     template <typename Strategy> void testcase_zerofield(std::vector<double>&& angles);
 
     template <typename Strategy> void test_degenerate();
@@ -57,14 +55,13 @@ template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhSt
 }
 
 template <typename Strategy>
-void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample_scalar,
-                                         const ProcessedSample& sample_zerofield)
+void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample)
 {
     auto coeffs_scalar =
-        std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(),
-                                            KzComputation::computeKzFromRefIndices(sample_scalar.slices(), k) );
-    auto coeffs_zerofield = std::make_unique<Strategy>()->Execute(sample_zerofield.slices(),
-                                            KzComputation::computeKzFromRefIndices(sample_zerofield.slices(), k) );
+        std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample.slices(),
+                                            KzComputation::computeKzFromRefIndices(sample.slices(), k) );
+    auto coeffs_zerofield = std::make_unique<Strategy>()->Execute(sample.slices(),
+                                            KzComputation::computeKzFromRefIndices(sample.slices(), k) );
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
@@ -102,39 +99,29 @@ TEST_F(SpecularMagneticTest, degenerate_new)
     test_degenerate<SpecularMagneticNewTanhStrategy>();
 }
 
-std::pair<std::unique_ptr<ProcessedSample>, std::unique_ptr<ProcessedSample>>
+std::unique_ptr<ProcessedSample>
 SpecularMagneticTest::sample_zerofield()
 {
-    kvector_t substr_field(0.0, 0.0, 0.0);
-
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
     Layer air_layer(HomogeneousMaterial("Air", 0.0, 0.0));
     Layer substr_layer_scalar(substr_material_scalar);
     multi_layer_scalar.addLayer(air_layer);
     multi_layer_scalar.addLayer(substr_layer_scalar);
-    std::vector<ScalarRTCoefficients> coeffs_scalar;
-
-    MultiLayer multi_layer_zerofield;
-    Material substr_material_zerofield = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
-    Layer substr_layer_zerofield(substr_material_zerofield);
-    multi_layer_zerofield.addLayer(air_layer);
-    multi_layer_zerofield.addLayer(substr_layer_zerofield);
 
     SimulationOptions options;
     auto sample_scalar = std::make_unique<ProcessedSample>(multi_layer_scalar, options);
-    auto sample_zerofield = std::make_unique<ProcessedSample>(multi_layer_zerofield, options);
 
-    return std::make_pair(std::move(sample_scalar), std::move(sample_zerofield));
+    return sample_scalar;
 }
 
 template <typename Strategy>
 void SpecularMagneticTest::testcase_zerofield(std::vector<double>&& angles)
 {
     for (auto& angle : angles) {
-        auto samples = sample_zerofield();
+        auto sample = sample_zerofield();
         kvector_t k = vecOfLambdaAlphaPhi(1.0, angle * Units::deg, 0.0);
-        testZeroField<Strategy>(k, *std::get<0>(samples), *std::get<1>(samples));
+        testZeroField<Strategy>(k, *sample);
     }
 }
 

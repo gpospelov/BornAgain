@@ -33,11 +33,11 @@ const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true
 //! @param alpha: dihedral angle in radians between base and facet
 FormFactorCone6::FormFactorCone6(const std::vector<double> P)
     : IFormFactorPolyhedron({"Cone6",
-                            "class_tooltip",
-                            {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
-                             {"Height", "nm", "para_tooltip", 0, +INF, 0},
-                             {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
-                           P),
+                             "class_tooltip",
+                             {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
+                              {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                              {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                            P),
       m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
     onChange();

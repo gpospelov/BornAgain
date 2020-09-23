@@ -14642,6 +14642,84 @@ class IFormFactorPolyhedron(IFormFactorBorn):
 # Register IFormFactorPolyhedron in _libBornAgainCore:
 _libBornAgainCore.IFormFactorPolyhedron_swigregister(IFormFactorPolyhedron)
 
+class IFormFactorPrism(IFormFactorBorn):
+    r"""
+
+
+    A prism with a polygonal base, for form factor computation.
+
+    C++ includes: IFormFactorPrism.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(IFormFactorPrism self, IRotation rotation) -> double
+        double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(IFormFactorPrism self, IRotation rotation) -> double
+        double IFormFactorPrism::topZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_topZ(self, rotation)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(IFormFactorPrism self, cvector_t q) -> complex_t
+        complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const override
+
+        Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_evaluate_for_q(self, q)
+
+    def volume(self):
+        r"""
+        volume(IFormFactorPrism self) -> double
+        double IFormFactorPrism::volume() const override
+
+        Returns the volume of this prism. 
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_volume(self)
+
+    def getHeight(self):
+        r"""
+        getHeight(IFormFactorPrism self) -> double
+        double IFormFactorPrism::getHeight() const
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_getHeight(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(IFormFactorPrism self) -> double
+        virtual double IFormFactorPrism::radialExtension() const override
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_radialExtension(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorPrism
+
+# Register IFormFactorPrism in _libBornAgainCore:
+_libBornAgainCore.IFormFactorPrism_swigregister(IFormFactorPrism)
+
 class IProfileRipple(IFormFactorBorn):
     r"""
 
@@ -14852,7 +14930,7 @@ class FormFactorAnisoPyramid(IFormFactorPolyhedron):
 # Register FormFactorAnisoPyramid in _libBornAgainCore:
 _libBornAgainCore.FormFactorAnisoPyramid_swigregister(FormFactorAnisoPyramid)
 
-class FormFactorBox(object):
+class FormFactorBox(IFormFactorPrism):
     r"""
 
 
@@ -16268,7 +16346,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 # Register FormFactorLongBoxLorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorLongBoxLorentz_swigregister(FormFactorLongBoxLorentz)
 
-class FormFactorPrism3(object):
+class FormFactorPrism3(IFormFactorPrism):
     r"""
 
 
@@ -16322,7 +16400,7 @@ class FormFactorPrism3(object):
 # Register FormFactorPrism3 in _libBornAgainCore:
 _libBornAgainCore.FormFactorPrism3_swigregister(FormFactorPrism3)
 
-class FormFactorPrism6(object):
+class FormFactorPrism6(IFormFactorPrism):
     r"""
 
 

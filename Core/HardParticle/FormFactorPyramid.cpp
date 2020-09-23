@@ -33,11 +33,11 @@ const PolyhedralTopology FormFactorPyramid::topology = {{
 //! @param alpha: dihedral angle between the base and a side face in radians
 FormFactorPyramid::FormFactorPyramid(const std::vector<double> P)
     : IFormFactorPolyhedron({"Pyramid",
-                            "class_tooltip",
-                            {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
-                             {"Height", "nm", "para_tooltip", 0, +INF, 0},
-                             {"Alpha", "rad", "para_tooltip", 0., M_PI, 0}}},
-                           P),
+                             "class_tooltip",
+                             {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
+                              {"Height", "nm", "para_tooltip", 0, +INF, 0},
+                              {"Alpha", "rad", "para_tooltip", 0., M_PI, 0}}},
+                            P),
       m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
     onChange();

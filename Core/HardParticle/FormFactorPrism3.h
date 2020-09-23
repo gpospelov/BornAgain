@@ -14,7 +14,8 @@
 
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM3_H
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM3_H
-#include "Core/HardParticle/IFormFactorPolyhedron.h"
+
+#include "Core/HardParticle/IFormFactorPrism.h"
 
 //! A prism based on an equilateral triangle.
 //! @ingroup hardParticle

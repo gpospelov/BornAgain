@@ -38,7 +38,8 @@ void IFormFactorPolyhedron::setLimits(double _q, int _n)
 }
 #endif
 
-IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues)
+IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta,
+                                             const std::vector<double>& PValues)
     : IFormFactorBorn(meta, PValues)
 {
 }
@@ -46,7 +47,7 @@ IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta, const std::ve
 //! Called by child classes to set faces and other internal variables.
 
 void IFormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
-                                         const std::vector<kvector_t>& vertices)
+                                          const std::vector<kvector_t>& vertices)
 {
     m_vertices.clear();
     for (const kvector_t& vertex : vertices)

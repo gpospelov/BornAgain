@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORBOX_H
 
-#include "Core/HardParticle/IFormFactorPolyhedron.h"
+#include "Core/HardParticle/IFormFactorPrism.h"
 
 //! A rectangular prism (parallelepiped).
 //! @ingroup hardParticle

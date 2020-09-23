@@ -21,11 +21,11 @@
 //! @param height: height of the box in nanometers
 FormFactorBox::FormFactorBox(const std::vector<double> P)
     : IFormFactorPrism({"Box",
-                                "class_tooltip",
-                                {{"Length", "nm", "para_tooltip", 0, +INF, 0},
-                                 {"Width", "nm", "para_tooltip", 0, +INF, 0},
-                                 {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
-                               P),
+                        "class_tooltip",
+                        {{"Length", "nm", "para_tooltip", 0, +INF, 0},
+                         {"Width", "nm", "para_tooltip", 0, +INF, 0},
+                         {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                       P),
       m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])
 {
     onChange();

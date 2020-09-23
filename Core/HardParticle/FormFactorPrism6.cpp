@@ -19,10 +19,10 @@
 //! @param height: height in nanometers
 FormFactorPrism6::FormFactorPrism6(const std::vector<double> P)
     : IFormFactorPrism({"Prism6",
-                                "class_tooltip",
-                                {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
-                                 {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
-                               P),
+                        "class_tooltip",
+                        {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
+                         {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                       P),
       m_base_edge(m_P[0]), m_height(m_P[1])
 {
     onChange();

@@ -4392,33 +4392,49 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorPolygonalSurface.xml
-%feature("docstring") FormFactorPolygonalSurface "
+// File: classFormFactorPolyhedron.xml
+%feature("docstring") FormFactorPolyhedron "
 
-A polygonal surface, for testing form factor computations.
+A polyhedron, for form factor computation.
 
-C++ includes: IFormFactorPrism.h
+C++ includes: FormFactorPolyhedron.h
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface()=default
+%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface(const NodeMeta &meta, const std::vector< double > &PValues)
+%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const override final
+%feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorPolyhedron::topZ "double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::volume "double FormFactorPolygonalSurface::volume() const override
+%feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
+";
+
+%feature("docstring")  FormFactorPolyhedron::volume "double FormFactorPolyhedron::volume() const override final
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::radialExtension "double FormFactorPolygonalSurface::radialExtension() const override final
+%feature("docstring")  FormFactorPolyhedron::radialExtension "double FormFactorPolyhedron::radialExtension() const override final
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorPolyhedron::assert_platonic "void FormFactorPolyhedron::assert_platonic() const
 ";
 
 
@@ -4738,34 +4754,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorTetrahedron::getAlpha "double FormFactorTetrahedron::getAlpha() const
-";
-
-
-// File: classFormFactorTriangle.xml
-%feature("docstring") FormFactorTriangle "
-
-A planar equilateral triangle, for testing form factor computations.
-
-C++ includes: FormFactorTriangle.h
-";
-
-%feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(double base_edge)
-";
-
-%feature("docstring")  FormFactorTriangle::clone "FormFactorTriangle* FormFactorTriangle::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorTriangle::accept "void FormFactorTriangle::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorTriangle::getBaseEdge "double FormFactorTriangle::getBaseEdge() const
 ";
 
 
@@ -19016,6 +19004,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorLongBoxLorentz_8h.xml
 
 
+// File: FormFactorPolyhedron_8h.xml
+
+
 // File: FormFactorPrism3_8cpp.xml
 
 
@@ -19044,12 +19035,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: FormFactorTetrahedron_8h.xml
-
-
-// File: FormFactorTriangle_8cpp.xml
-
-
-// File: FormFactorTriangle_8h.xml
 
 
 // File: FormFactorTruncatedCube_8cpp.xml

@@ -27,9 +27,7 @@ namespace
 const double eps = 2e-16;
 } // namespace
 
-
-IFormFactorPrism::IFormFactorPrism(const NodeMeta& meta,
-                                                   const std::vector<double>& PValues)
+IFormFactorPrism::IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactorBorn(meta, PValues)
 {
 }
@@ -83,36 +81,6 @@ complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const
         cvector_t qxy(q.x(), q.y(), 0.);
         return height() * exp_I(height() / 2 * q.z()) * MathFunctions::sinc(height() / 2 * q.z())
                * m_base->ff_2D(qxy);
-    } catch (std::logic_error& e) {
-        throw std::logic_error("Bug in " + getName() + ": " + e.what()
-                               + " [please report to the maintainers]");
-    } catch (std::runtime_error& e) {
-        throw std::runtime_error("Numeric computation failed in " + getName() + ": " + e.what()
-                                 + " [please report to the maintainers]");
-    } catch (std::exception& e) {
-        throw std::runtime_error("Unexpected exception in " + getName() + ": " + e.what()
-                                 + " [please report to the maintainers]");
-    }
-}
-
-//**************************************************************************************************
-//  FormFactorPolygonalSurface implementation
-//**************************************************************************************************
-
-FormFactorPolygonalSurface::FormFactorPolygonalSurface(const NodeMeta& meta,
-                                                       const std::vector<double>& PValues)
-    : IFormFactorBorn(meta, PValues)
-{
-}
-
-complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const
-{
-    try {
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis.maxOrder = 0;
-        diagnosis.nExpandedFaces = 0;
-#endif
-        return m_base->ff(q, false);
     } catch (std::logic_error& e) {
         throw std::logic_error("Bug in " + getName() + ": " + e.what()
                                + " [please report to the maintainers]");

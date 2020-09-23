@@ -24,7 +24,6 @@ const double eps = 2e-16;
 constexpr auto ReciprocalFactorialArray = Precomputed::GenerateReciprocalFactorialArray<171>();
 } // namespace
 
-
 //**************************************************************************************************
 //  PolyhedralEdge implementation
 //**************************************************************************************************

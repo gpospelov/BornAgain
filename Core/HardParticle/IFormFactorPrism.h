@@ -43,20 +43,4 @@ protected:
     std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
 };
 
-//! A polygonal surface, for testing form factor computations.
-
-class BA_CORE_API_ FormFactorPolygonalSurface : public IFormFactorBorn
-{
-public:
-    FormFactorPolygonalSurface() = default;
-    FormFactorPolygonalSurface(const NodeMeta& meta, const std::vector<double>& PValues);
-
-    complex_t evaluate_for_q(cvector_t q) const override final;
-    double volume() const override { return 0; }
-    double radialExtension() const override final { return std::sqrt(m_base->area()); }
-
-protected:
-    std::unique_ptr<PolyhedralFace> m_base;
-};
-
 #endif // BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPRISM_H

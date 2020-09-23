@@ -20,6 +20,22 @@
 #include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
 
+class BA_CORE_API_ Prism
+{
+public:
+    Prism() = delete;
+    Prism(const Prism&) = delete;
+    Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vertices);
+    double area() const;
+    const std::vector<kvector_t>& vertices(); //! needed for topZ, bottomZ computation
+    complex_t evaluate_for_q(const cvector_t& q) const;
+    // complex_t evaluate_centered(const cvector_t& q) const;
+private:
+    std::unique_ptr<PolyhedralFace> m_base;
+    double m_height;
+    std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
+};
+
 //! A prism with a polygonal base, for form factor computation.
 
 class BA_CORE_API_ IFormFactorPrism : public IFormFactorBorn
@@ -38,11 +54,10 @@ public:
 
 protected:
     void setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices);
+    virtual double height() const = 0; // TODO mv parameter m_height back from children to this
 
 private:
-    virtual double height() const = 0;
-    std::unique_ptr<PolyhedralFace> m_base;
-    std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
+    std::unique_ptr<Prism> pimpl;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPRISM_H

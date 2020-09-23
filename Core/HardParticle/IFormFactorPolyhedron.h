@@ -22,9 +22,11 @@
 
 //! A polyhedron, implementation class for use in IFormFactorPolyhedron
 
-class Polyhedron
+class BA_CORE_API_ Polyhedron
 {
 public:
+    Polyhedron() = delete;
+    Polyhedron(const Polyhedron&) = delete;
     Polyhedron(const PolyhedralTopology& topology, double z_bottom,
                const std::vector<kvector_t>& vertices);
     void assert_platonic() const;

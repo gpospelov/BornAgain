@@ -8166,13 +8166,9 @@ class IFormFactor(ISample):
 _libBornAgainCore.IFormFactor_swigregister(IFormFactor)
 
 
-def CreateTransformedFormFactor(formfactor, rot, translation):
-    r"""
-    CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
-    IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-
-    """
-    return _libBornAgainCore.CreateTransformedFormFactor(formfactor, rot, translation)
+def createTransformedFormFactor(formfactor, rot, translation):
+    r"""createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor"""
+    return _libBornAgainCore.createTransformedFormFactor(formfactor, rot, translation)
 class IFormFactorBorn(IFormFactor):
     r"""
 
@@ -21858,29 +21854,17 @@ class HexagonalLattice(Lattice2D):
 _libBornAgainCore.HexagonalLattice_swigregister(HexagonalLattice)
 
 
-def CreateFCCLattice(lattice_constant, orientation):
-    r"""
-    CreateFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+def createFCCLattice(lattice_constant, orientation):
+    r"""createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.createFCCLattice(lattice_constant, orientation)
 
-    """
-    return _libBornAgainCore.CreateFCCLattice(lattice_constant, orientation)
+def createHCPLattice(a, c, orientation):
+    r"""createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.createHCPLattice(a, c, orientation)
 
-def CreateHCPLattice(a, c, orientation):
-    r"""
-    CreateHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainCore.CreateHCPLattice(a, c, orientation)
-
-def CreateBCTLattice(a, c, orientation):
-    r"""
-    CreateBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainCore.CreateBCTLattice(a, c, orientation)
+def createBCTLattice(a, c, orientation):
+    r"""createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.createBCTLattice(a, c, orientation)
 class Material(object):
     r"""
 

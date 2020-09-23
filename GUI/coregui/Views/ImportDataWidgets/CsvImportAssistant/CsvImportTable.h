@@ -17,11 +17,10 @@
 
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
-#include "Wrap/WinDllMacros.h"
 #include <QTableWidget>
 #include <set>
 
-class BA_CORE_API_ CsvImportData : public QObject
+class CsvImportData : public QObject
 {
 public:
     // FIXME: move DATA_TYPE enumeration to csv namespace

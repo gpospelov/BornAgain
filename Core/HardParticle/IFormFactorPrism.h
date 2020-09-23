@@ -25,7 +25,6 @@ class Prism;
 class BA_CORE_API_ IFormFactorPrism : public IFormFactorBorn
 {
 public:
-    IFormFactorPrism() = default;
     IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues);
     ~IFormFactorPrism();
 

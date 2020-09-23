@@ -221,6 +221,8 @@ IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta,
 {
 }
 
+IFormFactorPolyhedron::~IFormFactorPolyhedron() = default;
+
 //! Called by child classes to set faces and other internal variables.
 
 void IFormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,

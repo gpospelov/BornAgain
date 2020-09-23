@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPOLYHEDRON_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPOLYHEDRON_H
+#ifndef BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
+#define BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 
 #include "Core/HardParticle/PolyhedralComponents.h"
 #include "Core/HardParticle/PolyhedralTopology.h"
@@ -57,6 +57,7 @@ public:
 
     IFormFactorPolyhedron() {}
     IFormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues);
+    ~IFormFactorPolyhedron();
 
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;
@@ -76,4 +77,4 @@ private:
     std::unique_ptr<Polyhedron> pimpl;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPOLYHEDRON_H
+#endif // BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H

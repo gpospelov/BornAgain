@@ -15,15 +15,15 @@
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 #define BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 
-#include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/HardParticle/PolyhedralTopology.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
 
 class Polyhedron;
 
 //! A polyhedron, for form factor computation.
 
-class BA_CORE_API_ IFormFactorPolyhedron : public IFormFactorBorn
+class IFormFactorPolyhedron : public IFormFactorBorn
 {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC

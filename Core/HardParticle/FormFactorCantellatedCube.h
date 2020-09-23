@@ -20,7 +20,7 @@
 //! A cube, with truncation of all edges and corners, as in Croset (2017) Fig 7
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorCantellatedCube : public IFormFactorPolyhedron
+class FormFactorCantellatedCube : public IFormFactorPolyhedron
 {
 public:
     FormFactorCantellatedCube(const std::vector<double> P);

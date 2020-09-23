@@ -20,7 +20,7 @@
 //! A spherical detector used for validation with IsGISAXS results.
 //! @ingroup detector
 
-class BA_CORE_API_ IsGISAXSDetector : public SphericalDetector
+class IsGISAXSDetector : public SphericalDetector
 {
 public:
     IsGISAXSDetector();

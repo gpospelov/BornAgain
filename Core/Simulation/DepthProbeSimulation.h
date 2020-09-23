@@ -31,7 +31,7 @@ class MultiLayer;
 class Histogram1D;
 class IUnitConverter;
 
-class BA_CORE_API_ DepthProbeSimulation : public Simulation
+class DepthProbeSimulation : public Simulation
 {
 public:
     DepthProbeSimulation();

@@ -4392,52 +4392,6 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorPolyhedron.xml
-%feature("docstring") FormFactorPolyhedron "
-
-A polyhedron, for form factor computation.
-
-C++ includes: FormFactorPolyhedron.h
-";
-
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
-";
-
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::topZ "double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
-";
-
-%feature("docstring")  FormFactorPolyhedron::volume "double FormFactorPolyhedron::volume() const override final
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::radialExtension "double FormFactorPolyhedron::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorPolyhedron::assert_platonic "void FormFactorPolyhedron::assert_platonic() const
-";
-
-
 // File: classFormFactorPrism3.xml
 %feature("docstring") FormFactorPrism3 "
 
@@ -5913,7 +5867,7 @@ returns vector of bin errors
 
 %feature("docstring")  Histogram1D::crop "Histogram1D * Histogram1D::crop(double xmin, double xmax)
 
-Create new histogram by applying crop on axis. 
+Creates new histogram by applying crop on axis. 
 ";
 
 
@@ -6063,7 +6017,7 @@ upper edje on x-axis
 
 %feature("docstring")  Histogram2D::crop "Histogram2D * Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
 
-Create new histogram by applying rectangular clip. 
+Creates new histogram by applying rectangular clip. 
 ";
 
 %feature("docstring")  Histogram2D::setContent "void Histogram2D::setContent(const std::vector< std::vector< double >> &data)
@@ -6660,7 +6614,7 @@ Returns vector of unmasked detector indices.
 
 %feature("docstring")  IDetector2D::createPixel "virtual IPixel* IDetector2D::createPixel(size_t index) const =0
 
-Create an  IPixel for the given  OutputData object and index. 
+Creates an  IPixel for the given  OutputData object and index. 
 ";
 
 %feature("docstring")  IDetector2D::indexOfSpecular "virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
@@ -7048,9 +7002,6 @@ Assertions for Platonic solid.
 A prism with a polygonal base, for form factor computation.
 
 C++ includes: IFormFactorPrism.h
-";
-
-%feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism()=default
 ";
 
 %feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism(const NodeMeta &meta, const std::vector< double > &PValues)
@@ -9396,12 +9347,12 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  IParticle::createFormFactor "IFormFactor * IParticle::createFormFactor() const
 
-Create a form factor for this particle. 
+Creates a form factor for this particle. 
 ";
 
 %feature("docstring")  IParticle::createSlicedParticle "SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  IParticle::position "kvector_t IParticle::position() const
@@ -10186,7 +10137,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
-Create transformed lattice. 
+Creates transformed lattice. 
 ";
 
 %feature("docstring")  Lattice::initialize "void Lattice::initialize() const
@@ -11280,7 +11231,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  MesoCrystal::createSlicedParticle "SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  MesoCrystal::getChildren "std::vector< const INode * > MesoCrystal::getChildren() const override final
@@ -12573,7 +12524,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  Particle::createSlicedParticle "SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  Particle::setMaterial "void Particle::setMaterial(Material material)
@@ -12622,7 +12573,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  ParticleComposition::createFormFactor "IFormFactor * ParticleComposition::createFormFactor() const override final
 
-Create a form factor for this particle. 
+Creates a form factor for this particle. 
 ";
 
 %feature("docstring")  ParticleComposition::addParticle "void ParticleComposition::addParticle(const IParticle &particle)
@@ -12696,7 +12647,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  ParticleCoreShell::createSlicedParticle "SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  ParticleCoreShell::coreParticle "const Particle * ParticleCoreShell::coreParticle() const
@@ -16776,12 +16727,12 @@ Calculates the rotation angle for a rotation around the z-axis alone Only meanin
 Returns the inverse transformation. 
 ";
 
-%feature("docstring")  Transform3D::transformed "template BA_CORE_API_ cvector_t Transform3D::transformed< cvector_t >(const ivector_t &v) const
+%feature("docstring")  Transform3D::transformed "template cvector_t Transform3D::transformed< cvector_t >(const ivector_t &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Transform3D::transformedInverse "template BA_CORE_API_ cvector_t Transform3D::transformedInverse< cvector_t >(const ivector_t &v) const
+%feature("docstring")  Transform3D::transformedInverse "template cvector_t Transform3D::transformedInverse< cvector_t >(const ivector_t &v) const
 
 Return transformed vector  v. 
 ";
@@ -17235,10 +17186,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17336,31 +17287,31 @@ vector<vector<double>>
 
 
 // File: namespaceAxisNames.xml
-%feature("docstring")  AxisNames::InitSphericalAxis0 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis0()
+%feature("docstring")  AxisNames::InitSphericalAxis0 "std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitSphericalAxis1 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis1()
+%feature("docstring")  AxisNames::InitSphericalAxis1 "std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitRectangularAxis0 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis0()
+%feature("docstring")  AxisNames::InitRectangularAxis0 "std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitRectangularAxis1 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis1()
+%feature("docstring")  AxisNames::InitRectangularAxis1 "std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis0 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis0()
+%feature("docstring")  AxisNames::InitOffSpecAxis0 "std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis1 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis1()
+%feature("docstring")  AxisNames::InitOffSpecAxis1 "std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitSpecAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
+%feature("docstring")  AxisNames::InitSpecAxis "std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
 ";
 
-%feature("docstring")  AxisNames::InitSpecAxisQ "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSpecAxisQ()
+%feature("docstring")  AxisNames::InitSpecAxisQ "std::map< AxesUnits, std::string > AxisNames::InitSpecAxisQ()
 ";
 
-%feature("docstring")  AxisNames::InitSampleDepthAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
+%feature("docstring")  AxisNames::InitSampleDepthAxis "std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
 ";
 
 
@@ -17625,13 +17576,13 @@ Creates Fourier Transform ( OutputData format) of intensity map ( OutputData for
 
 
 // File: namespaceLatticeUtils.xml
-%feature("docstring")  LatticeUtils::CreateFCCLattice "Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createFCCLattice "Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
 ";
 
-%feature("docstring")  LatticeUtils::CreateHCPLattice "Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createHCPLattice "Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
-%feature("docstring")  LatticeUtils::CreateBCTLattice "Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createBCTLattice "Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
 
@@ -17646,7 +17597,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (polarized material case) 
 ";
 
-%feature("docstring")  MaterialUtils::MagnetizationCorrection "BA_CORE_API_ Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
+%feature("docstring")  MaterialUtils::MagnetizationCorrection "Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
 
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
@@ -17953,96 +17904,96 @@ Returns string representing python stack trace.
 
 
 // File: namespacepyfmt.xml
-%feature("docstring")  pyfmt::scriptPreamble "BA_CORE_API_ std::string pyfmt::scriptPreamble()
+%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
 ";
 
-%feature("docstring")  pyfmt::getSampleFunctionName "BA_CORE_API_ std::string pyfmt::getSampleFunctionName()
+%feature("docstring")  pyfmt::getSampleFunctionName "std::string pyfmt::getSampleFunctionName()
 ";
 
-%feature("docstring")  pyfmt::printBool "BA_CORE_API_ std::string pyfmt::printBool(double value)
+%feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)
 ";
 
-%feature("docstring")  pyfmt::printDouble "BA_CORE_API_ std::string pyfmt::printDouble(double input)
+%feature("docstring")  pyfmt::printDouble "std::string pyfmt::printDouble(double input)
 ";
 
-%feature("docstring")  pyfmt::printNm "BA_CORE_API_ std::string pyfmt::printNm(double input)
+%feature("docstring")  pyfmt::printNm "std::string pyfmt::printNm(double input)
 ";
 
-%feature("docstring")  pyfmt::printNm2 "BA_CORE_API_ std::string pyfmt::printNm2(double input)
+%feature("docstring")  pyfmt::printNm2 "std::string pyfmt::printNm2(double input)
 ";
 
-%feature("docstring")  pyfmt::printScientificDouble "BA_CORE_API_ std::string pyfmt::printScientificDouble(double input)
+%feature("docstring")  pyfmt::printScientificDouble "std::string pyfmt::printScientificDouble(double input)
 ";
 
-%feature("docstring")  pyfmt::printDegrees "BA_CORE_API_ std::string pyfmt::printDegrees(double input)
+%feature("docstring")  pyfmt::printDegrees "std::string pyfmt::printDegrees(double input)
 ";
 
-%feature("docstring")  pyfmt::printValue "BA_CORE_API_ std::string pyfmt::printValue(double value, const std::string &units)
+%feature("docstring")  pyfmt::printValue "std::string pyfmt::printValue(double value, const std::string &units)
 ";
 
-%feature("docstring")  pyfmt::printString "BA_CORE_API_ std::string pyfmt::printString(const std::string &value)
+%feature("docstring")  pyfmt::printString "std::string pyfmt::printString(const std::string &value)
 ";
 
-%feature("docstring")  pyfmt::printRealLimits "BA_CORE_API_ std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
+%feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
 ";
 
-%feature("docstring")  pyfmt::printRealLimitsArg "BA_CORE_API_ std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
+%feature("docstring")  pyfmt::printRealLimitsArg "std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
 
 Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
 ";
 
-%feature("docstring")  pyfmt::isSquare "BA_CORE_API_ bool pyfmt::isSquare(double length1, double length2, double angle)
+%feature("docstring")  pyfmt::isSquare "bool pyfmt::isSquare(double length1, double length2, double angle)
 
 Prints  ParameterDistribution. distVarName is a string representing  IDistribution1D variable, e.g. \"distr_1\"
 
 ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
 ";
 
-%feature("docstring")  pyfmt::isHexagonal "BA_CORE_API_ bool pyfmt::isHexagonal(double length1, double length2, double angle)
+%feature("docstring")  pyfmt::isHexagonal "bool pyfmt::isHexagonal(double length1, double length2, double angle)
 ";
 
-%feature("docstring")  pyfmt::printKvector "BA_CORE_API_ std::string pyfmt::printKvector(const kvector_t value)
+%feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
 ";
 
-%feature("docstring")  pyfmt::isDefaultDirection "BA_CORE_API_ bool pyfmt::isDefaultDirection(const kvector_t direction)
+%feature("docstring")  pyfmt::isDefaultDirection "bool pyfmt::isDefaultDirection(const kvector_t direction)
 
 returns true if it is (0, -1, 0) vector 
 ";
 
-%feature("docstring")  pyfmt::indent "BA_CORE_API_ std::string pyfmt::indent(size_t width)
+%feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
 
 Returns a string of blanks with given width. By default the width equals standard offset in python files. 
 ";
 
-%feature("docstring")  pyfmt::printInt "BA_CORE_API_ std::string pyfmt::printInt(int value)
+%feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
 ";
 
 
 // File: namespacepyfmt2.xml
-%feature("docstring")  pyfmt2::representShape2D "BA_CORE_API_ std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
+%feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
 
 Returns fixed Python code snippet that defines the function \"runSimulation\". 
 ";
 
-%feature("docstring")  pyfmt2::valueTimesUnit "BA_CORE_API_ std::string pyfmt2::valueTimesUnit(const RealParameter *par)
+%feature("docstring")  pyfmt2::valueTimesUnit "std::string pyfmt2::valueTimesUnit(const RealParameter *par)
 
 Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  pyfmt2::argumentList "BA_CORE_API_ std::string pyfmt2::argumentList(const IParameterized *ip)
+%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
 
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  pyfmt2::printDistribution "BA_CORE_API_ std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
+%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
 
 Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
 ";
 
-%feature("docstring")  pyfmt2::printParameterDistribution "BA_CORE_API_ std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
+%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
 ";
 
-%feature("docstring")  pyfmt2::printAxis "BA_CORE_API_ std::string pyfmt2::printAxis(const IAxis &axis, const std::string &units, size_t offset)
+%feature("docstring")  pyfmt2::printAxis "std::string pyfmt2::printAxis(const IAxis &axis, const std::string &units, size_t offset)
 
 Prints python-script definition for given axis. offset is used for alignment and indentation in multiple-line definitions 
 ";
@@ -18628,17 +18579,17 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: MultiLayerFuncs_8h.xml
-%feature("docstring")  MaterialProfile "BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
 Calculate average material profile for given multilayer 
 ";
 
-%feature("docstring")  DefaultMaterialProfileLimits "BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
 
 Get default z limits for generating a material profile. 
 ";
 
-%feature("docstring")  GenerateZValues "BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
 
 Generate z values (equidistant) for use in MaterialProfile. 
 ";
@@ -19079,9 +19030,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorLongBoxLorentz_8h.xml
 
 
-// File: FormFactorPolyhedron_8h.xml
-
-
 // File: FormFactorPrism3_8cpp.xml
 
 
@@ -19512,21 +19460,21 @@ magnetization (in A/m)
 
 
 // File: MaterialFactoryFuncs_8h.xml
-%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial()
+%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization={})
+%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization={})
 ";
 
-%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
+%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
 
 Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
 ";
 
-%feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD()
+%feature("docstring")  MaterialBySLD "Material MaterialBySLD()
 ";
 
-%feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
+%feature("docstring")  MaterialBySLD "Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
 
 Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
@@ -19805,10 +19753,10 @@ magnetization (in A/m)
 
 
 // File: INodeVisitor_8h.xml
-%feature("docstring")  VisitNodesPreorder "BA_CORE_API_ void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
+%feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
 ";
 
-%feature("docstring")  VisitNodesPostorder "BA_CORE_API_ void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
+%feature("docstring")  VisitNodesPostorder "void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
 ";
 
 
@@ -19915,14 +19863,14 @@ magnetization (in A/m)
 
 
 // File: HomogeneousRegion_8cpp.xml
-%feature("docstring")  CreateAveragedMaterial "Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+%feature("docstring")  createAveragedMaterial "Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
 
 Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
 ";
 
 
 // File: HomogeneousRegion_8h.xml
-%feature("docstring")  CreateAveragedMaterial "BA_CORE_API_ Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+%feature("docstring")  createAveragedMaterial "Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
 
 Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
 ";
@@ -20040,12 +19988,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: IFormFactor_8cpp.xml
-%feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
 
 
 // File: IFormFactor_8h.xml
-%feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
 
 
@@ -20072,7 +20020,7 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: Rotations_8h.xml
-%feature("docstring")  createProduct "BA_CORE_API_ IRotation* createProduct(const IRotation &left, const IRotation &right)
+%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
 
 Returns concatenated rotation (first right, then left). 
 ";
@@ -20096,7 +20044,7 @@ Returns concatenated rotation (first right, then left).
 %feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
 ";
 
-%feature("docstring")  ConvexHull "BA_CORE_API_ ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
+%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
 ";
 
 
@@ -20526,7 +20474,7 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: BasicVector3D_8h.xml
-%feature("docstring")  vecOfLambdaAlphaPhi "BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 
 Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
 ";

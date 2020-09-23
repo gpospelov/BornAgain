@@ -20,7 +20,7 @@
 //! Builds sample: Pyramids, rotated pyramids on top of substrate (IsGISAXS example #9)
 //! @ingroup standard_samples
 
-class BA_CORE_API_ RotatedPyramidsBuilder : public IMultiLayerBuilder
+class RotatedPyramidsBuilder : public IMultiLayerBuilder
 {
 public:
     RotatedPyramidsBuilder();

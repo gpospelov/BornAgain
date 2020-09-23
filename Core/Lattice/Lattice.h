@@ -25,7 +25,7 @@ class Transform3D;
 //! A lattice with three basis vectors.
 //! @ingroup samples
 
-class BA_CORE_API_ Lattice : public INode
+class Lattice : public INode
 {
 public:
     Lattice();

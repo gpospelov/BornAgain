@@ -221,7 +221,7 @@ size_t RectangularDetector::indexOfSpecular(const Beam& beam) const
     const double kd = k_spec.dot(normal_unit);
     if (kd <= 0.0)
         return totalSize();
-    ASSERT(m_distance!=0);
+    ASSERT(m_distance != 0);
     const kvector_t rpix = k_spec * (m_distance / kd);
     const double u = rpix.dot(m_u_unit) + m_u0;
     const double v = rpix.dot(m_v_unit) + m_v0;

@@ -20,7 +20,7 @@
 //! A frustum with a quadratic base.
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorPyramid : public IFormFactorPolyhedron
+class FormFactorPyramid : public IFormFactorPolyhedron
 {
 public:
     FormFactorPyramid(const std::vector<double> P);

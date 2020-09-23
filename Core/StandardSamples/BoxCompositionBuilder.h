@@ -25,7 +25,7 @@ class ParticleComposition;
 //! Reproduces Python functional test transform_BoxComposition.py
 //! @ingroup standard_samples
 
-class BA_CORE_API_ BoxCompositionBuilder : public IMultiLayerBuilder
+class BoxCompositionBuilder : public IMultiLayerBuilder
 {
 public:
     BoxCompositionBuilder();
@@ -43,7 +43,7 @@ protected:
 //! Two boxes in particle composition rotated in X by 90 degrees.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ BoxCompositionRotateXBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateXBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateXBuilder() {}
@@ -53,7 +53,7 @@ public:
 //! Two boxes in particle composition rotated in Y by 90 degrees.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ BoxCompositionRotateYBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateYBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateYBuilder() {}
@@ -63,7 +63,7 @@ public:
 //! Two boxes in particle composition rotated in Z by 90 degrees.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ BoxCompositionRotateZBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateZBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateZBuilder() {}
@@ -73,7 +73,7 @@ public:
 //! Two boxes in particle composition rotated in Z and Y by 90 degrees.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ BoxCompositionRotateZandYBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateZandYBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateZandYBuilder() {}
@@ -83,7 +83,7 @@ public:
 //! Two different boxes are first rotated and then composed, composition is then rotated.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ BoxStackCompositionBuilder : public BoxCompositionBuilder
+class BoxStackCompositionBuilder : public BoxCompositionBuilder
 {
 public:
     BoxStackCompositionBuilder() {}

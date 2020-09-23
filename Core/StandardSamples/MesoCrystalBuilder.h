@@ -26,7 +26,7 @@ class MesoCrystal;
 //! Builds sample: cylindrical mesocrystal composed of spheres in a cubic lattice.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MesoCrystalBuilder : public IMultiLayerBuilder
+class MesoCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     MesoCrystalBuilder();

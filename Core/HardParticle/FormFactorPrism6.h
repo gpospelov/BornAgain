@@ -20,7 +20,7 @@
 //! A prism based on a regular hexagonal.
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorPrism6 : public IFormFactorPrism
+class FormFactorPrism6 : public IFormFactorPrism
 {
 public:
     FormFactorPrism6(const std::vector<double> P);

@@ -28,7 +28,7 @@ class IFormFactor;
 //! The middle layer is populated with particles.
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 
-class BA_CORE_API_ LayersWithAbsorptionBuilder : public IMultiLayerBuilder
+class LayersWithAbsorptionBuilder : public IMultiLayerBuilder
 {
 public:
     LayersWithAbsorptionBuilder();

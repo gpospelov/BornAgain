@@ -17,7 +17,7 @@
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 
-class BA_CORE_API_ ThickAbsorptiveSampleBuilder : public IMultiLayerBuilder
+class ThickAbsorptiveSampleBuilder : public IMultiLayerBuilder
 {
 public:
     ThickAbsorptiveSampleBuilder();

@@ -20,7 +20,7 @@
 //! A truncated bifrustum with quadratic base.
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorCuboctahedron : public IFormFactorPolyhedron
+class FormFactorCuboctahedron : public IFormFactorPolyhedron
 {
 public:
     FormFactorCuboctahedron(const std::vector<double> P);

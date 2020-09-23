@@ -20,7 +20,7 @@
 //! A frustum (truncated pyramid) with regular hexagonal base.
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorCone6 : public IFormFactorPolyhedron
+class FormFactorCone6 : public IFormFactorPolyhedron
 {
 public:
     FormFactorCone6(const std::vector<double> P);

@@ -22,7 +22,7 @@ class ISample;
 //! Builds sample: cylinders with magnetic material and zero magnetic field.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public IMultiLayerBuilder
+class MagneticParticleZeroFieldBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticParticleZeroFieldBuilder();
@@ -36,7 +36,7 @@ private:
 //! Builds sample: cylinders with magnetic material and non-zero magnetic field.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MagneticCylindersBuilder : public IMultiLayerBuilder
+class MagneticCylindersBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticCylindersBuilder();
@@ -50,7 +50,7 @@ private:
 //! Builds sample: spheres with magnetization inside substrate.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MagneticSpheresBuilder : public IMultiLayerBuilder
+class MagneticSpheresBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticSpheresBuilder();

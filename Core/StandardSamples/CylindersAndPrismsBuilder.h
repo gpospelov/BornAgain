@@ -22,7 +22,7 @@ class ISample;
 //! Builds sample: mixture of cylinders and prisms without interference (IsGISAXS example #1).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ CylindersAndPrismsBuilder : public IMultiLayerBuilder
+class CylindersAndPrismsBuilder : public IMultiLayerBuilder
 {
 public:
     CylindersAndPrismsBuilder();

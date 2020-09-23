@@ -25,7 +25,7 @@
 
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ISpecularStrategy
+class ISpecularStrategy
 {
 public:
     virtual ~ISpecularStrategy() = default;

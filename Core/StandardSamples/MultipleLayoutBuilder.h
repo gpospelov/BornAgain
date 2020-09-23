@@ -23,7 +23,7 @@ class ISample;
 //! using multiple particle layouts
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MultipleLayoutBuilder : public IMultiLayerBuilder
+class MultipleLayoutBuilder : public IMultiLayerBuilder
 {
 public:
     MultipleLayoutBuilder();

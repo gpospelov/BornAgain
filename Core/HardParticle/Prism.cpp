@@ -37,8 +37,7 @@ Prism::Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vert
     try {
         m_base = std::unique_ptr<PolyhedralFace>(new PolyhedralFace(vertices, symmetry_Ci));
     } catch (std::invalid_argument& e) {
-        throw std::invalid_argument(std::string("Invalid parameterization of Prism: ")
-                                    + e.what());
+        throw std::invalid_argument(std::string("Invalid parameterization of Prism: ") + e.what());
     } catch (std::logic_error& e) {
         throw std::logic_error(std::string("Bug in Prism: ") + e.what()
                                + " [please report to the maintainers]");
@@ -48,13 +47,15 @@ Prism::Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vert
     }
 }
 
-double Prism::area() const { return m_base->area(); }
+double Prism::area() const
+{
+    return m_base->area();
+}
 
 const std::vector<kvector_t>& Prism::vertices()
 {
     return m_vertices;
 }
-
 
 complex_t Prism::evaluate_for_q(const cvector_t& q) const
 {

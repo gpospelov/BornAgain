@@ -26,15 +26,15 @@
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagneticNewTanhStrategy : public SpecularMagneticNewStrategy
+class SpecularMagneticNewTanhStrategy : public SpecularMagneticNewStrategy
 {
 private:
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3 & coeff_i,
-                       const MatrixRTCoefficients_v3 & coeff_i1, double sigma) const;
+    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
+                                const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
 
-    Eigen::Matrix2cd computeRoughnessMatrix(
-        const MatrixRTCoefficients_v3 & coeff, double sigma, bool inverse=false) const;
+    Eigen::Matrix2cd computeRoughnessMatrix(const MatrixRTCoefficients_v3& coeff, double sigma,
+                                            bool inverse = false) const;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWTANHSTRATEGY_H

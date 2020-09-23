@@ -31,12 +31,12 @@ class Slice;
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagneticNewStrategy : public ISpecularStrategy
+class SpecularMagneticNewStrategy : public ISpecularStrategy
 {
 public:
-    using coefficient_type         = MatrixRTCoefficients_v3;
+    using coefficient_type = MatrixRTCoefficients_v3;
     using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;
-    using coeffs_t                 = std::vector<coefficient_pointer_type>;
+    using coeffs_t = std::vector<coefficient_pointer_type>;
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
@@ -52,11 +52,11 @@ private:
                                                    const std::vector<complex_t>& kzs) const;
 
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3 & coeff_i,
-                       const MatrixRTCoefficients_v3 & coeff_i1, double sigma) const = 0;
+    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
+                                const MatrixRTCoefficients_v3& coeff_i1, double sigma) const = 0;
 
-    void calculateUpwards(
-        std::vector<MatrixRTCoefficients_v3>& coeff, const std::vector<Slice>& slices) const;
+    void calculateUpwards(std::vector<MatrixRTCoefficients_v3>& coeff,
+                          const std::vector<Slice>& slices) const;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWSTRATEGY_H

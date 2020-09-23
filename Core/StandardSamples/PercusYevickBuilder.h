@@ -23,7 +23,7 @@ class ISample;
 //! @ingroup standard_samples
 //! Builds sample: cylinders with hard disk Percus-Yevick interference.
 
-class BA_CORE_API_ HardDiskBuilder : public IMultiLayerBuilder
+class HardDiskBuilder : public IMultiLayerBuilder
 {
 public:
     HardDiskBuilder();

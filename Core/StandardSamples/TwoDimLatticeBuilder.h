@@ -20,7 +20,7 @@
 //! Builds sample: 2D lattice with arbitrary angle and different lattice length_1 and length_2.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ Basic2DLatticeBuilder : public IMultiLayerBuilder
+class Basic2DLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     Basic2DLatticeBuilder() {}
@@ -30,7 +30,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ SquareLatticeBuilder : public IMultiLayerBuilder
+class SquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     SquareLatticeBuilder() {}
@@ -40,7 +40,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ CenteredSquareLatticeBuilder : public IMultiLayerBuilder
+class CenteredSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     CenteredSquareLatticeBuilder() {}
@@ -50,7 +50,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ RotatedSquareLatticeBuilder : public IMultiLayerBuilder
+class RotatedSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     RotatedSquareLatticeBuilder() {}
@@ -60,7 +60,7 @@ public:
 //! Builds sample: 2D finite lattice with thermal disorder.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ FiniteSquareLatticeBuilder : public IMultiLayerBuilder
+class FiniteSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     FiniteSquareLatticeBuilder() {}
@@ -70,7 +70,7 @@ public:
 //! Builds sample: 2D finite lattice of 2D finite lattices (superlattice).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ SuperLatticeBuilder : public IMultiLayerBuilder
+class SuperLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     SuperLatticeBuilder() {}

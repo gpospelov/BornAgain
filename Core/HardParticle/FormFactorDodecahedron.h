@@ -20,7 +20,7 @@
 //! A regular dodecahedron.
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorDodecahedron : public IFormFactorPolyhedron
+class FormFactorDodecahedron : public IFormFactorPolyhedron
 {
 public:
     //! @brief Constructs a regular dodecahedron

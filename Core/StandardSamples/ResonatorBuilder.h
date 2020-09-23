@@ -20,7 +20,7 @@
 //! Builds sample: multilayer with Ti/Pt layers sequence.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ ResonatorBuilder : public IMultiLayerBuilder
+class ResonatorBuilder : public IMultiLayerBuilder
 {
 public:
     ResonatorBuilder();

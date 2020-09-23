@@ -31,7 +31,7 @@ class Slice;
 //! Inherited by SpecularScalarNCStrategy, SpecularScalarTanhStrategy
 //!
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularScalarStrategy : public ISpecularStrategy
+class SpecularScalarStrategy : public ISpecularStrategy
 {
 public:
     using coefficient_type = ScalarRTCoefficients;

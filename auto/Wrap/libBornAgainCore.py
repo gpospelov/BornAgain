@@ -2489,7 +2489,7 @@ _libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     r"""
     vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
-    BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+    BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 
     Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
 
@@ -6484,7 +6484,7 @@ _libBornAgainCore.INodeVisitor_swigregister(INodeVisitor)
 def VisitNodesPreorder(node, visitor):
     r"""
     VisitNodesPreorder(INode node, INodeVisitor visitor)
-    BA_CORE_API_ void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
+    void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitNodesPreorder(node, visitor)
@@ -6492,7 +6492,7 @@ def VisitNodesPreorder(node, visitor):
 def VisitNodesPostorder(node, visitor):
     r"""
     VisitNodesPostorder(INode node, INodeVisitor visitor)
-    BA_CORE_API_ void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
+    void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
 
     """
     return _libBornAgainCore.VisitNodesPostorder(node, visitor)
@@ -8167,7 +8167,11 @@ _libBornAgainCore.IFormFactor_swigregister(IFormFactor)
 
 
 def createTransformedFormFactor(formfactor, rot, translation):
-    r"""createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor"""
+    r"""
+    createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
+    IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+
+    """
     return _libBornAgainCore.createTransformedFormFactor(formfactor, rot, translation)
 class IFormFactorBorn(IFormFactor):
     r"""
@@ -8491,7 +8495,7 @@ def IRotation_createIdentity():
 def createProduct(left, right):
     r"""
     createProduct(IRotation left, IRotation right) -> IRotation
-    BA_CORE_API_ IRotation* createProduct(const IRotation &left, const IRotation &right)
+    IRotation* createProduct(const IRotation &left, const IRotation &right)
 
     Returns concatenated rotation (first right, then left). 
 
@@ -9603,7 +9607,7 @@ class IParticle(IAbstractParticle):
         createFormFactor(IParticle self) -> IFormFactor
         IFormFactor * IParticle::createFormFactor() const
 
-        Create a form factor for this particle. 
+        Creates a form factor for this particle. 
 
         """
         return _libBornAgainCore.IParticle_createFormFactor(self)
@@ -9613,7 +9617,7 @@ class IParticle(IAbstractParticle):
         createSlicedParticle(IParticle self, ZLimits limits) -> SlicedParticle
         SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.IParticle_createSlicedParticle(self, limits)
@@ -9789,7 +9793,7 @@ class MesoCrystal(IParticle):
         createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
         SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
@@ -9856,7 +9860,7 @@ class Particle(IParticle):
         createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
         SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.Particle_createSlicedParticle(self, limits)
@@ -9949,7 +9953,7 @@ class ParticleComposition(IParticle):
         createFormFactor(ParticleComposition self) -> IFormFactor
         IFormFactor * ParticleComposition::createFormFactor() const override final
 
-        Create a form factor for this particle. 
+        Creates a form factor for this particle. 
 
         """
         return _libBornAgainCore.ParticleComposition_createFormFactor(self)
@@ -10061,7 +10065,7 @@ class ParticleCoreShell(IParticle):
         createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
         SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.ParticleCoreShell_createSlicedParticle(self, limits)
@@ -18128,7 +18132,7 @@ _libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
 def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
     r"""
     MaterialProfile_cpp(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
-    BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+    std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
     Calculate average material profile for given multilayer 
 
@@ -18138,7 +18142,7 @@ def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
 def DefaultMaterialProfileLimits(multilayer):
     r"""
     DefaultMaterialProfileLimits(MultiLayer multilayer) -> pair_double_t
-    BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+    std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
 
     Get default z limits for generating a material profile. 
 
@@ -18148,7 +18152,7 @@ def DefaultMaterialProfileLimits(multilayer):
 def GenerateZValues(n_points, z_min, z_max):
     r"""
     GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
-    BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+    std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
 
     Generate z values (equidistant) for use in MaterialProfile. 
 
@@ -18618,7 +18622,7 @@ class IDetector2D(IDetector):
         createPixel(IDetector2D self, size_t index) -> IPixel
         virtual IPixel* IDetector2D::createPixel(size_t index) const =0
 
-        Create an  IPixel for the given  OutputData object and index. 
+        Creates an  IPixel for the given  OutputData object and index. 
 
         """
         return _libBornAgainCore.IDetector2D_createPixel(self, index)
@@ -20140,7 +20144,7 @@ class Histogram1D(IHistogram):
         crop(Histogram1D self, double xmin, double xmax) -> Histogram1D
         Histogram1D * Histogram1D::crop(double xmin, double xmax)
 
-        Create new histogram by applying crop on axis. 
+        Creates new histogram by applying crop on axis. 
 
         """
         return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
@@ -20253,7 +20257,7 @@ class Histogram2D(IHistogram):
         crop(Histogram2D self, double xmin, double ymin, double xmax, double ymax) -> Histogram2D
         Histogram2D * Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
 
-        Create new histogram by applying rectangular clip. 
+        Creates new histogram by applying rectangular clip. 
 
         """
         return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
@@ -21380,7 +21384,7 @@ class Lattice(INode):
         createTransformedLattice(Lattice self, Transform3D const & transform) -> Lattice
         Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
-        Create transformed lattice. 
+        Creates transformed lattice. 
 
         """
         return _libBornAgainCore.Lattice_createTransformedLattice(self, transform)
@@ -21855,15 +21859,27 @@ _libBornAgainCore.HexagonalLattice_swigregister(HexagonalLattice)
 
 
 def createFCCLattice(lattice_constant, orientation):
-    r"""createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice"""
+    r"""
+    createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+
+    """
     return _libBornAgainCore.createFCCLattice(lattice_constant, orientation)
 
 def createHCPLattice(a, c, orientation):
-    r"""createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    r"""
+    createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+
+    """
     return _libBornAgainCore.createHCPLattice(a, c, orientation)
 
 def createBCTLattice(a, c, orientation):
-    r"""createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    r"""
+    createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+
+    """
     return _libBornAgainCore.createBCTLattice(a, c, orientation)
 class Material(object):
     r"""
@@ -22015,7 +22031,7 @@ def HomogeneousMaterial(*args):
     HomogeneousMaterial() -> Material
     HomogeneousMaterial(std::string const & name, double delta, double beta, kvector_t magnetization={}) -> Material
     HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization={}) -> Material
-    BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
+    Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
 
     Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\delta$ and  $\\beta$ for refractive index  $n = 1 - \\delta + i \\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
 
@@ -22026,7 +22042,7 @@ def MaterialBySLD(*args):
     r"""
     MaterialBySLD() -> Material
     MaterialBySLD(std::string const & name, double sld_real, double sld_imag, kvector_t magnetization={}) -> Material
-    BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
+    Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
 
     Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 

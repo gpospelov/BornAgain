@@ -43,8 +43,14 @@ double IFormFactorPrism::volume() const
     return height() * pimpl->area();
 }
 
-double IFormFactorPrism::getHeight() const { return height(); }
-double IFormFactorPrism::radialExtension() const { return std::sqrt(pimpl->area()); }
+double IFormFactorPrism::getHeight() const
+{
+    return height();
+}
+double IFormFactorPrism::radialExtension() const
+{
+    return std::sqrt(pimpl->area());
+}
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 

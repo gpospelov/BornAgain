@@ -21,7 +21,7 @@
 
 //! A polyhedron, implementation class for use in IFormFactorPolyhedron
 
-class BA_CORE_API_ Polyhedron
+class Polyhedron
 {
 public:
     Polyhedron() = delete;

@@ -18,7 +18,7 @@
 //! @param base_edge: length of the hexagonal base in nanometers
 //! @param height: height in nanometers
 FormFactorPrism6::FormFactorPrism6(const std::vector<double> P)
-    : FormFactorPolygonalPrism({"Prism6",
+    : IFormFactorPrism({"Prism6",
                                 "class_tooltip",
                                 {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
                                  {"Height", "nm", "para_tooltip", 0, +INF, 0}}},

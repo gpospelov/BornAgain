@@ -19,7 +19,7 @@
 //! A prism based on an equilateral triangle.
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
+class BA_CORE_API_ FormFactorPrism3 : public IFormFactorPrism
 {
 public:
     FormFactorPrism3(const std::vector<double> P);

@@ -20,7 +20,7 @@
 //! @param width: width of the base in nanometers
 //! @param height: height of the box in nanometers
 FormFactorBox::FormFactorBox(const std::vector<double> P)
-    : FormFactorPolygonalPrism({"Box",
+    : IFormFactorPrism({"Box",
                                 "class_tooltip",
                                 {{"Length", "nm", "para_tooltip", 0, +INF, 0},
                                  {"Width", "nm", "para_tooltip", 0, +INF, 0},

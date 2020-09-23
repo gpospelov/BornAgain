@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/IFormFactorPrism.h
-//! @brief     Defines class FormFactorPolygonalPrism.
+//! @brief     Defines class IFormFactorPrism.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,11 +22,11 @@
 
 //! A prism with a polygonal base, for form factor computation.
 
-class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn
+class BA_CORE_API_ IFormFactorPrism : public IFormFactorBorn
 {
 public:
-    FormFactorPolygonalPrism() = default;
-    FormFactorPolygonalPrism(const NodeMeta& meta, const std::vector<double>& PValues);
+    IFormFactorPrism() = default;
+    IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;

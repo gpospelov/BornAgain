@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/IFormFactorPrism.cpp
-//! @brief     Implements class FormFactorPolygonalPrism.
+//! @brief     Implements class IFormFactorPrism.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,13 +28,13 @@ const double eps = 2e-16;
 } // namespace
 
 
-FormFactorPolygonalPrism::FormFactorPolygonalPrism(const NodeMeta& meta,
+IFormFactorPrism::IFormFactorPrism(const NodeMeta& meta,
                                                    const std::vector<double>& PValues)
     : IFormFactorBorn(meta, PValues)
 {
 }
 
-void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices)
+void IFormFactorPrism::setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices)
 {
     m_vertices.clear();
     for (const kvector_t& vertex : vertices) {
@@ -55,25 +55,25 @@ void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvec
     }
 }
 
-double FormFactorPolygonalPrism::bottomZ(const IRotation& rotation) const
+double IFormFactorPrism::bottomZ(const IRotation& rotation) const
 {
     return BottomZ(m_vertices, rotation);
 }
 
-double FormFactorPolygonalPrism::topZ(const IRotation& rotation) const
+double IFormFactorPrism::topZ(const IRotation& rotation) const
 {
     return TopZ(m_vertices, rotation);
 }
 
 //! Returns the volume of this prism.
-double FormFactorPolygonalPrism::volume() const
+double IFormFactorPrism::volume() const
 {
     return height() * m_base->area();
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 
-complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const
+complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const
 {
     try {
 #ifdef POLYHEDRAL_DIAGNOSTIC

@@ -78,13 +78,13 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
                             B.mag() > eps ? B / B.mag() : kvector_t{0.0, 0.0, 0.0}, magnetic_SLD);
     }
 
-    if(N == 1){
+    if (N == 1) {
         result[0].m_T = Eigen::Matrix2cd::Identity();
         result[0].m_R = Eigen::Matrix2cd::Zero();
         return result;
 
-    }else if( kzs[0] == 0. ){
-        result[0].m_T =  Eigen::Matrix2cd::Identity();
+    } else if (kzs[0] == 0.) {
+        result[0].m_T = Eigen::Matrix2cd::Identity();
         result[0].m_R = -Eigen::Matrix2cd::Identity();
         for (size_t i = 1; i < N; ++i) {
             result[i].m_T.setZero();

@@ -53,7 +53,7 @@ std::vector<MatrixRTCoefficients_v2>
 SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
                                     const std::vector<complex_t>& kzs)
 {
-    if(kzs[0] == 0.)
+    if (kzs[0] == 0.)
         throw std::runtime_error("Edge case k_z = 0 not implemented");
 
     if (slices.size() != kzs.size())

@@ -33,8 +33,7 @@ public:
     friend class SpecularMagnetic_v3ConsistencyTest;
     friend class SpecularMagnetic_v3ConsistencyTest_ScalarMagneticAmplitudes_Test;
     friend class SpecularMagnetic_v3ConsistencyTest_AmplitudesBackwardsBackwards_Test;
-    template<class sampleClass>
-    friend class TestSimulation;
+    template <class sampleClass> friend class TestSimulation;
 
     MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b,
                             double magnetic_SLD);
@@ -55,14 +54,14 @@ public:
     Eigen::Vector2cd R2min() const override;
     //! Returns z-part of the two wavevector eigenmodes
     Eigen::Vector2cd getKz() const override;
-    double magneticSLD() const {return m_magnetic_SLD;}
+    double magneticSLD() const { return m_magnetic_SLD; }
 
     Eigen::Matrix2cd computeP() const;
     Eigen::Matrix2cd computeInverseP() const;
 
     Eigen::Matrix2cd computeDeltaMatrix(double thickness);
 
-    Eigen::Matrix2cd getReflectionMatrix() const override {return m_R;};
+    Eigen::Matrix2cd getReflectionMatrix() const override { return m_R; };
 
 private:
     double m_kz_sign; //! wave propagation direction (-1 for direct one, 1 for time reverse)

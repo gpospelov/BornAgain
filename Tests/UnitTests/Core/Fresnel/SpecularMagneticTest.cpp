@@ -1,6 +1,7 @@
 #include "Core/Basics/Units.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Multilayer/KzComputation.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularMagneticNewTanhStrategy.h"
@@ -9,7 +10,6 @@
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>
-#include "Core/Multilayer/KzComputation.h"
 
 constexpr double eps = 1e-10;
 
@@ -57,11 +57,10 @@ template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhSt
 template <typename Strategy>
 void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample)
 {
-    auto coeffs_scalar =
-        std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample.slices(),
-                                            KzComputation::computeKzFromRefIndices(sample.slices(), k) );
-    auto coeffs_zerofield = std::make_unique<Strategy>()->Execute(sample.slices(),
-                                            KzComputation::computeKzFromRefIndices(sample.slices(), k) );
+    auto coeffs_scalar = std::make_unique<SpecularScalarTanhStrategy>()->Execute(
+        sample.slices(), KzComputation::computeKzFromRefIndices(sample.slices(), k));
+    auto coeffs_zerofield = std::make_unique<Strategy>()->Execute(
+        sample.slices(), KzComputation::computeKzFromRefIndices(sample.slices(), k));
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
@@ -99,8 +98,7 @@ TEST_F(SpecularMagneticTest, degenerate_new)
     test_degenerate<SpecularMagneticNewTanhStrategy>();
 }
 
-std::unique_ptr<ProcessedSample>
-SpecularMagneticTest::sample_zerofield()
+std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield()
 {
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);

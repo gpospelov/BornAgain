@@ -38,7 +38,7 @@ IFormFactor* FormFactorPrism6::sliceFormFactor(ZLimits limits, const IRotation& 
 {
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorPrism6 slicedff(m_base_edge, m_height - effects.dz_bottom - effects.dz_top);
-    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorPrism6::onChange()

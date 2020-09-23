@@ -64,17 +64,17 @@ IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRot
         FormFactorPyramid slicedff(
             m_length - dbase_edge,
             m_height * (1 + m_height_ratio) - effects.dz_bottom - effects.dz_top, m_alpha);
-        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+        return createTransformedFormFactor(slicedff, rot, effects.position);
     } else if (effects.dz_top > m_height_ratio * m_height) {
         double dbase_edge = 2 * (m_height - effects.dz_bottom) * MathFunctions::cot(m_alpha);
         FormFactorPyramid slicedff(
             m_length - dbase_edge,
             m_height * (1 + m_height_ratio) - effects.dz_bottom - effects.dz_top, M_PI - m_alpha);
-        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+        return createTransformedFormFactor(slicedff, rot, effects.position);
     } else {
         FormFactorCuboctahedron slicedff(m_length, m_height - effects.dz_bottom,
                                          m_height_ratio * m_height - effects.dz_top, m_alpha);
-        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+        return createTransformedFormFactor(slicedff, rot, effects.position);
     }
 }
 

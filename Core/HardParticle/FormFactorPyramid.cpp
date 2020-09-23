@@ -55,7 +55,7 @@ IFormFactor* FormFactorPyramid::sliceFormFactor(ZLimits limits, const IRotation&
     double dbase_edge = 2 * effects.dz_bottom * MathFunctions::cot(m_alpha);
     FormFactorPyramid slicedff(m_base_edge - dbase_edge,
                                m_height - effects.dz_bottom - effects.dz_top, m_alpha);
-    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorPyramid::onChange()

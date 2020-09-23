@@ -41,8 +41,7 @@ MatrixRTCoefficients_v3* MatrixRTCoefficients_v3::clone() const
     return new MatrixRTCoefficients_v3(*this);
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenvalue,
-                                                               Eigen::Vector2d selection) const
+Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(Eigen::Vector2d selection) const
 {
     const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(selection);
 
@@ -52,23 +51,20 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(complex_t eigenva
         Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
         return Q * exp2 * Q.adjoint() / factor1;
 
-    } else if (m_b.mag() < eps && eigenvalue != 0.)
+    } else if (m_b.mag() < eps)
         return exp2;
-    //        result = Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
-    else if (m_b.mag() < eps && eigenvalue == 0.)
-        return Eigen::Matrix2cd(Eigen::DiagonalMatrix<complex_t, 2>({0.5, 0.5}));
 
     throw std::runtime_error("Broken magnetic field vector");
 }
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::T1Matrix() const
 {
-    return TransformationMatrix(m_lambda(1), {0., 1.});
+    return TransformationMatrix({0., 1.});
 }
 
 Eigen::Matrix2cd MatrixRTCoefficients_v3::T2Matrix() const
 {
-    return TransformationMatrix(m_lambda(0), {1., 0.});
+    return TransformationMatrix({1., 0.});
 }
 
 Eigen::Vector2cd MatrixRTCoefficients_v3::T1plus() const
@@ -144,8 +140,8 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
     const complex_t alpha = m_lambda(1) + m_lambda(0);
     const complex_t beta = m_lambda(1) - m_lambda(0);
 
-    if (std::abs(alpha * alpha - beta * beta) < eps)
-        throw std::runtime_error("Singular p_m");
+    if (std::abs(alpha * alpha - beta * beta) == 0.)
+        return Eigen::Matrix2cd::Zero();
 
     Eigen::Matrix2cd result = pMatrixHelper(-1.);
     result *= 2. / (alpha * alpha - beta * beta);

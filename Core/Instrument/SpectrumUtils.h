@@ -26,10 +26,9 @@ class Histogram2D;
 namespace SpectrumUtils
 {
 
-std::vector<std::pair<double, double>> FindPeaks(const Histogram2D& hist,
-                                                              double sigma = 2,
-                                                              const std::string& option = {},
-                                                              double threshold = 0.05);
+std::vector<std::pair<double, double>> FindPeaks(const Histogram2D& hist, double sigma = 2,
+                                                 const std::string& option = {},
+                                                 double threshold = 0.05);
 }
 
 #endif // BORNAGAIN_CORE_INSTRUMENT_SPECTRUMUTILS_H

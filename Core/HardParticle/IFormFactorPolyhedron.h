@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 #define BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 
-#include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/HardParticle/PolyhedralTopology.h"
+#include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
 
 class Polyhedron;

@@ -17,7 +17,6 @@
 
 #include <string>
 
-
 // workaround for SWIG (instead of just writing enum class RoughnessModel ...)
 struct RoughnessModelWrap {
     enum RoughnessModel { DEFAULT, TANH, NEVOT_CROCE };

@@ -39,8 +39,7 @@ std::string printValue(double value, const std::string& units = "");
 std::string printString(const std::string& value);
 
 std::string printRealLimits(const RealLimits& limits, const std::string& units = "");
-std::string printRealLimitsArg(const RealLimits& limits,
-                                            const std::string& units = "");
+std::string printRealLimitsArg(const RealLimits& limits, const std::string& units = "");
 
 bool isSquare(double length1, double length2, double angle);
 bool isHexagonal(double length1, double length2, double angle);

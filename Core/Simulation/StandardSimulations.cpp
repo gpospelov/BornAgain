@@ -594,7 +594,6 @@ SpecularSimulation* StandardSimulations::BasicSpecularQMP()
     return simulation.release();
 }
 
-
 // ----------------------- off-spec simulations ------------------
 
 // OffSpec simulation used in ResonatorOffSpecSetup.py

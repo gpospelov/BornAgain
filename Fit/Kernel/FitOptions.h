@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_FIT_KERNEL_FITOPTIONS_H
 #define BORNAGAIN_FIT_KERNEL_FITOPTIONS_H
 
-
 //! General fitting options.
 
 class FitOptions

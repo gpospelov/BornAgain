@@ -46,8 +46,7 @@ std::vector<complex_t> computeKzFromSLDs(const std::vector<Slice>& slices, doubl
 /* Computes kz values from k-vector of the incoming beam known at a distant point in vacuum.
  * It is assumed, that the beam penetrates fronting medium from a side.
  */
-std::vector<complex_t> computeKzFromRefIndices(const std::vector<Slice>& slices,
-                                                            kvector_t k);
+std::vector<complex_t> computeKzFromRefIndices(const std::vector<Slice>& slices, kvector_t k);
 } // namespace KzComputation
 
 #endif // BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H

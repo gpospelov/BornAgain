@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
 #define BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
 
-
 class DepthProbeSimulation;
 class GISASSimulation;
 class SpecularSimulation;

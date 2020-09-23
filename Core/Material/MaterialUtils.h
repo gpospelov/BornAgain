@@ -35,13 +35,13 @@ complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref);
 //! (polarized material case)
 
 Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k,
-                                                        double n_ref);
+                                           double n_ref);
 
 //! Utility to compute magnetization correction for reduced potential and scattering length density
 
 template <typename T>
 Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor,
-                                                      BasicVector3D<T> polarization);
+                                         BasicVector3D<T> polarization);
 
 //! Checks if all non-default materials in _materials_ are of the same type and returns this type.
 //! If several types of materials are involved, InvalidMaterialType identifier is returned.

@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_THREADINFO_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_THREADINFO_H
 
-
 //! Information to run simulation with dedicated number of threads.
 //! @ingroup simulation
 

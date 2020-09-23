@@ -327,8 +327,7 @@ inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const
 
 template <> BasicVector3D<double> BasicVector3D<double>::conj() const;
 
-template <>
-BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::conj() const;
+template <> BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::conj() const;
 
 template <> double BasicVector3D<double>::phi() const;
 
@@ -346,8 +345,7 @@ template <> BasicVector3D<double> BasicVector3D<std::complex<double>>::real() co
 
 template <> BasicVector3D<double> BasicVector3D<double>::unit() const;
 
-template <>
-BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::unit() const;
+template <> BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::unit() const;
 
 template <> double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 

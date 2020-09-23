@@ -67,6 +67,7 @@ public:
 
     MultiLayer* createSample(size_t index = 0) override;
     size_t size() override;
+
 protected:
     MultiLayer* builder(double sigmaRoughness = 0.,
                         RoughnessModel roughnessModel = RoughnessModel::TANH) const;

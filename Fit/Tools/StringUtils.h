@@ -35,7 +35,7 @@ std::vector<std::string> split(const std::string& text, const std::string& delim
 
 //! Replaces all occurences of items from string text with delimiter
 void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
-                                         const std::string& replacement = "");
+                            const std::string& replacement = "");
 
 //! Returns string obtain by joining vector elements
 std::string join(const std::vector<std::string>& joinable, const std::string& joint);

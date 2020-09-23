@@ -22,8 +22,7 @@ class ILatticeOrientation;
 
 namespace LatticeUtils
 {
-Lattice createFCCLattice(double lattice_constant,
-                                      const ILatticeOrientation& orientation);
+Lattice createFCCLattice(double lattice_constant, const ILatticeOrientation& orientation);
 Lattice createHCPLattice(double a, double c, const ILatticeOrientation& orientation);
 Lattice createBCTLattice(double a, double c, const ILatticeOrientation& orientation);
 } // namespace LatticeUtils

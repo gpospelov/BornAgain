@@ -30,19 +30,17 @@ class IAxis;
 namespace pyfmt2
 {
 
-std::string representShape2D(const std::string& indent, const IShape2D* ishape,
-                                          bool mask_value,
-                                          std::function<std::string(double)> printValueFunc);
+std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,
+                             std::function<std::string(double)> printValueFunc);
 
 std::string valueTimesUnit(const RealParameter* par);
 std::string argumentList(const IParameterized* ip);
 
-std::string printDistribution(const IDistribution1D& par_distr,
-                                           const std::string& units = "");
+std::string printDistribution(const IDistribution1D& par_distr, const std::string& units = "");
 
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
-                                                    const std::string& distVarName,
-                                                    const std::string& units = "");
+                                       const std::string& distVarName,
+                                       const std::string& units = "");
 
 //! Prints python-script definition for given axis.
 //! offset is used for alignment and indentation in multiple-line definitions

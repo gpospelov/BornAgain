@@ -24,8 +24,8 @@ class MultiLayer;
 //! @ingroup materials
 
 //! Calculate average material profile for given multilayer
-std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points,
-                                                    double z_min, double z_max);
+std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points, double z_min,
+                                       double z_max);
 
 //! Get default z limits for generating a material profile
 std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer& multilayer);

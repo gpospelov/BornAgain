@@ -28,8 +28,7 @@ namespace PyArrayImport
 //! for importing 1D array of doubles from python into OutputData
 OutputData<double>* importArrayToOutputData(const std::vector<double>& vec);
 //! for importing 2D array of doubles from python into OutputData
-OutputData<double>*
-importArrayToOutputData(const std::vector<std::vector<double>>& vec);
+OutputData<double>* importArrayToOutputData(const std::vector<std::vector<double>>& vec);
 
 } // namespace PyArrayImport
 

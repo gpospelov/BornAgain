@@ -36,8 +36,6 @@ std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLay
         } else
             throw std::logic_error("Invalid roughness model");
 
-
-
     } else {
         if (roughnessModel == RoughnessModel::TANH || roughnessModel == RoughnessModel::DEFAULT) {
             return std::make_unique<SpecularScalarTanhStrategy>();

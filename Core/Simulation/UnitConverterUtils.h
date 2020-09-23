@@ -28,7 +28,7 @@ namespace UnitConverterUtils
 
 //! Returns zero-valued output data array in specified units
 std::unique_ptr<OutputData<double>> createOutputData(const IUnitConverter& converter,
-                                                                  AxesUnits units);
+                                                     AxesUnits units);
 
 //! Helper factory function to use in GISASSimulation. Depending on the type of detector,
 //! returns either RectangularConverter or SphericalConverter.

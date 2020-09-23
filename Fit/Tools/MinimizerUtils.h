@@ -32,8 +32,7 @@ std::string gslErrorDescription(int errorCode);
 
 bool numbersDiffer(double a, double b, double tol);
 
-std::string sectionString(const std::string& sectionName = "",
-                                       size_t report_width = 80);
+std::string sectionString(const std::string& sectionName = "", size_t report_width = 80);
 
 } // namespace MinimizerUtils
 

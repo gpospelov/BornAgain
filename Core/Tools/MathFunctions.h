@@ -87,12 +87,11 @@ enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
 
 // TODO: name these two functions differently (SWIG warning 509)
 std::vector<complex_t> FastFourierTransform(const std::vector<complex_t>& data,
-                                                         EFFTDirection tcase);
-std::vector<complex_t> FastFourierTransform(const std::vector<double>& data,
-                                                         EFFTDirection tcase);
+                                            EFFTDirection tcase);
+std::vector<complex_t> FastFourierTransform(const std::vector<double>& data, EFFTDirection tcase);
 
 std::vector<complex_t> ConvolveFFT(const std::vector<double>& signal,
-                                                const std::vector<double>& resfunc);
+                                   const std::vector<double>& resfunc);
 
 // ************************************************************************** //
 //  Random number generators

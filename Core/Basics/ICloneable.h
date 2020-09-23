@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_BASICS_ICLONEABLE_H
 #define BORNAGAIN_CORE_BASICS_ICLONEABLE_H
 
-
 //! Interface for polymorphic classes that should not be copied, except by explicit cloning.
 //!
 //! Child classes of ICloneable must provide clone().

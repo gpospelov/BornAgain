@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_CUMULATIVEVALUE_H
 #define BORNAGAIN_CORE_INTENSITY_CUMULATIVEVALUE_H
 
-
 //! The cumulative value with average and rms on-the-flight calculations.
 //! @ingroup tools
 

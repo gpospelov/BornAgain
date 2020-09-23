@@ -25,8 +25,8 @@
 class MaterialBySLDImpl : public MagneticMaterialImpl
 {
 public:
-    friend Material MaterialBySLD(const std::string& name, double sld_real,
-                                               double sld_imag, kvector_t magnetization);
+    friend Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
+                                  kvector_t magnetization);
 
     virtual ~MaterialBySLDImpl() = default;
 

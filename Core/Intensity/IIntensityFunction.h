@@ -16,7 +16,6 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_IINTENSITYFUNCTION_H
 #define BORNAGAIN_CORE_INTENSITY_IINTENSITYFUNCTION_H
 
-
 //! Interface for applying arbitrary function to the measured intensity.
 //! @ingroup algorithms_internal
 

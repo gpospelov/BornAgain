@@ -34,14 +34,13 @@ namespace PyImport
 //! @param functionName: A function name in this script which produces a MultiLayer
 //! @param path: A path to import BornAgain library. If empty, relies on PYTHONPATH
 std::unique_ptr<MultiLayer> createFromPython(const std::string& script,
-                                                          const std::string& functionName,
-                                                          const std::string& path = "");
+                                             const std::string& functionName,
+                                             const std::string& path = "");
 
 //! Returns list of functions defined in the script.
 //! @param script: Python script
 //! @param path: A path to import BornAgain library. If empty, relies on PYTHONPATH
-std::vector<std::string> listOfFunctions(const std::string& script,
-                                                      const std::string& path = "");
+std::vector<std::string> listOfFunctions(const std::string& script, const std::string& path = "");
 } // namespace PyImport
 
 #endif // BORNAGAIN_PYTHON

@@ -134,10 +134,8 @@ template <class ivector_t> ivector_t Transform3D::transformedInverse(const ivect
     return ivector_t(x, y, z);
 }
 
-template kvector_t
-Transform3D::transformedInverse<kvector_t>(const kvector_t& v) const;
-template cvector_t
-Transform3D::transformedInverse<cvector_t>(const cvector_t& v) const;
+template kvector_t Transform3D::transformedInverse<kvector_t>(const kvector_t& v) const;
+template cvector_t Transform3D::transformedInverse<cvector_t>(const cvector_t& v) const;
 
 Transform3D* Transform3D::clone() const
 {

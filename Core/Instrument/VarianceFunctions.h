@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
 #define BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
 
-
 //! Variance function interface.
 //! @ingroup fitting_internal
 

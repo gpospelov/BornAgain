@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H
 
-
 class BasicLattice;
 class Beam;
 class ConstantBackground;

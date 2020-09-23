@@ -34,12 +34,11 @@ class SpecularMagneticNewNCStrategy : public SpecularMagneticNewStrategy
 private:
     std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
     computeRoughnessMatrices(const MatrixRTCoefficients_v3& coeff_i,
-                             const MatrixRTCoefficients_v3& coeff_i1,
-                             double sigma) const;
+                             const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
 
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3 & coeff_i,
-                       const MatrixRTCoefficients_v3 & coeff_i1, double sigma) const;
+    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
+                                const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWNCSTRATEGY_H

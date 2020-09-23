@@ -26,7 +26,7 @@ Material HomogeneousMaterial();
 //! @ingroup materials
 
 Material HomogeneousMaterial(const std::string& name, double delta, double beta,
-                                          kvector_t magnetization = {});
+                             kvector_t magnetization = {});
 
 //! @ingroup materials
 
@@ -37,7 +37,7 @@ Material HomogeneousMaterial(const std::string& name, double delta, double beta,
 //! With no parameters given, constructs default (vacuum) material with \f$n = 1\f$ and zero
 //! magnetization.
 Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
-                                          kvector_t magnetization = {});
+                             kvector_t magnetization = {});
 
 //! @ingroup materials
 
@@ -60,6 +60,6 @@ Material MaterialBySLD();
 //! @param sld_imag: imaginary part of the scattering length density, inverse square angstroms
 //! @param magnetization: magnetization (in A/m)
 Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
-                                    kvector_t magnetization = {});
+                       kvector_t magnetization = {});
 
 #endif // BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H

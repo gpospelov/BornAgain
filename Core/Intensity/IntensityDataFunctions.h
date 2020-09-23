@@ -32,12 +32,11 @@ namespace IntensityDataFunctions
 double RelativeDifference(const SimulationResult& dat, const SimulationResult& ref);
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
-double getRelativeDifference(const OutputData<double>& dat,
-                                          const OutputData<double>& ref);
+double getRelativeDifference(const OutputData<double>& dat, const OutputData<double>& ref);
 
 //! Returns true is relative difference is below threshold; prints informative output
-bool checkRelativeDifference(const OutputData<double>& dat,
-                                          const OutputData<double>& ref, const double threshold);
+bool checkRelativeDifference(const OutputData<double>& dat, const OutputData<double>& ref,
+                             const double threshold);
 
 double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
 
@@ -54,12 +53,10 @@ void coordinateToBinf(double& x, double& y, const OutputData<double>& data);
 void coordinateFromBinf(double& x, double& y, const OutputData<double>& data);
 
 //! Creates a vector of vectors of double (2D Array) from OutputData.
-std::vector<std::vector<double>>
-create2DArrayfromOutputData(const OutputData<double>& data);
+std::vector<std::vector<double>> create2DArrayfromOutputData(const OutputData<double>& data);
 
 //! Creates a Fourier Transform of a 2D Array (vector of vectors).
-std::vector<std::vector<double>>
-FT2DArray(const std::vector<std::vector<double>>& signal);
+std::vector<std::vector<double>> FT2DArray(const std::vector<std::vector<double>>& signal);
 
 #ifndef SWIG
 
@@ -70,8 +67,7 @@ createRelativeDifferenceData(const OutputData<double>& data, const OutputData<do
 //! n*90 deg counterclockwise (n > 0) or clockwise (n < 0)
 //! Axes are swapped if the data is effectively rotated by 90 or 270 degrees
 //! Applicable to 2D arrays only
-std::unique_ptr<OutputData<double>>
-createRearrangedDataSet(const OutputData<double>& data, int n);
+std::unique_ptr<OutputData<double>> createRearrangedDataSet(const OutputData<double>& data, int n);
 
 //! Returns new IntensityData objects which axes clipped to represent the specified rectangle.
 std::unique_ptr<OutputData<double>>

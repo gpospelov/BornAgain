@@ -20,7 +20,7 @@
 //! Rotated box in 3 layers system.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ TransformBoxBuilder : public IMultiLayerBuilder
+class TransformBoxBuilder : public IMultiLayerBuilder
 {
 public:
     TransformBoxBuilder() {}

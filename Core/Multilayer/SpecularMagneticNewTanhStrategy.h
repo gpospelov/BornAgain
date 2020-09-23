@@ -26,7 +26,7 @@
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagneticNewTanhStrategy : public SpecularMagneticNewStrategy
+class SpecularMagneticNewTanhStrategy : public SpecularMagneticNewStrategy
 {
 private:
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>

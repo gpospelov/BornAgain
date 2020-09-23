@@ -27,7 +27,7 @@ class Slice;
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ SpecularScalarNCStrategy : public SpecularScalarStrategy
+class SpecularScalarNCStrategy : public SpecularScalarStrategy
 {
 private:
     //! Roughness is modelled by a Gaussian profile, i.e. Nevot-Croce factors for the

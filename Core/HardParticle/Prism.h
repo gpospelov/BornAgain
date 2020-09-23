@@ -19,7 +19,7 @@
 #include "Core/HardParticle/PolyhedralTopology.h"
 #include <memory>
 
-class BA_CORE_API_ Prism
+class Prism
 {
 public:
     Prism() = delete;

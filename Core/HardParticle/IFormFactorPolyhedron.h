@@ -23,7 +23,7 @@ class Polyhedron;
 
 //! A polyhedron, for form factor computation.
 
-class BA_CORE_API_ IFormFactorPolyhedron : public IFormFactorBorn
+class IFormFactorPolyhedron : public IFormFactorBorn
 {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC

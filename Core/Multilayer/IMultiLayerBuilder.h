@@ -22,7 +22,7 @@ class MultiLayer;
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ IMultiLayerBuilder : public IParameterized
+class IMultiLayerBuilder : public IParameterized
 {
 public:
     IMultiLayerBuilder();

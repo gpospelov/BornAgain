@@ -35,7 +35,7 @@ class MultiLayer;
 //! weighting over parameter distributions, ...
 //! @ingroup simulation
 
-class BA_CORE_API_ Simulation : public ICloneable, public INode
+class Simulation : public ICloneable, public INode
 {
 public:
     Simulation();

@@ -23,7 +23,7 @@ class IMultiLayerBuilder;
 //! Enfolds MultiLayerBuilder to have it in INode tree.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ SampleBuilderNode : public INode
+class SampleBuilderNode : public INode
 {
 public:
     using builder_t = std::shared_ptr<IMultiLayerBuilder>;

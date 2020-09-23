@@ -37,7 +37,7 @@ class WavevectorInfo;
 
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ IFormFactor : public ISample
+class IFormFactor : public ISample
 {
 public:
     IFormFactor() = default;

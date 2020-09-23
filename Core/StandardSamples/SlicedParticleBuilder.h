@@ -20,7 +20,7 @@
 //! Builds sample: spherical composition made of top+bottom spherical cups
 //! @ingroup standard_samples
 
-class BA_CORE_API_ SlicedCompositionBuilder : public IMultiLayerBuilder
+class SlicedCompositionBuilder : public IMultiLayerBuilder
 {
 public:
     SlicedCompositionBuilder() {}

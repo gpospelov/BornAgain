@@ -29,7 +29,7 @@ struct SlicingEffects; // defined below
 
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ IFormFactorBorn : public IFormFactor
+class IFormFactorBorn : public IFormFactor
 {
 public:
     IFormFactorBorn() = default;

@@ -24,7 +24,7 @@ class MultiLayer;
 //! the user or from SampleBuilder.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ SampleProvider : public INode
+class SampleProvider : public INode
 {
 public:
     SampleProvider();

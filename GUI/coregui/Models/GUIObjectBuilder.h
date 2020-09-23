@@ -16,6 +16,7 @@
 #define BORNAGAIN_GUI_COREGUI_MODELS_GUIOBJECTBUILDER_H
 
 #include "Core/Parametrization/INodeVisitor.h"
+#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QString>
 

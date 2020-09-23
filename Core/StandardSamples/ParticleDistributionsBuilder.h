@@ -34,7 +34,7 @@ private:
 //! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 //! @ingroup standard_samples
 
-class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public IMultiLayerBuilder
+class TwoTypesCylindersDistributionBuilder : public IMultiLayerBuilder
 {
 public:
     TwoTypesCylindersDistributionBuilder();

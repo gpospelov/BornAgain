@@ -22,7 +22,7 @@ class ISample;
 //! Builds sample: Core Shell Nanoparticles (IsGISAXS example #11).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ CoreShellParticleBuilder : public IMultiLayerBuilder
+class CoreShellParticleBuilder : public IMultiLayerBuilder
 {
 public:
     CoreShellParticleBuilder() {}
@@ -32,7 +32,7 @@ public:
 //! Rotation and translation of core shell box particle in 3 layers system.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ CoreShellBoxRotateZandYBuilder : public IMultiLayerBuilder
+class CoreShellBoxRotateZandYBuilder : public IMultiLayerBuilder
 {
 public:
     CoreShellBoxRotateZandYBuilder() {}

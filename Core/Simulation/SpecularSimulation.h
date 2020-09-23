@@ -31,7 +31,7 @@ class SpecularSimulationElement;
 //! Main class to run a specular simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ SpecularSimulation : public Simulation
+class SpecularSimulation : public Simulation
 {
 public:
     SpecularSimulation();

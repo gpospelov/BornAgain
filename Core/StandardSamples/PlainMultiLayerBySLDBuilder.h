@@ -21,7 +21,7 @@
 //! Ti is 70 angstroms thick, Ni is 30 angstroms thick.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ PlainMultiLayerBySLDBuilder : public IMultiLayerBuilder
+class PlainMultiLayerBySLDBuilder : public IMultiLayerBuilder
 {
 public:
     PlainMultiLayerBySLDBuilder(int n_layers = 10);

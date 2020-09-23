@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_BASICS_ICLONEABLE_H
 #define BORNAGAIN_CORE_BASICS_ICLONEABLE_H
 
-#include "Wrap/WinDllMacros.h"
 
 //! Interface for polymorphic classes that should not be copied, except by explicit cloning.
 //!
@@ -23,7 +22,7 @@
 
 //! @ingroup tools_internal
 
-class BA_CORE_API_ ICloneable
+class ICloneable
 {
 public:
     ICloneable() = default;

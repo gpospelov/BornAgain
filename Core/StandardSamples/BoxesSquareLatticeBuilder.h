@@ -22,7 +22,7 @@ class ISample;
 //! Builds sample: square boxes in a square lattice
 //! @ingroup standard_samples
 
-class BA_CORE_API_ BoxesSquareLatticeBuilder : public IMultiLayerBuilder
+class BoxesSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     BoxesSquareLatticeBuilder();

@@ -30,7 +30,7 @@ class Slice;
 //! For a detailed description see internal document "Polarized Specular Reflectometry"
 //!
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagneticStrategy : public ISpecularStrategy
+class SpecularMagneticStrategy : public ISpecularStrategy
 {
 public:
     using coefficient_type = MatrixRTCoefficients_v2;

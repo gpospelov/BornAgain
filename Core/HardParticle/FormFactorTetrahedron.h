@@ -20,7 +20,7 @@
 //! A frustum with equilateral trigonal base.
 //! @ingroup hardParticle
 
-class BA_CORE_API_ FormFactorTetrahedron : public IFormFactorPolyhedron
+class FormFactorTetrahedron : public IFormFactorPolyhedron
 {
 public:
     FormFactorTetrahedron(const std::vector<double> P);

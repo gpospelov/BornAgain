@@ -24,7 +24,7 @@ class IMultiLayerBuilder;
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ GISASSimulation : public Simulation2D
+class GISASSimulation : public Simulation2D
 {
 public:
     GISASSimulation();

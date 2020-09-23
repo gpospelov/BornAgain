@@ -17,6 +17,7 @@
 
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
+#include "Wrap/WinDllMacros.h"
 #include <QTableWidget>
 #include <set>
 

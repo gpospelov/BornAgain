@@ -23,7 +23,7 @@ class ISample;
 //! Builds sample: spheres in substrate layer with a zero magnetic field.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MagneticSubstrateZeroFieldBuilder : public IMultiLayerBuilder
+class MagneticSubstrateZeroFieldBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticSubstrateZeroFieldBuilder();
@@ -36,7 +36,7 @@ private:
 //! Builds sample: ambient and one magnetized layer on a non-magnetized substrate.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ SimpleMagneticLayerBuilder : public IMultiLayerBuilder
+class SimpleMagneticLayerBuilder : public IMultiLayerBuilder
 {
 public:
     SimpleMagneticLayerBuilder();
@@ -46,7 +46,7 @@ public:
 //! Builds sample: magnetic spheres in a magnetized layer on a non-magnetized substrate.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MagneticLayerBuilder : public IMultiLayerBuilder
+class MagneticLayerBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticLayerBuilder();
@@ -59,7 +59,7 @@ private:
 //! Builds sample: magnetic layer on a magnetic substrate with the fields rotated by 90°
 //! @ingroup standard_samples
 
-class BA_CORE_API_ SimpleMagneticRotationBuilder : public IMultiLayerBuilder
+class SimpleMagneticRotationBuilder : public IMultiLayerBuilder
 {
 public:
     SimpleMagneticRotationBuilder();
@@ -75,7 +75,7 @@ protected:
 //! Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MagneticRotationBuilder : public IMultiLayerBuilder
+class MagneticRotationBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticRotationBuilder();

@@ -26,7 +26,7 @@ class FormFactorComponents;
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ ParticleInTheAirBuilder : public IMultiLayerBuilder
+class ParticleInTheAirBuilder : public IMultiLayerBuilder
 {
 public:
     ParticleInTheAirBuilder();

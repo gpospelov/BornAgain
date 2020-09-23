@@ -25,6 +25,7 @@
 #include "Core/Parametrization/Distributions.h" // for IDistribution1D
 #include "Core/Particle/IParticle.h"
 #include "Core/Particle/ParticleDistribution.h"
+#include "Wrap/WinDllMacros.h"
 #include <memory>
 
 class AngularSpecScan;

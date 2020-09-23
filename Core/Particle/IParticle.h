@@ -28,7 +28,7 @@
 //!
 //! @ingroup samples
 
-class BA_CORE_API_ IParticle : public IAbstractParticle
+class IParticle : public IAbstractParticle
 {
 public:
     ~IParticle() {}

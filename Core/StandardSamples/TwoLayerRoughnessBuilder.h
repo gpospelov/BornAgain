@@ -22,7 +22,7 @@ class ISample;
 //! Builds sample: two layers with rough interface.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ TwoLayerRoughnessBuilder : public IMultiLayerBuilder
+class TwoLayerRoughnessBuilder : public IMultiLayerBuilder
 {
 public:
     TwoLayerRoughnessBuilder();

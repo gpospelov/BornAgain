@@ -91,7 +91,7 @@ public:
 };
 
 
-class BA_CORE_API_ FeNiBiLayerBuilder : public IMultiLayerBuilder
+class FeNiBiLayerBuilder : public IMultiLayerBuilder
 {
 public:
     FeNiBiLayerBuilder() {}
@@ -99,35 +99,35 @@ public:
 };
 
 
-class BA_CORE_API_ FeNiBiLayerTanhBuilder : public IMultiLayerBuilder
+class FeNiBiLayerTanhBuilder : public IMultiLayerBuilder
 {
 public:
     FeNiBiLayerTanhBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class BA_CORE_API_ FeNiBiLayerNCBuilder : public IMultiLayerBuilder
+class FeNiBiLayerNCBuilder : public IMultiLayerBuilder
 {
 public:
     FeNiBiLayerNCBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class BA_CORE_API_ FeNiBiLayerSpinFlipBuilder : public IMultiLayerBuilder
+class FeNiBiLayerSpinFlipBuilder : public IMultiLayerBuilder
 {
 public:
     FeNiBiLayerSpinFlipBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class BA_CORE_API_ FeNiBiLayerSpinFlipTanhBuilder : public IMultiLayerBuilder
+class FeNiBiLayerSpinFlipTanhBuilder : public IMultiLayerBuilder
 {
 public:
     FeNiBiLayerSpinFlipTanhBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class BA_CORE_API_ FeNiBiLayerSpinFlipNCBuilder : public IMultiLayerBuilder
+class FeNiBiLayerSpinFlipNCBuilder : public IMultiLayerBuilder
 {
 public:
     FeNiBiLayerSpinFlipNCBuilder() {}

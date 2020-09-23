@@ -25,7 +25,7 @@ class FTDistribution2DComponents;
 //! @ingroup standard_samples
 //! Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4).
 
-class BA_CORE_API_ RadialParaCrystalBuilder : public IMultiLayerBuilder
+class RadialParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     RadialParaCrystalBuilder();
@@ -43,7 +43,7 @@ private:
 //! distribution functions (PDF's). They are initialized via component service.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ Basic2DParaCrystalBuilder : public IMultiLayerBuilder
+class Basic2DParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     Basic2DParaCrystalBuilder();
@@ -60,7 +60,7 @@ private:
 //! Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4).
 //! @ingroup standard_samples
 
-class BA_CORE_API_ HexParaCrystalBuilder : public IMultiLayerBuilder
+class HexParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     HexParaCrystalBuilder();
@@ -78,7 +78,7 @@ private:
 //! @ingroup standard_samples
 //! Builds sample: 2D paracrystal lattice (IsGISAXS example #8).
 
-class BA_CORE_API_ RectParaCrystalBuilder : public IMultiLayerBuilder
+class RectParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     RectParaCrystalBuilder() {}

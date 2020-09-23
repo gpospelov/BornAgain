@@ -15,12 +15,11 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
 #define BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
 
-#include "Wrap/WinDllMacros.h"
 
 //! Variance function interface.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ IVarianceFunction
+class IVarianceFunction
 {
 public:
     IVarianceFunction();
@@ -35,7 +34,7 @@ public:
 //! Returns 1.0 as variance value
 //! @ingroup fitting
 
-class BA_CORE_API_ VarianceConstantFunction : public IVarianceFunction
+class VarianceConstantFunction : public IVarianceFunction
 {
 public:
     VarianceConstantFunction* clone() const override;
@@ -45,7 +44,7 @@ public:
 //! Returns max(sim, epsilon)
 //! @ingroup fitting
 
-class BA_CORE_API_ VarianceSimFunction : public IVarianceFunction
+class VarianceSimFunction : public IVarianceFunction
 {
 public:
     explicit VarianceSimFunction(double epsilon = 1.0);

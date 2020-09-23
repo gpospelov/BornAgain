@@ -24,7 +24,7 @@ class DetectorContext;
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
 
-class BA_CORE_API_ Simulation2D : public Simulation
+class Simulation2D : public Simulation
 {
 public:
     Simulation2D();

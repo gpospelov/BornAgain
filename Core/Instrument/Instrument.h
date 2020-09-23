@@ -31,7 +31,7 @@ class SimulationElement;
 //! Assembles beam, detector and their relative positions with respect to the sample.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ Instrument : public INode
+class Instrument : public INode
 {
 public:
     Instrument();

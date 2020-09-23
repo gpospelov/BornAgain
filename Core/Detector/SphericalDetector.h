@@ -23,7 +23,7 @@ class SphericalPixel;
 //! A spherical detector with axes and resolution function.
 //! @ingroup detector
 
-class BA_CORE_API_ SphericalDetector : public IDetector2D
+class SphericalDetector : public IDetector2D
 {
 public:
     SphericalDetector();

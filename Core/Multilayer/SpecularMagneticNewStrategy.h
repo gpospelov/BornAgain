@@ -31,7 +31,7 @@ class Slice;
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagneticNewStrategy : public ISpecularStrategy
+class SpecularMagneticNewStrategy : public ISpecularStrategy
 {
 public:
     using coefficient_type         = MatrixRTCoefficients_v3;

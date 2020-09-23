@@ -22,7 +22,7 @@
 //! No absorption, no roughness, target wavelength is 1.54 angstroms.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ HomogeneousMultilayerBuilder : public IMultiLayerBuilder
+class HomogeneousMultilayerBuilder : public IMultiLayerBuilder
 {
 public:
     HomogeneousMultilayerBuilder();

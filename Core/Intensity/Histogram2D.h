@@ -21,7 +21,7 @@
 //! Two dimensional histogram.
 //! @ingroup tools
 
-class BA_CORE_API_ Histogram2D : public IHistogram
+class Histogram2D : public IHistogram
 {
 public:
     //! @brief Constructor for fix bin size histograms.

@@ -69,6 +69,9 @@ double IFormFactorPrism::volume() const
     return height() * m_base->area();
 }
 
+double IFormFactorPrism::getHeight() const { return height(); }
+double IFormFactorPrism::radialExtension() const { return std::sqrt(m_base->area()); }
+
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 
 complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const

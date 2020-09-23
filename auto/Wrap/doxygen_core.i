@@ -3049,7 +3049,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  FormFactorBox::volume "double FormFactorBox::volume() const override final
 
-Returns the volume of this prism. 
+Returns the total volume of the particle of this form factor's shape. 
 ";
 
 %feature("docstring")  FormFactorBox::radialExtension "double FormFactorBox::radialExtension() const override final
@@ -3059,7 +3059,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
 
-Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -7071,12 +7071,12 @@ Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 Returns the volume of this prism. 
 ";
 
-%feature("docstring")  IFormFactorPrism::getHeight "double IFormFactorPrism::getHeight() const
-";
-
-%feature("docstring")  IFormFactorPrism::radialExtension "virtual double IFormFactorPrism::radialExtension() const override
+%feature("docstring")  IFormFactorPrism::radialExtension "double IFormFactorPrism::radialExtension() const override
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IFormFactorPrism::getHeight "double IFormFactorPrism::getHeight() const
 ";
 
 

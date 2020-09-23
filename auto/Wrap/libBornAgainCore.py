@@ -14775,6 +14775,16 @@ class IFormFactorPrism(IFormFactorBorn):
         """
         return _libBornAgainCore.IFormFactorPrism_volume(self)
 
+    def radialExtension(self):
+        r"""
+        radialExtension(IFormFactorPrism self) -> double
+        double IFormFactorPrism::radialExtension() const override
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_radialExtension(self)
+
     def getHeight(self):
         r"""
         getHeight(IFormFactorPrism self) -> double
@@ -14782,16 +14792,6 @@ class IFormFactorPrism(IFormFactorBorn):
 
         """
         return _libBornAgainCore.IFormFactorPrism_getHeight(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(IFormFactorPrism self) -> double
-        virtual double IFormFactorPrism::radialExtension() const override
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.IFormFactorPrism_radialExtension(self)
     __swig_destroy__ = _libBornAgainCore.delete_IFormFactorPrism
 
 # Register IFormFactorPrism in _libBornAgainCore:
@@ -15070,7 +15070,7 @@ class FormFactorBox(IFormFactorPrism):
         volume(FormFactorBox self) -> double
         double FormFactorBox::volume() const override final
 
-        Returns the volume of this prism. 
+        Returns the total volume of the particle of this form factor's shape. 
 
         """
         return _libBornAgainCore.FormFactorBox_volume(self)
@@ -15090,7 +15090,7 @@ class FormFactorBox(IFormFactorPrism):
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
         complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
 
-        Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorBox_evaluate_for_q(self, q)

@@ -31,15 +31,17 @@ public:
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;
 
-    virtual complex_t evaluate_for_q(cvector_t q) const override;
-    virtual double volume() const override;
-    double getHeight() const { return height(); }
-    virtual double radialExtension() const override { return std::sqrt(m_base->area()); }
+    complex_t evaluate_for_q(cvector_t q) const override;
+    double volume() const override;
+    double radialExtension() const override;
+    double getHeight() const;
 
 protected:
+    void setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices);
+
+private:
     virtual double height() const = 0;
     std::unique_ptr<PolyhedralFace> m_base;
-    void setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices);
     std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
 };
 

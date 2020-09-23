@@ -140,8 +140,8 @@
 #include "Core/HardParticle/FormFactorIcosahedron.h"
 #include "Core/HardParticle/FormFactorLongBoxGauss.h"
 #include "Core/HardParticle/FormFactorLongBoxLorentz.h"
-#include "Core/HardParticle/FormFactorPolyhedron.h"
-#include "Core/HardParticle/FormFactorPolyhedron.h"
+#include "Core/HardParticle/IFormFactorPolyhedron.h"
+#include "Core/HardParticle/IFormFactorPrism.h"
 #include "Core/HardParticle/FormFactorPrism3.h"
 #include "Core/HardParticle/FormFactorPrism6.h"
 #include "Core/HardParticle/FormFactorPyramid.h"
@@ -402,8 +402,8 @@
 %rename(RoughnessModel) RoughnessModelWrap;
 %include "Core/Multilayer/RoughnessModels.h"
 
-%include "Core/HardParticle/FormFactorPolyhedron.h"
-%include "Core/HardParticle/FormFactorPolyhedron.h"
+%include "Core/HardParticle/IFormFactorPolyhedron.h"
+%include "Core/HardParticle/IFormFactorPrism.h"
 %include "Core/HardParticle/IProfileRipple.h"
 
 %include "Core/HardParticle/FormFactorAnisoPyramid.h"

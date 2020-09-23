@@ -19,7 +19,7 @@
 #include "Core/Shapes/IShape.h"
 #include "Core/Vector/Vectors3D.h"
 
-struct SlicingEffects;
+struct SlicingEffects; // defined below
 
 //! Pure virtual base class for Born form factors.
 //!

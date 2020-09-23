@@ -2266,6 +2266,84 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 ";
 
 
+// File: classFeNiBiLayer.xml
+%feature("docstring") FeNiBiLayer "
+
+Creates the sample demonstrating an Fe-Ni Bilayer with and without roughness
+
+C++ includes: FeNiBiLayerBuilder.h
+";
+
+%feature("docstring")  FeNiBiLayer::FeNiBiLayer "FeNiBiLayer::FeNiBiLayer()
+";
+
+%feature("docstring")  FeNiBiLayer::FeNiBiLayer "FeNiBiLayer::FeNiBiLayer(Options opt)
+";
+
+%feature("docstring")  FeNiBiLayer::release "MultiLayer* FeNiBiLayer::release()
+";
+
+
+// File: classFeNiBiLayerBuilder.xml
+%feature("docstring") FeNiBiLayerBuilder "";
+
+%feature("docstring")  FeNiBiLayerBuilder::FeNiBiLayerBuilder "FeNiBiLayerBuilder::FeNiBiLayerBuilder()
+";
+
+%feature("docstring")  FeNiBiLayerBuilder::buildSample "MultiLayer * FeNiBiLayerBuilder::buildSample() const
+";
+
+
+// File: classFeNiBiLayerNCBuilder.xml
+%feature("docstring") FeNiBiLayerNCBuilder "";
+
+%feature("docstring")  FeNiBiLayerNCBuilder::FeNiBiLayerNCBuilder "FeNiBiLayerNCBuilder::FeNiBiLayerNCBuilder()
+";
+
+%feature("docstring")  FeNiBiLayerNCBuilder::buildSample "MultiLayer * FeNiBiLayerNCBuilder::buildSample() const
+";
+
+
+// File: classFeNiBiLayerSpinFlipBuilder.xml
+%feature("docstring") FeNiBiLayerSpinFlipBuilder "";
+
+%feature("docstring")  FeNiBiLayerSpinFlipBuilder::FeNiBiLayerSpinFlipBuilder "FeNiBiLayerSpinFlipBuilder::FeNiBiLayerSpinFlipBuilder()
+";
+
+%feature("docstring")  FeNiBiLayerSpinFlipBuilder::buildSample "MultiLayer * FeNiBiLayerSpinFlipBuilder::buildSample() const
+";
+
+
+// File: classFeNiBiLayerSpinFlipNCBuilder.xml
+%feature("docstring") FeNiBiLayerSpinFlipNCBuilder "";
+
+%feature("docstring")  FeNiBiLayerSpinFlipNCBuilder::FeNiBiLayerSpinFlipNCBuilder "FeNiBiLayerSpinFlipNCBuilder::FeNiBiLayerSpinFlipNCBuilder()
+";
+
+%feature("docstring")  FeNiBiLayerSpinFlipNCBuilder::buildSample "MultiLayer * FeNiBiLayerSpinFlipNCBuilder::buildSample() const
+";
+
+
+// File: classFeNiBiLayerSpinFlipTanhBuilder.xml
+%feature("docstring") FeNiBiLayerSpinFlipTanhBuilder "";
+
+%feature("docstring")  FeNiBiLayerSpinFlipTanhBuilder::FeNiBiLayerSpinFlipTanhBuilder "FeNiBiLayerSpinFlipTanhBuilder::FeNiBiLayerSpinFlipTanhBuilder()
+";
+
+%feature("docstring")  FeNiBiLayerSpinFlipTanhBuilder::buildSample "MultiLayer * FeNiBiLayerSpinFlipTanhBuilder::buildSample() const
+";
+
+
+// File: classFeNiBiLayerTanhBuilder.xml
+%feature("docstring") FeNiBiLayerTanhBuilder "";
+
+%feature("docstring")  FeNiBiLayerTanhBuilder::FeNiBiLayerTanhBuilder "FeNiBiLayerTanhBuilder::FeNiBiLayerTanhBuilder()
+";
+
+%feature("docstring")  FeNiBiLayerTanhBuilder::buildSample "MultiLayer * FeNiBiLayerTanhBuilder::buildSample() const
+";
+
+
 // File: classExceptions_1_1FileIsBadException.xml
 %feature("docstring") Exceptions::FileIsBadException "";
 
@@ -2971,7 +3049,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  FormFactorBox::volume "double FormFactorBox::volume() const override final
 
-Returns the volume of this prism. 
+Returns the total volume of the particle of this form factor's shape. 
 ";
 
 %feature("docstring")  FormFactorBox::radialExtension "double FormFactorBox::radialExtension() const override final
@@ -2981,7 +3059,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
 
-Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -4314,79 +4392,6 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorPolygonalPrism.xml
-%feature("docstring") FormFactorPolygonalPrism "
-
-A prism with a polygonal base, for form factor computation.
-
-C++ includes: FormFactorPolyhedron.h
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism()=default
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::bottomZ "double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::topZ "double FormFactorPolygonalPrism::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override
-
-Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::volume "double FormFactorPolygonalPrism::volume() const override
-
-Returns the volume of this prism. 
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::getHeight "double FormFactorPolygonalPrism::getHeight() const
-";
-
-%feature("docstring")  FormFactorPolygonalPrism::radialExtension "virtual double FormFactorPolygonalPrism::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-
-// File: classFormFactorPolygonalSurface.xml
-%feature("docstring") FormFactorPolygonalSurface "
-
-A polygonal surface, for testing form factor computations.
-
-C++ includes: FormFactorPolyhedron.h
-";
-
-%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface()=default
-";
-
-%feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-%feature("docstring")  FormFactorPolygonalSurface::volume "double FormFactorPolygonalSurface::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorPolygonalSurface::radialExtension "double FormFactorPolygonalSurface::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-
 // File: classFormFactorPolyhedron.xml
 %feature("docstring") FormFactorPolyhedron "
 
@@ -4413,12 +4418,10 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 
 %feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
-Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 %feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
-
-Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 ";
 
 %feature("docstring")  FormFactorPolyhedron::volume "double FormFactorPolyhedron::volume() const override final
@@ -4432,8 +4435,6 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorPolyhedron::assert_platonic "void FormFactorPolyhedron::assert_platonic() const
-
-Assertions for Platonic solid. 
 ";
 
 
@@ -4753,34 +4754,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorTetrahedron::getAlpha "double FormFactorTetrahedron::getAlpha() const
-";
-
-
-// File: classFormFactorTriangle.xml
-%feature("docstring") FormFactorTriangle "
-
-A planar equilateral triangle, for testing form factor computations.
-
-C++ includes: FormFactorTriangle.h
-";
-
-%feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(double base_edge)
-";
-
-%feature("docstring")  FormFactorTriangle::clone "FormFactorTriangle* FormFactorTriangle::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorTriangle::accept "void FormFactorTriangle::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorTriangle::getBaseEdge "double FormFactorTriangle::getBaseEdge() const
 ";
 
 
@@ -7013,6 +6986,105 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 ";
 
 %feature("docstring")  IFormFactorDecorator::getFormFactor "const IFormFactor* IFormFactorDecorator::getFormFactor() const
+";
+
+
+// File: classIFormFactorPolyhedron.xml
+%feature("docstring") IFormFactorPolyhedron "
+
+A polyhedron, for form factor computation.
+
+C++ includes: IFormFactorPolyhedron.h
+";
+
+%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron()=delete
+";
+
+%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
+
+The mathematics implemented here is described in full detail in a paper by Joachim Wuttke, entitled \"Form factor (Fourier shape transform) of polygon and polyhedron.\" 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::~IFormFactorPolyhedron "IFormFactorPolyhedron::~IFormFactorPolyhedron()
+";
+
+%feature("docstring")  IFormFactorPolyhedron::bottomZ "double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::topZ "double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::evaluate_for_q "complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::evaluate_centered "complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
+";
+
+%feature("docstring")  IFormFactorPolyhedron::volume "double IFormFactorPolyhedron::volume() const override final
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::radialExtension "double IFormFactorPolyhedron::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::assert_platonic "void IFormFactorPolyhedron::assert_platonic() const
+
+Assertions for Platonic solid. 
+";
+
+
+// File: classIFormFactorPrism.xml
+%feature("docstring") IFormFactorPrism "
+
+A prism with a polygonal base, for form factor computation.
+
+C++ includes: IFormFactorPrism.h
+";
+
+%feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism()=default
+";
+
+%feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IFormFactorPrism::~IFormFactorPrism "IFormFactorPrism::~IFormFactorPrism()
+";
+
+%feature("docstring")  IFormFactorPrism::bottomZ "double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorPrism::topZ "double IFormFactorPrism::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorPrism::evaluate_for_q "complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const override
+
+Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
+";
+
+%feature("docstring")  IFormFactorPrism::volume "double IFormFactorPrism::volume() const override
+
+Returns the volume of this prism. 
+";
+
+%feature("docstring")  IFormFactorPrism::radialExtension "double IFormFactorPrism::radialExtension() const override
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IFormFactorPrism::getHeight "double IFormFactorPrism::getHeight() const
 ";
 
 
@@ -9856,7 +9928,7 @@ Print scan definition in python format.
 
 Interface for the Fresnel computations, both in the scalar and magnetic case
 
-Inherited by  SpecularScalarStrategy,  SpecularMagneticOldStrategy,  SpecularMagneticStrategy, SpecularMagneticNewStrategy
+Inherited by  SpecularScalarStrategy,  SpecularMagneticOldStrategy,  SpecularMagneticStrategy,  SpecularMagneticNewStrategy
 
 C++ includes: ISpecularStrategy.h
 ";
@@ -11115,6 +11187,73 @@ Returns z-part of the two wavevector eigenmodes.
 ";
 
 
+// File: classMatrixRTCoefficients__v3.xml
+%feature("docstring") MatrixRTCoefficients_v3 "
+
+Specular reflection and transmission coefficients in a layer in case of magnetic interactions between the scattered particle and the layer.
+
+C++ includes: MatrixRTCoefficients_v3.h
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::MatrixRTCoefficients_v3 "MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b, double magnetic_SLD)
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::MatrixRTCoefficients_v3 "MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(const MatrixRTCoefficients_v3 &other)
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::~MatrixRTCoefficients_v3 "MatrixRTCoefficients_v3::~MatrixRTCoefficients_v3() override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::clone "MatrixRTCoefficients_v3 * MatrixRTCoefficients_v3::clone() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::T1plus "Eigen::Vector2cd MatrixRTCoefficients_v3::T1plus() const override
+
+The following functions return the transmitted and reflected amplitudes for different incoming beam polarizations and eigenmodes 
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::R1plus "Eigen::Vector2cd MatrixRTCoefficients_v3::R1plus() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::T2plus "Eigen::Vector2cd MatrixRTCoefficients_v3::T2plus() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::R2plus "Eigen::Vector2cd MatrixRTCoefficients_v3::R2plus() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::T1min "Eigen::Vector2cd MatrixRTCoefficients_v3::T1min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::R1min "Eigen::Vector2cd MatrixRTCoefficients_v3::R1min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::T2min "Eigen::Vector2cd MatrixRTCoefficients_v3::T2min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::R2min "Eigen::Vector2cd MatrixRTCoefficients_v3::R2min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::getKz "Eigen::Vector2cd MatrixRTCoefficients_v3::getKz() const override
+
+Returns z-part of the two wavevector eigenmodes. 
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::magneticSLD "double MatrixRTCoefficients_v3::magneticSLD() const
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::computeP "Eigen::Matrix2cd MatrixRTCoefficients_v3::computeP() const
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::computeInverseP "Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::computeDeltaMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v3::computeDeltaMatrix(double thickness)
+";
+
+%feature("docstring")  MatrixRTCoefficients_v3::getReflectionMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v3::getReflectionMatrix() const override
+";
+
+
 // File: classMesoCrystal.xml
 %feature("docstring") MesoCrystal "
 
@@ -11640,6 +11779,37 @@ C++ includes: SimpleUnitConverters.h
 Helper class that represents a onesided limit
 
 C++ includes: ZLimits.h
+";
+
+
+// File: classFeNiBiLayer_1_1Options.xml
+%feature("docstring") FeNiBiLayer::Options "";
+
+%feature("docstring")  FeNiBiLayer::Options::Options "FeNiBiLayer::Options::Options()
+";
+
+%feature("docstring")  FeNiBiLayer::Options::NBiLayers "Options FeNiBiLayer::Options::NBiLayers(int n)
+";
+
+%feature("docstring")  FeNiBiLayer::Options::angle "Options FeNiBiLayer::Options::angle(double angle)
+";
+
+%feature("docstring")  FeNiBiLayer::Options::magnetizationMagnitude "Options FeNiBiLayer::Options::magnetizationMagnitude(double M)
+";
+
+%feature("docstring")  FeNiBiLayer::Options::thicknessFe "Options FeNiBiLayer::Options::thicknessFe(double t)
+";
+
+%feature("docstring")  FeNiBiLayer::Options::thicknessNi "Options FeNiBiLayer::Options::thicknessNi(double t)
+";
+
+%feature("docstring")  FeNiBiLayer::Options::sigmaRoughness "Options FeNiBiLayer::Options::sigmaRoughness(double r)
+";
+
+%feature("docstring")  FeNiBiLayer::Options::effectiveSLD "Options FeNiBiLayer::Options::effectiveSLD(int i)
+";
+
+%feature("docstring")  FeNiBiLayer::Options::roughnessModel "Options FeNiBiLayer::Options::roughnessModel(RoughnessModel rm)
 ";
 
 
@@ -13011,7 +13181,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 
 For internal use in  PolyhedralFace.
 
-C++ includes: FormFactorPolyhedron.h
+C++ includes: PolyhedralTopology.h
 ";
 
 
@@ -13033,7 +13203,7 @@ The private data for polygons to hide boost dependency from the header.
 
 One edge of a polygon, for form factor computation.
 
-C++ includes: FormFactorPolyhedron.h
+C++ includes: PolyhedralComponents.h
 ";
 
 %feature("docstring")  PolyhedralEdge::PolyhedralEdge "PolyhedralEdge::PolyhedralEdge(const kvector_t _Vlow, const kvector_t _Vhig)
@@ -13062,7 +13232,7 @@ Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M!
 
 A polygon, for form factor computation.
 
-C++ includes: FormFactorPolyhedron.h
+C++ includes: PolyhedralComponents.h
 ";
 
 %feature("docstring")  PolyhedralFace::PolyhedralFace "PolyhedralFace::PolyhedralFace(const std::vector< kvector_t > &_V=std::vector< kvector_t >(), bool _sym_S2=false)
@@ -13117,9 +13287,54 @@ Throws if deviation from inversion symmetry is detected. Does not check vertices
 // File: classPolyhedralTopology.xml
 %feature("docstring") PolyhedralTopology "
 
-For internal use in  FormFactorPolyhedron.
+For internal use in  IFormFactorPolyhedron.
 
-C++ includes: FormFactorPolyhedron.h
+C++ includes: PolyhedralTopology.h
+";
+
+
+// File: classPolyhedron.xml
+%feature("docstring") Polyhedron "
+
+A polyhedron, implementation class for use in  IFormFactorPolyhedron.
+
+C++ includes: Polyhedron.h
+";
+
+%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron()=delete
+";
+
+%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron(const Polyhedron &)=delete
+";
+
+%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron(const PolyhedralTopology &topology, double z_bottom, const std::vector< kvector_t > &vertices)
+";
+
+%feature("docstring")  Polyhedron::~Polyhedron "Polyhedron::~Polyhedron()
+";
+
+%feature("docstring")  Polyhedron::assert_platonic "void Polyhedron::assert_platonic() const
+";
+
+%feature("docstring")  Polyhedron::volume "double Polyhedron::volume() const
+";
+
+%feature("docstring")  Polyhedron::radius "double Polyhedron::radius() const
+";
+
+%feature("docstring")  Polyhedron::vertices "const std::vector< kvector_t > & Polyhedron::vertices()
+";
+
+%feature("docstring")  Polyhedron::evaluate_for_q "complex_t Polyhedron::evaluate_for_q(const cvector_t &q) const
+
+needed for topZ, bottomZ computation
+
+Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+";
+
+%feature("docstring")  Polyhedron::evaluate_centered "complex_t Polyhedron::evaluate_centered(const cvector_t &q) const
+
+Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 ";
 
 
@@ -13168,6 +13383,30 @@ C++ includes: IterationStrategy.h
 ";
 
 %feature("docstring")  PreorderStrategy::isDone "bool PreorderStrategy::isDone(IteratorMemento &iterator_stack) const
+";
+
+
+// File: classPrism.xml
+%feature("docstring") Prism "";
+
+%feature("docstring")  Prism::Prism "Prism::Prism()=delete
+";
+
+%feature("docstring")  Prism::Prism "Prism::Prism(const Prism &)=delete
+";
+
+%feature("docstring")  Prism::Prism "Prism::Prism(bool symmetry_Ci, double height, const std::vector< kvector_t > &vertices)
+";
+
+%feature("docstring")  Prism::area "double Prism::area() const
+";
+
+%feature("docstring")  Prism::vertices "const std::vector< kvector_t > & Prism::vertices()
+";
+
+%feature("docstring")  Prism::evaluate_for_q "complex_t Prism::evaluate_for_q(const cvector_t &q) const
+
+needed for topZ, bottomZ computation 
 ";
 
 
@@ -15057,6 +15296,27 @@ C++ includes: MagneticLayersBuilder.h
 ";
 
 
+// File: classSimpleMagneticRotationBuilder.xml
+%feature("docstring") SimpleMagneticRotationBuilder "
+
+Builds sample: magnetic layer on a magnetic substrate with the fields rotated by 90°
+
+C++ includes: MagneticLayersBuilder.h
+";
+
+%feature("docstring")  SimpleMagneticRotationBuilder::SimpleMagneticRotationBuilder "SimpleMagneticRotationBuilder::SimpleMagneticRotationBuilder()
+";
+
+%feature("docstring")  SimpleMagneticRotationBuilder::buildSample "MultiLayer * SimpleMagneticRotationBuilder::buildSample() const override
+";
+
+%feature("docstring")  SimpleMagneticRotationBuilder::createSample "MultiLayer * SimpleMagneticRotationBuilder::createSample(size_t index=0) override
+";
+
+%feature("docstring")  SimpleMagneticRotationBuilder::size "size_t SimpleMagneticRotationBuilder::size() override
+";
+
+
 // File: classSimpleSelectionRule.xml
 %feature("docstring") SimpleSelectionRule "
 
@@ -15918,6 +16178,49 @@ Resets region of interest making whole detector plane available for the simulati
 %feature("docstring")  SpecularDetector1D::defaultAxesUnits "AxesUnits SpecularDetector1D::defaultAxesUnits() const override
 
 Return default axes units. 
+";
+
+
+// File: classSpecularMagneticNewNCStrategy.xml
+%feature("docstring") SpecularMagneticNewNCStrategy "
+
+Implements the magnetic Fresnel computation with Nevot-Croce roughness
+
+Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
+
+C++ includes: SpecularMagneticNewNCStrategy.h
+";
+
+
+// File: classSpecularMagneticNewStrategy.xml
+%feature("docstring") SpecularMagneticNewStrategy "
+
+Implements the magnetic Fresnel computation with Nevot-Croce roughness
+
+Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
+
+C++ includes: SpecularMagneticNewStrategy.h
+";
+
+%feature("docstring")  SpecularMagneticNewStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticNewStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const
+
+Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
+";
+
+%feature("docstring")  SpecularMagneticNewStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticNewStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
+
+Computes refraction angle reflection/transmission coefficients for given sliced multilayer and a set of kz projections corresponding to each slice 
+";
+
+
+// File: classSpecularMagneticNewTanhStrategy.xml
+%feature("docstring") SpecularMagneticNewTanhStrategy "
+
+Implements the magnetic Fresnel computation with the analytical Tanh roughness
+
+Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
+
+C++ includes: SpecularMagneticNewTanhStrategy.h
 ";
 
 
@@ -16932,10 +17235,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16965,172 +17268,7 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d106.xml
-
-
-// File: namespace_0d112.xml
-
-
-// File: namespace_0d116.xml
-
-
-// File: namespace_0d147.xml
-
-
-// File: namespace_0d159.xml
-
-
-// File: namespace_0d16.xml
-
-
-// File: namespace_0d167.xml
-
-
-// File: namespace_0d172.xml
-
-
-// File: namespace_0d181.xml
-
-
-// File: namespace_0d183.xml
-
-
-// File: namespace_0d187.xml
-
-
-// File: namespace_0d2.xml
-
-
-// File: namespace_0d227.xml
-
-
-// File: namespace_0d24.xml
-
-
-// File: namespace_0d256.xml
-
-
-// File: namespace_0d260.xml
-
-
-// File: namespace_0d264.xml
-
-
-// File: namespace_0d270.xml
-
-
-// File: namespace_0d274.xml
-
-
-// File: namespace_0d288.xml
-
-
-// File: namespace_0d312.xml
-
-
-// File: namespace_0d319.xml
-
-
-// File: namespace_0d321.xml
-
-
-// File: namespace_0d323.xml
-
-
-// File: namespace_0d343.xml
-
-
-// File: namespace_0d347.xml
-
-
-// File: namespace_0d351.xml
-
-
-// File: namespace_0d365.xml
-
-
-// File: namespace_0d376.xml
-
-
-// File: namespace_0d380.xml
-
-
-// File: namespace_0d390.xml
-
-
-// File: namespace_0d392.xml
-
-
-// File: namespace_0d394.xml
-
-
-// File: namespace_0d4.xml
-
-
-// File: namespace_0d402.xml
-
-
-// File: namespace_0d404.xml
-
-
-// File: namespace_0d406.xml
-
-
-// File: namespace_0d410.xml
-
-
-// File: namespace_0d412.xml
-
-
-// File: namespace_0d422.xml
-
-
-// File: namespace_0d435.xml
-
-
-// File: namespace_0d444.xml
-
-
-// File: namespace_0d446.xml
-
-
-// File: namespace_0d462.xml
-
-
-// File: namespace_0d483.xml
-
-
-// File: namespace_0d490.xml
-
-
-// File: namespace_0d499.xml
-
-
-// File: namespace_0d522.xml
-
-
-// File: namespace_0d530.xml
-
-
-// File: namespace_0d536.xml
-
-
-// File: namespace_0d538.xml
-
-
-// File: namespace_0d611.xml
-
-
-// File: namespace_0d86.xml
-
-
-// File: namespace_0d88.xml
-
-
-// File: namespace_0d90.xml
-
-
-// File: namespace_0d94.xml
+// File: namespace_0d0.xml
 
 
 // File: namespacealgo.xml
@@ -18141,10 +18279,22 @@ GISAS simulation with an extra long wavelength.
 %feature("docstring")  StandardSimulations::BasicSpecularMM "SpecularSimulation * StandardSimulations::BasicSpecularMM()
 ";
 
+%feature("docstring")  StandardSimulations::BasicSpecularPM "SpecularSimulation * StandardSimulations::BasicSpecularPM()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularMP "SpecularSimulation * StandardSimulations::BasicSpecularMP()
+";
+
 %feature("docstring")  StandardSimulations::BasicSpecularQPP "SpecularSimulation * StandardSimulations::BasicSpecularQPP()
 ";
 
 %feature("docstring")  StandardSimulations::BasicSpecularQMM "SpecularSimulation * StandardSimulations::BasicSpecularQMM()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularQPM "SpecularSimulation * StandardSimulations::BasicSpecularQPM()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularQMP "SpecularSimulation * StandardSimulations::BasicSpecularQMP()
 ";
 
 %feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
@@ -18463,7 +18613,7 @@ global helper function for comparison of axes
 // File: MultiLayerFuncs_8cpp.xml
 %feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
-Calculate average material profile for given multilayer. 
+Calculate average material profile for given multilayer 
 ";
 
 %feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
@@ -18480,7 +18630,7 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: MultiLayerFuncs_8h.xml
 %feature("docstring")  MaterialProfile "BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
-Calculate average material profile for given multilayer. 
+Calculate average material profile for given multilayer 
 ";
 
 %feature("docstring")  DefaultMaterialProfileLimits "BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
@@ -18929,9 +19079,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorLongBoxLorentz_8h.xml
 
 
-// File: FormFactorPolyhedron_8cpp.xml
-
-
 // File: FormFactorPolyhedron_8h.xml
 
 
@@ -18965,12 +19112,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorTetrahedron_8h.xml
 
 
-// File: FormFactorTriangle_8cpp.xml
-
-
-// File: FormFactorTriangle_8h.xml
-
-
 // File: FormFactorTruncatedCube_8cpp.xml
 
 
@@ -18989,10 +19130,43 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorTruncatedSpheroid_8h.xml
 
 
+// File: IFormFactorPolyhedron_8cpp.xml
+
+
+// File: IFormFactorPolyhedron_8h.xml
+
+
+// File: IFormFactorPrism_8cpp.xml
+
+
+// File: IFormFactorPrism_8h.xml
+
+
 // File: IProfileRipple_8cpp.xml
 
 
 // File: IProfileRipple_8h.xml
+
+
+// File: PolyhedralComponents_8cpp.xml
+
+
+// File: PolyhedralComponents_8h.xml
+
+
+// File: PolyhedralTopology_8h.xml
+
+
+// File: Polyhedron_8cpp.xml
+
+
+// File: Polyhedron_8h.xml
+
+
+// File: Prism_8cpp.xml
+
+
+// File: Prism_8h.xml
 
 
 // File: Ripples_8cpp.xml
@@ -19534,6 +19708,24 @@ magnetization (in A/m)
 // File: SlicedFormFactorList_8h.xml
 
 
+// File: SpecularMagneticNewNCStrategy_8cpp.xml
+
+
+// File: SpecularMagneticNewNCStrategy_8h.xml
+
+
+// File: SpecularMagneticNewStrategy_8cpp.xml
+
+
+// File: SpecularMagneticNewStrategy_8h.xml
+
+
+// File: SpecularMagneticNewTanhStrategy_8cpp.xml
+
+
+// File: SpecularMagneticNewTanhStrategy_8h.xml
+
+
 // File: SpecularMagneticOldStrategy_8cpp.xml
 
 
@@ -19820,6 +20012,12 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: MatrixRTCoefficients__v2_8h.xml
 
 
+// File: MatrixRTCoefficients__v3_8cpp.xml
+
+
+// File: MatrixRTCoefficients__v3_8h.xml
+
+
 // File: ScalarRTCoefficients_8h.xml
 
 
@@ -20090,6 +20288,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: CylindersBuilder_8h.xml
+
+
+// File: FeNiBiLayerBuilder_8cpp.xml
+
+
+// File: FeNiBiLayerBuilder_8h.xml
 
 
 // File: HomogeneousMultilayerBuilder_8cpp.xml

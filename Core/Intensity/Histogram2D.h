@@ -91,7 +91,7 @@ public:
     //! @param xup upper edje on x-axis
     Histogram1D* projectionY(double xlow, double xup);
 
-    //! Create new histogram by applying rectangular clip.
+    //! Creates new histogram by applying rectangular clip.
     Histogram2D* crop(double xmin, double ymin, double xmax, double ymax);
 
     //! Sets the values in histograms channels from numpy array,

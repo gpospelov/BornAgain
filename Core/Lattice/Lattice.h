@@ -35,7 +35,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    //! Create transformed lattice
+    //! Creates transformed lattice
     Lattice createTransformedLattice(const Transform3D& transform) const;
 
     //! Initializes cached data

@@ -71,7 +71,7 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
     double height = 2.0 * m_radius;
     auto effects = computeSlicingEffects(limits, new_translation, height);
     FormFactorTruncatedSphere slicedff(m_radius, height - effects.dz_bottom, effects.dz_top);
-    return CreateTransformedFormFactor(slicedff, *P_identity, effects.position);
+    return createTransformedFormFactor(slicedff, *P_identity, effects.position);
 }
 
 void FormFactorFullSphere::onChange() {}

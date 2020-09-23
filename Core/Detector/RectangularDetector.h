@@ -79,7 +79,7 @@ public:
     RectangularPixel* regionOfInterestPixel() const;
 
 protected:
-    //! Create an IPixel for the given OutputData object and index
+    //! Creates an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
     //! Returns the name for the axis with given index

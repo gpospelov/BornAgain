@@ -8166,13 +8166,9 @@ class IFormFactor(ISample):
 _libBornAgainCore.IFormFactor_swigregister(IFormFactor)
 
 
-def CreateTransformedFormFactor(formfactor, rot, translation):
-    r"""
-    CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
-    IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-
-    """
-    return _libBornAgainCore.CreateTransformedFormFactor(formfactor, rot, translation)
+def createTransformedFormFactor(formfactor, rot, translation):
+    r"""createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor"""
+    return _libBornAgainCore.createTransformedFormFactor(formfactor, rot, translation)
 class IFormFactorBorn(IFormFactor):
     r"""
 
@@ -14552,261 +14548,13 @@ class RoughnessModel(object):
 # Register RoughnessModel in _libBornAgainCore:
 _libBornAgainCore.RoughnessModel_swigregister(RoughnessModel)
 
-class PolygonalTopology(object):
-    r"""
-
-
-    For internal use in  PolyhedralFace.
-
-    C++ includes: FormFactorPolyhedron.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    vertexIndices = property(_libBornAgainCore.PolygonalTopology_vertexIndices_get, _libBornAgainCore.PolygonalTopology_vertexIndices_set, doc=r"""vertexIndices : std::vector<(int,std::allocator<(int)>)>""")
-    symmetry_S2 = property(_libBornAgainCore.PolygonalTopology_symmetry_S2_get, _libBornAgainCore.PolygonalTopology_symmetry_S2_set, doc=r"""symmetry_S2 : bool""")
-
-    def __init__(self):
-        r"""
-        __init__(PolygonalTopology self) -> PolygonalTopology
-
-
-        For internal use in  PolyhedralFace.
-
-        C++ includes: FormFactorPolyhedron.h
-
-        """
-        _libBornAgainCore.PolygonalTopology_swiginit(self, _libBornAgainCore.new_PolygonalTopology())
-    __swig_destroy__ = _libBornAgainCore.delete_PolygonalTopology
-
-# Register PolygonalTopology in _libBornAgainCore:
-_libBornAgainCore.PolygonalTopology_swigregister(PolygonalTopology)
-
-class PolyhedralTopology(object):
-    r"""
-
-
-    For internal use in  FormFactorPolyhedron.
-
-    C++ includes: FormFactorPolyhedron.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    faces = property(_libBornAgainCore.PolyhedralTopology_faces_get, _libBornAgainCore.PolyhedralTopology_faces_set, doc=r"""faces : std::vector<(PolygonalTopology,std::allocator<(PolygonalTopology)>)>""")
-    symmetry_Ci = property(_libBornAgainCore.PolyhedralTopology_symmetry_Ci_get, _libBornAgainCore.PolyhedralTopology_symmetry_Ci_set, doc=r"""symmetry_Ci : bool""")
-
-    def __init__(self):
-        r"""
-        __init__(PolyhedralTopology self) -> PolyhedralTopology
-
-
-        For internal use in  FormFactorPolyhedron.
-
-        C++ includes: FormFactorPolyhedron.h
-
-        """
-        _libBornAgainCore.PolyhedralTopology_swiginit(self, _libBornAgainCore.new_PolyhedralTopology())
-    __swig_destroy__ = _libBornAgainCore.delete_PolyhedralTopology
-
-# Register PolyhedralTopology in _libBornAgainCore:
-_libBornAgainCore.PolyhedralTopology_swigregister(PolyhedralTopology)
-
-class PolyhedralEdge(object):
-    r"""
-
-
-    One edge of a polygon, for form factor computation.
-
-    C++ includes: FormFactorPolyhedron.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, _Vlow, _Vhig):
-        r"""
-        __init__(PolyhedralEdge self, kvector_t _Vlow, kvector_t _Vhig) -> PolyhedralEdge
-        PolyhedralEdge::PolyhedralEdge(const kvector_t _Vlow, const kvector_t _Vhig)
-
-        """
-        _libBornAgainCore.PolyhedralEdge_swiginit(self, _libBornAgainCore.new_PolyhedralEdge(_Vlow, _Vhig))
-
-    def E(self):
-        r"""
-        E(PolyhedralEdge self) -> kvector_t
-        kvector_t PolyhedralEdge::E() const
-
-        """
-        return _libBornAgainCore.PolyhedralEdge_E(self)
-
-    def R(self):
-        r"""
-        R(PolyhedralEdge self) -> kvector_t
-        kvector_t PolyhedralEdge::R() const
-
-        """
-        return _libBornAgainCore.PolyhedralEdge_R(self)
-
-    def qE(self, q):
-        r"""
-        qE(PolyhedralEdge self, cvector_t q) -> complex_t
-        complex_t PolyhedralEdge::qE(cvector_t q) const
-
-        """
-        return _libBornAgainCore.PolyhedralEdge_qE(self, q)
-
-    def qR(self, q):
-        r"""
-        qR(PolyhedralEdge self, cvector_t q) -> complex_t
-        complex_t PolyhedralEdge::qR(cvector_t q) const
-
-        """
-        return _libBornAgainCore.PolyhedralEdge_qR(self, q)
-
-    def contrib(self, m, qpa, qrperp):
-        r"""
-        contrib(PolyhedralEdge self, int m, cvector_t qpa, complex_t qrperp) -> complex_t
-        complex_t PolyhedralEdge::contrib(int m, cvector_t qpa, complex_t qrperp) const
-
-        Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M! 
-
-        """
-        return _libBornAgainCore.PolyhedralEdge_contrib(self, m, qpa, qrperp)
-    __swig_destroy__ = _libBornAgainCore.delete_PolyhedralEdge
-
-# Register PolyhedralEdge in _libBornAgainCore:
-_libBornAgainCore.PolyhedralEdge_swigregister(PolyhedralEdge)
-
-class PolyhedralFace(object):
-    r"""
-
-
-    A polygon, for form factor computation.
-
-    C++ includes: FormFactorPolyhedron.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    @staticmethod
-    def diameter(V):
-        r"""diameter(vector_kvector_t V) -> double"""
-        return _libBornAgainCore.PolyhedralFace_diameter(V)
-
-    def __init__(self, *args):
-        r"""
-        __init__(PolyhedralFace self, vector_kvector_t _V=std::vector< kvector_t >(), bool _sym_S2=False) -> PolyhedralFace
-        PolyhedralFace::PolyhedralFace(const std::vector< kvector_t > &_V=std::vector< kvector_t >(), bool _sym_S2=false)
-
-        Sets internal variables for given vertex chain.
-
-        Parameters:
-        -----------
-
-        V: 
-        oriented vertex list
-
-        _sym_S2: 
-        true if face has a perpedicular two-fold symmetry axis 
-
-        """
-        _libBornAgainCore.PolyhedralFace_swiginit(self, _libBornAgainCore.new_PolyhedralFace(*args))
-
-    def area(self):
-        r"""
-        area(PolyhedralFace self) -> double
-        double PolyhedralFace::area() const
-
-        """
-        return _libBornAgainCore.PolyhedralFace_area(self)
-
-    def pyramidalVolume(self):
-        r"""
-        pyramidalVolume(PolyhedralFace self) -> double
-        double PolyhedralFace::pyramidalVolume() const
-
-        """
-        return _libBornAgainCore.PolyhedralFace_pyramidalVolume(self)
-
-    def radius3d(self):
-        r"""
-        radius3d(PolyhedralFace self) -> double
-        double PolyhedralFace::radius3d() const
-
-        """
-        return _libBornAgainCore.PolyhedralFace_radius3d(self)
-
-    def normalProjectionConj(self, q):
-        r"""
-        normalProjectionConj(PolyhedralFace self, cvector_t q) -> complex_t
-        complex_t PolyhedralFace::normalProjectionConj(cvector_t q) const
-
-        Returns conj(q)*normal [ BasicVector3D::dot is antilinear in 'this' argument]. 
-
-        """
-        return _libBornAgainCore.PolyhedralFace_normalProjectionConj(self, q)
-
-    def ff_n(self, m, q):
-        r"""
-        ff_n(PolyhedralFace self, int m, cvector_t q) -> complex_t
-        complex_t PolyhedralFace::ff_n(int m, cvector_t q) const
-
-        Returns contribution qn*f_n [of order q^(n+1)] from this face to the polyhedral form factor. 
-
-        """
-        return _libBornAgainCore.PolyhedralFace_ff_n(self, m, q)
-
-    def ff(self, q, sym_Ci):
-        r"""
-        ff(PolyhedralFace self, cvector_t q, bool sym_Ci) -> complex_t
-        complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
-
-        Returns the contribution ff(q) of this face to the polyhedral form factor. 
-
-        """
-        return _libBornAgainCore.PolyhedralFace_ff(self, q, sym_Ci)
-
-    def ff_2D(self, qpa):
-        r"""
-        ff_2D(PolyhedralFace self, cvector_t qpa) -> complex_t
-        complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
-
-        Returns the two-dimensional form factor of this face, for use in a prism. 
-
-        """
-        return _libBornAgainCore.PolyhedralFace_ff_2D(self, qpa)
-
-    def assert_Ci(self, other):
-        r"""
-        assert_Ci(PolyhedralFace self, PolyhedralFace other)
-        void PolyhedralFace::assert_Ci(const PolyhedralFace &other) const
-
-        Throws if deviation from inversion symmetry is detected. Does not check vertices. 
-
-        """
-        return _libBornAgainCore.PolyhedralFace_assert_Ci(self, other)
-    __swig_destroy__ = _libBornAgainCore.delete_PolyhedralFace
-
-# Register PolyhedralFace in _libBornAgainCore:
-_libBornAgainCore.PolyhedralFace_swigregister(PolyhedralFace)
-
-def PolyhedralFace_diameter(V):
-    r"""PolyhedralFace_diameter(vector_kvector_t V) -> double"""
-    return _libBornAgainCore.PolyhedralFace_diameter(V)
-
-class FormFactorPolyhedron(IFormFactorBorn):
+class IFormFactorPolyhedron(IFormFactorBorn):
     r"""
 
 
     A polyhedron, for form factor computation.
 
-    C++ includes: FormFactorPolyhedron.h
+    C++ includes: IFormFactorPolyhedron.h
 
     """
 
@@ -14815,88 +14563,86 @@ class FormFactorPolyhedron(IFormFactorBorn):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorPolyhedron
 
     def bottomZ(self, rotation):
         r"""
-        bottomZ(FormFactorPolyhedron self, IRotation rotation) -> double
-        double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+        bottomZ(IFormFactorPolyhedron self, IRotation rotation) -> double
+        double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_bottomZ(self, rotation)
+        return _libBornAgainCore.IFormFactorPolyhedron_bottomZ(self, rotation)
 
     def topZ(self, rotation):
         r"""
-        topZ(FormFactorPolyhedron self, IRotation rotation) -> double
-        double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+        topZ(IFormFactorPolyhedron self, IRotation rotation) -> double
+        double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_topZ(self, rotation)
+        return _libBornAgainCore.IFormFactorPolyhedron_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
-        complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
+        evaluate_for_q(IFormFactorPolyhedron self, cvector_t q) -> complex_t
+        complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
-        Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_evaluate_for_q(self, q)
+        return _libBornAgainCore.IFormFactorPolyhedron_evaluate_for_q(self, q)
 
     def evaluate_centered(self, q):
         r"""
-        evaluate_centered(FormFactorPolyhedron self, cvector_t q) -> complex_t
-        complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
-
-        Returns the form factor F(q) of this polyhedron, with origin at z=0. 
+        evaluate_centered(IFormFactorPolyhedron self, cvector_t q) -> complex_t
+        complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_evaluate_centered(self, q)
+        return _libBornAgainCore.IFormFactorPolyhedron_evaluate_centered(self, q)
 
     def volume(self):
         r"""
-        volume(FormFactorPolyhedron self) -> double
-        double FormFactorPolyhedron::volume() const override final
+        volume(IFormFactorPolyhedron self) -> double
+        double IFormFactorPolyhedron::volume() const override final
 
         Returns the total volume of the particle of this form factor's shape. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_volume(self)
+        return _libBornAgainCore.IFormFactorPolyhedron_volume(self)
 
     def radialExtension(self):
         r"""
-        radialExtension(FormFactorPolyhedron self) -> double
-        double FormFactorPolyhedron::radialExtension() const override final
+        radialExtension(IFormFactorPolyhedron self) -> double
+        double IFormFactorPolyhedron::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_radialExtension(self)
+        return _libBornAgainCore.IFormFactorPolyhedron_radialExtension(self)
 
     def assert_platonic(self):
         r"""
-        assert_platonic(FormFactorPolyhedron self)
-        void FormFactorPolyhedron::assert_platonic() const
+        assert_platonic(IFormFactorPolyhedron self)
+        void IFormFactorPolyhedron::assert_platonic() const
 
         Assertions for Platonic solid. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_assert_platonic(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolyhedron
+        return _libBornAgainCore.IFormFactorPolyhedron_assert_platonic(self)
 
-# Register FormFactorPolyhedron in _libBornAgainCore:
-_libBornAgainCore.FormFactorPolyhedron_swigregister(FormFactorPolyhedron)
+# Register IFormFactorPolyhedron in _libBornAgainCore:
+_libBornAgainCore.IFormFactorPolyhedron_swigregister(IFormFactorPolyhedron)
 
-class FormFactorPolygonalPrism(IFormFactorBorn):
+class IFormFactorPrism(IFormFactorBorn):
     r"""
 
 
     A prism with a polygonal base, for form factor computation.
 
-    C++ includes: FormFactorPolyhedron.h
+    C++ includes: IFormFactorPrism.h
 
     """
 
@@ -14905,118 +14651,68 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorPrism
 
     def bottomZ(self, rotation):
         r"""
-        bottomZ(FormFactorPolygonalPrism self, IRotation rotation) -> double
-        double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
+        bottomZ(IFormFactorPrism self, IRotation rotation) -> double
+        double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainCore.FormFactorPolygonalPrism_bottomZ(self, rotation)
+        return _libBornAgainCore.IFormFactorPrism_bottomZ(self, rotation)
 
     def topZ(self, rotation):
         r"""
-        topZ(FormFactorPolygonalPrism self, IRotation rotation) -> double
-        double FormFactorPolygonalPrism::topZ(const IRotation &rotation) const override final
+        topZ(IFormFactorPrism self, IRotation rotation) -> double
+        double IFormFactorPrism::topZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainCore.FormFactorPolygonalPrism_topZ(self, rotation)
+        return _libBornAgainCore.IFormFactorPrism_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(FormFactorPolygonalPrism self, cvector_t q) -> complex_t
-        complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override
+        evaluate_for_q(IFormFactorPrism self, cvector_t q) -> complex_t
+        complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const override
 
         Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
         """
-        return _libBornAgainCore.FormFactorPolygonalPrism_evaluate_for_q(self, q)
+        return _libBornAgainCore.IFormFactorPrism_evaluate_for_q(self, q)
 
     def volume(self):
         r"""
-        volume(FormFactorPolygonalPrism self) -> double
-        double FormFactorPolygonalPrism::volume() const override
+        volume(IFormFactorPrism self) -> double
+        double IFormFactorPrism::volume() const override
 
         Returns the volume of this prism. 
 
         """
-        return _libBornAgainCore.FormFactorPolygonalPrism_volume(self)
+        return _libBornAgainCore.IFormFactorPrism_volume(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(IFormFactorPrism self) -> double
+        double IFormFactorPrism::radialExtension() const override
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.IFormFactorPrism_radialExtension(self)
 
     def getHeight(self):
         r"""
-        getHeight(FormFactorPolygonalPrism self) -> double
-        double FormFactorPolygonalPrism::getHeight() const
+        getHeight(IFormFactorPrism self) -> double
+        double IFormFactorPrism::getHeight() const
 
         """
-        return _libBornAgainCore.FormFactorPolygonalPrism_getHeight(self)
+        return _libBornAgainCore.IFormFactorPrism_getHeight(self)
 
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorPolygonalPrism self) -> double
-        virtual double FormFactorPolygonalPrism::radialExtension() const override
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPolygonalPrism_radialExtension(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalPrism
-
-# Register FormFactorPolygonalPrism in _libBornAgainCore:
-_libBornAgainCore.FormFactorPolygonalPrism_swigregister(FormFactorPolygonalPrism)
-
-class FormFactorPolygonalSurface(IFormFactorBorn):
-    r"""
-
-
-    A polygonal surface, for testing form factor computations.
-
-    C++ includes: FormFactorPolyhedron.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorPolygonalSurface self, cvector_t q) -> complex_t
-        complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorPolygonalSurface_evaluate_for_q(self, q)
-
-    def volume(self):
-        r"""
-        volume(FormFactorPolygonalSurface self) -> double
-        double FormFactorPolygonalSurface::volume() const override
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.FormFactorPolygonalSurface_volume(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorPolygonalSurface self) -> double
-        double FormFactorPolygonalSurface::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorPolygonalSurface_radialExtension(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalSurface
-
-# Register FormFactorPolygonalSurface in _libBornAgainCore:
-_libBornAgainCore.FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
+# Register IFormFactorPrism in _libBornAgainCore:
+_libBornAgainCore.IFormFactorPrism_swigregister(IFormFactorPrism)
 
 class IProfileRipple(IFormFactorBorn):
     r"""
@@ -15150,7 +14846,7 @@ class ISawtoothRipple(IProfileRipple):
 # Register ISawtoothRipple in _libBornAgainCore:
 _libBornAgainCore.ISawtoothRipple_swigregister(ISawtoothRipple)
 
-class FormFactorAnisoPyramid(FormFactorPolyhedron):
+class FormFactorAnisoPyramid(IFormFactorPolyhedron):
     r"""
 
 
@@ -15228,7 +14924,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
 # Register FormFactorAnisoPyramid in _libBornAgainCore:
 _libBornAgainCore.FormFactorAnisoPyramid_swigregister(FormFactorAnisoPyramid)
 
-class FormFactorBox(FormFactorPolygonalPrism):
+class FormFactorBox(IFormFactorPrism):
     r"""
 
 
@@ -15291,7 +14987,7 @@ class FormFactorBox(FormFactorPolygonalPrism):
         volume(FormFactorBox self) -> double
         double FormFactorBox::volume() const override final
 
-        Returns the volume of this prism. 
+        Returns the total volume of the particle of this form factor's shape. 
 
         """
         return _libBornAgainCore.FormFactorBox_volume(self)
@@ -15311,7 +15007,7 @@ class FormFactorBox(FormFactorPolygonalPrism):
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
         complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
 
-        Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorBox_evaluate_for_q(self, q)
@@ -15320,7 +15016,7 @@ class FormFactorBox(FormFactorPolygonalPrism):
 # Register FormFactorBox in _libBornAgainCore:
 _libBornAgainCore.FormFactorBox_swigregister(FormFactorBox)
 
-class FormFactorCantellatedCube(FormFactorPolyhedron):
+class FormFactorCantellatedCube(IFormFactorPolyhedron):
     r"""
 
 
@@ -15472,7 +15168,7 @@ class FormFactorCone(IFormFactorBorn):
 # Register FormFactorCone in _libBornAgainCore:
 _libBornAgainCore.FormFactorCone_swigregister(FormFactorCone)
 
-class FormFactorCone6(FormFactorPolyhedron):
+class FormFactorCone6(IFormFactorPolyhedron):
     r"""
 
 
@@ -15680,7 +15376,7 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
 # Register FormFactorCosineRippleLorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorCosineRippleLorentz_swigregister(FormFactorCosineRippleLorentz)
 
-class FormFactorCuboctahedron(FormFactorPolyhedron):
+class FormFactorCuboctahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -15840,7 +15536,7 @@ class FormFactorCylinder(IFormFactorBorn):
 # Register FormFactorCylinder in _libBornAgainCore:
 _libBornAgainCore.FormFactorCylinder_swigregister(FormFactorCylinder)
 
-class FormFactorDodecahedron(FormFactorPolyhedron):
+class FormFactorDodecahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -16410,7 +16106,7 @@ class FormFactorHollowSphere(IFormFactorBorn):
 # Register FormFactorHollowSphere in _libBornAgainCore:
 _libBornAgainCore.FormFactorHollowSphere_swigregister(FormFactorHollowSphere)
 
-class FormFactorIcosahedron(FormFactorPolyhedron):
+class FormFactorIcosahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -16644,7 +16340,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 # Register FormFactorLongBoxLorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorLongBoxLorentz_swigregister(FormFactorLongBoxLorentz)
 
-class FormFactorPrism3(FormFactorPolygonalPrism):
+class FormFactorPrism3(IFormFactorPrism):
     r"""
 
 
@@ -16698,7 +16394,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
 # Register FormFactorPrism3 in _libBornAgainCore:
 _libBornAgainCore.FormFactorPrism3_swigregister(FormFactorPrism3)
 
-class FormFactorPrism6(FormFactorPolygonalPrism):
+class FormFactorPrism6(IFormFactorPrism):
     r"""
 
 
@@ -16752,7 +16448,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
 # Register FormFactorPrism6 in _libBornAgainCore:
 _libBornAgainCore.FormFactorPrism6_swigregister(FormFactorPrism6)
 
-class FormFactorPyramid(FormFactorPolyhedron):
+class FormFactorPyramid(IFormFactorPolyhedron):
     r"""
 
 
@@ -16960,7 +16656,7 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
 # Register FormFactorSawtoothRippleLorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorSawtoothRippleLorentz_swigregister(FormFactorSawtoothRippleLorentz)
 
-class FormFactorTetrahedron(FormFactorPolyhedron):
+class FormFactorTetrahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -17030,7 +16726,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
 # Register FormFactorTetrahedron in _libBornAgainCore:
 _libBornAgainCore.FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
 
-class FormFactorTruncatedCube(FormFactorPolyhedron):
+class FormFactorTruncatedCube(IFormFactorPolyhedron):
     r"""
 
 
@@ -18434,7 +18130,7 @@ def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
     MaterialProfile_cpp(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
     BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
-    Calculate average material profile for given multilayer. 
+    Calculate average material profile for given multilayer 
 
     """
     return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
@@ -22158,29 +21854,17 @@ class HexagonalLattice(Lattice2D):
 _libBornAgainCore.HexagonalLattice_swigregister(HexagonalLattice)
 
 
-def CreateFCCLattice(lattice_constant, orientation):
-    r"""
-    CreateFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+def createFCCLattice(lattice_constant, orientation):
+    r"""createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.createFCCLattice(lattice_constant, orientation)
 
-    """
-    return _libBornAgainCore.CreateFCCLattice(lattice_constant, orientation)
+def createHCPLattice(a, c, orientation):
+    r"""createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.createHCPLattice(a, c, orientation)
 
-def CreateHCPLattice(a, c, orientation):
-    r"""
-    CreateHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainCore.CreateHCPLattice(a, c, orientation)
-
-def CreateBCTLattice(a, c, orientation):
-    r"""
-    CreateBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainCore.CreateBCTLattice(a, c, orientation)
+def createBCTLattice(a, c, orientation):
+    r"""createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.createBCTLattice(a, c, orientation)
 class Material(object):
     r"""
 

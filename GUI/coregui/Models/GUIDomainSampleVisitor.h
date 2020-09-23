@@ -16,7 +16,6 @@
 #define BORNAGAIN_GUI_COREGUI_MODELS_GUIDOMAINSAMPLEVISITOR_H
 
 #include "Core/Parametrization/INodeVisitor.h"
-#include "Wrap/WinDllMacros.h"
 #include <QMap>
 #include <QString>
 
@@ -30,7 +29,7 @@ class MultiLayer;
 
 //! Visits domain sample tree to build GUI presentation.
 
-class BA_CORE_API_ GUIDomainSampleVisitor : public INodeVisitor
+class GUIDomainSampleVisitor : public INodeVisitor
 {
 public:
     GUIDomainSampleVisitor();

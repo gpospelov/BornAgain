@@ -12,20 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "BABuild.h"
-#include "BATesting.h"
 #include "Core/Basics/Assert.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Core/Tools/FileSystemUtils.h"
 #include <iostream>
 
-// implemented differently for Core/Py/Gui tests:
+//! This function, called from run, has different implementations in Core/Py/Gui tests:
 bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
                      const double limit);
 

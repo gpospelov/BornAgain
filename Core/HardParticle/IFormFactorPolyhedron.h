@@ -15,36 +15,11 @@
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 #define BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 
-#include "Core/HardParticle/PolyhedralComponents.h"
-#include "Core/HardParticle/PolyhedralTopology.h"
 #include "Core/Scattering/IFormFactorBorn.h"
+#include "Core/HardParticle/PolyhedralTopology.h"
 #include <memory>
 
-//! A polyhedron, implementation class for use in IFormFactorPolyhedron
-
-class BA_CORE_API_ Polyhedron
-{
-public:
-    Polyhedron() = delete;
-    Polyhedron(const Polyhedron&) = delete;
-    Polyhedron(const PolyhedralTopology& topology, double z_bottom,
-               const std::vector<kvector_t>& vertices);
-    void assert_platonic() const;
-    double volume() const;
-    double radius() const;
-    const std::vector<kvector_t>& vertices(); //! needed for topZ, bottomZ computation
-    complex_t evaluate_for_q(const cvector_t& q) const;
-    complex_t evaluate_centered(const cvector_t& q) const;
-
-private:
-    double m_z_bottom;
-    bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
-
-    std::vector<PolyhedralFace> m_faces;
-    double m_radius;
-    double m_volume;
-    std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
-};
+class Polyhedron;
 
 //! A polyhedron, for form factor computation.
 
@@ -55,7 +30,7 @@ public:
     static void setLimits(double _q, int _n);
 #endif
 
-    IFormFactorPolyhedron() {}
+    IFormFactorPolyhedron() = delete;
     IFormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues);
     ~IFormFactorPolyhedron();
 

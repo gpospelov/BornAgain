@@ -6997,10 +6997,15 @@ A polyhedron, for form factor computation.
 C++ includes: IFormFactorPolyhedron.h
 ";
 
-%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron()
+%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron()=delete
 ";
 
 %feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
+
+The mathematics implemented here is described in full detail in a paper by Joachim Wuttke, entitled \"Form factor (Fourier shape transform) of polygon and polyhedron.\" 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::~IFormFactorPolyhedron "IFormFactorPolyhedron::~IFormFactorPolyhedron()
 ";
 
 %feature("docstring")  IFormFactorPolyhedron::bottomZ "double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
@@ -7049,6 +7054,9 @@ C++ includes: IFormFactorPrism.h
 ";
 
 %feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IFormFactorPrism::~IFormFactorPrism "IFormFactorPrism::~IFormFactorPrism()
 ";
 
 %feature("docstring")  IFormFactorPrism::bottomZ "double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final
@@ -13290,10 +13298,19 @@ C++ includes: PolyhedralTopology.h
 
 A polyhedron, implementation class for use in  IFormFactorPolyhedron.
 
-C++ includes: IFormFactorPolyhedron.h
+C++ includes: Polyhedron.h
+";
+
+%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron()=delete
+";
+
+%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron(const Polyhedron &)=delete
 ";
 
 %feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron(const PolyhedralTopology &topology, double z_bottom, const std::vector< kvector_t > &vertices)
+";
+
+%feature("docstring")  Polyhedron::~Polyhedron "Polyhedron::~Polyhedron()
 ";
 
 %feature("docstring")  Polyhedron::assert_platonic "void Polyhedron::assert_platonic() const
@@ -13366,6 +13383,30 @@ C++ includes: IterationStrategy.h
 ";
 
 %feature("docstring")  PreorderStrategy::isDone "bool PreorderStrategy::isDone(IteratorMemento &iterator_stack) const
+";
+
+
+// File: classPrism.xml
+%feature("docstring") Prism "";
+
+%feature("docstring")  Prism::Prism "Prism::Prism()=delete
+";
+
+%feature("docstring")  Prism::Prism "Prism::Prism(const Prism &)=delete
+";
+
+%feature("docstring")  Prism::Prism "Prism::Prism(bool symmetry_Ci, double height, const std::vector< kvector_t > &vertices)
+";
+
+%feature("docstring")  Prism::area "double Prism::area() const
+";
+
+%feature("docstring")  Prism::vertices "const std::vector< kvector_t > & Prism::vertices()
+";
+
+%feature("docstring")  Prism::evaluate_for_q "complex_t Prism::evaluate_for_q(const cvector_t &q) const
+
+needed for topZ, bottomZ computation 
 ";
 
 
@@ -19114,6 +19155,18 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: PolyhedralTopology_8h.xml
+
+
+// File: Polyhedron_8cpp.xml
+
+
+// File: Polyhedron_8h.xml
+
+
+// File: Prism_8cpp.xml
+
+
+// File: Prism_8h.xml
 
 
 // File: Ripples_8cpp.xml

@@ -25,30 +25,14 @@
 namespace
 {
 const double eps = 2e-16;
+const double q_limit_series = 1e-2;
+const int n_limit_series = 20;
 } // namespace
 
-double IFormFactorPolyhedron::q_limit_series = 1e-2;
-int IFormFactorPolyhedron::n_limit_series = 20;
-
-#ifdef POLYHEDRAL_DIAGNOSTIC
-void IFormFactorPolyhedron::setLimits(double _q, int _n)
+Polyhedron::Polyhedron(const PolyhedralTopology& topology, double z_bottom,
+                       const std::vector<kvector_t>& vertices)
 {
-    q_limit_series = _q;
-    n_limit_series = _n;
-}
-#endif
 
-IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta,
-                                             const std::vector<double>& PValues)
-    : IFormFactorBorn(meta, PValues)
-{
-}
-
-//! Called by child classes to set faces and other internal variables.
-
-void IFormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
-                                          const std::vector<kvector_t>& vertices)
-{
     m_vertices.clear();
     for (const kvector_t& vertex : vertices)
         m_vertices.push_back(vertex - kvector_t{0, 0, z_bottom});
@@ -91,47 +75,68 @@ void IFormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, do
             m_faces.erase(m_faces.begin() + N, m_faces.end());
         }
     } catch (std::invalid_argument& e) {
-        throw std::invalid_argument("Invalid parameterization of " + getName() + ": " + e.what());
+        throw std::invalid_argument(std::string("Invalid parameterization of Polyhedron: ")
+                                    + e.what());
     } catch (std::logic_error& e) {
-        throw std::logic_error("Bug in " + getName() + ": " + e.what()
+        throw std::logic_error(std::string("Bug in Polyhedron: ") + e.what()
                                + " [please report to the maintainers]");
     } catch (std::exception& e) {
-        throw std::runtime_error("Unexpected exception in " + getName() + ": " + e.what()
+        throw std::runtime_error(std::string("Unexpected exception in Polyhedron: ") + e.what()
                                  + " [please report to the maintainers]");
     }
 }
 
-double IFormFactorPolyhedron::bottomZ(const IRotation& rotation) const
+void Polyhedron::assert_platonic() const
 {
-    return BottomZ(m_vertices, rotation);
+    // just one test; one could do much more ...
+    double pyramidal_volume = 0;
+    for (const auto& Gk : m_faces)
+        pyramidal_volume += Gk.pyramidalVolume();
+    pyramidal_volume /= m_faces.size();
+    for (const auto& Gk : m_faces)
+        if (std::abs(Gk.pyramidalVolume() - pyramidal_volume) > 160 * eps * pyramidal_volume) {
+            std::cerr << std::setprecision(16)
+                      << "Bug: pyr_volume(this face)=" << Gk.pyramidalVolume()
+                      << " vs pyr_volume(avge)=" << pyramidal_volume << "\n";
+            throw std::runtime_error("Deviant pyramidal volume in Platonic Polyhedron");
+        }
 }
 
-double IFormFactorPolyhedron::topZ(const IRotation& rotation) const
+double Polyhedron::volume() const
 {
-    return TopZ(m_vertices, rotation);
+    return m_volume;
+}
+double Polyhedron::radius() const
+{
+    return m_radius;
+}
+
+const std::vector<kvector_t>& Polyhedron::vertices()
+{
+    return m_vertices;
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom.
 
-complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const
+complex_t Polyhedron::evaluate_for_q(const cvector_t& q) const
 {
     try {
         return exp_I(-m_z_bottom * q.z()) * evaluate_centered(q);
     } catch (std::logic_error& e) {
-        throw std::logic_error("Bug in " + getName() + ": " + e.what()
+        throw std::logic_error(std::string("Bug in Polyhedron: ") + e.what()
                                + " [please report to the maintainers]");
     } catch (std::runtime_error& e) {
-        throw std::runtime_error("Numeric computation failed in " + getName() + ": " + e.what()
-                                 + " [please report to the maintainers]");
+        throw std::runtime_error(std::string("Numeric computation failed in Polyhedron: ")
+                                 + e.what() + " [please report to the maintainers]");
     } catch (std::exception& e) {
-        throw std::runtime_error("Unexpected exception in " + getName() + ": " + e.what()
+        throw std::runtime_error(std::string("Unexpected exception in Polyhedron: ") + e.what()
                                  + " [please report to the maintainers]");
     }
 }
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
 
-complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
+complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
 {
     double q_red = m_radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -202,20 +207,60 @@ complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
     }
 }
 
+#ifdef POLYHEDRAL_DIAGNOSTIC // TODO restore
+void IFormFactorPolyhedron::setLimits(double _q, int _n)
+{
+    q_limit_series = _q;
+    n_limit_series = _n;
+}
+#endif
+
+IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta,
+                                             const std::vector<double>& PValues)
+    : IFormFactorBorn(meta, PValues)
+{
+}
+
+//! Called by child classes to set faces and other internal variables.
+
+void IFormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
+                                          const std::vector<kvector_t>& vertices)
+{
+    pimpl = std::make_unique<Polyhedron>(topology, z_bottom, vertices);
+}
+
+double IFormFactorPolyhedron::bottomZ(const IRotation& rotation) const
+{
+    return BottomZ(pimpl->vertices(), rotation);
+}
+
+double IFormFactorPolyhedron::topZ(const IRotation& rotation) const
+{
+    return TopZ(pimpl->vertices(), rotation);
+}
+
+complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const
+{
+    return pimpl->evaluate_for_q(q);
+}
+
+complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
+{
+    return pimpl->evaluate_centered(q);
+}
+
+double IFormFactorPolyhedron::volume() const
+{
+    return pimpl->volume();
+}
+double IFormFactorPolyhedron::radialExtension() const
+{
+    return pimpl->radius();
+}
+
 //! Assertions for Platonic solid.
 
 void IFormFactorPolyhedron::assert_platonic() const
 {
-    // just one test; one could do much more ...
-    double pyramidal_volume = 0;
-    for (const auto& Gk : m_faces)
-        pyramidal_volume += Gk.pyramidalVolume();
-    pyramidal_volume /= m_faces.size();
-    for (const auto& Gk : m_faces)
-        if (std::abs(Gk.pyramidalVolume() - pyramidal_volume) > 160 * eps * pyramidal_volume) {
-            std::cerr << std::setprecision(16)
-                      << "Bug: pyr_volume(this face)=" << Gk.pyramidalVolume()
-                      << " vs pyr_volume(avge)=" << pyramidal_volume << "\n";
-            throw std::runtime_error("Deviant pyramidal volume in " + getName());
-        }
+    pimpl->assert_platonic();
 }

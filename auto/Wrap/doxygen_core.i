@@ -7015,12 +7015,10 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 
 %feature("docstring")  IFormFactorPolyhedron::evaluate_for_q "complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
-Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 %feature("docstring")  IFormFactorPolyhedron::evaluate_centered "complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
-
-Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 ";
 
 %feature("docstring")  IFormFactorPolyhedron::volume "double IFormFactorPolyhedron::volume() const override final
@@ -13287,6 +13285,42 @@ C++ includes: PolyhedralTopology.h
 ";
 
 
+// File: classPolyhedron.xml
+%feature("docstring") Polyhedron "
+
+A polyhedron, implementation class for use in  IFormFactorPolyhedron.
+
+C++ includes: IFormFactorPolyhedron.h
+";
+
+%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron(const PolyhedralTopology &topology, double z_bottom, const std::vector< kvector_t > &vertices)
+";
+
+%feature("docstring")  Polyhedron::assert_platonic "void Polyhedron::assert_platonic() const
+";
+
+%feature("docstring")  Polyhedron::volume "double Polyhedron::volume() const
+";
+
+%feature("docstring")  Polyhedron::radius "double Polyhedron::radius() const
+";
+
+%feature("docstring")  Polyhedron::vertices "const std::vector< kvector_t > & Polyhedron::vertices()
+";
+
+%feature("docstring")  Polyhedron::evaluate_for_q "complex_t Polyhedron::evaluate_for_q(const cvector_t &q) const
+
+needed for topZ, bottomZ computation
+
+Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+";
+
+%feature("docstring")  Polyhedron::evaluate_centered "complex_t Polyhedron::evaluate_centered(const cvector_t &q) const
+
+Returns the form factor F(q) of this polyhedron, with origin at z=0. 
+";
+
+
 // File: classPostorderStrategy.xml
 %feature("docstring") PostorderStrategy "
 
@@ -17160,10 +17194,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml

@@ -14552,6 +14552,85 @@ class RoughnessModel(object):
 # Register RoughnessModel in _libBornAgainCore:
 _libBornAgainCore.RoughnessModel_swigregister(RoughnessModel)
 
+class Polyhedron(object):
+    r"""
+
+
+    A polyhedron, implementation class for use in  IFormFactorPolyhedron.
+
+    C++ includes: IFormFactorPolyhedron.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, topology, z_bottom, vertices):
+        r"""
+        __init__(Polyhedron self, PolyhedralTopology const & topology, double z_bottom, vector_kvector_t vertices) -> Polyhedron
+        Polyhedron::Polyhedron(const PolyhedralTopology &topology, double z_bottom, const std::vector< kvector_t > &vertices)
+
+        """
+        _libBornAgainCore.Polyhedron_swiginit(self, _libBornAgainCore.new_Polyhedron(topology, z_bottom, vertices))
+
+    def assert_platonic(self):
+        r"""
+        assert_platonic(Polyhedron self)
+        void Polyhedron::assert_platonic() const
+
+        """
+        return _libBornAgainCore.Polyhedron_assert_platonic(self)
+
+    def volume(self):
+        r"""
+        volume(Polyhedron self) -> double
+        double Polyhedron::volume() const
+
+        """
+        return _libBornAgainCore.Polyhedron_volume(self)
+
+    def radius(self):
+        r"""
+        radius(Polyhedron self) -> double
+        double Polyhedron::radius() const
+
+        """
+        return _libBornAgainCore.Polyhedron_radius(self)
+
+    def vertices(self):
+        r"""
+        vertices(Polyhedron self) -> vector_kvector_t
+        const std::vector< kvector_t > & Polyhedron::vertices()
+
+        """
+        return _libBornAgainCore.Polyhedron_vertices(self)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(Polyhedron self, cvector_t q) -> complex_t
+        complex_t Polyhedron::evaluate_for_q(const cvector_t &q) const
+
+        needed for topZ, bottomZ computation
+
+        Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+
+        """
+        return _libBornAgainCore.Polyhedron_evaluate_for_q(self, q)
+
+    def evaluate_centered(self, q):
+        r"""
+        evaluate_centered(Polyhedron self, cvector_t q) -> complex_t
+        complex_t Polyhedron::evaluate_centered(const cvector_t &q) const
+
+        Returns the form factor F(q) of this polyhedron, with origin at z=0. 
+
+        """
+        return _libBornAgainCore.Polyhedron_evaluate_centered(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_Polyhedron
+
+# Register Polyhedron in _libBornAgainCore:
+_libBornAgainCore.Polyhedron_swigregister(Polyhedron)
+
 class IFormFactorPolyhedron(IFormFactorBorn):
     r"""
 
@@ -14593,7 +14672,7 @@ class IFormFactorPolyhedron(IFormFactorBorn):
         evaluate_for_q(IFormFactorPolyhedron self, cvector_t q) -> complex_t
         complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
-        Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.IFormFactorPolyhedron_evaluate_for_q(self, q)
@@ -14602,8 +14681,6 @@ class IFormFactorPolyhedron(IFormFactorBorn):
         r"""
         evaluate_centered(IFormFactorPolyhedron self, cvector_t q) -> complex_t
         complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
-
-        Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 
         """
         return _libBornAgainCore.IFormFactorPolyhedron_evaluate_centered(self, q)

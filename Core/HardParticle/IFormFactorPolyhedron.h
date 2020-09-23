@@ -17,9 +17,32 @@
 
 #include "Core/HardParticle/PolyhedralComponents.h"
 #include "Core/HardParticle/PolyhedralTopology.h"
-#include "Core/HardParticle/IFormFactorPrism.h"
 #include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
+
+//! A polyhedron, implementation class for use in IFormFactorPolyhedron
+
+class Polyhedron
+{
+public:
+    Polyhedron(const PolyhedralTopology& topology, double z_bottom,
+               const std::vector<kvector_t>& vertices);
+    void assert_platonic() const;
+    double volume() const;
+    double radius() const;
+    const std::vector<kvector_t>& vertices(); //! needed for topZ, bottomZ computation
+    complex_t evaluate_for_q(const cvector_t& q) const;
+    complex_t evaluate_centered(const cvector_t& q) const;
+
+private:
+    double m_z_bottom;
+    bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
+
+    std::vector<PolyhedralFace> m_faces;
+    double m_radius;
+    double m_volume;
+    std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
+};
 
 //! A polyhedron, for form factor computation.
 
@@ -39,25 +62,16 @@ public:
     complex_t evaluate_for_q(cvector_t q) const override final;
     complex_t evaluate_centered(cvector_t q) const;
 
-    double volume() const override final { return m_volume; }
-    double radialExtension() const override final { return m_radius; }
+    double volume() const override final;
+    double radialExtension() const override final;
     void assert_platonic() const;
 
 protected:
-    double m_z_bottom;
-    bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
-
     void setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
                        const std::vector<kvector_t>& vertices);
 
 private:
-    static double q_limit_series; //!< determines when to use power series
-    static int n_limit_series;
-
-    std::vector<PolyhedralFace> m_faces;
-    double m_radius;
-    double m_volume;
-    std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
+    std::unique_ptr<Polyhedron> pimpl;
 };
 
 #endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPOLYHEDRON_H

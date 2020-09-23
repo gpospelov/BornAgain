@@ -17,7 +17,6 @@
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
 #include "Core/HardParticle/FormFactorPolyhedron.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Tools/MathFunctions.h"
 #include <iomanip>
@@ -27,9 +26,6 @@ namespace
 {
 const double eps = 2e-16;
 } // namespace
-
-double PolyhedralFace::qpa_limit_series = 3e-2;
-int PolyhedralFace::n_limit_series = 20;
 
 double FormFactorPolyhedron::q_limit_series = 1e-2;
 int FormFactorPolyhedron::n_limit_series = 20;

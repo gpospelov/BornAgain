@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_FENIBILAYERBUILER_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_FENIBILAYERBUILER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_FENIBILAYERBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_FENIBILAYERBUILDER_H
 
 #include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
@@ -134,4 +134,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_FENIBILAYERBUILER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_FENIBILAYERBUILDER_H

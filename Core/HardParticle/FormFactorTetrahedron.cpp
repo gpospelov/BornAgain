@@ -29,7 +29,7 @@ const PolyhedralTopology FormFactorTetrahedron::topology = {{{{2, 1, 0}, false},
 //! @param height: height of the tetrahedron in nanometers
 //! @param alpha: dihedral angle in radians between base and facet
 FormFactorTetrahedron::FormFactorTetrahedron(const std::vector<double> P)
-    : FormFactorPolyhedron({"Tetrahedron",
+    : IFormFactorPolyhedron({"Tetrahedron",
                             "class_tooltip",
                             {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
                              {"Height", "nm", "para_tooltip", 0, +INF, 0},

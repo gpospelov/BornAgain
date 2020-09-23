@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticle/FormFactorPolyhedron.h
-//! @brief     Defines class FormFactorPolyhedron.
+//! @file      Core/HardParticle/IFormFactorPolyhedron.h
+//! @brief     Defines class IFormFactorPolyhedron.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,15 +23,15 @@
 
 //! A polyhedron, for form factor computation.
 
-class BA_CORE_API_ FormFactorPolyhedron : public IFormFactorBorn
+class BA_CORE_API_ IFormFactorPolyhedron : public IFormFactorBorn
 {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC
     static void setLimits(double _q, int _n);
 #endif
 
-    FormFactorPolyhedron() {}
-    FormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues);
+    IFormFactorPolyhedron() {}
+    IFormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues);
 
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;

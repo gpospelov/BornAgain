@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/HardParticle/FormFactorPolyhedron.cpp
-//! @brief     Implements class FormFactorPolyhedron.
+//! @file      Core/HardParticle/IFormFactorPolyhedron.cpp
+//! @brief     Implements class IFormFactorPolyhedron.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 //! by Joachim Wuttke, entitled
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
-#include "Core/HardParticle/FormFactorPolyhedron.h"
+#include "Core/HardParticle/IFormFactorPolyhedron.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Tools/MathFunctions.h"
 #include <iomanip>
@@ -27,25 +27,25 @@ namespace
 const double eps = 2e-16;
 } // namespace
 
-double FormFactorPolyhedron::q_limit_series = 1e-2;
-int FormFactorPolyhedron::n_limit_series = 20;
+double IFormFactorPolyhedron::q_limit_series = 1e-2;
+int IFormFactorPolyhedron::n_limit_series = 20;
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
-void FormFactorPolyhedron::setLimits(double _q, int _n)
+void IFormFactorPolyhedron::setLimits(double _q, int _n)
 {
     q_limit_series = _q;
     n_limit_series = _n;
 }
 #endif
 
-FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues)
+IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactorBorn(meta, PValues)
 {
 }
 
 //! Called by child classes to set faces and other internal variables.
 
-void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
+void IFormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
                                          const std::vector<kvector_t>& vertices)
 {
     m_vertices.clear();
@@ -100,19 +100,19 @@ void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, dou
     }
 }
 
-double FormFactorPolyhedron::bottomZ(const IRotation& rotation) const
+double IFormFactorPolyhedron::bottomZ(const IRotation& rotation) const
 {
     return BottomZ(m_vertices, rotation);
 }
 
-double FormFactorPolyhedron::topZ(const IRotation& rotation) const
+double IFormFactorPolyhedron::topZ(const IRotation& rotation) const
 {
     return TopZ(m_vertices, rotation);
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom.
 
-complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const
+complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const
 {
     try {
         return exp_I(-m_z_bottom * q.z()) * evaluate_centered(q);
@@ -130,7 +130,7 @@ complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
 
-complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
+complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
 {
     double q_red = m_radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -203,7 +203,7 @@ complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
 
 //! Assertions for Platonic solid.
 
-void FormFactorPolyhedron::assert_platonic() const
+void IFormFactorPolyhedron::assert_platonic() const
 {
     // just one test; one could do much more ...
     double pyramidal_volume = 0;

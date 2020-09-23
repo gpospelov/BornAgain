@@ -14,7 +14,7 @@
 
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRIANGLE_H
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORTRIANGLE_H
-#include "Core/HardParticle/FormFactorPolyhedron.h"
+#include "Core/HardParticle/IFormFactorPolyhedron.h"
 
 //! A planar equilateral triangle, for testing form factor computations.
 

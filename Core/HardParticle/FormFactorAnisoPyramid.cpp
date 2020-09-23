@@ -31,7 +31,7 @@ const PolyhedralTopology FormFactorAnisoPyramid::topology = {{{{3, 2, 1, 0}, tru
 //! @param height: height of pyramid in nm
 //! @param alpha: dihedral angle in radians between base and facet
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector<double> P)
-    : FormFactorPolyhedron({"AnisoPyramid",
+    : IFormFactorPolyhedron({"AnisoPyramid",
                             "class_tooltip",
                             {{"Length", "nm", "para_tooltip", 0, +INF, 0},
                              {"Width", "nm", "para_tooltip", 0, +INF, 0},

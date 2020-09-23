@@ -14,7 +14,7 @@
 
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H
 #define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H
-#include "Core/HardParticle/FormFactorPolyhedron.h"
+#include "Core/HardParticle/IFormFactorPolyhedron.h"
 
 //! A prism based on a regular hexagonal.
 //! @ingroup hardParticle

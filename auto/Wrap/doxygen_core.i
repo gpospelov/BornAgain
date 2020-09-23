@@ -4422,56 +4422,6 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 
-// File: classFormFactorPolyhedron.xml
-%feature("docstring") FormFactorPolyhedron "
-
-A polyhedron, for form factor computation.
-
-C++ includes: FormFactorPolyhedron.h
-";
-
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
-";
-
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::topZ "double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
-
-Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
-
-Returns the form factor F(q) of this polyhedron, with origin at z=0. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::volume "double FormFactorPolyhedron::volume() const override final
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::radialExtension "double FormFactorPolyhedron::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorPolyhedron::assert_platonic "void FormFactorPolyhedron::assert_platonic() const
-
-Assertions for Platonic solid. 
-";
-
-
 // File: classFormFactorPrism3.xml
 %feature("docstring") FormFactorPrism3 "
 
@@ -7048,6 +6998,56 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 ";
 
 %feature("docstring")  IFormFactorDecorator::getFormFactor "const IFormFactor* IFormFactorDecorator::getFormFactor() const
+";
+
+
+// File: classIFormFactorPolyhedron.xml
+%feature("docstring") IFormFactorPolyhedron "
+
+A polyhedron, for form factor computation.
+
+C++ includes: IFormFactorPolyhedron.h
+";
+
+%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron()
+";
+
+%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IFormFactorPolyhedron::bottomZ "double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::topZ "double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::evaluate_for_q "complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
+
+Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::evaluate_centered "complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
+
+Returns the form factor F(q) of this polyhedron, with origin at z=0. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::volume "double IFormFactorPolyhedron::volume() const override final
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::radialExtension "double IFormFactorPolyhedron::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IFormFactorPolyhedron::assert_platonic "void IFormFactorPolyhedron::assert_platonic() const
+
+Assertions for Platonic solid. 
 ";
 
 
@@ -13293,7 +13293,7 @@ Throws if deviation from inversion symmetry is detected. Does not check vertices
 // File: classPolyhedralTopology.xml
 %feature("docstring") PolyhedralTopology "
 
-For internal use in  FormFactorPolyhedron.
+For internal use in  IFormFactorPolyhedron.
 
 C++ includes: PolyhedralTopology.h
 ";
@@ -19016,12 +19016,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorLongBoxLorentz_8h.xml
 
 
-// File: FormFactorPolyhedron_8cpp.xml
-
-
-// File: FormFactorPolyhedron_8h.xml
-
-
 // File: FormFactorPrism3_8cpp.xml
 
 
@@ -19074,6 +19068,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: FormFactorTruncatedSpheroid_8h.xml
+
+
+// File: IFormFactorPolyhedron_8cpp.xml
+
+
+// File: IFormFactorPolyhedron_8h.xml
 
 
 // File: IFormFactorPrism_8cpp.xml

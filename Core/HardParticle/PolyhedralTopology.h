@@ -25,7 +25,7 @@ public:
     bool symmetry_S2;
 };
 
-//! For internal use in FormFactorPolyhedron.
+//! For internal use in IFormFactorPolyhedron.
 class PolyhedralTopology
 {
 public:

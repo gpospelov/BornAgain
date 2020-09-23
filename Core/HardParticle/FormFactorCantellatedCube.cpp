@@ -50,7 +50,7 @@ const PolyhedralTopology FormFactorCantellatedCube::topology = {
 //! @param length: length of the full cube's edge in nanometers
 //! @param removed_length: removed length from each edge of the cube in nanometers
 FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector<double> P)
-    : FormFactorPolyhedron({"CantellatedCube",
+    : IFormFactorPolyhedron({"CantellatedCube",
                             "class_tooltip",
                             {{"Length", "nm", "para_tooltip", 0, +INF, 0},
                              {"RemovedLength", "nm", "para_tooltip", 0, +INF, 0}}},

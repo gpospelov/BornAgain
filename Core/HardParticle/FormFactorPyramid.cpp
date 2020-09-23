@@ -32,7 +32,7 @@ const PolyhedralTopology FormFactorPyramid::topology = {{
 //! @param height: height of the pyramid in nanometers
 //! @param alpha: dihedral angle between the base and a side face in radians
 FormFactorPyramid::FormFactorPyramid(const std::vector<double> P)
-    : FormFactorPolyhedron({"Pyramid",
+    : IFormFactorPolyhedron({"Pyramid",
                             "class_tooltip",
                             {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
                              {"Height", "nm", "para_tooltip", 0, +INF, 0},

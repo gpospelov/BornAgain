@@ -32,7 +32,7 @@ const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true
 //! @param height: height of a truncated pyramid in nanometers
 //! @param alpha: dihedral angle in radians between base and facet
 FormFactorCone6::FormFactorCone6(const std::vector<double> P)
-    : FormFactorPolyhedron({"Cone6",
+    : IFormFactorPolyhedron({"Cone6",
                             "class_tooltip",
                             {{"BaseEdge", "nm", "para_tooltip", 0, +INF, 0},
                              {"Height", "nm", "para_tooltip", 0, +INF, 0},

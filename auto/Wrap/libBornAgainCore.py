@@ -14552,13 +14552,13 @@ class RoughnessModel(object):
 # Register RoughnessModel in _libBornAgainCore:
 _libBornAgainCore.RoughnessModel_swigregister(RoughnessModel)
 
-class FormFactorPolyhedron(IFormFactorBorn):
+class IFormFactorPolyhedron(IFormFactorBorn):
     r"""
 
 
     A polyhedron, for form factor computation.
 
-    C++ includes: FormFactorPolyhedron.h
+    C++ includes: IFormFactorPolyhedron.h
 
     """
 
@@ -14570,77 +14570,77 @@ class FormFactorPolyhedron(IFormFactorBorn):
 
     def bottomZ(self, rotation):
         r"""
-        bottomZ(FormFactorPolyhedron self, IRotation rotation) -> double
-        double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+        bottomZ(IFormFactorPolyhedron self, IRotation rotation) -> double
+        double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_bottomZ(self, rotation)
+        return _libBornAgainCore.IFormFactorPolyhedron_bottomZ(self, rotation)
 
     def topZ(self, rotation):
         r"""
-        topZ(FormFactorPolyhedron self, IRotation rotation) -> double
-        double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+        topZ(IFormFactorPolyhedron self, IRotation rotation) -> double
+        double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_topZ(self, rotation)
+        return _libBornAgainCore.IFormFactorPolyhedron_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
-        complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
+        evaluate_for_q(IFormFactorPolyhedron self, cvector_t q) -> complex_t
+        complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
         Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_evaluate_for_q(self, q)
+        return _libBornAgainCore.IFormFactorPolyhedron_evaluate_for_q(self, q)
 
     def evaluate_centered(self, q):
         r"""
-        evaluate_centered(FormFactorPolyhedron self, cvector_t q) -> complex_t
-        complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
+        evaluate_centered(IFormFactorPolyhedron self, cvector_t q) -> complex_t
+        complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
 
         Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_evaluate_centered(self, q)
+        return _libBornAgainCore.IFormFactorPolyhedron_evaluate_centered(self, q)
 
     def volume(self):
         r"""
-        volume(FormFactorPolyhedron self) -> double
-        double FormFactorPolyhedron::volume() const override final
+        volume(IFormFactorPolyhedron self) -> double
+        double IFormFactorPolyhedron::volume() const override final
 
         Returns the total volume of the particle of this form factor's shape. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_volume(self)
+        return _libBornAgainCore.IFormFactorPolyhedron_volume(self)
 
     def radialExtension(self):
         r"""
-        radialExtension(FormFactorPolyhedron self) -> double
-        double FormFactorPolyhedron::radialExtension() const override final
+        radialExtension(IFormFactorPolyhedron self) -> double
+        double IFormFactorPolyhedron::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_radialExtension(self)
+        return _libBornAgainCore.IFormFactorPolyhedron_radialExtension(self)
 
     def assert_platonic(self):
         r"""
-        assert_platonic(FormFactorPolyhedron self)
-        void FormFactorPolyhedron::assert_platonic() const
+        assert_platonic(IFormFactorPolyhedron self)
+        void IFormFactorPolyhedron::assert_platonic() const
 
         Assertions for Platonic solid. 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_assert_platonic(self)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolyhedron
+        return _libBornAgainCore.IFormFactorPolyhedron_assert_platonic(self)
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorPolyhedron
 
-# Register FormFactorPolyhedron in _libBornAgainCore:
-_libBornAgainCore.FormFactorPolyhedron_swigregister(FormFactorPolyhedron)
+# Register IFormFactorPolyhedron in _libBornAgainCore:
+_libBornAgainCore.IFormFactorPolyhedron_swigregister(IFormFactorPolyhedron)
 
 class IProfileRipple(IFormFactorBorn):
     r"""
@@ -14774,7 +14774,7 @@ class ISawtoothRipple(IProfileRipple):
 # Register ISawtoothRipple in _libBornAgainCore:
 _libBornAgainCore.ISawtoothRipple_swigregister(ISawtoothRipple)
 
-class FormFactorAnisoPyramid(FormFactorPolyhedron):
+class FormFactorAnisoPyramid(IFormFactorPolyhedron):
     r"""
 
 
@@ -14944,7 +14944,7 @@ class FormFactorBox(object):
 # Register FormFactorBox in _libBornAgainCore:
 _libBornAgainCore.FormFactorBox_swigregister(FormFactorBox)
 
-class FormFactorCantellatedCube(FormFactorPolyhedron):
+class FormFactorCantellatedCube(IFormFactorPolyhedron):
     r"""
 
 
@@ -15096,7 +15096,7 @@ class FormFactorCone(IFormFactorBorn):
 # Register FormFactorCone in _libBornAgainCore:
 _libBornAgainCore.FormFactorCone_swigregister(FormFactorCone)
 
-class FormFactorCone6(FormFactorPolyhedron):
+class FormFactorCone6(IFormFactorPolyhedron):
     r"""
 
 
@@ -15304,7 +15304,7 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
 # Register FormFactorCosineRippleLorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorCosineRippleLorentz_swigregister(FormFactorCosineRippleLorentz)
 
-class FormFactorCuboctahedron(FormFactorPolyhedron):
+class FormFactorCuboctahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -15464,7 +15464,7 @@ class FormFactorCylinder(IFormFactorBorn):
 # Register FormFactorCylinder in _libBornAgainCore:
 _libBornAgainCore.FormFactorCylinder_swigregister(FormFactorCylinder)
 
-class FormFactorDodecahedron(FormFactorPolyhedron):
+class FormFactorDodecahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -16034,7 +16034,7 @@ class FormFactorHollowSphere(IFormFactorBorn):
 # Register FormFactorHollowSphere in _libBornAgainCore:
 _libBornAgainCore.FormFactorHollowSphere_swigregister(FormFactorHollowSphere)
 
-class FormFactorIcosahedron(FormFactorPolyhedron):
+class FormFactorIcosahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -16376,7 +16376,7 @@ class FormFactorPrism6(object):
 # Register FormFactorPrism6 in _libBornAgainCore:
 _libBornAgainCore.FormFactorPrism6_swigregister(FormFactorPrism6)
 
-class FormFactorPyramid(FormFactorPolyhedron):
+class FormFactorPyramid(IFormFactorPolyhedron):
     r"""
 
 
@@ -16584,7 +16584,7 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
 # Register FormFactorSawtoothRippleLorentz in _libBornAgainCore:
 _libBornAgainCore.FormFactorSawtoothRippleLorentz_swigregister(FormFactorSawtoothRippleLorentz)
 
-class FormFactorTetrahedron(FormFactorPolyhedron):
+class FormFactorTetrahedron(IFormFactorPolyhedron):
     r"""
 
 
@@ -16654,7 +16654,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
 # Register FormFactorTetrahedron in _libBornAgainCore:
 _libBornAgainCore.FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
 
-class FormFactorTruncatedCube(FormFactorPolyhedron):
+class FormFactorTruncatedCube(IFormFactorPolyhedron):
     r"""
 
 

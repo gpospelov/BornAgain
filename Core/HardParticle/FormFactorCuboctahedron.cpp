@@ -37,7 +37,7 @@ const PolyhedralTopology FormFactorCuboctahedron::topology = {{{{3, 2, 1, 0}, tr
 //! @param height_ratio: ratio of heights of top to bottom pyramids
 //! @param alpha: dihedral angle in radians between base and facet
 FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector<double> P)
-    : FormFactorPolyhedron({"Cuboctahedron",
+    : IFormFactorPolyhedron({"Cuboctahedron",
                             "class_tooltip",
                             {{"Length", "nm", "para_tooltip", 0, +INF, 0},
                              {"Height", "nm", "para_tooltip", 0, +INF, 0},

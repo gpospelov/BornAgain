@@ -8167,7 +8167,11 @@ _libBornAgainCore.IFormFactor_swigregister(IFormFactor)
 
 
 def createTransformedFormFactor(formfactor, rot, translation):
-    r"""createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor"""
+    r"""
+    createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
+    IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+
+    """
     return _libBornAgainCore.createTransformedFormFactor(formfactor, rot, translation)
 class IFormFactorBorn(IFormFactor):
     r"""
@@ -9603,7 +9607,7 @@ class IParticle(IAbstractParticle):
         createFormFactor(IParticle self) -> IFormFactor
         IFormFactor * IParticle::createFormFactor() const
 
-        Create a form factor for this particle. 
+        Creates a form factor for this particle. 
 
         """
         return _libBornAgainCore.IParticle_createFormFactor(self)
@@ -9613,7 +9617,7 @@ class IParticle(IAbstractParticle):
         createSlicedParticle(IParticle self, ZLimits limits) -> SlicedParticle
         SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.IParticle_createSlicedParticle(self, limits)
@@ -9789,7 +9793,7 @@ class MesoCrystal(IParticle):
         createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
         SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
@@ -9856,7 +9860,7 @@ class Particle(IParticle):
         createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
         SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.Particle_createSlicedParticle(self, limits)
@@ -9949,7 +9953,7 @@ class ParticleComposition(IParticle):
         createFormFactor(ParticleComposition self) -> IFormFactor
         IFormFactor * ParticleComposition::createFormFactor() const override final
 
-        Create a form factor for this particle. 
+        Creates a form factor for this particle. 
 
         """
         return _libBornAgainCore.ParticleComposition_createFormFactor(self)
@@ -10061,7 +10065,7 @@ class ParticleCoreShell(IParticle):
         createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
         SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
 
-        Create a sliced form factor for this particle. 
+        Creates a sliced form factor for this particle. 
 
         """
         return _libBornAgainCore.ParticleCoreShell_createSlicedParticle(self, limits)
@@ -18618,7 +18622,7 @@ class IDetector2D(IDetector):
         createPixel(IDetector2D self, size_t index) -> IPixel
         virtual IPixel* IDetector2D::createPixel(size_t index) const =0
 
-        Create an  IPixel for the given  OutputData object and index. 
+        Creates an  IPixel for the given  OutputData object and index. 
 
         """
         return _libBornAgainCore.IDetector2D_createPixel(self, index)
@@ -20140,7 +20144,7 @@ class Histogram1D(IHistogram):
         crop(Histogram1D self, double xmin, double xmax) -> Histogram1D
         Histogram1D * Histogram1D::crop(double xmin, double xmax)
 
-        Create new histogram by applying crop on axis. 
+        Creates new histogram by applying crop on axis. 
 
         """
         return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
@@ -20253,7 +20257,7 @@ class Histogram2D(IHistogram):
         crop(Histogram2D self, double xmin, double ymin, double xmax, double ymax) -> Histogram2D
         Histogram2D * Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
 
-        Create new histogram by applying rectangular clip. 
+        Creates new histogram by applying rectangular clip. 
 
         """
         return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
@@ -21380,7 +21384,7 @@ class Lattice(INode):
         createTransformedLattice(Lattice self, Transform3D const & transform) -> Lattice
         Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
-        Create transformed lattice. 
+        Creates transformed lattice. 
 
         """
         return _libBornAgainCore.Lattice_createTransformedLattice(self, transform)
@@ -21855,15 +21859,27 @@ _libBornAgainCore.HexagonalLattice_swigregister(HexagonalLattice)
 
 
 def createFCCLattice(lattice_constant, orientation):
-    r"""createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice"""
+    r"""
+    createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+
+    """
     return _libBornAgainCore.createFCCLattice(lattice_constant, orientation)
 
 def createHCPLattice(a, c, orientation):
-    r"""createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    r"""
+    createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+
+    """
     return _libBornAgainCore.createHCPLattice(a, c, orientation)
 
 def createBCTLattice(a, c, orientation):
-    r"""createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    r"""
+    createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+
+    """
     return _libBornAgainCore.createBCTLattice(a, c, orientation)
 class Material(object):
     r"""

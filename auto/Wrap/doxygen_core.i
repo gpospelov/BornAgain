@@ -4392,52 +4392,6 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorPolyhedron.xml
-%feature("docstring") FormFactorPolyhedron "
-
-A polyhedron, for form factor computation.
-
-C++ includes: FormFactorPolyhedron.h
-";
-
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
-";
-
-%feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::topZ "double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
-";
-
-%feature("docstring")  FormFactorPolyhedron::volume "double FormFactorPolyhedron::volume() const override final
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::radialExtension "double FormFactorPolyhedron::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorPolyhedron::assert_platonic "void FormFactorPolyhedron::assert_platonic() const
-";
-
-
 // File: classFormFactorPrism3.xml
 %feature("docstring") FormFactorPrism3 "
 
@@ -5913,7 +5867,7 @@ returns vector of bin errors
 
 %feature("docstring")  Histogram1D::crop "Histogram1D * Histogram1D::crop(double xmin, double xmax)
 
-Create new histogram by applying crop on axis. 
+Creates new histogram by applying crop on axis. 
 ";
 
 
@@ -6063,7 +6017,7 @@ upper edje on x-axis
 
 %feature("docstring")  Histogram2D::crop "Histogram2D * Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
 
-Create new histogram by applying rectangular clip. 
+Creates new histogram by applying rectangular clip. 
 ";
 
 %feature("docstring")  Histogram2D::setContent "void Histogram2D::setContent(const std::vector< std::vector< double >> &data)
@@ -6660,7 +6614,7 @@ Returns vector of unmasked detector indices.
 
 %feature("docstring")  IDetector2D::createPixel "virtual IPixel* IDetector2D::createPixel(size_t index) const =0
 
-Create an  IPixel for the given  OutputData object and index. 
+Creates an  IPixel for the given  OutputData object and index. 
 ";
 
 %feature("docstring")  IDetector2D::indexOfSpecular "virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
@@ -7048,9 +7002,6 @@ Assertions for Platonic solid.
 A prism with a polygonal base, for form factor computation.
 
 C++ includes: IFormFactorPrism.h
-";
-
-%feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism()=default
 ";
 
 %feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism(const NodeMeta &meta, const std::vector< double > &PValues)
@@ -9396,12 +9347,12 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  IParticle::createFormFactor "IFormFactor * IParticle::createFormFactor() const
 
-Create a form factor for this particle. 
+Creates a form factor for this particle. 
 ";
 
 %feature("docstring")  IParticle::createSlicedParticle "SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  IParticle::position "kvector_t IParticle::position() const
@@ -10186,7 +10137,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
-Create transformed lattice. 
+Creates transformed lattice. 
 ";
 
 %feature("docstring")  Lattice::initialize "void Lattice::initialize() const
@@ -11280,7 +11231,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  MesoCrystal::createSlicedParticle "SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  MesoCrystal::getChildren "std::vector< const INode * > MesoCrystal::getChildren() const override final
@@ -12573,7 +12524,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  Particle::createSlicedParticle "SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  Particle::setMaterial "void Particle::setMaterial(Material material)
@@ -12622,7 +12573,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  ParticleComposition::createFormFactor "IFormFactor * ParticleComposition::createFormFactor() const override final
 
-Create a form factor for this particle. 
+Creates a form factor for this particle. 
 ";
 
 %feature("docstring")  ParticleComposition::addParticle "void ParticleComposition::addParticle(const IParticle &particle)
@@ -12696,7 +12647,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  ParticleCoreShell::createSlicedParticle "SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
 
-Create a sliced form factor for this particle. 
+Creates a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  ParticleCoreShell::coreParticle "const Particle * ParticleCoreShell::coreParticle() const
@@ -17235,10 +17186,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17625,13 +17576,13 @@ Creates Fourier Transform ( OutputData format) of intensity map ( OutputData for
 
 
 // File: namespaceLatticeUtils.xml
-%feature("docstring")  LatticeUtils::CreateFCCLattice "Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createFCCLattice "Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
 ";
 
-%feature("docstring")  LatticeUtils::CreateHCPLattice "Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createHCPLattice "Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
-%feature("docstring")  LatticeUtils::CreateBCTLattice "Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createBCTLattice "Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
 
@@ -19079,9 +19030,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorLongBoxLorentz_8h.xml
 
 
-// File: FormFactorPolyhedron_8h.xml
-
-
 // File: FormFactorPrism3_8cpp.xml
 
 
@@ -19915,14 +19863,14 @@ magnetization (in A/m)
 
 
 // File: HomogeneousRegion_8cpp.xml
-%feature("docstring")  CreateAveragedMaterial "Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+%feature("docstring")  createAveragedMaterial "Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
 
 Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
 ";
 
 
 // File: HomogeneousRegion_8h.xml
-%feature("docstring")  CreateAveragedMaterial "BA_CORE_API_ Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+%feature("docstring")  createAveragedMaterial "BA_CORE_API_ Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
 
 Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
 ";
@@ -20040,12 +19988,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: IFormFactor_8cpp.xml
-%feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
 
 
 // File: IFormFactor_8h.xml
-%feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
 
 

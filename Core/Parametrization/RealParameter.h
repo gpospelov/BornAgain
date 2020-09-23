@@ -19,6 +19,7 @@
 #include "Core/Parametrization/Unit.h"
 #include "Fit/Tools/Attributes.h"
 #include "Fit/Tools/RealLimits.h"
+#include "Wrap/WinDllMacros.h"
 #include <string>
 
 class ParameterPool;

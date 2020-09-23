@@ -16,6 +16,7 @@
 #define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PARAMETERTUNINGDELEGATE_H
 
 #include "Fit/Tools/RealLimits.h"
+#include "Wrap/WinDllMacros.h"
 #include <QItemDelegate>
 #include <memory>
 

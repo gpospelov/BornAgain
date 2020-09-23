@@ -70,7 +70,7 @@ public:
     //! Returns vector of unmasked detector indices.
     std::vector<size_t> active_indices() const;
 
-    //! Create an IPixel for the given OutputData object and index
+    //! Creates an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const = 0;
 
     //! Returns index of pixel that contains the specular wavevector.

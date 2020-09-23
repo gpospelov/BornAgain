@@ -65,7 +65,7 @@ public:
     PyObject* getBinErrorsNumpy() const;
 #endif
 
-    //! Create new histogram by applying crop on axis.
+    //! Creates new histogram by applying crop on axis.
     Histogram1D* crop(double xmin, double xmax);
 };
 

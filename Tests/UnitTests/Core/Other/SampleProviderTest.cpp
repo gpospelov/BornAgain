@@ -27,7 +27,7 @@ public:
             registerChild(&m_provider);
         }
 
-        TestSimulation(const TestSimulation& other) : m_provider(other.m_provider)
+        TestSimulation(const TestSimulation& other) : INode(), m_provider(other.m_provider)
         {
             setName("TestSimulation");
             registerChild(&m_provider);

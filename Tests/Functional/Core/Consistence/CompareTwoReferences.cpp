@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/Consistence/compare.cpp
-//! @brief     Implements function compare for core consistence test
+//! @file      Tests/Functional/Core/Consistence/CompareTwoReferences.cpp
+//! @brief     Implements function compareTwoReferences for use in core consistence test
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,18 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "BABuild.h"
+//#include "BABuild.h"
 #include "BATesting.h"
 #include "Core/Basics/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Simulation/Simulation.h"
-#include "Core/Simulation/SimulationFactory.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/Tools/FileSystemUtils.h"
 #include <iostream>
+
+namespace
+{
 
 std::unique_ptr<OutputData<double>> load(const std::string& name)
 {
@@ -42,7 +40,9 @@ std::unique_ptr<OutputData<double>> load(const std::string& name)
     return data;
 }
 
-int compare(const std::string& name0, const std::string& name1, const double limit)
+} // namespace
+
+int compareTwoReferences(const std::string& name0, const std::string& name1, const double limit)
 {
     std::unique_ptr<OutputData<double>> data0 = load(name0);
     std::unique_ptr<OutputData<double>> data1 = load(name1);

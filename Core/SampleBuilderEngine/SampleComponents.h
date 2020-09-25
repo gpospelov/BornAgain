@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/SampleComponents.h
+//! @file      Core/SampleBuilderEngine/SampleComponents.h
 //! @brief     Defines sample components for complex sample builders.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLECOMPONENTS_H
 
 #include "Core/Correlations/FTDistributions2D.h"
-#include "Core/StandardSamples/IRegistry.h"
+#include "Core/SampleBuilderEngine/IRegistry.h"
 
 //! @class FTDistribution2DComponents
 //! @brief Predefined Fourier transformed distributions for functional tests.

@@ -24,7 +24,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
-#include "Core/StandardSamples/SampleComponents.h"
+#include "Core/SampleBuilderEngine/SampleComponents.h"
 #include "Core/includeIncludes/FormFactors.h"
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
@@ -82,5 +82,5 @@ size_t LayersWithAbsorptionBuilder::size()
 
 FormFactorComponents LayersWithAbsorptionBuilder::ff_components() const
 {
-    return {};
+    return FormFactorComponents();
 }

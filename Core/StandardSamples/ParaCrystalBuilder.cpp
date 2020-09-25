@@ -24,7 +24,7 @@
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
-#include "Core/StandardSamples/SampleComponents.h"
+#include "Core/SampleBuilderEngine/SampleComponents.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0 * Units::nanometer), m_corr_width(7 * Units::nanometer),

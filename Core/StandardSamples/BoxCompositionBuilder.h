@@ -29,7 +29,6 @@ class BoxCompositionBuilder : public IMultiLayerBuilder
 {
 public:
     BoxCompositionBuilder();
-    virtual ~BoxCompositionBuilder();
 
 protected:
     MultiLayer* createMultiLayer(const ParticleComposition& composition) const;

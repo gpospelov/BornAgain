@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Fit/TestEngine/IFactory.h"
 
 class MultiLayer;
@@ -23,7 +23,7 @@ class MultiLayer;
 //! Factory to create standard pre-defined samples
 //! @ingroup standard_samples
 
-class SampleBuilderFactory : public IFactory<std::string, IMultiLayerBuilder>
+class SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
 {
 public:
     SampleBuilderFactory();

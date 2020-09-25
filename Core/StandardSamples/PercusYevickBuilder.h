@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PERCUSYEVICKBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_PERCUSYEVICKBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include <memory>
 
 class ISample;
@@ -23,7 +23,7 @@ class ISample;
 //! @ingroup standard_samples
 //! Builds sample: cylinders with hard disk Percus-Yevick interference.
 
-class HardDiskBuilder : public IMultiLayerBuilder
+class HardDiskBuilder : public ISampleBuilder
 {
 public:
     HardDiskBuilder();

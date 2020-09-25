@@ -21,7 +21,7 @@
 #include "Core/Lattice/Lattice.h"
 #include "Core/Material/Material.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
@@ -68,7 +68,7 @@ using Units::nm;
 
 //! Runs heavy mesocrystal simulation to investigate where it spends time.
 
-class MesoCrystalPerformanceBuilder : public IMultiLayerBuilder
+class MesoCrystalPerformanceBuilder : public ISampleBuilder
 {
 public:
     MesoCrystalPerformanceBuilder();
@@ -203,7 +203,7 @@ int main()
     simulation.setBeamParameters(1.77 * Units::angstrom, 0.4 * Units::deg, 0.0);
     simulation.setBeamIntensity(6.1e+12);
 
-    std::shared_ptr<IMultiLayerBuilder> builder(new MesoCrystalPerformanceBuilder);
+    std::shared_ptr<ISampleBuilder> builder(new MesoCrystalPerformanceBuilder);
     simulation.setSampleBuilder(builder);
 
     simulation.setRegionOfInterest(40.0, 40.0, 41.0, 41.0);

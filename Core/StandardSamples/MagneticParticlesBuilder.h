@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICPARTICLESBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICPARTICLESBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
 //! Builds sample: cylinders with magnetic material and zero magnetic field.
 //! @ingroup standard_samples
 
-class MagneticParticleZeroFieldBuilder : public IMultiLayerBuilder
+class MagneticParticleZeroFieldBuilder : public ISampleBuilder
 {
 public:
     MagneticParticleZeroFieldBuilder();
@@ -36,7 +36,7 @@ private:
 //! Builds sample: cylinders with magnetic material and non-zero magnetic field.
 //! @ingroup standard_samples
 
-class MagneticCylindersBuilder : public IMultiLayerBuilder
+class MagneticCylindersBuilder : public ISampleBuilder
 {
 public:
     MagneticCylindersBuilder();
@@ -50,7 +50,7 @@ private:
 //! Builds sample: spheres with magnetization inside substrate.
 //! @ingroup standard_samples
 
-class MagneticSpheresBuilder : public IMultiLayerBuilder
+class MagneticSpheresBuilder : public ISampleBuilder
 {
 public:
     MagneticSpheresBuilder();

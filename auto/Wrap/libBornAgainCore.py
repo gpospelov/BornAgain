@@ -2426,17 +2426,17 @@ class vector_IFormFactorPtr_t(object):
 _libBornAgainCore.vector_IFormFactorPtr_t_swigregister(vector_IFormFactorPtr_t)
 
 class SampleBuilderFactoryTemp(object):
-    r"""Proxy of C++ IFactory< std::string,IMultiLayerBuilder > class."""
+    r"""Proxy of C++ IFactory< std::string,ISampleBuilder > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def createItem(self, item_key):
-        r"""createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder"""
+        r"""createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> ISampleBuilder"""
         return _libBornAgainCore.SampleBuilderFactoryTemp_createItem(self, item_key)
 
     def registerItem(self, item_key, CreateFn):
-        r"""registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool"""
+        r"""registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,ISampleBuilder >::CreateItemCallback CreateFn) -> bool"""
         return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, item_key, CreateFn)
 
     def contains(self, item_key):
@@ -5775,7 +5775,7 @@ class Polygon(IShape2D):
     r"""
 
 
-    A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+    A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
     C++ includes: Polygon.h
 
@@ -7501,7 +7501,7 @@ class ParameterPool(ICloneable):
 
         Adds parameter to the pool, and returns reference to the input pointer.
 
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
         return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
@@ -13975,13 +13975,13 @@ class FootprintSquare(IFootprintFactor):
 # Register FootprintSquare in _libBornAgainCore:
 _libBornAgainCore.FootprintSquare_swigregister(FootprintSquare)
 
-class IMultiLayerBuilder(IParameterized):
+class ISampleBuilder(IParameterized):
     r"""
 
 
     Interface to the class capable to build samples to simulate.
 
-    C++ includes: IMultiLayerBuilder.h
+    C++ includes: ISampleBuilder.h
 
     """
 
@@ -13990,103 +13990,103 @@ class IMultiLayerBuilder(IParameterized):
 
     def __init__(self):
         r"""
-        __init__(IMultiLayerBuilder self) -> IMultiLayerBuilder
-        IMultiLayerBuilder::IMultiLayerBuilder()
+        __init__(ISampleBuilder self) -> ISampleBuilder
+        ISampleBuilder::ISampleBuilder()
 
         """
-        if self.__class__ == IMultiLayerBuilder:
+        if self.__class__ == ISampleBuilder:
             _self = None
         else:
             _self = self
-        _libBornAgainCore.IMultiLayerBuilder_swiginit(self, _libBornAgainCore.new_IMultiLayerBuilder(_self, ))
+        _libBornAgainCore.ISampleBuilder_swiginit(self, _libBornAgainCore.new_ISampleBuilder(_self, ))
 
     def buildSample(self):
         r"""
-        buildSample(IMultiLayerBuilder self) -> MultiLayer
-        virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
+        buildSample(ISampleBuilder self) -> MultiLayer
+        virtual MultiLayer* ISampleBuilder::buildSample() const =0
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
+        return _libBornAgainCore.ISampleBuilder_buildSample(self)
 
     def createSample(self, index):
         r"""
-        createSample(IMultiLayerBuilder self, size_t index) -> MultiLayer
-        virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
+        createSample(ISampleBuilder self, size_t index) -> MultiLayer
+        virtual MultiLayer* ISampleBuilder::createSample(size_t index)
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_createSample(self, index)
+        return _libBornAgainCore.ISampleBuilder_createSample(self, index)
 
     def size(self):
         r"""
-        size(IMultiLayerBuilder self) -> size_t
-        virtual size_t IMultiLayerBuilder::size()
+        size(ISampleBuilder self) -> size_t
+        virtual size_t ISampleBuilder::size()
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_size(self)
+        return _libBornAgainCore.ISampleBuilder_size(self)
 
     def registerParameter(self, name, parpointer):
         r"""
-        registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
+        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
         RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
+        return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
 
     def setParameterValue(self, name, value):
         r"""
-        setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)
+        setParameterValue(ISampleBuilder self, std::string const & name, double value)
         void IParameterized::setParameterValue(const std::string &name, double value)
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
+        return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def parametersToString(self):
         r"""
-        parametersToString(IMultiLayerBuilder self) -> std::string
+        parametersToString(ISampleBuilder self) -> std::string
         std::string IParameterized::parametersToString() const
 
         Returns multiline string representing available parameters. 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_parametersToString(self)
+        return _libBornAgainCore.ISampleBuilder_parametersToString(self)
 
     def createParameterTree(self):
         r"""
-        createParameterTree(IMultiLayerBuilder self) -> ParameterPool
+        createParameterTree(ISampleBuilder self) -> ParameterPool
         ParameterPool * IParameterized::createParameterTree() const
 
         Creates new parameter pool, with all local parameters and those of its children. 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_createParameterTree(self)
+        return _libBornAgainCore.ISampleBuilder_createParameterTree(self)
 
     def parameterPool(self):
         r"""
-        parameterPool(IMultiLayerBuilder self) -> ParameterPool
+        parameterPool(ISampleBuilder self) -> ParameterPool
         ParameterPool* IParameterized::parameterPool() const
 
         Returns pointer to the parameter pool. 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_parameterPool(self)
+        return _libBornAgainCore.ISampleBuilder_parameterPool(self)
 
     def onChange(self):
         r"""
-        onChange(IMultiLayerBuilder self)
+        onChange(ISampleBuilder self)
         virtual void IParameterized::onChange()
 
         Action to be taken in inherited class when a parameter has changed. 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
+        return _libBornAgainCore.ISampleBuilder_onChange(self)
+    __swig_destroy__ = _libBornAgainCore.delete_ISampleBuilder
     def __disown__(self):
         self.this.disown()
-        _libBornAgainCore.disown_IMultiLayerBuilder(self)
+        _libBornAgainCore.disown_ISampleBuilder(self)
         return weakref.proxy(self)
 
-# Register IMultiLayerBuilder in _libBornAgainCore:
-_libBornAgainCore.IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
+# Register ISampleBuilder in _libBornAgainCore:
+_libBornAgainCore.ISampleBuilder_swigregister(ISampleBuilder)
 
 class Layer(ISample):
     r"""
@@ -14374,7 +14374,7 @@ class MultiLayer(ISample):
     r"""
 
 
-    Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
+    Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
 
     ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
@@ -17332,8 +17332,8 @@ class Simulation(ICloneable, INode):
 
     def setSampleBuilderCpp(self, sample_builder):
         r"""
-        setSampleBuilderCpp(Simulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder)
-        void Simulation::setSampleBuilder(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        setSampleBuilderCpp(Simulation self, std::shared_ptr< ISampleBuilder > const sample_builder)
+        void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
@@ -17610,8 +17610,8 @@ class GISASSimulation(Simulation2D):
         r"""
         __init__(GISASSimulation self) -> GISASSimulation
         __init__(GISASSimulation self, MultiLayer p_sample) -> GISASSimulation
-        __init__(GISASSimulation self, std::shared_ptr< IMultiLayerBuilder > const p_sample_builder) -> GISASSimulation
-        GISASSimulation::GISASSimulation(const std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
+        __init__(GISASSimulation self, std::shared_ptr< ISampleBuilder > const p_sample_builder) -> GISASSimulation
+        GISASSimulation::GISASSimulation(const std::shared_ptr< ISampleBuilder > p_sample_builder)
 
         """
         _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation(*args))
@@ -17688,8 +17688,8 @@ class DepthProbeSimulation(Simulation):
         r"""
         __init__(DepthProbeSimulation self) -> DepthProbeSimulation
         __init__(DepthProbeSimulation self, MultiLayer sample) -> DepthProbeSimulation
-        __init__(DepthProbeSimulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder) -> DepthProbeSimulation
-        DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        __init__(DepthProbeSimulation self, std::shared_ptr< ISampleBuilder > const sample_builder) -> DepthProbeSimulation
+        DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
         _libBornAgainCore.DepthProbeSimulation_swiginit(self, _libBornAgainCore.new_DepthProbeSimulation(*args))
@@ -17793,8 +17793,8 @@ class SpecularSimulation(Simulation):
         r"""
         __init__(SpecularSimulation self) -> SpecularSimulation
         __init__(SpecularSimulation self, MultiLayer sample) -> SpecularSimulation
-        __init__(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder) -> SpecularSimulation
-        SpecularSimulation::SpecularSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        __init__(SpecularSimulation self, std::shared_ptr< ISampleBuilder > const sample_builder) -> SpecularSimulation
+        SpecularSimulation::SpecularSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
         _libBornAgainCore.SpecularSimulation_swiginit(self, _libBornAgainCore.new_SpecularSimulation(*args))
@@ -17903,8 +17903,8 @@ class OffSpecSimulation(Simulation2D):
         r"""
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, std::shared_ptr< IMultiLayerBuilder > const p_sample_builder) -> OffSpecSimulation
-        OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class IMultiLayerBuilder > p_sample_builder)
+        __init__(OffSpecSimulation self, std::shared_ptr< ISampleBuilder > const p_sample_builder) -> OffSpecSimulation
+        OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
         """
         _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
@@ -18162,9 +18162,7 @@ class IntensityDataIOFactory(object):
     r"""
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
-
-    Usage:
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
 
     C++ includes: IntensityDataIOFactory.h
 
@@ -18208,9 +18206,7 @@ class IntensityDataIOFactory(object):
         __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
-
-        Usage:
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
 
         C++ includes: IntensityDataIOFactory.h
 

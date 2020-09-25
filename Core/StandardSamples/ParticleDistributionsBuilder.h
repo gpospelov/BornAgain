@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEDISTRIBUTIONSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEDISTRIBUTIONSBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 //! Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 //! @ingroup standard_samples
 
-class CylindersWithSizeDistributionBuilder : public IMultiLayerBuilder
+class CylindersWithSizeDistributionBuilder : public ISampleBuilder
 {
 public:
     CylindersWithSizeDistributionBuilder();
@@ -34,7 +34,7 @@ private:
 //! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 //! @ingroup standard_samples
 
-class TwoTypesCylindersDistributionBuilder : public IMultiLayerBuilder
+class TwoTypesCylindersDistributionBuilder : public ISampleBuilder
 {
 public:
     TwoTypesCylindersDistributionBuilder();
@@ -52,7 +52,7 @@ private:
 //! Rotated Pyramids with the distribution applied to the rotation angle.
 //! @ingroup standard_samples
 
-class RotatedPyramidsDistributionBuilder : public IMultiLayerBuilder
+class RotatedPyramidsDistributionBuilder : public ISampleBuilder
 {
 public:
     RotatedPyramidsDistributionBuilder();
@@ -68,7 +68,7 @@ private:
 //! Spherical particles with the distribution applied to the radius and RealLimits defined.
 //! @ingroup standard_samples
 
-class SpheresWithLimitsDistributionBuilder : public IMultiLayerBuilder
+class SpheresWithLimitsDistributionBuilder : public ISampleBuilder
 {
 public:
     SpheresWithLimitsDistributionBuilder() {}
@@ -78,7 +78,7 @@ public:
 //! Cones with the distribution applied to the angle and RealLimits defined.
 //! @ingroup standard_samples
 
-class ConesWithLimitsDistributionBuilder : public IMultiLayerBuilder
+class ConesWithLimitsDistributionBuilder : public ISampleBuilder
 {
 public:
     ConesWithLimitsDistributionBuilder() {}
@@ -88,7 +88,7 @@ public:
 //! Distribution of boxes with main parameter and two linked parameters.
 //! @ingroup standard_samples
 
-class LinkedBoxDistributionBuilder : public IMultiLayerBuilder
+class LinkedBoxDistributionBuilder : public ISampleBuilder
 {
 public:
     LinkedBoxDistributionBuilder() = default;

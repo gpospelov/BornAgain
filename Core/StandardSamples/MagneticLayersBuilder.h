@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Core/Multilayer/RoughnessModels.h"
 
 class ISample;
@@ -23,7 +23,7 @@ class ISample;
 //! Builds sample: spheres in substrate layer with a zero magnetic field.
 //! @ingroup standard_samples
 
-class MagneticSubstrateZeroFieldBuilder : public IMultiLayerBuilder
+class MagneticSubstrateZeroFieldBuilder : public ISampleBuilder
 {
 public:
     MagneticSubstrateZeroFieldBuilder();
@@ -36,7 +36,7 @@ private:
 //! Builds sample: ambient and one magnetized layer on a non-magnetized substrate.
 //! @ingroup standard_samples
 
-class SimpleMagneticLayerBuilder : public IMultiLayerBuilder
+class SimpleMagneticLayerBuilder : public ISampleBuilder
 {
 public:
     SimpleMagneticLayerBuilder();
@@ -46,7 +46,7 @@ public:
 //! Builds sample: magnetic spheres in a magnetized layer on a non-magnetized substrate.
 //! @ingroup standard_samples
 
-class MagneticLayerBuilder : public IMultiLayerBuilder
+class MagneticLayerBuilder : public ISampleBuilder
 {
 public:
     MagneticLayerBuilder();
@@ -59,7 +59,7 @@ private:
 //! Builds sample: magnetic layer on a magnetic substrate with the fields rotated by 90°
 //! @ingroup standard_samples
 
-class SimpleMagneticRotationBuilder : public IMultiLayerBuilder
+class SimpleMagneticRotationBuilder : public ISampleBuilder
 {
 public:
     SimpleMagneticRotationBuilder();
@@ -76,7 +76,7 @@ protected:
 //! Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.
 //! @ingroup standard_samples
 
-class MagneticRotationBuilder : public IMultiLayerBuilder
+class MagneticRotationBuilder : public ISampleBuilder
 {
 public:
     MagneticRotationBuilder();

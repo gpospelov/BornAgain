@@ -18,7 +18,7 @@
 
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Units.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/RoughnessModels.h"
 
@@ -123,42 +123,42 @@ public:
     MultiLayer* release() { return sample.release(); }
 };
 
-class FeNiBiLayerBuilder : public IMultiLayerBuilder
+class FeNiBiLayerBuilder : public ISampleBuilder
 {
 public:
     FeNiBiLayerBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerTanhBuilder : public IMultiLayerBuilder
+class FeNiBiLayerTanhBuilder : public ISampleBuilder
 {
 public:
     FeNiBiLayerTanhBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerNCBuilder : public IMultiLayerBuilder
+class FeNiBiLayerNCBuilder : public ISampleBuilder
 {
 public:
     FeNiBiLayerNCBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerSpinFlipBuilder : public IMultiLayerBuilder
+class FeNiBiLayerSpinFlipBuilder : public ISampleBuilder
 {
 public:
     FeNiBiLayerSpinFlipBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerSpinFlipTanhBuilder : public IMultiLayerBuilder
+class FeNiBiLayerSpinFlipTanhBuilder : public ISampleBuilder
 {
 public:
     FeNiBiLayerSpinFlipTanhBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerSpinFlipNCBuilder : public IMultiLayerBuilder
+class FeNiBiLayerSpinFlipNCBuilder : public ISampleBuilder
 {
 public:
     FeNiBiLayerSpinFlipNCBuilder() {}

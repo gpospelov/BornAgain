@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SampleBuilderNode.cpp
+//! @file      SampleBuilderEngine/SampleBuilderNode.cpp
 //! @brief     Implements class SampleBuilderNode.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/SampleBuilderNode.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include <stdexcept>

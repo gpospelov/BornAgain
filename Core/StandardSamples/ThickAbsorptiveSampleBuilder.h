@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_THICKABSORPTIVESAMPLEBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_THICKABSORPTIVESAMPLEBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
-class ThickAbsorptiveSampleBuilder : public IMultiLayerBuilder
+class ThickAbsorptiveSampleBuilder : public ISampleBuilder
 {
 public:
     ThickAbsorptiveSampleBuilder();

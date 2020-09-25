@@ -471,11 +471,11 @@ private:
 };
 
 
-class SwigDirector_IMultiLayerBuilder : public IMultiLayerBuilder, public Swig::Director {
+class SwigDirector_ISampleBuilder : public ISampleBuilder, public Swig::Director {
 
 public:
-    SwigDirector_IMultiLayerBuilder(PyObject *self);
-    virtual ~SwigDirector_IMultiLayerBuilder();
+    SwigDirector_ISampleBuilder(PyObject *self);
+    virtual ~SwigDirector_ISampleBuilder();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual MultiLayer *buildSample() const;
@@ -502,7 +502,7 @@ private:
         swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
         method = PyObject_GetAttr(swig_get_self(), name);
         if (!method) {
-          std::string msg = "Method in class IMultiLayerBuilder doesn't exist, undefined ";
+          std::string msg = "Method in class ISampleBuilder doesn't exist, undefined ";
           msg += method_name;
           Swig::DirectorMethodException::raise(msg.c_str());
         }

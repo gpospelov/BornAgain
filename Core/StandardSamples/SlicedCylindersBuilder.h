@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCYLINDERSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCYLINDERSBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 //! Builds sample: cylinders on a silicon substrate
 //! @ingroup standard_samples
 
-class SlicedCylindersBuilder : public IMultiLayerBuilder
+class SlicedCylindersBuilder : public ISampleBuilder
 {
 public:
     SlicedCylindersBuilder();

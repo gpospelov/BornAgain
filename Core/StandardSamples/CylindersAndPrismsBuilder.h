@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSANDPRISMSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSANDPRISMSBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
 //! Builds sample: mixture of cylinders and prisms without interference (IsGISAXS example #1).
 //! @ingroup standard_samples
 
-class CylindersAndPrismsBuilder : public IMultiLayerBuilder
+class CylindersAndPrismsBuilder : public ISampleBuilder
 {
 public:
     CylindersAndPrismsBuilder();

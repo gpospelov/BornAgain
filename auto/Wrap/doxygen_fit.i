@@ -1375,7 +1375,28 @@ Internal state of a  WallclockTimer object.
 ";
 
 
-// File: namespace_0d0.xml
+// File: namespace_0D11.xml
+
+
+// File: namespace_0D25.xml
+
+
+// File: namespace_0D29.xml
+
+
+// File: namespace_0D31.xml
+
+
+// File: namespace_0D35.xml
+
+
+// File: namespace_0D37.xml
+
+
+// File: namespace_0D4.xml
+
+
+// File: namespace_0D41.xml
 
 
 // File: namespaceFit.xml

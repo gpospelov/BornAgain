@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include <memory>
 
 class FormFactorComponents;
@@ -28,7 +28,7 @@ class IFormFactor;
 //! The middle layer is populated with particles.
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 
-class LayersWithAbsorptionBuilder : public IMultiLayerBuilder
+class LayersWithAbsorptionBuilder : public ISampleBuilder
 {
 public:
     LayersWithAbsorptionBuilder();

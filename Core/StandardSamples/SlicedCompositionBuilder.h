@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 //! Builds sample: spherical composition made of top+bottom spherical cups
 //! @ingroup standard_samples
 
-class SlicedCompositionBuilder : public IMultiLayerBuilder
+class SlicedCompositionBuilder : public ISampleBuilder
 {
 public:
     SlicedCompositionBuilder() {}

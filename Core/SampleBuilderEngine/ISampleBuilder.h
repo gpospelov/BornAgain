@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/IMultiLayerBuilder.h
-//! @brief     Defines pure virtual base class IMultiLayerBuilder.
+//! @file      SampleBuilderEngine/ISampleBuilder.h
+//! @brief     Defines pure virtual base class ISampleBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,10 +22,10 @@ class MultiLayer;
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
 
-class IMultiLayerBuilder : public IParameterized
+class ISampleBuilder : public IParameterized
 {
 public:
-    IMultiLayerBuilder();
+    ISampleBuilder();
 
     virtual MultiLayer* buildSample() const = 0;
 

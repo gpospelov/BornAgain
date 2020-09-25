@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_CUSTOMMORPHOLOGYBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_CUSTOMMORPHOLOGYBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
 //! Builds sample: mixture of different particles (IsGISAXS example #7).
 //! @ingroup standard_samples
 
-class CustomMorphologyBuilder : public IMultiLayerBuilder
+class CustomMorphologyBuilder : public ISampleBuilder
 {
 public:
     CustomMorphologyBuilder() {}

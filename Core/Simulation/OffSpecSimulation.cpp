@@ -16,7 +16,7 @@
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPool.h"
@@ -33,7 +33,7 @@ OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample) : Simulation2D(
     initialize();
 }
 
-OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
+OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<ISampleBuilder> p_sample_builder)
     : Simulation2D(p_sample_builder)
 {
     initialize();

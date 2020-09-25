@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHROUGHNESSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHROUGHNESSBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
 //! Builds sample: layers with correlated roughness.
 //! @ingroup standard_samples
 
-class MultiLayerWithRoughnessBuilder : public IMultiLayerBuilder
+class MultiLayerWithRoughnessBuilder : public ISampleBuilder
 {
 public:
     MultiLayerWithRoughnessBuilder();

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MULTIPLELAYOUTBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MULTIPLELAYOUTBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
@@ -23,7 +23,7 @@ class ISample;
 //! using multiple particle layouts
 //! @ingroup standard_samples
 
-class MultipleLayoutBuilder : public IMultiLayerBuilder
+class MultipleLayoutBuilder : public ISampleBuilder
 {
 public:
     MultipleLayoutBuilder();

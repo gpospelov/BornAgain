@@ -24,7 +24,7 @@
 #include "Core/Intensity/Histogram1D.h"
 #include "Core/Intensity/UnitConverter1D.h"
 #include "Core/Material/MaterialUtils.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Parametrization/Distributions.h"
@@ -52,7 +52,7 @@ SpecularSimulation::SpecularSimulation(const MultiLayer& sample) : Simulation(sa
     initialize();
 }
 
-SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder)
+SpecularSimulation::SpecularSimulation(const std::shared_ptr<ISampleBuilder> sample_builder)
     : Simulation(sample_builder)
 {
     initialize();

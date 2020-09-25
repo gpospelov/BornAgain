@@ -1,4 +1,4 @@
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SampleBuilderNode.h"
 #include "Core/Parametrization/ParameterPool.h"
@@ -19,7 +19,7 @@ public:
     }
 
     //! Test sample builder
-    class TestBuilder : public IMultiLayerBuilder
+    class TestBuilder : public ISampleBuilder
     {
     public:
         explicit TestBuilder(double length = 42.0) : m_length(length)
@@ -46,7 +46,7 @@ TEST_F(SampleBuilderNodeTest, builderParameters)
     EXPECT_EQ(bool(builderNode), false);
 
     // setting builder
-    std::shared_ptr<IMultiLayerBuilder> builder(new SampleBuilderNodeTest::TestBuilder(33.0));
+    std::shared_ptr<ISampleBuilder> builder(new SampleBuilderNodeTest::TestBuilder(33.0));
     builderNode.setSampleBuilder(builder);
     EXPECT_EQ(bool(builderNode), true);
 
@@ -74,7 +74,7 @@ TEST_F(SampleBuilderNodeTest, builderParameters)
 TEST_F(SampleBuilderNodeTest, assignmentOperator)
 {
     SampleBuilderNode builderNode;
-    std::shared_ptr<IMultiLayerBuilder> builder(new SampleBuilderNodeTest::TestBuilder(33.0));
+    std::shared_ptr<ISampleBuilder> builder(new SampleBuilderNodeTest::TestBuilder(33.0));
     builderNode.setSampleBuilder(builder);
 
     // checking assignment

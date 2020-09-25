@@ -35,7 +35,7 @@
     double __getitem__(unsigned int i) { return (*($self))[i]; }
 };
 
-%extend IMultiLayerBuilder {
+%extend ISampleBuilder {
     virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
         return &(($self)->IParameterized::registerParameter(name, (double*)parpointer)); }
 
@@ -60,7 +60,7 @@
 
 };
 
-// needed to prevent ownership problems with passed IMultiLayerBuilder
+// needed to prevent ownership problems with passed ISampleBuilder
 %extend Simulation {
     %pythoncode %{
          def setSampleBuilder(self, ptr):

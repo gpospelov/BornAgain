@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_TWODIMLATTICEBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_TWODIMLATTICEBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 //! Builds sample: 2D lattice with arbitrary angle and different lattice length_1 and length_2.
 //! @ingroup standard_samples
 
-class Basic2DLatticeBuilder : public IMultiLayerBuilder
+class Basic2DLatticeBuilder : public ISampleBuilder
 {
 public:
     Basic2DLatticeBuilder() {}
@@ -30,7 +30,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class SquareLatticeBuilder : public IMultiLayerBuilder
+class SquareLatticeBuilder : public ISampleBuilder
 {
 public:
     SquareLatticeBuilder() {}
@@ -40,7 +40,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class CenteredSquareLatticeBuilder : public IMultiLayerBuilder
+class CenteredSquareLatticeBuilder : public ISampleBuilder
 {
 public:
     CenteredSquareLatticeBuilder() {}
@@ -50,7 +50,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class RotatedSquareLatticeBuilder : public IMultiLayerBuilder
+class RotatedSquareLatticeBuilder : public ISampleBuilder
 {
 public:
     RotatedSquareLatticeBuilder() {}
@@ -60,7 +60,7 @@ public:
 //! Builds sample: 2D finite lattice with thermal disorder.
 //! @ingroup standard_samples
 
-class FiniteSquareLatticeBuilder : public IMultiLayerBuilder
+class FiniteSquareLatticeBuilder : public ISampleBuilder
 {
 public:
     FiniteSquareLatticeBuilder() {}
@@ -70,7 +70,7 @@ public:
 //! Builds sample: 2D finite lattice of 2D finite lattices (superlattice).
 //! @ingroup standard_samples
 
-class SuperLatticeBuilder : public IMultiLayerBuilder
+class SuperLatticeBuilder : public ISampleBuilder
 {
 public:
     SuperLatticeBuilder() {}

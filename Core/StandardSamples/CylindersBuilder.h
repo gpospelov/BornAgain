@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
 //! Builds sample: cylinder form factor in DWBA (IsGISAXS example #3, part I).
 //! @ingroup standard_samples
 
-class CylindersInDWBABuilder : public IMultiLayerBuilder
+class CylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     CylindersInDWBABuilder();
@@ -36,7 +36,7 @@ private:
 //! Builds sample: cylinder form factor in BA (IsGISAXS example #3, part II).
 //! @ingroup standard_samples
 
-class CylindersInBABuilder : public IMultiLayerBuilder
+class CylindersInBABuilder : public ISampleBuilder
 {
 public:
     CylindersInBABuilder();
@@ -50,7 +50,7 @@ private:
 //! Builds sample with large cylinders for MC integration tests.
 //! @ingroup standard_samples
 
-class LargeCylindersInDWBABuilder : public IMultiLayerBuilder
+class LargeCylindersInDWBABuilder : public ISampleBuilder
 {
 public:
     LargeCylindersInDWBABuilder();
@@ -64,7 +64,7 @@ private:
 //! Builds sample: cylinder form factor in DWBA (IsGISAXS example #3, part I).
 //! @ingroup standard_samples
 
-class RotatedCylindersBuilder : public IMultiLayerBuilder
+class RotatedCylindersBuilder : public ISampleBuilder
 {
 public:
     RotatedCylindersBuilder();

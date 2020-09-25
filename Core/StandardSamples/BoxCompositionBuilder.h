@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_STANDARDSAMPLES_BOXCOMPOSITIONBUILDER_H
 
 #include "Core/Material/Material.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class MultiLayer;
 class ParticleComposition;
@@ -25,7 +25,7 @@ class ParticleComposition;
 //! Reproduces Python functional test transform_BoxComposition.py
 //! @ingroup standard_samples
 
-class BoxCompositionBuilder : public IMultiLayerBuilder
+class BoxCompositionBuilder : public ISampleBuilder
 {
 public:
     BoxCompositionBuilder();

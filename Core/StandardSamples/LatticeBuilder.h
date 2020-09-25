@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_LATTICEBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_LATTICEBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
 //! Builds sample: cylinders with 1DDL structure factor.
 //! @ingroup standard_samples
 
-class Lattice1DBuilder : public IMultiLayerBuilder
+class Lattice1DBuilder : public ISampleBuilder
 {
 public:
     Lattice1DBuilder();

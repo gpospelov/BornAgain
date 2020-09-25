@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_HOMOGENEOUSMULTILAYERBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_HOMOGENEOUSMULTILAYERBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 //! Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate.
 //! Ti is 70 angstroms thick, Ni is 30 angstroms thick.
 //! No absorption, no roughness, target wavelength is 1.54 angstroms.
 //! @ingroup standard_samples
 
-class HomogeneousMultilayerBuilder : public IMultiLayerBuilder
+class HomogeneousMultilayerBuilder : public ISampleBuilder
 {
 public:
     HomogeneousMultilayerBuilder();

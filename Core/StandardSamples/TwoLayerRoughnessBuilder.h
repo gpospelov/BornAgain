@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_TWOLAYERROUGHNESSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_TWOLAYERROUGHNESSBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 class ISample;
 
 //! Builds sample: two layers with rough interface.
 //! @ingroup standard_samples
 
-class TwoLayerRoughnessBuilder : public IMultiLayerBuilder
+class TwoLayerRoughnessBuilder : public ISampleBuilder
 {
 public:
     TwoLayerRoughnessBuilder();

@@ -19,7 +19,7 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 
-ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder() : IMultiLayerBuilder() {}
+ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder() : ISampleBuilder() {}
 
 MultiLayer* ThickAbsorptiveSampleBuilder::buildSample() const
 {

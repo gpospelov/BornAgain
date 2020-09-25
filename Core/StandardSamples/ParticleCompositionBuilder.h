@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLECOMPOSITIONBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLECOMPOSITIONBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/Multilayer/ISampleBuilder.h"
 
 //! Builds sample: two layers of spheres at hex lattice.
 //! @ingroup standard_samples
 
-class ParticleCompositionBuilder : public IMultiLayerBuilder
+class ParticleCompositionBuilder : public ISampleBuilder
 {
 public:
     ParticleCompositionBuilder() {}

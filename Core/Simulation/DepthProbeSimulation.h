@@ -26,7 +26,7 @@ class IAxis;
 class IComputation;
 class IFootprintFactor;
 class ISample;
-class IMultiLayerBuilder;
+class ISampleBuilder;
 class MultiLayer;
 class Histogram1D;
 class IUnitConverter;
@@ -36,7 +36,7 @@ class DepthProbeSimulation : public Simulation
 public:
     DepthProbeSimulation();
     DepthProbeSimulation(const MultiLayer& sample);
-    DepthProbeSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
+    DepthProbeSimulation(const std::shared_ptr<ISampleBuilder> sample_builder);
     ~DepthProbeSimulation() override;
 
     DepthProbeSimulation* clone() const override;

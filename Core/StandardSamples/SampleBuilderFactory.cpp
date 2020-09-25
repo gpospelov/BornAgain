@@ -42,7 +42,7 @@
 #include "Core/StandardSamples/RotatedPyramidsBuilder.h"
 #include "Core/StandardSamples/SizeDistributionModelsBuilder.h"
 #include "Core/StandardSamples/SlicedCylindersBuilder.h"
-#include "Core/StandardSamples/SlicedParticleBuilder.h"
+#include "Core/StandardSamples/SlicedCompositionBuilder.h"
 #include "Core/StandardSamples/ThickAbsorptiveSampleBuilder.h"
 #include "Core/StandardSamples/TransformationsBuilder.h"
 #include "Core/StandardSamples/TwoDimLatticeBuilder.h"

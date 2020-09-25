@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/SlicedParticleBuilder.cpp
+//! @file      Core/StandardSamples/SlicedCompositionBuilder.cpp
 //! @brief     Defines classes to build various particles crossing interfaces.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/StandardSamples/SlicedParticleBuilder.h"
+#include "Core/StandardSamples/SlicedCompositionBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"

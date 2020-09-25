@@ -72,10 +72,7 @@ std::unique_ptr<MultiLayer> SampleBuilderNode::createMultiLayer()
     if (!m_sample_builder)
         throw std::runtime_error("SampleBuilderNode::createMultiLayer() -> Error. Absent builder");
 
-    if (m_sample_builder->isPythonBuilder())
-        return std::unique_ptr<MultiLayer>(m_sample_builder->buildSample()->clone());
-    else
-        return std::unique_ptr<MultiLayer>(m_sample_builder->buildSample());
+    return std::unique_ptr<MultiLayer>(m_sample_builder->buildSample());
 }
 
 //! Returns current sample builder.

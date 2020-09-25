@@ -30,11 +30,6 @@ public:
 
     virtual MultiLayer* buildSample() const = 0;
 
-    //! Returns true the freshly created pointer obtained from buildSample() can
-    //! be directly assigned to a unique_ptr. Returns false if the object must be cloned.
-    //! This method is replaced (i.e. ignored and extended) in the Python wrappers.
-    static bool isPythonBuilder() { return false; }
-
     virtual MultiLayer* createSample(size_t index = 0)
     {
         (void)index;

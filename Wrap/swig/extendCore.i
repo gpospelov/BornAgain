@@ -58,8 +58,6 @@
         return ($self)->IParameterized::onChange();
     }
 
-    static bool isPythonBuilder() {
-        return true; }
 };
 
 // needed to prevent ownership problems with passed IMultiLayerBuilder

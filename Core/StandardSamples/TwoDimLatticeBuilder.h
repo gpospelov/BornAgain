@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_TWODIMLATTICEBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_TWODIMLATTICEBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Builds sample: 2D lattice with arbitrary angle and different lattice length_1 and length_2.
 //! @ingroup standard_samples

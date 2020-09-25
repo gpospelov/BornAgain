@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PLAINMULTILAYERBYSLDBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_PLAINMULTILAYERBYSLDBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate.
 //! Ti is 70 angstroms thick, Ni is 30 angstroms thick.

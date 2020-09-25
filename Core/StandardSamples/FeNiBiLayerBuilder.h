@@ -18,7 +18,7 @@
 
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Units.h"
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/RoughnessModels.h"
 

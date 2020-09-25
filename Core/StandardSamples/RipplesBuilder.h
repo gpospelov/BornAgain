@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Builds sample: cosine ripple within the 1D-paracrystal model.
 //! @ingroup standard_samples

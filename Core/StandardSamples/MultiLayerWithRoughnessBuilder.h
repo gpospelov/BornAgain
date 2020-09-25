@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHROUGHNESSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHROUGHNESSBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 class ISample;
 

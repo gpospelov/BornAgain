@@ -21,7 +21,7 @@
 #include "Core/Lattice/Lattice.h"
 #include "Core/Material/Material.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"

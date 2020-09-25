@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_STANDARDSAMPLES_BOXCOMPOSITIONBUILDER_H
 
 #include "Core/Material/Material.h"
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 class MultiLayer;
 class ParticleComposition;

@@ -16,7 +16,7 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/IComputation.h"
 #include "Core/Detector/DetectorFunctions.h"
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Parametrization/ParameterPool.h"

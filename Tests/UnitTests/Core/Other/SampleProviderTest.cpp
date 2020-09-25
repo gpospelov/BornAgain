@@ -1,5 +1,5 @@
-#include "Core/SampleBuilderEngine//SampleProvider.h"
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/SampleProvider.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include <memory>
 
 class FormFactorComponents;
@@ -39,7 +39,7 @@ public:
     size_t size();
 
 private:
-    FormFactorComponents& ff_components();
+    FormFactorComponents ff_components() const;
     std::unique_ptr<IFormFactor> m_ff;
 };
 

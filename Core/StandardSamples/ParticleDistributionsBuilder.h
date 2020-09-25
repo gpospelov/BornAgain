@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEDISTRIBUTIONSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEDISTRIBUTIONSBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 //! @ingroup standard_samples

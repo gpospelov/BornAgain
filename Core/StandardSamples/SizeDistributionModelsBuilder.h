@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SIZEDISTRIBUTIONMODELSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SIZEDISTRIBUTIONMODELSBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Creates the sample demonstrating size distribution model in decoupling approximation.
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py

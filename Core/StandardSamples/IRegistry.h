@@ -37,7 +37,7 @@ public:
         return it->second.get();
     }
 
-    std::vector<std::string> keys()
+    std::vector<std::string> keys() const
     {
         std::vector<std::string> result;
         for (auto it = m_data.begin(); it != m_data.end(); ++it)

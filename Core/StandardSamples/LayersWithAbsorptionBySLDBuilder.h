@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBYSLDBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBYSLDBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! The LayersWithAbsorptionBySLDBuilder class generates a multilayer with 3 layers with
 //! absorption (refractive index has imaginary part). //! The middle layer is populated with

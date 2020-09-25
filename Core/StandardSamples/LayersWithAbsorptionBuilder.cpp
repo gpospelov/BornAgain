@@ -14,6 +14,7 @@
 
 #include "Core/StandardSamples/LayersWithAbsorptionBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/Units.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -66,7 +67,7 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
 MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 {
-    auto ff_names = ff_components().keys();
+    const auto ff_names = ff_components().keys();
     m_ff.reset(ff_components().getItem(ff_names.at(index))->clone());
 
     setName(ff_names.at(index));
@@ -79,8 +80,7 @@ size_t LayersWithAbsorptionBuilder::size()
     return ff_components().size();
 }
 
-FormFactorComponents& LayersWithAbsorptionBuilder::ff_components()
+FormFactorComponents LayersWithAbsorptionBuilder::ff_components() const
 {
-    static FormFactorComponents result = {};
-    return result;
+    return {};
 }

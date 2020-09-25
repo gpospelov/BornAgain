@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MESOCRYSTALBUILDER_H
 
 #include "Core/Basics/Complex.h"
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 class IFormFactor;
 class ISample;

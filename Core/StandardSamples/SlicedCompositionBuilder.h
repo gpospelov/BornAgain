@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
 
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Builds sample: spherical composition made of top+bottom spherical cups
 //! @ingroup standard_samples

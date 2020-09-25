@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Basics/Assert.h"
-#include "Core/Multilayer/ISampleBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/SimulationFactory.h"

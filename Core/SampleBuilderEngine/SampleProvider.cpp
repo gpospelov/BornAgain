@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/SampleBuilderEngine//SampleProvider.h"
+#include "Core/SampleBuilderEngine/SampleProvider.h"
 #include "Core/Basics/Assert.h"
 #include "Core/Multilayer/MultiLayer.h"
 

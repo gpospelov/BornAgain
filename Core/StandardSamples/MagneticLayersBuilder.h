@@ -65,7 +65,7 @@ public:
     SimpleMagneticRotationBuilder();
     MultiLayer* buildSample() const override;
 
-    MultiLayer* createSample(size_t index = 0) override;
+    MultiLayer* createSample(size_t index) override;
     size_t size() override;
 
 protected:

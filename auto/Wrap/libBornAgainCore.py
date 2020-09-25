@@ -14008,9 +14008,9 @@ class IMultiLayerBuilder(IParameterized):
         """
         return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
 
-    def createSample(self, index=0):
+    def createSample(self, index):
         r"""
-        createSample(IMultiLayerBuilder self, size_t index=0) -> MultiLayer
+        createSample(IMultiLayerBuilder self, size_t index) -> MultiLayer
         virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
 
         """

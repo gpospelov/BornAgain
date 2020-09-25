@@ -26,7 +26,6 @@ class IMultiLayerBuilder : public IParameterized
 {
 public:
     IMultiLayerBuilder();
-    virtual ~IMultiLayerBuilder() = default;
 
     virtual MultiLayer* buildSample() const = 0;
 

@@ -29,7 +29,7 @@ SampleBuilderNode::SampleBuilderNode()
 }
 
 SampleBuilderNode::SampleBuilderNode(const SampleBuilderNode& other)
-    : m_sample_builder(other.m_sample_builder)
+    : INode(), m_sample_builder(other.m_sample_builder)
 {
     setName(other.getName());
 }

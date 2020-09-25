@@ -30,8 +30,9 @@ public:
 
     virtual MultiLayer* buildSample() const = 0;
 
-    // this method is extended in the Python wrappers (needed to solve ownership issues with
-    // the created sample in buildSample()
+    //! Returns true the freshly created pointer obtained from buildSample() can
+    //! be directly assigned to a unique_ptr. Returns false if the object must be cloned.
+    //! This method is replaced (i.e. ignored and extended) in the Python wrappers.
     static bool isPythonBuilder() { return false; }
 
     virtual MultiLayer* createSample(size_t index = 0)

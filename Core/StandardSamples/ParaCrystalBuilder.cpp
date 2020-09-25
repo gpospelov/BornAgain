@@ -112,9 +112,9 @@ MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
     ASSERT(index < FTDistribution2DComponents().size());
 
     auto names = FTDistribution2DComponents().keys();
-    m_pdf2.reset(FTDistribution2DComponents().getItem(names[index])->clone());
+    m_pdf2.reset(FTDistribution2DComponents().getItem(names.at(index))->clone());
 
-    setName(names[index]);
+    setName(names.at(index));
 
     return buildSample();
 }

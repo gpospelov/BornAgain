@@ -66,14 +66,10 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
 MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 {
-    if (index >= size())
-        throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
-                                 "Sample index is out of range.");
-
     auto ff_names = ff_components().keys();
-    m_ff.reset(ff_components().getItem(ff_names[index])->clone());
+    m_ff.reset(ff_components().getItem(ff_names.at(index))->clone());
 
-    setName(ff_names[index]);
+    setName(ff_names.at(index));
 
     return buildSample();
 }

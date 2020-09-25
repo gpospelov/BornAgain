@@ -30,7 +30,6 @@ class ParticleInTheAirBuilder : public IMultiLayerBuilder
 {
 public:
     ParticleInTheAirBuilder();
-    virtual ~ParticleInTheAirBuilder();
     virtual MultiLayer* buildSample() const;
 
     MultiLayer* createSample(size_t index = 0);

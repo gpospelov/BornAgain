@@ -25,10 +25,11 @@
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 
-MagneticSubstrateZeroFieldBuilder::MagneticSubstrateZeroFieldBuilder()
-    : m_sphere_radius(5 * Units::nanometer)
-{
-}
+namespace {
+
+const double sphere_radius = 5 * Units::nanometer;
+
+} // namespace
 
 MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
 {
@@ -42,7 +43,7 @@ MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     kvector_t position(0.0, 0.0, -10.0 * Units::nanometer);
-    FormFactorFullSphere ff_sphere(m_sphere_radius);
+    FormFactorFullSphere ff_sphere(sphere_radius);
     Particle particle(particle_material, ff_sphere);
     particle_layout.addParticle(particle, 1.0, position);
 
@@ -54,8 +55,6 @@ MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
-
-SimpleMagneticLayerBuilder::SimpleMagneticLayerBuilder() = default;
 
 MultiLayer* SimpleMagneticLayerBuilder::buildSample() const
 {
@@ -76,8 +75,6 @@ MultiLayer* SimpleMagneticLayerBuilder::buildSample() const
     return multi_layer;
 }
 
-MagneticLayerBuilder::MagneticLayerBuilder() : m_sphere_radius(5 * Units::nanometer) {}
-
 MultiLayer* MagneticLayerBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
@@ -90,7 +87,7 @@ MultiLayer* MagneticLayerBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;
-    FormFactorFullSphere ff_sphere(m_sphere_radius);
+    FormFactorFullSphere ff_sphere(sphere_radius);
     Particle particle(particle_material, ff_sphere);
     particle_layout.addParticle(particle, 1.0);
 
@@ -104,8 +101,6 @@ MultiLayer* MagneticLayerBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
-
-SimpleMagneticRotationBuilder::SimpleMagneticRotationBuilder() = default;
 
 MultiLayer* SimpleMagneticRotationBuilder::buildSample() const
 {
@@ -161,8 +156,6 @@ MultiLayer* SimpleMagneticRotationBuilder::createSampleByIndex(size_t index)
     }
 }
 
-MagneticRotationBuilder::MagneticRotationBuilder() : m_sphere_radius(5 * Units::nanometer) {}
-
 MultiLayer* MagneticRotationBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
@@ -175,7 +168,7 @@ MultiLayer* MagneticRotationBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     kvector_t position(0.0, 0.0, -10.0 * Units::nanometer);
-    FormFactorFullSphere ff_sphere(m_sphere_radius);
+    FormFactorFullSphere ff_sphere(sphere_radius);
     Particle particle(particle_material, ff_sphere);
     RotationZ rot_z(90 * Units::deg);
     particle_layout.addParticle(particle, 1.0, position, rot_z);

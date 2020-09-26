@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include <memory>
 
 class IFTDistribution2D;
@@ -25,7 +25,7 @@ class FTDistribution2DComponents;
 //! @ingroup standard_samples
 //! Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4).
 
-class RadialParaCrystalBuilder : public IMultiLayerBuilder
+class RadialParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RadialParaCrystalBuilder();
@@ -43,14 +43,14 @@ private:
 //! distribution functions (PDF's). They are initialized via component service.
 //! @ingroup standard_samples
 
-class Basic2DParaCrystalBuilder : public IMultiLayerBuilder
+class Basic2DParaCrystalBuilder : public ISampleBuilder
 {
 public:
     Basic2DParaCrystalBuilder();
     ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
 
-    MultiLayer* createSample(size_t index = 0);
+    MultiLayer* createSample(size_t index);
 
 private:
     std::unique_ptr<IFTDistribution2D> m_pdf1;
@@ -60,7 +60,7 @@ private:
 //! Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4).
 //! @ingroup standard_samples
 
-class HexParaCrystalBuilder : public IMultiLayerBuilder
+class HexParaCrystalBuilder : public ISampleBuilder
 {
 public:
     HexParaCrystalBuilder();
@@ -78,7 +78,7 @@ private:
 //! @ingroup standard_samples
 //! Builds sample: 2D paracrystal lattice (IsGISAXS example #8).
 
-class RectParaCrystalBuilder : public IMultiLayerBuilder
+class RectParaCrystalBuilder : public ISampleBuilder
 {
 public:
     RectParaCrystalBuilder() {}

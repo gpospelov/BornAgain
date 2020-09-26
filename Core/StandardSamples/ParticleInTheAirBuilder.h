@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEINTHEAIRBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLEINTHEAIRBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include <memory>
 
 class IFormFactor;
@@ -26,14 +26,13 @@ class FormFactorComponents;
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 //! @ingroup standard_samples
 
-class ParticleInTheAirBuilder : public IMultiLayerBuilder
+class ParticleInTheAirBuilder : public ISampleBuilder
 {
 public:
     ParticleInTheAirBuilder();
-    virtual ~ParticleInTheAirBuilder();
     virtual MultiLayer* buildSample() const;
 
-    MultiLayer* createSample(size_t index = 0);
+    MultiLayer* createSample(size_t index);
     size_t size();
 
 protected:

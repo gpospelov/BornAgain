@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Basics/Assert.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
@@ -37,8 +37,7 @@ int run(const std::string& test_name, const std::string& sim_name,
     ASSERT(simulation);
 
     std::cout << "- sample builder " << sample_builder_name << std::endl;
-    std::unique_ptr<IMultiLayerBuilder> builder{
-        SampleBuilderFactory().createItem(sample_builder_name)};
+    std::unique_ptr<ISampleBuilder> builder{SampleBuilderFactory().createItem(sample_builder_name)};
     std::cout << "- builder name " << builder->getName() << std::endl;
 
     int number_of_failed_tests = 0;

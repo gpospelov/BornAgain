@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_APPSVC_H
 #define BORNAGAIN_GUI_COREGUI_MAINWINDOW_APPSVC_H
 
-#include "Core/Basics/ISingleton.h"
+#include "GUI/coregui/mainwindow/ISingleton.h"
 
 class ProjectManager;
 class MaterialModel;

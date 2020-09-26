@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/SlicedParticleBuilder.cpp
+//! @file      Core/StandardSamples/SlicedCompositionBuilder.cpp
 //! @brief     Defines classes to build various particles crossing interfaces.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,17 +12,15 @@
 //
 // ************************************************************************** //
 
-#include "Core/StandardSamples/SlicedParticleBuilder.h"
+#include "Core/StandardSamples/SlicedCompositionBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
-#include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
-#include "Core/Vector/Transform3D.h"
 
 MultiLayer* SlicedCompositionBuilder::buildSample() const
 {

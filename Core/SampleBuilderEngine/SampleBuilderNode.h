@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SampleBuilderNode.h
+//! @file      SampleBuilderEngine/SampleBuilderNode.h
 //! @brief     Defines class SampleBuilderNode.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,7 +18,7 @@
 #include "Core/Parametrization/INode.h"
 #include <memory>
 
-class IMultiLayerBuilder;
+class ISampleBuilder;
 
 //! Enfolds MultiLayerBuilder to have it in INode tree.
 //! @ingroup simulation_internal
@@ -26,7 +26,7 @@ class IMultiLayerBuilder;
 class SampleBuilderNode : public INode
 {
 public:
-    using builder_t = std::shared_ptr<IMultiLayerBuilder>;
+    using builder_t = std::shared_ptr<ISampleBuilder>;
 
     SampleBuilderNode();
     SampleBuilderNode(const SampleBuilderNode& other);

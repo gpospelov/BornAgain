@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SampleProvider.h
+//! @file      SampleBuilderEngine/SampleProvider.h
 //! @brief     Defines class SampleProvider.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_SAMPLEPROVIDER_H
 #define BORNAGAIN_CORE_MULTILAYER_SAMPLEPROVIDER_H
 
-#include "Core/Multilayer/SampleBuilderNode.h"
 #include "Core/Parametrization/INode.h"
+#include "Core/SampleBuilderEngine/SampleBuilderNode.h"
 
 class MultiLayer;
 
@@ -34,7 +34,7 @@ public:
 
     void setSample(const MultiLayer& multilayer);
 
-    void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
+    void setSampleBuilder(const std::shared_ptr<ISampleBuilder> sample_builder);
 
     const MultiLayer* sample() const;
 

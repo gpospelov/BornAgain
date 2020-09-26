@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/IRegistry.h
+//! @file      Core/SampleBuilderEngine/IRegistry.h
 //! @brief     Defines templated registry for ICloneable objects
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -37,7 +37,7 @@ public:
         return it->second.get();
     }
 
-    std::vector<std::string> keys()
+    std::vector<std::string> keys() const
     {
         std::vector<std::string> result;
         for (auto it = m_data.begin(); it != m_data.end(); ++it)

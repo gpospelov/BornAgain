@@ -16,11 +16,11 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/IComputation.h"
 #include "Core/Detector/DetectorFunctions.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Fit/Tools/StringUtils.h"
@@ -48,14 +48,14 @@ Simulation::Simulation(const MultiLayer& p_sample)
     m_sample_provider.setSample(p_sample);
 }
 
-Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
+Simulation::Simulation(const std::shared_ptr<ISampleBuilder> p_sample_builder)
 {
     initialize();
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
 Simulation::Simulation(const Simulation& other)
-    : m_sample_provider(other.m_sample_provider), m_options(other.m_options),
+    : ICloneable(), INode(), m_sample_provider(other.m_sample_provider), m_options(other.m_options),
       m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress),
       m_instrument(other.m_instrument)
 {
@@ -174,7 +174,7 @@ const MultiLayer* Simulation::sample() const
     return m_sample_provider.sample();
 }
 
-void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
+void Simulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder> p_sample_builder)
 {
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }

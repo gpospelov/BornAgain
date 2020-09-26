@@ -21,15 +21,13 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
-#include "Core/StandardSamples/SampleComponents.h"
+#include "Core/SampleBuilderEngine/SampleComponents.h"
 #include "Core/includeIncludes/FormFactors.h"
 
 ParticleInTheAirBuilder::ParticleInTheAirBuilder()
     : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
 {
 }
-
-ParticleInTheAirBuilder::~ParticleInTheAirBuilder() = default;
 
 MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
@@ -51,14 +49,10 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
 
 MultiLayer* ParticleInTheAirBuilder::createSample(size_t index)
 {
-    if (index >= size())
-        throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
-                                 "Sample index is out of range.");
-
     auto ff_names = ff_components().keys();
-    m_ff.reset(ff_components().getItem(ff_names[index])->clone());
+    m_ff.reset(ff_components().getItem(ff_names.at(index))->clone());
 
-    setName(ff_names[index]);
+    setName(ff_names.at(index));
 
     return buildSample();
 }

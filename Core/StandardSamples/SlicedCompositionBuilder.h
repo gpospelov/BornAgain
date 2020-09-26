@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/SlicedParticleBuilder.h
+//! @file      Core/StandardSamples/SlicedCompositionBuilder.h
 //! @brief     Defines classes to build various particles crossing interfaces.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
 
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Builds sample: spherical composition made of top+bottom spherical cups
 //! @ingroup standard_samples
 
-class SlicedCompositionBuilder : public IMultiLayerBuilder
+class SlicedCompositionBuilder : public ISampleBuilder
 {
 public:
     SlicedCompositionBuilder() {}

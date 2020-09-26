@@ -14,6 +14,7 @@
 
 #include "Core/StandardSamples/MagneticLayersBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
@@ -142,7 +143,6 @@ size_t SimpleMagneticRotationBuilder::size()
 
 MultiLayer* SimpleMagneticRotationBuilder::createSample(size_t index)
 {
-
     switch (index) {
 
     case 0:
@@ -157,8 +157,7 @@ MultiLayer* SimpleMagneticRotationBuilder::createSample(size_t index)
         return builder(2., RoughnessModel::NEVOT_CROCE);
 
     default:
-        throw std::runtime_error("SimpleMagneticRotationBuilder::createSample() -> Error. "
-                                 "Sample index is out of range.");
+        ASSERT(0);
     }
 }
 

@@ -19,7 +19,7 @@
 #include "Core/SimulationElement/SimulationElement.h"
 
 class MultiLayer;
-class IMultiLayerBuilder;
+class ISampleBuilder;
 
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
@@ -29,7 +29,7 @@ class GISASSimulation : public Simulation2D
 public:
     GISASSimulation();
     GISASSimulation(const MultiLayer& p_sample);
-    GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
+    GISASSimulation(const std::shared_ptr<ISampleBuilder> p_sample_builder);
 
     ~GISASSimulation() {}
 

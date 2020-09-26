@@ -24,7 +24,7 @@
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
-#include "Core/StandardSamples/SampleComponents.h"
+#include "Core/SampleBuilderEngine/SampleComponents.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0 * Units::nanometer), m_corr_width(7 * Units::nanometer),
@@ -112,9 +112,9 @@ MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
     ASSERT(index < FTDistribution2DComponents().size());
 
     auto names = FTDistribution2DComponents().keys();
-    m_pdf2.reset(FTDistribution2DComponents().getItem(names[index])->clone());
+    m_pdf2.reset(FTDistribution2DComponents().getItem(names.at(index))->clone());
 
-    setName(names[index]);
+    setName(names.at(index));
 
     return buildSample();
 }

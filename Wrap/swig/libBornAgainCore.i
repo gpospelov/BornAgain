@@ -95,7 +95,6 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/ICloneable.h"
-#include "Core/Basics/ISingleton.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
@@ -178,7 +177,7 @@
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
@@ -277,7 +276,7 @@
 %template(vector_IFormFactorPtr_t) std::vector<IFormFactor*>;
 
 %include "Fit/TestEngine/IFactory.h"
-%template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
+%template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 
 %include "Core/Vector/BasicVector3D.h"
@@ -312,7 +311,6 @@
 
 // need to tell SWIG explicitly to instantiate these templates with given types
 %include "Core/Basics/ICloneable.h"
-%include "Core/Basics/ISingleton.h"
 %include "Core/Basics/Complex.h"
 %include "Core/Basics/Units.h"
 
@@ -393,7 +391,7 @@
 %include "Core/Beam/FootprintGauss.h"
 %include "Core/Beam/FootprintSquare.h"
 
-%include "Core/Multilayer/IMultiLayerBuilder.h"
+%include "Core/SampleBuilderEngine/ISampleBuilder.h"
 %include "Core/Multilayer/Layer.h"
 %include "Core/Multilayer/LayerRoughness.h"
 %include "Core/Multilayer/MultiLayer.h"

@@ -10,9 +10,9 @@ from bornagain import *
 # ----------------------------------------------------------------------------
 # Sample builder to build mixture of cylinders and prisms on top of substrate
 # ----------------------------------------------------------------------------
-class MySampleBuilder(IMultiLayerBuilder):
+class MySampleBuilder(ISampleBuilder):
     def __init__(self):
-        IMultiLayerBuilder.__init__(self)
+        ISampleBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
         self.lattice_length_a = ctypes.c_double(6.2091e+00*nm)

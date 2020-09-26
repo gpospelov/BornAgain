@@ -38,7 +38,6 @@ complex_t averageSLD(complex_t sld_p, complex_t sld_l, double eff_vol)
 }
 } // namespace
 
-
 SlicedCylindersBuilder::SlicedCylindersBuilder()
     : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer), m_wavelength(0.154) // nm
       ,

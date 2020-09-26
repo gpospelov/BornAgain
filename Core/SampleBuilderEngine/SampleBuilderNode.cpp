@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SampleBuilderNode.cpp
+//! @file      SampleBuilderEngine/SampleBuilderNode.cpp
 //! @brief     Implements class SampleBuilderNode.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Core/Multilayer/SampleBuilderNode.h"
-#include "Core/Multilayer/IMultiLayerBuilder.h"
+#include "Core/SampleBuilderEngine/SampleBuilderNode.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterPool.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include <stdexcept>
 
 namespace
@@ -29,7 +29,7 @@ SampleBuilderNode::SampleBuilderNode()
 }
 
 SampleBuilderNode::SampleBuilderNode(const SampleBuilderNode& other)
-    : m_sample_builder(other.m_sample_builder)
+    : INode(), m_sample_builder(other.m_sample_builder)
 {
     setName(other.getName());
 }
@@ -72,10 +72,7 @@ std::unique_ptr<MultiLayer> SampleBuilderNode::createMultiLayer()
     if (!m_sample_builder)
         throw std::runtime_error("SampleBuilderNode::createMultiLayer() -> Error. Absent builder");
 
-    if (m_sample_builder->isPythonBuilder())
-        return std::unique_ptr<MultiLayer>(m_sample_builder->buildSample()->clone());
-    else
-        return std::unique_ptr<MultiLayer>(m_sample_builder->buildSample());
+    return std::unique_ptr<MultiLayer>(m_sample_builder->buildSample());
 }
 
 //! Returns current sample builder.

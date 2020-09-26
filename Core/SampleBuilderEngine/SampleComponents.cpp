@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/SampleComponents.cpp
+//! @file      Core/SampleBuilderEngine/SampleComponents.cpp
 //! @brief     Implements sample components for complex sample builders.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/StandardSamples/SampleComponents.h"
+#include "Core/SampleBuilderEngine/SampleComponents.h"
 #include "Core/Basics/Units.h"
 #include "Core/includeIncludes/HardParticles.h"
 

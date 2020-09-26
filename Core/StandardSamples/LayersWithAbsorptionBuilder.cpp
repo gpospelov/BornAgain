@@ -14,17 +14,21 @@
 
 #include "Core/StandardSamples/LayersWithAbsorptionBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/Exceptions.h"
 #include "Core/Basics/Units.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
-#include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
-#include "Core/StandardSamples/SampleComponents.h"
-#include "Core/includeIncludes/FormFactors.h"
+#include "Core/SampleBuilderEngine/SampleComponents.h"
+
+namespace
+{
+
+static const FormFactorComponents ff_components;
+
+} // namespace
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
     : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
@@ -66,25 +70,13 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
 MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 {
-    if (index >= size())
-        throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
-                                 "Sample index is out of range.");
-
-    auto ff_names = ff_components().keys();
-    m_ff.reset(ff_components().getItem(ff_names[index])->clone());
-
-    setName(ff_names[index]);
-
+    const std::string name = ff_components.keys().at(index);
+    m_ff.reset(ff_components.getItem(name)->clone());
+    setName(name);
     return buildSample();
 }
 
 size_t LayersWithAbsorptionBuilder::size()
 {
-    return ff_components().size();
-}
-
-FormFactorComponents& LayersWithAbsorptionBuilder::ff_components()
-{
-    static FormFactorComponents result = {};
-    return result;
+    return ff_components.size();
 }

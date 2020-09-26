@@ -30,8 +30,6 @@ BoxCompositionBuilder::BoxCompositionBuilder()
 {
 }
 
-BoxCompositionBuilder::~BoxCompositionBuilder() {}
-
 MultiLayer* BoxCompositionBuilder::createMultiLayer(const ParticleComposition& composition) const
 {
     Material mAmbience = HomogeneousMaterial("Air", 0.0, 0.0);

@@ -24,7 +24,7 @@ Simulation2D::Simulation2D() = default;
 
 Simulation2D::Simulation2D(const MultiLayer& p_sample) : Simulation(p_sample) {}
 
-Simulation2D::Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
+Simulation2D::Simulation2D(const std::shared_ptr<ISampleBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
 {
 }

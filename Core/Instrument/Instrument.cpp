@@ -27,7 +27,7 @@ Instrument::Instrument() : mP_detector(new SphericalDetector), m_beam(Beam::hori
     registerChild(&m_beam);
 }
 
-Instrument::Instrument(const Instrument& other) : m_beam(other.m_beam)
+Instrument::Instrument(const Instrument& other) : INode(), m_beam(other.m_beam)
 {
     if (other.mP_detector)
         setDetector(*other.mP_detector);

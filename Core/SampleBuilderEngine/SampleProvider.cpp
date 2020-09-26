@@ -19,6 +19,7 @@
 SampleProvider::SampleProvider() {}
 
 SampleProvider::SampleProvider(const SampleProvider& other)
+    : INode()
 {
     if (other.m_multilayer)
         setSample(*other.m_multilayer);

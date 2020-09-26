@@ -27,8 +27,6 @@
 
 MultiLayer* CoreShellParticleBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
 
     complex_t n_particle_shell(1.0 - 1e-4, 2e-8);
@@ -51,6 +49,7 @@ MultiLayer* CoreShellParticleBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     return multi_layer;
 }

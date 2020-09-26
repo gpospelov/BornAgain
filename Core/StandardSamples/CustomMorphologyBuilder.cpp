@@ -19,13 +19,10 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 
 MultiLayer* CustomMorphologyBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -104,7 +101,8 @@ MultiLayer* CustomMorphologyBuilder::buildSample() const
     particle_layout.addParticle(p10, 0.5);
 
     air_layer.addLayout(particle_layout);
-    multi_layer->addLayer(air_layer);
 
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
     return multi_layer;
 }

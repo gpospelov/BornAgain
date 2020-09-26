@@ -35,7 +35,7 @@ public:
     ~LayersWithAbsorptionBuilder();
     virtual MultiLayer* buildSample() const;
 
-    MultiLayer* createSample(size_t index);
+    MultiLayer* createSampleByIndex(size_t index);
     size_t size();
 
 private:

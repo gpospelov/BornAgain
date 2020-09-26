@@ -68,7 +68,7 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
+MultiLayer* LayersWithAbsorptionBuilder::createSampleByIndex(size_t index)
 {
     const std::string name = ff_components.keys().at(index);
     m_ff.reset(ff_components.getItem(name)->clone());

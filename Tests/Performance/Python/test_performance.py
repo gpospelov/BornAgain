@@ -89,7 +89,7 @@ class FactoryTest:
             self.m_sample_factory = SampleBuilderFactory()
             self.m_simulation_factory = SimulationFactory()
             self.m_simulation = self.m_simulation_factory.createItem(self.m_simulation_name)
-            self.m_sample = self.m_sample_factory.createSample(self.m_sample_builder_name)
+            self.m_sample = self.m_sample_factory.createSampleByName(self.m_sample_builder_name)
         else:
             self.m_sample_factory = None
             self.m_simulation_factory = None

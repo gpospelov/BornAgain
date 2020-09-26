@@ -14008,13 +14008,9 @@ class ISampleBuilder(IParameterized):
         """
         return _libBornAgainCore.ISampleBuilder_buildSample(self)
 
-    def createSample(self, index):
-        r"""
-        createSample(ISampleBuilder self, size_t index) -> MultiLayer
-        virtual MultiLayer* ISampleBuilder::createSample(size_t index)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_createSample(self, index)
+    def createSampleByIndex(self, index):
+        r"""createSampleByIndex(ISampleBuilder self, size_t index) -> MultiLayer"""
+        return _libBornAgainCore.ISampleBuilder_createSampleByIndex(self, index)
 
     def size(self):
         r"""
@@ -22080,15 +22076,9 @@ class SampleBuilderFactory(SampleBuilderFactoryTemp):
         """
         _libBornAgainCore.SampleBuilderFactory_swiginit(self, _libBornAgainCore.new_SampleBuilderFactory())
 
-    def createSample(self, name):
-        r"""
-        createSample(SampleBuilderFactory self, std::string const & name) -> MultiLayer
-        MultiLayer * SampleBuilderFactory::createSample(const std::string &name)
-
-        Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
+    def createSampleByName(self, name):
+        r"""createSampleByName(SampleBuilderFactory self, std::string const & name) -> MultiLayer"""
+        return _libBornAgainCore.SampleBuilderFactory_createSampleByName(self, name)
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
 
 # Register SampleBuilderFactory in _libBornAgainCore:

@@ -50,7 +50,7 @@ public:
     ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
 
-    MultiLayer* createSample(size_t index);
+    MultiLayer* createSampleByIndex(size_t index);
 
 private:
     std::unique_ptr<IFTDistribution2D> m_pdf1;

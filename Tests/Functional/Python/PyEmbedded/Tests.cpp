@@ -370,7 +370,7 @@ TEST_F(PyEmbedded, EmbeddedMultiLayer)
 TEST_F(PyEmbedded, ExportToPythonAndBack)
 {
     SampleBuilderFactory factory;
-    std::unique_ptr<MultiLayer> sample(factory.createSample("CylindersAndPrismsBuilder"));
+    std::unique_ptr<MultiLayer> sample(factory.createSampleByName("CylindersAndPrismsBuilder"));
 
     auto code = ExportToPython::generateSampleCode(*sample);
 

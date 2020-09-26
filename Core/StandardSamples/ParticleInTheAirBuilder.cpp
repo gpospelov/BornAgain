@@ -47,7 +47,7 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
     return result;
 }
 
-MultiLayer* ParticleInTheAirBuilder::createSample(size_t index)
+MultiLayer* ParticleInTheAirBuilder::createSampleByIndex(size_t index)
 {
     auto ff_names = ff_components().keys();
     m_ff.reset(ff_components().getItem(ff_names.at(index))->clone());

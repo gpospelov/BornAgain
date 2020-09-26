@@ -107,7 +107,7 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
+MultiLayer* Basic2DParaCrystalBuilder::createSampleByIndex(size_t index)
 {
     ASSERT(index < FTDistribution2DComponents().size());
 

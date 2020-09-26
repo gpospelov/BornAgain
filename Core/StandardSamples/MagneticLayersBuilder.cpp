@@ -141,7 +141,7 @@ size_t SimpleMagneticRotationBuilder::size()
     return 3;
 }
 
-MultiLayer* SimpleMagneticRotationBuilder::createSample(size_t index)
+MultiLayer* SimpleMagneticRotationBuilder::createSampleByIndex(size_t index)
 {
     switch (index) {
 

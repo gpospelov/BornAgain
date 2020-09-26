@@ -27,7 +27,7 @@ class SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
 {
 public:
     SampleBuilderFactory();
-    MultiLayer* createSample(const std::string& name);
+    MultiLayer* createSampleByName(const std::string& name);
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H

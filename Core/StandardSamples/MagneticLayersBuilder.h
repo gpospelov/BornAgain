@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/RoughnessModels.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 class ISample;
 

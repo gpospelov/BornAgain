@@ -27,12 +27,12 @@
 #include "Core/SampleBuilderEngine/SampleComponents.h"
 #include "Core/includeIncludes/FormFactors.h"
 
-namespace {
+namespace
+{
 
 static const FormFactorComponents ff_components;
 
 } // namespace
-
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
     : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))

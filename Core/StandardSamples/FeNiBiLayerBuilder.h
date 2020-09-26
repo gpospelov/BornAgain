@@ -18,9 +18,9 @@
 
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/Units.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/RoughnessModels.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Creates the sample demonstrating an Fe-Ni Bilayer with and without roughness
 //! @ingroup standard_samples

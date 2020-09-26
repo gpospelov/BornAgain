@@ -19,10 +19,10 @@
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
-#include "Core/SampleBuilderEngine/SampleProvider.h"
 #include "Core/Parametrization/DistributionHandler.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Parametrization/SimulationOptions.h"
+#include "Core/SampleBuilderEngine/SampleProvider.h"
 
 template <class T> class OutputData;
 class IBackground;

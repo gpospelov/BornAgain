@@ -95,7 +95,6 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/ICloneable.h"
-#include "Core/Basics/ISingleton.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
@@ -312,7 +311,6 @@
 
 // need to tell SWIG explicitly to instantiate these templates with given types
 %include "Core/Basics/ICloneable.h"
-%include "Core/Basics/ISingleton.h"
 %include "Core/Basics/Complex.h"
 %include "Core/Basics/Units.h"
 

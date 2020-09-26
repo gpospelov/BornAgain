@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_BOXCOMPOSITIONBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_BOXCOMPOSITIONBUILDER_H
 
-#include "Core/Material/Material.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 class MultiLayer;
@@ -27,16 +26,8 @@ class ParticleComposition;
 
 class BoxCompositionBuilder : public ISampleBuilder
 {
-public:
-    BoxCompositionBuilder();
-
 protected:
     MultiLayer* createMultiLayer(const ParticleComposition& composition) const;
-    const Material m_particleMaterial;
-    const double m_layer_thickness;
-    const double m_length;
-    const double m_width;
-    const double m_height;
 };
 
 //! Two boxes in particle composition rotated in X by 90 degrees.
@@ -45,7 +36,6 @@ protected:
 class BoxCompositionRotateXBuilder : public BoxCompositionBuilder
 {
 public:
-    BoxCompositionRotateXBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -55,7 +45,6 @@ public:
 class BoxCompositionRotateYBuilder : public BoxCompositionBuilder
 {
 public:
-    BoxCompositionRotateYBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -65,7 +54,6 @@ public:
 class BoxCompositionRotateZBuilder : public BoxCompositionBuilder
 {
 public:
-    BoxCompositionRotateZBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -75,7 +63,6 @@ public:
 class BoxCompositionRotateZandYBuilder : public BoxCompositionBuilder
 {
 public:
-    BoxCompositionRotateZandYBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -85,7 +72,6 @@ public:
 class BoxStackCompositionBuilder : public BoxCompositionBuilder
 {
 public:
-    BoxStackCompositionBuilder() {}
     MultiLayer* buildSample() const;
 };
 

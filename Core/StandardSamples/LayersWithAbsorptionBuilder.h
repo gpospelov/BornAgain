@@ -39,7 +39,6 @@ public:
     size_t size();
 
 private:
-    FormFactorComponents ff_components() const;
     std::unique_ptr<IFormFactor> m_ff;
 };
 

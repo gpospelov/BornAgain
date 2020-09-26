@@ -27,6 +27,13 @@
 #include "Core/SampleBuilderEngine/SampleComponents.h"
 #include "Core/includeIncludes/FormFactors.h"
 
+namespace {
+
+static const FormFactorComponents ff_components;
+
+} // namespace
+
+
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
     : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
 {
@@ -67,8 +74,8 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
 MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 {
-    const auto ff_names = ff_components().keys();
-    m_ff.reset(ff_components().getItem(ff_names.at(index))->clone());
+    const auto ff_names = ff_components.keys();
+    m_ff.reset(ff_components.getItem(ff_names.at(index))->clone());
 
     setName(ff_names.at(index));
 
@@ -77,10 +84,5 @@ MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 
 size_t LayersWithAbsorptionBuilder::size()
 {
-    return ff_components().size();
-}
-
-FormFactorComponents LayersWithAbsorptionBuilder::ff_components() const
-{
-    return FormFactorComponents();
+    return ff_components.size();
 }

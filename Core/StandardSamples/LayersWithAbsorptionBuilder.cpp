@@ -74,11 +74,9 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
 MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 {
-    const auto ff_names = ff_components.keys();
-    m_ff.reset(ff_components.getItem(ff_names.at(index))->clone());
-
-    setName(ff_names.at(index));
-
+    const std::string name = ff_components.keys().at(index);
+    m_ff.reset(ff_components.getItem(name)->clone());
+    setName(name);
     return buildSample();
 }
 

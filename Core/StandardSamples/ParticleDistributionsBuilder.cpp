@@ -26,18 +26,13 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
 
-CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
-    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer)
-{
-}
-
 MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double height(5 * Units::nanometer);
+    const double radius(5 * Units::nanometer);
 
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -46,14 +41,14 @@ MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     // preparing prototype of nano particle
-    double sigma = 0.2 * m_radius;
-    FormFactorCylinder p_ff_cylinder(m_radius, m_height);
+    double sigma = 0.2 * radius;
+    FormFactorCylinder p_ff_cylinder(radius, height);
     Particle nano_particle(particle_material, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
     int n_samples(100);
     // to get radius_min = average - 2.0*FWHM:
     double n_sigma = 2.0 * 2.0 * std::sqrt(2.0 * std::log(2.0));
-    DistributionGaussian gauss(m_radius, sigma);
+    DistributionGaussian gauss(radius, sigma);
     ParameterPattern pattern;
     pattern.add("Particle").add("Cylinder").add("Radius");
     ParameterDistribution par_distr(pattern.toStdString(), gauss, static_cast<size_t>(n_samples),
@@ -63,8 +58,8 @@ MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
-
     return multi_layer;
 }
 
@@ -81,7 +76,6 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 
 MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
 
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -121,8 +115,8 @@ MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
-
     return multi_layer;
 }
 
@@ -163,7 +157,6 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
     MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -234,7 +227,6 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
     MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -269,6 +261,5 @@ MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
     MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }

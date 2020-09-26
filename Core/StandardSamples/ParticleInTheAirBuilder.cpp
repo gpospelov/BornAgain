@@ -24,6 +24,10 @@
 #include "Core/SampleBuilderEngine/SampleComponents.h"
 #include "Core/includeIncludes/FormFactors.h"
 
+namespace {
+FormFactorComponents ff_components;
+}
+
 ParticleInTheAirBuilder::ParticleInTheAirBuilder()
     : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
 {
@@ -31,8 +35,6 @@ ParticleInTheAirBuilder::ParticleInTheAirBuilder()
 
 MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
-    MultiLayer* result = new MultiLayer;
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -42,28 +44,20 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
     ParticleLayout particle_layout(particle);
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* result = new MultiLayer;
     result->addLayer(air_layer);
-
     return result;
 }
 
 MultiLayer* ParticleInTheAirBuilder::createSampleByIndex(size_t index)
 {
-    auto ff_names = ff_components().keys();
-    m_ff.reset(ff_components().getItem(ff_names.at(index))->clone());
-
-    setName(ff_names.at(index));
-
+    auto name = ff_components.keys().at(index);
+    m_ff.reset(ff_components.getItem(name)->clone());
+    setName(name);
     return buildSample();
 }
 
 size_t ParticleInTheAirBuilder::size()
 {
-    return ff_components().size();
-}
-
-FormFactorComponents& ParticleInTheAirBuilder::ff_components()
-{
-    static FormFactorComponents result = {};
-    return result;
+    return ff_components.size();
 }

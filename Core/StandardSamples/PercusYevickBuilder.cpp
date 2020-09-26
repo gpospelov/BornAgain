@@ -22,15 +22,12 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
 
-HardDiskBuilder::HardDiskBuilder()
-    : m_cylinder_height(5 * Units::nanometer), m_cylinder_radius(5 * Units::nanometer),
-      m_disk_radius(5 * Units::nanometer), m_density(0.006)
-{
-}
-
 MultiLayer* HardDiskBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double m_cylinder_height(5 * Units::nanometer);
+    const double m_cylinder_radius(5 * Units::nanometer);
+    const double m_disk_radius(5 * Units::nanometer);
+    const double m_density(0.006);
 
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -48,8 +45,8 @@ MultiLayer* HardDiskBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }

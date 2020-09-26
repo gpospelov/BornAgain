@@ -29,8 +29,6 @@ PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder(int n_layers)
 
 MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const
 {
-    std::unique_ptr<MultiLayer> multi_layer(new MultiLayer());
-
     Material vacuum_material = MaterialBySLD();
     Material substrate_material = MaterialBySLD("Si_substrate", m_si.sld_real, m_si.sld_imag);
     Material ni_material = MaterialBySLD("Ni", m_ni.sld_real, m_ni.sld_imag);
@@ -41,11 +39,12 @@ MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const
     Layer ti_layer(ti_material, m_thick_ti);
     Layer substrate_layer(substrate_material);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(vacuum_layer);
     for (int i = 0; i < m_number_of_layers; ++i) {
         multi_layer->addLayer(ti_layer);
         multi_layer->addLayer(ni_layer);
     }
     multi_layer->addLayer(substrate_layer);
-    return multi_layer.release();
+    return multi_layer;
 }

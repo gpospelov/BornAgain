@@ -19,7 +19,6 @@
 #include <memory>
 
 class IFormFactor;
-class FormFactorComponents;
 
 //! The ParticleInTheAirBuilder class generates a multilayer with single air layer
 //! populated with particles of certain types.
@@ -36,7 +35,6 @@ public:
     size_t size();
 
 protected:
-    FormFactorComponents& ff_components();
     std::unique_ptr<IFormFactor> m_ff;
 };
 

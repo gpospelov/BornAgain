@@ -25,16 +25,13 @@
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 
-Lattice1DBuilder::Lattice1DBuilder()
-    : m_length(20.0 * Units::nanometer), m_xi(10.0 * Units::deg),
-      m_corr_length(1000.0 * Units::nanometer), m_cylinder_height(5 * Units::nanometer),
-      m_cylinder_radius(5 * Units::nanometer)
-{
-}
-
 MultiLayer* Lattice1DBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double length(20.0 * Units::nanometer);
+    const double xi(10.0 * Units::deg);
+    const double corr_length(1000.0 * Units::nanometer);
+    const double cylinder_height(5 * Units::nanometer);
+    const double cylinder_radius(5 * Units::nanometer);
 
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
@@ -43,11 +40,11 @@ MultiLayer* Lattice1DBuilder::buildSample() const
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
-    InterferenceFunction1DLattice interference_function(m_length, m_xi);
-    FTDecayFunction1DCauchy pdf(m_corr_length);
+    InterferenceFunction1DLattice interference_function(length, xi);
+    FTDecayFunction1DCauchy pdf(corr_length);
     interference_function.setDecayFunction(pdf);
 
-    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+    FormFactorCylinder ff_cylinder(cylinder_radius, cylinder_height);
     Particle cylinder(particle_material, ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
@@ -55,8 +52,8 @@ MultiLayer* Lattice1DBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }

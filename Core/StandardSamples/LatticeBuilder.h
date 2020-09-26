@@ -17,23 +17,13 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: cylinders with 1DDL structure factor.
 //! @ingroup standard_samples
 
 class Lattice1DBuilder : public ISampleBuilder
 {
 public:
-    Lattice1DBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_length;
-    double m_xi;
-    double m_corr_length;
-    double m_cylinder_height;
-    double m_cylinder_radius;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_LATTICEBUILDER_H

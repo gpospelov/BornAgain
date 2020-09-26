@@ -25,16 +25,7 @@
 class HomogeneousMultilayerBuilder : public ISampleBuilder
 {
 public:
-    HomogeneousMultilayerBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    size_t m_number_of_layers;
-    double m_delta_ti;
-    double m_delta_ni;
-    double m_delta_si;
-    double m_thick_ti;
-    double m_thick_ni;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_HOMOGENEOUSMULTILAYERBUILDER_H

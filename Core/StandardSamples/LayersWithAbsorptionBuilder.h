@@ -18,7 +18,6 @@
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include <memory>
 
-class FormFactorComponents;
 class IFormFactor;
 
 //! The LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with

@@ -23,10 +23,6 @@
 
 const double middle_layer_thickness(60.0 * Units::nanometer);
 
-LayersWithAbsorptionBySLDBuilder::LayersWithAbsorptionBySLDBuilder() {}
-
-LayersWithAbsorptionBySLDBuilder::~LayersWithAbsorptionBySLDBuilder() = default;
-
 MultiLayer* LayersWithAbsorptionBySLDBuilder::buildSample() const
 {
     Material ambience_mat = MaterialBySLD("Air", 0.0, 0.0);

@@ -30,8 +30,6 @@
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
 
-MesoCrystalBuilder::MesoCrystalBuilder() {}
-
 MultiLayer* MesoCrystalBuilder::buildSample() const
 {
     MultiLayer* p_multi_layer = new MultiLayer();

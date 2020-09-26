@@ -17,20 +17,13 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: cylinders with magnetic material and zero magnetic field.
 //! @ingroup standard_samples
 
 class MagneticParticleZeroFieldBuilder : public ISampleBuilder
 {
 public:
-    MagneticParticleZeroFieldBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_cylinder_radius;
-    double m_cylinder_height;
 };
 
 //! Builds sample: cylinders with magnetic material and non-zero magnetic field.
@@ -39,12 +32,7 @@ private:
 class MagneticCylindersBuilder : public ISampleBuilder
 {
 public:
-    MagneticCylindersBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_cylinder_radius;
-    double m_cylinder_height;
 };
 
 //! Builds sample: spheres with magnetization inside substrate.
@@ -53,11 +41,7 @@ private:
 class MagneticSpheresBuilder : public ISampleBuilder
 {
 public:
-    MagneticSpheresBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_sphere_radius;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICPARTICLESBUILDER_H

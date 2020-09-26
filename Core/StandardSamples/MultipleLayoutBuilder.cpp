@@ -20,19 +20,15 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
-
-MultipleLayoutBuilder::MultipleLayoutBuilder()
-    : m_cylinder_height(5 * Units::nanometer), m_cylinder_radius(5 * Units::nanometer),
-      m_prism_height(5 * Units::nanometer), m_prism_length(10 * Units::nanometer),
-      m_cylinder_weight(0.5)
-{
-}
 
 MultiLayer* MultipleLayoutBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double cylinder_height(5 * Units::nanometer);
+    const double cylinder_radius(5 * Units::nanometer);
+    const double prisheight(5 * Units::nanometer);
+    const double prislength(10 * Units::nanometer);
+    const double cylinder_weight(0.5);
 
     Material air_material = HomogeneousMaterial("Air", 0., 0.);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -44,18 +40,19 @@ MultiLayer* MultipleLayoutBuilder::buildSample() const
     ParticleLayout particle_layout_1;
     ParticleLayout particle_layout_2;
 
-    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+    FormFactorCylinder ff_cylinder(cylinder_radius, cylinder_height);
     Particle cylinder(particle_material, ff_cylinder);
 
-    FormFactorPrism3 ff_prism3(m_prism_length, m_prism_height);
+    FormFactorPrism3 ff_prism3(prislength, prisheight);
     Particle prism3(particle_material, ff_prism3);
 
-    particle_layout_1.addParticle(cylinder, m_cylinder_weight);
-    particle_layout_2.addParticle(prism3, 1.0 - m_cylinder_weight);
+    particle_layout_1.addParticle(cylinder, cylinder_weight);
+    particle_layout_2.addParticle(prism3, 1.0 - cylinder_weight);
 
     air_layer.addLayout(particle_layout_1);
     air_layer.addLayout(particle_layout_2);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;

@@ -22,20 +22,16 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and zero magnetic field
 // ----------------------------------------------------------------------------
-MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
-    : m_cylinder_radius(5 * Units::nanometer), m_cylinder_height(5 * Units::nanometer)
-{
-}
 
 MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double m_cylinder_radius(5 * Units::nanometer);
+    const double m_cylinder_height(5 * Units::nanometer);
 
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -52,6 +48,7 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
@@ -60,14 +57,11 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and non-zero magnetization
 // ----------------------------------------------------------------------------
-MagneticCylindersBuilder::MagneticCylindersBuilder()
-    : m_cylinder_radius(5 * Units::nanometer), m_cylinder_height(5 * Units::nanometer)
-{
-}
 
 MultiLayer* MagneticCylindersBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double m_cylinder_radius(5 * Units::nanometer);
+    const double m_cylinder_height(5 * Units::nanometer);
 
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
@@ -84,6 +78,7 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
@@ -92,11 +87,11 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 // ----------------------------------------------------------------------------
 // Magnetic spheres inside substrate
 // ----------------------------------------------------------------------------
-MagneticSpheresBuilder::MagneticSpheresBuilder() : m_sphere_radius(5 * Units::nanometer) {}
 
 MultiLayer* MagneticSpheresBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double m_sphere_radius(5 * Units::nanometer);
+
     kvector_t magnetization(0.0, 0.0, 1e7);
     Material particle_material = HomogeneousMaterial("Particle", 2e-5, 4e-7, magnetization);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
@@ -113,6 +108,7 @@ MultiLayer* MagneticSpheresBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
     substrate_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;

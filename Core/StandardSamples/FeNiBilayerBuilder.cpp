@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/FeNiBiLayerBuilder.cpp
+//! @file      Core/StandardSamples/FeNiBilayerBuilder.cpp
 //! @brief     Defines various sample builder classes to
 //!            test polarized specular computations
 //!
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/StandardSamples/FeNiBiLayerBuilder.h"
+#include "Core/StandardSamples/FeNiBilayerBuilder.h"
 #include "Core/Basics/Complex.h"
 #include "Core/Basics/PhysicalConstants.h"
 #include "Core/Basics/Units.h"
@@ -31,7 +31,7 @@ auto constexpr rhoMconst = -PhysConsts::m_n * PhysConsts::g_factor_n * PhysConst
 class Options
 {
 public:
-    int _NBiLayers = 4;
+    int _NBilayers = 4;
     double _angle = 0.;
     double _magnetizationMagnitude = 1.e7;
     double _thicknessFe = 100. * Units::angstrom;
@@ -41,9 +41,9 @@ public:
     RoughnessModel _roughnessModel = RoughnessModel::TANH;
 
     Options() {}
-    Options NBiLayers(int n)
+    Options NBilayers(int n)
         {
-            _NBiLayers = n;
+            _NBilayers = n;
             return *this;
         }
     Options angle(double angle)
@@ -84,13 +84,13 @@ public:
 };
 //! Creates the sample demonstrating an Fe-Ni Bilayer with and without roughness
 //! @ingroup standard_samples
-class FeNiBiLayer
+class FeNiBilayer
 {
     static constexpr auto sldFe = complex_t{8.02e-06, 0};
     static constexpr auto sldAu = complex_t{4.6665e-6, 0};
     static constexpr auto sldNi = complex_t{9.4245e-06, 0};
 
-    int NBiLayers;
+    int NBilayers;
     double angle;
     double magnetizationMagnitude;
     double thicknessFe;
@@ -107,8 +107,8 @@ class FeNiBiLayer
 
 public:
 
-    FeNiBiLayer(Options opt = {})
-        : NBiLayers(opt._NBiLayers), angle(opt._angle),
+    FeNiBilayer(Options opt = {})
+        : NBilayers(opt._NBilayers), angle(opt._angle),
           magnetizationMagnitude(opt._magnetizationMagnitude), thicknessFe(opt._thicknessFe),
           thicknessNi(opt._thicknessNi), sigmaRoughness(opt._sigmaRoughness),
           effectiveSLD(opt._effectiveSLD), roughnessModel(opt._roughnessModel)
@@ -127,11 +127,11 @@ public:
 
 }
 
-const complex_t FeNiBiLayer::sldFe;
-const complex_t FeNiBiLayer::sldAu;
-const complex_t FeNiBiLayer::sldNi;
+const complex_t FeNiBilayer::sldFe;
+const complex_t FeNiBilayer::sldAu;
+const complex_t FeNiBilayer::sldNi;
 
-std::unique_ptr<MultiLayer> FeNiBiLayer::constructSample()
+std::unique_ptr<MultiLayer> FeNiBilayer::constructSample()
 {
     auto sample = std::make_unique<MultiLayer>();
 
@@ -151,7 +151,7 @@ std::unique_ptr<MultiLayer> FeNiBiLayer::constructSample()
     LayerRoughness roughness{sigmaRoughness, 0., 0.};
     sample->addLayer(Layer{m_ambient});
 
-    for (auto i = 0; i < NBiLayers; ++i) {
+    for (auto i = 0; i < NBilayers; ++i) {
         sample->addLayerWithTopRoughness(l_Fe, roughness);
         sample->addLayerWithTopRoughness(l_Ni, roughness);
     }
@@ -161,46 +161,46 @@ std::unique_ptr<MultiLayer> FeNiBiLayer::constructSample()
     return sample;
 }
 
-MultiLayer* FeNiBiLayerBuilder::buildSample() const
+MultiLayer* FeNiBilayerBuilder::buildSample() const
 {
-    auto sample = FeNiBiLayer{Options()};
+    auto sample = FeNiBilayer{Options()};
     return sample.release();
 }
 
-MultiLayer* FeNiBiLayerTanhBuilder::buildSample() const
+MultiLayer* FeNiBilayerTanhBuilder::buildSample() const
 {
-    auto sample = FeNiBiLayer{Options()
+    auto sample = FeNiBilayer{Options()
                               .sigmaRoughness(2. * Units::angstrom)
                               .roughnessModel(RoughnessModel::TANH)};
     return sample.release();
 }
 
-MultiLayer* FeNiBiLayerNCBuilder::buildSample() const
+MultiLayer* FeNiBilayerNCBuilder::buildSample() const
 {
-    auto sample = FeNiBiLayer{Options()
+    auto sample = FeNiBilayer{Options()
                               .sigmaRoughness(2. * Units::angstrom)
                               .roughnessModel(RoughnessModel::NEVOT_CROCE)};
     return sample.release();
 }
 
-MultiLayer* FeNiBiLayerSpinFlipBuilder::buildSample() const
+MultiLayer* FeNiBilayerSpinFlipBuilder::buildSample() const
 {
-    auto sample = FeNiBiLayer{Options().angle(38. * Units::degree)};
+    auto sample = FeNiBilayer{Options().angle(38. * Units::degree)};
     return sample.release();
 }
 
-MultiLayer* FeNiBiLayerSpinFlipTanhBuilder::buildSample() const
+MultiLayer* FeNiBilayerSpinFlipTanhBuilder::buildSample() const
 {
-    auto sample = FeNiBiLayer{Options()
+    auto sample = FeNiBilayer{Options()
                               .angle(38 * Units::degree)
                               .sigmaRoughness(2. * Units::angstrom)
                               .roughnessModel(RoughnessModel::TANH)};
     return sample.release();
 }
 
-MultiLayer* FeNiBiLayerSpinFlipNCBuilder::buildSample() const
+MultiLayer* FeNiBilayerSpinFlipNCBuilder::buildSample() const
 {
-    auto sample = FeNiBiLayer{Options()
+    auto sample = FeNiBilayer{Options()
                               .angle(38 * Units::degree)
                               .sigmaRoughness(2. * Units::angstrom)
                               .roughnessModel(RoughnessModel::NEVOT_CROCE)};

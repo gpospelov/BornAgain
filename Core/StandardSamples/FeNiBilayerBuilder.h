@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/FeNiBiLayerBuilder.h
+//! @file      Core/StandardSamples/FeNiBilayerBuilder.h
 //! @brief     Defines various sample builder classes to
 //!            test polarized specular computations
 //!
@@ -18,37 +18,37 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class FeNiBiLayerBuilder : public ISampleBuilder
+class FeNiBilayerBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerTanhBuilder : public ISampleBuilder
+class FeNiBilayerTanhBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerNCBuilder : public ISampleBuilder
+class FeNiBilayerNCBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerSpinFlipBuilder : public ISampleBuilder
+class FeNiBilayerSpinFlipBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerSpinFlipTanhBuilder : public ISampleBuilder
+class FeNiBilayerSpinFlipTanhBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBiLayerSpinFlipNCBuilder : public ISampleBuilder
+class FeNiBilayerSpinFlipNCBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;

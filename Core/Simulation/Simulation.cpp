@@ -113,7 +113,7 @@ void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 
 void Simulation::prepareSimulation()
 {
-    updateSample();
+    m_sample_provider.updateSample();
     if (!MultiLayerUtils::ContainsCompatibleMaterials(*m_sample_provider.sample()))
         throw std::runtime_error(
             "Error in Simulation::prepareSimulation(): non-default materials of"
@@ -207,11 +207,6 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
 {
     validateParametrization(par_distr);
     m_distribution_handler.addParameterDistribution(par_distr);
-}
-
-void Simulation::updateSample()
-{
-    m_sample_provider.updateSample();
 }
 
 //! Runs a single simulation with fixed parameter values.

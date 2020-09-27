@@ -16,11 +16,11 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorBox.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 
 namespace {
 
@@ -32,17 +32,13 @@ const double height = 10.0 * Units::nanometer;
 
 MultiLayer* finalizeMultiLayer(const ParticleComposition& composition)
 {
-    Material mAmbience = HomogeneousMaterial("Air", 0.0, 0.0);
-    Material mMiddle = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
-    Material mSubstrate = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
-
     ParticleLayout layout;
     layout.addParticle(composition);
 
-    Layer air_layer(mAmbience);
-    Layer middle_layer(mMiddle, layer_thickness);
+    Layer air_layer(refMat::Air);
+    Layer middle_layer(refMat::Teflon, layer_thickness);
     middle_layer.addLayout(layout);
-    Layer substrate(mSubstrate);
+    Layer substrate(refMat::Substrate2);
 
     MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);

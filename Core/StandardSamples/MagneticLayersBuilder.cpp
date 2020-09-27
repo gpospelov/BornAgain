@@ -32,8 +32,6 @@ const double sphere_radius = 5 * Units::nanometer;
 
 MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     kvector_t substr_field(0.0, 0.0, 0.0);
     kvector_t particle_field(0.1, 0.0, 0.0);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
@@ -50,6 +48,7 @@ MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
     substrate_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;

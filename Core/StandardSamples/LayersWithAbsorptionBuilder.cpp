@@ -16,12 +16,12 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
 #include "Core/SampleBuilderEngine/SampleComponents.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 
 namespace
 {
@@ -39,14 +39,9 @@ LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder() = default;
 
 MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 {
-    Material mAmbience = HomogeneousMaterial("Air", 0.0, 0.0);
-    Material mMiddle = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
-    Material mSubstrate = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
-    Material mParticle = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
-
     const double middle_layer_thickness(60.0 * Units::nanometer);
 
-    Particle particle(mParticle, *m_ff);
+    Particle particle(refMat::Ag, *m_ff);
     particle.setRotation(RotationZ(10.0 * Units::degree));
     particle.rotate(RotationY(10.0 * Units::degree));
     particle.rotate(RotationX(10.0 * Units::degree));
@@ -55,9 +50,9 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
     ParticleLayout layout;
     layout.addParticle(particle);
 
-    Layer air_layer(mAmbience);
-    Layer middle_layer(mMiddle, middle_layer_thickness);
-    Layer substrate(mSubstrate);
+    Layer air_layer(refMat::Air);
+    Layer middle_layer(refMat::Teflon, middle_layer_thickness);
+    Layer substrate(refMat::Substrate2);
 
     middle_layer.addLayout(layout);
 

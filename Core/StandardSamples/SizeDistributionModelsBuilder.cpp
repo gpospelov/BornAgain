@@ -29,7 +29,7 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Material m_ambience = HomogeneousMaterial("Vacuum", 0.0, 0.0);
+    Material m_vacuum = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -57,7 +57,7 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
     particle_layout.addParticle(cylinder2, 0.2);
     particle_layout.setInterferenceFunction(interference);
 
-    Layer vacuum_layer(m_ambience);
+    Layer vacuum_layer(m_vacuum);
     vacuum_layer.addLayout(particle_layout);
     Layer substrate_layer(m_substrate);
 
@@ -72,7 +72,7 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Material m_ambience = HomogeneousMaterial("Vacuum", 0.0, 0.0);
+    Material m_vacuum = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -108,7 +108,7 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
     particle_layout2.addParticle(cylinder2, 0.2);
     particle_layout2.setInterferenceFunction(interference2);
 
-    Layer vacuum_layer(m_ambience);
+    Layer vacuum_layer(m_vacuum);
     vacuum_layer.addLayout(particle_layout1);
     vacuum_layer.addLayout(particle_layout2);
     Layer substrate_layer(m_substrate);
@@ -125,7 +125,7 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Material m_ambience = HomogeneousMaterial("Vacuum", 0.0, 0.0);
+    Material m_vacuum = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -154,7 +154,7 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
     particle_layout.addParticle(cylinder2, 0.2);
     particle_layout.setInterferenceFunction(interference);
 
-    Layer vacuum_layer(m_ambience);
+    Layer vacuum_layer(m_vacuum);
     vacuum_layer.addLayout(particle_layout);
     Layer substrate_layer(m_substrate);
 

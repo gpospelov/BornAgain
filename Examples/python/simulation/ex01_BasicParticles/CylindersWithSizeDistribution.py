@@ -10,7 +10,7 @@ def get_sample():
     Return a sample with cylinders on a substrate.
     The cylinders have a Gaussian size distribution.
     """
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # cylindrical particle
@@ -37,7 +37,7 @@ def get_sample():
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(part_coll)
 
-    air_layer = ba.Layer(m_ambience)
+    air_layer = ba.Layer(m_vacuum)
     air_layer.addLayout(particle_layout)
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)

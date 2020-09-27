@@ -10,7 +10,7 @@ def get_sample():
     Returns a sample with spherical particles in an layer between air and substrate.
     """
     # defining materials
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_interm_layer = ba.HomogeneousMaterial("IntermLayer", 3.45e-6, 5.24e-9)
     m_substrate = ba.HomogeneousMaterial("Substrate", 7.43e-6, 1.72e-7)
     m_particle = ba.HomogeneousMaterial("Particle", 0.0, 0.0)
@@ -23,7 +23,7 @@ def get_sample():
     particle_layout.addParticle(sphere, 1.0)
 
     # assembling the sample
-    air_layer = ba.Layer(m_ambience)
+    air_layer = ba.Layer(m_vacuum)
     intermediate_layer = ba.Layer(m_interm_layer, 30.*nm)
     intermediate_layer.addLayout(particle_layout)
     substrate_layer = ba.Layer(m_substrate, 0)

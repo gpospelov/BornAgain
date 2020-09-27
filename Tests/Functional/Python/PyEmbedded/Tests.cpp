@@ -315,8 +315,8 @@ TEST_F(PyEmbedded, EmbeddedMultiLayer)
     buf << "import bornagain as ba                                        \n";
     buf << "                                                              \n";
     buf << "def get_simulation():                                         \n";
-    buf << "    m_ambience = ba.HomogeneousMaterial(\"Air\", 0.0, 0.0)    \n";
-    buf << "    air_layer = ba.Layer(m_ambience)                          \n";
+    buf << "    m_vacuum = ba.HomogeneousMaterial(\"Air\", 0.0, 0.0)    \n";
+    buf << "    air_layer = ba.Layer(m_vacuum)                          \n";
     buf << "    multilayer = ba.MultiLayer()                              \n";
     buf << "    multilayer.addLayer(air_layer)                            \n";
     buf << "    return multilayer                                         \n";
@@ -394,8 +394,8 @@ TEST_F(PyEmbedded, ModuleFunctionsList)
     buf << "import bornagain as ba                                        \n";
     buf << "                                                              \n";
     buf << "def get_simulation():                                         \n";
-    buf << "    m_ambience = ba.HomogeneousMaterial(\"Air\", 0.0, 0.0)    \n";
-    buf << "    air_layer = ba.Layer(m_ambience)                          \n";
+    buf << "    m_vacuum = ba.HomogeneousMaterial(\"Air\", 0.0, 0.0)    \n";
+    buf << "    air_layer = ba.Layer(m_vacuum)                          \n";
     buf << "    multilayer = ba.MultiLayer()                              \n";
     buf << "    multilayer.addLayer(air_layer)                            \n";
     buf << "    return multilayer                                         \n";

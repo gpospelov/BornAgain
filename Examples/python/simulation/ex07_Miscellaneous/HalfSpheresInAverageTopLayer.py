@@ -14,7 +14,7 @@ def get_sample():
     Returns a sample with cylinders on a substrate.
     """
     # defining materials
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_layer = ba.HomogeneousMaterial("Layer", 3e-6, 2e-8)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 3e-5, 2e-8)
@@ -31,7 +31,7 @@ def get_sample():
     interference.setDecayFunction(pdf)
     particle_layout.setInterferenceFunction(interference)
 
-    air_layer = ba.Layer(m_ambience)
+    air_layer = ba.Layer(m_vacuum)
     air_layer.addLayout(particle_layout)
     air_layer.setNumberOfSlices(n_slices)
     substrate_layer = ba.Layer(m_substrate)

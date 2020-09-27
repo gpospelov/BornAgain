@@ -11,7 +11,7 @@ def get_sample():
     implying a simulation in plain Born approximation.
     """
     # defining materials
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
@@ -20,7 +20,7 @@ def get_sample():
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
 
-    air_layer = ba.Layer(m_ambience)
+    air_layer = ba.Layer(m_vacuum)
     air_layer.addLayout(particle_layout)
 
     multi_layer = ba.MultiLayer()

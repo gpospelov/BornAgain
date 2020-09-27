@@ -9,7 +9,7 @@ def get_sample():
     """
     Returns a sample with cylinders on a substrate, forming a 2D paracrystal
     """
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
@@ -27,7 +27,7 @@ def get_sample():
     particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
-    air_layer = ba.Layer(m_ambience)
+    air_layer = ba.Layer(m_vacuum)
     air_layer.addLayout(particle_layout)
 
     substrate_layer = ba.Layer(m_substrate)

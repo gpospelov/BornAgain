@@ -155,7 +155,7 @@ class CustomTest(FactoryTest):
         Build and return the sample to calculate custom form factor in Distorted Wave Born Approximation.
         """
         # defining materials
-        m_ambience = HomogeneousMaterial("Air", 0.0, 0.0)
+        m_vacuum = HomogeneousMaterial("Air", 0.0, 0.0)
         m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
         m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
@@ -164,7 +164,7 @@ class CustomTest(FactoryTest):
         particle = Particle(m_particle, ff)
         particle_layout = ParticleLayout()
         particle_layout.addParticle(particle, 1.0)
-        air_layer = Layer(m_ambience)
+        air_layer = Layer(m_vacuum)
         air_layer.addLayout(particle_layout)
         substrate_layer = Layer(m_substrate)
 

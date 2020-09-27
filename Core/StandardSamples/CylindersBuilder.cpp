@@ -33,8 +33,6 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
 
 MultiLayer* CylindersInDWBABuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -49,9 +47,9 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -67,8 +65,6 @@ CylindersInBABuilder::CylindersInBABuilder()
 
 MultiLayer* CylindersInBABuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -80,8 +76,9 @@ MultiLayer* CylindersInBABuilder::buildSample() const
     ParticleLayout particle_layout(cylinder);
 
     air_layer.addLayout(particle_layout);
-    multi_layer->addLayer(air_layer);
 
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
     return multi_layer;
 }
 
@@ -95,8 +92,6 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
 
 MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -111,9 +106,9 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -127,8 +122,6 @@ RotatedCylindersBuilder::RotatedCylindersBuilder()
 
 MultiLayer* RotatedCylindersBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -145,8 +138,8 @@ MultiLayer* RotatedCylindersBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
     substrate_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }

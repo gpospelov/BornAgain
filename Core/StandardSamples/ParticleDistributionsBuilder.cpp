@@ -20,7 +20,6 @@
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/HardParticle/FormFactorPyramid.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
@@ -28,22 +27,20 @@
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {
     const double height(5 * Units::nanometer);
     const double radius(5 * Units::nanometer);
 
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
-    Layer vacuum_layer(vacuum_material);
+    Layer vacuum_layer(refMat::Vacuum);
 
     ParticleLayout particle_layout;
     // preparing prototype of nano particle
     double sigma = 0.2 * radius;
     FormFactorCylinder p_ff_cylinder(radius, height);
-    Particle nano_particle(particle_material, p_ff_cylinder);
+    Particle nano_particle(refMat::Particle, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
     int n_samples(100);
     // to get radius_min = average - 2.0*FWHM:
@@ -76,20 +73,16 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 
 MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 {
-
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
-    Layer vacuum_layer(vacuum_material);
+    Layer vacuum_layer(refMat::Vacuum);
 
     ParticleLayout particle_layout;
 
     // preparing nano particles prototypes for seeding layer's particle_layout
     FormFactorCylinder p_ff_cylinder1(m_radius1, m_height1);
-    Particle cylinder1(particle_material, p_ff_cylinder1);
+    Particle cylinder1(refMat::Particle, p_ff_cylinder1);
 
     FormFactorCylinder p_ff_cylinder2(m_radius2, m_height2);
-    Particle cylinder2(particle_material, p_ff_cylinder2);
+    Particle cylinder2(refMat::Particle, p_ff_cylinder2);
 
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins = 150;
@@ -130,13 +123,9 @@ RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
 
 MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 {
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
     // particle
     FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
-    Particle pyramid(particle_material, ff_pyramid);
+    Particle pyramid(refMat::Particle, ff_pyramid);
     pyramid.setRotation(RotationZ(m_zangle));
 
     // particle collection
@@ -149,8 +138,8 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
     particle_layout.addParticle(collection);
 
     // Multi layer
-    Layer vacuum_layer(vacuum_material);
-    Layer substrate_layer(substrate_material);
+    Layer vacuum_layer(refMat::Vacuum);
+    Layer substrate_layer(refMat::Substrate);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -164,13 +153,9 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 
 MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 {
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
     // particle
     FormFactorFullSphere ff(3.0 * Units::nm);
-    Particle sphere(particle_material, ff);
+    Particle sphere(refMat::Particle, ff);
 
     // particle collection
     DistributionGaussian gauss(3.0 * Units::nm, 1.0 * Units::nm);
@@ -183,8 +168,8 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
     particle_layout.addParticle(collection);
 
     // Multi layer
-    Layer vacuum_layer(vacuum_material);
-    Layer substrate_layer(substrate_material);
+    Layer vacuum_layer(refMat::Vacuum);
+    Layer substrate_layer(refMat::Substrate);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -199,13 +184,9 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 
 MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
 {
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
     // particle
     FormFactorCone ff(10.0 * Units::nm, 13.0 * Units::nm, 60.0 * Units::deg);
-    Particle cone(particle_material, ff);
+    Particle cone(refMat::Particle, ff);
 
     // particle collection
     DistributionGaussian gauss(60.0 * Units::deg, 6.0 * Units::deg);
@@ -219,8 +200,8 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
     particle_layout.addParticle(collection);
 
     // Multi layer
-    Layer vacuum_layer(vacuum_material);
-    Layer substrate_layer(substrate_material);
+    Layer vacuum_layer(refMat::Vacuum);
+    Layer substrate_layer(refMat::Substrate);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -232,13 +213,9 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
 
 MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
 {
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
     // particle
     FormFactorBox ff(40.0 * Units::nm, 30.0 * Units::nm, 10.0 * Units::nm);
-    Particle box(particle_material, ff);
+    Particle box(refMat::Particle, ff);
 
     // particle collection
     DistributionGate gate(10.0 * Units::nm, 70.0 * Units::nm);
@@ -253,8 +230,8 @@ MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
     particle_layout.setTotalParticleSurfaceDensity(1e-4);
 
     // Multi layer
-    Layer vacuum_layer(vacuum_material);
-    Layer substrate_layer(substrate_material);
+    Layer vacuum_layer(refMat::Vacuum);
+    Layer substrate_layer(refMat::Substrate);
 
     vacuum_layer.addLayout(particle_layout);
 

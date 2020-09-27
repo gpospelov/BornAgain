@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BASICS_ISINGLETON_H
-#define BORNAGAIN_CORE_BASICS_ISINGLETON_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_ISINGLETON_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_ISINGLETON_H
 
 //! Base class for singletons.
 //! @ingroup tools_internal
@@ -38,4 +38,4 @@ private:
     ISingleton& operator=(ISingleton&&) = delete;
 };
 
-#endif // BORNAGAIN_CORE_BASICS_ISINGLETON_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_ISINGLETON_H

@@ -16,28 +16,21 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* SlicedCompositionBuilder::buildSample() const
 {
-    MultiLayer* p_multi_layer = new MultiLayer();
-
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
-    Material topCupMaterial = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
-    Material bottomCupMaterial = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
-
     const double sphere_radius = 10.0;
     const double bottom_cup_height = 4.0;
     const double composition_shift = bottom_cup_height;
 
-    Particle topCup(topCupMaterial, FormFactorTruncatedSphere(
-                                        sphere_radius, sphere_radius * 2 - bottom_cup_height, 0));
-    Particle bottomCup(bottomCupMaterial,
+    Particle topCup(refMat::Ag, FormFactorTruncatedSphere(
+                                    sphere_radius, sphere_radius * 2 - bottom_cup_height, 0));
+    Particle bottomCup(refMat::Teflon,
                        FormFactorTruncatedSphere(sphere_radius, bottom_cup_height, 0));
     bottomCup.setRotation(RotationX(180 * Units::deg));
 
@@ -49,13 +42,13 @@ MultiLayer* SlicedCompositionBuilder::buildSample() const
     ParticleLayout particle_layout;
     particle_layout.addParticle(composition);
 
-    Layer vacuum_layer(vacuum_material);
+    Layer vacuum_layer(refMat::Vacuum);
     vacuum_layer.addLayout(particle_layout);
 
-    Layer substrate_layer(substrate_material);
+    Layer substrate_layer(refMat::Substrate2);
 
-    p_multi_layer->addLayer(vacuum_layer);
-    p_multi_layer->addLayer(substrate_layer);
-
-    return p_multi_layer;
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(vacuum_layer);
+    multi_layer->addLayer(substrate_layer);
+    return multi_layer;
 }

@@ -22,7 +22,8 @@
 #include "Core/Particle/ParticleComposition.h"
 #include "Core/StandardSamples/ReferenceMaterials.h"
 
-namespace {
+namespace
+{
 
 const Material particleMaterial = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
 const double layer_thickness = 100.0 * Units::nanometer;

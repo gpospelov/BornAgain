@@ -18,21 +18,16 @@
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorCosineRipple.h"
 #include "Core/HardParticle/FormFactorSawtoothRipple.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* CosineRippleBuilder::buildSample() const
 {
-
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
-    Layer vacuum_layer(vacuum_material);
+    Layer vacuum_layer(refMat::Vacuum);
     FormFactorCosineRippleBox ff_ripple1(100.0, 20.0, 4.0);
-    Particle ripple(particle_material, ff_ripple1);
+    Particle ripple(refMat::Particle, ff_ripple1);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ripple, 1.0);
@@ -43,12 +38,12 @@ MultiLayer* CosineRippleBuilder::buildSample() const
 
     vacuum_layer.addLayout(particle_layout);
 
-    Layer substrate_layer(substrate_material);
+    Layer substrate_layer(refMat::Substrate);
 
-    MultiLayer* p_multi_layer = new MultiLayer();
-    p_multi_layer->addLayer(vacuum_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(vacuum_layer);
+    multi_layer->addLayer(substrate_layer);
+    return multi_layer;
 }
 
 // ----------------------------------------------------------------------------
@@ -60,13 +55,9 @@ TriangularRippleBuilder::TriangularRippleBuilder() : m_d(0.0 * Units::nanometer)
 
 MultiLayer* TriangularRippleBuilder::buildSample() const
 {
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
-    Layer vacuum_layer(vacuum_material);
+    Layer vacuum_layer(refMat::Vacuum);
     FormFactorSawtoothRippleBox ff_ripple2(100.0, 20.0, 4.0, m_d);
-    Particle ripple(particle_material, ff_ripple2);
+    Particle ripple(refMat::Particle, ff_ripple2);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ripple, 1.0);
@@ -76,12 +67,12 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
     particle_layout.setInterferenceFunction(interference_function);
 
     vacuum_layer.addLayout(particle_layout);
-    Layer substrate_layer(substrate_material);
+    Layer substrate_layer(refMat::Substrate);
 
-    MultiLayer* p_multi_layer = new MultiLayer();
-    p_multi_layer->addLayer(vacuum_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(vacuum_layer);
+    multi_layer->addLayer(substrate_layer);
+    return multi_layer;
 }
 
 // ----------------------------------------------------------------------------

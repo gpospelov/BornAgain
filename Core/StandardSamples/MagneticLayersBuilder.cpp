@@ -24,7 +24,8 @@
 #include "Core/Multilayer/RoughnessModels.h"
 #include "Core/Particle/Particle.h"
 
-namespace {
+namespace
+{
 
 const double sphere_radius = 5 * Units::nanometer;
 

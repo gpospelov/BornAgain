@@ -14,10 +14,10 @@
 
 #include "Core/StandardSamples/TwoLayerRoughnessBuilder.h"
 #include "Core/Basics/Units.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
 {
@@ -25,11 +25,8 @@ MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
     const double m_hurst(0.3);
     const double m_lateralCorrLength(5.0 * Units::nanometer);
 
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0., 0.);
-    Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
-
-    Layer vacuum_layer(vacuum_material, 0);
-    Layer substrate_layer(substrate_material, 0);
+    Layer vacuum_layer(refMat::Vacuum, 0);
+    Layer substrate_layer(refMat::Substrate, 0);
 
     LayerRoughness roughness(m_sigma, m_hurst, m_lateralCorrLength);
 

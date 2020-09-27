@@ -26,7 +26,7 @@
 namespace
 {
 auto constexpr rhoMconst = -PhysConsts::m_n * PhysConsts::g_factor_n * PhysConsts::mu_N
-    / PhysConsts::h_bar / PhysConsts::h_bar * 1e-27;
+                           / PhysConsts::h_bar / PhysConsts::h_bar * 1e-27;
 
 class Options
 {
@@ -42,45 +42,45 @@ public:
 
     Options() {}
     Options NBilayers(int n)
-        {
-            _NBilayers = n;
-            return *this;
-        }
+    {
+        _NBilayers = n;
+        return *this;
+    }
     Options angle(double angle)
-        {
-            _angle = angle;
-            return *this;
-        }
+    {
+        _angle = angle;
+        return *this;
+    }
     Options magnetizationMagnitude(double M)
-        {
-            _magnetizationMagnitude = M;
-            return *this;
-        }
+    {
+        _magnetizationMagnitude = M;
+        return *this;
+    }
     Options thicknessFe(double t)
-        {
-            _thicknessFe = t;
-            return *this;
-        }
+    {
+        _thicknessFe = t;
+        return *this;
+    }
     Options thicknessNi(double t)
-        {
-            _thicknessNi = t;
-            return *this;
-        }
+    {
+        _thicknessNi = t;
+        return *this;
+    }
     Options sigmaRoughness(double r)
-        {
-            _sigmaRoughness = r;
-            return *this;
-        }
+    {
+        _sigmaRoughness = r;
+        return *this;
+    }
     Options effectiveSLD(int i)
-        {
-            _effectiveSLD = i;
-            return *this;
-        }
+    {
+        _effectiveSLD = i;
+        return *this;
+    }
     Options roughnessModel(RoughnessModel rm)
-        {
-            _roughnessModel = rm;
-            return *this;
-        }
+    {
+        _roughnessModel = rm;
+        return *this;
+    }
 };
 //! Creates the sample demonstrating an Fe-Ni Bilayer with and without roughness
 //! @ingroup standard_samples
@@ -106,26 +106,25 @@ class FeNiBilayer
     std::unique_ptr<MultiLayer> constructSample();
 
 public:
-
     FeNiBilayer(Options opt = {})
         : NBilayers(opt._NBilayers), angle(opt._angle),
           magnetizationMagnitude(opt._magnetizationMagnitude), thicknessFe(opt._thicknessFe),
           thicknessNi(opt._thicknessNi), sigmaRoughness(opt._sigmaRoughness),
           effectiveSLD(opt._effectiveSLD), roughnessModel(opt._roughnessModel)
-        {
-            if (angle != 0. && effectiveSLD != 0.)
-                throw std::runtime_error("Cannot perform scalar computation "
-                                         "for non-colinear magnetization");
+    {
+        if (angle != 0. && effectiveSLD != 0.)
+            throw std::runtime_error("Cannot perform scalar computation "
+                                     "for non-colinear magnetization");
 
-            magnetizationVector = kvector_t(magnetizationMagnitude * std::sin(angle),
-                                            magnetizationMagnitude * std::cos(angle), 0);
-            sample = constructSample();
-        }
+        magnetizationVector = kvector_t(magnetizationMagnitude * std::sin(angle),
+                                        magnetizationMagnitude * std::cos(angle), 0);
+        sample = constructSample();
+    }
 
     MultiLayer* release() { return sample.release(); }
 };
 
-}
+} // namespace
 
 const complex_t FeNiBilayer::sldFe;
 const complex_t FeNiBilayer::sldAu;
@@ -138,9 +137,9 @@ std::unique_ptr<MultiLayer> FeNiBilayer::constructSample()
     auto m_ambient = MaterialBySLD("Ambient", 0.0, 0.0);
     auto m_Fe =
         effectiveSLD == 0
-        ? MaterialBySLD("Fe", sldFe.real(), sldFe.imag(), magnetizationVector)
-        : MaterialBySLD("Fe", sldFe.real() + effectiveSLD * rhoMconst * magnetizationMagnitude,
-                        sldFe.imag(), kvector_t{0, 0, 0});
+            ? MaterialBySLD("Fe", sldFe.real(), sldFe.imag(), magnetizationVector)
+            : MaterialBySLD("Fe", sldFe.real() + effectiveSLD * rhoMconst * magnetizationMagnitude,
+                            sldFe.imag(), kvector_t{0, 0, 0});
 
     auto m_Ni = MaterialBySLD("Ni", sldNi.real(), sldNi.imag());
     auto m_Substrate = MaterialBySLD("Au", sldAu.real(), sldAu.imag());
@@ -169,17 +168,15 @@ MultiLayer* FeNiBilayerBuilder::buildSample() const
 
 MultiLayer* FeNiBilayerTanhBuilder::buildSample() const
 {
-    auto sample = FeNiBilayer{Options()
-                              .sigmaRoughness(2. * Units::angstrom)
-                              .roughnessModel(RoughnessModel::TANH)};
+    auto sample = FeNiBilayer{
+        Options().sigmaRoughness(2. * Units::angstrom).roughnessModel(RoughnessModel::TANH)};
     return sample.release();
 }
 
 MultiLayer* FeNiBilayerNCBuilder::buildSample() const
 {
-    auto sample = FeNiBilayer{Options()
-                              .sigmaRoughness(2. * Units::angstrom)
-                              .roughnessModel(RoughnessModel::NEVOT_CROCE)};
+    auto sample = FeNiBilayer{
+        Options().sigmaRoughness(2. * Units::angstrom).roughnessModel(RoughnessModel::NEVOT_CROCE)};
     return sample.release();
 }
 
@@ -192,17 +189,17 @@ MultiLayer* FeNiBilayerSpinFlipBuilder::buildSample() const
 MultiLayer* FeNiBilayerSpinFlipTanhBuilder::buildSample() const
 {
     auto sample = FeNiBilayer{Options()
-                              .angle(38 * Units::degree)
-                              .sigmaRoughness(2. * Units::angstrom)
-                              .roughnessModel(RoughnessModel::TANH)};
+                                  .angle(38 * Units::degree)
+                                  .sigmaRoughness(2. * Units::angstrom)
+                                  .roughnessModel(RoughnessModel::TANH)};
     return sample.release();
 }
 
 MultiLayer* FeNiBilayerSpinFlipNCBuilder::buildSample() const
 {
     auto sample = FeNiBilayer{Options()
-                              .angle(38 * Units::degree)
-                              .sigmaRoughness(2. * Units::angstrom)
-                              .roughnessModel(RoughnessModel::NEVOT_CROCE)};
+                                  .angle(38 * Units::degree)
+                                  .sigmaRoughness(2. * Units::angstrom)
+                                  .roughnessModel(RoughnessModel::NEVOT_CROCE)};
     return sample.release();
 }

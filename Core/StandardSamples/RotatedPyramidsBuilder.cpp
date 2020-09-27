@@ -16,10 +16,10 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorPyramid.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* RotatedPyramidsBuilder::buildSample() const
 {
@@ -28,16 +28,12 @@ MultiLayer* RotatedPyramidsBuilder::buildSample() const
     const double m_alpha(Units::deg2rad(54.73));
     const double m_zangle(45. * Units::degree);
 
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-
-    Layer vacuum_layer(vacuum_material);
-    Layer substrate_layer(substrate_material);
+    Layer vacuum_layer(refMat::Vacuum);
+    Layer substrate_layer(refMat::Substrate);
 
     FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
 
-    Particle pyramid(particle_material, ff_pyramid);
+    Particle pyramid(refMat::Particle, ff_pyramid);
 
     RotationZ z_rotation(m_zangle);
 

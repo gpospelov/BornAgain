@@ -23,7 +23,7 @@
 class CylindersAndPrismsBuilder : public ISampleBuilder
 {
 public:
-     MultiLayer* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_CYLINDERSANDPRISMSBUILDER_H

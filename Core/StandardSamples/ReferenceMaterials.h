@@ -12,14 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLECOMPOSITIONBUILDER_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLECOMPOSITIONBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H
 
 #include "Core/Material/MaterialFactoryFuncs.h"
 
 //! Reference materials for use in tests and exemplary samples.
 
-namespace refMat {
+namespace refMat
+{
 
 static const Material Vacuum = HomogeneousMaterial("Vacuum", 0.0, 0.0);
 static const Material Substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -33,4 +34,4 @@ static const Material Substrate2 = HomogeneousMaterial("Substrate2", 3.212e-6, 3
 
 } // namespace refMat
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_PARTICLECOMPOSITIONBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H

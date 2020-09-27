@@ -7,7 +7,8 @@ from bornagain import deg, angstrom, nm
 
 def get_sample():
     """
-    Returns a sample with spherical particles in an layer between vacuum and substrate.
+    Returns a sample with spherical particles in a layer
+    between vacuum and substrate.
     """
     # defining materials
     m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)

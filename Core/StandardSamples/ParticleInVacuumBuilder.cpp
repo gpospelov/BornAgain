@@ -16,14 +16,15 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/Units.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
 #include "Core/SampleBuilderEngine/SampleComponents.h"
+#include "Core/StandardSamples/ReferenceMaterials.h"
 #include "Core/includeIncludes/FormFactors.h"
 
-namespace {
+namespace
+{
 FormFactorComponents ff_components;
 }
 
@@ -34,12 +35,9 @@ ParticleInVacuumBuilder::ParticleInVacuumBuilder()
 
 MultiLayer* ParticleInVacuumBuilder::buildSample() const
 {
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
+    Layer vacuum_layer(refMat::Vacuum);
 
-    Layer vacuum_layer(vacuum_material);
-
-    Particle particle(particle_material, *m_ff);
+    Particle particle(refMat::Particle, *m_ff);
     ParticleLayout particle_layout(particle);
     vacuum_layer.addLayout(particle_layout);
 

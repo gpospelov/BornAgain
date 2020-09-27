@@ -127,12 +127,10 @@ MultiLayer* RotatedCylindersBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
-    RotationY rotation(M_PI);
-    kvector_t position(0, 0, 0);
 
     Particle particle(particle_material, ff_cylinder);
     ParticleLayout particle_layout;
-    particle_layout.addParticle(particle, 1.0, position, rotation);
+    particle_layout.addParticle(particle, 1.0, kvector_t(), RotationY(M_PI));
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);

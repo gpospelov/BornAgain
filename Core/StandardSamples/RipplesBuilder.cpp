@@ -24,11 +24,8 @@
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 
-CosineRippleBuilder::CosineRippleBuilder() {}
-
 MultiLayer* CosineRippleBuilder::buildSample() const
 {
-    MultiLayer* p_multi_layer = new MultiLayer();
 
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -47,11 +44,11 @@ MultiLayer* CosineRippleBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
-    p_multi_layer->addLayer(air_layer);
-
     Layer substrate_layer(substrate_material);
-    p_multi_layer->addLayer(substrate_layer);
 
+    MultiLayer* p_multi_layer = new MultiLayer();
+    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
 
@@ -64,8 +61,6 @@ TriangularRippleBuilder::TriangularRippleBuilder() : m_d(0.0 * Units::nanometer)
 
 MultiLayer* TriangularRippleBuilder::buildSample() const
 {
-    MultiLayer* p_multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -82,12 +77,11 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
     particle_layout.setInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
-
-    p_multi_layer->addLayer(air_layer);
-
     Layer substrate_layer(substrate_material);
-    p_multi_layer->addLayer(substrate_layer);
 
+    MultiLayer* p_multi_layer = new MultiLayer();
+    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
 

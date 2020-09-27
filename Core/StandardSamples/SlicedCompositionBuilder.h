@@ -23,7 +23,6 @@
 class SlicedCompositionBuilder : public ISampleBuilder
 {
 public:
-    SlicedCompositionBuilder() {}
     MultiLayer* buildSample() const;
 };
 

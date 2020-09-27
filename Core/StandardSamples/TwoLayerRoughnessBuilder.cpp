@@ -20,14 +20,12 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/RealParameter.h"
 
-TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
-    : m_sigma(1.0 * Units::nanometer), m_hurst(0.3), m_lateralCorrLength(5.0 * Units::nanometer)
-{
-}
-
 MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double m_sigma(1.0 * Units::nanometer);
+    const double m_hurst(0.3);
+    const double m_lateralCorrLength(5.0 * Units::nanometer);
+
     Material air_material = HomogeneousMaterial("Air", 0., 0.);
     Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
 
@@ -36,6 +34,7 @@ MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
 
     LayerRoughness roughness(m_sigma, m_hurst, m_lateralCorrLength);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
     return multi_layer;

@@ -19,12 +19,8 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 
-ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder() : ISampleBuilder() {}
-
 MultiLayer* ThickAbsorptiveSampleBuilder::buildSample() const
 {
-    std::unique_ptr<MultiLayer> multi_layer(new MultiLayer());
-
     Material air_material = MaterialBySLD("Air", 0.0, 0.0);
     Material au_material = MaterialBySLD("Au", 3.48388057043e-05, 1.79057609656e-05);
     Material si_material = MaterialBySLD("Si", 3.84197565094e-07, 6.28211531498e-07);
@@ -36,10 +32,10 @@ MultiLayer* ThickAbsorptiveSampleBuilder::buildSample() const
 
     LayerRoughness rough(5.0, 0.5, 10.0);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(au_layer);
     multi_layer->addLayer(air_layer_2);
     multi_layer->addLayerWithTopRoughness(substrate_layer, rough);
-
-    return multi_layer.release();
+    return multi_layer;
 }

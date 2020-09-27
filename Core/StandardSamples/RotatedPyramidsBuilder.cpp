@@ -19,18 +19,14 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
-
-RotatedPyramidsBuilder::RotatedPyramidsBuilder()
-    : m_length(10 * Units::nanometer), m_height(5 * Units::nanometer),
-      m_alpha(Units::deg2rad(54.73)), m_zangle(45. * Units::degree)
-{
-}
 
 MultiLayer* RotatedPyramidsBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
+    const double m_length(10 * Units::nanometer);
+    const double m_height(5 * Units::nanometer);
+    const double m_alpha(Units::deg2rad(54.73));
+    const double m_zangle(45. * Units::degree);
 
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -50,8 +46,8 @@ MultiLayer* RotatedPyramidsBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }

@@ -52,6 +52,5 @@ MultiLayer* TransformBoxBuilder::buildSample() const
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);
-
     return multi_layer;
 }

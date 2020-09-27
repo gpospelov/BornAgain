@@ -22,14 +22,11 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
 
 MultiLayer* Basic2DLatticeBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -55,9 +52,9 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -66,8 +63,6 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 MultiLayer* SquareLatticeBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -91,9 +86,9 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -102,8 +97,6 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -132,9 +125,9 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
     particle_layout.setInterferenceFunction(interference_function);
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -143,8 +136,6 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -169,9 +160,9 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -180,8 +171,6 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -203,9 +192,9 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
 
     air_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }
 
@@ -214,8 +203,6 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 MultiLayer* SuperLatticeBuilder::buildSample() const
 {
-    MultiLayer* multi_layer = new MultiLayer();
-
     Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
@@ -240,8 +227,8 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
 
     substrate_layer.addLayout(particle_layout);
 
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
-
     return multi_layer;
 }

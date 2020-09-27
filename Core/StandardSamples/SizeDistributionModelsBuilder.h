@@ -24,7 +24,6 @@
 class SizeDistributionDAModelBuilder : public ISampleBuilder
 {
 public:
-    SizeDistributionDAModelBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -35,7 +34,6 @@ public:
 class SizeDistributionLMAModelBuilder : public ISampleBuilder
 {
 public:
-    SizeDistributionLMAModelBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -46,7 +44,6 @@ public:
 class SizeDistributionSSCAModelBuilder : public ISampleBuilder
 {
 public:
-    SizeDistributionSSCAModelBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -56,7 +53,6 @@ public:
 class CylindersInSSCABuilder : public ISampleBuilder
 {
 public:
-    CylindersInSSCABuilder() {}
     MultiLayer* buildSample() const;
 };
 

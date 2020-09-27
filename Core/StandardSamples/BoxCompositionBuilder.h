@@ -17,23 +17,10 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class MultiLayer;
-class ParticleComposition;
-
-//! Parent class to test all kind of compositions made out of boxes.
-//! Reproduces Python functional test transform_BoxComposition.py
-//! @ingroup standard_samples
-
-class BoxCompositionBuilder : public ISampleBuilder
-{
-protected:
-    MultiLayer* createMultiLayer(const ParticleComposition& composition) const;
-};
-
 //! Two boxes in particle composition rotated in X by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateXBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateXBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
@@ -42,7 +29,7 @@ public:
 //! Two boxes in particle composition rotated in Y by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateYBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateYBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
@@ -51,7 +38,7 @@ public:
 //! Two boxes in particle composition rotated in Z by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateZBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateZBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
@@ -60,7 +47,7 @@ public:
 //! Two boxes in particle composition rotated in Z and Y by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateZandYBuilder : public BoxCompositionBuilder
+class BoxCompositionRotateZandYBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
@@ -69,7 +56,7 @@ public:
 //! Two different boxes are first rotated and then composed, composition is then rotated.
 //! @ingroup standard_samples
 
-class BoxStackCompositionBuilder : public BoxCompositionBuilder
+class BoxStackCompositionBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;

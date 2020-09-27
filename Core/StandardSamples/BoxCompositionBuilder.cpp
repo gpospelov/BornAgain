@@ -30,9 +30,7 @@ const double length = 50.0 * Units::nanometer;
 const double width = 20.0 * Units::nanometer;
 const double height = 10.0 * Units::nanometer;
 
-} // namespace
-
-MultiLayer* BoxCompositionBuilder::createMultiLayer(const ParticleComposition& composition) const
+MultiLayer* finalizeMultiLayer(const ParticleComposition& composition)
 {
     Material mAmbience = HomogeneousMaterial("Air", 0.0, 0.0);
     Material mMiddle = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
@@ -53,6 +51,8 @@ MultiLayer* BoxCompositionBuilder::createMultiLayer(const ParticleComposition& c
     return multi_layer;
 }
 
+} // namespace
+
 // --- BoxCompositionRotateXBuilder ---
 
 MultiLayer* BoxCompositionRotateXBuilder::buildSample() const
@@ -63,7 +63,7 @@ MultiLayer* BoxCompositionRotateXBuilder::buildSample() const
     composition.addParticle(box, kvector_t(length / 2.0, 0.0, 0.0));
     composition.setRotation(RotationX(90.0 * Units::degree));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0));
-    return createMultiLayer(composition);
+    return finalizeMultiLayer(composition);
 }
 
 // --- BoxCompositionRotateYBuilder ---
@@ -76,7 +76,7 @@ MultiLayer* BoxCompositionRotateYBuilder::buildSample() const
     composition.addParticle(box, kvector_t(length / 2.0, 0.0, 0.0));
     composition.setRotation(RotationY(90.0 * Units::degree));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0 + length / 4.0));
-    return createMultiLayer(composition);
+    return finalizeMultiLayer(composition);
 }
 
 // --- BoxCompositionRotateZBuilder ---
@@ -89,7 +89,7 @@ MultiLayer* BoxCompositionRotateZBuilder::buildSample() const
     composition.addParticle(box, kvector_t(length / 2.0, 0.0, 0.0));
     composition.setRotation(RotationZ(90.0 * Units::degree));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0 - height / 2.0));
-    return createMultiLayer(composition);
+    return finalizeMultiLayer(composition);
 }
 
 // --- BoxCompositionRotateZandYBuilder ---
@@ -103,7 +103,7 @@ MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const
     composition.setRotation(RotationZ(90.0 * Units::degree));
     composition.rotate(RotationY(90.0 * Units::degree));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0));
-    return createMultiLayer(composition);
+    return finalizeMultiLayer(composition);
 }
 
 // --- BoxStackCompositionBuilder ---
@@ -133,5 +133,5 @@ MultiLayer* BoxStackCompositionBuilder::buildSample() const
     composition.setRotation(RotationY(90.0 * Units::degree));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.));
 
-    return createMultiLayer(composition);
+    return finalizeMultiLayer(composition);
 }

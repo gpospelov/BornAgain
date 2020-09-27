@@ -88,7 +88,7 @@ void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSamp
 std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_degenerate()
 {
     MultiLayer mLayer;
-    Material air = HomogeneousMaterial("air", 0, 1.0);
+    Material air = HomogeneousMaterial("Vacuum", 0, 1.0);
     mLayer.addLayer(Layer(air, 0 * Units::nanometer));
     return std::make_unique<ProcessedSample>(mLayer, SimulationOptions());
 }
@@ -102,9 +102,9 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield()
 {
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
-    Layer air_layer(HomogeneousMaterial("Air", 0.0, 0.0));
+    Layer vacuum_layer(HomogeneousMaterial("Vacuum", 0.0, 0.0));
     Layer substr_layer_scalar(substr_material_scalar);
-    multi_layer_scalar.addLayer(air_layer);
+    multi_layer_scalar.addLayer(vacuum_layer);
     multi_layer_scalar.addLayer(substr_layer_scalar);
 
     SimulationOptions options;

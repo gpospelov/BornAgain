@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/ParticleInTheAirBuilder.h
-//! @brief     Defines class ParticleInTheAirBuilder.
+//! @file      Core/StandardSamples/ParticleInVacuumBuilder.h
+//! @brief     Defines class ParticleInVacuumBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,15 +20,15 @@
 
 class IFormFactor;
 
-//! The ParticleInTheAirBuilder class generates a multilayer with single air layer
+//! The ParticleInVacuumBuilder class generates a multilayer with single vacuum layer
 //! populated with particles of certain types.
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 //! @ingroup standard_samples
 
-class ParticleInTheAirBuilder : public ISampleBuilder
+class ParticleInVacuumBuilder : public ISampleBuilder
 {
 public:
-    ParticleInTheAirBuilder();
+    ParticleInVacuumBuilder();
     virtual MultiLayer* buildSample() const;
 
     MultiLayer* createSampleByIndex(size_t index);

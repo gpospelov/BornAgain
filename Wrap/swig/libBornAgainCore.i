@@ -47,8 +47,8 @@
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
 %template(map_string_double_t) std::map<std::string, double>;
-%template(pair_double_t) std::pair<double, double>;
-%template(vector_pair_double_t) std::vector<std::pair<double, double>>;
+%template(pvacuum_double_t) std::pair<double, double>;
+%template(vector_pvacuum_double_t) std::vector<std::pair<double, double>>;
 %nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT

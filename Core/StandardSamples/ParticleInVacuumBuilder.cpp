@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/ParticleInTheAirBuilder.cpp
-//! @brief     Implements class ParticleInTheAirBuilder.
+//! @file      Core/StandardSamples/ParticleInVacuumBuilder.cpp
+//! @brief     Implements class ParticleInVacuumBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/StandardSamples/ParticleInTheAirBuilder.h"
+#include "Core/StandardSamples/ParticleInVacuumBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/Units.h"
@@ -27,12 +27,12 @@ namespace {
 FormFactorComponents ff_components;
 }
 
-ParticleInTheAirBuilder::ParticleInTheAirBuilder()
+ParticleInVacuumBuilder::ParticleInVacuumBuilder()
     : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
 {
 }
 
-MultiLayer* ParticleInTheAirBuilder::buildSample() const
+MultiLayer* ParticleInVacuumBuilder::buildSample() const
 {
     Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -48,7 +48,7 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
     return result;
 }
 
-MultiLayer* ParticleInTheAirBuilder::createSampleByIndex(size_t index)
+MultiLayer* ParticleInVacuumBuilder::createSampleByIndex(size_t index)
 {
     auto name = ff_components.keys().at(index);
     m_ff.reset(ff_components.getItem(name)->clone());
@@ -56,7 +56,7 @@ MultiLayer* ParticleInTheAirBuilder::createSampleByIndex(size_t index)
     return buildSample();
 }
 
-size_t ParticleInTheAirBuilder::size()
+size_t ParticleInVacuumBuilder::size()
 {
     return ff_components.size();
 }

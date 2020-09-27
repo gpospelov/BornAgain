@@ -23,7 +23,7 @@ class Std : public ::testing::Test
 
 TEST_F(Std, FormFactors)
 {
-    EXPECT_TRUE(run("FormFactors", "MiniGISAS", "ParticleInTheAirBuilder", 2e-10));
+    EXPECT_TRUE(run("FormFactors", "MiniGISAS", "ParticleInVacuumBuilder", 2e-10));
 }
 
 TEST_F(Std, GISASAbsorptiveSLDLayers)

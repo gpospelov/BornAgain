@@ -20,7 +20,7 @@ TEST_F(SpecularMagneticOldTest, initial)
     // @Error: Throws exception (Layer index is out of bounds)
     // matrix.execute(mLayer, v, coeff);
 
-    Material air = HomogeneousMaterial("air", 0, 1.0);
+    Material air = HomogeneousMaterial("Air", 0, 1.0);
     Layer layer0(air, 0 * Units::nanometer);
     mLayer.addLayer(layer0);
     SimulationOptions options;
@@ -39,15 +39,15 @@ TEST_F(SpecularMagneticOldTest, zerofield)
 
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
-    Layer air_layer(HomogeneousMaterial("Air", 0.0, 0.0));
+    Layer vacuum_layer(HomogeneousMaterial("Vacuum", 0.0, 0.0));
     Layer substr_layer_scalar(substr_material_scalar);
-    multi_layer_scalar.addLayer(air_layer);
+    multi_layer_scalar.addLayer(vacuum_layer);
     multi_layer_scalar.addLayer(substr_layer_scalar);
 
     MultiLayer multi_layer_zerofield;
     Material substr_material_zerofield = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
     Layer substr_layer_zerofield(substr_material_zerofield);
-    multi_layer_zerofield.addLayer(air_layer);
+    multi_layer_zerofield.addLayer(vacuum_layer);
     multi_layer_zerofield.addLayer(substr_layer_zerofield);
 
     SimulationOptions options;

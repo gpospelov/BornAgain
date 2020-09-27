@@ -33,7 +33,7 @@
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
 #include "Core/StandardSamples/ParticleCompositionBuilder.h"
 #include "Core/StandardSamples/ParticleDistributionsBuilder.h"
-#include "Core/StandardSamples/ParticleInTheAirBuilder.h"
+#include "Core/StandardSamples/ParticleInVacuumBuilder.h"
 #include "Core/StandardSamples/PercusYevickBuilder.h"
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include "Core/StandardSamples/ResonatorBuilder.h"
@@ -158,7 +158,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("BoxStackCompositionBuilder", create_new<BoxStackCompositionBuilder>);
 
-    registerItem("ParticleInTheAirBuilder", create_new<ParticleInTheAirBuilder>);
+    registerItem("ParticleInVacuumBuilder", create_new<ParticleInVacuumBuilder>);
 
     registerItem("TransformBoxBuilder", create_new<TransformBoxBuilder>);
 

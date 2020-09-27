@@ -23,7 +23,7 @@
 
 MultiLayer* CustomMorphologyBuilder::buildSample() const
 {
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
 
     ParticleLayout particle_layout;
 
@@ -97,9 +97,9 @@ MultiLayer* CustomMorphologyBuilder::buildSample() const
     p10.setPosition(pos10);
     particle_layout.addParticle(p10, 0.5);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     return multi_layer;
 }

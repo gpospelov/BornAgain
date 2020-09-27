@@ -33,7 +33,7 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
 
 MultiLayer* CylindersInDWBABuilder::buildSample() const
 {
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
@@ -41,10 +41,10 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
     Particle particle(refMat::Particle, ff_cylinder);
     ParticleLayout particle_layout(particle);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -61,17 +61,17 @@ CylindersInBABuilder::CylindersInBABuilder()
 
 MultiLayer* CylindersInBABuilder::buildSample() const
 {
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
     Particle cylinder(refMat::Particle, ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     return multi_layer;
 }
 
@@ -85,7 +85,7 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
 
 MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 {
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
@@ -93,10 +93,10 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
     Particle particle(refMat::Particle, ff_cylinder);
     ParticleLayout particle_layout(particle);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -117,12 +117,12 @@ MultiLayer* RotatedCylindersBuilder::buildSample() const
     ParticleLayout particle_layout;
     particle_layout.addParticle(particle, 1.0, kvector_t(), RotationY(M_PI));
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
     substrate_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

@@ -21,7 +21,7 @@
 
 namespace refMat {
 
-static const Material Air = HomogeneousMaterial("Air", 0.0, 0.0);
+static const Material Vacuum = HomogeneousMaterial("Vacuum", 0.0, 0.0);
 static const Material Substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 static const Material Particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 

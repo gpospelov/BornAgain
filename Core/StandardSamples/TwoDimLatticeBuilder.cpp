@@ -28,10 +28,10 @@
 MultiLayer* Basic2DLatticeBuilder::buildSample() const
 {
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
@@ -50,10 +50,10 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
 
     particle_layout.setInterferenceFunction(*P_interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -64,10 +64,10 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
 MultiLayer* SquareLatticeBuilder::buildSample() const
 {
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
@@ -84,10 +84,10 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
 
     particle_layout.setInterferenceFunction(*P_interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -98,10 +98,10 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
 MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 {
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DLattice interference_function(10.0 * Units::nanometer,
@@ -123,10 +123,10 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
     ParticleLayout particle_layout;
     particle_layout.addParticle(basis);
     particle_layout.setInterferenceFunction(interference_function);
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -137,10 +137,10 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 {
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
@@ -158,10 +158,10 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
     particle_layout.addParticle(p);
     particle_layout.setInterferenceFunction(*P_interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -172,10 +172,10 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
 {
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunctionFinite2DLattice> P_interference_function{
@@ -190,10 +190,10 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
 
     particle_layout.setInterferenceFunction(*P_interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -203,10 +203,10 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 MultiLayer* SuperLatticeBuilder::buildSample() const
 {
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DSuperLattice> P_interference_function{
@@ -219,7 +219,7 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     // particles
     ParticleLayout particle_layout;
     FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 10.0 * Units::nanometer);
-    Particle particle(air_material, ff_cyl);
+    Particle particle(vacuum_material, ff_cyl);
     particle_layout.addParticle(particle, 1.0, kvector_t(0.0, 0.0, -10.0 * Units::nanometer));
 
     particle_layout.setInterferenceFunction(*P_interference_function);
@@ -228,7 +228,7 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     substrate_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

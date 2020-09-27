@@ -34,7 +34,7 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
     const double m_cylinder_height(5 * Units::nanometer);
     const double m_cylinder_radius(5 * Units::nanometer);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunctionRadialParaCrystal interference_function(m_corr_peak_distance,
@@ -47,10 +47,10 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
     ParticleLayout particle_layout(particle);
     particle_layout.setInterferenceFunction(interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -69,7 +69,7 @@ Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder() = default;
 
 MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 {
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction2DParaCrystal interference_function(
@@ -86,10 +86,10 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     ParticleLayout particle_layout(particle);
     particle_layout.setInterferenceFunction(interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -119,7 +119,7 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     const double m_cylinder_height(5 * Units::nanometer);
     const double m_cylinder_radius(5 * Units::nanometer);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     std::unique_ptr<InterferenceFunction2DParaCrystal> P_interference_function{
@@ -134,10 +134,10 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     ParticleLayout particle_layout(cylinder);
     particle_layout.setInterferenceFunction(*P_interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -148,7 +148,7 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
 
 MultiLayer* RectParaCrystalBuilder::buildSample() const
 {
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     std::unique_ptr<InterferenceFunction2DParaCrystal> P_interference_function{
@@ -166,10 +166,10 @@ MultiLayer* RectParaCrystalBuilder::buildSample() const
     ParticleLayout particle_layout(particle);
     particle_layout.setInterferenceFunction(*P_interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

@@ -34,17 +34,17 @@ ParticleInTheAirBuilder::ParticleInTheAirBuilder()
 
 MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
 
     Particle particle(particle_material, *m_ff);
     ParticleLayout particle_layout(particle);
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* result = new MultiLayer;
-    result->addLayer(air_layer);
+    result->addLayer(vacuum_layer);
     return result;
 }
 

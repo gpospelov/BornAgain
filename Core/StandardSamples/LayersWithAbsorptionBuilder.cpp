@@ -50,14 +50,14 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
     ParticleLayout layout;
     layout.addParticle(particle);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer middle_layer(refMat::Teflon, middle_layer_thickness);
     Layer substrate(refMat::Substrate2);
 
     middle_layer.addLayout(layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);
     return multi_layer;

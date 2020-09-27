@@ -34,7 +34,7 @@ MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
 {
     kvector_t substr_field(0.0, 0.0, 0.0);
     kvector_t particle_field(0.1, 0.0, 0.0);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
@@ -44,12 +44,12 @@ MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
     Particle particle(particle_material, ff_sphere);
     particle_layout.addParticle(particle, 1.0, position);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
     substrate_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -59,15 +59,15 @@ MultiLayer* SimpleMagneticLayerBuilder::buildSample() const
     MultiLayer* multi_layer = new MultiLayer();
 
     kvector_t layer_field = kvector_t(0.0, 1e8, 0.0);
-    Material air_material = MaterialBySLD("Air", 0.0, 0.0);
+    Material vacuum_material = MaterialBySLD("Vacuum", 0.0, 0.0);
     Material layer_material = MaterialBySLD("MagLayer", 1e-4, 1e-8, layer_field);
     Material substrate_material = MaterialBySLD("Substrate", 7e-5, 2e-6);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer intermediate_layer(layer_material, 10.0); // 10 nm layer thickness
     Layer substrate_layer(substrate_material);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(intermediate_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
@@ -79,8 +79,8 @@ MultiLayer* MagneticLayerBuilder::buildSample() const
 
     kvector_t layer_field = kvector_t(0.0, 0.0, 1e6);
     kvector_t particle_field(1e6, 0.0, 0.0);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
-    Material layer_material = HomogeneousMaterial("Air", 0.0, 0.0, layer_field);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
+    Material layer_material = HomogeneousMaterial("Vacuum", 0.0, 0.0, layer_field);
     Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
@@ -89,12 +89,12 @@ MultiLayer* MagneticLayerBuilder::buildSample() const
     Particle particle(particle_material, ff_sphere);
     particle_layout.addParticle(particle, 1.0);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer intermediate_layer(layer_material);
     intermediate_layer.addLayout(particle_layout);
     Layer substrate_layer(substrate_material);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(intermediate_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
@@ -112,17 +112,17 @@ MultiLayer* SimpleMagneticRotationBuilder::builder(double sigmaRoughness,
 
     kvector_t substr_field = kvector_t(0.0, 1e6, 0.0);
     kvector_t layer_field = kvector_t(1e6, 1e6, 0.0);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
     Material layer_material = HomogeneousMaterial("MagLayer", 6e-4, 2e-8, layer_field);
 
     auto roughness = LayerRoughness();
     roughness.setSigma(sigmaRoughness * Units::angstrom);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
     Layer layer(layer_material, 200 * Units::angstrom);
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayerWithTopRoughness(layer, roughness);
     multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
     multi_layer->setRoughnessModel(roughnessModel);
@@ -160,7 +160,7 @@ MultiLayer* MagneticRotationBuilder::buildSample() const
 
     kvector_t substr_field = kvector_t(0.0, 1e6, 0.0);
     kvector_t particle_field(1e6, 0.0, 0.0);
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
@@ -171,11 +171,11 @@ MultiLayer* MagneticRotationBuilder::buildSample() const
     RotationZ rot_z(90 * Units::deg);
     particle_layout.addParticle(particle, 1.0, position, rot_z);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
     substrate_layer.addLayout(particle_layout);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

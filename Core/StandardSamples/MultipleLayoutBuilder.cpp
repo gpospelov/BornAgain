@@ -30,7 +30,7 @@ MultiLayer* MultipleLayoutBuilder::buildSample() const
     const double prislength(10 * Units::nanometer);
     const double cylinder_weight(0.5);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     ParticleLayout particle_layout_1;
@@ -45,11 +45,11 @@ MultiLayer* MultipleLayoutBuilder::buildSample() const
     particle_layout_1.addParticle(cylinder, cylinder_weight);
     particle_layout_2.addParticle(prism3, 1.0 - cylinder_weight);
 
-    air_layer.addLayout(particle_layout_1);
-    air_layer.addLayout(particle_layout_2);
+    vacuum_layer.addLayout(particle_layout_1);
+    vacuum_layer.addLayout(particle_layout_2);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

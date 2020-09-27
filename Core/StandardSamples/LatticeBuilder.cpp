@@ -32,7 +32,7 @@ MultiLayer* Lattice1DBuilder::buildSample() const
     const double cylinder_height(5 * Units::nanometer);
     const double cylinder_radius(5 * Units::nanometer);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction1DLattice interference_function(length, xi);
@@ -45,10 +45,10 @@ MultiLayer* Lattice1DBuilder::buildSample() const
     ParticleLayout particle_layout(cylinder);
     particle_layout.setInterferenceFunction(interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

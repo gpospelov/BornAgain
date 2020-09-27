@@ -34,10 +34,10 @@ MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
     const double height(5 * Units::nanometer);
     const double radius(5 * Units::nanometer);
 
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
 
     ParticleLayout particle_layout;
     // preparing prototype of nano particle
@@ -56,10 +56,10 @@ MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
     ParticleDistribution particle_collection(nano_particle, par_distr);
     particle_layout.addParticle(particle_collection);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     return multi_layer;
 }
 
@@ -77,10 +77,10 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 {
 
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
 
     ParticleLayout particle_layout;
 
@@ -113,10 +113,10 @@ MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
     ParticleDistribution particle_collection2(cylinder2, par_distr2);
     particle_layout.addParticle(particle_collection2, 0.05);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     return multi_layer;
 }
 
@@ -130,7 +130,7 @@ RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
 
 MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 {
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -149,13 +149,13 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
     particle_layout.addParticle(collection);
 
     // Multi layer
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -164,7 +164,7 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 
 MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 {
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -183,13 +183,13 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
     particle_layout.addParticle(collection);
 
     // Multi layer
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -199,7 +199,7 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 
 MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
 {
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -219,20 +219,20 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
     particle_layout.addParticle(collection);
 
     // Multi layer
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
 
 MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
 {
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -253,13 +253,13 @@ MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
     particle_layout.setTotalParticleSurfaceDensity(1e-4);
 
     // Multi layer
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

@@ -46,12 +46,12 @@ MultiLayer* MesoCrystalBuilder::buildSample() const
     ParticleLayout particle_layout;
     particle_layout.addParticle(meso);
 
-    Layer air_layer(refMat::Air);
-    air_layer.addLayout(particle_layout);
+    Layer vacuum_layer(refMat::Vacuum);
+    vacuum_layer.addLayout(particle_layout);
     Layer substrate_layer(refMat::Substrate);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

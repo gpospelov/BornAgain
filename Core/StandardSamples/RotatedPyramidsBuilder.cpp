@@ -28,11 +28,11 @@ MultiLayer* RotatedPyramidsBuilder::buildSample() const
     const double m_alpha(Units::deg2rad(54.73));
     const double m_zangle(45. * Units::degree);
 
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
@@ -44,10 +44,10 @@ MultiLayer* RotatedPyramidsBuilder::buildSample() const
     ParticleLayout particle_layout;
     particle_layout.addParticle(pyramid, 1.0, kvector_t(0, 0, 0), z_rotation);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

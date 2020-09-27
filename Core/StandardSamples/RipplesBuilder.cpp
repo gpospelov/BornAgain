@@ -26,11 +26,11 @@
 MultiLayer* CosineRippleBuilder::buildSample() const
 {
 
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     FormFactorCosineRippleBox ff_ripple1(100.0, 20.0, 4.0);
     Particle ripple(particle_material, ff_ripple1);
 
@@ -41,12 +41,12 @@ MultiLayer* CosineRippleBuilder::buildSample() const
     interference_function.setProbabilityDistribution(pdf);
     particle_layout.setInterferenceFunction(interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     Layer substrate_layer(substrate_material);
 
     MultiLayer* p_multi_layer = new MultiLayer();
-    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(vacuum_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }
@@ -60,11 +60,11 @@ TriangularRippleBuilder::TriangularRippleBuilder() : m_d(0.0 * Units::nanometer)
 
 MultiLayer* TriangularRippleBuilder::buildSample() const
 {
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     FormFactorSawtoothRippleBox ff_ripple2(100.0, 20.0, 4.0, m_d);
     Particle ripple(particle_material, ff_ripple2);
 
@@ -75,11 +75,11 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
     interference_function.setProbabilityDistribution(pdf);
     particle_layout.setInterferenceFunction(interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
     Layer substrate_layer(substrate_material);
 
     MultiLayer* p_multi_layer = new MultiLayer();
-    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(vacuum_layer);
     p_multi_layer->addLayer(substrate_layer);
     return p_multi_layer;
 }

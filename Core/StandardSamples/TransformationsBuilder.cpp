@@ -23,7 +23,7 @@
 
 MultiLayer* TransformBoxBuilder::buildSample() const
 {
-    Material mAmbience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material mAmbience = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material mMiddle = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
     Material mSubstrate = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
 
@@ -42,13 +42,13 @@ MultiLayer* TransformBoxBuilder::buildSample() const
     ParticleLayout layout;
     layout.addParticle(box);
 
-    Layer air_layer(mAmbience);
+    Layer vacuum_layer(mAmbience);
     Layer middle_layer(mMiddle, layer_thickness);
     middle_layer.addLayout(layout);
     Layer substrate(mSubstrate);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);
     return multi_layer;

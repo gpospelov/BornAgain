@@ -33,7 +33,7 @@ MultiLayer* CoreShellParticleBuilder::buildSample() const
     Material shell_material = HomogeneousMaterial("Shell", n_particle_shell);
     Material core_material = HomogeneousMaterial("Core", n_particle_core);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
 
     FormFactorBox ff_box1(16 * Units::nanometer, 16 * Units::nanometer, 8 * Units::nanometer);
     Particle shell_particle(shell_material, ff_box1);
@@ -45,10 +45,10 @@ MultiLayer* CoreShellParticleBuilder::buildSample() const
     ParticleCoreShell particle(shell_particle, core_particle, core_position);
     ParticleLayout particle_layout(particle);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     return multi_layer;
 }
 
@@ -77,13 +77,13 @@ MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
     ParticleLayout layout;
     layout.addParticle(coreshell);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer middle_layer(refMat::Teflon, layer_thickness);
     middle_layer.addLayout(layout);
     Layer substrate(refMat::Substrate2);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);
 

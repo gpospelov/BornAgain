@@ -26,7 +26,7 @@ MultiLayer* CylindersAndPrismsBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     ParticleLayout particle_layout;
@@ -40,9 +40,9 @@ MultiLayer* CylindersAndPrismsBuilder::buildSample() const
     particle_layout.addParticle(cylinder, 0.5);
     particle_layout.addParticle(prism3, 0.5);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

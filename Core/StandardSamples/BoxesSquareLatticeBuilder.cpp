@@ -27,7 +27,7 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     const double length = 5 * Units::nanometer;
     const double height = 10 * Units::nanometer;
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
@@ -44,10 +44,10 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
 
     particle_layout.setInterferenceFunction(*P_interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

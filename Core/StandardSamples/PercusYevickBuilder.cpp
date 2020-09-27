@@ -29,11 +29,11 @@ MultiLayer* HardDiskBuilder::buildSample() const
     const double m_disk_radius(5 * Units::nanometer);
     const double m_density(0.006);
 
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer substrate_layer(substrate_material);
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
@@ -43,10 +43,10 @@ MultiLayer* HardDiskBuilder::buildSample() const
     InterferenceFunctionHardDisk interference_function(m_disk_radius, m_density);
     particle_layout.setInterferenceFunction(interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }

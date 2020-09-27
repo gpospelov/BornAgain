@@ -29,7 +29,7 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Material m_ambience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material m_ambience = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -57,11 +57,11 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
     particle_layout.addParticle(cylinder2, 0.2);
     particle_layout.setInterferenceFunction(interference);
 
-    Layer air_layer(m_ambience);
-    air_layer.addLayout(particle_layout);
+    Layer vacuum_layer(m_ambience);
+    vacuum_layer.addLayout(particle_layout);
     Layer substrate_layer(m_substrate);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
@@ -72,7 +72,7 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Material m_ambience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material m_ambience = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -108,12 +108,12 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
     particle_layout2.addParticle(cylinder2, 0.2);
     particle_layout2.setInterferenceFunction(interference2);
 
-    Layer air_layer(m_ambience);
-    air_layer.addLayout(particle_layout1);
-    air_layer.addLayout(particle_layout2);
+    Layer vacuum_layer(m_ambience);
+    vacuum_layer.addLayout(particle_layout1);
+    vacuum_layer.addLayout(particle_layout2);
     Layer substrate_layer(m_substrate);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -125,7 +125,7 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Material m_ambience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material m_ambience = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
@@ -154,11 +154,11 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
     particle_layout.addParticle(cylinder2, 0.2);
     particle_layout.setInterferenceFunction(interference);
 
-    Layer air_layer(m_ambience);
-    air_layer.addLayout(particle_layout);
+    Layer vacuum_layer(m_ambience);
+    vacuum_layer.addLayout(particle_layout);
     Layer substrate_layer(m_substrate);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
@@ -170,10 +170,10 @@ MultiLayer* CylindersInSSCABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
 
     InterferenceFunctionRadialParaCrystal interference_function(15.0 * Units::nanometer,
                                                                 1e3 * Units::nanometer);
@@ -197,8 +197,8 @@ MultiLayer* CylindersInSSCABuilder::buildSample() const
 
     particle_layout.setInterferenceFunction(interference_function);
 
-    air_layer.addLayout(particle_layout);
+    vacuum_layer.addLayout(particle_layout);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     return multi_layer;
 }

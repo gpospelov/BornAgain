@@ -26,7 +26,7 @@ MultiLayer* SlicedCompositionBuilder::buildSample() const
 {
     MultiLayer* p_multi_layer = new MultiLayer();
 
-    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
     Material topCupMaterial = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
     Material bottomCupMaterial = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
@@ -49,12 +49,12 @@ MultiLayer* SlicedCompositionBuilder::buildSample() const
     ParticleLayout particle_layout;
     particle_layout.addParticle(composition);
 
-    Layer air_layer(air_material);
-    air_layer.addLayout(particle_layout);
+    Layer vacuum_layer(vacuum_material);
+    vacuum_layer.addLayout(particle_layout);
 
     Layer substrate_layer(substrate_material);
 
-    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(vacuum_layer);
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;

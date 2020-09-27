@@ -28,12 +28,12 @@ MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
     const double lateralCorrLength(5.0 * Units::nanometer);
     const double crossCorrLength(10.0 * Units::nanometer);
 
-    Material air_material = HomogeneousMaterial("Air", 0., 0.);
+    Material vacuum_material = HomogeneousMaterial("Vacuum", 0., 0.);
     Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
     Material part_a_material = HomogeneousMaterial("PartA", 5e-6, 0.0);
     Material part_b_material = HomogeneousMaterial("PartB", 10e-6, 0.0);
 
-    Layer air_layer(air_material, 0);
+    Layer vacuum_layer(vacuum_material, 0);
     Layer partA_layer(part_a_material, thicknessA);
     Layer partB_layer(part_b_material, thicknessB);
     Layer substrate_layer(substrate_material, 0);
@@ -41,7 +41,7 @@ MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
     LayerRoughness roughness(sigma, hurst, lateralCorrLength);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     for (int i = 0; i < 5; ++i) {
         multi_layer->addLayerWithTopRoughness(partA_layer, roughness);
         multi_layer->addLayerWithTopRoughness(partB_layer, roughness);

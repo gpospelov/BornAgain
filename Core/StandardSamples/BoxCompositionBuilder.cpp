@@ -35,13 +35,13 @@ MultiLayer* finalizeMultiLayer(const ParticleComposition& composition)
     ParticleLayout layout;
     layout.addParticle(composition);
 
-    Layer air_layer(refMat::Air);
+    Layer vacuum_layer(refMat::Vacuum);
     Layer middle_layer(refMat::Teflon, layer_thickness);
     middle_layer.addLayout(layout);
     Layer substrate(refMat::Substrate2);
 
     MultiLayer* multi_layer = new MultiLayer();
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);
     return multi_layer;

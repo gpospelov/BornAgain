@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/StandardSamples/BoxCompositionBuilder.h"
 #include "Core/StandardSamples/BoxesSquareLatticeBuilder.h"
 #include "Core/StandardSamples/CoreShellParticleBuilder.h"

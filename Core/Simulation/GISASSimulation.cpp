@@ -26,11 +26,6 @@ GISASSimulation::GISASSimulation()
     initialize();
 }
 
-GISASSimulation::GISASSimulation(const MultiLayer& p_sample) : Simulation2D(p_sample)
-{
-    initialize();
-}
-
 void GISASSimulation::prepareSimulation()
 {
     if (m_instrument.getDetectorDimension() != 2)

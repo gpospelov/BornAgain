@@ -17,8 +17,8 @@ TEST_F(GISASSimulationTest, SimulationInitialState)
 
 TEST_F(GISASSimulationTest, SimulationConstruction)
 {
-    MultiLayer multi_layer;
-    GISASSimulation simulation(multi_layer);
+    GISASSimulation simulation;
+    simulation.setSample(MultiLayer());
     EXPECT_NE(nullptr, simulation.sample());
     EXPECT_EQ(0u, simulation.intensityMapSize());
     EXPECT_THROW(simulation.result(), std::runtime_error);
@@ -44,8 +44,8 @@ TEST_F(GISASSimulationTest, SimulationClone1)
 
 TEST_F(GISASSimulationTest, SimulationClone2)
 {
-    MultiLayer multi_layer;
-    GISASSimulation simulation(multi_layer);
+    GISASSimulation simulation;
+    simulation.setSample(MultiLayer());
     simulation.setDetectorParameters(10, -2.0, 2.0, 20, 0.0, 2.0);
     auto p_clone = simulation.clone();
     EXPECT_NE(nullptr, p_clone->sample());

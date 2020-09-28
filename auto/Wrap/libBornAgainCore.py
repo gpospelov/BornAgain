@@ -17616,14 +17616,13 @@ class GISASSimulation(Simulation2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self):
         r"""
         __init__(GISASSimulation self) -> GISASSimulation
-        __init__(GISASSimulation self, MultiLayer p_sample) -> GISASSimulation
         GISASSimulation::GISASSimulation(const std::shared_ptr< ISampleBuilder > p_sample_builder)
 
         """
-        _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation(*args))
+        _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation())
     __swig_destroy__ = _libBornAgainCore.delete_GISASSimulation
 
     def clone(self):
@@ -17693,14 +17692,13 @@ class DepthProbeSimulation(Simulation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self):
         r"""
         __init__(DepthProbeSimulation self) -> DepthProbeSimulation
-        __init__(DepthProbeSimulation self, MultiLayer sample) -> DepthProbeSimulation
         DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
-        _libBornAgainCore.DepthProbeSimulation_swiginit(self, _libBornAgainCore.new_DepthProbeSimulation(*args))
+        _libBornAgainCore.DepthProbeSimulation_swiginit(self, _libBornAgainCore.new_DepthProbeSimulation())
     __swig_destroy__ = _libBornAgainCore.delete_DepthProbeSimulation
 
     def clone(self):
@@ -17797,14 +17795,13 @@ class SpecularSimulation(Simulation):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self):
         r"""
         __init__(SpecularSimulation self) -> SpecularSimulation
-        __init__(SpecularSimulation self, MultiLayer sample) -> SpecularSimulation
         SpecularSimulation::SpecularSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
-        _libBornAgainCore.SpecularSimulation_swiginit(self, _libBornAgainCore.new_SpecularSimulation(*args))
+        _libBornAgainCore.SpecularSimulation_swiginit(self, _libBornAgainCore.new_SpecularSimulation())
     __swig_destroy__ = _libBornAgainCore.delete_SpecularSimulation
 
     def clone(self):
@@ -17906,14 +17903,13 @@ class OffSpecSimulation(Simulation2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self):
         r"""
         __init__(OffSpecSimulation self) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
         OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
         """
-        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
+        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation())
     __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
 
     def clone(self):

@@ -27,8 +27,6 @@ class OffSpecSimulation : public Simulation2D
 {
 public:
     OffSpecSimulation();
-    OffSpecSimulation(const MultiLayer& p_sample);
-
     ~OffSpecSimulation() final {}
 
     OffSpecSimulation* clone() const override { return new OffSpecSimulation(*this); }

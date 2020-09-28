@@ -22,8 +22,6 @@
 
 Simulation2D::Simulation2D() = default;
 
-Simulation2D::Simulation2D(const MultiLayer& p_sample) : Simulation(p_sample) {}
-
 Simulation2D::~Simulation2D() = default;
 
 void Simulation2D::prepareSimulation()

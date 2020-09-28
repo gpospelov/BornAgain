@@ -39,11 +39,6 @@ DepthProbeSimulation::DepthProbeSimulation() : Simulation()
     initialize();
 }
 
-DepthProbeSimulation::DepthProbeSimulation(const MultiLayer& sample) : Simulation(sample)
-{
-    initialize();
-}
-
 DepthProbeSimulation::~DepthProbeSimulation() = default;
 
 DepthProbeSimulation* DepthProbeSimulation::clone() const

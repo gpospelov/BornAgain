@@ -35,7 +35,6 @@ class SpecularSimulation : public Simulation
 {
 public:
     SpecularSimulation();
-    SpecularSimulation(const MultiLayer& sample);
     ~SpecularSimulation() override;
 
     SpecularSimulation* clone() const override;

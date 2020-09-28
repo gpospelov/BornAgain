@@ -47,11 +47,6 @@ SpecularSimulation::SpecularSimulation() : Simulation()
     initialize();
 }
 
-SpecularSimulation::SpecularSimulation(const MultiLayer& sample) : Simulation(sample)
-{
-    initialize();
-}
-
 SpecularSimulation::~SpecularSimulation() = default;
 
 SpecularSimulation* SpecularSimulation::clone() const

@@ -28,7 +28,6 @@ class GISASSimulation : public Simulation2D
 {
 public:
     GISASSimulation();
-    GISASSimulation(const MultiLayer& p_sample);
     ~GISASSimulation() {}
 
     GISASSimulation* clone() const override { return new GISASSimulation(*this); }

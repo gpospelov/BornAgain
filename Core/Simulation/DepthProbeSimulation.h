@@ -35,7 +35,6 @@ class DepthProbeSimulation : public Simulation
 {
 public:
     DepthProbeSimulation();
-    DepthProbeSimulation(const MultiLayer& sample);
     ~DepthProbeSimulation() override;
 
     DepthProbeSimulation* clone() const override;

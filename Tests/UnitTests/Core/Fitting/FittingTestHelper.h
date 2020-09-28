@@ -33,7 +33,8 @@ public:
         multilayer.addLayer(Layer(material));
         multilayer.addLayer(Layer(material));
 
-        std::unique_ptr<GISASSimulation> result(new GISASSimulation(multilayer));
+        std::unique_ptr<GISASSimulation> result(new GISASSimulation());
+        result->setSample(multilayer);
         result->setDetectorParameters(m_nx, m_xmin, m_xmax, m_ny, m_ymin, m_ymax);
 
         m_builder_calls++;

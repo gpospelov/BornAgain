@@ -67,30 +67,26 @@ void SampleProvider::updateSample()
         m_multilayer = m_sample_builder.createMultiLayer();
 
     if (!m_multilayer)
-        throw std::runtime_error("SampleProvider::updateSample() -> Error. No sample.");
+        throw std::runtime_error(
+            "SampleProvider::updateSample called before sample or builder was set");
 }
 
 std::vector<const INode*> SampleProvider::getChildren() const
 {
-    std::vector<const INode*> result;
-    if (m_sample_builder) {
-        result.push_back(&m_sample_builder);
-    } else {
-        if (m_multilayer)
-            result.push_back(m_multilayer.get());
-    }
-    return result;
+    if (m_sample_builder)
+        return {&m_sample_builder};
+    if (m_multilayer)
+        return {m_multilayer.get()};
+    return {};
 }
 
 void SampleProvider::setParent(const INode* newParent)
 {
     INode::setParent(newParent);
-    if (m_sample_builder) {
+    if (m_sample_builder)
         m_sample_builder.setParent(parent());
-    } else {
-        if (m_multilayer)
-            m_multilayer->setParent(parent());
-    }
+    else if (m_multilayer)
+        m_multilayer->setParent(parent());
 }
 
 void SampleProvider::swapContent(SampleProvider& other)

@@ -25,14 +25,15 @@ class ISampleBuilder;
 
 class SampleBuilderNode : public INode
 {
-public:
     using builder_t = std::shared_ptr<ISampleBuilder>;
+
+public:
 
     SampleBuilderNode();
     SampleBuilderNode(const SampleBuilderNode& other);
     SampleBuilderNode& operator=(const SampleBuilderNode& other);
 
-    void setSBN(builder_t sample_builder);
+    void setSBN(const builder_t& sample_builder);
 
     void reset();
 

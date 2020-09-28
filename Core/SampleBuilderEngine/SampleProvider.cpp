@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/SampleBuilderEngine/SampleProvider.h"
-#include "Core/Basics/Assert.h"
 #include "Core/Multilayer/MultiLayer.h"
 
 SampleProvider::SampleProvider() {}
@@ -45,7 +44,7 @@ void SampleProvider::setSample(const MultiLayer& multilayer)
     m_sample_builder.reset();
 }
 
-void SampleProvider::setBuilder(const std::shared_ptr<ISampleBuilder> sample_builder)
+void SampleProvider::setBuilder(const std::shared_ptr<ISampleBuilder>& sample_builder)
 {
     m_sample_builder.setSBN(sample_builder);
     m_sample_builder.setParent(parent());

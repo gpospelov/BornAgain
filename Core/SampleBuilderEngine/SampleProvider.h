@@ -34,7 +34,7 @@ public:
 
     void setSample(const MultiLayer& multilayer);
 
-    void setBuilder(const std::shared_ptr<ISampleBuilder> sample_builder);
+    void setBuilder(const std::shared_ptr<ISampleBuilder>& sample_builder);
 
     const MultiLayer* sample() const;
 

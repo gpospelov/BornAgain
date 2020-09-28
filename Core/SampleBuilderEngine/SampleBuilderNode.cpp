@@ -46,7 +46,7 @@ SampleBuilderNode& SampleBuilderNode::operator=(const SampleBuilderNode& other)
 
 //! Sets sample builder and borrows its parameters.
 
-void SampleBuilderNode::setSBN(builder_t sample_builder)
+void SampleBuilderNode::setSBN(const builder_t& sample_builder)
 {
     if (!sample_builder)
         throw std::runtime_error("SampleContainer::setSampleBuilder() -> Error. "

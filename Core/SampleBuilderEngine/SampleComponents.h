@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLECOMPONENTS_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLECOMPONENTS_H
+#ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
+#define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
 
 #include "Core/Correlations/FTDistributions2D.h"
 #include "Core/SampleBuilderEngine/IRegistry.h"
@@ -36,4 +36,4 @@ public:
     FormFactorComponents();
 };
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLECOMPONENTS_H
+#endif // BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H

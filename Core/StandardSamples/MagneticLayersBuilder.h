@@ -18,15 +18,12 @@
 #include "Core/Multilayer/RoughnessModels.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: spheres in substrate layer with a zero magnetic field.
 //! @ingroup standard_samples
 
 class MagneticSubstrateZeroFieldBuilder : public ISampleBuilder
 {
 public:
-    MagneticSubstrateZeroFieldBuilder();
     MultiLayer* buildSample() const;
 
 private:
@@ -39,7 +36,6 @@ private:
 class SimpleMagneticLayerBuilder : public ISampleBuilder
 {
 public:
-    SimpleMagneticLayerBuilder();
     MultiLayer* buildSample() const;
 };
 
@@ -49,7 +45,6 @@ public:
 class MagneticLayerBuilder : public ISampleBuilder
 {
 public:
-    MagneticLayerBuilder();
     MultiLayer* buildSample() const;
 
 private:
@@ -62,13 +57,12 @@ private:
 class SimpleMagneticRotationBuilder : public ISampleBuilder
 {
 public:
-    SimpleMagneticRotationBuilder();
     MultiLayer* buildSample() const override;
 
-    MultiLayer* createSample(size_t index) override;
+    MultiLayer* createSampleByIndex(size_t index) override;
     size_t size() override;
 
-protected:
+private:
     MultiLayer* builder(double sigmaRoughness = 0.,
                         RoughnessModel roughnessModel = RoughnessModel::TANH) const;
 };
@@ -79,11 +73,7 @@ protected:
 class MagneticRotationBuilder : public ISampleBuilder
 {
 public:
-    MagneticRotationBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_sphere_radius;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H

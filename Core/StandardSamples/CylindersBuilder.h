@@ -17,8 +17,6 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: cylinder form factor in DWBA (IsGISAXS example #3, part I).
 //! @ingroup standard_samples
 

@@ -23,7 +23,6 @@
 class ParticleCompositionBuilder : public ISampleBuilder
 {
 public:
-    ParticleCompositionBuilder() {}
     MultiLayer* buildSample() const;
 };
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      SampleBuilderEngine/ISampleBuilder.h
+//! @file      Core/SampleBuilderEngine/ISampleBuilder.h
 //! @brief     Defines pure virtual base class ISampleBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_IMULTILAYERBUILDER_H
-#define BORNAGAIN_CORE_MULTILAYER_IMULTILAYERBUILDER_H
+#ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
+#define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
 
 #include "Core/Parametrization/IParameterized.h"
 
@@ -29,7 +29,7 @@ public:
 
     virtual MultiLayer* buildSample() const = 0;
 
-    virtual MultiLayer* createSample(size_t index)
+    virtual MultiLayer* createSampleByIndex(size_t index)
     {
         (void)index;
         return buildSample();
@@ -37,4 +37,4 @@ public:
     virtual size_t size() { return 1; }
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_IMULTILAYERBUILDER_H
+#endif // BORNAGAIN_CORE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H

@@ -23,12 +23,7 @@
 class CylindersWithSizeDistributionBuilder : public ISampleBuilder
 {
 public:
-    CylindersWithSizeDistributionBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_height;
-    double m_radius;
 };
 
 //! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)

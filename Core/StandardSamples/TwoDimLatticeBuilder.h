@@ -43,7 +43,6 @@ public:
 class CenteredSquareLatticeBuilder : public ISampleBuilder
 {
 public:
-    CenteredSquareLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -53,7 +52,6 @@ public:
 class RotatedSquareLatticeBuilder : public ISampleBuilder
 {
 public:
-    RotatedSquareLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -63,7 +61,6 @@ public:
 class FiniteSquareLatticeBuilder : public ISampleBuilder
 {
 public:
-    FiniteSquareLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -73,7 +70,6 @@ public:
 class SuperLatticeBuilder : public ISampleBuilder
 {
 public:
-    SuperLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
 

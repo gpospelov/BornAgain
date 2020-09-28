@@ -1525,7 +1525,7 @@ class map_string_double_t(object):
 # Register map_string_double_t in _libBornAgainCore:
 _libBornAgainCore.map_string_double_t_swigregister(map_string_double_t)
 
-class pair_double_t(object):
+class pvacuum_double_t(object):
     r"""Proxy of C++ std::pair< double,double > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
@@ -1533,13 +1533,13 @@ class pair_double_t(object):
 
     def __init__(self, *args):
         r"""
-        __init__(pair_double_t self) -> pair_double_t
-        __init__(pair_double_t self, double first, double second) -> pair_double_t
-        __init__(pair_double_t self, pair_double_t other) -> pair_double_t
+        __init__(pvacuum_double_t self) -> pvacuum_double_t
+        __init__(pvacuum_double_t self, double first, double second) -> pvacuum_double_t
+        __init__(pvacuum_double_t self, pvacuum_double_t other) -> pvacuum_double_t
         """
-        _libBornAgainCore.pair_double_t_swiginit(self, _libBornAgainCore.new_pair_double_t(*args))
-    first = property(_libBornAgainCore.pair_double_t_first_get, _libBornAgainCore.pair_double_t_first_set, doc=r"""first : double""")
-    second = property(_libBornAgainCore.pair_double_t_second_get, _libBornAgainCore.pair_double_t_second_set, doc=r"""second : double""")
+        _libBornAgainCore.pvacuum_double_t_swiginit(self, _libBornAgainCore.new_pvacuum_double_t(*args))
+    first = property(_libBornAgainCore.pvacuum_double_t_first_get, _libBornAgainCore.pvacuum_double_t_first_set, doc=r"""first : double""")
+    second = property(_libBornAgainCore.pvacuum_double_t_second_get, _libBornAgainCore.pvacuum_double_t_second_set, doc=r"""second : double""")
     def __len__(self):
         return 2
     def __repr__(self):
@@ -1554,183 +1554,183 @@ class pair_double_t(object):
             self.first = val
         else:
             self.second = val
-    __swig_destroy__ = _libBornAgainCore.delete_pair_double_t
+    __swig_destroy__ = _libBornAgainCore.delete_pvacuum_double_t
 
-# Register pair_double_t in _libBornAgainCore:
-_libBornAgainCore.pair_double_t_swigregister(pair_double_t)
+# Register pvacuum_double_t in _libBornAgainCore:
+_libBornAgainCore.pvacuum_double_t_swigregister(pvacuum_double_t)
 
-class vector_pair_double_t(object):
+class vector_pvacuum_double_t(object):
     r"""Proxy of C++ std::vector< std::pair< double,double > > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def iterator(self):
-        r"""iterator(vector_pair_double_t self) -> SwigPyIterator"""
-        return _libBornAgainCore.vector_pair_double_t_iterator(self)
+        r"""iterator(vector_pvacuum_double_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.vector_pvacuum_double_t_iterator(self)
     def __iter__(self):
         return self.iterator()
 
     def __nonzero__(self):
-        r"""__nonzero__(vector_pair_double_t self) -> bool"""
-        return _libBornAgainCore.vector_pair_double_t___nonzero__(self)
+        r"""__nonzero__(vector_pvacuum_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pvacuum_double_t___nonzero__(self)
 
     def __bool__(self):
-        r"""__bool__(vector_pair_double_t self) -> bool"""
-        return _libBornAgainCore.vector_pair_double_t___bool__(self)
+        r"""__bool__(vector_pvacuum_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pvacuum_double_t___bool__(self)
 
     def __len__(self):
-        r"""__len__(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
-        return _libBornAgainCore.vector_pair_double_t___len__(self)
+        r"""__len__(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pvacuum_double_t___len__(self)
 
     def __getslice__(self, i, j):
-        r"""__getslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j) -> vector_pair_double_t"""
-        return _libBornAgainCore.vector_pair_double_t___getslice__(self, i, j)
+        r"""__getslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j) -> vector_pvacuum_double_t"""
+        return _libBornAgainCore.vector_pvacuum_double_t___getslice__(self, i, j)
 
     def __setslice__(self, *args):
         r"""
-        __setslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)
-        __setslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j, vector_pair_double_t v)
+        __setslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)
+        __setslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j, vector_pvacuum_double_t v)
         """
-        return _libBornAgainCore.vector_pair_double_t___setslice__(self, *args)
+        return _libBornAgainCore.vector_pvacuum_double_t___setslice__(self, *args)
 
     def __delslice__(self, i, j):
-        r"""__delslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)"""
-        return _libBornAgainCore.vector_pair_double_t___delslice__(self, i, j)
+        r"""__delslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)"""
+        return _libBornAgainCore.vector_pvacuum_double_t___delslice__(self, i, j)
 
     def __delitem__(self, *args):
         r"""
-        __delitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i)
-        __delitem__(vector_pair_double_t self, PySliceObject * slice)
+        __delitem__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i)
+        __delitem__(vector_pvacuum_double_t self, PySliceObject * slice)
         """
-        return _libBornAgainCore.vector_pair_double_t___delitem__(self, *args)
+        return _libBornAgainCore.vector_pvacuum_double_t___delitem__(self, *args)
 
     def __getitem__(self, *args):
         r"""
-        __getitem__(vector_pair_double_t self, PySliceObject * slice) -> vector_pair_double_t
-        __getitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i) -> pair_double_t
+        __getitem__(vector_pvacuum_double_t self, PySliceObject * slice) -> vector_pvacuum_double_t
+        __getitem__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i) -> pvacuum_double_t
         """
-        return _libBornAgainCore.vector_pair_double_t___getitem__(self, *args)
+        return _libBornAgainCore.vector_pvacuum_double_t___getitem__(self, *args)
 
     def __setitem__(self, *args):
         r"""
-        __setitem__(vector_pair_double_t self, PySliceObject * slice, vector_pair_double_t v)
-        __setitem__(vector_pair_double_t self, PySliceObject * slice)
-        __setitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, pair_double_t x)
+        __setitem__(vector_pvacuum_double_t self, PySliceObject * slice, vector_pvacuum_double_t v)
+        __setitem__(vector_pvacuum_double_t self, PySliceObject * slice)
+        __setitem__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, pvacuum_double_t x)
         """
-        return _libBornAgainCore.vector_pair_double_t___setitem__(self, *args)
+        return _libBornAgainCore.vector_pvacuum_double_t___setitem__(self, *args)
 
     def pop(self):
-        r"""pop(vector_pair_double_t self) -> pair_double_t"""
-        return _libBornAgainCore.vector_pair_double_t_pop(self)
+        r"""pop(vector_pvacuum_double_t self) -> pvacuum_double_t"""
+        return _libBornAgainCore.vector_pvacuum_double_t_pop(self)
 
     def append(self, x):
-        r"""append(vector_pair_double_t self, pair_double_t x)"""
-        return _libBornAgainCore.vector_pair_double_t_append(self, x)
+        r"""append(vector_pvacuum_double_t self, pvacuum_double_t x)"""
+        return _libBornAgainCore.vector_pvacuum_double_t_append(self, x)
 
     def empty(self):
-        r"""empty(vector_pair_double_t self) -> bool"""
-        return _libBornAgainCore.vector_pair_double_t_empty(self)
+        r"""empty(vector_pvacuum_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pvacuum_double_t_empty(self)
 
     def size(self):
-        r"""size(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
-        return _libBornAgainCore.vector_pair_double_t_size(self)
+        r"""size(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pvacuum_double_t_size(self)
 
     def swap(self, v):
         r"""
-        swap(vector_pair_double_t self, vector_pair_double_t v)
+        swap(vector_pvacuum_double_t self, vector_pvacuum_double_t v)
         void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
 
         make Swappable 
 
         """
-        return _libBornAgainCore.vector_pair_double_t_swap(self, v)
+        return _libBornAgainCore.vector_pvacuum_double_t_swap(self, v)
 
     def begin(self):
-        r"""begin(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
-        return _libBornAgainCore.vector_pair_double_t_begin(self)
+        r"""begin(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainCore.vector_pvacuum_double_t_begin(self)
 
     def end(self):
-        r"""end(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
-        return _libBornAgainCore.vector_pair_double_t_end(self)
+        r"""end(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainCore.vector_pvacuum_double_t_end(self)
 
     def rbegin(self):
-        r"""rbegin(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
-        return _libBornAgainCore.vector_pair_double_t_rbegin(self)
+        r"""rbegin(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_pvacuum_double_t_rbegin(self)
 
     def rend(self):
-        r"""rend(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
-        return _libBornAgainCore.vector_pair_double_t_rend(self)
+        r"""rend(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_pvacuum_double_t_rend(self)
 
     def clear(self):
-        r"""clear(vector_pair_double_t self)"""
-        return _libBornAgainCore.vector_pair_double_t_clear(self)
+        r"""clear(vector_pvacuum_double_t self)"""
+        return _libBornAgainCore.vector_pvacuum_double_t_clear(self)
 
     def get_allocator(self):
-        r"""get_allocator(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::allocator_type"""
-        return _libBornAgainCore.vector_pair_double_t_get_allocator(self)
+        r"""get_allocator(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::allocator_type"""
+        return _libBornAgainCore.vector_pvacuum_double_t_get_allocator(self)
 
     def pop_back(self):
-        r"""pop_back(vector_pair_double_t self)"""
-        return _libBornAgainCore.vector_pair_double_t_pop_back(self)
+        r"""pop_back(vector_pvacuum_double_t self)"""
+        return _libBornAgainCore.vector_pvacuum_double_t_pop_back(self)
 
     def erase(self, *args):
         r"""
-        erase(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos) -> std::vector< std::pair< double,double > >::iterator
-        erase(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator first, std::vector< std::pair< double,double > >::iterator last) -> std::vector< std::pair< double,double > >::iterator
+        erase(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator pos) -> std::vector< std::pair< double,double > >::iterator
+        erase(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator first, std::vector< std::pair< double,double > >::iterator last) -> std::vector< std::pair< double,double > >::iterator
         """
-        return _libBornAgainCore.vector_pair_double_t_erase(self, *args)
+        return _libBornAgainCore.vector_pvacuum_double_t_erase(self, *args)
 
     def __init__(self, *args):
         r"""
-        __init__(vector_pair_double_t self) -> vector_pair_double_t
-        __init__(vector_pair_double_t self, vector_pair_double_t other) -> vector_pair_double_t
-        __init__(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type size) -> vector_pair_double_t
-        __init__(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type size, pair_double_t value) -> vector_pair_double_t
+        __init__(vector_pvacuum_double_t self) -> vector_pvacuum_double_t
+        __init__(vector_pvacuum_double_t self, vector_pvacuum_double_t other) -> vector_pvacuum_double_t
+        __init__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type size) -> vector_pvacuum_double_t
+        __init__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type size, pvacuum_double_t value) -> vector_pvacuum_double_t
         """
-        _libBornAgainCore.vector_pair_double_t_swiginit(self, _libBornAgainCore.new_vector_pair_double_t(*args))
+        _libBornAgainCore.vector_pvacuum_double_t_swiginit(self, _libBornAgainCore.new_vector_pvacuum_double_t(*args))
 
     def push_back(self, x):
-        r"""push_back(vector_pair_double_t self, pair_double_t x)"""
-        return _libBornAgainCore.vector_pair_double_t_push_back(self, x)
+        r"""push_back(vector_pvacuum_double_t self, pvacuum_double_t x)"""
+        return _libBornAgainCore.vector_pvacuum_double_t_push_back(self, x)
 
     def front(self):
-        r"""front(vector_pair_double_t self) -> pair_double_t"""
-        return _libBornAgainCore.vector_pair_double_t_front(self)
+        r"""front(vector_pvacuum_double_t self) -> pvacuum_double_t"""
+        return _libBornAgainCore.vector_pvacuum_double_t_front(self)
 
     def back(self):
-        r"""back(vector_pair_double_t self) -> pair_double_t"""
-        return _libBornAgainCore.vector_pair_double_t_back(self)
+        r"""back(vector_pvacuum_double_t self) -> pvacuum_double_t"""
+        return _libBornAgainCore.vector_pvacuum_double_t_back(self)
 
     def assign(self, n, x):
-        r"""assign(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n, pair_double_t x)"""
-        return _libBornAgainCore.vector_pair_double_t_assign(self, n, x)
+        r"""assign(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type n, pvacuum_double_t x)"""
+        return _libBornAgainCore.vector_pvacuum_double_t_assign(self, n, x)
 
     def resize(self, *args):
         r"""
-        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size)
-        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size, pair_double_t x)
+        resize(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type new_size)
+        resize(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type new_size, pvacuum_double_t x)
         """
-        return _libBornAgainCore.vector_pair_double_t_resize(self, *args)
+        return _libBornAgainCore.vector_pvacuum_double_t_resize(self, *args)
 
     def insert(self, *args):
         r"""
-        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, pair_double_t x) -> std::vector< std::pair< double,double > >::iterator
-        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::size_type n, pair_double_t x)
+        insert(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator pos, pvacuum_double_t x) -> std::vector< std::pair< double,double > >::iterator
+        insert(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::size_type n, pvacuum_double_t x)
         """
-        return _libBornAgainCore.vector_pair_double_t_insert(self, *args)
+        return _libBornAgainCore.vector_pvacuum_double_t_insert(self, *args)
 
     def reserve(self, n):
-        r"""reserve(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n)"""
-        return _libBornAgainCore.vector_pair_double_t_reserve(self, n)
+        r"""reserve(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type n)"""
+        return _libBornAgainCore.vector_pvacuum_double_t_reserve(self, n)
 
     def capacity(self):
-        r"""capacity(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
-        return _libBornAgainCore.vector_pair_double_t_capacity(self)
-    __swig_destroy__ = _libBornAgainCore.delete_vector_pair_double_t
+        r"""capacity(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pvacuum_double_t_capacity(self)
+    __swig_destroy__ = _libBornAgainCore.delete_vector_pvacuum_double_t
 
-# Register vector_pair_double_t in _libBornAgainCore:
-_libBornAgainCore.vector_pair_double_t_swigregister(vector_pair_double_t)
+# Register vector_pvacuum_double_t in _libBornAgainCore:
+_libBornAgainCore.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
 
 import libBornAgainFit
 class swig_dummy_type_axisinfo_vector(object):
@@ -10540,7 +10540,7 @@ class IFTDecayFunction2D(ICloneable, INode):
 
     def boundingReciprocalLatticeCoordinates(self, qX, qY, a, b, alpha):
         r"""
-        boundingReciprocalLatticeCoordinates(IFTDecayFunction2D self, double qX, double qY, double a, double b, double alpha) -> pair_double_t
+        boundingReciprocalLatticeCoordinates(IFTDecayFunction2D self, double qX, double qY, double a, double b, double alpha) -> pvacuum_double_t
         std::pair< double, double > IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, double a, double b, double alpha) const
 
         transform back to a*, b* basis:
@@ -14008,13 +14008,9 @@ class ISampleBuilder(IParameterized):
         """
         return _libBornAgainCore.ISampleBuilder_buildSample(self)
 
-    def createSample(self, index):
-        r"""
-        createSample(ISampleBuilder self, size_t index) -> MultiLayer
-        virtual MultiLayer* ISampleBuilder::createSample(size_t index)
-
-        """
-        return _libBornAgainCore.ISampleBuilder_createSample(self, index)
+    def createSampleByIndex(self, index):
+        r"""createSampleByIndex(ISampleBuilder self, size_t index) -> MultiLayer"""
+        return _libBornAgainCore.ISampleBuilder_createSampleByIndex(self, index)
 
     def size(self):
         r"""
@@ -18141,7 +18137,7 @@ def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
 
 def DefaultMaterialProfileLimits(multilayer):
     r"""
-    DefaultMaterialProfileLimits(MultiLayer multilayer) -> pair_double_t
+    DefaultMaterialProfileLimits(MultiLayer multilayer) -> pvacuum_double_t
     std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
 
     Get default z limits for generating a material profile. 
@@ -21015,7 +21011,7 @@ _libBornAgainCore.SimulationResult_swigregister(SimulationResult)
 
 def FindPeaks(*args):
     r"""
-    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pair_double_t
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t
     std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 
     """
@@ -22080,15 +22076,9 @@ class SampleBuilderFactory(SampleBuilderFactoryTemp):
         """
         _libBornAgainCore.SampleBuilderFactory_swiginit(self, _libBornAgainCore.new_SampleBuilderFactory())
 
-    def createSample(self, name):
-        r"""
-        createSample(SampleBuilderFactory self, std::string const & name) -> MultiLayer
-        MultiLayer * SampleBuilderFactory::createSample(const std::string &name)
-
-        Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
+    def createSampleByName(self, name):
+        r"""createSampleByName(SampleBuilderFactory self, std::string const & name) -> MultiLayer"""
+        return _libBornAgainCore.SampleBuilderFactory_createSampleByName(self, name)
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
 
 # Register SampleBuilderFactory in _libBornAgainCore:

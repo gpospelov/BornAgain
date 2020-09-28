@@ -23,7 +23,6 @@
 class CosineRippleBuilder : public ISampleBuilder
 {
 public:
-    CosineRippleBuilder();
     MultiLayer* buildSample() const;
 };
 

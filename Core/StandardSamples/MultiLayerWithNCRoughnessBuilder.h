@@ -18,15 +18,12 @@
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/StandardSamples/MultiLayerWithRoughnessBuilder.h"
 
-class ISample;
-
 //! Builds sample: layers with correlated roughness.
 //! @ingroup standard_samples
 
 class MultiLayerWithNCRoughnessBuilder : public MultiLayerWithRoughnessBuilder
 {
 public:
-    MultiLayerWithNCRoughnessBuilder();
     MultiLayer* buildSample() const override;
 };
 

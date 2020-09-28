@@ -17,15 +17,12 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: Core Shell Nanoparticles (IsGISAXS example #11).
 //! @ingroup standard_samples
 
 class CoreShellParticleBuilder : public ISampleBuilder
 {
 public:
-    CoreShellParticleBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -35,7 +32,6 @@ public:
 class CoreShellBoxRotateZandYBuilder : public ISampleBuilder
 {
 public:
-    CoreShellBoxRotateZandYBuilder() {}
     MultiLayer* buildSample() const;
 };
 

@@ -17,21 +17,13 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: two layers with rough interface.
 //! @ingroup standard_samples
 
 class TwoLayerRoughnessBuilder : public ISampleBuilder
 {
 public:
-    TwoLayerRoughnessBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_sigma;
-    double m_hurst;
-    double m_lateralCorrLength;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_TWOLAYERROUGHNESSBUILDER_H

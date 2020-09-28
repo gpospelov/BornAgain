@@ -23,14 +23,7 @@
 class RotatedPyramidsBuilder : public ISampleBuilder
 {
 public:
-    RotatedPyramidsBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_length;
-    double m_height;
-    double m_alpha;
-    double m_zangle;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_ROTATEDPYRAMIDSBUILDER_H

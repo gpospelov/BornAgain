@@ -17,20 +17,13 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: square boxes in a square lattice
 //! @ingroup standard_samples
 
 class BoxesSquareLatticeBuilder : public ISampleBuilder
 {
 public:
-    BoxesSquareLatticeBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_length;
-    double m_height;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_BOXESSQUARELATTICEBUILDER_H

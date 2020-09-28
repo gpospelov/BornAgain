@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCOMPOSITIONBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCOMPOSITIONBUILDER_H
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
@@ -23,8 +23,7 @@
 class SlicedCompositionBuilder : public ISampleBuilder
 {
 public:
-    SlicedCompositionBuilder() {}
     MultiLayer* buildSample() const;
 };
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDPARTICLEBUILDER_H
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SLICEDCOMPOSITIONBUILDER_H

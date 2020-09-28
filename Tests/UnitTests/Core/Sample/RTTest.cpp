@@ -38,7 +38,7 @@ protected:
 
         return result;
     }
-    const Material air = HomogeneousMaterial("air", 1e-8, 1e-8);
+    const Material air = HomogeneousMaterial("Air", 1e-8, 1e-8);
     const Material amat = HomogeneousMaterial("material A", 2e-6, 8e-7);
     const Material bmat = HomogeneousMaterial("material B (high absorption)", 3e-5, 2e-4);
     const Material stone = HomogeneousMaterial("substrate material", 1e-6, 1e-7);

@@ -17,15 +17,12 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: mixture of cylinders and prisms without interference (IsGISAXS example #1).
 //! @ingroup standard_samples
 
 class CylindersAndPrismsBuilder : public ISampleBuilder
 {
 public:
-    CylindersAndPrismsBuilder();
     MultiLayer* buildSample() const;
 };
 

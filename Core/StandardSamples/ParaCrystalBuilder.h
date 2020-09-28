@@ -19,7 +19,6 @@
 #include <memory>
 
 class IFTDistribution2D;
-class ISample;
 class FTDistribution2DComponents;
 
 //! @ingroup standard_samples
@@ -28,15 +27,7 @@ class FTDistribution2DComponents;
 class RadialParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    RadialParaCrystalBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_corr_peak_distance;
-    double m_corr_width;
-    double m_corr_length;
-    double m_cylinder_height;
-    double m_cylinder_radius;
 };
 
 //! Builds sample: basic two dimensional paracrystal with various probability
@@ -48,9 +39,9 @@ class Basic2DParaCrystalBuilder : public ISampleBuilder
 public:
     Basic2DParaCrystalBuilder();
     ~Basic2DParaCrystalBuilder();
-    virtual MultiLayer* buildSample() const;
+    MultiLayer* buildSample() const;
 
-    MultiLayer* createSample(size_t index);
+    MultiLayer* createSampleByIndex(size_t index);
 
 private:
     std::unique_ptr<IFTDistribution2D> m_pdf1;
@@ -63,16 +54,7 @@ private:
 class HexParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    HexParaCrystalBuilder();
-    virtual MultiLayer* buildSample() const;
-
-private:
-    double m_peak_distance;
-    double m_corr_length;
-    double m_domain_size_1;
-    double m_domain_size_2;
-    double m_cylinder_height;
-    double m_cylinder_radius;
+    MultiLayer* buildSample() const;
 };
 
 //! @ingroup standard_samples
@@ -81,8 +63,7 @@ private:
 class RectParaCrystalBuilder : public ISampleBuilder
 {
 public:
-    RectParaCrystalBuilder() {}
-    virtual MultiLayer* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H

@@ -17,15 +17,12 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: mixture of different particles (IsGISAXS example #7).
 //! @ingroup standard_samples
 
 class CustomMorphologyBuilder : public ISampleBuilder
 {
 public:
-    CustomMorphologyBuilder() {}
     MultiLayer* buildSample() const;
 };
 

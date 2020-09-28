@@ -17,24 +17,13 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: layers with correlated roughness.
 //! @ingroup standard_samples
 
 class MultiLayerWithRoughnessBuilder : public ISampleBuilder
 {
 public:
-    MultiLayerWithRoughnessBuilder();
-    virtual MultiLayer* buildSample() const;
-
-private:
-    double m_thicknessA;
-    double m_thicknessB;
-    double m_sigma;
-    double m_hurst;
-    double m_lateralCorrLength;
-    double m_crossCorrLength;
+    MultiLayer* buildSample() const;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_MULTILAYERWITHROUGHNESSBUILDER_H

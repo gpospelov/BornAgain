@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      SampleBuilderEngine/SampleBuilderNode.h
+//! @file      Core/SampleBuilderEngine/SampleBuilderNode.h
 //! @brief     Defines class SampleBuilderNode.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SAMPLEBUILDERNODE_H
-#define BORNAGAIN_CORE_MULTILAYER_SAMPLEBUILDERNODE_H
+#ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEBUILDERNODE_H
+#define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEBUILDERNODE_H
 
 #include "Core/Parametrization/INode.h"
 #include <memory>
@@ -50,4 +50,4 @@ private:
     builder_t m_sample_builder;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SAMPLEBUILDERNODE_H
+#endif // BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEBUILDERNODE_H

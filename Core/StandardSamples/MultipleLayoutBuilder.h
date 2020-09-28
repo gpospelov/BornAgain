@@ -17,8 +17,6 @@
 
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
-class ISample;
-
 //! Builds sample: mixture of cylinders and prisms without interference,
 //! using multiple particle layouts
 //! @ingroup standard_samples
@@ -26,15 +24,7 @@ class ISample;
 class MultipleLayoutBuilder : public ISampleBuilder
 {
 public:
-    MultipleLayoutBuilder();
     MultiLayer* buildSample() const;
-
-private:
-    double m_cylinder_height;
-    double m_cylinder_radius;
-    double m_prism_height;
-    double m_prism_length;
-    double m_cylinder_weight;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_MULTIPLELAYOUTBUILDER_H

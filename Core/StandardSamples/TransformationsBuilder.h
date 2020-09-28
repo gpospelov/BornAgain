@@ -23,7 +23,6 @@
 class TransformBoxBuilder : public ISampleBuilder
 {
 public:
-    TransformBoxBuilder() {}
     MultiLayer* buildSample() const;
 };
 

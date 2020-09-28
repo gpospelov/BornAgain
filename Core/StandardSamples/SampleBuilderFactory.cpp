@@ -13,14 +13,13 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/StandardSamples/BoxCompositionBuilder.h"
 #include "Core/StandardSamples/BoxesSquareLatticeBuilder.h"
 #include "Core/StandardSamples/CoreShellParticleBuilder.h"
 #include "Core/StandardSamples/CustomMorphologyBuilder.h"
 #include "Core/StandardSamples/CylindersAndPrismsBuilder.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
-#include "Core/StandardSamples/FeNiBiLayerBuilder.h"
+#include "Core/StandardSamples/FeNiBilayerBuilder.h"
 #include "Core/StandardSamples/HomogeneousMultilayerBuilder.h"
 #include "Core/StandardSamples/LatticeBuilder.h"
 #include "Core/StandardSamples/LayersWithAbsorptionBuilder.h"
@@ -34,7 +33,7 @@
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
 #include "Core/StandardSamples/ParticleCompositionBuilder.h"
 #include "Core/StandardSamples/ParticleDistributionsBuilder.h"
-#include "Core/StandardSamples/ParticleInTheAirBuilder.h"
+#include "Core/StandardSamples/ParticleInVacuumBuilder.h"
 #include "Core/StandardSamples/PercusYevickBuilder.h"
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include "Core/StandardSamples/ResonatorBuilder.h"
@@ -117,17 +116,17 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("MagneticLayerBuilder", create_new<MagneticLayerBuilder>);
 
-    registerItem("FeNiBiLayerBuilder", create_new<FeNiBiLayerBuilder>);
+    registerItem("FeNiBilayerBuilder", create_new<FeNiBilayerBuilder>);
 
-    registerItem("FeNiBiLayerTanhBuilder", create_new<FeNiBiLayerTanhBuilder>);
+    registerItem("FeNiBilayerTanhBuilder", create_new<FeNiBilayerTanhBuilder>);
 
-    registerItem("FeNiBiLayerNCBuilder", create_new<FeNiBiLayerNCBuilder>);
+    registerItem("FeNiBilayerNCBuilder", create_new<FeNiBilayerNCBuilder>);
 
-    registerItem("FeNiBiLayerSpinFlipBuilder", create_new<FeNiBiLayerSpinFlipBuilder>);
+    registerItem("FeNiBilayerSpinFlipBuilder", create_new<FeNiBilayerSpinFlipBuilder>);
 
-    registerItem("FeNiBiLayerSpinFlipTanhBuilder", create_new<FeNiBiLayerSpinFlipTanhBuilder>);
+    registerItem("FeNiBilayerSpinFlipTanhBuilder", create_new<FeNiBilayerSpinFlipTanhBuilder>);
 
-    registerItem("FeNiBiLayerSpinFlipNCBuilder", create_new<FeNiBiLayerSpinFlipNCBuilder>);
+    registerItem("FeNiBilayerSpinFlipNCBuilder", create_new<FeNiBilayerSpinFlipNCBuilder>);
 
     registerItem("MagneticRotationBuilder", create_new<MagneticRotationBuilder>);
 
@@ -159,7 +158,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("BoxStackCompositionBuilder", create_new<BoxStackCompositionBuilder>);
 
-    registerItem("ParticleInTheAirBuilder", create_new<ParticleInTheAirBuilder>);
+    registerItem("ParticleInVacuumBuilder", create_new<ParticleInVacuumBuilder>);
 
     registerItem("TransformBoxBuilder", create_new<TransformBoxBuilder>);
 
@@ -201,7 +200,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.
 
-MultiLayer* SampleBuilderFactory::createSample(const std::string& name)
+MultiLayer* SampleBuilderFactory::createSampleByName(const std::string& name)
 {
     return createItemPtr(name)->buildSample();
 }

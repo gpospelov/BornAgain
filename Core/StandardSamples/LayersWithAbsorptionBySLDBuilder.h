@@ -25,9 +25,7 @@
 class LayersWithAbsorptionBySLDBuilder : public ISampleBuilder
 {
 public:
-    LayersWithAbsorptionBySLDBuilder();
-    ~LayersWithAbsorptionBySLDBuilder();
-    virtual MultiLayer* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 #endif // BORNAGAIN_CORE_STANDARDSAMPLES_LAYERSWITHABSORPTIONBYSLDBUILDER_H

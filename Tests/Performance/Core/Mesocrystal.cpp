@@ -124,10 +124,10 @@ MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const
 
     auto multi_layer = new MultiLayer;
 
-    auto air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    auto vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     auto substrate_material = HomogeneousMaterial("Substrate", 7.57e-6, 1.73e-7);
     auto average_layer_material = HomogeneousMaterial("AverageLayer", n_avg);
-    Layer air_layer(air_material);
+    Layer vacuum_layer(vacuum_material);
     Layer avg_layer(average_layer_material, m_meso_height);
     Layer substrate_layer(substrate_material);
     ParticleLayout particle_decoration;
@@ -156,7 +156,7 @@ MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const
 
     LayerRoughness roughness(m_roughness, 0.3, 500.0 * nm);
 
-    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(vacuum_layer);
     multi_layer->addLayer(avg_layer);
     multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
 

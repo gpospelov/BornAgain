@@ -42,7 +42,7 @@ int run(const std::string& test_name, const std::string& sim_name,
 
     int number_of_failed_tests = 0;
     for (size_t iSample = 0; iSample < builder->size(); ++iSample) {
-        std::unique_ptr<MultiLayer> sample(builder->createSample(iSample));
+        std::unique_ptr<MultiLayer> sample(builder->createSampleByIndex(iSample));
         simulation->setSample(*sample);
 
         std::cout << "- run subtest " << iSample << "/" << builder->size() << ": "

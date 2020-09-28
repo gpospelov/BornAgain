@@ -20,7 +20,6 @@
 class ThickAbsorptiveSampleBuilder : public ISampleBuilder
 {
 public:
-    ThickAbsorptiveSampleBuilder();
     MultiLayer* buildSample() const override;
 };
 

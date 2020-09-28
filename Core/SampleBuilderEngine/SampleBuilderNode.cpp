@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/SampleBuilderEngine/SampleBuilderNode.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
@@ -69,9 +70,7 @@ void SampleBuilderNode::reset()
 
 std::unique_ptr<MultiLayer> SampleBuilderNode::createMultiLayer()
 {
-    if (!m_sample_builder)
-        throw std::runtime_error("SampleBuilderNode::createMultiLayer() -> Error. Absent builder");
-
+    ASSERT(m_sample_builder);
     return std::unique_ptr<MultiLayer>(m_sample_builder->buildSample());
 }
 

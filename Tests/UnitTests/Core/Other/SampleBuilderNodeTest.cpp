@@ -66,7 +66,7 @@ TEST_F(SampleBuilderNodeTest, builderParameters)
     builderNode.reset();
     EXPECT_EQ(builder.use_count(), 1);
     EXPECT_EQ(builderNode.parameterPool()->size(), 0u);
-    EXPECT_THROW(builderNode.createMultiLayer(), std::runtime_error);
+    EXPECT_DEATH(builderNode.createMultiLayer(), ".*");
 }
 
 //! Checks assignment operator.

@@ -13975,7 +13975,7 @@ class FootprintSquare(IFootprintFactor):
 # Register FootprintSquare in _libBornAgainCore:
 _libBornAgainCore.FootprintSquare_swigregister(FootprintSquare)
 
-class ISampleBuilder(IParameterized):
+class ISampleBuilder(INode):
     r"""
 
 
@@ -13999,6 +13999,16 @@ class ISampleBuilder(IParameterized):
         else:
             _self = self
         _libBornAgainCore.ISampleBuilder_swiginit(self, _libBornAgainCore.new_ISampleBuilder(_self, ))
+
+    def accept(self, visitor):
+        r"""
+        accept(ISampleBuilder self, INodeVisitor visitor)
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ISampleBuilder_accept(self, visitor)
 
     def buildSample(self):
         r"""
@@ -14053,7 +14063,7 @@ class ISampleBuilder(IParameterized):
     def createParameterTree(self):
         r"""
         createParameterTree(ISampleBuilder self) -> ParameterPool
-        ParameterPool * IParameterized::createParameterTree() const
+        ParameterPool * INode::createParameterTree() const
 
         Creates new parameter pool, with all local parameters and those of its children. 
 

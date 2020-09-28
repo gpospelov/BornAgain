@@ -46,7 +46,7 @@ SampleBuilderNode& SampleBuilderNode::operator=(const SampleBuilderNode& other)
 
 //! Sets sample builder and borrows its parameters.
 
-void SampleBuilderNode::setSBN(const builder_t& sample_builder)
+void SampleBuilderNode::setSBN(const std::shared_ptr<ISampleBuilder>& sample_builder)
 {
     if (!sample_builder)
         throw std::runtime_error("SampleContainer::setSampleBuilder() -> Error. "
@@ -76,7 +76,7 @@ std::unique_ptr<MultiLayer> SampleBuilderNode::createMultiLayer()
 
 //! Returns current sample builder.
 
-SampleBuilderNode::builder_t SampleBuilderNode::builder() const
+std::shared_ptr<ISampleBuilder> SampleBuilderNode::builder() const
 {
     return m_sample_builder;
 }

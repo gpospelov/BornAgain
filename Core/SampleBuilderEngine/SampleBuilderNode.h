@@ -20,20 +20,19 @@
 
 class ISampleBuilder;
 
-//! Enfolds MultiLayerBuilder to have it in INode tree.
+//! Wraps an ISampleBuilder, and puts it in an INode tree.
+//! Used by SampleProvider.
 //! @ingroup simulation_internal
 
 class SampleBuilderNode : public INode
 {
-    using builder_t = std::shared_ptr<ISampleBuilder>;
-
 public:
 
     SampleBuilderNode();
     SampleBuilderNode(const SampleBuilderNode& other);
     SampleBuilderNode& operator=(const SampleBuilderNode& other);
 
-    void setSBN(const builder_t& sample_builder);
+    void setSBN(const std::shared_ptr<ISampleBuilder>& sample_builder);
 
     void reset();
 
@@ -43,12 +42,12 @@ public:
 
     explicit operator bool() const;
 
-    builder_t builder() const;
+    std::shared_ptr<ISampleBuilder> builder() const;
 
 private:
     void borrow_builder_parameters();
 
-    builder_t m_sample_builder;
+    std::shared_ptr<ISampleBuilder> m_sample_builder;
 };
 
 #endif // BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEBUILDERNODE_H

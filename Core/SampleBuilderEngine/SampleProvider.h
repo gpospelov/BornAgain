@@ -20,8 +20,9 @@
 
 class MultiLayer;
 
-//! Gives access to the sample to simulate. Sample can come either directly from
-//! the user or from SampleBuilder.
+//! Holds either a Sample, or a SampleBuilderNode (which holds an ISampleBuilder).
+//! Used in Simulation, which holds a SampleProvider member.
+
 //! @ingroup simulation_internal
 
 class SampleProvider : public INode

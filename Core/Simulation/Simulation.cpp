@@ -31,11 +31,80 @@
 
 namespace
 {
-size_t getIndexStep(size_t total_size, size_t n_handlers);
-size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
-size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements);
-void runComputations(std::vector<std::unique_ptr<IComputation>> computations);
+
+size_t getIndexStep(size_t total_size, size_t n_handlers)
+{
+    ASSERT(total_size > 0);
+    ASSERT(n_handlers > 0);
+    size_t result = total_size / n_handlers;
+    return total_size % n_handlers ? ++result : result;
+}
+
+size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements)
+{
+    const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
+    const size_t start_index = current_handler * handler_size;
+    if (start_index >= n_elements)
+        return n_elements;
+    return start_index;
+}
+
+size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements)
+{
+    const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
+    const size_t start_index = current_handler * handler_size;
+    if (start_index >= n_elements)
+        return 0;
+    return std::min(handler_size, n_elements - start_index);
+}
+
+void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
+{
+    ASSERT(!computations.empty());
+
+    if (computations.size() == 1) { // Running computation in current thread
+        auto& computation = computations.front();
+        computation->run();
+        if (computation->isCompleted())
+            return;
+        std::string message = computation->errorMessage();
+        throw Exceptions::RuntimeErrorException("Error in runComputations: Simulation has "
+                                                "terminated unexpectedly with following error: "
+                                                "message.\n"
+                                                + message);
+    }
+
+    // Running computations in several threads.
+    // The number of threads is equal to the number of computations.
+
+    std::vector<std::unique_ptr<std::thread>> threads;
+
+    // Run simulations in n threads.
+    for (auto& comp : computations)
+        threads.emplace_back(new std::thread([&comp]() { comp->run(); }));
+
+    // Wait for threads to complete.
+    for (auto& thread : threads)
+        thread->join();
+
+    // Check successful completion.
+    std::vector<std::string> failure_messages;
+    for (auto& comp : computations)
+        if (!comp->isCompleted())
+            failure_messages.push_back(comp->errorMessage());
+
+    if (failure_messages.size() == 0)
+        return;
+    throw Exceptions::RuntimeErrorException(
+        "Error in runComputations: "
+        "At least one simulation thread has terminated unexpectedly.\n"
+        "Messages: "
+        + StringUtils::join(failure_messages, " --- "));
+}
+
 } // namespace
+
+// ************************************************************************** //
 
 Simulation::Simulation()
 {
@@ -51,7 +120,7 @@ Simulation::Simulation(const MultiLayer& p_sample)
 Simulation::Simulation(const std::shared_ptr<ISampleBuilder> p_sample_builder)
 {
     initialize();
-    m_sample_provider.setSampleBuilder(p_sample_builder);
+    setSampleBuilder(p_sample_builder);
 }
 
 Simulation::Simulation(const Simulation& other)
@@ -64,7 +133,13 @@ Simulation::Simulation(const Simulation& other)
     initialize();
 }
 
-Simulation::~Simulation() {}
+Simulation::~Simulation() = default;
+
+void Simulation::initialize()
+{
+    registerChild(&m_instrument);
+    registerChild(&m_sample_provider);
+}
 
 //! Initializes a progress monitor that prints to stdout.
 void Simulation::setTerminalProgressMonitor()
@@ -235,12 +310,6 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
     addDataToCache(weight);
 }
 
-void Simulation::initialize()
-{
-    registerChild(&m_instrument);
-    registerChild(&m_sample_provider);
-}
-
 //! Convert user data to SimulationResult object for later drawing in various axes units.
 //! User data will be cropped to the ROI defined in the simulation, amplitudes in areas
 //! corresponding to the masked areas of the detector will be set to zero.
@@ -284,76 +353,3 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
 
     return SimulationResult(*roi_data, *converter);
 }
-
-namespace
-{
-size_t getIndexStep(size_t total_size, size_t n_handlers)
-{
-    ASSERT(total_size > 0);
-    ASSERT(n_handlers > 0);
-    size_t result = total_size / n_handlers;
-    return total_size % n_handlers ? ++result : result;
-}
-
-size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements)
-{
-    const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
-    const size_t start_index = current_handler * handler_size;
-    if (start_index >= n_elements)
-        return n_elements;
-    return start_index;
-}
-
-size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements)
-{
-    const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
-    const size_t start_index = current_handler * handler_size;
-    if (start_index >= n_elements)
-        return 0;
-    return std::min(handler_size, n_elements - start_index);
-}
-
-void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
-{
-    ASSERT(!computations.empty());
-
-    if (computations.size() == 1) { // Running computation in current thread
-        auto& computation = computations.front();
-        computation->run();
-        if (computation->isCompleted())
-            return;
-        std::string message = computation->errorMessage();
-        throw Exceptions::RuntimeErrorException("Error in runComputations: Simulation has "
-                                                "terminated unexpectedly with following error: "
-                                                "message.\n"
-                                                + message);
-    }
-
-    // Running computations in several threads.
-    // The number of threads is equal to the number of computations.
-
-    std::vector<std::unique_ptr<std::thread>> threads;
-
-    // Run simulations in n threads.
-    for (auto& comp : computations)
-        threads.emplace_back(new std::thread([&comp]() { comp->run(); }));
-
-    // Wait for threads to complete.
-    for (auto& thread : threads)
-        thread->join();
-
-    // Check successful completion.
-    std::vector<std::string> failure_messages;
-    for (auto& comp : computations)
-        if (!comp->isCompleted())
-            failure_messages.push_back(comp->errorMessage());
-
-    if (failure_messages.size() == 0)
-        return;
-    throw Exceptions::RuntimeErrorException(
-        "Error in runComputations: "
-        "At least one simulation thread has terminated unexpectedly.\n"
-        "Messages: "
-        + StringUtils::join(failure_messages, " --- "));
-}
-} // unnamed namespace

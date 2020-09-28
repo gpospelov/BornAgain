@@ -5775,7 +5775,7 @@ class Polygon(IShape2D):
     r"""
 
 
-    A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+    A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
     C++ includes: Polygon.h
 
@@ -7501,7 +7501,7 @@ class ParameterPool(ICloneable):
 
         Adds parameter to the pool, and returns reference to the input pointer.
 
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
         return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
@@ -14009,7 +14009,11 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_buildSample(self)
 
     def createSampleByIndex(self, index):
-        r"""createSampleByIndex(ISampleBuilder self, size_t index) -> MultiLayer"""
+        r"""
+        createSampleByIndex(ISampleBuilder self, size_t index) -> MultiLayer
+        virtual MultiLayer* ISampleBuilder::createSampleByIndex(size_t index)
+
+        """
         return _libBornAgainCore.ISampleBuilder_createSampleByIndex(self, index)
 
     def size(self):
@@ -14370,7 +14374,7 @@ class MultiLayer(ISample):
     r"""
 
 
-    Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
+    Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
 
     ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
@@ -18158,7 +18162,9 @@ class IntensityDataIOFactory(object):
     r"""
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+    Usage:
 
     C++ includes: IntensityDataIOFactory.h
 
@@ -18202,7 +18208,9 @@ class IntensityDataIOFactory(object):
         __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+        Usage:
 
         C++ includes: IntensityDataIOFactory.h
 
@@ -22077,7 +22085,13 @@ class SampleBuilderFactory(SampleBuilderFactoryTemp):
         _libBornAgainCore.SampleBuilderFactory_swiginit(self, _libBornAgainCore.new_SampleBuilderFactory())
 
     def createSampleByName(self, name):
-        r"""createSampleByName(SampleBuilderFactory self, std::string const & name) -> MultiLayer"""
+        r"""
+        createSampleByName(SampleBuilderFactory self, std::string const & name) -> MultiLayer
+        MultiLayer * SampleBuilderFactory::createSampleByName(const std::string &name)
+
+        Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
+
+        """
         return _libBornAgainCore.SampleBuilderFactory_createSampleByName(self, name)
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
 

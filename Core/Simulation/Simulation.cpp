@@ -251,7 +251,7 @@ const MultiLayer* Simulation::sample() const
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder> p_sample_builder)
 {
-    m_sample_provider.setSampleBuilder(p_sample_builder);
+    m_sample_provider.setBuilder(p_sample_builder);
 }
 
 void Simulation::setBackground(const IBackground& bg)

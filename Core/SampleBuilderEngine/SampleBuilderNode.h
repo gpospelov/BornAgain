@@ -32,7 +32,7 @@ public:
     SampleBuilderNode(const SampleBuilderNode& other);
     SampleBuilderNode& operator=(const SampleBuilderNode& other);
 
-    void setSampleBuilder(builder_t sample_builder);
+    void setSBN(builder_t sample_builder);
 
     void reset();
 

@@ -24,7 +24,7 @@ SampleProvider::SampleProvider(const SampleProvider& other) : INode()
         setSample(*other.m_multilayer);
 
     if (other.m_sample_builder)
-        setSampleBuilder(other.m_sample_builder.builder());
+        setBuilder(other.m_sample_builder.builder());
 }
 
 SampleProvider& SampleProvider::operator=(const SampleProvider& other)
@@ -45,9 +45,9 @@ void SampleProvider::setSample(const MultiLayer& multilayer)
     m_sample_builder.reset();
 }
 
-void SampleProvider::setSampleBuilder(const std::shared_ptr<ISampleBuilder> sample_builder)
+void SampleProvider::setBuilder(const std::shared_ptr<ISampleBuilder> sample_builder)
 {
-    m_sample_builder.setSampleBuilder(sample_builder);
+    m_sample_builder.setSBN(sample_builder);
     m_sample_builder.setParent(parent());
     m_multilayer.reset();
 }

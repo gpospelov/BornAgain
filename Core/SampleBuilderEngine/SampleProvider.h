@@ -47,8 +47,6 @@ public:
     void setParent(const INode* newParent) override;
 
 private:
-    void swapContent(SampleProvider& other);
-
     std::unique_ptr<MultiLayer> m_multilayer;
     SampleBuilderNode m_sample_builder;
 };

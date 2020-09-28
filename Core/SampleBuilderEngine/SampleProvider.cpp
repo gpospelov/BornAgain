@@ -30,7 +30,8 @@ SampleProvider& SampleProvider::operator=(const SampleProvider& other)
 {
     if (this != &other) {
         SampleProvider tmp(other);
-        tmp.swapContent(*this);
+        std::swap(m_multilayer, tmp.m_multilayer);
+        std::swap(m_sample_builder, tmp.m_sample_builder);
     }
     return *this;
 }
@@ -86,10 +87,4 @@ void SampleProvider::setParent(const INode* newParent)
         m_sample_builder.setParent(parent());
     else if (m_multilayer)
         m_multilayer->setParent(parent());
-}
-
-void SampleProvider::swapContent(SampleProvider& other)
-{
-    std::swap(m_multilayer, other.m_multilayer);
-    std::swap(m_sample_builder, other.m_sample_builder);
 }

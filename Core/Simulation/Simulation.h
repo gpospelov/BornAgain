@@ -40,7 +40,7 @@ class Simulation : public ICloneable, public INode
 public:
     Simulation();
     Simulation(const MultiLayer& sample);
-    Simulation(const std::shared_ptr<ISampleBuilder>& sample_builder);
+//    Simulation(const std::shared_ptr<ISampleBuilder>& sample_builder);
     virtual ~Simulation();
 
     virtual Simulation* clone() const = 0;

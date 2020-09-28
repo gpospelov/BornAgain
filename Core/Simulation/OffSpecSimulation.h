@@ -28,7 +28,6 @@ class OffSpecSimulation : public Simulation2D
 public:
     OffSpecSimulation();
     OffSpecSimulation(const MultiLayer& p_sample);
-    OffSpecSimulation(const std::shared_ptr<class ISampleBuilder> p_sample_builder);
 
     ~OffSpecSimulation() final {}
 

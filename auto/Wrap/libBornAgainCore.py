@@ -17342,7 +17342,7 @@ class Simulation(ICloneable, INode):
 
     def setSampleBuilderCpp(self, sample_builder):
         r"""
-        setSampleBuilderCpp(Simulation self, std::shared_ptr< ISampleBuilder > const sample_builder)
+        setSampleBuilderCpp(Simulation self, std::shared_ptr< ISampleBuilder > const & sample_builder)
         void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
@@ -17620,7 +17620,6 @@ class GISASSimulation(Simulation2D):
         r"""
         __init__(GISASSimulation self) -> GISASSimulation
         __init__(GISASSimulation self, MultiLayer p_sample) -> GISASSimulation
-        __init__(GISASSimulation self, std::shared_ptr< ISampleBuilder > const p_sample_builder) -> GISASSimulation
         GISASSimulation::GISASSimulation(const std::shared_ptr< ISampleBuilder > p_sample_builder)
 
         """
@@ -17698,7 +17697,6 @@ class DepthProbeSimulation(Simulation):
         r"""
         __init__(DepthProbeSimulation self) -> DepthProbeSimulation
         __init__(DepthProbeSimulation self, MultiLayer sample) -> DepthProbeSimulation
-        __init__(DepthProbeSimulation self, std::shared_ptr< ISampleBuilder > const sample_builder) -> DepthProbeSimulation
         DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
@@ -17803,7 +17801,6 @@ class SpecularSimulation(Simulation):
         r"""
         __init__(SpecularSimulation self) -> SpecularSimulation
         __init__(SpecularSimulation self, MultiLayer sample) -> SpecularSimulation
-        __init__(SpecularSimulation self, std::shared_ptr< ISampleBuilder > const sample_builder) -> SpecularSimulation
         SpecularSimulation::SpecularSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
 
         """
@@ -17913,7 +17910,6 @@ class OffSpecSimulation(Simulation2D):
         r"""
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, std::shared_ptr< ISampleBuilder > const p_sample_builder) -> OffSpecSimulation
         OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class ISampleBuilder > p_sample_builder)
 
         """

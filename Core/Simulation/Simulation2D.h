@@ -29,7 +29,6 @@ class Simulation2D : public Simulation
 public:
     Simulation2D();
     Simulation2D(const MultiLayer& p_sample);
-    Simulation2D(const std::shared_ptr<ISampleBuilder> p_sample_builder);
     ~Simulation2D() override;
 
     Simulation2D* clone() const override = 0;

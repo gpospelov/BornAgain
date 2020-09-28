@@ -117,12 +117,6 @@ Simulation::Simulation(const MultiLayer& sample)
     m_sample_provider.setSample(sample);
 }
 
-Simulation::Simulation(const std::shared_ptr<ISampleBuilder>& sample_builder)
-{
-    initialize();
-    setSampleBuilder(sample_builder);
-}
-
 Simulation::Simulation(const Simulation& other)
     : ICloneable(), INode(), m_sample_provider(other.m_sample_provider), m_options(other.m_options),
       m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress),

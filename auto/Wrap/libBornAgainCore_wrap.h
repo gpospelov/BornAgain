@@ -478,12 +478,8 @@ public:
     virtual ~SwigDirector_ISampleBuilder();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void accept(INodeVisitor *visitor) const;
-    virtual std::string treeToString() const;
-    virtual std::vector< INode const *, std::allocator< INode const * > > getChildren() const;
-    virtual void setParent(INode const *newParent);
     virtual MultiLayer *buildSample() const;
-    virtual MultiLayer *createSampleByIndex(size_t index);
+    virtual MultiLayer *createSampleByIndex(size_t arg0);
     virtual size_t size();
 
 /* Internal director utilities */
@@ -515,7 +511,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[9];
+    mutable swig::SwigVar_PyObject vtable[5];
 #endif
 
 };

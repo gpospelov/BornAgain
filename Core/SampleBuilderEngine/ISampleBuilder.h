@@ -15,27 +15,21 @@
 #ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
 #define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
 
-#include "Core/Parametrization/INode.h"
+#include "Core/Parametrization/IParameterized.h"
 
 class MultiLayer;
 
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
 
-class ISampleBuilder : public INode
+class ISampleBuilder : public IParameterized
 {
 public:
     ISampleBuilder();
 
-    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
-
     virtual MultiLayer* buildSample() const = 0;
 
-    virtual MultiLayer* createSampleByIndex(size_t index)
-    {
-        (void)index;
-        return buildSample();
-    }
+    virtual MultiLayer* createSampleByIndex(size_t) { return buildSample(); }
     virtual size_t size() { return 1; }
 };
 

@@ -111,16 +111,16 @@ Simulation::Simulation()
     initialize();
 }
 
-Simulation::Simulation(const MultiLayer& p_sample)
+Simulation::Simulation(const MultiLayer& sample)
 {
     initialize();
-    m_sample_provider.setSample(p_sample);
+    m_sample_provider.setSample(sample);
 }
 
-Simulation::Simulation(const std::shared_ptr<ISampleBuilder> p_sample_builder)
+Simulation::Simulation(const std::shared_ptr<ISampleBuilder>& sample_builder)
 {
     initialize();
-    setSampleBuilder(p_sample_builder);
+    setSampleBuilder(sample_builder);
 }
 
 Simulation::Simulation(const Simulation& other)
@@ -216,12 +216,12 @@ void Simulation::runSimulation()
     if (batch_size == 0)
         return;
 
-    std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
+    std::unique_ptr<ParameterPool> param_pool(createParameterTree());
     for (size_t index = 0; index < param_combinations; ++index) {
-        double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
+        double weight = m_distribution_handler.setParameterValues(param_pool.get(), index);
         runSingleSimulation(batch_start, batch_size, weight);
     }
-    m_distribution_handler.setParameterToMeans(P_param_pool.get());
+    m_distribution_handler.setParameterToMeans(param_pool.get());
     moveDataFromCache();
     transferResultsToIntensityMap();
 }
@@ -249,9 +249,9 @@ const MultiLayer* Simulation::sample() const
     return m_sample_provider.sample();
 }
 
-void Simulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder> p_sample_builder)
+void Simulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder>& sample_builder)
 {
-    m_sample_provider.setBuilder(p_sample_builder);
+    m_sample_provider.setBuilder(sample_builder);
 }
 
 void Simulation::setBackground(const IBackground& bg)

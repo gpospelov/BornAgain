@@ -1,10 +1,10 @@
 """
+Usage: python check_functionality.py <path-to-example>/<example>.py
+
 Checks functionality of BornAgain Python example by running it in 'embedded' way.
-Usage: python check_functionality.py <path-to-example>/example.py
 
-Example is considered as functional, if it runs without exceptions thrown and
+The check passes successfully if the example runs without exceptions thrown and
 generates non-zero-size intensity image.
-
 """
 
 import sys

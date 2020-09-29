@@ -50,7 +50,7 @@ def run_example(filename):
     Tries to run python example and produce a *.png image
     """
     if not os.path.exists(filename):
-        raise Exception("File '"+filename+"' doesn't exist.")
+        raise Exception("Example script '"+filename+"' not found")
 
     print(filename)
 
@@ -83,6 +83,6 @@ def run_example(filename):
 if __name__ == '__main__':
 
     if len(sys.argv) != 2:
-        exit("Error")
+        exit("Auxiliary script check_functionality called with wrong number of arguments")
 
     run_example(sys.argv[1])

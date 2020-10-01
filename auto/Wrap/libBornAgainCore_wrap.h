@@ -479,7 +479,7 @@ public:
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual MultiLayer *buildSample() const;
-    virtual MultiLayer *createSampleByIndex(size_t index);
+    virtual MultiLayer *createSampleByIndex(size_t arg0);
     virtual size_t size();
 
 /* Internal director utilities */

@@ -28,9 +28,6 @@ class GISASSimulation : public Simulation2D
 {
 public:
     GISASSimulation();
-    GISASSimulation(const MultiLayer& p_sample);
-    GISASSimulation(const std::shared_ptr<ISampleBuilder> p_sample_builder);
-
     ~GISASSimulation() {}
 
     GISASSimulation* clone() const override { return new GISASSimulation(*this); }

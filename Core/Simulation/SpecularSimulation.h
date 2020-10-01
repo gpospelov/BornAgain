@@ -35,8 +35,6 @@ class SpecularSimulation : public Simulation
 {
 public:
     SpecularSimulation();
-    SpecularSimulation(const MultiLayer& sample);
-    SpecularSimulation(const std::shared_ptr<ISampleBuilder> sample_builder);
     ~SpecularSimulation() override;
 
     SpecularSimulation* clone() const override;

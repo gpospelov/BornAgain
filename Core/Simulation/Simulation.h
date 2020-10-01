@@ -39,8 +39,6 @@ class Simulation : public ICloneable, public INode
 {
 public:
     Simulation();
-    Simulation(const MultiLayer& p_sample);
-    Simulation(const std::shared_ptr<ISampleBuilder> p_sample_builder);
     virtual ~Simulation();
 
     virtual Simulation* clone() const = 0;
@@ -72,7 +70,7 @@ public:
     void setSample(const MultiLayer& sample);
     const MultiLayer* sample() const;
 
-    void setSampleBuilder(const std::shared_ptr<ISampleBuilder> sample_builder);
+    void setSampleBuilder(const std::shared_ptr<ISampleBuilder>& sample_builder);
 
     void setBackground(const IBackground& bg);
     const IBackground* background() const { return mP_background.get(); }

@@ -133,10 +133,7 @@ Provides exactly the same sample as  SLDSlicedCylindersBuilder, but with cylinde
 C++ includes: SlicedCylindersBuilder.h
 ";
 
-%feature("docstring")  AveragedSlicedCylindersBuilder::AveragedSlicedCylindersBuilder "AveragedSlicedCylindersBuilder::AveragedSlicedCylindersBuilder()
-";
-
-%feature("docstring")  AveragedSlicedCylindersBuilder::buildSample "MultiLayer * AveragedSlicedCylindersBuilder::buildSample() const override
+%feature("docstring")  AveragedSlicedCylindersBuilder::buildSample "MultiLayer * AveragedSlicedCylindersBuilder::buildSample() const
 ";
 
 
@@ -282,7 +279,7 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  Basic2DParaCrystalBuilder::buildSample "MultiLayer * Basic2DParaCrystalBuilder::buildSample() const
 ";
 
-%feature("docstring")  Basic2DParaCrystalBuilder::createSample "MultiLayer * Basic2DParaCrystalBuilder::createSample(size_t index)
+%feature("docstring")  Basic2DParaCrystalBuilder::createSampleByIndex "MultiLayer * Basic2DParaCrystalBuilder::createSampleByIndex(size_t index)
 ";
 
 
@@ -638,27 +635,12 @@ creation on  Bin1DKVector from alpha and phi bins
 ";
 
 
-// File: classBoxCompositionBuilder.xml
-%feature("docstring") BoxCompositionBuilder "
-
-Parent class to test all kind of compositions made out of boxes. Reproduces Python functional test transform_BoxComposition.py
-
-C++ includes: BoxCompositionBuilder.h
-";
-
-%feature("docstring")  BoxCompositionBuilder::BoxCompositionBuilder "BoxCompositionBuilder::BoxCompositionBuilder()
-";
-
-
 // File: classBoxCompositionRotateXBuilder.xml
 %feature("docstring") BoxCompositionRotateXBuilder "
 
 Two boxes in particle composition rotated in X by 90 degrees.
 
 C++ includes: BoxCompositionBuilder.h
-";
-
-%feature("docstring")  BoxCompositionRotateXBuilder::BoxCompositionRotateXBuilder "BoxCompositionRotateXBuilder::BoxCompositionRotateXBuilder()
 ";
 
 %feature("docstring")  BoxCompositionRotateXBuilder::buildSample "MultiLayer * BoxCompositionRotateXBuilder::buildSample() const
@@ -673,9 +655,6 @@ Two boxes in particle composition rotated in Y by 90 degrees.
 C++ includes: BoxCompositionBuilder.h
 ";
 
-%feature("docstring")  BoxCompositionRotateYBuilder::BoxCompositionRotateYBuilder "BoxCompositionRotateYBuilder::BoxCompositionRotateYBuilder()
-";
-
 %feature("docstring")  BoxCompositionRotateYBuilder::buildSample "MultiLayer * BoxCompositionRotateYBuilder::buildSample() const
 ";
 
@@ -686,9 +665,6 @@ C++ includes: BoxCompositionBuilder.h
 Two boxes in particle composition rotated in Z and Y by 90 degrees.
 
 C++ includes: BoxCompositionBuilder.h
-";
-
-%feature("docstring")  BoxCompositionRotateZandYBuilder::BoxCompositionRotateZandYBuilder "BoxCompositionRotateZandYBuilder::BoxCompositionRotateZandYBuilder()
 ";
 
 %feature("docstring")  BoxCompositionRotateZandYBuilder::buildSample "MultiLayer * BoxCompositionRotateZandYBuilder::buildSample() const
@@ -703,9 +679,6 @@ Two boxes in particle composition rotated in Z by 90 degrees.
 C++ includes: BoxCompositionBuilder.h
 ";
 
-%feature("docstring")  BoxCompositionRotateZBuilder::BoxCompositionRotateZBuilder "BoxCompositionRotateZBuilder::BoxCompositionRotateZBuilder()
-";
-
 %feature("docstring")  BoxCompositionRotateZBuilder::buildSample "MultiLayer * BoxCompositionRotateZBuilder::buildSample() const
 ";
 
@@ -718,9 +691,6 @@ Builds sample: square boxes in a square lattice
 C++ includes: BoxesSquareLatticeBuilder.h
 ";
 
-%feature("docstring")  BoxesSquareLatticeBuilder::BoxesSquareLatticeBuilder "BoxesSquareLatticeBuilder::BoxesSquareLatticeBuilder()
-";
-
 %feature("docstring")  BoxesSquareLatticeBuilder::buildSample "MultiLayer * BoxesSquareLatticeBuilder::buildSample() const
 ";
 
@@ -731,9 +701,6 @@ C++ includes: BoxesSquareLatticeBuilder.h
 Two different boxes are first rotated and then composed, composition is then rotated.
 
 C++ includes: BoxCompositionBuilder.h
-";
-
-%feature("docstring")  BoxStackCompositionBuilder::BoxStackCompositionBuilder "BoxStackCompositionBuilder::BoxStackCompositionBuilder()
 ";
 
 %feature("docstring")  BoxStackCompositionBuilder::buildSample "MultiLayer * BoxStackCompositionBuilder::buildSample() const
@@ -755,9 +722,6 @@ C++ includes: IntegratorMCMiser.h
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
-";
-
-%feature("docstring")  CenteredSquareLatticeBuilder::CenteredSquareLatticeBuilder "CenteredSquareLatticeBuilder::CenteredSquareLatticeBuilder()
 ";
 
 %feature("docstring")  CenteredSquareLatticeBuilder::buildSample "MultiLayer * CenteredSquareLatticeBuilder::buildSample() const
@@ -1079,9 +1043,6 @@ Rotation and translation of core shell box particle in 3 layers system.
 C++ includes: CoreShellParticleBuilder.h
 ";
 
-%feature("docstring")  CoreShellBoxRotateZandYBuilder::CoreShellBoxRotateZandYBuilder "CoreShellBoxRotateZandYBuilder::CoreShellBoxRotateZandYBuilder()
-";
-
 %feature("docstring")  CoreShellBoxRotateZandYBuilder::buildSample "MultiLayer * CoreShellBoxRotateZandYBuilder::buildSample() const
 ";
 
@@ -1094,9 +1055,6 @@ Builds sample: Core Shell Nanoparticles (IsGISAXS example #11).
 C++ includes: CoreShellParticleBuilder.h
 ";
 
-%feature("docstring")  CoreShellParticleBuilder::CoreShellParticleBuilder "CoreShellParticleBuilder::CoreShellParticleBuilder()
-";
-
 %feature("docstring")  CoreShellParticleBuilder::buildSample "MultiLayer * CoreShellParticleBuilder::buildSample() const
 ";
 
@@ -1107,9 +1065,6 @@ C++ includes: CoreShellParticleBuilder.h
 Builds sample: cosine ripple within the 1D-paracrystal model.
 
 C++ includes: RipplesBuilder.h
-";
-
-%feature("docstring")  CosineRippleBuilder::CosineRippleBuilder "CosineRippleBuilder::CosineRippleBuilder()
 ";
 
 %feature("docstring")  CosineRippleBuilder::buildSample "MultiLayer * CosineRippleBuilder::buildSample() const
@@ -1257,9 +1212,6 @@ Builds sample: mixture of different particles (IsGISAXS example #7).
 C++ includes: CustomMorphologyBuilder.h
 ";
 
-%feature("docstring")  CustomMorphologyBuilder::CustomMorphologyBuilder "CustomMorphologyBuilder::CustomMorphologyBuilder()
-";
-
 %feature("docstring")  CustomMorphologyBuilder::buildSample "MultiLayer * CustomMorphologyBuilder::buildSample() const
 ";
 
@@ -1270,9 +1222,6 @@ C++ includes: CustomMorphologyBuilder.h
 Builds sample: mixture of cylinders and prisms without interference (IsGISAXS example #1).
 
 C++ includes: CylindersAndPrismsBuilder.h
-";
-
-%feature("docstring")  CylindersAndPrismsBuilder::CylindersAndPrismsBuilder "CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
 ";
 
 %feature("docstring")  CylindersAndPrismsBuilder::buildSample "MultiLayer * CylindersAndPrismsBuilder::buildSample() const
@@ -1317,9 +1266,6 @@ Builds sample: size spacing correlation approximation (IsGISAXS example #15).
 C++ includes: SizeDistributionModelsBuilder.h
 ";
 
-%feature("docstring")  CylindersInSSCABuilder::CylindersInSSCABuilder "CylindersInSSCABuilder::CylindersInSSCABuilder()
-";
-
 %feature("docstring")  CylindersInSSCABuilder::buildSample "MultiLayer * CylindersInSSCABuilder::buildSample() const
 ";
 
@@ -1330,9 +1276,6 @@ C++ includes: SizeDistributionModelsBuilder.h
 Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 
 C++ includes: ParticleDistributionsBuilder.h
-";
-
-%feature("docstring")  CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder "CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 ";
 
 %feature("docstring")  CylindersWithSizeDistributionBuilder::buildSample "MultiLayer * CylindersWithSizeDistributionBuilder::buildSample() const
@@ -2263,81 +2206,45 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 ";
 
 
-// File: classFeNiBiLayer.xml
-%feature("docstring") FeNiBiLayer "
+// File: classFeNiBilayerBuilder.xml
+%feature("docstring") FeNiBilayerBuilder "";
 
-Creates the sample demonstrating an Fe-Ni Bilayer with and without roughness
-
-C++ includes: FeNiBiLayerBuilder.h
-";
-
-%feature("docstring")  FeNiBiLayer::FeNiBiLayer "FeNiBiLayer::FeNiBiLayer()
-";
-
-%feature("docstring")  FeNiBiLayer::FeNiBiLayer "FeNiBiLayer::FeNiBiLayer(Options opt)
-";
-
-%feature("docstring")  FeNiBiLayer::release "MultiLayer* FeNiBiLayer::release()
+%feature("docstring")  FeNiBilayerBuilder::buildSample "MultiLayer * FeNiBilayerBuilder::buildSample() const
 ";
 
 
-// File: classFeNiBiLayerBuilder.xml
-%feature("docstring") FeNiBiLayerBuilder "";
+// File: classFeNiBilayerNCBuilder.xml
+%feature("docstring") FeNiBilayerNCBuilder "";
 
-%feature("docstring")  FeNiBiLayerBuilder::FeNiBiLayerBuilder "FeNiBiLayerBuilder::FeNiBiLayerBuilder()
-";
-
-%feature("docstring")  FeNiBiLayerBuilder::buildSample "MultiLayer * FeNiBiLayerBuilder::buildSample() const
+%feature("docstring")  FeNiBilayerNCBuilder::buildSample "MultiLayer * FeNiBilayerNCBuilder::buildSample() const
 ";
 
 
-// File: classFeNiBiLayerNCBuilder.xml
-%feature("docstring") FeNiBiLayerNCBuilder "";
+// File: classFeNiBilayerSpinFlipBuilder.xml
+%feature("docstring") FeNiBilayerSpinFlipBuilder "";
 
-%feature("docstring")  FeNiBiLayerNCBuilder::FeNiBiLayerNCBuilder "FeNiBiLayerNCBuilder::FeNiBiLayerNCBuilder()
-";
-
-%feature("docstring")  FeNiBiLayerNCBuilder::buildSample "MultiLayer * FeNiBiLayerNCBuilder::buildSample() const
+%feature("docstring")  FeNiBilayerSpinFlipBuilder::buildSample "MultiLayer * FeNiBilayerSpinFlipBuilder::buildSample() const
 ";
 
 
-// File: classFeNiBiLayerSpinFlipBuilder.xml
-%feature("docstring") FeNiBiLayerSpinFlipBuilder "";
+// File: classFeNiBilayerSpinFlipNCBuilder.xml
+%feature("docstring") FeNiBilayerSpinFlipNCBuilder "";
 
-%feature("docstring")  FeNiBiLayerSpinFlipBuilder::FeNiBiLayerSpinFlipBuilder "FeNiBiLayerSpinFlipBuilder::FeNiBiLayerSpinFlipBuilder()
-";
-
-%feature("docstring")  FeNiBiLayerSpinFlipBuilder::buildSample "MultiLayer * FeNiBiLayerSpinFlipBuilder::buildSample() const
+%feature("docstring")  FeNiBilayerSpinFlipNCBuilder::buildSample "MultiLayer * FeNiBilayerSpinFlipNCBuilder::buildSample() const
 ";
 
 
-// File: classFeNiBiLayerSpinFlipNCBuilder.xml
-%feature("docstring") FeNiBiLayerSpinFlipNCBuilder "";
+// File: classFeNiBilayerSpinFlipTanhBuilder.xml
+%feature("docstring") FeNiBilayerSpinFlipTanhBuilder "";
 
-%feature("docstring")  FeNiBiLayerSpinFlipNCBuilder::FeNiBiLayerSpinFlipNCBuilder "FeNiBiLayerSpinFlipNCBuilder::FeNiBiLayerSpinFlipNCBuilder()
-";
-
-%feature("docstring")  FeNiBiLayerSpinFlipNCBuilder::buildSample "MultiLayer * FeNiBiLayerSpinFlipNCBuilder::buildSample() const
+%feature("docstring")  FeNiBilayerSpinFlipTanhBuilder::buildSample "MultiLayer * FeNiBilayerSpinFlipTanhBuilder::buildSample() const
 ";
 
 
-// File: classFeNiBiLayerSpinFlipTanhBuilder.xml
-%feature("docstring") FeNiBiLayerSpinFlipTanhBuilder "";
+// File: classFeNiBilayerTanhBuilder.xml
+%feature("docstring") FeNiBilayerTanhBuilder "";
 
-%feature("docstring")  FeNiBiLayerSpinFlipTanhBuilder::FeNiBiLayerSpinFlipTanhBuilder "FeNiBiLayerSpinFlipTanhBuilder::FeNiBiLayerSpinFlipTanhBuilder()
-";
-
-%feature("docstring")  FeNiBiLayerSpinFlipTanhBuilder::buildSample "MultiLayer * FeNiBiLayerSpinFlipTanhBuilder::buildSample() const
-";
-
-
-// File: classFeNiBiLayerTanhBuilder.xml
-%feature("docstring") FeNiBiLayerTanhBuilder "";
-
-%feature("docstring")  FeNiBiLayerTanhBuilder::FeNiBiLayerTanhBuilder "FeNiBiLayerTanhBuilder::FeNiBiLayerTanhBuilder()
-";
-
-%feature("docstring")  FeNiBiLayerTanhBuilder::buildSample "MultiLayer * FeNiBiLayerTanhBuilder::buildSample() const
+%feature("docstring")  FeNiBilayerTanhBuilder::buildSample "MultiLayer * FeNiBilayerTanhBuilder::buildSample() const
 ";
 
 
@@ -2361,9 +2268,6 @@ C++ includes: FeNiBiLayerBuilder.h
 Builds sample: 2D finite lattice with thermal disorder.
 
 C++ includes: TwoDimLatticeBuilder.h
-";
-
-%feature("docstring")  FiniteSquareLatticeBuilder::FiniteSquareLatticeBuilder "FiniteSquareLatticeBuilder::FiniteSquareLatticeBuilder()
 ";
 
 %feature("docstring")  FiniteSquareLatticeBuilder::buildSample "MultiLayer * FiniteSquareLatticeBuilder::buildSample() const
@@ -5719,9 +5623,6 @@ Builds sample: cylinders with hard disk Percus-Yevick interference.
 C++ includes: PercusYevickBuilder.h
 ";
 
-%feature("docstring")  HardDiskBuilder::HardDiskBuilder "HardDiskBuilder::HardDiskBuilder()
-";
-
 %feature("docstring")  HardDiskBuilder::buildSample "MultiLayer * HardDiskBuilder::buildSample() const
 ";
 
@@ -5765,9 +5666,6 @@ Calls the  INodeVisitor's visit method.
 Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4).
 
 C++ includes: ParaCrystalBuilder.h
-";
-
-%feature("docstring")  HexParaCrystalBuilder::HexParaCrystalBuilder "HexParaCrystalBuilder::HexParaCrystalBuilder()
 ";
 
 %feature("docstring")  HexParaCrystalBuilder::buildSample "MultiLayer * HexParaCrystalBuilder::buildSample() const
@@ -6034,9 +5932,6 @@ Add to values in histograms channels from numpy array,.
 Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate. Ti is 70 angstroms thick, Ni is 30 angstroms thick. No absorption, no roughness, target wavelength is 1.54 angstroms.
 
 C++ includes: HomogeneousMultilayerBuilder.h
-";
-
-%feature("docstring")  HomogeneousMultilayerBuilder::HomogeneousMultilayerBuilder "HomogeneousMultilayerBuilder::HomogeneousMultilayerBuilder()
 ";
 
 %feature("docstring")  HomogeneousMultilayerBuilder::buildSample "MultiLayer * HomogeneousMultilayerBuilder::buildSample() const
@@ -8368,7 +8263,9 @@ perform the actual integration over the ranges [min_array, max_array]
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm. Usage:
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
+
+Usage:
 
 C++ includes: IntensityDataIOFactory.h
 ";
@@ -9517,7 +9414,7 @@ C++ includes: IRegistry.h
 %feature("docstring")  IRegistry::getItem "const ValueType* IRegistry< ValueType >::getItem(const std::string &key) const
 ";
 
-%feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys()
+%feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys() const
 ";
 
 %feature("docstring")  IRegistry::size "size_t IRegistry< ValueType >::size() const
@@ -9628,7 +9525,7 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::buildSample "virtual MultiLayer* ISampleBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  ISampleBuilder::createSample "virtual MultiLayer* ISampleBuilder::createSample(size_t index)
+%feature("docstring")  ISampleBuilder::createSampleByIndex "virtual MultiLayer* ISampleBuilder::createSampleByIndex(size_t index)
 ";
 
 %feature("docstring")  ISampleBuilder::size "virtual size_t ISampleBuilder::size()
@@ -9738,15 +9635,6 @@ Returns true if point with given coordinates is inside or on border of the shape
 %feature("docstring")  IShape2D::contains "virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
 
 Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-";
-
-
-// File: classISingleton.xml
-%feature("docstring") ISingleton "
-
-Base class for singletons.
-
-C++ includes: ISingleton.h
 ";
 
 
@@ -9996,7 +9884,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -10204,9 +10092,6 @@ Action to be taken in inherited class when a parameter has changed.
 Builds sample: cylinders with 1DDL structure factor.
 
 C++ includes: LatticeBuilder.h
-";
-
-%feature("docstring")  Lattice1DBuilder::Lattice1DBuilder "Lattice1DBuilder::Lattice1DBuilder()
 ";
 
 %feature("docstring")  Lattice1DBuilder::buildSample "MultiLayer * Lattice1DBuilder::buildSample() const
@@ -10477,7 +10362,7 @@ Returns lateral correlation length.
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
-The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part).The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part). The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
 
 C++ includes: LayersWithAbsorptionBuilder.h
 ";
@@ -10491,7 +10376,7 @@ C++ includes: LayersWithAbsorptionBuilder.h
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "MultiLayer * LayersWithAbsorptionBuilder::buildSample() const
 ";
 
-%feature("docstring")  LayersWithAbsorptionBuilder::createSample "MultiLayer * LayersWithAbsorptionBuilder::createSample(size_t index)
+%feature("docstring")  LayersWithAbsorptionBuilder::createSampleByIndex "MultiLayer * LayersWithAbsorptionBuilder::createSampleByIndex(size_t index)
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::size "size_t LayersWithAbsorptionBuilder::size()
@@ -10504,12 +10389,6 @@ C++ includes: LayersWithAbsorptionBuilder.h
 The  LayersWithAbsorptionBySLDBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part). //! The middle layer is populated with particles. MaterialBySLD is used to generate maaterials
 
 C++ includes: LayersWithAbsorptionBySLDBuilder.h
-";
-
-%feature("docstring")  LayersWithAbsorptionBySLDBuilder::LayersWithAbsorptionBySLDBuilder "LayersWithAbsorptionBySLDBuilder::LayersWithAbsorptionBySLDBuilder()
-";
-
-%feature("docstring")  LayersWithAbsorptionBySLDBuilder::~LayersWithAbsorptionBySLDBuilder "LayersWithAbsorptionBySLDBuilder::~LayersWithAbsorptionBySLDBuilder()
 ";
 
 %feature("docstring")  LayersWithAbsorptionBySLDBuilder::buildSample "MultiLayer * LayersWithAbsorptionBySLDBuilder::buildSample() const
@@ -10721,9 +10600,6 @@ Builds sample: cylinders with magnetic material and non-zero magnetic field.
 C++ includes: MagneticParticlesBuilder.h
 ";
 
-%feature("docstring")  MagneticCylindersBuilder::MagneticCylindersBuilder "MagneticCylindersBuilder::MagneticCylindersBuilder()
-";
-
 %feature("docstring")  MagneticCylindersBuilder::buildSample "MultiLayer * MagneticCylindersBuilder::buildSample() const
 ";
 
@@ -10734,9 +10610,6 @@ C++ includes: MagneticParticlesBuilder.h
 Builds sample: magnetic spheres in a magnetized layer on a non-magnetized substrate.
 
 C++ includes: MagneticLayersBuilder.h
-";
-
-%feature("docstring")  MagneticLayerBuilder::MagneticLayerBuilder "MagneticLayerBuilder::MagneticLayerBuilder()
 ";
 
 %feature("docstring")  MagneticLayerBuilder::buildSample "MultiLayer * MagneticLayerBuilder::buildSample() const
@@ -10799,9 +10672,6 @@ Builds sample: cylinders with magnetic material and zero magnetic field.
 C++ includes: MagneticParticlesBuilder.h
 ";
 
-%feature("docstring")  MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder "MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
-";
-
 %feature("docstring")  MagneticParticleZeroFieldBuilder::buildSample "MultiLayer * MagneticParticleZeroFieldBuilder::buildSample() const
 ";
 
@@ -10812,9 +10682,6 @@ C++ includes: MagneticParticlesBuilder.h
 Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.
 
 C++ includes: MagneticLayersBuilder.h
-";
-
-%feature("docstring")  MagneticRotationBuilder::MagneticRotationBuilder "MagneticRotationBuilder::MagneticRotationBuilder()
 ";
 
 %feature("docstring")  MagneticRotationBuilder::buildSample "MultiLayer * MagneticRotationBuilder::buildSample() const
@@ -10829,9 +10696,6 @@ Builds sample: spheres with magnetization inside substrate.
 C++ includes: MagneticParticlesBuilder.h
 ";
 
-%feature("docstring")  MagneticSpheresBuilder::MagneticSpheresBuilder "MagneticSpheresBuilder::MagneticSpheresBuilder()
-";
-
 %feature("docstring")  MagneticSpheresBuilder::buildSample "MultiLayer * MagneticSpheresBuilder::buildSample() const
 ";
 
@@ -10842,9 +10706,6 @@ C++ includes: MagneticParticlesBuilder.h
 Builds sample: spheres in substrate layer with a zero magnetic field.
 
 C++ includes: MagneticLayersBuilder.h
-";
-
-%feature("docstring")  MagneticSubstrateZeroFieldBuilder::MagneticSubstrateZeroFieldBuilder "MagneticSubstrateZeroFieldBuilder::MagneticSubstrateZeroFieldBuilder()
 ";
 
 %feature("docstring")  MagneticSubstrateZeroFieldBuilder::buildSample "MultiLayer * MagneticSubstrateZeroFieldBuilder::buildSample() const
@@ -11240,9 +11101,6 @@ Builds sample: cylindrical mesocrystal composed of spheres in a cubic lattice.
 C++ includes: MesoCrystalBuilder.h
 ";
 
-%feature("docstring")  MesoCrystalBuilder::MesoCrystalBuilder "MesoCrystalBuilder::MesoCrystalBuilder()
-";
-
 %feature("docstring")  MesoCrystalBuilder::buildSample "MultiLayer * MesoCrystalBuilder::buildSample() const
 ";
 
@@ -11365,7 +11223,7 @@ Indicates if the peak shape encodes angular disorder, in which case all peaks in
 // File: classMultiLayer.xml
 %feature("docstring") MultiLayer "
 
-Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
+Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
 
 ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
@@ -11453,9 +11311,6 @@ Builds sample: layers with correlated roughness.
 C++ includes: MultiLayerWithNCRoughnessBuilder.h
 ";
 
-%feature("docstring")  MultiLayerWithNCRoughnessBuilder::MultiLayerWithNCRoughnessBuilder "MultiLayerWithNCRoughnessBuilder::MultiLayerWithNCRoughnessBuilder()
-";
-
 %feature("docstring")  MultiLayerWithNCRoughnessBuilder::buildSample "MultiLayer * MultiLayerWithNCRoughnessBuilder::buildSample() const override
 ";
 
@@ -11468,9 +11323,6 @@ Builds sample: layers with correlated roughness.
 C++ includes: MultiLayerWithRoughnessBuilder.h
 ";
 
-%feature("docstring")  MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder "MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
-";
-
 %feature("docstring")  MultiLayerWithRoughnessBuilder::buildSample "MultiLayer * MultiLayerWithRoughnessBuilder::buildSample() const
 ";
 
@@ -11481,9 +11333,6 @@ C++ includes: MultiLayerWithRoughnessBuilder.h
 Builds sample: mixture of cylinders and prisms without interference, using multiple particle layouts
 
 C++ includes: MultipleLayoutBuilder.h
-";
-
-%feature("docstring")  MultipleLayoutBuilder::MultipleLayoutBuilder "MultipleLayoutBuilder::MultipleLayoutBuilder()
 ";
 
 %feature("docstring")  MultipleLayoutBuilder::buildSample "MultiLayer * MultipleLayoutBuilder::buildSample() const
@@ -11722,37 +11571,6 @@ C++ includes: SimpleUnitConverters.h
 Helper class that represents a onesided limit
 
 C++ includes: ZLimits.h
-";
-
-
-// File: classFeNiBiLayer_1_1Options.xml
-%feature("docstring") FeNiBiLayer::Options "";
-
-%feature("docstring")  FeNiBiLayer::Options::Options "FeNiBiLayer::Options::Options()
-";
-
-%feature("docstring")  FeNiBiLayer::Options::NBiLayers "Options FeNiBiLayer::Options::NBiLayers(int n)
-";
-
-%feature("docstring")  FeNiBiLayer::Options::angle "Options FeNiBiLayer::Options::angle(double angle)
-";
-
-%feature("docstring")  FeNiBiLayer::Options::magnetizationMagnitude "Options FeNiBiLayer::Options::magnetizationMagnitude(double M)
-";
-
-%feature("docstring")  FeNiBiLayer::Options::thicknessFe "Options FeNiBiLayer::Options::thicknessFe(double t)
-";
-
-%feature("docstring")  FeNiBiLayer::Options::thicknessNi "Options FeNiBiLayer::Options::thicknessNi(double t)
-";
-
-%feature("docstring")  FeNiBiLayer::Options::sigmaRoughness "Options FeNiBiLayer::Options::sigmaRoughness(double r)
-";
-
-%feature("docstring")  FeNiBiLayer::Options::effectiveSLD "Options FeNiBiLayer::Options::effectiveSLD(int i)
-";
-
-%feature("docstring")  FeNiBiLayer::Options::roughnessModel "Options FeNiBiLayer::Options::roughnessModel(RoughnessModel rm)
 ";
 
 
@@ -12420,7 +12238,7 @@ Returns number of parameters in the pool.
 
 Adds parameter to the pool, and returns reference to the input pointer.
 
-Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
+Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
 %feature("docstring")  ParameterPool::parameter "RealParameter * ParameterPool::parameter(const std::string &name)
@@ -12606,9 +12424,6 @@ Builds sample: two layers of spheres at hex lattice.
 C++ includes: ParticleCompositionBuilder.h
 ";
 
-%feature("docstring")  ParticleCompositionBuilder::ParticleCompositionBuilder "ParticleCompositionBuilder::ParticleCompositionBuilder()
-";
-
 %feature("docstring")  ParticleCompositionBuilder::buildSample "MultiLayer * ParticleCompositionBuilder::buildSample() const
 ";
 
@@ -12711,24 +12526,24 @@ Returns a vector of children (const).
 ";
 
 
-// File: classParticleInTheAirBuilder.xml
-%feature("docstring") ParticleInTheAirBuilder "
+// File: classParticleInVacuumBuilder.xml
+%feature("docstring") ParticleInVacuumBuilder "
 
-The  ParticleInTheAirBuilder class generates a multilayer with single air layer populated with particles of certain types. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  ParticleInVacuumBuilder class generates a multilayer with single vacuum layer populated with particles of certain types. Requires IComponentService which generates form factors, used for bulk form factors testing.
 
-C++ includes: ParticleInTheAirBuilder.h
+C++ includes: ParticleInVacuumBuilder.h
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::ParticleInTheAirBuilder "ParticleInTheAirBuilder::ParticleInTheAirBuilder()
+%feature("docstring")  ParticleInVacuumBuilder::ParticleInVacuumBuilder "ParticleInVacuumBuilder::ParticleInVacuumBuilder()
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::buildSample "MultiLayer * ParticleInTheAirBuilder::buildSample() const
+%feature("docstring")  ParticleInVacuumBuilder::buildSample "MultiLayer * ParticleInVacuumBuilder::buildSample() const
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::createSample "MultiLayer * ParticleInTheAirBuilder::createSample(size_t index)
+%feature("docstring")  ParticleInVacuumBuilder::createSampleByIndex "MultiLayer * ParticleInVacuumBuilder::createSampleByIndex(size_t index)
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::size "size_t ParticleInTheAirBuilder::size()
+%feature("docstring")  ParticleInVacuumBuilder::size "size_t ParticleInVacuumBuilder::size()
 ";
 
 
@@ -12960,6 +12775,43 @@ weight_factors:
 user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
 
 // File: classPoissonNoiseBackground.xml
 %feature("docstring") PoissonNoiseBackground "
@@ -13025,7 +12877,7 @@ Gets the polarization analyzer operator (in spin basis along z-axis)
 // File: classPolygon.xml
 %feature("docstring") Polygon "
 
-A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
 C++ includes: Polygon.h
 ";
@@ -13589,9 +13441,6 @@ Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4).
 C++ includes: ParaCrystalBuilder.h
 ";
 
-%feature("docstring")  RadialParaCrystalBuilder::RadialParaCrystalBuilder "RadialParaCrystalBuilder::RadialParaCrystalBuilder()
-";
-
 %feature("docstring")  RadialParaCrystalBuilder::buildSample "MultiLayer * RadialParaCrystalBuilder::buildSample() const
 ";
 
@@ -14094,9 +13943,6 @@ Builds sample: 2D paracrystal lattice (IsGISAXS example #8).
 C++ includes: ParaCrystalBuilder.h
 ";
 
-%feature("docstring")  RectParaCrystalBuilder::RectParaCrystalBuilder "RectParaCrystalBuilder::RectParaCrystalBuilder()
-";
-
 %feature("docstring")  RectParaCrystalBuilder::buildSample "MultiLayer * RectParaCrystalBuilder::buildSample() const
 ";
 
@@ -14238,6 +14084,43 @@ weight_factors:
 user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
 
 // File: classResolutionFunction2DGaussian.xml
 %feature("docstring") ResolutionFunction2DGaussian "
@@ -14326,9 +14209,6 @@ Builds sample: Pyramids, rotated pyramids on top of substrate (IsGISAXS example 
 C++ includes: RotatedPyramidsBuilder.h
 ";
 
-%feature("docstring")  RotatedPyramidsBuilder::RotatedPyramidsBuilder "RotatedPyramidsBuilder::RotatedPyramidsBuilder()
-";
-
 %feature("docstring")  RotatedPyramidsBuilder::buildSample "MultiLayer * RotatedPyramidsBuilder::buildSample() const
 ";
 
@@ -14354,9 +14234,6 @@ C++ includes: ParticleDistributionsBuilder.h
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
-";
-
-%feature("docstring")  RotatedSquareLatticeBuilder::RotatedSquareLatticeBuilder "RotatedSquareLatticeBuilder::RotatedSquareLatticeBuilder()
 ";
 
 %feature("docstring")  RotatedSquareLatticeBuilder::buildSample "MultiLayer * RotatedSquareLatticeBuilder::buildSample() const
@@ -14659,7 +14536,7 @@ C++ includes: SampleBuilderFactory.h
 %feature("docstring")  SampleBuilderFactory::SampleBuilderFactory "SampleBuilderFactory::SampleBuilderFactory()
 ";
 
-%feature("docstring")  SampleBuilderFactory::createSample "MultiLayer * SampleBuilderFactory::createSample(const std::string &name)
+%feature("docstring")  SampleBuilderFactory::createSampleByName "MultiLayer * SampleBuilderFactory::createSampleByName(const std::string &name)
 
 Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
 ";
@@ -15155,9 +15032,6 @@ Builds sample: ambient and one magnetized layer on a non-magnetized substrate.
 C++ includes: MagneticLayersBuilder.h
 ";
 
-%feature("docstring")  SimpleMagneticLayerBuilder::SimpleMagneticLayerBuilder "SimpleMagneticLayerBuilder::SimpleMagneticLayerBuilder()
-";
-
 %feature("docstring")  SimpleMagneticLayerBuilder::buildSample "MultiLayer * SimpleMagneticLayerBuilder::buildSample() const
 ";
 
@@ -15170,13 +15044,10 @@ Builds sample: magnetic layer on a magnetic substrate with the fields rotated by
 C++ includes: MagneticLayersBuilder.h
 ";
 
-%feature("docstring")  SimpleMagneticRotationBuilder::SimpleMagneticRotationBuilder "SimpleMagneticRotationBuilder::SimpleMagneticRotationBuilder()
-";
-
 %feature("docstring")  SimpleMagneticRotationBuilder::buildSample "MultiLayer * SimpleMagneticRotationBuilder::buildSample() const override
 ";
 
-%feature("docstring")  SimpleMagneticRotationBuilder::createSample "MultiLayer * SimpleMagneticRotationBuilder::createSample(size_t index) override
+%feature("docstring")  SimpleMagneticRotationBuilder::createSampleByIndex "MultiLayer * SimpleMagneticRotationBuilder::createSampleByIndex(size_t index) override
 ";
 
 %feature("docstring")  SimpleMagneticRotationBuilder::size "size_t SimpleMagneticRotationBuilder::size() override
@@ -15780,9 +15651,6 @@ Creates the sample demonstrating size distribution model in decoupling approxima
 C++ includes: SizeDistributionModelsBuilder.h
 ";
 
-%feature("docstring")  SizeDistributionDAModelBuilder::SizeDistributionDAModelBuilder "SizeDistributionDAModelBuilder::SizeDistributionDAModelBuilder()
-";
-
 %feature("docstring")  SizeDistributionDAModelBuilder::buildSample "MultiLayer * SizeDistributionDAModelBuilder::buildSample() const
 ";
 
@@ -15793,9 +15661,6 @@ C++ includes: SizeDistributionModelsBuilder.h
 Creates the sample demonstrating size distribution model in local monodisperse approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
-";
-
-%feature("docstring")  SizeDistributionLMAModelBuilder::SizeDistributionLMAModelBuilder "SizeDistributionLMAModelBuilder::SizeDistributionLMAModelBuilder()
 ";
 
 %feature("docstring")  SizeDistributionLMAModelBuilder::buildSample "MultiLayer * SizeDistributionLMAModelBuilder::buildSample() const
@@ -15810,9 +15675,6 @@ Creates the sample demonstrating size distribution model in size space coupling 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
 
-%feature("docstring")  SizeDistributionSSCAModelBuilder::SizeDistributionSSCAModelBuilder "SizeDistributionSSCAModelBuilder::SizeDistributionSSCAModelBuilder()
-";
-
 %feature("docstring")  SizeDistributionSSCAModelBuilder::buildSample "MultiLayer * SizeDistributionSSCAModelBuilder::buildSample() const
 ";
 
@@ -15825,10 +15687,7 @@ Provides exactly the same sample as  SlicedCylindersBuilder, but with sld-based 
 C++ includes: SlicedCylindersBuilder.h
 ";
 
-%feature("docstring")  SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder "SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder()
-";
-
-%feature("docstring")  SLDSlicedCylindersBuilder::buildSample "MultiLayer * SLDSlicedCylindersBuilder::buildSample() const override
+%feature("docstring")  SLDSlicedCylindersBuilder::buildSample "MultiLayer * SLDSlicedCylindersBuilder::buildSample() const
 ";
 
 
@@ -15897,9 +15756,6 @@ Builds sample: spherical composition made of top+bottom spherical cups
 C++ includes: SlicedCompositionBuilder.h
 ";
 
-%feature("docstring")  SlicedCompositionBuilder::SlicedCompositionBuilder "SlicedCompositionBuilder::SlicedCompositionBuilder()
-";
-
 %feature("docstring")  SlicedCompositionBuilder::buildSample "MultiLayer * SlicedCompositionBuilder::buildSample() const
 ";
 
@@ -15912,10 +15768,7 @@ Builds sample: cylinders on a silicon substrate
 C++ includes: SlicedCylindersBuilder.h
 ";
 
-%feature("docstring")  SlicedCylindersBuilder::SlicedCylindersBuilder "SlicedCylindersBuilder::SlicedCylindersBuilder()
-";
-
-%feature("docstring")  SlicedCylindersBuilder::buildSample "MultiLayer * SlicedCylindersBuilder::buildSample() const override
+%feature("docstring")  SlicedCylindersBuilder::buildSample "MultiLayer * SlicedCylindersBuilder::buildSample() const
 ";
 
 
@@ -16533,18 +16386,12 @@ Builds sample: 2D finite lattice of 2D finite lattices (superlattice).
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  SuperLatticeBuilder::SuperLatticeBuilder "SuperLatticeBuilder::SuperLatticeBuilder()
-";
-
 %feature("docstring")  SuperLatticeBuilder::buildSample "MultiLayer * SuperLatticeBuilder::buildSample() const
 ";
 
 
 // File: classThickAbsorptiveSampleBuilder.xml
 %feature("docstring") ThickAbsorptiveSampleBuilder "";
-
-%feature("docstring")  ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder "ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder()
-";
 
 %feature("docstring")  ThickAbsorptiveSampleBuilder::buildSample "MultiLayer * ThickAbsorptiveSampleBuilder::buildSample() const override
 ";
@@ -16683,9 +16530,6 @@ Rotated box in 3 layers system.
 C++ includes: TransformationsBuilder.h
 ";
 
-%feature("docstring")  TransformBoxBuilder::TransformBoxBuilder "TransformBoxBuilder::TransformBoxBuilder()
-";
-
 %feature("docstring")  TransformBoxBuilder::buildSample "MultiLayer * TransformBoxBuilder::buildSample() const
 ";
 
@@ -16736,9 +16580,6 @@ C++ includes: TRange.h
 Builds sample: two layers with rough interface.
 
 C++ includes: TwoLayerRoughnessBuilder.h
-";
-
-%feature("docstring")  TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder "TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
 ";
 
 %feature("docstring")  TwoLayerRoughnessBuilder::buildSample "MultiLayer * TwoLayerRoughnessBuilder::buildSample() const
@@ -17101,10 +16942,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17134,193 +16975,205 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D106.xml
+// File: namespace_0d105.xml
 
 
-// File: namespace_0D112.xml
+// File: namespace_0d111.xml
 
 
-// File: namespace_0D116.xml
+// File: namespace_0d115.xml
 
 
-// File: namespace_0D147.xml
+// File: namespace_0d146.xml
 
 
-// File: namespace_0D159.xml
+// File: namespace_0d158.xml
 
 
-// File: namespace_0D16.xml
+// File: namespace_0d16.xml
 
 
-// File: namespace_0D167.xml
+// File: namespace_0d166.xml
 
 
-// File: namespace_0D172.xml
+// File: namespace_0d171.xml
 
 
-// File: namespace_0D181.xml
+// File: namespace_0d180.xml
 
 
-// File: namespace_0D183.xml
+// File: namespace_0d182.xml
 
 
-// File: namespace_0D187.xml
+// File: namespace_0d186.xml
 
 
-// File: namespace_0D2.xml
+// File: namespace_0d2.xml
 
 
-// File: namespace_0D24.xml
+// File: namespace_0d24.xml
 
 
-// File: namespace_0D249.xml
+// File: namespace_0d248.xml
 
 
-// File: namespace_0D252.xml
+// File: namespace_0d251.xml
 
 
-// File: namespace_0D254.xml
+// File: namespace_0d253.xml
 
 
-// File: namespace_0D263.xml
+// File: namespace_0d262.xml
 
 
-// File: namespace_0D267.xml
+// File: namespace_0d266.xml
 
 
-// File: namespace_0D271.xml
+// File: namespace_0d270.xml
 
 
-// File: namespace_0D277.xml
+// File: namespace_0d276.xml
 
 
-// File: namespace_0D281.xml
+// File: namespace_0d280.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0d294.xml
 
 
-// File: namespace_0D319.xml
+// File: namespace_0d318.xml
 
 
-// File: namespace_0D326.xml
+// File: namespace_0d325.xml
 
 
-// File: namespace_0D328.xml
+// File: namespace_0d327.xml
 
 
-// File: namespace_0D330.xml
+// File: namespace_0d329.xml
 
 
-// File: namespace_0D350.xml
+// File: namespace_0d349.xml
 
 
-// File: namespace_0D354.xml
+// File: namespace_0d353.xml
 
 
-// File: namespace_0D358.xml
+// File: namespace_0d357.xml
 
 
-// File: namespace_0D372.xml
+// File: namespace_0d371.xml
 
 
-// File: namespace_0D381.xml
+// File: namespace_0d380.xml
 
 
-// File: namespace_0D385.xml
+// File: namespace_0d384.xml
 
 
-// File: namespace_0D395.xml
+// File: namespace_0d394.xml
 
 
-// File: namespace_0D397.xml
+// File: namespace_0d396.xml
 
 
-// File: namespace_0D4.xml
+// File: namespace_0d4.xml
 
 
-// File: namespace_0D403.xml
+// File: namespace_0d402.xml
 
 
-// File: namespace_0D405.xml
+// File: namespace_0d404.xml
 
 
-// File: namespace_0D407.xml
+// File: namespace_0d406.xml
 
 
-// File: namespace_0D409.xml
+// File: namespace_0d408.xml
 
 
-// File: namespace_0D411.xml
+// File: namespace_0d410.xml
 
 
-// File: namespace_0D413.xml
+// File: namespace_0d412.xml
 
 
-// File: namespace_0D417.xml
+// File: namespace_0d416.xml
 
 
-// File: namespace_0D419.xml
+// File: namespace_0d418.xml
 
 
-// File: namespace_0D429.xml
+// File: namespace_0d428.xml
 
 
-// File: namespace_0D442.xml
+// File: namespace_0d441.xml
 
 
-// File: namespace_0D451.xml
+// File: namespace_0d450.xml
 
 
-// File: namespace_0D453.xml
+// File: namespace_0d452.xml
 
 
-// File: namespace_0D469.xml
+// File: namespace_0d468.xml
 
 
-// File: namespace_0D490.xml
+// File: namespace_0d489.xml
 
 
-// File: namespace_0D497.xml
+// File: namespace_0d496.xml
 
 
-// File: namespace_0D499.xml
+// File: namespace_0d498.xml
 
 
-// File: namespace_0D504.xml
+// File: namespace_0d504.xml
 
 
-// File: namespace_0D514.xml
+// File: namespace_0d516.xml
 
 
-// File: namespace_0D537.xml
+// File: namespace_0d539.xml
 
 
-// File: namespace_0D545.xml
+// File: namespace_0d547.xml
 
 
-// File: namespace_0D551.xml
+// File: namespace_0d553.xml
 
 
-// File: namespace_0D553.xml
+// File: namespace_0d555.xml
 
 
-// File: namespace_0D581.xml
+// File: namespace_0d571.xml
 
 
-// File: namespace_0D630.xml
+// File: namespace_0d583.xml
 
 
-// File: namespace_0D86.xml
+// File: namespace_0d589.xml
 
 
-// File: namespace_0D88.xml
+// File: namespace_0d593.xml
 
 
-// File: namespace_0D90.xml
+// File: namespace_0d611.xml
 
 
-// File: namespace_0D94.xml
+// File: namespace_0d630.xml
+
+
+// File: namespace_0d85.xml
+
+
+// File: namespace_0d87.xml
+
+
+// File: namespace_0d89.xml
+
+
+// File: namespace_0d93.xml
 
 
 // File: namespacealgo.xml
@@ -17703,7 +17556,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -18133,6 +17986,9 @@ A path to import BornAgain library. If empty, relies on PYTHONPATH
 ";
 
 
+// File: namespacerefMat.xml
+
+
 // File: namespaceripples.xml
 %feature("docstring")  ripples::factor_x_box "complex_t ripples::factor_x_box(complex_t q, double l)
 ";
@@ -18504,9 +18360,6 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: ICloneable_8h.xml
-
-
-// File: ISingleton_8h.xml
 
 
 // File: MathConstants_8h.xml
@@ -20052,6 +19905,9 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: ScalarRTCoefficients_8h.xml
 
 
+// File: IRegistry_8h.xml
+
+
 // File: ISampleBuilder_8cpp.xml
 
 
@@ -20062,6 +19918,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: SampleBuilderNode_8h.xml
+
+
+// File: SampleComponents_8cpp.xml
+
+
+// File: SampleComponents_8h.xml
 
 
 // File: SampleProvider_8cpp.xml
@@ -20339,19 +20201,16 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: CylindersBuilder_8h.xml
 
 
-// File: FeNiBiLayerBuilder_8cpp.xml
+// File: FeNiBilayerBuilder_8cpp.xml
 
 
-// File: FeNiBiLayerBuilder_8h.xml
+// File: FeNiBilayerBuilder_8h.xml
 
 
 // File: HomogeneousMultilayerBuilder_8cpp.xml
 
 
 // File: HomogeneousMultilayerBuilder_8h.xml
-
-
-// File: IRegistry_8h.xml
 
 
 // File: LatticeBuilder_8cpp.xml
@@ -20428,10 +20287,10 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: ParticleDistributionsBuilder_8h.xml
 
 
-// File: ParticleInTheAirBuilder_8cpp.xml
+// File: ParticleInVacuumBuilder_8cpp.xml
 
 
-// File: ParticleInTheAirBuilder_8h.xml
+// File: ParticleInVacuumBuilder_8h.xml
 
 
 // File: PercusYevickBuilder_8cpp.xml
@@ -20444,6 +20303,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: PlainMultiLayerBySLDBuilder_8h.xml
+
+
+// File: ReferenceMaterials_8h.xml
 
 
 // File: ResonatorBuilder_8cpp.xml
@@ -20468,12 +20330,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SampleBuilderFactory_8h.xml
-
-
-// File: SampleComponents_8cpp.xml
-
-
-// File: SampleComponents_8h.xml
 
 
 // File: SizeDistributionModelsBuilder_8cpp.xml

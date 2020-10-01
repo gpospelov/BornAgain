@@ -28,17 +28,6 @@ OffSpecSimulation::OffSpecSimulation()
     initialize();
 }
 
-OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample) : Simulation2D(p_sample)
-{
-    initialize();
-}
-
-OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<ISampleBuilder> p_sample_builder)
-    : Simulation2D(p_sample_builder)
-{
-    initialize();
-}
-
 void OffSpecSimulation::prepareSimulation()
 {
     checkInitialization();

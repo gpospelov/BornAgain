@@ -29,11 +29,7 @@ public:
 
     virtual MultiLayer* buildSample() const = 0;
 
-    virtual MultiLayer* createSampleByIndex(size_t index)
-    {
-        (void)index;
-        return buildSample();
-    }
+    virtual MultiLayer* createSampleByIndex(size_t) { return buildSample(); }
     virtual size_t size() { return 1; }
 };
 

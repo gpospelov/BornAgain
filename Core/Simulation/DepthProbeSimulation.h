@@ -35,8 +35,6 @@ class DepthProbeSimulation : public Simulation
 {
 public:
     DepthProbeSimulation();
-    DepthProbeSimulation(const MultiLayer& sample);
-    DepthProbeSimulation(const std::shared_ptr<ISampleBuilder> sample_builder);
     ~DepthProbeSimulation() override;
 
     DepthProbeSimulation* clone() const override;

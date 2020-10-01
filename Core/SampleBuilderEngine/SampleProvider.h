@@ -20,8 +20,9 @@
 
 class MultiLayer;
 
-//! Gives access to the sample to simulate. Sample can come either directly from
-//! the user or from SampleBuilder.
+//! Holds either a Sample, or a SampleBuilderNode (which holds an ISampleBuilder).
+//! Used in Simulation, which holds a SampleProvider member.
+
 //! @ingroup simulation_internal
 
 class SampleProvider : public INode
@@ -34,7 +35,7 @@ public:
 
     void setSample(const MultiLayer& multilayer);
 
-    void setSampleBuilder(const std::shared_ptr<ISampleBuilder> sample_builder);
+    void setBuilder(const std::shared_ptr<ISampleBuilder>& sample_builder);
 
     const MultiLayer* sample() const;
 
@@ -47,8 +48,6 @@ public:
     void setParent(const INode* newParent) override;
 
 private:
-    void swapContent(SampleProvider& other);
-
     std::unique_ptr<MultiLayer> m_multilayer;
     SampleBuilderNode m_sample_builder;
 };

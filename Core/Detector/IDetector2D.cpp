@@ -41,13 +41,6 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, 
     addAxis(*createAxis(1, n_y, y_min, y_max));
 }
 
-void IDetector2D::setDetectorAxes(const IAxis& axis0, const IAxis& axis1)
-{
-    clear();
-    addAxis(axis0);
-    addAxis(axis1);
-}
-
 const RegionOfInterest* IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();

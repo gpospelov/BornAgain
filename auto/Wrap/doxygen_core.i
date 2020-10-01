@@ -1427,12 +1427,6 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 %feature("docstring")  DepthProbeSimulation::DepthProbeSimulation "DepthProbeSimulation::DepthProbeSimulation()
 ";
 
-%feature("docstring")  DepthProbeSimulation::DepthProbeSimulation "DepthProbeSimulation::DepthProbeSimulation(const MultiLayer &sample)
-";
-
-%feature("docstring")  DepthProbeSimulation::DepthProbeSimulation "DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
-";
-
 %feature("docstring")  DepthProbeSimulation::~DepthProbeSimulation "DepthProbeSimulation::~DepthProbeSimulation() override
 ";
 
@@ -2664,6 +2658,24 @@ find bin index which is best match for given value
 %feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
 
 Creates a new clipped axis. 
+";
+
+
+// File: classFixedBuilder.xml
+%feature("docstring") FixedBuilder "
+
+A trivial sample builder class that builds a fixed sample.
+
+C++ includes: FixedBuilder.h
+";
+
+%feature("docstring")  FixedBuilder::FixedBuilder "FixedBuilder::FixedBuilder()=delete
+";
+
+%feature("docstring")  FixedBuilder::FixedBuilder "FixedBuilder::FixedBuilder(const MultiLayer &)
+";
+
+%feature("docstring")  FixedBuilder::buildSample "MultiLayer * FixedBuilder::buildSample() const
 ";
 
 
@@ -5562,12 +5574,6 @@ C++ includes: GISASSimulation.h
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation()
 ";
 
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const MultiLayer &p_sample)
-";
-
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const std::shared_ptr< ISampleBuilder > p_sample_builder)
-";
-
 %feature("docstring")  GISASSimulation::~GISASSimulation "GISASSimulation::~GISASSimulation()
 ";
 
@@ -6448,11 +6454,6 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::setDetectorParameters "void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
-";
-
-%feature("docstring")  IDetector2D::setDetectorAxes "void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
-
-Sets detector parameters using axes. 
 ";
 
 %feature("docstring")  IDetector2D::removeMasks "void IDetector2D::removeMasks()
@@ -9525,7 +9526,7 @@ C++ includes: ISampleBuilder.h
 %feature("docstring")  ISampleBuilder::buildSample "virtual MultiLayer* ISampleBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  ISampleBuilder::createSampleByIndex "virtual MultiLayer* ISampleBuilder::createSampleByIndex(size_t index)
+%feature("docstring")  ISampleBuilder::createSampleByIndex "virtual MultiLayer* ISampleBuilder::createSampleByIndex(size_t)
 ";
 
 %feature("docstring")  ISampleBuilder::size "virtual size_t ISampleBuilder::size()
@@ -11496,12 +11497,6 @@ C++ includes: OffSpecSimulation.h
 ";
 
 %feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation()
-";
-
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const MultiLayer &p_sample)
-";
-
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class ISampleBuilder > p_sample_builder)
 ";
 
 %feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() final
@@ -14545,7 +14540,7 @@ Retrieves a SampleBuilder from the registry, does the build, and returns the res
 // File: classSampleBuilderNode.xml
 %feature("docstring") SampleBuilderNode "
 
-Enfolds MultiLayerBuilder to have it in  INode tree.
+Wraps an  ISampleBuilder, and puts it in an  INode tree. Used by  SampleProvider.
 
 C++ includes: SampleBuilderNode.h
 ";
@@ -14556,7 +14551,7 @@ C++ includes: SampleBuilderNode.h
 %feature("docstring")  SampleBuilderNode::SampleBuilderNode "SampleBuilderNode::SampleBuilderNode(const SampleBuilderNode &other)
 ";
 
-%feature("docstring")  SampleBuilderNode::setSampleBuilder "void SampleBuilderNode::setSampleBuilder(builder_t sample_builder)
+%feature("docstring")  SampleBuilderNode::setSBN "void SampleBuilderNode::setSBN(const std::shared_ptr< ISampleBuilder > &sample_builder)
 
 Sets sample builder and borrows its parameters. 
 ";
@@ -14576,7 +14571,7 @@ Calls the  INodeVisitor's visit method.
 Creates a multilayer using sample builder. 
 ";
 
-%feature("docstring")  SampleBuilderNode::builder "SampleBuilderNode::builder_t SampleBuilderNode::builder() const
+%feature("docstring")  SampleBuilderNode::builder "std::shared_ptr< ISampleBuilder > SampleBuilderNode::builder() const
 
 Returns current sample builder. 
 ";
@@ -14720,7 +14715,7 @@ C++ includes: SampleLabelHandler.h
 // File: classSampleProvider.xml
 %feature("docstring") SampleProvider "
 
-Gives access to the sample to simulate. Sample can come either directly from the user or from SampleBuilder.
+Holds either a Sample, or a  SampleBuilderNode (which holds an  ISampleBuilder). Used in  Simulation, which holds a  SampleProvider member.
 
 C++ includes: SampleProvider.h
 ";
@@ -14737,7 +14732,7 @@ C++ includes: SampleProvider.h
 %feature("docstring")  SampleProvider::setSample "void SampleProvider::setSample(const MultiLayer &multilayer)
 ";
 
-%feature("docstring")  SampleProvider::setSampleBuilder "void SampleProvider::setSampleBuilder(const std::shared_ptr< ISampleBuilder > sample_builder)
+%feature("docstring")  SampleProvider::setBuilder "void SampleProvider::setBuilder(const std::shared_ptr< ISampleBuilder > &sample_builder)
 ";
 
 %feature("docstring")  SampleProvider::sample "const MultiLayer * SampleProvider::sample() const
@@ -15086,12 +15081,6 @@ C++ includes: Simulation.h
 %feature("docstring")  Simulation::Simulation "Simulation::Simulation()
 ";
 
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const MultiLayer &p_sample)
-";
-
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const std::shared_ptr< ISampleBuilder > p_sample_builder)
-";
-
 %feature("docstring")  Simulation::~Simulation "Simulation::~Simulation()
 ";
 
@@ -15154,7 +15143,7 @@ The  MultiLayer object will not be owned by the  Simulation object.
 %feature("docstring")  Simulation::sample "const MultiLayer * Simulation::sample() const
 ";
 
-%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > sample_builder)
+%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > &sample_builder)
 ";
 
 %feature("docstring")  Simulation::setBackground "void Simulation::setBackground(const IBackground &bg)
@@ -15230,12 +15219,6 @@ C++ includes: Simulation2D.h
 ";
 
 %feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D()
-";
-
-%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D(const MultiLayer &p_sample)
-";
-
-%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D(const std::shared_ptr< ISampleBuilder > p_sample_builder)
 ";
 
 %feature("docstring")  Simulation2D::~Simulation2D "Simulation2D::~Simulation2D() override
@@ -16057,12 +16040,6 @@ C++ includes: SpecularSimulation.h
 ";
 
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation()
-";
-
-%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const MultiLayer &sample)
-";
-
-%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
 ";
 
 %feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation() override
@@ -16942,10 +16919,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17128,40 +17105,40 @@ C++ includes: ZLimits.h
 // File: namespace_0d498.xml
 
 
-// File: namespace_0d504.xml
+// File: namespace_0d506.xml
 
 
-// File: namespace_0d516.xml
+// File: namespace_0d518.xml
 
 
-// File: namespace_0d539.xml
+// File: namespace_0d541.xml
 
 
-// File: namespace_0d547.xml
-
-
-// File: namespace_0d553.xml
+// File: namespace_0d549.xml
 
 
 // File: namespace_0d555.xml
 
 
-// File: namespace_0d571.xml
+// File: namespace_0d557.xml
 
 
-// File: namespace_0d583.xml
+// File: namespace_0d573.xml
 
 
-// File: namespace_0d589.xml
+// File: namespace_0d585.xml
 
 
-// File: namespace_0d593.xml
+// File: namespace_0d591.xml
 
 
-// File: namespace_0d611.xml
+// File: namespace_0d595.xml
 
 
-// File: namespace_0d630.xml
+// File: namespace_0d613.xml
+
+
+// File: namespace_0d632.xml
 
 
 // File: namespace_0d85.xml
@@ -19903,6 +19880,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: ScalarRTCoefficients_8h.xml
+
+
+// File: FixedBuilder_8cpp.xml
+
+
+// File: FixedBuilder_8h.xml
 
 
 // File: IRegistry_8h.xml

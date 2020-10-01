@@ -14011,7 +14011,7 @@ class ISampleBuilder(IParameterized):
     def createSampleByIndex(self, arg0):
         r"""
         createSampleByIndex(ISampleBuilder self, size_t arg0) -> MultiLayer
-        virtual MultiLayer* ISampleBuilder::createSampleByIndex(size_t index)
+        virtual MultiLayer* ISampleBuilder::createSampleByIndex(size_t)
 
         """
         return _libBornAgainCore.ISampleBuilder_createSampleByIndex(self, arg0)
@@ -17333,7 +17333,7 @@ class Simulation(ICloneable, INode):
     def setSampleBuilderCpp(self, sample_builder):
         r"""
         setSampleBuilderCpp(Simulation self, std::shared_ptr< ISampleBuilder > const & sample_builder)
-        void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > sample_builder)
+        void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > &sample_builder)
 
         """
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
@@ -17609,7 +17609,7 @@ class GISASSimulation(Simulation2D):
     def __init__(self):
         r"""
         __init__(GISASSimulation self) -> GISASSimulation
-        GISASSimulation::GISASSimulation(const std::shared_ptr< ISampleBuilder > p_sample_builder)
+        GISASSimulation::GISASSimulation()
 
         """
         _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation())
@@ -17685,7 +17685,7 @@ class DepthProbeSimulation(Simulation):
     def __init__(self):
         r"""
         __init__(DepthProbeSimulation self) -> DepthProbeSimulation
-        DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
+        DepthProbeSimulation::DepthProbeSimulation()
 
         """
         _libBornAgainCore.DepthProbeSimulation_swiginit(self, _libBornAgainCore.new_DepthProbeSimulation())
@@ -17788,7 +17788,7 @@ class SpecularSimulation(Simulation):
     def __init__(self):
         r"""
         __init__(SpecularSimulation self) -> SpecularSimulation
-        SpecularSimulation::SpecularSimulation(const std::shared_ptr< ISampleBuilder > sample_builder)
+        SpecularSimulation::SpecularSimulation()
 
         """
         _libBornAgainCore.SpecularSimulation_swiginit(self, _libBornAgainCore.new_SpecularSimulation())
@@ -17896,7 +17896,7 @@ class OffSpecSimulation(Simulation2D):
     def __init__(self):
         r"""
         __init__(OffSpecSimulation self) -> OffSpecSimulation
-        OffSpecSimulation::OffSpecSimulation(const std::shared_ptr< class ISampleBuilder > p_sample_builder)
+        OffSpecSimulation::OffSpecSimulation()
 
         """
         _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation())
@@ -18509,16 +18509,6 @@ class IDetector2D(IDetector):
 
         """
         return _libBornAgainCore.IDetector2D_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
-
-    def setDetectorAxes(self, axis0, axis1):
-        r"""
-        setDetectorAxes(IDetector2D self, IAxis axis0, IAxis axis1)
-        void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
-
-        Sets detector parameters using axes. 
-
-        """
-        return _libBornAgainCore.IDetector2D_setDetectorAxes(self, axis0, axis1)
 
     def removeMasks(self):
         r"""

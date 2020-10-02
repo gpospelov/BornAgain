@@ -25,7 +25,7 @@
 #include "Core/Simulation/SpecularSimulation.h"
 
 std::unique_ptr<OutputData<double>>
-UnitConverterUtils::createOutputData(const IUnitConverter& converter, AxesUnits units)
+UnitConverterUtils::createOutputData(const IUnitConverter& converter, Axes::Units units)
 {
     std::unique_ptr<OutputData<double>> result = std::make_unique<OutputData<double>>();
     for (size_t i = 0; i < converter.dimension(); ++i)

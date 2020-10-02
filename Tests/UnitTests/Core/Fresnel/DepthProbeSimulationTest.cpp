@@ -147,7 +147,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     sim->runSimulation();
     SimulationResult sim_result = sim->result();
 
-    EXPECT_THROW(sim_result.histogram2d(AxesUnits::MM), std::runtime_error);
+    EXPECT_THROW(sim_result.histogram2d(Axes::Units::MM), std::runtime_error);
 
     const std::unique_ptr<Histogram2D> depth_map(sim_result.histogram2d());
     EXPECT_EQ(10u * 12u, depth_map->getTotalNumberOfBins());
@@ -157,7 +157,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     EXPECT_EQ(-30.0, depth_map->getYaxis().getMin());
     EXPECT_EQ(10.0, depth_map->getYaxis().getMax());
 
-    EXPECT_THROW(sim_result.data(AxesUnits::MM), std::runtime_error);
+    EXPECT_THROW(sim_result.data(Axes::Units::MM), std::runtime_error);
 
     const auto output = sim_result.data();
     EXPECT_EQ(depth_map->getTotalNumberOfBins(), output->getAllocatedSize());

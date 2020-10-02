@@ -152,9 +152,9 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-AxesUnits RectangularDetector::defaultAxesUnits() const
+Axes::Units RectangularDetector::defaultAxesUnits() const
 {
-    return AxesUnits::MM;
+    return Axes::Units::MM;
 }
 
 RectangularPixel* RectangularDetector::regionOfInterestPixel() const

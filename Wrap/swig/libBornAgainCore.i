@@ -232,7 +232,7 @@
 %newobject ScanResolution::scanRelativeResolution;
 %newobject ScanResolution::scanAbsoluteResolution;
 
-%newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject SimulationResult::histogram2d(Axes::Units units_type = Axes::Units::DEFAULT) const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
@@ -267,7 +267,6 @@
 %import(module="libBornAgainFit") "Fit/Kernel/Parameters.h"
 %import(module="libBornAgainFit") "Fit/Kernel/Parameter.h"
 
-%rename(AxesUnits) AxesUnitsWrap;
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
@@ -304,7 +303,6 @@
 %include "Core/Binning/IPixel.h"
 %include "Core/Binning/IAxis.h"
 %include "Core/Binning/VariableBinAxis.h"
-
 %include "Core/Binning/ConstKBinAxis.h"
 %include "Core/Binning/CustomBinAxis.h"
 %include "Core/Binning/FixedBinAxis.h"

@@ -48,9 +48,9 @@ const std::string defineSimulate = "def run_simulation():\n"
 //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
 std::function<std::string(double)> printFunc(const IDetector* detector)
 {
-    if (detector->defaultAxesUnits() == AxesUnits::MM)
+    if (detector->defaultAxesUnits() == Axes::Units::MM)
         return pyfmt::printDouble;
-    if (detector->defaultAxesUnits() == AxesUnits::RADIANS)
+    if (detector->defaultAxesUnits() == Axes::Units::RADIANS)
         return pyfmt::printDegrees;
     throw Exceptions::RuntimeErrorException(
         "SimulationToPython::defineMasks() -> Error. Unknown detector units.");

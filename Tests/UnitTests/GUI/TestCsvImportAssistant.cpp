@@ -79,7 +79,7 @@ TEST_F(TestCsvImportAssistant, test_readFile)
     CsvImportAssistant assistant(testFilename());
 
     assistant.setIntensityColumn(1);
-    assistant.setCoordinateColumn(3, AxesUnits::DEGREES);
+    assistant.setCoordinateColumn(3, Axes::Units::DEGREES);
     assistant.setFirstRow(5);
     assistant.setLastRow(7);
 
@@ -95,7 +95,7 @@ TEST_F(TestCsvImportAssistant, test_readFile)
     EXPECT_EQ(DataRank, 1u);
     EXPECT_EQ(AllocSize, 3u);
     EXPECT_EQ(RawDataVec, expected);
-    EXPECT_EQ(UnitsLabel, JobItemUtils::nameFromAxesUnits(AxesUnits::DEGREES));
-    EXPECT_EQ(AxisLabel0, QString::fromStdString(AxisNames::InitSpecAxis()[AxesUnits::DEGREES]));
+    EXPECT_EQ(UnitsLabel, JobItemUtils::nameFromAxesUnits(Axes::Units::DEGREES));
+    EXPECT_EQ(AxisLabel0, QString::fromStdString(AxisNames::InitSpecAxis()[Axes::Units::DEGREES]));
     EXPECT_EQ(AxisLabel1, SpecularDataAxesNames::y_axis_default_name);
 }

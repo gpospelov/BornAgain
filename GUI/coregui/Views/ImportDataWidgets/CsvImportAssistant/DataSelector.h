@@ -44,7 +44,7 @@ public:
     double intensityMultiplier() const { return m_tableWidget->intensityMultiplier(); }
     double coordinateMultiplier() const { return m_tableWidget->coordinateMultiplier(); }
     std::set<int> rowsToDiscard() const { return m_tableWidget->rowsToDiscard(); }
-    AxesUnits units() const;
+    Axes::Units units() const;
     void setDataArray(csv::DataArray csvArray)
     {
         m_data = std::move(csvArray);

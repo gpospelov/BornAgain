@@ -25,7 +25,7 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // checking size
     EXPECT_EQ(0u, detector.dimension());
-    EXPECT_EQ(AxesUnits::RADIANS, detector.defaultAxesUnits());
+    EXPECT_EQ(Axes::Units::RADIANS, detector.defaultAxesUnits());
 
     // masks
     EXPECT_FALSE(detector.detectorMask()->hasMasks());

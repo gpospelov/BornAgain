@@ -56,7 +56,7 @@ SimulationResult& SimulationResult::operator=(SimulationResult&& other)
     return *this;
 }
 
-std::unique_ptr<OutputData<double>> SimulationResult::data(AxesUnits units) const
+std::unique_ptr<OutputData<double>> SimulationResult::data(Axes::Units units) const
 {
     if (!mP_data)
         throw std::runtime_error(
@@ -64,7 +64,7 @@ std::unique_ptr<OutputData<double>> SimulationResult::data(AxesUnits units) cons
     return mP_unit_converter->createConvertedData(*mP_data, units);
 }
 
-Histogram2D* SimulationResult::histogram2d(AxesUnits units) const
+Histogram2D* SimulationResult::histogram2d(Axes::Units units) const
 {
     if (mP_data->getRank() != 2 || mP_unit_converter->dimension() != 2)
         throw std::runtime_error("Error in SimulationResult::histogram2d: "
@@ -74,7 +74,7 @@ Histogram2D* SimulationResult::histogram2d(AxesUnits units) const
     return new Histogram2D(*P_data);
 }
 
-std::vector<AxisInfo> SimulationResult::axisInfo(AxesUnits units) const
+std::vector<AxisInfo> SimulationResult::axisInfo(Axes::Units units) const
 {
     if (!mP_unit_converter)
         return {};
@@ -119,7 +119,7 @@ size_t SimulationResult::size() const
 }
 
 #ifdef BORNAGAIN_PYTHON
-PyObject* SimulationResult::array(AxesUnits units) const
+PyObject* SimulationResult::array(Axes::Units units) const
 {
     if (!mP_data || !mP_unit_converter)
         throw std::runtime_error(
@@ -128,12 +128,12 @@ PyObject* SimulationResult::array(AxesUnits units) const
 }
 #endif
 
-std::vector<double> SimulationResult::axis(AxesUnits units) const
+std::vector<double> SimulationResult::axis(Axes::Units units) const
 {
     return axis(0, units);
 }
 
-std::vector<double> SimulationResult::axis(size_t i_axis, AxesUnits units) const
+std::vector<double> SimulationResult::axis(size_t i_axis, Axes::Units units) const
 {
     if (i_axis >= mP_unit_converter->dimension())
         throw std::runtime_error(

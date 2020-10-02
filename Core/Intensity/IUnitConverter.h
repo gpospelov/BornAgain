@@ -28,16 +28,22 @@ template <class T> class OutputData;
 //! detector axes units in python
 //! @ingroup detector
 
-// workaround for SWIG (instead of just writing enum class AxesUnits...)
-struct AxesUnitsWrap {
-    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY, RQ4 };
-#ifndef SWIG
-    // TODO: to automatize enum to string convertion, one can possibly use this solution
-    // https://stackoverflow.com/questions/147267/easy-way-to-use-variables-of-enum-types-as-string-in-c#202511
-    static std::string unitName(AxesUnits unit);
-#endif
+class Axes
+{
+public:
+    enum Units { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY, RQ4 };
 };
-typedef AxesUnitsWrap::AxesUnits AxesUnits;
+
+const std::map<Axes::Units, const char*> axisUnitName = {
+    {Axes::Units::NBINS, "Axes::Units::UNDEFINED"}, {Axes::Units::NBINS, "Axes::Units::NBINS"},
+    {Axes::Units::RADIANS, "Axes::Units::RADIANS"}, {Axes::Units::DEGREES, "Axes::Units::DEGREES"},
+    {Axes::Units::MM, "Axes::Units::MM"},           {Axes::Units::QSPACE, "Axes::Units::QSPACE"},
+    {Axes::Units::QXQY, "Axes::Units::QXQY"},       {Axes::Units::RQ4, "Axes::Units::RQ4"}};
+
+const std::map<Axes::Units, const char*> axisUnitLabel = {
+    {Axes::Units::NBINS, "undefined"}, {Axes::Units::NBINS, "bin"}, {Axes::Units::RADIANS, "rad"},
+    {Axes::Units::DEGREES, "deg"},     {Axes::Units::MM, "mm"},     {Axes::Units::QSPACE, "1/nm"},
+    {Axes::Units::QXQY, "1/nm"},       {Axes::Units::RQ4, "nm^-4?"}};
 
 //! Interface to provide axis translations to different units for simulation output
 //! @ingroup simulation_internal
@@ -51,32 +57,32 @@ public:
 
     virtual size_t dimension() const = 0;
 
-    virtual double calculateMin(size_t i_axis, AxesUnits units_type) const = 0;
-    virtual double calculateMax(size_t i_axis, AxesUnits units_type) const = 0;
+    virtual double calculateMin(size_t i_axis, Axes::Units units_type) const = 0;
+    virtual double calculateMax(size_t i_axis, Axes::Units units_type) const = 0;
     virtual size_t axisSize(size_t i_axis) const = 0;
 
-    std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const;
+    std::string axisName(size_t i_axis, Axes::Units units_type = Axes::Units::DEFAULT) const;
 
-    virtual std::vector<AxesUnits> availableUnits() const = 0;
-    virtual AxesUnits defaultUnits() const = 0;
-    AxesUnits substituteDefaultUnits(AxesUnits units) const;
+    virtual std::vector<Axes::Units> availableUnits() const = 0;
+    virtual Axes::Units defaultUnits() const = 0;
+    Axes::Units substituteDefaultUnits(Axes::Units units) const;
 
 #ifndef SWIG
-    virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
+    virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, Axes::Units units) const = 0;
 
     //! Creates OutputData array in converter units.
     virtual std::unique_ptr<OutputData<double>> createConvertedData(const OutputData<double>& data,
-                                                                    AxesUnits units) const;
+                                                                    Axes::Units units) const;
 #endif // SWIG
 
 protected:
     void checkIndex(size_t i_axis) const;
 #ifndef SWIG
-    [[noreturn]] void throwUnitsError(std::string method, std::vector<AxesUnits> available) const;
+    [[noreturn]] void throwUnitsError(std::string method, std::vector<Axes::Units> available) const;
 #endif // SWIG
 
 private:
-    virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const = 0;
+    virtual std::vector<std::map<Axes::Units, std::string>> createNameMaps() const = 0;
 };
 
 #endif // BORNAGAIN_CORE_INTENSITY_IUNITCONVERTER_H

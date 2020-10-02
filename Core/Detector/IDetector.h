@@ -102,7 +102,7 @@ public:
     createDetectorIntensity(const std::vector<SimulationElement>& elements) const;
 
     //! Return default axes units
-    virtual AxesUnits defaultAxesUnits() const { return AxesUnits::DEFAULT; }
+    virtual Axes::Units defaultAxesUnits() const { return Axes::Units::DEFAULT; }
 
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;

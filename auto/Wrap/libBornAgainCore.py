@@ -18436,7 +18436,7 @@ class IDetector(ICloneable, INode):
 
     def defaultAxesUnits(self):
         r"""
-        defaultAxesUnits(IDetector self) -> AxesUnits
+        defaultAxesUnits(IDetector self) -> Axes::Units
         virtual AxesUnits IDetector::defaultAxesUnits() const
 
         Return default axes units. 
@@ -18666,7 +18666,7 @@ class SphericalDetector(IDetector2D):
 
     def defaultAxesUnits(self):
         r"""
-        defaultAxesUnits(SphericalDetector self) -> AxesUnits
+        defaultAxesUnits(SphericalDetector self) -> Axes::Units
         AxesUnits SphericalDetector::defaultAxesUnits() const override
 
         return default axes units 
@@ -19043,7 +19043,7 @@ class RectangularDetector(IDetector2D):
 
     def defaultAxesUnits(self):
         r"""
-        defaultAxesUnits(RectangularDetector self) -> AxesUnits
+        defaultAxesUnits(RectangularDetector self) -> Axes::Units
         AxesUnits RectangularDetector::defaultAxesUnits() const override
 
         return default axes units 
@@ -19883,41 +19883,35 @@ class IntensityFunctionSqrt(IIntensityFunction):
 # Register IntensityFunctionSqrt in _libBornAgainCore:
 _libBornAgainCore.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
 
-class AxesUnits(object):
-    r"""
-
-
-    Wrapper for detector axes units, required for a better representation of detector axes units in python
-
-    C++ includes: IUnitConverter.h
-
-    """
+class Axes(object):
+    r"""Proxy of C++ Axes class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined")
     __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
+    DEFAULT = _libBornAgainCore.Axes_DEFAULT
     
-    NBINS = _libBornAgainCore.AxesUnits_NBINS
+    NBINS = _libBornAgainCore.Axes_NBINS
     
-    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
+    RADIANS = _libBornAgainCore.Axes_RADIANS
     
-    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
+    DEGREES = _libBornAgainCore.Axes_DEGREES
     
-    MM = _libBornAgainCore.AxesUnits_MM
+    MM = _libBornAgainCore.Axes_MM
     
-    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
+    QSPACE = _libBornAgainCore.Axes_QSPACE
     
-    QXQY = _libBornAgainCore.AxesUnits_QXQY
+    QXQY = _libBornAgainCore.Axes_QXQY
     
-    RQ4 = _libBornAgainCore.AxesUnits_RQ4
+    RQ4 = _libBornAgainCore.Axes_RQ4
     
-    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
 
-# Register AxesUnits in _libBornAgainCore:
-_libBornAgainCore.AxesUnits_swigregister(AxesUnits)
+    def __init__(self):
+        r"""__init__(Axes self) -> Axes"""
+        _libBornAgainCore.Axes_swiginit(self, _libBornAgainCore.new_Axes())
+    __swig_destroy__ = _libBornAgainCore.delete_Axes
+
+# Register Axes in _libBornAgainCore:
+_libBornAgainCore.Axes_swigregister(Axes)
 
 class IUnitConverter(ICloneable):
     r"""
@@ -19954,7 +19948,7 @@ class IUnitConverter(ICloneable):
 
     def calculateMin(self, i_axis, units_type):
         r"""
-        calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        calculateMin(IUnitConverter self, size_t i_axis, Axes::Units units_type) -> double
         virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
 
         """
@@ -19962,7 +19956,7 @@ class IUnitConverter(ICloneable):
 
     def calculateMax(self, i_axis, units_type):
         r"""
-        calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
+        calculateMax(IUnitConverter self, size_t i_axis, Axes::Units units_type) -> double
         virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
 
         """
@@ -19978,7 +19972,7 @@ class IUnitConverter(ICloneable):
 
     def axisName(self, *args):
         r"""
-        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) -> std::string
+        axisName(IUnitConverter self, size_t i_axis, Axes::Units units_type=Axes::Units::DEFAULT) -> std::string
         std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
 
         """
@@ -19986,7 +19980,7 @@ class IUnitConverter(ICloneable):
 
     def availableUnits(self):
         r"""
-        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
+        availableUnits(IUnitConverter self) -> std::vector< Axes::Units,std::allocator< Axes::Units > >
         virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
 
         """
@@ -19994,7 +19988,7 @@ class IUnitConverter(ICloneable):
 
     def defaultUnits(self):
         r"""
-        defaultUnits(IUnitConverter self) -> AxesUnits
+        defaultUnits(IUnitConverter self) -> Axes::Units
         virtual AxesUnits IUnitConverter::defaultUnits() const =0
 
         """
@@ -20002,7 +19996,7 @@ class IUnitConverter(ICloneable):
 
     def substituteDefaultUnits(self, units):
         r"""
-        substituteDefaultUnits(IUnitConverter self, AxesUnits units) -> AxesUnits
+        substituteDefaultUnits(IUnitConverter self, Axes::Units units) -> Axes::Units
         AxesUnits IUnitConverter::substituteDefaultUnits(AxesUnits units) const
 
         """
@@ -20010,6 +20004,8 @@ class IUnitConverter(ICloneable):
 
 # Register IUnitConverter in _libBornAgainCore:
 _libBornAgainCore.IUnitConverter_swigregister(IUnitConverter)
+axisUnitName = cvar.axisUnitName
+axisUnitLabel = cvar.axisUnitLabel
 
 class Histogram1D(IHistogram):
     r"""
@@ -20931,7 +20927,7 @@ class SimulationResult(object):
 
     def histogram2d(self, *args):
         r"""
-        histogram2d(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> Histogram2D
+        histogram2d(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> Histogram2D
         Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
 
         """
@@ -20939,7 +20935,7 @@ class SimulationResult(object):
 
     def axisInfo(self, *args):
         r"""
-        axisInfo(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> swig_dummy_type_axisinfo_vector
+        axisInfo(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> swig_dummy_type_axisinfo_vector
         std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
 
         Provide  AxisInfo for each axis and the given units. 
@@ -20967,7 +20963,7 @@ class SimulationResult(object):
 
     def array(self, *args):
         r"""
-        array(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> PyObject
+        array(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> PyObject
         PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
 
         returns intensity data as Python numpy array 
@@ -20977,8 +20973,8 @@ class SimulationResult(object):
 
     def axis(self, *args):
         r"""
-        axis(SimulationResult self, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
-        axis(SimulationResult self, size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) -> vdouble1d_t
+        axis(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis, Axes::Units units=Axes::Units::DEFAULT) -> vdouble1d_t
         std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
 
         Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 

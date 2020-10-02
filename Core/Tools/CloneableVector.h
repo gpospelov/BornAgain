@@ -37,9 +37,10 @@ public:
     {
         super::reserve(other.size());
         for (const std::unique_ptr<T>& t : other)
-            this->push_back(t->clone());
+            super::emplace_back(t->clone());
     }
-    void push_back(T* t) { super::push_back(std::unique_ptr<T>(t)); }
+    void push_back(T* t) { super::emplace_back(std::unique_ptr<T>(t)); }
+    void emplace_back(std::unique_ptr<T>&& t) { super::emplace_back(t); }
 };
 
 #endif // BORNAGAIN_CORE_TOOLS_CLONEABLEVECTOR_H

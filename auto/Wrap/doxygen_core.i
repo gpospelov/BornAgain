@@ -826,6 +826,31 @@ clone method
 ";
 
 
+// File: classCloneableVector.xml
+%feature("docstring") CloneableVector "
+
+The objects pointed to must posses a clone() function.
+
+A vector of unique pointers to objects that are cloneable.
+
+Equips vector<unique_ptr<T>> with copy constructor. For use with polymorphic objects, or in pimpl idiom.
+
+C++ includes: CloneableVector.h
+";
+
+%feature("docstring")  CloneableVector::CloneableVector "CloneableVector< T >::CloneableVector()
+";
+
+%feature("docstring")  CloneableVector::CloneableVector "CloneableVector< T >::CloneableVector(const CloneableVector &other)
+";
+
+%feature("docstring")  CloneableVector::push_back "void CloneableVector< T >::push_back(T *t)
+";
+
+%feature("docstring")  CloneableVector::emplace_back "void CloneableVector< T >::emplace_back(std::unique_ptr< T > &&t)
+";
+
+
 // File: classComplexIntegrator.xml
 %feature("docstring") ComplexIntegrator "
 
@@ -6331,9 +6356,6 @@ C++ includes: IDetector.h
 %feature("docstring")  IDetector::init "virtual void IDetector::init(const Beam &)
 
 Inits detector with the beam settings. 
-";
-
-%feature("docstring")  IDetector::clear "void IDetector::clear()
 ";
 
 %feature("docstring")  IDetector::addAxis "void IDetector::addAxis(const IAxis &axis)
@@ -16919,10 +16941,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17485,7 +17507,7 @@ Creates Fourier Transform ( OutputData format) of intensity map ( OutputData for
 
 
 // File: namespaceInterferenceFunctionUtils.xml
-%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector<complex_t> InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
 %feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
@@ -20352,6 +20374,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: TwoLayerRoughnessBuilder_8h.xml
+
+
+// File: CloneableVector_8h.xml
 
 
 // File: FileSystemUtils_8cpp.xml

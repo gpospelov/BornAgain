@@ -15,11 +15,11 @@
 #ifdef BORNAGAIN_PYTHON
 
 #include "Core/PyIO/PyEmbeddedUtils.h"
-#include "Core/Multilayer/MultiLayer.h"
 #include "Core/PyIO/PythonFormatting.h"
 #include "Core/Tools/PythonCore.h"
 #include "Core/Tools/SysUtils.h"
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 
 std::string PyEmbeddedUtils::toString(PyObject* obj)

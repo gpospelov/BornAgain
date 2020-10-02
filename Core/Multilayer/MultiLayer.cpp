@@ -144,7 +144,7 @@ void MultiLayer::handleLayerThicknessRegistration()
 {
     size_t n_layers = numberOfLayers();
     for (size_t i = 0; i < numberOfLayers(); ++i)
-        m_layers[i]->registerThickness(i>0 && i<n_layers - 1);
+        m_layers[i]->registerThickness(i > 0 && i < n_layers - 1);
 }
 
 size_t MultiLayer::check_layer_index(size_t i_layer) const

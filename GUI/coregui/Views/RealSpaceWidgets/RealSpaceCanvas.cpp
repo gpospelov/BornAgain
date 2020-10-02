@@ -242,8 +242,9 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
                 Qt::UniqueConnection);
         connect(model, &SampleModel::modelReset, this, &RealSpaceCanvas::resetScene,
                 Qt::UniqueConnection);
-        connect(model, &SampleModel::modelAboutToBeReset, this, [&]() { m_currentSelection = {}; },
-                Qt::UniqueConnection);
+        connect(
+            model, &SampleModel::modelAboutToBeReset, this, [&]() { m_currentSelection = {}; },
+            Qt::UniqueConnection);
 
     } else {
         disconnect(model, &SampleModel::rowsInserted, this, &RealSpaceCanvas::updateScene);

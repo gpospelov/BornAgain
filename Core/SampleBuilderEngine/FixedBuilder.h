@@ -28,6 +28,7 @@ public:
     FixedBuilder() = delete;
     FixedBuilder(const MultiLayer&);
     MultiLayer* buildSample() const;
+
 private:
     std::unique_ptr<const MultiLayer> m_sample;
 };

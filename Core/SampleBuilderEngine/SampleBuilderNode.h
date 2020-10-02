@@ -27,7 +27,6 @@ class ISampleBuilder;
 class SampleBuilderNode : public INode
 {
 public:
-
     SampleBuilderNode();
     SampleBuilderNode(const SampleBuilderNode& other);
     SampleBuilderNode& operator=(const SampleBuilderNode& other);

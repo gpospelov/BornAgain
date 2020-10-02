@@ -115,10 +115,9 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
     return ret;
 }
 
-std::unique_ptr<OffSpecSimulation>
-createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                        const OffSpecInstrumentItem* instrument,
-                        const SimulationOptionsItem* optionsItem)
+std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                                                           const OffSpecInstrumentItem* instrument,
+                                                           const SimulationOptionsItem* optionsItem)
 {
     std::unique_ptr<OffSpecSimulation> ret(new OffSpecSimulation);
     auto P_instrument = DomainObjectBuilder::buildInstrument(*instrument);
@@ -126,10 +125,10 @@ createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     ret->setInstrument(*P_instrument);
 
     auto beamItem = instrument->beamItem();
-    auto axisItem = dynamic_cast<BasicAxisItem*>(
-        instrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
+    auto axisItem =
+        dynamic_cast<BasicAxisItem*>(instrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
     ret->setBeamParameters(beamItem->getWavelength(), *axisItem->createAxis(Units::degree),
-                               beamItem->getAzimuthalAngle());
+                           beamItem->getAzimuthalAngle());
 
     // TODO Take care about distributions
     // TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(),

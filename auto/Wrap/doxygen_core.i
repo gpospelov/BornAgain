@@ -137,8 +137,8 @@ C++ includes: SlicedCylindersBuilder.h
 ";
 
 
-// File: structAxesUnitsWrap.xml
-%feature("docstring") AxesUnitsWrap "
+// File: classAxes.xml
+%feature("docstring") Axes "
 
 Wrapper for detector axes units, required for a better representation of detector axes units in python
 
@@ -1364,12 +1364,12 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  DepthProbeConverter::clone "DepthProbeConverter * DepthProbeConverter::clone() const final
 ";
 
-%feature("docstring")  DepthProbeConverter::availableUnits "std::vector< AxesUnits > DepthProbeConverter::availableUnits() const final
+%feature("docstring")  DepthProbeConverter::availableUnits "std::vector< Axes::Units > DepthProbeConverter::availableUnits() const final
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  DepthProbeConverter::defaultUnits "AxesUnits DepthProbeConverter::defaultUnits() const final
+%feature("docstring")  DepthProbeConverter::defaultUnits "Axes::Units DepthProbeConverter::defaultUnits() const final
 ";
 
 
@@ -6415,7 +6415,7 @@ Returns detection properties.
 Returns new intensity map with detector resolution applied. Map will be cropped to ROI if ROI is present. 
 ";
 
-%feature("docstring")  IDetector::defaultAxesUnits "virtual AxesUnits IDetector::defaultAxesUnits() const
+%feature("docstring")  IDetector::defaultAxesUnits "virtual Axes::Units IDetector::defaultAxesUnits() const
 
 Return default axes units. 
 ";
@@ -9918,31 +9918,31 @@ C++ includes: IUnitConverter.h
 %feature("docstring")  IUnitConverter::dimension "virtual size_t IUnitConverter::dimension() const =0
 ";
 
-%feature("docstring")  IUnitConverter::calculateMin "virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
+%feature("docstring")  IUnitConverter::calculateMin "virtual double IUnitConverter::calculateMin(size_t i_axis, Axes::Units units_type) const =0
 ";
 
-%feature("docstring")  IUnitConverter::calculateMax "virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
+%feature("docstring")  IUnitConverter::calculateMax "virtual double IUnitConverter::calculateMax(size_t i_axis, Axes::Units units_type) const =0
 ";
 
 %feature("docstring")  IUnitConverter::axisSize "virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
 ";
 
-%feature("docstring")  IUnitConverter::axisName "std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
+%feature("docstring")  IUnitConverter::axisName "std::string IUnitConverter::axisName(size_t i_axis, Axes::Units units_type=Axes::Units::DEFAULT) const
 ";
 
-%feature("docstring")  IUnitConverter::availableUnits "virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
+%feature("docstring")  IUnitConverter::availableUnits "virtual std::vector<Axes::Units> IUnitConverter::availableUnits() const =0
 ";
 
-%feature("docstring")  IUnitConverter::defaultUnits "virtual AxesUnits IUnitConverter::defaultUnits() const =0
+%feature("docstring")  IUnitConverter::defaultUnits "virtual Axes::Units IUnitConverter::defaultUnits() const =0
 ";
 
-%feature("docstring")  IUnitConverter::substituteDefaultUnits "AxesUnits IUnitConverter::substituteDefaultUnits(AxesUnits units) const
+%feature("docstring")  IUnitConverter::substituteDefaultUnits "Axes::Units IUnitConverter::substituteDefaultUnits(Axes::Units units) const
 ";
 
-%feature("docstring")  IUnitConverter::createConvertedAxis "virtual std::unique_ptr<IAxis> IUnitConverter::createConvertedAxis(size_t i_axis, AxesUnits units) const =0
+%feature("docstring")  IUnitConverter::createConvertedAxis "virtual std::unique_ptr<IAxis> IUnitConverter::createConvertedAxis(size_t i_axis, Axes::Units units) const =0
 ";
 
-%feature("docstring")  IUnitConverter::createConvertedData "std::unique_ptr< OutputData< double > > IUnitConverter::createConvertedData(const OutputData< double > &data, AxesUnits units) const
+%feature("docstring")  IUnitConverter::createConvertedData "std::unique_ptr< OutputData< double > > IUnitConverter::createConvertedData(const OutputData< double > &data, Axes::Units units) const
 
 Creates  OutputData array in converter units. 
 ";
@@ -11556,7 +11556,7 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  OffSpecularConverter::clone "OffSpecularConverter * OffSpecularConverter::clone() const final
 ";
 
-%feature("docstring")  OffSpecularConverter::defaultUnits "AxesUnits OffSpecularConverter::defaultUnits() const final
+%feature("docstring")  OffSpecularConverter::defaultUnits "Axes::Units OffSpecularConverter::defaultUnits() const final
 ";
 
 
@@ -13784,12 +13784,12 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  RectangularConverter::clone "RectangularConverter * RectangularConverter::clone() const final
 ";
 
-%feature("docstring")  RectangularConverter::availableUnits "std::vector< AxesUnits > RectangularConverter::availableUnits() const final
+%feature("docstring")  RectangularConverter::availableUnits "std::vector< Axes::Units > RectangularConverter::availableUnits() const final
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  RectangularConverter::defaultUnits "AxesUnits RectangularConverter::defaultUnits() const final
+%feature("docstring")  RectangularConverter::defaultUnits "Axes::Units RectangularConverter::defaultUnits() const final
 ";
 
 
@@ -13891,7 +13891,7 @@ Inits detector with the beam settings.
 %feature("docstring")  RectangularDetector::getDetectorArrangment "RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
 ";
 
-%feature("docstring")  RectangularDetector::defaultAxesUnits "AxesUnits RectangularDetector::defaultAxesUnits() const override
+%feature("docstring")  RectangularDetector::defaultAxesUnits "Axes::Units RectangularDetector::defaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -15562,13 +15562,13 @@ C++ includes: SimulationResult.h
 %feature("docstring")  SimulationResult::SimulationResult "SimulationResult::SimulationResult(SimulationResult &&other)
 ";
 
-%feature("docstring")  SimulationResult::data "std::unique_ptr< OutputData< double > > SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  SimulationResult::data "std::unique_ptr< OutputData< double > > SimulationResult::data(Axes::Units units=Axes::Units::DEFAULT) const
 ";
 
-%feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(Axes::Units units=Axes::Units::DEFAULT) const
 ";
 
-%feature("docstring")  SimulationResult::axisInfo "std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  SimulationResult::axisInfo "std::vector< AxisInfo > SimulationResult::axisInfo(Axes::Units units=Axes::Units::DEFAULT) const
 
 Provide  AxisInfo for each axis and the given units. 
 ";
@@ -15581,15 +15581,15 @@ Returns underlying unit converter.
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const
 ";
 
-%feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array(Axes::Units units=Axes::Units::DEFAULT) const
 
 returns intensity data as Python numpy array 
 ";
 
-%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(Axes::Units units=Axes::Units::DEFAULT) const
 ";
 
-%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(size_t i_axis, Axes::Units units=Axes::Units::DEFAULT) const
 
 Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
 ";
@@ -15877,7 +15877,7 @@ Returns region of interest if exists.
 Resets region of interest making whole detector plane available for the simulation. 
 ";
 
-%feature("docstring")  SpecularDetector1D::defaultAxesUnits "AxesUnits SpecularDetector1D::defaultAxesUnits() const override
+%feature("docstring")  SpecularDetector1D::defaultAxesUnits "Axes::Units SpecularDetector1D::defaultAxesUnits() const override
 
 Return default axes units. 
 ";
@@ -16178,12 +16178,12 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  SphericalConverter::clone "SphericalConverter * SphericalConverter::clone() const final
 ";
 
-%feature("docstring")  SphericalConverter::availableUnits "std::vector< AxesUnits > SphericalConverter::availableUnits() const final
+%feature("docstring")  SphericalConverter::availableUnits "std::vector< Axes::Units > SphericalConverter::availableUnits() const final
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  SphericalConverter::defaultUnits "AxesUnits SphericalConverter::defaultUnits() const final
+%feature("docstring")  SphericalConverter::defaultUnits "Axes::Units SphericalConverter::defaultUnits() const final
 ";
 
 
@@ -16238,7 +16238,7 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  SphericalDetector::~SphericalDetector "SphericalDetector::~SphericalDetector() override
 ";
 
-%feature("docstring")  SphericalDetector::defaultAxesUnits "AxesUnits SphericalDetector::defaultAxesUnits() const override
+%feature("docstring")  SphericalDetector::defaultAxesUnits "Axes::Units SphericalDetector::defaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -16615,22 +16615,22 @@ C++ includes: UnitConverter1D.h
 Returns dimensionality of converted canvas. 
 ";
 
-%feature("docstring")  UnitConverter1D::calculateMin "double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const override
+%feature("docstring")  UnitConverter1D::calculateMin "double UnitConverter1D::calculateMin(size_t i_axis, Axes::Units units_type) const override
 
 Calculates minimum on-axis value in given units. 
 ";
 
-%feature("docstring")  UnitConverter1D::calculateMax "double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const override
+%feature("docstring")  UnitConverter1D::calculateMax "double UnitConverter1D::calculateMax(size_t i_axis, Axes::Units units_type) const override
 
 Calculates maximum on-axis value in given units. 
 ";
 
-%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const override
+%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, Axes::Units units) const override
 
 Creates axis in converted units. 
 ";
 
-%feature("docstring")  UnitConverter1D::createConvertedData "std::unique_ptr< OutputData< double > > UnitConverter1D::createConvertedData(const OutputData< double > &data, AxesUnits units) const override
+%feature("docstring")  UnitConverter1D::createConvertedData "std::unique_ptr< OutputData< double > > UnitConverter1D::createConvertedData(const OutputData< double > &data, Axes::Units units) const override
 
 Creates  OutputData array in converter units. 
 ";
@@ -16644,7 +16644,7 @@ Conversion of axis units for the case of conventional (angle-based) reflectometr
 C++ includes: UnitConverter1D.h
 ";
 
-%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const Beam &beam, const IAxis &axis, AxesUnits axis_units=AxesUnits::RADIANS)
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const Beam &beam, const IAxis &axis, Axes::Units axis_units=Axes::Units::RADIANS)
 
 Constructs the object for unit conversion. 
 ";
@@ -16663,12 +16663,12 @@ Constructs the object for unit conversion.
 Returns the size of underlying axis. 
 ";
 
-%feature("docstring")  UnitConverterConvSpec::availableUnits "std::vector< AxesUnits > UnitConverterConvSpec::availableUnits() const override
+%feature("docstring")  UnitConverterConvSpec::availableUnits "std::vector< Axes::Units > UnitConverterConvSpec::availableUnits() const override
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  UnitConverterConvSpec::defaultUnits "AxesUnits UnitConverterConvSpec::defaultUnits() const override
+%feature("docstring")  UnitConverterConvSpec::defaultUnits "Axes::Units UnitConverterConvSpec::defaultUnits() const override
 
 Returns default units to convert to. 
 ";
@@ -16696,12 +16696,12 @@ C++ includes: UnitConverter1D.h
 Returns the size of underlying axis. 
 ";
 
-%feature("docstring")  UnitConverterQSpec::availableUnits "std::vector< AxesUnits > UnitConverterQSpec::availableUnits() const override
+%feature("docstring")  UnitConverterQSpec::availableUnits "std::vector< Axes::Units > UnitConverterQSpec::availableUnits() const override
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  UnitConverterQSpec::defaultUnits "AxesUnits UnitConverterQSpec::defaultUnits() const override
+%feature("docstring")  UnitConverterQSpec::defaultUnits "Axes::Units UnitConverterQSpec::defaultUnits() const override
 
 Returns default units to convert to. 
 ";
@@ -16724,21 +16724,21 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  UnitConverterSimple::dimension "size_t UnitConverterSimple::dimension() const final
 ";
 
-%feature("docstring")  UnitConverterSimple::calculateMin "double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const final
+%feature("docstring")  UnitConverterSimple::calculateMin "double UnitConverterSimple::calculateMin(size_t i_axis, Axes::Units units_type) const final
 ";
 
-%feature("docstring")  UnitConverterSimple::calculateMax "double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const final
+%feature("docstring")  UnitConverterSimple::calculateMax "double UnitConverterSimple::calculateMax(size_t i_axis, Axes::Units units_type) const final
 ";
 
 %feature("docstring")  UnitConverterSimple::axisSize "size_t UnitConverterSimple::axisSize(size_t i_axis) const final
 ";
 
-%feature("docstring")  UnitConverterSimple::availableUnits "std::vector< AxesUnits > UnitConverterSimple::availableUnits() const override
+%feature("docstring")  UnitConverterSimple::availableUnits "std::vector< Axes::Units > UnitConverterSimple::availableUnits() const override
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  UnitConverterSimple::createConvertedAxis "std::unique_ptr< IAxis > UnitConverterSimple::createConvertedAxis(size_t i_axis, AxesUnits units) const final
+%feature("docstring")  UnitConverterSimple::createConvertedAxis "std::unique_ptr< IAxis > UnitConverterSimple::createConvertedAxis(size_t i_axis, Axes::Units units) const final
 ";
 
 
@@ -17018,9 +17018,6 @@ C++ includes: ZLimits.h
 // File: namespace_0d294.xml
 
 
-// File: namespace_0d318.xml
-
-
 // File: namespace_0d325.xml
 
 
@@ -17218,31 +17215,31 @@ vector<vector<double>>
 
 
 // File: namespaceAxisNames.xml
-%feature("docstring")  AxisNames::InitSphericalAxis0 "std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis0()
+%feature("docstring")  AxisNames::InitSphericalAxis0 "std::map< Axes::Units, std::string > AxisNames::InitSphericalAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitSphericalAxis1 "std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis1()
+%feature("docstring")  AxisNames::InitSphericalAxis1 "std::map< Axes::Units, std::string > AxisNames::InitSphericalAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitRectangularAxis0 "std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis0()
+%feature("docstring")  AxisNames::InitRectangularAxis0 "std::map< Axes::Units, std::string > AxisNames::InitRectangularAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitRectangularAxis1 "std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis1()
+%feature("docstring")  AxisNames::InitRectangularAxis1 "std::map< Axes::Units, std::string > AxisNames::InitRectangularAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis0 "std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis0()
+%feature("docstring")  AxisNames::InitOffSpecAxis0 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis1 "std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis1()
+%feature("docstring")  AxisNames::InitOffSpecAxis1 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitSpecAxis "std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
+%feature("docstring")  AxisNames::InitSpecAxis "std::map< Axes::Units, std::string > AxisNames::InitSpecAxis()
 ";
 
-%feature("docstring")  AxisNames::InitSpecAxisQ "std::map< AxesUnits, std::string > AxisNames::InitSpecAxisQ()
+%feature("docstring")  AxisNames::InitSpecAxisQ "std::map< Axes::Units, std::string > AxisNames::InitSpecAxisQ()
 ";
 
-%feature("docstring")  AxisNames::InitSampleDepthAxis "std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
+%feature("docstring")  AxisNames::InitSampleDepthAxis "std::map< Axes::Units, std::string > AxisNames::InitSampleDepthAxis()
 ";
 
 
@@ -17468,7 +17465,7 @@ Creates a Fourier Transform of a 2D Array (vector of vectors).
 
 %feature("docstring")  IntensityDataFunctions::createRearrangedDataSet "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createRearrangedDataSet(const OutputData< double > &data, int n)
 
-Returns new object with input data rotated by n*90 deg counterclockwise (n > 0) or clockwise (n < 0) Axes are swapped if the data is effectively rotated by 90 or 270 degrees Applicable to 2D arrays only 
+Returns new object with input data rotated by n*90 deg counterclockwise (n > 0) or clockwise (n < 0)  Axes are swapped if the data is effectively rotated by 90 or 270 degrees Applicable to 2D arrays only 
 ";
 
 %feature("docstring")  IntensityDataFunctions::createClippedDataSet "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
@@ -18212,7 +18209,7 @@ Returns true if operation system is Windows.
 
 
 // File: namespaceUnitConverterUtils.xml
-%feature("docstring")  UnitConverterUtils::createOutputData "std::unique_ptr< OutputData< double > > UnitConverterUtils::createOutputData(const IUnitConverter &converter, AxesUnits units)
+%feature("docstring")  UnitConverterUtils::createOutputData "std::unique_ptr< OutputData< double > > UnitConverterUtils::createOutputData(const IUnitConverter &converter, Axes::Units units)
 
 Returns zero-valued output data array in specified units. 
 ";

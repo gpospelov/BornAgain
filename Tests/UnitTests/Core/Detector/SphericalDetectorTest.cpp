@@ -58,10 +58,6 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
     EXPECT_EQ(axis0.getMax(), detector.getAxis(0).getMax());
     EXPECT_EQ(axis1.getMin(), detector.getAxis(1).getMin());
     EXPECT_EQ(axis1.getMax(), detector.getAxis(1).getMax());
-
-    // clearing detector
-    detector.clear();
-    EXPECT_EQ(0u, detector.dimension());
 }
 
 // Construction of the detector via classical constructor.

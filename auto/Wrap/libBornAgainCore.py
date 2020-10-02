@@ -18272,14 +18272,6 @@ class IDetector(ICloneable, INode):
         """
         return _libBornAgainCore.IDetector_init(self, arg2)
 
-    def clear(self):
-        r"""
-        clear(IDetector self)
-        void IDetector::clear()
-
-        """
-        return _libBornAgainCore.IDetector_clear(self)
-
     def addAxis(self, axis):
         r"""
         addAxis(IDetector self, IAxis axis)

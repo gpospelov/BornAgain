@@ -266,17 +266,16 @@ void createFitContainers(JobItem* jobItem)
 {
     SessionModel* model = jobItem->model();
 
-    SessionItem* fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
-    if (fitSuiteItem != nullptr) {
+    SessionItem* result = jobItem->getItem(JobItem::T_FIT_SUITE);
+    if (result != nullptr)
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
                                 "a second FitSuiteItem.");
-    }
 
     fitSuiteItem = model->insertNewItem("FitSuite", jobItem->index(), -1, JobItem::T_FIT_SUITE);
 
-    SessionItem* parsContainerItem =
+    SessionItem* result =
         fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
-    if (parsContainerItem != nullptr) {
+    if (result != nullptr) {
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
                                 "a second FitParameterContainer.");
     }
@@ -285,8 +284,8 @@ void createFitContainers(JobItem* jobItem)
                                              FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
 
     // Minimizer settings
-    SessionItem* minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
-    if (minimizerContainerItem != nullptr) {
+    SessionItem* result = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
+    if (result != nullptr) {
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
                                 "a second MinimizerContainer.");
     }

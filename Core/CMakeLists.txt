@@ -23,7 +23,6 @@ if(BORNAGAIN_PYTHON)
     set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
     set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
     file(MAKE_DIRECTORY ${AUTO_DIR})
-    include_directories(${AUTO_DIR})
 
     if(CONFIGURE_BINDINGS)
 
@@ -49,7 +48,6 @@ if(BORNAGAIN_PYTHON)
 
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/lib${lib}_wrap.cpp;-outdir;${TMP_DIR}"
                                ";-I${CMAKE_SOURCE_DIR};-I${CMAKE_BINARY_DIR}/inc")
-        set(SWIG_RUNTIME_FLAGS "-c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h")
 
         add_custom_command(
             OUTPUT ${AUTO_DIR}/lib${lib}.py
@@ -66,24 +64,16 @@ if(BORNAGAIN_PYTHON)
             DEPENDS ${swig_dependencies} ${include_files}
             )
 
-        add_custom_command(
-            OUTPUT ${AUTO_DIR}/swig_runtime.h
-            COMMAND ${SWIG_EXECUTABLE} ${SWIG_RUNTIME_FLAGS}
-            DEPENDS ${swig_dependencies} ${include_files}
-            )
-
     endif(CONFIGURE_BINDINGS)
 
     add_custom_target(
         ${lib}_python
-        COMMAND ${CMAKE_COMMAND} -E copy
-            ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
-        COMMAND ${CMAKE_COMMAND} -E copy
-            ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/bornagain/lib${lib}.py
+        COMMAND ${CMAKE_COMMAND}
+            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
+        COMMAND ${CMAKE_COMMAND}
+            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/bornagain/lib${lib}.py
         DEPENDS ${AUTO_DIR}/lib${lib}.py
         )
-
-    add_custom_target(${lib}_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
 
     if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
             OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
@@ -95,6 +85,19 @@ if(BORNAGAIN_PYTHON)
     endif()
 
     list(APPEND source_files "${AUTO_DIR}/lib${lib}_wrap.cpp")
+
+endif(BORNAGAIN_PYTHON)
+
+
+if(BORNAGAIN_PYTHON)
+    if(CONFIGURE_BINDINGS)
+        add_custom_command(
+            OUTPUT ${AUTO_DIR}/swig_runtime.h
+            COMMAND ${SWIG_EXECUTABLE} -c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h
+            DEPENDS ${swig_dependencies} ${include_files}
+            )
+    endif()
+    add_custom_target(${lib}_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
@@ -113,12 +116,11 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 
+# --- making library ---
+
 if(WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
-
-
-# --- making library ---
 
 if(${Cerf_IS_CPP})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCERF_AS_CPP=ON")
@@ -127,7 +129,6 @@ add_library(${lib} SHARED ${source_files})
 
 set_target_properties(${lib} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${lib}_LIBRARY_TYPE SHARED)
-
 
 if(BORNAGAIN_PYTHON)
     add_dependencies(${lib} ${lib}_python ${lib}_runtime)

@@ -99,17 +99,25 @@ endif()
 
 add_subdirectory(ThirdParty/common)
 add_subdirectory(ThirdParty/Fit)
+add_subdirectory(ThirdParty/Core)
+if(BORNAGAIN_GUI)
+    add_subdirectory(ThirdParty/GUI)
+endif()
+
+if(BORNAGAIN_TIDY)
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,\
+readability-*,readability-braces-around-statements,-readability-magic-numbers,modernize-*,-modernize-use-trailing-return-type")
+endif()
+
 add_subdirectory(Fit)
 add_subdirectory(Tests/UnitTests/Fit)
 
-add_subdirectory(ThirdParty/Core)
 add_subdirectory(Core)
 add_subdirectory(Tests/UnitTests/Core)
 add_subdirectory(Tests/UnitTests/Numeric)
 add_subdirectory(Tests/Performance/Core)
 
 if(BORNAGAIN_GUI)
-    add_subdirectory(ThirdParty/GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/GUI)
     add_subdirectory(Tests/Performance/GUI)

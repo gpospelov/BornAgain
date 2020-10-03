@@ -39,7 +39,7 @@ if(BORNAGAIN_PYTHON)
         list(APPEND swig_dependencies ${AUTO_DIR}/doxygen${name}.i)
 
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/lib${lib}_wrap.cpp;-outdir;${TMP_DIR}"
-            ";-I${CMAKE_SOURCE_DIR}")
+                               ";-I${CMAKE_SOURCE_DIR};-I${CMAKE_BINARY_DIR}/inc")
 
         add_custom_command(
             OUTPUT ${AUTO_DIR}/lib${lib}.py
@@ -60,10 +60,10 @@ if(BORNAGAIN_PYTHON)
 
     add_custom_target(
         ${lib}_python
-        COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/lib${lib}.py
-             ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
-        COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/lib${lib}.py
-             ${CMAKE_BINARY_DIR}/lib/bornagain/lib${lib}.py
+        COMMAND ${CMAKE_COMMAND}
+            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
+        COMMAND ${CMAKE_COMMAND}
+            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/bornagain/lib${lib}.py
         DEPENDS ${AUTO_DIR}/lib${lib}.py
         )
 
@@ -72,12 +72,13 @@ if(BORNAGAIN_PYTHON)
         # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
         set_source_files_properties(${AUTO_DIR}/lib${lib}_wrap.cpp
             PROPERTIES COMPILE_OPTIONS
-            "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-deprecated-declarations")
+            "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-sometimes-uninitialized;\
+-Wno-deprecated-declarations")
     endif()
 
     list(APPEND source_files "${AUTO_DIR}/lib${lib}_wrap.cpp")
 
-endif()
+endif(BORNAGAIN_PYTHON)
 
 # --- making library ---
 
@@ -97,7 +98,7 @@ endif()
 set(${lib}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${WRAP_DIR} PARENT_SCOPE)
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 
-# --- dependencies ---
+# --- external dependencies ---
 
 target_include_directories(${lib}
     PUBLIC ${RootMinimizers_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR})

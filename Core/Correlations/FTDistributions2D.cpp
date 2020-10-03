@@ -13,14 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Correlations/FTDistributions2D.h"
-#include "Core/Basics/Algorithms.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
-
-using algo::concat;
 
 // ************************************************************************** //
 // interface IFTDistribution1D

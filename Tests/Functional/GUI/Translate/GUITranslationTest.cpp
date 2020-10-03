@@ -288,7 +288,7 @@ bool GUITranslationTest::checkMissedTranslations()
         }
     }
 
-    if (missedNames.size()) {
+    if (!missedNames.empty()) {
         std::cout << header() << std::endl;
         std::cout << "Translation doesn't exist:" << std::endl;
         std::cout << header() << std::endl;

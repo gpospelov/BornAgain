@@ -25,7 +25,7 @@ IParameterized::IParameterized(const std::string& name) : m_name{name}, m_pool{n
 
 IParameterized::IParameterized(const IParameterized& other) : IParameterized(other.getName())
 {
-    if (other.parameterPool()->size())
+    if (!other.parameterPool()->empty())
         throw std::runtime_error("BUG: not prepared to copy parameters of " + getName());
 }
 

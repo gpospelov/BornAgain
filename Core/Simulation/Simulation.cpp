@@ -93,7 +93,7 @@ void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
         if (!comp->isCompleted())
             failure_messages.push_back(comp->errorMessage());
 
-    if (failure_messages.size() == 0)
+    if (failure_messages.empty())
         return;
     throw Exceptions::RuntimeErrorException(
         "Error in runComputations: "

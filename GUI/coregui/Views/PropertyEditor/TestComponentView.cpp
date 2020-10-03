@@ -130,7 +130,7 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
 {
     QModelIndexList indices = selected.indexes();
 
-    if (indices.size()) {
+    if (!indices.empty()) {
         //        QModelIndex selectedIndex = indices.front();
         //        m_componentTree->setRootIndex(selectedIndex);
         //        m_componentTree->treeView()->expandAll();

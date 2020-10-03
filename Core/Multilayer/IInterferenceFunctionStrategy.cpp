@@ -33,7 +33,7 @@ void IInterferenceFunctionStrategy::init(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff)
 {
-    if (weighted_formfactors.size() == 0)
+    if (weighted_formfactors.empty())
         throw Exceptions::ClassInitializationException(
             "IInterferenceFunctionStrategy::init: strategy gets no form factors.");
     m_formfactor_wrappers = weighted_formfactors;

@@ -333,7 +333,7 @@ std::string SimulationToPython::defineParameterDistributions(const Simulation* s
     std::ostringstream result;
     const std::vector<ParameterDistribution>& distributions =
         simulation->getDistributionHandler().getDistributions();
-    if (distributions.size() == 0)
+    if (distributions.empty())
         return "";
     for (size_t i = 0; i < distributions.size(); ++i) {
         std::string main_par_name = distributions[i].getMainParameterName();

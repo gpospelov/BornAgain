@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/DepthProbeSimulation.h"
+#include "Core/Basics/Assert.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/DepthProbeComputation.h"
@@ -109,9 +110,8 @@ DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
         m_alpha_axis.reset(other.m_alpha_axis->clone());
     if (other.m_z_axis)
         m_z_axis.reset(other.m_z_axis->clone());
-    if (!m_sim_elements.empty())
-        for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter)
-            iter->setZPositions(m_alpha_axis.get());
+    for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter)
+        iter->setZPositions(m_alpha_axis.get());
     initialize();
 }
 

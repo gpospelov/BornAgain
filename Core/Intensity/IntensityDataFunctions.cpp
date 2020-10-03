@@ -32,7 +32,7 @@ double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
     if (dat.size() != ref.size())
         throw std::runtime_error("Error in IntensityDataFunctions::RelativeDifference: "
                                  "different number of elements");
-    if (dat.size() == 0)
+    if (dat.empty())
         return 0.0;
     double sum_of_diff = 0.0;
     for (size_t i = 0; i < dat.size(); ++i) {

@@ -122,7 +122,7 @@ TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
     // layer2 should have undefined material property
     ExternalProperty property =
         layer2->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_FALSE(property.isValid() );
+    EXPECT_FALSE(property.isValid());
 
     // layer3 should have different MaterialProperty name
     property = layer3->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();

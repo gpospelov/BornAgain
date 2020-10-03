@@ -222,8 +222,8 @@ TEST_F(TestComponentProxyModel, test_insertRows)
     ComponentProxyModel proxy;
     proxy.setSessionModel(&model);
 
-    EXPECT_FALSE(model.hasChildren(QModelIndex()) );
-    EXPECT_FALSE(proxy.hasChildren(QModelIndex()) );
+    EXPECT_FALSE(model.hasChildren(QModelIndex()));
+    EXPECT_FALSE(proxy.hasChildren(QModelIndex()));
 
     QSignalSpy spyProxy(&proxy, &ComponentProxyModel::layoutChanged);
 
@@ -270,10 +270,10 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
 
     // CylinderItem shouldn't exist anymore in proxy
     QModelIndex ffProxyIndex = proxy.mapFromSource(ffIndex);
-    EXPECT_FALSE(ffProxyIndex.isValid() );
+    EXPECT_FALSE(ffProxyIndex.isValid());
 
     QModelIndex radiusProxyIndex = proxy.mapFromSource(radiusIndex);
-    EXPECT_TRUE(radiusProxyIndex.isValid() );
+    EXPECT_TRUE(radiusProxyIndex.isValid());
     EXPECT_TRUE(radiusProxyIndex.parent() == groupProxyIndex);
 }
 
@@ -370,7 +370,7 @@ TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
     EXPECT_EQ(proxy.columnCount(QModelIndex()), 2);
 
     QModelIndex multilayerProxyIndex = proxy.mapFromSource(model.indexOfItem(multilayer));
-    EXPECT_FALSE(multilayerProxyIndex.isValid() );
+    EXPECT_FALSE(multilayerProxyIndex.isValid());
 
     QModelIndex layerProxyIndex = proxy.mapFromSource(model.indexOfItem(layer1));
     EXPECT_EQ(proxy.rowCount(layerProxyIndex), 4); // thickness, material, slices, roughness
@@ -380,5 +380,5 @@ TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
 
     // ParticleLayout should be excluded from proxy tree
     QModelIndex layoutProxyIndex = proxy.mapFromSource(model.indexOfItem(layout));
-    EXPECT_FALSE(layoutProxyIndex.isValid() );
+    EXPECT_FALSE(layoutProxyIndex.isValid());
 }

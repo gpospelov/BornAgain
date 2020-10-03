@@ -248,7 +248,7 @@ void ProcessedSample::addNSlices(size_t n, double thickness, const Material& mat
 
 void ProcessedSample::initBFields()
 {
-    if (m_slices.size() == 0)
+    if (m_slices.empty())
         return;
     double m_z0 = m_slices[0].material().magnetization().z();
     double b_z = Slice::Magnetic_Permeability * (m_ext_field.z() + m_z0);
@@ -286,7 +286,8 @@ std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& sample,
     if (ContainsMagneticSlice(slices))
         P_result = std::make_unique<MatrixFresnelMap>(SpecularStrategyBuilder::build(sample, true));
     else
-        P_result = std::make_unique<ScalarFresnelMap>(SpecularStrategyBuilder::build(sample, false));
+        P_result =
+            std::make_unique<ScalarFresnelMap>(SpecularStrategyBuilder::build(sample, false));
     if (options.isIntegrate())
         P_result->disableCaching();
     return P_result;

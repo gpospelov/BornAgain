@@ -177,7 +177,7 @@ void FitSessionController::updateLog(const FitProgressInfo& info)
     int index(0);
     QVector<double> values = GUIHelpers::fromStdVector(info.parValues());
     for (auto item : fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        if (item->getItems(FitParameterItem::T_LINK).size() == 0)
+        if (item->getItems(FitParameterItem::T_LINK).empty())
             continue;
         QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index++]);
         message.append(parinfo);

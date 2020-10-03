@@ -100,7 +100,7 @@ void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, cons
     QModelIndexList indexes = selected.indexes();
     SessionItem* selectedItem(0);
 
-    if (indexes.size())
+    if (!indexes.empty())
         selectedItem = m_model->itemForIndex(indexes.back());
 
     emit selectionChanged(selectedItem);

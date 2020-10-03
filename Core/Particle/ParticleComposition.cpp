@@ -45,7 +45,7 @@ ParticleComposition* ParticleComposition::clone() const
 
 IFormFactor* ParticleComposition::createFormFactor() const
 {
-    if (m_particles.size() == 0)
+    if (m_particles.empty())
         return {};
     std::unique_ptr<FormFactorWeighted> P_result{new FormFactorWeighted()};
     auto particles = decompose();

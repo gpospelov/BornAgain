@@ -65,8 +65,8 @@ TEST_F(TestProjectDocument, test_projectDocument)
     document.setApplicationModels(&models);
 
     // Checking initial document status
-    EXPECT_FALSE(document.isModified() );
-    EXPECT_FALSE(document.hasValidNameAndPath() );
+    EXPECT_FALSE(document.isModified());
+    EXPECT_FALSE(document.hasValidNameAndPath());
     EXPECT_EQ(document.projectDir(), QString());
     EXPECT_EQ(document.projectName(), QString());
     EXPECT_EQ(document.projectFileName(), QString());

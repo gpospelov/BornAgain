@@ -100,8 +100,8 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
 
 std::string SampleToPython::defineMaterials() const
 {
-    const auto themap = m_label->materialMap();
-    if (themap->size() == 0)
+    const LabelMap<const Material*>* themap = m_label->materialMap();
+    if (themap->empty())
         return "# No Materials.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -139,7 +139,7 @@ std::string SampleToPython::defineMaterials() const
 std::string SampleToPython::defineLayers() const
 {
     const auto themap = m_label->layerMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "# No Layers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -161,7 +161,7 @@ std::string SampleToPython::defineLayers() const
 std::string SampleToPython::defineFormFactors() const
 {
     const auto themap = m_label->formFactorMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -177,7 +177,7 @@ std::string SampleToPython::defineFormFactors() const
 std::string SampleToPython::defineParticles() const
 {
     const auto themap = m_label->particleMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -200,7 +200,7 @@ std::string SampleToPython::defineParticles() const
 std::string SampleToPython::defineCoreShellParticles() const
 {
     const auto themap = m_label->particleCoreShellMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -221,7 +221,7 @@ std::string SampleToPython::defineCoreShellParticles() const
 std::string SampleToPython::defineParticleDistributions() const
 {
     const auto themap = m_label->particleDistributionsMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
 
     std::ostringstream result;
@@ -249,7 +249,7 @@ std::string SampleToPython::defineParticleDistributions() const
 
         // linked parameters
         std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
-        if (linked_pars.size()) {
+        if (!linked_pars.empty()) {
             result << indent() << s_par_distr;
             for (size_t i = 0; i < linked_pars.size(); ++i)
                 result << ".linkParameter(\"" << linked_pars[i] << "\")";
@@ -269,7 +269,7 @@ std::string SampleToPython::defineParticleDistributions() const
 std::string SampleToPython::defineParticleCompositions() const
 {
     const auto themap = m_label->particleCompositionMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -292,7 +292,7 @@ std::string SampleToPython::defineParticleCompositions() const
 std::string SampleToPython::defineLattices() const
 {
     const auto themap = m_label->latticeMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -317,7 +317,7 @@ std::string SampleToPython::defineLattices() const
 std::string SampleToPython::defineCrystals() const
 {
     const auto themap = m_label->crystalMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -339,7 +339,7 @@ std::string SampleToPython::defineCrystals() const
 std::string SampleToPython::defineMesoCrystals() const
 {
     const auto themap = m_label->mesocrystalMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -363,7 +363,7 @@ std::string SampleToPython::defineMesoCrystals() const
 std::string SampleToPython::defineInterferenceFunctions() const
 {
     const auto themap = m_label->interferenceFunctionMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -486,7 +486,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
 std::string SampleToPython::defineParticleLayouts() const
 {
     const auto themap = m_label->particleLayoutMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -517,7 +517,7 @@ std::string SampleToPython::defineParticleLayouts() const
 std::string SampleToPython::defineRoughnesses() const
 {
     const auto themap = m_label->layerRoughnessMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -530,7 +530,7 @@ std::string SampleToPython::defineRoughnesses() const
 
 std::string SampleToPython::addLayoutsToLayers() const
 {
-    if (m_label->particleLayoutMap()->size() == 0)
+    if (m_label->particleLayoutMap()->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -549,7 +549,7 @@ std::string SampleToPython::addLayoutsToLayers() const
 std::string SampleToPython::defineMultiLayers() const
 {
     const auto themap = m_label->multiLayerMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "# No MultiLayers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);

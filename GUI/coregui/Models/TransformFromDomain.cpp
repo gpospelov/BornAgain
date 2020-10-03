@@ -46,7 +46,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"

@@ -23,7 +23,7 @@
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"

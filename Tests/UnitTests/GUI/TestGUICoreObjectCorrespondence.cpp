@@ -1,7 +1,7 @@
 #include "Core/Basics/Units.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/includeIncludes/FormFactors.h"
-#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "Tests/GTestWrapper/google_test.h"

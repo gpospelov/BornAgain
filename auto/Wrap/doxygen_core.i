@@ -16974,52 +16974,52 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d105.xml
+// File: namespace_0d106.xml
 
 
-// File: namespace_0d111.xml
+// File: namespace_0d112.xml
 
 
-// File: namespace_0d115.xml
+// File: namespace_0d116.xml
 
 
-// File: namespace_0d146.xml
+// File: namespace_0d147.xml
 
 
-// File: namespace_0d158.xml
+// File: namespace_0d159.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d166.xml
+// File: namespace_0d167.xml
 
 
-// File: namespace_0d171.xml
+// File: namespace_0d172.xml
 
 
-// File: namespace_0d180.xml
+// File: namespace_0d181.xml
 
 
-// File: namespace_0d182.xml
+// File: namespace_0d183.xml
 
 
-// File: namespace_0d186.xml
+// File: namespace_0d187.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d24.xml
+// File: namespace_0d249.xml
 
 
-// File: namespace_0d248.xml
+// File: namespace_0d25.xml
 
 
-// File: namespace_0d251.xml
+// File: namespace_0d252.xml
 
 
-// File: namespace_0d253.xml
+// File: namespace_0d254.xml
 
 
 // File: namespace_0d262.xml
@@ -17160,16 +17160,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d632.xml
 
 
-// File: namespace_0d85.xml
+// File: namespace_0d86.xml
 
 
-// File: namespace_0d87.xml
+// File: namespace_0d88.xml
 
 
-// File: namespace_0d89.xml
+// File: namespace_0d90.xml
 
 
-// File: namespace_0d93.xml
+// File: namespace_0d94.xml
 
 
 // File: namespacealgo.xml
@@ -18319,6 +18319,9 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: InterferenceFunctionRadialParaCrystal_8h.xml
 
 
+// File: InterferenceFunctions_8h.xml
+
+
 // File: InterferenceFunctionTwin_8cpp.xml
 
 
@@ -19077,9 +19080,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: HardParticles_8h.xml
-
-
-// File: InterferenceFunctions_8h.xml
 
 
 // File: SoftParticles_8h.xml

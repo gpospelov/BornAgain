@@ -4,7 +4,7 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/includeIncludes/HardParticles.h"
+#include "Core/HardParticle/HardParticles.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleCoreShellTest : public ::testing::Test

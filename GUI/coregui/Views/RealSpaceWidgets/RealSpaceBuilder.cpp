@@ -16,7 +16,7 @@
 #include "Core/Basics/Units.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleCoreShell.h"
-#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/ba3d/model/layer.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"

@@ -15,7 +15,7 @@
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
 #include "Core/Basics/Units.h"
 #include "Core/Particle/ParticleComposition.h"
-#include "Core/includeIncludes/HardParticles.h"
+#include "Core/HardParticle/HardParticles.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
 #include "GUI/coregui/Models/LayerItem.h"

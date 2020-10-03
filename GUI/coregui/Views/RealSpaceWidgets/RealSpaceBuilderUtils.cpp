@@ -23,7 +23,7 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Scattering/IFormFactorDecorator.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/LayerItem.h"

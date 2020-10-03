@@ -21,7 +21,7 @@
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/includeIncludes/HardParticles.h"
+#include "Core/HardParticle/HardParticles.h"
 #include "GUI/ba3d/model/particles.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/MesoCrystalItem.h"

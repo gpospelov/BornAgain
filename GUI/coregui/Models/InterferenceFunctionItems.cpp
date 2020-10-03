@@ -17,7 +17,7 @@
 #include "Core/Correlations/FTDecay1D.h"
 #include "Core/Correlations/FTDecay2D.h"
 #include "Core/Correlations/FTDistributions2D.h"
-#include "Core/includeIncludes/InterferenceFunctions.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
 #include "GUI/coregui/Models/FTDistributionItems.h"
 #include "GUI/coregui/Models/GroupItem.h"

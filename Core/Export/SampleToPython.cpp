@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Export/SampleToPython.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleLabelHandler.h"
@@ -33,7 +34,6 @@
 #include "Core/Scattering/IFormFactor.h"
 #include "Core/Tools/PyFmt.h"
 #include "Core/Vector/Transform3D.h"
-#include "Core/Aggregate/InterferenceFunctions.h"
 #include <iomanip>
 #include <map>
 #include <set>

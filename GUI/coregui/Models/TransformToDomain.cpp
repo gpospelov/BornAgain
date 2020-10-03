@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/TransformToDomain.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "Core/Basics/Units.h"
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Instrument/AngularSpecScan.h"
@@ -23,7 +24,6 @@
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"

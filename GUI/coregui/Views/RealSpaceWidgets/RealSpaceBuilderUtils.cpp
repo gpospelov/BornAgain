@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/Units.h"
 #include "Core/Particle/FormFactorCrystal.h"
@@ -23,7 +24,6 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Scattering/IFormFactorDecorator.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/LayerItem.h"

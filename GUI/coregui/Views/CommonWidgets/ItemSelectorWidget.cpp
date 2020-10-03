@@ -116,7 +116,7 @@ void ItemSelectorWidget::connectModel()
     if (!m_model)
         return;
 
-    m_decorationModel.reset(new SessionDecorationModel(nullptr, m_model));
+    m_decorationModel = std::make_unique<SessionDecorationModel>(nullptr, m_model);
     m_listView->setModel(m_decorationModel.get());
 
     connect(m_listView->selectionModel(),

@@ -75,7 +75,7 @@ void FitSessionController::onStartFittingRequest()
         return;
 
     try {
-        m_objectiveBuilder.reset(new FitObjectiveBuilder(m_jobItem));
+        m_objectiveBuilder = std::make_unique<FitObjectiveBuilder>(m_jobItem);
         m_observer->setInterval(
             m_jobItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         m_objectiveBuilder->attachObserver(m_observer);

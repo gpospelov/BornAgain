@@ -30,7 +30,7 @@ SpecularComputationTerm::~SpecularComputationTerm() = default;
 
 void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
+    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
 void SpecularComputationTerm::compute(SpecularSimulationElement& elem,

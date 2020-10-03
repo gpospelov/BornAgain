@@ -93,5 +93,5 @@ void FormFactorCone::onChange()
 {
     m_cot_alpha = MathFunctions::cot(m_alpha);
     double radius2 = m_radius - m_height * m_cot_alpha;
-    mP_shape.reset(new DoubleEllipse(m_radius, m_radius, m_height, radius2, radius2));
+    mP_shape = std::make_unique<DoubleEllipse>(m_radius, m_radius, m_height, radius2, radius2);
 }

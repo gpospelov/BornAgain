@@ -169,7 +169,7 @@ void ProjectionsPlot::unsubscribeFromChildren()
 
 void ProjectionsPlot::updateProjectionsData()
 {
-    m_hist2d.reset(new Histogram2D(*intensityItem()->getOutputData()));
+    m_hist2d = std::make_unique<Histogram2D>(*intensityItem()->getOutputData());
     updateAxesRange();
     updateAxesTitle();
     setLogz(intensityItem()->isLogz());

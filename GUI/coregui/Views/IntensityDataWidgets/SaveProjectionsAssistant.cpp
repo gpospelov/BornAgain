@@ -62,7 +62,7 @@ void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataIte
         throw GUIHelpers::Error("TestProjectUtils::createTestFile() -> Error. "
                                 "Can't create file");
 
-    m_hist2d.reset(new Histogram2D(*intensityItem->getOutputData()));
+    m_hist2d = std::make_unique<Histogram2D>(*intensityItem->getOutputData());
 
     QTextStream out(&file);
 

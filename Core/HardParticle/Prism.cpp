@@ -20,11 +20,6 @@
 #include "Core/Tools/MathFunctions.h"
 #include <stdexcept> // need overlooked by g++ 5.4
 
-namespace
-{
-const double eps = 2e-16;
-} // namespace
-
 Prism::Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vertices)
 {
     m_height = height;

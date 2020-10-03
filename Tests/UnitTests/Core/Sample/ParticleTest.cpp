@@ -84,7 +84,7 @@ TEST_F(ParticleTest, getChildren)
     EXPECT_EQ(children.size(), 1u);
 
     // Checking children of particle (with rotation)
-    particle.reset(new Particle(mat, sphere, RotationY(45.)));
+    particle = std::make_unique<Particle>(mat, sphere, RotationY(45.));
     children = particle->getChildren();
     EXPECT_EQ(children.size(), 2u);
 }

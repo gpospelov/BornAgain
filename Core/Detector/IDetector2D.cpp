@@ -48,7 +48,7 @@ const RegionOfInterest* IDetector2D::regionOfInterest() const
 
 void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_region_of_interest.reset(new RegionOfInterest(*this, xlow, ylow, xup, yup));
+    m_region_of_interest = std::make_unique<RegionOfInterest>(*this, xlow, ylow, xup, yup);
     m_detector_mask.initMaskData(*this);
 }
 

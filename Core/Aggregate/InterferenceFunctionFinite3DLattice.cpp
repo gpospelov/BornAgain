@@ -67,6 +67,6 @@ double InterferenceFunctionFinite3DLattice::iff_without_dw(const kvector_t q) co
 
 void InterferenceFunctionFinite3DLattice::setLattice(const Lattice& lattice)
 {
-    mP_lattice.reset(new Lattice(lattice));
+    mP_lattice = std::make_unique<Lattice>(lattice);
     registerChild(mP_lattice.get());
 }

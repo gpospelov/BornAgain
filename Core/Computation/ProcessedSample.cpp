@@ -284,9 +284,9 @@ std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& sample,
 {
     std::unique_ptr<IFresnelMap> P_result;
     if (ContainsMagneticSlice(slices))
-        P_result.reset(new MatrixFresnelMap(SpecularStrategyBuilder::build(sample, true)));
+        P_result = std::make_unique<MatrixFresnelMap>(SpecularStrategyBuilder::build(sample, true));
     else
-        P_result.reset(new ScalarFresnelMap(SpecularStrategyBuilder::build(sample, false)));
+        P_result = std::make_unique<ScalarFresnelMap>(SpecularStrategyBuilder::build(sample, false));
     if (options.isIntegrate())
         P_result->disableCaching();
     return P_result;

@@ -15,8 +15,8 @@ public:
 TEST_F(TestExternalProperty, test_initialState)
 {
     ExternalProperty property;
-    EXPECT_TRUE(property.isValid() == false);
-    EXPECT_TRUE(property.color().isValid() == false);
+    EXPECT_FALSE(property.isValid() );
+    EXPECT_FALSE(property.color().isValid() );
     EXPECT_TRUE(property.identifier().isEmpty() == true);
     EXPECT_TRUE(property.text().isEmpty() == true);
 
@@ -25,12 +25,12 @@ TEST_F(TestExternalProperty, test_initialState)
     EXPECT_TRUE(property.color() == QColor(Qt::red));
     EXPECT_TRUE(property.isValid() == true);
     property.setColor(QColor());
-    EXPECT_TRUE(property.isValid() == false);
+    EXPECT_FALSE(property.isValid() );
     property.setText("aaa");
     EXPECT_TRUE(property.text() == "aaa");
     EXPECT_TRUE(property.isValid() == true);
     property.setText(QString());
-    EXPECT_TRUE(property.isValid() == false);
+    EXPECT_FALSE(property.isValid() );
 }
 
 //! Testing equality operators.

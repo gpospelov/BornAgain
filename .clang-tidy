@@ -1,5 +1,8 @@
 ---
 Checks: '*,
+-*braces-around-statements,
+-*magic-numbers,
+-*named-parameter,
 -clang-analyzer-alpha*,
 -cppcoreguidelines-pro-bounds-pointer-arithmetic,
 -cppcoreguidelines-pro-bounds-constant-array-index,
@@ -14,4 +17,4 @@ Checks: '*,
 -google-runtime-int,
 -modernize-raw-string-literal,
 -modernize-use-trailing-return-type,
--readability-magic-numbers'
+'

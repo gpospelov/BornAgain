@@ -123,7 +123,7 @@ TEST_F(TestMaterialModel, defaultMaterialProperty)
     // testing default material property from MaterialItemUtils
     // in the absence of any materials, property should be in invalid state
     ExternalProperty property = MaterialItemUtils::defaultMaterialProperty();
-    EXPECT_TRUE(property.isValid() == false);
+    EXPECT_FALSE(property.isValid() );
 
     // adding materials to the model, default property should refer to first material in a model
     auto mat1 = model.addRefractiveMaterial("Something1", 1.0, 2.0);

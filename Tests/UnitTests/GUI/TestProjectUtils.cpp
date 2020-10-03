@@ -32,7 +32,7 @@ TEST_F(TestProjectUtils, test_nonXMLDataInDir)
     QDir dir(projectDir);
     if (dir.exists()) {
         EXPECT_TRUE(ProjectUtils::removeRecursively(projectDir) == true);
-        EXPECT_TRUE(dir.exists() == false);
+        EXPECT_FALSE(dir.exists() );
     }
 
     GUIHelpers::createSubdir(".", projectDir);

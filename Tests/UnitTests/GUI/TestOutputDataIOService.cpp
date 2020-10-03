@@ -99,7 +99,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
     QTest::qSleep(nap_time);
 
     OutputDataSaveInfo info = OutputDataSaveInfo::createSaved(item);
-    EXPECT_TRUE(info.wasModifiedSinceLastSave() == false);
+    EXPECT_FALSE(info.wasModifiedSinceLastSave() );
 
     QTest::qSleep(nap_time);
     item->setLastModified(QDateTime::currentDateTime());
@@ -121,7 +121,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 
     // empty history
     OutputDataDirHistory history;
-    EXPECT_TRUE(history.contains(item1) == false);
+    EXPECT_FALSE(history.contains(item1) );
     // non-existing item is treated as modified
     EXPECT_TRUE(history.wasModifiedSinceLastSave(item1) == true);
 
@@ -131,8 +131,8 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 
     EXPECT_TRUE(history.contains(item1) == true);
     // Empty DataItems are not added to history:
-    EXPECT_TRUE(history.contains(item2) == false);
-    EXPECT_TRUE(history.wasModifiedSinceLastSave(item1) == false);
+    EXPECT_FALSE(history.contains(item2) );
+    EXPECT_FALSE(history.wasModifiedSinceLastSave(item1) );
 
     // Attempt to save same item second time
     EXPECT_THROW(history.markAsSaved(item1), GUIHelpers::Error);
@@ -177,7 +177,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
     EXPECT_TRUE(history.wasModifiedSinceLastSave("dir1", item1) == true);
     EXPECT_TRUE(history.wasModifiedSinceLastSave("dir2", item1) == true);
 
-    EXPECT_TRUE(history.wasModifiedSinceLastSave("dir1", item2) == false);
+    EXPECT_FALSE(history.wasModifiedSinceLastSave("dir1", item2) );
     EXPECT_TRUE(history.wasModifiedSinceLastSave("dir2", item2)
                 == true); // since item2 doesn't exist
 
@@ -241,7 +241,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     EXPECT_TRUE(GuiUnittestUtils::isTheSame(fname2new, *realData2->dataItem()->getOutputData()));
 
     // Check that file with old name was removed.
-    EXPECT_TRUE(ProjectUtils::exists(fname2) == false);
+    EXPECT_FALSE(ProjectUtils::exists(fname2) );
 }
 
 TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)

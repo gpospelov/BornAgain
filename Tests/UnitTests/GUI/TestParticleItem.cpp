@@ -60,7 +60,7 @@ TEST_F(TestParticleItem, test_distributionContext)
     // adding particle to distribution, checking that abundance is default
     SessionItem* distribution = model.insertNewItem("ParticleDistribution");
     model.moveItem(particle, distribution, -1, ParticleDistributionItem::T_PARTICLES);
-    EXPECT_TRUE(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
+    EXPECT_FALSE(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() );
     EXPECT_EQ(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing particle, checking that abundance is enabled again

@@ -21,8 +21,8 @@
 #include "Core/Intensity/ArrayUtils.h"
 #include "Core/Intensity/IHistogram.h"
 #include "Fit/TestEngine/Numeric.h"
+#include <cmath>
 #include <iostream>
-#include <math.h>
 
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )

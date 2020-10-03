@@ -147,5 +147,4 @@ void SimulationResult::checkDimensions() const
     if (mP_data->getRank() != mP_unit_converter->dimension())
         throw std::runtime_error("Error in SimulationResults::checkDimensions(): "
                                  "dimensions of data and unit converter don't match");
-    return;
 }

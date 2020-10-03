@@ -29,9 +29,9 @@ namespace
 bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 {
     return iff.getName() == "Interference2DLattice" || iff.getName() == "Interference2DParaCrystal"
-        || iff.getName() == "Interference2DSuperLattice"
-        || iff.getName() == "InterferenceFinite2DLattice"
-        || iff.getName() == "InterferenceHardDisk";
+           || iff.getName() == "Interference2DSuperLattice"
+           || iff.getName() == "InterferenceFinite2DLattice"
+           || iff.getName() == "InterferenceHardDisk";
 }
 } // namespace
 

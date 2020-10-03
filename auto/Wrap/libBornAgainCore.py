@@ -7494,6 +7494,14 @@ class ParameterPool(ICloneable):
         """
         return _libBornAgainCore.ParameterPool_size(self)
 
+    def empty(self):
+        r"""
+        empty(ParameterPool self) -> bool
+        bool ParameterPool::empty() const
+
+        """
+        return _libBornAgainCore.ParameterPool_empty(self)
+
     def addParameter(self, newPar):
         r"""
         addParameter(ParameterPool self, RealParameter newPar) -> RealParameter
@@ -20967,6 +20975,14 @@ class SimulationResult(object):
 
         """
         return _libBornAgainCore.SimulationResult_size(self)
+
+    def empty(self):
+        r"""
+        empty(SimulationResult self) -> bool
+        bool SimulationResult::empty() const
+
+        """
+        return _libBornAgainCore.SimulationResult_empty(self)
 
     def array(self, *args):
         r"""

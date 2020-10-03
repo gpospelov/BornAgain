@@ -121,16 +121,15 @@ if(${Cerf_IS_CPP})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCERF_AS_CPP=ON")
 endif()
 add_library(${lib} SHARED ${source_files})
-
 set_target_properties(${lib} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${lib}_LIBRARY_TYPE SHARED)
 
 if(BORNAGAIN_PYTHON)
-    add_dependencies(${lib} ${lib}_python ${lib}_runtime)
+    add_dependencies(${lib} ${lib}_python)
+    add_dependencies(${lib} ${lib}_runtime)
 endif()
 
 # exposing library name and list of include directories outside
-set(${lib}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 
 # --- external dependencies ---
@@ -172,10 +171,7 @@ endif()
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
-    set_target_properties(${lib}
-        PROPERTIES
-        LINK_FLAGS ${link_flags}
-        )
+    set_target_properties(${lib} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
 
 # --- installation ---
@@ -190,8 +186,7 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
     DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp
     DESTINATION ${destination_examples} COMPONENT Examples)
-install(TARGETS ${lib}
-    DESTINATION ${destination_lib} COMPONENT Libraries)
+install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
 install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
     DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 
@@ -206,7 +201,7 @@ install(FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h
     DESTINATION ${destination_include}/Wrap COMPONENT Headers)
 
 if(WIN32)
-    # python in windows required .pyd extention for the library name
+    # python in windows required .pyd extension for the library name
     if(BORNAGAIN_PYTHON)
         add_custom_command(
             TARGET ${lib}

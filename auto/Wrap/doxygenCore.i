@@ -11620,7 +11620,10 @@ C++ includes: OrderedMap.h
 %feature("docstring")  OrderedMap::end "iterator OrderedMap< Key, Object >::end()
 ";
 
-%feature("docstring")  OrderedMap::size "size_t OrderedMap< Key, Object >::size()
+%feature("docstring")  OrderedMap::size "size_t OrderedMap< Key, Object >::size() const
+";
+
+%feature("docstring")  OrderedMap::empty "bool OrderedMap< Key, Object >::empty() const
 ";
 
 %feature("docstring")  OrderedMap::insert "void OrderedMap< Key, Object >::insert(const Key &key, const Object &object)
@@ -11635,7 +11638,7 @@ C++ includes: OrderedMap.h
 %feature("docstring")  OrderedMap::erase "size_t OrderedMap< Key, Object >::erase(const Key &key)
 ";
 
-%feature("docstring")  OrderedMap::value "const Object& OrderedMap< Key, Object >::value(const Key &key)
+%feature("docstring")  OrderedMap::value "const Object& OrderedMap< Key, Object >::value(const Key &key) const
 ";
 
 
@@ -12249,6 +12252,9 @@ Clears the parameter map.
 %feature("docstring")  ParameterPool::size "size_t ParameterPool::size() const
 
 Returns number of parameters in the pool. 
+";
+
+%feature("docstring")  ParameterPool::empty "bool ParameterPool::empty() const
 ";
 
 %feature("docstring")  ParameterPool::addParameter "RealParameter & ParameterPool::addParameter(RealParameter *newPar)
@@ -13168,6 +13174,8 @@ C++ includes: IterationStrategy.h
 ";
 
 %feature("docstring")  Prism::Prism "Prism::Prism(bool symmetry_Ci, double height, const std::vector< kvector_t > &vertices)
+
+The mathematics implemented here is described in full detail in a paper by Joachim Wuttke, entitled \"Form factor (Fourier shape transform) of polygon and polyhedron.\" 
 ";
 
 %feature("docstring")  Prism::area "double Prism::area() const
@@ -15603,6 +15611,9 @@ Returns underlying unit converter.
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const
 ";
 
+%feature("docstring")  SimulationResult::empty "bool SimulationResult::empty() const
+";
+
 %feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array(Axes::Units units=Axes::Units::DEFAULT) const
 
 returns intensity data as Python numpy array 
@@ -17017,9 +17028,6 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d253.xml
-
-
-// File: namespace_0d255.xml
 
 
 // File: namespace_0d260.xml

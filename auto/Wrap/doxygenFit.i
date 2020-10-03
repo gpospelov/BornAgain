@@ -796,6 +796,9 @@ Sets the value of option. Option should hold same value type already.
 %feature("docstring")  OptionContainer::size "size_t OptionContainer::size() const
 ";
 
+%feature("docstring")  OptionContainer::empty "bool OptionContainer::empty() const
+";
+
 
 // File: classFit_1_1Parameter.xml
 %feature("docstring") Fit::Parameter "

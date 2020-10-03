@@ -309,8 +309,7 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
                                          bool put_masked_areas_to_zero)
 {
     auto converter = UnitConverterUtils::createConverter(*this);
-    auto roi_data =
-        UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
+    auto roi_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
 
     const IDetector& detector = getInstrument().detector();
 

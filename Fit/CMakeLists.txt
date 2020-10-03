@@ -95,7 +95,6 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 # exposing library name and list of include directories outside
-set(${lib}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${WRAP_DIR} PARENT_SCOPE)
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 
 # --- external dependencies ---
@@ -133,7 +132,6 @@ if(WIN32 AND BORNAGAIN_PYTHON)
 endif()
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-    #    set(link_flags "-Wl,-rpath,@loader_path/../..")
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
     set_target_properties(${lib} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
@@ -142,7 +140,7 @@ endif()
 
 install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
 install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
-    DESTINATION ${destination_lib} COMPONENT Libraries) # required by SWIG
+    DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 
 foreach(file ${include_files})
     get_filename_component(dir ${file} DIRECTORY)
@@ -150,6 +148,7 @@ foreach(file ${include_files})
 endforeach()
 
 if(WIN32)
+    # python in windows required .pyd extension for the library name
     if(BORNAGAIN_PYTHON)
         add_custom_command(
             TARGET ${lib}
@@ -158,7 +157,6 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}".pyd"
             )
-
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}.pyd
             DESTINATION ${destination_lib} COMPONENT Libraries)
     endif()

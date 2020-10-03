@@ -28,12 +28,10 @@ namespace
 //! which is the case for 2D functions.
 bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 {
-    if (iff.getName() == "Interference2DLattice" || iff.getName() == "Interference2DParaCrystal"
+    return iff.getName() == "Interference2DLattice" || iff.getName() == "Interference2DParaCrystal"
         || iff.getName() == "Interference2DSuperLattice"
         || iff.getName() == "InterferenceFinite2DLattice"
-        || iff.getName() == "InterferenceHardDisk")
-        return true;
-    return false;
+        || iff.getName() == "InterferenceHardDisk";
 }
 } // namespace
 

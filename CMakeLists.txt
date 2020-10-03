@@ -105,8 +105,7 @@ if(BORNAGAIN_GUI)
 endif()
 
 if(BORNAGAIN_TIDY)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,\
-readability-*,readability-braces-around-statements,-readability-magic-numbers,modernize-*,-modernize-use-trailing-return-type")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy") # has effect only if compiler is clang; uses .clang-tidy
 endif()
 
 add_subdirectory(Fit)

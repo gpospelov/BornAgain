@@ -1,0 +1,17 @@
+---
+Checks: '*,
+-clang-analyzer-alpha*,
+-cppcoreguidelines-pro-bounds-pointer-arithmetic,
+-cppcoreguidelines-pro-bounds-constant-array-index,
+-cert-err61-cpp,
+-misc-throw-by-value-catch-by-reference,
+-clang-analyzer-alpha.deadcode.UnreachableCode,
+-cert-err58-cpp,
+-clang-analyzer-security.insecureAPI.strcpy,
+-cppcoreguidelines-pro-type-vararg,
+-cppcoreguidelines-pro-type-reinterpret-cast,
+-fuchsia-default-arguments-calls,
+-google-runtime-int,
+-modernize-raw-string-literal,
+-modernize-use-trailing-return-type,
+-readability-magic-numbers'

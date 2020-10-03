@@ -5,11 +5,6 @@
 set(name Core)
 set(lib BornAgain${name})
 
-if(BORNAGAIN_TIDY)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,\
-readability-*,-readability-braces-around-statements,modernize-*")
-endif()
-
 # --- source and include files ---
 
 file(GLOB source_files */*.cpp)

@@ -50,7 +50,6 @@ void LayoutStrategyBuilder::createStrategy()
     if (!mP_strategy)
         throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
     mP_strategy->init(mp_layout->formFactorList(), p_iff);
-    return;
 }
 
 void LayoutStrategyBuilder::checkInterferenceFunction(const IInterferenceFunction* p_iff)

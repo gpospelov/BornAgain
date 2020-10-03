@@ -63,7 +63,7 @@ void SaveService::setAutosaveEnabled(bool value)
 
 bool SaveService::isAutosaveEnabled() const
 {
-    return m_autosave ? true : false;
+    return m_autosave;
 }
 
 void SaveService::setAutosaveTime(int timerInterval)

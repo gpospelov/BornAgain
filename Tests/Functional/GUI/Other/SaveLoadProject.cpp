@@ -75,7 +75,7 @@ bool GUISaveLoadProject::runTest()
     // analyze difference
     nerr += check_difference(projectName1, projectName2);
 
-    return nerr == 0 ? true : false;
+    return nerr == 0;
 }
 
 int GUISaveLoadProject::run_job()

@@ -109,7 +109,7 @@ template <class U> inline void ModelMapper::clean_container(U& v, const void* ca
 {
     v.erase(std::remove_if(v.begin(), v.end(),
                            [caller](typename U::value_type const& x) -> bool {
-                               return (x.second == caller ? true : false);
+                               return (x.second == caller);
                            }),
             v.end());
 }

@@ -88,7 +88,7 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
     int index(0);
     for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
 
-        bool isTopLayer = index == 0 ? true : false;
+        bool isTopLayer = index == 0;
         populateLayer(model, *layer, sceneGeometry,
                       QVector3D(0, 0, static_cast<float>(-total_height)), isTopLayer);
 

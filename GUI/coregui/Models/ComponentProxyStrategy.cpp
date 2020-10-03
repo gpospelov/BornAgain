@@ -65,7 +65,7 @@ bool ComponentProxyStrategy::isPropertyRelated(SessionItem* item)
 
     if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex
         && item->parent()->modelType() != "GroupProperty")
-        return propertyRelated.contains(item->modelType()) ? true : false;
+        return propertyRelated.contains(item->modelType());
 
     return true;
 }

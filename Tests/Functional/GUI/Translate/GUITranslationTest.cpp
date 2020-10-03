@@ -258,7 +258,7 @@ bool GUITranslationTest::checkExistingTranslations()
     }
     std::cout << ostr.str();
 
-    bool isSuccess = (wrong_translations.empty() ? true : false);
+    bool isSuccess = (wrong_translations.empty());
     return isSuccess;
 }
 
@@ -296,6 +296,6 @@ bool GUITranslationTest::checkMissedTranslations()
             std::cout << "domain : " << name << std::endl;
     }
 
-    bool isSuccess = (missedNames.empty() ? true : false);
+    bool isSuccess = (missedNames.empty());
     return isSuccess;
 }

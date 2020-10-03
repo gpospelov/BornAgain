@@ -28,7 +28,7 @@
 %include "std_shared_ptr.i"
 
 // TODO CLARIFY WHY THIS IS INCLUDED
-%include "../../auto/Wrap/doxygen_core.i"
+%include "../../auto/Wrap/doxygenCore.i"
 
 // include the list of smart pointers (common between Core and Fit)
 %include "shared_pointers.i"

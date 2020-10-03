@@ -32,7 +32,7 @@
 %include "renameFit.i"
 %include "directors.i"
 
-%include "auto/Wrap/doxygen_fit.i"
+%include "auto/Wrap/doxygenFit.i"
 
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector< std::vector<double> >;

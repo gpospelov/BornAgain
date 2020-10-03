@@ -3,7 +3,12 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Particle/Particle.h"
-#include "Core/includeIncludes/FormFactors.h"
+#include "Core/Particle/FormFactorWeighted.h"
+#include "Core/Scattering/FormFactorDecoratorMaterial.h"
+#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Core/Scattering/FormFactorDecoratorRotation.h"
+#include "Core/HardParticle/HardParticles.h"
+#include "Core/SoftParticle/SoftParticles.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleDistributionTest : public ::testing::Test

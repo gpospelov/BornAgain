@@ -14,7 +14,12 @@
 
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "Core/Basics/Units.h"
-#include "Core/includeIncludes/FormFactors.h"
+#include "Core/Particle/FormFactorWeighted.h"
+#include "Core/Scattering/FormFactorDecoratorMaterial.h"
+#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Core/Scattering/FormFactorDecoratorRotation.h"
+#include "Core/HardParticle/HardParticles.h"
+#include "Core/SoftParticle/SoftParticles.h"
 
 /* ------------------------------------------------ */
 

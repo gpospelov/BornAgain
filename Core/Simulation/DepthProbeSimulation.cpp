@@ -56,7 +56,7 @@ SimulationResult DepthProbeSimulation::result() const
 {
     validityCheck();
     auto data = createIntensityData();
-    return SimulationResult(*data, *createUnitConverter().get());
+    return SimulationResult(*data, *createUnitConverter());
 }
 
 void DepthProbeSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,

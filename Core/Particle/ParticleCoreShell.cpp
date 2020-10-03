@@ -31,7 +31,7 @@ ParticleCoreShell* ParticleCoreShell::clone() const
 {
     ParticleCoreShell* p_result = new ParticleCoreShell(*mp_shell, *mp_core);
     p_result->setAbundance(m_abundance);
-    if (mP_rotation.get())
+    if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
     return p_result;

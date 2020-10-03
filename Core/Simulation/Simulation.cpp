@@ -310,7 +310,7 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
 {
     auto converter = UnitConverterUtils::createConverter(*this);
     auto roi_data =
-        UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
+        UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
 
     const IDetector& detector = getInstrument().detector();
 

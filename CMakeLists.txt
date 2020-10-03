@@ -52,6 +52,10 @@ option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 option(BORNAGAIN_TIDY "Invokes clang-tidy" OFF)
 
+if(BORNAGAIN_TIDY AND BORNAGAIN_PYTHON)
+    message(FATAL_ERROR "BORNAGAIN_TIDY is incompatible with BORNAGAIN_PYTHON")
+endif()
+
 if(ALLCONFIG)
     set(CONFIGURE_MANPAGE ON)
     set(CONFIGURE_PYTHON_DOCS ON)

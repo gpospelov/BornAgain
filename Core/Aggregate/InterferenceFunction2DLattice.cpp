@@ -22,9 +22,9 @@
 namespace
 {
 // maximum value for qx*Lambdax and qy*lambday
-static const int nmax = 20;
+const int nmax = 20;
 // minimum number of neighboring reciprocal lattice points to use
-static const int min_points = 4;
+const int min_points = 4;
 } // namespace
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)

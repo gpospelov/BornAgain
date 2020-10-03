@@ -22,7 +22,7 @@ const QString BasicAxisItem::P_MAX_DEG = "Max [deg]";
 const QString BasicAxisItem::P_TITLE = "Title";
 const QString BasicAxisItem::P_TITLE_IS_VISIBLE = "Title Visibility";
 
-static const int max_detector_pixels = 65536;
+const int max_detector_pixels = 65536;
 
 BasicAxisItem::BasicAxisItem(const QString& type) : SessionItem(type)
 {

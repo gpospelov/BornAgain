@@ -24,9 +24,9 @@
 namespace
 {
 // maximum value for qx*Lambdax
-static const int nmax = 20;
+const int nmax = 20;
 // minimum number of neighboring reciprocal lattice points to use
-static const int min_points = 4;
+const int min_points = 4;
 } // namespace
 
 //! Constructor of interference function of one-dimensional lattice.

@@ -43,7 +43,7 @@ InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
         ->setToolTip("Variance of the position in each dimension (nm^2)");
 }
 
-InterferenceFunctionItem::~InterferenceFunctionItem() {}
+InterferenceFunctionItem::~InterferenceFunctionItem() = default;
 
 void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction* p_iff) const
 {

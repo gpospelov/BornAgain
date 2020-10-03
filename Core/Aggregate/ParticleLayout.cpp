@@ -53,7 +53,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
     registerWeight();
 }
 
-ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
+ParticleLayout::~ParticleLayout() = default; // needs member class definitions => don't move to .h
 
 ParticleLayout* ParticleLayout::clone() const
 {

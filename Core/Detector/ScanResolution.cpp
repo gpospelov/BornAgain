@@ -206,7 +206,7 @@ std::string ScanResolution::print() const
     return result.str();
 }
 
-ScanResolution::ScanResolution() {}
+ScanResolution::ScanResolution() = default;
 
 ScanResolution::ScanResolution(const RangedDistribution& distr) : m_distr(distr.clone()) {}
 

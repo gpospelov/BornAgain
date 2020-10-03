@@ -24,7 +24,7 @@ GUIFitObserver::GUIFitObserver(QObject* parent)
 {
 }
 
-GUIFitObserver::~GUIFitObserver() {}
+GUIFitObserver::~GUIFitObserver() = default;
 
 void GUIFitObserver::update(const FitObjective* subject)
 {

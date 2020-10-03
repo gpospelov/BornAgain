@@ -46,7 +46,7 @@ std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem
 
 RealSpaceBuilder::RealSpaceBuilder(QWidget* parent) : QWidget(parent) {}
 
-RealSpaceBuilder::~RealSpaceBuilder() {}
+RealSpaceBuilder::~RealSpaceBuilder() = default;
 
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
                                 const SceneGeometry& sceneGeometry,

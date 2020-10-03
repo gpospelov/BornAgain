@@ -27,7 +27,7 @@ LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout* p_layout,
 }
 
 // needs class definitions => don't move to .h
-LayoutStrategyBuilder::~LayoutStrategyBuilder() {}
+LayoutStrategyBuilder::~LayoutStrategyBuilder() = default;
 
 IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 {

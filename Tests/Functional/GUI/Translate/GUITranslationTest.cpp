@@ -120,7 +120,7 @@ GUITranslationTest::GUITranslationTest(const std::string& simName, const std::st
     m_simulation->setSample(*sampleFactory.createSampleByName(m_sampleName));
 }
 
-GUITranslationTest::~GUITranslationTest() {}
+GUITranslationTest::~GUITranslationTest() = default;
 
 bool GUITranslationTest::runTest()
 {

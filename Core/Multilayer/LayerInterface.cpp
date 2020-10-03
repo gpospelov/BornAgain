@@ -21,7 +21,7 @@ LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr)
     setName("LayerInterface");
 }
 
-LayerInterface::~LayerInterface() {}
+LayerInterface::~LayerInterface() = default;
 
 LayerInterface* LayerInterface::clone() const
 {

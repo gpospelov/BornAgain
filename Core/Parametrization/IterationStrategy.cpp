@@ -17,7 +17,7 @@
 #include "Core/Parametrization/INode.h"
 #include "Core/Parametrization/NodeIterator.h"
 
-PreorderStrategy::PreorderStrategy() {}
+PreorderStrategy::PreorderStrategy() = default;
 
 PreorderStrategy* PreorderStrategy::clone() const
 {
@@ -53,7 +53,7 @@ bool PreorderStrategy::isDone(IteratorMemento& iterator_stack) const
     return iterator_stack.empty();
 }
 
-PostorderStrategy::PostorderStrategy() {}
+PostorderStrategy::PostorderStrategy() = default;
 
 PostorderStrategy* PostorderStrategy::clone() const
 {

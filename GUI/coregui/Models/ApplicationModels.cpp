@@ -45,7 +45,7 @@ ApplicationModels::ApplicationModels(QObject* parent)
     // createTestJob();
 }
 
-ApplicationModels::~ApplicationModels() {}
+ApplicationModels::~ApplicationModels() = default;
 
 DocumentModel* ApplicationModels::documentModel()
 {

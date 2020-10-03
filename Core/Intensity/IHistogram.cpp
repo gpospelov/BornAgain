@@ -18,7 +18,7 @@
 #include "Fit/TestEngine/Numeric.h"
 #include <memory>
 
-IHistogram::IHistogram() {}
+IHistogram::IHistogram() = default;
 
 IHistogram::IHistogram(const IHistogram& other)
 {

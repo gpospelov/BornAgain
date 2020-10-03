@@ -39,7 +39,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
     setName("RectangularDetector");
 }
 
-RectangularDetector::~RectangularDetector() {}
+RectangularDetector::~RectangularDetector() = default;
 
 RectangularDetector* RectangularDetector::clone() const
 {

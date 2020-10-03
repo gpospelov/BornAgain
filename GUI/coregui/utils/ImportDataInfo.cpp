@@ -35,7 +35,7 @@ std::map<size_t, std::vector<Axes::Units>> available_units = {{1u, specularUnits
                                                               {2u, {Axes::Units::NBINS}}};
 } // namespace
 
-ImportDataInfo::ImportDataInfo() {}
+ImportDataInfo::ImportDataInfo() = default;
 
 ImportDataInfo::ImportDataInfo(ImportDataInfo&& other)
     : m_data(std::move(other.m_data)), m_units(other.m_units)

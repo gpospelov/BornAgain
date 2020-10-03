@@ -27,7 +27,7 @@ Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
     registerChild(&m_lattice);
 }
 
-Crystal::~Crystal() {}
+Crystal::~Crystal() = default;
 
 Crystal* Crystal::clone() const
 {

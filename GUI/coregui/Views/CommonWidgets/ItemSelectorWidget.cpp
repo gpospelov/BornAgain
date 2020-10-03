@@ -38,7 +38,7 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget* parent)
             SLOT(onCustomContextMenuRequested(const QPoint&)));
 }
 
-ItemSelectorWidget::~ItemSelectorWidget() {}
+ItemSelectorWidget::~ItemSelectorWidget() = default;
 
 QSize ItemSelectorWidget::sizeHint() const
 {

@@ -25,7 +25,7 @@ ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core
     addAndRegisterShell(shell);
 }
 
-ParticleCoreShell::~ParticleCoreShell() {}
+ParticleCoreShell::~ParticleCoreShell() = default;
 
 ParticleCoreShell* ParticleCoreShell::clone() const
 {

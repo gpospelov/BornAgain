@@ -25,7 +25,7 @@
 
 //! Constructs an empty parameter pool.
 
-ParameterPool::ParameterPool() {}
+ParameterPool::ParameterPool() = default;
 
 ParameterPool::~ParameterPool()
 {

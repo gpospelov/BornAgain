@@ -348,7 +348,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 }
 } // namespace
 
-RealSpaceMesoCrystal::~RealSpaceMesoCrystal() {}
+RealSpaceMesoCrystal::~RealSpaceMesoCrystal() = default;
 
 RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem,
                                            double total_abundance, const QVector3D& origin)

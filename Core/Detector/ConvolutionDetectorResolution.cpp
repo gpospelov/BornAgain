@@ -29,7 +29,7 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     setResolutionFunction(p_res_function_2d);
 }
 
-ConvolutionDetectorResolution::~ConvolutionDetectorResolution() {}
+ConvolutionDetectorResolution::~ConvolutionDetectorResolution() = default;
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     const ConvolutionDetectorResolution& other)

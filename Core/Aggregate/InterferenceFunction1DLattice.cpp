@@ -40,7 +40,7 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, doub
     registerParameter("Xi", &m_xi).setUnit("rad");
 }
 
-InterferenceFunction1DLattice::~InterferenceFunction1DLattice() {}
+InterferenceFunction1DLattice::~InterferenceFunction1DLattice() = default;
 
 InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 {

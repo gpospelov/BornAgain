@@ -16,16 +16,11 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/Units.h"
-#include "Core/HardParticle/HardParticles.h"
+#include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/FormFactorWeighted.h"
 #include "Core/Particle/Particle.h"
 #include "Core/SampleBuilderEngine/SampleComponents.h"
-#include "Core/Scattering/FormFactorDecoratorMaterial.h"
-#include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
-#include "Core/Scattering/FormFactorDecoratorRotation.h"
-#include "Core/SoftParticle/SoftParticles.h"
 #include "Core/StandardSamples/ReferenceMaterials.h"
 
 namespace

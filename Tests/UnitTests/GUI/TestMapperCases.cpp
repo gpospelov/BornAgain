@@ -49,5 +49,5 @@ TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle)
 
     combo.setValue("Monte-Carlo Integration");
     item->setItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD, combo.variant());
-    EXPECT_TRUE(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
+    EXPECT_TRUE(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() );
 }

@@ -273,7 +273,7 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
     EXPECT_FALSE(ffProxyIndex.isValid() );
 
     QModelIndex radiusProxyIndex = proxy.mapFromSource(radiusIndex);
-    EXPECT_TRUE(radiusProxyIndex.isValid() == true);
+    EXPECT_TRUE(radiusProxyIndex.isValid() );
     EXPECT_TRUE(radiusProxyIndex.parent() == groupProxyIndex);
 }
 

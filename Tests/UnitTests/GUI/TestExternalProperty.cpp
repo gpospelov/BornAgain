@@ -17,18 +17,18 @@ TEST_F(TestExternalProperty, test_initialState)
     ExternalProperty property;
     EXPECT_FALSE(property.isValid() );
     EXPECT_FALSE(property.color().isValid() );
-    EXPECT_TRUE(property.identifier().isEmpty() == true);
-    EXPECT_TRUE(property.text().isEmpty() == true);
+    EXPECT_TRUE(property.identifier().isEmpty() );
+    EXPECT_TRUE(property.text().isEmpty() );
 
     // changing any property should change state to valid
     property.setColor(QColor(Qt::red));
     EXPECT_TRUE(property.color() == QColor(Qt::red));
-    EXPECT_TRUE(property.isValid() == true);
+    EXPECT_TRUE(property.isValid() );
     property.setColor(QColor());
     EXPECT_FALSE(property.isValid() );
     property.setText("aaa");
     EXPECT_TRUE(property.text() == "aaa");
-    EXPECT_TRUE(property.isValid() == true);
+    EXPECT_TRUE(property.isValid() );
     property.setText(QString());
     EXPECT_FALSE(property.isValid() );
 }

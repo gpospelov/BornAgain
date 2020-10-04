@@ -17913,17 +17913,15 @@ ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.l
 %feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
 ";
 
-%feature("docstring")  pyfmt::isDefaultDirection "bool pyfmt::isDefaultDirection(const kvector_t direction)
-
-returns true if it is (0, -1, 0) vector 
-";
-
 %feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
 
 Returns a string of blanks with given width. By default the width equals standard offset in python files. 
 ";
 
 %feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
+";
+
+%feature("docstring")  pyfmt::isDefaultDirection "bool pyfmt::isDefaultDirection(const kvector_t direction)
 ";
 
 

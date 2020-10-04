@@ -27,3 +27,8 @@ get_target_property(Qt5OpenGL_location Qt5::OpenGL LOCATION_Release)
 message(STATUS "  ${Qt5OpenGL_LIBRARIES} ${Qt5OpenGL_location}")
 
 message(STATUS "  Includes: ${Qt5Widgets_INCLUDE_DIRS}")
+
+# suppress qDebug() output for release build
+if(CMAKE_BUILD_TYPE STREQUAL Release)
+    add_definitions(-DQT_NO_DEBUG_OUTPUT)
+endif()

@@ -12,7 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Intensity/IHistogram.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h" // TODO rm
 #include "Core/Intensity/Histogram1D.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Fit/TestEngine/Numeric.h"

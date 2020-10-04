@@ -14,16 +14,6 @@ message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
 find_package(Threads)
 
-#--- Setup details depending on the major platform type ---
-
-if(CMAKE_SYSTEM_NAME MATCHES Linux)
-    include(SetUpLinux)
-elseif(APPLE)
-    include(SetUpMacOS)
-elseif(WIN32)
-    include(SetUpWindows)
-endif()
-
 #--- Print the final compiler flags ---
 
 message(STATUS "BornAgain Platform: ${BORNAGAIN_PLATFORM}")

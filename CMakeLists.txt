@@ -5,8 +5,8 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake/modules    # CMake modules specific for BornAgain
     ${CMAKE_SOURCE_DIR}/cmake/extensions # CMake modules for use in various projects
+    ${CMAKE_SOURCE_DIR}/cmake/
     )
 set(CONFIGURABLES_DIR ${CMAKE_SOURCE_DIR}/cmake/configurables)
 
@@ -64,20 +64,30 @@ if(ALLCONFIG)
 endif()
 
 # include CMake macros and functions
+#--- Setup details depending on the major platform type ---
+
+if(CMAKE_SYSTEM_NAME MATCHES Linux)
+    include(BornAgain/Linux)
+elseif(APPLE)
+    include(BornAgain/MacOS)
+elseif(WIN32)
+    include(BornAgain/Windows)
+endif()
+
 include(GetFilenameComponent) # overwrite CMake command
-include(Directories)
-include(CheckCompiler)
-include(Dependences)
+include(BornAgain/Directories)
+include(BornAgain/Compiler)
+include(BornAgain/Dependences)
 if(ZERO_TOLERANCE)
     string(APPEND CMAKE_CXX_FLAGS " -Werror -Wfatal-errors")
 endif()
 if(BORNAGAIN_GUI)
-    include(SearchQt)
+    include(BornAgain/Qt)
     string(APPEND CMAKE_CXX_FLAGS " -DHAVE_QT=ON")
 endif()
-include(BornAgainConfiguration)
-include(GeneratePythonDocs)
-include(BALineLength)
+include(BornAgain/Config)
+include(BornAgain/PythonDocs)
+include(BornAgain/LineLength)
 
 # debug optimization
 if(BORNAGAIN_DEBUG_OPTIMIZATION)
@@ -87,7 +97,7 @@ endif()
 # code coverage analysis
 if(BORNAGAIN_COVERAGE)
   include(CoverageFunction)
-  include(BACoverage)
+  include(BornAgain/Coverage)
 endif()
 
 # recurse into the given subdirectories
@@ -133,4 +143,4 @@ add_subdirectory(Tests/Functional)
 add_subdirectory(cmake)
 
 # make package targets
-include(BornAgainCPack)
+include(BornAgain/Pack)

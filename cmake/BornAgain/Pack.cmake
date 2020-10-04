@@ -19,11 +19,11 @@ endif()
 
 
 if(WIN32)
-    include(CPackWindows)
+    include(BornAgain/PackWindows)
 elseif(APPLE)
-    include(CPackApple)
+    include(BornAgain/PackMacOS)
 elseif(UNIX AND BUILD_DEBIAN) # one can build debian package only on UNIX system
-    include(CPackDebian)
+    include(BornAgain/PackDebian)
 else()
   set(CPACK_GENERATOR "TGZ")
 endif()

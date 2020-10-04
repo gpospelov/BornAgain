@@ -65,8 +65,8 @@ endif()
 
 # include CMake macros and functions
 include(GetFilenameComponent) # overwrite CMake command
-include(Dependences)
 include(CheckCompiler)
+include(Dependences)
 if(ZERO_TOLERANCE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors")
 endif()

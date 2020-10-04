@@ -65,6 +65,7 @@ endif()
 
 # include CMake macros and functions
 include(GetFilenameComponent) # overwrite CMake command
+include(Directories)
 include(CheckCompiler)
 include(Dependences)
 if(ZERO_TOLERANCE)

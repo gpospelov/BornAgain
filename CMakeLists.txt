@@ -75,7 +75,6 @@ if(BORNAGAIN_GUI)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAVE_QT=ON")
 endif()
 include(BornAgainConfiguration)
-include(BornAgainPolicy)
 include(GeneratePythonDocs)
 include(BALineLength)
 

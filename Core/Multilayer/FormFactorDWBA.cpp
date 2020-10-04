@@ -21,7 +21,7 @@ FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor) : mP_form_factor(
     setName("FormFactorDWBA");
 }
 
-FormFactorDWBA::~FormFactorDWBA() {}
+FormFactorDWBA::~FormFactorDWBA() = default;
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {

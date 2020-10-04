@@ -32,7 +32,7 @@ Widget3D::Widget3D() : canvas(nullptr)
     box->addWidget((canvas = new Canvas));
 }
 
-Widget3D::~Widget3D() {}
+Widget3D::~Widget3D() = default;
 
 Camera& Widget3D::cam()
 {

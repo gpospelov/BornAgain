@@ -106,12 +106,12 @@ FormFactorCoherentSum ProcessedLayout::ProcessParticle(const IParticle& particle
         std::unique_ptr<IFormFactor> P_ff_framework;
         if (slices.size() > 1) {
             if (m_polarized)
-                P_ff_framework.reset(new FormFactorDWBAPol(*ff_pair.first));
+                P_ff_framework = std::make_unique<FormFactorDWBAPol>(*ff_pair.first);
             else
-                P_ff_framework.reset(new FormFactorDWBA(*ff_pair.first));
+                P_ff_framework = std::make_unique<FormFactorDWBA>(*ff_pair.first);
         } else {
             if (m_polarized)
-                P_ff_framework.reset(new FormFactorBAPol(*ff_pair.first));
+                P_ff_framework = std::make_unique<FormFactorBAPol>(*ff_pair.first);
             else
                 P_ff_framework.reset(ff_pair.first->clone());
         }

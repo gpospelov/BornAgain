@@ -170,12 +170,12 @@ std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() co
     if (auto pointwise_axis = dynamic_cast<PointwiseAxisItem*>(axis_item)) {
         if (!pointwise_axis->containsNonXMLData()) // workaround for loading project
             return nullptr;
-        AxesUnits native_units = JobItemUtils::axesUnitsFromName(pointwise_axis->getUnitsLabel());
+        Axes::Units native_units = JobItemUtils::axesUnitsFromName(pointwise_axis->getUnitsLabel());
         return std::make_unique<UnitConverterConvSpec>(instrument->getBeam(),
                                                        *pointwise_axis->getAxis(), native_units);
     } else
         return std::make_unique<UnitConverterConvSpec>(
-            instrument->getBeam(), *axis_item->createAxis(1.0), AxesUnits::DEGREES);
+            instrument->getBeam(), *axis_item->createAxis(1.0), Axes::Units::DEGREES);
 }
 
 const QString Instrument2DItem::P_DETECTOR = "Detector";

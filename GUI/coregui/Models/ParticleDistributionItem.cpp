@@ -81,7 +81,7 @@ ParticleDistributionItem::ParticleDistributionItem() : SessionGraphicsItem("Part
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
-    if (children().size() == 0)
+    if (children().empty())
         return nullptr;
     std::unique_ptr<IParticle> P_particle = TransformToDomain::createIParticle(*getItem());
     if (!P_particle)
@@ -199,7 +199,7 @@ QString ParticleDistributionItem::translateParameterNameToGUI(const QString& dom
 
 const SessionItem* ParticleDistributionItem::childParticle() const
 {
-    if (getItems(T_PARTICLES).size() == 0)
+    if (getItems(T_PARTICLES).empty())
         return nullptr;
 
     ASSERT(getItems(T_PARTICLES).size() == 1);

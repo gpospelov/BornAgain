@@ -21,8 +21,8 @@
 #include "Core/Intensity/ArrayUtils.h"
 #include "Core/Intensity/IHistogram.h"
 #include "Fit/TestEngine/Numeric.h"
+#include <cmath>
 #include <iostream>
-#include <math.h>
 
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )
@@ -32,7 +32,7 @@ double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
     if (dat.size() != ref.size())
         throw std::runtime_error("Error in IntensityDataFunctions::RelativeDifference: "
                                  "different number of elements");
-    if (dat.size() == 0)
+    if (dat.empty())
         return 0.0;
     double sum_of_diff = 0.0;
     for (size_t i = 0; i < dat.size(); ++i) {

@@ -35,7 +35,7 @@ public:
 class ChiModuleWrapper : public IMetricWrapper
 {
 public:
-    ChiModuleWrapper(std::unique_ptr<IChiSquaredModule> module);
+    explicit ChiModuleWrapper(std::unique_ptr<IChiSquaredModule> module);
     double compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const override;
 
 private:
@@ -45,7 +45,7 @@ private:
 class ObjectiveMetricWrapper : public IMetricWrapper
 {
 public:
-    ObjectiveMetricWrapper(std::unique_ptr<ObjectiveMetric> module);
+    explicit ObjectiveMetricWrapper(std::unique_ptr<ObjectiveMetric> module);
     double compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const override;
 
 private:
@@ -64,7 +64,7 @@ simulation_builder_t FitObjective::simulationBuilder(PyBuilderCallback& callback
 
 FitObjective::FitObjective()
     : m_metric_module(
-          std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>())),
+        std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>())),
       m_fit_status(std::make_unique<FitStatus>(this))
 {
 }

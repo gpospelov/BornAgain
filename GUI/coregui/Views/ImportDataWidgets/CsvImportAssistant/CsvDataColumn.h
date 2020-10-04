@@ -49,20 +49,21 @@ public:
     // Constructors:
     CsvCoordinateColumn();
     CsvCoordinateColumn(const CsvCoordinateColumn& toCopy);
-    CsvCoordinateColumn(int colNum, double multiplier, csv::DataColumn values, AxesUnits units);
+    CsvCoordinateColumn(int colNum, double multiplier, csv::DataColumn values, Axes::Units units);
 
     // Getters:
-    AxesUnits units() const;
+    Axes::Units units() const;
     csv::ColumnType name() const { return m_name; }
 
     // Setters:
-    void setUnits(AxesUnits const units);
+    void setUnits(Axes::Units const units);
     void setName(csv::ColumnType const name);
     void resetColumn(int colNum = -1, double multiplier = 1., csv::DataColumn values = {},
-                     AxesUnits units = AxesUnits::NBINS, csv::ColumnType name = csv::_intensity_);
+                     Axes::Units units = Axes::Units::NBINS,
+                     csv::ColumnType name = csv::_intensity_);
 
 private:
-    AxesUnits m_units;
+    Axes::Units m_units;
     csv::ColumnType m_name;
 };
 

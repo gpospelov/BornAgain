@@ -33,7 +33,7 @@
 #define NO_IMPORT_ARRAY
 #include <numpy/arrayobject.h>
 
-#include "swig_runtime.h"
+#include "auto/Wrap/swig_runtime.h"
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop

@@ -49,13 +49,13 @@ public:
     SimulationResult& operator=(SimulationResult&& other);
 
 #ifndef SWIG
-    std::unique_ptr<OutputData<double>> data(AxesUnits units = AxesUnits::DEFAULT) const;
+    std::unique_ptr<OutputData<double>> data(Axes::Units units = Axes::Units::DEFAULT) const;
 #endif
 
-    Histogram2D* histogram2d(AxesUnits units = AxesUnits::DEFAULT) const;
+    Histogram2D* histogram2d(Axes::Units units = Axes::Units::DEFAULT) const;
 
     //! Provide AxisInfo for each axis and the given units
-    std::vector<AxisInfo> axisInfo(AxesUnits units = AxesUnits::DEFAULT) const;
+    std::vector<AxisInfo> axisInfo(Axes::Units units = Axes::Units::DEFAULT) const;
 
     //! Returns underlying unit converter
     const IUnitConverter& converter() const;
@@ -64,17 +64,18 @@ public:
     double& operator[](size_t i);
     const double& operator[](size_t i) const;
     size_t size() const;
+    bool empty() const { return size() == 0; }
 
     //! returns intensity data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
-    PyObject* array(AxesUnits units = AxesUnits::DEFAULT) const;
+    PyObject* array(Axes::Units units = Axes::Units::DEFAULT) const;
 #endif
 
-    std::vector<double> axis(AxesUnits units = AxesUnits::DEFAULT) const;
+    std::vector<double> axis(Axes::Units units = Axes::Units::DEFAULT) const;
 
     //! Returns axis coordinates as a numpy array. With no parameters given
     //! returns coordinates of x-axis in default units.
-    std::vector<double> axis(size_t i_axis, AxesUnits units = AxesUnits::DEFAULT) const;
+    std::vector<double> axis(size_t i_axis, Axes::Units units = Axes::Units::DEFAULT) const;
 
 private:
     void checkDimensions() const;

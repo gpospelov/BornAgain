@@ -23,7 +23,7 @@ DistributionHandler::DistributionHandler() : m_nbr_combinations(1)
     setName("DistributionHandler");
 }
 
-DistributionHandler::~DistributionHandler() {}
+DistributionHandler::~DistributionHandler() = default;
 
 void DistributionHandler::addParameterDistribution(const ParameterDistribution& par_distr)
 {

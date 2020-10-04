@@ -27,7 +27,7 @@ SampleDesigner::SampleDesigner(QWidget* parent)
     m_designerView = new DesignerView(m_designerScene, parent);
 }
 
-SampleDesigner::~SampleDesigner() {}
+SampleDesigner::~SampleDesigner() = default;
 
 void SampleDesigner::setModels(ApplicationModels* models)
 {

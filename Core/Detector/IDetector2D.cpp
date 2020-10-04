@@ -41,13 +41,6 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, 
     addAxis(*createAxis(1, n_y, y_min, y_max));
 }
 
-void IDetector2D::setDetectorAxes(const IAxis& axis0, const IAxis& axis1)
-{
-    clear();
-    addAxis(axis0);
-    addAxis(axis1);
-}
-
 const RegionOfInterest* IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();
@@ -55,7 +48,7 @@ const RegionOfInterest* IDetector2D::regionOfInterest() const
 
 void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_region_of_interest.reset(new RegionOfInterest(*this, xlow, ylow, xup, yup));
+    m_region_of_interest = std::make_unique<RegionOfInterest>(*this, xlow, ylow, xup, yup);
     m_detector_mask.initMaskData(*this);
 }
 

@@ -31,6 +31,7 @@
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/Tools/PyFmt.h"
+#include "Fit/TestEngine/Numeric.h"
 #include <iomanip>
 
 namespace
@@ -48,13 +49,22 @@ const std::string defineSimulate = "def run_simulation():\n"
 //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
 std::function<std::string(double)> printFunc(const IDetector* detector)
 {
-    if (detector->defaultAxesUnits() == AxesUnits::MM)
+    if (detector->defaultAxesUnits() == Axes::Units::MM)
         return pyfmt::printDouble;
-    if (detector->defaultAxesUnits() == AxesUnits::RADIANS)
+    if (detector->defaultAxesUnits() == Axes::Units::RADIANS)
         return pyfmt::printDegrees;
     throw Exceptions::RuntimeErrorException(
         "SimulationToPython::defineMasks() -> Error. Unknown detector units.");
 }
+
+//! returns true if it is (0, -1, 0) vector
+bool isDefaultDirection(const kvector_t direction)
+{
+    return Numeric::AreAlmostEqual(direction.x(), 0.0)
+           && Numeric::AreAlmostEqual(direction.y(), -1.0)
+           && Numeric::AreAlmostEqual(direction.z(), 0.0);
+}
+
 } // namespace
 
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
@@ -161,7 +171,7 @@ std::string SimulationToPython::defineDetector(const Simulation* simulation) con
             result << pyfmt::indent() << "detector.setPosition("
                    << pyfmt::printKvector(det->getNormalVector()) << ", "
                    << pyfmt::printDouble(det->getU0()) << ", " << pyfmt::printDouble(det->getV0());
-            if (!pyfmt::isDefaultDirection(det->getDirectionVector()))
+            if (!isDefaultDirection(det->getDirectionVector()))
                 result << ", " << pyfmt::printKvector(det->getDirectionVector());
             result << ")\n";
         } else if (det->getDetectorArrangment() == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
@@ -333,7 +343,7 @@ std::string SimulationToPython::defineParameterDistributions(const Simulation* s
     std::ostringstream result;
     const std::vector<ParameterDistribution>& distributions =
         simulation->getDistributionHandler().getDistributions();
-    if (distributions.size() == 0)
+    if (distributions.empty())
         return "";
     for (size_t i = 0; i < distributions.size(); ++i) {
         std::string main_par_name = distributions[i].getMainParameterName();

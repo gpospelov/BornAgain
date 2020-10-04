@@ -31,7 +31,7 @@ FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor& form_factor)
     setName("FormFactorDWBAPol");
 }
 
-FormFactorDWBAPol::~FormFactorDWBAPol() {}
+FormFactorDWBAPol::~FormFactorDWBAPol() = default;
 
 FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 {

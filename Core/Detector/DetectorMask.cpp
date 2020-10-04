@@ -111,7 +111,7 @@ const IShape2D* DetectorMask::getMaskShape(size_t mask_index, bool& mask_value) 
 void DetectorMask::process_masks()
 {
     m_mask_data.setAllTo(false);
-    if (!m_shapes.size())
+    if (!!m_shapes.empty())
         return;
 
     m_number_of_masked_channels = 0;

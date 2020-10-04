@@ -120,7 +120,7 @@ GUITranslationTest::GUITranslationTest(const std::string& simName, const std::st
     m_simulation->setSample(*sampleFactory.createSampleByName(m_sampleName));
 }
 
-GUITranslationTest::~GUITranslationTest() {}
+GUITranslationTest::~GUITranslationTest() = default;
 
 bool GUITranslationTest::runTest()
 {
@@ -258,7 +258,7 @@ bool GUITranslationTest::checkExistingTranslations()
     }
     std::cout << ostr.str();
 
-    bool isSuccess = (wrong_translations.empty() ? true : false);
+    bool isSuccess = (wrong_translations.empty());
     return isSuccess;
 }
 
@@ -288,7 +288,7 @@ bool GUITranslationTest::checkMissedTranslations()
         }
     }
 
-    if (missedNames.size()) {
+    if (!missedNames.empty()) {
         std::cout << header() << std::endl;
         std::cout << "Translation doesn't exist:" << std::endl;
         std::cout << header() << std::endl;
@@ -296,6 +296,6 @@ bool GUITranslationTest::checkMissedTranslations()
             std::cout << "domain : " << name << std::endl;
     }
 
-    bool isSuccess = (missedNames.empty() ? true : false);
+    bool isSuccess = (missedNames.empty());
     return isSuccess;
 }

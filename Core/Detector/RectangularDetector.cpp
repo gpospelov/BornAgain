@@ -39,7 +39,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
     setName("RectangularDetector");
 }
 
-RectangularDetector::~RectangularDetector() {}
+RectangularDetector::~RectangularDetector() = default;
 
 RectangularDetector* RectangularDetector::clone() const
 {
@@ -152,9 +152,9 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-AxesUnits RectangularDetector::defaultAxesUnits() const
+Axes::Units RectangularDetector::defaultAxesUnits() const
 {
-    return AxesUnits::MM;
+    return Axes::Units::MM;
 }
 
 RectangularPixel* RectangularDetector::regionOfInterestPixel() const
@@ -261,12 +261,8 @@ void RectangularDetector::initNormalVector(const kvector_t central_k)
         m_normal_to_detector = m_distance * central_k_unit;
     }
 
-    else if (m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM) {
-        m_normal_to_detector = m_distance * central_k_unit;
-        m_normal_to_detector.setZ(-m_normal_to_detector.z());
-    }
-
-    else if (m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+    else if (m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM ||
+             m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
         m_normal_to_detector = m_distance * central_k_unit;
         m_normal_to_detector.setZ(-m_normal_to_detector.z());
     }

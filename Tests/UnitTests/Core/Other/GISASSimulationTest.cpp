@@ -4,7 +4,9 @@
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class GISASSimulationTest : public ::testing::Test {};
+class GISASSimulationTest : public ::testing::Test
+{
+};
 
 TEST_F(GISASSimulationTest, SimulationInitialState)
 {

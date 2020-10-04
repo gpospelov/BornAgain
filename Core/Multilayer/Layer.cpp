@@ -28,7 +28,7 @@ Layer::Layer(Material material, double thickness)
     registerThickness();
 }
 
-Layer::~Layer() {}
+Layer::~Layer() = default;
 
 Layer* Layer::clone() const
 {

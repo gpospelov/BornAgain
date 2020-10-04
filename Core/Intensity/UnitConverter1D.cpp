@@ -50,39 +50,39 @@ size_t UnitConverter1D::dimension() const
     return 1u;
 }
 
-double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
+double UnitConverter1D::calculateMin(size_t i_axis, Axes::Units units_type) const
 {
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
-    if (units_type == AxesUnits::NBINS)
+    if (units_type == Axes::Units::NBINS)
         return 0.0;
     auto translator = getTraslatorTo(units_type);
     return translator(coordinateAxis()->getBinCenter(0));
 }
 
-double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
+double UnitConverter1D::calculateMax(size_t i_axis, Axes::Units units_type) const
 {
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
     auto coordinate_axis = coordinateAxis();
-    if (units_type == AxesUnits::NBINS)
+    if (units_type == Axes::Units::NBINS)
         return static_cast<double>(coordinate_axis->size());
     auto translator = getTraslatorTo(units_type);
     return translator(coordinate_axis->getBinCenter(coordinate_axis->size() - 1));
 }
 
-std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const
+std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, Axes::Units units) const
 {
     checkIndex(i_axis);
     units = substituteDefaultUnits(units);
-    if (units == AxesUnits::NBINS)
+    if (units == Axes::Units::NBINS)
         return std::make_unique<FixedBinAxis>(axisName(0, units), coordinateAxis()->size(),
                                               calculateMin(0, units), calculateMax(0, units));
     return createTranslatedAxis(*coordinateAxis(), getTraslatorTo(units), axisName(0, units));
 }
 
 std::unique_ptr<OutputData<double>>
-UnitConverter1D::createConvertedData(const OutputData<double>& data, AxesUnits units) const
+UnitConverter1D::createConvertedData(const OutputData<double>& data, Axes::Units units) const
 {
     if (data.getRank() != 1)
         throw std::runtime_error("Error in UnitConverter1D::createConvertedData: unexpected "
@@ -92,7 +92,7 @@ UnitConverter1D::createConvertedData(const OutputData<double>& data, AxesUnits u
     auto q_axis = createConvertedAxis(0, units);
     result->addAxis(*q_axis);
 
-    if (units != AxesUnits::RQ4) {
+    if (units != Axes::Units::RQ4) {
         result->setRawDataVector(data.getRawDataVector());
         return result;
     }
@@ -103,7 +103,7 @@ UnitConverter1D::createConvertedData(const OutputData<double>& data, AxesUnits u
 }
 
 UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis,
-                                             AxesUnits axis_units)
+                                             Axes::Units axis_units)
     : m_wavelength(beam.getWavelength())
 {
     m_axis = createTranslatedAxis(axis, getTraslatorFrom(axis_units), axisName(0, axis_units));
@@ -129,15 +129,15 @@ size_t UnitConverterConvSpec::axisSize(size_t i_axis) const
     return m_axis->size();
 }
 
-std::vector<AxesUnits> UnitConverterConvSpec::availableUnits() const
+std::vector<Axes::Units> UnitConverterConvSpec::availableUnits() const
 {
-    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE,
-            AxesUnits::RQ4};
+    return {Axes::Units::NBINS, Axes::Units::RADIANS, Axes::Units::DEGREES, Axes::Units::QSPACE,
+            Axes::Units::RQ4};
 }
 
-AxesUnits UnitConverterConvSpec::defaultUnits() const
+Axes::Units UnitConverterConvSpec::defaultUnits() const
 {
-    return AxesUnits::DEGREES;
+    return Axes::Units::DEGREES;
 }
 
 UnitConverterConvSpec::UnitConverterConvSpec(const UnitConverterConvSpec& other)
@@ -145,38 +145,38 @@ UnitConverterConvSpec::UnitConverterConvSpec(const UnitConverterConvSpec& other)
 {
 }
 
-std::vector<std::map<AxesUnits, std::string>> UnitConverterConvSpec::createNameMaps() const
+std::vector<std::map<Axes::Units, std::string>> UnitConverterConvSpec::createNameMaps() const
 {
-    std::vector<std::map<AxesUnits, std::string>> result;
+    std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitSpecAxis());
     return result;
 }
 
-std::function<double(double)> UnitConverterConvSpec::getTraslatorFrom(AxesUnits units_type) const
+std::function<double(double)> UnitConverterConvSpec::getTraslatorFrom(Axes::Units units_type) const
 {
     switch (units_type) {
-    case AxesUnits::RADIANS:
+    case Axes::Units::RADIANS:
         return [](double value) { return value; };
-    case AxesUnits::DEGREES:
+    case Axes::Units::DEGREES:
         return [](double value) { return Units::deg2rad(value); };
-    case AxesUnits::QSPACE:
+    case Axes::Units::QSPACE:
         return [this](double value) { return getInvQ(m_wavelength, value); };
     default:
         throwUnitsError("UnitConverterConvSpec::getTraslatorFrom",
-                        {AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE});
+                        {Axes::Units::RADIANS, Axes::Units::DEGREES, Axes::Units::QSPACE});
     }
 }
 
-std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits units_type) const
+std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(Axes::Units units_type) const
 {
     switch (units_type) {
-    case AxesUnits::RADIANS:
+    case Axes::Units::RADIANS:
         return [](double value) { return value; };
-    case AxesUnits::DEGREES:
+    case Axes::Units::DEGREES:
         return [](double value) { return Units::rad2deg(value); };
-    case AxesUnits::QSPACE:
+    case Axes::Units::QSPACE:
         return [wl = m_wavelength](double value) { return getQ(wl, value); };
-    case AxesUnits::RQ4:
+    case Axes::Units::RQ4:
         return [wl = m_wavelength](double value) { return getQ(wl, value); };
     default:
         throwUnitsError("UnitConverterConvSpec::getTraslatorTo", availableUnits());
@@ -203,15 +203,15 @@ size_t UnitConverterQSpec::axisSize(size_t i_axis) const
 }
 
 //! Returns the list of all available units
-std::vector<AxesUnits> UnitConverterQSpec::availableUnits() const
+std::vector<Axes::Units> UnitConverterQSpec::availableUnits() const
 {
-    return {AxesUnits::NBINS, AxesUnits::QSPACE, AxesUnits::RQ4};
+    return {Axes::Units::NBINS, Axes::Units::QSPACE, Axes::Units::RQ4};
 }
 
 //! Returns default units to convert to.
-AxesUnits UnitConverterQSpec::defaultUnits() const
+Axes::Units UnitConverterQSpec::defaultUnits() const
 {
-    return AxesUnits::QSPACE;
+    return Axes::Units::QSPACE;
 }
 
 UnitConverterQSpec::UnitConverterQSpec(const UnitConverterQSpec& other)
@@ -220,20 +220,20 @@ UnitConverterQSpec::UnitConverterQSpec(const UnitConverterQSpec& other)
 }
 
 //! Creates name map for axis in various units
-std::vector<std::map<AxesUnits, std::string>> UnitConverterQSpec::createNameMaps() const
+std::vector<std::map<Axes::Units, std::string>> UnitConverterQSpec::createNameMaps() const
 {
-    std::vector<std::map<AxesUnits, std::string>> result;
+    std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitSpecAxisQ());
     return result;
 }
 
 //! Returns translating functional (inv. nm --> desired units)
-std::function<double(double)> UnitConverterQSpec::getTraslatorTo(AxesUnits units_type) const
+std::function<double(double)> UnitConverterQSpec::getTraslatorTo(Axes::Units units_type) const
 {
     switch (units_type) {
-    case AxesUnits::QSPACE:
+    case Axes::Units::QSPACE:
         return [](double value) { return value; };
-    case AxesUnits::RQ4:
+    case Axes::Units::RQ4:
         return [](double value) { return value; };
     default:
         throwUnitsError("UnitConverterQSpec::getTraslatorTo", availableUnits());

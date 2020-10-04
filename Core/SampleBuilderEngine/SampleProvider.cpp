@@ -15,7 +15,7 @@
 #include "Core/SampleBuilderEngine/SampleProvider.h"
 #include "Core/Multilayer/MultiLayer.h"
 
-SampleProvider::SampleProvider() {}
+SampleProvider::SampleProvider() = default;
 
 SampleProvider::SampleProvider(const SampleProvider& other) : INode()
 {
@@ -36,7 +36,7 @@ SampleProvider& SampleProvider::operator=(const SampleProvider& other)
     return *this;
 }
 
-SampleProvider::~SampleProvider() {}
+SampleProvider::~SampleProvider() = default;
 
 void SampleProvider::setSample(const MultiLayer& multilayer)
 {

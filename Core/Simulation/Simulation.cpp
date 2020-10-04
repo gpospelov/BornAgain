@@ -93,7 +93,7 @@ void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
         if (!comp->isCompleted())
             failure_messages.push_back(comp->errorMessage());
 
-    if (failure_messages.size() == 0)
+    if (failure_messages.empty())
         return;
     throw Exceptions::RuntimeErrorException(
         "Error in runComputations: "
@@ -309,8 +309,7 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
                                          bool put_masked_areas_to_zero)
 {
     auto converter = UnitConverterUtils::createConverter(*this);
-    auto roi_data =
-        UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
+    auto roi_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
 
     const IDetector& detector = getInstrument().detector();
 

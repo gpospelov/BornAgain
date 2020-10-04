@@ -52,6 +52,10 @@ option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 option(BORNAGAIN_TIDY "Invokes clang-tidy" OFF)
 
+if(BORNAGAIN_TIDY AND BORNAGAIN_PYTHON)
+    message(FATAL_ERROR "BORNAGAIN_TIDY is incompatible with BORNAGAIN_PYTHON")
+endif()
+
 if(ALLCONFIG)
     set(CONFIGURE_MANPAGE ON)
     set(CONFIGURE_PYTHON_DOCS ON)
@@ -99,17 +103,24 @@ endif()
 
 add_subdirectory(ThirdParty/common)
 add_subdirectory(ThirdParty/Fit)
+add_subdirectory(ThirdParty/Core)
+if(BORNAGAIN_GUI)
+    add_subdirectory(ThirdParty/GUI)
+endif()
+
+if(BORNAGAIN_TIDY)
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy") # has effect only if compiler is clang; uses .clang-tidy
+endif()
+
 add_subdirectory(Fit)
 add_subdirectory(Tests/UnitTests/Fit)
 
-add_subdirectory(ThirdParty/Core)
 add_subdirectory(Core)
 add_subdirectory(Tests/UnitTests/Core)
 add_subdirectory(Tests/UnitTests/Numeric)
 add_subdirectory(Tests/Performance/Core)
 
 if(BORNAGAIN_GUI)
-    add_subdirectory(ThirdParty/GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/GUI)
     add_subdirectory(Tests/Performance/GUI)

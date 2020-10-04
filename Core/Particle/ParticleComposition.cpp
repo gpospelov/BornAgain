@@ -29,7 +29,7 @@ ParticleComposition::ParticleComposition(const IParticle& particle,
     addParticles(particle, positions);
 }
 
-ParticleComposition::~ParticleComposition() {}
+ParticleComposition::~ParticleComposition() = default;
 
 ParticleComposition* ParticleComposition::clone() const
 {
@@ -45,7 +45,7 @@ ParticleComposition* ParticleComposition::clone() const
 
 IFormFactor* ParticleComposition::createFormFactor() const
 {
-    if (m_particles.size() == 0)
+    if (m_particles.empty())
         return {};
     std::unique_ptr<FormFactorWeighted> P_result{new FormFactorWeighted()};
     auto particles = decompose();
@@ -119,7 +119,7 @@ size_t ParticleComposition::check_index(size_t index) const
     return index < m_particles.size()
                ? index
                : throw Exceptions::OutOfBoundsException(
-                     "ParticleComposition::check_index() -> Index is out of bounds");
+                   "ParticleComposition::check_index() -> Index is out of bounds");
 }
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)

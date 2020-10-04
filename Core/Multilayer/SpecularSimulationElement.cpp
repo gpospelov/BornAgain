@@ -14,8 +14,6 @@
 
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Multilayer/KzComputation.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
 
 SpecularSimulationElement::SpecularSimulationElement(double kz)
     : m_intensity(0.0), m_calculation_flag(true),
@@ -49,8 +47,8 @@ SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&&
 
 SpecularSimulationElement::~SpecularSimulationElement() = default;
 
-SpecularSimulationElement& SpecularSimulationElement::
-operator=(const SpecularSimulationElement& other)
+SpecularSimulationElement&
+SpecularSimulationElement::operator=(const SpecularSimulationElement& other)
 {
     if (this != &other) {
         SpecularSimulationElement tmp(other);

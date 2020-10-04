@@ -1,41 +1,40 @@
 ############################################################################
-# CMakeLists.txt file for building libBornAgainCore library
+# CMakeLists.txt file for building libBornAgainCore
 ############################################################################
 
-message(STATUS "Configuring BornAgain GUI")
+set(name Core)
+set(lib BornAgain${name})
 
-set(library_name BornAgainCore)
+# --- source and include files ---
 
-if(BORNAGAIN_TIDY)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,\
-readability-*,-readability-braces-around-statements,modernize-*")
-endif()
+file(GLOB source_files */*.cpp)
+file(GLOB include_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} */*.h)
 
-# --- source and include files ---------
-file(GLOB source_files "*/*.cpp" )
 if((NOT Cerf_IS_CPP) AND (NOT WIN32)) # TEMPORARY
     list(APPEND source_files ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper/cerf_ptr.c)
 endif()
-file(GLOB include_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*/*.h")
+if(${Cerf_IS_CPP})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCERF_AS_CPP=ON")
+endif()
+
 
 if(BORNAGAIN_PYTHON)
 
     set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
     set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
     file(MAKE_DIRECTORY ${AUTO_DIR})
-    include_directories(${AUTO_DIR})
 
     if(CONFIGURE_BINDINGS)
 
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
         file(MAKE_DIRECTORY ${TMP_DIR})
 
-        GeneratePythonDocs(${AUTO_DIR}/doxygen_core.i ${WRAP_DIR}/swig)
+        GeneratePythonDocs(${AUTO_DIR}/doxygen${name}.i ${WRAP_DIR}/swig)
 
         set(swig_dependencies
-            ${WRAP_DIR}/swig/libBornAgainCore.i
+            ${WRAP_DIR}/swig/lib${lib}.i
             ${WRAP_DIR}/swig/directors.i
-            ${WRAP_DIR}/swig/extendCore.i
+            ${WRAP_DIR}/swig/extend${name}.i
             ${WRAP_DIR}/swig/ignores.i
             ${WRAP_DIR}/swig/shared_pointers.i
             ${WRAP_DIR}/swig/warnings.i
@@ -45,56 +44,78 @@ if(BORNAGAIN_PYTHON)
                 message(FATAL_ERROR "Could NOT find SWIG input ${FNAM}")
             endif()
         endforeach()
-        set(swig_dependencies ${swig_dependencies} ${AUTO_DIR}/doxygen_core.i)
+        list(APPEND swig_dependencies ${AUTO_DIR}/doxygen${name}.i)
 
-        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainCore_wrap.cpp;-outdir;${TMP_DIR}"
+        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/lib${lib}_wrap.cpp;-outdir;${TMP_DIR}"
                                ";-I${CMAKE_SOURCE_DIR};-I${CMAKE_BINARY_DIR}/inc")
-        set(SWIG_RUNTIME_FLAGS "-c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h")
 
         add_custom_command(
-            OUTPUT ${AUTO_DIR}/libBornAgainCore.py
+            OUTPUT ${AUTO_DIR}/lib${lib}.py
             COMMAND ${Python3_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
-                   ${TMP_DIR}/libBornAgainCore.py
-                   ${AUTO_DIR}/libBornAgainCore.py
-            DEPENDS ${TMP_DIR}/libBornAgainCore.py
+                   ${TMP_DIR}/lib${lib}.py
+                   ${AUTO_DIR}/lib${lib}.py
+            DEPENDS ${TMP_DIR}/lib${lib}.py
             )
         add_custom_command(
-            OUTPUT ${TMP_DIR}/libBornAgainCore.py
-                   ${AUTO_DIR}/libBornAgainCore_wrap.h
-                   ${AUTO_DIR}/libBornAgainCore_wrap.cpp
-            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${WRAP_DIR}/swig/libBornAgainCore.i
-            DEPENDS ${swig_dependencies} ${include_files}
-            )
-
-        add_custom_command(
-            OUTPUT ${AUTO_DIR}/swig_runtime.h
-            COMMAND ${SWIG_EXECUTABLE} ${SWIG_RUNTIME_FLAGS}
+            OUTPUT ${TMP_DIR}/lib${lib}.py
+                   ${AUTO_DIR}/lib${lib}_wrap.h
+                   ${AUTO_DIR}/lib${lib}_wrap.cpp
+            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${WRAP_DIR}/swig/lib${lib}.i
             DEPENDS ${swig_dependencies} ${include_files}
             )
 
     endif(CONFIGURE_BINDINGS)
 
     add_custom_target(
-        ${library_name}_python
-        COMMAND ${CMAKE_COMMAND} -E copy
-            ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
-        COMMAND ${CMAKE_COMMAND} -E copy
-            ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/bornagain/libBornAgainCore.py
-        DEPENDS ${AUTO_DIR}/libBornAgainCore.py
+        ${lib}_python
+        COMMAND ${CMAKE_COMMAND}
+            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
+        COMMAND ${CMAKE_COMMAND}
+            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/bornagain/lib${lib}.py
+        DEPENDS ${AUTO_DIR}/lib${lib}.py
         )
-
-    add_custom_target(${library_name}_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
 
     if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
             OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
         # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
-        set_source_files_properties(${AUTO_DIR}/libBornAgainCore_wrap.cpp
+        set_source_files_properties(${AUTO_DIR}/lib${lib}_wrap.cpp
             PROPERTIES COMPILE_OPTIONS
             "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-sometimes-uninitialized;\
 -Wno-deprecated-declarations")
     endif()
 
-    list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
+    list(APPEND source_files "${AUTO_DIR}/lib${lib}_wrap.cpp")
+
+endif(BORNAGAIN_PYTHON)
+
+# --- making library ---
+
+if(WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+endif()
+
+add_library(${lib} SHARED ${source_files})
+set_target_properties(${lib} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+set(${lib}_LIBRARY_TYPE SHARED)
+
+if(BORNAGAIN_PYTHON)
+    add_dependencies(${lib} ${lib}_python)
+endif()
+
+# exposing library name and list of include directories outside
+set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
+
+
+if(BORNAGAIN_PYTHON)
+    if(CONFIGURE_BINDINGS)
+        add_custom_command(
+            OUTPUT ${AUTO_DIR}/swig_runtime.h
+            COMMAND ${SWIG_EXECUTABLE} -c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h
+            DEPENDS ${swig_dependencies} ${include_files}
+            )
+    endif()
+    add_custom_target(${lib}_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
+    add_dependencies(${lib} ${lib}_runtime)
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
@@ -113,41 +134,18 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 
-if(WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
-endif()
 
+# --- external dependencies ---
 
-# --- making library ---------
-if(${Cerf_IS_CPP})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCERF_AS_CPP=ON")
-endif()
-add_library(${library_name} SHARED ${source_files})
-
-set_target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
-set(${library_name}_LIBRARY_TYPE SHARED)
-
-
-if(BORNAGAIN_PYTHON)
-    add_dependencies(${library_name} ${library_name}_python ${library_name}_runtime)
-endif()
-
-# exposing library name and list of include directories outside
-set(${library_name}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
-set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-
-
-# --- external dependencies ---------
-
-target_link_libraries(${library_name} ${BornAgainFit_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${lib} ${BornAgainFit_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 
 if(BORNAGAIN_TIFF_SUPPORT)
-    target_compile_definitions(${library_name} PUBLIC -DBORNAGAIN_TIFF_SUPPORT)
-    target_include_directories(${library_name} PUBLIC ${TIFF_INCLUDE_DIR})
-    target_link_libraries(${library_name} ${TIFF_LIBRARIES})
+    target_compile_definitions(${lib} PUBLIC -DBORNAGAIN_TIFF_SUPPORT)
+    target_include_directories(${lib} PUBLIC ${TIFF_INCLUDE_DIR})
+    target_link_libraries(${lib} ${TIFF_LIBRARIES})
 endif()
 
-target_include_directories(${library_name}
+target_include_directories(${lib}
     PUBLIC ${CMAKE_SOURCE_DIR} ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR} ${GSL_INCLUDE_DIR}
     ${tspectrum_INCLUDE_DIR}
     ${Cerf_INCLUDE_DIR}
@@ -155,35 +153,40 @@ target_include_directories(${library_name}
     SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIRS}
     )
 if(BORNAGAIN_GUI)
-    target_include_directories(${library_name} PUBLIC ${Qt5Core_INCLUDE_DIRS})
-    target_link_libraries(${library_name} ${Qt5Core_LIBRARIES})
+    target_include_directories(${lib} PUBLIC ${Qt5Core_INCLUDE_DIRS})
+    target_link_libraries(${lib} ${Qt5Core_LIBRARIES})
 endif()
 
-target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
+target_link_libraries(${lib} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
     ${tspectrum_LIBRARY} ${Cerf_LIBRARIES})
 
 if(BORNAGAIN_MPI)
     add_definitions(-DBORNAGAIN_MPI)
     include_directories(${MPI_INCLUDE_PATH})
-    target_link_libraries(${library_name} ${MPI_LIBRARIES})
+    target_link_libraries(${lib} ${MPI_LIBRARIES})
 endif()
 
 if(BORNAGAIN_PYTHON)
-    target_compile_definitions(${library_name} PUBLIC -DBORNAGAIN_PYTHON)
-    include_directories(${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
-    target_link_libraries(${library_name} ${Python3_LIBRARIES})
+    target_compile_definitions(${lib} PUBLIC -DBORNAGAIN_PYTHON)
+    target_include_directories(${lib} PUBLIC ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
+    target_link_libraries(${lib} ${Python3_LIBRARIES})
 endif()
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
-    set_target_properties(${library_name}
-        PROPERTIES
-        LINK_FLAGS ${link_flags}
-        )
+    set_target_properties(${lib} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
 
+# --- installation ---
 
-# --- installation ---------
+install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
+install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
+    DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
+
+foreach(file ${include_files})
+    get_filename_component(dir ${file} DIRECTORY)
+    install(FILES ${file} DESTINATION ${destination_include}/${name}/${dir})
+endforeach()
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
     DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
@@ -195,39 +198,29 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
     DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp
     DESTINATION ${destination_examples} COMPONENT Examples)
-install(TARGETS ${library_name}
-    DESTINATION ${destination_lib} COMPONENT Libraries)
-install(FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py
-    DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
-
-foreach(file ${include_files})
-    get_filename_component(dir ${file} DIRECTORY)
-    install(FILES ${file} DESTINATION ${destination_include}/Core/${dir})
-endforeach()
 install(FILES "${AUTO_DIR}/swig_runtime.h"
     DESTINATION ${destination_include}/Wrap COMPONENT Headers)
-
 install(FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h
     DESTINATION ${destination_include}/Wrap COMPONENT Headers)
 
 if(WIN32)
-    # python in windows required .pyd extention for the library name
+    # python in windows required .pyd extension for the library name
     if(BORNAGAIN_PYTHON)
         add_custom_command(
-            TARGET ${library_name}
+            TARGET ${lib}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
-            ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
+            ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
+            ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}".pyd"
             )
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd
+        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}.pyd
             DESTINATION ${destination_lib} COMPONENT Libraries)
         add_custom_command(
-            TARGET ${library_name}
+            TARGET ${lib}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
-            ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
+            ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
+            ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}${libsuffix}
             )
     endif()
 

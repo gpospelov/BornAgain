@@ -37,7 +37,7 @@ MultiLayerView::MultiLayerView(QGraphicsItem* parent) : ILayerView(parent)
 QRectF MultiLayerView::boundingRect() const
 {
     QRectF result = m_rect;
-    if (m_layers.size()) {
+    if (!m_layers.empty()) {
         qreal toplayer_height = m_layers.front()->boundingRect().height();
         qreal bottomlayer_height = m_layers.back()->boundingRect().height();
         result.setTop(-toplayer_height / 2.);
@@ -118,7 +118,7 @@ void MultiLayerView::updateHeight()
     m_interfaces.clear();
 
     int total_height = 0;
-    if (m_layers.size()) {
+    if (!m_layers.empty()) {
         for (ILayerView* layer : m_layers) {
             layer->setY(total_height);
             layer->update();

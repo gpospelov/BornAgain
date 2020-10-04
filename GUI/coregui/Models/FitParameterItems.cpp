@@ -283,7 +283,7 @@ void FitParameterContainerItem::setValuesInParameterContainer(
     int index(0);
     for (int i = 0; i < fitPars.size(); ++i) {
         auto link_list = fitPars[i]->getItems(FitParameterItem::T_LINK);
-        if (link_list.size() == 0)
+        if (link_list.empty())
             continue;
         for (auto linkItem : link_list) {
             QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();

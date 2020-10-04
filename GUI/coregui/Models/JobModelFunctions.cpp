@@ -281,7 +281,7 @@ void createFitContainers(JobItem* jobItem)
                                 "a second FitParameterContainer.");
     }
 
-    parsContainerItem = model->insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
+    model->insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
                                              FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
 
     // Minimizer settings
@@ -291,7 +291,7 @@ void createFitContainers(JobItem* jobItem)
                                 "a second MinimizerContainer.");
     }
 
-    minimizerContainerItem = model->insertNewItem("MinimizerContainer", fitSuiteItem->index(), -1,
+    model->insertNewItem("MinimizerContainer", fitSuiteItem->index(), -1,
                                                   FitSuiteItem::T_MINIMIZER);
 }
 

@@ -85,7 +85,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(const S
             QString par_name = prop.getValue();
             if (par_name == ParticleDistributionItem::NO_SELECTION) {
                 auto grandchildren = children[i]->getItems();
-                if (grandchildren.size() == 0) {
+                if (grandchildren.empty()) {
                     continue;
                 }
                 if (grandchildren.size() > 1) {

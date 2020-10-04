@@ -46,7 +46,7 @@ RegionOfInterest* RegionOfInterest::clone() const
     return new RegionOfInterest(*this);
 }
 
-RegionOfInterest::~RegionOfInterest() {}
+RegionOfInterest::~RegionOfInterest() = default;
 
 RegionOfInterest::RegionOfInterest(const RegionOfInterest& other)
     : ICloneable(), m_rectangle(other.m_rectangle->clone()), m_ax1(other.m_ax1), m_ay1(other.m_ay1),

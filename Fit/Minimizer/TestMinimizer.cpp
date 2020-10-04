@@ -18,7 +18,7 @@
 
 using namespace Fit;
 
-TestMinimizer::TestMinimizer() {}
+TestMinimizer::TestMinimizer() = default;
 
 TestMinimizer::~TestMinimizer() = default;
 

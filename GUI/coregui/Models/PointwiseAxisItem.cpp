@@ -68,7 +68,7 @@ std::unique_ptr<IAxis> PointwiseAxisItem::createAxis(double scale) const
         return nullptr;
 
     const auto converter = m_instrument->createUnitConverter();
-    const auto converted_axis = converter->createConvertedAxis(0, AxesUnits::DEGREES);
+    const auto converted_axis = converter->createConvertedAxis(0, Axes::Units::DEGREES);
 
     // applying scaling
     std::vector<double> centers = converted_axis->getBinCenters();
@@ -139,8 +139,8 @@ void PointwiseAxisItem::updateIndicators()
         return;
 
     const auto converter = m_instrument->createUnitConverter();
-    getItem(P_MIN_DEG)->setValue(converter->calculateMin(0, AxesUnits::DEGREES));
-    getItem(P_MAX_DEG)->setValue(converter->calculateMax(0, AxesUnits::DEGREES));
+    getItem(P_MIN_DEG)->setValue(converter->calculateMin(0, Axes::Units::DEGREES));
+    getItem(P_MAX_DEG)->setValue(converter->calculateMax(0, Axes::Units::DEGREES));
     getItem(P_NBINS)->setValue(static_cast<int>(m_axis->size()));
 
     emitDataChanged();

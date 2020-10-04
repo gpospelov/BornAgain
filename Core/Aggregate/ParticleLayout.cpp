@@ -28,12 +28,10 @@ namespace
 //! which is the case for 2D functions.
 bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 {
-    if (iff.getName() == "Interference2DLattice" || iff.getName() == "Interference2DParaCrystal"
-        || iff.getName() == "Interference2DSuperLattice"
-        || iff.getName() == "InterferenceFinite2DLattice"
-        || iff.getName() == "InterferenceHardDisk")
-        return true;
-    return false;
+    return iff.getName() == "Interference2DLattice" || iff.getName() == "Interference2DParaCrystal"
+           || iff.getName() == "Interference2DSuperLattice"
+           || iff.getName() == "InterferenceFinite2DLattice"
+           || iff.getName() == "InterferenceHardDisk";
 }
 } // namespace
 
@@ -53,7 +51,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
     registerWeight();
 }
 
-ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
+ParticleLayout::~ParticleLayout() = default; // needs member class definitions => don't move to .h
 
 ParticleLayout* ParticleLayout::clone() const
 {

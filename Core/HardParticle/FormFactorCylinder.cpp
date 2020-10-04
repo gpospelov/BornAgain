@@ -60,5 +60,5 @@ IFormFactor* FormFactorCylinder::sliceFormFactor(ZLimits limits, const IRotation
 
 void FormFactorCylinder::onChange()
 {
-    mP_shape.reset(new DoubleEllipse(m_radius, m_radius, m_height, m_radius, m_radius));
+    mP_shape = std::make_unique<DoubleEllipse>(m_radius, m_radius, m_height, m_radius, m_radius);
 }

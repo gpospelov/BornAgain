@@ -2,17 +2,20 @@
 #  CheckCompiler.cmake
 #---------------------------------------------------------------------------------------------------
 
-#---Set a default build type for single-configuration CMake generators if no build type is set------
+#--- Set a default build type for single-configuration CMake generators if no build type is set ---
+
 if(NOT CMAKE_BUILD_TYPE)
     #  set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "" FORCE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
 endif()
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
-#---Need to locate thead libraries and options to set properly some compilation flags---------------
+#--- Need to locate thead libraries and options to set properly some compilation flags ---
+
 find_package(Threads)
 
-#---Setup details depending on the major platform type----------------------------------------------
+#--- Setup details depending on the major platform type ---
+
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
     include(SetUpLinux)
 elseif(APPLE)
@@ -21,7 +24,8 @@ elseif(WIN32)
     include(SetUpWindows)
 endif()
 
-#---Print the final compiler flags------------------------------------------------------------------
+#--- Print the final compiler flags ---
+
 message(STATUS "BornAgain Platform: ${BORNAGAIN_PLATFORM}")
 message(STATUS "BornAgain Architecture: ${BORNAGAIN_ARCHITECTURE}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")

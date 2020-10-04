@@ -24,7 +24,7 @@ MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
     initialize();
 }
 
-MesoCrystal::~MesoCrystal() {}
+MesoCrystal::~MesoCrystal() = default;
 
 MesoCrystal* MesoCrystal::clone() const
 {

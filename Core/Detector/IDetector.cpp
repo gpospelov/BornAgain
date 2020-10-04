@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Detector/IDetector.h"
+#include "Core/Binning/IAxis.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetectorResolution.h"
@@ -41,6 +42,16 @@ IDetector::~IDetector() = default;
 void IDetector::addAxis(const IAxis& axis)
 {
     m_axes.push_back(axis.clone());
+}
+
+size_t IDetector::dimension() const
+{
+    return m_axes.size();
+}
+
+void IDetector::clear()
+{
+    m_axes.clear();
 }
 
 const IAxis& IDetector::getAxis(size_t index) const

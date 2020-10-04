@@ -20,7 +20,7 @@
 
 namespace
 {
-static const double p = 7.0 / 3.0 - 4.0 * std::sqrt(3.0) / M_PI;
+const double p = 7.0 / 3.0 - 4.0 * std::sqrt(3.0) / M_PI;
 double Czero(double packing); // TODO ASAP why these variables?
 double S2(double packing);
 double W2(double x);

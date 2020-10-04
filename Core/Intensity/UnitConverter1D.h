@@ -40,21 +40,21 @@ public:
     size_t dimension() const override;
 
     //! Calculates minimum on-axis value in given units.
-    double calculateMin(size_t i_axis, AxesUnits units_type) const override;
+    double calculateMin(size_t i_axis, Axes::Units units_type) const override;
 
     //! Calculates maximum on-axis value in given units.
-    double calculateMax(size_t i_axis, AxesUnits units_type) const override;
+    double calculateMax(size_t i_axis, Axes::Units units_type) const override;
 
     //! Creates axis in converted units.
-    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const override;
+    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, Axes::Units units) const override;
 
     //! Creates OutputData array in converter units.
     std::unique_ptr<OutputData<double>> createConvertedData(const OutputData<double>& data,
-                                                            AxesUnits units) const override;
+                                                            Axes::Units units) const override;
 
 protected:
     //! Returns translating functional (rads --> output units)
-    virtual std::function<double(double)> getTraslatorTo(AxesUnits units_type) const = 0;
+    virtual std::function<double(double)> getTraslatorTo(Axes::Units units_type) const = 0;
 
     virtual const IAxis* coordinateAxis() const = 0;
 };
@@ -65,7 +65,7 @@ class UnitConverterConvSpec : public UnitConverter1D
 public:
     //! Constructs the object for unit conversion.
     UnitConverterConvSpec(const Beam& beam, const IAxis& axis,
-                          AxesUnits axis_units = AxesUnits::RADIANS);
+                          Axes::Units axis_units = Axes::Units::RADIANS);
     UnitConverterConvSpec(const AngularSpecScan& handler);
     ~UnitConverterConvSpec() override;
 
@@ -75,22 +75,22 @@ public:
     size_t axisSize(size_t i_axis) const override;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const override;
+    std::vector<Axes::Units> availableUnits() const override;
 
     //! Returns default units to convert to.
-    AxesUnits defaultUnits() const override;
+    Axes::Units defaultUnits() const override;
 
 protected:
     UnitConverterConvSpec(const UnitConverterConvSpec& other);
 
     //! Creates name map for axis in various units
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const override;
 
     //! Returns translating functional (input units --> rads)
-    std::function<double(double)> getTraslatorFrom(AxesUnits units_type) const;
+    std::function<double(double)> getTraslatorFrom(Axes::Units units_type) const;
 
     //! Returns translating functional (rads --> desired units)
-    std::function<double(double)> getTraslatorTo(AxesUnits units_type) const override;
+    std::function<double(double)> getTraslatorTo(Axes::Units units_type) const override;
 
     const IAxis* coordinateAxis() const override { return m_axis.get(); }
 
@@ -111,19 +111,19 @@ public:
     size_t axisSize(size_t i_axis) const override;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const override;
+    std::vector<Axes::Units> availableUnits() const override;
 
     //! Returns default units to convert to.
-    AxesUnits defaultUnits() const override;
+    Axes::Units defaultUnits() const override;
 
 protected:
     UnitConverterQSpec(const UnitConverterQSpec& other);
 
     //! Creates name map for axis in various units
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const override;
 
     //! Returns translating functional (inv. nm --> desired units)
-    std::function<double(double)> getTraslatorTo(AxesUnits units_type) const override;
+    std::function<double(double)> getTraslatorTo(Axes::Units units_type) const override;
 
     const IAxis* coordinateAxis() const override { return m_axis.get(); }
 

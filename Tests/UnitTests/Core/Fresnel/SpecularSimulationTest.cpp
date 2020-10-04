@@ -183,9 +183,9 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->getRank(), 1u);
 
-    EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(AxesUnits::RADIANS).front(),
+    EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(Axes::Units::RADIANS).front(),
                 Units::degree * 1e-11);
-    EXPECT_NEAR(1.9 * Units::degree, sim_result.axis(AxesUnits::RADIANS).back(),
+    EXPECT_NEAR(1.9 * Units::degree, sim_result.axis(Axes::Units::RADIANS).back(),
                 Units::degree * 1e-10);
 
     checkBeamState(*sim);

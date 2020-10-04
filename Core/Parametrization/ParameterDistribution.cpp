@@ -68,7 +68,7 @@ ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
     mP_distribution.reset(other.mP_distribution->clone());
 }
 
-ParameterDistribution::~ParameterDistribution() {}
+ParameterDistribution::~ParameterDistribution() = default;
 
 ParameterDistribution& ParameterDistribution::operator=(const ParameterDistribution& other)
 {

@@ -36,27 +36,27 @@ public:
 
     virtual size_t dimension() const final;
 
-    double calculateMin(size_t i_axis, AxesUnits units_type) const final;
-    double calculateMax(size_t i_axis, AxesUnits units_type) const final;
+    double calculateMin(size_t i_axis, Axes::Units units_type) const final;
+    double calculateMax(size_t i_axis, Axes::Units units_type) const final;
     size_t axisSize(size_t i_axis) const final;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const override;
+    std::vector<Axes::Units> availableUnits() const override;
 
-    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const final;
+    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, Axes::Units units) const final;
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
     void addDetectorAxis(const IDetector& detector, size_t i_axis);
 
-    void addAxisData(std::string name, double min, double max, AxesUnits default_units,
+    void addAxisData(std::string name, double min, double max, Axes::Units default_units,
                      size_t nbins);
 
 #ifndef SWIG
     struct AxisData {
         std::string name;
         double min, max;
-        AxesUnits default_units;
+        Axes::Units default_units;
         size_t nbins;
     };
     std::vector<AxisData> m_axis_data_table;
@@ -66,7 +66,7 @@ protected:
     double m_phi_i;
 
 private:
-    virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const = 0;
+    virtual double calculateValue(size_t i_axis, Axes::Units units_type, double value) const = 0;
 };
 
 //! IUnitConverter class that handles the unit translations for spherical detectors
@@ -83,14 +83,14 @@ public:
     SphericalConverter* clone() const final;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const final;
+    std::vector<Axes::Units> availableUnits() const final;
 
-    AxesUnits defaultUnits() const final;
+    Axes::Units defaultUnits() const final;
 
 private:
     SphericalConverter(const SphericalConverter& other);
-    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const final;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
+    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const final;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
 };
 
 //! IUnitConverter class that handles the unit translations for rectangular detectors
@@ -106,14 +106,14 @@ public:
     RectangularConverter* clone() const final;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const final;
+    std::vector<Axes::Units> availableUnits() const final;
 
-    AxesUnits defaultUnits() const final;
+    Axes::Units defaultUnits() const final;
 
 private:
     RectangularConverter(const RectangularConverter& other);
-    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const final;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
+    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const final;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
     kvector_t normalizeToWavelength(kvector_t vector) const;
     double axisAngle(size_t i_axis, kvector_t k_f) const;
     std::unique_ptr<RectangularPixel> mP_detector_pixel;
@@ -132,12 +132,12 @@ public:
 
     OffSpecularConverter* clone() const final;
 
-    AxesUnits defaultUnits() const final;
+    Axes::Units defaultUnits() const final;
 
 private:
     OffSpecularConverter(const OffSpecularConverter& other);
-    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const final;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
+    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const final;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
     void addDetectorYAxis(const IDetector2D& detector);
 };
 
@@ -154,15 +154,15 @@ public:
     DepthProbeConverter* clone() const final;
 
     //! Returns the list of all available units
-    std::vector<AxesUnits> availableUnits() const final;
+    std::vector<Axes::Units> availableUnits() const final;
 
-    AxesUnits defaultUnits() const final { return AxesUnits::DEGREES; }
+    Axes::Units defaultUnits() const final { return Axes::Units::DEGREES; }
 
 private:
     DepthProbeConverter(const DepthProbeConverter& other);
-    double calculateValue(size_t, AxesUnits units_type, double value) const final;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const final;
-    void checkUnits(AxesUnits units_type) const;
+    double calculateValue(size_t, Axes::Units units_type, double value) const final;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
+    void checkUnits(Axes::Units units_type) const;
 };
 
 #endif // BORNAGAIN_CORE_INTENSITY_SIMPLEUNITCONVERTERS_H

@@ -40,6 +40,7 @@ public:
 
     //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
+    bool empty() const { return size() == 0; }
 
     RealParameter& addParameter(RealParameter* newPar);
 

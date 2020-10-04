@@ -44,29 +44,29 @@ size_t UnitConverterSimple::dimension() const
 }
 
 void UnitConverterSimple::addAxisData(std::string name, double min, double max,
-                                      AxesUnits default_units, size_t nbins)
+                                      Axes::Units default_units, size_t nbins)
 {
     AxisData axis_data{name, min, max, default_units, nbins};
     m_axis_data_table.push_back(axis_data);
 }
 
-double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const
+double UnitConverterSimple::calculateMin(size_t i_axis, Axes::Units units_type) const
 {
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
     const auto& axis_data = m_axis_data_table[i_axis];
-    if (units_type == AxesUnits::NBINS) {
+    if (units_type == Axes::Units::NBINS) {
         return 0.0;
     }
     return calculateValue(i_axis, units_type, axis_data.min);
 }
 
-double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const
+double UnitConverterSimple::calculateMax(size_t i_axis, Axes::Units units_type) const
 {
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
     const auto& axis_data = m_axis_data_table[i_axis];
-    if (units_type == AxesUnits::NBINS) {
+    if (units_type == Axes::Units::NBINS) {
         return static_cast<double>(axis_data.nbins);
     }
     return calculateValue(i_axis, units_type, axis_data.max);
@@ -78,13 +78,13 @@ size_t UnitConverterSimple::axisSize(size_t i_axis) const
     return m_axis_data_table[i_axis].nbins;
 }
 
-std::vector<AxesUnits> UnitConverterSimple::availableUnits() const
+std::vector<Axes::Units> UnitConverterSimple::availableUnits() const
 {
-    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES};
+    return {Axes::Units::NBINS, Axes::Units::RADIANS, Axes::Units::DEGREES};
 }
 
 std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
-                                                                AxesUnits units) const
+                                                                Axes::Units units) const
 {
     const double min = calculateMin(i_axis, units);
     const double max = calculateMax(i_axis, units);
@@ -133,30 +133,30 @@ SphericalConverter* SphericalConverter::clone() const
     return new SphericalConverter(*this);
 }
 
-std::vector<AxesUnits> SphericalConverter::availableUnits() const
+std::vector<Axes::Units> SphericalConverter::availableUnits() const
 {
     auto result = UnitConverterSimple::availableUnits();
-    result.push_back(AxesUnits::QSPACE);
+    result.push_back(Axes::Units::QSPACE);
     return result;
 }
 
-AxesUnits SphericalConverter::defaultUnits() const
+Axes::Units SphericalConverter::defaultUnits() const
 {
-    return AxesUnits::DEGREES;
+    return Axes::Units::DEGREES;
 }
 
 SphericalConverter::SphericalConverter(const SphericalConverter& other) : UnitConverterSimple(other)
 {
 }
 
-double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
+double SphericalConverter::calculateValue(size_t i_axis, Axes::Units units_type, double value) const
 {
     switch (units_type) {
-    case AxesUnits::RADIANS:
+    case Axes::Units::RADIANS:
         return value;
-    case AxesUnits::DEGREES:
+    case Axes::Units::DEGREES:
         return Units::rad2deg(value);
-    case AxesUnits::QSPACE: {
+    case Axes::Units::QSPACE: {
         const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
             const auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
@@ -169,7 +169,7 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
                                  "incorrect axis index: "
                                  + std::to_string(static_cast<int>(i_axis)));
     }
-    case AxesUnits::QXQY: {
+    case Axes::Units::QXQY: {
         const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
             const auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
@@ -187,9 +187,9 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
     }
 }
 
-std::vector<std::map<AxesUnits, std::string>> SphericalConverter::createNameMaps() const
+std::vector<std::map<Axes::Units, std::string>> SphericalConverter::createNameMaps() const
 {
-    std::vector<std::map<AxesUnits, std::string>> result;
+    std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitSphericalAxis0());
     result.push_back(AxisNames::InitSphericalAxis1());
     return result;
@@ -216,17 +216,17 @@ RectangularConverter* RectangularConverter::clone() const
     return new RectangularConverter(*this);
 }
 
-std::vector<AxesUnits> RectangularConverter::availableUnits() const
+std::vector<Axes::Units> RectangularConverter::availableUnits() const
 {
     auto result = UnitConverterSimple::availableUnits();
-    result.push_back(AxesUnits::QSPACE);
-    result.push_back(AxesUnits::MM);
+    result.push_back(Axes::Units::QSPACE);
+    result.push_back(Axes::Units::MM);
     return result;
 }
 
-AxesUnits RectangularConverter::defaultUnits() const
+Axes::Units RectangularConverter::defaultUnits() const
 {
-    return AxesUnits::MM;
+    return Axes::Units::MM;
 }
 
 RectangularConverter::RectangularConverter(const RectangularConverter& other)
@@ -234,9 +234,10 @@ RectangularConverter::RectangularConverter(const RectangularConverter& other)
 {
 }
 
-double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
+double RectangularConverter::calculateValue(size_t i_axis, Axes::Units units_type,
+                                            double value) const
 {
-    if (units_type == AxesUnits::MM)
+    if (units_type == Axes::Units::MM)
         return value;
     const auto k00 = mP_detector_pixel->getPosition(0.0, 0.0);
     const auto k01 = mP_detector_pixel->getPosition(0.0, 1.0);
@@ -245,11 +246,11 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     const double shift = value - m_axis_data_table[i_axis].min;
     const auto k_f = normalizeToWavelength(k00 + shift * (max_pos - k00).unit());
     switch (units_type) {
-    case AxesUnits::RADIANS:
+    case Axes::Units::RADIANS:
         return axisAngle(i_axis, k_f);
-    case AxesUnits::DEGREES:
+    case Axes::Units::DEGREES:
         return Units::rad2deg(axisAngle(i_axis, k_f));
-    case AxesUnits::QSPACE: {
+    case Axes::Units::QSPACE: {
         const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
             return (k_i - k_f).y();
@@ -260,7 +261,7 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
                                  "incorrect axis index: "
                                  + std::to_string(static_cast<int>(i_axis)));
     }
-    case AxesUnits::QXQY: {
+    case Axes::Units::QXQY: {
         const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == 0) {
             return (k_i - k_f).y();
@@ -276,9 +277,9 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     }
 }
 
-std::vector<std::map<AxesUnits, std::string>> RectangularConverter::createNameMaps() const
+std::vector<std::map<Axes::Units, std::string>> RectangularConverter::createNameMaps() const
 {
-    std::vector<std::map<AxesUnits, std::string>> result;
+    std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitRectangularAxis0());
     result.push_back(AxisNames::InitRectangularAxis1());
     return result;
@@ -327,9 +328,9 @@ OffSpecularConverter* OffSpecularConverter::clone() const
     return new OffSpecularConverter(*this);
 }
 
-AxesUnits OffSpecularConverter::defaultUnits() const
+Axes::Units OffSpecularConverter::defaultUnits() const
 {
-    return AxesUnits::DEGREES;
+    return Axes::Units::DEGREES;
 }
 
 OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
@@ -337,21 +338,21 @@ OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
 {
 }
 
-double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double value) const
+double OffSpecularConverter::calculateValue(size_t, Axes::Units units_type, double value) const
 {
     switch (units_type) {
-    case AxesUnits::RADIANS:
+    case Axes::Units::RADIANS:
         return value;
-    case AxesUnits::DEGREES:
+    case Axes::Units::DEGREES:
         return Units::rad2deg(value);
     default:
         throwUnitsError("OffSpecularConverter::calculateValue", availableUnits());
     }
 }
 
-std::vector<std::map<AxesUnits, std::string>> OffSpecularConverter::createNameMaps() const
+std::vector<std::map<Axes::Units, std::string>> OffSpecularConverter::createNameMaps() const
 {
-    std::vector<std::map<AxesUnits, std::string>> result;
+    std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitOffSpecAxis0());
     result.push_back(AxisNames::InitOffSpecAxis1());
     return result;
@@ -410,10 +411,10 @@ DepthProbeConverter* DepthProbeConverter::clone() const
     return new DepthProbeConverter(*this);
 }
 
-std::vector<AxesUnits> DepthProbeConverter::availableUnits() const
+std::vector<Axes::Units> DepthProbeConverter::availableUnits() const
 {
     auto result = UnitConverterSimple::availableUnits();
-    result.push_back(AxesUnits::QSPACE);
+    result.push_back(Axes::Units::QSPACE);
     return result;
 }
 
@@ -422,30 +423,31 @@ DepthProbeConverter::DepthProbeConverter(const DepthProbeConverter& other)
 {
 }
 
-double DepthProbeConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
+double DepthProbeConverter::calculateValue(size_t i_axis, Axes::Units units_type,
+                                           double value) const
 {
     checkUnits(units_type);
     if (i_axis == 1)
         return value; // unit conversions are not applied to sample position axis
     switch (units_type) {
-    case AxesUnits::DEGREES:
+    case Axes::Units::DEGREES:
         return Units::rad2deg(value);
-    case AxesUnits::QSPACE:
+    case Axes::Units::QSPACE:
         return getQ(m_wavelength, value);
     default:
         return value;
     }
 }
 
-std::vector<std::map<AxesUnits, std::string>> DepthProbeConverter::createNameMaps() const
+std::vector<std::map<Axes::Units, std::string>> DepthProbeConverter::createNameMaps() const
 {
-    std::vector<std::map<AxesUnits, std::string>> result;
+    std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitSpecAxis());
     result.push_back(AxisNames::InitSampleDepthAxis());
     return result;
 }
 
-void DepthProbeConverter::checkUnits(AxesUnits units_type) const
+void DepthProbeConverter::checkUnits(Axes::Units units_type) const
 {
     const auto& available_units = availableUnits();
     if (std::find(available_units.begin(), available_units.end(), units_type)

@@ -30,11 +30,6 @@ TEST_F(SpecularDetectorTest, basicBehaviour)
     // throwing exceptions
     OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(detector.applyDetectorResolution(p_intensity_map), std::runtime_error);
-
-    // clearing detector
-    detector.clear();
-    EXPECT_EQ(0u, detector.dimension());
-    ASSERT_THROW(detector.getAxis(0), std::runtime_error);
 }
 
 // Creation of the detector map with axes in given units

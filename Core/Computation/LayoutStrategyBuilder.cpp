@@ -27,7 +27,7 @@ LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout* p_layout,
 }
 
 // needs class definitions => don't move to .h
-LayoutStrategyBuilder::~LayoutStrategyBuilder() {}
+LayoutStrategyBuilder::~LayoutStrategyBuilder() = default;
 
 IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 {
@@ -43,14 +43,13 @@ void LayoutStrategyBuilder::createStrategy()
     auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
     if (p_radial_para && p_radial_para->kappa() > 0.0) {
         double kappa = p_radial_para->kappa();
-        mP_strategy.reset(new SSCApproximationStrategy(m_sim_params, kappa, m_polarized));
+        mP_strategy = std::make_unique<SSCApproximationStrategy>(m_sim_params, kappa, m_polarized);
     } else {
-        mP_strategy.reset(new DecouplingApproximationStrategy(m_sim_params, m_polarized));
+        mP_strategy = std::make_unique<DecouplingApproximationStrategy>(m_sim_params, m_polarized);
     }
     if (!mP_strategy)
         throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
     mP_strategy->init(mp_layout->formFactorList(), p_iff);
-    return;
 }
 
 void LayoutStrategyBuilder::checkInterferenceFunction(const IInterferenceFunction* p_iff)

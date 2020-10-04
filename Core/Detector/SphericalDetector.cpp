@@ -43,9 +43,9 @@ SphericalDetector* SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-AxesUnits SphericalDetector::defaultAxesUnits() const
+Axes::Units SphericalDetector::defaultAxesUnits() const
 {
-    return AxesUnits::RADIANS;
+    return Axes::Units::RADIANS;
 }
 
 IPixel* SphericalDetector::createPixel(size_t index) const

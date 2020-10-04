@@ -13,14 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Correlations/FTDistributions2D.h"
-#include "Core/Basics/Algorithms.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
-
-using algo::concat;
 
 // ************************************************************************** //
 // interface IFTDistribution1D
@@ -179,8 +176,8 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() co
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector<double> P)
     : IFTDistribution2D(
-          {"FTDistribution2DVoigt", "class_tooltip", {{"Eta", "", "para_tooltip", -INF, +INF, 0}}},
-          P),
+        {"FTDistribution2DVoigt", "class_tooltip", {{"Eta", "", "para_tooltip", -INF, +INF, 0}}},
+        P),
       m_eta(m_P[3])
 {
 }

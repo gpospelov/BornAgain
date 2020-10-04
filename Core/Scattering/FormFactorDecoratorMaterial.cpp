@@ -24,7 +24,7 @@ FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form
     setName("FormFactorDecoratorMaterial");
 }
 
-FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() {}
+FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() = default;
 
 FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {

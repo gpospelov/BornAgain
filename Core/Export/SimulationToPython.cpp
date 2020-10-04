@@ -31,6 +31,7 @@
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/Tools/PyFmt.h"
+#include "Fit/TestEngine/Numeric.h"
 #include <iomanip>
 
 namespace
@@ -55,6 +56,15 @@ std::function<std::string(double)> printFunc(const IDetector* detector)
     throw Exceptions::RuntimeErrorException(
         "SimulationToPython::defineMasks() -> Error. Unknown detector units.");
 }
+
+//! returns true if it is (0, -1, 0) vector
+bool isDefaultDirection(const kvector_t direction)
+{
+    return Numeric::AreAlmostEqual(direction.x(), 0.0)
+           && Numeric::AreAlmostEqual(direction.y(), -1.0)
+           && Numeric::AreAlmostEqual(direction.z(), 0.0);
+}
+
 } // namespace
 
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
@@ -161,7 +171,7 @@ std::string SimulationToPython::defineDetector(const Simulation* simulation) con
             result << pyfmt::indent() << "detector.setPosition("
                    << pyfmt::printKvector(det->getNormalVector()) << ", "
                    << pyfmt::printDouble(det->getU0()) << ", " << pyfmt::printDouble(det->getV0());
-            if (!pyfmt::isDefaultDirection(det->getDirectionVector()))
+            if (!isDefaultDirection(det->getDirectionVector()))
                 result << ", " << pyfmt::printKvector(det->getDirectionVector());
             result << ")\n";
         } else if (det->getDetectorArrangment() == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {

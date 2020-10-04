@@ -188,14 +188,6 @@ std::string printKvector(const kvector_t value)
     return result.str();
 }
 
-//! returns true if it is (0, -1, 0) vector
-bool isDefaultDirection(const kvector_t direction)
-{
-    return Numeric::AreAlmostEqual(direction.x(), 0.0)
-           && Numeric::AreAlmostEqual(direction.y(), -1.0)
-           && Numeric::AreAlmostEqual(direction.z(), 0.0);
-}
-
 std::string indent(size_t width)
 {
     return std::string(width, ' ');

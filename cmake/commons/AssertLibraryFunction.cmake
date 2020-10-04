@@ -43,7 +43,7 @@
 #   include(FindPackageHandleStandardArgs)
 #   find_package_handle_standard_args(<Package> DEFAULT_MSG <Package>_LIBRARIES <Package>_INCLUDE_DIR)
 #   
-#   include(AssertLibraryFunction)
+#   include(commons/AssertLibraryFunction)
 #   assert_library_function(<Package> <function_name> "")
 #   
 #   mark_as_advanced(<Package>_INCLUDE_DIR <Package>_LIBRARIES)

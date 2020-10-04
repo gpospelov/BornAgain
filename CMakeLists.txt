@@ -4,13 +4,10 @@
 
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake/extensions # CMake modules for use in various projects
-    ${CMAKE_SOURCE_DIR}/cmake/
-    )
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_SOURCE_DIR}/cmake/find)
 set(CONFIGURABLES_DIR ${CMAKE_SOURCE_DIR}/cmake/configurables)
 
-include(PreventInSourceBuilds)
+include(commons/PreventInSourceBuilds)
 
 project(BornAgain
     VERSION 1.17.99
@@ -74,7 +71,7 @@ elseif(WIN32)
     include(BornAgain/Windows)
 endif()
 
-include(GetFilenameComponent) # overwrite CMake command
+include(commons/GetFilenameComponent) # overwrite CMake command
 include(BornAgain/Directories)
 include(BornAgain/Compiler)
 include(BornAgain/Dependences)
@@ -91,12 +88,12 @@ include(BornAgain/LineLength)
 
 # debug optimization
 if(BORNAGAIN_DEBUG_OPTIMIZATION)
-  include(DebugOptimization)
+  include(commons/DebugOptimization)
 endif()
 
 # code coverage analysis
 if(BORNAGAIN_COVERAGE)
-  include(CoverageFunction)
+  include(commons/CoverageFunction)
   include(BornAgain/Coverage)
 endif()
 

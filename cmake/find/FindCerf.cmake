@@ -29,7 +29,7 @@ endif()
 
 mark_as_advanced(Cerf_INCLUDE_DIR Cerf_LIBRARIES)
 
-include(AssertLibraryFunction)
+include(commons/AssertLibraryFunction)
 assert_library_function(Cerf cerf "")
 assert_library_function(Cerf dawson "")
 assert_library_function(Cerf voigt "")

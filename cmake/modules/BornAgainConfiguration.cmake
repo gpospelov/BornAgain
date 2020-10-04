@@ -15,6 +15,10 @@ endif()
 # source directory paths
 # -----------------------------------------------------------------------------
 
+set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
+set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
+file(MAKE_DIRECTORY ${AUTO_DIR})
+
 set(TEST_OUTPUT_DIR ${CMAKE_BINARY_DIR}/test_output)
 file(MAKE_DIRECTORY ${TEST_OUTPUT_DIR})
 set(TEST_REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)

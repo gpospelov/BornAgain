@@ -20,10 +20,6 @@ endif()
 
 if(BORNAGAIN_PYTHON)
 
-    set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
-    set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
-    file(MAKE_DIRECTORY ${AUTO_DIR})
-
     if(CONFIGURE_BINDINGS)
 
         set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)

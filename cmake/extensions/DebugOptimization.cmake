@@ -17,13 +17,13 @@
 #
 
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Og")
+  string(APPEND CMAKE_C_FLAGS " -Og")
 else()
   message(WARNING "C compiler is not GNU; debug optimization has no effect")
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og")
+  string(APPEND CMAKE_CXX_FLAGS " -Og")
 else()
   message(WARNING "C compiler is not GNU; debug optimization has no effect")
 endif()

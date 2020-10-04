@@ -81,7 +81,7 @@ endif(BORNAGAIN_PYTHON)
 # --- making library ---
 
 if(WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+    string(APPEND CMAKE_CXX_FLAGS " -DBA_CORE_BUILD_DLL")
 endif()
 
 add_library(${lib} SHARED ${source_files})

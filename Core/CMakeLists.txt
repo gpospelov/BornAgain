@@ -14,7 +14,7 @@ if((NOT Cerf_IS_CPP) AND (NOT WIN32)) # TEMPORARY
     list(APPEND source_files ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper/cerf_ptr.c)
 endif()
 if(${Cerf_IS_CPP})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCERF_AS_CPP=ON")
+    string(APPEND CMAKE_CXX_FLAGS " -DCERF_AS_CPP=ON")
 endif()
 
 
@@ -87,7 +87,7 @@ endif(BORNAGAIN_PYTHON)
 # --- making library ---
 
 if(WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+    string(APPEND CMAKE_CXX_FLAGS " -DBA_CORE_BUILD_DLL")
 endif()
 
 add_library(${lib} SHARED ${source_files})

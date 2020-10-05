@@ -28,13 +28,14 @@ add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck)
 add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND})
    # => 'make check' is an alias for 'ctest'
 
-## declare project-wide user flags, and set default values
+## Project-wide user flags
 
-# options that can be switched off to simplify the build and reduce its scope
+# options that are on by default (switch off for accelerated builds of limited scope)
 option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
+# options that are off by default (switch on for additional functionality)
 option(BORNAGAIN_MPI "Build with MPI support" OFF)
 option(SLOWTESTS "CTest also covers slow tests" OFF)
 
@@ -63,44 +64,50 @@ if(ALLCONFIG)
     set(CONFIGURE_DOXY ON)
 endif()
 
-# include CMake macros and functions
-#--- Setup details depending on the major platform type ---
+## Various CMake settings (include order is of critical importance)
+
+# function definitions
+include(commons/GetFilenameComponent) # overwrite CMake command
+
+include(BornAgain/Directories)
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
     include(BornAgain/Linux)
+    include(BornAgain/NixInstall)
 elseif(APPLE)
     include(BornAgain/MacOS)
+    include(BornAgain/NixInstall)
 elseif(WIN32)
     include(BornAgain/Windows)
 endif()
 
-include(commons/GetFilenameComponent) # overwrite CMake command
-include(BornAgain/Directories)
 include(BornAgain/Compiler)
-include(BornAgain/Dependences)
 if(ZERO_TOLERANCE)
     string(APPEND CMAKE_CXX_FLAGS " -Werror -Wfatal-errors")
 endif()
+
+include(BornAgain/Dependences)
 if(BORNAGAIN_GUI)
     include(BornAgain/Qt)
     string(APPEND CMAKE_CXX_FLAGS " -DHAVE_QT=ON")
 endif()
 include(BornAgain/Config)
 include(BornAgain/PythonDocs)
-include(BornAgain/LineLength)
 
 # debug optimization
 if(BORNAGAIN_DEBUG_OPTIMIZATION)
   include(commons/DebugOptimization)
 endif()
 
-# code coverage analysis
+# code analysis
+include(BornAgain/LineLength)
 if(BORNAGAIN_COVERAGE)
   include(commons/CoverageFunction)
   include(BornAgain/Coverage)
 endif()
 
-# recurse into the given subdirectories
+## recurse into the given subdirectories
+
 if(BORNAGAIN_USERMANUAL)
     add_subdirectory(Doc/UserManual)
 endif()

@@ -30,19 +30,13 @@ const PolyhedralTopology FormFactorCuboctahedron::topology = {{{{3, 2, 1, 0}, tr
                                                                {{8, 9, 10, 11}, true}},
                                                               false};
 
-//! Constructor of cuboctahedron (compound of two truncated pyramids with a common square base
-//! and opposite orientations).
-//! @param length: side length of the common square base in nanometers
-//! @param height: height of the lower pyramid in nanometers
-//! @param height_ratio: ratio of heights of top to bottom pyramids
-//! @param alpha: dihedral angle in radians between base and facet
 FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector<double> P)
     : IFormFactorPolyhedron({"Cuboctahedron",
-                             "class_tooltip",
-                             {{"Length", "nm", "para_tooltip", 0, +INF, 0},
-                              {"Height", "nm", "para_tooltip", 0, +INF, 0},
-                              {"HeightRatio", "nm", "para_tooltip", 0, +INF, 0},
-                              {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                             "truncated quadratic bipyramid",
+                             {{"Length", "nm", "edge length of base square (common face of both pyramids)", 0, +INF, 0},
+                              {"Height", "nm", "height of the lower pyramid", 0, +INF, 0},
+                              {"HeightRatio", "nm", "height ratio of upper to lower pyramid", 0, +INF, 0},
+                              {"Alpha", "rad", "angle between the base and a side face", 0., M_PI_2, 0}}},
                             P),
       m_length(m_P[0]), m_height(m_P[1]), m_height_ratio(m_P[2]), m_alpha(m_P[3])
 {

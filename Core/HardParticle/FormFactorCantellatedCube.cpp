@@ -46,14 +46,11 @@ const PolyhedralTopology FormFactorCantellatedCube::topology = {
     },
     true};
 
-//! Constructor of a truncated cube.
-//! @param length: length of the full cube's edge in nanometers
-//! @param removed_length: removed length from each edge of the cube in nanometers
 FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector<double> P)
     : IFormFactorPolyhedron({"CantellatedCube",
-                             "class_tooltip",
-                             {{"Length", "nm", "para_tooltip", 0, +INF, 0},
-                              {"RemovedLength", "nm", "para_tooltip", 0, +INF, 0}}},
+                             "a cube with truncated edges and vertices,
+                             {{"Length", "nm", "length of untruncated edge", 0, +INF, 0},
+                              {"RemovedLength", "nm", "side length of the trirectangular tetrahedron removed one corner", 0, +INF, 0}}},
                             P),
       m_length(m_P[0]), m_removed_length(m_P[1])
 {

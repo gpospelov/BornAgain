@@ -19,14 +19,11 @@
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
 
-//! Constructor of full spheroid.
-//! @param radius: radius of the circular cross section in nanometers
-//! @param height: height of the full spheroid in nanometers
 FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)
     : IFormFactorBorn({"FullSpheroid",
-                       "class_tooltip",
-                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
-                        {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                       "ellipsoid of revolution",
+                       {{"Radius", "nm", "revolution radius", 0, +INF, 0},
+                        {"Height", "nm", "height = twice the radius in non-revolution direction", 0, +INF, 0}}},
                       P),
       m_radius(m_P[0]), m_height(m_P[1])
 {

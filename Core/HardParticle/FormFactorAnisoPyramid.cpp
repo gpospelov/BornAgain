@@ -25,18 +25,13 @@ const PolyhedralTopology FormFactorAnisoPyramid::topology = {{{{3, 2, 1, 0}, tru
                                                               {{4, 5, 6, 7}, true}},
                                                              false};
 
-//! Constructor of a truncated pyramid with a rectangular base.
-//! @param length: length of the rectangular base in nm
-//! @param width: width of the rectangular base in nm
-//! @param height: height of pyramid in nm
-//! @param alpha: dihedral angle in radians between base and facet
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector<double> P)
     : IFormFactorPolyhedron({"AnisoPyramid",
-                             "class_tooltip",
-                             {{"Length", "nm", "para_tooltip", 0, +INF, 0},
-                              {"Width", "nm", "para_tooltip", 0, +INF, 0},
-                              {"Height", "nm", "para_tooltip", 0, +INF, 0},
-                              {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                             "frsutum with rectangular base",
+                             {{"Length", "nm", "side length of base in x direction", 0, +INF, 0},
+                              {"Width", "nm", "side length of base in y direction", 0, +INF, 0},
+                              {"Height", "nm", "height", 0, +INF, 0},
+                              {"Alpha", "rad", "angle between base and any side face", 0., M_PI_2, 0}}},
                             P),
       m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2]), m_alpha(m_P[3])
 {

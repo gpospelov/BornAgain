@@ -154,3 +154,5 @@ add_subdirectory(cmake)
 
 # make package targets
 include(BornAgain/Pack)
+
+message(STATUS "CMake done")

@@ -17443,18 +17443,7 @@ class Simulation(ICloneable, INode):
         convertData(Simulation self, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult
         SimulationResult Simulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
 
-        Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
-
-        Parameters:
-        -----------
-
-        simulation: 
-         Simulation object with possible ROI and masks defined.
-
-        data: 
-        User data with amplitudes with the shape of data matching the detector.
-
-        SimulationResult object. 
+        Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero. 
 
         """
         return _libBornAgainCore.Simulation_convertData(self, data, put_masked_areas_to_zero)

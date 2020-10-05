@@ -192,8 +192,6 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp
     DESTINATION ${destination_examples} COMPONENT Examples)
 install(FILES "${AUTO_DIR}/swig_runtime.h"
     DESTINATION ${destination_include}/Wrap COMPONENT Headers)
-install(FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h
-    DESTINATION ${destination_include}/Wrap COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extension for the library name
@@ -216,10 +214,3 @@ if(WIN32)
             )
     endif()
 endif()
-
-# Install bornagain/__init__.py and utilites
-install(DIRECTORY "${CMAKE_BINARY_DIR}/lib/bornagain/"
-        DESTINATION "${destination_libexec}/bornagain"
-        COMPONENT Libraries
-        FILES_MATCHING PATTERN "*.py"
-        PATTERN "__pycache__" EXCLUDE)

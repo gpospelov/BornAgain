@@ -70,8 +70,6 @@
 #define BORNAGAIN_PYTHON
 #endif
 
-%import "Wrap/WinDllMacros.h"
-
 %{
 #include "BAVersion.h"
 #include "Core/Correlations/FTDecay1D.h"

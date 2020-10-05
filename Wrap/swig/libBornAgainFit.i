@@ -57,8 +57,6 @@ import_array();
 #define BORNAGAIN_PYTHON
 #endif
 
-%import "Wrap/WinDllMacros.h"
-
 %{
 #include "Fit/Tools/RealLimits.h"
 #include "Fit/Tools/AttLimits.h"

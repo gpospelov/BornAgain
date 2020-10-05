@@ -69,7 +69,6 @@ function(SwigLib name lib TMP_DIR)
     target_include_directories(${lib} PUBLIC ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
     target_link_libraries(${lib} ${Python3_LIBRARIES})
 
-    install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
     install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
         DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 

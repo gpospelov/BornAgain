@@ -41,9 +41,9 @@ endif()
 
 # --- installation ---
 
+install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
 
 foreach(file ${include_files})
     get_filename_component(dir ${file} DIRECTORY)
     install(FILES ${file} DESTINATION ${destination_include}/${name}/${dir})
 endforeach()
-

@@ -95,6 +95,7 @@ if(BORNAGAIN_GUI)
     string(APPEND CMAKE_CXX_FLAGS " -DHAVE_QT=ON")
 endif()
 include(BornAgain/Config)
+include(BornAgain/PythonAPI)
 include(BornAgain/PythonDocs)
 
 # debug optimization

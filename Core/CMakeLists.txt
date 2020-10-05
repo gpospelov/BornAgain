@@ -17,7 +17,6 @@ if(${Cerf_IS_CPP})
     string(APPEND CMAKE_CXX_FLAGS " -DCERF_AS_CPP=ON")
 endif()
 
-
 if(BORNAGAIN_PYTHON)
 
     if(CONFIGURE_BINDINGS)
@@ -99,33 +98,8 @@ set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 
 
 if(BORNAGAIN_PYTHON)
-    if(CONFIGURE_BINDINGS)
-        add_custom_command(
-            OUTPUT ${AUTO_DIR}/swig_runtime.h
-            COMMAND ${SWIG_EXECUTABLE} -c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h
-            DEPENDS ${swig_dependencies} ${include_files}
-            )
-    endif()
-    add_custom_target(${lib}_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
-    add_dependencies(${lib} ${lib}_runtime)
-
-    configure_file(${WRAP_DIR}/python/plot_utils.py
-                   ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
-
-    if(WIN32)
-        set(BA_MODULES_IMPORT_PATH "../../bin")
-    else()
-        set(BA_MODULES_IMPORT_PATH "..")
-    endif()
-    if(BORNAGAIN_APPLE_BUNDLE)
-        set(BA_MODULES_IMPORT_PATH
-            lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
-    endif()
-    configure_file("${WRAP_DIR}/python/__init__.py.in"
-                   "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py" @ONLY)
+    add_dependencies(${lib} swig_runtime)
 endif()
-
-
 
 # --- external dependencies ---
 
@@ -179,19 +153,6 @@ foreach(file ${include_files})
     get_filename_component(dir ${file} DIRECTORY)
     install(FILES ${file} DESTINATION ${destination_include}/${name}/${dir})
 endforeach()
-
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
-    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.py" )
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
-    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "README")
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
-    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.gz")
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/
-    DESTINATION ${destination_examples} COMPONENT Examples FILES_MATCHING PATTERN "*.png")
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp
-    DESTINATION ${destination_examples} COMPONENT Examples)
-install(FILES "${AUTO_DIR}/swig_runtime.h"
-    DESTINATION ${destination_include}/Wrap COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extension for the library name

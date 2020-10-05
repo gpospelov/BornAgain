@@ -4,7 +4,10 @@
 
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_SOURCE_DIR}/cmake/find)
+set(CMAKE_MODULE_PATH
+    ${CMAKE_SOURCE_DIR}/cmake
+    ${CMAKE_SOURCE_DIR}/cmake/find
+    ${CMAKE_SOURCE_DIR}/cmake/pack)
 set(CONFIGURABLES_DIR ${CMAKE_SOURCE_DIR}/cmake/configurables)
 
 include(commons/PreventInSourceBuilds)

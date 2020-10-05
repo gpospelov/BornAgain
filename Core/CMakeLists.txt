@@ -86,10 +86,6 @@ endif(BORNAGAIN_PYTHON)
 
 # --- making library ---
 
-if(WIN32)
-    string(APPEND CMAKE_CXX_FLAGS " -DBA_CORE_BUILD_DLL")
-endif()
-
 add_library(${lib} SHARED ${source_files})
 set_target_properties(${lib} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${lib}_LIBRARY_TYPE SHARED)

@@ -22,31 +22,6 @@ set(${lib}_LIBRARY_TYPE SHARED)
 
 if(BORNAGAIN_PYTHON)
     SwigLib(${name} ${lib} ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
-
-    add_custom_target(
-        ${lib}_python
-        COMMAND ${CMAKE_COMMAND}
-            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
-        COMMAND ${CMAKE_COMMAND}
-            -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/bornagain/lib${lib}.py
-        DEPENDS ${AUTO_DIR}/lib${lib}.py
-        )
-
-    if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-            OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
-        # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
-        set_source_files_properties(${AUTO_DIR}/lib${lib}_wrap.cpp
-            PROPERTIES COMPILE_OPTIONS
-            "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-sometimes-uninitialized;\
--Wno-deprecated-declarations")
-    endif()
-
-    add_dependencies(${lib} ${lib}_python)
-
-    target_compile_definitions(${lib} PUBLIC -DBORNAGAIN_PYTHON)
-    target_include_directories(${lib} PUBLIC ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
-    target_link_libraries(${lib} ${Python3_LIBRARIES})
-
 endif(BORNAGAIN_PYTHON)
 
 # exposing library name and list of include directories outside

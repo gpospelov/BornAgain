@@ -18,6 +18,16 @@ if(${Cerf_IS_CPP})
 endif()
 
 if(BORNAGAIN_PYTHON)
+    list(APPEND source_files "${AUTO_DIR}/lib${lib}_wrap.cpp")
+endif()
+
+# --- making library ---
+
+add_library(${lib} SHARED ${source_files})
+set_target_properties(${lib} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+set(${lib}_LIBRARY_TYPE SHARED)
+
+if(BORNAGAIN_PYTHON)
 
     if(CONFIGURE_BINDINGS)
 
@@ -79,23 +89,16 @@ if(BORNAGAIN_PYTHON)
 -Wno-deprecated-declarations")
     endif()
 
-    list(APPEND source_files "${AUTO_DIR}/lib${lib}_wrap.cpp")
+    add_dependencies(${lib} ${lib}_python)
+
+    target_compile_definitions(${lib} PUBLIC -DBORNAGAIN_PYTHON)
+    target_include_directories(${lib} PUBLIC ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
+    target_link_libraries(${lib} ${Python3_LIBRARIES})
 
 endif(BORNAGAIN_PYTHON)
 
-# --- making library ---
-
-add_library(${lib} SHARED ${source_files})
-set_target_properties(${lib} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
-set(${lib}_LIBRARY_TYPE SHARED)
-
-if(BORNAGAIN_PYTHON)
-    add_dependencies(${lib} ${lib}_python)
-endif()
-
 # exposing library name and list of include directories outside
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
-
 
 if(BORNAGAIN_PYTHON)
     add_dependencies(${lib} swig_runtime)
@@ -130,12 +133,6 @@ if(BORNAGAIN_MPI)
     add_definitions(-DBORNAGAIN_MPI)
     include_directories(${MPI_INCLUDE_PATH})
     target_link_libraries(${lib} ${MPI_LIBRARIES})
-endif()
-
-if(BORNAGAIN_PYTHON)
-    target_compile_definitions(${lib} PUBLIC -DBORNAGAIN_PYTHON)
-    target_include_directories(${lib} PUBLIC ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
-    target_link_libraries(${lib} ${Python3_LIBRARIES})
 endif()
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)

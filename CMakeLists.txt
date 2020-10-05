@@ -68,6 +68,9 @@ endif()
 
 # function definitions
 include(commons/GetFilenameComponent) # overwrite CMake command
+include(BornAgain/SwigLib)
+
+# main settings
 
 include(BornAgain/Directories)
 

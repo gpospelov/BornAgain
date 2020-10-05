@@ -34,10 +34,6 @@ endif(BORNAGAIN_PYTHON)
 # exposing library name and list of include directories outside
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 
-if(BORNAGAIN_PYTHON)
-    add_dependencies(${lib} swig_runtime)
-endif()
-
 # --- external dependencies ---
 
 target_link_libraries(${lib} ${BornAgainFit_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
@@ -76,33 +72,9 @@ endif()
 
 # --- installation ---
 
-install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
-install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
-    DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 
 foreach(file ${include_files})
     get_filename_component(dir ${file} DIRECTORY)
     install(FILES ${file} DESTINATION ${destination_include}/${name}/${dir})
 endforeach()
 
-if(WIN32)
-    # python in windows required .pyd extension for the library name
-    if(BORNAGAIN_PYTHON)
-        add_custom_command(
-            TARGET ${lib}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
-            ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}".pyd"
-            )
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}.pyd
-            DESTINATION ${destination_lib} COMPONENT Libraries)
-        add_custom_command(
-            TARGET ${lib}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
-            ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}${libsuffix}
-            )
-    endif()
-endif()

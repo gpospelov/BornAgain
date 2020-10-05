@@ -95,7 +95,9 @@ if(BORNAGAIN_GUI)
     string(APPEND CMAKE_CXX_FLAGS " -DHAVE_QT=ON")
 endif()
 include(BornAgain/Config)
-include(BornAgain/PythonAPI)
+if(BORNAGAIN_PYTHON)
+    include(BornAgain/PythonAPI)
+endif()
 include(BornAgain/PythonDocs)
 
 # debug optimization
@@ -134,6 +136,9 @@ if(BORNAGAIN_TIDY)
 endif()
 
 add_subdirectory(Fit)
+if(BORNAGAIN_PYTHON)
+    add_dependencies(BornAgainFit swig_runtime)
+endif()
 add_subdirectory(Tests/UnitTests/Fit)
 
 add_subdirectory(Core)

@@ -1,5 +1,9 @@
 # Configure and install the Swig runtime, the BornAgain Python module, and more
 
+if(NOT BORNAGAIN_PYTHON)
+    message(FATAL_ERROR "PythonAPI included though BORNAGAIN_PYTHON=false")
+endif()
+
 configure_file(${WRAP_DIR}/python/plot_utils.py
     ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
 
@@ -22,6 +26,7 @@ if(CONFIGURE_BINDINGS)
         DEPENDS ${swig_dependencies} ${include_files}
         )
 endif()
+
 add_custom_target(swig_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/

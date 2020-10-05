@@ -69,4 +69,30 @@ function(SwigLib name lib TMP_DIR)
     target_include_directories(${lib} PUBLIC ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
     target_link_libraries(${lib} ${Python3_LIBRARIES})
 
+    install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
+    install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
+        DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
+
+    if(WIN32)
+        # python in windows required .pyd extension for the library name
+        if(BORNAGAIN_PYTHON)
+            add_custom_command(
+                TARGET ${lib}
+                POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
+                ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}".pyd"
+                )
+            install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}.pyd
+                DESTINATION ${destination_lib} COMPONENT Libraries)
+            add_custom_command(
+                TARGET ${lib}
+                POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
+                ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}${libsuffix}
+                )
+        endif()
+    endif()
+
 endfunction()

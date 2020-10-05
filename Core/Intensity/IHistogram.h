@@ -69,48 +69,31 @@ public:
     //! Returns number of bins on y-axis
     size_t getNbinsY() const;
 
-    //! @brief Returns global bin index for given axes indices. For 1D histogram the global bin
-    //! index coinside with x-axis index.
-    //! @param binx x-axis bin index
-    //! @param biny y-axis bin index (for 2D histograms)
-    //! @return The global bin index
+    //! Returns global bin index for given axes indices. For 1D, just returns binx.
     size_t getGlobalBin(size_t binx, size_t biny = 0) const;
 
-    //! @brief Returns closest global bin index for given axes coordinates. For 1D
-    //! @param x Value on x-axis
-    //! @param y Value on y-axis (for 2D histograms)
-    //! @return Closest global bin index
+    //! Returns closest global bin index for given axes coordinates.
     size_t findGlobalBin(double x, double y) const;
 
-    //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
-    //! with globalbin value.
+    //! Returns x-axis index for global bin index i.
     size_t getXaxisIndex(size_t i) const;
 
-    //! Returns y-axis bin index for given globalbin (for 2D histograms).
+    //! Returns y-axis index for global bin index i.
     size_t getYaxisIndex(size_t i) const;
 
-    //! @brief Returns the value on x-axis corresponding to the global bin index.
-    //! @param globalbin The global bin index
-    //! @return The center of corresponding bin of the axis
+    //! Returns the center of bin i of the x axis.
     double getXaxisValue(size_t i);
 
-    //! @brief Returns the value on y-axis corresponding to the 2D histogram global bin index.
-    //! @param globalbin The global bin index
-    //! @return The center of corresponding bin of the axis
+    //! Returns the center of bin i of the y axis.
     double getYaxisValue(size_t i);
 
-    //! @brief Returns content (accumulated value) of the bin with given index.
-    //! @param globalbin The global bin index
-    //! @return The value accumulated by the bin (integral)
+    //! Returns content (accumulated value) of bin i.
     double getBinContent(size_t i) const;
 
     const OutputData<CumulativeValue>& getData() const { return m_data; }
     OutputData<CumulativeValue>& getData() { return m_data; }
 
-    //! @brief Returns content (accumulated value) of the 2D histogram bin with given indices.
-    //! @param binx x-axis bin index
-    //! @param biny y-axis bin index
-    //! @return The value accumulated by the bin (integral)
+    //! Returns content (accumulated value) of the 2D histogram bin.
     double getBinContent(size_t binx, size_t biny) const;
 
     //! Sets content of the bin corresponding to the globalbin number
@@ -152,7 +135,7 @@ public:
     //! Multiply this histogram (every bin content value) by a constant
     void scale(double value);
 
-    //! @brief Returns integral of bins content (computed as a sum of all bin content).
+    //! Returns integral of bins content (computed as a sum of all bin content).
     double integral() const;
 
     //    double& operator[](size_t index);

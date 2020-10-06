@@ -18,9 +18,10 @@ if(${Cerf_IS_CPP})
     string(APPEND CMAKE_CXX_FLAGS " -DCERF_AS_CPP=ON")
 endif()
 
+# --- make the library ---
+
 MakeLib(${name} ${lib} ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
 
-# exposing library name and list of include directories outside
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 
 # --- external dependencies ---
@@ -53,17 +54,3 @@ if(BORNAGAIN_MPI)
     include_directories(${MPI_INCLUDE_PATH})
     target_link_libraries(${lib} ${MPI_LIBRARIES})
 endif()
-
-if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
-    set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
-    set_target_properties(${lib} PROPERTIES LINK_FLAGS ${link_flags})
-endif()
-
-# --- installation ---
-
-install(TARGETS ${lib} DESTINATION ${destination_lib} COMPONENT Libraries)
-
-foreach(file ${include_files})
-    get_filename_component(dir ${file} DIRECTORY)
-    install(FILES ${file} DESTINATION ${destination_include}/${name}/${dir})
-endforeach()

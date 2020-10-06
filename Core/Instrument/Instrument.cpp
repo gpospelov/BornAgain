@@ -14,7 +14,7 @@
 
 #include "Core/Instrument/Instrument.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Detector/IResolutionFunction2D.h"
 #include "Core/Detector/SphericalDetector.h"

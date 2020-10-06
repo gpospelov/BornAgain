@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/SimulationElement.cpp
+//! @file      Core/Pixel/SimulationElement.cpp
 //! @brief     Implements class SimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Binning/SimulationElement.h"
-#include "Core/Binning/IPixel.h"
+#include "Core/Pixel/SimulationElement.h"
+#include "Core/Pixel/IPixel.h"
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      std::unique_ptr<IPixel> pixel)

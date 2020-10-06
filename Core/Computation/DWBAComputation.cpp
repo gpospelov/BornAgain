@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/DWBAComputation.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Computation/GISASSpecularComputation.h"
 #include "Core/Computation/ParticleLayoutComputation.h"
 #include "Core/Computation/ProcessedLayout.h"

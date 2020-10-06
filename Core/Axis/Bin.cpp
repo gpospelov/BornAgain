@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/Bin.cpp
+//! @file      Core/Axis/Bin.cpp
 //! @brief     Implements structs Bin1D, Bin1DCVector
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Binning/Bin.h"
+#include "Core/Axis/Bin.h"
 
 bool BinContains(const Bin1D& bin, double value)
 {

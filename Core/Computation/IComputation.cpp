@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/IComputation.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Computation/ProgressHandler.h"
 #include "Core/Multilayer/MultiLayer.h"

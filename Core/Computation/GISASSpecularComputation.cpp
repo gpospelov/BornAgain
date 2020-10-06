@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/GISASSpecularComputation.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 

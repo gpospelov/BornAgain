@@ -1,4 +1,4 @@
-#include "Core/Binning/PolarizationHandler.h"
+#include "Core/Pixel/PolarizationHandler.h"
 #include "Base/Vector/EigenCore.h"
 #include "Tests/GTestWrapper/google_test.h"
 

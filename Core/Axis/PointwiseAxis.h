@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/PointwiseAxis.h
+//! @file      Core/Axis/PointwiseAxis.h
 //! @brief     Defines class PointwiseAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_BINNING_POINTWISEAXIS_H
 #define BORNAGAIN_CORE_BINNING_POINTWISEAXIS_H
 
-#include "Core/Binning/IAxis.h"
+#include "Core/Axis/IAxis.h"
 
 //! Axis containing arbitrary (non-equidistant) coordinate values.
 //! Lower boundary of the first bin and upper boundary of the

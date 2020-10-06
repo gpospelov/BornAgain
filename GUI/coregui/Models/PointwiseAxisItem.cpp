@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
-#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Axis/PointwiseAxis.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/IUnitConverter.h"
 #include "Core/Intensity/OutputData.h"

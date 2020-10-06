@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/VariableBinAxis.h
+//! @file      Core/Axis/VariableBinAxis.h
 //! @brief     Defines class VariableBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_BINNING_VARIABLEBINAXIS_H
 #define BORNAGAIN_CORE_BINNING_VARIABLEBINAXIS_H
 
-#include "Core/Binning/IAxis.h"
+#include "Core/Axis/IAxis.h"
 
 //! Axis with variable bin size.
 //! @ingroup tools

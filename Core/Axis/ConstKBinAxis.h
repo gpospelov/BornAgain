@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/ConstKBinAxis.h
+//! @file      Core/Axis/ConstKBinAxis.h
 //! @brief     Defines class ConstKBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_BINNING_CONSTKBINAXIS_H
 #define BORNAGAIN_CORE_BINNING_CONSTKBINAXIS_H
 
-#include "Core/Binning/VariableBinAxis.h"
+#include "Core/Axis/VariableBinAxis.h"
 
 //! Axis with fixed bin size in sin(angle) space.
 //! @ingroup tools

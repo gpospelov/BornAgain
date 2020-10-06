@@ -14,7 +14,7 @@
 
 #include "Core/Mask/Ellipse.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Binning/Bin.h"
+#include "Core/Axis/Bin.h"
 
 //! @param xcenter x-coordinate of Ellipse's center
 //! @param ycenter y-coordinate of Ellipse's center

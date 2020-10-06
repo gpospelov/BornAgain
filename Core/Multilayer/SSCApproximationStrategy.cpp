@@ -14,7 +14,7 @@
 
 #include "Core/Multilayer/SSCApproximationStrategy.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Multilayer/InterferenceFunctionUtils.h"
 

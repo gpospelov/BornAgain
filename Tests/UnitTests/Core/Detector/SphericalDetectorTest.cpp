@@ -2,7 +2,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Base/Const/Units.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Axis/FixedBinAxis.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Detector/RegionOfInterest.h"

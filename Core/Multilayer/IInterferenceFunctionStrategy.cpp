@@ -15,7 +15,7 @@
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Base/Utils/IntegratorMCMiser.h"
 

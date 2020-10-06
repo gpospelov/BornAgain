@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/OffSpecSimulation.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/Intensity/SimpleUnitConverters.h"

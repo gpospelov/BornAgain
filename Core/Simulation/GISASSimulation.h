@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H
 
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Simulation/Simulation2D.h"
 
 class MultiLayer;

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/SimulationElement.h
+//! @file      Core/Pixel/SimulationElement.h
 //! @brief     Defines class SimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,8 +16,8 @@
 #define BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
 
 #include "Base/Types/Complex.h"
-#include "Core/Binning/IPixel.h"
-#include "Core/Binning/PolarizationHandler.h"
+#include "Core/Pixel/IPixel.h"
+#include "Core/Pixel/PolarizationHandler.h"
 #include "Base/Vector/Vectors3D.h"
 #include <memory>
 

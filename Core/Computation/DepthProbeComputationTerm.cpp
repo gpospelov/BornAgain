@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/DepthProbeComputationTerm.h"
-#include "Core/Binning/IAxis.h"
+#include "Core/Axis/IAxis.h"
 #include "Core/Computation/DelayedProgressCounter.h"
 #include "Core/Computation/DepthProbeElement.h"
 #include "Core/Computation/ProcessedSample.h"

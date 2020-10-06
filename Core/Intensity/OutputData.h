@@ -17,7 +17,7 @@
 
 #include "Base/Utils/Assert.h"
 #include "Base/Types/SafePointerVector.h"
-#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Axis/FixedBinAxis.h"
 #include "Core/Intensity/LLData.h"
 #include "Core/Intensity/OutputDataIterator.h"
 #include "Core/Parametrization/ThreadInfo.h"

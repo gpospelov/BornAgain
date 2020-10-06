@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/DepthProbeElement.h"
-#include "Core/Binning/IAxis.h"
+#include "Core/Axis/IAxis.h"
 
 const double phi_i_0 = 0.0;
 

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
-#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Axis/PointwiseAxis.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/InstrumentItems.h"

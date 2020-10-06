@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/Simulation2D.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Detector/DetectorContext.h"

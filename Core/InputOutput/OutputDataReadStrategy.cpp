@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/InputOutput/OutputDataReadStrategy.h"
-#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Axis/PointwiseAxis.h"
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Core/InputOutput/TiffHandler.h"
 #include "Core/Intensity/ArrayUtils.h"

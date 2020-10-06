@@ -16004,19 +16004,19 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d103.xml
+// File: namespace_0d104.xml
 
 
-// File: namespace_0d109.xml
+// File: namespace_0d108.xml
 
 
-// File: namespace_0d113.xml
+// File: namespace_0d139.xml
 
 
-// File: namespace_0d144.xml
+// File: namespace_0d151.xml
 
 
-// File: namespace_0d156.xml
+// File: namespace_0d159.xml
 
 
 // File: namespace_0d16.xml
@@ -16025,121 +16025,118 @@ C++ includes: ZLimits.h
 // File: namespace_0d164.xml
 
 
-// File: namespace_0d169.xml
+// File: namespace_0d173.xml
 
 
-// File: namespace_0d178.xml
+// File: namespace_0d175.xml
 
 
-// File: namespace_0d180.xml
-
-
-// File: namespace_0d184.xml
+// File: namespace_0d179.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d247.xml
+// File: namespace_0d242.xml
+
+
+// File: namespace_0d245.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d250.xml
+// File: namespace_0d252.xml
 
 
-// File: namespace_0d257.xml
+// File: namespace_0d256.xml
 
 
-// File: namespace_0d261.xml
+// File: namespace_0d260.xml
 
 
-// File: namespace_0d265.xml
+// File: namespace_0d266.xml
 
 
-// File: namespace_0d271.xml
+// File: namespace_0d270.xml
 
 
-// File: namespace_0d275.xml
+// File: namespace_0d284.xml
 
 
-// File: namespace_0d289.xml
+// File: namespace_0d315.xml
 
 
-// File: namespace_0d320.xml
+// File: namespace_0d317.xml
 
 
-// File: namespace_0d322.xml
+// File: namespace_0d319.xml
 
 
-// File: namespace_0d324.xml
+// File: namespace_0d341.xml
 
 
-// File: namespace_0d346.xml
+// File: namespace_0d345.xml
 
 
-// File: namespace_0d350.xml
+// File: namespace_0d349.xml
 
 
-// File: namespace_0d354.xml
+// File: namespace_0d363.xml
 
 
-// File: namespace_0d368.xml
+// File: namespace_0d372.xml
 
 
-// File: namespace_0d377.xml
+// File: namespace_0d376.xml
 
 
-// File: namespace_0d381.xml
+// File: namespace_0d386.xml
 
 
-// File: namespace_0d391.xml
+// File: namespace_0d388.xml
 
 
-// File: namespace_0d393.xml
+// File: namespace_0d394.xml
 
 
-// File: namespace_0d399.xml
+// File: namespace_0d396.xml
+
+
+// File: namespace_0d398.xml
 
 
 // File: namespace_0d4.xml
 
 
-// File: namespace_0d401.xml
+// File: namespace_0d400.xml
 
 
-// File: namespace_0d403.xml
+// File: namespace_0d402.xml
 
 
-// File: namespace_0d405.xml
+// File: namespace_0d404.xml
 
 
-// File: namespace_0d407.xml
+// File: namespace_0d408.xml
 
 
-// File: namespace_0d409.xml
+// File: namespace_0d410.xml
 
 
-// File: namespace_0d413.xml
+// File: namespace_0d420.xml
 
 
-// File: namespace_0d415.xml
+// File: namespace_0d433.xml
 
 
-// File: namespace_0d425.xml
+// File: namespace_0d442.xml
 
 
-// File: namespace_0d438.xml
+// File: namespace_0d446.xml
 
 
-// File: namespace_0d447.xml
-
-
-// File: namespace_0d451.xml
-
-
-// File: namespace_0d467.xml
+// File: namespace_0d462.xml
 
 
 // File: namespace_0d488.xml
@@ -16187,16 +16184,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d626.xml
 
 
-// File: namespace_0d83.xml
+// File: namespace_0d78.xml
 
 
-// File: namespace_0d85.xml
+// File: namespace_0d80.xml
 
 
-// File: namespace_0d87.xml
+// File: namespace_0d82.xml
 
 
-// File: namespace_0d91.xml
+// File: namespace_0d86.xml
+
+
+// File: namespace_0d98.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -17083,30 +17083,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: ParticleLayout_8h.xml
 
 
-// File: Beam_8cpp.xml
-
-
-// File: Beam_8h.xml
-
-
-// File: FootprintGauss_8cpp.xml
-
-
-// File: FootprintGauss_8h.xml
-
-
-// File: FootprintSquare_8cpp.xml
-
-
-// File: FootprintSquare_8h.xml
-
-
-// File: IFootprintFactor_8cpp.xml
-
-
-// File: IFootprintFactor_8h.xml
-
-
 // File: Bin_8cpp.xml
 %feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
 
@@ -17149,31 +17125,40 @@ global helper function for comparison of axes
 ";
 
 
-// File: IPixel_8h.xml
-
-
 // File: PointwiseAxis_8cpp.xml
 
 
 // File: PointwiseAxis_8h.xml
 
 
-// File: PolarizationHandler_8cpp.xml
-
-
-// File: PolarizationHandler_8h.xml
-
-
-// File: SimulationElement_8cpp.xml
-
-
-// File: SimulationElement_8h.xml
-
-
 // File: VariableBinAxis_8cpp.xml
 
 
 // File: VariableBinAxis_8h.xml
+
+
+// File: Beam_8cpp.xml
+
+
+// File: Beam_8h.xml
+
+
+// File: FootprintGauss_8cpp.xml
+
+
+// File: FootprintGauss_8h.xml
+
+
+// File: FootprintSquare_8cpp.xml
+
+
+// File: FootprintSquare_8h.xml
+
+
+// File: IFootprintFactor_8cpp.xml
+
+
+// File: IFootprintFactor_8h.xml
 
 
 // File: ComputationStatus_8h.xml
@@ -18596,6 +18581,21 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: TRange_8h.xml
 
 
+// File: IPixel_8h.xml
+
+
+// File: PolarizationHandler_8cpp.xml
+
+
+// File: PolarizationHandler_8h.xml
+
+
+// File: SimulationElement_8cpp.xml
+
+
+// File: SimulationElement_8h.xml
+
+
 // File: PyEmbeddedUtils_8cpp.xml
 
 
@@ -19104,10 +19104,10 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: dir_5f1a4a05eca575eab319839347bb4113.xml
 
 
+// File: dir_039fcda488ba1c4c70108123f82e35ee.xml
+
+
 // File: dir_2afd61a498231c74441502b63b50f75c.xml
-
-
-// File: dir_629bf8536959f2975d8caec326cd60c0.xml
 
 
 // File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
@@ -19159,6 +19159,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
+
+
+// File: dir_359af669373d7705e93988ea0fa15f60.xml
 
 
 // File: dir_437a42df1810106c8392af0ca05a14b2.xml

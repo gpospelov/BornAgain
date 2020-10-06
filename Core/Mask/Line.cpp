@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Mask/Line.h"
-#include "Core/Binning/Bin.h"
+#include "Core/Axis/Bin.h"
 #include "Base/Utils/Algorithms.h"
 
 #include <boost/geometry.hpp>

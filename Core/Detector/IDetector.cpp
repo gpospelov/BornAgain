@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Detector/IDetector.h"
-#include "Core/Binning/IAxis.h"
-#include "Core/Binning/SimulationElement.h"
+#include "Core/Axis/IAxis.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetectorResolution.h"

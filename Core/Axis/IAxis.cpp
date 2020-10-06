@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/IAxis.cpp
+//! @file      Core/Axis/IAxis.cpp
 //! @brief     Implements class IAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Binning/IAxis.h"
+#include "Core/Axis/IAxis.h"
 #include "Base/Types/Exceptions.h"
 
 bool IAxis::equals(const IAxis& other) const

@@ -18,7 +18,7 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Axis/FixedBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Correlations/FTDistributions1D.h"

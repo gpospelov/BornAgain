@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/IAxis.h
+//! @file      Core/Axis/IAxis.h
 //! @brief     Defines class IAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_BINNING_IAXIS_H
 #define BORNAGAIN_CORE_BINNING_IAXIS_H
 
-#include "Core/Binning/Bin.h"
+#include "Core/Axis/Bin.h"
 #include <vector>
 
 //! Interface for one-dimensional axes.

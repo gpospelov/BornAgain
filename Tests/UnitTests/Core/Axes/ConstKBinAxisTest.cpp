@@ -1,4 +1,4 @@
-#include "Core/Binning/ConstKBinAxis.h"
+#include "Core/Axis/ConstKBinAxis.h"
 #include "Base/Const/Units.h"
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Tests/GTestWrapper/google_test.h"

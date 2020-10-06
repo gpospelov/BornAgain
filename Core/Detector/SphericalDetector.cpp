@@ -17,9 +17,9 @@
 #include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/IPixel.h"
+#include "Core/Binning/SimulationElement.h"
 #include "Core/Detector/IDetectorResolution.h"
 #include "Core/Detector/SphericalPixel.h"
-#include "Core/Binning/SimulationElement.h"
 
 SphericalDetector::SphericalDetector()
 {

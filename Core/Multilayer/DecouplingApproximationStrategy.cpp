@@ -15,10 +15,10 @@
 #include "Core/Multilayer/DecouplingApproximationStrategy.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Basics/Exceptions.h"
+#include "Core/Binning/SimulationElement.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Multilayer/InterferenceFunctionUtils.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Binning/SimulationElement.h"
 #include "Core/Tools/MathFunctions.h"
 
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;

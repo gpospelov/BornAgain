@@ -15,11 +15,11 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
 #define BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
 
+#include "Core/Basics/SafePointerVector.h"
 #include "Core/Particle/IAbstractParticle.h"
 #include "Core/Particle/SlicedParticle.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Scattering/ZLimits.h"
-#include "Core/Basics/SafePointerVector.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>
 

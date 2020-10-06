@@ -24,6 +24,7 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterUtils.h"
+#include "Core/Parametrization/PyFmt.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
@@ -32,7 +33,6 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/PyIO/PythonFormatting.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/Parametrization/PyFmt.h"
 #include "Core/Vector/Transform3D.h"
 #include <iomanip>
 #include <map>

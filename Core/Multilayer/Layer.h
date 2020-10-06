@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_LAYER_H
 #define BORNAGAIN_CORE_MULTILAYER_LAYER_H
 
+#include "Core/Basics/SafePointerVector.h"
 #include "Core/Material/Material.h"
 #include "Core/Scattering/ISample.h"
-#include "Core/Basics/SafePointerVector.h"
 
 class ILayout;
 

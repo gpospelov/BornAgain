@@ -16,12 +16,12 @@
 #define BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 
 #include "Core/Basics/Assert.h"
+#include "Core/Basics/SafePointerVector.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Intensity/LLData.h"
 #include "Core/Intensity/OutputDataIterator.h"
 #include "Core/Parametrization/ThreadInfo.h"
 #include "Core/Tools/PyObject.h"
-#include "Core/Basics/SafePointerVector.h"
 #include <sstream>
 
 using std::size_t;

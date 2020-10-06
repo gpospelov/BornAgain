@@ -16,9 +16,9 @@
 #include "Core/Basics/MathConstants.h"
 #include "Core/Basics/Units.h"
 #include "Core/Beam/Beam.h"
+#include "Core/Binning/SimulationElement.h"
 #include "Core/Detector/IDetectorResolution.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Binning/SimulationElement.h"
 
 RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
     : m_corner_pos(std::move(corner_pos)), m_width(std::move(width)), m_height(std::move(height))

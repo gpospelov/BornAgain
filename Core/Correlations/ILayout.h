@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_CORRELATIONS_ILAYOUT_H
 #define BORNAGAIN_CORE_CORRELATIONS_ILAYOUT_H
 
-#include "Core/Scattering/ISample.h"
 #include "Core/Basics/SafePointerVector.h"
+#include "Core/Scattering/ISample.h"
 
 class IAbstractParticle;
 class IInterferenceFunction;

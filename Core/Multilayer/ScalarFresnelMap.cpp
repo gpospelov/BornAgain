@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/ScalarFresnelMap.h"
+#include "Core/Binning/SimulationElement.h"
 #include "Core/Multilayer/Slice.h"
 #include "Core/RT/ScalarRTCoefficients.h"
-#include "Core/Binning/SimulationElement.h"
 #include "Core/Vector/Vectors3D.h"
 #include <functional>
 

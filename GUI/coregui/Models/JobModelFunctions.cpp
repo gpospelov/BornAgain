@@ -282,7 +282,7 @@ void createFitContainers(JobItem* jobItem)
     }
 
     model->insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                                             FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
+                         FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
 
     // Minimizer settings
     SessionItem* minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
@@ -292,7 +292,7 @@ void createFitContainers(JobItem* jobItem)
     }
 
     model->insertNewItem("MinimizerContainer", fitSuiteItem->index(), -1,
-                                                  FitSuiteItem::T_MINIMIZER);
+                         FitSuiteItem::T_MINIMIZER);
 }
 
 PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument)

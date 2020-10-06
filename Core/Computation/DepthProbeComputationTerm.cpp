@@ -15,10 +15,10 @@
 #include "Core/Computation/DepthProbeComputationTerm.h"
 #include "Core/Binning/IAxis.h"
 #include "Core/Computation/DelayedProgressCounter.h"
+#include "Core/Computation/DepthProbeElement.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/RT/ILayerRTCoefficients.h"
-#include "Core/Computation/DepthProbeElement.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)
     : mp_sample{p_sample}

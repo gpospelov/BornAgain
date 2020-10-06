@@ -30,7 +30,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/Tools/PyFmt.h"
+#include "Core/Parametrization/PyFmt.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <iomanip>
 

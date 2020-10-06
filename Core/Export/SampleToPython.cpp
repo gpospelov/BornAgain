@@ -32,7 +32,7 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/PyIO/PythonFormatting.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/Tools/PyFmt.h"
+#include "Core/Parametrization/PyFmt.h"
 #include "Core/Vector/Transform3D.h"
 #include <iomanip>
 #include <map>

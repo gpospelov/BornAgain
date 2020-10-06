@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Beam/FootprintGauss.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Parametrization/PyFmt.h"
 #include "Core/Tools/MathFunctions.h"
 

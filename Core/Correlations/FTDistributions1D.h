@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS1D_H
 #define BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS1D_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Correlations/IDistribution1DSampler.h"
 #include "Core/Parametrization/INode.h"
 

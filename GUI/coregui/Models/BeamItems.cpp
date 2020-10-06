@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BeamItems.h"
-#include "Core/Basics/Assert.h"
-#include "Core/Basics/Units.h"
+#include "Base/Utils/Assert.h"
+#include "Base/Const/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/IAxis.h"
 #include "GUI/coregui/Models/AxesItems.h"

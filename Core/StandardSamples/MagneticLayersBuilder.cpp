@@ -14,8 +14,8 @@
 
 #include "Core/StandardSamples/MagneticLayersBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/Assert.h"
-#include "Core/Basics/Units.h"
+#include "Base/Utils/Assert.h"
+#include "Base/Const/Units.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

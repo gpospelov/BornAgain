@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/MathConstants.h
+//! @file      Base/Const/MathConstants.h
 //! @brief     Defines M_PI and some more mathematical constants.
 //!
 //! @homepage  http://www.bornagainproject.org

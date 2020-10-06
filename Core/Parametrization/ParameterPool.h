@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPOOL_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPOOL_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include <ostream>
 #include <string>
 #include <vector>

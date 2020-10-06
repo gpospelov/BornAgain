@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTPART_H
 #define BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTPART_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include "Core/Vector/EigenCore.h"
 #include <memory>
 

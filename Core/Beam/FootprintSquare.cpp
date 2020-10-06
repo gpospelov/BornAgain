@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Parametrization/PyFmt.h"
 #include <algorithm>
 #include <stdexcept>

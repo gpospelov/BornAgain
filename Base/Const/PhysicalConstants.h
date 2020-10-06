@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/PhysicalConstants.h
+//! @file      Base/Const/PhysicalConstants.h
 //! @brief     Defines the values of physical constants (SI)
 //!
 //! @homepage  http://www.bornagainproject.org

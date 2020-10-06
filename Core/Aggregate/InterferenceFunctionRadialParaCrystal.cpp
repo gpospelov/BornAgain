@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <limits>

@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCone.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Shapes/DoubleEllipse.h"
 #include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
 #define BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include "Core/Binning/IPixel.h"
 #include "Core/Binning/PolarizationHandler.h"
 #include "Core/Vector/Vectors3D.h"

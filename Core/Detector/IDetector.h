@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
 #define BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
 
-#include "Core/Basics/CloneableVector.h"
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/CloneableVector.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Detector/DetectionProperties.h"
 #include "Core/Detector/SimulationAreaIterator.h"
 #include "Core/Intensity/IUnitConverter.h"

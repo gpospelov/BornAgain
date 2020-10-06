@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_EXPORT_ORDEREDMAP_H
 #define BORNAGAIN_CORE_EXPORT_ORDEREDMAP_H
 
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Assert.h"
 #include <iostream>
 #include <list>
 #include <stdexcept>

@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 #define BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 
-#include "Core/Basics/Assert.h"
-#include "Core/Basics/SafePointerVector.h"
+#include "Base/Utils/Assert.h"
+#include "Base/Types/SafePointerVector.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Intensity/LLData.h"
 #include "Core/Intensity/OutputDataIterator.h"

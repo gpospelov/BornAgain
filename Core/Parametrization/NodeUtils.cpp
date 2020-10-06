@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/NodeUtils.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Parametrization/IterationStrategy.h"
 #include "Core/Parametrization/NodeIterator.h"

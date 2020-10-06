@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/PyFmt.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Basics/Units.h" // printDegrees
-#include "Core/Basics/Algorithms.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Const/Units.h" // printDegrees
+#include "Base/Utils/Algorithms.h"
 #include "Fit/Tools/RealLimits.h"
 #include <iomanip>
 

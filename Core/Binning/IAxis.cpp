@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Binning/IAxis.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 
 bool IAxis::equals(const IAxis& other) const
 {

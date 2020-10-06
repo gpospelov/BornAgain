@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/Particle/FormFactorWeighted.h"
 #include "Core/Scattering/Rotations.h"

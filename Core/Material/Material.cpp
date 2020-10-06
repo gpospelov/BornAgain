@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Material/Material.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Material/BaseMaterialImpl.h"
 #include "Core/Vector/Transform3D.h"
 #include "Core/Vector/WavevectorInfo.h"

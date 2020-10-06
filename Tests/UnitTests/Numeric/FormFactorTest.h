@@ -1,7 +1,7 @@
 #ifndef BORNAGAIN_TESTS_UNITTESTS_NUMERIC_FORMFACTORTEST_H
 #define BORNAGAIN_TESTS_UNITTESTS_NUMERIC_FORMFACTORTEST_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include "Core/Vector/Vectors3D.h"
 #include <functional>
 

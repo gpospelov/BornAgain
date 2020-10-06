@@ -1733,6 +1733,7 @@ class vector_pvacuum_double_t(object):
 _libBornAgainCore.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
 
 import libBornAgainFit
+import libBornAgainBase
 class swig_dummy_type_axisinfo_vector(object):
     r"""Proxy of C++ std::vector< AxisInfo > class."""
 
@@ -5109,82 +5110,6 @@ class FixedBinAxis(IAxis):
 # Register FixedBinAxis in _libBornAgainCore:
 _libBornAgainCore.FixedBinAxis_swigregister(FixedBinAxis)
 
-class ICloneable(object):
-    r"""
-
-
-    Interface for polymorphic classes that should not be copied, except by explicit cloning.
-
-    Child classes of  ICloneable must provide clone().
-
-    C++ includes: ICloneable.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
-
-    def clone(self):
-        r"""
-        clone(ICloneable self) -> ICloneable
-        virtual ICloneable* ICloneable::clone() const =0
-
-        """
-        return _libBornAgainCore.ICloneable_clone(self)
-
-    def transferToCPP(self):
-        r"""
-        transferToCPP(ICloneable self)
-        virtual void ICloneable::transferToCPP()
-
-        Used for Python overriding of clone (see swig/tweaks.py) 
-
-        """
-        return self.__disown__()
-
-# Register ICloneable in _libBornAgainCore:
-_libBornAgainCore.ICloneable_swigregister(ICloneable)
-
-
-def mul_I(z):
-    r"""
-    mul_I(complex_t z) -> complex_t
-    complex_t mul_I(complex_t z)
-
-    Returns product I*z, where I is the imaginary unit. 
-
-    """
-    return _libBornAgainCore.mul_I(z)
-
-def exp_I(z):
-    r"""
-    exp_I(complex_t z) -> complex_t
-    complex_t exp_I(complex_t z)
-
-    Returns exp(I*z), where I is the imaginary unit. 
-
-    """
-    return _libBornAgainCore.exp_I(z)
-
-def rad2deg(angle):
-    r"""
-    rad2deg(double angle) -> double
-    double Units::rad2deg(double angle)
-
-    """
-    return _libBornAgainCore.rad2deg(angle)
-
-def deg2rad(angle):
-    r"""
-    deg2rad(double angle) -> double
-    double Units::deg2rad(double angle)
-
-    """
-    return _libBornAgainCore.deg2rad(angle)
 class WavevectorInfo(object):
     r"""
 
@@ -5255,25 +5180,6 @@ class WavevectorInfo(object):
 
 # Register WavevectorInfo in _libBornAgainCore:
 _libBornAgainCore.WavevectorInfo_swigregister(WavevectorInfo)
-I = cvar.I
-nanometer = cvar.nanometer
-angstrom = cvar.angstrom
-micrometer = cvar.micrometer
-millimeter = cvar.millimeter
-meter = cvar.meter
-nm = cvar.nm
-nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
-rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
-deg = cvar.deg
-tesla = cvar.tesla
-gauss = cvar.gauss
 
 def WavevectorInfo_GetZeroQ():
     r"""WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
@@ -5464,7 +5370,7 @@ def GeneratePoissonRandom(average):
 
     """
     return _libBornAgainCore.GeneratePoissonRandom(average)
-class IShape2D(ICloneable):
+class IShape2D(libBornAgainBase.ICloneable):
     r"""
 
 
@@ -6599,7 +6505,7 @@ class RealParameter(IParameterReal):
 # Register RealParameter in _libBornAgainCore:
 _libBornAgainCore.RealParameter_swigregister(RealParameter)
 
-class IDistribution1D(ICloneable, INode):
+class IDistribution1D(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -7424,7 +7330,7 @@ class ParameterDistribution(IParameterized):
 # Register ParameterDistribution in _libBornAgainCore:
 _libBornAgainCore.ParameterDistribution_swigregister(ParameterDistribution)
 
-class ParameterPool(ICloneable):
+class ParameterPool(libBornAgainBase.ICloneable):
     r"""
 
 
@@ -7977,7 +7883,7 @@ class ThreadInfo(object):
 # Register ThreadInfo in _libBornAgainCore:
 _libBornAgainCore.ThreadInfo_swigregister(ThreadInfo)
 
-class ISample(ICloneable, INode):
+class ISample(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -8401,7 +8307,7 @@ class IFormFactorDecorator(IFormFactor):
 # Register IFormFactorDecorator in _libBornAgainCore:
 _libBornAgainCore.IFormFactorDecorator_swigregister(IFormFactorDecorator)
 
-class IRotation(ICloneable, INode):
+class IRotation(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -10216,7 +10122,7 @@ class ParticleDistribution(IAbstractParticle):
 # Register ParticleDistribution in _libBornAgainCore:
 _libBornAgainCore.ParticleDistribution_swigregister(ParticleDistribution)
 
-class IFTDecayFunction1D(ICloneable, INode):
+class IFTDecayFunction1D(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -10476,7 +10382,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
 # Register FTDecayFunction1DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDecayFunction1DVoigt_swigregister(FTDecayFunction1DVoigt)
 
-class IFTDecayFunction2D(ICloneable, INode):
+class IFTDecayFunction2D(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -10726,7 +10632,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
 # Register FTDecayFunction2DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDecayFunction2DVoigt_swigregister(FTDecayFunction2DVoigt)
 
-class IFTDistribution1D(ICloneable, INode):
+class IFTDistribution1D(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -11174,7 +11080,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 # Register FTDistribution1DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDistribution1DVoigt_swigregister(FTDistribution1DVoigt)
 
-class IFTDistribution2D(ICloneable, INode):
+class IFTDistribution2D(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -13785,7 +13691,7 @@ def Beam_horizontalBeam():
     r"""Beam_horizontalBeam() -> Beam"""
     return _libBornAgainCore.Beam_horizontalBeam()
 
-class IFootprintFactor(ICloneable, INode):
+class IFootprintFactor(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -17188,7 +17094,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 # Register FormFactorSphereLogNormalRadius in _libBornAgainCore:
 _libBornAgainCore.FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
-class Simulation(ICloneable, INode):
+class Simulation(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -17964,7 +17870,7 @@ class OffSpecSimulation(Simulation2D):
 # Register OffSpecSimulation in _libBornAgainCore:
 _libBornAgainCore.OffSpecSimulation_swigregister(OffSpecSimulation)
 
-class IBackground(ICloneable, INode):
+class IBackground(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -18228,7 +18134,7 @@ def IntensityDataIOFactory_writeSimulationResult(result, file_name):
     r"""IntensityDataIOFactory_writeSimulationResult(SimulationResult result, std::string const & file_name)"""
     return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
 
-class IDetector(ICloneable, INode):
+class IDetector(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -19045,7 +18951,7 @@ class RectangularDetector(IDetector2D):
 # Register RectangularDetector in _libBornAgainCore:
 _libBornAgainCore.RectangularDetector_swigregister(RectangularDetector)
 
-class IDetectorResolution(ICloneable, INode):
+class IDetectorResolution(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -19083,7 +18989,7 @@ class IDetectorResolution(ICloneable, INode):
 # Register IDetectorResolution in _libBornAgainCore:
 _libBornAgainCore.IDetectorResolution_swigregister(IDetectorResolution)
 
-class IResolutionFunction2D(ICloneable, INode):
+class IResolutionFunction2D(libBornAgainBase.ICloneable, INode):
     r"""
 
 
@@ -19186,7 +19092,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
 # Register ResolutionFunction2DGaussian in _libBornAgainCore:
 _libBornAgainCore.ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
 
-class ScanResolution(ICloneable):
+class ScanResolution(libBornAgainBase.ICloneable):
     r"""
 
 
@@ -19862,7 +19768,7 @@ class Axes(object):
 # Register Axes in _libBornAgainCore:
 _libBornAgainCore.Axes_swigregister(Axes)
 
-class IUnitConverter(ICloneable):
+class IUnitConverter(libBornAgainBase.ICloneable):
     r"""
 
 
@@ -20286,7 +20192,7 @@ def FT2DArray(signal):
 
     """
     return _libBornAgainCore.FT2DArray(signal)
-class IChiSquaredModule(ICloneable):
+class IChiSquaredModule(libBornAgainBase.ICloneable):
     r"""
 
 
@@ -21511,7 +21417,7 @@ def Lattice_createBCTLattice(a, c):
     r"""Lattice_createBCTLattice(double a, double c) -> Lattice"""
     return _libBornAgainCore.Lattice_createBCTLattice(a, c)
 
-class Lattice2D(ICloneable, INode):
+class Lattice2D(libBornAgainBase.ICloneable, INode):
     r"""Proxy of C++ Lattice2D class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")

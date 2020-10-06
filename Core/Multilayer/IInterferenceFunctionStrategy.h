@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_IINTERFERENCEFUNCTIONSTRATEGY_H
 #define BORNAGAIN_CORE_MULTILAYER_IINTERFERENCEFUNCTIONSTRATEGY_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include <memory>
 #include <vector>

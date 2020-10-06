@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/OutputData.h"
 #include "Fit/TestEngine/Numeric.h"

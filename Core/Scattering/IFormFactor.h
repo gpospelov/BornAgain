@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
 #define BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include "Core/Material/Material.h"
 #include "Core/Scattering/ISample.h"
 #include "Core/Scattering/ZLimits.h"

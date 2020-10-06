@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H
 #define BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include <vector>
 
 //! Various mathematical functions.

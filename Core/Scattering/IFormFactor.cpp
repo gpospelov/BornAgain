@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Scattering/FormFactorDecoratorRotation.h"

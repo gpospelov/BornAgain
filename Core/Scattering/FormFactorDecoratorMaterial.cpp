@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/FormFactorDecoratorMaterial.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Vector/WavevectorInfo.h"
 

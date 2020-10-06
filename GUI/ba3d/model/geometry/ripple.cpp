@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "../geometry.h"
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Assert.h"
 #include <qmath.h>
 
 namespace RealSpace

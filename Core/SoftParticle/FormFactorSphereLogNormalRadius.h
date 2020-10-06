@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
 #define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
 
-#include "Core/Basics/SafePointerVector.h"
+#include "Base/Types/SafePointerVector.h"
 #include "Core/Scattering/IFormFactorBorn.h"
 #include <memory>
 

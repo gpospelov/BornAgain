@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RealParameter.h"

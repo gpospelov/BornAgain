@@ -91,8 +91,6 @@
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Aggregate/InterferenceFunctionTwin.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/Complex.h"
-#include "Core/Basics/ICloneable.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
@@ -191,7 +189,6 @@
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Parametrization/ThreadInfo.h"
-#include "Core/Basics/Units.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/FormFactorWeighted.h"
@@ -264,6 +261,8 @@
 %import(module="libBornAgainFit") "Fit/Tools/RealLimits.h"
 %import(module="libBornAgainFit") "Fit/Kernel/Parameters.h"
 %import(module="libBornAgainFit") "Fit/Kernel/Parameter.h"
+%import(module="libBornAgainBase") "Base/Types/Complex.h"
+%import(module="libBornAgainBase") "Base/Types/ICloneable.h"
 
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
@@ -304,11 +303,6 @@
 %include "Core/Binning/ConstKBinAxis.h"
 %include "Core/Binning/CustomBinAxis.h"
 %include "Core/Binning/FixedBinAxis.h"
-
-// need to tell SWIG explicitly to instantiate these templates with given types
-%include "Core/Basics/ICloneable.h"
-%include "Core/Basics/Complex.h"
-%include "Core/Basics/Units.h"
 
 %include "Core/Vector/Vectors3D.h"
 %include "Core/Vector/WavevectorInfo.h"

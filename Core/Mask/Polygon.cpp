@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Mask/Polygon.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Binning/Bin.h"
 
 #include <boost/geometry.hpp>

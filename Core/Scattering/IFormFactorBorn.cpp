@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/IFormFactorBorn.h"
-#include "Core/Basics/Algorithms.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Utils/Algorithms.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/WavevectorInfo.h"
 

@@ -1,5 +1,5 @@
 #include "Core/Lattice/Lattice.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Vector/Transform3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 

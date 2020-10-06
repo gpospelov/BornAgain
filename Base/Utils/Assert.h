@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/Assert.h
+//! @file      Base/Utils/Assert.h
 //! @brief     Defines the macro ASSERT.
 //!
 //! @homepage  http://www.bornagainproject.org

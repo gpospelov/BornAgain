@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/DepthProbeSimulation.h"
-#include "Core/Basics/Assert.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Utils/Assert.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/DepthProbeComputation.h"
 #include "Core/Computation/IBackground.h"

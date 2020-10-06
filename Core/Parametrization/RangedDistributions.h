@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Fit/Tools/RealLimits.h"
 #include <memory>
 #include <vector>

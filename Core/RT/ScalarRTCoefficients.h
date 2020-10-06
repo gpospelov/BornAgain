@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_RT_SCALARRTCOEFFICIENTS_H
 #define BORNAGAIN_CORE_RT_SCALARRTCOEFFICIENTS_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Vector/EigenCore.h"
 

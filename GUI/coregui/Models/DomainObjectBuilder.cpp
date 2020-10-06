@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/Units.h"
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Intensity/UnitConverter1D.h"

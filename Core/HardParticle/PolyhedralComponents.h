@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
 #define BORNAGAIN_CORE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include "Core/Vector/Vectors3D.h"
 #include <vector>
 

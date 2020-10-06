@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "Core/StandardSamples/FeNiBilayerBuilder.h"
-#include "Core/Basics/Complex.h"
-#include "Core/Basics/PhysicalConstants.h"
-#include "Core/Basics/Units.h"
+#include "Base/Types/Complex.h"
+#include "Base/Const/PhysicalConstants.h"
+#include "Base/Const/Units.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"

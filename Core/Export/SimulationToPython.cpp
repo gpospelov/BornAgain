@@ -31,7 +31,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/Basics/Algorithms.h"
+#include "Base/Utils/Algorithms.h"
 #include <iomanip>
 
 namespace

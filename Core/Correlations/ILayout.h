@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_CORRELATIONS_ILAYOUT_H
 #define BORNAGAIN_CORE_CORRELATIONS_ILAYOUT_H
 
-#include "Core/Basics/SafePointerVector.h"
+#include "Base/Types/SafePointerVector.h"
 #include "Core/Scattering/ISample.h"
 
 class IAbstractParticle;

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/SpecularMagneticNewTanhStrategy.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Tools/MathFunctions.h"
 
 namespace

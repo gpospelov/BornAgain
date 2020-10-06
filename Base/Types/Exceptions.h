@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/Exceptions.h
+//! @file      Base/Types/Exceptions.h
 //! @brief     Defines many exception classes in namespace Exceptionss.
 //!
 //! @homepage  http://www.bornagainproject.org

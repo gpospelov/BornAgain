@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_LLDATA_H
 #define BORNAGAIN_CORE_INTENSITY_LLDATA_H
 
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Vector/EigenCore.h"
 #include <algorithm>
 #include <limits>

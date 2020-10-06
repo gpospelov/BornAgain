@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 #define BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Vector/Vectors3D.h"
 

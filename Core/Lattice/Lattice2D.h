@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_LATTICE_LATTICE2D_H
 #define BORNAGAIN_CORE_LATTICE_LATTICE2D_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 
 class Lattice2D : public ICloneable, public INode

@@ -14,8 +14,8 @@
 
 #include "Core/StandardSamples/SlicedCylindersBuilder.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Const/Units.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

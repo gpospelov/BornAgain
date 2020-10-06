@@ -4,6 +4,8 @@ function(SwigLib name lib TMP_DIR)
         message(FATAL_ERROR "Function SwigLib called though BORNAGAIN_PYTHON=false")
     endif()
 
+    message(STATUS "SwigLib ${name}: ${lib} ${TMP_DIR}")
+
     if(CONFIGURE_BINDINGS)
 
         file(MAKE_DIRECTORY ${TMP_DIR})

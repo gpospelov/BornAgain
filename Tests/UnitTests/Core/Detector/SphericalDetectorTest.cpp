@@ -1,6 +1,6 @@
 #include "Core/Detector/SphericalDetector.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/Units.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Const/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Detector/ConvolutionDetectorResolution.h"

@@ -836,6 +836,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = @CMAKE_SOURCE_DIR@/Doc/Doxygen \
+                         @CMAKE_SOURCE_DIR@/Base \
                          @CMAKE_SOURCE_DIR@/Core \
                          @CMAKE_SOURCE_DIR@/Fit
 

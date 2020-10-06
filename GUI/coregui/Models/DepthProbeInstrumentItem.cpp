@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DepthProbeInstrumentItem.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/Units.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "GUI/coregui/Models/AxesItems.h"

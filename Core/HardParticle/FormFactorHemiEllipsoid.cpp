@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorHemiEllipsoid.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include "Core/Tools/Integrator.h"
 #include "Core/Tools/MathFunctions.h"

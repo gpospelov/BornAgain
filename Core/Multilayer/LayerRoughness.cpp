@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Parametrization/RealParameter.h"
 
 //! Constructor of layer roughness.

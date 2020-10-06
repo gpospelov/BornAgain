@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCantellatedCube.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 
 const PolyhedralTopology FormFactorCantellatedCube::topology = {
     {

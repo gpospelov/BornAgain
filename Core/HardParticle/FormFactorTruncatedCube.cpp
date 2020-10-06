@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorTruncatedCube.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 
 const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {{{0, 1, 7, 6, 9, 10, 4, 3}, true},

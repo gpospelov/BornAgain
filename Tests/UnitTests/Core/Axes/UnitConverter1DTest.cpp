@@ -1,6 +1,6 @@
 #include "Core/Intensity/UnitConverter1D.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Const/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Core/Binning/PointwiseAxis.h"

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_TOOLS_INTEGRATOR_H
 #define BORNAGAIN_CORE_TOOLS_INTEGRATOR_H
 
-#include "Core/Basics/Complex.h"
+#include "Base/Types/Complex.h"
 #include <functional>
 #include <gsl/gsl_integration.h>
 

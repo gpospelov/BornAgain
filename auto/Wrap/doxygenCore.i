@@ -819,38 +819,6 @@ clone method
 ";
 
 
-// File: classExceptions_1_1ClassInitializationException.xml
-%feature("docstring") Exceptions::ClassInitializationException "";
-
-%feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
-";
-
-
-// File: classCloneableVector.xml
-%feature("docstring") CloneableVector "
-
-The objects pointed to must posses a clone() function.
-
-A vector of unique pointers to objects that are cloneable.
-
-Equips vector<unique_ptr<T>> with copy constructor. For use with polymorphic objects, or in pimpl idiom.
-
-C++ includes: CloneableVector.h
-";
-
-%feature("docstring")  CloneableVector::CloneableVector "CloneableVector< T >::CloneableVector()
-";
-
-%feature("docstring")  CloneableVector::CloneableVector "CloneableVector< T >::CloneableVector(const CloneableVector &other)
-";
-
-%feature("docstring")  CloneableVector::push_back "void CloneableVector< T >::push_back(T *t)
-";
-
-%feature("docstring")  CloneableVector::emplace_back "void CloneableVector< T >::emplace_back(std::unique_ptr< T > &&t)
-";
-
-
 // File: classComplexIntegrator.xml
 %feature("docstring") ComplexIntegrator "
 
@@ -2079,20 +2047,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classExceptions_1_1DivisionByZeroException.xml
-%feature("docstring") Exceptions::DivisionByZeroException "";
-
-%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1DomainErrorException.xml
-%feature("docstring") Exceptions::DomainErrorException "";
-
-%feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
 // File: classDoubleEllipse.xml
 %feature("docstring") DoubleEllipse "";
 
@@ -2218,13 +2172,6 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 ";
 
 
-// File: classExceptions_1_1ExistingClassRegistrationException.xml
-%feature("docstring") Exceptions::ExistingClassRegistrationException "";
-
-%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
-";
-
-
 // File: classFeNiBilayerBuilder.xml
 %feature("docstring") FeNiBilayerBuilder "";
 
@@ -2264,20 +2211,6 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 %feature("docstring") FeNiBilayerTanhBuilder "";
 
 %feature("docstring")  FeNiBilayerTanhBuilder::buildSample "MultiLayer * FeNiBilayerTanhBuilder::buildSample() const
-";
-
-
-// File: classExceptions_1_1FileIsBadException.xml
-%feature("docstring") Exceptions::FileIsBadException "";
-
-%feature("docstring")  Exceptions::FileIsBadException::FileIsBadException "Exceptions::FileIsBadException::FileIsBadException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileNotIsOpenException.xml
-%feature("docstring") Exceptions::FileNotIsOpenException "";
-
-%feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
 ";
 
 
@@ -2755,13 +2688,6 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 %feature("docstring")  FootprintSquare::print "std::string FootprintSquare::print() const override
 
 Print python-formatted footprint definition. 
-";
-
-
-// File: classExceptions_1_1FormatErrorException.xml
-%feature("docstring") Exceptions::FormatErrorException "";
-
-%feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
 ";
 
 
@@ -5896,37 +5822,6 @@ Sets data rescaler.
 ";
 
 %feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
-";
-
-
-// File: classICloneable.xml
-%feature("docstring") ICloneable "
-
-Interface for polymorphic classes that should not be copied, except by explicit cloning.
-
-Child classes of  ICloneable must provide clone().
-
-C++ includes: ICloneable.h
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()=default
-";
-
-%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()=default
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(ICloneable &&)=default
-";
-
-%feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
-";
-
-%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
-
-Used for Python overriding of clone (see swig/tweaks.py) 
 ";
 
 
@@ -10155,13 +10050,6 @@ C++ includes: LLData.h
 ";
 
 
-// File: classExceptions_1_1LogicErrorException.xml
-%feature("docstring") Exceptions::LogicErrorException "";
-
-%feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
-";
-
-
 // File: classLogMetric.xml
 %feature("docstring") LogMetric "
 
@@ -11043,20 +10931,6 @@ C++ includes: INode.h
 ";
 
 
-// File: classExceptions_1_1NotImplementedException.xml
-%feature("docstring") Exceptions::NotImplementedException "";
-
-%feature("docstring")  Exceptions::NotImplementedException::NotImplementedException "Exceptions::NotImplementedException::NotImplementedException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1NullPointerException.xml
-%feature("docstring") Exceptions::NullPointerException "";
-
-%feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
-";
-
-
 // File: classObjectiveMetric.xml
 %feature("docstring") ObjectiveMetric "
 
@@ -11273,13 +11147,6 @@ C++ includes: OrderedMap.h
 ";
 
 %feature("docstring")  OrderedMap::value "const Object& OrderedMap< Key, Object >::value(const Key &key) const
-";
-
-
-// File: classExceptions_1_1OutOfBoundsException.xml
-%feature("docstring") Exceptions::OutOfBoundsException "";
-
-%feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
 ";
 
 
@@ -14103,69 +13970,6 @@ boolean, defines if data uncertainties should be taken into account
 ";
 
 
-// File: classExceptions_1_1RuntimeErrorException.xml
-%feature("docstring") Exceptions::RuntimeErrorException "";
-
-%feature("docstring")  Exceptions::RuntimeErrorException::RuntimeErrorException "Exceptions::RuntimeErrorException::RuntimeErrorException(const std::string &message)
-";
-
-
-// File: classSafePointerVector.xml
-%feature("docstring") SafePointerVector "
-
-The objects pointed to must support the  ICloneable interface.
-
-A vector of pointers, owned by *this, with methods to handle them safely.
-
-C++ includes: SafePointerVector.h
-";
-
-%feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector()
-";
-
-%feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(const SafePointerVector &other)
-";
-
-%feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(SafePointerVector &&other)
-";
-
-%feature("docstring")  SafePointerVector::~SafePointerVector "SafePointerVector< T >::~SafePointerVector()
-";
-
-%feature("docstring")  SafePointerVector::size "size_t SafePointerVector< T >::size() const
-";
-
-%feature("docstring")  SafePointerVector::empty "bool SafePointerVector< T >::empty() const
-";
-
-%feature("docstring")  SafePointerVector::push_back "void SafePointerVector< T >::push_back(T *pointer)
-";
-
-%feature("docstring")  SafePointerVector::begin "iterator SafePointerVector< T >::begin()
-";
-
-%feature("docstring")  SafePointerVector::begin "const_iterator SafePointerVector< T >::begin() const
-";
-
-%feature("docstring")  SafePointerVector::end "iterator SafePointerVector< T >::end()
-";
-
-%feature("docstring")  SafePointerVector::end "const_iterator SafePointerVector< T >::end() const
-";
-
-%feature("docstring")  SafePointerVector::deleteElement "bool SafePointerVector< T >::deleteElement(T *pointer)
-";
-
-%feature("docstring")  SafePointerVector::back "T* SafePointerVector< T >::back()
-";
-
-%feature("docstring")  SafePointerVector::back "const T* SafePointerVector< T >::back() const
-";
-
-%feature("docstring")  SafePointerVector::clear "void SafePointerVector< T >::clear()
-";
-
-
 // File: classSampleBuilderFactory.xml
 %feature("docstring") SampleBuilderFactory "
 
@@ -16346,13 +16150,6 @@ Returns the list of all available units.
 ";
 
 
-// File: classExceptions_1_1UnknownClassRegistrationException.xml
-%feature("docstring") Exceptions::UnknownClassRegistrationException "";
-
-%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
-";
-
-
 // File: classVariableBinAxis.xml
 %feature("docstring") VariableBinAxis "
 
@@ -16523,10 +16320,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16556,221 +16353,199 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d102.xml
+// File: namespace_0d103.xml
 
 
-// File: namespace_0d114.xml
+// File: namespace_0d109.xml
 
 
-// File: namespace_0d120.xml
+// File: namespace_0d113.xml
 
 
-// File: namespace_0d124.xml
+// File: namespace_0d144.xml
 
 
-// File: namespace_0d155.xml
+// File: namespace_0d156.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d167.xml
+// File: namespace_0d164.xml
 
 
-// File: namespace_0d175.xml
+// File: namespace_0d169.xml
+
+
+// File: namespace_0d178.xml
 
 
 // File: namespace_0d180.xml
 
 
-// File: namespace_0d189.xml
-
-
-// File: namespace_0d191.xml
-
-
-// File: namespace_0d195.xml
+// File: namespace_0d184.xml
 
 
 // File: namespace_0d2.xml
 
 
+// File: namespace_0d247.xml
+
+
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d258.xml
+// File: namespace_0d250.xml
+
+
+// File: namespace_0d257.xml
 
 
 // File: namespace_0d261.xml
 
 
-// File: namespace_0d268.xml
+// File: namespace_0d265.xml
 
 
-// File: namespace_0d272.xml
+// File: namespace_0d271.xml
 
 
-// File: namespace_0d276.xml
+// File: namespace_0d275.xml
 
 
-// File: namespace_0d282.xml
+// File: namespace_0d289.xml
 
 
-// File: namespace_0d286.xml
+// File: namespace_0d320.xml
 
 
-// File: namespace_0d300.xml
+// File: namespace_0d322.xml
 
 
-// File: namespace_0d331.xml
+// File: namespace_0d324.xml
 
 
-// File: namespace_0d333.xml
+// File: namespace_0d344.xml
 
 
-// File: namespace_0d335.xml
+// File: namespace_0d348.xml
 
 
-// File: namespace_0d355.xml
+// File: namespace_0d352.xml
 
 
-// File: namespace_0d359.xml
+// File: namespace_0d366.xml
 
 
-// File: namespace_0d363.xml
+// File: namespace_0d375.xml
 
 
-// File: namespace_0d377.xml
+// File: namespace_0d379.xml
 
 
-// File: namespace_0d386.xml
+// File: namespace_0d389.xml
 
 
-// File: namespace_0d390.xml
+// File: namespace_0d391.xml
+
+
+// File: namespace_0d397.xml
+
+
+// File: namespace_0d399.xml
 
 
 // File: namespace_0d4.xml
 
 
-// File: namespace_0d400.xml
+// File: namespace_0d401.xml
 
 
-// File: namespace_0d402.xml
+// File: namespace_0d403.xml
 
 
-// File: namespace_0d408.xml
+// File: namespace_0d405.xml
 
 
-// File: namespace_0d410.xml
+// File: namespace_0d407.xml
 
 
-// File: namespace_0d412.xml
+// File: namespace_0d411.xml
 
 
-// File: namespace_0d414.xml
+// File: namespace_0d413.xml
 
 
-// File: namespace_0d416.xml
+// File: namespace_0d423.xml
 
 
-// File: namespace_0d418.xml
+// File: namespace_0d436.xml
 
 
-// File: namespace_0d422.xml
+// File: namespace_0d445.xml
 
 
-// File: namespace_0d424.xml
+// File: namespace_0d449.xml
 
 
-// File: namespace_0d434.xml
+// File: namespace_0d465.xml
 
 
-// File: namespace_0d447.xml
+// File: namespace_0d486.xml
 
 
-// File: namespace_0d456.xml
+// File: namespace_0d493.xml
 
 
-// File: namespace_0d460.xml
+// File: namespace_0d495.xml
 
 
-// File: namespace_0d476.xml
+// File: namespace_0d503.xml
 
 
-// File: namespace_0d497.xml
+// File: namespace_0d515.xml
 
 
-// File: namespace_0d504.xml
+// File: namespace_0d538.xml
 
 
-// File: namespace_0d506.xml
+// File: namespace_0d546.xml
 
 
-// File: namespace_0d514.xml
+// File: namespace_0d552.xml
 
 
-// File: namespace_0d526.xml
-
-
-// File: namespace_0d549.xml
-
-
-// File: namespace_0d557.xml
-
-
-// File: namespace_0d563.xml
+// File: namespace_0d554.xml
 
 
 // File: namespace_0d565.xml
 
 
-// File: namespace_0d576.xml
+// File: namespace_0d577.xml
 
 
-// File: namespace_0d588.xml
+// File: namespace_0d583.xml
 
 
-// File: namespace_0d594.xml
+// File: namespace_0d587.xml
 
 
-// File: namespace_0d598.xml
+// File: namespace_0d605.xml
 
 
-// File: namespace_0d616.xml
+// File: namespace_0d624.xml
 
 
-// File: namespace_0d635.xml
+// File: namespace_0d83.xml
 
 
-// File: namespace_0d94.xml
+// File: namespace_0d85.xml
 
 
-// File: namespace_0d96.xml
+// File: namespace_0d87.xml
 
 
-// File: namespace_0d98.xml
-
-
-// File: namespacealgo.xml
-%feature("docstring")  algo::almostEqual "bool algo::almostEqual(double a, double b)
-
-Returns true if two doubles agree within machine epsilon. 
-";
-
-%feature("docstring")  algo::min_value "double algo::min_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
-
-Returns the minimum value of function evaluate as applied to the elements of an iterator range. 
-";
-
-%feature("docstring")  algo::max_value "double algo::max_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
-
-Returns the maximum value of function evaluate as applied to the elements of an iterator range. 
-";
-
-%feature("docstring")  algo::concat "std::vector< T > algo::concat(const std::vector< T > &v1, const std::vector< T > &v2)
-
-Returns the concatenation of two std::vectors. 
-";
+// File: namespace_0d91.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -16898,11 +16673,6 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 %feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
 
 Returns string representation of axes dimension in the form \"(nx,ny)\". 
-";
-
-
-// File: namespaceExceptions.xml
-%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &)
 ";
 
 
@@ -17069,7 +16839,7 @@ Creates Fourier Transform ( OutputData format) of intensity map ( OutputData for
 
 
 // File: namespaceInterferenceFunctionUtils.xml
-%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector<complex_t> InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
 %feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
@@ -17355,9 +17125,6 @@ Returns true if given parameter name is related to angles.
 
 Returns units of main parameter. 
 ";
-
-
-// File: namespacePhysConsts.xml
 
 
 // File: namespacePrecomputed.xml
@@ -17802,14 +17569,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 ";
 
 
-// File: namespaceUnits.xml
-%feature("docstring")  Units::rad2deg "double Units::rad2deg(double angle)
-";
-
-%feature("docstring")  Units::deg2rad "double Units::deg2rad(double angle)
-";
-
-
 // File: IInterferenceFunction_8cpp.xml
 
 
@@ -17889,48 +17648,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: ParticleLayout_8h.xml
-
-
-// File: Algorithms_8h.xml
-
-
-// File: Assert_8h.xml
-
-
-// File: CloneableVector_8h.xml
-
-
-// File: Complex_8h.xml
-%feature("docstring")  mul_I "complex_t mul_I(complex_t z)
-
-Returns product I*z, where I is the imaginary unit. 
-";
-
-%feature("docstring")  exp_I "complex_t exp_I(complex_t z)
-
-Returns exp(I*z), where I is the imaginary unit. 
-";
-
-
-// File: Exceptions_8cpp.xml
-
-
-// File: Exceptions_8h.xml
-
-
-// File: ICloneable_8h.xml
-
-
-// File: MathConstants_8h.xml
-
-
-// File: PhysicalConstants_8h.xml
-
-
-// File: SafePointerVector_8h.xml
-
-
-// File: Units_8h.xml
 
 
 // File: Beam_8cpp.xml
@@ -20024,9 +19741,6 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_5f1a4a05eca575eab319839347bb4113.xml
-
-
-// File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
 
 
 // File: dir_2afd61a498231c74441502b63b50f75c.xml

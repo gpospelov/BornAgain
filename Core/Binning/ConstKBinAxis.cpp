@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Binning/ConstKBinAxis.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/Algorithms.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Utils/Algorithms.h"
 #include <iomanip>
 
 ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins)

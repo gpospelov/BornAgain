@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCuboctahedron.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/HardParticle/FormFactorPyramid.h"
 #include "Core/Tools/MathFunctions.h"
 

@@ -5,6 +5,7 @@
 set(name Core)
 set(lib BornAgain${name})
 
+
 # --- source and include files ---
 
 file(GLOB source_files */*.cpp)
@@ -17,19 +18,7 @@ if(${Cerf_IS_CPP})
     string(APPEND CMAKE_CXX_FLAGS " -DCERF_AS_CPP=ON")
 endif()
 
-if(BORNAGAIN_PYTHON)
-    list(APPEND source_files "${AUTO_DIR}/lib${lib}_wrap.cpp")
-endif()
-
-# --- making library ---
-
-add_library(${lib} SHARED ${source_files})
-set_target_properties(${lib} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
-set(${lib}_LIBRARY_TYPE SHARED)
-
-if(BORNAGAIN_PYTHON)
-    SwigLib(${name} ${lib} ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
-endif(BORNAGAIN_PYTHON)
+MakeLib(${name} ${lib} ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
 
 # exposing library name and list of include directories outside
 set(${lib}_LIBRARY ${lib} PARENT_SCOPE)

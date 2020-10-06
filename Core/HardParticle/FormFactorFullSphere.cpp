@@ -15,7 +15,6 @@
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Base/Const/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
-#include "Core/Particle/FormFactorWeighted.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/LibFF/SomeFormFactors.h"
 

@@ -16,6 +16,7 @@
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleComposition.h"
+#include "Core/Particle/SlicedParticle.h"
 
 Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_position_variance(0.0)

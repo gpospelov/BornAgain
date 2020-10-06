@@ -15,6 +15,11 @@
 #include "Core/Particle/IParticle.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Core/Particle/SlicedParticle.h"
+#include "Core/Scattering/Rotations.h"
+#include "Core/Scattering/ZLimits.h"
+
+IParticle::~IParticle() = default;
 
 IFormFactor* IParticle::createFormFactor() const
 {

@@ -4167,7 +4167,7 @@ class Bin1DKVector(object):
     def __init__(self, *args):
         r"""
         __init__(Bin1DKVector self) -> Bin1DKVector
-        __init__(Bin1DKVector self, kvector_t const lower, kvector_t const upper) -> Bin1DKVector
+        __init__(Bin1DKVector self, kvector_t lower, kvector_t upper) -> Bin1DKVector
         __init__(Bin1DKVector self, double wavelength, Bin1D alpha_bin, Bin1D phi_bin) -> Bin1DKVector
         Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
 
@@ -4244,66 +4244,6 @@ class Bin1DCVector(object):
 
 # Register Bin1DCVector in _libBornAgainCore:
 _libBornAgainCore.Bin1DCVector_swigregister(Bin1DCVector)
-
-class IPixel(object):
-    r"""
-
-
-    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
-
-    C++ includes: IPixel.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IPixel
-
-    def clone(self):
-        r"""
-        clone(IPixel self) -> IPixel
-        virtual IPixel* IPixel::clone() const =0
-
-        """
-        return _libBornAgainCore.IPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
-        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
-
-        """
-        return _libBornAgainCore.IPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
-        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
-
-        """
-        return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(IPixel self, double x, double y) -> double
-        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
-
-        """
-        return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(IPixel self) -> double
-        virtual double IPixel::getSolidAngle() const =0
-
-        """
-        return _libBornAgainCore.IPixel_getSolidAngle(self)
-
-# Register IPixel in _libBornAgainCore:
-_libBornAgainCore.IPixel_swigregister(IPixel)
 
 class IAxis(object):
     r"""
@@ -4886,6 +4826,66 @@ class FixedBinAxis(IAxis):
 # Register FixedBinAxis in _libBornAgainCore:
 _libBornAgainCore.FixedBinAxis_swigregister(FixedBinAxis)
 
+class IPixel(object):
+    r"""
+
+
+    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+
+    C++ includes: IPixel.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IPixel
+
+    def clone(self):
+        r"""
+        clone(IPixel self) -> IPixel
+        virtual IPixel* IPixel::clone() const =0
+
+        """
+        return _libBornAgainCore.IPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
+        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
+
+        """
+        return _libBornAgainCore.IPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
+        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
+
+        """
+        return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(IPixel self, double x, double y) -> double
+        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+
+        """
+        return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(IPixel self) -> double
+        virtual double IPixel::getSolidAngle() const =0
+
+        """
+        return _libBornAgainCore.IPixel_getSolidAngle(self)
+
+# Register IPixel in _libBornAgainCore:
+_libBornAgainCore.IPixel_swigregister(IPixel)
+
 class IShape2D(libBornAgainBase.ICloneable):
     r"""
 
@@ -5415,7 +5415,7 @@ class IParameterized(object):
 
     def registerVector(self, *args):
         r"""
-        registerVector(IParameterized self, std::string const & base_name, kvector_t * p_vec, std::string const & units="nm")
+        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
         void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
 
         """
@@ -7526,7 +7526,7 @@ class IFormFactor(ISample):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(IFormFactor self, WavevectorInfo const & wavevectors) -> complex_t
+        evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t
         virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -7647,7 +7647,7 @@ class IFormFactorBorn(IFormFactor):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(IFormFactorBorn self, WavevectorInfo const & wavevectors) -> complex_t
+        evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
         complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -7879,7 +7879,7 @@ class IRotation(libBornAgainBase.ICloneable, INode):
 
     def transformed(self, v):
         r"""
-        transformed(IRotation self, kvector_t const & v) -> kvector_t
+        transformed(IRotation self, kvector_t v) -> kvector_t
         kvector_t IRotation::transformed(const kvector_t &v) const
 
         """
@@ -8656,7 +8656,7 @@ class FormFactorCrystal(IFormFactor):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(FormFactorCrystal self, WavevectorInfo const & wavevectors) -> complex_t
+        evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
         complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -8761,7 +8761,7 @@ class FormFactorWeighted(IFormFactor):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(FormFactorWeighted self, WavevectorInfo const & wavevectors) -> complex_t
+        evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
         complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -8886,7 +8886,7 @@ class IClusteredParticles(ISample):
 
     def createTotalFormFactor(self, arg2, arg3, arg4):
         r"""
-        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t const & arg4) -> IFormFactor
+        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
         virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
@@ -8952,7 +8952,7 @@ class Crystal(IClusteredParticles):
 
     def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
         r"""
-        createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t const & translation) -> IFormFactor
+        createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
         IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
@@ -9345,7 +9345,7 @@ class ParticleComposition(IParticle):
     def __init__(self, *args):
         r"""
         __init__(ParticleComposition self) -> ParticleComposition
-        __init__(ParticleComposition self, IParticle particle, std::vector< kvector_t,std::allocator< kvector_t > > positions) -> ParticleComposition
+        __init__(ParticleComposition self, IParticle particle, vector_kvector_t positions) -> ParticleComposition
         ParticleComposition::ParticleComposition(const IParticle &particle, std::vector< kvector_t > positions)
 
         """
@@ -9393,7 +9393,7 @@ class ParticleComposition(IParticle):
 
     def addParticles(self, particle, positions):
         r"""
-        addParticles(ParticleComposition self, IParticle particle, std::vector< kvector_t,std::allocator< kvector_t > > positions)
+        addParticles(ParticleComposition self, IParticle particle, vector_kvector_t positions)
         void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
 
         """
@@ -11085,7 +11085,7 @@ class IPeakShape(ISample):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(IPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
+        evaluate(IPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
         virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11150,7 +11150,7 @@ class IsotropicGaussPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(IsotropicGaussPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
+        evaluate(IsotropicGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
         double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11205,7 +11205,7 @@ class IsotropicLorentzPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(IsotropicLorentzPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
+        evaluate(IsotropicLorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
         double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11260,7 +11260,7 @@ class GaussFisherPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(GaussFisherPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
+        evaluate(GaussFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
         double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11325,7 +11325,7 @@ class LorentzFisherPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(LorentzFisherPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
+        evaluate(LorentzFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
         double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11390,7 +11390,7 @@ class MisesFisherGaussPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(MisesFisherGaussPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
+        evaluate(MisesFisherGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
         double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11455,7 +11455,7 @@ class MisesGaussPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(MisesGaussPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
+        evaluate(MisesGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
         double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11514,7 +11514,7 @@ class IInterferenceFunction(ISample):
 
     def evaluate(self, q, outer_iff=1.0):
         r"""
-        evaluate(IInterferenceFunction self, kvector_t const q, double outer_iff=1.0) -> double
+        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
         double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
         Evaluates the interference function for a given wavevector transfer. 
@@ -11573,7 +11573,7 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
 
     def iff_without_dw(self, q):
-        r"""iff_without_dw(IInterferenceFunction self, kvector_t const q) -> double"""
+        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
         return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     def __disown__(self):
@@ -12126,7 +12126,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 
     def evaluate(self, q, outer_iff=1.0):
         r"""
-        evaluate(InterferenceFunction2DSuperLattice self, kvector_t const q, double outer_iff=1.0) -> double
+        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
         double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
 
         Evaluates the interference function for a given wavevector transfer. 
@@ -12839,7 +12839,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
 
     def __init__(self, direction, mean_distance, std_dev):
         r"""
-        __init__(InterferenceFunctionTwin self, kvector_t const & direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
+        __init__(InterferenceFunctionTwin self, kvector_t direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
         InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
 
         """
@@ -12938,7 +12938,7 @@ class ParticleLayout(ILayout):
 
     def addParticle(self, *args):
         r"""
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t const position={}, IRotation rotation=IdentityRotation())
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position={}, IRotation rotation=IdentityRotation())
         void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position={}, const IRotation &rotation=IdentityRotation())
 
         Adds particle to the layout with abundance, position and the rotation defined.
@@ -13140,7 +13140,7 @@ class Beam(INode):
 
     def setPolarization(self, bloch_vector):
         r"""
-        setPolarization(Beam self, kvector_t const bloch_vector)
+        setPolarization(Beam self, kvector_t bloch_vector)
         void Beam::setPolarization(const kvector_t bloch_vector)
 
         Sets the polarization density matrix according to the given Bloch vector. 
@@ -13708,7 +13708,7 @@ class LayerRoughness(ISample):
 
     def getSpectralFun(self, kvec):
         r"""
-        getSpectralFun(LayerRoughness self, kvector_t const kvec) -> double
+        getSpectralFun(LayerRoughness self, kvector_t kvec) -> double
         double LayerRoughness::getSpectralFun(const kvector_t kvec) const
 
         Returns power spectral density of the surface roughness.
@@ -13722,7 +13722,7 @@ class LayerRoughness(ISample):
 
     def getCorrFun(self, k):
         r"""
-        getCorrFun(LayerRoughness self, kvector_t const k) -> double
+        getCorrFun(LayerRoughness self, kvector_t k) -> double
         double LayerRoughness::getCorrFun(const kvector_t k) const
 
         Correlation function of the roughness profile. 
@@ -16702,7 +16702,7 @@ class Simulation(libBornAgainBase.ICloneable, INode):
 
     def setBeamPolarization(self, bloch_vector):
         r"""
-        setBeamPolarization(Simulation self, kvector_t const bloch_vector)
+        setBeamPolarization(Simulation self, kvector_t bloch_vector)
         void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 
         Sets the beam polarization according to the given Bloch vector. 
@@ -16728,7 +16728,7 @@ class Simulation(libBornAgainBase.ICloneable, INode):
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
-        setAnalyzerProperties(Simulation self, kvector_t const direction, double efficiency, double total_transmission)
+        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission)
         void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
         Sets the polarization analyzer characteristics of the detector. 
@@ -17743,7 +17743,7 @@ class IDetector(libBornAgainBase.ICloneable, INode):
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
-        setAnalyzerProperties(IDetector self, kvector_t const direction, double efficiency, double total_transmission)
+        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
         void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
         Sets the polarization analyzer characteristics of the detector. 
@@ -18312,7 +18312,7 @@ class RectangularDetector(IDetector2D):
 
     def setPosition(self, *args):
         r"""
-        setPosition(RectangularDetector self, kvector_t const normal_to_detector, double u0, double v0, kvector_t const direction=kvector_t(0.0, -1.0, 0.0))
+        setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction=kvector_t(0.0, -1.0, 0.0))
         void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
 
         """
@@ -20011,7 +20011,7 @@ class Instrument(INode):
 
     def setBeamPolarization(self, bloch_vector):
         r"""
-        setBeamPolarization(Instrument self, kvector_t const bloch_vector)
+        setBeamPolarization(Instrument self, kvector_t bloch_vector)
         void Instrument::setBeamPolarization(const kvector_t bloch_vector)
 
         Sets the beam's polarization according to the given Bloch vector. 
@@ -20109,7 +20109,7 @@ class Instrument(INode):
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
-        setAnalyzerProperties(Instrument self, kvector_t const direction, double efficiency, double total_transmission)
+        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
         void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
         Sets the polarization analyzer characteristics of the detector. 
@@ -20718,7 +20718,7 @@ class Lattice(INode):
     def __init__(self, *args):
         r"""
         __init__(Lattice self) -> Lattice
-        __init__(Lattice self, kvector_t const a1, kvector_t const a2, kvector_t const a3) -> Lattice
+        __init__(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3) -> Lattice
         __init__(Lattice self, Lattice lattice) -> Lattice
         Lattice::Lattice(const Lattice &lattice)
 
@@ -20788,7 +20788,7 @@ class Lattice(INode):
 
     def resetBasis(self, a1, a2, a3):
         r"""
-        resetBasis(Lattice self, kvector_t const a1, kvector_t const a2, kvector_t const a3)
+        resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)
         void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 
         Resets the basis vectors. 
@@ -20818,7 +20818,7 @@ class Lattice(INode):
 
     def getReciprocalLatticeBasis(self, b1, b2, b3):
         r"""
-        getReciprocalLatticeBasis(Lattice self, kvector_t & b1, kvector_t & b2, kvector_t & b3)
+        getReciprocalLatticeBasis(Lattice self, kvector_t b1, kvector_t b2, kvector_t b3)
         void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
 
         Returns the reciprocal basis vectors. 
@@ -20828,7 +20828,7 @@ class Lattice(INode):
 
     def getNearestLatticeVectorCoordinates(self, vector_in):
         r"""
-        getNearestLatticeVectorCoordinates(Lattice self, kvector_t const vector_in) -> ivector_t
+        getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
         ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 
         Returns the nearest lattice point from a given vector. 
@@ -20838,7 +20838,7 @@ class Lattice(INode):
 
     def getNearestReciprocalLatticeVectorCoordinates(self, vector_in):
         r"""
-        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t const vector_in) -> ivector_t
+        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
         ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 
         Returns the nearest reciprocal lattice point from a given vector. 
@@ -20848,7 +20848,7 @@ class Lattice(INode):
 
     def reciprocalLatticeVectorsWithinRadius(self, input_vector, radius):
         r"""
-        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t const input_vector, double radius) -> std::vector< kvector_t,std::allocator< kvector_t > >
+        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t
         std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
 
         Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
@@ -21362,7 +21362,7 @@ class Material(object):
 
     def scalarSubtrSLD(self, wavevectors):
         r"""
-        scalarSubtrSLD(Material self, WavevectorInfo const & wavevectors) -> complex_t
+        scalarSubtrSLD(Material self, WavevectorInfo wavevectors) -> complex_t
         complex_t Material::scalarSubtrSLD(const WavevectorInfo &wavevectors) const
 
         Returns (  $ \\pi/\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 
@@ -21420,6 +21420,81 @@ def MaterialBySLD(*args):
 
     """
     return _libBornAgainCore.MaterialBySLD(*args)
+class WavevectorInfo(object):
+    r"""
+
+
+    Holds all wavevector information relevant for calculating form factors.
+
+    C++ includes: WavevectorInfo.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    @staticmethod
+    def GetZeroQ():
+        r"""GetZeroQ() -> WavevectorInfo"""
+        return _libBornAgainCore.WavevectorInfo_GetZeroQ()
+
+    def __init__(self, *args):
+        r"""
+        __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
+        __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
+        WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
+
+        """
+        _libBornAgainCore.WavevectorInfo_swiginit(self, _libBornAgainCore.new_WavevectorInfo(*args))
+
+    def transformed(self, transform):
+        r"""
+        transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
+        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
+
+        """
+        return _libBornAgainCore.WavevectorInfo_transformed(self, transform)
+
+    def getKi(self):
+        r"""
+        getKi(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getKi() const
+
+        """
+        return _libBornAgainCore.WavevectorInfo_getKi(self)
+
+    def getKf(self):
+        r"""
+        getKf(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getKf() const
+
+        """
+        return _libBornAgainCore.WavevectorInfo_getKf(self)
+
+    def getQ(self):
+        r"""
+        getQ(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getQ() const
+
+        """
+        return _libBornAgainCore.WavevectorInfo_getQ(self)
+
+    def getWavelength(self):
+        r"""
+        getWavelength(WavevectorInfo self) -> double
+        double WavevectorInfo::getWavelength() const
+
+        """
+        return _libBornAgainCore.WavevectorInfo_getWavelength(self)
+    __swig_destroy__ = _libBornAgainCore.delete_WavevectorInfo
+
+# Register WavevectorInfo in _libBornAgainCore:
+_libBornAgainCore.WavevectorInfo_swigregister(WavevectorInfo)
+
+def WavevectorInfo_GetZeroQ():
+    r"""WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
+    return _libBornAgainCore.WavevectorInfo_GetZeroQ()
+
 class SampleBuilderFactory(SampleBuilderFactoryTemp):
     r"""
 

@@ -15971,10 +15971,40 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
+// File: classWavevectorInfo.xml
+%feature("docstring") WavevectorInfo "
+
+Holds all wavevector information relevant for calculating form factors.
+
+C++ includes: WavevectorInfo.h
+";
+
+%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
+";
+
+%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
+";
+
+%feature("docstring")  WavevectorInfo::transformed "WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
+";
+
+%feature("docstring")  WavevectorInfo::getKi "cvector_t WavevectorInfo::getKi() const
+";
+
+%feature("docstring")  WavevectorInfo::getKf "cvector_t WavevectorInfo::getKf() const
+";
+
+%feature("docstring")  WavevectorInfo::getQ "cvector_t WavevectorInfo::getQ() const
+";
+
+%feature("docstring")  WavevectorInfo::getWavelength "double WavevectorInfo::getWavelength() const
+";
 
 
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16082,22 +16112,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d349.xml
 
 
-// File: namespace_0d363.xml
+// File: namespace_0d365.xml
 
 
-// File: namespace_0d372.xml
+// File: namespace_0d374.xml
 
 
-// File: namespace_0d376.xml
-
-
-// File: namespace_0d386.xml
+// File: namespace_0d378.xml
 
 
 // File: namespace_0d388.xml
 
 
-// File: namespace_0d394.xml
+// File: namespace_0d390.xml
 
 
 // File: namespace_0d396.xml
@@ -16118,70 +16145,73 @@ C++ includes: ZLimits.h
 // File: namespace_0d404.xml
 
 
-// File: namespace_0d408.xml
+// File: namespace_0d406.xml
 
 
 // File: namespace_0d410.xml
 
 
-// File: namespace_0d420.xml
+// File: namespace_0d412.xml
 
 
-// File: namespace_0d433.xml
+// File: namespace_0d422.xml
 
 
-// File: namespace_0d442.xml
+// File: namespace_0d435.xml
 
 
-// File: namespace_0d446.xml
+// File: namespace_0d444.xml
 
 
-// File: namespace_0d462.xml
+// File: namespace_0d448.xml
 
 
-// File: namespace_0d488.xml
+// File: namespace_0d464.xml
 
 
-// File: namespace_0d495.xml
+// File: namespace_0d490.xml
 
 
 // File: namespace_0d497.xml
 
 
-// File: namespace_0d505.xml
+// File: namespace_0d499.xml
 
 
-// File: namespace_0d517.xml
+// File: namespace_0d507.xml
 
 
-// File: namespace_0d540.xml
+// File: namespace_0d519.xml
 
 
-// File: namespace_0d548.xml
+// File: namespace_0d542.xml
 
 
-// File: namespace_0d554.xml
+// File: namespace_0d550.xml
 
 
 // File: namespace_0d556.xml
 
 
-// File: namespace_0d567.xml
+// File: namespace_0d558.xml
 
 
-// File: namespace_0d579.xml
+// File: namespace_0d569.xml
 
 
-// File: namespace_0d585.xml
+// File: namespace_0d581.xml
 
 
-// File: namespace_0d589.xml
+// File: namespace_0d587.xml
 
 
-// File: namespace_0d607.xml
+// File: namespace_0d591.xml
 
 
-// File: namespace_0d626.xml
+// File: namespace_0d609.xml
+
+
+// File: namespace_0d628.xml
 
 
 // File: namespace_0d78.xml
@@ -18173,6 +18203,12 @@ magnetization (in A/m)
 
 
 // File: RefractiveMaterialImpl_8h.xml
+
+
+// File: WavevectorInfo_8cpp.xml
+
+
+// File: WavevectorInfo_8h.xml
 
 
 // File: DecouplingApproximationStrategy_8cpp.xml

@@ -14,6 +14,7 @@
 
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/IClusteredParticles.h"
+#include "Core/Particle/SlicedParticle.h"
 #include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Scattering/FormFactorDecoratorRotation.h"
 

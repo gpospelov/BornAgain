@@ -17,7 +17,7 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/Slice.h"
-#include "Base/Vector/WavevectorInfo.h"
+#include "Core/Material/WavevectorInfo.h"
 #include <Eigen/LU>
 
 namespace

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Material/RefractiveMaterialImpl.h"
-#include "Base/Vector/WavevectorInfo.h"
+#include "Core/Material/WavevectorInfo.h"
 
 RefractiveMaterialImpl::RefractiveMaterialImpl(const std::string& name, double delta, double beta,
                                                kvector_t magnetization)

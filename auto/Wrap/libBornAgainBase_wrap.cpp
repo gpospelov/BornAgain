@@ -3101,33 +3101,31 @@ namespace Swig {
 #define SWIGTYPE_p_BasicVector3DT_int_t swig_types[1]
 #define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[2]
 #define SWIGTYPE_p_ICloneable swig_types[3]
-#define SWIGTYPE_p_Transform3D swig_types[4]
-#define SWIGTYPE_p_WavevectorInfo swig_types[5]
-#define SWIGTYPE_p_allocator_type swig_types[6]
-#define SWIGTYPE_p_char swig_types[7]
-#define SWIGTYPE_p_difference_type swig_types[8]
-#define SWIGTYPE_p_int swig_types[9]
-#define SWIGTYPE_p_long_long swig_types[10]
-#define SWIGTYPE_p_p_PyObject swig_types[11]
-#define SWIGTYPE_p_short swig_types[12]
-#define SWIGTYPE_p_signed_char swig_types[13]
-#define SWIGTYPE_p_size_type swig_types[14]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[15]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[16]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[17]
-#define SWIGTYPE_p_std__invalid_argument swig_types[18]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[19]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[20]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[21]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[22]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[23]
-#define SWIGTYPE_p_unsigned_char swig_types[24]
-#define SWIGTYPE_p_unsigned_int swig_types[25]
-#define SWIGTYPE_p_unsigned_long_long swig_types[26]
-#define SWIGTYPE_p_unsigned_short swig_types[27]
-#define SWIGTYPE_p_value_type swig_types[28]
-static swig_type_info *swig_types[30];
-static swig_module_info swig_module = {swig_types, 29, 0, 0, 0, 0};
+#define SWIGTYPE_p_allocator_type swig_types[4]
+#define SWIGTYPE_p_char swig_types[5]
+#define SWIGTYPE_p_difference_type swig_types[6]
+#define SWIGTYPE_p_int swig_types[7]
+#define SWIGTYPE_p_long_long swig_types[8]
+#define SWIGTYPE_p_p_PyObject swig_types[9]
+#define SWIGTYPE_p_short swig_types[10]
+#define SWIGTYPE_p_signed_char swig_types[11]
+#define SWIGTYPE_p_size_type swig_types[12]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[13]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[14]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[15]
+#define SWIGTYPE_p_std__invalid_argument swig_types[16]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[17]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[18]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[19]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[20]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[21]
+#define SWIGTYPE_p_unsigned_char swig_types[22]
+#define SWIGTYPE_p_unsigned_int swig_types[23]
+#define SWIGTYPE_p_unsigned_long_long swig_types[24]
+#define SWIGTYPE_p_unsigned_short swig_types[25]
+#define SWIGTYPE_p_value_type swig_types[26]
+static swig_type_info *swig_types[28];
+static swig_module_info swig_module = {swig_types, 27, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3779,7 +3777,6 @@ SWIGINTERNINLINE PyObject*
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"
-#include "Base/Vector/WavevectorInfo.h"
 
 #include "Base/Utils/MathFunctions.h"
 
@@ -12273,337 +12270,6 @@ SWIGINTERN PyObject *vector_cvector_t_swiginit(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_WavevectorInfo_GetZeroQ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SwigValueWrapper< WavevectorInfo > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "WavevectorInfo_GetZeroQ", 0, 0, 0)) SWIG_fail;
-  result = WavevectorInfo::GetZeroQ();
-  resultobj = SWIG_NewPointerObj((new WavevectorInfo(static_cast< const WavevectorInfo& >(result))), SWIGTYPE_p_WavevectorInfo, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_WavevectorInfo__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  cvector_t arg1 ;
-  cvector_t arg2 ;
-  double arg3 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  WavevectorInfo *result = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  {
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t,  0  | 0);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_WavevectorInfo" "', argument " "1"" of type '" "cvector_t""'"); 
-    }  
-    if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_WavevectorInfo" "', argument " "1"" of type '" "cvector_t""'");
-    } else {
-      cvector_t * temp = reinterpret_cast< cvector_t * >(argp1);
-      arg1 = *temp;
-      if (SWIG_IsNewObj(res1)) delete temp;
-    }
-  }
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_WavevectorInfo" "', argument " "2"" of type '" "cvector_t""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_WavevectorInfo" "', argument " "2"" of type '" "cvector_t""'");
-    } else {
-      cvector_t * temp = reinterpret_cast< cvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_WavevectorInfo" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (WavevectorInfo *)new WavevectorInfo(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_WavevectorInfo, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_WavevectorInfo__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  kvector_t arg1 ;
-  kvector_t arg2 ;
-  double arg3 ;
-  void *argp1 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  WavevectorInfo *result = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  {
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_WavevectorInfo" "', argument " "1"" of type '" "kvector_t""'"); 
-    }  
-    if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_WavevectorInfo" "', argument " "1"" of type '" "kvector_t""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp1);
-      arg1 = *temp;
-      if (SWIG_IsNewObj(res1)) delete temp;
-    }
-  }
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_WavevectorInfo" "', argument " "2"" of type '" "kvector_t""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_WavevectorInfo" "', argument " "2"" of type '" "kvector_t""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_WavevectorInfo" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (WavevectorInfo *)new WavevectorInfo(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_WavevectorInfo, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_WavevectorInfo(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_WavevectorInfo", 0, 3, argv))) SWIG_fail;
-  --argc;
-  if (argc == 3) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          return _wrap_new_WavevectorInfo__SWIG_0(self, argc, argv);
-        }
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          return _wrap_new_WavevectorInfo__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_WavevectorInfo'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    WavevectorInfo::WavevectorInfo(cvector_t,cvector_t,double)\n"
-    "    WavevectorInfo::WavevectorInfo(kvector_t,kvector_t,double)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_WavevectorInfo_transformed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  WavevectorInfo *arg1 = (WavevectorInfo *) 0 ;
-  Transform3D *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< WavevectorInfo > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "WavevectorInfo_transformed", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_WavevectorInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "WavevectorInfo_transformed" "', argument " "1"" of type '" "WavevectorInfo const *""'"); 
-  }
-  arg1 = reinterpret_cast< WavevectorInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Transform3D,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "WavevectorInfo_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "WavevectorInfo_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
-  }
-  arg2 = reinterpret_cast< Transform3D * >(argp2);
-  result = ((WavevectorInfo const *)arg1)->transformed((Transform3D const &)*arg2);
-  resultobj = SWIG_NewPointerObj((new WavevectorInfo(static_cast< const WavevectorInfo& >(result))), SWIGTYPE_p_WavevectorInfo, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_WavevectorInfo_getKi(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  WavevectorInfo *arg1 = (WavevectorInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  cvector_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_WavevectorInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "WavevectorInfo_getKi" "', argument " "1"" of type '" "WavevectorInfo const *""'"); 
-  }
-  arg1 = reinterpret_cast< WavevectorInfo * >(argp1);
-  result = ((WavevectorInfo const *)arg1)->getKi();
-  resultobj = SWIG_NewPointerObj((new cvector_t(static_cast< const cvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_WavevectorInfo_getKf(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  WavevectorInfo *arg1 = (WavevectorInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  cvector_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_WavevectorInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "WavevectorInfo_getKf" "', argument " "1"" of type '" "WavevectorInfo const *""'"); 
-  }
-  arg1 = reinterpret_cast< WavevectorInfo * >(argp1);
-  result = ((WavevectorInfo const *)arg1)->getKf();
-  resultobj = SWIG_NewPointerObj((new cvector_t(static_cast< const cvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_WavevectorInfo_getQ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  WavevectorInfo *arg1 = (WavevectorInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  cvector_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_WavevectorInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "WavevectorInfo_getQ" "', argument " "1"" of type '" "WavevectorInfo const *""'"); 
-  }
-  arg1 = reinterpret_cast< WavevectorInfo * >(argp1);
-  result = ((WavevectorInfo const *)arg1)->getQ();
-  resultobj = SWIG_NewPointerObj((new cvector_t(static_cast< const cvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_WavevectorInfo_getWavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  WavevectorInfo *arg1 = (WavevectorInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_WavevectorInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "WavevectorInfo_getWavelength" "', argument " "1"" of type '" "WavevectorInfo const *""'"); 
-  }
-  arg1 = reinterpret_cast< WavevectorInfo * >(argp1);
-  result = (double)((WavevectorInfo const *)arg1)->getWavelength();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_WavevectorInfo(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  WavevectorInfo *arg1 = (WavevectorInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_WavevectorInfo, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_WavevectorInfo" "', argument " "1"" of type '" "WavevectorInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< WavevectorInfo * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *WavevectorInfo_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_WavevectorInfo, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *WavevectorInfo_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "delete_SwigPyIterator", _wrap_delete_SwigPyIterator, METH_O, "delete_SwigPyIterator(SwigPyIterator self)"},
@@ -13164,41 +12830,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_vector_cvector_t", _wrap_delete_vector_cvector_t, METH_O, "delete_vector_cvector_t(vector_cvector_t self)"},
 	 { "vector_cvector_t_swigregister", vector_cvector_t_swigregister, METH_O, NULL},
 	 { "vector_cvector_t_swiginit", vector_cvector_t_swiginit, METH_VARARGS, NULL},
-	 { "WavevectorInfo_GetZeroQ", _wrap_WavevectorInfo_GetZeroQ, METH_NOARGS, "WavevectorInfo_GetZeroQ() -> WavevectorInfo"},
-	 { "new_WavevectorInfo", _wrap_new_WavevectorInfo, METH_VARARGS, "\n"
-		"WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)\n"
-		"new_WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo\n"
-		"WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)\n"
-		"\n"
-		""},
-	 { "WavevectorInfo_transformed", _wrap_WavevectorInfo_transformed, METH_VARARGS, "\n"
-		"WavevectorInfo_transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo\n"
-		"WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const\n"
-		"\n"
-		""},
-	 { "WavevectorInfo_getKi", _wrap_WavevectorInfo_getKi, METH_O, "\n"
-		"WavevectorInfo_getKi(WavevectorInfo self) -> cvector_t\n"
-		"cvector_t WavevectorInfo::getKi() const\n"
-		"\n"
-		""},
-	 { "WavevectorInfo_getKf", _wrap_WavevectorInfo_getKf, METH_O, "\n"
-		"WavevectorInfo_getKf(WavevectorInfo self) -> cvector_t\n"
-		"cvector_t WavevectorInfo::getKf() const\n"
-		"\n"
-		""},
-	 { "WavevectorInfo_getQ", _wrap_WavevectorInfo_getQ, METH_O, "\n"
-		"WavevectorInfo_getQ(WavevectorInfo self) -> cvector_t\n"
-		"cvector_t WavevectorInfo::getQ() const\n"
-		"\n"
-		""},
-	 { "WavevectorInfo_getWavelength", _wrap_WavevectorInfo_getWavelength, METH_O, "\n"
-		"WavevectorInfo_getWavelength(WavevectorInfo self) -> double\n"
-		"double WavevectorInfo::getWavelength() const\n"
-		"\n"
-		""},
-	 { "delete_WavevectorInfo", _wrap_delete_WavevectorInfo, METH_O, "delete_WavevectorInfo(WavevectorInfo self)"},
-	 { "WavevectorInfo_swigregister", WavevectorInfo_swigregister, METH_O, NULL},
-	 { "WavevectorInfo_swiginit", WavevectorInfo_swiginit, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -13213,8 +12844,6 @@ static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_do
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Transform3D = {"_p_Transform3D", "Transform3D *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_WavevectorInfo = {"_p_WavevectorInfo", "WavevectorInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
@@ -13244,8 +12873,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_BasicVector3DT_int_t,
   &_swigt__p_BasicVector3DT_std__complexT_double_t_t,
   &_swigt__p_ICloneable,
-  &_swigt__p_Transform3D,
-  &_swigt__p_WavevectorInfo,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_difference_type,
@@ -13275,8 +12902,6 @@ static swig_cast_info _swigc__p_BasicVector3DT_double_t[] = {  {&_swigt__p_Basic
 static swig_cast_info _swigc__p_BasicVector3DT_int_t[] = {  {&_swigt__p_BasicVector3DT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_std__complexT_double_t_t[] = {  {&_swigt__p_BasicVector3DT_std__complexT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_ICloneable, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Transform3D[] = {  {&_swigt__p_Transform3D, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_WavevectorInfo[] = {  {&_swigt__p_WavevectorInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -13306,8 +12931,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_BasicVector3DT_int_t,
   _swigc__p_BasicVector3DT_std__complexT_double_t_t,
   _swigc__p_ICloneable,
-  _swigc__p_Transform3D,
-  _swigc__p_WavevectorInfo,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_difference_type,

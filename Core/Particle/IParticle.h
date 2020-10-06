@@ -17,11 +17,13 @@
 
 #include "Base/Types/SafePointerVector.h"
 #include "Core/Particle/IAbstractParticle.h"
-#include "Core/Particle/SlicedParticle.h"
-#include "Core/Scattering/Rotations.h"
-#include "Core/Scattering/ZLimits.h"
 #include "Base/Vector/Vectors3D.h"
 #include <memory>
+
+class SlicedParticle;
+class ParticleLimits;
+class Rotations;
+class ZLimits;
 
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
 //! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
@@ -31,7 +33,7 @@
 class IParticle : public IAbstractParticle
 {
 public:
-    ~IParticle() {}
+    ~IParticle();
     IParticle* clone() const override = 0;
 
     //! Creates a form factor for this particle

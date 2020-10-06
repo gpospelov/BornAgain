@@ -16,7 +16,7 @@
 #include "Base/Utils/Algorithms.h"
 #include "Base/Types/Exceptions.h"
 #include "Core/Scattering/Rotations.h"
-#include "Base/Vector/WavevectorInfo.h"
+#include "Core/Material/WavevectorInfo.h"
 
 IFormFactorBorn::IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactor(meta, PValues)

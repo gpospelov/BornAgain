@@ -16,7 +16,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Core/Material/BaseMaterialImpl.h"
 #include "Base/Vector/Transform3D.h"
-#include "Base/Vector/WavevectorInfo.h"
+#include "Core/Material/WavevectorInfo.h"
 #include <typeinfo>
 
 Material::Material(const Material& material)

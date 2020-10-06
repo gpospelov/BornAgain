@@ -16,7 +16,7 @@
 #include "Base/Const/PhysicalConstants.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Base/Vector/Transform3D.h"
-#include "Base/Vector/WavevectorInfo.h"
+#include "Core/Material/WavevectorInfo.h"
 #include <memory>
 
 using PhysConsts::gamma_n;

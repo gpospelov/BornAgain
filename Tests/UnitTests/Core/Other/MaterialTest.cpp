@@ -5,7 +5,7 @@
 #include "Core/Particle/HomogeneousRegion.h"
 #include "Core/Scattering/Rotations.h"
 #include "Base/Vector/Transform3D.h"
-#include "Base/Vector/WavevectorInfo.h"
+#include "Core/Material/WavevectorInfo.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MaterialTest : public ::testing::Test

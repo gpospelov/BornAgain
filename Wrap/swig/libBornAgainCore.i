@@ -173,6 +173,7 @@
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Material/WavevectorInfo.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
@@ -261,6 +262,7 @@
 %import(module="libBornAgainBase") "Base/Types/Complex.h"
 %import(module="libBornAgainBase") "Base/Types/ICloneable.h"
 %import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
+%import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
 %include "fromBase.i"
 
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
@@ -468,6 +470,7 @@
 
 %include "Core/Material/Material.h"
 %include "Core/Material/MaterialFactoryFuncs.h"
+%include "Core/Material/WavevectorInfo.h"
 
 %include "Core/StandardSamples/SampleBuilderFactory.h"
 %include "Core/Simulation/SimulationFactory.h"

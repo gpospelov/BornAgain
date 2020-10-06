@@ -58,7 +58,6 @@
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"
-#include "Base/Vector/WavevectorInfo.h"
 
 #include "Base/Utils/MathFunctions.h"
 %}
@@ -69,9 +68,7 @@
 %include "Base/Utils/MathFunctions.h"
 
 %include "Base/Vector/BasicVector3D.h"
-%include "fromBase.i"
-
 %include "Base/Vector/Vectors3D.h"
-%include "Base/Vector/WavevectorInfo.h"
+%include "fromBase.i"
 
 %include "extendBase.i"

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Vector/WavevectorInfo.h
+//! @file      Core/Material/WavevectorInfo.h
 //! @brief     Defines WavevectorInfo.
 //!
 //! @homepage  http://www.bornagainproject.org

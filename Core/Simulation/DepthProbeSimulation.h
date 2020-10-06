@@ -18,7 +18,7 @@
 #include "Core/Intensity/OutputData.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Simulation/Simulation.h"
-#include "Core/SimulationElement/DepthProbeElement.h"
+#include "Core/Computation/DepthProbeElement.h"
 
 #include <vector>
 

@@ -22,7 +22,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/Slice.h"
 #include "Core/RT/ILayerRTCoefficients.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 
 #include <cerf>
 

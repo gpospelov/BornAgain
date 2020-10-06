@@ -19,7 +19,7 @@
 #include "Core/Detector/IDetectorResolution.h"
 #include "Core/Detector/RectangularPixel.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 
 RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
     : m_u0(0.0), m_v0(0.0), m_direction(kvector_t(0.0, -1.0, 0.0)), m_distance(0.0),

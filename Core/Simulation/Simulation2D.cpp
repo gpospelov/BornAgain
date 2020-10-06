@@ -18,7 +18,7 @@
 #include "Core/Detector/DetectorContext.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Intensity/Histogram2D.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 
 Simulation2D::Simulation2D() = default;
 

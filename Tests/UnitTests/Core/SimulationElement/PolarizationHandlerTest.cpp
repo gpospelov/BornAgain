@@ -1,4 +1,4 @@
-#include "Core/SimulationElement/PolarizationHandler.h"
+#include "Core/Binning/PolarizationHandler.h"
 #include "Core/Vector/EigenCore.h"
 #include "Tests/GTestWrapper/google_test.h"
 

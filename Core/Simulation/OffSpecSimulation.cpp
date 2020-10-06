@@ -21,7 +21,7 @@
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
 {

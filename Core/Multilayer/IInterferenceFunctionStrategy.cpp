@@ -16,7 +16,7 @@
 #include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Core/Basics/Exceptions.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 #include "Core/Tools/IntegratorMCMiser.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,

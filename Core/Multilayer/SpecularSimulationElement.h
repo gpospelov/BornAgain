@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_MULTILAYER_SPECULARSIMULATIONELEMENT_H
 
 #include "Core/Basics/Complex.h"
-#include "Core/SimulationElement/PolarizationHandler.h"
+#include "Core/Binning/PolarizationHandler.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>

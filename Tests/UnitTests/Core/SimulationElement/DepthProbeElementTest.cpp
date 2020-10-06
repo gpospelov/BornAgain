@@ -1,4 +1,4 @@
-#include "Core/SimulationElement/DepthProbeElement.h"
+#include "Core/Computation/DepthProbeElement.h"
 #include "Core/Binning/FixedBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 

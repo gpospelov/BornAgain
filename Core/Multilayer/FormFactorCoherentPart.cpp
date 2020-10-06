@@ -16,7 +16,7 @@
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 #include "Core/Vector/WavevectorInfo.h"
 
 FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff) : mP_ff(p_ff) {}

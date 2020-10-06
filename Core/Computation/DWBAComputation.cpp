@@ -21,7 +21,7 @@
 #include "Core/Computation/RoughMultiLayerComputation.h"
 #include "Core/Multilayer/IFresnelMap.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
               "DWBAComputation should not be copy constructable");

@@ -16,7 +16,7 @@
 #include "Core/Multilayer/Slice.h"
 #include "Core/Multilayer/SpecularMagneticOldStrategy.h"
 #include "Core/Multilayer/SpecularMagneticStrategy.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 #include <functional>
 
 MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)

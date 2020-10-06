@@ -18,7 +18,7 @@
 #include "Core/Detector/IResolutionFunction2D.h"
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Intensity/Histogram2D.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 
 Instrument::Instrument() : mP_detector(new SphericalDetector), m_beam(Beam::horizontalBeam())
 {

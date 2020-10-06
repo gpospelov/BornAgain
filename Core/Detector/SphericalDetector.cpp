@@ -19,7 +19,7 @@
 #include "Core/Binning/IPixel.h"
 #include "Core/Detector/IDetectorResolution.h"
 #include "Core/Detector/SphericalPixel.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Binning/SimulationElement.h"
 
 SphericalDetector::SphericalDetector()
 {

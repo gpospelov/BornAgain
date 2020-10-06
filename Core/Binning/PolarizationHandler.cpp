@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/SimulationElement/PolarizationHandler.cpp
+//! @file      Core/Binning/PolarizationHandler.cpp
 //! @brief     Implements class PolarizationHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/SimulationElement/PolarizationHandler.h"
+#include "Core/Binning/PolarizationHandler.h"
 
 // corresponds to completely unpolarized beam and the absence of spin selection in the analyzer
 PolarizationHandler::PolarizationHandler()

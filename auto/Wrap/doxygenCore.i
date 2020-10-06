@@ -16757,7 +16757,7 @@ C++ includes: ZLimits.h
 Returns true if two doubles agree within machine epsilon. 
 ";
 
-%feature("docstring")  algo::min_value "bool Iterator double algo::min_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
+%feature("docstring")  algo::min_value "double algo::min_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
 
 Returns the minimum value of function evaluate as applied to the elements of an iterator range. 
 ";

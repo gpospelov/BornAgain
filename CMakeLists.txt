@@ -106,6 +106,12 @@ if(BORNAGAIN_DEBUG_OPTIMIZATION)
   include(commons/DebugOptimization)
 endif()
 
+## recurse into the given subdirectories
+
+# BornAgain components are build as separate shared libraries
+set(CoreComponents "Fit;Core")
+set(AllComponents "${CoreComponents};GUI")
+
 # code analysis
 include(BornAgain/LineLength)
 if(BORNAGAIN_COVERAGE)
@@ -113,8 +119,44 @@ if(BORNAGAIN_COVERAGE)
   include(BornAgain/Coverage)
 endif()
 
-## recurse into the given subdirectories
+# third-party code
+add_subdirectory(ThirdParty/common)
+add_subdirectory(ThirdParty/Fit)
+add_subdirectory(ThirdParty/Core)
+if(BORNAGAIN_GUI)
+    add_subdirectory(ThirdParty/GUI)
+endif()
 
+# from here on our own code, occasionally scrutinized by clang-tidy
+if(BORNAGAIN_TIDY)
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy") # has effect only if compiler is clang; uses .clang-tidy
+endif()
+
+# core components
+foreach(lib ${CoreComponents})
+    add_subdirectory(${lib})
+endforeach()
+if(BORNAGAIN_PYTHON)
+    add_dependencies(BornAgainFit swig_runtime)
+endif()
+
+# core tests
+add_subdirectory(Tests/UnitTests/Fit)
+add_subdirectory(Tests/UnitTests/Core)
+add_subdirectory(Tests/UnitTests/Numeric)
+add_subdirectory(Tests/Performance/Core)
+
+# GUI
+if(BORNAGAIN_GUI)
+    add_subdirectory(GUI)
+    add_subdirectory(Tests/UnitTests/GUI)
+    add_subdirectory(Tests/Performance/GUI)
+endif()
+
+# TODO: split Core / GUI
+add_subdirectory(Tests/Functional)
+
+# documentation
 if(BORNAGAIN_USERMANUAL)
     add_subdirectory(Doc/UserManual)
 endif()
@@ -124,37 +166,6 @@ endif()
 if(CONFIGURE_DOXY)
     add_subdirectory(Doc/Doxygen)
 endif()
-
-add_subdirectory(ThirdParty/common)
-add_subdirectory(ThirdParty/Fit)
-add_subdirectory(ThirdParty/Core)
-if(BORNAGAIN_GUI)
-    add_subdirectory(ThirdParty/GUI)
-endif()
-
-if(BORNAGAIN_TIDY)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy") # has effect only if compiler is clang; uses .clang-tidy
-endif()
-
-add_subdirectory(Fit)
-if(BORNAGAIN_PYTHON)
-    add_dependencies(BornAgainFit swig_runtime)
-endif()
-add_subdirectory(Tests/UnitTests/Fit)
-
-add_subdirectory(Core)
-add_subdirectory(Tests/UnitTests/Core)
-add_subdirectory(Tests/UnitTests/Numeric)
-add_subdirectory(Tests/Performance/Core)
-
-if(BORNAGAIN_GUI)
-    add_subdirectory(GUI)
-    add_subdirectory(Tests/UnitTests/GUI)
-    add_subdirectory(Tests/Performance/GUI)
-endif()
-
-# functional tests (ctest)
-add_subdirectory(Tests/Functional)
 
 # after-install message
 add_subdirectory(cmake)

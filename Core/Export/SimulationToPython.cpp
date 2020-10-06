@@ -31,7 +31,6 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-//#include "Fit/TestEngine/Numeric.h"
 #include "Core/Basics/Algorithms.h"
 #include <iomanip>
 

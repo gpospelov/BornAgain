@@ -1,7 +1,6 @@
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Basics/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
-//#include "Fit/TestEngine/Numeric.h"
 #include "Core/Basics/Algorithms.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>

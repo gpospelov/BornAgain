@@ -15,7 +15,6 @@
 #include "Core/Parametrization/PyFmt.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Basics/Units.h" // printDegrees
-//#include "Fit/TestEngine/Numeric.h"
 #include "Core/Basics/Algorithms.h"
 #include "Fit/Tools/RealLimits.h"
 #include <iomanip>

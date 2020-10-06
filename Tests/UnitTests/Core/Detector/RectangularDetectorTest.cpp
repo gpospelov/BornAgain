@@ -1,7 +1,8 @@
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Basics/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Fit/TestEngine/Numeric.h"
+//#include "Fit/TestEngine/Numeric.h"
+#include "Core/Basics/Algorithms.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>
@@ -16,9 +17,9 @@ protected:
 
     bool isEqual(const kvector_t lhs, const kvector_t rhs)
     {
-        bool is_equal = Numeric::AreAlmostEqual(lhs.x(), rhs.x())
-                        && Numeric::AreAlmostEqual(lhs.y(), rhs.y())
-                        && Numeric::AreAlmostEqual(lhs.z(), rhs.z());
+        bool is_equal = algo::almostEqual(lhs.x(), rhs.x())
+                        && algo::almostEqual(lhs.y(), rhs.y())
+                        && algo::almostEqual(lhs.z(), rhs.z());
         if (!is_equal) {
             std::cout << "lhs:" << lhs << " rhs:" << rhs << " diff:" << (lhs - rhs) << std::endl;
         }

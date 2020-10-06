@@ -1,6 +1,7 @@
 #include "Core/Basics/Units.h"
 #include "Core/HardParticle/FormFactorAnisoPyramid.h"
-#include "Fit/TestEngine/Numeric.h"
+//#include "Fit/TestEngine/Numeric.h"
+#include "Core/Basics/Algorithms.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "Tests/GTestWrapper/google_test.h"
 
@@ -22,5 +23,5 @@ TEST_F(TestFormFactorItems, test_AnisoPyramidItem)
     EXPECT_EQ(p_ff->getLength(), 20.0);
     EXPECT_EQ(p_ff->getWidth(), 16.0);
     EXPECT_EQ(p_ff->getHeight(), 13.0);
-    EXPECT_TRUE(Numeric::AreAlmostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
+    EXPECT_TRUE(algo::almostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
 }

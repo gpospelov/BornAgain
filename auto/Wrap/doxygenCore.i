@@ -17470,9 +17470,6 @@ Returns a string of blanks with given width. By default the width equals standar
 %feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
 ";
 
-%feature("docstring")  pyfmt::isDefaultDirection "bool pyfmt::isDefaultDirection(const kvector_t direction)
-";
-
 
 // File: namespacepyfmt2.xml
 %feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)

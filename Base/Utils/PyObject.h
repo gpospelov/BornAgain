@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vector/Vectors3D.h
-//! @brief     Defines basic vectors in R^3 and C^3.
+//! @file      Base/Utils/PyObject.h
+//! @brief     PyObvject forward declaration.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,13 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_VECTOR_VECTORS3D_H
-#define BORNAGAIN_CORE_VECTOR_VECTORS3D_H
+#ifndef BORNAGAIN_CORE_TOOLS_PYOBJECT_H
+#define BORNAGAIN_CORE_TOOLS_PYOBJECT_H
 
-#include "Core/Vector/BasicVector3D.h"
+#ifdef BORNAGAIN_PYTHON
+#ifndef PyObject_HEAD
+struct _object;
+typedef _object PyObject;
+#endif
+#endif
 
-using ivector_t = BasicVector3D<int>;
-using kvector_t = BasicVector3D<double>;
-using cvector_t = BasicVector3D<std::complex<double>>;
-
-#endif // BORNAGAIN_CORE_VECTOR_VECTORS3D_H
+#endif // BORNAGAIN_CORE_TOOLS_PYOBJECT_H

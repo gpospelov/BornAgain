@@ -17,7 +17,7 @@
 #include "Core/PyIO/PyImport.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/PyIO/PyEmbeddedUtils.h"
-#include "Core/Tools/PythonCore.h"
+#include "Base/Utils/PythonCore.h"
 
 namespace
 {

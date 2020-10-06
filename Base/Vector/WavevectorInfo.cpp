@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vector/WavevectorInfo.cpp
+//! @file      Base/Vector/WavevectorInfo.cpp
 //! @brief     Implements WavevectorInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Vector/WavevectorInfo.h"
-#include "Core/Vector/Transform3D.h"
+#include "Base/Vector/WavevectorInfo.h"
+#include "Base/Vector/Transform3D.h"
 
 // TODO: can be removed when IFormFactor::volume() is refactored
 // (static function is provided to easily track usage of default constructor)

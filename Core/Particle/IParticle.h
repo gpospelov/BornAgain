@@ -20,7 +20,7 @@
 #include "Core/Particle/SlicedParticle.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Scattering/ZLimits.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 #include <memory>
 
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.

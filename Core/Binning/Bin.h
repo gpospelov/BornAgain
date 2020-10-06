@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_BINNING_BIN_H
 #define BORNAGAIN_CORE_BINNING_BIN_H
 
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 
 struct Bin1D {
     Bin1D() : m_lower(0), m_upper(0) {}

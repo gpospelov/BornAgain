@@ -17,7 +17,7 @@
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "Core/Tools/PyObject.h"
+#include "Base/Utils/PyObject.h"
 #include <memory>
 #include <string>
 #include <vector>

@@ -14,7 +14,7 @@
 
 #include "Core/Multilayer/FormFactorDWBAPol.h"
 #include "Core/RT/ILayerRTCoefficients.h"
-#include "Core/Vector/WavevectorInfo.h"
+#include "Base/Vector/WavevectorInfo.h"
 
 namespace
 {

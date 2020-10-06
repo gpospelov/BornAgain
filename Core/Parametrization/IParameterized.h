@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
 
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 #include <memory>
 
 class RealLimits;

@@ -15,7 +15,7 @@
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Vector/WavevectorInfo.h"
+#include "Base/Vector/WavevectorInfo.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
                                      const IFormFactor& meso_form_factor, double position_variance)

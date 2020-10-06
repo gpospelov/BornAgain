@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTPART_H
 
 #include "Base/Types/Complex.h"
-#include "Core/Vector/EigenCore.h"
+#include "Base/Vector/EigenCore.h"
 #include <memory>
 
 class IFresnelMap;

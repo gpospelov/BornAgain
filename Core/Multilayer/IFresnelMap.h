@@ -18,7 +18,7 @@
 #include "Core/Multilayer/ISpecularStrategy.h"
 #include "Core/Multilayer/Slice.h"
 #include "Core/RT/ILayerRTCoefficients.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>
 

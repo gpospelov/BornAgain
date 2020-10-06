@@ -16,8 +16,8 @@
 
 #include "Core/PyIO/PyEmbeddedUtils.h"
 #include "Core/PyIO/PythonFormatting.h"
-#include "Core/Tools/PythonCore.h"
-#include "Core/Tools/SysUtils.h"
+#include "Base/Utils/PythonCore.h"
+#include "Base/Utils/SysUtils.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

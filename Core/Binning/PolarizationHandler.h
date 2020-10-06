@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATIONELEMENT_POLARIZATIONHANDLER_H
 #define BORNAGAIN_CORE_SIMULATIONELEMENT_POLARIZATIONHANDLER_H
 
-#include "Core/Vector/EigenCore.h"
+#include "Base/Vector/EigenCore.h"
 
 //! Convenience class for handling polarization density matrix and polarization analyzer operator
 //! @ingroup simulation

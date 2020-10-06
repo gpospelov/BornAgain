@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vector/Transform3D.h
+//! @file      Base/Vector/Transform3D.h
 //! @brief      Declares class Transform3D.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,8 +16,8 @@
 #define BORNAGAIN_CORE_VECTOR_TRANSFORM3D_H
 
 #include "Base/Types/Complex.h"
-#include "Core/Vector/EigenCore.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/EigenCore.h"
+#include "Base/Vector/Vectors3D.h"
 
 #include <vector>
 

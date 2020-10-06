@@ -18,7 +18,7 @@
 #include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Scattering/FormFactorDecoratorRotation.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/Vector/WavevectorInfo.h"
+#include "Base/Vector/WavevectorInfo.h"
 #include <memory>
 #include <utility>
 

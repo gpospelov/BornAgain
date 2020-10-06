@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vector/SomeFormFactors.cpp
+//! @file      Core/LibFF/SomeFormFactors.cpp
 //! @brief     Implements namespace someff with some form factor functions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Vector/SomeFormFactors.h"
+#include "Core/LibFF/SomeFormFactors.h"
 
 //! Returns the form factor of a sphere of radius R.
 //!

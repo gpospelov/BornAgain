@@ -21,10 +21,10 @@ set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 # target_link_libraries(${lib} ${CMAKE_THREAD_LIBS_INIT})
 
 target_include_directories(${lib}
-    PUBLIC ${CMAKE_SOURCE_DIR} #${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR} ${GSL_INCLUDE_DIR}
+    PUBLIC ${CMAKE_SOURCE_DIR} ${GSL_INCLUDE_DIR} ${FFTW3_INCLUDE_DIR} ${Boost_INCLUDE_DIRS}
     SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIRS}
     )
-#target_link_libraries(${lib})
+target_link_libraries(${lib} ${GSL_LIBRARIES} ${FFTW3_LIBRARIES} ${Boost_LIBRARIES})
 
 if(BORNAGAIN_GUI)
     target_include_directories(${lib} PUBLIC ${Qt5Core_INCLUDE_DIRS})

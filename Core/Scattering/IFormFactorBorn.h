@@ -17,7 +17,7 @@
 
 #include "Core/Scattering/IFormFactor.h"
 #include "Core/Shapes/IShape.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 
 struct SlicingEffects; // defined below
 

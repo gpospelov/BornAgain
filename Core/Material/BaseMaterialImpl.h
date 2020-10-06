@@ -16,8 +16,8 @@
 #define BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
 
 #include "Base/Types/Complex.h"
-#include "Core/Vector/EigenCore.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/EigenCore.h"
+#include "Base/Vector/Vectors3D.h"
 
 class Transform3D;
 class WavevectorInfo;

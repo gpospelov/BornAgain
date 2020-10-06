@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/PyObject.h
-//! @brief     PyObvject forward declaration.
+//! @file      Core/LibFF/SomeFormFactors.h
+//! @brief     Declares namespace someff with some form factor functions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,14 +12,19 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_PYOBJECT_H
-#define BORNAGAIN_CORE_TOOLS_PYOBJECT_H
+#ifndef BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
+#define BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
 
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
+#include "Base/Types/Complex.h"
+#include "Base/Vector/Vectors3D.h"
 
-#endif // BORNAGAIN_CORE_TOOLS_PYOBJECT_H
+//! Some form factor functions.
+
+namespace someff
+{
+
+complex_t ffSphere(cvector_t q, double R);
+
+} // namespace someff
+
+#endif // BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H

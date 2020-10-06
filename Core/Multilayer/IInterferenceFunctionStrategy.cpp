@@ -17,7 +17,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Core/Binning/SimulationElement.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
-#include "Core/Tools/IntegratorMCMiser.h"
+#include "Base/Utils/IntegratorMCMiser.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)

@@ -16,7 +16,7 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
-#include "Core/Vector/SomeFormFactors.h"
+#include "Core/LibFF/SomeFormFactors.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vector<double> P,
                                                                  size_t n_samples)

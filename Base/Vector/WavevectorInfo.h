@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vector/WavevectorInfo.h
+//! @file      Base/Vector/WavevectorInfo.h
 //! @brief     Defines WavevectorInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_VECTOR_WAVEVECTORINFO_H
 #define BORNAGAIN_CORE_VECTOR_WAVEVECTORINFO_H
 
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 
 class Transform3D;
 

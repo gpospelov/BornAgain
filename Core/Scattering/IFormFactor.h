@@ -19,8 +19,8 @@
 #include "Core/Material/Material.h"
 #include "Core/Scattering/ISample.h"
 #include "Core/Scattering/ZLimits.h"
-#include "Core/Vector/EigenCore.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/EigenCore.h"
+#include "Base/Vector/Vectors3D.h"
 
 class ILayerRTCoefficients;
 class IRotation;

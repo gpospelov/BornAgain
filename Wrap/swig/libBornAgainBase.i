@@ -56,10 +56,22 @@
 #include "Base/Types/ICloneable.h"
 #include "Base/Const/Units.h"
 
+#include "Base/Vector/BasicVector3D.h"
+#include "Base/Vector/Vectors3D.h"
+#include "Base/Vector/WavevectorInfo.h"
+
+#include "Base/Utils/MathFunctions.h"
 %}
 
 %include "Base/Types/ICloneable.h"
 %include "Base/Types/Complex.h"
 %include "Base/Const/Units.h"
+%include "Base/Utils/MathFunctions.h"
+
+%include "Base/Vector/BasicVector3D.h"
+%include "fromBase.i"
+
+%include "Base/Vector/Vectors3D.h"
+%include "Base/Vector/WavevectorInfo.h"
 
 %include "extendBase.i"

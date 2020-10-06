@@ -15,7 +15,7 @@
 #include "Core/HardParticle/FormFactorAnisoPyramid.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 
 const PolyhedralTopology FormFactorAnisoPyramid::topology = {{{{3, 2, 1, 0}, true},
                                                               {{0, 1, 5, 4}, false},

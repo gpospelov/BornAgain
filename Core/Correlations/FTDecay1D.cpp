@@ -14,7 +14,7 @@
 
 #include "Core/Correlations/FTDecay1D.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 #include <algorithm>
 
 // ************************************************************************** //

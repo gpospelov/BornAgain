@@ -17,7 +17,7 @@
 
 #include "Base/Types/Complex.h"
 #include "Core/RT/ILayerRTCoefficients.h"
-#include "Core/Vector/EigenCore.h"
+#include "Base/Vector/EigenCore.h"
 
 //! Specular reflection and transmission coefficients in a layer in case
 //! of scalar interactions between the layers and the scattered particle.

@@ -19,7 +19,7 @@
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
-#include "Core/Tools/FileSystemUtils.h"
+#include "Base/Utils/FileSystemUtils.h"
 #include <fstream>
 #include <iostream>
 

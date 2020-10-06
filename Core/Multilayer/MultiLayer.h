@@ -19,7 +19,7 @@
 #include "Core/Multilayer/RoughnessModels.h"
 #include "Core/Scattering/ISample.h"
 #include "Core/Scattering/ZLimits.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 
 #include <functional>
 

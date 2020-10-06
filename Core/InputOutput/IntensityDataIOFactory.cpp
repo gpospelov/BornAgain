@@ -17,7 +17,7 @@
 #include "Core/InputOutput/OutputDataWriteFactory.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Intensity/IHistogram.h"
-#include "Core/Tools/FileSystemUtils.h"
+#include "Base/Utils/FileSystemUtils.h"
 #include <exception>
 #include <fstream>
 #include <memory>

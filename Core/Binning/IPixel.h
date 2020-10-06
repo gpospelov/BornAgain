@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_BINNING_IPIXEL_H
 #define BORNAGAIN_CORE_BINNING_IPIXEL_H
 
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 
 //! Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 //! @ingroup detector

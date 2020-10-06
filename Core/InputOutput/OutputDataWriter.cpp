@@ -23,7 +23,7 @@
 #else
 #include "Core/InputOutput/boost_streams.h"
 #endif
-#include "Core/Tools/FileSystemUtils.h"
+#include "Base/Utils/FileSystemUtils.h"
 #include <fstream>
 
 OutputDataWriter::OutputDataWriter(const std::string& file_name) : m_file_name(file_name) {}

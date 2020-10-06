@@ -17,7 +17,7 @@
 
 #include "Base/Types/Complex.h"
 #include "Core/Multilayer/FormFactorCoherentPart.h"
-#include "Core/Vector/EigenCore.h"
+#include "Base/Vector/EigenCore.h"
 #include <vector>
 
 class SimulationElement;

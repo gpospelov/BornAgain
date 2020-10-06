@@ -17,7 +17,7 @@
 
 #include "Core/Multilayer/ISpecularStrategy.h"
 #include "Core/RT/MatrixRTCoefficients_v2.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>
 

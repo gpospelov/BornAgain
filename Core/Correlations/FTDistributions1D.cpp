@@ -15,7 +15,7 @@
 #include "Core/Correlations/FTDistributions1D.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 #include <limits>
 
 namespace

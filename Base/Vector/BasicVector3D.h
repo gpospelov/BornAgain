@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vector/BasicVector3D.h
+//! @file      Base/Vector/BasicVector3D.h
 //! @brief     Declares and partly implements template class BasicVector3D.
 //!
 //! @homepage  http://www.bornagainproject.org

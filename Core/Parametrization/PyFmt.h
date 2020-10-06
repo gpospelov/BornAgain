@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_TOOLS_PYFMT_H
 #define BORNAGAIN_CORE_TOOLS_PYFMT_H
 
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 #include <string>
 
 class RealLimits;

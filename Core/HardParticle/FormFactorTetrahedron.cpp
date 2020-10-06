@@ -15,7 +15,7 @@
 #include "Core/HardParticle/FormFactorTetrahedron.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 
 const PolyhedralTopology FormFactorTetrahedron::topology = {{{{2, 1, 0}, false},
                                                              {{0, 1, 4, 3}, false},

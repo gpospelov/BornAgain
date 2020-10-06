@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_V2_H
 
 #include "Core/RT/ILayerRTCoefficients.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 #include <vector>
 
 //! Specular reflection and transmission coefficients in a layer in case

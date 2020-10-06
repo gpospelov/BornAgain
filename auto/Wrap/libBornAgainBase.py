@@ -220,6 +220,417 @@ def deg2rad(angle):
     """
     return _libBornAgainBase.deg2rad(angle)
 
+def StandardNormal(x):
+    r"""
+    StandardNormal(double x) -> double
+    double MathFunctions::StandardNormal(double x)
+
+    """
+    return _libBornAgainBase.StandardNormal(x)
+
+def Gaussian(x, average, std_dev):
+    r"""
+    Gaussian(double x, double average, double std_dev) -> double
+    double MathFunctions::Gaussian(double x, double average, double std_dev)
+
+    """
+    return _libBornAgainBase.Gaussian(x, average, std_dev)
+
+def IntegratedGaussian(x, average, std_dev):
+    r"""
+    IntegratedGaussian(double x, double average, double std_dev) -> double
+    double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
+
+    """
+    return _libBornAgainBase.IntegratedGaussian(x, average, std_dev)
+
+def cot(x):
+    r"""
+    cot(double x) -> double
+    double MathFunctions::cot(double x)
+
+    cotangent function:  $cot(x)\\equiv1/tan(x)$
+
+    """
+    return _libBornAgainBase.cot(x)
+
+def Si(x):
+    r"""
+    Si(double x) -> double
+    double MathFunctions::Si(double x)
+
+    Sine integral function:  $Si(x)\\equiv\\int_0^x du \\sin(u)/u$. 
+
+    """
+    return _libBornAgainBase.Si(x)
+
+def sinc(*args):
+    r"""
+    sinc(double x) -> double
+    sinc(complex_t const z) -> complex_t
+    complex_t MathFunctions::sinc(const complex_t z)
+
+    Complex sinc function:  $sinc(x)\\equiv\\sin(x)/x$. 
+
+    """
+    return _libBornAgainBase.sinc(*args)
+
+def tanhc(z):
+    r"""
+    tanhc(complex_t const z) -> complex_t
+    complex_t MathFunctions::tanhc(const complex_t z)
+
+    Complex tanhc function:  $tanhc(x)\\equiv\\tanh(x)/x$. 
+
+    """
+    return _libBornAgainBase.tanhc(z)
+
+def Laue(x, N):
+    r"""
+    Laue(double const x, size_t N) -> double
+    double MathFunctions::Laue(const double x, size_t N)
+
+    Real Laue function:  $Laue(x,N)\\equiv\\sin(Nx)/sin(x)$. 
+
+    """
+    return _libBornAgainBase.Laue(x, N)
+
+def erf(arg):
+    r"""
+    erf(double arg) -> double
+    double MathFunctions::erf(double arg)
+
+    Error function of real-valued argument. 
+
+    """
+    return _libBornAgainBase.erf(arg)
+
+def Bessel_I0(x):
+    r"""
+    Bessel_I0(double x) -> double
+    double MathFunctions::Bessel_I0(double x)
+
+    Modified Bessel function of the first kind and order 0. 
+
+    """
+    return _libBornAgainBase.Bessel_I0(x)
+
+def Bessel_J0(*args):
+    r"""
+    Bessel_J0(double x) -> double
+    Bessel_J0(complex_t const z) -> complex_t
+    complex_t MathFunctions::Bessel_J0(const complex_t z)
+
+    Complex Bessel function of the first kind and order 0. 
+
+    """
+    return _libBornAgainBase.Bessel_J0(*args)
+
+def Bessel_J1(*args):
+    r"""
+    Bessel_J1(double x) -> double
+    Bessel_J1(complex_t const z) -> complex_t
+    complex_t MathFunctions::Bessel_J1(const complex_t z)
+
+    Complex Bessel function of the first kind and order 1. 
+
+    """
+    return _libBornAgainBase.Bessel_J1(*args)
+
+def Bessel_J1c(*args):
+    r"""
+    Bessel_J1c(double x) -> double
+    Bessel_J1c(complex_t const z) -> complex_t
+    complex_t MathFunctions::Bessel_J1c(const complex_t z)
+
+    Complex Bessel function Bessel_J1(x)/x. 
+
+    """
+    return _libBornAgainBase.Bessel_J1c(*args)
+FORWARD_FFT = _libBornAgainBase.FORWARD_FFT
+
+BACKWARD_FFT = _libBornAgainBase.BACKWARD_FFT
+
+
+def FastFourierTransform(*args):
+    r"""
+    FastFourierTransform(std::vector< complex_t,std::allocator< complex_t > > const & data, MathFunctions::EFFTDirection tcase) -> std::vector< complex_t,std::allocator< complex_t > >
+    FastFourierTransform(std::vector< double,std::allocator< double > > const & data, MathFunctions::EFFTDirection tcase) -> std::vector< complex_t,std::allocator< complex_t > >
+    std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
+
+    simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
+
+    """
+    return _libBornAgainBase.FastFourierTransform(*args)
+
+def ConvolveFFT(signal, resfunc):
+    r"""
+    ConvolveFFT(std::vector< double,std::allocator< double > > const & signal, std::vector< double,std::allocator< double > > const & resfunc) -> std::vector< complex_t,std::allocator< complex_t > >
+    std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
+
+    convolution of two real vectors of equal size 
+
+    """
+    return _libBornAgainBase.ConvolveFFT(signal, resfunc)
+
+def GenerateUniformRandom():
+    r"""
+    GenerateUniformRandom() -> double
+    double MathFunctions::GenerateUniformRandom()
+
+    """
+    return _libBornAgainBase.GenerateUniformRandom()
+
+def GenerateStandardNormalRandom():
+    r"""
+    GenerateStandardNormalRandom() -> double
+    double MathFunctions::GenerateStandardNormalRandom()
+
+    """
+    return _libBornAgainBase.GenerateStandardNormalRandom()
+
+def GenerateNormalRandom(average, std_dev):
+    r"""
+    GenerateNormalRandom(double average, double std_dev) -> double
+    double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+
+    """
+    return _libBornAgainBase.GenerateNormalRandom(average, std_dev)
+
+def GeneratePoissonRandom(average):
+    r"""
+    GeneratePoissonRandom(double average) -> double
+    double MathFunctions::GeneratePoissonRandom(double average)
+
+    """
+    return _libBornAgainBase.GeneratePoissonRandom(average)
+
+def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
+    r"""
+    vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
+    BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+
+    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+
+    """
+    return _libBornAgainBase.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
+class kvector_t(object):
+    r"""
+
+
+    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
+
+    C++ includes: BasicVector3D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(kvector_t self) -> kvector_t
+        __init__(kvector_t self, double const x1, double const y1, double const z1) -> kvector_t
+        BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
+
+        Constructor from cartesian components. 
+
+        """
+        _libBornAgainBase.kvector_t_swiginit(self, _libBornAgainBase.new_kvector_t(*args))
+
+    def x(self):
+        r"""
+        x(kvector_t self) -> double
+        T BasicVector3D< T >::x() const
+
+        Returns x-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.kvector_t_x(self)
+
+    def y(self):
+        r"""
+        y(kvector_t self) -> double
+        T BasicVector3D< T >::y() const
+
+        Returns y-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.kvector_t_y(self)
+
+    def z(self):
+        r"""
+        z(kvector_t self) -> double
+        T BasicVector3D< T >::z() const
+
+        Returns z-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.kvector_t_z(self)
+
+    def setX(self, a):
+        r"""
+        setX(kvector_t self, double const & a)
+        void BasicVector3D< T >::setX(const T &a)
+
+        Sets x-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.kvector_t_setX(self, a)
+
+    def setY(self, a):
+        r"""
+        setY(kvector_t self, double const & a)
+        void BasicVector3D< T >::setY(const T &a)
+
+        Sets y-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.kvector_t_setY(self, a)
+
+    def setZ(self, a):
+        r"""
+        setZ(kvector_t self, double const & a)
+        void BasicVector3D< T >::setZ(const T &a)
+
+        Sets z-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.kvector_t_setZ(self, a)
+
+    def __iadd__(self, v):
+        r"""__iadd__(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainBase.kvector_t___iadd__(self, v)
+
+    def __isub__(self, v):
+        r"""__isub__(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainBase.kvector_t___isub__(self, v)
+
+    def conj(self):
+        r"""
+        conj(kvector_t self) -> kvector_t
+        BasicVector3D< double > BasicVector3D< double >::conj() const
+
+        """
+        return _libBornAgainBase.kvector_t_conj(self)
+
+    def mag2(self):
+        r"""
+        mag2(kvector_t self) -> double
+        double BasicVector3D< T >::mag2() const
+
+        Returns magnitude squared of the vector. 
+
+        """
+        return _libBornAgainBase.kvector_t_mag2(self)
+
+    def mag(self):
+        r"""
+        mag(kvector_t self) -> double
+        double BasicVector3D< T >::mag() const
+
+        Returns magnitude of the vector. 
+
+        """
+        return _libBornAgainBase.kvector_t_mag(self)
+
+    def magxy2(self):
+        r"""
+        magxy2(kvector_t self) -> double
+        double BasicVector3D< T >::magxy2() const
+
+        Returns squared distance from z axis. 
+
+        """
+        return _libBornAgainBase.kvector_t_magxy2(self)
+
+    def magxy(self):
+        r"""
+        magxy(kvector_t self) -> double
+        double BasicVector3D< T >::magxy() const
+
+        Returns distance from z axis. 
+
+        """
+        return _libBornAgainBase.kvector_t_magxy(self)
+
+    def phi(self):
+        r"""
+        phi(kvector_t self) -> double
+        double BasicVector3D< double >::phi() const
+
+        """
+        return _libBornAgainBase.kvector_t_phi(self)
+
+    def theta(self):
+        r"""
+        theta(kvector_t self) -> double
+        double BasicVector3D< double >::theta() const
+
+        """
+        return _libBornAgainBase.kvector_t_theta(self)
+
+    def cosTheta(self):
+        r"""
+        cosTheta(kvector_t self) -> double
+        double BasicVector3D< double >::cosTheta() const
+
+        """
+        return _libBornAgainBase.kvector_t_cosTheta(self)
+
+    def sin2Theta(self):
+        r"""
+        sin2Theta(kvector_t self) -> double
+        double BasicVector3D< double >::sin2Theta() const
+
+        """
+        return _libBornAgainBase.kvector_t_sin2Theta(self)
+
+    def unit(self):
+        r"""
+        unit(kvector_t self) -> kvector_t
+        BasicVector3D< double > BasicVector3D< double >::unit() const
+
+        """
+        return _libBornAgainBase.kvector_t_unit(self)
+
+    def complex(self):
+        r"""
+        complex(kvector_t self) -> cvector_t
+        BasicVector3D< std::complex< double > > BasicVector3D< double >::complex() const
+
+        """
+        return _libBornAgainBase.kvector_t_complex(self)
+
+    def real(self):
+        r"""
+        real(kvector_t self) -> kvector_t
+        BasicVector3D< double > BasicVector3D< double >::real() const
+
+        """
+        return _libBornAgainBase.kvector_t_real(self)
+
+    def angle(self, v):
+        r"""
+        angle(kvector_t self, kvector_t v) -> double
+        double BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
+
+        """
+        return _libBornAgainBase.kvector_t_angle(self, v)
+
+    def project(self, v):
+        r"""
+        project(kvector_t self, kvector_t v) -> kvector_t
+        BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
+
+        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
+
+        """
+        return _libBornAgainBase.kvector_t_project(self, v)
+    __swig_destroy__ = _libBornAgainBase.delete_kvector_t
+
+# Register kvector_t in _libBornAgainBase:
+_libBornAgainBase.kvector_t_swigregister(kvector_t)
 cvar = _libBornAgainBase.cvar
 I = cvar.I
 nanometer = cvar.nanometer
@@ -240,3 +651,584 @@ sr = cvar.sr
 deg = cvar.deg
 tesla = cvar.tesla
 gauss = cvar.gauss
+
+class vector_kvector_t(object):
+    r"""Proxy of C++ std::vector< BasicVector3D< double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_kvector_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vector_kvector_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_kvector_t self) -> bool"""
+        return _libBornAgainBase.vector_kvector_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_kvector_t self) -> bool"""
+        return _libBornAgainBase.vector_kvector_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainBase.vector_kvector_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j) -> vector_kvector_t"""
+        return _libBornAgainBase.vector_kvector_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j, vector_kvector_t v)
+        """
+        return _libBornAgainBase.vector_kvector_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)"""
+        return _libBornAgainBase.vector_kvector_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i)
+        __delitem__(vector_kvector_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vector_kvector_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_kvector_t self, PySliceObject * slice) -> vector_kvector_t
+        __getitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i) -> kvector_t
+        """
+        return _libBornAgainBase.vector_kvector_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_kvector_t self, PySliceObject * slice, vector_kvector_t v)
+        __setitem__(vector_kvector_t self, PySliceObject * slice)
+        __setitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, kvector_t x)
+        """
+        return _libBornAgainBase.vector_kvector_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainBase.vector_kvector_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_kvector_t self, kvector_t x)"""
+        return _libBornAgainBase.vector_kvector_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_kvector_t self) -> bool"""
+        return _libBornAgainBase.vector_kvector_t_empty(self)
+
+    def size(self):
+        r"""size(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainBase.vector_kvector_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vector_kvector_t self, vector_kvector_t v)"""
+        return _libBornAgainBase.vector_kvector_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
+        return _libBornAgainBase.vector_kvector_t_begin(self)
+
+    def end(self):
+        r"""end(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
+        return _libBornAgainBase.vector_kvector_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
+        return _libBornAgainBase.vector_kvector_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
+        return _libBornAgainBase.vector_kvector_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_kvector_t self)"""
+        return _libBornAgainBase.vector_kvector_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::allocator_type"""
+        return _libBornAgainBase.vector_kvector_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_kvector_t self)"""
+        return _libBornAgainBase.vector_kvector_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos) -> std::vector< BasicVector3D< double > >::iterator
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator first, std::vector< BasicVector3D< double > >::iterator last) -> std::vector< BasicVector3D< double > >::iterator
+        """
+        return _libBornAgainBase.vector_kvector_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_kvector_t self) -> vector_kvector_t
+        __init__(vector_kvector_t self, vector_kvector_t other) -> vector_kvector_t
+        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size) -> vector_kvector_t
+        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size, kvector_t value) -> vector_kvector_t
+        """
+        _libBornAgainBase.vector_kvector_t_swiginit(self, _libBornAgainBase.new_vector_kvector_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_kvector_t self, kvector_t x)"""
+        return _libBornAgainBase.vector_kvector_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainBase.vector_kvector_t_front(self)
+
+    def back(self):
+        r"""back(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainBase.vector_kvector_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)"""
+        return _libBornAgainBase.vector_kvector_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size)
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size, kvector_t x)
+        """
+        return _libBornAgainBase.vector_kvector_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, kvector_t x) -> std::vector< BasicVector3D< double > >::iterator
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)
+        """
+        return _libBornAgainBase.vector_kvector_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n)"""
+        return _libBornAgainBase.vector_kvector_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainBase.vector_kvector_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vector_kvector_t
+
+# Register vector_kvector_t in _libBornAgainBase:
+_libBornAgainBase.vector_kvector_t_swigregister(vector_kvector_t)
+
+class cvector_t(object):
+    r"""
+
+
+    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
+
+    C++ includes: BasicVector3D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(cvector_t self) -> cvector_t
+        __init__(cvector_t self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
+        BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
+
+        Constructor from cartesian components. 
+
+        """
+        _libBornAgainBase.cvector_t_swiginit(self, _libBornAgainBase.new_cvector_t(*args))
+
+    def x(self):
+        r"""
+        x(cvector_t self) -> std::complex< double >
+        T BasicVector3D< T >::x() const
+
+        Returns x-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.cvector_t_x(self)
+
+    def y(self):
+        r"""
+        y(cvector_t self) -> std::complex< double >
+        T BasicVector3D< T >::y() const
+
+        Returns y-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.cvector_t_y(self)
+
+    def z(self):
+        r"""
+        z(cvector_t self) -> std::complex< double >
+        T BasicVector3D< T >::z() const
+
+        Returns z-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.cvector_t_z(self)
+
+    def setX(self, a):
+        r"""
+        setX(cvector_t self, std::complex< double > const & a)
+        void BasicVector3D< T >::setX(const T &a)
+
+        Sets x-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.cvector_t_setX(self, a)
+
+    def setY(self, a):
+        r"""
+        setY(cvector_t self, std::complex< double > const & a)
+        void BasicVector3D< T >::setY(const T &a)
+
+        Sets y-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.cvector_t_setY(self, a)
+
+    def setZ(self, a):
+        r"""
+        setZ(cvector_t self, std::complex< double > const & a)
+        void BasicVector3D< T >::setZ(const T &a)
+
+        Sets z-component in cartesian coordinate system. 
+
+        """
+        return _libBornAgainBase.cvector_t_setZ(self, a)
+
+    def __iadd__(self, v):
+        r"""__iadd__(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainBase.cvector_t___iadd__(self, v)
+
+    def __isub__(self, v):
+        r"""__isub__(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainBase.cvector_t___isub__(self, v)
+
+    def conj(self):
+        r"""
+        conj(cvector_t self) -> cvector_t
+        BasicVector3D< double > BasicVector3D< double >::conj() const
+
+        """
+        return _libBornAgainBase.cvector_t_conj(self)
+
+    def mag2(self):
+        r"""
+        mag2(cvector_t self) -> double
+        double BasicVector3D< T >::mag2() const
+
+        Returns magnitude squared of the vector. 
+
+        """
+        return _libBornAgainBase.cvector_t_mag2(self)
+
+    def mag(self):
+        r"""
+        mag(cvector_t self) -> double
+        double BasicVector3D< T >::mag() const
+
+        Returns magnitude of the vector. 
+
+        """
+        return _libBornAgainBase.cvector_t_mag(self)
+
+    def magxy2(self):
+        r"""
+        magxy2(cvector_t self) -> double
+        double BasicVector3D< T >::magxy2() const
+
+        Returns squared distance from z axis. 
+
+        """
+        return _libBornAgainBase.cvector_t_magxy2(self)
+
+    def magxy(self):
+        r"""
+        magxy(cvector_t self) -> double
+        double BasicVector3D< T >::magxy() const
+
+        Returns distance from z axis. 
+
+        """
+        return _libBornAgainBase.cvector_t_magxy(self)
+
+    def unit(self):
+        r"""
+        unit(cvector_t self) -> cvector_t
+        BasicVector3D< double > BasicVector3D< double >::unit() const
+
+        """
+        return _libBornAgainBase.cvector_t_unit(self)
+
+    def real(self):
+        r"""
+        real(cvector_t self) -> kvector_t
+        BasicVector3D< double > BasicVector3D< double >::real() const
+
+        """
+        return _libBornAgainBase.cvector_t_real(self)
+
+    def project(self, v):
+        r"""
+        project(cvector_t self, cvector_t v) -> cvector_t
+        BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
+
+        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
+
+        """
+        return _libBornAgainBase.cvector_t_project(self, v)
+    __swig_destroy__ = _libBornAgainBase.delete_cvector_t
+
+# Register cvector_t in _libBornAgainBase:
+_libBornAgainBase.cvector_t_swigregister(cvector_t)
+
+class vector_cvector_t(object):
+    r"""Proxy of C++ std::vector< BasicVector3D< std::complex< double > > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_cvector_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vector_cvector_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_cvector_t self) -> bool"""
+        return _libBornAgainBase.vector_cvector_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_cvector_t self) -> bool"""
+        return _libBornAgainBase.vector_cvector_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainBase.vector_cvector_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j) -> vector_cvector_t"""
+        return _libBornAgainBase.vector_cvector_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j, vector_cvector_t v)
+        """
+        return _libBornAgainBase.vector_cvector_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)"""
+        return _libBornAgainBase.vector_cvector_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i)
+        __delitem__(vector_cvector_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vector_cvector_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_cvector_t self, PySliceObject * slice) -> vector_cvector_t
+        __getitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i) -> cvector_t
+        """
+        return _libBornAgainBase.vector_cvector_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_cvector_t self, PySliceObject * slice, vector_cvector_t v)
+        __setitem__(vector_cvector_t self, PySliceObject * slice)
+        __setitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, cvector_t x)
+        """
+        return _libBornAgainBase.vector_cvector_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainBase.vector_cvector_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_cvector_t self, cvector_t x)"""
+        return _libBornAgainBase.vector_cvector_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_cvector_t self) -> bool"""
+        return _libBornAgainBase.vector_cvector_t_empty(self)
+
+    def size(self):
+        r"""size(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainBase.vector_cvector_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vector_cvector_t self, vector_cvector_t v)"""
+        return _libBornAgainBase.vector_cvector_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
+        return _libBornAgainBase.vector_cvector_t_begin(self)
+
+    def end(self):
+        r"""end(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
+        return _libBornAgainBase.vector_cvector_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        return _libBornAgainBase.vector_cvector_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        return _libBornAgainBase.vector_cvector_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_cvector_t self)"""
+        return _libBornAgainBase.vector_cvector_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::allocator_type"""
+        return _libBornAgainBase.vector_cvector_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_cvector_t self)"""
+        return _libBornAgainBase.vector_cvector_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator first, std::vector< BasicVector3D< std::complex< double > > >::iterator last) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        """
+        return _libBornAgainBase.vector_cvector_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_cvector_t self) -> vector_cvector_t
+        __init__(vector_cvector_t self, vector_cvector_t other) -> vector_cvector_t
+        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size) -> vector_cvector_t
+        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size, cvector_t value) -> vector_cvector_t
+        """
+        _libBornAgainBase.vector_cvector_t_swiginit(self, _libBornAgainBase.new_vector_cvector_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_cvector_t self, cvector_t x)"""
+        return _libBornAgainBase.vector_cvector_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainBase.vector_cvector_t_front(self)
+
+    def back(self):
+        r"""back(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainBase.vector_cvector_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)"""
+        return _libBornAgainBase.vector_cvector_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size)
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size, cvector_t x)
+        """
+        return _libBornAgainBase.vector_cvector_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, cvector_t x) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)
+        """
+        return _libBornAgainBase.vector_cvector_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n)"""
+        return _libBornAgainBase.vector_cvector_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainBase.vector_cvector_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vector_cvector_t
+
+# Register vector_cvector_t in _libBornAgainBase:
+_libBornAgainBase.vector_cvector_t_swigregister(vector_cvector_t)
+
+class WavevectorInfo(object):
+    r"""
+
+
+    Holds all wavevector information relevant for calculating form factors.
+
+    C++ includes: WavevectorInfo.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    @staticmethod
+    def GetZeroQ():
+        r"""GetZeroQ() -> WavevectorInfo"""
+        return _libBornAgainBase.WavevectorInfo_GetZeroQ()
+
+    def __init__(self, *args):
+        r"""
+        __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
+        __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
+        WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
+
+        """
+        _libBornAgainBase.WavevectorInfo_swiginit(self, _libBornAgainBase.new_WavevectorInfo(*args))
+
+    def transformed(self, transform):
+        r"""
+        transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
+        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
+
+        """
+        return _libBornAgainBase.WavevectorInfo_transformed(self, transform)
+
+    def getKi(self):
+        r"""
+        getKi(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getKi() const
+
+        """
+        return _libBornAgainBase.WavevectorInfo_getKi(self)
+
+    def getKf(self):
+        r"""
+        getKf(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getKf() const
+
+        """
+        return _libBornAgainBase.WavevectorInfo_getKf(self)
+
+    def getQ(self):
+        r"""
+        getQ(WavevectorInfo self) -> cvector_t
+        cvector_t WavevectorInfo::getQ() const
+
+        """
+        return _libBornAgainBase.WavevectorInfo_getQ(self)
+
+    def getWavelength(self):
+        r"""
+        getWavelength(WavevectorInfo self) -> double
+        double WavevectorInfo::getWavelength() const
+
+        """
+        return _libBornAgainBase.WavevectorInfo_getWavelength(self)
+    __swig_destroy__ = _libBornAgainBase.delete_WavevectorInfo
+
+# Register WavevectorInfo in _libBornAgainBase:
+_libBornAgainBase.WavevectorInfo_swigregister(WavevectorInfo)
+
+def WavevectorInfo_GetZeroQ():
+    r"""WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
+    return _libBornAgainBase.WavevectorInfo_GetZeroQ()
+
+

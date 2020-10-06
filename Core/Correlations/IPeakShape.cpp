@@ -14,8 +14,8 @@
 
 #include "Core/Correlations/IPeakShape.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Tools/Integrator.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/Integrator.h"
+#include "Base/Utils/MathFunctions.h"
 #include <limits>
 
 namespace

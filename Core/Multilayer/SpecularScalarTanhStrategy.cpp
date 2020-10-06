@@ -14,7 +14,7 @@
 
 #include "Core/Multilayer/SpecularScalarTanhStrategy.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 #include <Eigen/Dense>
 
 namespace

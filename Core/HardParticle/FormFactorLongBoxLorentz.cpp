@@ -14,7 +14,7 @@
 
 #include "Core/HardParticle/FormFactorLongBoxLorentz.h"
 #include "Core/Shapes/Box.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(const std::vector<double> P)
     : IFormFactorBorn({"FormFactorLongBoxLorentz",

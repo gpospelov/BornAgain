@@ -17,7 +17,7 @@
 //! "Form factor (Fourier shape transform) of polygon and polyhedron."
 
 #include "Core/HardParticle/Prism.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 #include <stdexcept> // need overlooked by g++ 5.4
 
 Prism::Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vertices)

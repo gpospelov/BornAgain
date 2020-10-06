@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/Precomputed.h
+//! @file      Base/Utils/Precomputed.h
 //! @brief     Defines namespace Precomputed, providing precomputed constants
 //!
 //! @homepage  http://www.bornagainproject.org

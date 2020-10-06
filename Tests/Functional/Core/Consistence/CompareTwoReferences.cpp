@@ -17,7 +17,7 @@
 #include "Base/Utils/Assert.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
-#include "Core/Tools/FileSystemUtils.h"
+#include "Base/Utils/FileSystemUtils.h"
 #include <iostream>
 
 namespace

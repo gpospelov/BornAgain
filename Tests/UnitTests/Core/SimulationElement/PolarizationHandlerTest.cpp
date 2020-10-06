@@ -1,5 +1,5 @@
 #include "Core/Binning/PolarizationHandler.h"
-#include "Core/Vector/EigenCore.h"
+#include "Base/Vector/EigenCore.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class PolarizationHandlerTest : public ::testing::Test

@@ -17,7 +17,7 @@
 
 #include "Base/Types/Complex.h"
 #include "Base/Types/ICloneable.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/Vectors3D.h"
 #include <vector>
 
 class Slice;

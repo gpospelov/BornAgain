@@ -14,7 +14,7 @@
 
 #include "Core/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
-#include "Core/Vector/SomeFormFactors.h"
+#include "Core/LibFF/SomeFormFactors.h"
 #include "Fit/Tools/RealLimits.h"
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(const std::vector<double> P)

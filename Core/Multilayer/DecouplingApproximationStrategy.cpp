@@ -19,7 +19,7 @@
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Multilayer/InterferenceFunctionUtils.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
 using InterferenceFunctionUtils::PrecomputeScalarFormFactors;

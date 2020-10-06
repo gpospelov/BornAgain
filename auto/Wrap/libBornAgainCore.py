@@ -1734,6 +1734,554 @@ _libBornAgainCore.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
 
 import libBornAgainFit
 import libBornAgainBase
+class kvector_t(object):
+    r"""Proxy of C++ BasicVector3D< double > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(kvector_t self) -> kvector_t
+        __init__(kvector_t self, double const x1, double const y1, double const z1) -> kvector_t
+        """
+        _libBornAgainCore.kvector_t_swiginit(self, _libBornAgainCore.new_kvector_t(*args))
+
+    def x(self):
+        r"""x(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_x(self)
+
+    def y(self):
+        r"""y(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_y(self)
+
+    def z(self):
+        r"""z(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_z(self)
+
+    def setX(self, a):
+        r"""setX(kvector_t self, double const & a)"""
+        return _libBornAgainCore.kvector_t_setX(self, a)
+
+    def setY(self, a):
+        r"""setY(kvector_t self, double const & a)"""
+        return _libBornAgainCore.kvector_t_setY(self, a)
+
+    def setZ(self, a):
+        r"""setZ(kvector_t self, double const & a)"""
+        return _libBornAgainCore.kvector_t_setZ(self, a)
+
+    def __iadd__(self, v):
+        r"""__iadd__(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainCore.kvector_t___iadd__(self, v)
+
+    def __isub__(self, v):
+        r"""__isub__(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainCore.kvector_t___isub__(self, v)
+
+    def conj(self):
+        r"""conj(kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.kvector_t_conj(self)
+
+    def mag2(self):
+        r"""mag2(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_mag2(self)
+
+    def mag(self):
+        r"""mag(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_mag(self)
+
+    def magxy2(self):
+        r"""magxy2(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_magxy2(self)
+
+    def magxy(self):
+        r"""magxy(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_magxy(self)
+
+    def phi(self):
+        r"""phi(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_phi(self)
+
+    def theta(self):
+        r"""theta(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_theta(self)
+
+    def cosTheta(self):
+        r"""cosTheta(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_cosTheta(self)
+
+    def sin2Theta(self):
+        r"""sin2Theta(kvector_t self) -> double"""
+        return _libBornAgainCore.kvector_t_sin2Theta(self)
+
+    def unit(self):
+        r"""unit(kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.kvector_t_unit(self)
+
+    def complex(self):
+        r"""complex(kvector_t self) -> cvector_t"""
+        return _libBornAgainCore.kvector_t_complex(self)
+
+    def real(self):
+        r"""real(kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.kvector_t_real(self)
+
+    def angle(self, v):
+        r"""angle(kvector_t self, kvector_t v) -> double"""
+        return _libBornAgainCore.kvector_t_angle(self, v)
+
+    def project(self, v):
+        r"""project(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainCore.kvector_t_project(self, v)
+
+    def __add__(self, rhs):
+        r"""__add__(kvector_t self, kvector_t rhs) -> kvector_t"""
+        return _libBornAgainCore.kvector_t___add__(self, rhs)
+
+    def __mul__(self, c):
+        r"""__mul__(kvector_t self, double c) -> kvector_t"""
+        return _libBornAgainCore.kvector_t___mul__(self, c)
+
+    def __rmul__(self, c):
+        r"""__rmul__(kvector_t self, double c) -> kvector_t"""
+        return _libBornAgainCore.kvector_t___rmul__(self, c)
+
+    def __neg__(self):
+        r"""__neg__(kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.kvector_t___neg__(self)
+    __swig_destroy__ = _libBornAgainCore.delete_kvector_t
+
+# Register kvector_t in _libBornAgainCore:
+_libBornAgainCore.kvector_t_swigregister(kvector_t)
+
+class vector_kvector_t(object):
+    r"""Proxy of C++ std::vector< BasicVector3D< double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_kvector_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.vector_kvector_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_kvector_t self) -> bool"""
+        return _libBornAgainCore.vector_kvector_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_kvector_t self) -> bool"""
+        return _libBornAgainCore.vector_kvector_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainCore.vector_kvector_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j) -> vector_kvector_t"""
+        return _libBornAgainCore.vector_kvector_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j, vector_kvector_t v)
+        """
+        return _libBornAgainCore.vector_kvector_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)"""
+        return _libBornAgainCore.vector_kvector_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i)
+        __delitem__(vector_kvector_t self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.vector_kvector_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_kvector_t self, PySliceObject * slice) -> vector_kvector_t
+        __getitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i) -> kvector_t
+        """
+        return _libBornAgainCore.vector_kvector_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_kvector_t self, PySliceObject * slice, vector_kvector_t v)
+        __setitem__(vector_kvector_t self, PySliceObject * slice)
+        __setitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, kvector_t x)
+        """
+        return _libBornAgainCore.vector_kvector_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.vector_kvector_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_kvector_t self, kvector_t x)"""
+        return _libBornAgainCore.vector_kvector_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_kvector_t self) -> bool"""
+        return _libBornAgainCore.vector_kvector_t_empty(self)
+
+    def size(self):
+        r"""size(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainCore.vector_kvector_t_size(self)
+
+    def swap(self, v):
+        r"""
+        swap(vector_kvector_t self, vector_kvector_t v)
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.vector_kvector_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
+        return _libBornAgainCore.vector_kvector_t_begin(self)
+
+    def end(self):
+        r"""end(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
+        return _libBornAgainCore.vector_kvector_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_kvector_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_kvector_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_kvector_t self)"""
+        return _libBornAgainCore.vector_kvector_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::allocator_type"""
+        return _libBornAgainCore.vector_kvector_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_kvector_t self)"""
+        return _libBornAgainCore.vector_kvector_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos) -> std::vector< BasicVector3D< double > >::iterator
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator first, std::vector< BasicVector3D< double > >::iterator last) -> std::vector< BasicVector3D< double > >::iterator
+        """
+        return _libBornAgainCore.vector_kvector_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_kvector_t self) -> vector_kvector_t
+        __init__(vector_kvector_t self, vector_kvector_t other) -> vector_kvector_t
+        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size) -> vector_kvector_t
+        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size, kvector_t value) -> vector_kvector_t
+        """
+        _libBornAgainCore.vector_kvector_t_swiginit(self, _libBornAgainCore.new_vector_kvector_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_kvector_t self, kvector_t x)"""
+        return _libBornAgainCore.vector_kvector_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.vector_kvector_t_front(self)
+
+    def back(self):
+        r"""back(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.vector_kvector_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)"""
+        return _libBornAgainCore.vector_kvector_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size)
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size, kvector_t x)
+        """
+        return _libBornAgainCore.vector_kvector_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, kvector_t x) -> std::vector< BasicVector3D< double > >::iterator
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)
+        """
+        return _libBornAgainCore.vector_kvector_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n)"""
+        return _libBornAgainCore.vector_kvector_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainCore.vector_kvector_t_capacity(self)
+    __swig_destroy__ = _libBornAgainCore.delete_vector_kvector_t
+
+# Register vector_kvector_t in _libBornAgainCore:
+_libBornAgainCore.vector_kvector_t_swigregister(vector_kvector_t)
+
+class cvector_t(object):
+    r"""Proxy of C++ BasicVector3D< std::complex< double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(cvector_t self) -> cvector_t
+        __init__(cvector_t self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
+        """
+        _libBornAgainCore.cvector_t_swiginit(self, _libBornAgainCore.new_cvector_t(*args))
+
+    def x(self):
+        r"""x(cvector_t self) -> std::complex< double >"""
+        return _libBornAgainCore.cvector_t_x(self)
+
+    def y(self):
+        r"""y(cvector_t self) -> std::complex< double >"""
+        return _libBornAgainCore.cvector_t_y(self)
+
+    def z(self):
+        r"""z(cvector_t self) -> std::complex< double >"""
+        return _libBornAgainCore.cvector_t_z(self)
+
+    def setX(self, a):
+        r"""setX(cvector_t self, std::complex< double > const & a)"""
+        return _libBornAgainCore.cvector_t_setX(self, a)
+
+    def setY(self, a):
+        r"""setY(cvector_t self, std::complex< double > const & a)"""
+        return _libBornAgainCore.cvector_t_setY(self, a)
+
+    def setZ(self, a):
+        r"""setZ(cvector_t self, std::complex< double > const & a)"""
+        return _libBornAgainCore.cvector_t_setZ(self, a)
+
+    def __iadd__(self, v):
+        r"""__iadd__(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainCore.cvector_t___iadd__(self, v)
+
+    def __isub__(self, v):
+        r"""__isub__(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainCore.cvector_t___isub__(self, v)
+
+    def conj(self):
+        r"""conj(cvector_t self) -> cvector_t"""
+        return _libBornAgainCore.cvector_t_conj(self)
+
+    def mag2(self):
+        r"""mag2(cvector_t self) -> double"""
+        return _libBornAgainCore.cvector_t_mag2(self)
+
+    def mag(self):
+        r"""mag(cvector_t self) -> double"""
+        return _libBornAgainCore.cvector_t_mag(self)
+
+    def magxy2(self):
+        r"""magxy2(cvector_t self) -> double"""
+        return _libBornAgainCore.cvector_t_magxy2(self)
+
+    def magxy(self):
+        r"""magxy(cvector_t self) -> double"""
+        return _libBornAgainCore.cvector_t_magxy(self)
+
+    def unit(self):
+        r"""unit(cvector_t self) -> cvector_t"""
+        return _libBornAgainCore.cvector_t_unit(self)
+
+    def real(self):
+        r"""real(cvector_t self) -> kvector_t"""
+        return _libBornAgainCore.cvector_t_real(self)
+
+    def project(self, v):
+        r"""project(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainCore.cvector_t_project(self, v)
+    __swig_destroy__ = _libBornAgainCore.delete_cvector_t
+
+# Register cvector_t in _libBornAgainCore:
+_libBornAgainCore.cvector_t_swigregister(cvector_t)
+
+class vector_cvector_t(object):
+    r"""Proxy of C++ std::vector< BasicVector3D< std::complex< double > > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_cvector_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.vector_cvector_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_cvector_t self) -> bool"""
+        return _libBornAgainCore.vector_cvector_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_cvector_t self) -> bool"""
+        return _libBornAgainCore.vector_cvector_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainCore.vector_cvector_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j) -> vector_cvector_t"""
+        return _libBornAgainCore.vector_cvector_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j, vector_cvector_t v)
+        """
+        return _libBornAgainCore.vector_cvector_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)"""
+        return _libBornAgainCore.vector_cvector_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i)
+        __delitem__(vector_cvector_t self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.vector_cvector_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_cvector_t self, PySliceObject * slice) -> vector_cvector_t
+        __getitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i) -> cvector_t
+        """
+        return _libBornAgainCore.vector_cvector_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_cvector_t self, PySliceObject * slice, vector_cvector_t v)
+        __setitem__(vector_cvector_t self, PySliceObject * slice)
+        __setitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, cvector_t x)
+        """
+        return _libBornAgainCore.vector_cvector_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainCore.vector_cvector_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_cvector_t self, cvector_t x)"""
+        return _libBornAgainCore.vector_cvector_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_cvector_t self) -> bool"""
+        return _libBornAgainCore.vector_cvector_t_empty(self)
+
+    def size(self):
+        r"""size(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainCore.vector_cvector_t_size(self)
+
+    def swap(self, v):
+        r"""
+        swap(vector_cvector_t self, vector_cvector_t v)
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.vector_cvector_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
+        return _libBornAgainCore.vector_cvector_t_begin(self)
+
+    def end(self):
+        r"""end(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
+        return _libBornAgainCore.vector_cvector_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        return _libBornAgainCore.vector_cvector_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        return _libBornAgainCore.vector_cvector_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_cvector_t self)"""
+        return _libBornAgainCore.vector_cvector_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::allocator_type"""
+        return _libBornAgainCore.vector_cvector_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_cvector_t self)"""
+        return _libBornAgainCore.vector_cvector_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator first, std::vector< BasicVector3D< std::complex< double > > >::iterator last) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        """
+        return _libBornAgainCore.vector_cvector_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_cvector_t self) -> vector_cvector_t
+        __init__(vector_cvector_t self, vector_cvector_t other) -> vector_cvector_t
+        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size) -> vector_cvector_t
+        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size, cvector_t value) -> vector_cvector_t
+        """
+        _libBornAgainCore.vector_cvector_t_swiginit(self, _libBornAgainCore.new_vector_cvector_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_cvector_t self, cvector_t x)"""
+        return _libBornAgainCore.vector_cvector_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainCore.vector_cvector_t_front(self)
+
+    def back(self):
+        r"""back(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainCore.vector_cvector_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)"""
+        return _libBornAgainCore.vector_cvector_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size)
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size, cvector_t x)
+        """
+        return _libBornAgainCore.vector_cvector_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, cvector_t x) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)
+        """
+        return _libBornAgainCore.vector_cvector_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n)"""
+        return _libBornAgainCore.vector_cvector_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainCore.vector_cvector_t_capacity(self)
+    __swig_destroy__ = _libBornAgainCore.delete_vector_cvector_t
+
+# Register vector_cvector_t in _libBornAgainCore:
+_libBornAgainCore.vector_cvector_t_swigregister(vector_cvector_t)
+
 class swig_dummy_type_axisinfo_vector(object):
     r"""Proxy of C++ std::vector< AxisInfo > class."""
 
@@ -2485,778 +3033,6 @@ class SimulationFactoryTemp(object):
 
 # Register SimulationFactoryTemp in _libBornAgainCore:
 _libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
-
-
-def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
-    r"""
-    vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
-    BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-
-    """
-    return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
-class kvector_t(object):
-    r"""
-
-
-    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
-
-    C++ includes: BasicVector3D.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(kvector_t self) -> kvector_t
-        __init__(kvector_t self, double const x1, double const y1, double const z1) -> kvector_t
-        BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
-
-        Constructor from cartesian components. 
-
-        """
-        _libBornAgainCore.kvector_t_swiginit(self, _libBornAgainCore.new_kvector_t(*args))
-
-    def x(self):
-        r"""
-        x(kvector_t self) -> double
-        T BasicVector3D< T >::x() const
-
-        Returns x-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.kvector_t_x(self)
-
-    def y(self):
-        r"""
-        y(kvector_t self) -> double
-        T BasicVector3D< T >::y() const
-
-        Returns y-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.kvector_t_y(self)
-
-    def z(self):
-        r"""
-        z(kvector_t self) -> double
-        T BasicVector3D< T >::z() const
-
-        Returns z-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.kvector_t_z(self)
-
-    def setX(self, a):
-        r"""
-        setX(kvector_t self, double const & a)
-        void BasicVector3D< T >::setX(const T &a)
-
-        Sets x-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.kvector_t_setX(self, a)
-
-    def setY(self, a):
-        r"""
-        setY(kvector_t self, double const & a)
-        void BasicVector3D< T >::setY(const T &a)
-
-        Sets y-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.kvector_t_setY(self, a)
-
-    def setZ(self, a):
-        r"""
-        setZ(kvector_t self, double const & a)
-        void BasicVector3D< T >::setZ(const T &a)
-
-        Sets z-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.kvector_t_setZ(self, a)
-
-    def __iadd__(self, v):
-        r"""__iadd__(kvector_t self, kvector_t v) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___iadd__(self, v)
-
-    def __isub__(self, v):
-        r"""__isub__(kvector_t self, kvector_t v) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___isub__(self, v)
-
-    def conj(self):
-        r"""
-        conj(kvector_t self) -> kvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-
-        """
-        return _libBornAgainCore.kvector_t_conj(self)
-
-    def mag2(self):
-        r"""
-        mag2(kvector_t self) -> double
-        double BasicVector3D< T >::mag2() const
-
-        Returns magnitude squared of the vector. 
-
-        """
-        return _libBornAgainCore.kvector_t_mag2(self)
-
-    def mag(self):
-        r"""
-        mag(kvector_t self) -> double
-        double BasicVector3D< T >::mag() const
-
-        Returns magnitude of the vector. 
-
-        """
-        return _libBornAgainCore.kvector_t_mag(self)
-
-    def magxy2(self):
-        r"""
-        magxy2(kvector_t self) -> double
-        double BasicVector3D< T >::magxy2() const
-
-        Returns squared distance from z axis. 
-
-        """
-        return _libBornAgainCore.kvector_t_magxy2(self)
-
-    def magxy(self):
-        r"""
-        magxy(kvector_t self) -> double
-        double BasicVector3D< T >::magxy() const
-
-        Returns distance from z axis. 
-
-        """
-        return _libBornAgainCore.kvector_t_magxy(self)
-
-    def phi(self):
-        r"""
-        phi(kvector_t self) -> double
-        double BasicVector3D< T >::phi() const
-
-        Returns azimuth angle. 
-
-        """
-        return _libBornAgainCore.kvector_t_phi(self)
-
-    def theta(self):
-        r"""
-        theta(kvector_t self) -> double
-        double BasicVector3D< T >::theta() const
-
-        Returns polar angle. 
-
-        """
-        return _libBornAgainCore.kvector_t_theta(self)
-
-    def cosTheta(self):
-        r"""
-        cosTheta(kvector_t self) -> double
-        double BasicVector3D< T >::cosTheta() const
-
-        Returns cosine of polar angle. 
-
-        """
-        return _libBornAgainCore.kvector_t_cosTheta(self)
-
-    def sin2Theta(self):
-        r"""
-        sin2Theta(kvector_t self) -> double
-        double BasicVector3D< T >::sin2Theta() const
-
-        Returns squared sine of polar angle. 
-
-        """
-        return _libBornAgainCore.kvector_t_sin2Theta(self)
-
-    def unit(self):
-        r"""
-        unit(kvector_t self) -> kvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
-
-        """
-        return _libBornAgainCore.kvector_t_unit(self)
-
-    def complex(self):
-        r"""
-        complex(kvector_t self) -> cvector_t
-        BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
-
-        Returns this, trivially converted to complex type. 
-
-        """
-        return _libBornAgainCore.kvector_t_complex(self)
-
-    def real(self):
-        r"""
-        real(kvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-        """
-        return _libBornAgainCore.kvector_t_real(self)
-
-    def angle(self, v):
-        r"""
-        angle(kvector_t self, kvector_t v) -> double
-        double BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
-
-        Returns angle with respect to another vector. 
-
-        """
-        return _libBornAgainCore.kvector_t_angle(self, v)
-
-    def project(self, v):
-        r"""
-        project(kvector_t self, kvector_t v) -> kvector_t
-        BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
-
-        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
-
-        """
-        return _libBornAgainCore.kvector_t_project(self, v)
-
-    def __add__(self, rhs):
-        r"""__add__(kvector_t self, kvector_t rhs) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___add__(self, rhs)
-
-    def __mul__(self, c):
-        r"""__mul__(kvector_t self, double c) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___mul__(self, c)
-
-    def __rmul__(self, c):
-        r"""__rmul__(kvector_t self, double c) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___rmul__(self, c)
-
-    def __neg__(self):
-        r"""__neg__(kvector_t self) -> kvector_t"""
-        return _libBornAgainCore.kvector_t___neg__(self)
-    __swig_destroy__ = _libBornAgainCore.delete_kvector_t
-
-# Register kvector_t in _libBornAgainCore:
-_libBornAgainCore.kvector_t_swigregister(kvector_t)
-
-class vector_kvector_t(object):
-    r"""Proxy of C++ std::vector< BasicVector3D< double > > class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def iterator(self):
-        r"""iterator(vector_kvector_t self) -> SwigPyIterator"""
-        return _libBornAgainCore.vector_kvector_t_iterator(self)
-    def __iter__(self):
-        return self.iterator()
-
-    def __nonzero__(self):
-        r"""__nonzero__(vector_kvector_t self) -> bool"""
-        return _libBornAgainCore.vector_kvector_t___nonzero__(self)
-
-    def __bool__(self):
-        r"""__bool__(vector_kvector_t self) -> bool"""
-        return _libBornAgainCore.vector_kvector_t___bool__(self)
-
-    def __len__(self):
-        r"""__len__(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
-        return _libBornAgainCore.vector_kvector_t___len__(self)
-
-    def __getslice__(self, i, j):
-        r"""__getslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j) -> vector_kvector_t"""
-        return _libBornAgainCore.vector_kvector_t___getslice__(self, i, j)
-
-    def __setslice__(self, *args):
-        r"""
-        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)
-        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j, vector_kvector_t v)
-        """
-        return _libBornAgainCore.vector_kvector_t___setslice__(self, *args)
-
-    def __delslice__(self, i, j):
-        r"""__delslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)"""
-        return _libBornAgainCore.vector_kvector_t___delslice__(self, i, j)
-
-    def __delitem__(self, *args):
-        r"""
-        __delitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i)
-        __delitem__(vector_kvector_t self, PySliceObject * slice)
-        """
-        return _libBornAgainCore.vector_kvector_t___delitem__(self, *args)
-
-    def __getitem__(self, *args):
-        r"""
-        __getitem__(vector_kvector_t self, PySliceObject * slice) -> vector_kvector_t
-        __getitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i) -> kvector_t
-        """
-        return _libBornAgainCore.vector_kvector_t___getitem__(self, *args)
-
-    def __setitem__(self, *args):
-        r"""
-        __setitem__(vector_kvector_t self, PySliceObject * slice, vector_kvector_t v)
-        __setitem__(vector_kvector_t self, PySliceObject * slice)
-        __setitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, kvector_t x)
-        """
-        return _libBornAgainCore.vector_kvector_t___setitem__(self, *args)
-
-    def pop(self):
-        r"""pop(vector_kvector_t self) -> kvector_t"""
-        return _libBornAgainCore.vector_kvector_t_pop(self)
-
-    def append(self, x):
-        r"""append(vector_kvector_t self, kvector_t x)"""
-        return _libBornAgainCore.vector_kvector_t_append(self, x)
-
-    def empty(self):
-        r"""empty(vector_kvector_t self) -> bool"""
-        return _libBornAgainCore.vector_kvector_t_empty(self)
-
-    def size(self):
-        r"""size(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
-        return _libBornAgainCore.vector_kvector_t_size(self)
-
-    def swap(self, v):
-        r"""
-        swap(vector_kvector_t self, vector_kvector_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
-        return _libBornAgainCore.vector_kvector_t_swap(self, v)
-
-    def begin(self):
-        r"""begin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
-        return _libBornAgainCore.vector_kvector_t_begin(self)
-
-    def end(self):
-        r"""end(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
-        return _libBornAgainCore.vector_kvector_t_end(self)
-
-    def rbegin(self):
-        r"""rbegin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
-        return _libBornAgainCore.vector_kvector_t_rbegin(self)
-
-    def rend(self):
-        r"""rend(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
-        return _libBornAgainCore.vector_kvector_t_rend(self)
-
-    def clear(self):
-        r"""clear(vector_kvector_t self)"""
-        return _libBornAgainCore.vector_kvector_t_clear(self)
-
-    def get_allocator(self):
-        r"""get_allocator(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::allocator_type"""
-        return _libBornAgainCore.vector_kvector_t_get_allocator(self)
-
-    def pop_back(self):
-        r"""pop_back(vector_kvector_t self)"""
-        return _libBornAgainCore.vector_kvector_t_pop_back(self)
-
-    def erase(self, *args):
-        r"""
-        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos) -> std::vector< BasicVector3D< double > >::iterator
-        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator first, std::vector< BasicVector3D< double > >::iterator last) -> std::vector< BasicVector3D< double > >::iterator
-        """
-        return _libBornAgainCore.vector_kvector_t_erase(self, *args)
-
-    def __init__(self, *args):
-        r"""
-        __init__(vector_kvector_t self) -> vector_kvector_t
-        __init__(vector_kvector_t self, vector_kvector_t other) -> vector_kvector_t
-        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size) -> vector_kvector_t
-        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size, kvector_t value) -> vector_kvector_t
-        """
-        _libBornAgainCore.vector_kvector_t_swiginit(self, _libBornAgainCore.new_vector_kvector_t(*args))
-
-    def push_back(self, x):
-        r"""push_back(vector_kvector_t self, kvector_t x)"""
-        return _libBornAgainCore.vector_kvector_t_push_back(self, x)
-
-    def front(self):
-        r"""front(vector_kvector_t self) -> kvector_t"""
-        return _libBornAgainCore.vector_kvector_t_front(self)
-
-    def back(self):
-        r"""back(vector_kvector_t self) -> kvector_t"""
-        return _libBornAgainCore.vector_kvector_t_back(self)
-
-    def assign(self, n, x):
-        r"""assign(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)"""
-        return _libBornAgainCore.vector_kvector_t_assign(self, n, x)
-
-    def resize(self, *args):
-        r"""
-        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size)
-        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size, kvector_t x)
-        """
-        return _libBornAgainCore.vector_kvector_t_resize(self, *args)
-
-    def insert(self, *args):
-        r"""
-        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, kvector_t x) -> std::vector< BasicVector3D< double > >::iterator
-        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)
-        """
-        return _libBornAgainCore.vector_kvector_t_insert(self, *args)
-
-    def reserve(self, n):
-        r"""reserve(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n)"""
-        return _libBornAgainCore.vector_kvector_t_reserve(self, n)
-
-    def capacity(self):
-        r"""capacity(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
-        return _libBornAgainCore.vector_kvector_t_capacity(self)
-    __swig_destroy__ = _libBornAgainCore.delete_vector_kvector_t
-
-# Register vector_kvector_t in _libBornAgainCore:
-_libBornAgainCore.vector_kvector_t_swigregister(vector_kvector_t)
-
-class cvector_t(object):
-    r"""
-
-
-    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
-
-    C++ includes: BasicVector3D.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(cvector_t self) -> cvector_t
-        __init__(cvector_t self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
-        BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
-
-        Constructor from cartesian components. 
-
-        """
-        _libBornAgainCore.cvector_t_swiginit(self, _libBornAgainCore.new_cvector_t(*args))
-
-    def x(self):
-        r"""
-        x(cvector_t self) -> std::complex< double >
-        T BasicVector3D< T >::x() const
-
-        Returns x-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.cvector_t_x(self)
-
-    def y(self):
-        r"""
-        y(cvector_t self) -> std::complex< double >
-        T BasicVector3D< T >::y() const
-
-        Returns y-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.cvector_t_y(self)
-
-    def z(self):
-        r"""
-        z(cvector_t self) -> std::complex< double >
-        T BasicVector3D< T >::z() const
-
-        Returns z-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.cvector_t_z(self)
-
-    def setX(self, a):
-        r"""
-        setX(cvector_t self, std::complex< double > const & a)
-        void BasicVector3D< T >::setX(const T &a)
-
-        Sets x-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.cvector_t_setX(self, a)
-
-    def setY(self, a):
-        r"""
-        setY(cvector_t self, std::complex< double > const & a)
-        void BasicVector3D< T >::setY(const T &a)
-
-        Sets y-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.cvector_t_setY(self, a)
-
-    def setZ(self, a):
-        r"""
-        setZ(cvector_t self, std::complex< double > const & a)
-        void BasicVector3D< T >::setZ(const T &a)
-
-        Sets z-component in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.cvector_t_setZ(self, a)
-
-    def __iadd__(self, v):
-        r"""__iadd__(cvector_t self, cvector_t v) -> cvector_t"""
-        return _libBornAgainCore.cvector_t___iadd__(self, v)
-
-    def __isub__(self, v):
-        r"""__isub__(cvector_t self, cvector_t v) -> cvector_t"""
-        return _libBornAgainCore.cvector_t___isub__(self, v)
-
-    def conj(self):
-        r"""
-        conj(cvector_t self) -> cvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-
-        """
-        return _libBornAgainCore.cvector_t_conj(self)
-
-    def mag2(self):
-        r"""
-        mag2(cvector_t self) -> double
-        double BasicVector3D< T >::mag2() const
-
-        Returns magnitude squared of the vector. 
-
-        """
-        return _libBornAgainCore.cvector_t_mag2(self)
-
-    def mag(self):
-        r"""
-        mag(cvector_t self) -> double
-        double BasicVector3D< T >::mag() const
-
-        Returns magnitude of the vector. 
-
-        """
-        return _libBornAgainCore.cvector_t_mag(self)
-
-    def magxy2(self):
-        r"""
-        magxy2(cvector_t self) -> double
-        double BasicVector3D< T >::magxy2() const
-
-        Returns squared distance from z axis. 
-
-        """
-        return _libBornAgainCore.cvector_t_magxy2(self)
-
-    def magxy(self):
-        r"""
-        magxy(cvector_t self) -> double
-        double BasicVector3D< T >::magxy() const
-
-        Returns distance from z axis. 
-
-        """
-        return _libBornAgainCore.cvector_t_magxy(self)
-
-    def unit(self):
-        r"""
-        unit(cvector_t self) -> cvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
-
-        """
-        return _libBornAgainCore.cvector_t_unit(self)
-
-    def real(self):
-        r"""
-        real(cvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-        """
-        return _libBornAgainCore.cvector_t_real(self)
-
-    def project(self, v):
-        r"""
-        project(cvector_t self, cvector_t v) -> cvector_t
-        BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
-
-        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
-
-        """
-        return _libBornAgainCore.cvector_t_project(self, v)
-    __swig_destroy__ = _libBornAgainCore.delete_cvector_t
-
-# Register cvector_t in _libBornAgainCore:
-_libBornAgainCore.cvector_t_swigregister(cvector_t)
-
-class vector_cvector_t(object):
-    r"""Proxy of C++ std::vector< BasicVector3D< std::complex< double > > > class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def iterator(self):
-        r"""iterator(vector_cvector_t self) -> SwigPyIterator"""
-        return _libBornAgainCore.vector_cvector_t_iterator(self)
-    def __iter__(self):
-        return self.iterator()
-
-    def __nonzero__(self):
-        r"""__nonzero__(vector_cvector_t self) -> bool"""
-        return _libBornAgainCore.vector_cvector_t___nonzero__(self)
-
-    def __bool__(self):
-        r"""__bool__(vector_cvector_t self) -> bool"""
-        return _libBornAgainCore.vector_cvector_t___bool__(self)
-
-    def __len__(self):
-        r"""__len__(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
-        return _libBornAgainCore.vector_cvector_t___len__(self)
-
-    def __getslice__(self, i, j):
-        r"""__getslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j) -> vector_cvector_t"""
-        return _libBornAgainCore.vector_cvector_t___getslice__(self, i, j)
-
-    def __setslice__(self, *args):
-        r"""
-        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)
-        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j, vector_cvector_t v)
-        """
-        return _libBornAgainCore.vector_cvector_t___setslice__(self, *args)
-
-    def __delslice__(self, i, j):
-        r"""__delslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)"""
-        return _libBornAgainCore.vector_cvector_t___delslice__(self, i, j)
-
-    def __delitem__(self, *args):
-        r"""
-        __delitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i)
-        __delitem__(vector_cvector_t self, PySliceObject * slice)
-        """
-        return _libBornAgainCore.vector_cvector_t___delitem__(self, *args)
-
-    def __getitem__(self, *args):
-        r"""
-        __getitem__(vector_cvector_t self, PySliceObject * slice) -> vector_cvector_t
-        __getitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i) -> cvector_t
-        """
-        return _libBornAgainCore.vector_cvector_t___getitem__(self, *args)
-
-    def __setitem__(self, *args):
-        r"""
-        __setitem__(vector_cvector_t self, PySliceObject * slice, vector_cvector_t v)
-        __setitem__(vector_cvector_t self, PySliceObject * slice)
-        __setitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, cvector_t x)
-        """
-        return _libBornAgainCore.vector_cvector_t___setitem__(self, *args)
-
-    def pop(self):
-        r"""pop(vector_cvector_t self) -> cvector_t"""
-        return _libBornAgainCore.vector_cvector_t_pop(self)
-
-    def append(self, x):
-        r"""append(vector_cvector_t self, cvector_t x)"""
-        return _libBornAgainCore.vector_cvector_t_append(self, x)
-
-    def empty(self):
-        r"""empty(vector_cvector_t self) -> bool"""
-        return _libBornAgainCore.vector_cvector_t_empty(self)
-
-    def size(self):
-        r"""size(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
-        return _libBornAgainCore.vector_cvector_t_size(self)
-
-    def swap(self, v):
-        r"""
-        swap(vector_cvector_t self, vector_cvector_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
-        return _libBornAgainCore.vector_cvector_t_swap(self, v)
-
-    def begin(self):
-        r"""begin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
-        return _libBornAgainCore.vector_cvector_t_begin(self)
-
-    def end(self):
-        r"""end(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
-        return _libBornAgainCore.vector_cvector_t_end(self)
-
-    def rbegin(self):
-        r"""rbegin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
-        return _libBornAgainCore.vector_cvector_t_rbegin(self)
-
-    def rend(self):
-        r"""rend(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
-        return _libBornAgainCore.vector_cvector_t_rend(self)
-
-    def clear(self):
-        r"""clear(vector_cvector_t self)"""
-        return _libBornAgainCore.vector_cvector_t_clear(self)
-
-    def get_allocator(self):
-        r"""get_allocator(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::allocator_type"""
-        return _libBornAgainCore.vector_cvector_t_get_allocator(self)
-
-    def pop_back(self):
-        r"""pop_back(vector_cvector_t self)"""
-        return _libBornAgainCore.vector_cvector_t_pop_back(self)
-
-    def erase(self, *args):
-        r"""
-        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
-        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator first, std::vector< BasicVector3D< std::complex< double > > >::iterator last) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
-        """
-        return _libBornAgainCore.vector_cvector_t_erase(self, *args)
-
-    def __init__(self, *args):
-        r"""
-        __init__(vector_cvector_t self) -> vector_cvector_t
-        __init__(vector_cvector_t self, vector_cvector_t other) -> vector_cvector_t
-        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size) -> vector_cvector_t
-        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size, cvector_t value) -> vector_cvector_t
-        """
-        _libBornAgainCore.vector_cvector_t_swiginit(self, _libBornAgainCore.new_vector_cvector_t(*args))
-
-    def push_back(self, x):
-        r"""push_back(vector_cvector_t self, cvector_t x)"""
-        return _libBornAgainCore.vector_cvector_t_push_back(self, x)
-
-    def front(self):
-        r"""front(vector_cvector_t self) -> cvector_t"""
-        return _libBornAgainCore.vector_cvector_t_front(self)
-
-    def back(self):
-        r"""back(vector_cvector_t self) -> cvector_t"""
-        return _libBornAgainCore.vector_cvector_t_back(self)
-
-    def assign(self, n, x):
-        r"""assign(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)"""
-        return _libBornAgainCore.vector_cvector_t_assign(self, n, x)
-
-    def resize(self, *args):
-        r"""
-        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size)
-        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size, cvector_t x)
-        """
-        return _libBornAgainCore.vector_cvector_t_resize(self, *args)
-
-    def insert(self, *args):
-        r"""
-        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, cvector_t x) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
-        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)
-        """
-        return _libBornAgainCore.vector_cvector_t_insert(self, *args)
-
-    def reserve(self, n):
-        r"""reserve(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n)"""
-        return _libBornAgainCore.vector_cvector_t_reserve(self, n)
-
-    def capacity(self):
-        r"""capacity(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
-        return _libBornAgainCore.vector_cvector_t_capacity(self)
-    __swig_destroy__ = _libBornAgainCore.delete_vector_cvector_t
-
-# Register vector_cvector_t in _libBornAgainCore:
-_libBornAgainCore.vector_cvector_t_swigregister(vector_cvector_t)
 
 class IParameterReal(object):
     r"""
@@ -4391,7 +4167,7 @@ class Bin1DKVector(object):
     def __init__(self, *args):
         r"""
         __init__(Bin1DKVector self) -> Bin1DKVector
-        __init__(Bin1DKVector self, kvector_t lower, kvector_t upper) -> Bin1DKVector
+        __init__(Bin1DKVector self, kvector_t const lower, kvector_t const upper) -> Bin1DKVector
         __init__(Bin1DKVector self, double wavelength, Bin1D alpha_bin, Bin1D phi_bin) -> Bin1DKVector
         Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
 
@@ -5110,266 +4886,6 @@ class FixedBinAxis(IAxis):
 # Register FixedBinAxis in _libBornAgainCore:
 _libBornAgainCore.FixedBinAxis_swigregister(FixedBinAxis)
 
-class WavevectorInfo(object):
-    r"""
-
-
-    Holds all wavevector information relevant for calculating form factors.
-
-    C++ includes: WavevectorInfo.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    @staticmethod
-    def GetZeroQ():
-        r"""GetZeroQ() -> WavevectorInfo"""
-        return _libBornAgainCore.WavevectorInfo_GetZeroQ()
-
-    def __init__(self, *args):
-        r"""
-        __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
-        __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
-        WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
-
-        """
-        _libBornAgainCore.WavevectorInfo_swiginit(self, _libBornAgainCore.new_WavevectorInfo(*args))
-
-    def transformed(self, transform):
-        r"""
-        transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
-        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
-
-        """
-        return _libBornAgainCore.WavevectorInfo_transformed(self, transform)
-
-    def getKi(self):
-        r"""
-        getKi(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getKi() const
-
-        """
-        return _libBornAgainCore.WavevectorInfo_getKi(self)
-
-    def getKf(self):
-        r"""
-        getKf(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getKf() const
-
-        """
-        return _libBornAgainCore.WavevectorInfo_getKf(self)
-
-    def getQ(self):
-        r"""
-        getQ(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getQ() const
-
-        """
-        return _libBornAgainCore.WavevectorInfo_getQ(self)
-
-    def getWavelength(self):
-        r"""
-        getWavelength(WavevectorInfo self) -> double
-        double WavevectorInfo::getWavelength() const
-
-        """
-        return _libBornAgainCore.WavevectorInfo_getWavelength(self)
-    __swig_destroy__ = _libBornAgainCore.delete_WavevectorInfo
-
-# Register WavevectorInfo in _libBornAgainCore:
-_libBornAgainCore.WavevectorInfo_swigregister(WavevectorInfo)
-
-def WavevectorInfo_GetZeroQ():
-    r"""WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
-    return _libBornAgainCore.WavevectorInfo_GetZeroQ()
-
-
-def StandardNormal(x):
-    r"""
-    StandardNormal(double x) -> double
-    double MathFunctions::StandardNormal(double x)
-
-    """
-    return _libBornAgainCore.StandardNormal(x)
-
-def Gaussian(x, average, std_dev):
-    r"""
-    Gaussian(double x, double average, double std_dev) -> double
-    double MathFunctions::Gaussian(double x, double average, double std_dev)
-
-    """
-    return _libBornAgainCore.Gaussian(x, average, std_dev)
-
-def IntegratedGaussian(x, average, std_dev):
-    r"""
-    IntegratedGaussian(double x, double average, double std_dev) -> double
-    double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
-
-    """
-    return _libBornAgainCore.IntegratedGaussian(x, average, std_dev)
-
-def cot(x):
-    r"""
-    cot(double x) -> double
-    double MathFunctions::cot(double x)
-
-    cotangent function:  $cot(x)\\equiv1/tan(x)$
-
-    """
-    return _libBornAgainCore.cot(x)
-
-def Si(x):
-    r"""
-    Si(double x) -> double
-    double MathFunctions::Si(double x)
-
-    Sine integral function:  $Si(x)\\equiv\\int_0^x du \\sin(u)/u$. 
-
-    """
-    return _libBornAgainCore.Si(x)
-
-def sinc(*args):
-    r"""
-    sinc(double x) -> double
-    sinc(complex_t const z) -> complex_t
-    complex_t MathFunctions::sinc(const complex_t z)
-
-    Complex sinc function:  $sinc(x)\\equiv\\sin(x)/x$. 
-
-    """
-    return _libBornAgainCore.sinc(*args)
-
-def tanhc(z):
-    r"""
-    tanhc(complex_t const z) -> complex_t
-    complex_t MathFunctions::tanhc(const complex_t z)
-
-    Complex tanhc function:  $tanhc(x)\\equiv\\tanh(x)/x$. 
-
-    """
-    return _libBornAgainCore.tanhc(z)
-
-def Laue(x, N):
-    r"""
-    Laue(double const x, size_t N) -> double
-    double MathFunctions::Laue(const double x, size_t N)
-
-    Real Laue function:  $Laue(x,N)\\equiv\\sin(Nx)/sin(x)$. 
-
-    """
-    return _libBornAgainCore.Laue(x, N)
-
-def erf(arg):
-    r"""
-    erf(double arg) -> double
-    double MathFunctions::erf(double arg)
-
-    Error function of real-valued argument. 
-
-    """
-    return _libBornAgainCore.erf(arg)
-
-def Bessel_I0(x):
-    r"""
-    Bessel_I0(double x) -> double
-    double MathFunctions::Bessel_I0(double x)
-
-    Modified Bessel function of the first kind and order 0. 
-
-    """
-    return _libBornAgainCore.Bessel_I0(x)
-
-def Bessel_J0(*args):
-    r"""
-    Bessel_J0(double x) -> double
-    Bessel_J0(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J0(const complex_t z)
-
-    Complex Bessel function of the first kind and order 0. 
-
-    """
-    return _libBornAgainCore.Bessel_J0(*args)
-
-def Bessel_J1(*args):
-    r"""
-    Bessel_J1(double x) -> double
-    Bessel_J1(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J1(const complex_t z)
-
-    Complex Bessel function of the first kind and order 1. 
-
-    """
-    return _libBornAgainCore.Bessel_J1(*args)
-
-def Bessel_J1c(*args):
-    r"""
-    Bessel_J1c(double x) -> double
-    Bessel_J1c(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J1c(const complex_t z)
-
-    Complex Bessel function Bessel_J1(x)/x. 
-
-    """
-    return _libBornAgainCore.Bessel_J1c(*args)
-FORWARD_FFT = _libBornAgainCore.FORWARD_FFT
-
-BACKWARD_FFT = _libBornAgainCore.BACKWARD_FFT
-
-
-def FastFourierTransform(*args):
-    r"""
-    FastFourierTransform(vector_complex_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
-    FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
-    std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
-
-    simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
-
-    """
-    return _libBornAgainCore.FastFourierTransform(*args)
-
-def ConvolveFFT(signal, resfunc):
-    r"""
-    ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> vector_complex_t
-    std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
-
-    convolution of two real vectors of equal size 
-
-    """
-    return _libBornAgainCore.ConvolveFFT(signal, resfunc)
-
-def GenerateUniformRandom():
-    r"""
-    GenerateUniformRandom() -> double
-    double MathFunctions::GenerateUniformRandom()
-
-    """
-    return _libBornAgainCore.GenerateUniformRandom()
-
-def GenerateStandardNormalRandom():
-    r"""
-    GenerateStandardNormalRandom() -> double
-    double MathFunctions::GenerateStandardNormalRandom()
-
-    """
-    return _libBornAgainCore.GenerateStandardNormalRandom()
-
-def GenerateNormalRandom(average, std_dev):
-    r"""
-    GenerateNormalRandom(double average, double std_dev) -> double
-    double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-
-    """
-    return _libBornAgainCore.GenerateNormalRandom(average, std_dev)
-
-def GeneratePoissonRandom(average):
-    r"""
-    GeneratePoissonRandom(double average) -> double
-    double MathFunctions::GeneratePoissonRandom(double average)
-
-    """
-    return _libBornAgainCore.GeneratePoissonRandom(average)
 class IShape2D(libBornAgainBase.ICloneable):
     r"""
 
@@ -5899,7 +5415,7 @@ class IParameterized(object):
 
     def registerVector(self, *args):
         r"""
-        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
+        registerVector(IParameterized self, std::string const & base_name, kvector_t * p_vec, std::string const & units="nm")
         void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
 
         """
@@ -8010,7 +7526,7 @@ class IFormFactor(ISample):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t
+        evaluate(IFormFactor self, WavevectorInfo const & wavevectors) -> complex_t
         virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -8131,7 +7647,7 @@ class IFormFactorBorn(IFormFactor):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
+        evaluate(IFormFactorBorn self, WavevectorInfo const & wavevectors) -> complex_t
         complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -8363,7 +7879,7 @@ class IRotation(libBornAgainBase.ICloneable, INode):
 
     def transformed(self, v):
         r"""
-        transformed(IRotation self, kvector_t v) -> kvector_t
+        transformed(IRotation self, kvector_t const & v) -> kvector_t
         kvector_t IRotation::transformed(const kvector_t &v) const
 
         """
@@ -9140,7 +8656,7 @@ class FormFactorCrystal(IFormFactor):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
+        evaluate(FormFactorCrystal self, WavevectorInfo const & wavevectors) -> complex_t
         complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -9245,7 +8761,7 @@ class FormFactorWeighted(IFormFactor):
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
+        evaluate(FormFactorWeighted self, WavevectorInfo const & wavevectors) -> complex_t
         complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -9370,7 +8886,7 @@ class IClusteredParticles(ISample):
 
     def createTotalFormFactor(self, arg2, arg3, arg4):
         r"""
-        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
+        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t const & arg4) -> IFormFactor
         virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
@@ -9436,7 +8952,7 @@ class Crystal(IClusteredParticles):
 
     def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
         r"""
-        createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t const & translation) -> IFormFactor
         IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
@@ -9829,7 +9345,7 @@ class ParticleComposition(IParticle):
     def __init__(self, *args):
         r"""
         __init__(ParticleComposition self) -> ParticleComposition
-        __init__(ParticleComposition self, IParticle particle, vector_kvector_t positions) -> ParticleComposition
+        __init__(ParticleComposition self, IParticle particle, std::vector< kvector_t,std::allocator< kvector_t > > positions) -> ParticleComposition
         ParticleComposition::ParticleComposition(const IParticle &particle, std::vector< kvector_t > positions)
 
         """
@@ -9877,7 +9393,7 @@ class ParticleComposition(IParticle):
 
     def addParticles(self, particle, positions):
         r"""
-        addParticles(ParticleComposition self, IParticle particle, vector_kvector_t positions)
+        addParticles(ParticleComposition self, IParticle particle, std::vector< kvector_t,std::allocator< kvector_t > > positions)
         void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
 
         """
@@ -11569,7 +11085,7 @@ class IPeakShape(ISample):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(IPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(IPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
         virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11634,7 +11150,7 @@ class IsotropicGaussPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(IsotropicGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(IsotropicGaussPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
         double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11689,7 +11205,7 @@ class IsotropicLorentzPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(IsotropicLorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(IsotropicLorentzPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
         double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11744,7 +11260,7 @@ class GaussFisherPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(GaussFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(GaussFisherPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
         double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11809,7 +11325,7 @@ class LorentzFisherPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(LorentzFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(LorentzFisherPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
         double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11874,7 +11390,7 @@ class MisesFisherGaussPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(MisesFisherGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(MisesFisherGaussPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
         double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11939,7 +11455,7 @@ class MisesGaussPeakShape(IPeakShape):
 
     def evaluate(self, q, q_lattice_point):
         r"""
-        evaluate(MisesGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(MisesGaussPeakShape self, kvector_t const q, kvector_t const q_lattice_point) -> double
         double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
@@ -11998,7 +11514,7 @@ class IInterferenceFunction(ISample):
 
     def evaluate(self, q, outer_iff=1.0):
         r"""
-        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
+        evaluate(IInterferenceFunction self, kvector_t const q, double outer_iff=1.0) -> double
         double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
         Evaluates the interference function for a given wavevector transfer. 
@@ -12057,7 +11573,7 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
 
     def iff_without_dw(self, q):
-        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
+        r"""iff_without_dw(IInterferenceFunction self, kvector_t const q) -> double"""
         return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     def __disown__(self):
@@ -12610,7 +12126,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 
     def evaluate(self, q, outer_iff=1.0):
         r"""
-        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
+        evaluate(InterferenceFunction2DSuperLattice self, kvector_t const q, double outer_iff=1.0) -> double
         double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
 
         Evaluates the interference function for a given wavevector transfer. 
@@ -13323,7 +12839,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
 
     def __init__(self, direction, mean_distance, std_dev):
         r"""
-        __init__(InterferenceFunctionTwin self, kvector_t direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
+        __init__(InterferenceFunctionTwin self, kvector_t const & direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
         InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
 
         """
@@ -13422,7 +12938,7 @@ class ParticleLayout(ILayout):
 
     def addParticle(self, *args):
         r"""
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position={}, IRotation rotation=IdentityRotation())
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t const position={}, IRotation rotation=IdentityRotation())
         void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position={}, const IRotation &rotation=IdentityRotation())
 
         Adds particle to the layout with abundance, position and the rotation defined.
@@ -13624,7 +13140,7 @@ class Beam(INode):
 
     def setPolarization(self, bloch_vector):
         r"""
-        setPolarization(Beam self, kvector_t bloch_vector)
+        setPolarization(Beam self, kvector_t const bloch_vector)
         void Beam::setPolarization(const kvector_t bloch_vector)
 
         Sets the polarization density matrix according to the given Bloch vector. 
@@ -14192,7 +13708,7 @@ class LayerRoughness(ISample):
 
     def getSpectralFun(self, kvec):
         r"""
-        getSpectralFun(LayerRoughness self, kvector_t kvec) -> double
+        getSpectralFun(LayerRoughness self, kvector_t const kvec) -> double
         double LayerRoughness::getSpectralFun(const kvector_t kvec) const
 
         Returns power spectral density of the surface roughness.
@@ -14206,7 +13722,7 @@ class LayerRoughness(ISample):
 
     def getCorrFun(self, k):
         r"""
-        getCorrFun(LayerRoughness self, kvector_t k) -> double
+        getCorrFun(LayerRoughness self, kvector_t const k) -> double
         double LayerRoughness::getCorrFun(const kvector_t k) const
 
         Correlation function of the roughness profile. 
@@ -17186,7 +16702,7 @@ class Simulation(libBornAgainBase.ICloneable, INode):
 
     def setBeamPolarization(self, bloch_vector):
         r"""
-        setBeamPolarization(Simulation self, kvector_t bloch_vector)
+        setBeamPolarization(Simulation self, kvector_t const bloch_vector)
         void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 
         Sets the beam polarization according to the given Bloch vector. 
@@ -17212,7 +16728,7 @@ class Simulation(libBornAgainBase.ICloneable, INode):
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
-        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission)
+        setAnalyzerProperties(Simulation self, kvector_t const direction, double efficiency, double total_transmission)
         void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
         Sets the polarization analyzer characteristics of the detector. 
@@ -18227,7 +17743,7 @@ class IDetector(libBornAgainBase.ICloneable, INode):
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
-        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
+        setAnalyzerProperties(IDetector self, kvector_t const direction, double efficiency, double total_transmission)
         void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
         Sets the polarization analyzer characteristics of the detector. 
@@ -18796,7 +18312,7 @@ class RectangularDetector(IDetector2D):
 
     def setPosition(self, *args):
         r"""
-        setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction=kvector_t(0.0, -1.0, 0.0))
+        setPosition(RectangularDetector self, kvector_t const normal_to_detector, double u0, double v0, kvector_t const direction=kvector_t(0.0, -1.0, 0.0))
         void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
 
         """
@@ -20495,7 +20011,7 @@ class Instrument(INode):
 
     def setBeamPolarization(self, bloch_vector):
         r"""
-        setBeamPolarization(Instrument self, kvector_t bloch_vector)
+        setBeamPolarization(Instrument self, kvector_t const bloch_vector)
         void Instrument::setBeamPolarization(const kvector_t bloch_vector)
 
         Sets the beam's polarization according to the given Bloch vector. 
@@ -20593,7 +20109,7 @@ class Instrument(INode):
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
-        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
+        setAnalyzerProperties(Instrument self, kvector_t const direction, double efficiency, double total_transmission)
         void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
         Sets the polarization analyzer characteristics of the detector. 
@@ -21202,7 +20718,7 @@ class Lattice(INode):
     def __init__(self, *args):
         r"""
         __init__(Lattice self) -> Lattice
-        __init__(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3) -> Lattice
+        __init__(Lattice self, kvector_t const a1, kvector_t const a2, kvector_t const a3) -> Lattice
         __init__(Lattice self, Lattice lattice) -> Lattice
         Lattice::Lattice(const Lattice &lattice)
 
@@ -21272,7 +20788,7 @@ class Lattice(INode):
 
     def resetBasis(self, a1, a2, a3):
         r"""
-        resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)
+        resetBasis(Lattice self, kvector_t const a1, kvector_t const a2, kvector_t const a3)
         void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 
         Resets the basis vectors. 
@@ -21302,7 +20818,7 @@ class Lattice(INode):
 
     def getReciprocalLatticeBasis(self, b1, b2, b3):
         r"""
-        getReciprocalLatticeBasis(Lattice self, kvector_t b1, kvector_t b2, kvector_t b3)
+        getReciprocalLatticeBasis(Lattice self, kvector_t & b1, kvector_t & b2, kvector_t & b3)
         void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
 
         Returns the reciprocal basis vectors. 
@@ -21312,7 +20828,7 @@ class Lattice(INode):
 
     def getNearestLatticeVectorCoordinates(self, vector_in):
         r"""
-        getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
+        getNearestLatticeVectorCoordinates(Lattice self, kvector_t const vector_in) -> ivector_t
         ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 
         Returns the nearest lattice point from a given vector. 
@@ -21322,7 +20838,7 @@ class Lattice(INode):
 
     def getNearestReciprocalLatticeVectorCoordinates(self, vector_in):
         r"""
-        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
+        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t const vector_in) -> ivector_t
         ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 
         Returns the nearest reciprocal lattice point from a given vector. 
@@ -21332,7 +20848,7 @@ class Lattice(INode):
 
     def reciprocalLatticeVectorsWithinRadius(self, input_vector, radius):
         r"""
-        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t
+        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t const input_vector, double radius) -> std::vector< kvector_t,std::allocator< kvector_t > >
         std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
 
         Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
@@ -21846,7 +21362,7 @@ class Material(object):
 
     def scalarSubtrSLD(self, wavevectors):
         r"""
-        scalarSubtrSLD(Material self, WavevectorInfo wavevectors) -> complex_t
+        scalarSubtrSLD(Material self, WavevectorInfo const & wavevectors) -> complex_t
         complex_t Material::scalarSubtrSLD(const WavevectorInfo &wavevectors) const
 
         Returns (  $ \\pi/\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 

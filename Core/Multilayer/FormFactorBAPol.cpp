@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/FormFactorBAPol.h"
-#include "Core/Vector/WavevectorInfo.h"
+#include "Base/Vector/WavevectorInfo.h"
 #include <stdexcept>
 
 FormFactorBAPol::FormFactorBAPol(const IFormFactor& form_factor)

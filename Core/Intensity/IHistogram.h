@@ -17,7 +17,7 @@
 
 #include "Core/Intensity/CumulativeValue.h"
 #include "Core/Intensity/OutputData.h"
-#include "Core/Tools/PyObject.h"
+#include "Base/Utils/PyObject.h"
 
 class Histogram1D;
 

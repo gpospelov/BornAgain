@@ -14,7 +14,7 @@
 
 #include "Core/Material/MaterialBySLDImpl.h"
 #include "Base/Const/Units.h"
-#include "Core/Vector/WavevectorInfo.h"
+#include "Base/Vector/WavevectorInfo.h"
 
 namespace
 {

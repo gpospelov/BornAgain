@@ -15,8 +15,8 @@
 #include "Core/Material/MagneticMaterialImpl.h"
 #include "Base/Const/PhysicalConstants.h"
 #include "Core/Material/MaterialUtils.h"
-#include "Core/Vector/Transform3D.h"
-#include "Core/Vector/WavevectorInfo.h"
+#include "Base/Vector/Transform3D.h"
+#include "Base/Vector/WavevectorInfo.h"
 #include <memory>
 
 using PhysConsts::gamma_n;

@@ -38,12 +38,12 @@ if(BORNAGAIN_TIFF_SUPPORT)
 endif()
 
 target_include_directories(${lib}
-    PUBLIC ${CMAKE_SOURCE_DIR} ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR} ${GSL_INCLUDE_DIR}
+    PUBLIC ${CMAKE_SOURCE_DIR}
     ${tspectrum_INCLUDE_DIR}
     ${Cerf_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper # TEMPORARY
     )
-target_link_libraries(${lib} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
+target_link_libraries(${lib}
     ${tspectrum_LIBRARY} ${Cerf_LIBRARIES})
 
 if(BORNAGAIN_MPI)

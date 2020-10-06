@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/Integrator.h
+//! @file      Base/Utils/Integrator.h
 //! @brief     Defines classes RealIntegrator, ComplexIntegrator.
 //!
 //! @homepage  http://www.bornagainproject.org

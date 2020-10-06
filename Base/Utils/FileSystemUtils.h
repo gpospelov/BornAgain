@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/FileSystemUtils.h
+//! @file      Base/Utils/FileSystemUtils.h
 //! @brief     Defines namespace FileSystemUtils.
 //!
 //! @homepage  http://www.bornagainproject.org

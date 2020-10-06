@@ -15,7 +15,7 @@
 #include "Core/Beam/FootprintGauss.h"
 #include "Base/Const/MathConstants.h"
 #include "Core/Parametrization/PyFmt.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 
 FootprintGauss::FootprintGauss(const std::vector<double> P)
     : IFootprintFactor({"FootprintGauss", "class_tooltip", {}}, P)

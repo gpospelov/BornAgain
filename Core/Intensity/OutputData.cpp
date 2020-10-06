@@ -17,7 +17,7 @@
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "Core/Tools/PythonCore.h"
+#include "Base/Utils/PythonCore.h"
 
 template <> PyObject* OutputData<double>::getArray() const
 {

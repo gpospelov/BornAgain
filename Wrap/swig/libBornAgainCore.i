@@ -215,10 +215,6 @@
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Core/Tools/MathFunctions.h"
-#include "Core/Vector/BasicVector3D.h"
-#include "Core/Vector/Vectors3D.h"
-#include "Core/Vector/WavevectorInfo.h"
 #include "Fit/Kernel/FitOptions.h"
 %}
 
@@ -261,8 +257,11 @@
 %import(module="libBornAgainFit") "Fit/Tools/RealLimits.h"
 %import(module="libBornAgainFit") "Fit/Kernel/Parameters.h"
 %import(module="libBornAgainFit") "Fit/Kernel/Parameter.h"
+
 %import(module="libBornAgainBase") "Base/Types/Complex.h"
 %import(module="libBornAgainBase") "Base/Types/ICloneable.h"
+%import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
+%include "fromBase.i"
 
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
@@ -274,12 +273,6 @@
 %include "Fit/TestEngine/IFactory.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
-
-%include "Core/Vector/BasicVector3D.h"
-%template(kvector_t) BasicVector3D<double>;
-%template(vector_kvector_t) std::vector<BasicVector3D<double>>;
-%template(cvector_t) BasicVector3D<std::complex<double>>;
-%template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
 
 %include "Core/Parametrization/IParameter.h" // needed?
 %template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
@@ -303,11 +296,6 @@
 %include "Core/Binning/ConstKBinAxis.h"
 %include "Core/Binning/CustomBinAxis.h"
 %include "Core/Binning/FixedBinAxis.h"
-
-%include "Core/Vector/Vectors3D.h"
-%include "Core/Vector/WavevectorInfo.h"
-
-%include "Core/Tools/MathFunctions.h"
 
 %include "Core/Mask/IShape2D.h"
 %include "Core/Mask/Ellipse.h"

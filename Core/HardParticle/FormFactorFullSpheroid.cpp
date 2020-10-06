@@ -16,7 +16,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 #include <limits>
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)

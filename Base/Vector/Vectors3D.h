@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Vector/SomeFormFactors.h
-//! @brief     Declares namespace someff with some form factor functions.
+//! @file      Base/Vector/Vectors3D.h
+//! @brief     Defines basic vectors in R^3 and C^3.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,19 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
-#define BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
+#ifndef BORNAGAIN_CORE_VECTOR_VECTORS3D_H
+#define BORNAGAIN_CORE_VECTOR_VECTORS3D_H
 
-#include "Base/Types/Complex.h"
-#include "Core/Vector/Vectors3D.h"
+#include "Base/Vector/BasicVector3D.h"
 
-//! Some form factor functions.
+using ivector_t = BasicVector3D<int>;
+using kvector_t = BasicVector3D<double>;
+using cvector_t = BasicVector3D<std::complex<double>>;
 
-namespace someff
-{
-
-complex_t ffSphere(cvector_t q, double R);
-
-} // namespace someff
-
-#endif // BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
+#endif // BORNAGAIN_CORE_VECTOR_VECTORS3D_H

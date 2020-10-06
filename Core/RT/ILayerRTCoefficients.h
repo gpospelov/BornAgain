@@ -17,7 +17,7 @@
 
 #include "Base/Types/Complex.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Vector/EigenCore.h"
+#include "Base/Vector/EigenCore.h"
 
 //! Interface to access reflection/transmission coefficients.
 //! @ingroup algorithms_internal

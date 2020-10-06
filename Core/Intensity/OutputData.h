@@ -21,7 +21,7 @@
 #include "Core/Intensity/LLData.h"
 #include "Core/Intensity/OutputDataIterator.h"
 #include "Core/Parametrization/ThreadInfo.h"
-#include "Core/Tools/PyObject.h"
+#include "Base/Utils/PyObject.h"
 #include <sstream>
 
 using std::size_t;

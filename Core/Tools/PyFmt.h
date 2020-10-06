@@ -44,7 +44,6 @@ std::string printRealLimitsArg(const RealLimits& limits, const std::string& unit
 bool isSquare(double length1, double length2, double angle);
 bool isHexagonal(double length1, double length2, double angle);
 std::string printKvector(const kvector_t value);
-bool isDefaultDirection(const kvector_t direction);
 
 //! Returns a string of blanks with given width. By default
 //! the width equals standard offset in python files.

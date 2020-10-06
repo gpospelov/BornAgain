@@ -17,7 +17,6 @@
 #include "Core/Basics/Units.h" // printDegrees
 #include "Fit/TestEngine/Numeric.h"
 #include "Fit/Tools/RealLimits.h"
-#include "Fit/Tools/StringUtils.h"
 #include <iomanip>
 
 namespace pyfmt

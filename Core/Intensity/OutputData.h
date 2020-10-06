@@ -21,7 +21,7 @@
 #include "Core/Intensity/OutputDataIterator.h"
 #include "Core/Parametrization/ThreadInfo.h"
 #include "Core/Tools/PyObject.h"
-#include "Core/Tools/SafePointerVector.h"
+#include "Core/Basics/SafePointerVector.h"
 #include <sstream>
 
 using std::size_t;

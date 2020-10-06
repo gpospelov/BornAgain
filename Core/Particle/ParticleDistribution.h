@@ -17,7 +17,7 @@
 
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Particle/IAbstractParticle.h"
-#include "Core/Tools/SafePointerVector.h"
+#include "Core/Basics/SafePointerVector.h"
 
 class IParticle;
 

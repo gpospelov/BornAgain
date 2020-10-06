@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/CloneableVector.h
+//! @file      Core/Basics/CloneableVector.h
 //! @brief     Defines and implements templated class CloneableVector.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -19,7 +19,7 @@
 #include "Core/Particle/SlicedParticle.h"
 #include "Core/Scattering/Rotations.h"
 #include "Core/Scattering/ZLimits.h"
-#include "Core/Tools/SafePointerVector.h"
+#include "Core/Basics/SafePointerVector.h"
 #include "Core/Vector/Vectors3D.h"
 #include <memory>
 

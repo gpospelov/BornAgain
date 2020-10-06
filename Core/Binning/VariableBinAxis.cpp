@@ -14,7 +14,8 @@
 
 #include "Core/Binning/VariableBinAxis.h"
 #include "Core/Basics/Exceptions.h"
-#include "Fit/TestEngine/Numeric.h"
+//#include "Fit/TestEngine/Numeric.h"
+#include "Core/Basics/Algorithms.h"
 #include <algorithm>
 #include <iomanip>
 
@@ -143,7 +144,7 @@ bool VariableBinAxis::equals(const IAxis& other) const
         if (size() != p_other_cast->size())
             return false;
         for (size_t i = 0; i < m_bin_boundaries.size(); ++i) {
-            if (!Numeric::AreAlmostEqual(m_bin_boundaries[i], p_other_cast->m_bin_boundaries[i])) {
+            if (!algo::almostEqual(m_bin_boundaries[i], p_other_cast->m_bin_boundaries[i])) {
                 return false;
             }
         }

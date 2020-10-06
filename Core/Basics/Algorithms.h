@@ -25,6 +25,12 @@
 namespace algo
 {
 
+//! Returns true if two doubles agree within machine epsilon.
+inline bool almostEqual(double a, double b) {
+    constexpr double eps = std::numeric_limits<double>::epsilon();
+    return std::abs(a - b) <= eps * std::max(eps, (std::abs(a)+std::abs(b))/2);
+}
+
 //! Returns the minimum value of function evaluate as applied to the elements of an iterator range.
 template <typename Evaluator, typename Iterator>
 double min_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate);

@@ -31,7 +31,8 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Fit/TestEngine/Numeric.h"
+//#include "Fit/TestEngine/Numeric.h"
+#include "Core/Basics/Algorithms.h"
 #include <iomanip>
 
 namespace
@@ -60,9 +61,9 @@ std::function<std::string(double)> printFunc(const IDetector* detector)
 //! returns true if it is (0, -1, 0) vector
 bool isDefaultDirection(const kvector_t direction)
 {
-    return Numeric::AreAlmostEqual(direction.x(), 0.0)
-           && Numeric::AreAlmostEqual(direction.y(), -1.0)
-           && Numeric::AreAlmostEqual(direction.z(), 0.0);
+    return algo::almostEqual(direction.x(), 0.0)
+           && algo::almostEqual(direction.y(), -1.0)
+           && algo::almostEqual(direction.z(), 0.0);
 }
 
 } // namespace

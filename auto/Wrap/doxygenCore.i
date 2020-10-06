@@ -16523,10 +16523,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16556,40 +16556,40 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d100.xml
+// File: namespace_0d102.xml
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d114.xml
 
 
-// File: namespace_0d118.xml
+// File: namespace_0d120.xml
 
 
-// File: namespace_0d122.xml
+// File: namespace_0d124.xml
 
 
-// File: namespace_0d153.xml
+// File: namespace_0d155.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d165.xml
+// File: namespace_0d167.xml
 
 
-// File: namespace_0d173.xml
+// File: namespace_0d175.xml
 
 
-// File: namespace_0d178.xml
-
-
-// File: namespace_0d187.xml
+// File: namespace_0d180.xml
 
 
 // File: namespace_0d189.xml
 
 
-// File: namespace_0d193.xml
+// File: namespace_0d191.xml
+
+
+// File: namespace_0d195.xml
 
 
 // File: namespace_0d2.xml
@@ -16598,31 +16598,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d256.xml
+// File: namespace_0d258.xml
 
 
-// File: namespace_0d259.xml
+// File: namespace_0d261.xml
 
 
-// File: namespace_0d266.xml
+// File: namespace_0d268.xml
 
 
-// File: namespace_0d270.xml
+// File: namespace_0d272.xml
 
 
-// File: namespace_0d274.xml
+// File: namespace_0d276.xml
 
 
-// File: namespace_0d280.xml
+// File: namespace_0d282.xml
 
 
-// File: namespace_0d284.xml
+// File: namespace_0d286.xml
 
 
-// File: namespace_0d298.xml
-
-
-// File: namespace_0d329.xml
+// File: namespace_0d300.xml
 
 
 // File: namespace_0d331.xml
@@ -16631,25 +16628,25 @@ C++ includes: ZLimits.h
 // File: namespace_0d333.xml
 
 
-// File: namespace_0d353.xml
+// File: namespace_0d335.xml
 
 
-// File: namespace_0d357.xml
+// File: namespace_0d355.xml
 
 
-// File: namespace_0d361.xml
+// File: namespace_0d359.xml
 
 
-// File: namespace_0d375.xml
+// File: namespace_0d363.xml
 
 
-// File: namespace_0d384.xml
+// File: namespace_0d377.xml
 
 
-// File: namespace_0d388.xml
+// File: namespace_0d386.xml
 
 
-// File: namespace_0d398.xml
+// File: namespace_0d390.xml
 
 
 // File: namespace_0d4.xml
@@ -16658,7 +16655,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d400.xml
 
 
-// File: namespace_0d406.xml
+// File: namespace_0d402.xml
 
 
 // File: namespace_0d408.xml
@@ -16676,73 +16673,73 @@ C++ includes: ZLimits.h
 // File: namespace_0d416.xml
 
 
-// File: namespace_0d420.xml
+// File: namespace_0d418.xml
 
 
 // File: namespace_0d422.xml
 
 
-// File: namespace_0d432.xml
+// File: namespace_0d424.xml
 
 
-// File: namespace_0d445.xml
+// File: namespace_0d434.xml
 
 
-// File: namespace_0d454.xml
+// File: namespace_0d447.xml
 
 
-// File: namespace_0d458.xml
+// File: namespace_0d456.xml
 
 
-// File: namespace_0d474.xml
+// File: namespace_0d460.xml
 
 
-// File: namespace_0d495.xml
+// File: namespace_0d476.xml
 
 
-// File: namespace_0d502.xml
+// File: namespace_0d497.xml
 
 
 // File: namespace_0d504.xml
 
 
-// File: namespace_0d512.xml
+// File: namespace_0d506.xml
 
 
-// File: namespace_0d524.xml
+// File: namespace_0d514.xml
 
 
-// File: namespace_0d547.xml
+// File: namespace_0d526.xml
 
 
-// File: namespace_0d555.xml
+// File: namespace_0d549.xml
 
 
-// File: namespace_0d561.xml
+// File: namespace_0d557.xml
 
 
 // File: namespace_0d563.xml
 
 
-// File: namespace_0d574.xml
+// File: namespace_0d565.xml
 
 
-// File: namespace_0d586.xml
+// File: namespace_0d576.xml
 
 
-// File: namespace_0d592.xml
+// File: namespace_0d588.xml
 
 
-// File: namespace_0d596.xml
+// File: namespace_0d594.xml
 
 
-// File: namespace_0d614.xml
+// File: namespace_0d598.xml
 
 
-// File: namespace_0d633.xml
+// File: namespace_0d616.xml
 
 
-// File: namespace_0d92.xml
+// File: namespace_0d635.xml
 
 
 // File: namespace_0d94.xml
@@ -16751,8 +16748,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d96.xml
 
 
+// File: namespace_0d98.xml
+
+
 // File: namespacealgo.xml
-%feature("docstring")  algo::min_value "double algo::min_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
+%feature("docstring")  algo::almostEqual "bool algo::almostEqual(double a, double b)
+
+Returns true if two doubles agree within machine epsilon. 
+";
+
+%feature("docstring")  algo::min_value "bool Iterator double algo::min_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
 
 Returns the minimum value of function evaluate as applied to the elements of an iterator range. 
 ";
@@ -17892,6 +17897,9 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: Assert_8h.xml
 
 
+// File: CloneableVector_8h.xml
+
+
 // File: Complex_8h.xml
 %feature("docstring")  mul_I "complex_t mul_I(complex_t z)
 
@@ -17917,6 +17925,9 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: PhysicalConstants_8h.xml
+
+
+// File: SafePointerVector_8h.xml
 
 
 // File: Units_8h.xml
@@ -19931,9 +19942,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: TwoLayerRoughnessBuilder_8h.xml
 
 
-// File: CloneableVector_8h.xml
-
-
 // File: FileSystemUtils_8cpp.xml
 
 
@@ -19966,9 +19974,6 @@ Template function to create an integrator object
 
 
 // File: PythonCore_8h.xml
-
-
-// File: SafePointerVector_8h.xml
 
 
 // File: SysUtils_8cpp.xml

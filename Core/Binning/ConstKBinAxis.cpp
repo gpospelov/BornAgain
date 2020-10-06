@@ -14,7 +14,8 @@
 
 #include "Core/Binning/ConstKBinAxis.h"
 #include "Core/Basics/Exceptions.h"
-#include "Fit/TestEngine/Numeric.h"
+//#include "Fit/TestEngine/Numeric.h"
+#include "Core/Basics/Algorithms.h"
 #include <iomanip>
 
 ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins)
@@ -81,9 +82,9 @@ bool ConstKBinAxis::equals(const IAxis& other) const
     if (const ConstKBinAxis* otherAxis = dynamic_cast<const ConstKBinAxis*>(&other)) {
         if (size() != otherAxis->size())
             return false;
-        if (!Numeric::AreAlmostEqual(m_start, otherAxis->m_start))
+        if (!algo::almostEqual(m_start, otherAxis->m_start))
             return false;
-        if (!Numeric::AreAlmostEqual(m_end, otherAxis->m_end))
+        if (!algo::almostEqual(m_end, otherAxis->m_end))
             return false;
         return true;
     }

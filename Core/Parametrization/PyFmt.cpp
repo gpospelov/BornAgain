@@ -15,7 +15,8 @@
 #include "Core/Parametrization/PyFmt.h"
 #include "Core/Basics/MathConstants.h"
 #include "Core/Basics/Units.h" // printDegrees
-#include "Fit/TestEngine/Numeric.h"
+//#include "Fit/TestEngine/Numeric.h"
+#include "Core/Basics/Algorithms.h"
 #include "Fit/Tools/RealLimits.h"
 #include <iomanip>
 
@@ -171,12 +172,12 @@ std::string printRealLimitsArg(const RealLimits& limits, const std::string& unit
 
 bool isSquare(double length1, double length2, double angle)
 {
-    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_PI_2);
+    return length1 == length2 && algo::almostEqual(angle, M_PI_2);
 }
 
 bool isHexagonal(double length1, double length2, double angle)
 {
-    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_TWOPI / 3.0);
+    return length1 == length2 && algo::almostEqual(angle, M_TWOPI / 3.0);
 }
 
 std::string printKvector(const kvector_t value)

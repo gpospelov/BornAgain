@@ -47,7 +47,6 @@ InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::cl
 }
 
 //! Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
-//! @param size spacing coupling parameter
 void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 {
     m_kappa = kappa;

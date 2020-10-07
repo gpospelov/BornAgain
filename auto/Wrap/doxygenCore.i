@@ -4435,17 +4435,6 @@ C++ includes: FTDecay1D.h
 ";
 
 %feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(const std::vector< double > P)
-
-Constructor of pseudo-Voigt decay function.
-
-Parameters:
------------
-
-decay_length: 
-half-width of the distribution in nanometers
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
 %feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
@@ -4531,23 +4520,6 @@ C++ includes: FTDecay2D.h
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector< double > P)
-
-Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
-
-Parameters:
------------
-
-decay_length_x: 
-the decay length in nanometers along x-axis of the distribution
-
-decay_length_y: 
-the decay length in nanometers along y-axis of the distribution
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
-
-gamma: 
-distribution orientation with respect to the first lattice vector in radians 
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double gamma, double eta)
@@ -4759,17 +4731,6 @@ C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(const std::vector< double > P)
-
-Constructor of one-dimensional pseudo-Voigt probability distribution.
-
-Parameters:
------------
-
-omega: 
-half-width of the distribution in nanometers
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
@@ -4945,23 +4906,6 @@ C++ includes: FTDistributions2D.h
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector< double > P)
-
-Constructor of two-dimensional pseudo-Voigt probability distribution.
-
-Parameters:
------------
-
-omega_x: 
-half-width of the distribution along its x-axis in nanometers
-
-omega_y: 
-half-width of the distribution along its y-axis in nanometers
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
-
-gamma: 
-angle in direct space between first lattice vector and x-axis of the distribution in radians 
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double gamma, double eta)
@@ -7939,7 +7883,13 @@ alpha:
 angle between lattice vectors in radians
 
 xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians 
+rotation of lattice with respect to x-axis (beam direction) in radians
+
+size_1: 
+correlation length in direction 1
+
+size_2: 
+correlation length in direction 2 
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() final
@@ -8132,20 +8082,6 @@ C++ includes: InterferenceFunctionFinite3DLattice.h
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
-
-Constructor of three-dimensional finite lattice interference function.
-
-Parameters:
------------
-
-lattice: 
-object specifying a 2d lattice structure
-
-N_1: 
-number of lattice cells in the first lattice direction
-
-N_2: 
-number of lattice cells in the second lattice direction 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final
@@ -8278,13 +8214,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setKappa "void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 
-Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
-
-Parameters:
------------
-
-size: 
-spacing coupling parameter 
+Sets size spacing coupling parameter of the Size Spacing Correlation Approximation. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::kappa "double InterferenceFunctionRadialParaCrystal::kappa() const

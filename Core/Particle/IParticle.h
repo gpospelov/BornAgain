@@ -20,7 +20,7 @@
 #include "Base/Vector/Vectors3D.h"
 #include <memory>
 
-class SlicedParticle;
+struct SlicedParticle;
 struct ParticleLimits;
 class Rotations;
 class ZLimits;

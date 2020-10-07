@@ -20,10 +20,6 @@
 
 #include <limits>
 
-//! Constructor of three-dimensional finite lattice interference function.
-//! @param lattice: object specifying a 2d lattice structure
-//! @param N_1: number of lattice cells in the first lattice direction
-//! @param N_2: number of lattice cells in the second lattice direction
 InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice& lattice,
                                                                          unsigned N_1, unsigned N_2,
                                                                          unsigned N_3)

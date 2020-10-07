@@ -215,7 +215,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() 
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(const std::vector<double> P)
     : IFTDistribution1D(
-        {"FTDistribution1DVoigt", "class_tooltip", {{"Eta", "", "para_tooltip", -INF, +INF, 0}}},
+        {"FTDistribution1DVoigt", "class_tooltip", {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF, +INF, 0}}},
         P),
       m_eta(m_P[1])
 {

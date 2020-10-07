@@ -156,9 +156,6 @@ public:
 class FTDistribution1DVoigt : public IFTDistribution1D
 {
 public:
-    //! Constructor of one-dimensional pseudo-Voigt probability distribution.
-    //! @param omega: half-width of the distribution in nanometers
-    //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
     FTDistribution1DVoigt(const std::vector<double> P);
     FTDistribution1DVoigt(double omega, double eta);
 

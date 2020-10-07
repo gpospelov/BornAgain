@@ -12072,7 +12072,13 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         angle between lattice vectors in radians
 
         xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians 
+        rotation of lattice with respect to x-axis (beam direction) in radians
+
+        size_1: 
+        correlation length in direction 1
+
+        size_2: 
+        correlation length in direction 2 
 
         """
         _libBornAgainCore.InterferenceFunction2DSuperLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunction2DSuperLattice(*args))
@@ -12451,20 +12457,6 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         __init__(InterferenceFunctionFinite3DLattice self, Lattice lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
         InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
 
-        Constructor of three-dimensional finite lattice interference function.
-
-        Parameters:
-        -----------
-
-        lattice: 
-        object specifying a 2d lattice structure
-
-        N_1: 
-        number of lattice cells in the first lattice direction
-
-        N_2: 
-        number of lattice cells in the second lattice direction 
-
         """
         _libBornAgainCore.InterferenceFunctionFinite3DLattice_swiginit(self, _libBornAgainCore.new_InterferenceFunctionFinite3DLattice(lattice, N_1, N_2, N_3))
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite3DLattice
@@ -12719,13 +12711,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         setKappa(InterferenceFunctionRadialParaCrystal self, double kappa)
         void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 
-        Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
-
-        Parameters:
-        -----------
-
-        size: 
-        spacing coupling parameter 
+        Sets size spacing coupling parameter of the Size Spacing Correlation Approximation. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)

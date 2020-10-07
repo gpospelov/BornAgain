@@ -509,7 +509,7 @@ class kvector_t(object):
     def conj(self):
         r"""
         conj(kvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< double >::conj() const
+        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const
 
         """
         return _libBornAgainBase.kvector_t_conj(self)
@@ -589,7 +589,7 @@ class kvector_t(object):
     def unit(self):
         r"""
         unit(kvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< double >::unit() const
+        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainBase.kvector_t_unit(self)
@@ -605,7 +605,7 @@ class kvector_t(object):
     def real(self):
         r"""
         real(kvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< double >::real() const
+        BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const
 
         """
         return _libBornAgainBase.kvector_t_real(self)
@@ -914,7 +914,7 @@ class cvector_t(object):
     def conj(self):
         r"""
         conj(cvector_t self) -> cvector_t
-        BasicVector3D< double > BasicVector3D< double >::conj() const
+        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const
 
         """
         return _libBornAgainBase.cvector_t_conj(self)
@@ -962,7 +962,7 @@ class cvector_t(object):
     def unit(self):
         r"""
         unit(cvector_t self) -> cvector_t
-        BasicVector3D< double > BasicVector3D< double >::unit() const
+        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const
 
         """
         return _libBornAgainBase.cvector_t_unit(self)
@@ -970,7 +970,7 @@ class cvector_t(object):
     def real(self):
         r"""
         real(cvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< double >::real() const
+        BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const
 
         """
         return _libBornAgainBase.cvector_t_real(self)

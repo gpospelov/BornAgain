@@ -12520,7 +12520,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "kvector_t___isub__", _wrap_kvector_t___isub__, METH_VARARGS, "kvector_t___isub__(kvector_t self, kvector_t v) -> kvector_t"},
 	 { "kvector_t_conj", _wrap_kvector_t_conj, METH_O, "\n"
 		"kvector_t_conj(kvector_t self) -> kvector_t\n"
-		"BasicVector3D< double > BasicVector3D< double >::conj() const\n"
+		"BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const\n"
 		"\n"
 		""},
 	 { "kvector_t_mag2", _wrap_kvector_t_mag2, METH_O, "\n"
@@ -12573,7 +12573,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "kvector_t_unit", _wrap_kvector_t_unit, METH_O, "\n"
 		"kvector_t_unit(kvector_t self) -> kvector_t\n"
-		"BasicVector3D< double > BasicVector3D< double >::unit() const\n"
+		"BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const\n"
 		"\n"
 		""},
 	 { "kvector_t_complex", _wrap_kvector_t_complex, METH_O, "\n"
@@ -12583,7 +12583,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "kvector_t_real", _wrap_kvector_t_real, METH_O, "\n"
 		"kvector_t_real(kvector_t self) -> kvector_t\n"
-		"BasicVector3D< double > BasicVector3D< double >::real() const\n"
+		"BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const\n"
 		"\n"
 		""},
 	 { "kvector_t_angle", _wrap_kvector_t_angle, METH_VARARGS, "\n"
@@ -12717,7 +12717,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "cvector_t___isub__", _wrap_cvector_t___isub__, METH_VARARGS, "cvector_t___isub__(cvector_t self, cvector_t v) -> cvector_t"},
 	 { "cvector_t_conj", _wrap_cvector_t_conj, METH_O, "\n"
 		"cvector_t_conj(cvector_t self) -> cvector_t\n"
-		"BasicVector3D< double > BasicVector3D< double >::conj() const\n"
+		"BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const\n"
 		"\n"
 		""},
 	 { "cvector_t_mag2", _wrap_cvector_t_mag2, METH_O, "\n"
@@ -12750,12 +12750,12 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "cvector_t_unit", _wrap_cvector_t_unit, METH_O, "\n"
 		"cvector_t_unit(cvector_t self) -> cvector_t\n"
-		"BasicVector3D< double > BasicVector3D< double >::unit() const\n"
+		"BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const\n"
 		"\n"
 		""},
 	 { "cvector_t_real", _wrap_cvector_t_real, METH_O, "\n"
 		"cvector_t_real(cvector_t self) -> kvector_t\n"
-		"BasicVector3D< double > BasicVector3D< double >::real() const\n"
+		"BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const\n"
 		"\n"
 		""},
 	 { "cvector_t_project", _wrap_cvector_t_project, METH_VARARGS, "\n"

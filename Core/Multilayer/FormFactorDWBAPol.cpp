@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/FormFactorDWBAPol.h"
-#include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Material/WavevectorInfo.h"
+#include "Core/RT/ILayerRTCoefficients.h"
 
 namespace
 {

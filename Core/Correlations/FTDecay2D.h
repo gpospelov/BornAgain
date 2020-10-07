@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_CORRELATIONS_FTDECAY2D_H
 #define BORNAGAIN_CORE_CORRELATIONS_FTDECAY2D_H
 
-#include "Base/Types/ICloneable.h"
 #include "Base/Const/MathConstants.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 #include <utility>
 

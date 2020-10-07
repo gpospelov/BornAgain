@@ -16,11 +16,11 @@
 #define BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
 
 #include "Base/Types/Complex.h"
+#include "Base/Vector/EigenCore.h"
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Material/Material.h"
 #include "Core/Scattering/ISample.h"
 #include "Core/Scattering/ZLimits.h"
-#include "Base/Vector/EigenCore.h"
-#include "Base/Vector/Vectors3D.h"
 
 class ILayerRTCoefficients;
 class IRotation;

@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BeamItems.h"
-#include "Base/Utils/Assert.h"
 #include "Base/Const/Units.h"
-#include "Core/Beam/Beam.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Axis/IAxis.h"
+#include "Core/Beam/Beam.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamDistributionItem.h"

@@ -1,6 +1,6 @@
-#include "Core/Beam/FootprintGauss.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
+#include "Core/Beam/FootprintGauss.h"
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Instrument/QSpecScan.h"

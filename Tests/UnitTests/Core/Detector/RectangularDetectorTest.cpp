@@ -1,7 +1,7 @@
 #include "Core/Detector/RectangularDetector.h"
 #include "Base/Const/Units.h"
-#include "Core/Simulation/GISASSimulation.h"
 #include "Base/Utils/Algorithms.h"
+#include "Core/Simulation/GISASSimulation.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>
@@ -16,8 +16,7 @@ protected:
 
     bool isEqual(const kvector_t lhs, const kvector_t rhs)
     {
-        bool is_equal = algo::almostEqual(lhs.x(), rhs.x())
-                        && algo::almostEqual(lhs.y(), rhs.y())
+        bool is_equal = algo::almostEqual(lhs.x(), rhs.x()) && algo::almostEqual(lhs.y(), rhs.y())
                         && algo::almostEqual(lhs.z(), rhs.z());
         if (!is_equal) {
             std::cout << "lhs:" << lhs << " rhs:" << rhs << " diff:" << (lhs - rhs) << std::endl;

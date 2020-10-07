@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
-#include "Core/Aggregate/InterferenceFunctions.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/Units.h"
+#include "Base/Types/Exceptions.h"
+#include "Core/Aggregate/InterferenceFunctions.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/IParticle.h"
 #include "Core/Particle/MesoCrystal.h"

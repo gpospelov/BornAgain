@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <algorithm>
 
 namespace

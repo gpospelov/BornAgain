@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "BATesting.h"
+#include "Base/Utils/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Intensity/OutputData.h"
-#include "Base/Utils/FileSystemUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>

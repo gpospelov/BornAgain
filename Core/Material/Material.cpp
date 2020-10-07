@@ -14,8 +14,8 @@
 
 #include "Core/Material/Material.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Material/BaseMaterialImpl.h"
 #include "Base/Vector/Transform3D.h"
+#include "Core/Material/BaseMaterialImpl.h"
 #include "Core/Material/WavevectorInfo.h"
 #include <typeinfo>
 

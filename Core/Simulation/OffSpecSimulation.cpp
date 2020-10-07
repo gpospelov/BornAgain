@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/OffSpecSimulation.h"
-#include "Core/Pixel/SimulationElement.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
@@ -21,6 +20,7 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 OffSpecSimulation::OffSpecSimulation()

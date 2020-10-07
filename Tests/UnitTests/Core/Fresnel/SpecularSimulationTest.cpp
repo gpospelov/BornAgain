@@ -1,7 +1,7 @@
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/VariableBinAxis.h"
 #include "Core/Instrument/AngularSpecScan.h"

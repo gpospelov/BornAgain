@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorPyramid.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
+#include "Base/Types/Exceptions.h"
 #include "Base/Utils/MathFunctions.h"
 
 const PolyhedralTopology FormFactorPyramid::topology = {{

@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction2DSuperLattice.h"
-#include "Core/Aggregate/InterferenceFunctionNone.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
 #include "Base/Utils/MathFunctions.h"
+#include "Core/Aggregate/InterferenceFunctionNone.h"
+#include "Core/Parametrization/RealParameter.h"
 
 #include <limits>
 

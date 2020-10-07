@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
-#include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Pixel/SimulationElement.h"
-#include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Base/Utils/IntegratorMCMiser.h"
+#include "Core/Aggregate/InterferenceFunctionNone.h"
+#include "Core/Multilayer/FormFactorCoherentSum.h"
+#include "Core/Pixel/SimulationElement.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)

@@ -15,6 +15,7 @@
 #include "Core/PyIO/PythonFormatting.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Base/Utils/Algorithms.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/Mask/Ellipse.h"
@@ -28,7 +29,6 @@
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/PyFmt.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Base/Utils/Algorithms.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iomanip>
 

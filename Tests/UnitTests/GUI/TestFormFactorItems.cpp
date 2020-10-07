@@ -1,6 +1,6 @@
 #include "Base/Const/Units.h"
-#include "Core/HardParticle/FormFactorAnisoPyramid.h"
 #include "Base/Utils/Algorithms.h"
+#include "Core/HardParticle/FormFactorAnisoPyramid.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "Tests/GTestWrapper/google_test.h"
 

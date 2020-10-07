@@ -14,8 +14,8 @@
 
 #include "Core/Material/MagneticMaterialImpl.h"
 #include "Base/Const/PhysicalConstants.h"
-#include "Core/Material/MaterialUtils.h"
 #include "Base/Vector/Transform3D.h"
+#include "Core/Material/MaterialUtils.h"
 #include "Core/Material/WavevectorInfo.h"
 #include <memory>
 

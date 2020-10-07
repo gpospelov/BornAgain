@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWNCSTRATEGY_H
 #define BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWNCSTRATEGY_H
 
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Multilayer/SpecularMagneticNewStrategy.h"
 #include "Core/RT/MatrixRTCoefficients_v3.h"
-#include "Base/Vector/Vectors3D.h"
 #include <memory>
 #include <vector>
 

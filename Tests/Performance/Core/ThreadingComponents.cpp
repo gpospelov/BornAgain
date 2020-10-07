@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Tests/Performance/Core/ThreadingComponents.h"
+#include "Base/Const/Units.h"
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Base/Const/Units.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Mask/Rectangle.h"

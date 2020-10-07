@@ -1,6 +1,6 @@
+#include "Base/Const/MathConstants.h"
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Base/Const/MathConstants.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Material/MaterialFactoryFuncs.h"

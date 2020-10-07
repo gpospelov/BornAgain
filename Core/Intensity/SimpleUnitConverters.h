@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_SIMPLEUNITCONVERTERS_H
 #define BORNAGAIN_CORE_INTENSITY_SIMPLEUNITCONVERTERS_H
 
-#include "Core/Intensity/IUnitConverter.h"
 #include "Base/Vector/Vectors3D.h"
+#include "Core/Intensity/IUnitConverter.h"
 
 class Beam;
 class IDetector;

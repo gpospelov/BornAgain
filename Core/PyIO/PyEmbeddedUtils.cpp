@@ -15,9 +15,9 @@
 #ifdef BORNAGAIN_PYTHON
 
 #include "Core/PyIO/PyEmbeddedUtils.h"
-#include "Core/PyIO/PythonFormatting.h"
 #include "Base/Utils/PythonCore.h"
 #include "Base/Utils/SysUtils.h"
+#include "Core/PyIO/PythonFormatting.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

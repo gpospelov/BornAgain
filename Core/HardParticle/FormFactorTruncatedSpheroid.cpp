@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Shapes/TruncatedEllipsoid.h"
+#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
 #include "Base/Utils/MathFunctions.h"
+#include "Core/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(const std::vector<double> P)

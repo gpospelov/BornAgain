@@ -14,11 +14,11 @@
 
 #include "Core/Scattering/IFormFactor.h"
 #include "Base/Types/Exceptions.h"
+#include "Core/Material/WavevectorInfo.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Scattering/FormFactorDecoratorRotation.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/Material/WavevectorInfo.h"
 #include <memory>
 #include <utility>
 

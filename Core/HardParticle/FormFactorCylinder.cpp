@@ -14,8 +14,8 @@
 
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Shapes/DoubleEllipse.h"
 #include "Base/Utils/MathFunctions.h"
+#include "Core/Shapes/DoubleEllipse.h"
 
 FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)
     : IFormFactorBorn(

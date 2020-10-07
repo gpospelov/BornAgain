@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionHardDisk.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Base/Utils/Integrator.h"
 #include "Base/Utils/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 #include <cmath>
 
 namespace

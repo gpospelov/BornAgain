@@ -1,7 +1,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Core/Beam/Beam.h"
 #include "Core/Axis/FixedBinAxis.h"
+#include "Core/Beam/Beam.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
 #include "Tests/GTestWrapper/google_test.h"
 

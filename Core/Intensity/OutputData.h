@@ -15,13 +15,13 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 #define BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 
-#include "Base/Utils/Assert.h"
 #include "Base/Types/SafePointerVector.h"
+#include "Base/Utils/Assert.h"
+#include "Base/Utils/PyObject.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Intensity/LLData.h"
 #include "Core/Intensity/OutputDataIterator.h"
 #include "Core/Parametrization/ThreadInfo.h"
-#include "Base/Utils/PyObject.h"
 #include <sstream>
 
 using std::size_t;

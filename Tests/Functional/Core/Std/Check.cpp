@@ -15,6 +15,7 @@
 #include "BABuild.h"
 #include "BATesting.h"
 #include "Base/Utils/Assert.h"
+#include "Base/Utils/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/IntensityDataFunctions.h"
 #include "Core/Multilayer/MultiLayer.h"
@@ -22,7 +23,6 @@
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
-#include "Base/Utils/FileSystemUtils.h"
 #include <iostream>
 
 bool checkSimulation(const std::string& name, const Simulation& direct_simulation,

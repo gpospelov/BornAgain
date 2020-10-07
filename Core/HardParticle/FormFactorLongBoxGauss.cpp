@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorLongBoxGauss.h"
-#include "Core/Shapes/Box.h"
 #include "Base/Utils/MathFunctions.h"
+#include "Core/Shapes/Box.h"
 
 FormFactorLongBoxGauss::FormFactorLongBoxGauss(const std::vector<double> P)
     : IFormFactorBorn({"FormFactorLongBoxGauss",

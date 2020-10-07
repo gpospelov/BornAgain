@@ -14,9 +14,9 @@
 
 #include "Core/Simulation/StandardSimulations.h"
 #include "Base/Const/Units.h"
+#include "Core/Axis/FixedBinAxis.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Axis/FixedBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Detector/IsGISAXSDetector.h"
 #include "Core/Detector/RectangularDetector.h"

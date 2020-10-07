@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_CRYSTAL_H
 #define BORNAGAIN_CORE_PARTICLE_CRYSTAL_H
 
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Lattice/Lattice.h"
 #include "Core/Particle/IClusteredParticles.h"
-#include "Base/Vector/Vectors3D.h"
 
 //! A crystal structure with a ParticleComposition as a basis.
 //! Used in MesoCrystal, where it is given an outer shape.

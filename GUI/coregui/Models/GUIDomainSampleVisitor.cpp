@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
-#include "Core/Aggregate/ParticleLayout.h"
 #include "Base/Const/Units.h"
+#include "Core/Aggregate/ParticleLayout.h"
 #include "Core/HardParticle/HardParticles.h"
 #include "Core/Material/Material.h"
 #include "Core/Multilayer/Layer.h"

@@ -16,9 +16,9 @@
 #define BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
 
 #include "Base/Types/Complex.h"
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Pixel/IPixel.h"
 #include "Core/Pixel/PolarizationHandler.h"
-#include "Base/Vector/Vectors3D.h"
 #include <memory>
 
 class IPixel;

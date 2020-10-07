@@ -16,8 +16,8 @@
 #define BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
 
 #include "Base/Types/SafePointerVector.h"
-#include "Core/Particle/IAbstractParticle.h"
 #include "Base/Vector/Vectors3D.h"
+#include "Core/Particle/IAbstractParticle.h"
 #include <memory>
 
 struct SlicedParticle;

@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunctionFinite3DLattice.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Base/Types/Exceptions.h"
 #include "Base/Utils/MathFunctions.h"
+#include "Core/Parametrization/RealParameter.h"
 
 #include <limits>
 

@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Beam/Beam.h"
-#include "Base/Utils/Assert.h"
+#include "Base/Const/MathConstants.h"
 #include "Base/Types/Complex.h"
 #include "Base/Types/Exceptions.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Parametrization/RealParameter.h"
 

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Export/SampleToPython.h"
+#include "Base/Vector/Transform3D.h"
 #include "Core/Aggregate/InterferenceFunctions.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Export/INodeUtils.h"
@@ -33,7 +34,6 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/PyIO/PythonFormatting.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Base/Vector/Transform3D.h"
 #include <iomanip>
 #include <map>
 #include <set>

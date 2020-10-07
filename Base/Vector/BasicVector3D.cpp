@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Base/Vector/BasicVector3D.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Const/MathConstants.h"
+#include "Base/Types/Exceptions.h"
 
 typedef std::complex<double> complex_t;
 

@@ -16,10 +16,10 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Pixel/IPixel.h"
-#include "Core/Pixel/SimulationElement.h"
 #include "Core/Detector/IDetectorResolution.h"
 #include "Core/Detector/SphericalPixel.h"
+#include "Core/Pixel/IPixel.h"
+#include "Core/Pixel/SimulationElement.h"
 
 SphericalDetector::SphericalDetector()
 {

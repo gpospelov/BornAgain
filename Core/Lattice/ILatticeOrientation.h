@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_LATTICE_ILATTICEORIENTATION_H
 #define BORNAGAIN_CORE_LATTICE_ILATTICEORIENTATION_H
 
-#include "Core/Lattice/Lattice.h"
 #include "Base/Vector/Transform3D.h"
+#include "Core/Lattice/Lattice.h"
 
 class ILatticeOrientation
 {

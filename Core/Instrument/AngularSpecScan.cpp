@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/AngularSpecScan.h"
-#include "Core/Beam/IFootprintFactor.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
+#include "Core/Beam/IFootprintFactor.h"
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Parametrization/ParameterSample.h"

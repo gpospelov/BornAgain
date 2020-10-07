@@ -28,7 +28,7 @@ double RealIntegrator::integrate(const std::function<double(double)>& f, double 
 {
     m_gsl_f.params = (void*)&f;
     double result, error;
-    gsl_integration_qag(&m_gsl_f, lmin, lmax, 1e-10, 1e-8, 200, 4, m_workspace, &result, &error);
+    gsl_integration_qag(&m_gsl_f, lmin, lmax, 1e-9, 1e-7, 200, 3, m_workspace, &result, &error);
     // TODO check error
     return result;
 }

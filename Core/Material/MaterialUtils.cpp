@@ -26,7 +26,6 @@ constexpr double magnetic_prefactor = (m_n * g_factor_n * mu_N / h_bar / h_bar) 
 // Unit 2x2 matrix
 const Eigen::Matrix2cd Unit_Matrix(Eigen::Matrix2cd::Identity());
 
-// Imaginary unit
 namespace
 {
 // Pauli matrices
@@ -46,12 +45,15 @@ Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor,
               * (Pauli_X * polarization[0] + Pauli_Y * polarization[1] + Pauli_Z * polarization[2]);
     return result;
 }
+
+// Prompt compilation for real and complex vectors:
 template Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor,
                                                                  double magnetic_factor,
                                                                  kvector_t polarization);
 template Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor,
                                                                  double magnetic_factor,
                                                                  cvector_t polarization);
+
 
 complex_t MaterialUtils::ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
 {

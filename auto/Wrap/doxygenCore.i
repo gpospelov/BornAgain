@@ -12751,9 +12751,12 @@ Returns number of samples to generate.
 %feature("docstring")  RangedDistribution::setLimits "void RangedDistribution::setLimits(const RealLimits &limits)
 ";
 
-%feature("docstring")  RangedDistribution::print "std::string RangedDistribution::print() const
+%feature("docstring")  RangedDistribution::pyString "std::string RangedDistribution::pyString() const
 
 Prints python-formatted definition of the distribution. 
+";
+
+%feature("docstring")  RangedDistribution::pyStringArgs "std::string RangedDistribution::pyStringArgs() const
 ";
 
 
@@ -16429,8 +16432,6 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 ";
 
 %feature("docstring")  MaterialUtils::MagnetizationCorrection "Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
-
-Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
 %feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)

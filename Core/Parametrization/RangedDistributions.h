@@ -71,7 +71,8 @@ public:
     void setLimits(const RealLimits& limits) { m_limits = limits; }
 
     //! Prints python-formatted definition of the distribution
-    std::string print() const;
+    std::string pyString() const;
+    std::string pyStringArgs() const;
 
 protected:
     //! Returns distribution name for python-formatted text.
@@ -219,7 +220,7 @@ protected:
 
 inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& distribution)
 {
-    return os << distribution.print();
+    return os << distribution.pyString();
 }
 
 #endif // BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H

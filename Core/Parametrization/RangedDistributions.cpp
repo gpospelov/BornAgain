@@ -85,15 +85,20 @@ std::unique_ptr<IDistribution1D> RangedDistribution::distribution(double mean, d
     return distribution_impl(mean, stddev);
 }
 
-std::string RangedDistribution::print() const
+std::string RangedDistribution::pyString() const
 {
     std::stringstream result;
     result << pyfmt::indent() << "distribution = " << name();
     result << "(" << m_n_samples << ", " << pyfmt::printDouble(m_sigma_factor);
     if (!m_limits.isLimitless())
-        result << pyfmt::printRealLimitsArg(m_limits);
+        result << pyStringArgs();
     result << ")";
     return result.str();
+}
+
+std::string RangedDistribution::pyStringArgs() const
+{
+    return pyfmt::printRealLimitsArg(m_limits);
 }
 
 void RangedDistribution::checkInitialization()

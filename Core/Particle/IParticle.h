@@ -21,7 +21,7 @@
 #include <memory>
 
 class SlicedParticle;
-class ParticleLimits;
+struct ParticleLimits;
 class Rotations;
 class ZLimits;
 

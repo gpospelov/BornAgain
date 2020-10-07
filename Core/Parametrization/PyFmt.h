@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/PyFmt.h
-//! @brief     Defines namespace pyfmt.
+//! @brief     Defines functions in namespace pyfmt.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_PYFMT_H
-#define BORNAGAIN_CORE_TOOLS_PYFMT_H
+#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PYFMT_H
+#define BORNAGAIN_CORE_PARAMETRIZATION_PYFMT_H
 
 #include "Base/Vector/Vectors3D.h"
 #include <string>
@@ -38,9 +38,6 @@ std::string printDegrees(double input);
 std::string printValue(double value, const std::string& units = "");
 std::string printString(const std::string& value);
 
-std::string printRealLimits(const RealLimits& limits, const std::string& units = "");
-std::string printRealLimitsArg(const RealLimits& limits, const std::string& units = "");
-
 bool isSquare(double length1, double length2, double angle);
 bool isHexagonal(double length1, double length2, double angle);
 std::string printKvector(const kvector_t value);
@@ -51,4 +48,4 @@ std::string indent(size_t width = 4u);
 
 } // namespace pyfmt
 
-#endif // BORNAGAIN_CORE_TOOLS_PYFMT_H
+#endif // BORNAGAIN_CORE_PARAMETRIZATION_PYFMT_H

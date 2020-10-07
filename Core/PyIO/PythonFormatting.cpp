@@ -28,6 +28,7 @@
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/PyFmt.h"
+#include "Core/Parametrization/PyFmtLimits.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iomanip>

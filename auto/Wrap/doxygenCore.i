@@ -12756,9 +12756,6 @@ Returns number of samples to generate.
 Prints python-formatted definition of the distribution. 
 ";
 
-%feature("docstring")  RangedDistribution::pyStringArgs "std::string RangedDistribution::pyStringArgs() const
-";
-
 
 // File: classRangedDistributionCosine.xml
 %feature("docstring") RangedDistributionCosine "
@@ -16096,55 +16093,55 @@ C++ includes: ZLimits.h
 // File: namespace_0d444.xml
 
 
-// File: namespace_0d448.xml
+// File: namespace_0d450.xml
 
 
-// File: namespace_0d464.xml
+// File: namespace_0d466.xml
 
 
-// File: namespace_0d490.xml
-
-
-// File: namespace_0d497.xml
+// File: namespace_0d492.xml
 
 
 // File: namespace_0d499.xml
 
 
-// File: namespace_0d507.xml
+// File: namespace_0d501.xml
 
 
-// File: namespace_0d519.xml
+// File: namespace_0d509.xml
 
 
-// File: namespace_0d542.xml
+// File: namespace_0d521.xml
 
 
-// File: namespace_0d550.xml
+// File: namespace_0d544.xml
 
 
-// File: namespace_0d556.xml
+// File: namespace_0d552.xml
 
 
 // File: namespace_0d558.xml
 
 
-// File: namespace_0d569.xml
+// File: namespace_0d560.xml
 
 
-// File: namespace_0d581.xml
+// File: namespace_0d571.xml
 
 
-// File: namespace_0d587.xml
+// File: namespace_0d583.xml
 
 
-// File: namespace_0d591.xml
+// File: namespace_0d589.xml
 
 
-// File: namespace_0d609.xml
+// File: namespace_0d593.xml
 
 
-// File: namespace_0d628.xml
+// File: namespace_0d611.xml
+
+
+// File: namespace_0d630.xml
 
 
 // File: namespace_0d78.xml
@@ -18433,6 +18430,12 @@ magnetization (in A/m)
 
 
 // File: PyFmt_8h.xml
+
+
+// File: PyFmtLimits_8cpp.xml
+
+
+// File: PyFmtLimits_8h.xml
 
 
 // File: RangedDistributions_8cpp.xml

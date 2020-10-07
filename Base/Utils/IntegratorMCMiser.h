@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_INTEGRATORMCMISER_H
-#define BORNAGAIN_CORE_TOOLS_INTEGRATORMCMISER_H
+#ifndef BORNAGAIN_BASE_UTILS_INTEGRATORMCMISER_H
+#define BORNAGAIN_BASE_UTILS_INTEGRATORMCMISER_H
 
 #include <gsl/gsl_monte_miser.h>
 #include <memory>
@@ -118,4 +118,4 @@ double IntegratorMCMiser<T>::integrate(double* min_array, double* max_array, voi
     return result;
 }
 
-#endif // BORNAGAIN_CORE_TOOLS_INTEGRATORMCMISER_H
+#endif // BORNAGAIN_BASE_UTILS_INTEGRATORMCMISER_H

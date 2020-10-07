@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BASICS_ICLONEABLE_H
-#define BORNAGAIN_CORE_BASICS_ICLONEABLE_H
+#ifndef BORNAGAIN_BASE_TYPES_ICLONEABLE_H
+#define BORNAGAIN_BASE_TYPES_ICLONEABLE_H
 
 //! Interface for polymorphic classes that should not be copied, except by explicit cloning.
 //!
@@ -34,4 +34,4 @@ public:
     virtual void transferToCPP() {} //!< Used for Python overriding of clone (see swig/tweaks.py)
 };
 
-#endif // BORNAGAIN_CORE_BASICS_ICLONEABLE_H
+#endif // BORNAGAIN_BASE_TYPES_ICLONEABLE_H

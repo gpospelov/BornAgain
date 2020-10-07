@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H
-#define BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H
+#ifndef BORNAGAIN_BASE_UTILS_MATHFUNCTIONS_H
+#define BORNAGAIN_BASE_UTILS_MATHFUNCTIONS_H
 
 #include "Base/Types/Complex.h"
 #include <vector>
@@ -104,4 +104,4 @@ double GeneratePoissonRandom(double average);
 
 } // Namespace MathFunctions
 
-#endif // BORNAGAIN_CORE_TOOLS_MATHFUNCTIONS_H
+#endif // BORNAGAIN_BASE_UTILS_MATHFUNCTIONS_H

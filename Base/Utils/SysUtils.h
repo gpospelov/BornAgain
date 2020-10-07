@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_SYSUTILS_H
-#define BORNAGAIN_CORE_TOOLS_SYSUTILS_H
+#ifndef BORNAGAIN_BASE_UTILS_SYSUTILS_H
+#define BORNAGAIN_BASE_UTILS_SYSUTILS_H
 
 #include <string>
 
@@ -35,4 +35,4 @@ bool isWindowsHost();
 
 } // namespace SysUtils
 
-#endif // BORNAGAIN_CORE_TOOLS_SYSUTILS_H
+#endif // BORNAGAIN_BASE_UTILS_SYSUTILS_H

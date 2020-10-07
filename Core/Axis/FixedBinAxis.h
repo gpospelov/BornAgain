@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BINNING_FIXEDBINAXIS_H
-#define BORNAGAIN_CORE_BINNING_FIXEDBINAXIS_H
+#ifndef BORNAGAIN_CORE_AXIS_FIXEDBINAXIS_H
+#define BORNAGAIN_CORE_AXIS_FIXEDBINAXIS_H
 
 #include "Core/Axis/IAxis.h"
 
@@ -62,4 +62,4 @@ private:
     double m_end;
 };
 
-#endif // BORNAGAIN_CORE_BINNING_FIXEDBINAXIS_H
+#endif // BORNAGAIN_CORE_AXIS_FIXEDBINAXIS_H

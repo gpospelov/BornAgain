@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_VECTOR_TRANSFORM3D_H
-#define BORNAGAIN_CORE_VECTOR_TRANSFORM3D_H
+#ifndef BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H
+#define BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/EigenCore.h"
@@ -113,4 +113,4 @@ private:
 #endif
 };
 
-#endif // BORNAGAIN_CORE_VECTOR_TRANSFORM3D_H
+#endif // BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H

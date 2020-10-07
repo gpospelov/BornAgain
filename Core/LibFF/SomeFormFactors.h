@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
-#define BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
+#ifndef BORNAGAIN_CORE_LIBFF_SOMEFORMFACTORS_H
+#define BORNAGAIN_CORE_LIBFF_SOMEFORMFACTORS_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
@@ -27,4 +27,4 @@ complex_t ffSphere(cvector_t q, double R);
 
 } // namespace someff
 
-#endif // BORNAGAIN_CORE_VECTOR_SOMEFORMFACTORS_H
+#endif // BORNAGAIN_CORE_LIBFF_SOMEFORMFACTORS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_CLONEABLEVECTOR_H
-#define BORNAGAIN_CORE_TOOLS_CLONEABLEVECTOR_H
+#ifndef BORNAGAIN_BASE_TYPES_CLONEABLEVECTOR_H
+#define BORNAGAIN_BASE_TYPES_CLONEABLEVECTOR_H
 
 #include <memory>
 #include <vector>
@@ -43,4 +43,4 @@ public:
     void emplace_back(std::unique_ptr<T>&& t) { super::emplace_back(t); }
 };
 
-#endif // BORNAGAIN_CORE_TOOLS_CLONEABLEVECTOR_H
+#endif // BORNAGAIN_BASE_TYPES_CLONEABLEVECTOR_H

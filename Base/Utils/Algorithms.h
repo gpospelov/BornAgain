@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BASICS_ALGORITHMS_H
-#define BORNAGAIN_CORE_BASICS_ALGORITHMS_H
+#ifndef BORNAGAIN_BASE_UTILS_ALGORITHMS_H
+#define BORNAGAIN_BASE_UTILS_ALGORITHMS_H
 
 #include "Base/Utils/Assert.h"
 #include <algorithm>
@@ -79,4 +79,4 @@ template <class T> std::vector<T> algo::concat(const std::vector<T>& v1, const s
     return v;
 }
 
-#endif // BORNAGAIN_CORE_BASICS_ALGORITHMS_H
+#endif // BORNAGAIN_BASE_UTILS_ALGORITHMS_H

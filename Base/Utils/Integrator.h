@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_INTEGRATOR_H
-#define BORNAGAIN_CORE_TOOLS_INTEGRATOR_H
+#ifndef BORNAGAIN_BASE_UTILS_INTEGRATOR_H
+#define BORNAGAIN_BASE_UTILS_INTEGRATOR_H
 
 #include "Base/Types/Complex.h"
 #include <functional>
@@ -47,4 +47,4 @@ private:
     RealIntegrator imagPart;
 };
 
-#endif // BORNAGAIN_CORE_TOOLS_INTEGRATOR_H
+#endif // BORNAGAIN_BASE_UTILS_INTEGRATOR_H

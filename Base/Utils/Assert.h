@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BASICS_ASSERT_H
-#define BORNAGAIN_CORE_BASICS_ASSERT_H
+#ifndef BORNAGAIN_BASE_UTILS_ASSERT_H
+#define BORNAGAIN_BASE_UTILS_ASSERT_H
 
 // ASSERT must be declared as a macro, not a function, in order for the error
 // message to correctly report the source line where the assertion failed.
@@ -32,4 +32,4 @@
 
 #endif // HAVE_QT
 
-#endif // BORNAGAIN_CORE_BASICS_ASSERT_H
+#endif // BORNAGAIN_BASE_UTILS_ASSERT_H

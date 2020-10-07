@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_VECTOR_WAVEVECTORINFO_H
-#define BORNAGAIN_CORE_VECTOR_WAVEVECTORINFO_H
+#ifndef BORNAGAIN_CORE_MATERIAL_WAVEVECTORINFO_H
+#define BORNAGAIN_CORE_MATERIAL_WAVEVECTORINFO_H
 
 #include "Base/Vector/Vectors3D.h"
 
@@ -48,4 +48,4 @@ private:
     double m_vacuum_wavelength;
 };
 
-#endif // BORNAGAIN_CORE_VECTOR_WAVEVECTORINFO_H
+#endif // BORNAGAIN_CORE_MATERIAL_WAVEVECTORINFO_H

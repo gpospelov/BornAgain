@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BINNING_IPIXEL_H
-#define BORNAGAIN_CORE_BINNING_IPIXEL_H
+#ifndef BORNAGAIN_CORE_PIXEL_IPIXEL_H
+#define BORNAGAIN_CORE_PIXEL_IPIXEL_H
 
 #include "Base/Vector/Vectors3D.h"
 
@@ -32,4 +32,4 @@ public:
     virtual double getSolidAngle() const = 0;
 };
 
-#endif // BORNAGAIN_CORE_BINNING_IPIXEL_H
+#endif // BORNAGAIN_CORE_PIXEL_IPIXEL_H

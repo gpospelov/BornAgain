@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BASICS_EXCEPTIONS_H
-#define BORNAGAIN_CORE_BASICS_EXCEPTIONS_H
+#ifndef BORNAGAIN_BASE_TYPES_EXCEPTIONS_H
+#define BORNAGAIN_BASE_TYPES_EXCEPTIONS_H
 
 #include <stdexcept>
 #include <string>
@@ -118,4 +118,4 @@ void LogExceptionMessage(const std::string& message);
 #endif
 #endif
 
-#endif // BORNAGAIN_CORE_BASICS_EXCEPTIONS_H
+#endif // BORNAGAIN_BASE_TYPES_EXCEPTIONS_H

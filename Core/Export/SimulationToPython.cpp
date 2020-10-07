@@ -28,6 +28,7 @@
 #include "Core/Instrument/ISpecularScan.h"
 #include "Core/Parametrization/ParameterUtils.h"
 #include "Core/Parametrization/PyFmt.h"
+#include "Core/Parametrization/PyFmtLimits.h"
 #include "Core/PyIO/PythonFormatting.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"

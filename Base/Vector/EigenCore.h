@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_VECTOR_EIGENCORE_H
-#define BORNAGAIN_CORE_VECTOR_EIGENCORE_H
+#ifndef BORNAGAIN_BASE_VECTOR_EIGENCORE_H
+#define BORNAGAIN_BASE_VECTOR_EIGENCORE_H
 
 // This include file is introduced to deal with Eigen alignment
 // see http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
@@ -29,4 +29,4 @@
 #endif
 #endif
 
-#endif // BORNAGAIN_CORE_VECTOR_EIGENCORE_H
+#endif // BORNAGAIN_BASE_VECTOR_EIGENCORE_H

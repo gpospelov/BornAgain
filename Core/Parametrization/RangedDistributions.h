@@ -72,7 +72,6 @@ public:
 
     //! Prints python-formatted definition of the distribution
     std::string pyString() const;
-    std::string pyStringArgs() const;
 
 protected:
     //! Returns distribution name for python-formatted text.

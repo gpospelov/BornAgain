@@ -5,6 +5,7 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Parametrization/PyFmt.h"
+#include "Core/Parametrization/PyFmtLimits.h"
 #include "Fit/Tools/RealLimits.h"
 #include "Tests/GTestWrapper/google_test.h"
 
@@ -21,10 +22,6 @@ TEST_F(PythonFormattingTest, ValueTimesUnits)
 
 TEST_F(PythonFormattingTest, RealLimits)
 {
-    EXPECT_EQ("RealLimits.positive()", pyfmt::printRealLimits(RealLimits::positive()));
-
-    EXPECT_EQ("RealLimits.nonnegative()", pyfmt::printRealLimits(RealLimits::nonnegative()));
-
     EXPECT_EQ("RealLimits.lowerLimited(1.0)",
               pyfmt::printRealLimits(RealLimits::lowerLimited(1.0)));
     EXPECT_EQ("RealLimits.lowerLimited(1.0*nm)",

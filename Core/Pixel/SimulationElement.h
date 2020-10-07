@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
-#define BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
+#ifndef BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H
+#define BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
@@ -97,4 +97,4 @@ private:
     bool m_is_specular;
 };
 
-#endif // BORNAGAIN_CORE_SIMULATIONELEMENT_SIMULATIONELEMENT_H
+#endif // BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H

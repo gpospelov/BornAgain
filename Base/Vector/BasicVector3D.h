@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_VECTOR_BASICVECTOR3D_H
-#define BORNAGAIN_CORE_VECTOR_BASICVECTOR3D_H
+#ifndef BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
+#define BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
 
 //! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
 //! then reworked beyond recognition. Removed split of point and vector semantics.
@@ -349,4 +349,4 @@ template <> BasicVector3D<std::complex<double>> BasicVector3D<std::complex<doubl
 
 template <> double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 
-#endif // BORNAGAIN_CORE_VECTOR_BASICVECTOR3D_H
+#endif // BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BASICS_UNITS_H
-#define BORNAGAIN_CORE_BASICS_UNITS_H
+#ifndef BORNAGAIN_BASE_CONST_UNITS_H
+#define BORNAGAIN_BASE_CONST_UNITS_H
 
 //! Constants and functions for physical unit conversions.
 
@@ -61,4 +61,4 @@ static constexpr double gauss = 1e-4;
 
 } // namespace Units
 
-#endif // BORNAGAIN_CORE_BASICS_UNITS_H
+#endif // BORNAGAIN_BASE_CONST_UNITS_H

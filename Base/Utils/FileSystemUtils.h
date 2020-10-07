@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_TOOLS_FILESYSTEMUTILS_H
-#define BORNAGAIN_CORE_TOOLS_FILESYSTEMUTILS_H
+#ifndef BORNAGAIN_BASE_UTILS_FILESYSTEMUTILS_H
+#define BORNAGAIN_BASE_UTILS_FILESYSTEMUTILS_H
 
 #include <string>
 #include <vector>
@@ -65,4 +65,4 @@ bool IsFileExists(const std::string& str);
 
 } // namespace FileSystemUtils
 
-#endif // BORNAGAIN_CORE_TOOLS_FILESYSTEMUTILS_H
+#endif // BORNAGAIN_BASE_UTILS_FILESYSTEMUTILS_H

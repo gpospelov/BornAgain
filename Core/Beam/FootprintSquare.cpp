@@ -14,7 +14,7 @@
 
 #include "Core/Beam/FootprintSquare.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Parametrization/PyFmt.h"
+#include "Base/Utils/PyFmt.h"
 #include <algorithm>
 #include <stdexcept>
 

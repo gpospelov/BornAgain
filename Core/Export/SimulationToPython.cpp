@@ -27,7 +27,7 @@
 #include "Core/Export/SampleToPython.h"
 #include "Core/Instrument/ISpecularScan.h"
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Core/Parametrization/PyFmt.h"
+#include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/PyFmtLimits.h"
 #include "Core/PyIO/PythonFormatting.h"
 #include "Core/Simulation/GISASSimulation.h"

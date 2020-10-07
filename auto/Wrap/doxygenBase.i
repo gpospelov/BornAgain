@@ -834,6 +834,55 @@ convolution of two real vectors of equal size
 ";
 
 
+// File: namespacepyfmt.xml
+%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
+";
+
+%feature("docstring")  pyfmt::getSampleFunctionName "std::string pyfmt::getSampleFunctionName()
+";
+
+%feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)
+";
+
+%feature("docstring")  pyfmt::printDouble "std::string pyfmt::printDouble(double input)
+";
+
+%feature("docstring")  pyfmt::printNm "std::string pyfmt::printNm(double input)
+";
+
+%feature("docstring")  pyfmt::printNm2 "std::string pyfmt::printNm2(double input)
+";
+
+%feature("docstring")  pyfmt::printScientificDouble "std::string pyfmt::printScientificDouble(double input)
+";
+
+%feature("docstring")  pyfmt::printDegrees "std::string pyfmt::printDegrees(double input)
+";
+
+%feature("docstring")  pyfmt::printValue "std::string pyfmt::printValue(double value, const std::string &units)
+";
+
+%feature("docstring")  pyfmt::printString "std::string pyfmt::printString(const std::string &value)
+";
+
+%feature("docstring")  pyfmt::isSquare "bool pyfmt::isSquare(double length1, double length2, double angle)
+";
+
+%feature("docstring")  pyfmt::isHexagonal "bool pyfmt::isHexagonal(double length1, double length2, double angle)
+";
+
+%feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
+";
+
+%feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
+
+Returns a string of blanks with given width. By default the width equals standard offset in python files. 
+";
+
+%feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
+";
+
+
 // File: namespaceSysUtils.xml
 %feature("docstring")  SysUtils::getCurrentDateAndTime "std::string SysUtils::getCurrentDateAndTime()
 ";
@@ -932,6 +981,12 @@ Template function to create an integrator object
 
 
 // File: Precomputed_8h.xml
+
+
+// File: PyFmt_8cpp.xml
+
+
+// File: PyFmt_8h.xml
 
 
 // File: PyObject_8h.xml

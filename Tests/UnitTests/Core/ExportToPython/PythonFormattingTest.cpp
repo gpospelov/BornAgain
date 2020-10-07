@@ -4,7 +4,7 @@
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Parametrization/PyFmt.h"
+#include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/PyFmtLimits.h"
 #include "Fit/Tools/RealLimits.h"
 #include "Tests/GTestWrapper/google_test.h"

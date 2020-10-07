@@ -17,7 +17,7 @@
 #include "Base/Utils/SysUtils.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/PyFmt.h"
+#include "Base/Utils/PyFmt.h"
 #include "Core/PyIO/PyEmbeddedUtils.h"
 #include "Core/PyIO/PyImport.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"

@@ -210,6 +210,9 @@ Returns angle with respect to another vector.
 %feature("docstring")  BasicVector3D::conj "BasicVector3D< double > BasicVector3D< double >::conj() const
 ";
 
+%feature("docstring")  BasicVector3D::conj "BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const
+";
+
 %feature("docstring")  BasicVector3D::phi "double BasicVector3D< double >::phi() const
 ";
 
@@ -228,7 +231,13 @@ Returns angle with respect to another vector.
 %feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< double >::real() const
 ";
 
+%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const
+";
+
 %feature("docstring")  BasicVector3D::unit "BasicVector3D< double > BasicVector3D< double >::unit() const
+";
+
+%feature("docstring")  BasicVector3D::unit "BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const
 ";
 
 %feature("docstring")  BasicVector3D::angle "double BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
@@ -599,36 +608,6 @@ Determine if the transformation is trivial (identity)
 ";
 
 
-// File: classWavevectorInfo.xml
-%feature("docstring") WavevectorInfo "
-
-Holds all wavevector information relevant for calculating form factors.
-
-C++ includes: WavevectorInfo.h
-";
-
-%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
-";
-
-%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
-";
-
-%feature("docstring")  WavevectorInfo::transformed "WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
-";
-
-%feature("docstring")  WavevectorInfo::getKi "cvector_t WavevectorInfo::getKi() const
-";
-
-%feature("docstring")  WavevectorInfo::getKf "cvector_t WavevectorInfo::getKf() const
-";
-
-%feature("docstring")  WavevectorInfo::getQ "cvector_t WavevectorInfo::getQ() const
-";
-
-%feature("docstring")  WavevectorInfo::getWavelength "double WavevectorInfo::getWavelength() const
-";
-
-
 // File: namespacealgo.xml
 %feature("docstring")  algo::almostEqual "bool algo::almostEqual(double a, double b)
 
@@ -991,12 +970,6 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: Vectors3D_8h.xml
-
-
-// File: WavevectorInfo_8cpp.xml
-
-
-// File: WavevectorInfo_8h.xml
 
 
 // File: dir_628593db0cdce5a76fb85526ae5aa762.xml

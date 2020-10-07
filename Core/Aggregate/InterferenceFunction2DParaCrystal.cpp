@@ -165,8 +165,10 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx, doub
 //! Returns interference function for fixed angle xi.
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 {
-    return interference1D(m_qx, m_qy, xi, 0)
-        * interference1D(m_qx, m_qy, xi + m_lattice->latticeAngle(), 1);
+    // don't touch order of computation; problems under Windows
+    double rx = interference1D(m_qx, m_qy, xi, 0);
+    double ry = interference1D(m_qx, m_qy, xi + m_lattice->latticeAngle(), 1);
+    return rx * ry;
 }
 
 //! Returns interference function for fixed xi in the dimension determined by the given index.

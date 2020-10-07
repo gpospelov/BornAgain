@@ -14,15 +14,11 @@ if((NOT Cerf_IS_CPP) AND (NOT WIN32)) # TEMPORARY
     list(APPEND source_files ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper/cerf_ptr.c)
 endif()
 if(${Cerf_IS_CPP})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCERF_AS_CPP=ON")
+    string(APPEND CMAKE_CXX_FLAGS " -DCERF_AS_CPP=ON")
 endif()
 
 
 if(BORNAGAIN_PYTHON)
-
-    set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
-    set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
-    file(MAKE_DIRECTORY ${AUTO_DIR})
 
     if(CONFIGURE_BINDINGS)
 
@@ -91,7 +87,7 @@ endif(BORNAGAIN_PYTHON)
 # --- making library ---
 
 if(WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+    string(APPEND CMAKE_CXX_FLAGS " -DBA_CORE_BUILD_DLL")
 endif()
 
 add_library(${lib} SHARED ${source_files})
@@ -222,81 +218,6 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}${libsuffix}
             )
-    endif()
-
-    # system libraries
-    foreach(Boost_lib ${Boost_LIBRARIES})
-        get_filename_component(UTF_BASE_NAME ${Boost_lib} NAME_WE)
-        get_filename_component(UTF_PATH ${Boost_lib} PATH)
-        message(STATUS "Boost dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
-        install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
-            DESTINATION ${destination_lib} COMPONENT Libraries)
-    endforeach()
-
-    set(win_python_lib
-        "${Python3_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}.lib")
-    get_filename_component(UTF_BASE_NAME ${win_python_lib} NAME_WE)
-    get_filename_component(UTF_PATH ${Python3_EXECUTABLE} PATH)
-    message(STATUS "Python dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
-    install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
-        DESTINATION ${destination_lib} COMPONENT Libraries)
-
-    set(Cerf_LIB ${Cerf_LIBRARIES}) # we take for granted that there is only one cerf.lib
-    get_filename_component(DIR ${Cerf_LIB} DIRECTORY)
-    get_filename_component(cerf ${Cerf_LIB} NAME_WE)
-
-    set(DLL_MSG "")
-    foreach(LIB IN ITEMS ${cerf} libgcc_s_seh-1 libstdc++-6 libwinpthread-1)
-        set(DLL "${DIR}/${LIB}.dll")
-        if (NOT EXISTS ${DLL})
-            message(FATAL_ERROR "Dynamic load library ${DLL} (needed for cerf) does not exist")
-        endif()
-        install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
-        string(APPEND DLL_MSG " ${DLL}")
-    endforeach()
-    message(STATUS "Cerf dlls: ${DLL_MSG}")
-
-    set(DLL_MSG "")
-    foreach(LIB IN LISTS FFTW3_LIBRARIES TIFF_LIBRARIES)
-        string(REPLACE ".lib" ".dll" DLL "${LIB}")
-        if (NOT EXISTS ${DLL})
-            message(FATAL_ERROR "Dynamic load library ${DLL} (derived from ${LIB}) does not exist")
-        endif()
-        install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
-        string(APPEND DLL_MSG " ${DLL}")
-    endforeach()
-    message(STATUS "Other dlls: ${DLL_MSG}")
-
-else()
-    # Install thisbornagain.sh.
-    install(FILES
-                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.sh
-                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/thisbornagain.csh
-        PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
-        GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
-        DESTINATION ${destination_libexec})
-
-    if(NOT BORNAGAIN_APPLE_BUNDLE AND NOT BUILD_DEBIAN)
-        # Create bin directory for links.
-        install(CODE "
-            FILE(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-            "
-            COMPONENT Runtime)
-        # Make links.
-        install(CODE "
-        execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-        \"../${destination_libexec}/thisbornagain.sh\" \"thisbornagain.sh\"
-        WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-        " COMPONENT Runtime)
-        install(CODE "
-        execute_process(COMMAND \${CMAKE_COMMAND} -E create_symlink
-        \"../${destination_libexec}/thisbornagain.csh\" \"thisbornagain.csh\"
-        WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${destination_bin}\")
-        " COMPONENT Runtime)
-    else()
-
-        install(FILES ${WRAP_DIR}/python/bornagain_python_install.py
-            DESTINATION ${destination_libexec})
     endif()
 endif()
 

@@ -2420,24 +2420,12 @@ Returns one-dimensional array representing merged user weights. The area outside
 
 %feature("docstring")  FitObjective::initPrint "void FitObjective::initPrint(int every_nth)
 
-Initializes printing to standard output during the fitting.
-
-Parameters:
------------
-
-every_nth: 
-Print every n'th iteration. 
+Initializes printing to standard output on every_nth fit iteration. 
 ";
 
 %feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
 
-Initializes plotting during the fitting using Python callable.
-
-Parameters:
------------
-
-every_nth: 
-Called on every n'th iteration. 
+Initializes observer callback to be called on every_nth fit iteration. 
 ";
 
 %feature("docstring")  FitObjective::iterationInfo "IterationInfo FitObjective::iterationInfo() const
@@ -2786,23 +2774,6 @@ C++ includes: FormFactorAnisoPyramid.h
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector< double > P)
-
-Constructor of a truncated pyramid with a rectangular base.
-
-Parameters:
------------
-
-length: 
-length of the rectangular base in nm
-
-width: 
-width of the rectangular base in nm
-
-height: 
-height of pyramid in nm
-
-alpha: 
-dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
@@ -2950,20 +2921,6 @@ C++ includes: FormFactorBox.h
 ";
 
 %feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(const std::vector< double > P)
-
-Constructor of a rectangular cuboid.
-
-Parameters:
------------
-
-length: 
-length of the base in nanometers
-
-width: 
-width of the base in nanometers
-
-height: 
-height of the box in nanometers 
 ";
 
 %feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(double length, double width, double height)
@@ -3010,17 +2967,6 @@ C++ includes: FormFactorCantellatedCube.h
 ";
 
 %feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector< double > P)
-
-Constructor of a truncated cube.
-
-Parameters:
------------
-
-length: 
-length of the full cube's edge in nanometers
-
-removed_length: 
-removed length from each edge of the cube in nanometers 
 ";
 
 %feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
@@ -3127,20 +3073,6 @@ C++ includes: FormFactorCone.h
 ";
 
 %feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(const std::vector< double > P)
-
-Constructor of a truncated cone with circular base.
-
-Parameters:
------------
-
-radius: 
-radius of the base in nanometers
-
-height: 
-height of the cone in nanometers
-
-alpha: 
-angle between the base and the side surface in radians 
 ";
 
 %feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(double radius, double height, double alpha)
@@ -3185,20 +3117,6 @@ C++ includes: FormFactorCone6.h
 ";
 
 %feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(const std::vector< double > P)
-
-Constructor of a truncated pyramid, based on a regular hexagon
-
-Parameters:
------------
-
-base_edge: 
-Edge of the regular hexagonal base in nanometers
-
-height: 
-height of a truncated pyramid in nanometers
-
-alpha: 
-dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
@@ -3425,23 +3343,6 @@ C++ includes: FormFactorCuboctahedron.h
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector< double > P)
-
-Constructor of cuboctahedron (compound of two truncated pyramids with a common square base and opposite orientations).
-
-Parameters:
------------
-
-length: 
-side length of the common square base in nanometers
-
-height: 
-height of the lower pyramid in nanometers
-
-height_ratio: 
-ratio of heights of top to bottom pyramids
-
-alpha: 
-dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
@@ -3479,17 +3380,6 @@ C++ includes: FormFactorCylinder.h
 ";
 
 %feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(const std::vector< double > P)
-
-Constructor of a cylinder with a circular base.
-
-Parameters:
------------
-
-radius: 
-radius of the circular base in nanometers
-
-height: 
-height of the cylinder in nanometers 
 ";
 
 %feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(double radius, double height)
@@ -3662,22 +3552,6 @@ C++ includes: FormFactorDodecahedron.h
 ";
 
 %feature("docstring")  FormFactorDodecahedron::FormFactorDodecahedron "FormFactorDodecahedron::FormFactorDodecahedron(const std::vector< double > P)
-
-Constructs a regular dodecahedron.
-
-Parameters:
------------
-
-edge: 
-length
-
-Constructor of a dodecahedron.
-
-Parameters:
------------
-
-edge: 
-length of the edge in nanometers 
 ";
 
 %feature("docstring")  FormFactorDodecahedron::FormFactorDodecahedron "FormFactorDodecahedron::FormFactorDodecahedron(double edge)
@@ -3706,14 +3580,6 @@ C++ includes: FormFactorDot.h
 ";
 
 %feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(const std::vector< double > P)
-
-Constructor.
-
-Parameters:
------------
-
-rscat: 
-radius of a sphere with same forward scattering power, in nanometers 
 ";
 
 %feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(double radius)
@@ -3887,20 +3753,6 @@ C++ includes: FormFactorEllipsoidalCylinder.h
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(const std::vector< double > P)
-
-Constructor of a cylinder with an ellipse cross section.
-
-Parameters:
------------
-
-radius_x: 
-radius of the ellipse base in the x-direction, in nanometers
-
-radius_y: 
-radius of the ellipse base in the y-direction, in nanometers
-
-height: 
-height of the ellipsoidal cylinder in nanometers 
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
@@ -3945,14 +3797,6 @@ C++ includes: FormFactorFullSphere.h
 ";
 
 %feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(const std::vector< double > P, bool position_at_center=false)
-
-Constructor of a full sphere.
-
-Parameters:
------------
-
-radius: 
-radius of the sphere in nanometers 
 ";
 
 %feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
@@ -4001,17 +3845,6 @@ C++ includes: FormFactorFullSpheroid.h
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector< double > P)
-
-Constructor of full spheroid.
-
-Parameters:
------------
-
-radius: 
-radius of the circular cross section in nanometers
-
-height: 
-height of the full spheroid in nanometers 
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
@@ -4091,20 +3924,6 @@ C++ includes: FormFactorHemiEllipsoid.h
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector< double > P)
-
-Constructor of horizontally oriented ellipsoid, truncated at the central plane.
-
-Parameters:
------------
-
-radius_x: 
-radius of the ellipse base in the x-direction, in nanometers
-
-radius_y: 
-radius of the ellipse base in the y-direction, in nanometers
-
-height: 
-height of the hemi ellipsoid in nanometers 
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
@@ -4187,14 +4006,6 @@ C++ includes: FormFactorIcosahedron.h
 ";
 
 %feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(const std::vector< double > P)
-
-Constructor of a icosahedron.
-
-Parameters:
------------
-
-edge: 
-length of the edge in nanometers 
 ";
 
 %feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(double edge)
@@ -4223,20 +4034,6 @@ C++ includes: FormFactorLongBoxGauss.h
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(const std::vector< double > P)
-
-Box constructor.
-
-Parameters:
------------
-
-length: 
-of  Box's base
-
-width: 
-of  Box's base
-
-height: 
-of  Box
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
@@ -4281,20 +4078,6 @@ C++ includes: FormFactorLongBoxLorentz.h
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(const std::vector< double > P)
-
-Box constructor.
-
-Parameters:
------------
-
-length: 
-of  Box's base
-
-width: 
-of  Box's base
-
-height: 
-of  Box
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
@@ -4339,17 +4122,6 @@ C++ includes: FormFactorPrism3.h
 ";
 
 %feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(const std::vector< double > P)
-
-Constructor of a prism with an equilaterial triangle base.
-
-Parameters:
------------
-
-base_edge: 
-length of the base edge in nanometers
-
-height: 
-height in nanometers 
 ";
 
 %feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
@@ -4378,17 +4150,6 @@ C++ includes: FormFactorPrism6.h
 ";
 
 %feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(const std::vector< double > P)
-
-Constructor of a prism with a regular hexagonal base.
-
-Parameters:
------------
-
-base_edge: 
-length of the hexagonal base in nanometers
-
-height: 
-height in nanometers 
 ";
 
 %feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
@@ -4417,20 +4178,6 @@ C++ includes: FormFactorPyramid.h
 ";
 
 %feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(const std::vector< double > P)
-
-Constructor of a truncated pyramid with a square base
-
-Parameters:
------------
-
-base_edge: 
-length of the square base in nanometers
-
-height: 
-height of the pyramid in nanometers
-
-alpha: 
-dihedral angle between the base and a side face in radians 
 ";
 
 %feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
@@ -4610,20 +4357,6 @@ C++ includes: FormFactorTetrahedron.h
 ";
 
 %feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(const std::vector< double > P)
-
-Constructor of a truncated tethrahedron.
-
-Parameters:
------------
-
-base_edge: 
-length of one edge of the equilateral triangular base in nanometers
-
-height: 
-height of the tetrahedron in nanometers
-
-alpha: 
-dihedral angle in radians between base and facet 
 ";
 
 %feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
@@ -4658,17 +4391,6 @@ C++ includes: FormFactorTruncatedCube.h
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(const std::vector< double > P)
-
-Constructor of a truncated cube.
-
-Parameters:
------------
-
-length: 
-length of the full cube's edge in nanometers
-
-removed_length: 
-removed length from each edge of the cube in nanometers 
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
@@ -4700,20 +4422,6 @@ C++ includes: FormFactorTruncatedSphere.h
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector< double > P)
-
-Constructor of a spherical dome.
-
-Parameters:
------------
-
-radius: 
-radius of the truncated sphere in nanometers
-
-height: 
-height of the truncated sphere in nanometers
-
-dh: 
-length of cup truncated from the top 
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
@@ -4758,23 +4466,6 @@ C++ includes: FormFactorTruncatedSpheroid.h
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(const std::vector< double > P)
-
-Constructor of a spheroidal dome.
-
-Parameters:
------------
-
-radius: 
-radius of the truncated spheroid in nanometers
-
-height: 
-height of the truncated spheroid in nanometers
-
-height_flattening: 
-ratio of the height of the corresponding full spheroid to its diameter
-
-dh: 
-length of cup truncated from the top 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh)
@@ -7199,83 +6890,37 @@ Returns number of bins on y-axis.
 
 %feature("docstring")  IHistogram::getGlobalBin "size_t IHistogram::getGlobalBin(size_t binx, size_t biny=0) const
 
-Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with x-axis index.
-
-Parameters:
------------
-
-binx: 
-x-axis bin index
-
-biny: 
-y-axis bin index (for 2D histograms)
-
-The global bin index 
+Returns global bin index for given axes indices. For 1D, just returns binx. 
 ";
 
 %feature("docstring")  IHistogram::findGlobalBin "size_t IHistogram::findGlobalBin(double x, double y) const
 
-Returns closest global bin index for given axes coordinates. For 1D.
-
-Parameters:
------------
-
-x: 
-Value on x-axis
-
-y: 
-Value on y-axis (for 2D histograms)
-
-Closest global bin index 
+Returns closest global bin index for given axes coordinates. 
 ";
 
 %feature("docstring")  IHistogram::getXaxisIndex "size_t IHistogram::getXaxisIndex(size_t i) const
 
-Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
+Returns x-axis index for global bin index i. 
 ";
 
 %feature("docstring")  IHistogram::getYaxisIndex "size_t IHistogram::getYaxisIndex(size_t i) const
 
-Returns y-axis bin index for given globalbin (for 2D histograms). 
+Returns y-axis index for global bin index i. 
 ";
 
 %feature("docstring")  IHistogram::getXaxisValue "double IHistogram::getXaxisValue(size_t i)
 
-Returns the value on x-axis corresponding to the global bin index.
-
-Parameters:
------------
-
-globalbin: 
-The global bin index
-
-The center of corresponding bin of the axis 
+Returns the center of bin i of the x axis. 
 ";
 
 %feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t i)
 
-Returns the value on y-axis corresponding to the 2D histogram global bin index.
-
-Parameters:
------------
-
-globalbin: 
-The global bin index
-
-The center of corresponding bin of the axis 
+Returns the center of bin i of the y axis. 
 ";
 
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t i) const
 
-Returns content (accumulated value) of the bin with given index.
-
-Parameters:
------------
-
-globalbin: 
-The global bin index
-
-The value accumulated by the bin (integral) 
+Returns content (accumulated value) of bin i. 
 ";
 
 %feature("docstring")  IHistogram::getData "const OutputData<CumulativeValue>& IHistogram::getData() const
@@ -7286,18 +6931,7 @@ The value accumulated by the bin (integral)
 
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const
 
-Returns content (accumulated value) of the 2D histogram bin with given indices.
-
-Parameters:
------------
-
-binx: 
-x-axis bin index
-
-biny: 
-y-axis bin index
-
-The value accumulated by the bin (integral) 
+Returns content (accumulated value) of the 2D histogram bin. 
 ";
 
 %feature("docstring")  IHistogram::setBinContent "void IHistogram::setBinContent(size_t i, double value)
@@ -14317,13 +13951,7 @@ C++ includes: Rotations.h
 
 %feature("docstring")  RotationX::RotationX "RotationX::RotationX(const std::vector< double > P)
 
-Constructor of rotation around x-axis
-
-Parameters:
------------
-
-angle: 
-rotation angle around x-axis in radians 
+Constructor of rotation around x-axis. 
 ";
 
 %feature("docstring")  RotationX::RotationX "RotationX::RotationX(double angle)
@@ -14361,13 +13989,7 @@ C++ includes: Rotations.h
 
 %feature("docstring")  RotationY::RotationY "RotationY::RotationY(const std::vector< double > P)
 
-Constructor of rotation around y-axis
-
-Parameters:
------------
-
-angle: 
-rotation angle around y-axis in radians 
+Constructor of rotation around y-axis. 
 ";
 
 %feature("docstring")  RotationY::RotationY "RotationY::RotationY(double angle)
@@ -14405,13 +14027,7 @@ C++ includes: Rotations.h
 
 %feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(const std::vector< double > P)
 
-Constructor of rotation around z-axis
-
-Parameters:
------------
-
-angle: 
-rotation angle around z-axis in radians 
+Constructor of rotation around z-axis. 
 ";
 
 %feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(double angle)
@@ -14940,43 +14556,9 @@ C++ includes: SimDataPair.h
 ";
 
 %feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData< double > &data, std::unique_ptr< OutputData< double >> uncertainties, double user_weight=1.0)
-
-Constructs simulation/data pair for later fit.
-
-Parameters:
------------
-
-simulation: 
-simulation builder capable of producing simulations
-
-data: 
-experimental data
-
-uncertainties: 
-uncertainties associated with experimental data
-
-user_weight: 
-weight of dataset in objective metric computations 
 ";
 
 %feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData< double > &data, std::unique_ptr< OutputData< double >> uncertainties, std::unique_ptr< OutputData< double >> user_weights)
-
-Constructs simulation/data pair for later fit.
-
-Parameters:
------------
-
-simulation: 
-simulation builder capable of producing simulations
-
-data: 
-experimental data
-
-uncertainties: 
-uncertainties associated with experimental data
-
-user_weights: 
-user weights associated with experimental data 
 ";
 
 %feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(SimDataPair &&other)
@@ -15020,22 +14602,22 @@ Returns the user uncertainties cut to the ROI area.
 
 Returns relative difference between simulation and experimental data.
 
-Returns the relative difference between simulated and expeimental data cut to the ROI area 
+Returns the relative difference between simulated and experimental data cut to the ROI area 
 ";
 
 %feature("docstring")  SimDataPair::absoluteDifference "SimulationResult SimDataPair::absoluteDifference() const
 
-Returns the absolute difference between simulated and expeimental data cut to the ROI area 
+Returns the absolute difference between simulated and experimental data cut to the ROI area 
 ";
 
 %feature("docstring")  SimDataPair::simulation_array "std::vector< double > SimDataPair::simulation_array() const
 
-Returns the flattened simulated intensities cut to the ROI area 
+Returns the flattened simulated intensities cut to the ROI area. 
 ";
 
 %feature("docstring")  SimDataPair::experimental_array "std::vector< double > SimDataPair::experimental_array() const
 
-Returns the flattened experimental data cut to the ROI area 
+Returns the flattened experimental data cut to the ROI area. 
 ";
 
 %feature("docstring")  SimDataPair::uncertainties_array "std::vector< double > SimDataPair::uncertainties_array() const
@@ -15225,18 +14807,7 @@ Returns a vector of children (const).
 
 %feature("docstring")  Simulation::convertData "SimulationResult Simulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
 
-Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
-
-Parameters:
------------
-
-simulation: 
- Simulation object with possible ROI and masks defined.
-
-data: 
-User data with amplitudes with the shape of data matching the detector.
-
-SimulationResult object. 
+Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero. 
 ";
 
 
@@ -17205,13 +16776,7 @@ Returns shape nrows, ncols of 2D array.
 
 %feature("docstring")  ArrayUtils::createData "CreateDataImpl::ReturnType<T> ArrayUtils::createData(const T &vec)
 
-Creates  OutputData array from input vector.
-
-Parameters:
------------
-
-vec: 
-input vector 
+Creates  OutputData array from input vector. 
 ";
 
 %feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
@@ -17219,28 +16784,12 @@ input vector
 
 %feature("docstring")  ArrayUtils::createVector1D "decltype(auto) ArrayUtils::createVector1D(const T &data)
 
-Creates 1D vector from  OutputData.
-
-Parameters:
------------
-
-vec: 
- OutputData<double>
-
-vector<double> 
+Creates 1D vector from  OutputData. 
 ";
 
 %feature("docstring")  ArrayUtils::createVector2D "decltype(auto) ArrayUtils::createVector2D(const T &data)
 
-Creates 2D vector from  OutputData.
-
-Parameters:
------------
-
-vec: 
- OutputData<double>
-
-vector<vector<double>> 
+Creates 2D vector from  OutputData. 
 ";
 
 
@@ -17913,17 +17462,15 @@ ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.l
 %feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
 ";
 
-%feature("docstring")  pyfmt::isDefaultDirection "bool pyfmt::isDefaultDirection(const kvector_t direction)
-
-returns true if it is (0, -1, 0) vector 
-";
-
 %feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
 
 Returns a string of blanks with given width. By default the width equals standard offset in python files. 
 ";
 
 %feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
+";
+
+%feature("docstring")  pyfmt::isDefaultDirection "bool pyfmt::isDefaultDirection(const kvector_t direction)
 ";
 
 

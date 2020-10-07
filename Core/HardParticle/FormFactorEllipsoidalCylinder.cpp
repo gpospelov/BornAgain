@@ -17,16 +17,12 @@
 #include "Core/Shapes/DoubleEllipse.h"
 #include "Core/Tools/MathFunctions.h"
 
-//! Constructor of a cylinder with an ellipse cross section.
-//! @param radius_x: radius of the ellipse base in the x-direction, in nanometers
-//! @param radius_y: radius of the ellipse base in the y-direction, in nanometers
-//! @param height: height of the ellipsoidal cylinder in nanometers
 FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(const std::vector<double> P)
     : IFormFactorBorn({"EllipsoidalCylinder",
-                       "class_tooltip",
-                       {{"RadiusX", "nm", "para_tooltip", 0, +INF, 0},
-                        {"RadiusY", "nm", "para_tooltip", 0, +INF, 0},
-                        {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
+                       "elliptical cylinder",
+                       {{"RadiusX", "nm", "radius in x direction", 0, +INF, 0},
+                        {"RadiusY", "nm", "radius in y direction", 0, +INF, 0},
+                        {"Height", "nm", "height", 0, +INF, 0}}},
                       P),
       m_radius_x(m_P[0]), m_radius_y(m_P[1]), m_height(m_P[2])
 {

@@ -12,8 +12,6 @@ file(GLOB include_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} */*.h)
 
 if(BORNAGAIN_PYTHON)
 
-    set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
-    set(AUTO_DIR ${CMAKE_SOURCE_DIR}/auto/Wrap)
     file(MAKE_DIRECTORY ${AUTO_DIR})
 
     if(CONFIGURE_BINDINGS)
@@ -83,7 +81,7 @@ endif(BORNAGAIN_PYTHON)
 # --- making library ---
 
 if(WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+    string(APPEND CMAKE_CXX_FLAGS " -DBA_CORE_BUILD_DLL")
 endif()
 
 add_library(${lib} SHARED ${source_files})

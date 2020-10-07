@@ -963,7 +963,7 @@ pars:
 value of objective function. 
 ";
 
-%feature("docstring")  PyCallback::call_residuals "std::vector< double > PyCallback::call_residuals(Fit::Parameters)
+%feature("docstring")  PyCallback::call_residuals "std::vector< double > PyCallback::call_residuals(Fit::Parameters pars)
 
 Call Python callable and returns its result. Intended to be overloaded in Python.
 
@@ -1159,19 +1159,7 @@ C++ includes: RootResidualFunction.h
 
 %feature("docstring")  RootResidualFunction::RootResidualFunction "RootResidualFunction::RootResidualFunction(scalar_function_t objective_fun, gradient_function_t gradient_fun, size_t npars, size_t ndatasize)
 
-Constructs  RootResidualFunction
-
-Parameters:
------------
-
-fun_gradient: 
-user function to call
-
-npars: 
-number of fit parameters
-
-ndatasize: 
-number of residual elements in dataset 
+Constructs  RootResidualFunction. 
 ";
 
 %feature("docstring")  RootResidualFunction::Type "RootResidualFunction::Type_t RootResidualFunction::Type() const override

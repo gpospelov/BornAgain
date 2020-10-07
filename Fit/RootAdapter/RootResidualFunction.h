@@ -35,9 +35,6 @@ public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t Type_t;
 
     //! Constructs RootResidualFunction
-    //! @param fun_gradient: user function to call
-    //! @param npars: number of fit parameters
-    //! @param ndatasize: number of residual elements in dataset
     RootResidualFunction(scalar_function_t objective_fun, gradient_function_t gradient_fun,
                          size_t npars, size_t ndatasize);
 

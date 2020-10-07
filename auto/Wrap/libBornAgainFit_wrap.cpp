@@ -6089,10 +6089,10 @@ double SwigDirector_PyCallback::call_scalar(Fit::Parameters pars) {
 }
 
 
-std::vector< double, std::allocator< double > > SwigDirector_PyCallback::call_residuals(Fit::Parameters arg0) {
+std::vector< double, std::allocator< double > > SwigDirector_PyCallback::call_residuals(Fit::Parameters pars) {
   std::vector< double,std::allocator< double > > c_result;
   swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Fit::Parameters((const Fit::Parameters &)arg0)), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Fit::Parameters((const Fit::Parameters &)pars)), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
   if (!swig_get_self()) {
     Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call PyCallback.__init__.");
   }
@@ -22548,8 +22548,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "PyCallback_call_residuals", _wrap_PyCallback_call_residuals, METH_VARARGS, "\n"
-		"PyCallback_call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t\n"
-		"std::vector< double > PyCallback::call_residuals(Fit::Parameters)\n"
+		"PyCallback_call_residuals(PyCallback self, Parameters pars) -> vdouble1d_t\n"
+		"std::vector< double > PyCallback::call_residuals(Fit::Parameters pars)\n"
 		"\n"
 		"Call Python callable and returns its result. Intended to be overloaded in Python.\n"
 		"\n"

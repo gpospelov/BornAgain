@@ -21,16 +21,12 @@
 #include "Fit/Tools/RealLimits.h"
 #include <limits>
 
-//! Constructor of a spherical dome.
-//! @param radius: radius of the truncated sphere in nanometers
-//! @param height: height of the truncated sphere in nanometers
-//! @param dh: length of cup truncated from the top
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector<double> P)
     : IFormFactorBorn({"TruncatedSphere",
                        "class_tooltip",
-                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
-                        {"Height", "nm", "para_tooltip", 0, +INF, 0},
-                        {"DeltaHeight", "nm", "para_tooltip", 0, +INF, 0}}},
+                       {{"Radius", "nm", "radius", 0, +INF, 0},
+                        {"Height", "nm", "height before removal of cap", 0, +INF, 0},
+                        {"DeltaHeight", "nm", "height of removed cap", 0, +INF, 0}}},
                       P),
       m_radius(m_P[0]), m_height(m_P[1]), m_dh(m_P[2])
 {

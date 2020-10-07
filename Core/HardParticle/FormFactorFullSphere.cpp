@@ -19,11 +19,8 @@
 #include "Core/Scattering/Rotations.h"
 #include "Core/Vector/SomeFormFactors.h"
 
-//! Constructor of a full sphere.
-//! @param radius: radius of the sphere in nanometers
 FormFactorFullSphere::FormFactorFullSphere(const std::vector<double> P, bool position_at_center)
-    : IFormFactorBorn(
-        {"FullSphere", "class_tooltip", {{"Radius", "nm", "para_tooltip", 0, +INF, 0}}}, P),
+    : IFormFactorBorn({"FullSphere", "sphere", {{"Radius", "nm", "radius", 0, +INF, 0}}}, P),
       m_radius(m_P[0]), m_position_at_center(position_at_center)
 {
     onChange();

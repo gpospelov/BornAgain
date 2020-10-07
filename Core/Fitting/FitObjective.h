@@ -86,12 +86,10 @@ public:
     std::vector<double> uncertainties() const;
     std::vector<double> weights_array() const;
 
-    //! Initializes printing to standard output during the fitting.
-    //! @param every_nth: Print every n'th iteration.
+    //! Initializes printing to standard output on every_nth fit iteration.
     void initPrint(int every_nth);
 
-    //! Initializes plotting during the fitting using Python callable.
-    //! @param every_nth: Called on every n'th iteration.
+    //! Initializes observer callback to be called on every_nth fit iteration.
     void initPlot(int every_nth, PyObserverCallback& callback);
 
     IterationInfo iterationInfo() const;

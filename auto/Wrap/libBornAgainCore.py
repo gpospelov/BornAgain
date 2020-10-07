@@ -4079,13 +4079,7 @@ class FitObjective(object):
         initPrint(FitObjective self, int every_nth)
         void FitObjective::initPrint(int every_nth)
 
-        Initializes printing to standard output during the fitting.
-
-        Parameters:
-        -----------
-
-        every_nth: 
-        Print every n'th iteration. 
+        Initializes printing to standard output on every_nth fit iteration. 
 
         """
         return _libBornAgainCore.FitObjective_initPrint(self, every_nth)
@@ -17449,18 +17443,7 @@ class Simulation(ICloneable, INode):
         convertData(Simulation self, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult
         SimulationResult Simulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
 
-        Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
-
-        Parameters:
-        -----------
-
-        simulation: 
-         Simulation object with possible ROI and masks defined.
-
-        data: 
-        User data with amplitudes with the shape of data matching the detector.
-
-        SimulationResult object. 
+        Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero. 
 
         """
         return _libBornAgainCore.Simulation_convertData(self, data, put_masked_areas_to_zero)
@@ -19391,18 +19374,7 @@ class IHistogram(object):
         getGlobalBin(IHistogram self, size_t binx, size_t biny=0) -> size_t
         size_t IHistogram::getGlobalBin(size_t binx, size_t biny=0) const
 
-        Returns global bin index for given axes indices. For 1D histogram the global bin index coinside with x-axis index.
-
-        Parameters:
-        -----------
-
-        binx: 
-        x-axis bin index
-
-        biny: 
-        y-axis bin index (for 2D histograms)
-
-        The global bin index 
+        Returns global bin index for given axes indices. For 1D, just returns binx. 
 
         """
         return _libBornAgainCore.IHistogram_getGlobalBin(self, binx, biny)
@@ -19412,18 +19384,7 @@ class IHistogram(object):
         findGlobalBin(IHistogram self, double x, double y) -> size_t
         size_t IHistogram::findGlobalBin(double x, double y) const
 
-        Returns closest global bin index for given axes coordinates. For 1D.
-
-        Parameters:
-        -----------
-
-        x: 
-        Value on x-axis
-
-        y: 
-        Value on y-axis (for 2D histograms)
-
-        Closest global bin index 
+        Returns closest global bin index for given axes coordinates. 
 
         """
         return _libBornAgainCore.IHistogram_findGlobalBin(self, x, y)
@@ -19433,7 +19394,7 @@ class IHistogram(object):
         getXaxisIndex(IHistogram self, size_t i) -> size_t
         size_t IHistogram::getXaxisIndex(size_t i) const
 
-        Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
+        Returns x-axis index for global bin index i. 
 
         """
         return _libBornAgainCore.IHistogram_getXaxisIndex(self, i)
@@ -19443,7 +19404,7 @@ class IHistogram(object):
         getYaxisIndex(IHistogram self, size_t i) -> size_t
         size_t IHistogram::getYaxisIndex(size_t i) const
 
-        Returns y-axis bin index for given globalbin (for 2D histograms). 
+        Returns y-axis index for global bin index i. 
 
         """
         return _libBornAgainCore.IHistogram_getYaxisIndex(self, i)
@@ -19453,15 +19414,7 @@ class IHistogram(object):
         getXaxisValue(IHistogram self, size_t i) -> double
         double IHistogram::getXaxisValue(size_t i)
 
-        Returns the value on x-axis corresponding to the global bin index.
-
-        Parameters:
-        -----------
-
-        globalbin: 
-        The global bin index
-
-        The center of corresponding bin of the axis 
+        Returns the center of bin i of the x axis. 
 
         """
         return _libBornAgainCore.IHistogram_getXaxisValue(self, i)
@@ -19471,15 +19424,7 @@ class IHistogram(object):
         getYaxisValue(IHistogram self, size_t i) -> double
         double IHistogram::getYaxisValue(size_t i)
 
-        Returns the value on y-axis corresponding to the 2D histogram global bin index.
-
-        Parameters:
-        -----------
-
-        globalbin: 
-        The global bin index
-
-        The center of corresponding bin of the axis 
+        Returns the center of bin i of the y axis. 
 
         """
         return _libBornAgainCore.IHistogram_getYaxisValue(self, i)
@@ -19499,18 +19444,7 @@ class IHistogram(object):
         getBinContent(IHistogram self, size_t binx, size_t biny) -> double
         double IHistogram::getBinContent(size_t binx, size_t biny) const
 
-        Returns content (accumulated value) of the 2D histogram bin with given indices.
-
-        Parameters:
-        -----------
-
-        binx: 
-        x-axis bin index
-
-        biny: 
-        y-axis bin index
-
-        The value accumulated by the bin (integral) 
+        Returns content (accumulated value) of the 2D histogram bin. 
 
         """
         return _libBornAgainCore.IHistogram_getBinContent(self, *args)

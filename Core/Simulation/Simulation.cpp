@@ -301,9 +301,6 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
 //! Convert user data to SimulationResult object for later drawing in various axes units.
 //! User data will be cropped to the ROI defined in the simulation, amplitudes in areas
 //! corresponding to the masked areas of the detector will be set to zero.
-//! @param simulation: Simulation object with possible ROI and masks defined.
-//! @param data: User data with amplitudes with the shape of data matching the detector.
-//! @return SimulationResult object.
 
 SimulationResult Simulation::convertData(const OutputData<double>& data,
                                          bool put_masked_areas_to_zero)

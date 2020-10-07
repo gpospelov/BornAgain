@@ -17,15 +17,12 @@
 #include "Core/Shapes/DoubleEllipse.h"
 #include "Core/Tools/MathFunctions.h"
 
-//! Constructor of a cylinder with a circular base.
-//! @param radius: radius of the circular base in nanometers
-//! @param height: height of the cylinder in nanometers
 FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)
-    : IFormFactorBorn({"Cylinder",
-                       "class_tooltip",
-                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
-                        {"Height", "nm", "para_tooltip", 0, +INF, 0}}},
-                      P),
+    : IFormFactorBorn(
+        {"Cylinder",
+         "circular cylinder",
+         {{"Radius", "nm", "radius of base", 0, +INF, 0}, {"Height", "nm", "height", 0, +INF, 0}}},
+        P),
       m_radius(m_P[0]), m_height(m_P[1])
 {
     onChange();

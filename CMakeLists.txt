@@ -5,12 +5,12 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake/modules    # CMake modules specific for BornAgain
-    ${CMAKE_SOURCE_DIR}/cmake/extensions # CMake modules for use in various projects
-    )
+    ${CMAKE_SOURCE_DIR}/cmake
+    ${CMAKE_SOURCE_DIR}/cmake/find
+    ${CMAKE_SOURCE_DIR}/cmake/pack)
 set(CONFIGURABLES_DIR ${CMAKE_SOURCE_DIR}/cmake/configurables)
 
-include(PreventInSourceBuilds)
+include(commons/PreventInSourceBuilds)
 
 project(BornAgain
     VERSION 1.17.99
@@ -28,13 +28,14 @@ add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -LE Fullcheck)
 add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND})
    # => 'make check' is an alias for 'ctest'
 
-## declare project-wide user flags, and set default values
+## Project-wide user flags
 
-# options that can be switched off to simplify the build and reduce its scope
+# options that are on by default (switch off for accelerated builds of limited scope)
 option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 
+# options that are off by default (switch on for additional functionality)
 option(BORNAGAIN_MPI "Build with MPI support" OFF)
 option(SLOWTESTS "CTest also covers slow tests" OFF)
 
@@ -63,34 +64,53 @@ if(ALLCONFIG)
     set(CONFIGURE_DOXY ON)
 endif()
 
-# include CMake macros and functions
-include(GetFilenameComponent) # overwrite CMake command
-include(SearchInstalledSoftware)
-include(CheckCompiler)
+## Various CMake settings (include order is of critical importance)
+
+# function definitions
+include(commons/GetFilenameComponent) # overwrite CMake command
+include(BornAgain/SwigLib)
+
+# main settings
+
+include(BornAgain/Directories)
+
+if(CMAKE_SYSTEM_NAME MATCHES Linux)
+    include(BornAgain/Linux)
+    include(BornAgain/NixInstall)
+elseif(APPLE)
+    include(BornAgain/MacOS)
+    include(BornAgain/NixInstall)
+elseif(WIN32)
+    include(BornAgain/Windows)
+endif()
+
+include(BornAgain/Compiler)
 if(ZERO_TOLERANCE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors")
+    string(APPEND CMAKE_CXX_FLAGS " -Werror -Wfatal-errors")
 endif()
+
+include(BornAgain/Dependences)
 if(BORNAGAIN_GUI)
-    include(SearchQt)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAVE_QT=ON")
+    include(BornAgain/Qt)
+    string(APPEND CMAKE_CXX_FLAGS " -DHAVE_QT=ON")
 endif()
-include(BornAgainConfiguration)
-include(BornAgainPolicy)
-include(GeneratePythonDocs)
-include(BALineLength)
+include(BornAgain/Config)
+include(BornAgain/PythonDocs)
 
 # debug optimization
 if(BORNAGAIN_DEBUG_OPTIMIZATION)
-  include(DebugOptimization)
+  include(commons/DebugOptimization)
 endif()
 
-# code coverage analysis
+# code analysis
+include(BornAgain/LineLength)
 if(BORNAGAIN_COVERAGE)
-  include(CoverageFunction)
-  include(BACoverage)
+  include(commons/CoverageFunction)
+  include(BornAgain/Coverage)
 endif()
 
-# recurse into the given subdirectories
+## recurse into the given subdirectories
+
 if(BORNAGAIN_USERMANUAL)
     add_subdirectory(Doc/UserManual)
 endif()
@@ -133,4 +153,6 @@ add_subdirectory(Tests/Functional)
 add_subdirectory(cmake)
 
 # make package targets
-include(BornAgainCPack)
+include(BornAgain/Pack)
+
+message(STATUS "CMake done")

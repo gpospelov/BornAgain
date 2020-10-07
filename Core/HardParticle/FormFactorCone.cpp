@@ -20,16 +20,12 @@
 #include "Core/Tools/MathFunctions.h"
 #include <limits>
 
-//! Constructor of a truncated cone with circular base.
-//! @param radius: radius of the base in nanometers
-//! @param height: height of the cone in nanometers
-//! @param alpha: angle between the base and the side surface in radians
 FormFactorCone::FormFactorCone(const std::vector<double> P)
     : IFormFactorBorn({"Cone",
-                       "class_tooltip",
-                       {{"Radius", "nm", "para_tooltip", 0, +INF, 0},
-                        {"Height", "nm", "para_tooltip", 0, +INF, 0},
-                        {"Alpha", "rad", "para_tooltip", 0., M_PI_2, 0}}},
+                       "frustum with circular base",
+                       {{"Radius", "nm", "radius of base", 0, +INF, 0},
+                        {"Height", "nm", "height", 0, +INF, 0},
+                        {"Alpha", "rad", "angle between base and side", 0., M_PI_2, 0}}},
                       P),
       m_radius(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {

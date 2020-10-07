@@ -1893,10 +1893,10 @@ class PyCallback(object):
         """
         return _libBornAgainFit.PyCallback_call_scalar(self, pars)
 
-    def call_residuals(self, arg0):
+    def call_residuals(self, pars):
         r"""
-        call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t
-        std::vector< double > PyCallback::call_residuals(Fit::Parameters)
+        call_residuals(PyCallback self, Parameters pars) -> vdouble1d_t
+        std::vector< double > PyCallback::call_residuals(Fit::Parameters pars)
 
         Call Python callable and returns its result. Intended to be overloaded in Python.
 
@@ -1909,7 +1909,7 @@ class PyCallback(object):
         vector of residuals 
 
         """
-        return _libBornAgainFit.PyCallback_call_residuals(self, arg0)
+        return _libBornAgainFit.PyCallback_call_residuals(self, pars)
     def __disown__(self):
         self.this.disown()
         _libBornAgainFit.disown_PyCallback(self)

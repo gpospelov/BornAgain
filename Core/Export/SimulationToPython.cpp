@@ -29,7 +29,7 @@
 #include "Core/Parametrization/ParameterUtils.h"
 #include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/PyFmtLimits.h"
-#include "Core/PyIO/PythonFormatting.h"
+#include "Core/Instrument/PyFmt2.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"

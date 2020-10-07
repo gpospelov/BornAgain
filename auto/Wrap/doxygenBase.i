@@ -834,6 +834,41 @@ convolution of two real vectors of equal size
 ";
 
 
+// File: namespacePyEmbeddedUtils.xml
+%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(PyObject *obj)
+
+Converts PyObject into string, if possible, or throws exception. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::toVectorString "std::vector< std::string > PyEmbeddedUtils::toVectorString(PyObject *obj)
+
+Converts PyObject into vector of strings, if possible, or throws exception. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(char *c)
+
+Converts char to string. In the case of nullptr will return an empty string. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
+";
+
+%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=\"\")
+
+Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
+
+Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::pythonStackTrace "std::string PyEmbeddedUtils::pythonStackTrace()
+
+Returns string representing python stack trace. 
+";
+
+
 // File: namespacepyfmt.xml
 %feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
 ";
@@ -880,6 +915,36 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 %feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
+";
+
+
+// File: namespacepyfmt2.xml
+%feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
+
+Returns fixed Python code snippet that defines the function \"runSimulation\". 
+";
+
+%feature("docstring")  pyfmt2::valueTimesUnit "std::string pyfmt2::valueTimesUnit(const RealParameter *par)
+
+Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
+
+Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
+
+Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
+";
+
+%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
+";
+
+%feature("docstring")  pyfmt2::printAxis "std::string pyfmt2::printAxis(const IAxis &axis, const std::string &units, size_t offset)
+
+Prints python-script definition for given axis. offset is used for alignment and indentation in multiple-line definitions 
 ";
 
 
@@ -983,10 +1048,22 @@ Template function to create an integrator object
 // File: Precomputed_8h.xml
 
 
+// File: PyEmbeddedUtils_8cpp.xml
+
+
+// File: PyEmbeddedUtils_8h.xml
+
+
 // File: PyFmt_8cpp.xml
 
 
 // File: PyFmt_8h.xml
+
+
+// File: PyFmt2_8cpp.xml
+
+
+// File: PyFmt2_8h.xml
 
 
 // File: PyObject_8h.xml

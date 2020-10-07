@@ -18,8 +18,8 @@
 #include "Core/Export/ExportToPython.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Base/Utils/PyFmt.h"
-#include "Core/PyIO/PyEmbeddedUtils.h"
-#include "Core/PyIO/PyImport.h"
+#include "Base/Utils/PyEmbeddedUtils.h"
+#include "Core/Multilayer/PyImport.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>

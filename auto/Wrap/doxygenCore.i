@@ -16021,10 +16021,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d270.xml
 
 
-// File: namespace_0d284.xml
-
-
-// File: namespace_0d315.xml
+// File: namespace_0d286.xml
 
 
 // File: namespace_0d317.xml
@@ -16033,34 +16030,34 @@ C++ includes: ZLimits.h
 // File: namespace_0d319.xml
 
 
-// File: namespace_0d341.xml
+// File: namespace_0d321.xml
 
 
-// File: namespace_0d345.xml
+// File: namespace_0d343.xml
 
 
-// File: namespace_0d349.xml
+// File: namespace_0d347.xml
 
 
-// File: namespace_0d365.xml
+// File: namespace_0d351.xml
 
 
-// File: namespace_0d374.xml
+// File: namespace_0d367.xml
 
 
-// File: namespace_0d378.xml
+// File: namespace_0d376.xml
 
 
-// File: namespace_0d388.xml
+// File: namespace_0d380.xml
 
 
 // File: namespace_0d390.xml
 
 
-// File: namespace_0d396.xml
+// File: namespace_0d392.xml
 
 
-// File: namespace_0d398.xml
+// File: namespace_0d394.xml
 
 
 // File: namespace_0d4.xml
@@ -16078,70 +16075,73 @@ C++ includes: ZLimits.h
 // File: namespace_0d406.xml
 
 
+// File: namespace_0d408.xml
+
+
 // File: namespace_0d410.xml
 
 
-// File: namespace_0d412.xml
+// File: namespace_0d414.xml
 
 
-// File: namespace_0d422.xml
+// File: namespace_0d416.xml
 
 
-// File: namespace_0d435.xml
+// File: namespace_0d426.xml
 
 
-// File: namespace_0d444.xml
+// File: namespace_0d439.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0d448.xml
 
 
-// File: namespace_0d466.xml
+// File: namespace_0d452.xml
 
 
-// File: namespace_0d492.xml
+// File: namespace_0d468.xml
 
 
-// File: namespace_0d499.xml
+// File: namespace_0d495.xml
 
 
-// File: namespace_0d501.xml
+// File: namespace_0d497.xml
 
 
-// File: namespace_0d509.xml
+// File: namespace_0d505.xml
 
 
-// File: namespace_0d521.xml
+// File: namespace_0d517.xml
 
 
-// File: namespace_0d544.xml
+// File: namespace_0d540.xml
 
 
-// File: namespace_0d552.xml
+// File: namespace_0d548.xml
 
 
-// File: namespace_0d558.xml
+// File: namespace_0d554.xml
 
 
-// File: namespace_0d560.xml
+// File: namespace_0d556.xml
 
 
-// File: namespace_0d571.xml
+// File: namespace_0d567.xml
 
 
-// File: namespace_0d583.xml
+// File: namespace_0d579.xml
+
+
+// File: namespace_0d585.xml
 
 
 // File: namespace_0d589.xml
 
 
-// File: namespace_0d593.xml
+// File: namespace_0d607.xml
 
 
-// File: namespace_0d611.xml
-
-
-// File: namespace_0d630.xml
+// File: namespace_0d626.xml
 
 
 // File: namespace_0d78.xml
@@ -16560,99 +16560,13 @@ for importing 2D array of doubles from python into  OutputData
 ";
 
 
-// File: namespacePyEmbeddedUtils.xml
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(PyObject *obj)
-
-Converts PyObject into string, if possible, or throws exception. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::toVectorString "std::vector< std::string > PyEmbeddedUtils::toVectorString(PyObject *obj)
-
-Converts PyObject into vector of strings, if possible, or throws exception. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(char *c)
-
-Converts char to string. In the case of nullptr will return an empty string. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
-";
-
-%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=\"\")
-
-Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
-
-Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::pythonStackTrace "std::string PyEmbeddedUtils::pythonStackTrace()
-
-Returns string representing python stack trace. 
-";
-
-
 // File: namespacepyfmt.xml
-%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
-";
-
-%feature("docstring")  pyfmt::getSampleFunctionName "std::string pyfmt::getSampleFunctionName()
-";
-
-%feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)
-";
-
-%feature("docstring")  pyfmt::printDouble "std::string pyfmt::printDouble(double input)
-";
-
-%feature("docstring")  pyfmt::printNm "std::string pyfmt::printNm(double input)
-";
-
-%feature("docstring")  pyfmt::printNm2 "std::string pyfmt::printNm2(double input)
-";
-
-%feature("docstring")  pyfmt::printScientificDouble "std::string pyfmt::printScientificDouble(double input)
-";
-
-%feature("docstring")  pyfmt::printDegrees "std::string pyfmt::printDegrees(double input)
-";
-
-%feature("docstring")  pyfmt::printValue "std::string pyfmt::printValue(double value, const std::string &units)
-";
-
-%feature("docstring")  pyfmt::printString "std::string pyfmt::printString(const std::string &value)
-";
-
 %feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
 ";
 
 %feature("docstring")  pyfmt::printRealLimitsArg "std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
 
 Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
-";
-
-%feature("docstring")  pyfmt::isSquare "bool pyfmt::isSquare(double length1, double length2, double angle)
-
-Prints  ParameterDistribution. distVarName is a string representing  IDistribution1D variable, e.g. \"distr_1\"
-
-ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
-";
-
-%feature("docstring")  pyfmt::isHexagonal "bool pyfmt::isHexagonal(double length1, double length2, double angle)
-";
-
-%feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
-";
-
-%feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
-
-Returns a string of blanks with given width. By default the width equals standard offset in python files. 
-";
-
-%feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
 ";
 
 
@@ -17852,6 +17766,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: PyArrayImportUtils_8h.xml
 
 
+// File: PyFmt2_8cpp.xml
+
+
+// File: PyFmt2_8h.xml
+
+
 // File: QSpecScan_8cpp.xml
 
 
@@ -18244,6 +18164,12 @@ magnetization (in A/m)
 // File: MultiLayerUtils_8h.xml
 
 
+// File: PyImport_8cpp.xml
+
+
+// File: PyImport_8h.xml
+
+
 // File: RoughnessModels_8cpp.xml
 
 
@@ -18426,12 +18352,6 @@ magnetization (in A/m)
 // File: ParameterUtils_8h.xml
 
 
-// File: PyFmt_8cpp.xml
-
-
-// File: PyFmt_8h.xml
-
-
 // File: PyFmtLimits_8cpp.xml
 
 
@@ -18564,24 +18484,6 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: SimulationElement_8h.xml
-
-
-// File: PyEmbeddedUtils_8cpp.xml
-
-
-// File: PyEmbeddedUtils_8h.xml
-
-
-// File: PyImport_8cpp.xml
-
-
-// File: PyImport_8h.xml
-
-
-// File: PythonFormatting_8cpp.xml
-
-
-// File: PythonFormatting_8h.xml
 
 
 // File: ILayerRTCoefficients_8h.xml
@@ -19132,9 +19034,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_359af669373d7705e93988ea0fa15f60.xml
-
-
-// File: dir_437a42df1810106c8392af0ca05a14b2.xml
 
 
 // File: dir_8e60847f0ac26e3d8a13e8a06357123f.xml

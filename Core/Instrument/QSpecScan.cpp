@@ -20,7 +20,7 @@
 #include "Core/Parametrization/ParameterSample.h"
 #include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/PyIO/PythonFormatting.h"
+#include "Core/Instrument/PyFmt2.h"
 #include "Fit/Tools/RealLimits.h"
 
 namespace

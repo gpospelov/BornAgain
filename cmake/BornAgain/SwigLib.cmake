@@ -1,14 +1,11 @@
-function(SwigLib name lib)
+function(SwigLib name lib TMP_DIR)
 
     if(NOT BORNAGAIN_PYTHON)
-        return()
+        message(FATAL_ERROR "Function SwigLib called though BORNAGAIN_PYTHON=false")
     endif()
-
-    file(MAKE_DIRECTORY ${AUTO_DIR})
 
     if(CONFIGURE_BINDINGS)
 
-        set(TMP_DIR ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
         file(MAKE_DIRECTORY ${TMP_DIR})
 
         GeneratePythonDocs(${AUTO_DIR}/doxygen${name}.i ${WRAP_DIR}/swig)
@@ -56,7 +53,6 @@ function(SwigLib name lib)
             -E copy ${AUTO_DIR}/lib${lib}.py ${CMAKE_BINARY_DIR}/lib/bornagain/lib${lib}.py
         DEPENDS ${AUTO_DIR}/lib${lib}.py
         )
-    add_dependencies(${lib} ${lib}_python)
 
     if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
             OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
@@ -67,30 +63,35 @@ function(SwigLib name lib)
 -Wno-deprecated-declarations")
     endif()
 
+    add_dependencies(${lib} ${lib}_python)
+
     target_compile_definitions(${lib} PUBLIC -DBORNAGAIN_PYTHON)
     target_include_directories(${lib} PUBLIC ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
     target_link_libraries(${lib} ${Python3_LIBRARIES})
 
     install(FILES ${CMAKE_BINARY_DIR}/lib/lib${lib}.py
-        DESTINATION ${destination_lib} COMPONENT Libraries)
+        DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 
     if(WIN32)
-        add_custom_command(
-            TARGET ${lib}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
-            ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}".pyd"
-            )
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}.pyd
-            DESTINATION ${destination_lib} COMPONENT Libraries)
-        add_custom_command(
-            TARGET ${lib}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
-            ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}${libsuffix}
-            )
+        # python in windows required .pyd extension for the library name
+        if(BORNAGAIN_PYTHON)
+            add_custom_command(
+                TARGET ${lib}
+                POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
+                ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}".pyd"
+                )
+            install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}.pyd
+                DESTINATION ${destination_lib} COMPONENT Libraries)
+            add_custom_command(
+                TARGET ${lib}
+                POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_BINARY_DIR}/bin/${libprefix}${lib}${libsuffix}
+                ${CMAKE_BINARY_DIR}/lib/${libprefix}${lib}${libsuffix}
+                )
+        endif()
     endif()
 
 endfunction()

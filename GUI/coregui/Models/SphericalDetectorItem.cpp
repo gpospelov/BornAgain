@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
 #include "Base/Const/Units.h"
-#include "Core/Detector/SphericalDetector.h"
+#include "Core/TrueDetector/SphericalDetector.h"
 #include "GUI/coregui/Models/AxesItems.h"
 
 const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";

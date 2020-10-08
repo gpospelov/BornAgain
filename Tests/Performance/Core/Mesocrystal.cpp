@@ -15,7 +15,7 @@
 #include "Core/Particle/MesoCrystal.h"
 #include "Base/Const/Units.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Detector/RectangularDetector.h"
+#include "Core/TrueDetector/RectangularDetector.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Lattice/ISelectionRule.h"
 #include "Core/Lattice/Lattice.h"

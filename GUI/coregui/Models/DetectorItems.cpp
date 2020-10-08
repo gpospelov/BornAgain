@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DetectorItems.h"
-#include "Core/Detector/IDetector2D.h"
-#include "Core/Detector/ResolutionFunction2DGaussian.h"
+#include "Core/TrueDetector/IDetector2D.h"
+#include "Core/Resolution/ResolutionFunction2DGaussian.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"
 #include "GUI/coregui/Models/ResolutionFunctionItems.h"

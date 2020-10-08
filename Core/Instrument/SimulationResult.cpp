@@ -14,8 +14,8 @@
 
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Axis/FixedBinAxis.h"
-#include "Core/Intensity/Histogram2D.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Histo/Histogram2D.h"
+#include "Core/Data/OutputData.h"
 
 SimulationResult::SimulationResult(const OutputData<double>& data,
                                    const IUnitConverter& unit_converter)

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H
 #define BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H
 
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include <memory>
 
 class IHistogram;

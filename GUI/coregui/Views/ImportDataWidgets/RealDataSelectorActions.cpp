@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorActions.h"
 #include "Core/Detector/IntensityDataFunctions.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"

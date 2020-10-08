@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "Core/Detector/IntensityDataFunctions.h"
-#include "Core/Detector/ConvolutionDetectorResolution.h"
-#include "Core/Detector/IDetector.h"
+#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/TrueDetector/IDetector.h"
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
 #include "Core/Intensity/ArrayUtils.h"
-#include "Core/Intensity/IHistogram.h"
+#include "Core/Histo/IHistogram.h"
 #include "Fit/TestEngine/Numeric.h"
 #include <cmath>
 #include <iostream>

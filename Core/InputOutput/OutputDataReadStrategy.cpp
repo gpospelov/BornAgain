@@ -17,7 +17,7 @@
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Core/InputOutput/TiffHandler.h"
 #include "Core/Intensity/ArrayUtils.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include <map>
 #include <stdexcept> // need overlooked by g++ 5.4
 

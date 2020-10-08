@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobModelFunctions.h"
-#include "Core/Detector/DetectorFunctions.h"
-#include "Core/Detector/IDetector2D.h"
+#include "Core/TrueDetector/DetectorFunctions.h"
+#include "Core/TrueDetector/IDetector2D.h"
 #include "Core/Instrument/Instrument.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"

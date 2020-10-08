@@ -18,7 +18,7 @@
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/HardParticle/FormFactorPrism3.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Intensity/Histogram2D.h"
+#include "Core/Histo/Histogram2D.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"

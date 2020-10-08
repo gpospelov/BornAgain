@@ -15,9 +15,9 @@
 #include "Core/Simulation/Simulation2D.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
-#include "Core/Detector/DetectorContext.h"
-#include "Core/Detector/DetectorFunctions.h"
-#include "Core/Intensity/Histogram2D.h"
+#include "Core/TrueDetector/DetectorContext.h"
+#include "Core/TrueDetector/DetectorFunctions.h"
+#include "Core/Histo/Histogram2D.h"
 #include "Core/Pixel/SimulationElement.h"
 
 Simulation2D::Simulation2D() = default;

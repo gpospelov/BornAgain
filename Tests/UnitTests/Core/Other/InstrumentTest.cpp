@@ -1,6 +1,6 @@
 #include "Core/Instrument/Instrument.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class InstrumentTest : public ::testing::Test

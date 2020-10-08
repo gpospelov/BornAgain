@@ -1,4 +1,4 @@
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/VariableBinAxis.h"
 #include "Core/Detector/IntensityDataFunctions.h"

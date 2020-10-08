@@ -1,12 +1,12 @@
-#include "Core/Intensity/UnitConverter1D.h"
+#include "Core/Unit/UnitConverter1D.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/Axis/VariableBinAxis.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Instrument/QSpecScan.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Scan/QSpecScan.h"
+#include "Core/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test

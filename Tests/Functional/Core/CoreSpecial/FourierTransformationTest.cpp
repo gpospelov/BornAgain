@@ -16,7 +16,7 @@
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Detector/IntensityDataFunctions.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>

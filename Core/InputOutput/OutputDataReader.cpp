@@ -15,7 +15,7 @@
 #include "Core/InputOutput/OutputDataReader.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/InputOutput/DataFormatUtils.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 
 #ifdef _WIN32
 #pragma warning(push)

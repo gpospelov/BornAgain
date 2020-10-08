@@ -14,7 +14,7 @@
 
 #include "Core/Detector/RegionOfInterest.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Detector/IDetector2D.h"
+#include "Core/TrueDetector/IDetector2D.h"
 #include "Core/Mask/Rectangle.h"
 
 RegionOfInterest::RegionOfInterest(const IDetector2D& detector, double xlow, double ylow,

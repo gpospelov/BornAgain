@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Detector/SimulationAreaIterator.h"
-#include "Core/Detector/IDetector2D.h"
+#include "Core/TrueDetector/IDetector2D.h"
 #include "Core/Detector/SimulationArea.h"
 
 SimulationAreaIterator::SimulationAreaIterator(const SimulationArea* area, size_t start_at_index)

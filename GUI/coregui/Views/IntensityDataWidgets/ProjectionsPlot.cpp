@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/ProjectionsPlot.h"
-#include "Core/Intensity/Histogram1D.h"
-#include "Core/Intensity/Histogram2D.h"
+#include "Core/Histo/Histogram1D.h"
+#include "Core/Histo/Histogram2D.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"

@@ -15964,178 +15964,178 @@ C++ includes: ZLimits.h
 // File: namespace_0d108.xml
 
 
-// File: namespace_0d141.xml
+// File: namespace_0d137.xml
 
 
-// File: namespace_0d153.xml
+// File: namespace_0d149.xml
+
+
+// File: namespace_0d157.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d161.xml
+// File: namespace_0d162.xml
 
 
-// File: namespace_0d166.xml
+// File: namespace_0d171.xml
 
 
-// File: namespace_0d175.xml
+// File: namespace_0d173.xml
 
 
 // File: namespace_0d177.xml
 
 
-// File: namespace_0d181.xml
-
-
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d244.xml
+// File: namespace_0d240.xml
 
 
-// File: namespace_0d247.xml
+// File: namespace_0d243.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d254.xml
+// File: namespace_0d256.xml
 
 
-// File: namespace_0d258.xml
+// File: namespace_0d260.xml
 
 
-// File: namespace_0d262.xml
+// File: namespace_0d264.xml
 
 
-// File: namespace_0d268.xml
+// File: namespace_0d270.xml
 
 
-// File: namespace_0d272.xml
+// File: namespace_0d298.xml
 
 
-// File: namespace_0d288.xml
+// File: namespace_0d320.xml
 
 
-// File: namespace_0d317.xml
+// File: namespace_0d324.xml
 
 
-// File: namespace_0d319.xml
+// File: namespace_0d328.xml
 
 
-// File: namespace_0d321.xml
+// File: namespace_0d344.xml
 
 
-// File: namespace_0d343.xml
+// File: namespace_0d353.xml
 
 
-// File: namespace_0d347.xml
-
-
-// File: namespace_0d351.xml
+// File: namespace_0d357.xml
 
 
 // File: namespace_0d367.xml
 
 
-// File: namespace_0d376.xml
+// File: namespace_0d369.xml
 
 
-// File: namespace_0d380.xml
+// File: namespace_0d371.xml
 
 
-// File: namespace_0d390.xml
+// File: namespace_0d377.xml
 
 
-// File: namespace_0d392.xml
+// File: namespace_0d379.xml
 
 
-// File: namespace_0d394.xml
+// File: namespace_0d381.xml
+
+
+// File: namespace_0d383.xml
+
+
+// File: namespace_0d385.xml
+
+
+// File: namespace_0d387.xml
+
+
+// File: namespace_0d391.xml
+
+
+// File: namespace_0d393.xml
 
 
 // File: namespace_0d4.xml
 
 
-// File: namespace_0d400.xml
-
-
-// File: namespace_0d402.xml
-
-
-// File: namespace_0d404.xml
-
-
-// File: namespace_0d406.xml
-
-
-// File: namespace_0d408.xml
-
-
-// File: namespace_0d410.xml
-
-
-// File: namespace_0d414.xml
+// File: namespace_0d403.xml
 
 
 // File: namespace_0d416.xml
 
 
-// File: namespace_0d426.xml
+// File: namespace_0d425.xml
 
 
-// File: namespace_0d439.xml
+// File: namespace_0d429.xml
 
 
-// File: namespace_0d448.xml
+// File: namespace_0d445.xml
 
 
-// File: namespace_0d452.xml
+// File: namespace_0d478.xml
 
 
-// File: namespace_0d468.xml
+// File: namespace_0d483.xml
 
 
-// File: namespace_0d495.xml
+// File: namespace_0d485.xml
 
 
-// File: namespace_0d497.xml
+// File: namespace_0d493.xml
 
 
-// File: namespace_0d505.xml
+// File: namespace_0d499.xml
 
 
-// File: namespace_0d517.xml
+// File: namespace_0d503.xml
 
 
-// File: namespace_0d540.xml
+// File: namespace_0d511.xml
+
+
+// File: namespace_0d534.xml
+
+
+// File: namespace_0d542.xml
 
 
 // File: namespace_0d548.xml
 
 
-// File: namespace_0d554.xml
+// File: namespace_0d550.xml
 
 
-// File: namespace_0d556.xml
+// File: namespace_0d561.xml
 
 
-// File: namespace_0d567.xml
+// File: namespace_0d573.xml
 
 
 // File: namespace_0d579.xml
 
 
-// File: namespace_0d585.xml
+// File: namespace_0d583.xml
 
 
-// File: namespace_0d589.xml
+// File: namespace_0d601.xml
 
 
-// File: namespace_0d607.xml
+// File: namespace_0d620.xml
 
 
-// File: namespace_0d626.xml
+// File: namespace_0d634.xml
 
 
 // File: namespace_0d78.xml
@@ -17238,16 +17238,31 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: IPeakShape_8h.xml
 
 
-// File: ConvolutionDetectorResolution_8cpp.xml
+// File: CumulativeValue_8cpp.xml
 
 
-// File: ConvolutionDetectorResolution_8h.xml
+// File: CumulativeValue_8h.xml
 
 
-// File: Convolve_8cpp.xml
+// File: LLData_8cpp.xml
 
 
-// File: Convolve_8h.xml
+// File: LLData_8h.xml
+%feature("docstring")  HaveSameDimensions "bool HaveSameDimensions(const LLData< T > &left, const LLData< T > &right)
+";
+
+
+// File: OutputData_8cpp.xml
+
+
+// File: OutputData_8h.xml
+
+
+// File: OutputDataIterator_8h.xml
+%feature("docstring")  swap "void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+make Swappable 
+";
 
 
 // File: DetectionProperties_8cpp.xml
@@ -17286,21 +17301,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: IDetector2D_8h.xml
 
 
-// File: IDetectorResolution_8h.xml
-
-
-// File: IntensityDataFunctions_8cpp.xml
-
-
-// File: IntensityDataFunctions_8h.xml
-
-
-// File: IResolutionFunction2D_8cpp.xml
-
-
-// File: IResolutionFunction2D_8h.xml
-
-
 // File: IsGISAXSDetector_8cpp.xml
 
 
@@ -17325,16 +17325,10 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: RegionOfInterest_8h.xml
 
 
-// File: ResolutionFunction2DGaussian_8cpp.xml
+// File: SimpleUnitConverters_8cpp.xml
 
 
-// File: ResolutionFunction2DGaussian_8h.xml
-
-
-// File: ScanResolution_8cpp.xml
-
-
-// File: ScanResolution_8h.xml
+// File: SimpleUnitConverters_8h.xml
 
 
 // File: SimulationArea_8cpp.xml
@@ -17667,6 +17661,24 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: Ripples_8h.xml
 
 
+// File: Histogram1D_8cpp.xml
+
+
+// File: Histogram1D_8h.xml
+
+
+// File: Histogram2D_8cpp.xml
+
+
+// File: Histogram2D_8h.xml
+
+
+// File: IHistogram_8cpp.xml
+
+
+// File: IHistogram_8h.xml
+
+
 // File: boost__streams_8h.xml
 
 
@@ -17724,12 +17736,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: TiffHandler_8h.xml
 
 
-// File: AngularSpecScan_8cpp.xml
-
-
-// File: AngularSpecScan_8h.xml
-
-
 // File: ChiSquaredModule_8cpp.xml
 
 
@@ -17754,10 +17760,10 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: Instrument_8h.xml
 
 
-// File: ISpecularScan_8cpp.xml
+// File: IntensityDataFunctions_8cpp.xml
 
 
-// File: ISpecularScan_8h.xml
+// File: IntensityDataFunctions_8h.xml
 
 
 // File: PyArrayImportUtils_8cpp.xml
@@ -17770,12 +17776,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: PyFmt2_8h.xml
-
-
-// File: QSpecScan_8cpp.xml
-
-
-// File: QSpecScan_8h.xml
 
 
 // File: SimulationResult_8cpp.xml
@@ -17802,79 +17802,10 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: ArrayUtils_8h.xml
 
 
-// File: AxisNames_8cpp.xml
-
-
-// File: AxisNames_8h.xml
-
-
-// File: CumulativeValue_8cpp.xml
-
-
-// File: CumulativeValue_8h.xml
-
-
-// File: Histogram1D_8cpp.xml
-
-
-// File: Histogram1D_8h.xml
-
-
-// File: Histogram2D_8cpp.xml
-
-
-// File: Histogram2D_8h.xml
-
-
-// File: IHistogram_8cpp.xml
-
-
-// File: IHistogram_8h.xml
-
-
 // File: IIntensityFunction_8cpp.xml
 
 
 // File: IIntensityFunction_8h.xml
-
-
-// File: IUnitConverter_8cpp.xml
-
-
-// File: IUnitConverter_8h.xml
-
-
-// File: LLData_8cpp.xml
-
-
-// File: LLData_8h.xml
-%feature("docstring")  HaveSameDimensions "bool HaveSameDimensions(const LLData< T > &left, const LLData< T > &right)
-";
-
-
-// File: OutputData_8cpp.xml
-
-
-// File: OutputData_8h.xml
-
-
-// File: OutputDataIterator_8h.xml
-%feature("docstring")  swap "void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-make Swappable 
-";
-
-
-// File: SimpleUnitConverters_8cpp.xml
-
-
-// File: SimpleUnitConverters_8h.xml
-
-
-// File: UnitConverter1D_8cpp.xml
-
-
-// File: UnitConverter1D_8h.xml
 
 
 // File: ILatticeOrientation_8cpp.xml
@@ -18480,6 +18411,39 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: SimulationElement_8h.xml
 
 
+// File: ConvolutionDetectorResolution_8cpp.xml
+
+
+// File: ConvolutionDetectorResolution_8h.xml
+
+
+// File: Convolve_8cpp.xml
+
+
+// File: Convolve_8h.xml
+
+
+// File: IDetectorResolution_8h.xml
+
+
+// File: IResolutionFunction2D_8cpp.xml
+
+
+// File: IResolutionFunction2D_8h.xml
+
+
+// File: ResolutionFunction2DGaussian_8cpp.xml
+
+
+// File: ResolutionFunction2DGaussian_8h.xml
+
+
+// File: ScanResolution_8cpp.xml
+
+
+// File: ScanResolution_8h.xml
+
+
 // File: ILayerRTCoefficients_8h.xml
 
 
@@ -18535,6 +18499,24 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: SampleProvider_8h.xml
+
+
+// File: AngularSpecScan_8cpp.xml
+
+
+// File: AngularSpecScan_8h.xml
+
+
+// File: ISpecularScan_8cpp.xml
+
+
+// File: ISpecularScan_8h.xml
+
+
+// File: QSpecScan_8cpp.xml
+
+
+// File: QSpecScan_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml
@@ -18964,6 +18946,24 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: TwoLayerRoughnessBuilder_8h.xml
 
 
+// File: AxisNames_8cpp.xml
+
+
+// File: AxisNames_8h.xml
+
+
+// File: IUnitConverter_8cpp.xml
+
+
+// File: IUnitConverter_8h.xml
+
+
+// File: UnitConverter1D_8cpp.xml
+
+
+// File: UnitConverter1D_8h.xml
+
+
 // File: deprecated.xml
 
 
@@ -18985,6 +18985,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: dir_fa96dd1f1e0fa8c53ad7561c23a2a056.xml
 
 
+// File: dir_e8e4c52c5b1be567b4cbfc8c213ce785.xml
+
+
 // File: dir_44f78a63fb6824b6161080fb024dfdfe.xml
 
 
@@ -18995,6 +18998,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
+
+
+// File: dir_0af69761ac55fbb3eaeece0bb92e99d9.xml
 
 
 // File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
@@ -19030,10 +19036,16 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: dir_359af669373d7705e93988ea0fa15f60.xml
 
 
+// File: dir_790d5e8b445d9aec8c8895146706942a.xml
+
+
 // File: dir_8e60847f0ac26e3d8a13e8a06357123f.xml
 
 
 // File: dir_dfcc64e98e4f62108d0fa0099ad7f9c0.xml
+
+
+// File: dir_6de83e740cfcd9d0abfe8dffab2832a5.xml
 
 
 // File: dir_6babb1605c026604526d064f820d612b.xml
@@ -19049,4 +19061,7 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_5d2259b43612a5a0ff7512df653d7370.xml
+
+
+// File: dir_bac1ac4b8e69c9aa3a35df48fc2a6289.xml
 

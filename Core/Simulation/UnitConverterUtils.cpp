@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "Core/TrueDetector/RectangularDetector.h"
-#include "Core/TrueDetector/SphericalDetector.h"
+#include "Core/Detector/RectangularDetector.h"
+#include "Core/Detector/SphericalDetector.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Data/OutputData.h"
-#include "Core/TrueDetector/SimpleUnitConverters.h"
+#include "Core/Detector/SimpleUnitConverters.h"
 #include "Core/Unit/UnitConverter1D.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"

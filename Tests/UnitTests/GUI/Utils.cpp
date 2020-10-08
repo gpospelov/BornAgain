@@ -15,7 +15,7 @@
 
 #include "Tests/UnitTests/GUI/Utils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/TrueDetector/IntensityDataFunctions.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Data/OutputData.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"

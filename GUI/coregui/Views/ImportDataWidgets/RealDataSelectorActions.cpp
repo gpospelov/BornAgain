@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorActions.h"
-#include "Core/TrueDetector/IntensityDataFunctions.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Data/OutputData.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"

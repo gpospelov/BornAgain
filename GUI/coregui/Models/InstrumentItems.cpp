@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/InstrumentItems.h"
-#include "Core/TrueDetector/IDetector2D.h"
+#include "Core/Detector/IDetector2D.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Unit/UnitConverter1D.h"
 #include "GUI/coregui/Models/AxesItems.h"

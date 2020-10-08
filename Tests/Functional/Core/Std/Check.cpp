@@ -17,7 +17,7 @@
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/TrueDetector/IntensityDataFunctions.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/Simulation.h"

@@ -20128,6 +20128,17 @@ class Instrument(INode):
 # Register Instrument in _libBornAgainCore:
 _libBornAgainCore.Instrument_swigregister(Instrument)
 
+
+def importArrayToOutputData(*args):
+    r"""
+    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
+    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
+    OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
+
+    for importing 2D array of doubles from python into  OutputData
+
+    """
+    return _libBornAgainCore.importArrayToOutputData(*args)
 class QSpecScan(object):
     r"""
 

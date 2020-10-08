@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H
 #define BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H
 
-#ifndef SWIG
 #include <vector>
 
 template <class T> class OutputData;
@@ -32,6 +31,5 @@ OutputData<double>* importArrayToOutputData(const std::vector<double>& vec);
 OutputData<double>* importArrayToOutputData(const std::vector<std::vector<double>>& vec);
 
 } // namespace PyArrayImport
-#endif // SWIG
 
 #endif // BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H

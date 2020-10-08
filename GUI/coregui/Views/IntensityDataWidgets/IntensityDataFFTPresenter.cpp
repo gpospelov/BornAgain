@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataFFTPresenter.h"
-#include "Core/Detector/IntensityDataFunctions.h"
+#include "Core/TrueDetector/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/utils/GUIHelpers.h"

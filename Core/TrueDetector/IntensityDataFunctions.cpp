@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/IntensityDataFunctions.cpp
+//! @file      Core/TrueDetector/IntensityDataFunctions.cpp
 //! @brief     Implement class IntensityDataFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Detector/IntensityDataFunctions.h"
-#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/TrueDetector/IntensityDataFunctions.h"
+#include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/TrueDetector/IDetector.h"
 #include "Core/Instrument/FourierTransform.h"
 #include "Core/Instrument/Instrument.h"

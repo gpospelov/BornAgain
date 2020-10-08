@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/RegionOfInterest.cpp
+//! @file      Core/TrueDetector/RegionOfInterest.cpp
 //! @brief     Implements class RegionOfInterest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Detector/RegionOfInterest.h"
+#include "Core/TrueDetector/RegionOfInterest.h"
 #include "Base/Types/Exceptions.h"
 #include "Core/TrueDetector/IDetector2D.h"
 #include "Core/Mask/Rectangle.h"

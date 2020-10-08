@@ -20,7 +20,7 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/TrueDetector/SpecularDetector1D.h"
 #include "Core/Histo/Histogram1D.h"
-#include "Core/Unit/SimpleUnitConverters.h"
+#include "Core/TrueDetector/SimpleUnitConverters.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"

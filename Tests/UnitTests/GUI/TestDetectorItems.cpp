@@ -1,5 +1,5 @@
 #include "Base/Const/Units.h"
-#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/TrueDetector/IDetector2D.h"
 #include "Core/Resolution/ResolutionFunction2DGaussian.h"
 #include "GUI/coregui/Models/ComboProperty.h"

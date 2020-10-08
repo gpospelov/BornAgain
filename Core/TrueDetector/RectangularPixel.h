@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Detector/RectangularPixel.h
+//! @file      Core/TrueDetector/RectangularPixel.h
 //! @brief     Defines class RectangularPixel.
 //!
 //! @homepage  http://www.bornagainproject.org

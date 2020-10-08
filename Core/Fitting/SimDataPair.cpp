@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Fitting/SimDataPair.h"
-#include "Core/Detector/IntensityDataFunctions.h"
+#include "Core/TrueDetector/IntensityDataFunctions.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"

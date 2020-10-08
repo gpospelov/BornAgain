@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/TrueDetector/DetectorFunctions.h"
-#include "Core/Detector/SimulationArea.h"
-#include "Core/Detector/SimulationAreaIterator.h"
+#include "Core/TrueDetector/SimulationArea.h"
+#include "Core/TrueDetector/SimulationAreaIterator.h"
 #include "Core/Data/OutputData.h"
 #include "Fit/Tools/StringUtils.h"
 #include <algorithm>

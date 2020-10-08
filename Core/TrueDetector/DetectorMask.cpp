@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/TrueDetector/IDetector2D.h"
-#include "Core/Detector/RegionOfInterest.h"
+#include "Core/TrueDetector/RegionOfInterest.h"
 #include "Core/Histo/Histogram2D.h"
 
 DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}

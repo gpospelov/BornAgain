@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Intensity/CumulativeValue.cpp
+//! @file      Core/Data/CumulativeValue.cpp
 //! @brief     Implements class CumulativeValue.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Intensity/CumulativeValue.h"
+#include "Core/Data/CumulativeValue.h"
 #include <cmath>
 
 double CumulativeValue::getRMS() const

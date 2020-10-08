@@ -20,7 +20,7 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
-#include "Core/Intensity/AxisNames.h"
+#include "Core/Unit/AxisNames.h"
 #include "Core/Data/OutputData.h"
 
 namespace

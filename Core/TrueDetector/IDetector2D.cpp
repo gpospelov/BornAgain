@@ -17,8 +17,8 @@
 #include "Core/Beam/Beam.h"
 #include "Core/TrueDetector/DetectorContext.h"
 #include "Core/TrueDetector/DetectorFunctions.h"
-#include "Core/Detector/RegionOfInterest.h"
-#include "Core/Detector/SimulationArea.h"
+#include "Core/TrueDetector/RegionOfInterest.h"
+#include "Core/TrueDetector/SimulationArea.h"
 #include "Core/Mask/InfinitePlane.h"
 #include "Core/Pixel/SimulationElement.h"
 

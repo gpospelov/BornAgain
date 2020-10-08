@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INTENSITY_IHISTOGRAM_H
 
 #include "Base/Utils/PyObject.h"
-#include "Core/Intensity/CumulativeValue.h"
+#include "Core/Data/CumulativeValue.h"
 #include "Core/Data/OutputData.h"
 
 class Histogram1D;

@@ -2,7 +2,7 @@
 #include "Base/Vector/Vectors3D.h"
 #include "Core/Beam/Beam.h"
 #include "Core/TrueDetector/SphericalDetector.h"
-#include "Core/Unit/SimpleUnitConverters.h"
+#include "Core/TrueDetector/SimpleUnitConverters.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SphericalConverterTest : public ::testing::Test

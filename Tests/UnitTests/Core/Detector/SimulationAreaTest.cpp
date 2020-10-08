@@ -1,4 +1,4 @@
-#include "Core/Detector/SimulationArea.h"
+#include "Core/TrueDetector/SimulationArea.h"
 #include "Core/TrueDetector/DetectorFunctions.h"
 #include "Core/TrueDetector/SphericalDetector.h"
 #include "Core/Mask/Rectangle.h"

@@ -17,7 +17,7 @@
 #include "Core/TrueDetector/SphericalDetector.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Data/OutputData.h"
-#include "Core/Unit/SimpleUnitConverters.h"
+#include "Core/TrueDetector/SimpleUnitConverters.h"
 #include "Core/Unit/UnitConverter1D.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"

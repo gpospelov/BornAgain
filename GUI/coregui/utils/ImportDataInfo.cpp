@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/utils/ImportDataInfo.h"
-#include "Core/Intensity/AxisNames.h"
+#include "Core/Unit/AxisNames.h"
 #include "Core/Data/OutputData.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"

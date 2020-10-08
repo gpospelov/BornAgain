@@ -1,4 +1,4 @@
-#include "Core/Detector/RegionOfInterest.h"
+#include "Core/TrueDetector/RegionOfInterest.h"
 #include "Base/Types/Exceptions.h"
 #include "Core/TrueDetector/SphericalDetector.h"
 #include "Tests/GTestWrapper/google_test.h"

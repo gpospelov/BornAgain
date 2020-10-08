@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Data/OutputData.h"
-#include "Core/Intensity/CumulativeValue.h"
+#include "Core/Data/CumulativeValue.h"
 
 #ifdef BORNAGAIN_PYTHON
 

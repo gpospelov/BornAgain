@@ -18,7 +18,7 @@
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Detector/IntensityDataFunctions.h"
+#include "Core/TrueDetector/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include <fstream>
 #include <iostream>

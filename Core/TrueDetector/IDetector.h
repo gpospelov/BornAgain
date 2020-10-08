@@ -18,7 +18,7 @@
 #include "Base/Types/CloneableVector.h"
 #include "Base/Types/ICloneable.h"
 #include "Core/Detector/DetectionProperties.h"
-#include "Core/Detector/SimulationAreaIterator.h"
+#include "Core/TrueDetector/SimulationAreaIterator.h"
 #include "Core/Unit/IUnitConverter.h"
 #include "Core/Parametrization/INode.h"
 

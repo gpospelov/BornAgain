@@ -14,11 +14,11 @@
 
 #include "Core/TrueDetector/IDetector.h"
 #include "Core/Axis/IAxis.h"
-#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/Detector/ConvolutionDetectorResolution.h"
 #include "Core/TrueDetector/DetectorMask.h"
 #include "Core/Resolution/IDetectorResolution.h"
-#include "Core/Detector/RegionOfInterest.h"
-#include "Core/Detector/SimulationArea.h"
+#include "Core/TrueDetector/RegionOfInterest.h"
+#include "Core/TrueDetector/SimulationArea.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Pixel/SimulationElement.h"
 

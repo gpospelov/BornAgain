@@ -8,3 +8,4 @@
 // questionable warnings, TODO: reinvestigate
 #pragma SWIG nowarn=473 // questionable return pointer
 #pragma SWIG nowarn=509 // overloaded method shadowed, effectively ignored
+#pragma SWIG nowarn=520 // base class not similarly marked as a smart pointer

@@ -918,36 +918,6 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 
-// File: namespacepyfmt2.xml
-%feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
-
-Returns fixed Python code snippet that defines the function \"runSimulation\". 
-";
-
-%feature("docstring")  pyfmt2::valueTimesUnit "std::string pyfmt2::valueTimesUnit(const RealParameter *par)
-
-Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
-";
-
-%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
-
-Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
-";
-
-%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
-
-Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
-";
-
-%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
-";
-
-%feature("docstring")  pyfmt2::printAxis "std::string pyfmt2::printAxis(const IAxis &axis, const std::string &units, size_t offset)
-
-Prints python-script definition for given axis. offset is used for alignment and indentation in multiple-line definitions 
-";
-
-
 // File: namespaceSysUtils.xml
 %feature("docstring")  SysUtils::getCurrentDateAndTime "std::string SysUtils::getCurrentDateAndTime()
 ";
@@ -1058,12 +1028,6 @@ Template function to create an integrator object
 
 
 // File: PyFmt_8h.xml
-
-
-// File: PyFmt2_8cpp.xml
-
-
-// File: PyFmt2_8h.xml
 
 
 // File: PyObject_8h.xml

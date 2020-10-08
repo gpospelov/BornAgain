@@ -1,16 +1,16 @@
  // manually declare which classes can be derived in Python and passed back to C++
  // this can be used to reduce the bloat in the swig-generated code
 
-%feature("director") IParameterized;
-%feature("director") ISampleBuilder;
-%feature("director") INode;
-%feature("director") ISample;
-%feature("director") IFormFactor;
-%feature("director") IFormFactorBorn; // used in CustomFormFactor.py
-%feature("director") PyCallback;
-%feature("director") PyBuilderCallback;
-%feature("director") PyObserverCallback;
-%feature("director") FitObjective;
+%feature("director") IParameterized;     // needed by ISampleBuilder
+%feature("director") ISampleBuilder;     // used in mesocrystal1.py
+%feature("director") INode;              // needed by ISample
+%feature("director") ISample;            // needed by IFormFactor
+%feature("director") IFormFactor;        // needed by IFormFactorBorn
+%feature("director") IFormFactorBorn;    // used in CustomFormFactor.py
+%feature("director") FitObjective;       // used in custom_objective_function.py
+%feature("director") PyCallback;         // used in extendFit.i
+%feature("director") PyBuilderCallback;  // used in extendCore.i
+%feature("director") PyObserverCallback; // used in extendCore.i
 
 // Propagate python exceptions
 // taken from

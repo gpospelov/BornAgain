@@ -11487,20 +11487,10 @@ class IInterferenceFunction(ISample):
     """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(IInterferenceFunction self, NodeMeta meta, vdouble1d_t PValues) -> IInterferenceFunction
-        __init__(IInterferenceFunction self, double position_var) -> IInterferenceFunction
-        IInterferenceFunction::IInterferenceFunction(double position_var)
-
-        """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.IInterferenceFunction_swiginit(self, _libBornAgainCore.new_IInterferenceFunction(_self, *args))
 
     def clone(self):
         r"""
@@ -11571,15 +11561,7 @@ class IInterferenceFunction(ISample):
 
         """
         return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
-
-    def iff_without_dw(self, q):
-        r"""iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
-        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IInterferenceFunction(self)
-        return weakref.proxy(self)
 
 # Register IInterferenceFunction in _libBornAgainCore:
 _libBornAgainCore.IInterferenceFunction_swigregister(IInterferenceFunction)

@@ -4,8 +4,8 @@
 #pragma SWIG nowarn=362 // operator= ignored
 #pragma SWIG nowarn=389 // operator[] ignored, consider %extend
 #pragma SWIG nowarn=503 // operator= ignored, consider renaming to valid identifier
+#pragma SWIG nowarn=473 // return pointer from director
 
 // questionable warnings, TODO: reinvestigate
-//#pragma SWIG nowarn=473 // questionable return pointer
-#pragma SWIG nowarn=509 // overloaded method shadowed, effectively ignored
+//#pragma SWIG nowarn=509 // overloaded method shadowed, effectively ignored
 #pragma SWIG nowarn=520 // base class not similarly marked as a smart pointer

@@ -20128,17 +20128,6 @@ class Instrument(INode):
 # Register Instrument in _libBornAgainCore:
 _libBornAgainCore.Instrument_swigregister(Instrument)
 
-
-def importArrayToOutputData(*args):
-    r"""
-    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
-    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
-    OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
-
-    for importing 2D array of doubles from python into  OutputData
-
-    """
-    return _libBornAgainCore.importArrayToOutputData(*args)
 class QSpecScan(object):
     r"""
 
@@ -20257,7 +20246,6 @@ class SimulationResult(object):
         r"""
         __init__(SimulationResult self) -> SimulationResult
         __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
-        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
         __init__(SimulationResult self, SimulationResult other) -> SimulationResult
         SimulationResult::SimulationResult(SimulationResult &&other)
 
@@ -21219,16 +21207,13 @@ class Material(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, material):
         r"""
         __init__(Material self, Material material) -> Material
-        __init__(Material self, Material material) -> Material
-        Material::Material(std::unique_ptr< BaseMaterialImpl > material_impl)
-
-        Creates material with particular material implementation. 
+        Material::Material(Material &&material)=default
 
         """
-        _libBornAgainCore.Material_swiginit(self, _libBornAgainCore.new_Material(*args))
+        _libBornAgainCore.Material_swiginit(self, _libBornAgainCore.new_Material(material))
 
     def inverted(self):
         r"""

@@ -42,11 +42,16 @@ class SimulationResult
 public:
     SimulationResult() = default;
     SimulationResult(const OutputData<double>& data, const IUnitConverter& unit_converter);
+
     SimulationResult(const SimulationResult& other);
+#ifndef SWIG
     SimulationResult(SimulationResult&& other);
+#endif
 
     SimulationResult& operator=(const SimulationResult& other);
+#ifndef SWIG
     SimulationResult& operator=(SimulationResult&& other);
+#endif
 
 #ifndef SWIG
     std::unique_ptr<OutputData<double>> data(Axes::Units units = Axes::Units::DEFAULT) const;

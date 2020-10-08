@@ -7533,11 +7533,6 @@ Sets the polarization analyzer characteristics of the detector.
 apply the detector resolution to the given intensity map 
 ";
 
-%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
-
-Returns new intensity map with detector resolution applied and axes in requested units. 
-";
-
 %feature("docstring")  Instrument::initDetector "void Instrument::initDetector()
 
 init detector with beam settings 
@@ -15969,58 +15964,58 @@ C++ includes: ZLimits.h
 // File: namespace_0d108.xml
 
 
-// File: namespace_0d139.xml
+// File: namespace_0d141.xml
 
 
-// File: namespace_0d151.xml
-
-
-// File: namespace_0d159.xml
+// File: namespace_0d153.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d164.xml
+// File: namespace_0d161.xml
 
 
-// File: namespace_0d173.xml
+// File: namespace_0d166.xml
 
 
 // File: namespace_0d175.xml
 
 
-// File: namespace_0d179.xml
+// File: namespace_0d177.xml
+
+
+// File: namespace_0d181.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d242.xml
+// File: namespace_0d244.xml
 
 
-// File: namespace_0d245.xml
+// File: namespace_0d247.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d252.xml
+// File: namespace_0d254.xml
 
 
-// File: namespace_0d256.xml
+// File: namespace_0d258.xml
 
 
-// File: namespace_0d260.xml
+// File: namespace_0d262.xml
 
 
-// File: namespace_0d266.xml
+// File: namespace_0d268.xml
 
 
-// File: namespace_0d270.xml
+// File: namespace_0d272.xml
 
 
-// File: namespace_0d286.xml
+// File: namespace_0d288.xml
 
 
 // File: namespace_0d317.xml
@@ -17294,6 +17289,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: IDetectorResolution_8h.xml
 
 
+// File: IntensityDataFunctions_8cpp.xml
+
+
+// File: IntensityDataFunctions_8h.xml
+
+
 // File: IResolutionFunction2D_8cpp.xml
 
 
@@ -17835,12 +17836,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: IIntensityFunction_8h.xml
-
-
-// File: IntensityDataFunctions_8cpp.xml
-
-
-// File: IntensityDataFunctions_8h.xml
 
 
 // File: IUnitConverter_8cpp.xml

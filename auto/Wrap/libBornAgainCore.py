@@ -20095,16 +20095,6 @@ class Instrument(INode):
         """
         return _libBornAgainCore.Instrument_applyDetectorResolution(self, p_intensity_map)
 
-    def createDetectorIntensity(self, elements):
-        r"""
-        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
-        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
-
-        Returns new intensity map with detector resolution applied and axes in requested units. 
-
-        """
-        return _libBornAgainCore.Instrument_createDetectorIntensity(self, elements)
-
     def initDetector(self):
         r"""
         initDetector(Instrument self)

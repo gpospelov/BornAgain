@@ -17,11 +17,17 @@
 #include "Base/Utils/Algorithms.h"
 #include "Core/Material/WavevectorInfo.h"
 #include "Core/Scattering/Rotations.h"
+#include "Core/Shapes/IShape.h"
+
+
+IFormFactorBorn::IFormFactorBorn() = default;
 
 IFormFactorBorn::IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactor(meta, PValues)
 {
 }
+
+IFormFactorBorn::~IFormFactorBorn() = default;
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {

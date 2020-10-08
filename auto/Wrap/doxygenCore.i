@@ -6113,10 +6113,13 @@ In contrast to the generic  IFormFactor, a Born form factor does not depend on t
 C++ includes: IFormFactorBorn.h
 ";
 
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()=default
+%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()
 ";
 
 %feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn()
 ";
 
 %feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0

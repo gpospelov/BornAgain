@@ -17,8 +17,8 @@
 
 #include "Base/Vector/Vectors3D.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/Shapes/IShape.h"
 
+class IShape;
 struct SlicingEffects; // defined below
 
 //! Pure virtual base class for Born form factors.
@@ -32,8 +32,9 @@ struct SlicingEffects; // defined below
 class IFormFactorBorn : public IFormFactor
 {
 public:
-    IFormFactorBorn() = default;
+    IFormFactorBorn();
     IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues);
+    ~IFormFactorBorn();
 
     IFormFactorBorn* clone() const override = 0;
 

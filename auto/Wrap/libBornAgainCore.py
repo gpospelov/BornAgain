@@ -2282,6 +2282,7 @@ class vector_cvector_t(object):
 # Register vector_cvector_t in _libBornAgainCore:
 _libBornAgainCore.vector_cvector_t_swigregister(vector_cvector_t)
 
+import libBornAgainParam
 class swig_dummy_type_axisinfo_vector(object):
     r"""Proxy of C++ std::vector< AxisInfo > class."""
 
@@ -3033,78 +3034,6 @@ class SimulationFactoryTemp(object):
 
 # Register SimulationFactoryTemp in _libBornAgainCore:
 _libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
-
-class IParameterReal(object):
-    r"""
-
-
-    Pure virtual base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
-
-    C++ includes: IParameter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
-
-    def clone(self, *args):
-        r"""
-        clone(IParameterReal self, std::string const & new_name="") -> IParameterReal
-        virtual IParameter* IParameter< T >::clone(const std::string &new_name="") const =0
-
-        """
-        return _libBornAgainCore.IParameterReal_clone(self, *args)
-
-    def isNull(self):
-        r"""
-        isNull(IParameterReal self) -> bool
-        virtual bool IParameter< T >::isNull() const
-
-        Returns true if wrapped parameter was not initialized with proper real value. 
-
-        """
-        return _libBornAgainCore.IParameterReal_isNull(self)
-
-    def getData(self):
-        r"""
-        getData(IParameterReal self) -> double &
-        T& IParameter< T >::getData() const
-
-        """
-        return _libBornAgainCore.IParameterReal_getData(self)
-
-    def setData(self, data):
-        r"""
-        setData(IParameterReal self, double & data)
-        void IParameter< T >::setData(T &data)
-
-        """
-        return _libBornAgainCore.IParameterReal_setData(self, data)
-
-    def hasSameData(self, other):
-        r"""
-        hasSameData(IParameterReal self, IParameterReal other) -> bool
-        bool IParameter< T >::hasSameData(const IParameter &other)
-
-        Returns true if two parameters are pointing to the same raw data. 
-
-        """
-        return _libBornAgainCore.IParameterReal_hasSameData(self, other)
-
-    def getName(self):
-        r"""
-        getName(IParameterReal self) -> std::string const &
-        const std::string& IParameter< T >::getName() const
-
-        """
-        return _libBornAgainCore.IParameterReal_getName(self)
-
-# Register IParameterReal in _libBornAgainCore:
-_libBornAgainCore.IParameterReal_swigregister(IParameterReal)
 
 class ParameterSample(object):
     r"""
@@ -5348,680 +5277,7 @@ class Rectangle(IShape2D):
 # Register Rectangle in _libBornAgainCore:
 _libBornAgainCore.Rectangle_swigregister(Rectangle)
 
-class IParameterized(object):
-    r"""
-
-
-    Manages a local parameter pool, and a tree of child pools.
-
-    C++ includes: IParameterized.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(IParameterized self, std::string const & name="") -> IParameterized
-        __init__(IParameterized self, IParameterized other) -> IParameterized
-        IParameterized::IParameterized(const IParameterized &other)
-
-        """
-        if self.__class__ == IParameterized:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.IParameterized_swiginit(self, _libBornAgainCore.new_IParameterized(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_IParameterized
-
-    def parameterPool(self):
-        r"""
-        parameterPool(IParameterized self) -> ParameterPool
-        ParameterPool* IParameterized::parameterPool() const
-
-        Returns pointer to the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_parameterPool(self)
-
-    def createParameterTree(self):
-        r"""
-        createParameterTree(IParameterized self) -> ParameterPool
-        ParameterPool * IParameterized::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
-        return _libBornAgainCore.IParameterized_createParameterTree(self)
-
-    def parametersToString(self):
-        r"""
-        parametersToString(IParameterized self) -> std::string
-        std::string IParameterized::parametersToString() const
-
-        Returns multiline string representing available parameters. 
-
-        """
-        return _libBornAgainCore.IParameterized_parametersToString(self)
-
-    def registerParameter(self, name, parpointer):
-        r"""
-        registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter
-        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
-
-        """
-        return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
-
-    def registerVector(self, *args):
-        r"""
-        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
-        void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
-
-        """
-        return _libBornAgainCore.IParameterized_registerVector(self, *args)
-
-    def setParameterValue(self, name, value):
-        r"""
-        setParameterValue(IParameterized self, std::string const & name, double value)
-        void IParameterized::setParameterValue(const std::string &name, double value)
-
-        """
-        return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
-
-    def setVectorValue(self, base_name, value):
-        r"""
-        setVectorValue(IParameterized self, std::string const & base_name, kvector_t value)
-        void IParameterized::setVectorValue(const std::string &base_name, kvector_t value)
-
-        """
-        return _libBornAgainCore.IParameterized_setVectorValue(self, base_name, value)
-
-    def parameter(self, name):
-        r"""
-        parameter(IParameterized self, std::string const & name) -> RealParameter
-        RealParameter * IParameterized::parameter(const std::string &name) const
-
-        Returns parameter with given 'name'. 
-
-        """
-        return _libBornAgainCore.IParameterized_parameter(self, name)
-
-    def onChange(self):
-        r"""
-        onChange(IParameterized self)
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.IParameterized_onChange(self)
-
-    def removeParameter(self, name):
-        r"""
-        removeParameter(IParameterized self, std::string const & name)
-        void IParameterized::removeParameter(const std::string &name)
-
-        """
-        return _libBornAgainCore.IParameterized_removeParameter(self, name)
-
-    def removeVector(self, base_name):
-        r"""
-        removeVector(IParameterized self, std::string const & base_name)
-        void IParameterized::removeVector(const std::string &base_name)
-
-        """
-        return _libBornAgainCore.IParameterized_removeVector(self, base_name)
-
-    @staticmethod
-    def XComponentName(base_name):
-        r"""XComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainCore.IParameterized_XComponentName(base_name)
-
-    @staticmethod
-    def YComponentName(base_name):
-        r"""YComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainCore.IParameterized_YComponentName(base_name)
-
-    @staticmethod
-    def ZComponentName(base_name):
-        r"""ZComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainCore.IParameterized_ZComponentName(base_name)
-
-    def setName(self, name):
-        r"""
-        setName(IParameterized self, std::string const & name)
-        void IParameterized::setName(const std::string &name)
-
-        """
-        return _libBornAgainCore.IParameterized_setName(self, name)
-
-    def getName(self):
-        r"""
-        getName(IParameterized self) -> std::string const &
-        const std::string& IParameterized::getName() const
-
-        """
-        return _libBornAgainCore.IParameterized_getName(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IParameterized(self)
-        return weakref.proxy(self)
-
-# Register IParameterized in _libBornAgainCore:
-_libBornAgainCore.IParameterized_swigregister(IParameterized)
-
-def IParameterized_XComponentName(base_name):
-    r"""IParameterized_XComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainCore.IParameterized_XComponentName(base_name)
-
-def IParameterized_YComponentName(base_name):
-    r"""IParameterized_YComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainCore.IParameterized_YComponentName(base_name)
-
-def IParameterized_ZComponentName(base_name):
-    r"""IParameterized_ZComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainCore.IParameterized_ZComponentName(base_name)
-
-class ParaMeta(object):
-    r"""
-
-
-    Metadata of one model parameter.
-
-    C++ includes: INode.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    name = property(_libBornAgainCore.ParaMeta_name_get, _libBornAgainCore.ParaMeta_name_set, doc=r"""name : std::string""")
-    unit = property(_libBornAgainCore.ParaMeta_unit_get, _libBornAgainCore.ParaMeta_unit_set, doc=r"""unit : std::string""")
-    tooltip = property(_libBornAgainCore.ParaMeta_tooltip_get, _libBornAgainCore.ParaMeta_tooltip_set, doc=r"""tooltip : std::string""")
-    vMin = property(_libBornAgainCore.ParaMeta_vMin_get, _libBornAgainCore.ParaMeta_vMin_set, doc=r"""vMin : double""")
-    vMax = property(_libBornAgainCore.ParaMeta_vMax_get, _libBornAgainCore.ParaMeta_vMax_set, doc=r"""vMax : double""")
-    vDefault = property(_libBornAgainCore.ParaMeta_vDefault_get, _libBornAgainCore.ParaMeta_vDefault_set, doc=r"""vDefault : double""")
-
-    def __init__(self):
-        r"""
-        __init__(ParaMeta self) -> ParaMeta
-
-
-        Metadata of one model parameter.
-
-        C++ includes: INode.h
-
-        """
-        _libBornAgainCore.ParaMeta_swiginit(self, _libBornAgainCore.new_ParaMeta())
-    __swig_destroy__ = _libBornAgainCore.delete_ParaMeta
-
-# Register ParaMeta in _libBornAgainCore:
-_libBornAgainCore.ParaMeta_swigregister(ParaMeta)
-INF = cvar.INF
-
-class NodeMeta(object):
-    r"""
-
-
-    Metadata of one model node.
-
-    C++ includes: INode.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    className = property(_libBornAgainCore.NodeMeta_className_get, _libBornAgainCore.NodeMeta_className_set, doc=r"""className : std::string""")
-    tooltip = property(_libBornAgainCore.NodeMeta_tooltip_get, _libBornAgainCore.NodeMeta_tooltip_set, doc=r"""tooltip : std::string""")
-    paraMeta = property(_libBornAgainCore.NodeMeta_paraMeta_get, _libBornAgainCore.NodeMeta_paraMeta_set, doc=r"""paraMeta : std::vector<(ParaMeta,std::allocator<(ParaMeta)>)>""")
-
-    def __init__(self):
-        r"""
-        __init__(NodeMeta self) -> NodeMeta
-
-
-        Metadata of one model node.
-
-        C++ includes: INode.h
-
-        """
-        _libBornAgainCore.NodeMeta_swiginit(self, _libBornAgainCore.new_NodeMeta())
-    __swig_destroy__ = _libBornAgainCore.delete_NodeMeta
-
-# Register NodeMeta in _libBornAgainCore:
-_libBornAgainCore.NodeMeta_swigregister(NodeMeta)
-
-
-def nodeMetaUnion(base, other):
-    r"""
-    nodeMetaUnion(std::vector< ParaMeta,std::allocator< ParaMeta > > const & base, NodeMeta other) -> NodeMeta
-    NodeMeta nodeMetaUnion(const std::vector< ParaMeta > &base, const NodeMeta &other)
-
-    """
-    return _libBornAgainCore.nodeMetaUnion(base, other)
-class INode(IParameterized):
-    r"""
-
-
-    Base class for tree-like structures containing parameterized objects.
-
-    C++ includes: INode.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(INode self) -> INode
-        __init__(INode self, NodeMeta meta, vdouble1d_t PValues) -> INode
-        INode::INode(const NodeMeta &meta, const std::vector< double > &PValues)
-
-        """
-        if self.__class__ == INode:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainCore.INode_swiginit(self, _libBornAgainCore.new_INode(_self, *args))
-    __swig_destroy__ = _libBornAgainCore.delete_INode
-
-    def accept(self, visitor):
-        r"""
-        accept(INode self, INodeVisitor visitor)
-        virtual void INode::accept(INodeVisitor *visitor) const =0
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.INode_accept(self, visitor)
-
-    def treeToString(self):
-        r"""
-        treeToString(INode self) -> std::string
-        std::string INode::treeToString() const
-
-        Returns multiline string representing tree structure below the node. 
-
-        """
-        return _libBornAgainCore.INode_treeToString(self)
-
-    def registerChild(self, node):
-        r"""
-        registerChild(INode self, INode node)
-        void INode::registerChild(INode *node)
-
-        """
-        return _libBornAgainCore.INode_registerChild(self, node)
-
-    def getChildren(self):
-        r"""
-        getChildren(INode self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > INode::getChildren() const
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.INode_getChildren(self)
-
-    def setParent(self, newParent):
-        r"""
-        setParent(INode self, INode newParent)
-        void INode::setParent(const INode *newParent)
-
-        """
-        return _libBornAgainCore.INode_setParent(self, newParent)
-
-    def parent(self, *args):
-        r"""
-        parent(INode self) -> INode
-        parent(INode self) -> INode
-        INode * INode::parent()
-
-        """
-        return _libBornAgainCore.INode_parent(self, *args)
-
-    def copyNumber(self, node):
-        r"""
-        copyNumber(INode self, INode node) -> int
-        int INode::copyNumber(const INode *node) const
-
-        Returns copyNumber of child, which takes into account existence of children with same name. 
-
-        """
-        return _libBornAgainCore.INode_copyNumber(self, node)
-
-    def displayName(self):
-        r"""
-        displayName(INode self) -> std::string
-        std::string INode::displayName() const
-
-        Returns display name, composed from the name of node and it's copy number. 
-
-        """
-        return _libBornAgainCore.INode_displayName(self)
-
-    def createParameterTree(self):
-        r"""
-        createParameterTree(INode self) -> ParameterPool
-        ParameterPool * INode::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
-        return _libBornAgainCore.INode_createParameterTree(self)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_INode(self)
-        return weakref.proxy(self)
-
-# Register INode in _libBornAgainCore:
-_libBornAgainCore.INode_swigregister(INode)
-
-class INodeVisitor(object):
-    r"""
-
-
-    From visitor pattern to achieve double dispatch.
-
-    Visitor interface to visit  ISample objects.
-
-    C++ includes: INodeVisitor.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(INodeVisitor self) -> INodeVisitor
-        INodeVisitor::INodeVisitor()
-
-        """
-        _libBornAgainCore.INodeVisitor_swiginit(self, _libBornAgainCore.new_INodeVisitor())
-    __swig_destroy__ = _libBornAgainCore.delete_INodeVisitor
-
-    def visit(self, *args):
-        r"""
-        visit(INodeVisitor self, BasicLattice arg2)
-        visit(INodeVisitor self, Beam arg2)
-        visit(INodeVisitor self, ConstantBackground arg2)
-        visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)
-        visit(INodeVisitor self, Crystal arg2)
-        visit(INodeVisitor self, DistributionCosine arg2)
-        visit(INodeVisitor self, DistributionGate arg2)
-        visit(INodeVisitor self, DistributionGaussian arg2)
-        visit(INodeVisitor self, DistributionLogNormal arg2)
-        visit(INodeVisitor self, DistributionLorentz arg2)
-        visit(INodeVisitor self, DistributionTrapezoid arg2)
-        visit(INodeVisitor self, FootprintGauss arg2)
-        visit(INodeVisitor self, FootprintSquare arg2)
-        visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
-        visit(INodeVisitor self, FormFactorBarGauss const * arg2)
-        visit(INodeVisitor self, FormFactorBarLorentz const * arg2)
-        visit(INodeVisitor self, FormFactorBox arg2)
-        visit(INodeVisitor self, FormFactorCantellatedCube arg2)
-        visit(INodeVisitor self, FormFactorCone arg2)
-        visit(INodeVisitor self, FormFactorCone6 arg2)
-        visit(INodeVisitor self, FormFactorCoreShell const * arg2)
-        visit(INodeVisitor self, FormFactorCrystal arg2)
-        visit(INodeVisitor self, FormFactorCuboctahedron arg2)
-        visit(INodeVisitor self, FormFactorCylinder arg2)
-        visit(INodeVisitor self, FormFactorDWBA const * arg2)
-        visit(INodeVisitor self, FormFactorDWBAPol const * arg2)
-        visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)
-        visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)
-        visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)
-        visit(INodeVisitor self, FormFactorDodecahedron arg2)
-        visit(INodeVisitor self, FormFactorDot arg2)
-        visit(INodeVisitor self, FormFactorEllipsoidalCylinder arg2)
-        visit(INodeVisitor self, FormFactorFullSphere arg2)
-        visit(INodeVisitor self, FormFactorFullSpheroid arg2)
-        visit(INodeVisitor self, FormFactorGaussSphere arg2)
-        visit(INodeVisitor self, FormFactorHemiEllipsoid arg2)
-        visit(INodeVisitor self, FormFactorHollowSphere arg2)
-        visit(INodeVisitor self, FormFactorIcosahedron arg2)
-        visit(INodeVisitor self, FormFactorLongBoxGauss arg2)
-        visit(INodeVisitor self, FormFactorLongBoxLorentz arg2)
-        visit(INodeVisitor self, FormFactorPrism3 arg2)
-        visit(INodeVisitor self, FormFactorPrism6 arg2)
-        visit(INodeVisitor self, FormFactorPyramid arg2)
-        visit(INodeVisitor self, FormFactorCosineRippleBox arg2)
-        visit(INodeVisitor self, FormFactorCosineRippleGauss arg2)
-        visit(INodeVisitor self, FormFactorCosineRippleLorentz arg2)
-        visit(INodeVisitor self, FormFactorSawtoothRippleBox arg2)
-        visit(INodeVisitor self, FormFactorSawtoothRippleGauss arg2)
-        visit(INodeVisitor self, FormFactorSawtoothRippleLorentz arg2)
-        visit(INodeVisitor self, FormFactorSphereGaussianRadius arg2)
-        visit(INodeVisitor self, FormFactorSphereLogNormalRadius arg2)
-        visit(INodeVisitor self, FormFactorTetrahedron arg2)
-        visit(INodeVisitor self, FormFactorTruncatedCube arg2)
-        visit(INodeVisitor self, FormFactorTruncatedSphere arg2)
-        visit(INodeVisitor self, FormFactorTruncatedSpheroid arg2)
-        visit(INodeVisitor self, FormFactorWeighted arg2)
-        visit(INodeVisitor self, FTDecayFunction1DCauchy arg2)
-        visit(INodeVisitor self, FTDecayFunction1DGauss arg2)
-        visit(INodeVisitor self, FTDecayFunction1DTriangle arg2)
-        visit(INodeVisitor self, FTDecayFunction1DVoigt arg2)
-        visit(INodeVisitor self, FTDecayFunction2DCauchy arg2)
-        visit(INodeVisitor self, FTDecayFunction2DGauss arg2)
-        visit(INodeVisitor self, FTDecayFunction2DVoigt arg2)
-        visit(INodeVisitor self, FTDistribution1DCauchy arg2)
-        visit(INodeVisitor self, FTDistribution1DCosine arg2)
-        visit(INodeVisitor self, FTDistribution1DGate arg2)
-        visit(INodeVisitor self, FTDistribution1DGauss arg2)
-        visit(INodeVisitor self, FTDistribution1DTriangle arg2)
-        visit(INodeVisitor self, FTDistribution1DVoigt arg2)
-        visit(INodeVisitor self, FTDistribution2DCauchy arg2)
-        visit(INodeVisitor self, FTDistribution2DCone arg2)
-        visit(INodeVisitor self, FTDistribution2DGate arg2)
-        visit(INodeVisitor self, FTDistribution2DGauss arg2)
-        visit(INodeVisitor self, FTDistribution2DVoigt arg2)
-        visit(INodeVisitor self, GISASSimulation arg2)
-        visit(INodeVisitor self, HexagonalLattice arg2)
-        visit(INodeVisitor self, IAbstractParticle arg2)
-        visit(INodeVisitor self, IClusteredParticles arg2)
-        visit(INodeVisitor self, IdentityRotation arg2)
-        visit(INodeVisitor self, IFormFactor arg2)
-        visit(INodeVisitor self, IFormFactorBorn arg2)
-        visit(INodeVisitor self, IFormFactorDecorator arg2)
-        visit(INodeVisitor self, IInterferenceFunction arg2)
-        visit(INodeVisitor self, ILayout arg2)
-        visit(INodeVisitor self, INode arg2)
-        visit(INodeVisitor self, Instrument arg2)
-        visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
-        visit(INodeVisitor self, InterferenceFunction2DSuperLattice arg2)
-        visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunctionFinite3DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunctionHardDisk arg2)
-        visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
-        visit(INodeVisitor self, InterferenceFunctionTwin arg2)
-        visit(INodeVisitor self, InterferenceFunctionNone arg2)
-        visit(INodeVisitor self, IParticle arg2)
-        visit(INodeVisitor self, IPeakShape arg2)
-        visit(INodeVisitor self, IRotation arg2)
-        visit(INodeVisitor self, ISample arg2)
-        visit(INodeVisitor self, IsGISAXSDetector arg2)
-        visit(INodeVisitor self, Layer arg2)
-        visit(INodeVisitor self, LayerInterface const * arg2)
-        visit(INodeVisitor self, LayerRoughness arg2)
-        visit(INodeVisitor self, MesoCrystal arg2)
-        visit(INodeVisitor self, MultiLayer arg2)
-        visit(INodeVisitor self, OffSpecSimulation arg2)
-        visit(INodeVisitor self, Particle arg2)
-        visit(INodeVisitor self, ParticleComposition arg2)
-        visit(INodeVisitor self, ParticleCoreShell arg2)
-        visit(INodeVisitor self, ParticleDistribution arg2)
-        visit(INodeVisitor self, ParticleLayout arg2)
-        visit(INodeVisitor self, PoissonNoiseBackground arg2)
-        visit(INodeVisitor self, RectangularDetector arg2)
-        visit(INodeVisitor self, ResolutionFunction2DGaussian arg2)
-        visit(INodeVisitor self, RotationEuler arg2)
-        visit(INodeVisitor self, RotationX arg2)
-        visit(INodeVisitor self, RotationY arg2)
-        visit(INodeVisitor self, RotationZ arg2)
-        visit(INodeVisitor self, SpecularDetector1D const * arg2)
-        visit(INodeVisitor self, SpecularSimulation arg2)
-        visit(INodeVisitor self, SphericalDetector arg2)
-        visit(INodeVisitor self, SquareLattice arg2)
-        virtual void INodeVisitor::visit(const SquareLattice *)
-
-        """
-        return _libBornAgainCore.INodeVisitor_visit(self, *args)
-
-    def depth(self):
-        r"""
-        depth(INodeVisitor self) -> int
-        int INodeVisitor::depth() const
-
-        Returns depth of the visitor in the composite hierarchy. 
-
-        """
-        return _libBornAgainCore.INodeVisitor_depth(self)
-
-    def setDepth(self, depth):
-        r"""
-        setDepth(INodeVisitor self, int depth)
-        void INodeVisitor::setDepth(int depth)
-
-        Sets depth of the visitor in the composite hierarchy. 
-
-        """
-        return _libBornAgainCore.INodeVisitor_setDepth(self, depth)
-
-# Register INodeVisitor in _libBornAgainCore:
-_libBornAgainCore.INodeVisitor_swigregister(INodeVisitor)
-
-
-def VisitNodesPreorder(node, visitor):
-    r"""
-    VisitNodesPreorder(INode node, INodeVisitor visitor)
-    void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-
-    """
-    return _libBornAgainCore.VisitNodesPreorder(node, visitor)
-
-def VisitNodesPostorder(node, visitor):
-    r"""
-    VisitNodesPostorder(INode node, INodeVisitor visitor)
-    void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
-
-    """
-    return _libBornAgainCore.VisitNodesPostorder(node, visitor)
-class RealParameter(IParameterReal):
-    r"""
-
-
-    Wraps a parameter of type double. In addition to name and on-change callback held by the parent class  IParameter, this class holds Limits, Attributes (currently only fixed or not), and a  Unit.
-
-    C++ includes: RealParameter.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name="", std::function< void () > const & onChange=std::function< void () >(), RealLimits limits=RealLimits::limitless(), Attributes attr=Attributes::free()) -> RealParameter
-        RealParameter::RealParameter(const std::string &name, double *par, const std::string &parent_name="", const std::function< void()> &onChange=std::function< void()>(), const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
-
-        """
-        _libBornAgainCore.RealParameter_swiginit(self, _libBornAgainCore.new_RealParameter(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_RealParameter
-
-    def clone(self, *args):
-        r"""
-        clone(RealParameter self, std::string const & new_name="") -> RealParameter
-        RealParameter * RealParameter::clone(const std::string &new_name="") const
-
-        """
-        return _libBornAgainCore.RealParameter_clone(self, *args)
-
-    def setValue(self, value):
-        r"""
-        setValue(RealParameter self, double value)
-        void RealParameter::setValue(double value)
-
-        Sets value of wrapped parameter and emit signal. 
-
-        """
-        return _libBornAgainCore.RealParameter_setValue(self, value)
-
-    def value(self):
-        r"""
-        value(RealParameter self) -> double
-        double RealParameter::value() const
-
-        Returns value of wrapped parameter. 
-
-        """
-        return _libBornAgainCore.RealParameter_value(self)
-
-    def setLimits(self, limits):
-        r"""
-        setLimits(RealParameter self, RealLimits limits) -> RealParameter
-        RealParameter & RealParameter::setLimits(const RealLimits &limits)
-
-        """
-        return _libBornAgainCore.RealParameter_setLimits(self, limits)
-
-    def limits(self):
-        r"""
-        limits(RealParameter self) -> RealLimits
-        RealLimits RealParameter::limits() const
-
-        """
-        return _libBornAgainCore.RealParameter_limits(self)
-
-    def setLimited(self, lower, upper):
-        r"""
-        setLimited(RealParameter self, double lower, double upper) -> RealParameter
-        RealParameter & RealParameter::setLimited(double lower, double upper)
-
-        """
-        return _libBornAgainCore.RealParameter_setLimited(self, lower, upper)
-
-    def setPositive(self):
-        r"""
-        setPositive(RealParameter self) -> RealParameter
-        RealParameter & RealParameter::setPositive()
-
-        """
-        return _libBornAgainCore.RealParameter_setPositive(self)
-
-    def setNonnegative(self):
-        r"""
-        setNonnegative(RealParameter self) -> RealParameter
-        RealParameter & RealParameter::setNonnegative()
-
-        """
-        return _libBornAgainCore.RealParameter_setNonnegative(self)
-
-    def setUnit(self, name):
-        r"""
-        setUnit(RealParameter self, std::string const & name) -> RealParameter
-        RealParameter & RealParameter::setUnit(const std::string &name)
-
-        """
-        return _libBornAgainCore.RealParameter_setUnit(self, name)
-
-    def unit(self):
-        r"""
-        unit(RealParameter self) -> std::string
-        std::string RealParameter::unit() const
-
-        """
-        return _libBornAgainCore.RealParameter_unit(self)
-
-# Register RealParameter in _libBornAgainCore:
-_libBornAgainCore.RealParameter_swigregister(RealParameter)
-
-class IDistribution1D(libBornAgainBase.ICloneable, INode):
+class IDistribution1D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -6218,10 +5474,8 @@ class DistributionGate(IDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(DistributionGate self, INodeVisitor visitor)
+        accept(DistributionGate self, INodeVisitor * visitor)
         void DistributionGate::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.DistributionGate_accept(self, visitor)
@@ -6311,10 +5565,8 @@ class DistributionLorentz(IDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(DistributionLorentz self, INodeVisitor visitor)
+        accept(DistributionLorentz self, INodeVisitor * visitor)
         void DistributionLorentz::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.DistributionLorentz_accept(self, visitor)
@@ -6404,10 +5656,8 @@ class DistributionGaussian(IDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(DistributionGaussian self, INodeVisitor visitor)
+        accept(DistributionGaussian self, INodeVisitor * visitor)
         void DistributionGaussian::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.DistributionGaussian_accept(self, visitor)
@@ -6504,10 +5754,8 @@ class DistributionLogNormal(IDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(DistributionLogNormal self, INodeVisitor visitor)
+        accept(DistributionLogNormal self, INodeVisitor * visitor)
         void DistributionLogNormal::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.DistributionLogNormal_accept(self, visitor)
@@ -6607,10 +5855,8 @@ class DistributionCosine(IDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(DistributionCosine self, INodeVisitor visitor)
+        accept(DistributionCosine self, INodeVisitor * visitor)
         void DistributionCosine::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.DistributionCosine_accept(self, visitor)
@@ -6716,10 +5962,8 @@ class DistributionTrapezoid(IDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(DistributionTrapezoid self, INodeVisitor visitor)
+        accept(DistributionTrapezoid self, INodeVisitor * visitor)
         void DistributionTrapezoid::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.DistributionTrapezoid_accept(self, visitor)
@@ -6728,7 +5972,7 @@ class DistributionTrapezoid(IDistribution1D):
 # Register DistributionTrapezoid in _libBornAgainCore:
 _libBornAgainCore.DistributionTrapezoid_swigregister(DistributionTrapezoid)
 
-class ParameterDistribution(IParameterized):
+class ParameterDistribution(libBornAgainParam.IParameterized):
     r"""
 
 
@@ -6845,190 +6089,6 @@ class ParameterDistribution(IParameterized):
 
 # Register ParameterDistribution in _libBornAgainCore:
 _libBornAgainCore.ParameterDistribution_swigregister(ParameterDistribution)
-
-class ParameterPool(libBornAgainBase.ICloneable):
-    r"""
-
-
-    Container with parameters for  IParameterized object.
-
-    C++ includes: ParameterPool.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(ParameterPool self) -> ParameterPool
-        ParameterPool::ParameterPool()
-
-        Constructs an empty parameter pool. 
-
-        """
-        _libBornAgainCore.ParameterPool_swiginit(self, _libBornAgainCore.new_ParameterPool())
-    __swig_destroy__ = _libBornAgainCore.delete_ParameterPool
-
-    def clone(self):
-        r"""
-        clone(ParameterPool self) -> ParameterPool
-        ParameterPool * ParameterPool::clone() const
-
-        Returns a literal clone. 
-
-        """
-        return _libBornAgainCore.ParameterPool_clone(self)
-
-    def copyToExternalPool(self, prefix, other_pool):
-        r"""
-        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool other_pool)
-        void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *other_pool) const
-
-        Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
-
-        """
-        return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, other_pool)
-
-    def clear(self):
-        r"""
-        clear(ParameterPool self)
-        void ParameterPool::clear()
-
-        Clears the parameter map. 
-
-        """
-        return _libBornAgainCore.ParameterPool_clear(self)
-
-    def size(self):
-        r"""
-        size(ParameterPool self) -> size_t
-        size_t ParameterPool::size() const
-
-        Returns number of parameters in the pool. 
-
-        """
-        return _libBornAgainCore.ParameterPool_size(self)
-
-    def empty(self):
-        r"""
-        empty(ParameterPool self) -> bool
-        bool ParameterPool::empty() const
-
-        """
-        return _libBornAgainCore.ParameterPool_empty(self)
-
-    def addParameter(self, newPar):
-        r"""
-        addParameter(ParameterPool self, RealParameter newPar) -> RealParameter
-        RealParameter & ParameterPool::addParameter(RealParameter *newPar)
-
-        Adds parameter to the pool, and returns reference to the input pointer.
-
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
-
-        """
-        return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
-
-    def parameter(self, *args):
-        r"""
-        parameter(ParameterPool self, std::string const & name) -> RealParameter
-        parameter(ParameterPool self, std::string const & name) -> RealParameter
-        const RealParameter * ParameterPool::parameter(const std::string &name) const
-
-        Returns parameter with given  name. 
-
-        """
-        return _libBornAgainCore.ParameterPool_parameter(self, *args)
-
-    def parameters(self):
-        r"""
-        parameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const
-        const std::vector<RealParameter*> ParameterPool::parameters() const
-
-        Returns full vector of parameters. 
-
-        """
-        return _libBornAgainCore.ParameterPool_parameters(self)
-
-    def getMatchedParameters(self, pattern):
-        r"""
-        getMatchedParameters(ParameterPool self, std::string const & pattern) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
-        std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &pattern) const
-
-        Returns nonempty vector of parameters that match the  pattern ('*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_getMatchedParameters(self, pattern)
-
-    def getUniqueMatch(self, pattern):
-        r"""
-        getUniqueMatch(ParameterPool self, std::string const & pattern) -> RealParameter
-        RealParameter * ParameterPool::getUniqueMatch(const std::string &pattern) const
-
-        Returns the one parameter that matches the  pattern (wildcards '*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_getUniqueMatch(self, pattern)
-
-    def setParameterValue(self, name, value):
-        r"""
-        setParameterValue(ParameterPool self, std::string const & name, double value)
-        void ParameterPool::setParameterValue(const std::string &name, double value)
-
-        Sets parameter value. 
-
-        """
-        return _libBornAgainCore.ParameterPool_setParameterValue(self, name, value)
-
-    def setMatchedParametersValue(self, wildcards, value):
-        r"""
-        setMatchedParametersValue(ParameterPool self, std::string const & wildcards, double value) -> int
-        int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
-
-        Sets value of the nonzero parameters that match  pattern ('*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_setMatchedParametersValue(self, wildcards, value)
-
-    def setUniqueMatchValue(self, pattern, value):
-        r"""
-        setUniqueMatchValue(ParameterPool self, std::string const & pattern, double value)
-        void ParameterPool::setUniqueMatchValue(const std::string &pattern, double value)
-
-        Sets value of the one parameter that matches  pattern ('*' allowed), or throws. 
-
-        """
-        return _libBornAgainCore.ParameterPool_setUniqueMatchValue(self, pattern, value)
-
-    def parameterNames(self):
-        r"""
-        parameterNames(ParameterPool self) -> vector_string_t
-        std::vector< std::string > ParameterPool::parameterNames() const
-
-        """
-        return _libBornAgainCore.ParameterPool_parameterNames(self)
-
-    def removeParameter(self, name):
-        r"""
-        removeParameter(ParameterPool self, std::string const & name)
-        void ParameterPool::removeParameter(const std::string &name)
-
-        Removes parameter with given name from the pool. 
-
-        """
-        return _libBornAgainCore.ParameterPool_removeParameter(self, name)
-
-    def __getitem__(self, index):
-        r"""__getitem__(ParameterPool self, size_t index) -> RealParameter"""
-        return _libBornAgainCore.ParameterPool___getitem__(self, index)
-
-    def __iter__(self):
-        return ParameterPoolIterator(self)
-
-
-# Register ParameterPool in _libBornAgainCore:
-_libBornAgainCore.ParameterPool_swigregister(ParameterPool)
 
 class RangedDistributionGate(object):
     r"""
@@ -7399,7 +6459,7 @@ class ThreadInfo(object):
 # Register ThreadInfo in _libBornAgainCore:
 _libBornAgainCore.ThreadInfo_swigregister(ThreadInfo)
 
-class ISample(libBornAgainBase.ICloneable, INode):
+class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -7823,7 +6883,7 @@ class IFormFactorDecorator(IFormFactor):
 # Register IFormFactorDecorator in _libBornAgainCore:
 _libBornAgainCore.IFormFactorDecorator_swigregister(IFormFactorDecorator)
 
-class IRotation(libBornAgainBase.ICloneable, INode):
+class IRotation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -7966,10 +7026,8 @@ class IdentityRotation(IRotation):
 
     def accept(self, visitor):
         r"""
-        accept(IdentityRotation self, INodeVisitor visitor)
+        accept(IdentityRotation self, INodeVisitor * visitor)
         void IdentityRotation::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.IdentityRotation_accept(self, visitor)
@@ -8040,10 +7098,8 @@ class RotationX(IRotation):
 
     def accept(self, visitor):
         r"""
-        accept(RotationX self, INodeVisitor visitor)
+        accept(RotationX self, INodeVisitor * visitor)
         void RotationX::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.RotationX_accept(self, visitor)
@@ -8112,10 +7168,8 @@ class RotationY(IRotation):
 
     def accept(self, visitor):
         r"""
-        accept(RotationY self, INodeVisitor visitor)
+        accept(RotationY self, INodeVisitor * visitor)
         void RotationY::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.RotationY_accept(self, visitor)
@@ -8184,10 +7238,8 @@ class RotationZ(IRotation):
 
     def accept(self, visitor):
         r"""
-        accept(RotationZ self, INodeVisitor visitor)
+        accept(RotationZ self, INodeVisitor * visitor)
         void RotationZ::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.RotationZ_accept(self, visitor)
@@ -8256,10 +7308,8 @@ class RotationEuler(IRotation):
 
     def accept(self, visitor):
         r"""
-        accept(RotationEuler self, INodeVisitor visitor)
+        accept(RotationEuler self, INodeVisitor * visitor)
         void RotationEuler::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.RotationEuler_accept(self, visitor)
@@ -8596,10 +7646,8 @@ class FormFactorCrystal(IFormFactor):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCrystal self, INodeVisitor visitor)
+        accept(FormFactorCrystal self, INodeVisitor * visitor)
         void FormFactorCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_accept(self, visitor)
@@ -8703,10 +7751,8 @@ class FormFactorWeighted(IFormFactor):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorWeighted self, INodeVisitor visitor)
+        accept(FormFactorWeighted self, INodeVisitor * visitor)
         void FormFactorWeighted::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_accept(self, visitor)
@@ -8803,10 +7849,8 @@ class IAbstractParticle(ISample):
 
     def accept(self, visitor):
         r"""
-        accept(IAbstractParticle self, INodeVisitor visitor)
+        accept(IAbstractParticle self, INodeVisitor * visitor)
         void IAbstractParticle::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
@@ -8942,10 +7986,8 @@ class Crystal(IClusteredParticles):
 
     def accept(self, visitor):
         r"""
-        accept(Crystal self, INodeVisitor visitor)
+        accept(Crystal self, INodeVisitor * visitor)
         void Crystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.Crystal_accept(self, visitor)
@@ -8990,8 +8032,6 @@ class Crystal(IClusteredParticles):
         r"""
         getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > Crystal::getChildren() const override final
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.Crystal_getChildren(self)
@@ -9124,8 +8164,6 @@ class IParticle(IAbstractParticle):
         getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > IParticle::getChildren() const override
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.IParticle_getChildren(self)
 
@@ -9204,10 +8242,8 @@ class MesoCrystal(IParticle):
 
     def accept(self, visitor):
         r"""
-        accept(MesoCrystal self, INodeVisitor visitor)
+        accept(MesoCrystal self, INodeVisitor * visitor)
         void MesoCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.MesoCrystal_accept(self, visitor)
@@ -9226,8 +8262,6 @@ class MesoCrystal(IParticle):
         r"""
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > MesoCrystal::getChildren() const override final
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.MesoCrystal_getChildren(self)
@@ -9271,10 +8305,8 @@ class Particle(IParticle):
 
     def accept(self, visitor):
         r"""
-        accept(Particle self, INodeVisitor visitor)
+        accept(Particle self, INodeVisitor * visitor)
         void Particle::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.Particle_accept(self, visitor)
@@ -9320,8 +8352,6 @@ class Particle(IParticle):
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > Particle::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.Particle_getChildren(self)
     __swig_destroy__ = _libBornAgainCore.delete_Particle
@@ -9364,10 +8394,8 @@ class ParticleComposition(IParticle):
 
     def accept(self, visitor):
         r"""
-        accept(ParticleComposition self, INodeVisitor visitor)
+        accept(ParticleComposition self, INodeVisitor * visitor)
         void ParticleComposition::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ParticleComposition_accept(self, visitor)
@@ -9413,8 +8441,6 @@ class ParticleComposition(IParticle):
         r"""
         getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > ParticleComposition::getChildren() const override final
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.ParticleComposition_getChildren(self)
@@ -9476,10 +8502,8 @@ class ParticleCoreShell(IParticle):
 
     def accept(self, visitor):
         r"""
-        accept(ParticleCoreShell self, INodeVisitor visitor)
+        accept(ParticleCoreShell self, INodeVisitor * visitor)
         void ParticleCoreShell::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
@@ -9514,8 +8538,6 @@ class ParticleCoreShell(IParticle):
         r"""
         getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > ParticleCoreShell::getChildren() const override final
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.ParticleCoreShell_getChildren(self)
@@ -9556,10 +8578,8 @@ class ParticleDistribution(IAbstractParticle):
 
     def accept(self, visitor):
         r"""
-        accept(ParticleDistribution self, INodeVisitor visitor)
+        accept(ParticleDistribution self, INodeVisitor * visitor)
         void ParticleDistribution::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
@@ -9621,8 +8641,6 @@ class ParticleDistribution(IAbstractParticle):
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > ParticleDistribution::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.ParticleDistribution_getChildren(self)
 
@@ -9638,7 +8656,7 @@ class ParticleDistribution(IAbstractParticle):
 # Register ParticleDistribution in _libBornAgainCore:
 _libBornAgainCore.ParticleDistribution_swigregister(ParticleDistribution)
 
-class IFTDecayFunction1D(libBornAgainBase.ICloneable, INode):
+class IFTDecayFunction1D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -9714,10 +8732,8 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDecayFunction1DCauchy self, INodeVisitor visitor)
+        accept(FTDecayFunction1DCauchy self, INodeVisitor * visitor)
         void FTDecayFunction1DCauchy::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDecayFunction1DCauchy_accept(self, visitor)
@@ -9766,10 +8782,8 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDecayFunction1DGauss self, INodeVisitor visitor)
+        accept(FTDecayFunction1DGauss self, INodeVisitor * visitor)
         void FTDecayFunction1DGauss::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_accept(self, visitor)
@@ -9818,10 +8832,8 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDecayFunction1DTriangle self, INodeVisitor visitor)
+        accept(FTDecayFunction1DTriangle self, INodeVisitor * visitor)
         void FTDecayFunction1DTriangle::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDecayFunction1DTriangle_accept(self, visitor)
@@ -9870,10 +8882,8 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDecayFunction1DVoigt self, INodeVisitor visitor)
+        accept(FTDecayFunction1DVoigt self, INodeVisitor * visitor)
         void FTDecayFunction1DVoigt::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_accept(self, visitor)
@@ -9898,7 +8908,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
 # Register FTDecayFunction1DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDecayFunction1DVoigt_swigregister(FTDecayFunction1DVoigt)
 
-class IFTDecayFunction2D(libBornAgainBase.ICloneable, INode):
+class IFTDecayFunction2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -10010,10 +9020,8 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDecayFunction2DCauchy self, INodeVisitor visitor)
+        accept(FTDecayFunction2DCauchy self, INodeVisitor * visitor)
         void FTDecayFunction2DCauchy::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDecayFunction2DCauchy_accept(self, visitor)
@@ -10064,10 +9072,8 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDecayFunction2DGauss self, INodeVisitor visitor)
+        accept(FTDecayFunction2DGauss self, INodeVisitor * visitor)
         void FTDecayFunction2DGauss::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDecayFunction2DGauss_accept(self, visitor)
@@ -10118,10 +9124,8 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDecayFunction2DVoigt self, INodeVisitor visitor)
+        accept(FTDecayFunction2DVoigt self, INodeVisitor * visitor)
         void FTDecayFunction2DVoigt::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDecayFunction2DVoigt_accept(self, visitor)
@@ -10148,7 +9152,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
 # Register FTDecayFunction2DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDecayFunction2DVoigt_swigregister(FTDecayFunction2DVoigt)
 
-class IFTDistribution1D(libBornAgainBase.ICloneable, INode):
+class IFTDistribution1D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -10236,10 +9240,8 @@ class FTDistribution1DCauchy(IFTDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution1DCauchy self, INodeVisitor visitor)
+        accept(FTDistribution1DCauchy self, INodeVisitor * visitor)
         void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_accept(self, visitor)
@@ -10300,10 +9302,8 @@ class FTDistribution1DGauss(IFTDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution1DGauss self, INodeVisitor visitor)
+        accept(FTDistribution1DGauss self, INodeVisitor * visitor)
         void FTDistribution1DGauss::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_accept(self, visitor)
@@ -10364,10 +9364,8 @@ class FTDistribution1DGate(IFTDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution1DGate self, INodeVisitor visitor)
+        accept(FTDistribution1DGate self, INodeVisitor * visitor)
         void FTDistribution1DGate::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution1DGate_accept(self, visitor)
@@ -10428,10 +9426,8 @@ class FTDistribution1DTriangle(IFTDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution1DTriangle self, INodeVisitor visitor)
+        accept(FTDistribution1DTriangle self, INodeVisitor * visitor)
         void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_accept(self, visitor)
@@ -10492,10 +9488,8 @@ class FTDistribution1DCosine(IFTDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution1DCosine self, INodeVisitor visitor)
+        accept(FTDistribution1DCosine self, INodeVisitor * visitor)
         void FTDistribution1DCosine::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_accept(self, visitor)
@@ -10556,10 +9550,8 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution1DVoigt self, INodeVisitor visitor)
+        accept(FTDistribution1DVoigt self, INodeVisitor * visitor)
         void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_accept(self, visitor)
@@ -10596,7 +9588,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 # Register FTDistribution1DVoigt in _libBornAgainCore:
 _libBornAgainCore.FTDistribution1DVoigt_swigregister(FTDistribution1DVoigt)
 
-class IFTDistribution2D(libBornAgainBase.ICloneable, INode):
+class IFTDistribution2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -10700,10 +9692,8 @@ class FTDistribution2DCauchy(IFTDistribution2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution2DCauchy self, INodeVisitor visitor)
+        accept(FTDistribution2DCauchy self, INodeVisitor * visitor)
         void FTDistribution2DCauchy::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution2DCauchy_accept(self, visitor)
@@ -10754,10 +9744,8 @@ class FTDistribution2DGauss(IFTDistribution2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution2DGauss self, INodeVisitor visitor)
+        accept(FTDistribution2DGauss self, INodeVisitor * visitor)
         void FTDistribution2DGauss::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution2DGauss_accept(self, visitor)
@@ -10808,10 +9796,8 @@ class FTDistribution2DGate(IFTDistribution2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution2DGate self, INodeVisitor visitor)
+        accept(FTDistribution2DGate self, INodeVisitor * visitor)
         void FTDistribution2DGate::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution2DGate_accept(self, visitor)
@@ -10862,10 +9848,8 @@ class FTDistribution2DCone(IFTDistribution2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution2DCone self, INodeVisitor visitor)
+        accept(FTDistribution2DCone self, INodeVisitor * visitor)
         void FTDistribution2DCone::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution2DCone_accept(self, visitor)
@@ -10916,10 +9900,8 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 
     def accept(self, visitor):
         r"""
-        accept(FTDistribution2DVoigt self, INodeVisitor visitor)
+        accept(FTDistribution2DVoigt self, INodeVisitor * visitor)
         void FTDistribution2DVoigt::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FTDistribution2DVoigt_accept(self, visitor)
@@ -10975,10 +9957,8 @@ class ILayout(ISample):
 
     def accept(self, visitor):
         r"""
-        accept(ILayout self, INodeVisitor visitor)
+        accept(ILayout self, INodeVisitor * visitor)
         virtual void ILayout::accept(INodeVisitor *visitor) const =0
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ILayout_accept(self, visitor)
@@ -11140,10 +10120,8 @@ class IsotropicGaussPeakShape(IPeakShape):
 
     def accept(self, visitor):
         r"""
-        accept(IsotropicGaussPeakShape self, INodeVisitor visitor)
+        accept(IsotropicGaussPeakShape self, INodeVisitor * visitor)
         void IsotropicGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.IsotropicGaussPeakShape_accept(self, visitor)
@@ -11195,10 +10173,8 @@ class IsotropicLorentzPeakShape(IPeakShape):
 
     def accept(self, visitor):
         r"""
-        accept(IsotropicLorentzPeakShape self, INodeVisitor visitor)
+        accept(IsotropicLorentzPeakShape self, INodeVisitor * visitor)
         void IsotropicLorentzPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.IsotropicLorentzPeakShape_accept(self, visitor)
@@ -11250,10 +10226,8 @@ class GaussFisherPeakShape(IPeakShape):
 
     def accept(self, visitor):
         r"""
-        accept(GaussFisherPeakShape self, INodeVisitor visitor)
+        accept(GaussFisherPeakShape self, INodeVisitor * visitor)
         void GaussFisherPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.GaussFisherPeakShape_accept(self, visitor)
@@ -11315,10 +10289,8 @@ class LorentzFisherPeakShape(IPeakShape):
 
     def accept(self, visitor):
         r"""
-        accept(LorentzFisherPeakShape self, INodeVisitor visitor)
+        accept(LorentzFisherPeakShape self, INodeVisitor * visitor)
         void LorentzFisherPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.LorentzFisherPeakShape_accept(self, visitor)
@@ -11380,10 +10352,8 @@ class MisesFisherGaussPeakShape(IPeakShape):
 
     def accept(self, visitor):
         r"""
-        accept(MisesFisherGaussPeakShape self, INodeVisitor visitor)
+        accept(MisesFisherGaussPeakShape self, INodeVisitor * visitor)
         void MisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.MisesFisherGaussPeakShape_accept(self, visitor)
@@ -11445,10 +10415,8 @@ class MisesGaussPeakShape(IPeakShape):
 
     def accept(self, visitor):
         r"""
-        accept(MisesGaussPeakShape self, INodeVisitor visitor)
+        accept(MisesGaussPeakShape self, INodeVisitor * visitor)
         void MisesGaussPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.MisesGaussPeakShape_accept(self, visitor)
@@ -11611,10 +10579,8 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunction1DLattice self, INodeVisitor visitor)
+        accept(InterferenceFunction1DLattice self, INodeVisitor * visitor)
         void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
@@ -11655,8 +10621,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         r"""
         getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_getChildren(self)
@@ -11699,10 +10663,8 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunction2DLattice self, INodeVisitor visitor)
+        accept(InterferenceFunction2DLattice self, INodeVisitor * visitor)
         void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_accept(self, visitor)
@@ -11772,8 +10734,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_getChildren(self)
 
@@ -11781,8 +10741,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         r"""
         onChange(InterferenceFunction2DLattice self)
         void InterferenceFunction2DLattice::onChange() override final
-
-        Action to be taken in inherited class when a parameter has changed. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_onChange(self)
@@ -11853,10 +10811,8 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunction2DParaCrystal self, INodeVisitor visitor)
+        accept(InterferenceFunction2DParaCrystal self, INodeVisitor * visitor)
         void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
@@ -11988,8 +10944,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getChildren(self)
 
@@ -12078,10 +11032,8 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
+        accept(InterferenceFunction2DSuperLattice self, INodeVisitor * visitor)
         void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_accept(self, visitor)
@@ -12167,8 +11119,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_getChildren(self)
 
@@ -12217,10 +11167,8 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
+        accept(InterferenceFunction3DLattice self, INodeVisitor * visitor)
         void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
@@ -12256,8 +11204,6 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_getChildren(self)
 
@@ -12265,8 +11211,6 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         r"""
         onChange(InterferenceFunction3DLattice self)
         void InterferenceFunction3DLattice::onChange() override final
-
-        Action to be taken in inherited class when a parameter has changed. 
 
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_onChange(self)
@@ -12332,10 +11276,8 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunctionFinite2DLattice self, INodeVisitor visitor)
+        accept(InterferenceFunctionFinite2DLattice self, INodeVisitor * visitor)
         void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_accept(self, visitor)
@@ -12405,8 +11347,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getChildren(self)
 
@@ -12455,10 +11395,8 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunctionFinite3DLattice self, INodeVisitor visitor)
+        accept(InterferenceFunctionFinite3DLattice self, INodeVisitor * visitor)
         void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_accept(self, visitor)
@@ -12510,8 +11448,6 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_getChildren(self)
 
@@ -12554,10 +11490,8 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunctionHardDisk self, INodeVisitor visitor)
+        accept(InterferenceFunctionHardDisk self, INodeVisitor * visitor)
         void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionHardDisk_accept(self, visitor)
@@ -12624,10 +11558,8 @@ class InterferenceFunctionNone(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunctionNone self, INodeVisitor visitor)
+        accept(InterferenceFunctionNone self, INodeVisitor * visitor)
         void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
@@ -12680,10 +11612,8 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
+        accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor * visitor)
         void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
@@ -12775,8 +11705,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getChildren(self)
 
@@ -12825,10 +11753,8 @@ class InterferenceFunctionTwin(IInterferenceFunction):
 
     def accept(self, visitor):
         r"""
-        accept(InterferenceFunctionTwin self, INodeVisitor visitor)
+        accept(InterferenceFunctionTwin self, INodeVisitor * visitor)
         void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionTwin_accept(self, visitor)
@@ -12896,10 +11822,8 @@ class ParticleLayout(ILayout):
 
     def accept(self, visitor):
         r"""
-        accept(ParticleLayout self, INodeVisitor visitor)
+        accept(ParticleLayout self, INodeVisitor * visitor)
         void ParticleLayout::accept(INodeVisitor *visitor) const final override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ParticleLayout_accept(self, visitor)
@@ -13000,15 +11924,13 @@ class ParticleLayout(ILayout):
         getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > ParticleLayout::getChildren() const final override
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.ParticleLayout_getChildren(self)
 
 # Register ParticleLayout in _libBornAgainCore:
 _libBornAgainCore.ParticleLayout_swigregister(ParticleLayout)
 
-class Beam(INode):
+class Beam(libBornAgainParam.INode):
     r"""
 
 
@@ -13150,10 +12072,8 @@ class Beam(INode):
 
     def accept(self, visitor):
         r"""
-        accept(Beam self, INodeVisitor visitor)
+        accept(Beam self, INodeVisitor * visitor)
         void Beam::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.Beam_accept(self, visitor)
@@ -13162,8 +12082,6 @@ class Beam(INode):
         r"""
         getChildren(Beam self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > Beam::getChildren() const override
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.Beam_getChildren(self)
@@ -13175,7 +12093,7 @@ def Beam_horizontalBeam():
     r"""Beam_horizontalBeam() -> Beam"""
     return _libBornAgainCore.Beam_horizontalBeam()
 
-class IFootprintFactor(libBornAgainBase.ICloneable, INode):
+class IFootprintFactor(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -13263,10 +12181,8 @@ class FootprintGauss(IFootprintFactor):
 
     def accept(self, visitor):
         r"""
-        accept(FootprintGauss self, INodeVisitor visitor)
+        accept(FootprintGauss self, INodeVisitor * visitor)
         void FootprintGauss::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FootprintGauss_accept(self, visitor)
@@ -13327,10 +12243,8 @@ class FootprintSquare(IFootprintFactor):
 
     def accept(self, visitor):
         r"""
-        accept(FootprintSquare self, INodeVisitor visitor)
+        accept(FootprintSquare self, INodeVisitor * visitor)
         void FootprintSquare::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FootprintSquare_accept(self, visitor)
@@ -13367,7 +12281,7 @@ class FootprintSquare(IFootprintFactor):
 # Register FootprintSquare in _libBornAgainCore:
 _libBornAgainCore.FootprintSquare_swigregister(FootprintSquare)
 
-class ISampleBuilder(IParameterized):
+class ISampleBuilder(libBornAgainParam.IParameterized):
     r"""
 
 
@@ -13391,6 +12305,7 @@ class ISampleBuilder(IParameterized):
         else:
             _self = self
         _libBornAgainCore.ISampleBuilder_swiginit(self, _libBornAgainCore.new_ISampleBuilder(_self, ))
+    __swig_destroy__ = _libBornAgainCore.delete_ISampleBuilder
 
     def buildSample(self):
         r"""
@@ -13417,61 +12332,28 @@ class ISampleBuilder(IParameterized):
         return _libBornAgainCore.ISampleBuilder_size(self)
 
     def registerParameter(self, name, parpointer):
-        r"""
-        registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
-        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
-
-        """
+        r"""registerParameter(ISampleBuilder self, std::string const & name, int64_t parpointer) -> RealParameter *"""
         return _libBornAgainCore.ISampleBuilder_registerParameter(self, name, parpointer)
 
     def setParameterValue(self, name, value):
-        r"""
-        setParameterValue(ISampleBuilder self, std::string const & name, double value)
-        void IParameterized::setParameterValue(const std::string &name, double value)
-
-        """
+        r"""setParameterValue(ISampleBuilder self, std::string const & name, double value)"""
         return _libBornAgainCore.ISampleBuilder_setParameterValue(self, name, value)
 
     def parametersToString(self):
-        r"""
-        parametersToString(ISampleBuilder self) -> std::string
-        std::string IParameterized::parametersToString() const
-
-        Returns multiline string representing available parameters. 
-
-        """
+        r"""parametersToString(ISampleBuilder self) -> std::string"""
         return _libBornAgainCore.ISampleBuilder_parametersToString(self)
 
     def createParameterTree(self):
-        r"""
-        createParameterTree(ISampleBuilder self) -> ParameterPool
-        ParameterPool * IParameterized::createParameterTree() const
-
-        Creates new parameter pool, with all local parameters and those of its children. 
-
-        """
+        r"""createParameterTree(ISampleBuilder self) -> ParameterPool"""
         return _libBornAgainCore.ISampleBuilder_createParameterTree(self)
 
     def parameterPool(self):
-        r"""
-        parameterPool(ISampleBuilder self) -> ParameterPool
-        ParameterPool* IParameterized::parameterPool() const
-
-        Returns pointer to the parameter pool. 
-
-        """
+        r"""parameterPool(ISampleBuilder self) -> ParameterPool"""
         return _libBornAgainCore.ISampleBuilder_parameterPool(self)
 
     def onChange(self):
-        r"""
-        onChange(ISampleBuilder self)
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
+        r"""onChange(ISampleBuilder self)"""
         return _libBornAgainCore.ISampleBuilder_onChange(self)
-    __swig_destroy__ = _libBornAgainCore.delete_ISampleBuilder
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_ISampleBuilder(self)
@@ -13525,10 +12407,8 @@ class Layer(ISample):
 
     def accept(self, visitor):
         r"""
-        accept(Layer self, INodeVisitor visitor)
+        accept(Layer self, INodeVisitor * visitor)
         void Layer::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.Layer_accept(self, visitor)
@@ -13598,8 +12478,6 @@ class Layer(ISample):
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > Layer::getChildren() const override final
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.Layer_getChildren(self)
 
@@ -13666,10 +12544,8 @@ class LayerRoughness(ISample):
 
     def accept(self, visitor):
         r"""
-        accept(LayerRoughness self, INodeVisitor visitor)
+        accept(LayerRoughness self, INodeVisitor * visitor)
         virtual void LayerRoughness::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.LayerRoughness_accept(self, visitor)
@@ -13798,10 +12674,8 @@ class MultiLayer(ISample):
 
     def accept(self, visitor):
         r"""
-        accept(MultiLayer self, INodeVisitor visitor)
+        accept(MultiLayer self, INodeVisitor * visitor)
         void MultiLayer::accept(INodeVisitor *visitor) const final override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
@@ -13900,8 +12774,6 @@ class MultiLayer(ISample):
         r"""
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > MultiLayer::getChildren() const final override
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.MultiLayer_getChildren(self)
@@ -14276,10 +13148,8 @@ class FormFactorAnisoPyramid(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorAnisoPyramid self, INodeVisitor visitor)
+        accept(FormFactorAnisoPyramid self, INodeVisitor * visitor)
         void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_accept(self, visitor)
@@ -14354,10 +13224,8 @@ class FormFactorBox(IFormFactorPrism):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorBox self, INodeVisitor visitor)
+        accept(FormFactorBox self, INodeVisitor * visitor)
         void FormFactorBox::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorBox_accept(self, visitor)
@@ -14446,10 +13314,8 @@ class FormFactorCantellatedCube(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCantellatedCube self, INodeVisitor visitor)
+        accept(FormFactorCantellatedCube self, INodeVisitor * visitor)
         void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCantellatedCube_accept(self, visitor)
@@ -14508,10 +13374,8 @@ class FormFactorCone(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCone self, INodeVisitor visitor)
+        accept(FormFactorCone self, INodeVisitor * visitor)
         void FormFactorCone::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCone_accept(self, visitor)
@@ -14598,10 +13462,8 @@ class FormFactorCone6(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCone6 self, INodeVisitor visitor)
+        accept(FormFactorCone6 self, INodeVisitor * visitor)
         void FormFactorCone6::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCone6_accept(self, visitor)
@@ -14668,10 +13530,8 @@ class FormFactorCosineRippleBox(ICosineRipple):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCosineRippleBox self, INodeVisitor visitor)
+        accept(FormFactorCosineRippleBox self, INodeVisitor * visitor)
         void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCosineRippleBox_accept(self, visitor)
@@ -14714,10 +13574,8 @@ class FormFactorCosineRippleGauss(ICosineRipple):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCosineRippleGauss self, INodeVisitor visitor)
+        accept(FormFactorCosineRippleGauss self, INodeVisitor * visitor)
         void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCosineRippleGauss_accept(self, visitor)
@@ -14760,10 +13618,8 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCosineRippleLorentz self, INodeVisitor visitor)
+        accept(FormFactorCosineRippleLorentz self, INodeVisitor * visitor)
         void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCosineRippleLorentz_accept(self, visitor)
@@ -14806,10 +13662,8 @@ class FormFactorCuboctahedron(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCuboctahedron self, INodeVisitor visitor)
+        accept(FormFactorCuboctahedron self, INodeVisitor * visitor)
         void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCuboctahedron_accept(self, visitor)
@@ -14884,10 +13738,8 @@ class FormFactorCylinder(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorCylinder self, INodeVisitor visitor)
+        accept(FormFactorCylinder self, INodeVisitor * visitor)
         void FormFactorCylinder::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCylinder_accept(self, visitor)
@@ -14966,10 +13818,8 @@ class FormFactorDodecahedron(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorDodecahedron self, INodeVisitor visitor)
+        accept(FormFactorDodecahedron self, INodeVisitor * visitor)
         void FormFactorDodecahedron::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorDodecahedron_accept(self, visitor)
@@ -15020,10 +13870,8 @@ class FormFactorDot(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorDot self, INodeVisitor visitor)
+        accept(FormFactorDot self, INodeVisitor * visitor)
         void FormFactorDot::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorDot_accept(self, visitor)
@@ -15114,10 +13962,8 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorEllipsoidalCylinder self, INodeVisitor visitor)
+        accept(FormFactorEllipsoidalCylinder self, INodeVisitor * visitor)
         void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_accept(self, visitor)
@@ -15204,10 +14050,8 @@ class FormFactorFullSphere(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorFullSphere self, INodeVisitor visitor)
+        accept(FormFactorFullSphere self, INodeVisitor * visitor)
         void FormFactorFullSphere::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorFullSphere_accept(self, visitor)
@@ -15298,10 +14142,8 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorFullSpheroid self, INodeVisitor visitor)
+        accept(FormFactorFullSpheroid self, INodeVisitor * visitor)
         void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorFullSpheroid_accept(self, visitor)
@@ -15381,10 +14223,8 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorHemiEllipsoid self, INodeVisitor visitor)
+        accept(FormFactorHemiEllipsoid self, INodeVisitor * visitor)
         void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_accept(self, visitor)
@@ -15470,10 +14310,8 @@ class FormFactorHollowSphere(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorHollowSphere self, INodeVisitor visitor)
+        accept(FormFactorHollowSphere self, INodeVisitor * visitor)
         void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorHollowSphere_accept(self, visitor)
@@ -15536,10 +14374,8 @@ class FormFactorIcosahedron(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorIcosahedron self, INodeVisitor visitor)
+        accept(FormFactorIcosahedron self, INodeVisitor * visitor)
         void FormFactorIcosahedron::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorIcosahedron_accept(self, visitor)
@@ -15590,10 +14426,8 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorLongBoxGauss self, INodeVisitor visitor)
+        accept(FormFactorLongBoxGauss self, INodeVisitor * visitor)
         void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_accept(self, visitor)
@@ -15680,10 +14514,8 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorLongBoxLorentz self, INodeVisitor visitor)
+        accept(FormFactorLongBoxLorentz self, INodeVisitor * visitor)
         void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_accept(self, visitor)
@@ -15770,10 +14602,8 @@ class FormFactorPrism3(IFormFactorPrism):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorPrism3 self, INodeVisitor visitor)
+        accept(FormFactorPrism3 self, INodeVisitor * visitor)
         void FormFactorPrism3::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorPrism3_accept(self, visitor)
@@ -15824,10 +14654,8 @@ class FormFactorPrism6(IFormFactorPrism):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorPrism6 self, INodeVisitor visitor)
+        accept(FormFactorPrism6 self, INodeVisitor * visitor)
         void FormFactorPrism6::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorPrism6_accept(self, visitor)
@@ -15878,10 +14706,8 @@ class FormFactorPyramid(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorPyramid self, INodeVisitor visitor)
+        accept(FormFactorPyramid self, INodeVisitor * visitor)
         void FormFactorPyramid::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorPyramid_accept(self, visitor)
@@ -15948,10 +14774,8 @@ class FormFactorSawtoothRippleBox(ISawtoothRipple):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorSawtoothRippleBox self, INodeVisitor visitor)
+        accept(FormFactorSawtoothRippleBox self, INodeVisitor * visitor)
         void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorSawtoothRippleBox_accept(self, visitor)
@@ -15994,10 +14818,8 @@ class FormFactorSawtoothRippleGauss(ISawtoothRipple):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorSawtoothRippleGauss self, INodeVisitor visitor)
+        accept(FormFactorSawtoothRippleGauss self, INodeVisitor * visitor)
         void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorSawtoothRippleGauss_accept(self, visitor)
@@ -16040,10 +14862,8 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorSawtoothRippleLorentz self, INodeVisitor visitor)
+        accept(FormFactorSawtoothRippleLorentz self, INodeVisitor * visitor)
         void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorSawtoothRippleLorentz_accept(self, visitor)
@@ -16086,10 +14906,8 @@ class FormFactorTetrahedron(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorTetrahedron self, INodeVisitor visitor)
+        accept(FormFactorTetrahedron self, INodeVisitor * visitor)
         void FormFactorTetrahedron::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorTetrahedron_accept(self, visitor)
@@ -16156,10 +14974,8 @@ class FormFactorTruncatedCube(IFormFactorPolyhedron):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorTruncatedCube self, INodeVisitor visitor)
+        accept(FormFactorTruncatedCube self, INodeVisitor * visitor)
         void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedCube_accept(self, visitor)
@@ -16218,10 +15034,8 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorTruncatedSphere self, INodeVisitor visitor)
+        accept(FormFactorTruncatedSphere self, INodeVisitor * visitor)
         void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_accept(self, visitor)
@@ -16308,10 +15122,8 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorTruncatedSpheroid self, INodeVisitor visitor)
+        accept(FormFactorTruncatedSpheroid self, INodeVisitor * visitor)
         void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_accept(self, visitor)
@@ -16406,10 +15218,8 @@ class FormFactorGaussSphere(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorGaussSphere self, INodeVisitor visitor)
+        accept(FormFactorGaussSphere self, INodeVisitor * visitor)
         void FormFactorGaussSphere::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorGaussSphere_accept(self, visitor)
@@ -16480,10 +15290,8 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorSphereGaussianRadius self, INodeVisitor visitor)
+        accept(FormFactorSphereGaussianRadius self, INodeVisitor * visitor)
         void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_accept(self, visitor)
@@ -16546,10 +15354,8 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorSphereLogNormalRadius self, INodeVisitor visitor)
+        accept(FormFactorSphereLogNormalRadius self, INodeVisitor * visitor)
         void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_accept(self, visitor)
@@ -16578,7 +15384,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 # Register FormFactorSphereLogNormalRadius in _libBornAgainCore:
 _libBornAgainCore.FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
-class Simulation(libBornAgainBase.ICloneable, INode):
+class Simulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -16823,8 +15629,6 @@ class Simulation(libBornAgainBase.ICloneable, INode):
         getChildren(Simulation self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > Simulation::getChildren() const
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.Simulation_getChildren(self)
 
@@ -17006,10 +15810,8 @@ class GISASSimulation(Simulation2D):
 
     def accept(self, visitor):
         r"""
-        accept(GISASSimulation self, INodeVisitor visitor)
+        accept(GISASSimulation self, INodeVisitor * visitor)
         void GISASSimulation::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.GISASSimulation_accept(self, visitor)
@@ -17082,10 +15884,8 @@ class DepthProbeSimulation(Simulation):
 
     def accept(self, visitor):
         r"""
-        accept(DepthProbeSimulation self, INodeVisitor visitor)
+        accept(DepthProbeSimulation self, INodeVisitor * visitor)
         void DepthProbeSimulation::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.DepthProbeSimulation_accept(self, visitor)
@@ -17195,10 +15995,8 @@ class SpecularSimulation(Simulation):
 
     def accept(self, visitor):
         r"""
-        accept(SpecularSimulation self, INodeVisitor visitor)
+        accept(SpecularSimulation self, INodeVisitor * visitor)
         void SpecularSimulation::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.SpecularSimulation_accept(self, visitor)
@@ -17293,10 +16091,8 @@ class OffSpecSimulation(Simulation2D):
 
     def accept(self, visitor):
         r"""
-        accept(OffSpecSimulation self, INodeVisitor visitor)
+        accept(OffSpecSimulation self, INodeVisitor * visitor)
         void OffSpecSimulation::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.OffSpecSimulation_accept(self, visitor)
@@ -17354,7 +16150,7 @@ class OffSpecSimulation(Simulation2D):
 # Register OffSpecSimulation in _libBornAgainCore:
 _libBornAgainCore.OffSpecSimulation_swigregister(OffSpecSimulation)
 
-class IBackground(libBornAgainBase.ICloneable, INode):
+class IBackground(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -17430,10 +16226,8 @@ class ConstantBackground(IBackground):
 
     def accept(self, visitor):
         r"""
-        accept(ConstantBackground self, INodeVisitor visitor)
+        accept(ConstantBackground self, INodeVisitor * visitor)
         void ConstantBackground::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ConstantBackground_accept(self, visitor)
@@ -17481,10 +16275,8 @@ class PoissonNoiseBackground(IBackground):
 
     def accept(self, visitor):
         r"""
-        accept(PoissonNoiseBackground self, INodeVisitor visitor)
+        accept(PoissonNoiseBackground self, INodeVisitor * visitor)
         void PoissonNoiseBackground::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.PoissonNoiseBackground_accept(self, visitor)
@@ -17618,7 +16410,7 @@ def IntensityDataIOFactory_writeSimulationResult(result, file_name):
     r"""IntensityDataIOFactory_writeSimulationResult(SimulationResult result, std::string const & file_name)"""
     return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
 
-class IDetector(libBornAgainBase.ICloneable, INode):
+class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -17832,8 +16624,6 @@ class IDetector(libBornAgainBase.ICloneable, INode):
         getChildren(IDetector self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > IDetector::getChildren() const override
 
-        Returns a vector of children (const). 
-
         """
         return _libBornAgainCore.IDetector_getChildren(self)
 
@@ -18028,10 +16818,8 @@ class SphericalDetector(IDetector2D):
 
     def accept(self, visitor):
         r"""
-        accept(SphericalDetector self, INodeVisitor visitor)
+        accept(SphericalDetector self, INodeVisitor * visitor)
         void SphericalDetector::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.SphericalDetector_accept(self, visitor)
@@ -18205,10 +16993,8 @@ class IsGISAXSDetector(SphericalDetector):
 
     def accept(self, visitor):
         r"""
-        accept(IsGISAXSDetector self, INodeVisitor visitor)
+        accept(IsGISAXSDetector self, INodeVisitor * visitor)
         void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.IsGISAXSDetector_accept(self, visitor)
@@ -18259,10 +17045,8 @@ class RectangularDetector(IDetector2D):
 
     def accept(self, visitor):
         r"""
-        accept(RectangularDetector self, INodeVisitor visitor)
+        accept(RectangularDetector self, INodeVisitor * visitor)
         void RectangularDetector::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.RectangularDetector_accept(self, visitor)
@@ -18435,7 +17219,7 @@ class RectangularDetector(IDetector2D):
 # Register RectangularDetector in _libBornAgainCore:
 _libBornAgainCore.RectangularDetector_swigregister(RectangularDetector)
 
-class IDetectorResolution(libBornAgainBase.ICloneable, INode):
+class IDetectorResolution(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -18473,7 +17257,7 @@ class IDetectorResolution(libBornAgainBase.ICloneable, INode):
 # Register IDetectorResolution in _libBornAgainCore:
 _libBornAgainCore.IDetectorResolution_swigregister(IDetectorResolution)
 
-class IResolutionFunction2D(libBornAgainBase.ICloneable, INode):
+class IResolutionFunction2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
@@ -18548,10 +17332,8 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
 
     def accept(self, visitor):
         r"""
-        accept(ResolutionFunction2DGaussian self, INodeVisitor visitor)
+        accept(ResolutionFunction2DGaussian self, INodeVisitor * visitor)
         void ResolutionFunction2DGaussian::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ResolutionFunction2DGaussian_accept(self, visitor)
@@ -18962,16 +17744,16 @@ class IHistogram(object):
         """
         return _libBornAgainCore.IHistogram_array(self, *args)
 
-    def getArrayObsolete(self, *args):
+    def getArray(self, *args):
         r"""
-        getArrayObsolete(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
+        getArray(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
         PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
 
         Deprecated
         Use  array() instead. 
 
         """
-        return _libBornAgainCore.IHistogram_getArrayObsolete(self, *args)
+        return _libBornAgainCore.IHistogram_getArray(self, *args)
 
     def reset(self):
         r"""
@@ -19909,7 +18691,7 @@ class ChiSquaredModule(IChiSquaredModule):
 # Register ChiSquaredModule in _libBornAgainCore:
 _libBornAgainCore.ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class Instrument(INode):
+class Instrument(libBornAgainParam.INode):
     r"""
 
 
@@ -19934,10 +18716,8 @@ class Instrument(INode):
 
     def accept(self, visitor):
         r"""
-        accept(Instrument self, INodeVisitor visitor)
+        accept(Instrument self, INodeVisitor * visitor)
         void Instrument::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.Instrument_accept(self, visitor)
@@ -20109,8 +18889,6 @@ class Instrument(INode):
         r"""
         getChildren(Instrument self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > Instrument::getChildren() const
-
-        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.Instrument_getChildren(self)
@@ -20659,7 +19437,7 @@ class SimpleSelectionRule(ISelectionRule):
 # Register SimpleSelectionRule in _libBornAgainCore:
 _libBornAgainCore.SimpleSelectionRule_swigregister(SimpleSelectionRule)
 
-class Lattice(INode):
+class Lattice(libBornAgainParam.INode):
     r"""
 
 
@@ -20685,10 +19463,8 @@ class Lattice(INode):
 
     def accept(self, visitor):
         r"""
-        accept(Lattice self, INodeVisitor visitor)
+        accept(Lattice self, INodeVisitor * visitor)
         void Lattice::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.Lattice_accept(self, visitor)
@@ -20858,8 +19634,6 @@ class Lattice(INode):
         onChange(Lattice self)
         void Lattice::onChange() override
 
-        Action to be taken in inherited class when a parameter has changed. 
-
         """
         return _libBornAgainCore.Lattice_onChange(self)
 
@@ -20890,7 +19664,7 @@ def Lattice_createBCTLattice(a, c):
     r"""Lattice_createBCTLattice(double a, double c) -> Lattice"""
     return _libBornAgainCore.Lattice_createBCTLattice(a, c)
 
-class Lattice2D(libBornAgainBase.ICloneable, INode):
+class Lattice2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""Proxy of C++ Lattice2D class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
@@ -20991,10 +19765,8 @@ class BasicLattice(Lattice2D):
 
     def accept(self, visitor):
         r"""
-        accept(BasicLattice self, INodeVisitor visitor)
+        accept(BasicLattice self, INodeVisitor * visitor)
         void BasicLattice::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.BasicLattice_accept(self, visitor)
@@ -21059,10 +19831,8 @@ class SquareLattice(Lattice2D):
 
     def accept(self, visitor):
         r"""
-        accept(SquareLattice self, INodeVisitor visitor)
+        accept(SquareLattice self, INodeVisitor * visitor)
         void SquareLattice::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.SquareLattice_accept(self, visitor)
@@ -21127,10 +19897,8 @@ class HexagonalLattice(Lattice2D):
 
     def accept(self, visitor):
         r"""
-        accept(HexagonalLattice self, INodeVisitor visitor)
+        accept(HexagonalLattice self, INodeVisitor * visitor)
         void HexagonalLattice::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.HexagonalLattice_accept(self, visitor)

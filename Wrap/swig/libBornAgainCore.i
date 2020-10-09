@@ -259,6 +259,11 @@
 %import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
 %include "fromBase.i"
 
+%import(module="libBornAgainParam") "Param/Base/ParameterPool.h"
+%import(module="libBornAgainParam") "Param/Base/IParameterized.h"
+%import(module="libBornAgainParam") "Param/Node/INode.h"
+%include "fromParam.i"
+
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;

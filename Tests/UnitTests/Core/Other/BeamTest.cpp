@@ -1,5 +1,5 @@
 #include "Core/Beam/Beam.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
 #include "Core/Parametrization/ParameterPool.h"

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Lattice/ILatticeOrientation.h"
-#include "Core/Vector/EigenCore.h"
+#include "Base/Vector/EigenCore.h"
 
 namespace
 {

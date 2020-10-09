@@ -310,168 +310,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classBasicVector3D.xml
-%feature("docstring") BasicVector3D "
-
-Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
-
-C++ includes: BasicVector3D.h
-";
-
-%feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D()
-
-Default constructor. 
-";
-
-%feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
-
-Constructor from cartesian components. 
-";
-
-%feature("docstring")  BasicVector3D::x "T BasicVector3D< T >::x() const
-
-Returns x-component in cartesian coordinate system. 
-";
-
-%feature("docstring")  BasicVector3D::y "T BasicVector3D< T >::y() const
-
-Returns y-component in cartesian coordinate system. 
-";
-
-%feature("docstring")  BasicVector3D::z "T BasicVector3D< T >::z() const
-
-Returns z-component in cartesian coordinate system. 
-";
-
-%feature("docstring")  BasicVector3D::setX "void BasicVector3D< T >::setX(const T &a)
-
-Sets x-component in cartesian coordinate system. 
-";
-
-%feature("docstring")  BasicVector3D::setY "void BasicVector3D< T >::setY(const T &a)
-
-Sets y-component in cartesian coordinate system. 
-";
-
-%feature("docstring")  BasicVector3D::setZ "void BasicVector3D< T >::setZ(const T &a)
-
-Sets z-component in cartesian coordinate system. 
-";
-
-%feature("docstring")  BasicVector3D::conj "BasicVector3D<T> BasicVector3D< T >::conj() const
-
-Returns complex conjugate vector. 
-";
-
-%feature("docstring")  BasicVector3D::mag2 "double BasicVector3D< T >::mag2() const
-
-Returns magnitude squared of the vector. 
-";
-
-%feature("docstring")  BasicVector3D::mag "double BasicVector3D< T >::mag() const
-
-Returns magnitude of the vector. 
-";
-
-%feature("docstring")  BasicVector3D::magxy2 "double BasicVector3D< T >::magxy2() const
-
-Returns squared distance from z axis. 
-";
-
-%feature("docstring")  BasicVector3D::magxy "double BasicVector3D< T >::magxy() const
-
-Returns distance from z axis. 
-";
-
-%feature("docstring")  BasicVector3D::phi "double BasicVector3D< T >::phi() const
-
-Returns azimuth angle. 
-";
-
-%feature("docstring")  BasicVector3D::theta "double BasicVector3D< T >::theta() const
-
-Returns polar angle. 
-";
-
-%feature("docstring")  BasicVector3D::cosTheta "double BasicVector3D< T >::cosTheta() const
-
-Returns cosine of polar angle. 
-";
-
-%feature("docstring")  BasicVector3D::sin2Theta "double BasicVector3D< T >::sin2Theta() const
-
-Returns squared sine of polar angle. 
-";
-
-%feature("docstring")  BasicVector3D::unit "BasicVector3D<T> BasicVector3D< T >::unit() const
-
-Returns unit vector in direction of this. Throws for null vector. 
-";
-
-%feature("docstring")  BasicVector3D::complex "BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
-
-Returns this, trivially converted to complex type. 
-";
-
-%feature("docstring")  BasicVector3D::real "BasicVector3D<double> BasicVector3D< T >::real() const
-
-Returns real parts. 
-";
-
-%feature("docstring")  BasicVector3D::dot "auto BasicVector3D< T >::dot(const BasicVector3D< U > &v) const
-
-Returns dot product of vectors (antilinear in the first [=self] argument).
-
-Returns dot product of (complex) vectors (antilinear in the first [=self] argument). 
-";
-
-%feature("docstring")  BasicVector3D::cross "auto BasicVector3D< T >::cross(const BasicVector3D< U > &v) const
-
-Returns cross product of vectors (linear in both arguments).
-
-Returns cross product of (complex) vectors. 
-";
-
-%feature("docstring")  BasicVector3D::angle "double BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
-
-Returns angle with respect to another vector. 
-";
-
-%feature("docstring")  BasicVector3D::project "BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
-
-Returns projection of this onto other vector: (this*v)*v/|v|^2. 
-";
-
-%feature("docstring")  BasicVector3D::rotatedX "BasicVector3D<T> BasicVector3D< T >::rotatedX(double a) const
-
-Returns result of rotation around x-axis. 
-";
-
-%feature("docstring")  BasicVector3D::rotatedY "BasicVector3D<T> BasicVector3D< T >::rotatedY(double a) const
-
-Returns result of rotation around y-axis. 
-";
-
-%feature("docstring")  BasicVector3D::rotatedZ "BasicVector3D<T> BasicVector3D< T >::rotatedZ(double a) const
-
-Returns result of rotation around z-axis. 
-";
-
-%feature("docstring")  BasicVector3D::rotated "BasicVector3D<T> BasicVector3D< T >::rotated(double a, const BasicVector3D< T > &v) const
-
-Returns result of rotation around the axis specified by another vector. 
-";
-
-%feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-";
-
-%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
-";
-
-%feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
-";
-
-
 // File: classBeam.xml
 %feature("docstring") Beam "
 
@@ -707,15 +545,6 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: classCenteredSquareLatticeBuilder.xml
 %feature("docstring") CenteredSquareLatticeBuilder "
 
@@ -816,50 +645,6 @@ clone method
 ";
 
 %feature("docstring")  ChiSquaredModule::residual "double ChiSquaredModule::residual(double a, double b, double weight)
-";
-
-
-// File: classExceptions_1_1ClassInitializationException.xml
-%feature("docstring") Exceptions::ClassInitializationException "";
-
-%feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
-";
-
-
-// File: classCloneableVector.xml
-%feature("docstring") CloneableVector "
-
-The objects pointed to must posses a clone() function.
-
-A vector of unique pointers to objects that are cloneable.
-
-Equips vector<unique_ptr<T>> with copy constructor. For use with polymorphic objects, or in pimpl idiom.
-
-C++ includes: CloneableVector.h
-";
-
-%feature("docstring")  CloneableVector::CloneableVector "CloneableVector< T >::CloneableVector()
-";
-
-%feature("docstring")  CloneableVector::CloneableVector "CloneableVector< T >::CloneableVector(const CloneableVector &other)
-";
-
-%feature("docstring")  CloneableVector::push_back "void CloneableVector< T >::push_back(T *t)
-";
-
-%feature("docstring")  CloneableVector::emplace_back "void CloneableVector< T >::emplace_back(std::unique_ptr< T > &&t)
-";
-
-
-// File: classComplexIntegrator.xml
-%feature("docstring") ComplexIntegrator "
-
-To integrate a complex function of a real variable.
-
-C++ includes: Integrator.h
-";
-
-%feature("docstring")  ComplexIntegrator::integrate "complex_t ComplexIntegrator::integrate(const std::function< complex_t(double)> &f, double lmin, double lmax)
 ";
 
 
@@ -2079,20 +1864,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classExceptions_1_1DivisionByZeroException.xml
-%feature("docstring") Exceptions::DivisionByZeroException "";
-
-%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1DomainErrorException.xml
-%feature("docstring") Exceptions::DomainErrorException "";
-
-%feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
 // File: classDoubleEllipse.xml
 %feature("docstring") DoubleEllipse "";
 
@@ -2218,13 +1989,6 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 ";
 
 
-// File: classExceptions_1_1ExistingClassRegistrationException.xml
-%feature("docstring") Exceptions::ExistingClassRegistrationException "";
-
-%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
-";
-
-
 // File: classFeNiBilayerBuilder.xml
 %feature("docstring") FeNiBilayerBuilder "";
 
@@ -2264,20 +2028,6 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 %feature("docstring") FeNiBilayerTanhBuilder "";
 
 %feature("docstring")  FeNiBilayerTanhBuilder::buildSample "MultiLayer * FeNiBilayerTanhBuilder::buildSample() const
-";
-
-
-// File: classExceptions_1_1FileIsBadException.xml
-%feature("docstring") Exceptions::FileIsBadException "";
-
-%feature("docstring")  Exceptions::FileIsBadException::FileIsBadException "Exceptions::FileIsBadException::FileIsBadException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileNotIsOpenException.xml
-%feature("docstring") Exceptions::FileNotIsOpenException "";
-
-%feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
 ";
 
 
@@ -2755,13 +2505,6 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 %feature("docstring")  FootprintSquare::print "std::string FootprintSquare::print() const override
 
 Print python-formatted footprint definition. 
-";
-
-
-// File: classExceptions_1_1FormatErrorException.xml
-%feature("docstring") Exceptions::FormatErrorException "";
-
-%feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
 ";
 
 
@@ -4692,17 +4435,6 @@ C++ includes: FTDecay1D.h
 ";
 
 %feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(const std::vector< double > P)
-
-Constructor of pseudo-Voigt decay function.
-
-Parameters:
------------
-
-decay_length: 
-half-width of the distribution in nanometers
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
 %feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
@@ -4788,23 +4520,6 @@ C++ includes: FTDecay2D.h
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector< double > P)
-
-Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
-
-Parameters:
------------
-
-decay_length_x: 
-the decay length in nanometers along x-axis of the distribution
-
-decay_length_y: 
-the decay length in nanometers along y-axis of the distribution
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
-
-gamma: 
-distribution orientation with respect to the first lattice vector in radians 
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double gamma, double eta)
@@ -5016,17 +4731,6 @@ C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(const std::vector< double > P)
-
-Constructor of one-dimensional pseudo-Voigt probability distribution.
-
-Parameters:
------------
-
-omega: 
-half-width of the distribution in nanometers
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
@@ -5202,23 +4906,6 @@ C++ includes: FTDistributions2D.h
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector< double > P)
-
-Constructor of two-dimensional pseudo-Voigt probability distribution.
-
-Parameters:
------------
-
-omega_x: 
-half-width of the distribution along its x-axis in nanometers
-
-omega_y: 
-half-width of the distribution along its y-axis in nanometers
-
-eta: 
-parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
-
-gamma: 
-angle in direct space between first lattice vector and x-axis of the distribution in radians 
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double gamma, double eta)
@@ -5896,37 +5583,6 @@ Sets data rescaler.
 ";
 
 %feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
-";
-
-
-// File: classICloneable.xml
-%feature("docstring") ICloneable "
-
-Interface for polymorphic classes that should not be copied, except by explicit cloning.
-
-Child classes of  ICloneable must provide clone().
-
-C++ includes: ICloneable.h
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()=default
-";
-
-%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()=default
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(ICloneable &&)=default
-";
-
-%feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
-";
-
-%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
-
-Used for Python overriding of clone (see swig/tweaks.py) 
 ";
 
 
@@ -7891,30 +7547,7 @@ Returns a vector of children (const).
 
 
 // File: classIntegratorMCMiser.xml
-%feature("docstring") IntegratorMCMiser "
-
-Template class to use Monte Carlo MISER integration of class member functions.
-
-Wraps an integrator from GNU Scientific Library. Since this class holds a persistent workspace, we need at least one instance per thread. Standard usage for integration inside a class T:
-Create a handle to an integrator: 'auto integrator = make_integrator_miser(this, mem_function, dimension)'
-
-Call: 'integrator.integrate(lmin, lmax, data, nbr_points)'
-
-C++ includes: IntegratorMCMiser.h
-";
-
-%feature("docstring")  IntegratorMCMiser::IntegratorMCMiser "IntegratorMCMiser< T >::IntegratorMCMiser(const T *p_object, miser_integrand< T > p_member_function, size_t dim)
-
-to integrate p_member_function, which must belong to p_object 
-";
-
-%feature("docstring")  IntegratorMCMiser::~IntegratorMCMiser "IntegratorMCMiser< T >::~IntegratorMCMiser()
-";
-
-%feature("docstring")  IntegratorMCMiser::integrate "double IntegratorMCMiser< T >::integrate(double *min_array, double *max_array, void *params, size_t nbr_points)
-
-perform the actual integration over the ranges [min_array, max_array] 
-";
+%feature("docstring") IntegratorMCMiser "";
 
 
 // File: classIntensityDataIOFactory.xml
@@ -8250,7 +7883,13 @@ alpha:
 angle between lattice vectors in radians
 
 xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians 
+rotation of lattice with respect to x-axis (beam direction) in radians
+
+size_1: 
+correlation length in direction 1
+
+size_2: 
+correlation length in direction 2 
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() final
@@ -8443,20 +8082,6 @@ C++ includes: InterferenceFunctionFinite3DLattice.h
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
-
-Constructor of three-dimensional finite lattice interference function.
-
-Parameters:
------------
-
-lattice: 
-object specifying a 2d lattice structure
-
-N_1: 
-number of lattice cells in the first lattice direction
-
-N_2: 
-number of lattice cells in the second lattice direction 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final
@@ -8589,13 +8214,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setKappa "void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 
-Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
-
-Parameters:
------------
-
-size: 
-spacing coupling parameter 
+Sets size spacing coupling parameter of the Size Spacing Correlation Approximation. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::kappa "double InterferenceFunctionRadialParaCrystal::kappa() const
@@ -10155,13 +9774,6 @@ C++ includes: LLData.h
 ";
 
 
-// File: classExceptions_1_1LogicErrorException.xml
-%feature("docstring") Exceptions::LogicErrorException "";
-
-%feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
-";
-
-
 // File: classLogMetric.xml
 %feature("docstring") LogMetric "
 
@@ -11043,20 +10655,6 @@ C++ includes: INode.h
 ";
 
 
-// File: classExceptions_1_1NotImplementedException.xml
-%feature("docstring") Exceptions::NotImplementedException "";
-
-%feature("docstring")  Exceptions::NotImplementedException::NotImplementedException "Exceptions::NotImplementedException::NotImplementedException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1NullPointerException.xml
-%feature("docstring") Exceptions::NullPointerException "";
-
-%feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
-";
-
-
 // File: classObjectiveMetric.xml
 %feature("docstring") ObjectiveMetric "
 
@@ -11273,13 +10871,6 @@ C++ includes: OrderedMap.h
 ";
 
 %feature("docstring")  OrderedMap::value "const Object& OrderedMap< Key, Object >::value(const Key &key) const
-";
-
-
-// File: classExceptions_1_1OutOfBoundsException.xml
-%feature("docstring") Exceptions::OutOfBoundsException "";
-
-%feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
 ";
 
 
@@ -12672,7 +12263,7 @@ true if face has a perpedicular two-fold symmetry axis
 
 %feature("docstring")  PolyhedralFace::normalProjectionConj "complex_t PolyhedralFace::normalProjectionConj(cvector_t q) const
 
-Returns conj(q)*normal [ BasicVector3D::dot is antilinear in 'this' argument]. 
+Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]. 
 ";
 
 %feature("docstring")  PolyhedralFace::ff_n "complex_t PolyhedralFace::ff_n(int m, cvector_t q) const
@@ -13160,7 +12751,7 @@ Returns number of samples to generate.
 %feature("docstring")  RangedDistribution::setLimits "void RangedDistribution::setLimits(const RealLimits &limits)
 ";
 
-%feature("docstring")  RangedDistribution::print "std::string RangedDistribution::print() const
+%feature("docstring")  RangedDistribution::pyString "std::string RangedDistribution::pyString() const
 
 Prints python-formatted definition of the distribution. 
 ";
@@ -13296,24 +12887,6 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 
-// File: classRealIntegrator.xml
-%feature("docstring") RealIntegrator "
-
-To integrate a real function of a real variable.
-
-C++ includes: Integrator.h
-";
-
-%feature("docstring")  RealIntegrator::RealIntegrator "RealIntegrator::RealIntegrator()
-";
-
-%feature("docstring")  RealIntegrator::~RealIntegrator "RealIntegrator::~RealIntegrator()
-";
-
-%feature("docstring")  RealIntegrator::integrate "double RealIntegrator::integrate(const std::function< double(double)> &f, double lmin, double lmax)
-";
-
-
 // File: classRealParameter.xml
 %feature("docstring") RealParameter "
 
@@ -13365,15 +12938,6 @@ Returns value of wrapped parameter.
 
 // File: structLattice2D_1_1ReciprocalBases.xml
 %feature("docstring") Lattice2D::ReciprocalBases "";
-
-
-// File: structPrecomputed_1_1ReciprocalFactorial.xml
-%feature("docstring") Precomputed::ReciprocalFactorial "";
-
-
-// File: structPrecomputed_1_1ReciprocalFactorial_3_010_01_4.xml
-%feature("docstring") Precomputed::ReciprocalFactorial< 0 > "
-";
 
 
 // File: classRectangle.xml
@@ -14100,69 +13664,6 @@ data_pair:
 
 use_weights: 
 boolean, defines if data uncertainties should be taken into account 
-";
-
-
-// File: classExceptions_1_1RuntimeErrorException.xml
-%feature("docstring") Exceptions::RuntimeErrorException "";
-
-%feature("docstring")  Exceptions::RuntimeErrorException::RuntimeErrorException "Exceptions::RuntimeErrorException::RuntimeErrorException(const std::string &message)
-";
-
-
-// File: classSafePointerVector.xml
-%feature("docstring") SafePointerVector "
-
-The objects pointed to must support the  ICloneable interface.
-
-A vector of pointers, owned by *this, with methods to handle them safely.
-
-C++ includes: SafePointerVector.h
-";
-
-%feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector()
-";
-
-%feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(const SafePointerVector &other)
-";
-
-%feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(SafePointerVector &&other)
-";
-
-%feature("docstring")  SafePointerVector::~SafePointerVector "SafePointerVector< T >::~SafePointerVector()
-";
-
-%feature("docstring")  SafePointerVector::size "size_t SafePointerVector< T >::size() const
-";
-
-%feature("docstring")  SafePointerVector::empty "bool SafePointerVector< T >::empty() const
-";
-
-%feature("docstring")  SafePointerVector::push_back "void SafePointerVector< T >::push_back(T *pointer)
-";
-
-%feature("docstring")  SafePointerVector::begin "iterator SafePointerVector< T >::begin()
-";
-
-%feature("docstring")  SafePointerVector::begin "const_iterator SafePointerVector< T >::begin() const
-";
-
-%feature("docstring")  SafePointerVector::end "iterator SafePointerVector< T >::end()
-";
-
-%feature("docstring")  SafePointerVector::end "const_iterator SafePointerVector< T >::end() const
-";
-
-%feature("docstring")  SafePointerVector::deleteElement "bool SafePointerVector< T >::deleteElement(T *pointer)
-";
-
-%feature("docstring")  SafePointerVector::back "T* SafePointerVector< T >::back()
-";
-
-%feature("docstring")  SafePointerVector::back "const T* SafePointerVector< T >::back() const
-";
-
-%feature("docstring")  SafePointerVector::clear "void SafePointerVector< T >::clear()
 ";
 
 
@@ -16017,92 +15518,6 @@ C++ includes: TRange.h
 ";
 
 
-// File: classTransform3D.xml
-%feature("docstring") Transform3D "
-
-Vector transformations in three dimensions.
-
-C++ includes: Transform3D.h
-";
-
-%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D()
-
-Constructs unit transformation. 
-";
-
-%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D(const Eigen::Matrix3d &matrix)
-
-Constructor from matrix (no checks if this is an element of SO(3)!) 
-";
-
-%feature("docstring")  Transform3D::~Transform3D "Transform3D::~Transform3D()
-
-Destructor. 
-";
-
-%feature("docstring")  Transform3D::clone "Transform3D * Transform3D::clone() const
-
-Clones the transformation. 
-";
-
-%feature("docstring")  Transform3D::calculateEulerAngles "void Transform3D::calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const
-
-Calculates the Euler angles corresponding to the rotation. 
-";
-
-%feature("docstring")  Transform3D::calculateRotateXAngle "double Transform3D::calculateRotateXAngle() const
-
-Calculates the rotation angle for a rotation around the x-axis alone Only meaningfull if the actual rotation is around the x-axis 
-";
-
-%feature("docstring")  Transform3D::calculateRotateYAngle "double Transform3D::calculateRotateYAngle() const
-
-Calculates the rotation angle for a rotation around the y-axis alone Only meaningfull if the actual rotation is around the y-axis 
-";
-
-%feature("docstring")  Transform3D::calculateRotateZAngle "double Transform3D::calculateRotateZAngle() const
-
-Calculates the rotation angle for a rotation around the z-axis alone Only meaningfull if the actual rotation is around the z-axis 
-";
-
-%feature("docstring")  Transform3D::getInverse "Transform3D Transform3D::getInverse() const
-
-Returns the inverse transformation. 
-";
-
-%feature("docstring")  Transform3D::transformed "template cvector_t Transform3D::transformed< cvector_t >(const ivector_t &v) const
-
-Return transformed vector  v. 
-";
-
-%feature("docstring")  Transform3D::transformedInverse "template cvector_t Transform3D::transformedInverse< cvector_t >(const ivector_t &v) const
-
-Return transformed vector  v. 
-";
-
-%feature("docstring")  Transform3D::getRotationType "Transform3D::ERotationType Transform3D::getRotationType() const
-
-Retrieve the rotation type (general, around x, y or z-axis) 
-";
-
-%feature("docstring")  Transform3D::isIdentity "bool Transform3D::isIdentity() const
-
-Determine if the transformation is trivial (identity) 
-";
-
-%feature("docstring")  Transform3D::print "void Transform3D::print(std::ostream &ostr) const
-";
-
-%feature("docstring")  Transform3D::isXRotation "bool Transform3D::isXRotation() const
-";
-
-%feature("docstring")  Transform3D::isYRotation "bool Transform3D::isYRotation() const
-";
-
-%feature("docstring")  Transform3D::isZRotation "bool Transform3D::isZRotation() const
-";
-
-
 // File: classTransformBoxBuilder.xml
 %feature("docstring") TransformBoxBuilder "
 
@@ -16346,13 +15761,6 @@ Returns the list of all available units.
 ";
 
 
-// File: classExceptions_1_1UnknownClassRegistrationException.xml
-%feature("docstring") Exceptions::UnknownClassRegistrationException "";
-
-%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
-";
-
-
 // File: classVariableBinAxis.xml
 %feature("docstring") VariableBinAxis "
 
@@ -16523,10 +15931,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16556,16 +15964,16 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d106.xml
+// File: namespace_0d104.xml
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d108.xml
 
 
-// File: namespace_0d116.xml
+// File: namespace_0d139.xml
 
 
-// File: namespace_0d147.xml
+// File: namespace_0d151.xml
 
 
 // File: namespace_0d159.xml
@@ -16574,58 +15982,58 @@ C++ includes: ZLimits.h
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d167.xml
+// File: namespace_0d164.xml
 
 
-// File: namespace_0d172.xml
+// File: namespace_0d173.xml
 
 
-// File: namespace_0d181.xml
+// File: namespace_0d175.xml
 
 
-// File: namespace_0d183.xml
-
-
-// File: namespace_0d187.xml
+// File: namespace_0d179.xml
 
 
 // File: namespace_0d2.xml
 
 
+// File: namespace_0d242.xml
+
+
+// File: namespace_0d245.xml
+
+
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d250.xml
+// File: namespace_0d252.xml
 
 
-// File: namespace_0d253.xml
+// File: namespace_0d256.xml
 
 
 // File: namespace_0d260.xml
 
 
-// File: namespace_0d264.xml
+// File: namespace_0d266.xml
 
 
-// File: namespace_0d268.xml
+// File: namespace_0d270.xml
 
 
-// File: namespace_0d274.xml
+// File: namespace_0d286.xml
 
 
-// File: namespace_0d278.xml
+// File: namespace_0d317.xml
 
 
-// File: namespace_0d292.xml
+// File: namespace_0d319.xml
 
 
-// File: namespace_0d323.xml
+// File: namespace_0d321.xml
 
 
-// File: namespace_0d325.xml
-
-
-// File: namespace_0d327.xml
+// File: namespace_0d343.xml
 
 
 // File: namespace_0d347.xml
@@ -16634,16 +16042,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d351.xml
 
 
-// File: namespace_0d355.xml
+// File: namespace_0d367.xml
 
 
-// File: namespace_0d369.xml
+// File: namespace_0d376.xml
 
 
-// File: namespace_0d378.xml
+// File: namespace_0d380.xml
 
 
-// File: namespace_0d382.xml
+// File: namespace_0d390.xml
 
 
 // File: namespace_0d392.xml
@@ -16688,84 +16096,67 @@ C++ includes: ZLimits.h
 // File: namespace_0d448.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0d452.xml
 
 
-// File: namespace_0d466.xml
+// File: namespace_0d468.xml
 
 
-// File: namespace_0d487.xml
+// File: namespace_0d495.xml
 
 
-// File: namespace_0d494.xml
+// File: namespace_0d497.xml
 
 
-// File: namespace_0d496.xml
+// File: namespace_0d505.xml
 
 
-// File: namespace_0d504.xml
+// File: namespace_0d517.xml
 
 
-// File: namespace_0d516.xml
+// File: namespace_0d540.xml
 
 
-// File: namespace_0d539.xml
+// File: namespace_0d548.xml
 
 
-// File: namespace_0d547.xml
+// File: namespace_0d554.xml
 
 
-// File: namespace_0d553.xml
+// File: namespace_0d556.xml
 
 
-// File: namespace_0d555.xml
+// File: namespace_0d567.xml
 
 
-// File: namespace_0d572.xml
+// File: namespace_0d579.xml
 
 
-// File: namespace_0d584.xml
+// File: namespace_0d585.xml
 
 
-// File: namespace_0d590.xml
+// File: namespace_0d589.xml
 
 
-// File: namespace_0d594.xml
+// File: namespace_0d607.xml
 
 
-// File: namespace_0d612.xml
+// File: namespace_0d626.xml
 
 
-// File: namespace_0d631.xml
+// File: namespace_0d78.xml
+
+
+// File: namespace_0d80.xml
+
+
+// File: namespace_0d82.xml
 
 
 // File: namespace_0d86.xml
 
 
-// File: namespace_0d88.xml
-
-
-// File: namespace_0d90.xml
-
-
-// File: namespace_0d94.xml
-
-
-// File: namespacealgo.xml
-%feature("docstring")  algo::min_value "double algo::min_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
-
-Returns the minimum value of function evaluate as applied to the elements of an iterator range. 
-";
-
-%feature("docstring")  algo::max_value "double algo::max_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
-
-Returns the maximum value of function evaluate as applied to the elements of an iterator range. 
-";
-
-%feature("docstring")  algo::concat "std::vector< T > algo::concat(const std::vector< T > &v1, const std::vector< T > &v2)
-
-Returns the concatenation of two std::vectors. 
-";
+// File: namespace_0d98.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -16896,11 +16287,6 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 ";
 
 
-// File: namespaceExceptions.xml
-%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &)
-";
-
-
 // File: namespaceExportToPython.xml
 %feature("docstring")  ExportToPython::generateSampleCode "std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
 ";
@@ -16909,68 +16295,6 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 ";
 
 %feature("docstring")  ExportToPython::generatePyExportTest "std::string ExportToPython::generatePyExportTest(const Simulation &simulation)
-";
-
-
-// File: namespaceFileSystemUtils.xml
-%feature("docstring")  FileSystemUtils::extension "std::string FileSystemUtils::extension(const std::string &path)
-
-Returns extension of given filename. \"/home/user/filename.int\" -> \".int\", \"/home/user/filename.int.gz\" -> \".gz\" 
-";
-
-%feature("docstring")  FileSystemUtils::extensions "std::string FileSystemUtils::extensions(const std::string &path)
-
-Returns extension(s) of given filename. \"/home/user/filename.int\" -> \".int\", \"/home/user/filename.int.gz\" -> \".int.gz\" 
-";
-
-%feature("docstring")  FileSystemUtils::createDirectory "bool FileSystemUtils::createDirectory(const std::string &dir_name)
-
-Creates directory in current directory. 
-";
-
-%feature("docstring")  FileSystemUtils::createDirectories "bool FileSystemUtils::createDirectories(const std::string &dir_name)
-
-Creates directories in current directory for any element of dir_name which doesn't exist. 
-";
-
-%feature("docstring")  FileSystemUtils::filesInDirectory "std::vector< std::string > FileSystemUtils::filesInDirectory(const std::string &dir_name)
-
-Returns filenames of files in directory. 
-";
-
-%feature("docstring")  FileSystemUtils::jointPath "std::string FileSystemUtils::jointPath(const std::string &spath1, const std::string &spath2)
-
-Returns joint path name. 
-";
-
-%feature("docstring")  FileSystemUtils::filename "std::string FileSystemUtils::filename(const std::string &path)
-
-Returns path without directory part (\"Foo/Bar/Doz.int.gz\" -> \"Doz.int.gz\") 
-";
-
-%feature("docstring")  FileSystemUtils::stem "std::string FileSystemUtils::stem(const std::string &path)
-
-Returns filename without extension. \"/home/user/filename.int\" -> \"filename\", \"/home/user/filename.int.gz\" -> \"filename.int\" 
-";
-
-%feature("docstring")  FileSystemUtils::stem_ext "std::string FileSystemUtils::stem_ext(const std::string &path)
-
-Returns filename without extension(s). \"/home/user/filename.int\" -> \"filename\", \"/home/user/filename.int.gz\" -> \"filename\" 
-";
-
-%feature("docstring")  FileSystemUtils::glob "std::vector< std::string > FileSystemUtils::glob(const std::string &dir, const std::string &pattern)
-
-Returns file names that agree with a regex glob pattern. 
-";
-
-%feature("docstring")  FileSystemUtils::convert_utf8_to_utf16 "std::wstring FileSystemUtils::convert_utf8_to_utf16(const std::string &str)
-
-Converts utf8 string represented by std::string to utf16 string represented by std::wstring. 
-";
-
-%feature("docstring")  FileSystemUtils::IsFileExists "bool FileSystemUtils::IsFileExists(const std::string &str)
-
-Returns true if file with given name exists on disk. 
 ";
 
 
@@ -17064,7 +16388,7 @@ Creates Fourier Transform ( OutputData format) of intensity map ( OutputData for
 
 
 // File: namespaceInterferenceFunctionUtils.xml
-%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector<complex_t> InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
 %feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
@@ -17105,139 +16429,11 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 ";
 
 %feature("docstring")  MaterialUtils::MagnetizationCorrection "Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
-
-Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
 %feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
-";
-
-
-// File: namespaceMathFunctions.xml
-%feature("docstring")  MathFunctions::Bessel_J0_PowSer "complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
-
-Computes complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Computes the complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Forked from unoptimized code at http://www.crbond.com/math.htm, who refers to \"Computation of Special Functions\", Zhang and Jin, John Wiley and Sons, 1996. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1_PowSer "complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
-
-Computes complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Computes the complex Bessel function J1(z), using power series and asymptotic expansion.
-
-Forked from same source as for Bessel_J0_PowSer 
-";
-
-%feature("docstring")  MathFunctions::StandardNormal "double MathFunctions::StandardNormal(double x)
-";
-
-%feature("docstring")  MathFunctions::Gaussian "double MathFunctions::Gaussian(double x, double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::IntegratedGaussian "double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::cot "double MathFunctions::cot(double x)
-
-cotangent function:  $cot(x)\\\\equiv1/tan(x)$
-";
-
-%feature("docstring")  MathFunctions::Si "double MathFunctions::Si(double x)
-
-Sine integral function:  $Si(x)\\\\equiv\\\\int_0^x du \\\\sin(u)/u$. 
-";
-
-%feature("docstring")  MathFunctions::sinc "double MathFunctions::sinc(double x)
-
-sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$
-";
-
-%feature("docstring")  MathFunctions::sinc "complex_t MathFunctions::sinc(const complex_t z)
-
-Complex sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$. 
-";
-
-%feature("docstring")  MathFunctions::tanhc "complex_t MathFunctions::tanhc(const complex_t z)
-
-Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$. 
-";
-
-%feature("docstring")  MathFunctions::Laue "double MathFunctions::Laue(const double x, size_t N)
-
-Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$. 
-";
-
-%feature("docstring")  MathFunctions::erf "double MathFunctions::erf(double arg)
-
-Error function of real-valued argument. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J0 "double MathFunctions::Bessel_J0(double x)
-
-Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1 "double MathFunctions::Bessel_J1(double x)
-
-Bessel function of the first kind and order 1. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1c "double MathFunctions::Bessel_J1c(double x)
-
-Bessel function Bessel_J1(x)/x. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_I0 "double MathFunctions::Bessel_I0(double x)
-
-Modified Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J0 "complex_t MathFunctions::Bessel_J0(const complex_t z)
-
-Complex Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1 "complex_t MathFunctions::Bessel_J1(const complex_t z)
-
-Complex Bessel function of the first kind and order 1. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1c "complex_t MathFunctions::Bessel_J1c(const complex_t z)
-
-Complex Bessel function Bessel_J1(x)/x. 
-";
-
-%feature("docstring")  MathFunctions::FastFourierTransform "std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< complex_t > &data, EFFTDirection tcase)
-
-simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3) 
-";
-
-%feature("docstring")  MathFunctions::FastFourierTransform "std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
-
-simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
-";
-
-%feature("docstring")  MathFunctions::ConvolveFFT "std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
-
-convolution of two real vectors of equal size 
-";
-
-%feature("docstring")  MathFunctions::GenerateUniformRandom "double MathFunctions::GenerateUniformRandom()
-";
-
-%feature("docstring")  MathFunctions::GenerateStandardNormalRandom "double MathFunctions::GenerateStandardNormalRandom()
-";
-
-%feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::GeneratePoissonRandom "double MathFunctions::GeneratePoissonRandom(double average)
 ";
 
 
@@ -17352,17 +16548,6 @@ Returns units of main parameter.
 ";
 
 
-// File: namespacePhysConsts.xml
-
-
-// File: namespacePrecomputed.xml
-%feature("docstring")  Precomputed::GenerateArrayHelper "constexpr std::array<double, sizeof...(I)> Precomputed::GenerateArrayHelper(std::index_sequence< I... >)
-";
-
-%feature("docstring")  Precomputed::GenerateReciprocalFactorialArray "constexpr std::array<double, N> Precomputed::GenerateReciprocalFactorialArray()
-";
-
-
 // File: namespacePyArrayImport.xml
 %feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< double > &vec)
 
@@ -17375,102 +16560,13 @@ for importing 2D array of doubles from python into  OutputData
 ";
 
 
-// File: namespacePyEmbeddedUtils.xml
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(PyObject *obj)
-
-Converts PyObject into string, if possible, or throws exception. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::toVectorString "std::vector< std::string > PyEmbeddedUtils::toVectorString(PyObject *obj)
-
-Converts PyObject into vector of strings, if possible, or throws exception. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(char *c)
-
-Converts char to string. In the case of nullptr will return an empty string. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
-";
-
-%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=\"\")
-
-Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
-
-Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info. 
-";
-
-%feature("docstring")  PyEmbeddedUtils::pythonStackTrace "std::string PyEmbeddedUtils::pythonStackTrace()
-
-Returns string representing python stack trace. 
-";
-
-
 // File: namespacepyfmt.xml
-%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
-";
-
-%feature("docstring")  pyfmt::getSampleFunctionName "std::string pyfmt::getSampleFunctionName()
-";
-
-%feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)
-";
-
-%feature("docstring")  pyfmt::printDouble "std::string pyfmt::printDouble(double input)
-";
-
-%feature("docstring")  pyfmt::printNm "std::string pyfmt::printNm(double input)
-";
-
-%feature("docstring")  pyfmt::printNm2 "std::string pyfmt::printNm2(double input)
-";
-
-%feature("docstring")  pyfmt::printScientificDouble "std::string pyfmt::printScientificDouble(double input)
-";
-
-%feature("docstring")  pyfmt::printDegrees "std::string pyfmt::printDegrees(double input)
-";
-
-%feature("docstring")  pyfmt::printValue "std::string pyfmt::printValue(double value, const std::string &units)
-";
-
-%feature("docstring")  pyfmt::printString "std::string pyfmt::printString(const std::string &value)
-";
-
 %feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
 ";
 
 %feature("docstring")  pyfmt::printRealLimitsArg "std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
 
 Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
-";
-
-%feature("docstring")  pyfmt::isSquare "bool pyfmt::isSquare(double length1, double length2, double angle)
-
-Prints  ParameterDistribution. distVarName is a string representing  IDistribution1D variable, e.g. \"distr_1\"
-
-ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
-";
-
-%feature("docstring")  pyfmt::isHexagonal "bool pyfmt::isHexagonal(double length1, double length2, double angle)
-";
-
-%feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
-";
-
-%feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
-
-Returns a string of blanks with given width. By default the width equals standard offset in python files. 
-";
-
-%feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
-";
-
-%feature("docstring")  pyfmt::isDefaultDirection "bool pyfmt::isDefaultDirection(const kvector_t direction)
 ";
 
 
@@ -17763,28 +16859,6 @@ GISAS simulation with an extra long wavelength.
 ";
 
 
-// File: namespaceSysUtils.xml
-%feature("docstring")  SysUtils::getCurrentDateAndTime "std::string SysUtils::getCurrentDateAndTime()
-";
-
-%feature("docstring")  SysUtils::enableFloatingPointExceptions "void SysUtils::enableFloatingPointExceptions()
-
-Enables exception throw in the case of NaN, Inf.
-
-enables exception throw in the case of NaN, Inf 
-";
-
-%feature("docstring")  SysUtils::getenv "std::string SysUtils::getenv(const std::string &name)
-
-Returns environment variable. 
-";
-
-%feature("docstring")  SysUtils::isWindowsHost "bool SysUtils::isWindowsHost()
-
-Returns true if operation system is Windows. 
-";
-
-
 // File: namespaceUnitConverterUtils.xml
 %feature("docstring")  UnitConverterUtils::createOutputData "std::unique_ptr< OutputData< double > > UnitConverterUtils::createOutputData(const IUnitConverter &converter, Axes::Units units)
 
@@ -17797,14 +16871,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 ";
 
 %feature("docstring")  UnitConverterUtils::createConverter "std::unique_ptr< IUnitConverter > UnitConverterUtils::createConverter(const Simulation &simulation)
-";
-
-
-// File: namespaceUnits.xml
-%feature("docstring")  Units::rad2deg "double Units::rad2deg(double angle)
-";
-
-%feature("docstring")  Units::deg2rad "double Units::deg2rad(double angle)
 ";
 
 
@@ -17889,66 +16955,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: ParticleLayout_8h.xml
 
 
-// File: Algorithms_8h.xml
-
-
-// File: Assert_8h.xml
-
-
-// File: Complex_8h.xml
-%feature("docstring")  mul_I "complex_t mul_I(complex_t z)
-
-Returns product I*z, where I is the imaginary unit. 
-";
-
-%feature("docstring")  exp_I "complex_t exp_I(complex_t z)
-
-Returns exp(I*z), where I is the imaginary unit. 
-";
-
-
-// File: Exceptions_8cpp.xml
-
-
-// File: Exceptions_8h.xml
-
-
-// File: ICloneable_8h.xml
-
-
-// File: MathConstants_8h.xml
-
-
-// File: PhysicalConstants_8h.xml
-
-
-// File: Units_8h.xml
-
-
-// File: Beam_8cpp.xml
-
-
-// File: Beam_8h.xml
-
-
-// File: FootprintGauss_8cpp.xml
-
-
-// File: FootprintGauss_8h.xml
-
-
-// File: FootprintSquare_8cpp.xml
-
-
-// File: FootprintSquare_8h.xml
-
-
-// File: IFootprintFactor_8cpp.xml
-
-
-// File: IFootprintFactor_8h.xml
-
-
 // File: Bin_8cpp.xml
 %feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
 
@@ -17991,9 +16997,6 @@ global helper function for comparison of axes
 ";
 
 
-// File: IPixel_8h.xml
-
-
 // File: PointwiseAxis_8cpp.xml
 
 
@@ -18004,6 +17007,30 @@ global helper function for comparison of axes
 
 
 // File: VariableBinAxis_8h.xml
+
+
+// File: Beam_8cpp.xml
+
+
+// File: Beam_8h.xml
+
+
+// File: FootprintGauss_8cpp.xml
+
+
+// File: FootprintGauss_8h.xml
+
+
+// File: FootprintSquare_8cpp.xml
+
+
+// File: FootprintSquare_8h.xml
+
+
+// File: IFootprintFactor_8cpp.xml
+
+
+// File: IFootprintFactor_8h.xml
 
 
 // File: ComputationStatus_8h.xml
@@ -18031,6 +17058,12 @@ global helper function for comparison of axes
 
 
 // File: DepthProbeComputationTerm_8h.xml
+
+
+// File: DepthProbeElement_8cpp.xml
+
+
+// File: DepthProbeElement_8h.xml
 
 
 // File: DWBAComputation_8cpp.xml
@@ -18733,6 +17766,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: PyArrayImportUtils_8h.xml
 
 
+// File: PyFmt2_8cpp.xml
+
+
+// File: PyFmt2_8h.xml
+
+
 // File: QSpecScan_8cpp.xml
 
 
@@ -18869,6 +17908,12 @@ make Swappable
 
 
 // File: LatticeUtils_8h.xml
+
+
+// File: SomeFormFactors_8cpp.xml
+
+
+// File: SomeFormFactors_8h.xml
 
 
 // File: Ellipse_8cpp.xml
@@ -19008,6 +18053,12 @@ magnetization (in A/m)
 // File: RefractiveMaterialImpl_8h.xml
 
 
+// File: WavevectorInfo_8cpp.xml
+
+
+// File: WavevectorInfo_8h.xml
+
+
 // File: DecouplingApproximationStrategy_8cpp.xml
 
 
@@ -19111,6 +18162,12 @@ magnetization (in A/m)
 
 
 // File: MultiLayerUtils_8h.xml
+
+
+// File: PyImport_8cpp.xml
+
+
+// File: PyImport_8h.xml
 
 
 // File: RoughnessModels_8cpp.xml
@@ -19295,6 +18352,12 @@ magnetization (in A/m)
 // File: ParameterUtils_8h.xml
 
 
+// File: PyFmtLimits_8cpp.xml
+
+
+// File: PyFmtLimits_8h.xml
+
+
 // File: RangedDistributions_8cpp.xml
 
 
@@ -19408,22 +18471,19 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: TRange_8h.xml
 
 
-// File: PyEmbeddedUtils_8cpp.xml
+// File: IPixel_8h.xml
 
 
-// File: PyEmbeddedUtils_8h.xml
+// File: PolarizationHandler_8cpp.xml
 
 
-// File: PyImport_8cpp.xml
+// File: PolarizationHandler_8h.xml
 
 
-// File: PyImport_8h.xml
+// File: SimulationElement_8cpp.xml
 
 
-// File: PythonFormatting_8cpp.xml
-
-
-// File: PythonFormatting_8h.xml
+// File: SimulationElement_8h.xml
 
 
 // File: ILayerRTCoefficients_8h.xml
@@ -19680,24 +18740,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: UnitConverterUtils_8h.xml
 
 
-// File: DepthProbeElement_8cpp.xml
-
-
-// File: DepthProbeElement_8h.xml
-
-
-// File: PolarizationHandler_8cpp.xml
-
-
-// File: PolarizationHandler_8h.xml
-
-
-// File: SimulationElement_8cpp.xml
-
-
-// File: SimulationElement_8h.xml
-
-
 // File: FormFactorGauss_8cpp.xml
 
 
@@ -19928,109 +18970,16 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: TwoLayerRoughnessBuilder_8h.xml
 
 
-// File: CloneableVector_8h.xml
-
-
-// File: FileSystemUtils_8cpp.xml
-
-
-// File: FileSystemUtils_8h.xml
-
-
-// File: Integrator_8cpp.xml
-
-
-// File: Integrator_8h.xml
-
-
-// File: IntegratorMCMiser_8h.xml
-%feature("docstring")  make_integrator_miser "P_integrator_miser<T> make_integrator_miser(const T *object, miser_integrand< T > mem_function, size_t dim)
-
-Template function to create an integrator object 
-";
-
-
-// File: MathFunctions_8cpp.xml
-
-
-// File: MathFunctions_8h.xml
-
-
-// File: Precomputed_8h.xml
-
-
-// File: PyFmt_8cpp.xml
-
-
-// File: PyFmt_8h.xml
-
-
-// File: PyObject_8h.xml
-
-
-// File: PythonCore_8h.xml
-
-
-// File: SafePointerVector_8h.xml
-
-
-// File: SysUtils_8cpp.xml
-
-
-// File: SysUtils_8h.xml
-
-
-// File: BasicVector3D_8cpp.xml
-%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-";
-
-
-// File: BasicVector3D_8h.xml
-%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-";
-
-
-// File: EigenCore_8h.xml
-
-
-// File: SomeFormFactors_8cpp.xml
-
-
-// File: SomeFormFactors_8h.xml
-
-
-// File: Transform3D_8cpp.xml
-
-
-// File: Transform3D_8h.xml
-
-
-// File: Vectors3D_8h.xml
-
-
-// File: WavevectorInfo_8cpp.xml
-
-
-// File: WavevectorInfo_8h.xml
-
-
 // File: deprecated.xml
 
 
 // File: dir_5f1a4a05eca575eab319839347bb4113.xml
 
 
-// File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
+// File: dir_039fcda488ba1c4c70108123f82e35ee.xml
 
 
 // File: dir_2afd61a498231c74441502b63b50f75c.xml
-
-
-// File: dir_629bf8536959f2975d8caec326cd60c0.xml
 
 
 // File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
@@ -20066,6 +19015,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 // File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
 
 
+// File: dir_d04d250384f806f208dc324f8a3d90cd.xml
+
+
 // File: dir_24998d15d4ee11ef081e71321705b47b.xml
 
 
@@ -20081,7 +19033,7 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 // File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
 
 
-// File: dir_437a42df1810106c8392af0ca05a14b2.xml
+// File: dir_359af669373d7705e93988ea0fa15f60.xml
 
 
 // File: dir_8e60847f0ac26e3d8a13e8a06357123f.xml
@@ -20099,17 +19051,8 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
 
 
-// File: dir_98377dc177883022b630a05f6f34fc13.xml
-
-
 // File: dir_bf872a709c84554e66a8525bb546523f.xml
 
 
 // File: dir_5d2259b43612a5a0ff7512df653d7370.xml
-
-
-// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
-
-
-// File: dir_19cd2158bba3b9a051f8f27403820580.xml
 

@@ -13,11 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
-#include "Core/Particle/FormFactorWeighted.h"
+#include "Core/LibFF/SomeFormFactors.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/Vector/SomeFormFactors.h"
 
 FormFactorFullSphere::FormFactorFullSphere(const std::vector<double> P, bool position_at_center)
     : IFormFactorBorn({"FullSphere", "sphere", {{"Radius", "nm", "radius", 0, +INF, 0}}}, P),

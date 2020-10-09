@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCone.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Utils/Integrator.h"
+#include "Base/Utils/MathFunctions.h"
 #include "Core/Shapes/DoubleEllipse.h"
-#include "Core/Tools/Integrator.h"
-#include "Core/Tools/MathFunctions.h"
 #include <limits>
 
 FormFactorCone::FormFactorCone(const std::vector<double> P)

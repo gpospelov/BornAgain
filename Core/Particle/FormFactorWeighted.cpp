@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Particle/FormFactorWeighted.h"
-#include "Core/Basics/Algorithms.h"
+#include "Base/Utils/Algorithms.h"
 
 FormFactorWeighted::FormFactorWeighted()
 {

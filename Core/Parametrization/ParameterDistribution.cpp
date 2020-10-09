@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
 

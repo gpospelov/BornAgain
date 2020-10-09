@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 #define BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Parametrization/INode.h"
-#include "Core/Vector/Vectors3D.h"
 
 class Transform3D;
 

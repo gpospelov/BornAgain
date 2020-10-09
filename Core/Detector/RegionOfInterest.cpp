@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Mask/Rectangle.h"
 

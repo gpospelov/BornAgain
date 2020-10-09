@@ -4,6 +4,8 @@ function(SwigLib name lib TMP_DIR)
         message(FATAL_ERROR "Function SwigLib called though BORNAGAIN_PYTHON=false")
     endif()
 
+    message(STATUS "SwigLib ${name}: ${lib} ${TMP_DIR}")
+
     if(CONFIGURE_BINDINGS)
 
         file(MAKE_DIRECTORY ${TMP_DIR})
@@ -25,7 +27,11 @@ function(SwigLib name lib TMP_DIR)
         endforeach()
         list(APPEND swig_dependencies ${AUTO_DIR}/doxygen${name}.i)
 
-        set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/lib${lib}_wrap.cpp;-outdir;${TMP_DIR}"
+        # Run Swig.
+        #     Please keep -Werror, in order not to overlook critical warnings.
+        #     Dispensable warnings are disabled in Wrap/swig/warnigs.i.
+        #     Joachim, oct20.
+        set(SWIG_FLAGS "-c++;-python;-Werror;-o;${AUTO_DIR}/lib${lib}_wrap.cpp;-outdir;${TMP_DIR}"
                                ";-I${CMAKE_SOURCE_DIR};-I${CMAKE_BINARY_DIR}/inc")
 
         add_custom_command(

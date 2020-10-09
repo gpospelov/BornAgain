@@ -13,9 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Particle/ParticleComposition.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Particle/FormFactorWeighted.h"
 #include "Core/Particle/ParticleDistribution.h"
+#include "Core/Scattering/Rotations.h"
 
 ParticleComposition::ParticleComposition()
 {

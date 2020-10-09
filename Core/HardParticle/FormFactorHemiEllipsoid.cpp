@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorHemiEllipsoid.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Utils/Integrator.h"
+#include "Base/Utils/MathFunctions.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
-#include "Core/Tools/Integrator.h"
-#include "Core/Tools/MathFunctions.h"
 #include <limits>
 
 FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector<double> P)

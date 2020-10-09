@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/INode.h"
-#include "Core/Basics/Algorithms.h"
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Algorithms.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Parametrization/IterationStrategy.h"
 #include "Core/Parametrization/NodeIterator.h"
 #include "Core/Parametrization/NodeUtils.h"

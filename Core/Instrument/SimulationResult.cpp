@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/SimulationResult.h"
-#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Axis/FixedBinAxis.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/Intensity/OutputData.h"
 

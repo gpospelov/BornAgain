@@ -74,14 +74,14 @@ template <class T> void RangedDistributionTest::checkPrinting(std::string expect
     T distr(3, 1.0);
     std::stringstream print_ref;
     print_ref << "    distribution = ba." << expected_name << "(3, 1.0)";
-    std::string actual = distr.print();
+    std::string actual = distr.pyString();
     EXPECT_EQ(print_ref.str(), actual);
 
     T distr2(3, 1.0, 1.0, 2.0);
     std::stringstream print_ref2;
     print_ref2 << "    distribution = ba." << expected_name
                << "(3, 1.0, ba.RealLimits.limited(1.0, 2.0))";
-    actual = distr2.print();
+    actual = distr2.pyString();
     EXPECT_EQ(print_ref2.str(), actual);
 }
 

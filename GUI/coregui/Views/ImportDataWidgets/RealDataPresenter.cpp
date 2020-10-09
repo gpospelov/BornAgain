@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataPresenter.h"
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Assert.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataMaskWidget.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataProjectionsWidget.h"

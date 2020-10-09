@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
 #define BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 
 //! Interface for a simulating the background signal

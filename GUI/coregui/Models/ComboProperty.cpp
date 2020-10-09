@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Assert.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
 namespace

@@ -15,7 +15,8 @@
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterSample.h"
-#include "Core/Tools/PyFmt.h"
+#include "Base/Utils/PyFmt.h"
+#include "Core/Parametrization/PyFmtLimits.h"
 #include <limits>
 
 namespace
@@ -85,7 +86,7 @@ std::unique_ptr<IDistribution1D> RangedDistribution::distribution(double mean, d
     return distribution_impl(mean, stddev);
 }
 
-std::string RangedDistribution::print() const
+std::string RangedDistribution::pyString() const
 {
     std::stringstream result;
     result << pyfmt::indent() << "distribution = " << name();

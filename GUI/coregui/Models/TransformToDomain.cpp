@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/TransformToDomain.h"
+#include "Base/Const/Units.h"
 #include "Core/Aggregate/InterferenceFunctions.h"
-#include "Core/Basics/Units.h"
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Instrument/AngularSpecScan.h"
 #include "Core/Parametrization/Distributions.h"

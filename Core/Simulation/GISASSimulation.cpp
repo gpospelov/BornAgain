@@ -17,9 +17,9 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Intensity/Histogram2D.h"
 #include "Core/Multilayer/MultiLayer.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "Core/SimulationElement/SimulationElement.h"
 
 GISASSimulation::GISASSimulation()
 {

@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Detector/ScanResolution.h"
+#include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/Tools/PyFmt.h"
 
 namespace
 {

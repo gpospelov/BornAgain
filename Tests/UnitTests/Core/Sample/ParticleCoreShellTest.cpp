@@ -1,6 +1,6 @@
 #include "Core/Particle/ParticleCoreShell.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Const/Units.h"
 #include "Core/HardParticle/HardParticles.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Particle/Particle.h"

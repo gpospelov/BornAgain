@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceMesoCrystalUtils.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/Units.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/HardParticle/HardParticles.h"
 #include "Core/Particle/IParticle.h"
 #include "Core/Particle/MesoCrystal.h"

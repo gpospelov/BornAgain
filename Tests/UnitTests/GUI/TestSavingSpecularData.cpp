@@ -1,4 +1,4 @@
-#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Axis/PointwiseAxis.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Core/Intensity/OutputData.h"
 #include "GUI/coregui/Models/ApplicationModels.h"

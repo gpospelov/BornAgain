@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/SampleBuilderEngine/SampleBuilderNode.h"
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"

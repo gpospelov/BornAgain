@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/Units.h"
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Instrument/AngularSpecScan.h"

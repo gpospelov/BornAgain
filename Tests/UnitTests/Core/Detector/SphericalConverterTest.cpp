@@ -1,8 +1,8 @@
-#include "Core/Basics/Units.h"
+#include "Base/Const/Units.h"
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Intensity/SimpleUnitConverters.h"
-#include "Core/Vector/Vectors3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SphericalConverterTest : public ::testing::Test

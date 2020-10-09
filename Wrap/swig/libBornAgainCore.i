@@ -91,16 +91,14 @@
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Aggregate/InterferenceFunctionTwin.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/Complex.h"
-#include "Core/Basics/ICloneable.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Binning/Bin.h"
-#include "Core/Binning/ConstKBinAxis.h"
-#include "Core/Binning/CustomBinAxis.h"
-#include "Core/Binning/FixedBinAxis.h"
-#include "Core/Binning/VariableBinAxis.h"
+#include "Core/Axis/Bin.h"
+#include "Core/Axis/ConstKBinAxis.h"
+#include "Core/Axis/CustomBinAxis.h"
+#include "Core/Axis/FixedBinAxis.h"
+#include "Core/Axis/VariableBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/MultiLayerFuncs.h"
@@ -175,6 +173,7 @@
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
+#include "Core/Material/WavevectorInfo.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
@@ -191,7 +190,6 @@
 #include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Parametrization/ThreadInfo.h"
-#include "Core/Basics/Units.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/FormFactorWeighted.h"
@@ -218,10 +216,6 @@
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Core/Tools/MathFunctions.h"
-#include "Core/Vector/BasicVector3D.h"
-#include "Core/Vector/Vectors3D.h"
-#include "Core/Vector/WavevectorInfo.h"
 #include "Fit/Kernel/FitOptions.h"
 %}
 
@@ -265,6 +259,12 @@
 %import(module="libBornAgainFit") "Fit/Kernel/Parameters.h"
 %import(module="libBornAgainFit") "Fit/Kernel/Parameter.h"
 
+%import(module="libBornAgainBase") "Base/Types/Complex.h"
+%import(module="libBornAgainBase") "Base/Types/ICloneable.h"
+%import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
+%import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
+%include "fromBase.i"
+
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
@@ -275,12 +275,6 @@
 %include "Fit/TestEngine/IFactory.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
-
-%include "Core/Vector/BasicVector3D.h"
-%template(kvector_t) BasicVector3D<double>;
-%template(vector_kvector_t) std::vector<BasicVector3D<double>>;
-%template(cvector_t) BasicVector3D<std::complex<double>>;
-%template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
 
 %include "Core/Parametrization/IParameter.h" // needed?
 %template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
@@ -297,23 +291,14 @@
 
 %include "BAVersion.h"
 
-%include "Core/Binning/Bin.h"
-%include "Core/Binning/IPixel.h"
-%include "Core/Binning/IAxis.h"
-%include "Core/Binning/VariableBinAxis.h"
-%include "Core/Binning/ConstKBinAxis.h"
-%include "Core/Binning/CustomBinAxis.h"
-%include "Core/Binning/FixedBinAxis.h"
+%include "Core/Axis/Bin.h"
+%include "Core/Axis/IAxis.h"
+%include "Core/Axis/VariableBinAxis.h"
+%include "Core/Axis/ConstKBinAxis.h"
+%include "Core/Axis/CustomBinAxis.h"
+%include "Core/Axis/FixedBinAxis.h"
 
-// need to tell SWIG explicitly to instantiate these templates with given types
-%include "Core/Basics/ICloneable.h"
-%include "Core/Basics/Complex.h"
-%include "Core/Basics/Units.h"
-
-%include "Core/Vector/Vectors3D.h"
-%include "Core/Vector/WavevectorInfo.h"
-
-%include "Core/Tools/MathFunctions.h"
+%include "Core/Pixel/IPixel.h"
 
 %include "Core/Mask/IShape2D.h"
 %include "Core/Mask/Ellipse.h"
@@ -485,6 +470,7 @@
 
 %include "Core/Material/Material.h"
 %include "Core/Material/MaterialFactoryFuncs.h"
+%include "Core/Material/WavevectorInfo.h"
 
 %include "Core/StandardSamples/SampleBuilderFactory.h"
 %include "Core/Simulation/SimulationFactory.h"

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Fit/Tools/RealLimits.h"
 #include <memory>
 #include <vector>
@@ -71,7 +71,7 @@ public:
     void setLimits(const RealLimits& limits) { m_limits = limits; }
 
     //! Prints python-formatted definition of the distribution
-    std::string print() const;
+    std::string pyString() const;
 
 protected:
     //! Returns distribution name for python-formatted text.
@@ -219,7 +219,7 @@ protected:
 
 inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& distribution)
 {
-    return os << distribution.print();
+    return os << distribution.pyString();
 }
 
 #endif // BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H

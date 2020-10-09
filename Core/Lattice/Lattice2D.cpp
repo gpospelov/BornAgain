@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Lattice/Lattice2D.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/RealParameter.h"
 #include <cmath>

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_ISPECULARSCAN_H
 #define BORNAGAIN_CORE_INSTRUMENT_ISPECULARSCAN_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 
 #include <sstream>
 #include <string>

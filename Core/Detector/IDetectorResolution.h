@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_DETECTOR_IDETECTORRESOLUTION_H
 #define BORNAGAIN_CORE_DETECTOR_IDETECTORRESOLUTION_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Intensity/OutputData.h"
 #include "Core/Parametrization/INode.h"
 

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Export/SimulationToPython.h"
+#include "Base/Utils/Algorithms.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
 #include "Core/Computation/ConstantBackground.h"
@@ -26,12 +27,12 @@
 #include "Core/Export/SampleToPython.h"
 #include "Core/Instrument/ISpecularScan.h"
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Core/PyIO/PythonFormatting.h"
+#include "Base/Utils/PyFmt.h"
+#include "Core/Parametrization/PyFmtLimits.h"
+#include "Core/Instrument/PyFmt2.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/Tools/PyFmt.h"
-#include "Fit/TestEngine/Numeric.h"
 #include <iomanip>
 
 namespace
@@ -60,9 +61,8 @@ std::function<std::string(double)> printFunc(const IDetector* detector)
 //! returns true if it is (0, -1, 0) vector
 bool isDefaultDirection(const kvector_t direction)
 {
-    return Numeric::AreAlmostEqual(direction.x(), 0.0)
-           && Numeric::AreAlmostEqual(direction.y(), -1.0)
-           && Numeric::AreAlmostEqual(direction.z(), 0.0);
+    return algo::almostEqual(direction.x(), 0.0) && algo::almostEqual(direction.y(), -1.0)
+           && algo::almostEqual(direction.z(), 0.0);
 }
 
 } // namespace

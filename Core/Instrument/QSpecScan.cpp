@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/QSpecScan.h"
-#include "Core/Binning/FixedBinAxis.h"
-#include "Core/Binning/PointwiseAxis.h"
+#include "Core/Axis/FixedBinAxis.h"
+#include "Core/Axis/PointwiseAxis.h"
 #include "Core/Detector/ScanResolution.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Parametrization/ParameterSample.h"
+#include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/PyIO/PythonFormatting.h"
-#include "Core/Tools/PyFmt.h"
+#include "Core/Instrument/PyFmt2.h"
 #include "Fit/Tools/RealLimits.h"
 
 namespace

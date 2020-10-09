@@ -1427,11 +1427,6 @@ Returns horizontal line of 80 characters length with section name in it.
 
 
 // File: namespaceNumeric.xml
-%feature("docstring")  Numeric::AreAlmostEqual "bool Numeric::AreAlmostEqual(double a, double b, double tolerance)
-
-Returns true if two doubles agree within epsilon*tolerance. 
-";
-
 %feature("docstring")  Numeric::GetAbsoluteDifference "double Numeric::GetAbsoluteDifference(double a, double b)
 
 Returns the absolute value of the difference between a and b. 

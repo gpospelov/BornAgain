@@ -1,6 +1,6 @@
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"

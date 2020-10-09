@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Intensity/SimpleUnitConverters.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Basics/Units.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Const/Units.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Detector/RectangularPixel.h"

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorBox.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Utils/MathFunctions.h"
 
 FormFactorBox::FormFactorBox(const std::vector<double> P)
     : IFormFactorPrism({"Box",

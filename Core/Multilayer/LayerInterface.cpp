@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/LayerInterface.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Multilayer/LayerRoughness.h"
 
 LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr)

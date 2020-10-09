@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Detector/ResolutionFunction2DGaussian.h"
+#include "Base/Utils/MathFunctions.h"
 #include "Core/Parametrization/RealParameter.h"
-#include "Core/Tools/MathFunctions.h"
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
     : m_sigma_x(sigma_x), m_sigma_y(sigma_y)

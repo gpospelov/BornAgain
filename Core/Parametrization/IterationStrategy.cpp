@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/IterationStrategy.h"
-#include "Core/Basics/Assert.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Parametrization/INode.h"
 #include "Core/Parametrization/NodeIterator.h"
 

@@ -16,7 +16,7 @@
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Multilayer/InterferenceFunctionUtils.h"
-#include "Core/SimulationElement/SimulationElement.h"
+#include "Core/Pixel/SimulationElement.h"
 
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
 using InterferenceFunctionUtils::PrecomputeScalarFormFactors;

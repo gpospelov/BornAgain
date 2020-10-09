@@ -3,7 +3,7 @@ set(WEB_LEN_LIM 85) # maximum line length of code for display in web docs
 
 if(NOT MSVC)
 
-    foreach(dir "Core" "Fit" "GUI")
+    foreach(dir ${AllComponents})
         file(GLOB_RECURSE src1 ${dir}/*.cpp)
         file(GLOB_RECURSE src2 ${dir}/*.h)
         add_test(NAME "LineLength.Cpp.${dir}"
@@ -12,7 +12,7 @@ if(NOT MSVC)
             ${src1} ${src2})
     endforeach()
 
-    foreach(dir "Core" "Fit" "GUI")
+    foreach(dir ${AllComponents})
         file(GLOB_RECURSE src1 ${dir}/*CMakeLists.txt)
         add_test(NAME "LineLength.CMake.${dir}"
             COMMAND ${Python3_EXECUTABLE}

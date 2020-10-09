@@ -15,6 +15,7 @@
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Particle/FormFactorCoreShell.h"
 #include "Core/Particle/Particle.h"
+#include "Core/Particle/SlicedParticle.h"
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core,
                                      kvector_t relative_core_position)

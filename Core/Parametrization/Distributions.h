@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 #include "Fit/Tools/RealLimits.h"
 #include <vector>

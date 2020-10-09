@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Detector/Convolve.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept> // need overlooked by g++ 5.4

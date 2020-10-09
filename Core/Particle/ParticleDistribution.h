@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H
 #define BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H
 
+#include "Base/Types/SafePointerVector.h"
 #include "Core/Parametrization/ParameterDistribution.h"
 #include "Core/Particle/IAbstractParticle.h"
-#include "Core/Tools/SafePointerVector.h"
 
 class IParticle;
 

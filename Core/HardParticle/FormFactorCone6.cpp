@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorCone6.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
-#include "Core/Tools/MathFunctions.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Utils/MathFunctions.h"
 
 const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true},
                                                        {{0, 1, 7, 6}, false},

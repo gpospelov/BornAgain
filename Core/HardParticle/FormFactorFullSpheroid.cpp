@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorFullSpheroid.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Utils/MathFunctions.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
-#include "Core/Tools/MathFunctions.h"
 #include <limits>
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)

@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/FormFactorCoherentPart.h"
+#include "Core/Material/WavevectorInfo.h"
 #include "Core/Multilayer/IFresnelMap.h"
+#include "Core/Pixel/SimulationElement.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Scattering/IFormFactor.h"
-#include "Core/SimulationElement/SimulationElement.h"
-#include "Core/Vector/WavevectorInfo.h"
 
 FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff) : mP_ff(p_ff) {}
 

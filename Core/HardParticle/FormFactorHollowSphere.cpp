@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/HardParticle/FormFactorHollowSphere.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 

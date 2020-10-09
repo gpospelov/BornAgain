@@ -15,11 +15,11 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
 #define BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
 
+#include "Base/Types/SafePointerVector.h"
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Multilayer/RoughnessModels.h"
 #include "Core/Scattering/ISample.h"
 #include "Core/Scattering/ZLimits.h"
-#include "Core/Tools/SafePointerVector.h"
-#include "Core/Vector/Vectors3D.h"
 
 #include <functional>
 

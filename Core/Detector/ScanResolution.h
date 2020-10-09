@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_DETECTOR_SCANRESOLUTION_H
 #define BORNAGAIN_CORE_DETECTOR_SCANRESOLUTION_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include <memory>
 #include <string>

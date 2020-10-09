@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_ISAMPLE_H
 #define BORNAGAIN_CORE_SCATTERING_ISAMPLE_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 #include <vector>
 

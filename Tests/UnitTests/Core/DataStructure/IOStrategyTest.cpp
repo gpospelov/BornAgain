@@ -1,4 +1,4 @@
-#include "Core/Binning/FixedBinAxis.h"
+#include "Core/Axis/FixedBinAxis.h"
 #include "Core/InputOutput/OutputDataReadStrategy.h"
 #include "Core/InputOutput/OutputDataWriteStrategy.h"
 #include "Core/Intensity/OutputData.h"

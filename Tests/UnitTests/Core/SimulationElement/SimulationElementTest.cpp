@@ -1,6 +1,6 @@
-#include "Core/SimulationElement/SimulationElement.h"
-#include "Core/Basics/Units.h"
-#include "Core/Binning/Bin.h"
+#include "Core/Pixel/SimulationElement.h"
+#include "Base/Const/Units.h"
+#include "Core/Axis/Bin.h"
 #include "Core/Detector/SphericalPixel.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>

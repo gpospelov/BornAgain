@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
 #define BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/CloneableVector.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Detector/DetectionProperties.h"
 #include "Core/Detector/SimulationAreaIterator.h"
 #include "Core/Intensity/IUnitConverter.h"
 #include "Core/Parametrization/INode.h"
-#include "Core/Tools/CloneableVector.h"
 
 class Beam;
 class DetectorMask;

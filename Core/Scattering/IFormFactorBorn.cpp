@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/IFormFactorBorn.h"
-#include "Core/Basics/Algorithms.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Utils/Algorithms.h"
+#include "Core/Material/WavevectorInfo.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/Vector/WavevectorInfo.h"
 
 IFormFactorBorn::IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactor(meta, PValues)

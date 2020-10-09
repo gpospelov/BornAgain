@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
+#include "Core/Axis/PointwiseAxis.h"
 #include "Core/Beam/IFootprintFactor.h"
-#include "Core/Binning/PointwiseAxis.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"
 #include "Core/Detector/SpecularDetector1D.h"

@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Particle/MesoCrystal.h"
+#include "Base/Const/Units.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Basics/Units.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Lattice/ISelectionRule.h"
@@ -146,8 +146,7 @@ MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const
             RotationX rotX(tilt);
             mesocrystal->setRotation(rotZ);
             mesocrystal->rotate(rotX);
-            particle_decoration.addParticle(*mesocrystal, 1.0,
-                                            kvector_t(0, 0, -m_meso_height));
+            particle_decoration.addParticle(*mesocrystal, 1.0, kvector_t(0, 0, -m_meso_height));
         }
     }
 

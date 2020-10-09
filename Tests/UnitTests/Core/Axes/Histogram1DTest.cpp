@@ -1,5 +1,5 @@
 #include "Core/Intensity/Histogram1D.h"
-#include "Core/Basics/Exceptions.h"
+#include "Base/Types/Exceptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_DETECTOR_IRESOLUTIONFUNCTION2D_H
 #define BORNAGAIN_CORE_DETECTOR_IRESOLUTIONFUNCTION2D_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include "Core/Parametrization/INode.h"
 
 //! Interface providing two-dimensional resolution function.

@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/FormFactorDecoratorMaterial.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Vector/WavevectorInfo.h"
+#include "Core/Material/WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
     : IFormFactorDecorator(form_factor), m_material(HomogeneousMaterial()),

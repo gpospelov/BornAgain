@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Intensity/Histogram1D.h"
-#include "Core/Binning/VariableBinAxis.h"
+#include "Core/Axis/VariableBinAxis.h"
 #include "Core/Intensity/ArrayUtils.h"
 #include <memory>
 

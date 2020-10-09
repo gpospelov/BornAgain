@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Scattering/Rotations.h"
-#include "Core/Basics/Assert.h"
-#include "Core/Vector/Transform3D.h"
+#include "Base/Utils/Assert.h"
+#include "Base/Vector/Transform3D.h"
 
 // ************************************************************************** //
 // interface IRotation

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_IUNITCONVERTER_H
 #define BORNAGAIN_CORE_INTENSITY_IUNITCONVERTER_H
 
-#include "Core/Basics/ICloneable.h"
+#include "Base/Types/ICloneable.h"
 #include <map>
 #include <memory>
 #include <string>

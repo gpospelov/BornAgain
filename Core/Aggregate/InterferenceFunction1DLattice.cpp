@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
-#include "Core/Basics/Assert.h"
-#include "Core/Basics/Exceptions.h"
-#include "Core/Basics/MathConstants.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Correlations/FTDecay1D.h"
 #include "Core/Correlations/FTDecay2D.h"
 #include "Core/Parametrization/RealParameter.h"

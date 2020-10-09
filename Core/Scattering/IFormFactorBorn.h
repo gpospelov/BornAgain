@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
 #define BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
 
+#include "Base/Vector/Vectors3D.h"
 #include "Core/Scattering/IFormFactor.h"
 #include "Core/Shapes/IShape.h"
-#include "Core/Vector/Vectors3D.h"
 
 struct SlicingEffects; // defined below
 

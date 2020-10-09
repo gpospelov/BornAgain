@@ -5,8 +5,8 @@
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/Axis/VariableBinAxis.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Scan/QSpecScan.h"
 #include "Core/Data/OutputData.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test

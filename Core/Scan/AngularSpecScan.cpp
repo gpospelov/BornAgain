@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "Core/Scan/AngularSpecScan.h"
+#include "Base/Utils/PyFmt.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/Beam/IFootprintFactor.h"
-#include "Core/Resolution/ScanResolution.h"
+#include "Core/Instrument/PyFmt2.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Parametrization/ParameterSample.h"
-#include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/Instrument/PyFmt2.h"
+#include "Core/Resolution/ScanResolution.h"
 #include "Fit/Tools/RealLimits.h"
 
 namespace

@@ -16,8 +16,8 @@
 #define BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
 
 #include "Base/Types/ICloneable.h"
-#include "Param/Node/INode.h"
 #include "Fit/Tools/RealLimits.h"
+#include "Param/Node/INode.h"
 #include <vector>
 
 class ParameterSample;

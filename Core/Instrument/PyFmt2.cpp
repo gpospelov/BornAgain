@@ -16,6 +16,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/Algorithms.h"
+#include "Base/Utils/PyFmt.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/Mask/Ellipse.h"
@@ -24,13 +25,12 @@
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Parametrization/Distributions.h"
-#include "Param/Base/IParameterized.h"
 #include "Core/Parametrization/ParameterDistribution.h"
-#include "Param/Base/ParameterPool.h"
-#include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/PyFmtLimits.h"
-#include "Param/Base/RealParameter.h"
 #include "Fit/Tools/StringUtils.h"
+#include "Param/Base/IParameterized.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include <iomanip>
 
 namespace pyfmt2

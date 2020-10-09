@@ -18,10 +18,10 @@
 #include "Base/Types/SafePointerVector.h"
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/PyObject.h"
+#include "Base/Utils/ThreadInfo.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Data/LLData.h"
 #include "Core/Data/OutputDataIterator.h"
-#include "Base/Utils/ThreadInfo.h"
 #include <sstream>
 
 using std::size_t;

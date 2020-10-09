@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Histo/IHistogram.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h" // TODO rm
 #include "Core/Histo/Histogram1D.h"
 #include "Core/Histo/Histogram2D.h"
+#include "Core/InputOutput/IntensityDataIOFactory.h" // TODO rm
 #include "Fit/TestEngine/Numeric.h"
 #include <memory>
 

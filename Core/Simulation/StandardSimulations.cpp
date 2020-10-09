@@ -20,10 +20,6 @@
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Detector/IsGISAXSDetector.h"
 #include "Core/Detector/RectangularDetector.h"
-#include "Core/Resolution/ResolutionFunction2DGaussian.h"
-#include "Core/Resolution/ScanResolution.h"
-#include "Core/Scan/AngularSpecScan.h"
-#include "Core/Scan/QSpecScan.h"
 #include "Core/Mask/Ellipse.h"
 #include "Core/Mask/Line.h"
 #include "Core/Mask/Polygon.h"
@@ -31,12 +27,16 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Param/Base/RealParameter.h"
+#include "Core/Resolution/ResolutionFunction2DGaussian.h"
+#include "Core/Resolution/ScanResolution.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Param/Base/RealParameter.h"
 #include <memory>
 
 namespace

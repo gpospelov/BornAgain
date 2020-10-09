@@ -8,8 +8,8 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
-#include "Param/Base/RealParameter.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Param/Base/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class DepthProbeSimulationTest : public ::testing::Test

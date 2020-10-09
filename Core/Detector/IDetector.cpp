@@ -14,13 +14,13 @@
 
 #include "Core/Detector/IDetector.h"
 #include "Core/Axis/IAxis.h"
-#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/Data/OutputData.h"
 #include "Core/Detector/DetectorMask.h"
-#include "Core/Resolution/IDetectorResolution.h"
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Detector/SimulationArea.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Pixel/SimulationElement.h"
+#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/Resolution/IDetectorResolution.h"
 
 IDetector::IDetector()
 {

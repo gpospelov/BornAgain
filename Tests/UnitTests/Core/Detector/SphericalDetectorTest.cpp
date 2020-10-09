@@ -3,14 +3,14 @@
 #include "Base/Types/Exceptions.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/Data/OutputData.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Resolution/ResolutionFunction2DGaussian.h"
 #include "Core/Detector/SimulationArea.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
+#include "Core/Resolution/ConvolutionDetectorResolution.h"
+#include "Core/Resolution/ResolutionFunction2DGaussian.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

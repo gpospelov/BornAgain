@@ -14,10 +14,10 @@
 
 #include "Core/InputOutput/IntensityDataIOFactory.h"
 #include "Base/Utils/FileSystemUtils.h"
+#include "Core/Histo/IHistogram.h"
 #include "Core/InputOutput/OutputDataReadFactory.h"
 #include "Core/InputOutput/OutputDataWriteFactory.h"
 #include "Core/Instrument/SimulationResult.h"
-#include "Core/Histo/IHistogram.h"
 #include <exception>
 #include <fstream>
 #include <memory>

@@ -15,11 +15,11 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Base/Types/Exceptions.h"
 #include "Core/Parametrization/Distributions.h"
-#include "Param/Base/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Param/Base/RealParameter.h"
 #include "Core/Particle/IParticle.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include <map>
 
 ParticleDistribution::ParticleDistribution(const IParticle& prototype,

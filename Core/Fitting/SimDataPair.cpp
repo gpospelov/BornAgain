@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Fitting/SimDataPair.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Data/OutputData.h"
+#include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Fit/TestEngine/Numeric.h"

@@ -13,16 +13,16 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/UnitConverterUtils.h"
+#include "Core/Data/OutputData.h"
 #include "Core/Detector/RectangularDetector.h"
+#include "Core/Detector/SimpleUnitConverters.h"
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Instrument/Instrument.h"
-#include "Core/Data/OutputData.h"
-#include "Core/Detector/SimpleUnitConverters.h"
-#include "Core/Unit/UnitConverter1D.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
+#include "Core/Unit/UnitConverter1D.h"
 
 std::unique_ptr<OutputData<double>>
 UnitConverterUtils::createOutputData(const IUnitConverter& converter, Axes::Units units)

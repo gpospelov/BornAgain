@@ -14,7 +14,6 @@
 
 #include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Param/Base/ParameterPool.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
@@ -37,6 +36,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Param/Base/ParameterPool.h"
 #include <QStack>
 
 namespace

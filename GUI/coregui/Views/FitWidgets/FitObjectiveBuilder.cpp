@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
+#include "Core/Data/OutputData.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/ObjectiveMetric.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Simulation/Simulation.h"
 #include "Fit/Kernel/KernelTypes.h"
 #include "Fit/Kernel/Minimizer.h"

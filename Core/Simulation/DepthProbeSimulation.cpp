@@ -18,15 +18,15 @@
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/DepthProbeComputation.h"
 #include "Core/Computation/IBackground.h"
+#include "Core/Detector/SimpleUnitConverters.h"
 #include "Core/Detector/SpecularDetector1D.h"
 #include "Core/Histo/Histogram1D.h"
-#include "Core/Detector/SimpleUnitConverters.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 namespace
 {

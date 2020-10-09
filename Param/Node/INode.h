@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
 
-#include "Param/Node/INodeVisitor.h" // not forward declared because used by all children
 #include "Param/Base/IParameterized.h"
+#include "Param/Node/INodeVisitor.h" // not forward declared because used by all children
 #include <limits>
 #include <memory>
 #include <vector>

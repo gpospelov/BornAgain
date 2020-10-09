@@ -15,8 +15,8 @@
 #include "Core/Parametrization/Distributions.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
-#include "Param/Base/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
+#include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include <algorithm>
 #include <cmath>

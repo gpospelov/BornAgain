@@ -1,8 +1,8 @@
 #include "Param/Node/INode.h"
 #include "Base/Types/Exceptions.h"
-#include "Param/Node/NodeUtils.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Node/NodeUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

@@ -19,17 +19,17 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"
 #include "Core/Detector/SpecularDetector1D.h"
-#include "Core/Scan/AngularSpecScan.h"
-#include "Core/Scan/ISpecularScan.h"
 #include "Core/Histo/Histogram1D.h"
-#include "Core/Unit/UnitConverter1D.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Parametrization/Distributions.h"
+#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/ISpecularScan.h"
+#include "Core/Unit/UnitConverter1D.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 namespace
 {

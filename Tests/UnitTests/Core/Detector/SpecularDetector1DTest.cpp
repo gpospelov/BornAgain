@@ -2,8 +2,8 @@
 #include "Base/Const/Units.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Beam/Beam.h"
-#include "Core/Detector/SimulationArea.h"
 #include "Core/Data/OutputData.h"
+#include "Core/Detector/SimulationArea.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

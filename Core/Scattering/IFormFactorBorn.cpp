@@ -19,7 +19,6 @@
 #include "Core/Scattering/Rotations.h"
 #include "Core/Shapes/IShape.h"
 
-
 IFormFactorBorn::IFormFactorBorn() = default;
 
 IFormFactorBorn::IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues)

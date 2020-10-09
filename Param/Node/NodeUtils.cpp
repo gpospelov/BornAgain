@@ -14,11 +14,11 @@
 
 #include "Param/Node/NodeUtils.h"
 #include "Base/Types/Exceptions.h"
-#include "Param/Node/INode.h"
 #include "Param/Base/IterationStrategy.h"
-#include "Param/Node/NodeIterator.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Node/INode.h"
+#include "Param/Node/NodeIterator.h"
 #include <algorithm>
 #include <functional>
 #include <iterator>

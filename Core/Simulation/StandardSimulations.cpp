@@ -24,9 +24,6 @@
 #include "Core/Mask/Line.h"
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
-#include "Param/Distrib/RangedDistributions.h"
 #include "Core/Resolution/ResolutionFunction2DGaussian.h"
 #include "Core/Resolution/ScanResolution.h"
 #include "Core/Scan/AngularSpecScan.h"
@@ -37,6 +34,9 @@
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/RangedDistributions.h"
+#include "Param/Varia/ParameterPattern.h"
 #include <memory>
 
 namespace

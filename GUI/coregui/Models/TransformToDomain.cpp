@@ -15,9 +15,6 @@
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "Base/Const/Units.h"
 #include "Core/Aggregate/InterferenceFunctions.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
-#include "Param/Distrib/RangedDistributions.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleCoreShell.h"
@@ -54,6 +51,9 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/RangedDistributions.h"
+#include "Param/Varia/ParameterPattern.h"
 
 using SessionItemUtils::GetVectorItem;
 

@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/DistributionItems.h"
+#include "GUI/coregui/Models/RealLimitsItems.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "GUI/coregui/Models/RealLimitsItems.h"
 #include <cmath>
 
 namespace

@@ -15,9 +15,9 @@
 #include "Core/Histo/IntensityDataIOFactory.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Histo/IHistogram.h"
+#include "Core/Histo/SimulationResult.h"
 #include "Core/InputOutput/OutputDataReadFactory.h"
 #include "Core/InputOutput/OutputDataWriteFactory.h"
-#include "Core/Instrument/SimulationResult.h"
 #include <exception>
 #include <fstream>
 #include <memory>

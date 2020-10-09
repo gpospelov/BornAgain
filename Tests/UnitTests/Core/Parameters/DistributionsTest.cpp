@@ -1,8 +1,8 @@
 #include "Param/Distrib/Distributions.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
-#include "Param/Varia/ParameterSample.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Varia/ParameterSample.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 #include <memory>

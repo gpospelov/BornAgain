@@ -14,8 +14,6 @@
 
 #include "GUI/coregui/Models/ParticleDistributionItem.h"
 #include "Base/Const/Units.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterUtils.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DistributionItems.h"
 #include "GUI/coregui/Models/ParameterTreeUtils.h"
@@ -24,6 +22,8 @@
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterUtils.h"
 
 namespace
 {

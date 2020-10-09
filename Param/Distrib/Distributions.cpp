@@ -15,9 +15,9 @@
 #include "Param/Distrib/Distributions.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
-#include "Param/Varia/ParameterSample.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Varia/ParameterSample.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>

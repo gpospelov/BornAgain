@@ -14,11 +14,11 @@
 
 #include "Base/Const/Units.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
 #include "Core/StandardSamples/ParaCrystalBuilder.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
 #include "Tests/Performance/Core/ThreadingComponents.h"
 #include <algorithm>
 #include <boost/format.hpp>

@@ -35,9 +35,6 @@
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
-#include "Param/Distrib/RangedDistributions.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Resolution/ConvolutionDetectorResolution.h"
@@ -69,6 +66,9 @@
 #include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/RangedDistributions.h"
+#include "Param/Varia/ParameterPattern.h"
 
 using namespace INodeUtils;
 using SessionItemUtils::SetVectorItem;

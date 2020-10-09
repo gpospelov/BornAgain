@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_FITTING_SIMDATAPAIR_H
 
 #include "Core/Fitting/FitTypes.h"
-#include "Core/Instrument/SimulationResult.h"
+#include "Core/Histo/SimulationResult.h"
 
 template <class T> class OutputData;
 

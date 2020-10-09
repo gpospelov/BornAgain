@@ -8,12 +8,12 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 

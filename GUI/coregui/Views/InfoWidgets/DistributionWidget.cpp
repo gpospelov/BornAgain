@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/InfoWidgets/DistributionWidget.h"
-#include "Param/Distrib/Distributions.h"
 #include "GUI/coregui/Models/DistributionItems.h"
 #include "GUI/coregui/Models/RealLimitsItems.h"
 #include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
+#include "Param/Distrib/Distributions.h"
 #include "qcustomplot.h"
 #include <QLabel>
 #include <QVBoxLayout>

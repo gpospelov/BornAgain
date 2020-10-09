@@ -25,14 +25,14 @@
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Instrument/PyFmt2.h"
-#include "Param/Varia/ParameterUtils.h"
-#include "Param/Varia/PyFmtLimits.h"
 #include "Core/Resolution/ConvolutionDetectorResolution.h"
 #include "Core/Resolution/ResolutionFunction2DGaussian.h"
 #include "Core/Scan/ISpecularScan.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
+#include "Param/Varia/ParameterUtils.h"
+#include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
 
 namespace

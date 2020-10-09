@@ -16518,16 +16518,16 @@ class IHistogram(object):
         """
         return _libBornAgainCore.IHistogram_array(self, *args)
 
-    def getArray(self, *args):
+    def getArrayObsolete(self, *args):
         r"""
-        getArray(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
+        getArrayObsolete(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
         PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
 
         Deprecated
         Use  array() instead. 
 
         """
-        return _libBornAgainCore.IHistogram_getArray(self, *args)
+        return _libBornAgainCore.IHistogram_getArrayObsolete(self, *args)
 
     def reset(self):
         r"""

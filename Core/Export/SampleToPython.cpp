@@ -26,7 +26,6 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Param/Varia/ParameterUtils.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/MesoCrystal.h"
 #include "Core/Particle/Particle.h"
@@ -34,6 +33,7 @@
 #include "Core/Particle/ParticleCoreShell.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/Scattering/IFormFactor.h"
+#include "Param/Varia/ParameterUtils.h"
 #include <iomanip>
 #include <map>
 #include <set>

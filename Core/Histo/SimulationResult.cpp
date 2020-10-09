@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/SimulationResult.cpp
+//! @file      Core/Histo/SimulationResult.cpp
 //! @brief     Implements class SimulationResult.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/SimulationResult.h"
+#include "Core/Histo/SimulationResult.h"
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Histo/Histogram2D.h"

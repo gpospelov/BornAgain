@@ -39,6 +39,17 @@
 %include "renameCore.i"
 %include "directors.i"
 
+
+ // deprecations:
+%rename(getArrayObsolete) IHistogram::getArray;
+%extend IHistogram {
+    %pythoncode %{
+         @deprecated("Deprecated. Use array() instead.")
+         def getArray(self):
+             return self.getArrayObsolete()
+    %}
+ };
+
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector<std::vector<double>>;
 %template(vector_integer_t) std::vector<int>;
@@ -151,7 +162,7 @@
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/PyArrayImportUtils.h"
 #include "Core/Scan/QSpecScan.h"
-#include "Core/Instrument/SimulationResult.h"
+#include "Core/Histo/SimulationResult.h"
 #include "Core/Instrument/SpectrumUtils.h"
 #include "Core/Instrument/VarianceFunctions.h"
 #include "Core/Histo/Histogram1D.h"
@@ -436,7 +447,7 @@
 %include "Core/Instrument/Instrument.h"
 %include "Core/Instrument/PyArrayImportUtils.h"
 %include "Core/Scan/QSpecScan.h"
-%include "Core/Instrument/SimulationResult.h"
+%include "Core/Histo/SimulationResult.h"
 %include "Core/Instrument/SpectrumUtils.h"
 %include "Core/Instrument/VarianceFunctions.h"
 
@@ -454,13 +465,3 @@
 %include "Core/Simulation/SimulationFactory.h"
 
 %include "extendCore.i"
-
- // deprecations:
-%rename(getArrayObsolete) IHistogram::getArray;
-%extend IHistogram {
-    %pythoncode %{
-         @deprecated("Deprecated. Use array() instead.")
-         def getArray(self):
-             return self.getArrayObsolete()
-    %}
- };

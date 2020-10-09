@@ -24,13 +24,13 @@
 #include "Core/Mask/Line.h"
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Distrib/ParameterDistribution.h"
-#include "Param/Varia/PyFmtLimits.h"
 #include "Fit/Tools/StringUtils.h"
 #include "Param/Base/IParameterized.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/ParameterDistribution.h"
+#include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
 
 namespace pyfmt2

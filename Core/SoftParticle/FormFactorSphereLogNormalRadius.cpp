@@ -14,9 +14,9 @@
 
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Core/LibFF/SomeFormFactors.h"
+#include "Core/Shapes/TruncatedEllipsoid.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterSample.h"
-#include "Core/Shapes/TruncatedEllipsoid.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vector<double> P,
                                                                  size_t n_samples)

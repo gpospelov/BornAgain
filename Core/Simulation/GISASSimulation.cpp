@@ -15,7 +15,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
-#include "Core/Intensity/Histogram2D.h"
+#include "Core/Histo/Histogram2D.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Pixel/SimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
@@ -41,7 +41,7 @@ SimulationResult GISASSimulation::result() const
     const auto& instrument = getInstrument();
     const auto converter = UnitConverterUtils::createConverterForGISAS(instrument);
     const std::unique_ptr<OutputData<double>> data(
-        instrument.createDetectorIntensity(m_sim_elements));
+        instrument.detector().createDetectorIntensity(m_sim_elements));
     return SimulationResult(*data, *converter);
 }
 

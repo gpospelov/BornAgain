@@ -3,7 +3,7 @@
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/SimulationArea.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

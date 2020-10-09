@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/IntensityDataWidgets/SaveProjectionsAssistant.h"
-#include "Core/Intensity/Histogram1D.h"
-#include "Core/Intensity/Histogram2D.h"
+#include "Core/Histo/Histogram1D.h"
+#include "Core/Histo/Histogram2D.h"
 #include "Base/Utils/PyFmt.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"

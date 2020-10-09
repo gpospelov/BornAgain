@@ -2,7 +2,7 @@
 #include "Base/Vector/Vectors3D.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/RectangularDetector.h"
-#include "Core/Intensity/SimpleUnitConverters.h"
+#include "Core/Detector/SimpleUnitConverters.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 

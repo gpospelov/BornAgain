@@ -19,7 +19,7 @@
 #include "Base/Types/ICloneable.h"
 #include "Core/Detector/DetectionProperties.h"
 #include "Core/Detector/SimulationAreaIterator.h"
-#include "Core/Intensity/IUnitConverter.h"
+#include "Core/Unit/IUnitConverter.h"
 #include "Core/Parametrization/INode.h"
 
 class Beam;

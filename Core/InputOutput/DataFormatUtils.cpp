@@ -17,7 +17,7 @@
 #include "Core/Axis/ConstKBinAxis.h"
 #include "Core/Axis/CustomBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Data/OutputData.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iostream>
 #include <iterator>

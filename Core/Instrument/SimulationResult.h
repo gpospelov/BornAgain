@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
 
 #include "Base/Utils/PyObject.h"
-#include "Core/Intensity/IUnitConverter.h"
+#include "Core/Unit/IUnitConverter.h"
 #include <memory>
 #include <vector>
 

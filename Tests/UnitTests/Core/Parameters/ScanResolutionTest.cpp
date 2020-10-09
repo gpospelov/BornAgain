@@ -1,4 +1,4 @@
-#include "Core/Detector/ScanResolution.h"
+#include "Core/Resolution/ScanResolution.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Tests/GTestWrapper/google_test.h"

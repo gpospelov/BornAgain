@@ -7624,6 +7624,7 @@ class IFormFactorBorn(IFormFactor):
         else:
             _self = self
         _libBornAgainCore.IFormFactorBorn_swiginit(self, _libBornAgainCore.new_IFormFactorBorn(_self, *args))
+    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorBorn
 
     def clone(self):
         r"""
@@ -7688,7 +7689,6 @@ class IFormFactorBorn(IFormFactor):
     def canSliceAnalytically(self, rot):
         r"""canSliceAnalytically(IFormFactorBorn self, IRotation rot) -> bool"""
         return _libBornAgainCore.IFormFactorBorn_canSliceAnalytically(self, rot)
-    __swig_destroy__ = _libBornAgainCore.delete_IFormFactorBorn
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
@@ -20094,16 +20094,6 @@ class Instrument(INode):
 
         """
         return _libBornAgainCore.Instrument_applyDetectorResolution(self, p_intensity_map)
-
-    def createDetectorIntensity(self, elements):
-        r"""
-        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
-        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
-
-        Returns new intensity map with detector resolution applied and axes in requested units. 
-
-        """
-        return _libBornAgainCore.Instrument_createDetectorIntensity(self, elements)
 
     def initDetector(self):
         r"""

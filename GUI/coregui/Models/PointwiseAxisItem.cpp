@@ -15,8 +15,8 @@
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Intensity/IUnitConverter.h"
-#include "Core/Intensity/OutputData.h"
+#include "Core/Unit/IUnitConverter.h"
+#include "Core/Data/OutputData.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 
 namespace

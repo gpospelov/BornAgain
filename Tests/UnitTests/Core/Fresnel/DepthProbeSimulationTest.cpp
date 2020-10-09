@@ -8,7 +8,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
 #include "Core/Parametrization/ParameterPattern.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/RealParameter.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 

@@ -5,7 +5,6 @@
 set(name Core)
 set(lib BornAgain${name})
 
-
 # --- source and include files ---
 
 file(GLOB source_files */*.cpp)

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEPROVIDER_H
 #define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEPROVIDER_H
 
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 #include "Core/SampleBuilderEngine/SampleBuilderNode.h"
 
 class MultiLayer;

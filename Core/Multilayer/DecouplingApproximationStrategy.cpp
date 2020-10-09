@@ -18,7 +18,7 @@
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Multilayer/InterferenceFunctionUtils.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/RealParameter.h"
 #include "Core/Pixel/SimulationElement.h"
 
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;

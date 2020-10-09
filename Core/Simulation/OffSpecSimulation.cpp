@@ -18,8 +18,8 @@
 #include "Core/Detector/SimpleUnitConverters.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include "Core/Pixel/SimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 

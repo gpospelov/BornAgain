@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_LATTICE_LATTICE_H
 
 #include "Base/Vector/Vectors3D.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 #include <vector>
 
 class ISelectionRule;

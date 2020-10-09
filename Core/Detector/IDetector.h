@@ -20,7 +20,7 @@
 #include "Core/Detector/DetectionProperties.h"
 #include "Core/Detector/SimulationAreaIterator.h"
 #include "Core/Unit/IUnitConverter.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 
 class Beam;
 class DetectorMask;

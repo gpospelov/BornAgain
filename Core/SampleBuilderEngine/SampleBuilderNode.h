@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEBUILDERNODE_H
 #define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLEBUILDERNODE_H
 
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 #include <memory>
 
 class ISampleBuilder;

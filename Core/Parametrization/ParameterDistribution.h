@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
 
-#include "Core/Parametrization/IParameterized.h"
+#include "Param/Base/IParameterized.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Fit/Tools/RealLimits.h"
 #include <memory>

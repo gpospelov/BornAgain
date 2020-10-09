@@ -2,8 +2,8 @@
 #include "Base/Const/MathConstants.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 #include <memory>

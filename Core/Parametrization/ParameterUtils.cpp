@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Core/Parametrization/IParameterized.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/IParameterized.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include <memory>
 
 namespace

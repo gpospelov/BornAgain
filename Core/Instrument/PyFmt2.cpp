@@ -24,12 +24,12 @@
 #include "Core/Mask/Polygon.h"
 #include "Core/Mask/Rectangle.h"
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/IParameterized.h"
+#include "Param/Base/IParameterized.h"
 #include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Parametrization/ParameterPool.h"
+#include "Param/Base/ParameterPool.h"
 #include "Base/Utils/PyFmt.h"
 #include "Core/Parametrization/PyFmtLimits.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/RealParameter.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iomanip>
 

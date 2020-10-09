@@ -1,7 +1,7 @@
 #include "Base/Const/Units.h"
 #include "Core/Aggregate/InterferenceFunctions.h"
 #include "Core/HardParticle/HardParticles.h"
-#include "Core/Parametrization/ParameterPool.h"
+#include "Param/Base/ParameterPool.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "Tests/GTestWrapper/google_test.h"

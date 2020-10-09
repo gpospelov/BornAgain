@@ -18,7 +18,7 @@
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/MultiLayerUtils.h"
-#include "Core/Parametrization/ParameterPool.h"
+#include "Param/Base/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/MPISimulation.h"

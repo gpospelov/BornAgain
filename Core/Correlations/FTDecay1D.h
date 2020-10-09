@@ -17,7 +17,7 @@
 
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/ICloneable.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 #include <utility>
 
 //! Interface for a one-dimensional decay function,

@@ -225,7 +225,7 @@ def patch_libraries(dir_name):
     print("--> Patching libraries to rely on '{0}'".format(get_python_shared_library()))
     libfiles = glob.glob(os.path.join(dir_name, '*/_libBornAgain*'))
     for f in libfiles:
-        for lib in ["Base", "Core", "Fit"]:
+        for lib in ["Base", "Fit", "Param", "Core"]:
             if "libBornAgain"+lib in f:
                 delete_rpath("@loader_path/../../Frameworks", f)
         add_rpath("@loader_path/../Frameworks", f)

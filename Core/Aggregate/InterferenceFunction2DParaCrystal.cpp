@@ -16,8 +16,8 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include <limits>
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D& lattice,

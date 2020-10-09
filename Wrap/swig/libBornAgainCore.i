@@ -49,7 +49,6 @@
 %template(map_string_double_t) std::map<std::string, double>;
 %template(pvacuum_double_t) std::pair<double, double>;
 %template(vector_pvacuum_double_t) std::vector<std::pair<double, double>>;
-%nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT
 
@@ -180,14 +179,9 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/INode.h"
-#include "Core/Parametrization/INodeVisitor.h"
-#include "Core/Parametrization/IParameterized.h"
 #include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Parametrization/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"
-#include "Core/Parametrization/RealParameter.h"
 #include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Parametrization/ThreadInfo.h"
 #include "Core/Particle/Crystal.h"
@@ -276,9 +270,6 @@
 %template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 
-%include "Core/Parametrization/IParameter.h" // needed?
-%template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
-
 %include "Core/Parametrization/ParameterSample.h"
 %template(ParameterSampleVector) std::vector<ParameterSample>;
 
@@ -306,15 +297,9 @@
 %include "Core/Mask/Polygon.h"
 %include "Core/Mask/Rectangle.h"
 
-%include "Core/Parametrization/IParameterized.h"
-%include "Core/Parametrization/INode.h"
-%include "Core/Parametrization/INodeVisitor.h"
-%include "Core/Parametrization/RealParameter.h"
-
 %include "Core/Parametrization/Distributions.h"
 %include "Core/Parametrization/Distributions.h"
 %include "Core/Parametrization/ParameterDistribution.h"
-%include "Core/Parametrization/ParameterPool.h"
 %include "Core/Parametrization/RangedDistributions.h"
 %include "Core/Parametrization/SimulationOptions.h"
 %include "Core/Parametrization/ThreadInfo.h"
@@ -476,3 +461,13 @@
 %include "Core/Simulation/SimulationFactory.h"
 
 %include "extendCore.i"
+
+ // deprecations:
+%rename(getArrayObsolete) IHistogram::getArray;
+%extend IHistogram {
+    %pythoncode %{
+         @deprecated("Deprecated. Use array() instead.")
+         def getArray(self):
+             return self.getArrayObsolete()
+    %}
+ };

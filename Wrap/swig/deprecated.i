@@ -12,12 +12,3 @@ def deprecated(message):
       return deprecated_func
   return deprecated_decorator
 %}
-
-%rename(getArrayObsolete) IHistogram::getArray;
-%extend IHistogram {
-    %pythoncode %{
-         @deprecated("Deprecated. Use array() instead.")
-         def getArray(self):
-             return self.getArrayObsolete()
-    %}
- };

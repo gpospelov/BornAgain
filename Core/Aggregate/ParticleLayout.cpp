@@ -16,8 +16,8 @@
 #include "Base/Types/Exceptions.h"
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
 

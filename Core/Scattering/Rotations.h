@@ -17,7 +17,7 @@
 
 #include "Base/Types/ICloneable.h"
 #include "Base/Vector/Vectors3D.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 
 class Transform3D;
 

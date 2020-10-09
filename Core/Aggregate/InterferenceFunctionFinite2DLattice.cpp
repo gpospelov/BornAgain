@@ -17,7 +17,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
 #include "Base/Utils/MathFunctions.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/RealParameter.h"
 
 #include <limits>
 

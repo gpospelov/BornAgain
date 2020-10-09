@@ -14,7 +14,7 @@
 
 #include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/ParameterPool.h"
+#include "Param/Base/ParameterPool.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"

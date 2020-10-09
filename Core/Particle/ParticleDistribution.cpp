@@ -15,10 +15,10 @@
 #include "Core/Particle/ParticleDistribution.h"
 #include "Base/Types/Exceptions.h"
 #include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterPool.h"
+#include "Param/Base/ParameterPool.h"
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/ParameterUtils.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/RealParameter.h"
 #include "Core/Particle/IParticle.h"
 #include <map>
 

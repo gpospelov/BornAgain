@@ -15,7 +15,6 @@ function(SwigLib name lib TMP_DIR)
         set(swig_dependencies
             ${WRAP_DIR}/swig/lib${lib}.i
             ${WRAP_DIR}/swig/deprecation.i
-            ${WRAP_DIR}/swig/extend${name}.i
             ${WRAP_DIR}/swig/warnings.i
             ${WRAP_DIR}/swig/ignoreBase.i
             ${WRAP_DIR}/swig/ignoreSample.i

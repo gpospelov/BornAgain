@@ -18,6 +18,7 @@ function(SwigLib name lib TMP_DIR)
             ${WRAP_DIR}/swig/extend${name}.i
             ${WRAP_DIR}/swig/warnings.i
             ${WRAP_DIR}/swig/ignoreBase.i
+            ${WRAP_DIR}/swig/ignoreSample.i
             )
         foreach(FNAM ${swig_dependencies})
             if(NOT EXISTS ${FNAM})

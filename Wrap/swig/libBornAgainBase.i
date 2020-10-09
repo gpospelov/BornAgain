@@ -28,9 +28,8 @@
 %include "../../auto/Wrap/doxygenBase.i"
 
 %include "warnings.i"
-%include "ignores.i"
-%include "renameBase.i"
-%include "directors.i"
+
+%include "ignoreBase.i"
 
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector<std::vector<double>>;

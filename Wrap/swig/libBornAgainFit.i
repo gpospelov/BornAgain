@@ -25,14 +25,14 @@
 %include "std_vector.i"
 %include "std_shared_ptr.i"
 
-%include "shared_pointers.i"
-
 %include "warnings.i"
-%include "ignores.i"
-%include "renameFit.i"
-%include "directors.i"
 
 %include "auto/Wrap/doxygenFit.i"
+
+%rename(minimize_cpp) Fit::Minimizer::minimize;
+%rename(add_cpp) Fit::Parameters::add;
+
+%feature("director") PyCallback;         // used in extendFit.i
 
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector< std::vector<double> >;

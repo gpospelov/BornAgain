@@ -7391,14 +7391,8 @@ ParameterPool *SwigDirector_IParameterized::createParameterTree() const {
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterized.createParameterTree'");
     }
   }
   swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_ParameterPool,  0  | SWIG_POINTER_DISOWN, &own);
@@ -7427,14 +7421,8 @@ void SwigDirector_IParameterized::onChange() {
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'IParameterized.onChange'");
     }
   }
 }
@@ -7478,14 +7466,8 @@ ParameterPool *SwigDirector_INode::createParameterTree() const {
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'INode.createParameterTree'");
     }
   }
   swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_ParameterPool,  0  | SWIG_POINTER_DISOWN, &own);
@@ -7514,14 +7496,8 @@ void SwigDirector_INode::onChange() {
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'INode.onChange'");
     }
   }
 }
@@ -7544,14 +7520,8 @@ void SwigDirector_INode::accept(INodeVisitor *visitor) const {
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'INode.accept'");
     }
   }
 }
@@ -7574,14 +7544,8 @@ std::string SwigDirector_INode::treeToString() const {
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'INode.treeToString'");
     }
   }
   std::string *swig_optr = 0;
@@ -7612,14 +7576,8 @@ std::vector< INode const *, std::allocator< INode const * > > SwigDirector_INode
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'INode.getChildren'");
     }
   }
   std::vector< INode const*,std::allocator< INode const * > > *swig_optr = 0;
@@ -7650,14 +7608,8 @@ void SwigDirector_INode::setParent(INode const *newParent) {
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
-    {
-      if( error != NULL ) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
-        PyErr_Restore( ptype, pvalue, ptraceback );
-        PyErr_Print();
-        Py_Exit(1);
-      }
+    if (error) {
+      Swig::DirectorMethodException::raise("Error detected when calling 'INode.setParent'");
     }
   }
 }

@@ -14,11 +14,10 @@ function(SwigLib name lib TMP_DIR)
 
         set(swig_dependencies
             ${WRAP_DIR}/swig/lib${lib}.i
-            ${WRAP_DIR}/swig/directors.i
+            ${WRAP_DIR}/swig/deprecation.i
             ${WRAP_DIR}/swig/extend${name}.i
-            ${WRAP_DIR}/swig/ignores.i
-            ${WRAP_DIR}/swig/shared_pointers.i
             ${WRAP_DIR}/swig/warnings.i
+            ${WRAP_DIR}/swig/ignoreBase.i
             )
         foreach(FNAM ${swig_dependencies})
             if(NOT EXISTS ${FNAM})

@@ -30,9 +30,11 @@
 %include "../../auto/Wrap/doxygenParam.i"
 
 %include "warnings.i"
-%include "deprecated.i"
-%include "ignores.i"
-%include "directors.i"
+
+%include "ignoreBase.i"
+
+%feature("director") IParameterized;     // needed by ISampleBuilder
+%feature("director") INode;              // needed by ISample
 
 %template(vdouble1d_t) std::vector<double>;
 %template(vdouble2d_t) std::vector<std::vector<double>>;
@@ -85,6 +87,10 @@
 %import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
 %import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
 %include "fromBase.i"
+
+%ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
+%ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*) const;
+%ignore RangedDistribution;
 
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;

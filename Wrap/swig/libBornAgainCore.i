@@ -30,15 +30,77 @@
 // TODO CLARIFY WHY THIS IS INCLUDED
 %include "../../auto/Wrap/doxygenCore.i"
 
-// include the list of smart pointers (common between Core and Fit)
-%include "shared_pointers.i"
-
 %include "warnings.i"
-%include "deprecated.i"
-%include "ignores.i"
-%include "renameCore.i"
-%include "directors.i"
+%include "deprecation.i"
+%include "ignoreBase.i"
 
+// fix SWIG warning 509, certain C++ overloads create ambiguities in Python
+%ignore ParticleLayout::setInterferenceFunction(IInterferenceFunction*);
+%ignore ParticleLayout::setInterferenceFunction(const IInterferenceFunction*);
+%ignore MesoCrystal::MesoCrystal(IClusteredParticles*, IFormFactor*);
+%ignore MesoCrystal::MesoCrystal(const IClusteredParticles*, const IFormFactor*);
+%ignore Instrument::setDetectorResolutionFunction(IResolutionFunction2D*);
+%ignore Instrument::setDetectorResolutionFunction(const IResolutionFunction2D*);
+
+%ignore ISampleBuilder::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
+%ignore ISampleBuilder::addParametersToExternalPool(const std::string&, ParameterPool*) const;
+
+// ignored to avoid error (todo: check whether this is really necessary)
+%ignore Crystal::getTransformedLattice(const IRotation*) const;
+
+// extra ignores for types and methods that shouldn't be visible in Python
+%ignore DWBAComputation;
+%ignore DecoratedLayerComputation;
+%ignore FormFactorDWBA;
+%ignore FormFactorDWBAPol;
+%ignore ISampleVisitor::visit(const FormFactorDWBA*);
+%ignore ISampleVisitor::visit(const FormFactorDWBAPol*);
+%ignore ISpecularScan;
+%ignore Lattice2D::ReciprocalBases;
+%ignore Lattice2D::reciprocalBases();
+%ignore RoughMultiLayerComputation;
+%ignore SlicedFormFactorList;
+%ignore SpecularComputation;
+
+%rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
+%rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
+%rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;
+%rename(evaluate_residuals_cpp) FitObjective::evaluate_residuals;
+%rename(evaluate_cpp) FitObjective::evaluate;
+%rename(finalize_cpp) FitObjective::finalize;
+%rename(initPlot_cpp) FitObjective::initPlot;
+%rename(uncertainties_cpp) FitObjective::uncertainties;
+%rename(uncertaintyData_cpp) FitObjective::uncertaintyData;
+%rename(containsUncertainties_cpp) FitObjective::containsUncertainties;
+%rename(allPairsHaveUncertainties_cpp) FitObjective::allPairsHaveUncertainties;
+%rename(MaterialProfile_cpp) MaterialProfile;
+
+// force swig to use move ctor instead of copy ctor
+%typemap(out) SlicedParticle %{
+    $result = SWIG_NewPointerObj(new $1_ltype(std::move($1)), $&1_descriptor, SWIG_POINTER_OWN);
+  %}
+
+%shared_ptr(ISampleBuilder)
+
+%feature("director") PyBuilderCallback;  // used in extendCore.i
+%feature("director") PyObserverCallback; // used in extendCore.i
+
+%feature("director") ISampleBuilder;     // used in mesocrystal1.py
+%feature("director") ISample;            // needed by IFormFactor
+%feature("director") IFormFactor;        // needed by IFormFactorBorn
+%feature("director") IFormFactorBorn;    // used in CustomFormFactor.py
+%feature("director") FitObjective;       // used in custom_objective_function.py
+
+// Propagate python exceptions (from https://stackoverflow.com/questions/4811492)
+%feature("director:except") {
+    if( $error != NULL ) {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
+        PyErr_Restore( ptype, pvalue, ptraceback );
+        PyErr_Print();
+        Py_Exit(1);
+    }
+}
 
  // deprecations:
 %rename(getArrayObsolete) IHistogram::getArray;

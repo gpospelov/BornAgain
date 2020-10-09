@@ -3933,6 +3933,18 @@ SWIGINTERNINLINE PyObject*
 }
 
 
+#define SWIG_FILE_WITH_INIT
+#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
+
+
+#ifndef SWIG_FILE_WITH_INIT
+#define NO_IMPORT_ARRAY
+#endif
+#include "stdio.h"
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#include <numpy/arrayobject.h>
+
+
 namespace swig {
   template <class Type>
   struct noconst_traits {
@@ -6779,18 +6791,6 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__erase__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator first,std::vector< std::pair< double,double > >::iterator last){ return self->erase(first, last); }
 SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_0(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
-
-#define SWIG_FILE_WITH_INIT
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-
-
-#ifndef SWIG_FILE_WITH_INIT
-#define NO_IMPORT_ARRAY
-#endif
-#include "stdio.h"
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#include <numpy/arrayobject.h>
-
 
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
@@ -53736,11 +53736,11 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, "SHARED_PTR_DISOWN",SWIG_From_int(static_cast< int >(0)));
   
+  import_array();
+  
+  
   // thread safe initialization
   swig::container_owner_attribute();
-  
-  
-  import_array();
   
   globals = SWIG_globals();
   if (!globals) {

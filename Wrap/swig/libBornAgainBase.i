@@ -15,43 +15,11 @@
 
 %module(directors="1", moduleimport="import $module") "libBornAgainBase"
 
-%feature("autodoc");
-
-/**/
-%include "stdint.i"
-%include "std_complex.i"
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_map.i"
-%include "std_shared_ptr.i"
+%include "commons.i"
 
 %include "../../auto/Wrap/doxygenBase.i"
 
-%include "warnings.i"
-
 %include "ignoreBase.i"
-
-%template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector<std::vector<double>>;
-
-#define SWIG_FILE_WITH_INIT
-
-%{
-#define SWIG_FILE_WITH_INIT
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-%}
-
-%include "numpy.i"
-%init %{
-    import_array();
-%}
-
-#define GCC_DIAG_OFF(x)
-#define GCC_DIAG_ON(x)
-
-#ifndef BORNAGAIN_PYTHON
-#define BORNAGAIN_PYTHON
-#endif
 
 %{
 #include "Base/Types/Complex.h"

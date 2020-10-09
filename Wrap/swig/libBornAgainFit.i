@@ -17,15 +17,7 @@
 
 %module(directors="1", moduleimport="import $module") "libBornAgainFit"
 
-%feature("autodoc");
-
-%include "stdint.i"
-%include "std_complex.i"
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_shared_ptr.i"
-
-%include "warnings.i"
+%include "commons.i"
 
 %include "auto/Wrap/doxygenFit.i"
 
@@ -33,29 +25,6 @@
 %rename(add_cpp) Fit::Parameters::add;
 
 %feature("director") PyCallback;         // used in extendFit.i
-
-%template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector< std::vector<double> >;
-%template(vector_integer_t) std::vector<int >;
-%template(vector_longinteger_t) std::vector<unsigned long int >;
-%template(vector_complex_t) std::vector< std::complex<double> >;
-%template(vector_string_t) std::vector<std::string>;
-
-#define SWIG_FILE_WITH_INIT
-
-%{
-#define SWIG_FILE_WITH_INIT
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-%}
-
-%include "numpy.i"
-%init %{
-import_array();
-%}
-
-#ifndef BORNAGAIN_PYTHON
-#define BORNAGAIN_PYTHON
-#endif
 
 %{
 #include "Fit/Tools/RealLimits.h"

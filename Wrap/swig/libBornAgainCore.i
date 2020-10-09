@@ -17,21 +17,10 @@
 
 %module(directors="1", moduleimport="import $module") "libBornAgainCore"
 
-%feature("autodoc");
+%include "commons.i"
 
-/**/
-%include "stdint.i"
-%include "std_complex.i"
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_map.i"
-%include "std_shared_ptr.i"
-
-// TODO CLARIFY WHY THIS IS INCLUDED
 %include "../../auto/Wrap/doxygenCore.i"
 
-%include "warnings.i"
-%include "deprecation.i"
 %include "ignoreBase.i"
 %include "ignoreSample.i"
 
@@ -84,36 +73,6 @@
              return self.getArrayObsolete()
     %}
  };
-
-%template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector<std::vector<double>>;
-%template(vector_integer_t) std::vector<int>;
-%template(vinteger2d_t) std::vector<std::vector<int>>;
-%template(vector_longinteger_t) std::vector<unsigned long int>;
-%template(vector_complex_t) std::vector< std::complex<double>>;
-%template(vector_string_t) std::vector<std::string>;
-%template(map_string_double_t) std::map<std::string, double>;
-%template(pvacuum_double_t) std::pair<double, double>;
-%template(vector_pvacuum_double_t) std::vector<std::pair<double, double>>;
-
-#define SWIG_FILE_WITH_INIT
-
-%{
-#define SWIG_FILE_WITH_INIT
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-%}
-
-%include "numpy.i"
-%init %{
-    import_array();
-%}
-
-#define GCC_DIAG_OFF(x)
-#define GCC_DIAG_ON(x)
-
-#ifndef BORNAGAIN_PYTHON
-#define BORNAGAIN_PYTHON
-#endif
 
 %{
 #include "BAVersion.h"
@@ -710,7 +669,7 @@ class ObserverCallbackWrapper(PyObserverCallback):
 %}
 };
 
-// --- MaterialProfile generation ----------------------------------------------------------------
+// --- Computation/MaterialProfile
 
 // Function with optional default limits and/or number of points
 %pythoncode %{

@@ -235,13 +235,7 @@ class vdouble1d_t(object):
         return _libBornAgainCore.vdouble1d_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vdouble1d_t self, vdouble1d_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vdouble1d_t self, vdouble1d_t v)"""
         return _libBornAgainCore.vdouble1d_t_swap(self, v)
 
     def begin(self):
@@ -408,13 +402,7 @@ class vdouble2d_t(object):
         return _libBornAgainCore.vdouble2d_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vdouble2d_t self, vdouble2d_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vdouble2d_t self, vdouble2d_t v)"""
         return _libBornAgainCore.vdouble2d_t_swap(self, v)
 
     def begin(self):
@@ -581,13 +569,7 @@ class vector_integer_t(object):
         return _libBornAgainCore.vector_integer_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vector_integer_t self, vector_integer_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vector_integer_t self, vector_integer_t v)"""
         return _libBornAgainCore.vector_integer_t_swap(self, v)
 
     def begin(self):
@@ -754,13 +736,7 @@ class vinteger2d_t(object):
         return _libBornAgainCore.vinteger2d_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vinteger2d_t self, vinteger2d_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vinteger2d_t self, vinteger2d_t v)"""
         return _libBornAgainCore.vinteger2d_t_swap(self, v)
 
     def begin(self):
@@ -927,13 +903,7 @@ class vector_longinteger_t(object):
         return _libBornAgainCore.vector_longinteger_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vector_longinteger_t self, vector_longinteger_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vector_longinteger_t self, vector_longinteger_t v)"""
         return _libBornAgainCore.vector_longinteger_t_swap(self, v)
 
     def begin(self):
@@ -1100,13 +1070,7 @@ class vector_complex_t(object):
         return _libBornAgainCore.vector_complex_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vector_complex_t self, vector_complex_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vector_complex_t self, vector_complex_t v)"""
         return _libBornAgainCore.vector_complex_t_swap(self, v)
 
     def begin(self):
@@ -1273,13 +1237,7 @@ class vector_string_t(object):
         return _libBornAgainCore.vector_string_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vector_string_t self, vector_string_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vector_string_t self, vector_string_t v)"""
         return _libBornAgainCore.vector_string_t_swap(self, v)
 
     def begin(self):
@@ -1464,13 +1422,7 @@ class map_string_double_t(object):
         return _libBornAgainCore.map_string_double_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(map_string_double_t self, map_string_double_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(map_string_double_t self, map_string_double_t v)"""
         return _libBornAgainCore.map_string_double_t_swap(self, v)
 
     def begin(self):
@@ -1637,13 +1589,7 @@ class vector_pvacuum_double_t(object):
         return _libBornAgainCore.vector_pvacuum_double_t_size(self)
 
     def swap(self, v):
-        r"""
-        swap(vector_pvacuum_double_t self, vector_pvacuum_double_t v)
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
+        r"""swap(vector_pvacuum_double_t self, vector_pvacuum_double_t v)"""
         return _libBornAgainCore.vector_pvacuum_double_t_swap(self, v)
 
     def begin(self):

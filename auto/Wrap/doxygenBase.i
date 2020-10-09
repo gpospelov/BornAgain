@@ -515,6 +515,18 @@ C++ includes: SafePointerVector.h
 ";
 
 
+// File: structThreadInfo.xml
+%feature("docstring") ThreadInfo "
+
+Information to run simulation with dedicated number of threads.
+
+C++ includes: ThreadInfo.h
+";
+
+%feature("docstring")  ThreadInfo::ThreadInfo "ThreadInfo::ThreadInfo()
+";
+
+
 // File: classTransform3D.xml
 %feature("docstring") Transform3D "
 
@@ -1040,6 +1052,9 @@ Template function to create an integrator object
 
 
 // File: SysUtils_8h.xml
+
+
+// File: ThreadInfo_8h.xml
 
 
 // File: BasicVector3D_8cpp.xml

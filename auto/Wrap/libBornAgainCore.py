@@ -6432,24 +6432,13 @@ class SimulationOptions(object):
 _libBornAgainCore.SimulationOptions_swigregister(SimulationOptions)
 
 class ThreadInfo(object):
-    r"""
-
-
-    Information to run simulation with dedicated number of threads.
-
-    C++ includes: ThreadInfo.h
-
-    """
+    r"""Proxy of C++ ThreadInfo class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self):
-        r"""
-        __init__(ThreadInfo self) -> ThreadInfo
-        ThreadInfo::ThreadInfo()
-
-        """
+        r"""__init__(ThreadInfo self) -> ThreadInfo"""
         _libBornAgainCore.ThreadInfo_swiginit(self, _libBornAgainCore.new_ThreadInfo())
     n_threads = property(_libBornAgainCore.ThreadInfo_n_threads_get, _libBornAgainCore.ThreadInfo_n_threads_set, doc=r"""n_threads : unsigned int""")
     n_batches = property(_libBornAgainCore.ThreadInfo_n_batches_get, _libBornAgainCore.ThreadInfo_n_batches_set, doc=r"""n_batches : unsigned int""")

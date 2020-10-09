@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_SIMULATIONOPTIONS_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_SIMULATIONOPTIONS_H
 
-#include "Core/Parametrization/ThreadInfo.h"
+#include "Base/Utils/ThreadInfo.h"
 #include <cstddef>
 
 using std::size_t;

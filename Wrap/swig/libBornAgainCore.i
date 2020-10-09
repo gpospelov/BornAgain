@@ -183,7 +183,7 @@
 #include "Core/Parametrization/ParameterSample.h"
 #include "Core/Parametrization/RangedDistributions.h"
 #include "Core/Parametrization/SimulationOptions.h"
-#include "Core/Parametrization/ThreadInfo.h"
+#include "Base/Utils/ThreadInfo.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/FormFactorWeighted.h"
@@ -307,7 +307,7 @@
 %include "Core/Parametrization/ParameterDistribution.h"
 %include "Core/Parametrization/RangedDistributions.h"
 %include "Core/Parametrization/SimulationOptions.h"
-%include "Core/Parametrization/ThreadInfo.h"
+%include "Base/Utils/ThreadInfo.h"
 
 %include "Core/Scattering/ISample.h"
 %include "Core/Scattering/IFormFactor.h"

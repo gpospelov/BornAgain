@@ -21,7 +21,7 @@
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Data/LLData.h"
 #include "Core/Data/OutputDataIterator.h"
-#include "Core/Parametrization/ThreadInfo.h"
+#include "Base/Utils/ThreadInfo.h"
 #include <sstream>
 
 using std::size_t;

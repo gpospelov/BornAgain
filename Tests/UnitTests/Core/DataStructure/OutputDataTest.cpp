@@ -2,7 +2,7 @@
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/VariableBinAxis.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Parametrization/ThreadInfo.h"
+#include "Base/Utils/ThreadInfo.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <algorithm>
 

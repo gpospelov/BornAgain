@@ -14271,18 +14271,6 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
-// File: structThreadInfo.xml
-%feature("docstring") ThreadInfo "
-
-Information to run simulation with dedicated number of threads.
-
-C++ includes: ThreadInfo.h
-";
-
-%feature("docstring")  ThreadInfo::ThreadInfo "ThreadInfo::ThreadInfo()
-";
-
-
 // File: classTRange.xml
 %feature("docstring") TRange "
 
@@ -14705,10 +14693,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -14858,61 +14846,61 @@ C++ includes: ZLimits.h
 // File: namespace_0d414.xml
 
 
-// File: namespace_0d427.xml
+// File: namespace_0d426.xml
 
 
-// File: namespace_0d460.xml
+// File: namespace_0d459.xml
 
 
-// File: namespace_0d465.xml
+// File: namespace_0d464.xml
 
 
-// File: namespace_0d467.xml
+// File: namespace_0d466.xml
 
 
-// File: namespace_0d475.xml
+// File: namespace_0d474.xml
 
 
-// File: namespace_0d481.xml
+// File: namespace_0d480.xml
 
 
-// File: namespace_0d485.xml
+// File: namespace_0d484.xml
 
 
-// File: namespace_0d493.xml
+// File: namespace_0d492.xml
 
 
-// File: namespace_0d516.xml
+// File: namespace_0d515.xml
 
 
-// File: namespace_0d524.xml
+// File: namespace_0d523.xml
 
 
-// File: namespace_0d530.xml
+// File: namespace_0d529.xml
 
 
-// File: namespace_0d532.xml
+// File: namespace_0d531.xml
 
 
-// File: namespace_0d543.xml
+// File: namespace_0d542.xml
 
 
-// File: namespace_0d555.xml
+// File: namespace_0d554.xml
 
 
-// File: namespace_0d561.xml
+// File: namespace_0d560.xml
 
 
-// File: namespace_0d565.xml
+// File: namespace_0d564.xml
 
 
-// File: namespace_0d583.xml
+// File: namespace_0d582.xml
 
 
-// File: namespace_0d602.xml
+// File: namespace_0d601.xml
 
 
-// File: namespace_0d616.xml
+// File: namespace_0d615.xml
 
 
 // File: namespace_0d78.xml
@@ -16999,9 +16987,6 @@ magnetization (in A/m)
 
 
 // File: SimulationOptions_8h.xml
-
-
-// File: ThreadInfo_8h.xml
 
 
 // File: Crystal_8cpp.xml

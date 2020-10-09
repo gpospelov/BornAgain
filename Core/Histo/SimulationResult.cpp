@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Histo/SimulationResult.h"
-#include "Core/Axis/FixedBinAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Histo/Histogram2D.h"
 

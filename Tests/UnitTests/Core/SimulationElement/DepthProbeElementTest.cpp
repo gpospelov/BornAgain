@@ -1,5 +1,5 @@
 #include "Core/Computation/DepthProbeElement.h"
-#include "Core/Axis/FixedBinAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class DepthProbeElementTest : public ::testing::Test

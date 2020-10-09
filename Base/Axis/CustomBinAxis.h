@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Axis/CustomBinAxis.h
+//! @file      Base/Axis/CustomBinAxis.h
 //! @brief     Defines class CustomBinAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_AXIS_CUSTOMBINAXIS_H
 #define BORNAGAIN_CORE_AXIS_CUSTOMBINAXIS_H
 
-#include "Core/Axis/VariableBinAxis.h"
+#include "Base/Axis/VariableBinAxis.h"
 
 //! Axis with fixed bin size in sin(angle) space used for numerical comparison with IsGisaxs.
 //! The main feature of the axis is that it produces zero bin sizes.

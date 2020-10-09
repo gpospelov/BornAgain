@@ -17,7 +17,7 @@ C++ includes: AngularSpecScan.h
 
 %feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
 
-Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
 ";
 
 %feature("docstring")  AngularSpecScan::~AngularSpecScan "AngularSpecScan::~AngularSpecScan() override
@@ -389,74 +389,6 @@ Returns the polarization density matrix (in spin basis along z-axis)
 ";
 
 
-// File: structBin1D.xml
-%feature("docstring") Bin1D "";
-
-%feature("docstring")  Bin1D::Bin1D "Bin1D::Bin1D()
-";
-
-%feature("docstring")  Bin1D::Bin1D "Bin1D::Bin1D(double lower, double upper)
-";
-
-%feature("docstring")  Bin1D::getMidPoint "double Bin1D::getMidPoint() const
-";
-
-%feature("docstring")  Bin1D::getBinSize "double Bin1D::getBinSize() const
-";
-
-
-// File: classBin1DCVector.xml
-%feature("docstring") Bin1DCVector "
-
-An one-dimensional range of cvector_t's.
-
-C++ includes: Bin.h
-";
-
-%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector()
-";
-
-%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector(cvector_t lower, cvector_t upper)
-";
-
-%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
-
-creation on  Bin1DCVector from alpha and phi bins 
-";
-
-%feature("docstring")  Bin1DCVector::getMidPoint "cvector_t Bin1DCVector::getMidPoint() const
-";
-
-%feature("docstring")  Bin1DCVector::getDelta "cvector_t Bin1DCVector::getDelta() const
-";
-
-
-// File: structBin1DKVector.xml
-%feature("docstring") Bin1DKVector "
-
-An one-dimensional range of kvector_t's.
-
-C++ includes: Bin.h
-";
-
-%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector()
-";
-
-%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector(const kvector_t lower, const kvector_t upper)
-";
-
-%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
-
-creation on  Bin1DKVector from alpha and phi bins 
-";
-
-%feature("docstring")  Bin1DKVector::getMidPoint "kvector_t Bin1DKVector::getMidPoint() const
-";
-
-%feature("docstring")  Bin1DKVector::getDelta "kvector_t Bin1DKVector::getDelta() const
-";
-
-
 // File: classBox.xml
 %feature("docstring") Box "";
 
@@ -714,48 +646,6 @@ C++ includes: ConstantBackground.h
 ";
 
 
-// File: classConstKBinAxis.xml
-%feature("docstring") ConstKBinAxis "
-
-Axis with fixed bin size in sin(angle) space.
-
-C++ includes: ConstKBinAxis.h
-";
-
-%feature("docstring")  ConstKBinAxis::ConstKBinAxis "ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start, double end)
-
-ConstKBinAxis constructor.
-
-Parameters:
------------
-
-name: 
-Axis name
-
-nbins: 
-number of bins
-
-start: 
-low edge of first bin
-
-end: 
-upper edge of last bin 
-";
-
-%feature("docstring")  ConstKBinAxis::~ConstKBinAxis "ConstKBinAxis::~ConstKBinAxis() final
-";
-
-%feature("docstring")  ConstKBinAxis::clone "ConstKBinAxis * ConstKBinAxis::clone() const final
-
-clone function 
-";
-
-%feature("docstring")  ConstKBinAxis::createClippedAxis "ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const final
-
-Creates a new clipped axis. 
-";
-
-
 // File: classConvolutionDetectorResolution.xml
 %feature("docstring") ConvolutionDetectorResolution "
 
@@ -945,56 +835,6 @@ C++ includes: CumulativeValue.h
 ";
 
 %feature("docstring")  CumulativeValue::getRMS "double CumulativeValue::getRMS() const
-";
-
-
-// File: classCustomBinAxis.xml
-%feature("docstring") CustomBinAxis "
-
-Axis with fixed bin size in sin(angle) space used for numerical comparison with IsGisaxs. The main feature of the axis is that it produces zero bin sizes.
-
-C++ includes: CustomBinAxis.h
-";
-
-%feature("docstring")  CustomBinAxis::CustomBinAxis "CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)
-
-CustomBinAxis constructor.
-
-Parameters:
------------
-
-name: 
-Axis name
-
-nbins: 
-number of bins
-
-start: 
-center of first bin (IsGisaxs convention)
-
-end: 
-center of last bin (IsGisaxs convention) 
-";
-
-%feature("docstring")  CustomBinAxis::~CustomBinAxis "virtual CustomBinAxis::~CustomBinAxis()
-";
-
-%feature("docstring")  CustomBinAxis::clone "CustomBinAxis * CustomBinAxis::clone() const
-
-clone function 
-";
-
-%feature("docstring")  CustomBinAxis::getBin "Bin1D CustomBinAxis::getBin(size_t index) const
-
-retrieve a 1d bin for the given index 
-";
-
-%feature("docstring")  CustomBinAxis::getBinCenters "std::vector< double > CustomBinAxis::getBinCenters() const
-";
-
-%feature("docstring")  CustomBinAxis::createClippedAxis "CustomBinAxis * CustomBinAxis::createClippedAxis(double left, double right) const
-
-Creates a new clipped axis. 
 ";
 
 
@@ -1973,82 +1813,6 @@ C++ includes: FitStatus.h
 %feature("docstring")  FitStatus::finalize "void FitStatus::finalize(const Fit::MinimizerResult &result)
 
 Should be explicitely called on last iteration to notify all observers. 
-";
-
-
-// File: classFixedBinAxis.xml
-%feature("docstring") FixedBinAxis "
-
-Axis with fixed bin size.
-
-C++ includes: FixedBinAxis.h
-";
-
-%feature("docstring")  FixedBinAxis::FixedBinAxis "FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
-
-FixedBinAxis constructor.
-
-Parameters:
------------
-
-name: 
-Axis name
-
-nbins: 
-number of bins
-
-start: 
-low edge of first bin
-
-end: 
-upper edge of last bin 
-";
-
-%feature("docstring")  FixedBinAxis::~FixedBinAxis "virtual FixedBinAxis::~FixedBinAxis()
-";
-
-%feature("docstring")  FixedBinAxis::clone "FixedBinAxis * FixedBinAxis::clone() const
-
-clone function 
-";
-
-%feature("docstring")  FixedBinAxis::size "size_t FixedBinAxis::size() const
-
-retrieve the number of bins 
-";
-
-%feature("docstring")  FixedBinAxis::getBin "Bin1D FixedBinAxis::getBin(size_t index) const
-
-retrieve a 1d bin for the given index 
-";
-
-%feature("docstring")  FixedBinAxis::getMin "double FixedBinAxis::getMin() const
-
-Returns value of first point of axis. 
-";
-
-%feature("docstring")  FixedBinAxis::getMax "double FixedBinAxis::getMax() const
-
-Returns value of last point of axis. 
-";
-
-%feature("docstring")  FixedBinAxis::getBinCenter "double FixedBinAxis::getBinCenter(size_t index) const
-";
-
-%feature("docstring")  FixedBinAxis::findClosestIndex "size_t FixedBinAxis::findClosestIndex(double value) const
-
-find bin index which is best match for given value 
-";
-
-%feature("docstring")  FixedBinAxis::getBinCenters "std::vector< double > FixedBinAxis::getBinCenters() const
-";
-
-%feature("docstring")  FixedBinAxis::getBinBoundaries "std::vector< double > FixedBinAxis::getBinBoundaries() const
-";
-
-%feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
-
-Creates a new clipped axis. 
 ";
 
 
@@ -4933,84 +4697,6 @@ Translates the particle with the given vector.
 %feature("docstring")  IAbstractParticle::rotate "virtual void IAbstractParticle::rotate(const IRotation &rotation)=0
 
 Applies the given rotation to the particle. 
-";
-
-
-// File: classIAxis.xml
-%feature("docstring") IAxis "
-
-Interface for one-dimensional axes.
-
-C++ includes: IAxis.h
-";
-
-%feature("docstring")  IAxis::IAxis "IAxis::IAxis(const std::string &name)
-
-constructors 
-";
-
-%feature("docstring")  IAxis::clone "virtual IAxis* IAxis::clone() const =0
-
-clone function 
-";
-
-%feature("docstring")  IAxis::~IAxis "virtual IAxis::~IAxis()
-
-destructor 
-";
-
-%feature("docstring")  IAxis::size "virtual size_t IAxis::size() const =0
-
-retrieve the number of bins 
-";
-
-%feature("docstring")  IAxis::getName "std::string IAxis::getName() const
-
-retrieve the label of the axis 
-";
-
-%feature("docstring")  IAxis::setName "void IAxis::setName(std::string name)
-
-Sets the axis label. 
-";
-
-%feature("docstring")  IAxis::getBin "virtual Bin1D IAxis::getBin(size_t index) const =0
-
-retrieve a 1d bin for the given index 
-";
-
-%feature("docstring")  IAxis::getMin "virtual double IAxis::getMin() const =0
-
-Returns value of first point of axis. 
-";
-
-%feature("docstring")  IAxis::getMax "virtual double IAxis::getMax() const =0
-
-Returns value of last point of axis. 
-";
-
-%feature("docstring")  IAxis::getBinCenter "virtual double IAxis::getBinCenter(size_t index) const =0
-";
-
-%feature("docstring")  IAxis::findClosestIndex "virtual size_t IAxis::findClosestIndex(double value) const =0
-
-find bin index which is best match for given value 
-";
-
-%feature("docstring")  IAxis::getBinCenters "std::vector< double > IAxis::getBinCenters() const
-";
-
-%feature("docstring")  IAxis::getBinBoundaries "std::vector< double > IAxis::getBinBoundaries() const
-";
-
-%feature("docstring")  IAxis::createClippedAxis "IAxis * IAxis::createClippedAxis(double left, double right) const
-
-Creates a new clipped axis. 
-";
-
-%feature("docstring")  IAxis::contains "bool IAxis::contains(double value) const
-
-Returns true if axis contains given point. 
 ";
 
 
@@ -9741,7 +9427,7 @@ The global index of this data structure.
 i_selected_axis: 
 Serial number of selected axis.
 
-Corresponding  Bin1D object 
+Corresponding Bin1D object 
 ";
 
 %feature("docstring")  OutputData::getAxisBin "Bin1D OutputData< T >::getAxisBin(size_t global_index, const std::string &axis_name) const
@@ -9757,7 +9443,7 @@ The global index of this data structure.
 axis_name: 
 The name of selected axis.
 
-Corresponding  Bin1D object 
+Corresponding Bin1D object 
 ";
 
 %feature("docstring")  OutputData::clear "void OutputData< T >::clear()
@@ -10355,67 +10041,6 @@ C++ includes: PlainMultiLayerBySLDBuilder.h
 ";
 
 
-// File: classPointwiseAxis.xml
-%feature("docstring") PointwiseAxis "
-
-Axis containing arbitrary (non-equidistant) coordinate values. Lower boundary of the first bin and upper boundary of the last bin correspond to first and last passed coordinates. Other bin boundaries are computed as arithmetical mean of two adjacent coordinates. One should be aware, that bin centers reported by  PointwiseAxis::getBinCenter do not coincide with the values produced by Bin1D::getMidPoint. On-axis values are bounded by minimum/maximum values passed to the constructor.
-
-C++ includes: PointwiseAxis.h
-";
-
-%feature("docstring")  PointwiseAxis::PointwiseAxis "PointwiseAxis::PointwiseAxis(String &&name, Vector &&coordinate_values)
-";
-
-%feature("docstring")  PointwiseAxis::clone "PointwiseAxis * PointwiseAxis::clone() const override
-
-clone function 
-";
-
-%feature("docstring")  PointwiseAxis::~PointwiseAxis "PointwiseAxis::~PointwiseAxis() override=default
-";
-
-%feature("docstring")  PointwiseAxis::size "size_t PointwiseAxis::size() const override
-
-retrieve the number of bins 
-";
-
-%feature("docstring")  PointwiseAxis::getBin "Bin1D PointwiseAxis::getBin(size_t index) const override
-
-retrieve a 1d bin for the given index 
-";
-
-%feature("docstring")  PointwiseAxis::getMin "double PointwiseAxis::getMin() const override
-
-Returns value of first on-axis point. 
-";
-
-%feature("docstring")  PointwiseAxis::getMax "double PointwiseAxis::getMax() const override
-
-Returns value of last on-axis point. 
-";
-
-%feature("docstring")  PointwiseAxis::getBinCenter "double PointwiseAxis::getBinCenter(size_t index) const override
-
-Returns the coordinate corresponding to the given index. 
-";
-
-%feature("docstring")  PointwiseAxis::findClosestIndex "size_t PointwiseAxis::findClosestIndex(double value) const override
-
-find index of the coordinate closest to the given value 
-";
-
-%feature("docstring")  PointwiseAxis::getBinCenters "std::vector<double> PointwiseAxis::getBinCenters() const override
-";
-
-%feature("docstring")  PointwiseAxis::getBinBoundaries "std::vector< double > PointwiseAxis::getBinBoundaries() const override
-";
-
-%feature("docstring")  PointwiseAxis::createClippedAxis "PointwiseAxis * PointwiseAxis::createClippedAxis(double left, double right) const override
-
-Creates a new clipped axis. 
-";
-
-
 // File: classPoissonLikeMetric.xml
 %feature("docstring") PoissonLikeMetric "
 
@@ -10991,7 +10616,7 @@ Accepts qz-value vector (in inverse nm)
 
 %feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
 
-Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
 ";
 
 %feature("docstring")  QSpecScan::~QSpecScan "QSpecScan::~QSpecScan() override
@@ -13836,79 +13461,6 @@ Returns the list of all available units.
 ";
 
 
-// File: classVariableBinAxis.xml
-%feature("docstring") VariableBinAxis "
-
-Axis with variable bin size.
-
-C++ includes: VariableBinAxis.h
-";
-
-%feature("docstring")  VariableBinAxis::VariableBinAxis "VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins, const std::vector< double > &bin_boundaries)
-
-VariableBinAxis constructor.
-
-Parameters:
------------
-
-name: 
-Axis name
-
-nbins: 
-number of bins
-
-bin_boundaries: 
-Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. 
-";
-
-%feature("docstring")  VariableBinAxis::~VariableBinAxis "virtual VariableBinAxis::~VariableBinAxis()
-";
-
-%feature("docstring")  VariableBinAxis::clone "VariableBinAxis * VariableBinAxis::clone() const
-
-clone function 
-";
-
-%feature("docstring")  VariableBinAxis::size "size_t VariableBinAxis::size() const
-
-retrieve the number of bins 
-";
-
-%feature("docstring")  VariableBinAxis::getBin "Bin1D VariableBinAxis::getBin(size_t index) const
-
-retrieve a 1d bin for the given index 
-";
-
-%feature("docstring")  VariableBinAxis::getMin "double VariableBinAxis::getMin() const
-
-Returns value of first point of axis. 
-";
-
-%feature("docstring")  VariableBinAxis::getMax "double VariableBinAxis::getMax() const
-
-Returns value of last point of axis. 
-";
-
-%feature("docstring")  VariableBinAxis::getBinCenter "double VariableBinAxis::getBinCenter(size_t index) const
-";
-
-%feature("docstring")  VariableBinAxis::findClosestIndex "size_t VariableBinAxis::findClosestIndex(double value) const
-
-find bin index which is best match for given value 
-";
-
-%feature("docstring")  VariableBinAxis::getBinCenters "std::vector< double > VariableBinAxis::getBinCenters() const
-";
-
-%feature("docstring")  VariableBinAxis::getBinBoundaries "std::vector<double> VariableBinAxis::getBinBoundaries() const
-";
-
-%feature("docstring")  VariableBinAxis::createClippedAxis "VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const
-
-Creates a new clipped axis. 
-";
-
-
 // File: classVarianceConstantFunction.xml
 %feature("docstring") VarianceConstantFunction "
 
@@ -14006,10 +13558,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -14039,79 +13591,88 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d104.xml
+// File: namespace_0d123.xml
 
 
-// File: namespace_0d108.xml
+// File: namespace_0d135.xml
 
 
-// File: namespace_0d137.xml
+// File: namespace_0d143.xml
 
 
-// File: namespace_0d149.xml
+// File: namespace_0d148.xml
 
 
 // File: namespace_0d157.xml
 
 
+// File: namespace_0d159.xml
+
+
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d162.xml
-
-
-// File: namespace_0d171.xml
-
-
-// File: namespace_0d173.xml
-
-
-// File: namespace_0d177.xml
+// File: namespace_0d163.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d240.xml
+// File: namespace_0d226.xml
 
 
-// File: namespace_0d243.xml
+// File: namespace_0d229.xml
+
+
+// File: namespace_0d246.xml
+
+
+// File: namespace_0d248.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d260.xml
+// File: namespace_0d252.xml
 
 
-// File: namespace_0d262.xml
+// File: namespace_0d258.xml
 
 
-// File: namespace_0d266.xml
+// File: namespace_0d284.xml
 
 
-// File: namespace_0d272.xml
+// File: namespace_0d306.xml
 
 
-// File: namespace_0d298.xml
+// File: namespace_0d310.xml
 
 
-// File: namespace_0d320.xml
+// File: namespace_0d314.xml
 
 
-// File: namespace_0d324.xml
+// File: namespace_0d330.xml
 
 
-// File: namespace_0d328.xml
+// File: namespace_0d339.xml
 
 
-// File: namespace_0d344.xml
+// File: namespace_0d343.xml
 
 
 // File: namespace_0d353.xml
 
 
+// File: namespace_0d355.xml
+
+
 // File: namespace_0d357.xml
+
+
+// File: namespace_0d363.xml
+
+
+// File: namespace_0d365.xml
 
 
 // File: namespace_0d367.xml
@@ -14123,103 +13684,94 @@ C++ includes: ZLimits.h
 // File: namespace_0d371.xml
 
 
+// File: namespace_0d373.xml
+
+
 // File: namespace_0d377.xml
 
 
 // File: namespace_0d379.xml
 
 
-// File: namespace_0d381.xml
-
-
-// File: namespace_0d383.xml
-
-
-// File: namespace_0d385.xml
-
-
-// File: namespace_0d387.xml
-
-
-// File: namespace_0d391.xml
-
-
-// File: namespace_0d393.xml
+// File: namespace_0d395.xml
 
 
 // File: namespace_0d4.xml
 
 
-// File: namespace_0d409.xml
+// File: namespace_0d428.xml
 
 
-// File: namespace_0d442.xml
+// File: namespace_0d433.xml
 
 
-// File: namespace_0d447.xml
+// File: namespace_0d435.xml
 
 
-// File: namespace_0d449.xml
+// File: namespace_0d445.xml
 
 
-// File: namespace_0d459.xml
+// File: namespace_0d451.xml
 
 
-// File: namespace_0d465.xml
+// File: namespace_0d455.xml
 
 
-// File: namespace_0d469.xml
+// File: namespace_0d463.xml
 
 
-// File: namespace_0d477.xml
+// File: namespace_0d486.xml
+
+
+// File: namespace_0d494.xml
 
 
 // File: namespace_0d500.xml
 
 
-// File: namespace_0d508.xml
+// File: namespace_0d502.xml
 
 
-// File: namespace_0d514.xml
+// File: namespace_0d513.xml
 
 
-// File: namespace_0d516.xml
+// File: namespace_0d525.xml
 
 
-// File: namespace_0d527.xml
+// File: namespace_0d531.xml
 
 
-// File: namespace_0d539.xml
+// File: namespace_0d535.xml
 
 
-// File: namespace_0d545.xml
+// File: namespace_0d553.xml
 
 
-// File: namespace_0d549.xml
-
-
-// File: namespace_0d567.xml
+// File: namespace_0d572.xml
 
 
 // File: namespace_0d586.xml
 
 
-// File: namespace_0d600.xml
+// File: namespace_0d64.xml
 
 
-// File: namespace_0d78.xml
+// File: namespace_0d66.xml
 
 
-// File: namespace_0d80.xml
+// File: namespace_0d68.xml
 
 
-// File: namespace_0d82.xml
+// File: namespace_0d72.xml
 
 
-// File: namespace_0d86.xml
+// File: namespace_0d84.xml
 
 
-// File: namespace_0d98.xml
+// File: namespace_0d90.xml
+
+
+// File: namespace_0d94.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -14982,60 +14534,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: ParticleLayout_8h.xml
-
-
-// File: Bin_8cpp.xml
-%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
-
-Checks if value is contained in bin: value in [m_lower, m_upper) 
-";
-
-
-// File: Bin_8h.xml
-%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
-
-Checks if value is contained in bin: value in [m_lower, m_upper) 
-";
-
-
-// File: ConstKBinAxis_8cpp.xml
-
-
-// File: ConstKBinAxis_8h.xml
-
-
-// File: CustomBinAxis_8cpp.xml
-
-
-// File: CustomBinAxis_8h.xml
-
-
-// File: FixedBinAxis_8cpp.xml
-
-
-// File: FixedBinAxis_8h.xml
-
-
-// File: IAxis_8cpp.xml
-
-
-// File: IAxis_8h.xml
-%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
-
-global helper function for comparison of axes 
-";
-
-
-// File: PointwiseAxis_8cpp.xml
-
-
-// File: PointwiseAxis_8h.xml
-
-
-// File: VariableBinAxis_8cpp.xml
-
-
-// File: VariableBinAxis_8h.xml
 
 
 // File: Beam_8cpp.xml
@@ -16887,9 +16385,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_5f1a4a05eca575eab319839347bb4113.xml
-
-
-// File: dir_039fcda488ba1c4c70108123f82e35ee.xml
 
 
 // File: dir_2afd61a498231c74441502b63b50f75c.xml

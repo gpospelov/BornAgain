@@ -32,6 +32,9 @@
 %include "renameBase.i"
 %include "directors.i"
 
+%template(vdouble1d_t) std::vector<double>;
+%template(vdouble2d_t) std::vector<std::vector<double>>;
+
 #define SWIG_FILE_WITH_INIT
 
 %{
@@ -62,6 +65,11 @@
 
 #include "Base/Utils/MathFunctions.h"
 
+#include "Base/Axis/Bin.h"
+#include "Base/Axis/ConstKBinAxis.h"
+#include "Base/Axis/CustomBinAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Axis/VariableBinAxis.h"
 %}
 
 %include "Base/Types/ICloneable.h"
@@ -73,6 +81,13 @@
 
 %include "Base/Vector/BasicVector3D.h"
 %include "Base/Vector/Vectors3D.h"
+
+%include "Base/Axis/Bin.h"
+%include "Base/Axis/IAxis.h"
+%include "Base/Axis/VariableBinAxis.h"
+%include "Base/Axis/ConstKBinAxis.h"
+%include "Base/Axis/CustomBinAxis.h"
+%include "Base/Axis/FixedBinAxis.h"
 
 %include "fromBase.i"
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Axis/PointwiseAxis.cpp
+//! @file      Base/Axis/PointwiseAxis.cpp
 //! @brief     Implements class PointwiseAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Axis/PointwiseAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include <algorithm>
 #include <iomanip>
 #include <stdexcept>

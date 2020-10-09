@@ -1,5 +1,5 @@
-#include "Core/Axis/FixedBinAxis.h"
-#include "Core/Axis/PointwiseAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Resolution/ScanResolution.h"

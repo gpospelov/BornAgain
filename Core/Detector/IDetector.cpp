@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Detector/IDetector.h"
-#include "Core/Axis/IAxis.h"
+#include "Base/Axis/IAxis.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/RegionOfInterest.h"

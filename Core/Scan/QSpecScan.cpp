@@ -14,8 +14,8 @@
 
 #include "Core/Scan/QSpecScan.h"
 #include "Base/Utils/PyFmt.h"
-#include "Core/Axis/FixedBinAxis.h"
-#include "Core/Axis/PointwiseAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Instrument/PyFmt2.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/Resolution/ScanResolution.h"

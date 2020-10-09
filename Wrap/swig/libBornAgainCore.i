@@ -104,11 +104,6 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Axis/Bin.h"
-#include "Core/Axis/ConstKBinAxis.h"
-#include "Core/Axis/CustomBinAxis.h"
-#include "Core/Axis/FixedBinAxis.h"
-#include "Core/Axis/VariableBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/MultiLayerFuncs.h"
@@ -263,6 +258,7 @@
 %import(module="libBornAgainBase") "Base/Types/ICloneable.h"
 %import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
 %import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
+%import(module="libBornAgainBase") "Base/Axis/IAxis.h"
 %include "fromBase.i"
 
 %import(module="libBornAgainParam") "Param/Base/ParameterPool.h"
@@ -290,13 +286,6 @@
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
 
 %include "BAVersion.h"
-
-%include "Core/Axis/Bin.h"
-%include "Core/Axis/IAxis.h"
-%include "Core/Axis/VariableBinAxis.h"
-%include "Core/Axis/ConstKBinAxis.h"
-%include "Core/Axis/CustomBinAxis.h"
-%include "Core/Axis/FixedBinAxis.h"
 
 %include "Core/Pixel/IPixel.h"
 

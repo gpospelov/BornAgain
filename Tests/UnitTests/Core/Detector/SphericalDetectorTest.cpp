@@ -1,7 +1,7 @@
 #include "Core/Detector/SphericalDetector.h"
 #include "Base/Const/Units.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Axis/FixedBinAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Detector/DetectorFunctions.h"

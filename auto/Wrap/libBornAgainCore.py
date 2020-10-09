@@ -3306,7 +3306,7 @@ class IntensityData(object):
         axis_name: 
         The name of selected axis.
 
-        Corresponding  Bin1D object 
+        Corresponding Bin1D object 
 
         """
         return _libBornAgainCore.IntensityData_getAxisBin(self, *args)
@@ -3829,732 +3829,6 @@ def GetName():
 def GetVersionNumber():
     r"""GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
-class Bin1D(object):
-    r"""Proxy of C++ Bin1D class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Bin1D self) -> Bin1D
-        __init__(Bin1D self, double lower, double upper) -> Bin1D
-        Bin1D::Bin1D(double lower, double upper)
-
-        """
-        _libBornAgainCore.Bin1D_swiginit(self, _libBornAgainCore.new_Bin1D(*args))
-    m_lower = property(_libBornAgainCore.Bin1D_m_lower_get, _libBornAgainCore.Bin1D_m_lower_set, doc=r"""m_lower : double""")
-    m_upper = property(_libBornAgainCore.Bin1D_m_upper_get, _libBornAgainCore.Bin1D_m_upper_set, doc=r"""m_upper : double""")
-
-    def getMidPoint(self):
-        r"""
-        getMidPoint(Bin1D self) -> double
-        double Bin1D::getMidPoint() const
-
-        """
-        return _libBornAgainCore.Bin1D_getMidPoint(self)
-
-    def getBinSize(self):
-        r"""
-        getBinSize(Bin1D self) -> double
-        double Bin1D::getBinSize() const
-
-        """
-        return _libBornAgainCore.Bin1D_getBinSize(self)
-    __swig_destroy__ = _libBornAgainCore.delete_Bin1D
-
-# Register Bin1D in _libBornAgainCore:
-_libBornAgainCore.Bin1D_swigregister(Bin1D)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
-
-def BinContains(bin, value):
-    r"""
-    BinContains(Bin1D bin, double value) -> bool
-    bool BinContains(const Bin1D &bin, double value)
-
-    Checks if value is contained in bin: value in [m_lower, m_upper) 
-
-    """
-    return _libBornAgainCore.BinContains(bin, value)
-class Bin1DKVector(object):
-    r"""
-
-
-    An one-dimensional range of kvector_t's.
-
-    C++ includes: Bin.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Bin1DKVector self) -> Bin1DKVector
-        __init__(Bin1DKVector self, kvector_t lower, kvector_t upper) -> Bin1DKVector
-        __init__(Bin1DKVector self, double wavelength, Bin1D alpha_bin, Bin1D phi_bin) -> Bin1DKVector
-        Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
-
-        creation on  Bin1DKVector from alpha and phi bins 
-
-        """
-        _libBornAgainCore.Bin1DKVector_swiginit(self, _libBornAgainCore.new_Bin1DKVector(*args))
-
-    def getMidPoint(self):
-        r"""
-        getMidPoint(Bin1DKVector self) -> kvector_t
-        kvector_t Bin1DKVector::getMidPoint() const
-
-        """
-        return _libBornAgainCore.Bin1DKVector_getMidPoint(self)
-
-    def getDelta(self):
-        r"""
-        getDelta(Bin1DKVector self) -> kvector_t
-        kvector_t Bin1DKVector::getDelta() const
-
-        """
-        return _libBornAgainCore.Bin1DKVector_getDelta(self)
-    m_q_lower = property(_libBornAgainCore.Bin1DKVector_m_q_lower_get, _libBornAgainCore.Bin1DKVector_m_q_lower_set, doc=r"""m_q_lower : kvector_t""")
-    m_q_upper = property(_libBornAgainCore.Bin1DKVector_m_q_upper_get, _libBornAgainCore.Bin1DKVector_m_q_upper_set, doc=r"""m_q_upper : kvector_t""")
-    __swig_destroy__ = _libBornAgainCore.delete_Bin1DKVector
-
-# Register Bin1DKVector in _libBornAgainCore:
-_libBornAgainCore.Bin1DKVector_swigregister(Bin1DKVector)
-
-class Bin1DCVector(object):
-    r"""
-
-
-    An one-dimensional range of cvector_t's.
-
-    C++ includes: Bin.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Bin1DCVector self) -> Bin1DCVector
-        __init__(Bin1DCVector self, cvector_t lower, cvector_t upper) -> Bin1DCVector
-        __init__(Bin1DCVector self, double wavelength, Bin1D alpha_bin, Bin1D phi_bin) -> Bin1DCVector
-        Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
-
-        creation on  Bin1DCVector from alpha and phi bins 
-
-        """
-        _libBornAgainCore.Bin1DCVector_swiginit(self, _libBornAgainCore.new_Bin1DCVector(*args))
-
-    def getMidPoint(self):
-        r"""
-        getMidPoint(Bin1DCVector self) -> cvector_t
-        cvector_t Bin1DCVector::getMidPoint() const
-
-        """
-        return _libBornAgainCore.Bin1DCVector_getMidPoint(self)
-
-    def getDelta(self):
-        r"""
-        getDelta(Bin1DCVector self) -> cvector_t
-        cvector_t Bin1DCVector::getDelta() const
-
-        """
-        return _libBornAgainCore.Bin1DCVector_getDelta(self)
-    m_q_lower = property(_libBornAgainCore.Bin1DCVector_m_q_lower_get, _libBornAgainCore.Bin1DCVector_m_q_lower_set, doc=r"""m_q_lower : cvector_t""")
-    m_q_upper = property(_libBornAgainCore.Bin1DCVector_m_q_upper_get, _libBornAgainCore.Bin1DCVector_m_q_upper_set, doc=r"""m_q_upper : cvector_t""")
-    __swig_destroy__ = _libBornAgainCore.delete_Bin1DCVector
-
-# Register Bin1DCVector in _libBornAgainCore:
-_libBornAgainCore.Bin1DCVector_swigregister(Bin1DCVector)
-
-class IAxis(object):
-    r"""
-
-
-    Interface for one-dimensional axes.
-
-    C++ includes: IAxis.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IAxis self) -> IAxis
-        virtual IAxis* IAxis::clone() const =0
-
-        clone function 
-
-        """
-        return _libBornAgainCore.IAxis_clone(self)
-    __swig_destroy__ = _libBornAgainCore.delete_IAxis
-
-    def size(self):
-        r"""
-        size(IAxis self) -> size_t
-        virtual size_t IAxis::size() const =0
-
-        retrieve the number of bins 
-
-        """
-        return _libBornAgainCore.IAxis_size(self)
-
-    def getName(self):
-        r"""
-        getName(IAxis self) -> std::string
-        std::string IAxis::getName() const
-
-        retrieve the label of the axis 
-
-        """
-        return _libBornAgainCore.IAxis_getName(self)
-
-    def setName(self, name):
-        r"""
-        setName(IAxis self, std::string name)
-        void IAxis::setName(std::string name)
-
-        Sets the axis label. 
-
-        """
-        return _libBornAgainCore.IAxis_setName(self, name)
-
-    def getBin(self, index):
-        r"""
-        getBin(IAxis self, size_t index) -> Bin1D
-        virtual Bin1D IAxis::getBin(size_t index) const =0
-
-        retrieve a 1d bin for the given index 
-
-        """
-        return _libBornAgainCore.IAxis_getBin(self, index)
-
-    def getMin(self):
-        r"""
-        getMin(IAxis self) -> double
-        virtual double IAxis::getMin() const =0
-
-        Returns value of first point of axis. 
-
-        """
-        return _libBornAgainCore.IAxis_getMin(self)
-
-    def getMax(self):
-        r"""
-        getMax(IAxis self) -> double
-        virtual double IAxis::getMax() const =0
-
-        Returns value of last point of axis. 
-
-        """
-        return _libBornAgainCore.IAxis_getMax(self)
-
-    def getBinCenter(self, index):
-        r"""
-        getBinCenter(IAxis self, size_t index) -> double
-        virtual double IAxis::getBinCenter(size_t index) const =0
-
-        """
-        return _libBornAgainCore.IAxis_getBinCenter(self, index)
-
-    def findClosestIndex(self, value):
-        r"""
-        findClosestIndex(IAxis self, double value) -> size_t
-        virtual size_t IAxis::findClosestIndex(double value) const =0
-
-        find bin index which is best match for given value 
-
-        """
-        return _libBornAgainCore.IAxis_findClosestIndex(self, value)
-
-    def __eq__(self, right):
-        r"""__eq__(IAxis self, IAxis right) -> bool"""
-        return _libBornAgainCore.IAxis___eq__(self, right)
-
-    def __ne__(self, right):
-        r"""__ne__(IAxis self, IAxis right) -> bool"""
-        return _libBornAgainCore.IAxis___ne__(self, right)
-
-    def getBinCenters(self):
-        r"""
-        getBinCenters(IAxis self) -> vdouble1d_t
-        std::vector< double > IAxis::getBinCenters() const
-
-        """
-        return _libBornAgainCore.IAxis_getBinCenters(self)
-
-    def getBinBoundaries(self):
-        r"""
-        getBinBoundaries(IAxis self) -> vdouble1d_t
-        std::vector< double > IAxis::getBinBoundaries() const
-
-        """
-        return _libBornAgainCore.IAxis_getBinBoundaries(self)
-
-    def createClippedAxis(self, left, right):
-        r"""
-        createClippedAxis(IAxis self, double left, double right) -> IAxis
-        IAxis * IAxis::createClippedAxis(double left, double right) const
-
-        Creates a new clipped axis. 
-
-        """
-        return _libBornAgainCore.IAxis_createClippedAxis(self, left, right)
-
-    def contains(self, value):
-        r"""
-        contains(IAxis self, double value) -> bool
-        bool IAxis::contains(double value) const
-
-        Returns true if axis contains given point. 
-
-        """
-        return _libBornAgainCore.IAxis_contains(self, value)
-
-# Register IAxis in _libBornAgainCore:
-_libBornAgainCore.IAxis_swigregister(IAxis)
-
-
-def HaveSameNameAndShape(left, right):
-    r"""
-    HaveSameNameAndShape(IAxis left, IAxis right) -> bool
-    bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
-
-    global helper function for comparison of axes 
-
-    """
-    return _libBornAgainCore.HaveSameNameAndShape(left, right)
-class VariableBinAxis(IAxis):
-    r"""
-
-
-    Axis with variable bin size.
-
-    C++ includes: VariableBinAxis.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, name, nbins, bin_boundaries):
-        r"""
-        __init__(VariableBinAxis self, std::string const & name, size_t nbins, vdouble1d_t bin_boundaries) -> VariableBinAxis
-        VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins, const std::vector< double > &bin_boundaries)
-
-        VariableBinAxis constructor.
-
-        Parameters:
-        -----------
-
-        name: 
-        Axis name
-
-        nbins: 
-        number of bins
-
-        bin_boundaries: 
-        Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. 
-
-        """
-        _libBornAgainCore.VariableBinAxis_swiginit(self, _libBornAgainCore.new_VariableBinAxis(name, nbins, bin_boundaries))
-    __swig_destroy__ = _libBornAgainCore.delete_VariableBinAxis
-
-    def clone(self):
-        r"""
-        clone(VariableBinAxis self) -> VariableBinAxis
-        VariableBinAxis * VariableBinAxis::clone() const
-
-        clone function 
-
-        """
-        return _libBornAgainCore.VariableBinAxis_clone(self)
-
-    def size(self):
-        r"""
-        size(VariableBinAxis self) -> size_t
-        size_t VariableBinAxis::size() const
-
-        retrieve the number of bins 
-
-        """
-        return _libBornAgainCore.VariableBinAxis_size(self)
-
-    def getBin(self, index):
-        r"""
-        getBin(VariableBinAxis self, size_t index) -> Bin1D
-        Bin1D VariableBinAxis::getBin(size_t index) const
-
-        retrieve a 1d bin for the given index 
-
-        """
-        return _libBornAgainCore.VariableBinAxis_getBin(self, index)
-
-    def getMin(self):
-        r"""
-        getMin(VariableBinAxis self) -> double
-        double VariableBinAxis::getMin() const
-
-        Returns value of first point of axis. 
-
-        """
-        return _libBornAgainCore.VariableBinAxis_getMin(self)
-
-    def getMax(self):
-        r"""
-        getMax(VariableBinAxis self) -> double
-        double VariableBinAxis::getMax() const
-
-        Returns value of last point of axis. 
-
-        """
-        return _libBornAgainCore.VariableBinAxis_getMax(self)
-
-    def getBinCenter(self, index):
-        r"""
-        getBinCenter(VariableBinAxis self, size_t index) -> double
-        double VariableBinAxis::getBinCenter(size_t index) const
-
-        """
-        return _libBornAgainCore.VariableBinAxis_getBinCenter(self, index)
-
-    def findClosestIndex(self, value):
-        r"""
-        findClosestIndex(VariableBinAxis self, double value) -> size_t
-        size_t VariableBinAxis::findClosestIndex(double value) const
-
-        find bin index which is best match for given value 
-
-        """
-        return _libBornAgainCore.VariableBinAxis_findClosestIndex(self, value)
-
-    def getBinCenters(self):
-        r"""
-        getBinCenters(VariableBinAxis self) -> vdouble1d_t
-        std::vector< double > VariableBinAxis::getBinCenters() const
-
-        """
-        return _libBornAgainCore.VariableBinAxis_getBinCenters(self)
-
-    def getBinBoundaries(self):
-        r"""
-        getBinBoundaries(VariableBinAxis self) -> vdouble1d_t
-        std::vector<double> VariableBinAxis::getBinBoundaries() const
-
-        """
-        return _libBornAgainCore.VariableBinAxis_getBinBoundaries(self)
-
-    def createClippedAxis(self, left, right):
-        r"""
-        createClippedAxis(VariableBinAxis self, double left, double right) -> VariableBinAxis
-        VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const
-
-        Creates a new clipped axis. 
-
-        """
-        return _libBornAgainCore.VariableBinAxis_createClippedAxis(self, left, right)
-
-    def __getitem__(self, i):
-        r"""__getitem__(VariableBinAxis self, unsigned int i) -> double"""
-        return _libBornAgainCore.VariableBinAxis___getitem__(self, i)
-
-# Register VariableBinAxis in _libBornAgainCore:
-_libBornAgainCore.VariableBinAxis_swigregister(VariableBinAxis)
-
-class ConstKBinAxis(VariableBinAxis):
-    r"""
-
-
-    Axis with fixed bin size in sin(angle) space.
-
-    C++ includes: ConstKBinAxis.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, name, nbins, start, end):
-        r"""
-        __init__(ConstKBinAxis self, std::string const & name, size_t nbins, double start, double end) -> ConstKBinAxis
-        ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start, double end)
-
-        ConstKBinAxis constructor.
-
-        Parameters:
-        -----------
-
-        name: 
-        Axis name
-
-        nbins: 
-        number of bins
-
-        start: 
-        low edge of first bin
-
-        end: 
-        upper edge of last bin 
-
-        """
-        _libBornAgainCore.ConstKBinAxis_swiginit(self, _libBornAgainCore.new_ConstKBinAxis(name, nbins, start, end))
-    __swig_destroy__ = _libBornAgainCore.delete_ConstKBinAxis
-
-    def clone(self):
-        r"""
-        clone(ConstKBinAxis self) -> ConstKBinAxis
-        ConstKBinAxis * ConstKBinAxis::clone() const final
-
-        clone function 
-
-        """
-        return _libBornAgainCore.ConstKBinAxis_clone(self)
-
-    def createClippedAxis(self, left, right):
-        r"""
-        createClippedAxis(ConstKBinAxis self, double left, double right) -> ConstKBinAxis
-        ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const final
-
-        Creates a new clipped axis. 
-
-        """
-        return _libBornAgainCore.ConstKBinAxis_createClippedAxis(self, left, right)
-
-# Register ConstKBinAxis in _libBornAgainCore:
-_libBornAgainCore.ConstKBinAxis_swigregister(ConstKBinAxis)
-
-class CustomBinAxis(VariableBinAxis):
-    r"""
-
-
-    Axis with fixed bin size in sin(angle) space used for numerical comparison with IsGisaxs. The main feature of the axis is that it produces zero bin sizes.
-
-    C++ includes: CustomBinAxis.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, name, nbins, start, end):
-        r"""
-        __init__(CustomBinAxis self, std::string const & name, size_t nbins, double start, double end) -> CustomBinAxis
-        CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)
-
-        CustomBinAxis constructor.
-
-        Parameters:
-        -----------
-
-        name: 
-        Axis name
-
-        nbins: 
-        number of bins
-
-        start: 
-        center of first bin (IsGisaxs convention)
-
-        end: 
-        center of last bin (IsGisaxs convention) 
-
-        """
-        _libBornAgainCore.CustomBinAxis_swiginit(self, _libBornAgainCore.new_CustomBinAxis(name, nbins, start, end))
-    __swig_destroy__ = _libBornAgainCore.delete_CustomBinAxis
-
-    def clone(self):
-        r"""
-        clone(CustomBinAxis self) -> CustomBinAxis
-        CustomBinAxis * CustomBinAxis::clone() const
-
-        clone function 
-
-        """
-        return _libBornAgainCore.CustomBinAxis_clone(self)
-
-    def getBin(self, index):
-        r"""
-        getBin(CustomBinAxis self, size_t index) -> Bin1D
-        Bin1D CustomBinAxis::getBin(size_t index) const
-
-        retrieve a 1d bin for the given index 
-
-        """
-        return _libBornAgainCore.CustomBinAxis_getBin(self, index)
-
-    def getBinCenters(self):
-        r"""
-        getBinCenters(CustomBinAxis self) -> vdouble1d_t
-        std::vector< double > CustomBinAxis::getBinCenters() const
-
-        """
-        return _libBornAgainCore.CustomBinAxis_getBinCenters(self)
-
-    def createClippedAxis(self, left, right):
-        r"""
-        createClippedAxis(CustomBinAxis self, double left, double right) -> CustomBinAxis
-        CustomBinAxis * CustomBinAxis::createClippedAxis(double left, double right) const
-
-        Creates a new clipped axis. 
-
-        """
-        return _libBornAgainCore.CustomBinAxis_createClippedAxis(self, left, right)
-
-# Register CustomBinAxis in _libBornAgainCore:
-_libBornAgainCore.CustomBinAxis_swigregister(CustomBinAxis)
-
-class FixedBinAxis(IAxis):
-    r"""
-
-
-    Axis with fixed bin size.
-
-    C++ includes: FixedBinAxis.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, name, nbins, start, end):
-        r"""
-        __init__(FixedBinAxis self, std::string const & name, size_t nbins, double start, double end) -> FixedBinAxis
-        FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
-
-        FixedBinAxis constructor.
-
-        Parameters:
-        -----------
-
-        name: 
-        Axis name
-
-        nbins: 
-        number of bins
-
-        start: 
-        low edge of first bin
-
-        end: 
-        upper edge of last bin 
-
-        """
-        _libBornAgainCore.FixedBinAxis_swiginit(self, _libBornAgainCore.new_FixedBinAxis(name, nbins, start, end))
-    __swig_destroy__ = _libBornAgainCore.delete_FixedBinAxis
-
-    def clone(self):
-        r"""
-        clone(FixedBinAxis self) -> FixedBinAxis
-        FixedBinAxis * FixedBinAxis::clone() const
-
-        clone function 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_clone(self)
-
-    def size(self):
-        r"""
-        size(FixedBinAxis self) -> size_t
-        size_t FixedBinAxis::size() const
-
-        retrieve the number of bins 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_size(self)
-
-    def getBin(self, index):
-        r"""
-        getBin(FixedBinAxis self, size_t index) -> Bin1D
-        Bin1D FixedBinAxis::getBin(size_t index) const
-
-        retrieve a 1d bin for the given index 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBin(self, index)
-
-    def getMin(self):
-        r"""
-        getMin(FixedBinAxis self) -> double
-        double FixedBinAxis::getMin() const
-
-        Returns value of first point of axis. 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getMin(self)
-
-    def getMax(self):
-        r"""
-        getMax(FixedBinAxis self) -> double
-        double FixedBinAxis::getMax() const
-
-        Returns value of last point of axis. 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getMax(self)
-
-    def getBinCenter(self, index):
-        r"""
-        getBinCenter(FixedBinAxis self, size_t index) -> double
-        double FixedBinAxis::getBinCenter(size_t index) const
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBinCenter(self, index)
-
-    def findClosestIndex(self, value):
-        r"""
-        findClosestIndex(FixedBinAxis self, double value) -> size_t
-        size_t FixedBinAxis::findClosestIndex(double value) const
-
-        find bin index which is best match for given value 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_findClosestIndex(self, value)
-
-    def getBinCenters(self):
-        r"""
-        getBinCenters(FixedBinAxis self) -> vdouble1d_t
-        std::vector< double > FixedBinAxis::getBinCenters() const
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBinCenters(self)
-
-    def getBinBoundaries(self):
-        r"""
-        getBinBoundaries(FixedBinAxis self) -> vdouble1d_t
-        std::vector< double > FixedBinAxis::getBinBoundaries() const
-
-        """
-        return _libBornAgainCore.FixedBinAxis_getBinBoundaries(self)
-
-    def createClippedAxis(self, left, right):
-        r"""
-        createClippedAxis(FixedBinAxis self, double left, double right) -> FixedBinAxis
-        FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
-
-        Creates a new clipped axis. 
-
-        """
-        return _libBornAgainCore.FixedBinAxis_createClippedAxis(self, left, right)
-
-    def __getitem__(self, i):
-        r"""__getitem__(FixedBinAxis self, unsigned int i) -> double"""
-        return _libBornAgainCore.FixedBinAxis___getitem__(self, i)
-
-# Register FixedBinAxis in _libBornAgainCore:
-_libBornAgainCore.FixedBinAxis_swigregister(FixedBinAxis)
-
 class IPixel(object):
     r"""
 
@@ -4614,6 +3888,10 @@ class IPixel(object):
 
 # Register IPixel in _libBornAgainCore:
 _libBornAgainCore.IPixel_swigregister(IPixel)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class IShape2D(libBornAgainBase.ICloneable):
     r"""
@@ -4642,7 +3920,7 @@ class IShape2D(libBornAgainBase.ICloneable):
     def contains(self, *args):
         r"""
         contains(IShape2D self, double x, double y) -> bool
-        contains(IShape2D self, Bin1D binx, Bin1D biny) -> bool
+        contains(IShape2D self, Bin1D const & binx, Bin1D const & biny) -> bool
         virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
 
         Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
@@ -4704,7 +3982,7 @@ class Ellipse(IShape2D):
     def contains(self, *args):
         r"""
         contains(Ellipse self, double x, double y) -> bool
-        contains(Ellipse self, Bin1D binx, Bin1D biny) -> bool
+        contains(Ellipse self, Bin1D const & binx, Bin1D const & biny) -> bool
         bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
 
         Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
@@ -4788,7 +4066,7 @@ class Line(IShape2D):
     def contains(self, *args):
         r"""
         contains(Line self, double x, double y) -> bool
-        contains(Line self, Bin1D binx, Bin1D biny) -> bool
+        contains(Line self, Bin1D const & binx, Bin1D const & biny) -> bool
         bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
 
         Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
@@ -4838,7 +4116,7 @@ class VerticalLine(IShape2D):
     def contains(self, *args):
         r"""
         contains(VerticalLine self, double x, double y) -> bool
-        contains(VerticalLine self, Bin1D binx, Bin1D biny) -> bool
+        contains(VerticalLine self, Bin1D const & binx, Bin1D const & biny) -> bool
         bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
 
         Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
@@ -4896,7 +4174,7 @@ class HorizontalLine(IShape2D):
     def contains(self, *args):
         r"""
         contains(HorizontalLine self, double x, double y) -> bool
-        contains(HorizontalLine self, Bin1D binx, Bin1D biny) -> bool
+        contains(HorizontalLine self, Bin1D const & binx, Bin1D const & biny) -> bool
         bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
 
         Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
@@ -4951,7 +4229,7 @@ class Polygon(IShape2D):
     def contains(self, *args):
         r"""
         contains(Polygon self, double x, double y) -> bool
-        contains(Polygon self, Bin1D binx, Bin1D biny) -> bool
+        contains(Polygon self, Bin1D const & binx, Bin1D const & biny) -> bool
         bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
 
         Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
@@ -5025,7 +4303,7 @@ class Rectangle(IShape2D):
     def contains(self, *args):
         r"""
         contains(Rectangle self, double x, double y) -> bool
-        contains(Rectangle self, Bin1D binx, Bin1D biny) -> bool
+        contains(Rectangle self, Bin1D const & binx, Bin1D const & biny) -> bool
         bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
 
         Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
@@ -17330,7 +16608,7 @@ class AngularSpecScan(object):
         __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
         AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
 
-        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
 
         """
         _libBornAgainCore.AngularSpecScan_swiginit(self, _libBornAgainCore.new_AngularSpecScan(*args))
@@ -17701,7 +16979,7 @@ class QSpecScan(object):
         __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
         QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
 
-        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
 
         """
         _libBornAgainCore.QSpecScan_swiginit(self, _libBornAgainCore.new_QSpecScan(*args))

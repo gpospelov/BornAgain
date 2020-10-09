@@ -14,7 +14,7 @@
 
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Axis/PointwiseAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"

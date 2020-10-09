@@ -1,4 +1,4 @@
-#include "Core/Axis/PointwiseAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Histo/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"

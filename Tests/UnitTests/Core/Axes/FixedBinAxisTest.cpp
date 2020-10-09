@@ -1,4 +1,4 @@
-#include "Core/Axis/FixedBinAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
 #include "Base/Types/Exceptions.h"
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Tests/GTestWrapper/google_test.h"

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Histo/Histogram2D.h"
-#include "Core/Axis/VariableBinAxis.h"
+#include "Base/Axis/VariableBinAxis.h"
 #include "Core/Histo/Histogram1D.h"
 #include "Core/Intensity/ArrayUtils.h"
 #include <memory>

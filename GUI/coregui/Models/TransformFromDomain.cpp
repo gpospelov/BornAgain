@@ -15,7 +15,7 @@
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "Base/Const/Units.h"
 #include "Core/Aggregate/InterferenceFunctions.h"
-#include "Core/Axis/FixedBinAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"

@@ -1,5 +1,5 @@
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Axis/VariableBinAxis.h"
+#include "Base/Axis/VariableBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class IntensityDataFunctionsTest : public ::testing::Test

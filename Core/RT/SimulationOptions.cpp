@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/SimulationOptions.cpp
+//! @file      Core/RT/SimulationOptions.cpp
 //! @brief     Implements class SimulationOptions
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/RT/SimulationOptions.h"
 #include <stdexcept>
 #include <thread>
 

@@ -3180,115 +3180,126 @@ namespace Swig {
 #define SWIGTYPE_p_IAbstractParticle swig_types[80]
 #define SWIGTYPE_p_ICloneable swig_types[81]
 #define SWIGTYPE_p_IClusteredParticles swig_types[82]
-#define SWIGTYPE_p_IFormFactor swig_types[83]
-#define SWIGTYPE_p_IFormFactorBorn swig_types[84]
-#define SWIGTYPE_p_IFormFactorDecorator swig_types[85]
-#define SWIGTYPE_p_IInterferenceFunction swig_types[86]
-#define SWIGTYPE_p_ILayout swig_types[87]
-#define SWIGTYPE_p_INode swig_types[88]
-#define SWIGTYPE_p_INodeVisitor swig_types[89]
-#define SWIGTYPE_p_IParameterT_double_t swig_types[90]
-#define SWIGTYPE_p_IParameterized swig_types[91]
-#define SWIGTYPE_p_IParticle swig_types[92]
-#define SWIGTYPE_p_IPeakShape swig_types[93]
-#define SWIGTYPE_p_IRotation swig_types[94]
-#define SWIGTYPE_p_ISample swig_types[95]
-#define SWIGTYPE_p_IdentityRotation swig_types[96]
-#define SWIGTYPE_p_Instrument swig_types[97]
-#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[98]
-#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[99]
-#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[100]
-#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[101]
-#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[102]
-#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[103]
-#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[104]
-#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[105]
-#define SWIGTYPE_p_InterferenceFunctionNone swig_types[106]
-#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[107]
-#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[108]
-#define SWIGTYPE_p_IsGISAXSDetector swig_types[109]
-#define SWIGTYPE_p_Layer swig_types[110]
-#define SWIGTYPE_p_LayerInterface swig_types[111]
-#define SWIGTYPE_p_LayerRoughness swig_types[112]
-#define SWIGTYPE_p_MesoCrystal swig_types[113]
-#define SWIGTYPE_p_MultiLayer swig_types[114]
-#define SWIGTYPE_p_NodeMeta swig_types[115]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[116]
-#define SWIGTYPE_p_ParaMeta swig_types[117]
-#define SWIGTYPE_p_ParameterPool swig_types[118]
-#define SWIGTYPE_p_Particle swig_types[119]
-#define SWIGTYPE_p_ParticleComposition swig_types[120]
-#define SWIGTYPE_p_ParticleCoreShell swig_types[121]
-#define SWIGTYPE_p_ParticleDistribution swig_types[122]
-#define SWIGTYPE_p_ParticleLayout swig_types[123]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[124]
-#define SWIGTYPE_p_RealLimits swig_types[125]
-#define SWIGTYPE_p_RealParameter swig_types[126]
-#define SWIGTYPE_p_RectangularDetector swig_types[127]
-#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[128]
-#define SWIGTYPE_p_RotationEuler swig_types[129]
-#define SWIGTYPE_p_RotationX swig_types[130]
-#define SWIGTYPE_p_RotationY swig_types[131]
-#define SWIGTYPE_p_RotationZ swig_types[132]
-#define SWIGTYPE_p_SpecularDetector1D swig_types[133]
-#define SWIGTYPE_p_SpecularSimulation swig_types[134]
-#define SWIGTYPE_p_SphericalDetector swig_types[135]
-#define SWIGTYPE_p_SquareLattice swig_types[136]
-#define SWIGTYPE_p_allocator_type swig_types[137]
-#define SWIGTYPE_p_char swig_types[138]
-#define SWIGTYPE_p_difference_type swig_types[139]
-#define SWIGTYPE_p_double swig_types[140]
-#define SWIGTYPE_p_first_type swig_types[141]
-#define SWIGTYPE_p_int swig_types[142]
-#define SWIGTYPE_p_key_type swig_types[143]
-#define SWIGTYPE_p_long_long swig_types[144]
-#define SWIGTYPE_p_mapped_type swig_types[145]
-#define SWIGTYPE_p_p_PyObject swig_types[146]
-#define SWIGTYPE_p_second_type swig_types[147]
-#define SWIGTYPE_p_short swig_types[148]
-#define SWIGTYPE_p_signed_char swig_types[149]
-#define SWIGTYPE_p_size_type swig_types[150]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[151]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[152]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[153]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[154]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[155]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[156]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[157]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[158]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[159]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[160]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[161]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[162]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[163]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[164]
-#define SWIGTYPE_p_std__functionT_void_fF_t swig_types[165]
-#define SWIGTYPE_p_std__invalid_argument swig_types[166]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[167]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[168]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[169]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[170]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[171]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[172]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[173]
-#define SWIGTYPE_p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t swig_types[174]
-#define SWIGTYPE_p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t swig_types[175]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[176]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[177]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[178]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[183]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[184]
-#define SWIGTYPE_p_unsigned_char swig_types[185]
-#define SWIGTYPE_p_unsigned_int swig_types[186]
-#define SWIGTYPE_p_unsigned_long_long swig_types[187]
-#define SWIGTYPE_p_unsigned_short swig_types[188]
-#define SWIGTYPE_p_value_type swig_types[189]
-static swig_type_info *swig_types[191];
-static swig_module_info swig_module = {swig_types, 190, 0, 0, 0, 0};
+#define SWIGTYPE_p_IDistribution1D swig_types[83]
+#define SWIGTYPE_p_IFormFactor swig_types[84]
+#define SWIGTYPE_p_IFormFactorBorn swig_types[85]
+#define SWIGTYPE_p_IFormFactorDecorator swig_types[86]
+#define SWIGTYPE_p_IInterferenceFunction swig_types[87]
+#define SWIGTYPE_p_ILayout swig_types[88]
+#define SWIGTYPE_p_INode swig_types[89]
+#define SWIGTYPE_p_INodeVisitor swig_types[90]
+#define SWIGTYPE_p_IParameterT_double_t swig_types[91]
+#define SWIGTYPE_p_IParameterized swig_types[92]
+#define SWIGTYPE_p_IParticle swig_types[93]
+#define SWIGTYPE_p_IPeakShape swig_types[94]
+#define SWIGTYPE_p_IRotation swig_types[95]
+#define SWIGTYPE_p_ISample swig_types[96]
+#define SWIGTYPE_p_IdentityRotation swig_types[97]
+#define SWIGTYPE_p_Instrument swig_types[98]
+#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[99]
+#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[100]
+#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[101]
+#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[102]
+#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[103]
+#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[104]
+#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[105]
+#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[106]
+#define SWIGTYPE_p_InterferenceFunctionNone swig_types[107]
+#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[108]
+#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[109]
+#define SWIGTYPE_p_IsGISAXSDetector swig_types[110]
+#define SWIGTYPE_p_Layer swig_types[111]
+#define SWIGTYPE_p_LayerInterface swig_types[112]
+#define SWIGTYPE_p_LayerRoughness swig_types[113]
+#define SWIGTYPE_p_MesoCrystal swig_types[114]
+#define SWIGTYPE_p_MultiLayer swig_types[115]
+#define SWIGTYPE_p_NodeMeta swig_types[116]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[117]
+#define SWIGTYPE_p_ParaMeta swig_types[118]
+#define SWIGTYPE_p_ParameterDistribution swig_types[119]
+#define SWIGTYPE_p_ParameterPool swig_types[120]
+#define SWIGTYPE_p_ParameterSample swig_types[121]
+#define SWIGTYPE_p_Particle swig_types[122]
+#define SWIGTYPE_p_ParticleComposition swig_types[123]
+#define SWIGTYPE_p_ParticleCoreShell swig_types[124]
+#define SWIGTYPE_p_ParticleDistribution swig_types[125]
+#define SWIGTYPE_p_ParticleLayout swig_types[126]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[127]
+#define SWIGTYPE_p_RangedDistribution swig_types[128]
+#define SWIGTYPE_p_RangedDistributionCosine swig_types[129]
+#define SWIGTYPE_p_RangedDistributionGate swig_types[130]
+#define SWIGTYPE_p_RangedDistributionGaussian swig_types[131]
+#define SWIGTYPE_p_RangedDistributionLogNormal swig_types[132]
+#define SWIGTYPE_p_RangedDistributionLorentz swig_types[133]
+#define SWIGTYPE_p_RealLimits swig_types[134]
+#define SWIGTYPE_p_RealParameter swig_types[135]
+#define SWIGTYPE_p_RectangularDetector swig_types[136]
+#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[137]
+#define SWIGTYPE_p_RotationEuler swig_types[138]
+#define SWIGTYPE_p_RotationX swig_types[139]
+#define SWIGTYPE_p_RotationY swig_types[140]
+#define SWIGTYPE_p_RotationZ swig_types[141]
+#define SWIGTYPE_p_SpecularDetector1D swig_types[142]
+#define SWIGTYPE_p_SpecularSimulation swig_types[143]
+#define SWIGTYPE_p_SphericalDetector swig_types[144]
+#define SWIGTYPE_p_SquareLattice swig_types[145]
+#define SWIGTYPE_p_allocator_type swig_types[146]
+#define SWIGTYPE_p_char swig_types[147]
+#define SWIGTYPE_p_difference_type swig_types[148]
+#define SWIGTYPE_p_double swig_types[149]
+#define SWIGTYPE_p_first_type swig_types[150]
+#define SWIGTYPE_p_int swig_types[151]
+#define SWIGTYPE_p_key_type swig_types[152]
+#define SWIGTYPE_p_long_long swig_types[153]
+#define SWIGTYPE_p_mapped_type swig_types[154]
+#define SWIGTYPE_p_p_PyObject swig_types[155]
+#define SWIGTYPE_p_second_type swig_types[156]
+#define SWIGTYPE_p_short swig_types[157]
+#define SWIGTYPE_p_signed_char swig_types[158]
+#define SWIGTYPE_p_size_type swig_types[159]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[160]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[161]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[162]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[163]
+#define SWIGTYPE_p_std__allocatorT_ParameterSample_t swig_types[164]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[165]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[166]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[167]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[168]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[169]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[170]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[171]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[172]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[173]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[174]
+#define SWIGTYPE_p_std__functionT_void_fF_t swig_types[175]
+#define SWIGTYPE_p_std__invalid_argument swig_types[176]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[177]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[178]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[183]
+#define SWIGTYPE_p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t swig_types[184]
+#define SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t swig_types[185]
+#define SWIGTYPE_p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t swig_types[186]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[187]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[188]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[189]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[190]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[191]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[192]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[193]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[194]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[195]
+#define SWIGTYPE_p_unsigned_char swig_types[196]
+#define SWIGTYPE_p_unsigned_int swig_types[197]
+#define SWIGTYPE_p_unsigned_long_long swig_types[198]
+#define SWIGTYPE_p_unsigned_short swig_types[199]
+#define SWIGTYPE_p_value_type swig_types[200]
+static swig_type_info *swig_types[202];
+static swig_module_info swig_module = {swig_types, 201, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6788,6 +6799,12 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Param/Node/INode.h"
 #include "Param/Node/INodeVisitor.h"
 
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/ParameterDistribution.h"
+#include "Param/Varia/ParameterSample.h"
+#include "Param/Distrib/RangedDistributions.h"
+
+
 
   namespace swig {
     template <>  struct traits< BasicVector3D< double > > {
@@ -7219,6 +7236,115 @@ SWIGINTERN void std_vector_Sl_INode_SS_const_Sm__Sg__insert__SWIG_1(std::vector<
 SWIGINTERN RealParameter const *ParameterPool___getitem__(ParameterPool const *self,size_t index){
         return (*(self))[index];
     }
+
+  namespace swig {
+    template <>  struct traits< ParameterSample > {
+      typedef pointer_category category;
+      static const char* type_name() { return"ParameterSample"; }
+    };
+  }
+
+
+      namespace swig {
+	template <>  struct traits<std::vector< ParameterSample, std::allocator< ParameterSample > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "ParameterSample" "," "std::allocator< ParameterSample >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN swig::SwigPyIterator *std_vector_Sl_ParameterSample_Sg__iterator(std::vector< ParameterSample > *self,PyObject **PYTHON_SELF){
+      return swig::make_output_iterator(self->begin(), self->begin(), self->end(), *PYTHON_SELF);
+    }
+SWIGINTERN bool std_vector_Sl_ParameterSample_Sg____nonzero__(std::vector< ParameterSample > const *self){
+      return !(self->empty());
+    }
+SWIGINTERN bool std_vector_Sl_ParameterSample_Sg____bool__(std::vector< ParameterSample > const *self){
+      return !(self->empty());
+    }
+SWIGINTERN std::vector< ParameterSample >::size_type std_vector_Sl_ParameterSample_Sg____len__(std::vector< ParameterSample > const *self){
+      return self->size();
+    }
+SWIGINTERN std::vector< ParameterSample,std::allocator< ParameterSample > > *std_vector_Sl_ParameterSample_Sg____getslice__(std::vector< ParameterSample > *self,std::vector< ParameterSample >::difference_type i,std::vector< ParameterSample >::difference_type j){
+      return swig::getslice(self, i, j, 1);
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____setslice____SWIG_0(std::vector< ParameterSample > *self,std::vector< ParameterSample >::difference_type i,std::vector< ParameterSample >::difference_type j){
+      swig::setslice(self, i, j, 1, std::vector< ParameterSample,std::allocator< ParameterSample > >());
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____setslice____SWIG_1(std::vector< ParameterSample > *self,std::vector< ParameterSample >::difference_type i,std::vector< ParameterSample >::difference_type j,std::vector< ParameterSample,std::allocator< ParameterSample > > const &v){
+      swig::setslice(self, i, j, 1, v);
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____delslice__(std::vector< ParameterSample > *self,std::vector< ParameterSample >::difference_type i,std::vector< ParameterSample >::difference_type j){
+      swig::delslice(self, i, j, 1);
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____delitem____SWIG_0(std::vector< ParameterSample > *self,std::vector< ParameterSample >::difference_type i){
+      swig::erase(self, swig::getpos(self, i));
+    }
+SWIGINTERN std::vector< ParameterSample,std::allocator< ParameterSample > > *std_vector_Sl_ParameterSample_Sg____getitem____SWIG_0(std::vector< ParameterSample > *self,PySliceObject *slice){
+      Py_ssize_t i, j, step;
+      if( !PySlice_Check(slice) ) {
+        SWIG_Error(SWIG_TypeError, "Slice object expected.");
+        return NULL;
+      }
+      PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type id = i;
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type jd = j;
+      return swig::getslice(self, id, jd, step);
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____setitem____SWIG_0(std::vector< ParameterSample > *self,PySliceObject *slice,std::vector< ParameterSample,std::allocator< ParameterSample > > const &v){
+      Py_ssize_t i, j, step;
+      if( !PySlice_Check(slice) ) {
+        SWIG_Error(SWIG_TypeError, "Slice object expected.");
+        return;
+      }
+      PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type id = i;
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type jd = j;
+      swig::setslice(self, id, jd, step, v);
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____setitem____SWIG_1(std::vector< ParameterSample > *self,PySliceObject *slice){
+      Py_ssize_t i, j, step;
+      if( !PySlice_Check(slice) ) {
+        SWIG_Error(SWIG_TypeError, "Slice object expected.");
+        return;
+      }
+      PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type id = i;
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type jd = j;
+      swig::delslice(self, id, jd, step);
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____delitem____SWIG_1(std::vector< ParameterSample > *self,PySliceObject *slice){
+      Py_ssize_t i, j, step;
+      if( !PySlice_Check(slice) ) {
+        SWIG_Error(SWIG_TypeError, "Slice object expected.");
+        return;
+      }
+      PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type id = i;
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::difference_type jd = j;
+      swig::delslice(self, id, jd, step);
+    }
+SWIGINTERN std::vector< ParameterSample >::value_type const &std_vector_Sl_ParameterSample_Sg____getitem____SWIG_1(std::vector< ParameterSample > const *self,std::vector< ParameterSample >::difference_type i){
+      return *(swig::cgetpos(self, i));
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg____setitem____SWIG_2(std::vector< ParameterSample > *self,std::vector< ParameterSample >::difference_type i,std::vector< ParameterSample >::value_type const &x){
+      *(swig::getpos(self,i)) = x;
+    }
+SWIGINTERN std::vector< ParameterSample >::value_type std_vector_Sl_ParameterSample_Sg__pop(std::vector< ParameterSample > *self){
+      if (self->size() == 0)
+	throw std::out_of_range("pop from empty container");
+      std::vector< ParameterSample,std::allocator< ParameterSample > >::value_type x = self->back();
+      self->pop_back();
+      return x;
+    }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg__append(std::vector< ParameterSample > *self,std::vector< ParameterSample >::value_type const &x){
+      self->push_back(x);
+    }
+SWIGINTERN std::vector< ParameterSample >::iterator std_vector_Sl_ParameterSample_Sg__erase__SWIG_0(std::vector< ParameterSample > *self,std::vector< ParameterSample >::iterator pos){ return self->erase(pos); }
+SWIGINTERN std::vector< ParameterSample >::iterator std_vector_Sl_ParameterSample_Sg__erase__SWIG_1(std::vector< ParameterSample > *self,std::vector< ParameterSample >::iterator first,std::vector< ParameterSample >::iterator last){ return self->erase(first, last); }
+SWIGINTERN std::vector< ParameterSample >::iterator std_vector_Sl_ParameterSample_Sg__insert__SWIG_0(std::vector< ParameterSample > *self,std::vector< ParameterSample >::iterator pos,std::vector< ParameterSample >::value_type const &x){ return self->insert(pos, x); }
+SWIGINTERN void std_vector_Sl_ParameterSample_Sg__insert__SWIG_1(std::vector< ParameterSample > *self,std::vector< ParameterSample >::iterator pos,std::vector< ParameterSample >::size_type n,std::vector< ParameterSample >::value_type const &x){ self->insert(pos, n, x); }
 
 
 /* ---------------------------------------------------
@@ -42294,6 +42420,7539 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IDistribution1D_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IDistribution1D *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_clone" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  result = (IDistribution1D *)((IDistribution1D const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_probabilityDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDistribution1D_probabilityDensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_probabilityDensity" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_probabilityDensity" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (double)((IDistribution1D const *)arg1)->probabilityDensity(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_getMean(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_getMean" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  result = (double)((IDistribution1D const *)arg1)->getMean();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantSamples__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_equidistantSamples" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_equidistantSamples" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDistribution1D_equidistantSamples" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IDistribution1D_equidistantSamples" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IDistribution1D_equidistantSamples" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((IDistribution1D const *)arg1)->equidistantSamples(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = SWIG_NewPointerObj((new std::vector< ParameterSample,std::allocator< ParameterSample > >(static_cast< const std::vector< ParameterSample,std::allocator< ParameterSample > >& >(result))), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantSamples__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_equidistantSamples" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_equidistantSamples" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDistribution1D_equidistantSamples" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((IDistribution1D const *)arg1)->equidistantSamples(arg2,arg3);
+  resultobj = SWIG_NewPointerObj((new std::vector< ParameterSample,std::allocator< ParameterSample > >(static_cast< const std::vector< ParameterSample,std::allocator< ParameterSample > >& >(result))), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantSamples__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_equidistantSamples" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_equidistantSamples" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = ((IDistribution1D const *)arg1)->equidistantSamples(arg2);
+  resultobj = SWIG_NewPointerObj((new std::vector< ParameterSample,std::allocator< ParameterSample > >(static_cast< const std::vector< ParameterSample,std::allocator< ParameterSample > >& >(result))), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantSamples(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IDistribution1D_equidistantSamples", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IDistribution1D, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_IDistribution1D_equidistantSamples__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IDistribution1D, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_IDistribution1D_equidistantSamples__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IDistribution1D, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_IDistribution1D_equidistantSamples__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IDistribution1D_equidistantSamples'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IDistribution1D::equidistantSamples(size_t,double,RealLimits const &) const\n"
+    "    IDistribution1D::equidistantSamples(size_t,double) const\n"
+    "    IDistribution1D::equidistantSamples(size_t) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantSamplesInRange(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDistribution1D_equidistantSamplesInRange", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_equidistantSamplesInRange" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_equidistantSamplesInRange" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDistribution1D_equidistantSamplesInRange" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IDistribution1D_equidistantSamplesInRange" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = ((IDistribution1D const *)arg1)->equidistantSamplesInRange(arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj((new std::vector< ParameterSample,std::allocator< ParameterSample > >(static_cast< const std::vector< ParameterSample,std::allocator< ParameterSample > >& >(result))), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantPoints__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_equidistantPoints" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDistribution1D_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IDistribution1D_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IDistribution1D_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((IDistribution1D const *)arg1)->equidistantPoints(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantPoints__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_equidistantPoints" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDistribution1D_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((IDistribution1D const *)arg1)->equidistantPoints(arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantPoints(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IDistribution1D_equidistantPoints", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IDistribution1D, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_IDistribution1D_equidistantPoints__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IDistribution1D, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_IDistribution1D_equidistantPoints__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IDistribution1D_equidistantPoints'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IDistribution1D::equidistantPoints(size_t,double,RealLimits const &) const\n"
+    "    IDistribution1D::equidistantPoints(size_t,double) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_equidistantPointsInRange(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDistribution1D_equidistantPointsInRange", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_equidistantPointsInRange" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDistribution1D_equidistantPointsInRange" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDistribution1D_equidistantPointsInRange" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IDistribution1D_equidistantPointsInRange" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = ((IDistribution1D const *)arg1)->equidistantPointsInRange(arg2,arg3,arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_isDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_isDelta" "', argument " "1"" of type '" "IDistribution1D const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  result = (bool)((IDistribution1D const *)arg1)->isDelta();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDistribution1D_setUnits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDistribution1D_setUnits", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDistribution1D_setUnits" "', argument " "1"" of type '" "IDistribution1D *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDistribution1D_setUnits" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IDistribution1D_setUnits" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setUnits((std::string const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_IDistribution1D(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDistribution1D *arg1 = (IDistribution1D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDistribution1D, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IDistribution1D" "', argument " "1"" of type '" "IDistribution1D *""'"); 
+  }
+  arg1 = reinterpret_cast< IDistribution1D * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IDistribution1D_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_IDistribution1D, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_DistributionGate__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > arg1 ;
+  DistributionGate *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_DistributionGate" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (DistributionGate *)new DistributionGate(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGate, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionGate__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  DistributionGate *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_DistributionGate" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DistributionGate" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (DistributionGate *)new DistributionGate(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGate, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionGate__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  DistributionGate *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (DistributionGate *)new DistributionGate();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGate, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionGate(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DistributionGate", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_DistributionGate__SWIG_2(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_DistributionGate__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_DistributionGate__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DistributionGate'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionGate::DistributionGate(std::vector< double,std::allocator< double > > const)\n"
+    "    DistributionGate::DistributionGate(double,double)\n"
+    "    DistributionGate::DistributionGate()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DistributionGate *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_clone" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  result = (DistributionGate *)((DistributionGate const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGate, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_probabilityDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionGate_probabilityDensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_probabilityDensity" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionGate_probabilityDensity" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (double)((DistributionGate const *)arg1)->probabilityDensity(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_getMean(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_getMean" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  result = (double)((DistributionGate const *)arg1)->getMean();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_getMin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_getMin" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  result = (double)((DistributionGate const *)arg1)->getMin();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_getMax(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_getMax" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  result = (double)((DistributionGate const *)arg1)->getMax();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_equidistantPoints__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_equidistantPoints" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionGate_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionGate_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "DistributionGate_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DistributionGate_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((DistributionGate const *)arg1)->equidistantPoints(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_equidistantPoints__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_equidistantPoints" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionGate_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionGate_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((DistributionGate const *)arg1)->equidistantPoints(arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_equidistantPoints(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DistributionGate_equidistantPoints", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionGate, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_DistributionGate_equidistantPoints__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionGate, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_DistributionGate_equidistantPoints__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DistributionGate_equidistantPoints'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionGate::equidistantPoints(size_t,double,RealLimits const &) const\n"
+    "    DistributionGate::equidistantPoints(size_t,double) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_isDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_isDelta" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  result = (bool)((DistributionGate const *)arg1)->isDelta();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGate_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionGate_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_accept" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DistributionGate_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((DistributionGate const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_DistributionGate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGate *arg1 = (DistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DistributionGate" "', argument " "1"" of type '" "DistributionGate *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGate * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *DistributionGate_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_DistributionGate, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *DistributionGate_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_DistributionLorentz__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > arg1 ;
+  DistributionLorentz *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_DistributionLorentz" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (DistributionLorentz *)new DistributionLorentz(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionLorentz, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionLorentz__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  DistributionLorentz *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_DistributionLorentz" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DistributionLorentz" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (DistributionLorentz *)new DistributionLorentz(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionLorentz, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionLorentz__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (DistributionLorentz *)new DistributionLorentz();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionLorentz, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionLorentz(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DistributionLorentz", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_DistributionLorentz__SWIG_2(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_DistributionLorentz__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_DistributionLorentz__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DistributionLorentz'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionLorentz::DistributionLorentz(std::vector< double,std::allocator< double > > const)\n"
+    "    DistributionLorentz::DistributionLorentz(double,double)\n"
+    "    DistributionLorentz::DistributionLorentz()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DistributionLorentz *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_clone" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  result = (DistributionLorentz *)((DistributionLorentz const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_probabilityDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionLorentz_probabilityDensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_probabilityDensity" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionLorentz_probabilityDensity" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (double)((DistributionLorentz const *)arg1)->probabilityDensity(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_getMean(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_getMean" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  result = (double)((DistributionLorentz const *)arg1)->getMean();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_getHWHM(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_getHWHM" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  result = (double)((DistributionLorentz const *)arg1)->getHWHM();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_equidistantPoints__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_equidistantPoints" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionLorentz_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionLorentz_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "DistributionLorentz_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DistributionLorentz_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((DistributionLorentz const *)arg1)->equidistantPoints(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_equidistantPoints__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_equidistantPoints" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionLorentz_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionLorentz_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((DistributionLorentz const *)arg1)->equidistantPoints(arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_equidistantPoints(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DistributionLorentz_equidistantPoints", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionLorentz, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_DistributionLorentz_equidistantPoints__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionLorentz, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_DistributionLorentz_equidistantPoints__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DistributionLorentz_equidistantPoints'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionLorentz::equidistantPoints(size_t,double,RealLimits const &) const\n"
+    "    DistributionLorentz::equidistantPoints(size_t,double) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_isDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_isDelta" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  result = (bool)((DistributionLorentz const *)arg1)->isDelta();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLorentz_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionLorentz_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLorentz_accept" "', argument " "1"" of type '" "DistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DistributionLorentz_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((DistributionLorentz const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_DistributionLorentz(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLorentz *arg1 = (DistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLorentz, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DistributionLorentz" "', argument " "1"" of type '" "DistributionLorentz *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLorentz * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *DistributionLorentz_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_DistributionLorentz, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *DistributionLorentz_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_DistributionGaussian__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > arg1 ;
+  DistributionGaussian *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_DistributionGaussian" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (DistributionGaussian *)new DistributionGaussian(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGaussian, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionGaussian__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  DistributionGaussian *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_DistributionGaussian" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DistributionGaussian" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (DistributionGaussian *)new DistributionGaussian(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGaussian, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionGaussian__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (DistributionGaussian *)new DistributionGaussian();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGaussian, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionGaussian(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DistributionGaussian", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_DistributionGaussian__SWIG_2(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_DistributionGaussian__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_DistributionGaussian__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DistributionGaussian'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionGaussian::DistributionGaussian(std::vector< double,std::allocator< double > > const)\n"
+    "    DistributionGaussian::DistributionGaussian(double,double)\n"
+    "    DistributionGaussian::DistributionGaussian()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DistributionGaussian *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_clone" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  result = (DistributionGaussian *)((DistributionGaussian const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_probabilityDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionGaussian_probabilityDensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_probabilityDensity" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionGaussian_probabilityDensity" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (double)((DistributionGaussian const *)arg1)->probabilityDensity(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_getMean(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_getMean" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  result = (double)((DistributionGaussian const *)arg1)->getMean();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_getStdDev(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_getStdDev" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  result = (double)((DistributionGaussian const *)arg1)->getStdDev();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_equidistantPoints__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_equidistantPoints" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionGaussian_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionGaussian_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "DistributionGaussian_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DistributionGaussian_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((DistributionGaussian const *)arg1)->equidistantPoints(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_equidistantPoints__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_equidistantPoints" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionGaussian_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionGaussian_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((DistributionGaussian const *)arg1)->equidistantPoints(arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_equidistantPoints(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DistributionGaussian_equidistantPoints", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionGaussian, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_DistributionGaussian_equidistantPoints__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionGaussian, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_DistributionGaussian_equidistantPoints__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DistributionGaussian_equidistantPoints'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionGaussian::equidistantPoints(size_t,double,RealLimits const &) const\n"
+    "    DistributionGaussian::equidistantPoints(size_t,double) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_isDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_isDelta" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  result = (bool)((DistributionGaussian const *)arg1)->isDelta();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionGaussian_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionGaussian_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGaussian_accept" "', argument " "1"" of type '" "DistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DistributionGaussian_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((DistributionGaussian const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_DistributionGaussian(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionGaussian *arg1 = (DistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGaussian, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DistributionGaussian" "', argument " "1"" of type '" "DistributionGaussian *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionGaussian * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *DistributionGaussian_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_DistributionGaussian, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *DistributionGaussian_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_DistributionLogNormal__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > arg1 ;
+  DistributionLogNormal *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_DistributionLogNormal" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (DistributionLogNormal *)new DistributionLogNormal(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionLogNormal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionLogNormal__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  DistributionLogNormal *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_DistributionLogNormal" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DistributionLogNormal" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (DistributionLogNormal *)new DistributionLogNormal(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionLogNormal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionLogNormal(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DistributionLogNormal", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_DistributionLogNormal__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_DistributionLogNormal__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DistributionLogNormal'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionLogNormal::DistributionLogNormal(std::vector< double,std::allocator< double > > const)\n"
+    "    DistributionLogNormal::DistributionLogNormal(double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DistributionLogNormal *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_clone" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  result = (DistributionLogNormal *)((DistributionLogNormal const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_probabilityDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionLogNormal_probabilityDensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_probabilityDensity" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionLogNormal_probabilityDensity" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (double)((DistributionLogNormal const *)arg1)->probabilityDensity(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_getMean(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_getMean" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  result = (double)((DistributionLogNormal const *)arg1)->getMean();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_getMedian(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_getMedian" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  result = (double)((DistributionLogNormal const *)arg1)->getMedian();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_getScalePar(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_getScalePar" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  result = (double)((DistributionLogNormal const *)arg1)->getScalePar();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_equidistantPoints__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((DistributionLogNormal const *)arg1)->equidistantPoints(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_equidistantPoints__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionLogNormal_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((DistributionLogNormal const *)arg1)->equidistantPoints(arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_equidistantPoints(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DistributionLogNormal_equidistantPoints", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionLogNormal, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_DistributionLogNormal_equidistantPoints__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionLogNormal, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_DistributionLogNormal_equidistantPoints__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DistributionLogNormal_equidistantPoints'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionLogNormal::equidistantPoints(size_t,double,RealLimits const &) const\n"
+    "    DistributionLogNormal::equidistantPoints(size_t,double) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_isDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_isDelta" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  result = (bool)((DistributionLogNormal const *)arg1)->isDelta();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionLogNormal_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_accept" "', argument " "1"" of type '" "DistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DistributionLogNormal_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((DistributionLogNormal const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionLogNormal_setUnits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionLogNormal_setUnits", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionLogNormal_setUnits" "', argument " "1"" of type '" "DistributionLogNormal *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DistributionLogNormal_setUnits" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DistributionLogNormal_setUnits" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setUnits((std::string const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_DistributionLogNormal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionLogNormal *arg1 = (DistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionLogNormal, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DistributionLogNormal" "', argument " "1"" of type '" "DistributionLogNormal *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionLogNormal * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *DistributionLogNormal_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_DistributionLogNormal, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *DistributionLogNormal_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_DistributionCosine__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > arg1 ;
+  DistributionCosine *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_DistributionCosine" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (DistributionCosine *)new DistributionCosine(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionCosine, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionCosine__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  DistributionCosine *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_DistributionCosine" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DistributionCosine" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (DistributionCosine *)new DistributionCosine(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionCosine, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionCosine__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  DistributionCosine *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (DistributionCosine *)new DistributionCosine();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionCosine, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionCosine(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DistributionCosine", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_DistributionCosine__SWIG_2(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_DistributionCosine__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_DistributionCosine__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DistributionCosine'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionCosine::DistributionCosine(std::vector< double,std::allocator< double > > const)\n"
+    "    DistributionCosine::DistributionCosine(double,double)\n"
+    "    DistributionCosine::DistributionCosine()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DistributionCosine *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_clone" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  result = (DistributionCosine *)((DistributionCosine const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_probabilityDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionCosine_probabilityDensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_probabilityDensity" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionCosine_probabilityDensity" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (double)((DistributionCosine const *)arg1)->probabilityDensity(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_getMean(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_getMean" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  result = (double)((DistributionCosine const *)arg1)->getMean();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_getSigma(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_getSigma" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  result = (double)((DistributionCosine const *)arg1)->getSigma();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_equidistantPoints__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_equidistantPoints" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionCosine_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionCosine_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "DistributionCosine_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DistributionCosine_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((DistributionCosine const *)arg1)->equidistantPoints(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_equidistantPoints__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_equidistantPoints" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionCosine_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionCosine_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((DistributionCosine const *)arg1)->equidistantPoints(arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_equidistantPoints(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DistributionCosine_equidistantPoints", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionCosine, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_DistributionCosine_equidistantPoints__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionCosine, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_DistributionCosine_equidistantPoints__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DistributionCosine_equidistantPoints'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionCosine::equidistantPoints(size_t,double,RealLimits const &) const\n"
+    "    DistributionCosine::equidistantPoints(size_t,double) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_isDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_isDelta" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  result = (bool)((DistributionCosine const *)arg1)->isDelta();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionCosine_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionCosine_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionCosine_accept" "', argument " "1"" of type '" "DistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DistributionCosine_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((DistributionCosine const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_DistributionCosine(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionCosine *arg1 = (DistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionCosine, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DistributionCosine" "', argument " "1"" of type '" "DistributionCosine *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionCosine * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *DistributionCosine_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_DistributionCosine, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *DistributionCosine_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_DistributionTrapezoid__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > arg1 ;
+  DistributionTrapezoid *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_DistributionTrapezoid" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (DistributionTrapezoid *)new DistributionTrapezoid(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionTrapezoid, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionTrapezoid__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  DistributionTrapezoid *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_DistributionTrapezoid" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_DistributionTrapezoid" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_DistributionTrapezoid" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_DistributionTrapezoid" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (DistributionTrapezoid *)new DistributionTrapezoid(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionTrapezoid, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionTrapezoid__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (DistributionTrapezoid *)new DistributionTrapezoid();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionTrapezoid, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_DistributionTrapezoid(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_DistributionTrapezoid", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_DistributionTrapezoid__SWIG_2(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_DistributionTrapezoid__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_DistributionTrapezoid__SWIG_1(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_DistributionTrapezoid'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionTrapezoid::DistributionTrapezoid(std::vector< double,std::allocator< double > > const)\n"
+    "    DistributionTrapezoid::DistributionTrapezoid(double,double,double,double)\n"
+    "    DistributionTrapezoid::DistributionTrapezoid()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DistributionTrapezoid *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_clone" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  result = (DistributionTrapezoid *)((DistributionTrapezoid const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_probabilityDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionTrapezoid_probabilityDensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_probabilityDensity" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionTrapezoid_probabilityDensity" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (double)((DistributionTrapezoid const *)arg1)->probabilityDensity(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_getMean(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_getMean" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  result = (double)((DistributionTrapezoid const *)arg1)->getMean();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_getLeftWidth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_getLeftWidth" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  result = (double)((DistributionTrapezoid const *)arg1)->getLeftWidth();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_getMiddleWidth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_getMiddleWidth" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  result = (double)((DistributionTrapezoid const *)arg1)->getMiddleWidth();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_getRightWidth(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_getRightWidth" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  result = (double)((DistributionTrapezoid const *)arg1)->getRightWidth();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_equidistantPoints__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  RealLimits *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "4"" of type '" "RealLimits const &""'"); 
+  }
+  arg4 = reinterpret_cast< RealLimits * >(argp4);
+  result = ((DistributionTrapezoid const *)arg1)->equidistantPoints(arg2,arg3,(RealLimits const &)*arg4);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_equidistantPoints__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  size_t arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DistributionTrapezoid_equidistantPoints" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = ((DistributionTrapezoid const *)arg1)->equidistantPoints(arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_equidistantPoints(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "DistributionTrapezoid_equidistantPoints", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionTrapezoid, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_DistributionTrapezoid_equidistantPoints__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_DistributionTrapezoid, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_DistributionTrapezoid_equidistantPoints__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'DistributionTrapezoid_equidistantPoints'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DistributionTrapezoid::equidistantPoints(size_t,double,RealLimits const &) const\n"
+    "    DistributionTrapezoid::equidistantPoints(size_t,double) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_isDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_isDelta" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  result = (bool)((DistributionTrapezoid const *)arg1)->isDelta();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DistributionTrapezoid_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "DistributionTrapezoid_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionTrapezoid_accept" "', argument " "1"" of type '" "DistributionTrapezoid const *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DistributionTrapezoid_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((DistributionTrapezoid const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_DistributionTrapezoid(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  DistributionTrapezoid *arg1 = (DistributionTrapezoid *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionTrapezoid, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_DistributionTrapezoid" "', argument " "1"" of type '" "DistributionTrapezoid *""'"); 
+  }
+  arg1 = reinterpret_cast< DistributionTrapezoid * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *DistributionTrapezoid_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_DistributionTrapezoid, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *DistributionTrapezoid_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_ParameterDistribution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  IDistribution1D *arg2 = 0 ;
+  size_t arg3 ;
+  double arg4 ;
+  RealLimits *arg5 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  void *argp5 = 0 ;
+  int res5 = 0 ;
+  ParameterDistribution *result = 0 ;
+  
+  if ((nobjs < 5) || (nobjs > 5)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IDistribution1D,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  arg2 = reinterpret_cast< IDistribution1D * >(argp2);
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_ParameterDistribution" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_ParameterDistribution" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res5)) {
+    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "new_ParameterDistribution" "', argument " "5"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp5) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "5"" of type '" "RealLimits const &""'"); 
+  }
+  arg5 = reinterpret_cast< RealLimits * >(argp5);
+  result = (ParameterDistribution *)new ParameterDistribution((std::string const &)*arg1,(IDistribution1D const &)*arg2,arg3,arg4,(RealLimits const &)*arg5);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterDistribution, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterDistribution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  IDistribution1D *arg2 = 0 ;
+  size_t arg3 ;
+  double arg4 ;
+  int res1 = SWIG_OLDOBJ ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  ParameterDistribution *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IDistribution1D,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  arg2 = reinterpret_cast< IDistribution1D * >(argp2);
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_ParameterDistribution" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_ParameterDistribution" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (ParameterDistribution *)new ParameterDistribution((std::string const &)*arg1,(IDistribution1D const &)*arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterDistribution, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterDistribution__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  IDistribution1D *arg2 = 0 ;
+  size_t arg3 ;
+  int res1 = SWIG_OLDOBJ ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  ParameterDistribution *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IDistribution1D,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  arg2 = reinterpret_cast< IDistribution1D * >(argp2);
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_ParameterDistribution" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  result = (ParameterDistribution *)new ParameterDistribution((std::string const &)*arg1,(IDistribution1D const &)*arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterDistribution, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterDistribution__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  IDistribution1D *arg2 = 0 ;
+  size_t arg3 ;
+  double arg4 ;
+  double arg5 ;
+  int res1 = SWIG_OLDOBJ ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  double val5 ;
+  int ecode5 = 0 ;
+  ParameterDistribution *result = 0 ;
+  
+  if ((nobjs < 5) || (nobjs > 5)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IDistribution1D,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "2"" of type '" "IDistribution1D const &""'"); 
+  }
+  arg2 = reinterpret_cast< IDistribution1D * >(argp2);
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_ParameterDistribution" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_ParameterDistribution" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  ecode5 = SWIG_AsVal_double(swig_obj[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "new_ParameterDistribution" "', argument " "5"" of type '" "double""'");
+  } 
+  arg5 = static_cast< double >(val5);
+  result = (ParameterDistribution *)new ParameterDistribution((std::string const &)*arg1,(IDistribution1D const &)*arg2,arg3,arg4,arg5);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterDistribution, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterDistribution__SWIG_4(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ParameterDistribution *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_ParameterDistribution,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "ParameterDistribution const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterDistribution" "', argument " "1"" of type '" "ParameterDistribution const &""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = (ParameterDistribution *)new ParameterDistribution((ParameterDistribution const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterDistribution, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterDistribution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[6] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_ParameterDistribution", 0, 5, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_ParameterDistribution, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_ParameterDistribution__SWIG_4(self, argc, argv);
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IDistribution1D, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_size_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_ParameterDistribution__SWIG_2(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IDistribution1D, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_size_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_ParameterDistribution__SWIG_1(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IDistribution1D, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_size_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            int res = SWIG_ConvertPtr(argv[4], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+            _v = SWIG_CheckState(res);
+            if (_v) {
+              return _wrap_new_ParameterDistribution__SWIG_0(self, argc, argv);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IDistribution1D, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_size_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            {
+              int res = SWIG_AsVal_double(argv[4], NULL);
+              _v = SWIG_CheckState(res);
+            }
+            if (_v) {
+              return _wrap_new_ParameterDistribution__SWIG_3(self, argc, argv);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_ParameterDistribution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    ParameterDistribution::ParameterDistribution(std::string const &,IDistribution1D const &,size_t,double,RealLimits const &)\n"
+    "    ParameterDistribution::ParameterDistribution(std::string const &,IDistribution1D const &,size_t,double)\n"
+    "    ParameterDistribution::ParameterDistribution(std::string const &,IDistribution1D const &,size_t)\n"
+    "    ParameterDistribution::ParameterDistribution(std::string const &,IDistribution1D const &,size_t,double,double)\n"
+    "    ParameterDistribution::ParameterDistribution(ParameterDistribution const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_ParameterDistribution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ParameterDistribution" "', argument " "1"" of type '" "ParameterDistribution *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_linkParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  std::string arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[2] ;
+  ParameterDistribution *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterDistribution_linkParameter", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_linkParameter" "', argument " "1"" of type '" "ParameterDistribution *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "ParameterDistribution_linkParameter" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (ParameterDistribution *) &(arg1)->linkParameter(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getMainParameterName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getMainParameterName" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = ((ParameterDistribution const *)arg1)->getMainParameterName();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getNbrSamples(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  size_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getNbrSamples" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = ((ParameterDistribution const *)arg1)->getNbrSamples();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getSigmaFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getSigmaFactor" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = (double)((ParameterDistribution const *)arg1)->getSigmaFactor();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getDistribution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDistribution1D *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getDistribution" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = (IDistribution1D *)((ParameterDistribution const *)arg1)->getDistribution();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getDistribution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDistribution1D *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getDistribution" "', argument " "1"" of type '" "ParameterDistribution *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = (IDistribution1D *)(arg1)->getDistribution();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDistribution1D, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getDistribution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterDistribution_getDistribution", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ParameterDistribution, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ParameterDistribution_getDistribution__SWIG_1(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ParameterDistribution, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ParameterDistribution_getDistribution__SWIG_0(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterDistribution_getDistribution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    ParameterDistribution::getDistribution() const\n"
+    "    ParameterDistribution::getDistribution()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_generateSamples(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_generateSamples" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = ((ParameterDistribution const *)arg1)->generateSamples();
+  resultobj = SWIG_NewPointerObj((new std::vector< ParameterSample,std::allocator< ParameterSample > >(static_cast< const std::vector< ParameterSample,std::allocator< ParameterSample > >& >(result))), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getLinkedParameterNames(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::string,std::allocator< std::string > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getLinkedParameterNames" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = ((ParameterDistribution const *)arg1)->getLinkedParameterNames();
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RealLimits result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getLimits" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = ((ParameterDistribution const *)arg1)->getLimits();
+  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getMinValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getMinValue" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = (double)((ParameterDistribution const *)arg1)->getMinValue();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterDistribution_getMaxValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterDistribution *arg1 = (ParameterDistribution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterDistribution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterDistribution_getMaxValue" "', argument " "1"" of type '" "ParameterDistribution const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterDistribution * >(argp1);
+  result = (double)((ParameterDistribution const *)arg1)->getMaxValue();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *ParameterDistribution_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_ParameterDistribution, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *ParameterDistribution_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGate__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  RangedDistributionGate *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (RangedDistributionGate *)new RangedDistributionGate();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGate, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGate__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  RealLimits *arg3 = 0 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  RangedDistributionGate *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionGate" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionGate" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_RangedDistributionGate" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_RangedDistributionGate" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< RealLimits * >(argp3);
+  result = (RangedDistributionGate *)new RangedDistributionGate(arg1,arg2,(RealLimits const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGate, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGate__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  RangedDistributionGate *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionGate" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionGate" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (RangedDistributionGate *)new RangedDistributionGate(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGate, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGate__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  RangedDistributionGate *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionGate" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionGate" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_RangedDistributionGate" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_RangedDistributionGate" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (RangedDistributionGate *)new RangedDistributionGate(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGate, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGate(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_RangedDistributionGate", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_RangedDistributionGate__SWIG_0(self, argc, argv);
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_RangedDistributionGate__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_RangedDistributionGate__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_RangedDistributionGate__SWIG_3(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_RangedDistributionGate'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    RangedDistributionGate::RangedDistributionGate()\n"
+    "    RangedDistributionGate::RangedDistributionGate(size_t,double,RealLimits const &)\n"
+    "    RangedDistributionGate::RangedDistributionGate(size_t,double)\n"
+    "    RangedDistributionGate::RangedDistributionGate(size_t,double,double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionGate_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGate *arg1 = (RangedDistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RangedDistributionGate *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionGate_clone" "', argument " "1"" of type '" "RangedDistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGate * >(argp1);
+  result = (RangedDistributionGate *)((RangedDistributionGate const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGate, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_RangedDistributionGate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGate *arg1 = (RangedDistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGate, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RangedDistributionGate" "', argument " "1"" of type '" "RangedDistributionGate *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGate * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *RangedDistributionGate_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_RangedDistributionGate, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *RangedDistributionGate_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLorentz__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  RangedDistributionLorentz *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (RangedDistributionLorentz *)new RangedDistributionLorentz();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLorentz, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLorentz__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  RealLimits *arg3 = 0 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  RangedDistributionLorentz *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionLorentz" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionLorentz" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_RangedDistributionLorentz" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_RangedDistributionLorentz" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< RealLimits * >(argp3);
+  result = (RangedDistributionLorentz *)new RangedDistributionLorentz(arg1,arg2,(RealLimits const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLorentz, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLorentz__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  RangedDistributionLorentz *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionLorentz" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionLorentz" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (RangedDistributionLorentz *)new RangedDistributionLorentz(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLorentz, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLorentz__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  RangedDistributionLorentz *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionLorentz" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionLorentz" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_RangedDistributionLorentz" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_RangedDistributionLorentz" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (RangedDistributionLorentz *)new RangedDistributionLorentz(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLorentz, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLorentz(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_RangedDistributionLorentz", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_RangedDistributionLorentz__SWIG_0(self, argc, argv);
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_RangedDistributionLorentz__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_RangedDistributionLorentz__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_RangedDistributionLorentz__SWIG_3(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_RangedDistributionLorentz'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    RangedDistributionLorentz::RangedDistributionLorentz()\n"
+    "    RangedDistributionLorentz::RangedDistributionLorentz(size_t,double,RealLimits const &)\n"
+    "    RangedDistributionLorentz::RangedDistributionLorentz(size_t,double)\n"
+    "    RangedDistributionLorentz::RangedDistributionLorentz(size_t,double,double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionLorentz_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLorentz *arg1 = (RangedDistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RangedDistributionLorentz *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionLorentz_clone" "', argument " "1"" of type '" "RangedDistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLorentz * >(argp1);
+  result = (RangedDistributionLorentz *)((RangedDistributionLorentz const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLorentz, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_RangedDistributionLorentz(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLorentz *arg1 = (RangedDistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLorentz, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RangedDistributionLorentz" "', argument " "1"" of type '" "RangedDistributionLorentz *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLorentz * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *RangedDistributionLorentz_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_RangedDistributionLorentz, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *RangedDistributionLorentz_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGaussian__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  RangedDistributionGaussian *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (RangedDistributionGaussian *)new RangedDistributionGaussian();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGaussian, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGaussian__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  RealLimits *arg3 = 0 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  RangedDistributionGaussian *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionGaussian" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionGaussian" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_RangedDistributionGaussian" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_RangedDistributionGaussian" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< RealLimits * >(argp3);
+  result = (RangedDistributionGaussian *)new RangedDistributionGaussian(arg1,arg2,(RealLimits const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGaussian, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGaussian__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  RangedDistributionGaussian *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionGaussian" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionGaussian" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (RangedDistributionGaussian *)new RangedDistributionGaussian(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGaussian, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGaussian__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  RangedDistributionGaussian *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionGaussian" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionGaussian" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_RangedDistributionGaussian" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_RangedDistributionGaussian" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (RangedDistributionGaussian *)new RangedDistributionGaussian(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGaussian, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionGaussian(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_RangedDistributionGaussian", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_RangedDistributionGaussian__SWIG_0(self, argc, argv);
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_RangedDistributionGaussian__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_RangedDistributionGaussian__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_RangedDistributionGaussian__SWIG_3(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_RangedDistributionGaussian'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    RangedDistributionGaussian::RangedDistributionGaussian()\n"
+    "    RangedDistributionGaussian::RangedDistributionGaussian(size_t,double,RealLimits const &)\n"
+    "    RangedDistributionGaussian::RangedDistributionGaussian(size_t,double)\n"
+    "    RangedDistributionGaussian::RangedDistributionGaussian(size_t,double,double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionGaussian_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGaussian *arg1 = (RangedDistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RangedDistributionGaussian *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionGaussian_clone" "', argument " "1"" of type '" "RangedDistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGaussian * >(argp1);
+  result = (RangedDistributionGaussian *)((RangedDistributionGaussian const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionGaussian, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_RangedDistributionGaussian(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGaussian *arg1 = (RangedDistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGaussian, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RangedDistributionGaussian" "', argument " "1"" of type '" "RangedDistributionGaussian *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGaussian * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *RangedDistributionGaussian_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_RangedDistributionGaussian, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *RangedDistributionGaussian_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLogNormal__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  RangedDistributionLogNormal *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (RangedDistributionLogNormal *)new RangedDistributionLogNormal();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLogNormal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLogNormal__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  RealLimits *arg3 = 0 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  RangedDistributionLogNormal *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionLogNormal" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionLogNormal" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_RangedDistributionLogNormal" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_RangedDistributionLogNormal" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< RealLimits * >(argp3);
+  result = (RangedDistributionLogNormal *)new RangedDistributionLogNormal(arg1,arg2,(RealLimits const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLogNormal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLogNormal__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  RangedDistributionLogNormal *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionLogNormal" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionLogNormal" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (RangedDistributionLogNormal *)new RangedDistributionLogNormal(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLogNormal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLogNormal__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  RangedDistributionLogNormal *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionLogNormal" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionLogNormal" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_RangedDistributionLogNormal" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_RangedDistributionLogNormal" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (RangedDistributionLogNormal *)new RangedDistributionLogNormal(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLogNormal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionLogNormal(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_RangedDistributionLogNormal", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_RangedDistributionLogNormal__SWIG_0(self, argc, argv);
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_RangedDistributionLogNormal__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_RangedDistributionLogNormal__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_RangedDistributionLogNormal__SWIG_3(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_RangedDistributionLogNormal'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    RangedDistributionLogNormal::RangedDistributionLogNormal()\n"
+    "    RangedDistributionLogNormal::RangedDistributionLogNormal(size_t,double,RealLimits const &)\n"
+    "    RangedDistributionLogNormal::RangedDistributionLogNormal(size_t,double)\n"
+    "    RangedDistributionLogNormal::RangedDistributionLogNormal(size_t,double,double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionLogNormal_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLogNormal *arg1 = (RangedDistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RangedDistributionLogNormal *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionLogNormal_clone" "', argument " "1"" of type '" "RangedDistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLogNormal * >(argp1);
+  result = (RangedDistributionLogNormal *)((RangedDistributionLogNormal const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionLogNormal, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_RangedDistributionLogNormal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLogNormal *arg1 = (RangedDistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLogNormal, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RangedDistributionLogNormal" "', argument " "1"" of type '" "RangedDistributionLogNormal *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLogNormal * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *RangedDistributionLogNormal_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_RangedDistributionLogNormal, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *RangedDistributionLogNormal_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionCosine__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  RangedDistributionCosine *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (RangedDistributionCosine *)new RangedDistributionCosine();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionCosine, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionCosine__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  RealLimits *arg3 = 0 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  RangedDistributionCosine *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionCosine" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionCosine" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_RangedDistributionCosine" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_RangedDistributionCosine" "', argument " "3"" of type '" "RealLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< RealLimits * >(argp3);
+  result = (RangedDistributionCosine *)new RangedDistributionCosine(arg1,arg2,(RealLimits const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionCosine, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionCosine__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  RangedDistributionCosine *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionCosine" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionCosine" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (RangedDistributionCosine *)new RangedDistributionCosine(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionCosine, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionCosine__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  RangedDistributionCosine *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_RangedDistributionCosine" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_RangedDistributionCosine" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_RangedDistributionCosine" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_RangedDistributionCosine" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (RangedDistributionCosine *)new RangedDistributionCosine(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionCosine, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_RangedDistributionCosine(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_RangedDistributionCosine", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_RangedDistributionCosine__SWIG_0(self, argc, argv);
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_RangedDistributionCosine__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_RealLimits, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_RangedDistributionCosine__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_RangedDistributionCosine__SWIG_3(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_RangedDistributionCosine'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    RangedDistributionCosine::RangedDistributionCosine()\n"
+    "    RangedDistributionCosine::RangedDistributionCosine(size_t,double,RealLimits const &)\n"
+    "    RangedDistributionCosine::RangedDistributionCosine(size_t,double)\n"
+    "    RangedDistributionCosine::RangedDistributionCosine(size_t,double,double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionCosine_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionCosine *arg1 = (RangedDistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RangedDistributionCosine *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionCosine_clone" "', argument " "1"" of type '" "RangedDistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionCosine * >(argp1);
+  result = (RangedDistributionCosine *)((RangedDistributionCosine const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RangedDistributionCosine, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_RangedDistributionCosine(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionCosine *arg1 = (RangedDistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionCosine, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RangedDistributionCosine" "', argument " "1"" of type '" "RangedDistributionCosine *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionCosine * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *RangedDistributionCosine_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_RangedDistributionCosine, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *RangedDistributionCosine_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_ParameterSample__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  ParameterSample *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ParameterSample" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_ParameterSample" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (ParameterSample *)new ParameterSample(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterSample, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSample__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  ParameterSample *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ParameterSample" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = (ParameterSample *)new ParameterSample(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterSample, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSample__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  ParameterSample *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (ParameterSample *)new ParameterSample();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterSample, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSample(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_ParameterSample", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_ParameterSample__SWIG_2(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      return _wrap_new_ParameterSample__SWIG_1(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_ParameterSample__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_ParameterSample'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    ParameterSample::ParameterSample(double,double)\n"
+    "    ParameterSample::ParameterSample(double)\n"
+    "    ParameterSample::ParameterSample()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSample_value_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterSample *arg1 = (ParameterSample *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSample_value_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterSample, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSample_value_set" "', argument " "1"" of type '" "ParameterSample *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterSample * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSample_value_set" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->value = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSample_value_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterSample *arg1 = (ParameterSample *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterSample, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSample_value_get" "', argument " "1"" of type '" "ParameterSample *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterSample * >(argp1);
+  result = (double) ((arg1)->value);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSample_weight_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterSample *arg1 = (ParameterSample *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSample_weight_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterSample, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSample_weight_set" "', argument " "1"" of type '" "ParameterSample *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterSample * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSample_weight_set" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->weight = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSample_weight_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterSample *arg1 = (ParameterSample *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterSample, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSample_weight_get" "', argument " "1"" of type '" "ParameterSample *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterSample * >(argp1);
+  result = (double) ((arg1)->weight);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_ParameterSample(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterSample *arg1 = (ParameterSample *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterSample, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ParameterSample" "', argument " "1"" of type '" "ParameterSample *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterSample * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *ParameterSample_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_ParameterSample, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *ParameterSample_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_iterator(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  PyObject **arg2 = (PyObject **) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  swig::SwigPyIterator *result = 0 ;
+  
+  arg2 = &swig_obj[0];
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_iterator" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (swig::SwigPyIterator *)std_vector_Sl_ParameterSample_Sg__iterator(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_swig__SwigPyIterator, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___nonzero__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___nonzero__" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (bool)std_vector_Sl_ParameterSample_Sg____nonzero__((std::vector< ParameterSample > const *)arg1);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___bool__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___bool__" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (bool)std_vector_Sl_ParameterSample_Sg____bool__((std::vector< ParameterSample > const *)arg1);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___len__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::size_type result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___len__" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = std_vector_Sl_ParameterSample_Sg____len__((std::vector< ParameterSample > const *)arg1);
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___getslice__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::difference_type arg2 ;
+  std::vector< ParameterSample >::difference_type arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  ptrdiff_t val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSampleVector___getslice__", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___getslice__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector___getslice__" "', argument " "2"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_ptrdiff_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ParameterSampleVector___getslice__" "', argument " "3"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg3 = static_cast< std::vector< ParameterSample >::difference_type >(val3);
+  try {
+    result = (std::vector< ParameterSample,std::allocator< ParameterSample > > *)std_vector_Sl_ParameterSample_Sg____getslice__(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___setslice____SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::difference_type arg2 ;
+  std::vector< ParameterSample >::difference_type arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  ptrdiff_t val3 ;
+  int ecode3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___setslice__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector___setslice__" "', argument " "2"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_ptrdiff_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ParameterSampleVector___setslice__" "', argument " "3"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg3 = static_cast< std::vector< ParameterSample >::difference_type >(val3);
+  try {
+    std_vector_Sl_ParameterSample_Sg____setslice____SWIG_0(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___setslice____SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::difference_type arg2 ;
+  std::vector< ParameterSample >::difference_type arg3 ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  ptrdiff_t val3 ;
+  int ecode3 = 0 ;
+  int res4 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___setslice__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector___setslice__" "', argument " "2"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_ptrdiff_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ParameterSampleVector___setslice__" "', argument " "3"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg3 = static_cast< std::vector< ParameterSample >::difference_type >(val3);
+  {
+    std::vector< ParameterSample,std::allocator< ParameterSample > > *ptr = (std::vector< ParameterSample,std::allocator< ParameterSample > > *)0;
+    res4 = swig::asptr(swig_obj[3], &ptr);
+    if (!SWIG_IsOK(res4)) {
+      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "ParameterSampleVector___setslice__" "', argument " "4"" of type '" "std::vector< ParameterSample,std::allocator< ParameterSample > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector___setslice__" "', argument " "4"" of type '" "std::vector< ParameterSample,std::allocator< ParameterSample > > const &""'"); 
+    }
+    arg4 = ptr;
+  }
+  try {
+    std_vector_Sl_ParameterSample_Sg____setslice____SWIG_1(arg1,arg2,arg3,(std::vector< ParameterSample,std::allocator< ParameterSample > > const &)*arg4);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___setslice__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterSampleVector___setslice__", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_ptrdiff_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_ParameterSampleVector___setslice____SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_ptrdiff_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = swig::asptr(argv[3], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_ParameterSampleVector___setslice____SWIG_1(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterSampleVector___setslice__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::__setslice__(std::vector< ParameterSample >::difference_type,std::vector< ParameterSample >::difference_type)\n"
+    "    std::vector< ParameterSample >::__setslice__(std::vector< ParameterSample >::difference_type,std::vector< ParameterSample >::difference_type,std::vector< ParameterSample,std::allocator< ParameterSample > > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___delslice__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::difference_type arg2 ;
+  std::vector< ParameterSample >::difference_type arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  ptrdiff_t val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSampleVector___delslice__", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___delslice__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector___delslice__" "', argument " "2"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_ptrdiff_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ParameterSampleVector___delslice__" "', argument " "3"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg3 = static_cast< std::vector< ParameterSample >::difference_type >(val3);
+  try {
+    std_vector_Sl_ParameterSample_Sg____delslice__(arg1,arg2,arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___delitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::difference_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___delitem__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector___delitem__" "', argument " "2"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::difference_type >(val2);
+  try {
+    std_vector_Sl_ParameterSample_Sg____delitem____SWIG_0(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  PySliceObject *arg2 = (PySliceObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___getitem__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  {
+    if (!PySlice_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector___getitem__" "', argument " "2"" of type '" "PySliceObject *""'");
+    }
+    arg2 = (PySliceObject *) swig_obj[1];
+  }
+  try {
+    result = (std::vector< ParameterSample,std::allocator< ParameterSample > > *)std_vector_Sl_ParameterSample_Sg____getitem____SWIG_0(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___setitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  PySliceObject *arg2 = (PySliceObject *) 0 ;
+  std::vector< ParameterSample,std::allocator< ParameterSample > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___setitem__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  {
+    if (!PySlice_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector___setitem__" "', argument " "2"" of type '" "PySliceObject *""'");
+    }
+    arg2 = (PySliceObject *) swig_obj[1];
+  }
+  {
+    std::vector< ParameterSample,std::allocator< ParameterSample > > *ptr = (std::vector< ParameterSample,std::allocator< ParameterSample > > *)0;
+    res3 = swig::asptr(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ParameterSampleVector___setitem__" "', argument " "3"" of type '" "std::vector< ParameterSample,std::allocator< ParameterSample > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector___setitem__" "', argument " "3"" of type '" "std::vector< ParameterSample,std::allocator< ParameterSample > > const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  try {
+    std_vector_Sl_ParameterSample_Sg____setitem____SWIG_0(arg1,arg2,(std::vector< ParameterSample,std::allocator< ParameterSample > > const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___setitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  PySliceObject *arg2 = (PySliceObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___setitem__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  {
+    if (!PySlice_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector___setitem__" "', argument " "2"" of type '" "PySliceObject *""'");
+    }
+    arg2 = (PySliceObject *) swig_obj[1];
+  }
+  try {
+    std_vector_Sl_ParameterSample_Sg____setitem____SWIG_1(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___delitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  PySliceObject *arg2 = (PySliceObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___delitem__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  {
+    if (!PySlice_Check(swig_obj[1])) {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector___delitem__" "', argument " "2"" of type '" "PySliceObject *""'");
+    }
+    arg2 = (PySliceObject *) swig_obj[1];
+  }
+  try {
+    std_vector_Sl_ParameterSample_Sg____delitem____SWIG_1(arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  } catch(std::invalid_argument &_e) {
+    SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___delitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterSampleVector___delitem__", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        _v = PySlice_Check(argv[1]);
+      }
+      if (_v) {
+        return _wrap_ParameterSampleVector___delitem____SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_ParameterSampleVector___delitem____SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterSampleVector___delitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::__delitem__(std::vector< ParameterSample >::difference_type)\n"
+    "    std::vector< ParameterSample >::__delitem__(PySliceObject *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___getitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::difference_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  std::vector< ParameterSample >::value_type *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___getitem__" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector___getitem__" "', argument " "2"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::difference_type >(val2);
+  try {
+    result = (std::vector< ParameterSample >::value_type *) &std_vector_Sl_ParameterSample_Sg____getitem____SWIG_1((std::vector< ParameterSample > const *)arg1,arg2);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterSample, 0 |  0 );
+  (void)swig::container_owner<swig::traits<std::vector< ParameterSample >::value_type>::category>::back_reference(resultobj, swig_obj[0]);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___getitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterSampleVector___getitem__", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        _v = PySlice_Check(argv[1]);
+      }
+      if (_v) {
+        return _wrap_ParameterSampleVector___getitem____SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_ParameterSampleVector___getitem____SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterSampleVector___getitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::__getitem__(PySliceObject *)\n"
+    "    std::vector< ParameterSample >::__getitem__(std::vector< ParameterSample >::difference_type) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___setitem____SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::difference_type arg2 ;
+  std::vector< ParameterSample >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector___setitem__" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector___setitem__" "', argument " "2"" of type '" "std::vector< ParameterSample >::difference_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::difference_type >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ParameterSampleVector___setitem__" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector___setitem__" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp3);
+  try {
+    std_vector_Sl_ParameterSample_Sg____setitem____SWIG_2(arg1,arg2,(ParameterSample const &)*arg3);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector___setitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterSampleVector___setitem__", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        _v = PySlice_Check(argv[1]);
+      }
+      if (_v) {
+        return _wrap_ParameterSampleVector___setitem____SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        _v = PySlice_Check(argv[1]);
+      }
+      if (_v) {
+        int res = swig::asptr(argv[2], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_ParameterSampleVector___setitem____SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_ParameterSample, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_ParameterSampleVector___setitem____SWIG_2(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterSampleVector___setitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::__setitem__(PySliceObject *,std::vector< ParameterSample,std::allocator< ParameterSample > > const &)\n"
+    "    std::vector< ParameterSample >::__setitem__(PySliceObject *)\n"
+    "    std::vector< ParameterSample >::__setitem__(std::vector< ParameterSample >::difference_type,std::vector< ParameterSample >::value_type const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_pop(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::value_type result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_pop" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  try {
+    result = std_vector_Sl_ParameterSample_Sg__pop(arg1);
+  } catch(std::out_of_range &_e) {
+    SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
+  }
+  resultobj = SWIG_NewPointerObj((new std::vector< ParameterSample >::value_type(static_cast< const std::vector< ParameterSample >::value_type& >(result))), SWIGTYPE_p_ParameterSample, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_append(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::value_type *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSampleVector_append", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_append" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ParameterSampleVector_append" "', argument " "2"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector_append" "', argument " "2"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp2);
+  std_vector_Sl_ParameterSample_Sg__append(arg1,(ParameterSample const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSampleVector__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (std::vector< ParameterSample > *)new std::vector< ParameterSample >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSampleVector__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  std::vector< ParameterSample > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< ParameterSample,std::allocator< ParameterSample > > *ptr = (std::vector< ParameterSample,std::allocator< ParameterSample > > *)0;
+    res1 = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ParameterSampleVector" "', argument " "1"" of type '" "std::vector< ParameterSample > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterSampleVector" "', argument " "1"" of type '" "std::vector< ParameterSample > const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  result = (std::vector< ParameterSample > *)new std::vector< ParameterSample >((std::vector< ParameterSample > const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_empty(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_empty" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (bool)((std::vector< ParameterSample > const *)arg1)->empty();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::size_type result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_size" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = ((std::vector< ParameterSample > const *)arg1)->size();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSampleVector_swap", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_swap" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ParameterSampleVector_swap" "', argument " "2"" of type '" "std::vector< ParameterSample > &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector_swap" "', argument " "2"" of type '" "std::vector< ParameterSample > &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< ParameterSample > * >(argp2);
+  (arg1)->swap(*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_begin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::iterator result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_begin" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (arg1)->begin();
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< ParameterSample >::iterator & >(result)),
+    swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_end(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::iterator result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_end" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (arg1)->end();
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< ParameterSample >::iterator & >(result)),
+    swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_rbegin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::reverse_iterator result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_rbegin" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (arg1)->rbegin();
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< ParameterSample >::reverse_iterator & >(result)),
+    swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_rend(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::reverse_iterator result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_rend" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (arg1)->rend();
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< ParameterSample >::reverse_iterator & >(result)),
+    swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_clear" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  (arg1)->clear();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_get_allocator(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::allocator< ParameterSample > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_get_allocator" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = ((std::vector< ParameterSample > const *)arg1)->get_allocator();
+  resultobj = SWIG_NewPointerObj((new std::vector< ParameterSample >::allocator_type(static_cast< const std::vector< ParameterSample >::allocator_type& >(result))), SWIGTYPE_p_std__allocatorT_ParameterSample_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSampleVector__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample >::size_type arg1 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  std::vector< ParameterSample > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ParameterSampleVector" "', argument " "1"" of type '" "std::vector< ParameterSample >::size_type""'");
+  } 
+  arg1 = static_cast< std::vector< ParameterSample >::size_type >(val1);
+  result = (std::vector< ParameterSample > *)new std::vector< ParameterSample >(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_pop_back(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_pop_back" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  (arg1)->pop_back();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_resize__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::size_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_resize" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector_resize" "', argument " "2"" of type '" "std::vector< ParameterSample >::size_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::size_type >(val2);
+  (arg1)->resize(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_erase__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::iterator arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::SwigPyIterator *iter2 = 0 ;
+  int res2 ;
+  std::vector< ParameterSample >::iterator result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_erase" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_erase" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+  } else {
+    swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_erase" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+    }
+  }
+  result = std_vector_Sl_ParameterSample_Sg__erase__SWIG_0(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< ParameterSample >::iterator & >(result)),
+    swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_erase__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::iterator arg2 ;
+  std::vector< ParameterSample >::iterator arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::SwigPyIterator *iter2 = 0 ;
+  int res2 ;
+  swig::SwigPyIterator *iter3 = 0 ;
+  int res3 ;
+  std::vector< ParameterSample >::iterator result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_erase" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_erase" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+  } else {
+    swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_erase" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+    }
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2], SWIG_as_voidptrptr(&iter3), swig::SwigPyIterator::descriptor(), 0);
+  if (!SWIG_IsOK(res3) || !iter3) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_erase" "', argument " "3"" of type '" "std::vector< ParameterSample >::iterator""'");
+  } else {
+    swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter3);
+    if (iter_t) {
+      arg3 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_erase" "', argument " "3"" of type '" "std::vector< ParameterSample >::iterator""'");
+    }
+  }
+  result = std_vector_Sl_ParameterSample_Sg__erase__SWIG_1(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< ParameterSample >::iterator & >(result)),
+    swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_erase(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterSampleVector_erase", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::SwigPyIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter) != 0));
+      if (_v) {
+        return _wrap_ParameterSampleVector_erase__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::SwigPyIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter) != 0));
+      if (_v) {
+        swig::SwigPyIterator *iter = 0;
+        int res = SWIG_ConvertPtr(argv[2], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
+        _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter) != 0));
+        if (_v) {
+          return _wrap_ParameterSampleVector_erase__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterSampleVector_erase'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::erase(std::vector< ParameterSample >::iterator)\n"
+    "    std::vector< ParameterSample >::erase(std::vector< ParameterSample >::iterator,std::vector< ParameterSample >::iterator)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSampleVector__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample >::size_type arg1 ;
+  std::vector< ParameterSample >::value_type *arg2 = 0 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  std::vector< ParameterSample > *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ParameterSampleVector" "', argument " "1"" of type '" "std::vector< ParameterSample >::size_type""'");
+  } 
+  arg1 = static_cast< std::vector< ParameterSample >::size_type >(val1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ParameterSampleVector" "', argument " "2"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ParameterSampleVector" "', argument " "2"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp2);
+  result = (std::vector< ParameterSample > *)new std::vector< ParameterSample >(arg1,(std::vector< ParameterSample >::value_type const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParameterSampleVector(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_ParameterSampleVector", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_ParameterSampleVector__SWIG_0(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      return _wrap_new_ParameterSampleVector__SWIG_2(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_ParameterSampleVector__SWIG_1(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_ParameterSample, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_ParameterSampleVector__SWIG_3(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_ParameterSampleVector'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::vector()\n"
+    "    std::vector< ParameterSample >::vector(std::vector< ParameterSample > const &)\n"
+    "    std::vector< ParameterSample >::vector(std::vector< ParameterSample >::size_type)\n"
+    "    std::vector< ParameterSample >::vector(std::vector< ParameterSample >::size_type,std::vector< ParameterSample >::value_type const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_push_back(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::value_type *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSampleVector_push_back", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_push_back" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ParameterSampleVector_push_back" "', argument " "2"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector_push_back" "', argument " "2"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp2);
+  (arg1)->push_back((std::vector< ParameterSample >::value_type const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_front(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::value_type *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_front" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (std::vector< ParameterSample >::value_type *) &((std::vector< ParameterSample > const *)arg1)->front();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterSample, 0 |  0 );
+  (void)swig::container_owner<swig::traits<std::vector< ParameterSample >::value_type>::category>::back_reference(resultobj, swig_obj[0]);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_back(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::value_type *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_back" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = (std::vector< ParameterSample >::value_type *) &((std::vector< ParameterSample > const *)arg1)->back();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParameterSample, 0 |  0 );
+  (void)swig::container_owner<swig::traits<std::vector< ParameterSample >::value_type>::category>::back_reference(resultobj, swig_obj[0]);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_assign(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::size_type arg2 ;
+  std::vector< ParameterSample >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSampleVector_assign", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_assign" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector_assign" "', argument " "2"" of type '" "std::vector< ParameterSample >::size_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::size_type >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ParameterSampleVector_assign" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector_assign" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp3);
+  (arg1)->assign(arg2,(std::vector< ParameterSample >::value_type const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_resize__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::size_type arg2 ;
+  std::vector< ParameterSample >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_resize" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector_resize" "', argument " "2"" of type '" "std::vector< ParameterSample >::size_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::size_type >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ParameterSampleVector_resize" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector_resize" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp3);
+  (arg1)->resize(arg2,(std::vector< ParameterSample >::value_type const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_resize(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterSampleVector_resize", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_ParameterSampleVector_resize__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_ParameterSample, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_ParameterSampleVector_resize__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterSampleVector_resize'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::resize(std::vector< ParameterSample >::size_type)\n"
+    "    std::vector< ParameterSample >::resize(std::vector< ParameterSample >::size_type,std::vector< ParameterSample >::value_type const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_insert__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::iterator arg2 ;
+  std::vector< ParameterSample >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::SwigPyIterator *iter2 = 0 ;
+  int res2 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  std::vector< ParameterSample >::iterator result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_insert" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_insert" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+  } else {
+    swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_insert" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+    }
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ParameterSampleVector_insert" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector_insert" "', argument " "3"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp3);
+  result = std_vector_Sl_ParameterSample_Sg__insert__SWIG_0(arg1,arg2,(ParameterSample const &)*arg3);
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< ParameterSample >::iterator & >(result)),
+    swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_insert__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::iterator arg2 ;
+  std::vector< ParameterSample >::size_type arg3 ;
+  std::vector< ParameterSample >::value_type *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::SwigPyIterator *iter2 = 0 ;
+  int res2 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_insert" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_insert" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+  } else {
+    swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ParameterSampleVector_insert" "', argument " "2"" of type '" "std::vector< ParameterSample >::iterator""'");
+    }
+  }
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ParameterSampleVector_insert" "', argument " "3"" of type '" "std::vector< ParameterSample >::size_type""'");
+  } 
+  arg3 = static_cast< std::vector< ParameterSample >::size_type >(val3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_ParameterSample,  0  | 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "ParameterSampleVector_insert" "', argument " "4"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ParameterSampleVector_insert" "', argument " "4"" of type '" "std::vector< ParameterSample >::value_type const &""'"); 
+  }
+  arg4 = reinterpret_cast< std::vector< ParameterSample >::value_type * >(argp4);
+  std_vector_Sl_ParameterSample_Sg__insert__SWIG_1(arg1,arg2,arg3,(ParameterSample const &)*arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_insert(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ParameterSampleVector_insert", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::SwigPyIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter) != 0));
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_ParameterSample, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_ParameterSampleVector_insert__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< ParameterSample,std::allocator< ParameterSample > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::SwigPyIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< ParameterSample >::iterator > *>(iter) != 0));
+      if (_v) {
+        {
+          int res = SWIG_AsVal_size_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_ParameterSample, SWIG_POINTER_NO_NULL | 0);
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_ParameterSampleVector_insert__SWIG_1(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ParameterSampleVector_insert'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    std::vector< ParameterSample >::insert(std::vector< ParameterSample >::iterator,std::vector< ParameterSample >::value_type const &)\n"
+    "    std::vector< ParameterSample >::insert(std::vector< ParameterSample >::iterator,std::vector< ParameterSample >::size_type,std::vector< ParameterSample >::value_type const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_reserve(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  std::vector< ParameterSample >::size_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterSampleVector_reserve", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_reserve" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterSampleVector_reserve" "', argument " "2"" of type '" "std::vector< ParameterSample >::size_type""'");
+  } 
+  arg2 = static_cast< std::vector< ParameterSample >::size_type >(val2);
+  (arg1)->reserve(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParameterSampleVector_capacity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< ParameterSample >::size_type result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterSampleVector_capacity" "', argument " "1"" of type '" "std::vector< ParameterSample > const *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  result = ((std::vector< ParameterSample > const *)arg1)->capacity();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_ParameterSampleVector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< ParameterSample > *arg1 = (std::vector< ParameterSample > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ParameterSampleVector" "', argument " "1"" of type '" "std::vector< ParameterSample > *""'"); 
+  }
+  arg1 = reinterpret_cast< std::vector< ParameterSample > * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *ParameterSampleVector_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *ParameterSampleVector_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "delete_SwigPyIterator", _wrap_delete_SwigPyIterator, METH_O, "delete_SwigPyIterator(SwigPyIterator self)"},
@@ -43621,12 +51280,12 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, ConstantBackground const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, Crystal const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, DistributionCosine const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, DistributionGate const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, DistributionGaussian const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, DistributionLogNormal const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, DistributionLorentz const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, DistributionTrapezoid const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, DistributionCosine arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, DistributionGate arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, DistributionGaussian arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, DistributionLogNormal arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, DistributionLorentz arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, DistributionTrapezoid arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FootprintGauss const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FootprintSquare const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorAnisoPyramid const * arg2)\n"
@@ -43769,6 +51428,679 @@ static PyMethodDef SwigMethods[] = {
 		"void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)\n"
 		"\n"
 		""},
+	 { "IDistribution1D_clone", _wrap_IDistribution1D_clone, METH_O, "\n"
+		"IDistribution1D_clone(IDistribution1D self) -> IDistribution1D\n"
+		"virtual IDistribution1D* IDistribution1D::clone() const =0\n"
+		"\n"
+		""},
+	 { "IDistribution1D_probabilityDensity", _wrap_IDistribution1D_probabilityDensity, METH_VARARGS, "\n"
+		"IDistribution1D_probabilityDensity(IDistribution1D self, double x) -> double\n"
+		"virtual double IDistribution1D::probabilityDensity(double x) const =0\n"
+		"\n"
+		"Returns the distribution-specific probability density for value x. \n"
+		"\n"
+		""},
+	 { "IDistribution1D_getMean", _wrap_IDistribution1D_getMean, METH_O, "\n"
+		"IDistribution1D_getMean(IDistribution1D self) -> double\n"
+		"virtual double IDistribution1D::getMean() const =0\n"
+		"\n"
+		"Returns the distribution-specific mean. \n"
+		"\n"
+		""},
+	 { "IDistribution1D_equidistantSamples", _wrap_IDistribution1D_equidistantSamples, METH_VARARGS, "\n"
+		"IDistribution1D_equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0., RealLimits const & limits=RealLimits()) -> ParameterSampleVector\n"
+		"std::vector< ParameterSample > IDistribution1D::equidistantSamples(size_t nbr_samples, double sigma_factor=0., const RealLimits &limits=RealLimits()) const\n"
+		"\n"
+		"Returns equidistant samples, using intrinsic parameters, weighted with  probabilityDensity(). \n"
+		"\n"
+		""},
+	 { "IDistribution1D_equidistantSamplesInRange", _wrap_IDistribution1D_equidistantSamplesInRange, METH_VARARGS, "\n"
+		"IDistribution1D_equidistantSamplesInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> ParameterSampleVector\n"
+		"std::vector< ParameterSample > IDistribution1D::equidistantSamplesInRange(size_t nbr_samples, double xmin, double xmax) const\n"
+		"\n"
+		"Returns equidistant samples from xmin to xmax, weighted with  probabilityDensity(). \n"
+		"\n"
+		""},
+	 { "IDistribution1D_equidistantPoints", _wrap_IDistribution1D_equidistantPoints, METH_VARARGS, "\n"
+		"IDistribution1D_equidistantPoints(IDistribution1D self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t\n"
+		"virtual std::vector<double> IDistribution1D::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0\n"
+		"\n"
+		"Returns equidistant interpolation points, with range computed in distribution-specific way from mean and width parameter, taking into account limits and sigma_factor. \n"
+		"\n"
+		""},
+	 { "IDistribution1D_equidistantPointsInRange", _wrap_IDistribution1D_equidistantPointsInRange, METH_VARARGS, "\n"
+		"IDistribution1D_equidistantPointsInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> vdouble1d_t\n"
+		"std::vector< double > IDistribution1D::equidistantPointsInRange(size_t nbr_samples, double xmin, double xmax) const\n"
+		"\n"
+		"Returns equidistant interpolation points from xmin to xmax. \n"
+		"\n"
+		""},
+	 { "IDistribution1D_isDelta", _wrap_IDistribution1D_isDelta, METH_O, "\n"
+		"IDistribution1D_isDelta(IDistribution1D self) -> bool\n"
+		"virtual bool IDistribution1D::isDelta() const =0\n"
+		"\n"
+		"Returns true if the distribution is in the limit case of a Dirac delta distribution. \n"
+		"\n"
+		""},
+	 { "IDistribution1D_setUnits", _wrap_IDistribution1D_setUnits, METH_VARARGS, "\n"
+		"IDistribution1D_setUnits(IDistribution1D self, std::string const & units)\n"
+		"void IDistribution1D::setUnits(const std::string &units)\n"
+		"\n"
+		"Sets distribution units. \n"
+		"\n"
+		""},
+	 { "delete_IDistribution1D", _wrap_delete_IDistribution1D, METH_O, "delete_IDistribution1D(IDistribution1D self)"},
+	 { "IDistribution1D_swigregister", IDistribution1D_swigregister, METH_O, NULL},
+	 { "new_DistributionGate", _wrap_new_DistributionGate, METH_VARARGS, "\n"
+		"DistributionGate(vdouble1d_t P)\n"
+		"DistributionGate(double min, double max)\n"
+		"new_DistributionGate() -> DistributionGate\n"
+		"DistributionGate::DistributionGate()\n"
+		"\n"
+		""},
+	 { "DistributionGate_clone", _wrap_DistributionGate_clone, METH_O, "\n"
+		"DistributionGate_clone(DistributionGate self) -> DistributionGate\n"
+		"DistributionGate* DistributionGate::clone() const final\n"
+		"\n"
+		""},
+	 { "DistributionGate_probabilityDensity", _wrap_DistributionGate_probabilityDensity, METH_VARARGS, "\n"
+		"DistributionGate_probabilityDensity(DistributionGate self, double x) -> double\n"
+		"double DistributionGate::probabilityDensity(double x) const final\n"
+		"\n"
+		"Returns the distribution-specific probability density for value x. \n"
+		"\n"
+		""},
+	 { "DistributionGate_getMean", _wrap_DistributionGate_getMean, METH_O, "\n"
+		"DistributionGate_getMean(DistributionGate self) -> double\n"
+		"double DistributionGate::getMean() const final\n"
+		"\n"
+		"Returns the distribution-specific mean. \n"
+		"\n"
+		""},
+	 { "DistributionGate_getMin", _wrap_DistributionGate_getMin, METH_O, "\n"
+		"DistributionGate_getMin(DistributionGate self) -> double\n"
+		"double DistributionGate::getMin() const\n"
+		"\n"
+		""},
+	 { "DistributionGate_getMax", _wrap_DistributionGate_getMax, METH_O, "\n"
+		"DistributionGate_getMax(DistributionGate self) -> double\n"
+		"double DistributionGate::getMax() const\n"
+		"\n"
+		""},
+	 { "DistributionGate_equidistantPoints", _wrap_DistributionGate_equidistantPoints, METH_VARARGS, "\n"
+		"DistributionGate_equidistantPoints(DistributionGate self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t\n"
+		"std::vector< double > DistributionGate::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const\n"
+		"\n"
+		"Returns list of sample values. \n"
+		"\n"
+		""},
+	 { "DistributionGate_isDelta", _wrap_DistributionGate_isDelta, METH_O, "\n"
+		"DistributionGate_isDelta(DistributionGate self) -> bool\n"
+		"bool DistributionGate::isDelta() const final\n"
+		"\n"
+		"Returns true if the distribution is in the limit case of a Dirac delta distribution. \n"
+		"\n"
+		""},
+	 { "DistributionGate_accept", _wrap_DistributionGate_accept, METH_VARARGS, "\n"
+		"DistributionGate_accept(DistributionGate self, INodeVisitor visitor)\n"
+		"void DistributionGate::accept(INodeVisitor *visitor) const final\n"
+		"\n"
+		"Calls the  INodeVisitor's visit method. \n"
+		"\n"
+		""},
+	 { "delete_DistributionGate", _wrap_delete_DistributionGate, METH_O, "delete_DistributionGate(DistributionGate self)"},
+	 { "DistributionGate_swigregister", DistributionGate_swigregister, METH_O, NULL},
+	 { "DistributionGate_swiginit", DistributionGate_swiginit, METH_VARARGS, NULL},
+	 { "new_DistributionLorentz", _wrap_new_DistributionLorentz, METH_VARARGS, "\n"
+		"DistributionLorentz(vdouble1d_t P)\n"
+		"DistributionLorentz(double mean, double hwhm)\n"
+		"new_DistributionLorentz() -> DistributionLorentz\n"
+		"DistributionLorentz::DistributionLorentz()\n"
+		"\n"
+		""},
+	 { "DistributionLorentz_clone", _wrap_DistributionLorentz_clone, METH_O, "\n"
+		"DistributionLorentz_clone(DistributionLorentz self) -> DistributionLorentz\n"
+		"DistributionLorentz* DistributionLorentz::clone() const final\n"
+		"\n"
+		""},
+	 { "DistributionLorentz_probabilityDensity", _wrap_DistributionLorentz_probabilityDensity, METH_VARARGS, "\n"
+		"DistributionLorentz_probabilityDensity(DistributionLorentz self, double x) -> double\n"
+		"double DistributionLorentz::probabilityDensity(double x) const final\n"
+		"\n"
+		"Returns the distribution-specific probability density for value x. \n"
+		"\n"
+		""},
+	 { "DistributionLorentz_getMean", _wrap_DistributionLorentz_getMean, METH_O, "\n"
+		"DistributionLorentz_getMean(DistributionLorentz self) -> double\n"
+		"double DistributionLorentz::getMean() const final\n"
+		"\n"
+		"Returns the distribution-specific mean. \n"
+		"\n"
+		""},
+	 { "DistributionLorentz_getHWHM", _wrap_DistributionLorentz_getHWHM, METH_O, "\n"
+		"DistributionLorentz_getHWHM(DistributionLorentz self) -> double\n"
+		"double DistributionLorentz::getHWHM() const\n"
+		"\n"
+		""},
+	 { "DistributionLorentz_equidistantPoints", _wrap_DistributionLorentz_equidistantPoints, METH_VARARGS, "\n"
+		"DistributionLorentz_equidistantPoints(DistributionLorentz self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t\n"
+		"std::vector< double > DistributionLorentz::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const\n"
+		"\n"
+		"generate list of sample values \n"
+		"\n"
+		""},
+	 { "DistributionLorentz_isDelta", _wrap_DistributionLorentz_isDelta, METH_O, "\n"
+		"DistributionLorentz_isDelta(DistributionLorentz self) -> bool\n"
+		"bool DistributionLorentz::isDelta() const final\n"
+		"\n"
+		"Returns true if the distribution is in the limit case of a Dirac delta distribution. \n"
+		"\n"
+		""},
+	 { "DistributionLorentz_accept", _wrap_DistributionLorentz_accept, METH_VARARGS, "\n"
+		"DistributionLorentz_accept(DistributionLorentz self, INodeVisitor visitor)\n"
+		"void DistributionLorentz::accept(INodeVisitor *visitor) const final\n"
+		"\n"
+		"Calls the  INodeVisitor's visit method. \n"
+		"\n"
+		""},
+	 { "delete_DistributionLorentz", _wrap_delete_DistributionLorentz, METH_O, "delete_DistributionLorentz(DistributionLorentz self)"},
+	 { "DistributionLorentz_swigregister", DistributionLorentz_swigregister, METH_O, NULL},
+	 { "DistributionLorentz_swiginit", DistributionLorentz_swiginit, METH_VARARGS, NULL},
+	 { "new_DistributionGaussian", _wrap_new_DistributionGaussian, METH_VARARGS, "\n"
+		"DistributionGaussian(vdouble1d_t P)\n"
+		"DistributionGaussian(double mean, double std_dev)\n"
+		"new_DistributionGaussian() -> DistributionGaussian\n"
+		"DistributionGaussian::DistributionGaussian()\n"
+		"\n"
+		""},
+	 { "DistributionGaussian_clone", _wrap_DistributionGaussian_clone, METH_O, "\n"
+		"DistributionGaussian_clone(DistributionGaussian self) -> DistributionGaussian\n"
+		"DistributionGaussian* DistributionGaussian::clone() const final\n"
+		"\n"
+		""},
+	 { "DistributionGaussian_probabilityDensity", _wrap_DistributionGaussian_probabilityDensity, METH_VARARGS, "\n"
+		"DistributionGaussian_probabilityDensity(DistributionGaussian self, double x) -> double\n"
+		"double DistributionGaussian::probabilityDensity(double x) const final\n"
+		"\n"
+		"Returns the distribution-specific probability density for value x. \n"
+		"\n"
+		""},
+	 { "DistributionGaussian_getMean", _wrap_DistributionGaussian_getMean, METH_O, "\n"
+		"DistributionGaussian_getMean(DistributionGaussian self) -> double\n"
+		"double DistributionGaussian::getMean() const final\n"
+		"\n"
+		"Returns the distribution-specific mean. \n"
+		"\n"
+		""},
+	 { "DistributionGaussian_getStdDev", _wrap_DistributionGaussian_getStdDev, METH_O, "\n"
+		"DistributionGaussian_getStdDev(DistributionGaussian self) -> double\n"
+		"double DistributionGaussian::getStdDev() const\n"
+		"\n"
+		""},
+	 { "DistributionGaussian_equidistantPoints", _wrap_DistributionGaussian_equidistantPoints, METH_VARARGS, "\n"
+		"DistributionGaussian_equidistantPoints(DistributionGaussian self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t\n"
+		"std::vector< double > DistributionGaussian::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const\n"
+		"\n"
+		"generate list of sample values \n"
+		"\n"
+		""},
+	 { "DistributionGaussian_isDelta", _wrap_DistributionGaussian_isDelta, METH_O, "\n"
+		"DistributionGaussian_isDelta(DistributionGaussian self) -> bool\n"
+		"bool DistributionGaussian::isDelta() const final\n"
+		"\n"
+		"Returns true if the distribution is in the limit case of a Dirac delta distribution. \n"
+		"\n"
+		""},
+	 { "DistributionGaussian_accept", _wrap_DistributionGaussian_accept, METH_VARARGS, "\n"
+		"DistributionGaussian_accept(DistributionGaussian self, INodeVisitor visitor)\n"
+		"void DistributionGaussian::accept(INodeVisitor *visitor) const final\n"
+		"\n"
+		"Calls the  INodeVisitor's visit method. \n"
+		"\n"
+		""},
+	 { "delete_DistributionGaussian", _wrap_delete_DistributionGaussian, METH_O, "delete_DistributionGaussian(DistributionGaussian self)"},
+	 { "DistributionGaussian_swigregister", DistributionGaussian_swigregister, METH_O, NULL},
+	 { "DistributionGaussian_swiginit", DistributionGaussian_swiginit, METH_VARARGS, NULL},
+	 { "new_DistributionLogNormal", _wrap_new_DistributionLogNormal, METH_VARARGS, "\n"
+		"DistributionLogNormal(vdouble1d_t P)\n"
+		"new_DistributionLogNormal(double median, double scale_param) -> DistributionLogNormal\n"
+		"DistributionLogNormal::DistributionLogNormal()=delete\n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_clone", _wrap_DistributionLogNormal_clone, METH_O, "\n"
+		"DistributionLogNormal_clone(DistributionLogNormal self) -> DistributionLogNormal\n"
+		"DistributionLogNormal* DistributionLogNormal::clone() const final\n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_probabilityDensity", _wrap_DistributionLogNormal_probabilityDensity, METH_VARARGS, "\n"
+		"DistributionLogNormal_probabilityDensity(DistributionLogNormal self, double x) -> double\n"
+		"double DistributionLogNormal::probabilityDensity(double x) const final\n"
+		"\n"
+		"Returns the distribution-specific probability density for value x. \n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_getMean", _wrap_DistributionLogNormal_getMean, METH_O, "\n"
+		"DistributionLogNormal_getMean(DistributionLogNormal self) -> double\n"
+		"double DistributionLogNormal::getMean() const final\n"
+		"\n"
+		"Returns the distribution-specific mean. \n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_getMedian", _wrap_DistributionLogNormal_getMedian, METH_O, "\n"
+		"DistributionLogNormal_getMedian(DistributionLogNormal self) -> double\n"
+		"double DistributionLogNormal::getMedian() const\n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_getScalePar", _wrap_DistributionLogNormal_getScalePar, METH_O, "\n"
+		"DistributionLogNormal_getScalePar(DistributionLogNormal self) -> double\n"
+		"double DistributionLogNormal::getScalePar() const\n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_equidistantPoints", _wrap_DistributionLogNormal_equidistantPoints, METH_VARARGS, "\n"
+		"DistributionLogNormal_equidistantPoints(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t\n"
+		"std::vector< double > DistributionLogNormal::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const\n"
+		"\n"
+		"generate list of sample values \n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_isDelta", _wrap_DistributionLogNormal_isDelta, METH_O, "\n"
+		"DistributionLogNormal_isDelta(DistributionLogNormal self) -> bool\n"
+		"bool DistributionLogNormal::isDelta() const final\n"
+		"\n"
+		"Returns true if the distribution is in the limit case of a Dirac delta distribution. \n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_accept", _wrap_DistributionLogNormal_accept, METH_VARARGS, "\n"
+		"DistributionLogNormal_accept(DistributionLogNormal self, INodeVisitor visitor)\n"
+		"void DistributionLogNormal::accept(INodeVisitor *visitor) const final\n"
+		"\n"
+		"Calls the  INodeVisitor's visit method. \n"
+		"\n"
+		""},
+	 { "DistributionLogNormal_setUnits", _wrap_DistributionLogNormal_setUnits, METH_VARARGS, "\n"
+		"DistributionLogNormal_setUnits(DistributionLogNormal self, std::string const & units)\n"
+		"void DistributionLogNormal::setUnits(const std::string &units)\n"
+		"\n"
+		"Sets distribution units. \n"
+		"\n"
+		""},
+	 { "delete_DistributionLogNormal", _wrap_delete_DistributionLogNormal, METH_O, "delete_DistributionLogNormal(DistributionLogNormal self)"},
+	 { "DistributionLogNormal_swigregister", DistributionLogNormal_swigregister, METH_O, NULL},
+	 { "DistributionLogNormal_swiginit", DistributionLogNormal_swiginit, METH_VARARGS, NULL},
+	 { "new_DistributionCosine", _wrap_new_DistributionCosine, METH_VARARGS, "\n"
+		"DistributionCosine(vdouble1d_t P)\n"
+		"DistributionCosine(double mean, double sigma)\n"
+		"new_DistributionCosine() -> DistributionCosine\n"
+		"DistributionCosine::DistributionCosine()\n"
+		"\n"
+		""},
+	 { "DistributionCosine_clone", _wrap_DistributionCosine_clone, METH_O, "\n"
+		"DistributionCosine_clone(DistributionCosine self) -> DistributionCosine\n"
+		"DistributionCosine* DistributionCosine::clone() const final\n"
+		"\n"
+		""},
+	 { "DistributionCosine_probabilityDensity", _wrap_DistributionCosine_probabilityDensity, METH_VARARGS, "\n"
+		"DistributionCosine_probabilityDensity(DistributionCosine self, double x) -> double\n"
+		"double DistributionCosine::probabilityDensity(double x) const final\n"
+		"\n"
+		"Returns the distribution-specific probability density for value x. \n"
+		"\n"
+		""},
+	 { "DistributionCosine_getMean", _wrap_DistributionCosine_getMean, METH_O, "\n"
+		"DistributionCosine_getMean(DistributionCosine self) -> double\n"
+		"double DistributionCosine::getMean() const final\n"
+		"\n"
+		"Returns the distribution-specific mean. \n"
+		"\n"
+		""},
+	 { "DistributionCosine_getSigma", _wrap_DistributionCosine_getSigma, METH_O, "\n"
+		"DistributionCosine_getSigma(DistributionCosine self) -> double\n"
+		"double DistributionCosine::getSigma() const\n"
+		"\n"
+		""},
+	 { "DistributionCosine_equidistantPoints", _wrap_DistributionCosine_equidistantPoints, METH_VARARGS, "\n"
+		"DistributionCosine_equidistantPoints(DistributionCosine self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t\n"
+		"std::vector< double > DistributionCosine::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const\n"
+		"\n"
+		"generate list of sample values \n"
+		"\n"
+		""},
+	 { "DistributionCosine_isDelta", _wrap_DistributionCosine_isDelta, METH_O, "\n"
+		"DistributionCosine_isDelta(DistributionCosine self) -> bool\n"
+		"bool DistributionCosine::isDelta() const final\n"
+		"\n"
+		"Returns true if the distribution is in the limit case of a Dirac delta distribution. \n"
+		"\n"
+		""},
+	 { "DistributionCosine_accept", _wrap_DistributionCosine_accept, METH_VARARGS, "\n"
+		"DistributionCosine_accept(DistributionCosine self, INodeVisitor visitor)\n"
+		"void DistributionCosine::accept(INodeVisitor *visitor) const final\n"
+		"\n"
+		"Calls the  INodeVisitor's visit method. \n"
+		"\n"
+		""},
+	 { "delete_DistributionCosine", _wrap_delete_DistributionCosine, METH_O, "delete_DistributionCosine(DistributionCosine self)"},
+	 { "DistributionCosine_swigregister", DistributionCosine_swigregister, METH_O, NULL},
+	 { "DistributionCosine_swiginit", DistributionCosine_swiginit, METH_VARARGS, NULL},
+	 { "new_DistributionTrapezoid", _wrap_new_DistributionTrapezoid, METH_VARARGS, "\n"
+		"DistributionTrapezoid(vdouble1d_t P)\n"
+		"DistributionTrapezoid(double center, double left, double middle, double right)\n"
+		"new_DistributionTrapezoid() -> DistributionTrapezoid\n"
+		"DistributionTrapezoid::DistributionTrapezoid()\n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_clone", _wrap_DistributionTrapezoid_clone, METH_O, "\n"
+		"DistributionTrapezoid_clone(DistributionTrapezoid self) -> DistributionTrapezoid\n"
+		"DistributionTrapezoid* DistributionTrapezoid::clone() const final\n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_probabilityDensity", _wrap_DistributionTrapezoid_probabilityDensity, METH_VARARGS, "\n"
+		"DistributionTrapezoid_probabilityDensity(DistributionTrapezoid self, double x) -> double\n"
+		"double DistributionTrapezoid::probabilityDensity(double x) const final\n"
+		"\n"
+		"Returns the distribution-specific probability density for value x. \n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_getMean", _wrap_DistributionTrapezoid_getMean, METH_O, "\n"
+		"DistributionTrapezoid_getMean(DistributionTrapezoid self) -> double\n"
+		"double DistributionTrapezoid::getMean() const final\n"
+		"\n"
+		"Returns the distribution-specific mean. \n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_getLeftWidth", _wrap_DistributionTrapezoid_getLeftWidth, METH_O, "\n"
+		"DistributionTrapezoid_getLeftWidth(DistributionTrapezoid self) -> double\n"
+		"double DistributionTrapezoid::getLeftWidth() const\n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_getMiddleWidth", _wrap_DistributionTrapezoid_getMiddleWidth, METH_O, "\n"
+		"DistributionTrapezoid_getMiddleWidth(DistributionTrapezoid self) -> double\n"
+		"double DistributionTrapezoid::getMiddleWidth() const\n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_getRightWidth", _wrap_DistributionTrapezoid_getRightWidth, METH_O, "\n"
+		"DistributionTrapezoid_getRightWidth(DistributionTrapezoid self) -> double\n"
+		"double DistributionTrapezoid::getRightWidth() const\n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_equidistantPoints", _wrap_DistributionTrapezoid_equidistantPoints, METH_VARARGS, "\n"
+		"DistributionTrapezoid_equidistantPoints(DistributionTrapezoid self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t\n"
+		"std::vector< double > DistributionTrapezoid::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const\n"
+		"\n"
+		"generate list of sample values \n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_isDelta", _wrap_DistributionTrapezoid_isDelta, METH_O, "\n"
+		"DistributionTrapezoid_isDelta(DistributionTrapezoid self) -> bool\n"
+		"bool DistributionTrapezoid::isDelta() const final\n"
+		"\n"
+		"Returns true if the distribution is in the limit case of a Dirac delta distribution. \n"
+		"\n"
+		""},
+	 { "DistributionTrapezoid_accept", _wrap_DistributionTrapezoid_accept, METH_VARARGS, "\n"
+		"DistributionTrapezoid_accept(DistributionTrapezoid self, INodeVisitor visitor)\n"
+		"void DistributionTrapezoid::accept(INodeVisitor *visitor) const final\n"
+		"\n"
+		"Calls the  INodeVisitor's visit method. \n"
+		"\n"
+		""},
+	 { "delete_DistributionTrapezoid", _wrap_delete_DistributionTrapezoid, METH_O, "delete_DistributionTrapezoid(DistributionTrapezoid self)"},
+	 { "DistributionTrapezoid_swigregister", DistributionTrapezoid_swigregister, METH_O, NULL},
+	 { "DistributionTrapezoid_swiginit", DistributionTrapezoid_swiginit, METH_VARARGS, NULL},
+	 { "new_ParameterDistribution", _wrap_new_ParameterDistribution, METH_VARARGS, "\n"
+		"ParameterDistribution(std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits const & limits=RealLimits())\n"
+		"ParameterDistribution(std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double xmin, double xmax)\n"
+		"new_ParameterDistribution(ParameterDistribution other) -> ParameterDistribution\n"
+		"ParameterDistribution::ParameterDistribution(const ParameterDistribution &other)\n"
+		"\n"
+		""},
+	 { "delete_ParameterDistribution", _wrap_delete_ParameterDistribution, METH_O, "\n"
+		"delete_ParameterDistribution(ParameterDistribution self)\n"
+		"ParameterDistribution::~ParameterDistribution()\n"
+		"\n"
+		""},
+	 { "ParameterDistribution_linkParameter", _wrap_ParameterDistribution_linkParameter, METH_VARARGS, "\n"
+		"ParameterDistribution_linkParameter(ParameterDistribution self, std::string par_name) -> ParameterDistribution\n"
+		"ParameterDistribution & ParameterDistribution::linkParameter(std::string par_name)\n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getMainParameterName", _wrap_ParameterDistribution_getMainParameterName, METH_O, "\n"
+		"ParameterDistribution_getMainParameterName(ParameterDistribution self) -> std::string\n"
+		"std::string ParameterDistribution::getMainParameterName() const\n"
+		"\n"
+		"get the main parameter's name \n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getNbrSamples", _wrap_ParameterDistribution_getNbrSamples, METH_O, "\n"
+		"ParameterDistribution_getNbrSamples(ParameterDistribution self) -> size_t\n"
+		"size_t ParameterDistribution::getNbrSamples() const\n"
+		"\n"
+		"get number of samples for this distribution \n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getSigmaFactor", _wrap_ParameterDistribution_getSigmaFactor, METH_O, "\n"
+		"ParameterDistribution_getSigmaFactor(ParameterDistribution self) -> double\n"
+		"double ParameterDistribution::getSigmaFactor() const\n"
+		"\n"
+		"get the sigma factor \n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getDistribution", _wrap_ParameterDistribution_getDistribution, METH_VARARGS, "\n"
+		"ParameterDistribution_getDistribution(ParameterDistribution self) -> IDistribution1D\n"
+		"ParameterDistribution_getDistribution(ParameterDistribution self) -> IDistribution1D\n"
+		"IDistribution1D * ParameterDistribution::getDistribution()\n"
+		"\n"
+		""},
+	 { "ParameterDistribution_generateSamples", _wrap_ParameterDistribution_generateSamples, METH_O, "\n"
+		"ParameterDistribution_generateSamples(ParameterDistribution self) -> ParameterSampleVector\n"
+		"std::vector< ParameterSample > ParameterDistribution::generateSamples() const\n"
+		"\n"
+		"generate list of sampled values with their weight \n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getLinkedParameterNames", _wrap_ParameterDistribution_getLinkedParameterNames, METH_O, "\n"
+		"ParameterDistribution_getLinkedParameterNames(ParameterDistribution self) -> vector_string_t\n"
+		"std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const\n"
+		"\n"
+		"get list of linked parameter names \n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getLimits", _wrap_ParameterDistribution_getLimits, METH_O, "\n"
+		"ParameterDistribution_getLimits(ParameterDistribution self) -> RealLimits\n"
+		"RealLimits ParameterDistribution::getLimits() const\n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getMinValue", _wrap_ParameterDistribution_getMinValue, METH_O, "\n"
+		"ParameterDistribution_getMinValue(ParameterDistribution self) -> double\n"
+		"double ParameterDistribution::getMinValue() const\n"
+		"\n"
+		""},
+	 { "ParameterDistribution_getMaxValue", _wrap_ParameterDistribution_getMaxValue, METH_O, "\n"
+		"ParameterDistribution_getMaxValue(ParameterDistribution self) -> double\n"
+		"double ParameterDistribution::getMaxValue() const\n"
+		"\n"
+		""},
+	 { "ParameterDistribution_swigregister", ParameterDistribution_swigregister, METH_O, NULL},
+	 { "ParameterDistribution_swiginit", ParameterDistribution_swiginit, METH_VARARGS, NULL},
+	 { "new_RangedDistributionGate", _wrap_new_RangedDistributionGate, METH_VARARGS, "\n"
+		"RangedDistributionGate()\n"
+		"RangedDistributionGate(size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless())\n"
+		"new_RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGate\n"
+		"RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)\n"
+		"\n"
+		"Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). \n"
+		"\n"
+		""},
+	 { "RangedDistributionGate_clone", _wrap_RangedDistributionGate_clone, METH_O, "\n"
+		"RangedDistributionGate_clone(RangedDistributionGate self) -> RangedDistributionGate\n"
+		"RangedDistributionGate * RangedDistributionGate::clone() const override\n"
+		"\n"
+		""},
+	 { "delete_RangedDistributionGate", _wrap_delete_RangedDistributionGate, METH_O, "\n"
+		"delete_RangedDistributionGate(RangedDistributionGate self)\n"
+		"RangedDistributionGate::~RangedDistributionGate() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionGate_swigregister", RangedDistributionGate_swigregister, METH_O, NULL},
+	 { "RangedDistributionGate_swiginit", RangedDistributionGate_swiginit, METH_VARARGS, NULL},
+	 { "new_RangedDistributionLorentz", _wrap_new_RangedDistributionLorentz, METH_VARARGS, "\n"
+		"RangedDistributionLorentz()\n"
+		"RangedDistributionLorentz(size_t n_samples, double hwhm_factor, RealLimits const & limits=RealLimits::limitless())\n"
+		"new_RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max) -> RangedDistributionLorentz\n"
+		"RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)\n"
+		"\n"
+		"Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). \n"
+		"\n"
+		""},
+	 { "RangedDistributionLorentz_clone", _wrap_RangedDistributionLorentz_clone, METH_O, "\n"
+		"RangedDistributionLorentz_clone(RangedDistributionLorentz self) -> RangedDistributionLorentz\n"
+		"RangedDistributionLorentz * RangedDistributionLorentz::clone() const override\n"
+		"\n"
+		""},
+	 { "delete_RangedDistributionLorentz", _wrap_delete_RangedDistributionLorentz, METH_O, "\n"
+		"delete_RangedDistributionLorentz(RangedDistributionLorentz self)\n"
+		"RangedDistributionLorentz::~RangedDistributionLorentz() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionLorentz_swigregister", RangedDistributionLorentz_swigregister, METH_O, NULL},
+	 { "RangedDistributionLorentz_swiginit", RangedDistributionLorentz_swiginit, METH_VARARGS, NULL},
+	 { "new_RangedDistributionGaussian", _wrap_new_RangedDistributionGaussian, METH_VARARGS, "\n"
+		"RangedDistributionGaussian()\n"
+		"RangedDistributionGaussian(size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless())\n"
+		"new_RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGaussian\n"
+		"RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)\n"
+		"\n"
+		"Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). \n"
+		"\n"
+		""},
+	 { "RangedDistributionGaussian_clone", _wrap_RangedDistributionGaussian_clone, METH_O, "\n"
+		"RangedDistributionGaussian_clone(RangedDistributionGaussian self) -> RangedDistributionGaussian\n"
+		"RangedDistributionGaussian * RangedDistributionGaussian::clone() const override\n"
+		"\n"
+		""},
+	 { "delete_RangedDistributionGaussian", _wrap_delete_RangedDistributionGaussian, METH_O, "\n"
+		"delete_RangedDistributionGaussian(RangedDistributionGaussian self)\n"
+		"RangedDistributionGaussian::~RangedDistributionGaussian() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionGaussian_swigregister", RangedDistributionGaussian_swigregister, METH_O, NULL},
+	 { "RangedDistributionGaussian_swiginit", RangedDistributionGaussian_swiginit, METH_VARARGS, NULL},
+	 { "new_RangedDistributionLogNormal", _wrap_new_RangedDistributionLogNormal, METH_VARARGS, "\n"
+		"RangedDistributionLogNormal()\n"
+		"RangedDistributionLogNormal(size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless())\n"
+		"new_RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionLogNormal\n"
+		"RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)\n"
+		"\n"
+		"Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). \n"
+		"\n"
+		""},
+	 { "RangedDistributionLogNormal_clone", _wrap_RangedDistributionLogNormal_clone, METH_O, "\n"
+		"RangedDistributionLogNormal_clone(RangedDistributionLogNormal self) -> RangedDistributionLogNormal\n"
+		"RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override\n"
+		"\n"
+		""},
+	 { "delete_RangedDistributionLogNormal", _wrap_delete_RangedDistributionLogNormal, METH_O, "\n"
+		"delete_RangedDistributionLogNormal(RangedDistributionLogNormal self)\n"
+		"RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionLogNormal_swigregister", RangedDistributionLogNormal_swigregister, METH_O, NULL},
+	 { "RangedDistributionLogNormal_swiginit", RangedDistributionLogNormal_swiginit, METH_VARARGS, NULL},
+	 { "new_RangedDistributionCosine", _wrap_new_RangedDistributionCosine, METH_VARARGS, "\n"
+		"RangedDistributionCosine()\n"
+		"RangedDistributionCosine(size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless())\n"
+		"new_RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionCosine\n"
+		"RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)\n"
+		"\n"
+		"Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). \n"
+		"\n"
+		""},
+	 { "RangedDistributionCosine_clone", _wrap_RangedDistributionCosine_clone, METH_O, "\n"
+		"RangedDistributionCosine_clone(RangedDistributionCosine self) -> RangedDistributionCosine\n"
+		"RangedDistributionCosine * RangedDistributionCosine::clone() const override\n"
+		"\n"
+		""},
+	 { "delete_RangedDistributionCosine", _wrap_delete_RangedDistributionCosine, METH_O, "\n"
+		"delete_RangedDistributionCosine(RangedDistributionCosine self)\n"
+		"RangedDistributionCosine::~RangedDistributionCosine() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionCosine_swigregister", RangedDistributionCosine_swigregister, METH_O, NULL},
+	 { "RangedDistributionCosine_swiginit", RangedDistributionCosine_swiginit, METH_VARARGS, NULL},
+	 { "new_ParameterSample", _wrap_new_ParameterSample, METH_VARARGS, "\n"
+		"ParameterSample(double _value=0., double _weight=1.)\n"
+		"ParameterSample::ParameterSample(double _value=0., double _weight=1.)\n"
+		"\n"
+		""},
+	 { "ParameterSample_value_set", _wrap_ParameterSample_value_set, METH_VARARGS, "ParameterSample_value_set(ParameterSample self, double value)"},
+	 { "ParameterSample_value_get", _wrap_ParameterSample_value_get, METH_O, "ParameterSample_value_get(ParameterSample self) -> double"},
+	 { "ParameterSample_weight_set", _wrap_ParameterSample_weight_set, METH_VARARGS, "ParameterSample_weight_set(ParameterSample self, double weight)"},
+	 { "ParameterSample_weight_get", _wrap_ParameterSample_weight_get, METH_O, "ParameterSample_weight_get(ParameterSample self) -> double"},
+	 { "delete_ParameterSample", _wrap_delete_ParameterSample, METH_O, "delete_ParameterSample(ParameterSample self)"},
+	 { "ParameterSample_swigregister", ParameterSample_swigregister, METH_O, NULL},
+	 { "ParameterSample_swiginit", ParameterSample_swiginit, METH_VARARGS, NULL},
+	 { "ParameterSampleVector_iterator", _wrap_ParameterSampleVector_iterator, METH_O, "ParameterSampleVector_iterator(ParameterSampleVector self) -> SwigPyIterator"},
+	 { "ParameterSampleVector___nonzero__", _wrap_ParameterSampleVector___nonzero__, METH_O, "ParameterSampleVector___nonzero__(ParameterSampleVector self) -> bool"},
+	 { "ParameterSampleVector___bool__", _wrap_ParameterSampleVector___bool__, METH_O, "ParameterSampleVector___bool__(ParameterSampleVector self) -> bool"},
+	 { "ParameterSampleVector___len__", _wrap_ParameterSampleVector___len__, METH_O, "ParameterSampleVector___len__(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"},
+	 { "ParameterSampleVector___getslice__", _wrap_ParameterSampleVector___getslice__, METH_VARARGS, "ParameterSampleVector___getslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j) -> ParameterSampleVector"},
+	 { "ParameterSampleVector___setslice__", _wrap_ParameterSampleVector___setslice__, METH_VARARGS, "\n"
+		"ParameterSampleVector___setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)\n"
+		"ParameterSampleVector___setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j, ParameterSampleVector v)\n"
+		""},
+	 { "ParameterSampleVector___delslice__", _wrap_ParameterSampleVector___delslice__, METH_VARARGS, "ParameterSampleVector___delslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)"},
+	 { "ParameterSampleVector___delitem__", _wrap_ParameterSampleVector___delitem__, METH_VARARGS, "\n"
+		"ParameterSampleVector___delitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i)\n"
+		"ParameterSampleVector___delitem__(ParameterSampleVector self, PySliceObject * slice)\n"
+		""},
+	 { "ParameterSampleVector___getitem__", _wrap_ParameterSampleVector___getitem__, METH_VARARGS, "\n"
+		"ParameterSampleVector___getitem__(ParameterSampleVector self, PySliceObject * slice) -> ParameterSampleVector\n"
+		"ParameterSampleVector___getitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i) -> ParameterSample\n"
+		""},
+	 { "ParameterSampleVector___setitem__", _wrap_ParameterSampleVector___setitem__, METH_VARARGS, "\n"
+		"ParameterSampleVector___setitem__(ParameterSampleVector self, PySliceObject * slice, ParameterSampleVector v)\n"
+		"ParameterSampleVector___setitem__(ParameterSampleVector self, PySliceObject * slice)\n"
+		"ParameterSampleVector___setitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, ParameterSample x)\n"
+		""},
+	 { "ParameterSampleVector_pop", _wrap_ParameterSampleVector_pop, METH_O, "ParameterSampleVector_pop(ParameterSampleVector self) -> ParameterSample"},
+	 { "ParameterSampleVector_append", _wrap_ParameterSampleVector_append, METH_VARARGS, "ParameterSampleVector_append(ParameterSampleVector self, ParameterSample x)"},
+	 { "ParameterSampleVector_empty", _wrap_ParameterSampleVector_empty, METH_O, "ParameterSampleVector_empty(ParameterSampleVector self) -> bool"},
+	 { "ParameterSampleVector_size", _wrap_ParameterSampleVector_size, METH_O, "ParameterSampleVector_size(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"},
+	 { "ParameterSampleVector_swap", _wrap_ParameterSampleVector_swap, METH_VARARGS, "ParameterSampleVector_swap(ParameterSampleVector self, ParameterSampleVector v)"},
+	 { "ParameterSampleVector_begin", _wrap_ParameterSampleVector_begin, METH_O, "ParameterSampleVector_begin(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"},
+	 { "ParameterSampleVector_end", _wrap_ParameterSampleVector_end, METH_O, "ParameterSampleVector_end(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"},
+	 { "ParameterSampleVector_rbegin", _wrap_ParameterSampleVector_rbegin, METH_O, "ParameterSampleVector_rbegin(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"},
+	 { "ParameterSampleVector_rend", _wrap_ParameterSampleVector_rend, METH_O, "ParameterSampleVector_rend(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"},
+	 { "ParameterSampleVector_clear", _wrap_ParameterSampleVector_clear, METH_O, "ParameterSampleVector_clear(ParameterSampleVector self)"},
+	 { "ParameterSampleVector_get_allocator", _wrap_ParameterSampleVector_get_allocator, METH_O, "ParameterSampleVector_get_allocator(ParameterSampleVector self) -> std::vector< ParameterSample >::allocator_type"},
+	 { "ParameterSampleVector_pop_back", _wrap_ParameterSampleVector_pop_back, METH_O, "ParameterSampleVector_pop_back(ParameterSampleVector self)"},
+	 { "ParameterSampleVector_erase", _wrap_ParameterSampleVector_erase, METH_VARARGS, "\n"
+		"ParameterSampleVector_erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos) -> std::vector< ParameterSample >::iterator\n"
+		"ParameterSampleVector_erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator first, std::vector< ParameterSample >::iterator last) -> std::vector< ParameterSample >::iterator\n"
+		""},
+	 { "new_ParameterSampleVector", _wrap_new_ParameterSampleVector, METH_VARARGS, "\n"
+		"ParameterSampleVector()\n"
+		"ParameterSampleVector(ParameterSampleVector other)\n"
+		"ParameterSampleVector(std::vector< ParameterSample >::size_type size)\n"
+		"new_ParameterSampleVector(std::vector< ParameterSample >::size_type size, ParameterSample value) -> ParameterSampleVector\n"
+		""},
+	 { "ParameterSampleVector_push_back", _wrap_ParameterSampleVector_push_back, METH_VARARGS, "ParameterSampleVector_push_back(ParameterSampleVector self, ParameterSample x)"},
+	 { "ParameterSampleVector_front", _wrap_ParameterSampleVector_front, METH_O, "ParameterSampleVector_front(ParameterSampleVector self) -> ParameterSample"},
+	 { "ParameterSampleVector_back", _wrap_ParameterSampleVector_back, METH_O, "ParameterSampleVector_back(ParameterSampleVector self) -> ParameterSample"},
+	 { "ParameterSampleVector_assign", _wrap_ParameterSampleVector_assign, METH_VARARGS, "ParameterSampleVector_assign(ParameterSampleVector self, std::vector< ParameterSample >::size_type n, ParameterSample x)"},
+	 { "ParameterSampleVector_resize", _wrap_ParameterSampleVector_resize, METH_VARARGS, "\n"
+		"ParameterSampleVector_resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size)\n"
+		"ParameterSampleVector_resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size, ParameterSample x)\n"
+		""},
+	 { "ParameterSampleVector_insert", _wrap_ParameterSampleVector_insert, METH_VARARGS, "\n"
+		"ParameterSampleVector_insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, ParameterSample x) -> std::vector< ParameterSample >::iterator\n"
+		"ParameterSampleVector_insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, std::vector< ParameterSample >::size_type n, ParameterSample x)\n"
+		""},
+	 { "ParameterSampleVector_reserve", _wrap_ParameterSampleVector_reserve, METH_VARARGS, "ParameterSampleVector_reserve(ParameterSampleVector self, std::vector< ParameterSample >::size_type n)"},
+	 { "ParameterSampleVector_capacity", _wrap_ParameterSampleVector_capacity, METH_O, "ParameterSampleVector_capacity(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"},
+	 { "delete_ParameterSampleVector", _wrap_delete_ParameterSampleVector, METH_O, "delete_ParameterSampleVector(ParameterSampleVector self)"},
+	 { "ParameterSampleVector_swigregister", ParameterSampleVector_swigregister, METH_O, NULL},
+	 { "ParameterSampleVector_swiginit", ParameterSampleVector_swiginit, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -43782,11 +52114,128 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 static void *_p_RealParameterTo_p_IParameterT_double_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameter< double > *)  ((RealParameter *) x));
 }
+static void *_p_DistributionCosineTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(IDistribution1D *) ((DistributionCosine *) x));
+}
 static void *_p_INodeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *)  ((INode *) x));
 }
+static void *_p_DistributionLorentzTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(IDistribution1D *) ((DistributionLorentz *) x));
+}
+static void *_p_ParameterDistributionTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *)  ((ParameterDistribution *) x));
+}
+static void *_p_DistributionGaussianTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(IDistribution1D *) ((DistributionGaussian *) x));
+}
+static void *_p_IDistribution1DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *) ((IDistribution1D *) x));
+}
+static void *_p_DistributionGateTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(IDistribution1D *) ((DistributionGate *) x));
+}
+static void *_p_DistributionTrapezoidTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(IDistribution1D *) ((DistributionTrapezoid *) x));
+}
+static void *_p_DistributionLogNormalTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(IDistribution1D *) ((DistributionLogNormal *) x));
+}
+static void *_p_RangedDistributionCosineTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((RangedDistribution *)  ((RangedDistributionCosine *) x));
+}
+static void *_p_RangedDistributionLorentzTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((RangedDistribution *)  ((RangedDistributionLorentz *) x));
+}
+static void *_p_RangedDistributionGaussianTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((RangedDistribution *)  ((RangedDistributionGaussian *) x));
+}
+static void *_p_RangedDistributionGateTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((RangedDistribution *)  ((RangedDistributionGate *) x));
+}
+static void *_p_RangedDistributionLogNormalTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((RangedDistribution *)  ((RangedDistributionLogNormal *) x));
+}
+static void *_p_RangedDistributionGateTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionGate *) x));
+}
+static void *_p_DistributionGateTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDistribution1D *) ((DistributionGate *) x));
+}
+static void *_p_IDistribution1DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IDistribution1D *) x));
+}
+static void *_p_DistributionTrapezoidTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDistribution1D *) ((DistributionTrapezoid *) x));
+}
+static void *_p_RangedDistributionGaussianTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionGaussian *) x));
+}
+static void *_p_DistributionGaussianTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDistribution1D *) ((DistributionGaussian *) x));
+}
 static void *_p_ParameterPoolTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *)  ((ParameterPool *) x));
+}
+static void *_p_RangedDistributionCosineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionCosine *) x));
+}
+static void *_p_DistributionCosineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDistribution1D *) ((DistributionCosine *) x));
+}
+static void *_p_RangedDistributionLorentzTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionLorentz *) x));
+}
+static void *_p_DistributionLorentzTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDistribution1D *) ((DistributionLorentz *) x));
+}
+static void *_p_RangedDistributionLogNormalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionLogNormal *) x));
+}
+static void *_p_DistributionLogNormalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDistribution1D *) ((DistributionLogNormal *) x));
+}
+static void *_p_RangedDistributionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((RangedDistribution *) x));
+}
+static void *_p_DistributionCosineTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDistribution1D *) ((DistributionCosine *) x));
+}
+static void *_p_DistributionLorentzTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDistribution1D *) ((DistributionLorentz *) x));
+}
+static void *_p_DistributionGaussianTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDistribution1D *) ((DistributionGaussian *) x));
+}
+static void *_p_IDistribution1DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *)  ((IDistribution1D *) x));
+}
+static void *_p_DistributionGateTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDistribution1D *) ((DistributionGate *) x));
+}
+static void *_p_DistributionTrapezoidTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDistribution1D *) ((DistributionTrapezoid *) x));
+}
+static void *_p_DistributionLogNormalTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDistribution1D *) ((DistributionLogNormal *) x));
+}
+static void *_p_DistributionCosineTo_p_IDistribution1D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDistribution1D *)  ((DistributionCosine *) x));
+}
+static void *_p_DistributionLorentzTo_p_IDistribution1D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDistribution1D *)  ((DistributionLorentz *) x));
+}
+static void *_p_DistributionGaussianTo_p_IDistribution1D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDistribution1D *)  ((DistributionGaussian *) x));
+}
+static void *_p_DistributionGateTo_p_IDistribution1D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDistribution1D *)  ((DistributionGate *) x));
+}
+static void *_p_DistributionTrapezoidTo_p_IDistribution1D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDistribution1D *)  ((DistributionTrapezoid *) x));
+}
+static void *_p_DistributionLogNormalTo_p_IDistribution1D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDistribution1D *)  ((DistributionLogNormal *) x));
 }
 static swig_type_info _swigt__p_Attributes = {"_p_Attributes", "Attributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicLattice = {"_p_BasicLattice", "BasicLattice *", 0, 0, (void*)0, 0};
@@ -43871,6 +52320,7 @@ static swig_type_info _swigt__p_HexagonalLattice = {"_p_HexagonalLattice", "Hexa
 static swig_type_info _swigt__p_IAbstractParticle = {"_p_IAbstractParticle", "IAbstractParticle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IClusteredParticles = {"_p_IClusteredParticles", "IClusteredParticles *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IDistribution1D = {"_p_IDistribution1D", "IDistribution1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactor = {"_p_IFormFactor", "IFormFactor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorBorn = {"_p_IFormFactorBorn", "IFormFactorBorn *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorDecorator = {"_p_IFormFactorDecorator", "IFormFactorDecorator *", 0, 0, (void*)0, 0};
@@ -43906,13 +52356,21 @@ static swig_type_info _swigt__p_MultiLayer = {"_p_MultiLayer", "MultiLayer *", 0
 static swig_type_info _swigt__p_NodeMeta = {"_p_NodeMeta", "NodeMeta *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OffSpecSimulation = {"_p_OffSpecSimulation", "OffSpecSimulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParaMeta = {"_p_ParaMeta", "ParaMeta *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ParameterDistribution = {"_p_ParameterDistribution", "ParameterDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", "ParameterPool *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ParameterSample = {"_p_ParameterSample", "std::vector< ParameterSample >::value_type *|ParameterSample *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Particle = {"_p_Particle", "Particle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParticleComposition = {"_p_ParticleComposition", "ParticleComposition *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParticleCoreShell = {"_p_ParticleCoreShell", "ParticleCoreShell *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParticleDistribution = {"_p_ParticleDistribution", "ParticleDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParticleLayout = {"_p_ParticleLayout", "ParticleLayout *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PoissonNoiseBackground = {"_p_PoissonNoiseBackground", "PoissonNoiseBackground *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RangedDistribution = {"_p_RangedDistribution", "RangedDistribution *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RangedDistributionCosine = {"_p_RangedDistributionCosine", "RangedDistributionCosine *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RangedDistributionGate = {"_p_RangedDistributionGate", "RangedDistributionGate *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RangedDistributionGaussian = {"_p_RangedDistributionGaussian", "RangedDistributionGaussian *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RangedDistributionLogNormal = {"_p_RangedDistributionLogNormal", "RangedDistributionLogNormal *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RangedDistributionLorentz = {"_p_RangedDistributionLorentz", "RangedDistributionLorentz *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RealParameter = {"_p_RealParameter", "RealParameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RectangularDetector = {"_p_RectangularDetector", "RectangularDetector *", 0, 0, (void*)0, 0};
@@ -43943,6 +52401,7 @@ static swig_type_info _swigt__p_std__allocatorT_BasicVector3DT_double_t_t = {"_p
 static swig_type_info _swigt__p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t = {"_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t", "std::allocator< BasicVector3D< std::complex< double > > > *|std::vector< BasicVector3D< std::complex< double > > >::allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_INode_const_p_t = {"_p_std__allocatorT_INode_const_p_t", "std::vector< INode const * >::allocator_type *|std::allocator< INode const * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_INode_p_t = {"_p_std__allocatorT_INode_p_t", "std::vector< INode * >::allocator_type *|std::allocator< INode * > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__allocatorT_ParameterSample_t = {"_p_std__allocatorT_ParameterSample_t", "std::vector< ParameterSample >::allocator_type *|std::allocator< ParameterSample > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_double_t = {"_p_std__allocatorT_double_t", "std::vector< double >::allocator_type *|std::allocator< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_int_t = {"_p_std__allocatorT_int_t", "std::vector< int >::allocator_type *|std::allocator< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_std__complexT_double_t_t = {"_p_std__allocatorT_std__complexT_double_t_t", "std::allocator< std::complex< double > > *|std::vector< std::complex< double > >::allocator_type *", 0, 0, (void*)0, 0};
@@ -43963,6 +52422,7 @@ static swig_type_info _swigt__p_std__vectorT_BasicVector3DT_std__complexT_double
 static swig_type_info _swigt__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t = {"_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t", "std::vector< INode const *,std::allocator< INode const * > > *|std::vector< INode const * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t = {"_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t", "std::vector< INode *,std::allocator< INode * > > *|std::vector< INode * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t = {"_p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t", "std::vector< ParaMeta,std::allocator< ParaMeta > > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t = {"_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t", "std::vector< ParameterSample,std::allocator< ParameterSample > > *|std::vector< ParameterSample > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t = {"_p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t", "std::vector< RealParameter *,std::allocator< RealParameter * > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
@@ -44063,6 +52523,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IAbstractParticle,
   &_swigt__p_ICloneable,
   &_swigt__p_IClusteredParticles,
+  &_swigt__p_IDistribution1D,
   &_swigt__p_IFormFactor,
   &_swigt__p_IFormFactorBorn,
   &_swigt__p_IFormFactorDecorator,
@@ -44098,13 +52559,21 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_NodeMeta,
   &_swigt__p_OffSpecSimulation,
   &_swigt__p_ParaMeta,
+  &_swigt__p_ParameterDistribution,
   &_swigt__p_ParameterPool,
+  &_swigt__p_ParameterSample,
   &_swigt__p_Particle,
   &_swigt__p_ParticleComposition,
   &_swigt__p_ParticleCoreShell,
   &_swigt__p_ParticleDistribution,
   &_swigt__p_ParticleLayout,
   &_swigt__p_PoissonNoiseBackground,
+  &_swigt__p_RangedDistribution,
+  &_swigt__p_RangedDistributionCosine,
+  &_swigt__p_RangedDistributionGate,
+  &_swigt__p_RangedDistributionGaussian,
+  &_swigt__p_RangedDistributionLogNormal,
+  &_swigt__p_RangedDistributionLorentz,
   &_swigt__p_RealLimits,
   &_swigt__p_RealParameter,
   &_swigt__p_RectangularDetector,
@@ -44135,6 +52604,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t,
   &_swigt__p_std__allocatorT_INode_const_p_t,
   &_swigt__p_std__allocatorT_INode_p_t,
+  &_swigt__p_std__allocatorT_ParameterSample_t,
   &_swigt__p_std__allocatorT_double_t,
   &_swigt__p_std__allocatorT_int_t,
   &_swigt__p_std__allocatorT_std__complexT_double_t_t,
@@ -44155,6 +52625,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t,
   &_swigt__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t,
   &_swigt__p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t,
+  &_swigt__p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t,
   &_swigt__p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
   &_swigt__p_std__vectorT_int_std__allocatorT_int_t_t,
@@ -44253,17 +52724,18 @@ static swig_cast_info _swigc__p_FormFactorWeighted[] = {  {&_swigt__p_FormFactor
 static swig_cast_info _swigc__p_GISASSimulation[] = {  {&_swigt__p_GISASSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_HexagonalLattice[] = {  {&_swigt__p_HexagonalLattice, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAbstractParticle[] = {  {&_swigt__p_IAbstractParticle, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistribution, _p_RangedDistributionTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IClusteredParticles[] = {  {&_swigt__p_IClusteredParticles, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_IDistribution1D, 0, 0},  {&_swigt__p_IDistribution1D, 0, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_IDistribution1D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactor[] = {  {&_swigt__p_IFormFactor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorBorn[] = {  {&_swigt__p_IFormFactorBorn, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorDecorator[] = {  {&_swigt__p_IFormFactorDecorator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IInterferenceFunction[] = {  {&_swigt__p_IInterferenceFunction, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ILayout[] = {  {&_swigt__p_ILayout, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_INode, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_INode, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_INode, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_INode, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_INode, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_INode, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParameterT_double_t[] = {  {&_swigt__p_IParameterT_double_t, 0, 0, 0},  {&_swigt__p_RealParameter, _p_RealParameterTo_p_IParameterT_double_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParticle[] = {  {&_swigt__p_IParticle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IPeakShape[] = {  {&_swigt__p_IPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRotation[] = {  {&_swigt__p_IRotation, 0, 0, 0},{0, 0, 0, 0}};
@@ -44290,13 +52762,21 @@ static swig_cast_info _swigc__p_MultiLayer[] = {  {&_swigt__p_MultiLayer, 0, 0, 
 static swig_cast_info _swigc__p_NodeMeta[] = {  {&_swigt__p_NodeMeta, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OffSpecSimulation[] = {  {&_swigt__p_OffSpecSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParaMeta[] = {  {&_swigt__p_ParaMeta, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ParameterDistribution[] = {  {&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterPool[] = {  {&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ParameterSample[] = {  {&_swigt__p_ParameterSample, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Particle[] = {  {&_swigt__p_Particle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParticleComposition[] = {  {&_swigt__p_ParticleComposition, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParticleCoreShell[] = {  {&_swigt__p_ParticleCoreShell, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParticleDistribution[] = {  {&_swigt__p_ParticleDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParticleLayout[] = {  {&_swigt__p_ParticleLayout, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PoissonNoiseBackground[] = {  {&_swigt__p_PoissonNoiseBackground, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RangedDistribution[] = {  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistribution, 0, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_RangedDistribution, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RangedDistributionCosine[] = {  {&_swigt__p_RangedDistributionCosine, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RangedDistributionGate[] = {  {&_swigt__p_RangedDistributionGate, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RangedDistributionGaussian[] = {  {&_swigt__p_RangedDistributionGaussian, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RangedDistributionLogNormal[] = {  {&_swigt__p_RangedDistributionLogNormal, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RangedDistributionLorentz[] = {  {&_swigt__p_RangedDistributionLorentz, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RealParameter[] = {  {&_swigt__p_RealParameter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RectangularDetector[] = {  {&_swigt__p_RectangularDetector, 0, 0, 0},{0, 0, 0, 0}};
@@ -44327,6 +52807,7 @@ static swig_cast_info _swigc__p_std__allocatorT_BasicVector3DT_double_t_t[] = { 
 static swig_cast_info _swigc__p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t[] = {  {&_swigt__p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_INode_const_p_t[] = {  {&_swigt__p_std__allocatorT_INode_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_INode_p_t[] = {  {&_swigt__p_std__allocatorT_INode_p_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__allocatorT_ParameterSample_t[] = {  {&_swigt__p_std__allocatorT_ParameterSample_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_double_t[] = {  {&_swigt__p_std__allocatorT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_int_t[] = {  {&_swigt__p_std__allocatorT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_std__complexT_double_t_t[] = {  {&_swigt__p_std__allocatorT_std__complexT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -44347,6 +52828,7 @@ static swig_cast_info _swigc__p_std__vectorT_BasicVector3DT_std__complexT_double
 static swig_cast_info _swigc__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t[] = {  {&_swigt__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t[] = {  {&_swigt__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t[] = {  {&_swigt__p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t[] = {  {&_swigt__p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t[] = {  {&_swigt__p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_std__allocatorT_int_t_t[] = {  {&_swigt__p_std__vectorT_int_std__allocatorT_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -44447,6 +52929,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IAbstractParticle,
   _swigc__p_ICloneable,
   _swigc__p_IClusteredParticles,
+  _swigc__p_IDistribution1D,
   _swigc__p_IFormFactor,
   _swigc__p_IFormFactorBorn,
   _swigc__p_IFormFactorDecorator,
@@ -44482,13 +52965,21 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_NodeMeta,
   _swigc__p_OffSpecSimulation,
   _swigc__p_ParaMeta,
+  _swigc__p_ParameterDistribution,
   _swigc__p_ParameterPool,
+  _swigc__p_ParameterSample,
   _swigc__p_Particle,
   _swigc__p_ParticleComposition,
   _swigc__p_ParticleCoreShell,
   _swigc__p_ParticleDistribution,
   _swigc__p_ParticleLayout,
   _swigc__p_PoissonNoiseBackground,
+  _swigc__p_RangedDistribution,
+  _swigc__p_RangedDistributionCosine,
+  _swigc__p_RangedDistributionGate,
+  _swigc__p_RangedDistributionGaussian,
+  _swigc__p_RangedDistributionLogNormal,
+  _swigc__p_RangedDistributionLorentz,
   _swigc__p_RealLimits,
   _swigc__p_RealParameter,
   _swigc__p_RectangularDetector,
@@ -44519,6 +53010,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t,
   _swigc__p_std__allocatorT_INode_const_p_t,
   _swigc__p_std__allocatorT_INode_p_t,
+  _swigc__p_std__allocatorT_ParameterSample_t,
   _swigc__p_std__allocatorT_double_t,
   _swigc__p_std__allocatorT_int_t,
   _swigc__p_std__allocatorT_std__complexT_double_t_t,
@@ -44539,6 +53031,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t,
   _swigc__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t,
   _swigc__p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t,
+  _swigc__p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t,
   _swigc__p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
   _swigc__p_std__vectorT_int_std__allocatorT_int_t_t,

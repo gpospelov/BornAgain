@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/DistributionHandler.h
+//! @file      Param/Distrib/DistributionHandler.h
 //! @brief     Defines class DistributionHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONHANDLER_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONHANDLER_H
 
-#include "Core/Parametrization/ParameterDistribution.h"
+#include "Param/Distrib/ParameterDistribution.h"
 #include <vector>
 
 //! Provides the functionality to average over parameter distributions with weights.

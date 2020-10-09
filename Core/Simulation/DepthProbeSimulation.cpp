@@ -23,7 +23,7 @@
 #include "Core/Histo/Histogram1D.h"
 #include "Core/Material/MaterialUtils.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/Distributions.h"
+#include "Param/Distrib/Distributions.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"

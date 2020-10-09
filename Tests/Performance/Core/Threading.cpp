@@ -14,8 +14,8 @@
 
 #include "Base/Const/Units.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterPattern.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
 #include "Core/StandardSamples/ParaCrystalBuilder.h"

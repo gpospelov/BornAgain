@@ -72,6 +72,12 @@
 
 #include "Param/Node/INode.h"
 #include "Param/Node/INodeVisitor.h"
+
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/ParameterDistribution.h"
+#include "Param/Varia/ParameterSample.h"
+#include "Param/Distrib/RangedDistributions.h"
+
 %}
 
 %import(module="libBornAgainBase") "Base/Types/Complex.h"
@@ -92,5 +98,13 @@
 
 %include "Param/Node/INode.h"
 %include "Param/Node/INodeVisitor.h"
+
+%include "Param/Distrib/Distributions.h"
+%include "Param/Distrib/Distributions.h"
+%include "Param/Distrib/ParameterDistribution.h"
+%include "Param/Distrib/RangedDistributions.h"
+
+%include "Param/Varia/ParameterSample.h"
+%template(ParameterSampleVector) std::vector<ParameterSample>;
 
 %include "extendParam.i"

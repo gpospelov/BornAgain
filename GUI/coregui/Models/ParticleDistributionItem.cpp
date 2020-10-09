@@ -14,8 +14,8 @@
 
 #include "GUI/coregui/Models/ParticleDistributionItem.h"
 #include "Base/Const/Units.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterUtils.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterUtils.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DistributionItems.h"
 #include "GUI/coregui/Models/ParameterTreeUtils.h"

@@ -19,7 +19,7 @@
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/SimulationResult.h"
-#include "Core/Parametrization/DistributionHandler.h"
+#include "Param/Distrib/DistributionHandler.h"
 #include "Core/RT/SimulationOptions.h"
 #include "Core/SampleBuilderEngine/SampleProvider.h"
 #include "Param/Node/INode.h"

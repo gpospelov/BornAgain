@@ -404,6 +404,54 @@ def GeneratePoissonRandom(average):
 
     """
     return _libBornAgainBase.GeneratePoissonRandom(average)
+class ThreadInfo(object):
+    r"""
+
+
+    Information to run simulation with dedicated number of threads.
+
+    C++ includes: ThreadInfo.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(ThreadInfo self) -> ThreadInfo
+        ThreadInfo::ThreadInfo()
+
+        """
+        _libBornAgainBase.ThreadInfo_swiginit(self, _libBornAgainBase.new_ThreadInfo())
+    n_threads = property(_libBornAgainBase.ThreadInfo_n_threads_get, _libBornAgainBase.ThreadInfo_n_threads_set, doc=r"""n_threads : unsigned int""")
+    n_batches = property(_libBornAgainBase.ThreadInfo_n_batches_get, _libBornAgainBase.ThreadInfo_n_batches_set, doc=r"""n_batches : unsigned int""")
+    current_batch = property(_libBornAgainBase.ThreadInfo_current_batch_get, _libBornAgainBase.ThreadInfo_current_batch_set, doc=r"""current_batch : unsigned int""")
+    __swig_destroy__ = _libBornAgainBase.delete_ThreadInfo
+
+# Register ThreadInfo in _libBornAgainBase:
+_libBornAgainBase.ThreadInfo_swigregister(ThreadInfo)
+cvar = _libBornAgainBase.cvar
+I = cvar.I
+nanometer = cvar.nanometer
+angstrom = cvar.angstrom
+micrometer = cvar.micrometer
+millimeter = cvar.millimeter
+meter = cvar.meter
+nm = cvar.nm
+nm2 = cvar.nm2
+barn = cvar.barn
+radian = cvar.radian
+milliradian = cvar.milliradian
+degree = cvar.degree
+steradian = cvar.steradian
+rad = cvar.rad
+mrad = cvar.mrad
+sr = cvar.sr
+deg = cvar.deg
+tesla = cvar.tesla
+gauss = cvar.gauss
+
 
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     r"""
@@ -631,26 +679,6 @@ class kvector_t(object):
 
 # Register kvector_t in _libBornAgainBase:
 _libBornAgainBase.kvector_t_swigregister(kvector_t)
-cvar = _libBornAgainBase.cvar
-I = cvar.I
-nanometer = cvar.nanometer
-angstrom = cvar.angstrom
-micrometer = cvar.micrometer
-millimeter = cvar.millimeter
-meter = cvar.meter
-nm = cvar.nm
-nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
-rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
-deg = cvar.deg
-tesla = cvar.tesla
-gauss = cvar.gauss
 
 class vector_kvector_t(object):
     r"""Proxy of C++ std::vector< BasicVector3D< double > > class."""

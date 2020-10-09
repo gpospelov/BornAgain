@@ -1,5 +1,5 @@
-#include "Core/Parametrization/DistributionHandler.h"
-#include "Core/Parametrization/Distributions.h"
+#include "Param/Distrib/DistributionHandler.h"
+#include "Param/Distrib/Distributions.h"
 #include "Param/Base/IParameterized.h"
 #include "Param/Base/ParameterPool.h"
 #include "Tests/GTestWrapper/google_test.h"

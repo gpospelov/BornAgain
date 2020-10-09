@@ -1,6 +1,413 @@
 
 // File: index.xml
 
+// File: classDistributionCosine.xml
+%feature("docstring") DistributionCosine "
+
+Cosine distribution.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  DistributionCosine::DistributionCosine "DistributionCosine::DistributionCosine(const std::vector< double > P)
+";
+
+%feature("docstring")  DistributionCosine::DistributionCosine "DistributionCosine::DistributionCosine(double mean, double sigma)
+";
+
+%feature("docstring")  DistributionCosine::DistributionCosine "DistributionCosine::DistributionCosine()
+";
+
+%feature("docstring")  DistributionCosine::clone "DistributionCosine* DistributionCosine::clone() const final
+";
+
+%feature("docstring")  DistributionCosine::probabilityDensity "double DistributionCosine::probabilityDensity(double x) const final
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  DistributionCosine::getMean "double DistributionCosine::getMean() const final
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  DistributionCosine::getSigma "double DistributionCosine::getSigma() const
+";
+
+%feature("docstring")  DistributionCosine::equidistantPoints "std::vector< double > DistributionCosine::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+generate list of sample values 
+";
+
+%feature("docstring")  DistributionCosine::isDelta "bool DistributionCosine::isDelta() const final
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionCosine::accept "void DistributionCosine::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classDistributionGate.xml
+%feature("docstring") DistributionGate "
+
+Uniform distribution function with half width hwhm.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  DistributionGate::DistributionGate "DistributionGate::DistributionGate(const std::vector< double > P)
+";
+
+%feature("docstring")  DistributionGate::DistributionGate "DistributionGate::DistributionGate(double min, double max)
+";
+
+%feature("docstring")  DistributionGate::DistributionGate "DistributionGate::DistributionGate()
+";
+
+%feature("docstring")  DistributionGate::clone "DistributionGate* DistributionGate::clone() const final
+";
+
+%feature("docstring")  DistributionGate::probabilityDensity "double DistributionGate::probabilityDensity(double x) const final
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  DistributionGate::getMean "double DistributionGate::getMean() const final
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  DistributionGate::getMin "double DistributionGate::getMin() const
+";
+
+%feature("docstring")  DistributionGate::getMax "double DistributionGate::getMax() const
+";
+
+%feature("docstring")  DistributionGate::equidistantPoints "std::vector< double > DistributionGate::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+Returns list of sample values. 
+";
+
+%feature("docstring")  DistributionGate::isDelta "bool DistributionGate::isDelta() const final
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionGate::accept "void DistributionGate::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classDistributionGaussian.xml
+%feature("docstring") DistributionGaussian "
+
+Gaussian distribution with standard deviation std_dev.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  DistributionGaussian::DistributionGaussian "DistributionGaussian::DistributionGaussian(const std::vector< double > P)
+";
+
+%feature("docstring")  DistributionGaussian::DistributionGaussian "DistributionGaussian::DistributionGaussian(double mean, double std_dev)
+";
+
+%feature("docstring")  DistributionGaussian::DistributionGaussian "DistributionGaussian::DistributionGaussian()
+";
+
+%feature("docstring")  DistributionGaussian::clone "DistributionGaussian* DistributionGaussian::clone() const final
+";
+
+%feature("docstring")  DistributionGaussian::probabilityDensity "double DistributionGaussian::probabilityDensity(double x) const final
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  DistributionGaussian::getMean "double DistributionGaussian::getMean() const final
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  DistributionGaussian::getStdDev "double DistributionGaussian::getStdDev() const
+";
+
+%feature("docstring")  DistributionGaussian::equidistantPoints "std::vector< double > DistributionGaussian::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+generate list of sample values 
+";
+
+%feature("docstring")  DistributionGaussian::isDelta "bool DistributionGaussian::isDelta() const final
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionGaussian::accept "void DistributionGaussian::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classDistributionHandler.xml
+%feature("docstring") DistributionHandler "
+
+Provides the functionality to average over parameter distributions with weights.
+
+C++ includes: DistributionHandler.h
+";
+
+%feature("docstring")  DistributionHandler::DistributionHandler "DistributionHandler::DistributionHandler()
+";
+
+%feature("docstring")  DistributionHandler::~DistributionHandler "DistributionHandler::~DistributionHandler()
+";
+
+%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
+
+add a sampled parameter distribution 
+";
+
+%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const ParameterDistribution &par_distr)
+";
+
+%feature("docstring")  DistributionHandler::getTotalNumberOfSamples "size_t DistributionHandler::getTotalNumberOfSamples() const
+
+get the total number of parameter value combinations (product of the individual sizes of each parameter distribution 
+";
+
+%feature("docstring")  DistributionHandler::setParameterValues "double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool, size_t index)
+
+set the parameter values of the simulation object to a specific combination of values, determined by the index (which must be smaller than the total number of combinations) and returns the weight associated with this combination of parameter values 
+";
+
+%feature("docstring")  DistributionHandler::setParameterToMeans "void DistributionHandler::setParameterToMeans(ParameterPool *p_parameter_pool) const
+
+Sets mean distribution values to the parameter pool. 
+";
+
+%feature("docstring")  DistributionHandler::getDistributions "const DistributionHandler::Distributions_t & DistributionHandler::getDistributions() const
+";
+
+
+// File: classDistributionLogNormal.xml
+%feature("docstring") DistributionLogNormal "
+
+Log-normal distribution.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  DistributionLogNormal::DistributionLogNormal "DistributionLogNormal::DistributionLogNormal(const std::vector< double > P)
+";
+
+%feature("docstring")  DistributionLogNormal::DistributionLogNormal "DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
+";
+
+%feature("docstring")  DistributionLogNormal::DistributionLogNormal "DistributionLogNormal::DistributionLogNormal()=delete
+";
+
+%feature("docstring")  DistributionLogNormal::clone "DistributionLogNormal* DistributionLogNormal::clone() const final
+";
+
+%feature("docstring")  DistributionLogNormal::probabilityDensity "double DistributionLogNormal::probabilityDensity(double x) const final
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  DistributionLogNormal::getMean "double DistributionLogNormal::getMean() const final
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  DistributionLogNormal::getMedian "double DistributionLogNormal::getMedian() const
+";
+
+%feature("docstring")  DistributionLogNormal::getScalePar "double DistributionLogNormal::getScalePar() const
+";
+
+%feature("docstring")  DistributionLogNormal::equidistantPoints "std::vector< double > DistributionLogNormal::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+generate list of sample values 
+";
+
+%feature("docstring")  DistributionLogNormal::isDelta "bool DistributionLogNormal::isDelta() const final
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionLogNormal::accept "void DistributionLogNormal::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  DistributionLogNormal::setUnits "void DistributionLogNormal::setUnits(const std::string &units)
+
+Sets distribution units. 
+";
+
+
+// File: classDistributionLorentz.xml
+%feature("docstring") DistributionLorentz "
+
+Lorentz distribution with half width hwhm.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  DistributionLorentz::DistributionLorentz "DistributionLorentz::DistributionLorentz(const std::vector< double > P)
+";
+
+%feature("docstring")  DistributionLorentz::DistributionLorentz "DistributionLorentz::DistributionLorentz(double mean, double hwhm)
+";
+
+%feature("docstring")  DistributionLorentz::DistributionLorentz "DistributionLorentz::DistributionLorentz()
+";
+
+%feature("docstring")  DistributionLorentz::clone "DistributionLorentz* DistributionLorentz::clone() const final
+";
+
+%feature("docstring")  DistributionLorentz::probabilityDensity "double DistributionLorentz::probabilityDensity(double x) const final
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  DistributionLorentz::getMean "double DistributionLorentz::getMean() const final
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  DistributionLorentz::getHWHM "double DistributionLorentz::getHWHM() const
+";
+
+%feature("docstring")  DistributionLorentz::equidistantPoints "std::vector< double > DistributionLorentz::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+generate list of sample values 
+";
+
+%feature("docstring")  DistributionLorentz::isDelta "bool DistributionLorentz::isDelta() const final
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionLorentz::accept "void DistributionLorentz::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classDistributionTrapezoid.xml
+%feature("docstring") DistributionTrapezoid "
+
+Trapezoidal distribution.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid(const std::vector< double > P)
+";
+
+%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle, double right)
+";
+
+%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid()
+";
+
+%feature("docstring")  DistributionTrapezoid::clone "DistributionTrapezoid* DistributionTrapezoid::clone() const final
+";
+
+%feature("docstring")  DistributionTrapezoid::probabilityDensity "double DistributionTrapezoid::probabilityDensity(double x) const final
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  DistributionTrapezoid::getMean "double DistributionTrapezoid::getMean() const final
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  DistributionTrapezoid::getLeftWidth "double DistributionTrapezoid::getLeftWidth() const
+";
+
+%feature("docstring")  DistributionTrapezoid::getMiddleWidth "double DistributionTrapezoid::getMiddleWidth() const
+";
+
+%feature("docstring")  DistributionTrapezoid::getRightWidth "double DistributionTrapezoid::getRightWidth() const
+";
+
+%feature("docstring")  DistributionTrapezoid::equidistantPoints "std::vector< double > DistributionTrapezoid::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+generate list of sample values 
+";
+
+%feature("docstring")  DistributionTrapezoid::isDelta "bool DistributionTrapezoid::isDelta() const final
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionTrapezoid::accept "void DistributionTrapezoid::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classIDistribution1D.xml
+%feature("docstring") IDistribution1D "
+
+Interface for one-dimensional distributions.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  IDistribution1D::IDistribution1D "IDistribution1D::IDistribution1D(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IDistribution1D::clone "virtual IDistribution1D* IDistribution1D::clone() const =0
+";
+
+%feature("docstring")  IDistribution1D::probabilityDensity "virtual double IDistribution1D::probabilityDensity(double x) const =0
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  IDistribution1D::getMean "virtual double IDistribution1D::getMean() const =0
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  IDistribution1D::equidistantSamples "std::vector< ParameterSample > IDistribution1D::equidistantSamples(size_t nbr_samples, double sigma_factor=0., const RealLimits &limits=RealLimits()) const
+
+Returns equidistant samples, using intrinsic parameters, weighted with  probabilityDensity(). 
+";
+
+%feature("docstring")  IDistribution1D::equidistantSamplesInRange "std::vector< ParameterSample > IDistribution1D::equidistantSamplesInRange(size_t nbr_samples, double xmin, double xmax) const
+
+Returns equidistant samples from xmin to xmax, weighted with  probabilityDensity(). 
+";
+
+%feature("docstring")  IDistribution1D::equidistantPoints "virtual std::vector<double> IDistribution1D::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
+
+Returns equidistant interpolation points, with range computed in distribution-specific way from mean and width parameter, taking into account limits and sigma_factor. 
+";
+
+%feature("docstring")  IDistribution1D::equidistantPointsInRange "std::vector< double > IDistribution1D::equidistantPointsInRange(size_t nbr_samples, double xmin, double xmax) const
+
+Returns equidistant interpolation points from xmin to xmax. 
+";
+
+%feature("docstring")  IDistribution1D::isDelta "virtual bool IDistribution1D::isDelta() const =0
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  IDistribution1D::setUnits "void IDistribution1D::setUnits(const std::string &units)
+
+Sets distribution units. 
+";
+
+
 // File: classINode.xml
 %feature("docstring") INode "
 
@@ -706,6 +1113,94 @@ C++ includes: INode.h
 ";
 
 
+// File: classParameterDistribution.xml
+%feature("docstring") ParameterDistribution "
+
+A parametric distribution function, for use with any model parameter.
+
+C++ includes: ParameterDistribution.h
+";
+
+%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
+";
+
+%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double xmin, double xmax)
+";
+
+%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const ParameterDistribution &other)
+";
+
+%feature("docstring")  ParameterDistribution::~ParameterDistribution "ParameterDistribution::~ParameterDistribution()
+";
+
+%feature("docstring")  ParameterDistribution::linkParameter "ParameterDistribution & ParameterDistribution::linkParameter(std::string par_name)
+";
+
+%feature("docstring")  ParameterDistribution::getMainParameterName "std::string ParameterDistribution::getMainParameterName() const
+
+get the main parameter's name 
+";
+
+%feature("docstring")  ParameterDistribution::getNbrSamples "size_t ParameterDistribution::getNbrSamples() const
+
+get number of samples for this distribution 
+";
+
+%feature("docstring")  ParameterDistribution::getSigmaFactor "double ParameterDistribution::getSigmaFactor() const
+
+get the sigma factor 
+";
+
+%feature("docstring")  ParameterDistribution::getDistribution "const IDistribution1D * ParameterDistribution::getDistribution() const
+";
+
+%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution()
+";
+
+%feature("docstring")  ParameterDistribution::generateSamples "std::vector< ParameterSample > ParameterDistribution::generateSamples() const
+
+generate list of sampled values with their weight 
+";
+
+%feature("docstring")  ParameterDistribution::getLinkedParameterNames "std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
+
+get list of linked parameter names 
+";
+
+%feature("docstring")  ParameterDistribution::getLimits "RealLimits ParameterDistribution::getLimits() const
+";
+
+%feature("docstring")  ParameterDistribution::getMinValue "double ParameterDistribution::getMinValue() const
+";
+
+%feature("docstring")  ParameterDistribution::getMaxValue "double ParameterDistribution::getMaxValue() const
+";
+
+
+// File: classParameterPattern.xml
+%feature("docstring") ParameterPattern "
+
+Helper class for constructing parameter patterns.
+
+C++ includes: ParameterPattern.h
+";
+
+%feature("docstring")  ParameterPattern::ParameterPattern "ParameterPattern::ParameterPattern()
+";
+
+%feature("docstring")  ParameterPattern::ParameterPattern "ParameterPattern::ParameterPattern(std::string root_object)
+";
+
+%feature("docstring")  ParameterPattern::beginsWith "ParameterPattern & ParameterPattern::beginsWith(std::string start_type)
+";
+
+%feature("docstring")  ParameterPattern::add "ParameterPattern & ParameterPattern::add(std::string object_type)
+";
+
+%feature("docstring")  ParameterPattern::toStdString "std::string ParameterPattern::toStdString() const
+";
+
+
 // File: classParameterPool.xml
 %feature("docstring") ParameterPool "
 
@@ -801,6 +1296,18 @@ Removes parameter with given name from the pool.
 ";
 
 
+// File: classParameterSample.xml
+%feature("docstring") ParameterSample "
+
+A parameter value with a weight, as obtained when sampling from a distribution.
+
+C++ includes: ParameterSample.h
+";
+
+%feature("docstring")  ParameterSample::ParameterSample "ParameterSample::ParameterSample(double _value=0., double _weight=1.)
+";
+
+
 // File: classPostorderStrategy.xml
 %feature("docstring") PostorderStrategy "
 
@@ -846,6 +1353,198 @@ C++ includes: IterationStrategy.h
 ";
 
 %feature("docstring")  PreorderStrategy::isDone "bool PreorderStrategy::isDone(IteratorMemento &iterator_stack) const
+";
+
+
+// File: classRangedDistribution.xml
+%feature("docstring") RangedDistribution "
+
+Interface for one-dimensional ranged distributions. All derived distributions allow for generating samples in-place for known mean and standard deviation (except for  RangedDistributionLorentz which uses median and hwhm).
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistribution::clone "RangedDistribution* RangedDistribution::clone() const override=0
+";
+
+%feature("docstring")  RangedDistribution::~RangedDistribution "RangedDistribution::~RangedDistribution() override
+";
+
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< ParameterSample > RangedDistribution::generateSamples(double mean, double stddev) const
+";
+
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< std::vector< ParameterSample > > RangedDistribution::generateSamples(const std::vector< double > &mean, const std::vector< double > &stddev) const
+
+Generates list of sampled values with their weights from given means and standard deviations. 
+";
+
+%feature("docstring")  RangedDistribution::distribution "std::unique_ptr< IDistribution1D > RangedDistribution::distribution(double mean, double stddev) const
+
+Public interface function to underlying  IDistribution1D object. 
+";
+
+%feature("docstring")  RangedDistribution::limits "RealLimits RangedDistribution::limits() const
+
+Returns current limits of the distribution. 
+";
+
+%feature("docstring")  RangedDistribution::sigmaFactor "double RangedDistribution::sigmaFactor() const
+
+Returns sigma factor to use during sampling. 
+";
+
+%feature("docstring")  RangedDistribution::nSamples "size_t RangedDistribution::nSamples() const
+
+Returns number of samples to generate. 
+";
+
+%feature("docstring")  RangedDistribution::setLimits "void RangedDistribution::setLimits(const RealLimits &limits)
+";
+
+%feature("docstring")  RangedDistribution::pyString "std::string RangedDistribution::pyString() const
+
+Prints python-formatted definition of the distribution. 
+";
+
+
+// File: classRangedDistributionCosine.xml
+%feature("docstring") RangedDistributionCosine "
+
+Cosine distribution.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine()
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionCosine::clone "RangedDistributionCosine * RangedDistributionCosine::clone() const override
+";
+
+%feature("docstring")  RangedDistributionCosine::~RangedDistributionCosine "RangedDistributionCosine::~RangedDistributionCosine() override=default
+";
+
+
+// File: classRangedDistributionGate.xml
+%feature("docstring") RangedDistributionGate "
+
+Uniform distribution function.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate()
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionGate::clone "RangedDistributionGate * RangedDistributionGate::clone() const override
+";
+
+%feature("docstring")  RangedDistributionGate::~RangedDistributionGate "RangedDistributionGate::~RangedDistributionGate() override=default
+";
+
+
+// File: classRangedDistributionGaussian.xml
+%feature("docstring") RangedDistributionGaussian "
+
+Gaussian distribution with standard deviation std_dev.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian()
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionGaussian::clone "RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
+";
+
+%feature("docstring")  RangedDistributionGaussian::~RangedDistributionGaussian "RangedDistributionGaussian::~RangedDistributionGaussian() override=default
+";
+
+
+// File: classRangedDistributionLogNormal.xml
+%feature("docstring") RangedDistributionLogNormal "
+
+Log-normal distribution.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal()
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionLogNormal::clone "RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
+";
+
+%feature("docstring")  RangedDistributionLogNormal::~RangedDistributionLogNormal "RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default
+";
+
+
+// File: classRangedDistributionLorentz.xml
+%feature("docstring") RangedDistributionLorentz "
+
+Lorentz distribution with median and hwhm.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz()
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionLorentz::clone "RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
+";
+
+%feature("docstring")  RangedDistributionLorentz::~RangedDistributionLorentz "RangedDistributionLorentz::~RangedDistributionLorentz() override=default
 ";
 
 
@@ -916,7 +1615,16 @@ C++ includes: Unit.h
 ";
 
 
+// File: namespace_0d12.xml
+
+
 // File: namespace_0d16.xml
+
+
+// File: namespace_0d24.xml
+
+
+// File: namespace_0d29.xml
 
 
 // File: namespaceNodeUtils.xml
@@ -928,6 +1636,28 @@ Returns multiline string representing tree structure starting from given node.
 %feature("docstring")  NodeUtils::nodePath "std::string NodeUtils::nodePath(const INode &node, const INode *root=nullptr)
 
 Returns path composed of node's displayName, with respect to root node. 
+";
+
+
+// File: namespaceParameterUtils.xml
+%feature("docstring")  ParameterUtils::isAngleRelated "bool ParameterUtils::isAngleRelated(const std::string &par_name)
+
+Returns true if given parameter name is related to angles. 
+";
+
+%feature("docstring")  ParameterUtils::poolParameterUnits "std::string ParameterUtils::poolParameterUnits(const IParameterized &node, const std::string &parName)
+
+Returns units of main parameter. 
+";
+
+
+// File: namespacepyfmt.xml
+%feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
+";
+
+%feature("docstring")  pyfmt::printRealLimitsArg "std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
+
+Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
 ";
 
 
@@ -959,6 +1689,30 @@ Returns path composed of node's displayName, with respect to root node.
 
 
 // File: Unit_8h.xml
+
+
+// File: DistributionHandler_8cpp.xml
+
+
+// File: DistributionHandler_8h.xml
+
+
+// File: Distributions_8cpp.xml
+
+
+// File: Distributions_8h.xml
+
+
+// File: ParameterDistribution_8cpp.xml
+
+
+// File: ParameterDistribution_8h.xml
+
+
+// File: RangedDistributions_8cpp.xml
+
+
+// File: RangedDistributions_8h.xml
 
 
 // File: INode_8cpp.xml
@@ -999,11 +1753,38 @@ Returns path composed of node's displayName, with respect to root node.
 // File: NodeUtils_8h.xml
 
 
+// File: ParameterPattern_8cpp.xml
+
+
+// File: ParameterPattern_8h.xml
+
+
+// File: ParameterSample_8h.xml
+
+
+// File: ParameterUtils_8cpp.xml
+
+
+// File: ParameterUtils_8h.xml
+
+
+// File: PyFmtLimits_8cpp.xml
+
+
+// File: PyFmtLimits_8h.xml
+
+
 // File: dir_a1f38e94e849d0203a55ad5a19f2f15a.xml
+
+
+// File: dir_dabc42ad3745509abd3a496944bb880e.xml
 
 
 // File: dir_a98fb20d64e2aea67a6e042d91197081.xml
 
 
 // File: dir_d452a16c8784395bb8c21da516e88a7f.xml
+
+
+// File: dir_dda74d2e7a2b62d18fb900593a370493.xml
 

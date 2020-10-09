@@ -3,9 +3,9 @@
 #include "Core/Axis/FixedBinAxis.h"
 #include "Core/Axis/PointwiseAxis.h"
 #include "Core/Instrument/PyFmt2.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Parametrization/PyFmtLimits.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/ParameterDistribution.h"
+#include "Param/Varia/PyFmtLimits.h"
 #include "Fit/Tools/RealLimits.h"
 #include "Tests/GTestWrapper/google_test.h"
 

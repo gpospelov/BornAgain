@@ -1,6 +1,6 @@
 #include "Core/Resolution/ScanResolution.h"
-#include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/RangedDistributions.h"
+#include "Param/Varia/ParameterSample.h"
+#include "Param/Distrib/RangedDistributions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 

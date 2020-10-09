@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_DETECTOR_SCANRESOLUTION_H
 
 #include "Base/Types/ICloneable.h"
-#include "Core/Parametrization/ParameterSample.h"
+#include "Param/Varia/ParameterSample.h"
 #include <memory>
 #include <string>
 #include <vector>

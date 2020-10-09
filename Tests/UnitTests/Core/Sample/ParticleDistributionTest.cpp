@@ -3,7 +3,7 @@
 #include "Core/HardParticle/FormFactorCone.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Parametrization/Distributions.h"
+#include "Param/Distrib/Distributions.h"
 #include "Core/Particle/Particle.h"
 #include "Tests/GTestWrapper/google_test.h"
 

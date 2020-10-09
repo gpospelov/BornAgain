@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/DistributionHandler.cpp
+//! @file      Param/Distrib/DistributionHandler.cpp
 //! @brief     Implements class DistributionHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Core/Parametrization/DistributionHandler.h"
+#include "Param/Distrib/DistributionHandler.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterSample.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterSample.h"
 #include "Param/Base/ParameterPool.h"
 
 DistributionHandler::DistributionHandler() : m_nbr_combinations(1)

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/RangedDistributions.h
+//! @file      Param/Distrib/RangedDistributions.h
 //! @brief     Defines classes representing ranged one-dimensional distributions.
 //!
 //! @homepage  http://www.bornagainproject.org

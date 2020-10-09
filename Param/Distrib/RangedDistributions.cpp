@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/RangedDistributions.cpp
+//! @file      Param/Distrib/RangedDistributions.cpp
 //! @brief     Implements classes representing ranged one-dimensional distributions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Core/Parametrization/RangedDistributions.h"
+#include "Param/Distrib/RangedDistributions.h"
 #include "Base/Utils/PyFmt.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/PyFmtLimits.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterSample.h"
+#include "Param/Varia/PyFmtLimits.h"
 #include <limits>
 
 namespace

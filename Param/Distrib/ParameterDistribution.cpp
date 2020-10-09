@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/ParameterDistribution.cpp
+//! @file      Param/Distrib/ParameterDistribution.cpp
 //! @brief     Implements class ParameterDistribution.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Core/Parametrization/ParameterDistribution.h"
+#include "Param/Distrib/ParameterDistribution.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterSample.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterSample.h"
 
 ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              const IDistribution1D& distribution,

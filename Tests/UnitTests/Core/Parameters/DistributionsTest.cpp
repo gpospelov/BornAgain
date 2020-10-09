@@ -1,7 +1,7 @@
-#include "Core/Parametrization/Distributions.h"
+#include "Param/Distrib/Distributions.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Parametrization/ParameterSample.h"
+#include "Param/Varia/ParameterSample.h"
 #include "Param/Base/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>

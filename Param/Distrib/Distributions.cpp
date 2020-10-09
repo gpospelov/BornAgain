@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/Distributions.cpp
+//! @file      Param/Distrib/Distributions.cpp
 //! @brief     Implements classes representing one-dimensional distributions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Core/Parametrization/Distributions.h"
+#include "Param/Distrib/Distributions.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Parametrization/ParameterSample.h"
+#include "Param/Varia/ParameterSample.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include <algorithm>

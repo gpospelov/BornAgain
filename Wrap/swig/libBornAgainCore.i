@@ -144,7 +144,7 @@
 #include "Core/HardParticle/FormFactorTruncatedCube.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Histo/IntensityDataIOFactory.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Instrument/ChiSquaredModule.h"
 #include "Core/Instrument/IChiSquaredModule.h"
@@ -178,12 +178,7 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/RangedDistributions.h"
 #include "Core/RT/SimulationOptions.h"
-#include "Base/Utils/ThreadInfo.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/FormFactorWeighted.h"
@@ -262,6 +257,7 @@
 %import(module="libBornAgainParam") "Param/Base/ParameterPool.h"
 %import(module="libBornAgainParam") "Param/Base/IParameterized.h"
 %import(module="libBornAgainParam") "Param/Node/INode.h"
+%import(module="libBornAgainParam") "Param/Distrib/ParameterDistribution.h"
 %include "fromParam.i"
 
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
@@ -274,9 +270,6 @@
 %include "Fit/TestEngine/IFactory.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
-
-%include "Core/Parametrization/ParameterSample.h"
-%template(ParameterSampleVector) std::vector<ParameterSample>;
 
 %include "Core/Data/OutputData.h"
 %template(IntensityData) OutputData<double>;
@@ -302,12 +295,7 @@
 %include "Core/Mask/Polygon.h"
 %include "Core/Mask/Rectangle.h"
 
-%include "Core/Parametrization/Distributions.h"
-%include "Core/Parametrization/Distributions.h"
-%include "Core/Parametrization/ParameterDistribution.h"
-%include "Core/Parametrization/RangedDistributions.h"
 %include "Core/RT/SimulationOptions.h"
-%include "Base/Utils/ThreadInfo.h"
 
 %include "Core/Scattering/ISample.h"
 %include "Core/Scattering/IFormFactor.h"
@@ -418,7 +406,7 @@
 %include "Core/Computation/PoissonNoiseBackground.h"
 %include "Core/Computation/MultiLayerFuncs.h"
 
-%include "Core/InputOutput/IntensityDataIOFactory.h"
+%include "Core/Histo/IntensityDataIOFactory.h"
 
 %include "Core/Detector/IDetector.h"
 %include "Core/Detector/IDetector2D.h"

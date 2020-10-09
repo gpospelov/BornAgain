@@ -1,6 +1,6 @@
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/RangedDistributions.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterSample.h"
+#include "Param/Distrib/RangedDistributions.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class RangedDistributionTest : public ::testing::Test

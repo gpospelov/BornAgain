@@ -17,7 +17,7 @@
 #include "Core/Detector/SimpleUnitConverters.h"
 #include "Core/Histo/Histogram2D.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/Distributions.h"
+#include "Param/Distrib/Distributions.h"
 #include "Core/Pixel/SimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"

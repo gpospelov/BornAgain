@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/ParameterPattern.cpp
+//! @file      Param/Varia/ParameterPattern.cpp
 //! @brief     Implements class ParameterPattern
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Parametrization/ParameterPattern.h"
+#include "Param/Varia/ParameterPattern.h"
 
 ParameterPattern& ParameterPattern::beginsWith(std::string start_type)
 {

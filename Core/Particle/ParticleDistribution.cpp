@@ -14,9 +14,9 @@
 
 #include "Core/Particle/ParticleDistribution.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/ParameterUtils.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterSample.h"
+#include "Param/Varia/ParameterUtils.h"
 #include "Core/Particle/IParticle.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"

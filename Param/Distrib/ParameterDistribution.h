@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/ParameterDistribution.h
+//! @file      Param/Distrib/ParameterDistribution.h
 //! @brief     Defines class ParameterDistribution.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
 #define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
 
-#include "Core/Parametrization/ParameterSample.h"
+#include "Param/Varia/ParameterSample.h"
 #include "Fit/Tools/RealLimits.h"
 #include "Param/Base/IParameterized.h"
 #include <memory>

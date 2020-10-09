@@ -3300,12 +3300,12 @@ class INodeVisitor(object):
         visit(INodeVisitor self, ConstantBackground const * arg2)
         visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)
         visit(INodeVisitor self, Crystal const * arg2)
-        visit(INodeVisitor self, DistributionCosine const * arg2)
-        visit(INodeVisitor self, DistributionGate const * arg2)
-        visit(INodeVisitor self, DistributionGaussian const * arg2)
-        visit(INodeVisitor self, DistributionLogNormal const * arg2)
-        visit(INodeVisitor self, DistributionLorentz const * arg2)
-        visit(INodeVisitor self, DistributionTrapezoid const * arg2)
+        visit(INodeVisitor self, DistributionCosine arg2)
+        visit(INodeVisitor self, DistributionGate arg2)
+        visit(INodeVisitor self, DistributionGaussian arg2)
+        visit(INodeVisitor self, DistributionLogNormal arg2)
+        visit(INodeVisitor self, DistributionLorentz arg2)
+        visit(INodeVisitor self, DistributionTrapezoid arg2)
         visit(INodeVisitor self, FootprintGauss const * arg2)
         visit(INodeVisitor self, FootprintSquare const * arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid const * arg2)
@@ -3463,6 +3463,1210 @@ def VisitNodesPostorder(node, visitor):
 
     """
     return _libBornAgainParam.VisitNodesPostorder(node, visitor)
+class IDistribution1D(libBornAgainBase.ICloneable, INode):
+    r"""
+
+
+    Interface for one-dimensional distributions.
+
+    C++ includes: Distributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IDistribution1D self) -> IDistribution1D
+        virtual IDistribution1D* IDistribution1D::clone() const =0
+
+        """
+        return _libBornAgainParam.IDistribution1D_clone(self)
+
+    def probabilityDensity(self, x):
+        r"""
+        probabilityDensity(IDistribution1D self, double x) -> double
+        virtual double IDistribution1D::probabilityDensity(double x) const =0
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainParam.IDistribution1D_probabilityDensity(self, x)
+
+    def getMean(self):
+        r"""
+        getMean(IDistribution1D self) -> double
+        virtual double IDistribution1D::getMean() const =0
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainParam.IDistribution1D_getMean(self)
+
+    def equidistantSamples(self, *args):
+        r"""
+        equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0., RealLimits const & limits=RealLimits()) -> ParameterSampleVector
+        std::vector< ParameterSample > IDistribution1D::equidistantSamples(size_t nbr_samples, double sigma_factor=0., const RealLimits &limits=RealLimits()) const
+
+        Returns equidistant samples, using intrinsic parameters, weighted with  probabilityDensity(). 
+
+        """
+        return _libBornAgainParam.IDistribution1D_equidistantSamples(self, *args)
+
+    def equidistantSamplesInRange(self, nbr_samples, xmin, xmax):
+        r"""
+        equidistantSamplesInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> ParameterSampleVector
+        std::vector< ParameterSample > IDistribution1D::equidistantSamplesInRange(size_t nbr_samples, double xmin, double xmax) const
+
+        Returns equidistant samples from xmin to xmax, weighted with  probabilityDensity(). 
+
+        """
+        return _libBornAgainParam.IDistribution1D_equidistantSamplesInRange(self, nbr_samples, xmin, xmax)
+
+    def equidistantPoints(self, *args):
+        r"""
+        equidistantPoints(IDistribution1D self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t
+        virtual std::vector<double> IDistribution1D::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
+
+        Returns equidistant interpolation points, with range computed in distribution-specific way from mean and width parameter, taking into account limits and sigma_factor. 
+
+        """
+        return _libBornAgainParam.IDistribution1D_equidistantPoints(self, *args)
+
+    def equidistantPointsInRange(self, nbr_samples, xmin, xmax):
+        r"""
+        equidistantPointsInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> vdouble1d_t
+        std::vector< double > IDistribution1D::equidistantPointsInRange(size_t nbr_samples, double xmin, double xmax) const
+
+        Returns equidistant interpolation points from xmin to xmax. 
+
+        """
+        return _libBornAgainParam.IDistribution1D_equidistantPointsInRange(self, nbr_samples, xmin, xmax)
+
+    def isDelta(self):
+        r"""
+        isDelta(IDistribution1D self) -> bool
+        virtual bool IDistribution1D::isDelta() const =0
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainParam.IDistribution1D_isDelta(self)
+
+    def setUnits(self, units):
+        r"""
+        setUnits(IDistribution1D self, std::string const & units)
+        void IDistribution1D::setUnits(const std::string &units)
+
+        Sets distribution units. 
+
+        """
+        return _libBornAgainParam.IDistribution1D_setUnits(self, units)
+    __swig_destroy__ = _libBornAgainParam.delete_IDistribution1D
+
+# Register IDistribution1D in _libBornAgainParam:
+_libBornAgainParam.IDistribution1D_swigregister(IDistribution1D)
+
+class DistributionGate(IDistribution1D):
+    r"""
+
+
+    Uniform distribution function with half width hwhm.
+
+    C++ includes: Distributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DistributionGate self, vdouble1d_t P) -> DistributionGate
+        __init__(DistributionGate self, double min, double max) -> DistributionGate
+        __init__(DistributionGate self) -> DistributionGate
+        DistributionGate::DistributionGate()
+
+        """
+        _libBornAgainParam.DistributionGate_swiginit(self, _libBornAgainParam.new_DistributionGate(*args))
+
+    def clone(self):
+        r"""
+        clone(DistributionGate self) -> DistributionGate
+        DistributionGate* DistributionGate::clone() const final
+
+        """
+        return _libBornAgainParam.DistributionGate_clone(self)
+
+    def probabilityDensity(self, x):
+        r"""
+        probabilityDensity(DistributionGate self, double x) -> double
+        double DistributionGate::probabilityDensity(double x) const final
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainParam.DistributionGate_probabilityDensity(self, x)
+
+    def getMean(self):
+        r"""
+        getMean(DistributionGate self) -> double
+        double DistributionGate::getMean() const final
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainParam.DistributionGate_getMean(self)
+
+    def getMin(self):
+        r"""
+        getMin(DistributionGate self) -> double
+        double DistributionGate::getMin() const
+
+        """
+        return _libBornAgainParam.DistributionGate_getMin(self)
+
+    def getMax(self):
+        r"""
+        getMax(DistributionGate self) -> double
+        double DistributionGate::getMax() const
+
+        """
+        return _libBornAgainParam.DistributionGate_getMax(self)
+
+    def equidistantPoints(self, *args):
+        r"""
+        equidistantPoints(DistributionGate self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t
+        std::vector< double > DistributionGate::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+        Returns list of sample values. 
+
+        """
+        return _libBornAgainParam.DistributionGate_equidistantPoints(self, *args)
+
+    def isDelta(self):
+        r"""
+        isDelta(DistributionGate self) -> bool
+        bool DistributionGate::isDelta() const final
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainParam.DistributionGate_isDelta(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(DistributionGate self, INodeVisitor visitor)
+        void DistributionGate::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainParam.DistributionGate_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainParam.delete_DistributionGate
+
+# Register DistributionGate in _libBornAgainParam:
+_libBornAgainParam.DistributionGate_swigregister(DistributionGate)
+
+class DistributionLorentz(IDistribution1D):
+    r"""
+
+
+    Lorentz distribution with half width hwhm.
+
+    C++ includes: Distributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DistributionLorentz self, vdouble1d_t P) -> DistributionLorentz
+        __init__(DistributionLorentz self, double mean, double hwhm) -> DistributionLorentz
+        __init__(DistributionLorentz self) -> DistributionLorentz
+        DistributionLorentz::DistributionLorentz()
+
+        """
+        _libBornAgainParam.DistributionLorentz_swiginit(self, _libBornAgainParam.new_DistributionLorentz(*args))
+
+    def clone(self):
+        r"""
+        clone(DistributionLorentz self) -> DistributionLorentz
+        DistributionLorentz* DistributionLorentz::clone() const final
+
+        """
+        return _libBornAgainParam.DistributionLorentz_clone(self)
+
+    def probabilityDensity(self, x):
+        r"""
+        probabilityDensity(DistributionLorentz self, double x) -> double
+        double DistributionLorentz::probabilityDensity(double x) const final
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainParam.DistributionLorentz_probabilityDensity(self, x)
+
+    def getMean(self):
+        r"""
+        getMean(DistributionLorentz self) -> double
+        double DistributionLorentz::getMean() const final
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainParam.DistributionLorentz_getMean(self)
+
+    def getHWHM(self):
+        r"""
+        getHWHM(DistributionLorentz self) -> double
+        double DistributionLorentz::getHWHM() const
+
+        """
+        return _libBornAgainParam.DistributionLorentz_getHWHM(self)
+
+    def equidistantPoints(self, *args):
+        r"""
+        equidistantPoints(DistributionLorentz self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t
+        std::vector< double > DistributionLorentz::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+        generate list of sample values 
+
+        """
+        return _libBornAgainParam.DistributionLorentz_equidistantPoints(self, *args)
+
+    def isDelta(self):
+        r"""
+        isDelta(DistributionLorentz self) -> bool
+        bool DistributionLorentz::isDelta() const final
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainParam.DistributionLorentz_isDelta(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(DistributionLorentz self, INodeVisitor visitor)
+        void DistributionLorentz::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainParam.DistributionLorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainParam.delete_DistributionLorentz
+
+# Register DistributionLorentz in _libBornAgainParam:
+_libBornAgainParam.DistributionLorentz_swigregister(DistributionLorentz)
+
+class DistributionGaussian(IDistribution1D):
+    r"""
+
+
+    Gaussian distribution with standard deviation std_dev.
+
+    C++ includes: Distributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DistributionGaussian self, vdouble1d_t P) -> DistributionGaussian
+        __init__(DistributionGaussian self, double mean, double std_dev) -> DistributionGaussian
+        __init__(DistributionGaussian self) -> DistributionGaussian
+        DistributionGaussian::DistributionGaussian()
+
+        """
+        _libBornAgainParam.DistributionGaussian_swiginit(self, _libBornAgainParam.new_DistributionGaussian(*args))
+
+    def clone(self):
+        r"""
+        clone(DistributionGaussian self) -> DistributionGaussian
+        DistributionGaussian* DistributionGaussian::clone() const final
+
+        """
+        return _libBornAgainParam.DistributionGaussian_clone(self)
+
+    def probabilityDensity(self, x):
+        r"""
+        probabilityDensity(DistributionGaussian self, double x) -> double
+        double DistributionGaussian::probabilityDensity(double x) const final
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainParam.DistributionGaussian_probabilityDensity(self, x)
+
+    def getMean(self):
+        r"""
+        getMean(DistributionGaussian self) -> double
+        double DistributionGaussian::getMean() const final
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainParam.DistributionGaussian_getMean(self)
+
+    def getStdDev(self):
+        r"""
+        getStdDev(DistributionGaussian self) -> double
+        double DistributionGaussian::getStdDev() const
+
+        """
+        return _libBornAgainParam.DistributionGaussian_getStdDev(self)
+
+    def equidistantPoints(self, *args):
+        r"""
+        equidistantPoints(DistributionGaussian self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t
+        std::vector< double > DistributionGaussian::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+        generate list of sample values 
+
+        """
+        return _libBornAgainParam.DistributionGaussian_equidistantPoints(self, *args)
+
+    def isDelta(self):
+        r"""
+        isDelta(DistributionGaussian self) -> bool
+        bool DistributionGaussian::isDelta() const final
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainParam.DistributionGaussian_isDelta(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(DistributionGaussian self, INodeVisitor visitor)
+        void DistributionGaussian::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainParam.DistributionGaussian_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainParam.delete_DistributionGaussian
+
+# Register DistributionGaussian in _libBornAgainParam:
+_libBornAgainParam.DistributionGaussian_swigregister(DistributionGaussian)
+
+class DistributionLogNormal(IDistribution1D):
+    r"""
+
+
+    Log-normal distribution.
+
+    C++ includes: Distributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DistributionLogNormal self, vdouble1d_t P) -> DistributionLogNormal
+        __init__(DistributionLogNormal self, double median, double scale_param) -> DistributionLogNormal
+        DistributionLogNormal::DistributionLogNormal()=delete
+
+        """
+        _libBornAgainParam.DistributionLogNormal_swiginit(self, _libBornAgainParam.new_DistributionLogNormal(*args))
+
+    def clone(self):
+        r"""
+        clone(DistributionLogNormal self) -> DistributionLogNormal
+        DistributionLogNormal* DistributionLogNormal::clone() const final
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_clone(self)
+
+    def probabilityDensity(self, x):
+        r"""
+        probabilityDensity(DistributionLogNormal self, double x) -> double
+        double DistributionLogNormal::probabilityDensity(double x) const final
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_probabilityDensity(self, x)
+
+    def getMean(self):
+        r"""
+        getMean(DistributionLogNormal self) -> double
+        double DistributionLogNormal::getMean() const final
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_getMean(self)
+
+    def getMedian(self):
+        r"""
+        getMedian(DistributionLogNormal self) -> double
+        double DistributionLogNormal::getMedian() const
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_getMedian(self)
+
+    def getScalePar(self):
+        r"""
+        getScalePar(DistributionLogNormal self) -> double
+        double DistributionLogNormal::getScalePar() const
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_getScalePar(self)
+
+    def equidistantPoints(self, *args):
+        r"""
+        equidistantPoints(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t
+        std::vector< double > DistributionLogNormal::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+        generate list of sample values 
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_equidistantPoints(self, *args)
+
+    def isDelta(self):
+        r"""
+        isDelta(DistributionLogNormal self) -> bool
+        bool DistributionLogNormal::isDelta() const final
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_isDelta(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(DistributionLogNormal self, INodeVisitor visitor)
+        void DistributionLogNormal::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_accept(self, visitor)
+
+    def setUnits(self, units):
+        r"""
+        setUnits(DistributionLogNormal self, std::string const & units)
+        void DistributionLogNormal::setUnits(const std::string &units)
+
+        Sets distribution units. 
+
+        """
+        return _libBornAgainParam.DistributionLogNormal_setUnits(self, units)
+    __swig_destroy__ = _libBornAgainParam.delete_DistributionLogNormal
+
+# Register DistributionLogNormal in _libBornAgainParam:
+_libBornAgainParam.DistributionLogNormal_swigregister(DistributionLogNormal)
+
+class DistributionCosine(IDistribution1D):
+    r"""
+
+
+    Cosine distribution.
+
+    C++ includes: Distributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DistributionCosine self, vdouble1d_t P) -> DistributionCosine
+        __init__(DistributionCosine self, double mean, double sigma) -> DistributionCosine
+        __init__(DistributionCosine self) -> DistributionCosine
+        DistributionCosine::DistributionCosine()
+
+        """
+        _libBornAgainParam.DistributionCosine_swiginit(self, _libBornAgainParam.new_DistributionCosine(*args))
+
+    def clone(self):
+        r"""
+        clone(DistributionCosine self) -> DistributionCosine
+        DistributionCosine* DistributionCosine::clone() const final
+
+        """
+        return _libBornAgainParam.DistributionCosine_clone(self)
+
+    def probabilityDensity(self, x):
+        r"""
+        probabilityDensity(DistributionCosine self, double x) -> double
+        double DistributionCosine::probabilityDensity(double x) const final
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainParam.DistributionCosine_probabilityDensity(self, x)
+
+    def getMean(self):
+        r"""
+        getMean(DistributionCosine self) -> double
+        double DistributionCosine::getMean() const final
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainParam.DistributionCosine_getMean(self)
+
+    def getSigma(self):
+        r"""
+        getSigma(DistributionCosine self) -> double
+        double DistributionCosine::getSigma() const
+
+        """
+        return _libBornAgainParam.DistributionCosine_getSigma(self)
+
+    def equidistantPoints(self, *args):
+        r"""
+        equidistantPoints(DistributionCosine self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t
+        std::vector< double > DistributionCosine::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+        generate list of sample values 
+
+        """
+        return _libBornAgainParam.DistributionCosine_equidistantPoints(self, *args)
+
+    def isDelta(self):
+        r"""
+        isDelta(DistributionCosine self) -> bool
+        bool DistributionCosine::isDelta() const final
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainParam.DistributionCosine_isDelta(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(DistributionCosine self, INodeVisitor visitor)
+        void DistributionCosine::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainParam.DistributionCosine_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainParam.delete_DistributionCosine
+
+# Register DistributionCosine in _libBornAgainParam:
+_libBornAgainParam.DistributionCosine_swigregister(DistributionCosine)
+
+class DistributionTrapezoid(IDistribution1D):
+    r"""
+
+
+    Trapezoidal distribution.
+
+    C++ includes: Distributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DistributionTrapezoid self, vdouble1d_t P) -> DistributionTrapezoid
+        __init__(DistributionTrapezoid self, double center, double left, double middle, double right) -> DistributionTrapezoid
+        __init__(DistributionTrapezoid self) -> DistributionTrapezoid
+        DistributionTrapezoid::DistributionTrapezoid()
+
+        """
+        _libBornAgainParam.DistributionTrapezoid_swiginit(self, _libBornAgainParam.new_DistributionTrapezoid(*args))
+
+    def clone(self):
+        r"""
+        clone(DistributionTrapezoid self) -> DistributionTrapezoid
+        DistributionTrapezoid* DistributionTrapezoid::clone() const final
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_clone(self)
+
+    def probabilityDensity(self, x):
+        r"""
+        probabilityDensity(DistributionTrapezoid self, double x) -> double
+        double DistributionTrapezoid::probabilityDensity(double x) const final
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_probabilityDensity(self, x)
+
+    def getMean(self):
+        r"""
+        getMean(DistributionTrapezoid self) -> double
+        double DistributionTrapezoid::getMean() const final
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_getMean(self)
+
+    def getLeftWidth(self):
+        r"""
+        getLeftWidth(DistributionTrapezoid self) -> double
+        double DistributionTrapezoid::getLeftWidth() const
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_getLeftWidth(self)
+
+    def getMiddleWidth(self):
+        r"""
+        getMiddleWidth(DistributionTrapezoid self) -> double
+        double DistributionTrapezoid::getMiddleWidth() const
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_getMiddleWidth(self)
+
+    def getRightWidth(self):
+        r"""
+        getRightWidth(DistributionTrapezoid self) -> double
+        double DistributionTrapezoid::getRightWidth() const
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_getRightWidth(self)
+
+    def equidistantPoints(self, *args):
+        r"""
+        equidistantPoints(DistributionTrapezoid self, size_t nbr_samples, double sigma_factor, RealLimits const & limits=RealLimits()) -> vdouble1d_t
+        std::vector< double > DistributionTrapezoid::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+        generate list of sample values 
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_equidistantPoints(self, *args)
+
+    def isDelta(self):
+        r"""
+        isDelta(DistributionTrapezoid self) -> bool
+        bool DistributionTrapezoid::isDelta() const final
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_isDelta(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(DistributionTrapezoid self, INodeVisitor visitor)
+        void DistributionTrapezoid::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainParam.DistributionTrapezoid_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainParam.delete_DistributionTrapezoid
+
+# Register DistributionTrapezoid in _libBornAgainParam:
+_libBornAgainParam.DistributionTrapezoid_swigregister(DistributionTrapezoid)
+
+class ParameterDistribution(IParameterized):
+    r"""
+
+
+    A parametric distribution function, for use with any model parameter.
+
+    C++ includes: ParameterDistribution.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits const & limits=RealLimits()) -> ParameterDistribution
+        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double xmin, double xmax) -> ParameterDistribution
+        __init__(ParameterDistribution self, ParameterDistribution other) -> ParameterDistribution
+        ParameterDistribution::ParameterDistribution(const ParameterDistribution &other)
+
+        """
+        _libBornAgainParam.ParameterDistribution_swiginit(self, _libBornAgainParam.new_ParameterDistribution(*args))
+    __swig_destroy__ = _libBornAgainParam.delete_ParameterDistribution
+
+    def linkParameter(self, par_name):
+        r"""
+        linkParameter(ParameterDistribution self, std::string par_name) -> ParameterDistribution
+        ParameterDistribution & ParameterDistribution::linkParameter(std::string par_name)
+
+        """
+        return _libBornAgainParam.ParameterDistribution_linkParameter(self, par_name)
+
+    def getMainParameterName(self):
+        r"""
+        getMainParameterName(ParameterDistribution self) -> std::string
+        std::string ParameterDistribution::getMainParameterName() const
+
+        get the main parameter's name 
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getMainParameterName(self)
+
+    def getNbrSamples(self):
+        r"""
+        getNbrSamples(ParameterDistribution self) -> size_t
+        size_t ParameterDistribution::getNbrSamples() const
+
+        get number of samples for this distribution 
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getNbrSamples(self)
+
+    def getSigmaFactor(self):
+        r"""
+        getSigmaFactor(ParameterDistribution self) -> double
+        double ParameterDistribution::getSigmaFactor() const
+
+        get the sigma factor 
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getSigmaFactor(self)
+
+    def getDistribution(self, *args):
+        r"""
+        getDistribution(ParameterDistribution self) -> IDistribution1D
+        getDistribution(ParameterDistribution self) -> IDistribution1D
+        IDistribution1D * ParameterDistribution::getDistribution()
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getDistribution(self, *args)
+
+    def generateSamples(self):
+        r"""
+        generateSamples(ParameterDistribution self) -> ParameterSampleVector
+        std::vector< ParameterSample > ParameterDistribution::generateSamples() const
+
+        generate list of sampled values with their weight 
+
+        """
+        return _libBornAgainParam.ParameterDistribution_generateSamples(self)
+
+    def getLinkedParameterNames(self):
+        r"""
+        getLinkedParameterNames(ParameterDistribution self) -> vector_string_t
+        std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
+
+        get list of linked parameter names 
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getLinkedParameterNames(self)
+
+    def getLimits(self):
+        r"""
+        getLimits(ParameterDistribution self) -> RealLimits
+        RealLimits ParameterDistribution::getLimits() const
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getLimits(self)
+
+    def getMinValue(self):
+        r"""
+        getMinValue(ParameterDistribution self) -> double
+        double ParameterDistribution::getMinValue() const
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getMinValue(self)
+
+    def getMaxValue(self):
+        r"""
+        getMaxValue(ParameterDistribution self) -> double
+        double ParameterDistribution::getMaxValue() const
+
+        """
+        return _libBornAgainParam.ParameterDistribution_getMaxValue(self)
+
+# Register ParameterDistribution in _libBornAgainParam:
+_libBornAgainParam.ParameterDistribution_swigregister(ParameterDistribution)
+
+class RangedDistributionGate(object):
+    r"""
+
+
+    Uniform distribution function.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionGate self) -> RangedDistributionGate
+        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless()) -> RangedDistributionGate
+        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGate
+        RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainParam.RangedDistributionGate_swiginit(self, _libBornAgainParam.new_RangedDistributionGate(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionGate self) -> RangedDistributionGate
+        RangedDistributionGate * RangedDistributionGate::clone() const override
+
+        """
+        return _libBornAgainParam.RangedDistributionGate_clone(self)
+    __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionGate
+
+# Register RangedDistributionGate in _libBornAgainParam:
+_libBornAgainParam.RangedDistributionGate_swigregister(RangedDistributionGate)
+
+class RangedDistributionLorentz(object):
+    r"""
+
+
+    Lorentz distribution with median and hwhm.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionLorentz self) -> RangedDistributionLorentz
+        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, RealLimits const & limits=RealLimits::limitless()) -> RangedDistributionLorentz
+        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, double min, double max) -> RangedDistributionLorentz
+        RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainParam.RangedDistributionLorentz_swiginit(self, _libBornAgainParam.new_RangedDistributionLorentz(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionLorentz self) -> RangedDistributionLorentz
+        RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
+
+        """
+        return _libBornAgainParam.RangedDistributionLorentz_clone(self)
+    __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionLorentz
+
+# Register RangedDistributionLorentz in _libBornAgainParam:
+_libBornAgainParam.RangedDistributionLorentz_swigregister(RangedDistributionLorentz)
+
+class RangedDistributionGaussian(object):
+    r"""
+
+
+    Gaussian distribution with standard deviation std_dev.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionGaussian self) -> RangedDistributionGaussian
+        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless()) -> RangedDistributionGaussian
+        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGaussian
+        RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainParam.RangedDistributionGaussian_swiginit(self, _libBornAgainParam.new_RangedDistributionGaussian(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionGaussian self) -> RangedDistributionGaussian
+        RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
+
+        """
+        return _libBornAgainParam.RangedDistributionGaussian_clone(self)
+    __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionGaussian
+
+# Register RangedDistributionGaussian in _libBornAgainParam:
+_libBornAgainParam.RangedDistributionGaussian_swigregister(RangedDistributionGaussian)
+
+class RangedDistributionLogNormal(object):
+    r"""
+
+
+    Log-normal distribution.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
+        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless()) -> RangedDistributionLogNormal
+        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionLogNormal
+        RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainParam.RangedDistributionLogNormal_swiginit(self, _libBornAgainParam.new_RangedDistributionLogNormal(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
+        RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
+
+        """
+        return _libBornAgainParam.RangedDistributionLogNormal_clone(self)
+    __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionLogNormal
+
+# Register RangedDistributionLogNormal in _libBornAgainParam:
+_libBornAgainParam.RangedDistributionLogNormal_swigregister(RangedDistributionLogNormal)
+
+class RangedDistributionCosine(object):
+    r"""
+
+
+    Cosine distribution.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(RangedDistributionCosine self) -> RangedDistributionCosine
+        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, RealLimits const & limits=RealLimits::limitless()) -> RangedDistributionCosine
+        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionCosine
+        RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        _libBornAgainParam.RangedDistributionCosine_swiginit(self, _libBornAgainParam.new_RangedDistributionCosine(*args))
+
+    def clone(self):
+        r"""
+        clone(RangedDistributionCosine self) -> RangedDistributionCosine
+        RangedDistributionCosine * RangedDistributionCosine::clone() const override
+
+        """
+        return _libBornAgainParam.RangedDistributionCosine_clone(self)
+    __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionCosine
+
+# Register RangedDistributionCosine in _libBornAgainParam:
+_libBornAgainParam.RangedDistributionCosine_swigregister(RangedDistributionCosine)
+
+class ParameterSample(object):
+    r"""
+
+
+    A parameter value with a weight, as obtained when sampling from a distribution.
+
+    C++ includes: ParameterSample.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, _value=0., _weight=1.):
+        r"""
+        __init__(ParameterSample self, double _value=0., double _weight=1.) -> ParameterSample
+        ParameterSample::ParameterSample(double _value=0., double _weight=1.)
+
+        """
+        _libBornAgainParam.ParameterSample_swiginit(self, _libBornAgainParam.new_ParameterSample(_value, _weight))
+    value = property(_libBornAgainParam.ParameterSample_value_get, _libBornAgainParam.ParameterSample_value_set, doc=r"""value : double""")
+    weight = property(_libBornAgainParam.ParameterSample_weight_get, _libBornAgainParam.ParameterSample_weight_set, doc=r"""weight : double""")
+    __swig_destroy__ = _libBornAgainParam.delete_ParameterSample
+
+# Register ParameterSample in _libBornAgainParam:
+_libBornAgainParam.ParameterSample_swigregister(ParameterSample)
+
+class ParameterSampleVector(object):
+    r"""Proxy of C++ std::vector< ParameterSample > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(ParameterSampleVector self) -> SwigPyIterator"""
+        return _libBornAgainParam.ParameterSampleVector_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(ParameterSampleVector self) -> bool"""
+        return _libBornAgainParam.ParameterSampleVector___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(ParameterSampleVector self) -> bool"""
+        return _libBornAgainParam.ParameterSampleVector___bool__(self)
+
+    def __len__(self):
+        r"""__len__(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainParam.ParameterSampleVector___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j) -> ParameterSampleVector"""
+        return _libBornAgainParam.ParameterSampleVector___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)
+        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j, ParameterSampleVector v)
+        """
+        return _libBornAgainParam.ParameterSampleVector___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)"""
+        return _libBornAgainParam.ParameterSampleVector___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i)
+        __delitem__(ParameterSampleVector self, PySliceObject * slice)
+        """
+        return _libBornAgainParam.ParameterSampleVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(ParameterSampleVector self, PySliceObject * slice) -> ParameterSampleVector
+        __getitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i) -> ParameterSample
+        """
+        return _libBornAgainParam.ParameterSampleVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(ParameterSampleVector self, PySliceObject * slice, ParameterSampleVector v)
+        __setitem__(ParameterSampleVector self, PySliceObject * slice)
+        __setitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, ParameterSample x)
+        """
+        return _libBornAgainParam.ParameterSampleVector___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainParam.ParameterSampleVector_pop(self)
+
+    def append(self, x):
+        r"""append(ParameterSampleVector self, ParameterSample x)"""
+        return _libBornAgainParam.ParameterSampleVector_append(self, x)
+
+    def empty(self):
+        r"""empty(ParameterSampleVector self) -> bool"""
+        return _libBornAgainParam.ParameterSampleVector_empty(self)
+
+    def size(self):
+        r"""size(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainParam.ParameterSampleVector_size(self)
+
+    def swap(self, v):
+        r"""swap(ParameterSampleVector self, ParameterSampleVector v)"""
+        return _libBornAgainParam.ParameterSampleVector_swap(self, v)
+
+    def begin(self):
+        r"""begin(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
+        return _libBornAgainParam.ParameterSampleVector_begin(self)
+
+    def end(self):
+        r"""end(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
+        return _libBornAgainParam.ParameterSampleVector_end(self)
+
+    def rbegin(self):
+        r"""rbegin(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
+        return _libBornAgainParam.ParameterSampleVector_rbegin(self)
+
+    def rend(self):
+        r"""rend(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
+        return _libBornAgainParam.ParameterSampleVector_rend(self)
+
+    def clear(self):
+        r"""clear(ParameterSampleVector self)"""
+        return _libBornAgainParam.ParameterSampleVector_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(ParameterSampleVector self) -> std::vector< ParameterSample >::allocator_type"""
+        return _libBornAgainParam.ParameterSampleVector_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(ParameterSampleVector self)"""
+        return _libBornAgainParam.ParameterSampleVector_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos) -> std::vector< ParameterSample >::iterator
+        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator first, std::vector< ParameterSample >::iterator last) -> std::vector< ParameterSample >::iterator
+        """
+        return _libBornAgainParam.ParameterSampleVector_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(ParameterSampleVector self) -> ParameterSampleVector
+        __init__(ParameterSampleVector self, ParameterSampleVector other) -> ParameterSampleVector
+        __init__(ParameterSampleVector self, std::vector< ParameterSample >::size_type size) -> ParameterSampleVector
+        __init__(ParameterSampleVector self, std::vector< ParameterSample >::size_type size, ParameterSample value) -> ParameterSampleVector
+        """
+        _libBornAgainParam.ParameterSampleVector_swiginit(self, _libBornAgainParam.new_ParameterSampleVector(*args))
+
+    def push_back(self, x):
+        r"""push_back(ParameterSampleVector self, ParameterSample x)"""
+        return _libBornAgainParam.ParameterSampleVector_push_back(self, x)
+
+    def front(self):
+        r"""front(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainParam.ParameterSampleVector_front(self)
+
+    def back(self):
+        r"""back(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainParam.ParameterSampleVector_back(self)
+
+    def assign(self, n, x):
+        r"""assign(ParameterSampleVector self, std::vector< ParameterSample >::size_type n, ParameterSample x)"""
+        return _libBornAgainParam.ParameterSampleVector_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size)
+        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size, ParameterSample x)
+        """
+        return _libBornAgainParam.ParameterSampleVector_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, ParameterSample x) -> std::vector< ParameterSample >::iterator
+        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, std::vector< ParameterSample >::size_type n, ParameterSample x)
+        """
+        return _libBornAgainParam.ParameterSampleVector_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(ParameterSampleVector self, std::vector< ParameterSample >::size_type n)"""
+        return _libBornAgainParam.ParameterSampleVector_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainParam.ParameterSampleVector_capacity(self)
+    __swig_destroy__ = _libBornAgainParam.delete_ParameterSampleVector
+
+# Register ParameterSampleVector in _libBornAgainParam:
+_libBornAgainParam.ParameterSampleVector_swigregister(ParameterSampleVector)
+
 
 class ParameterPoolIterator(object):
 

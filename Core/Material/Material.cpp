@@ -19,17 +19,17 @@
 #include "Core/Material/WavevectorInfo.h"
 #include <typeinfo>
 
+Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
+    : m_material_impl(std::move(material_impl))
+{
+}
+
 Material::Material(const Material& material)
 {
     if (material.isEmpty())
         throw Exceptions::NullPointerException(
             "Material: Error! Attempt to initialize material with nullptr.");
     m_material_impl.reset(material.m_material_impl->clone());
-}
-
-Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
-    : m_material_impl(std::move(material_impl))
-{
 }
 
 Material& Material::operator=(const Material& other)

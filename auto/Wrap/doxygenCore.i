@@ -9989,19 +9989,15 @@ A wrapper for underlying material implementation
 C++ includes: Material.h
 ";
 
-%feature("docstring")  Material::Material "Material::Material(const Material &material)
-
-Material copy-constructor. 
-";
-
-%feature("docstring")  Material::Material "Material::Material(Material &&material)=default
-
-Material move-constructor. 
-";
-
 %feature("docstring")  Material::Material "Material::Material(std::unique_ptr< BaseMaterialImpl > material_impl)
 
 Creates material with particular material implementation. 
+";
+
+%feature("docstring")  Material::Material "Material::Material(const Material &material)
+";
+
+%feature("docstring")  Material::Material "Material::Material(Material &&material)=default
 ";
 
 %feature("docstring")  Material::inverted "Material Material::inverted() const

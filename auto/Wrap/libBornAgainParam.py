@@ -2887,6 +2887,14 @@ class ParameterPool(libBornAgainBase.ICloneable):
         """
         return _libBornAgainParam.ParameterPool_removeParameter(self, name)
 
+    def __getitem__(self, index):
+        r"""__getitem__(ParameterPool self, size_t index) -> RealParameter"""
+        return _libBornAgainParam.ParameterPool___getitem__(self, index)
+
+    def __iter__(self):
+        return ParameterPoolIterator(self)
+
+
 # Register ParameterPool in _libBornAgainParam:
 _libBornAgainParam.ParameterPool_swigregister(ParameterPool)
 
@@ -3455,4 +3463,24 @@ def VisitNodesPostorder(node, visitor):
 
     """
     return _libBornAgainParam.VisitNodesPostorder(node, visitor)
+
+class ParameterPoolIterator(object):
+
+    def __init__(self, pool):
+        self.pool = pool
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.pool.size():
+            return self.pool[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+
 

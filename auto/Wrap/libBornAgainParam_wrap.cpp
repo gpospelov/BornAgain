@@ -7216,6 +7216,9 @@ SWIGINTERN std::vector< INode const * >::iterator std_vector_Sl_INode_SS_const_S
 SWIGINTERN std::vector< INode const * >::iterator std_vector_Sl_INode_SS_const_Sm__Sg__erase__SWIG_1(std::vector< INode const * > *self,std::vector< INode const * >::iterator first,std::vector< INode const * >::iterator last){ return self->erase(first, last); }
 SWIGINTERN std::vector< INode const * >::iterator std_vector_Sl_INode_SS_const_Sm__Sg__insert__SWIG_0(std::vector< INode const * > *self,std::vector< INode const * >::iterator pos,std::vector< INode const * >::value_type x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_INode_SS_const_Sm__Sg__insert__SWIG_1(std::vector< INode const * > *self,std::vector< INode const * >::iterator pos,std::vector< INode const * >::size_type n,std::vector< INode const * >::value_type x){ self->insert(pos, n, x); }
+SWIGINTERN RealParameter const *ParameterPool___getitem__(ParameterPool const *self,size_t index){
+        return (*(self))[index];
+    }
 
 
 /* ---------------------------------------------------
@@ -34684,6 +34687,36 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ParameterPool___getitem__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParameterPool *arg1 = (ParameterPool *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  RealParameter *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParameterPool___getitem__", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParameterPool, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParameterPool___getitem__" "', argument " "1"" of type '" "ParameterPool const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParameterPool * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParameterPool___getitem__" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (RealParameter *)ParameterPool___getitem__((ParameterPool const *)arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RealParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *ParameterPool_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -43358,6 +43391,7 @@ static PyMethodDef SwigMethods[] = {
 		"Removes parameter with given name from the pool. \n"
 		"\n"
 		""},
+	 { "ParameterPool___getitem__", _wrap_ParameterPool___getitem__, METH_VARARGS, "ParameterPool___getitem__(ParameterPool self, size_t index) -> RealParameter"},
 	 { "ParameterPool_swigregister", ParameterPool_swigregister, METH_O, NULL},
 	 { "ParameterPool_swiginit", ParameterPool_swiginit, METH_VARARGS, NULL},
 	 { "new_IParameterized", _wrap_new_IParameterized, METH_VARARGS, "\n"

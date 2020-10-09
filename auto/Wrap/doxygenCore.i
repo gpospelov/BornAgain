@@ -14846,16 +14846,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d414.xml
 
 
-// File: namespace_0d426.xml
+// File: namespace_0d424.xml
 
 
-// File: namespace_0d459.xml
+// File: namespace_0d457.xml
+
+
+// File: namespace_0d462.xml
 
 
 // File: namespace_0d464.xml
-
-
-// File: namespace_0d466.xml
 
 
 // File: namespace_0d474.xml
@@ -16983,12 +16983,6 @@ magnetization (in A/m)
 // File: RangedDistributions_8h.xml
 
 
-// File: SimulationOptions_8cpp.xml
-
-
-// File: SimulationOptions_8h.xml
-
-
 // File: Crystal_8cpp.xml
 
 
@@ -17148,6 +17142,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: ScalarRTCoefficients_8h.xml
+
+
+// File: SimulationOptions_8cpp.xml
+
+
+// File: SimulationOptions_8h.xml
 
 
 // File: FixedBuilder_8cpp.xml

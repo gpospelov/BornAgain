@@ -15,7 +15,7 @@
 #include "Core/Multilayer/ScalarFresnelMap.h"
 #include "Base/Vector/Vectors3D.h"
 #include "Core/Multilayer/Slice.h"
-#include "Core/Pixel/SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
 #include "Core/RT/ScalarRTCoefficients.h"
 #include <functional>
 

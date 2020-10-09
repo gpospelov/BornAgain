@@ -287,8 +287,6 @@
 
 %include "BAVersion.h"
 
-%include "Core/Pixel/IPixel.h"
-
 %include "Core/Mask/IShape2D.h"
 %include "Core/Mask/Ellipse.h"
 %include "Core/Mask/Line.h"

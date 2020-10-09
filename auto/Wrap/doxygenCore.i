@@ -1154,7 +1154,7 @@ will always return positive value
 // File: classDetectorContext.xml
 %feature("docstring") DetectorContext "
 
-Holds precalculated information for faster  SimulationElement generation.
+Holds precalculated information for faster SimulationElement generation.
 
 C++ includes: DetectorContext.h
 ";
@@ -5050,7 +5050,7 @@ Returns vector of unmasked detector indices.
 
 %feature("docstring")  IDetector2D::createPixel "virtual IPixel* IDetector2D::createPixel(size_t index) const =0
 
-Creates an  IPixel for the given  OutputData object and index. 
+Creates an IPixel for the given  OutputData object and index. 
 ";
 
 %feature("docstring")  IDetector2D::indexOfSpecular "virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
@@ -7107,33 +7107,6 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 %feature("docstring")  IPeakShape::angularDisorder "virtual bool IPeakShape::angularDisorder() const
 
 Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-";
-
-
-// File: classIPixel.xml
-%feature("docstring") IPixel "
-
-Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
-
-C++ includes: IPixel.h
-";
-
-%feature("docstring")  IPixel::~IPixel "virtual IPixel::~IPixel()
-";
-
-%feature("docstring")  IPixel::clone "virtual IPixel* IPixel::clone() const =0
-";
-
-%feature("docstring")  IPixel::createZeroSizePixel "virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
-";
-
-%feature("docstring")  IPixel::getK "virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
-";
-
-%feature("docstring")  IPixel::getIntegrationFactor "virtual double IPixel::getIntegrationFactor(double x, double y) const =0
-";
-
-%feature("docstring")  IPixel::getSolidAngle "virtual double IPixel::getSolidAngle() const =0
 ";
 
 
@@ -10131,44 +10104,6 @@ C++ includes: PoissonNoiseBackground.h
 ";
 
 
-// File: classPolarizationHandler.xml
-%feature("docstring") PolarizationHandler "
-
-Convenience class for handling polarization density matrix and polarization analyzer operator
-
-C++ includes: PolarizationHandler.h
-";
-
-%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler()
-";
-
-%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler(const Eigen::Matrix2cd &polarization, const Eigen::Matrix2cd &analyzer)
-";
-
-%feature("docstring")  PolarizationHandler::setPolarization "void PolarizationHandler::setPolarization(const Eigen::Matrix2cd &polarization)
-
-Sets the polarization density matrix (in spin basis along z-axis) 
-";
-
-%feature("docstring")  PolarizationHandler::getPolarization "Eigen::Matrix2cd PolarizationHandler::getPolarization() const
-
-Gets the polarization density matrix (in spin basis along z-axis) 
-";
-
-%feature("docstring")  PolarizationHandler::setAnalyzerOperator "void PolarizationHandler::setAnalyzerOperator(const Eigen::Matrix2cd &analyzer)
-
-Sets the polarization analyzer operator (in spin basis along z-axis) 
-";
-
-%feature("docstring")  PolarizationHandler::getAnalyzerOperator "Eigen::Matrix2cd PolarizationHandler::getAnalyzerOperator() const
-
-Gets the polarization analyzer operator (in spin basis along z-axis) 
-";
-
-%feature("docstring")  PolarizationHandler::swapContent "void PolarizationHandler::swapContent(PolarizationHandler &other)
-";
-
-
 // File: classPolygon.xml
 %feature("docstring") Polygon "
 
@@ -12196,107 +12131,6 @@ C++ includes: SimulationAreaIterator.h
 ";
 
 
-// File: classSimulationElement.xml
-%feature("docstring") SimulationElement "
-
-Data stucture containing both input and output of a single detector cell.
-
-C++ includes: SimulationElement.h
-";
-
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixel > pixel)
-";
-
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
-";
-
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
-
-Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
-";
-
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
-";
-
-%feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
-";
-
-%feature("docstring")  SimulationElement::setPolarization "void SimulationElement::setPolarization(const Eigen::Matrix2cd &polarization)
-
-Sets the polarization density matrix (in spin basis along z-axis) 
-";
-
-%feature("docstring")  SimulationElement::setAnalyzerOperator "void SimulationElement::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
-
-Sets the polarization analyzer operator (in spin basis along z-axis) 
-";
-
-%feature("docstring")  SimulationElement::polarizationHandler "const PolarizationHandler& SimulationElement::polarizationHandler() const
-
-Returns assigned  PolarizationHandler. 
-";
-
-%feature("docstring")  SimulationElement::getWavelength "double SimulationElement::getWavelength() const
-";
-
-%feature("docstring")  SimulationElement::getAlphaI "double SimulationElement::getAlphaI() const
-";
-
-%feature("docstring")  SimulationElement::getPhiI "double SimulationElement::getPhiI() const
-";
-
-%feature("docstring")  SimulationElement::getAlphaMean "double SimulationElement::getAlphaMean() const
-";
-
-%feature("docstring")  SimulationElement::getPhiMean "double SimulationElement::getPhiMean() const
-";
-
-%feature("docstring")  SimulationElement::setIntensity "void SimulationElement::setIntensity(double intensity)
-";
-
-%feature("docstring")  SimulationElement::addIntensity "void SimulationElement::addIntensity(double intensity)
-";
-
-%feature("docstring")  SimulationElement::getIntensity "double SimulationElement::getIntensity() const
-";
-
-%feature("docstring")  SimulationElement::getKi "kvector_t SimulationElement::getKi() const
-";
-
-%feature("docstring")  SimulationElement::getMeanKf "kvector_t SimulationElement::getMeanKf() const
-";
-
-%feature("docstring")  SimulationElement::getMeanQ "kvector_t SimulationElement::getMeanQ() const
-";
-
-%feature("docstring")  SimulationElement::getQ "kvector_t SimulationElement::getQ(double x, double y) const
-
-Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y. In-pixel coordinates take values from 0 to 1. 
-";
-
-%feature("docstring")  SimulationElement::getIntegrationFactor "double SimulationElement::getIntegrationFactor(double x, double y) const
-";
-
-%feature("docstring")  SimulationElement::getSolidAngle "double SimulationElement::getSolidAngle() const
-";
-
-%feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const
-";
-
-%feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
-";
-
-%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool is_specular)
-
-Set specularity indication on/off. 
-";
-
-%feature("docstring")  SimulationElement::isSpecular "bool SimulationElement::isSpecular() const
-
-Tells if simulation element corresponds to a specular peak. 
-";
-
-
 // File: classSimulationFactory.xml
 %feature("docstring") SimulationFactory "
 
@@ -12953,12 +12787,12 @@ C++ includes: SpecularSimulationElement.h
 
 %feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(PolarizationHandler handler)
 
-Assigns  PolarizationHandler. 
+Assigns PolarizationHandler. 
 ";
 
 %feature("docstring")  SpecularSimulationElement::polarizationHandler "const PolarizationHandler& SpecularSimulationElement::polarizationHandler() const
 
-Returns assigned  PolarizationHandler. 
+Returns assigned PolarizationHandler. 
 ";
 
 %feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
@@ -13699,58 +13533,58 @@ C++ includes: ZLimits.h
 // File: namespace_0d4.xml
 
 
+// File: namespace_0d423.xml
+
+
 // File: namespace_0d428.xml
 
 
-// File: namespace_0d433.xml
+// File: namespace_0d430.xml
 
 
-// File: namespace_0d435.xml
+// File: namespace_0d440.xml
 
 
-// File: namespace_0d445.xml
+// File: namespace_0d446.xml
 
 
-// File: namespace_0d451.xml
+// File: namespace_0d450.xml
 
 
-// File: namespace_0d455.xml
+// File: namespace_0d458.xml
 
 
-// File: namespace_0d463.xml
+// File: namespace_0d481.xml
 
 
-// File: namespace_0d486.xml
+// File: namespace_0d489.xml
 
 
-// File: namespace_0d494.xml
+// File: namespace_0d495.xml
 
 
-// File: namespace_0d500.xml
+// File: namespace_0d497.xml
 
 
-// File: namespace_0d502.xml
+// File: namespace_0d508.xml
 
 
-// File: namespace_0d513.xml
+// File: namespace_0d520.xml
 
 
-// File: namespace_0d525.xml
+// File: namespace_0d526.xml
 
 
-// File: namespace_0d531.xml
+// File: namespace_0d530.xml
 
 
-// File: namespace_0d535.xml
+// File: namespace_0d548.xml
 
 
-// File: namespace_0d553.xml
+// File: namespace_0d567.xml
 
 
-// File: namespace_0d572.xml
-
-
-// File: namespace_0d586.xml
+// File: namespace_0d581.xml
 
 
 // File: namespace_0d64.xml
@@ -15807,21 +15641,6 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: TRange_8h.xml
 
 
-// File: IPixel_8h.xml
-
-
-// File: PolarizationHandler_8cpp.xml
-
-
-// File: PolarizationHandler_8h.xml
-
-
-// File: SimulationElement_8cpp.xml
-
-
-// File: SimulationElement_8h.xml
-
-
 // File: ConvolutionDetectorResolution_8cpp.xml
 
 
@@ -16442,9 +16261,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
-
-
-// File: dir_359af669373d7705e93988ea0fa15f60.xml
 
 
 // File: dir_790d5e8b445d9aec8c8895146706942a.xml

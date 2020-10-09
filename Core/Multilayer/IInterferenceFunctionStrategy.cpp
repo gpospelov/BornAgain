@@ -17,7 +17,7 @@
 #include "Base/Utils/IntegratorMCMiser.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
-#include "Core/Pixel/SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)

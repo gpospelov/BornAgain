@@ -630,6 +630,33 @@ perform the actual integration over the ranges [min_array, max_array]
 ";
 
 
+// File: classIPixel.xml
+%feature("docstring") IPixel "
+
+Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+
+C++ includes: IPixel.h
+";
+
+%feature("docstring")  IPixel::~IPixel "virtual IPixel::~IPixel()
+";
+
+%feature("docstring")  IPixel::clone "virtual IPixel* IPixel::clone() const =0
+";
+
+%feature("docstring")  IPixel::createZeroSizePixel "virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
+";
+
+%feature("docstring")  IPixel::getK "virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
+";
+
+%feature("docstring")  IPixel::getIntegrationFactor "virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+";
+
+%feature("docstring")  IPixel::getSolidAngle "virtual double IPixel::getSolidAngle() const =0
+";
+
+
 // File: classExceptions_1_1LogicErrorException.xml
 %feature("docstring") Exceptions::LogicErrorException "";
 
@@ -716,6 +743,44 @@ find index of the coordinate closest to the given value
 %feature("docstring")  PointwiseAxis::createClippedAxis "PointwiseAxis * PointwiseAxis::createClippedAxis(double left, double right) const override
 
 Creates a new clipped axis. 
+";
+
+
+// File: classPolarizationHandler.xml
+%feature("docstring") PolarizationHandler "
+
+Convenience class for handling polarization density matrix and polarization analyzer operator
+
+C++ includes: PolarizationHandler.h
+";
+
+%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler()
+";
+
+%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler(const Eigen::Matrix2cd &polarization, const Eigen::Matrix2cd &analyzer)
+";
+
+%feature("docstring")  PolarizationHandler::setPolarization "void PolarizationHandler::setPolarization(const Eigen::Matrix2cd &polarization)
+
+Sets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::getPolarization "Eigen::Matrix2cd PolarizationHandler::getPolarization() const
+
+Gets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::setAnalyzerOperator "void PolarizationHandler::setAnalyzerOperator(const Eigen::Matrix2cd &analyzer)
+
+Sets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::getAnalyzerOperator "Eigen::Matrix2cd PolarizationHandler::getAnalyzerOperator() const
+
+Gets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::swapContent "void PolarizationHandler::swapContent(PolarizationHandler &other)
 ";
 
 
@@ -806,6 +871,107 @@ C++ includes: SafePointerVector.h
 ";
 
 %feature("docstring")  SafePointerVector::clear "void SafePointerVector< T >::clear()
+";
+
+
+// File: classSimulationElement.xml
+%feature("docstring") SimulationElement "
+
+Data stucture containing both input and output of a single detector cell.
+
+C++ includes: SimulationElement.h
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixel > pixel)
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
+
+Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
+";
+
+%feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
+";
+
+%feature("docstring")  SimulationElement::setPolarization "void SimulationElement::setPolarization(const Eigen::Matrix2cd &polarization)
+
+Sets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  SimulationElement::setAnalyzerOperator "void SimulationElement::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
+
+Sets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  SimulationElement::polarizationHandler "const PolarizationHandler& SimulationElement::polarizationHandler() const
+
+Returns assigned  PolarizationHandler. 
+";
+
+%feature("docstring")  SimulationElement::getWavelength "double SimulationElement::getWavelength() const
+";
+
+%feature("docstring")  SimulationElement::getAlphaI "double SimulationElement::getAlphaI() const
+";
+
+%feature("docstring")  SimulationElement::getPhiI "double SimulationElement::getPhiI() const
+";
+
+%feature("docstring")  SimulationElement::getAlphaMean "double SimulationElement::getAlphaMean() const
+";
+
+%feature("docstring")  SimulationElement::getPhiMean "double SimulationElement::getPhiMean() const
+";
+
+%feature("docstring")  SimulationElement::setIntensity "void SimulationElement::setIntensity(double intensity)
+";
+
+%feature("docstring")  SimulationElement::addIntensity "void SimulationElement::addIntensity(double intensity)
+";
+
+%feature("docstring")  SimulationElement::getIntensity "double SimulationElement::getIntensity() const
+";
+
+%feature("docstring")  SimulationElement::getKi "kvector_t SimulationElement::getKi() const
+";
+
+%feature("docstring")  SimulationElement::getMeanKf "kvector_t SimulationElement::getMeanKf() const
+";
+
+%feature("docstring")  SimulationElement::getMeanQ "kvector_t SimulationElement::getMeanQ() const
+";
+
+%feature("docstring")  SimulationElement::getQ "kvector_t SimulationElement::getQ(double x, double y) const
+
+Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y. In-pixel coordinates take values from 0 to 1. 
+";
+
+%feature("docstring")  SimulationElement::getIntegrationFactor "double SimulationElement::getIntegrationFactor(double x, double y) const
+";
+
+%feature("docstring")  SimulationElement::getSolidAngle "double SimulationElement::getSolidAngle() const
+";
+
+%feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const
+";
+
+%feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
+";
+
+%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool is_specular)
+
+Set specularity indication on/off. 
+";
+
+%feature("docstring")  SimulationElement::isSpecular "bool SimulationElement::isSpecular() const
+
+Tells if simulation element corresponds to a specular peak. 
 ";
 
 
@@ -1390,6 +1556,21 @@ global helper function for comparison of axes
 // File: Units_8h.xml
 
 
+// File: IPixel_8h.xml
+
+
+// File: PolarizationHandler_8cpp.xml
+
+
+// File: PolarizationHandler_8h.xml
+
+
+// File: SimulationElement_8cpp.xml
+
+
+// File: SimulationElement_8h.xml
+
+
 // File: CloneableVector_8h.xml
 
 
@@ -1511,6 +1692,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_53458346a71374f205070d8bd3d865f1.xml
+
+
+// File: dir_ec49f598ebf9445998ce86a14e7c0417.xml
 
 
 // File: dir_38a5ec4dd9a60e867dacdb92549a13e0.xml

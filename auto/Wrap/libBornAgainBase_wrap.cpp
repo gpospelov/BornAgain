@@ -3108,36 +3108,37 @@ namespace Swig {
 #define SWIGTYPE_p_FixedBinAxis swig_types[8]
 #define SWIGTYPE_p_IAxis swig_types[9]
 #define SWIGTYPE_p_ICloneable swig_types[10]
-#define SWIGTYPE_p_ThreadInfo swig_types[11]
-#define SWIGTYPE_p_VariableBinAxis swig_types[12]
-#define SWIGTYPE_p_allocator_type swig_types[13]
-#define SWIGTYPE_p_char swig_types[14]
-#define SWIGTYPE_p_difference_type swig_types[15]
-#define SWIGTYPE_p_int swig_types[16]
-#define SWIGTYPE_p_long_long swig_types[17]
-#define SWIGTYPE_p_p_PyObject swig_types[18]
-#define SWIGTYPE_p_short swig_types[19]
-#define SWIGTYPE_p_signed_char swig_types[20]
-#define SWIGTYPE_p_size_type swig_types[21]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[22]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[23]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[25]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[26]
-#define SWIGTYPE_p_std__invalid_argument swig_types[27]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[28]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[29]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[30]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[31]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[32]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[33]
-#define SWIGTYPE_p_unsigned_char swig_types[34]
-#define SWIGTYPE_p_unsigned_int swig_types[35]
-#define SWIGTYPE_p_unsigned_long_long swig_types[36]
-#define SWIGTYPE_p_unsigned_short swig_types[37]
-#define SWIGTYPE_p_value_type swig_types[38]
-static swig_type_info *swig_types[40];
-static swig_module_info swig_module = {swig_types, 39, 0, 0, 0, 0};
+#define SWIGTYPE_p_IPixel swig_types[11]
+#define SWIGTYPE_p_ThreadInfo swig_types[12]
+#define SWIGTYPE_p_VariableBinAxis swig_types[13]
+#define SWIGTYPE_p_allocator_type swig_types[14]
+#define SWIGTYPE_p_char swig_types[15]
+#define SWIGTYPE_p_difference_type swig_types[16]
+#define SWIGTYPE_p_int swig_types[17]
+#define SWIGTYPE_p_long_long swig_types[18]
+#define SWIGTYPE_p_p_PyObject swig_types[19]
+#define SWIGTYPE_p_short swig_types[20]
+#define SWIGTYPE_p_signed_char swig_types[21]
+#define SWIGTYPE_p_size_type swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[26]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[27]
+#define SWIGTYPE_p_std__invalid_argument swig_types[28]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[29]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[30]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[31]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[32]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[33]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[34]
+#define SWIGTYPE_p_unsigned_char swig_types[35]
+#define SWIGTYPE_p_unsigned_int swig_types[36]
+#define SWIGTYPE_p_unsigned_long_long swig_types[37]
+#define SWIGTYPE_p_unsigned_short swig_types[38]
+#define SWIGTYPE_p_value_type swig_types[39]
+static swig_type_info *swig_types[41];
+static swig_module_info swig_module = {swig_types, 40, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5281,6 +5282,9 @@ SWIGINTERN void std_vector_Sl_std_vector_Sl_double_Sg__Sg__insert__SWIG_1(std::v
 #include "Base/Axis/CustomBinAxis.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
+
+#include "Base/Pixel/IPixel.h"
+
 
 
 SWIGINTERNINLINE PyObject*
@@ -14287,6 +14291,203 @@ SWIGINTERN PyObject *FixedBinAxis_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObj
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_delete_IPixel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IPixel *arg1 = (IPixel *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IPixel" "', argument " "1"" of type '" "IPixel *""'"); 
+  }
+  arg1 = reinterpret_cast< IPixel * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IPixel_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IPixel *arg1 = (IPixel *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IPixel *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_clone" "', argument " "1"" of type '" "IPixel const *""'"); 
+  }
+  arg1 = reinterpret_cast< IPixel * >(argp1);
+  result = (IPixel *)((IPixel const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IPixel, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IPixel_createZeroSizePixel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IPixel *arg1 = (IPixel *) 0 ;
+  double arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  IPixel *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IPixel_createZeroSizePixel", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_createZeroSizePixel" "', argument " "1"" of type '" "IPixel const *""'"); 
+  }
+  arg1 = reinterpret_cast< IPixel * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IPixel_createZeroSizePixel" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IPixel_createZeroSizePixel" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (IPixel *)((IPixel const *)arg1)->createZeroSizePixel(arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IPixel, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IPixel_getK(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IPixel *arg1 = (IPixel *) 0 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  kvector_t result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IPixel_getK", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_getK" "', argument " "1"" of type '" "IPixel const *""'"); 
+  }
+  arg1 = reinterpret_cast< IPixel * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IPixel_getK" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IPixel_getK" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IPixel_getK" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = ((IPixel const *)arg1)->getK(arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IPixel_getIntegrationFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IPixel *arg1 = (IPixel *) 0 ;
+  double arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IPixel_getIntegrationFactor", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_getIntegrationFactor" "', argument " "1"" of type '" "IPixel const *""'"); 
+  }
+  arg1 = reinterpret_cast< IPixel * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IPixel_getIntegrationFactor" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IPixel_getIntegrationFactor" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (double)((IPixel const *)arg1)->getIntegrationFactor(arg2,arg3);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IPixel_getSolidAngle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IPixel *arg1 = (IPixel *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_getSolidAngle" "', argument " "1"" of type '" "IPixel const *""'"); 
+  }
+  arg1 = reinterpret_cast< IPixel * >(argp1);
+  result = (double)((IPixel const *)arg1)->getSolidAngle();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IPixel_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_IPixel, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_new_kvector_t__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   BasicVector3D< double > *result = 0 ;
@@ -19976,6 +20177,37 @@ static PyMethodDef SwigMethods[] = {
 	 { "FixedBinAxis___getitem__", _wrap_FixedBinAxis___getitem__, METH_VARARGS, "FixedBinAxis___getitem__(FixedBinAxis self, unsigned int i) -> double"},
 	 { "FixedBinAxis_swigregister", FixedBinAxis_swigregister, METH_O, NULL},
 	 { "FixedBinAxis_swiginit", FixedBinAxis_swiginit, METH_VARARGS, NULL},
+	 { "delete_IPixel", _wrap_delete_IPixel, METH_O, "\n"
+		"delete_IPixel(IPixel self)\n"
+		"virtual IPixel::~IPixel()\n"
+		"\n"
+		""},
+	 { "IPixel_clone", _wrap_IPixel_clone, METH_O, "\n"
+		"IPixel_clone(IPixel self) -> IPixel\n"
+		"virtual IPixel* IPixel::clone() const =0\n"
+		"\n"
+		""},
+	 { "IPixel_createZeroSizePixel", _wrap_IPixel_createZeroSizePixel, METH_VARARGS, "\n"
+		"IPixel_createZeroSizePixel(IPixel self, double x, double y) -> IPixel\n"
+		"virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0\n"
+		"\n"
+		""},
+	 { "IPixel_getK", _wrap_IPixel_getK, METH_VARARGS, "\n"
+		"IPixel_getK(IPixel self, double x, double y, double wavelength) -> kvector_t\n"
+		"virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0\n"
+		"\n"
+		""},
+	 { "IPixel_getIntegrationFactor", _wrap_IPixel_getIntegrationFactor, METH_VARARGS, "\n"
+		"IPixel_getIntegrationFactor(IPixel self, double x, double y) -> double\n"
+		"virtual double IPixel::getIntegrationFactor(double x, double y) const =0\n"
+		"\n"
+		""},
+	 { "IPixel_getSolidAngle", _wrap_IPixel_getSolidAngle, METH_O, "\n"
+		"IPixel_getSolidAngle(IPixel self) -> double\n"
+		"virtual double IPixel::getSolidAngle() const =0\n"
+		"\n"
+		""},
+	 { "IPixel_swigregister", IPixel_swigregister, METH_O, NULL},
 	 { "new_kvector_t", _wrap_new_kvector_t, METH_VARARGS, "\n"
 		"kvector_t()\n"
 		"new_kvector_t(double const x1, double const y1, double const z1) -> kvector_t\n"
@@ -20391,6 +20623,7 @@ static swig_type_info _swigt__p_CustomBinAxis = {"_p_CustomBinAxis", "CustomBinA
 static swig_type_info _swigt__p_FixedBinAxis = {"_p_FixedBinAxis", "FixedBinAxis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAxis = {"_p_IAxis", "IAxis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IPixel = {"_p_IPixel", "IPixel *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ThreadInfo = {"_p_ThreadInfo", "ThreadInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_VariableBinAxis = {"_p_VariableBinAxis", "VariableBinAxis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
@@ -20432,6 +20665,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_FixedBinAxis,
   &_swigt__p_IAxis,
   &_swigt__p_ICloneable,
+  &_swigt__p_IPixel,
   &_swigt__p_ThreadInfo,
   &_swigt__p_VariableBinAxis,
   &_swigt__p_allocator_type,
@@ -20473,6 +20707,7 @@ static swig_cast_info _swigc__p_CustomBinAxis[] = {  {&_swigt__p_CustomBinAxis, 
 static swig_cast_info _swigc__p_FixedBinAxis[] = {  {&_swigt__p_FixedBinAxis, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAxis[] = {  {&_swigt__p_IAxis, 0, 0, 0},  {&_swigt__p_VariableBinAxis, _p_VariableBinAxisTo_p_IAxis, 0, 0},  {&_swigt__p_ConstKBinAxis, _p_ConstKBinAxisTo_p_IAxis, 0, 0},  {&_swigt__p_CustomBinAxis, _p_CustomBinAxisTo_p_IAxis, 0, 0},  {&_swigt__p_FixedBinAxis, _p_FixedBinAxisTo_p_IAxis, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_ICloneable, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IPixel[] = {  {&_swigt__p_IPixel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ThreadInfo[] = {  {&_swigt__p_ThreadInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_VariableBinAxis[] = {  {&_swigt__p_VariableBinAxis, 0, 0, 0},  {&_swigt__p_ConstKBinAxis, _p_ConstKBinAxisTo_p_VariableBinAxis, 0, 0},  {&_swigt__p_CustomBinAxis, _p_CustomBinAxisTo_p_VariableBinAxis, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -20514,6 +20749,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_FixedBinAxis,
   _swigc__p_IAxis,
   _swigc__p_ICloneable,
+  _swigc__p_IPixel,
   _swigc__p_ThreadInfo,
   _swigc__p_VariableBinAxis,
   _swigc__p_allocator_type,

@@ -70,6 +70,9 @@
 #include "Base/Axis/CustomBinAxis.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
+
+#include "Base/Pixel/IPixel.h"
+
 %}
 
 %include "Base/Types/ICloneable.h"
@@ -88,6 +91,8 @@
 %include "Base/Axis/ConstKBinAxis.h"
 %include "Base/Axis/CustomBinAxis.h"
 %include "Base/Axis/FixedBinAxis.h"
+
+%include "Base/Pixel/IPixel.h"
 
 %include "fromBase.i"
 

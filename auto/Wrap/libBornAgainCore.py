@@ -3829,70 +3829,6 @@ def GetName():
 def GetVersionNumber():
     r"""GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
-class IPixel(object):
-    r"""
-
-
-    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
-
-    C++ includes: IPixel.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IPixel
-
-    def clone(self):
-        r"""
-        clone(IPixel self) -> IPixel
-        virtual IPixel* IPixel::clone() const =0
-
-        """
-        return _libBornAgainCore.IPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
-        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
-
-        """
-        return _libBornAgainCore.IPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
-        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
-
-        """
-        return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(IPixel self, double x, double y) -> double
-        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
-
-        """
-        return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(IPixel self) -> double
-        virtual double IPixel::getSolidAngle() const =0
-
-        """
-        return _libBornAgainCore.IPixel_getSolidAngle(self)
-
-# Register IPixel in _libBornAgainCore:
-_libBornAgainCore.IPixel_swigregister(IPixel)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
 class IShape2D(libBornAgainBase.ICloneable):
     r"""
 
@@ -3931,6 +3867,10 @@ class IShape2D(libBornAgainBase.ICloneable):
 
 # Register IShape2D in _libBornAgainCore:
 _libBornAgainCore.IShape2D_swigregister(IShape2D)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class Ellipse(IShape2D):
     r"""
@@ -14816,10 +14756,10 @@ class IDetector2D(IDetector):
 
     def createPixel(self, index):
         r"""
-        createPixel(IDetector2D self, size_t index) -> IPixel
+        createPixel(IDetector2D self, size_t index) -> IPixel *
         virtual IPixel* IDetector2D::createPixel(size_t index) const =0
 
-        Creates an  IPixel for the given  OutputData object and index. 
+        Creates an IPixel for the given  OutputData object and index. 
 
         """
         return _libBornAgainCore.IDetector2D_createPixel(self, index)

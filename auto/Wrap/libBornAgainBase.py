@@ -1518,6 +1518,66 @@ class FixedBinAxis(IAxis):
 # Register FixedBinAxis in _libBornAgainBase:
 _libBornAgainBase.FixedBinAxis_swigregister(FixedBinAxis)
 
+class IPixel(object):
+    r"""
+
+
+    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+
+    C++ includes: IPixel.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainBase.delete_IPixel
+
+    def clone(self):
+        r"""
+        clone(IPixel self) -> IPixel
+        virtual IPixel* IPixel::clone() const =0
+
+        """
+        return _libBornAgainBase.IPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
+        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
+
+        """
+        return _libBornAgainBase.IPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
+        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
+
+        """
+        return _libBornAgainBase.IPixel_getK(self, x, y, wavelength)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(IPixel self, double x, double y) -> double
+        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+
+        """
+        return _libBornAgainBase.IPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(IPixel self) -> double
+        virtual double IPixel::getSolidAngle() const =0
+
+        """
+        return _libBornAgainBase.IPixel_getSolidAngle(self)
+
+# Register IPixel in _libBornAgainBase:
+_libBornAgainBase.IPixel_swigregister(IPixel)
+
 class kvector_t(object):
     r"""
 

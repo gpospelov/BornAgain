@@ -18,7 +18,7 @@
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Detector/SimulationArea.h"
-#include "Core/Pixel/SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
 #include "Core/Resolution/ConvolutionDetectorResolution.h"
 #include "Core/Resolution/IDetectorResolution.h"
 

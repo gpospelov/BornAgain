@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
-#include "Core/Axis/PointwiseAxis.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
-#include "Core/Unit/IUnitConverter.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Data/OutputData.h"
+#include "Core/Histo/IntensityDataIOFactory.h"
+#include "Core/Unit/IUnitConverter.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 
 namespace

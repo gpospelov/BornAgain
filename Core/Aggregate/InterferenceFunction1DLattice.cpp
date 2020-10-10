@@ -18,7 +18,7 @@
 #include "Base/Utils/Assert.h"
 #include "Core/Correlations/FTDecay1D.h"
 #include "Core/Correlations/FTDecay2D.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/RealParameter.h"
 #include <algorithm>
 
 namespace

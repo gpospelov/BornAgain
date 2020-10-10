@@ -1,5 +1,5 @@
-#include "Core/Instrument/SpectrumUtils.h"
 #include "Core/Histo/Histogram2D.h"
+#include "Core/Instrument/SpectrumUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include "tspectrum.h"
 #include <iostream>

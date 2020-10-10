@@ -7,7 +7,7 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularScalarTanhStrategy.h"
-#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/RT/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class RTTest : public ::testing::Test

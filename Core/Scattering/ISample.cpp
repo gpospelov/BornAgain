@@ -14,7 +14,7 @@
 
 #include "Core/Scattering/ISample.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Parametrization/ParameterPool.h"
+#include "Param/Base/ParameterPool.h"
 #include <algorithm>
 #include <sstream>
 

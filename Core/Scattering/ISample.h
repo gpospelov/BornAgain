@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_SCATTERING_ISAMPLE_H
 
 #include "Base/Types/ICloneable.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 #include <vector>
 
 class Material;

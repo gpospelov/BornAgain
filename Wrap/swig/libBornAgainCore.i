@@ -17,58 +17,62 @@
 
 %module(directors="1", moduleimport="import $module") "libBornAgainCore"
 
-%feature("autodoc");
+%include "commons.i"
 
-/**/
-%include "stdint.i"
-%include "std_complex.i"
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_map.i"
-%include "std_shared_ptr.i"
-
-// TODO CLARIFY WHY THIS IS INCLUDED
 %include "../../auto/Wrap/doxygenCore.i"
 
-// include the list of smart pointers (common between Core and Fit)
-%include "shared_pointers.i"
+%include "ignoreBase.i"
+%include "ignoreSample.i"
 
-%include "warnings.i"
-%include "deprecated.i"
-%include "ignores.i"
-%include "renameCore.i"
-%include "directors.i"
+%rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
+%rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
+%rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;
+%rename(evaluate_residuals_cpp) FitObjective::evaluate_residuals;
+%rename(evaluate_cpp) FitObjective::evaluate;
+%rename(finalize_cpp) FitObjective::finalize;
+%rename(initPlot_cpp) FitObjective::initPlot;
+%rename(uncertainties_cpp) FitObjective::uncertainties;
+%rename(uncertaintyData_cpp) FitObjective::uncertaintyData;
+%rename(containsUncertainties_cpp) FitObjective::containsUncertainties;
+%rename(allPairsHaveUncertainties_cpp) FitObjective::allPairsHaveUncertainties;
+%rename(MaterialProfile_cpp) MaterialProfile;
 
-%template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector<std::vector<double>>;
-%template(vector_integer_t) std::vector<int>;
-%template(vinteger2d_t) std::vector<std::vector<int>>;
-%template(vector_longinteger_t) std::vector<unsigned long int>;
-%template(vector_complex_t) std::vector< std::complex<double>>;
-%template(vector_string_t) std::vector<std::string>;
-%template(map_string_double_t) std::map<std::string, double>;
-%template(pvacuum_double_t) std::pair<double, double>;
-%template(vector_pvacuum_double_t) std::vector<std::pair<double, double>>;
-%nodefaultctor ParameterPool;
+// force swig to use move ctor instead of copy ctor
+%typemap(out) SlicedParticle %{
+    $result = SWIG_NewPointerObj(new $1_ltype(std::move($1)), $&1_descriptor, SWIG_POINTER_OWN);
+  %}
 
-#define SWIG_FILE_WITH_INIT
+%shared_ptr(ISampleBuilder)
 
-%{
-#define SWIG_FILE_WITH_INIT
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-%}
+%feature("director") PyBuilderCallback;  // used in extendCore.i
+%feature("director") PyObserverCallback; // used in extendCore.i
 
-%include "numpy.i"
-%init %{
-    import_array();
-%}
+%feature("director") ISampleBuilder;     // used in mesocrystal1.py
+%feature("director") ISample;            // needed by IFormFactor
+%feature("director") IFormFactor;        // needed by IFormFactorBorn
+%feature("director") IFormFactorBorn;    // used in CustomFormFactor.py
+%feature("director") FitObjective;       // used in custom_objective_function.py
 
-#define GCC_DIAG_OFF(x)
-#define GCC_DIAG_ON(x)
+// Propagate python exceptions (from https://stackoverflow.com/questions/4811492)
+%feature("director:except") {
+    if( $error != NULL ) {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
+        PyErr_Restore( ptype, pvalue, ptraceback );
+        PyErr_Print();
+        Py_Exit(1);
+    }
+}
 
-#ifndef BORNAGAIN_PYTHON
-#define BORNAGAIN_PYTHON
-#endif
+ // deprecations:
+%rename(getArrayObsolete) IHistogram::getArray;
+%extend IHistogram {
+    %pythoncode %{
+         @deprecated("Deprecated. Use array() instead.")
+         def getArray(self):
+             return self.getArrayObsolete()
+    %}
+ };
 
 %{
 #include "BAVersion.h"
@@ -94,11 +98,6 @@
 #include "Core/Beam/Beam.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
-#include "Core/Axis/Bin.h"
-#include "Core/Axis/ConstKBinAxis.h"
-#include "Core/Axis/CustomBinAxis.h"
-#include "Core/Axis/FixedBinAxis.h"
-#include "Core/Axis/VariableBinAxis.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/MultiLayerFuncs.h"
@@ -145,14 +144,14 @@
 #include "Core/HardParticle/FormFactorTruncatedCube.h"
 #include "Core/HardParticle/FormFactorTruncatedSphere.h"
 #include "Core/HardParticle/FormFactorTruncatedSpheroid.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Histo/IntensityDataIOFactory.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Instrument/ChiSquaredModule.h"
 #include "Core/Instrument/IChiSquaredModule.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Instrument/PyArrayImportUtils.h"
 #include "Core/Scan/QSpecScan.h"
-#include "Core/Instrument/SimulationResult.h"
+#include "Core/Histo/SimulationResult.h"
 #include "Core/Instrument/SpectrumUtils.h"
 #include "Core/Instrument/VarianceFunctions.h"
 #include "Core/Histo/Histogram1D.h"
@@ -179,17 +178,7 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/INode.h"
-#include "Core/Parametrization/INodeVisitor.h"
-#include "Core/Parametrization/IParameterized.h"
-#include "Core/Parametrization/ParameterDistribution.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/ParameterSample.h"
-#include "Core/Parametrization/RangedDistributions.h"
-#include "Core/Parametrization/RealParameter.h"
-#include "Core/Parametrization/SimulationOptions.h"
-#include "Core/Parametrization/ThreadInfo.h"
+#include "Core/RT/SimulationOptions.h"
 #include "Core/Particle/Crystal.h"
 #include "Core/Particle/FormFactorCrystal.h"
 #include "Core/Particle/FormFactorWeighted.h"
@@ -263,7 +252,14 @@
 %import(module="libBornAgainBase") "Base/Types/ICloneable.h"
 %import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
 %import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
+%import(module="libBornAgainBase") "Base/Axis/IAxis.h"
 %include "fromBase.i"
+
+%import(module="libBornAgainParam") "Param/Base/ParameterPool.h"
+%import(module="libBornAgainParam") "Param/Base/IParameterized.h"
+%import(module="libBornAgainParam") "Param/Node/INode.h"
+%import(module="libBornAgainParam") "Param/Distrib/ParameterDistribution.h"
+%include "fromParam.i"
 
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
@@ -276,12 +272,6 @@
 %template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 
-%include "Core/Parametrization/IParameter.h" // needed?
-%template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
-
-%include "Core/Parametrization/ParameterSample.h"
-%template(ParameterSampleVector) std::vector<ParameterSample>;
-
 %include "Core/Data/OutputData.h"
 %template(IntensityData) OutputData<double>;
 
@@ -291,33 +281,13 @@
 
 %include "BAVersion.h"
 
-%include "Core/Axis/Bin.h"
-%include "Core/Axis/IAxis.h"
-%include "Core/Axis/VariableBinAxis.h"
-%include "Core/Axis/ConstKBinAxis.h"
-%include "Core/Axis/CustomBinAxis.h"
-%include "Core/Axis/FixedBinAxis.h"
-
-%include "Core/Pixel/IPixel.h"
-
 %include "Core/Mask/IShape2D.h"
 %include "Core/Mask/Ellipse.h"
 %include "Core/Mask/Line.h"
 %include "Core/Mask/Polygon.h"
 %include "Core/Mask/Rectangle.h"
 
-%include "Core/Parametrization/IParameterized.h"
-%include "Core/Parametrization/INode.h"
-%include "Core/Parametrization/INodeVisitor.h"
-%include "Core/Parametrization/RealParameter.h"
-
-%include "Core/Parametrization/Distributions.h"
-%include "Core/Parametrization/Distributions.h"
-%include "Core/Parametrization/ParameterDistribution.h"
-%include "Core/Parametrization/ParameterPool.h"
-%include "Core/Parametrization/RangedDistributions.h"
-%include "Core/Parametrization/SimulationOptions.h"
-%include "Core/Parametrization/ThreadInfo.h"
+%include "Core/RT/SimulationOptions.h"
 
 %include "Core/Scattering/ISample.h"
 %include "Core/Scattering/IFormFactor.h"
@@ -428,7 +398,7 @@
 %include "Core/Computation/PoissonNoiseBackground.h"
 %include "Core/Computation/MultiLayerFuncs.h"
 
-%include "Core/InputOutput/IntensityDataIOFactory.h"
+%include "Core/Histo/IntensityDataIOFactory.h"
 
 %include "Core/Detector/IDetector.h"
 %include "Core/Detector/IDetector2D.h"
@@ -458,7 +428,7 @@
 %include "Core/Instrument/Instrument.h"
 %include "Core/Instrument/PyArrayImportUtils.h"
 %include "Core/Scan/QSpecScan.h"
-%include "Core/Instrument/SimulationResult.h"
+%include "Core/Histo/SimulationResult.h"
 %include "Core/Instrument/SpectrumUtils.h"
 %include "Core/Instrument/VarianceFunctions.h"
 
@@ -475,4 +445,249 @@
 %include "Core/StandardSamples/SampleBuilderFactory.h"
 %include "Core/Simulation/SimulationFactory.h"
 
-%include "extendCore.i"
+%extend BasicVector3D<double> {
+    BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const {
+        return *($self) + rhs; }
+    BasicVector3D<double> __mul__(double c) const {
+        return c * *($self); }
+    BasicVector3D<double> __rmul__(double c) const {
+        return *($self) * c; }
+    BasicVector3D<double> __neg__() const {
+        return - *($self); }
+};
+
+%extend OutputData<double> {
+    double __getitem__(unsigned int i) { return (*($self))[i]; }
+    double __setitem__(unsigned int i, double value)
+    {
+        (*($self))[i] = value;
+        return (*($self))[i];
+    }
+};
+
+%extend SimulationResult {
+    double __getitem__(unsigned int i) { return (*($self))[i]; }
+    double __setitem__(unsigned int i, double value)
+    {
+        (*($self))[i] = value;
+        return (*($self))[i];
+    }
+};
+
+%extend ISampleBuilder {
+    virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
+        return &(($self)->IParameterized::registerParameter(name, (double*)parpointer)); }
+
+    virtual void setParameterValue(const std::string& name, double value) {
+        ($self)->IParameterized::setParameterValue(name, value); }
+
+    virtual std::string parametersToString() const {
+        return ($self)->IParameterized::parametersToString();
+        }
+
+    virtual ParameterPool* createParameterTree() const {
+        return ($self)->IParameterized::createParameterTree();
+        }
+
+    virtual ParameterPool* parameterPool() const {
+        return ($self)->IParameterized::parameterPool();
+    }
+
+    virtual void onChange() {
+        return ($self)->IParameterized::onChange();
+    }
+
+};
+
+// needed to prevent ownership problems with passed ISampleBuilder
+%extend Simulation {
+    %pythoncode %{
+         def setSampleBuilder(self, ptr):
+             self.samplebuilder = ptr
+             self.setSampleBuilderCpp(ptr)
+    %}
+ };
+
+%extend SpecularSimulation {
+    %pythoncode %{
+         def setSampleBuilder(self, ptr):
+             self.samplebuilder = ptr
+             self.setSampleBuilderCpp(ptr)
+    %}
+ };
+
+// fancy names for ScanResolution static functions
+%pythoncode %{
+    def ScanRelativeResolution(distribution, rel_dev):
+        """
+        Creates a scan resolution from the given distribution and
+        relative deviation values (that is, the ratios of standard
+        deviations and means).
+        :param distribution: bornagain.RangedDistribution object
+        :param rel_dev: either single-valued or a numpy array.
+                        In the latter case should coinside in
+                        size with later used mean values array.
+        :return: bornagain.ScanResolution object
+        """
+        return ScanResolution_scanRelativeResolution(distribution, rel_dev)
+
+    def ScanAbsoluteResolution(distribution, std_dev):
+        """
+        Creates a scan resolution from the given distribution and
+        standard deviation values.
+        :param distribution: bornagain.RangedDistribution object
+        :param std_dev: either single-valued or a numpy array.
+                        In the latter case should coinside in
+                        size with later used mean values array.
+        :return: bornagain.ScanResolution object
+        """
+        return ScanResolution_scanAbsoluteResolution(distribution, std_dev)
+%}
+
+%pythoncode %{
+class SimulationBuilderWrapper(PyBuilderCallback):
+    def __init__(self, f):
+        super(SimulationBuilderWrapper, self).__init__()
+        self.f_ = f
+
+    def create_par_dict(self, pars):
+        """
+        Convertion of ba.Parameters to Python dictionary
+        """
+        pars_dict = dict()
+        for index, p in enumerate(pars):
+            pars_dict[p.name()] = p.value
+        return pars_dict
+
+    def build_simulation(self, obj):
+        simulation = self.f_(self.create_par_dict(obj))
+        simulation.__disown__()
+        return simulation
+
+
+%}
+
+%pythoncode %{
+class ObserverCallbackWrapper(PyObserverCallback):
+    def __init__(self, callback):
+        super(ObserverCallbackWrapper, self).__init__()
+        self.callback_ = callback
+
+    def update(self, fit_objective):
+        return self.callback_(fit_objective)
+
+%}
+
+%extend FitObjective {
+%pythoncode %{
+    def addSimulationAndData(self, callback, data, *args, **kwargs):
+        """
+        Sets simulation and experimental data to the fit objective.
+        Optionally accepts experimental data uncertainties and
+        user-defined dataset weight.
+
+        Arguments:
+
+        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        The function must use fit parameter dictionary as its input.
+
+        data -- numpy array with experimental data.
+
+        uncertainties -- numpy array with experimental data uncertainties.
+        Array shape must correspond to the shape of data. Optional argument.
+
+        weight -- user-defined weight of the dataset. If not specified, defaults to 1.0.
+        """
+        if not hasattr(self, 'callback_container'):
+            self.callback_container = []
+        wrp = SimulationBuilderWrapper(callback)
+        self.callback_container.append(wrp)
+        return self.addSimulationAndData_cpp(wrp, data, *args, **kwargs)
+
+    def convert_params(self, params):
+        """
+        Converts parameters to what FitObjective::evaluate expects
+        """
+
+        if str(params.__module__) == "lmfit.parameter":
+            bapars = libBornAgainFit.Parameters()
+            for p in params:
+                bapars.add(p, params[p].value)
+            return bapars
+        else:
+            return params
+
+    def evaluate_residuals(self, params):
+        return self.evaluate_residuals_cpp(self.convert_params(params))
+
+    def evaluate(self, params):
+        return self.evaluate_cpp(self.convert_params(params))
+
+    def convert_result(self, minim_result):
+        """
+        Converts result reported by arbitrary minimizer to ba.MinimizerResult
+        """
+
+        if str(minim_result.__module__) == "lmfit.minimizer":
+            return libBornAgainFit.MinimizerResult()
+        else:
+            return minim_result
+
+    def finalize(self, minimizer_result):
+        return self.finalize_cpp(self.convert_result(minimizer_result))
+
+    def create_default_plotter(self):
+        import plot_utils
+        self.m_plotter = plot_utils.PlotterGISAS()
+        return self.m_plotter.plot
+
+    def initPlot(self, every_nth, callback = None):
+        if not callback:
+            callback = self.create_default_plotter()
+
+        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
+        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
+
+    def uncertainties(self):
+        """
+        Returns one-dimensional array representing merged data uncertainties.
+        If any of the associated data pairs lack uncertainties, returns None.
+        """
+        if self.allPairsHaveUncertainties_cpp():
+            return self.uncertainties_cpp()
+        return None
+
+    def uncertaintyData(self, i=0):
+        """
+        Returns uncertainties for i-th simulation-data pair. If
+        no uncertainties are assigned to the data pair, returns
+        None.
+        """
+        if self.containsUncertainties_cpp(i):
+            return self.uncertaintyData_cpp(i)
+        return None
+%}
+};
+
+// --- Computation/MaterialProfile
+
+// Function with optional default limits and/or number of points
+%pythoncode %{
+    def MaterialProfile(multilayer, n_points=400, z_min=None, z_max=None):
+        """
+        Creates a material profile from the given multilayer. If no limits are given,
+        it will provide sensible default values, considering the included particles and
+        interface roughnesses.
+        :param multilayer: bornagain.MultiLayer object
+        :param n_points: number of points to generate
+        :param z_min: starting value for z
+        :param z_max: ending value for z
+        :return: numpy arrays containing z positions and the complex material values in those positions
+        """
+        def_z_min, def_z_max = DefaultMaterialProfileLimits(multilayer)
+        z_min = def_z_min if z_min is None else z_min
+        z_max = def_z_max if z_max is None else z_max
+        z_points = GenerateZValues(n_points, z_min, z_max)
+        material_values = MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
+        return (z_points, material_values)
+%}

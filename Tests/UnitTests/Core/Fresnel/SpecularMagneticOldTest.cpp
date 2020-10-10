@@ -5,7 +5,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularMagneticOldStrategy.h"
 #include "Core/Multilayer/SpecularScalarTanhStrategy.h"
-#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/RT/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularMagneticOldTest : public ::testing::Test

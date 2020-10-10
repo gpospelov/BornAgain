@@ -14,9 +14,9 @@
 
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Base/Utils/FileSystemUtils.h"
-#include "Core/Axis/ConstKBinAxis.h"
-#include "Core/Axis/CustomBinAxis.h"
-#include "Core/Axis/PointwiseAxis.h"
+#include "Base/Axis/ConstKBinAxis.h"
+#include "Base/Axis/CustomBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Data/OutputData.h"
 #include "Fit/Tools/StringUtils.h"
 #include <iostream>

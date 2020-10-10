@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 #define BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 
-#include "Core/Instrument/SimulationResult.h"
+#include "Core/Histo/SimulationResult.h"
 #include "Core/Simulation/Simulation.h"
 
 class DetectorContext;

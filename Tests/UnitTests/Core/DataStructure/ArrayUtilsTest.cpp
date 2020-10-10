@@ -1,5 +1,5 @@
 #include "Core/Intensity/ArrayUtils.h"
-#include "Core/Axis/IAxis.h"
+#include "Base/Axis/IAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 

@@ -14,7 +14,7 @@
 
 #include "Core/Resolution/ScanResolution.h"
 #include "Base/Utils/PyFmt.h"
-#include "Core/Parametrization/RangedDistributions.h"
+#include "Param/Distrib/RangedDistributions.h"
 
 namespace
 {

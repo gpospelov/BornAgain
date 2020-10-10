@@ -16,8 +16,8 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include <limits>
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D& lattice,
@@ -207,8 +207,7 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, d
         tmp = 0.0;
     else
         tmp = std::pow(fp, n);
-    complex_t intermediate =
-        fp / (1.0 - fp) - fp * (1.0 - tmp) / nd / (1.0 - fp) / (1.0 - fp);
+    complex_t intermediate = fp / (1.0 - fp) - fp * (1.0 - tmp) / nd / (1.0 - fp) / (1.0 - fp);
     return 1.0 + 2.0 * intermediate.real();
 }
 

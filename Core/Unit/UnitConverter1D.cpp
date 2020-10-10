@@ -15,13 +15,13 @@
 #include "Core/Unit/UnitConverter1D.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Core/Axis/FixedBinAxis.h"
-#include "Core/Axis/PointwiseAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Beam/Beam.h"
+#include "Core/Data/OutputData.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Unit/AxisNames.h"
-#include "Core/Data/OutputData.h"
 
 namespace
 {

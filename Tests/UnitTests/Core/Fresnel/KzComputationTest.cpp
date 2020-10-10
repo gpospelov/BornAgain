@@ -4,7 +4,7 @@
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/RT/SimulationOptions.h"
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 

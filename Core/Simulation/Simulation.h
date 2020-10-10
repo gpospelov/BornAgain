@@ -17,12 +17,12 @@
 
 #include "Core/Computation/ProgressHandler.h"
 #include "Core/Detector/IDetector2D.h"
+#include "Core/Histo/SimulationResult.h"
 #include "Core/Instrument/Instrument.h"
-#include "Core/Instrument/SimulationResult.h"
-#include "Core/Parametrization/DistributionHandler.h"
-#include "Core/Parametrization/INode.h"
-#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/RT/SimulationOptions.h"
 #include "Core/SampleBuilderEngine/SampleProvider.h"
+#include "Param/Distrib/DistributionHandler.h"
+#include "Param/Node/INode.h"
 
 template <class T> class OutputData;
 class IBackground;

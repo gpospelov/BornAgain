@@ -14,8 +14,8 @@
 
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include <limits>
 
 //! Constructor of interference function of radial paracrystal.

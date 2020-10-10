@@ -54,7 +54,6 @@ template Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_
                                                                  double magnetic_factor,
                                                                  cvector_t polarization);
 
-
 complex_t MaterialUtils::ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
 {
     return n * n - n_ref * n_ref * k.sin2Theta();

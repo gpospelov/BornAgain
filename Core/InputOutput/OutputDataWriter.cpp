@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/InputOutput/OutputDataWriter.h"
-#include "Core/InputOutput/DataFormatUtils.h"
 #include "Core/Data/OutputData.h"
+#include "Core/InputOutput/DataFormatUtils.h"
 #ifdef _WIN32
 #pragma warning(push)
 #pragma warning(disable : 4244 4275)

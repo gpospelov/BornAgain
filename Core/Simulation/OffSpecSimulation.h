@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
 
-#include "Core/Pixel/SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
 #include "Core/Simulation/Simulation2D.h"
 
 class Histogram2D;

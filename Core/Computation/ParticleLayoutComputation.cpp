@@ -16,7 +16,7 @@
 #include "Core/Computation/LayoutStrategyBuilder.h"
 #include "Core/Computation/ProcessedLayout.h"
 #include "Core/Multilayer/IInterferenceFunctionStrategy.h"
-#include "Core/Pixel/SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_layout,
                                                      const SimulationOptions& options,

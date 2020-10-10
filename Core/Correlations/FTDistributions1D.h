@@ -17,7 +17,7 @@
 
 #include "Base/Types/ICloneable.h"
 #include "Core/Correlations/IDistribution1DSampler.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.

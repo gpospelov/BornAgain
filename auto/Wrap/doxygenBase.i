@@ -153,94 +153,81 @@ Returns result of rotation around z-axis.
 Returns result of rotation around the axis specified by another vector. 
 ";
 
-%feature("docstring")  BasicVector3D::conj "BasicVector3D< double > BasicVector3D< double >::conj() const
-
-Returns complex conjugate vector. 
-";
-
 %feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-";
-
-%feature("docstring")  BasicVector3D::phi "double BasicVector3D< double >::phi() const
-
-Returns azimuth angle. 
-";
-
-%feature("docstring")  BasicVector3D::theta "double BasicVector3D< double >::theta() const
-
-Returns polar angle. 
-";
-
-%feature("docstring")  BasicVector3D::cosTheta "double BasicVector3D< double >::cosTheta() const
-
-Returns cosine of polar angle. 
-";
-
-%feature("docstring")  BasicVector3D::sin2Theta "double BasicVector3D< double >::sin2Theta() const
-
-Returns squared sine of polar angle. 
-";
-
-%feature("docstring")  BasicVector3D::complex "BasicVector3D< complex_t > BasicVector3D< double >::complex() const
-
-Returns this, trivially converted to complex type. 
-";
-
-%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< double >::real() const
-
-Returns real parts. 
 ";
 
 %feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
 ";
 
-%feature("docstring")  BasicVector3D::unit "BasicVector3D< double > BasicVector3D< double >::unit() const
-
-Returns unit vector in direction of this. Throws for null vector. 
-";
-
 %feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
 ";
 
-%feature("docstring")  BasicVector3D::angle "double BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
 
-Returns angle with respect to another vector. 
+// File: structBin1D.xml
+%feature("docstring") Bin1D "";
+
+%feature("docstring")  Bin1D::Bin1D "Bin1D::Bin1D()
 ";
 
-%feature("docstring")  BasicVector3D::conj "BasicVector3D< double > BasicVector3D< double >::conj() const
+%feature("docstring")  Bin1D::Bin1D "Bin1D::Bin1D(double lower, double upper)
 ";
 
-%feature("docstring")  BasicVector3D::conj "BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const
+%feature("docstring")  Bin1D::getMidPoint "double Bin1D::getMidPoint() const
 ";
 
-%feature("docstring")  BasicVector3D::phi "double BasicVector3D< double >::phi() const
+%feature("docstring")  Bin1D::getBinSize "double Bin1D::getBinSize() const
 ";
 
-%feature("docstring")  BasicVector3D::theta "double BasicVector3D< double >::theta() const
+
+// File: classBin1DCVector.xml
+%feature("docstring") Bin1DCVector "
+
+An one-dimensional range of cvector_t's.
+
+C++ includes: Bin.h
 ";
 
-%feature("docstring")  BasicVector3D::cosTheta "double BasicVector3D< double >::cosTheta() const
+%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector()
 ";
 
-%feature("docstring")  BasicVector3D::sin2Theta "double BasicVector3D< double >::sin2Theta() const
+%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector(cvector_t lower, cvector_t upper)
 ";
 
-%feature("docstring")  BasicVector3D::complex "BasicVector3D< std::complex< double > > BasicVector3D< double >::complex() const
+%feature("docstring")  Bin1DCVector::Bin1DCVector "Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
+
+creation on  Bin1DCVector from alpha and phi bins 
 ";
 
-%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< double >::real() const
+%feature("docstring")  Bin1DCVector::getMidPoint "cvector_t Bin1DCVector::getMidPoint() const
 ";
 
-%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const
+%feature("docstring")  Bin1DCVector::getDelta "cvector_t Bin1DCVector::getDelta() const
 ";
 
-%feature("docstring")  BasicVector3D::unit "BasicVector3D< double > BasicVector3D< double >::unit() const
+
+// File: structBin1DKVector.xml
+%feature("docstring") Bin1DKVector "
+
+An one-dimensional range of kvector_t's.
+
+C++ includes: Bin.h
 ";
 
-%feature("docstring")  BasicVector3D::unit "BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const
+%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector()
 ";
 
-%feature("docstring")  BasicVector3D::angle "double BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
+%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector(const kvector_t lower, const kvector_t upper)
+";
+
+%feature("docstring")  Bin1DKVector::Bin1DKVector "Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
+
+creation on  Bin1DKVector from alpha and phi bins 
+";
+
+%feature("docstring")  Bin1DKVector::getMidPoint "kvector_t Bin1DKVector::getMidPoint() const
+";
+
+%feature("docstring")  Bin1DKVector::getDelta "kvector_t Bin1DKVector::getDelta() const
 ";
 
 
@@ -297,6 +284,98 @@ C++ includes: Integrator.h
 ";
 
 
+// File: classConstKBinAxis.xml
+%feature("docstring") ConstKBinAxis "
+
+Axis with fixed bin size in sin(angle) space.
+
+C++ includes: ConstKBinAxis.h
+";
+
+%feature("docstring")  ConstKBinAxis::ConstKBinAxis "ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start, double end)
+
+ConstKBinAxis constructor.
+
+Parameters:
+-----------
+
+name: 
+Axis name
+
+nbins: 
+number of bins
+
+start: 
+low edge of first bin
+
+end: 
+upper edge of last bin 
+";
+
+%feature("docstring")  ConstKBinAxis::~ConstKBinAxis "ConstKBinAxis::~ConstKBinAxis() final
+";
+
+%feature("docstring")  ConstKBinAxis::clone "ConstKBinAxis * ConstKBinAxis::clone() const final
+
+clone function 
+";
+
+%feature("docstring")  ConstKBinAxis::createClippedAxis "ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const final
+
+Creates a new clipped axis. 
+";
+
+
+// File: classCustomBinAxis.xml
+%feature("docstring") CustomBinAxis "
+
+Axis with fixed bin size in sin(angle) space used for numerical comparison with IsGisaxs. The main feature of the axis is that it produces zero bin sizes.
+
+C++ includes: CustomBinAxis.h
+";
+
+%feature("docstring")  CustomBinAxis::CustomBinAxis "CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)
+
+CustomBinAxis constructor.
+
+Parameters:
+-----------
+
+name: 
+Axis name
+
+nbins: 
+number of bins
+
+start: 
+center of first bin (IsGisaxs convention)
+
+end: 
+center of last bin (IsGisaxs convention) 
+";
+
+%feature("docstring")  CustomBinAxis::~CustomBinAxis "virtual CustomBinAxis::~CustomBinAxis()
+";
+
+%feature("docstring")  CustomBinAxis::clone "CustomBinAxis * CustomBinAxis::clone() const
+
+clone function 
+";
+
+%feature("docstring")  CustomBinAxis::getBin "Bin1D CustomBinAxis::getBin(size_t index) const
+
+retrieve a 1d bin for the given index 
+";
+
+%feature("docstring")  CustomBinAxis::getBinCenters "std::vector< double > CustomBinAxis::getBinCenters() const
+";
+
+%feature("docstring")  CustomBinAxis::createClippedAxis "CustomBinAxis * CustomBinAxis::createClippedAxis(double left, double right) const
+
+Creates a new clipped axis. 
+";
+
+
 // File: classExceptions_1_1DivisionByZeroException.xml
 %feature("docstring") Exceptions::DivisionByZeroException "";
 
@@ -332,10 +411,164 @@ C++ includes: Integrator.h
 ";
 
 
+// File: classFixedBinAxis.xml
+%feature("docstring") FixedBinAxis "
+
+Axis with fixed bin size.
+
+C++ includes: FixedBinAxis.h
+";
+
+%feature("docstring")  FixedBinAxis::FixedBinAxis "FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
+
+FixedBinAxis constructor.
+
+Parameters:
+-----------
+
+name: 
+Axis name
+
+nbins: 
+number of bins
+
+start: 
+low edge of first bin
+
+end: 
+upper edge of last bin 
+";
+
+%feature("docstring")  FixedBinAxis::~FixedBinAxis "virtual FixedBinAxis::~FixedBinAxis()
+";
+
+%feature("docstring")  FixedBinAxis::clone "FixedBinAxis * FixedBinAxis::clone() const
+
+clone function 
+";
+
+%feature("docstring")  FixedBinAxis::size "size_t FixedBinAxis::size() const
+
+retrieve the number of bins 
+";
+
+%feature("docstring")  FixedBinAxis::getBin "Bin1D FixedBinAxis::getBin(size_t index) const
+
+retrieve a 1d bin for the given index 
+";
+
+%feature("docstring")  FixedBinAxis::getMin "double FixedBinAxis::getMin() const
+
+Returns value of first point of axis. 
+";
+
+%feature("docstring")  FixedBinAxis::getMax "double FixedBinAxis::getMax() const
+
+Returns value of last point of axis. 
+";
+
+%feature("docstring")  FixedBinAxis::getBinCenter "double FixedBinAxis::getBinCenter(size_t index) const
+";
+
+%feature("docstring")  FixedBinAxis::findClosestIndex "size_t FixedBinAxis::findClosestIndex(double value) const
+
+find bin index which is best match for given value 
+";
+
+%feature("docstring")  FixedBinAxis::getBinCenters "std::vector< double > FixedBinAxis::getBinCenters() const
+";
+
+%feature("docstring")  FixedBinAxis::getBinBoundaries "std::vector< double > FixedBinAxis::getBinBoundaries() const
+";
+
+%feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
+
+Creates a new clipped axis. 
+";
+
+
 // File: classExceptions_1_1FormatErrorException.xml
 %feature("docstring") Exceptions::FormatErrorException "";
 
 %feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
+";
+
+
+// File: classIAxis.xml
+%feature("docstring") IAxis "
+
+Interface for one-dimensional axes.
+
+C++ includes: IAxis.h
+";
+
+%feature("docstring")  IAxis::IAxis "IAxis::IAxis(const std::string &name)
+
+constructors 
+";
+
+%feature("docstring")  IAxis::clone "virtual IAxis* IAxis::clone() const =0
+
+clone function 
+";
+
+%feature("docstring")  IAxis::~IAxis "virtual IAxis::~IAxis()
+
+destructor 
+";
+
+%feature("docstring")  IAxis::size "virtual size_t IAxis::size() const =0
+
+retrieve the number of bins 
+";
+
+%feature("docstring")  IAxis::getName "std::string IAxis::getName() const
+
+retrieve the label of the axis 
+";
+
+%feature("docstring")  IAxis::setName "void IAxis::setName(std::string name)
+
+Sets the axis label. 
+";
+
+%feature("docstring")  IAxis::getBin "virtual Bin1D IAxis::getBin(size_t index) const =0
+
+retrieve a 1d bin for the given index 
+";
+
+%feature("docstring")  IAxis::getMin "virtual double IAxis::getMin() const =0
+
+Returns value of first point of axis. 
+";
+
+%feature("docstring")  IAxis::getMax "virtual double IAxis::getMax() const =0
+
+Returns value of last point of axis. 
+";
+
+%feature("docstring")  IAxis::getBinCenter "virtual double IAxis::getBinCenter(size_t index) const =0
+";
+
+%feature("docstring")  IAxis::findClosestIndex "virtual size_t IAxis::findClosestIndex(double value) const =0
+
+find bin index which is best match for given value 
+";
+
+%feature("docstring")  IAxis::getBinCenters "std::vector< double > IAxis::getBinCenters() const
+";
+
+%feature("docstring")  IAxis::getBinBoundaries "std::vector< double > IAxis::getBinBoundaries() const
+";
+
+%feature("docstring")  IAxis::createClippedAxis "IAxis * IAxis::createClippedAxis(double left, double right) const
+
+Creates a new clipped axis. 
+";
+
+%feature("docstring")  IAxis::contains "bool IAxis::contains(double value) const
+
+Returns true if axis contains given point. 
 ";
 
 
@@ -397,6 +630,33 @@ perform the actual integration over the ranges [min_array, max_array]
 ";
 
 
+// File: classIPixel.xml
+%feature("docstring") IPixel "
+
+Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+
+C++ includes: IPixel.h
+";
+
+%feature("docstring")  IPixel::~IPixel "virtual IPixel::~IPixel()
+";
+
+%feature("docstring")  IPixel::clone "virtual IPixel* IPixel::clone() const =0
+";
+
+%feature("docstring")  IPixel::createZeroSizePixel "virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
+";
+
+%feature("docstring")  IPixel::getK "virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
+";
+
+%feature("docstring")  IPixel::getIntegrationFactor "virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+";
+
+%feature("docstring")  IPixel::getSolidAngle "virtual double IPixel::getSolidAngle() const =0
+";
+
+
 // File: classExceptions_1_1LogicErrorException.xml
 %feature("docstring") Exceptions::LogicErrorException "";
 
@@ -422,6 +682,105 @@ perform the actual integration over the ranges [min_array, max_array]
 %feature("docstring") Exceptions::OutOfBoundsException "";
 
 %feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
+";
+
+
+// File: classPointwiseAxis.xml
+%feature("docstring") PointwiseAxis "
+
+Axis containing arbitrary (non-equidistant) coordinate values. Lower boundary of the first bin and upper boundary of the last bin correspond to first and last passed coordinates. Other bin boundaries are computed as arithmetical mean of two adjacent coordinates. One should be aware, that bin centers reported by  PointwiseAxis::getBinCenter do not coincide with the values produced by Bin1D::getMidPoint. On-axis values are bounded by minimum/maximum values passed to the constructor.
+
+C++ includes: PointwiseAxis.h
+";
+
+%feature("docstring")  PointwiseAxis::PointwiseAxis "PointwiseAxis::PointwiseAxis(String &&name, Vector &&coordinate_values)
+";
+
+%feature("docstring")  PointwiseAxis::clone "PointwiseAxis * PointwiseAxis::clone() const override
+
+clone function 
+";
+
+%feature("docstring")  PointwiseAxis::~PointwiseAxis "PointwiseAxis::~PointwiseAxis() override=default
+";
+
+%feature("docstring")  PointwiseAxis::size "size_t PointwiseAxis::size() const override
+
+retrieve the number of bins 
+";
+
+%feature("docstring")  PointwiseAxis::getBin "Bin1D PointwiseAxis::getBin(size_t index) const override
+
+retrieve a 1d bin for the given index 
+";
+
+%feature("docstring")  PointwiseAxis::getMin "double PointwiseAxis::getMin() const override
+
+Returns value of first on-axis point. 
+";
+
+%feature("docstring")  PointwiseAxis::getMax "double PointwiseAxis::getMax() const override
+
+Returns value of last on-axis point. 
+";
+
+%feature("docstring")  PointwiseAxis::getBinCenter "double PointwiseAxis::getBinCenter(size_t index) const override
+
+Returns the coordinate corresponding to the given index. 
+";
+
+%feature("docstring")  PointwiseAxis::findClosestIndex "size_t PointwiseAxis::findClosestIndex(double value) const override
+
+find index of the coordinate closest to the given value 
+";
+
+%feature("docstring")  PointwiseAxis::getBinCenters "std::vector<double> PointwiseAxis::getBinCenters() const override
+";
+
+%feature("docstring")  PointwiseAxis::getBinBoundaries "std::vector< double > PointwiseAxis::getBinBoundaries() const override
+";
+
+%feature("docstring")  PointwiseAxis::createClippedAxis "PointwiseAxis * PointwiseAxis::createClippedAxis(double left, double right) const override
+
+Creates a new clipped axis. 
+";
+
+
+// File: classPolarizationHandler.xml
+%feature("docstring") PolarizationHandler "
+
+Convenience class for handling polarization density matrix and polarization analyzer operator
+
+C++ includes: PolarizationHandler.h
+";
+
+%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler()
+";
+
+%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler(const Eigen::Matrix2cd &polarization, const Eigen::Matrix2cd &analyzer)
+";
+
+%feature("docstring")  PolarizationHandler::setPolarization "void PolarizationHandler::setPolarization(const Eigen::Matrix2cd &polarization)
+
+Sets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::getPolarization "Eigen::Matrix2cd PolarizationHandler::getPolarization() const
+
+Gets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::setAnalyzerOperator "void PolarizationHandler::setAnalyzerOperator(const Eigen::Matrix2cd &analyzer)
+
+Sets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::getAnalyzerOperator "Eigen::Matrix2cd PolarizationHandler::getAnalyzerOperator() const
+
+Gets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::swapContent "void PolarizationHandler::swapContent(PolarizationHandler &other)
 ";
 
 
@@ -515,6 +874,119 @@ C++ includes: SafePointerVector.h
 ";
 
 
+// File: classSimulationElement.xml
+%feature("docstring") SimulationElement "
+
+Data stucture containing both input and output of a single detector cell.
+
+C++ includes: SimulationElement.h
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixel > pixel)
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
+
+Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
+";
+
+%feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
+";
+
+%feature("docstring")  SimulationElement::setPolarization "void SimulationElement::setPolarization(const Eigen::Matrix2cd &polarization)
+
+Sets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  SimulationElement::setAnalyzerOperator "void SimulationElement::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
+
+Sets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  SimulationElement::polarizationHandler "const PolarizationHandler& SimulationElement::polarizationHandler() const
+
+Returns assigned  PolarizationHandler. 
+";
+
+%feature("docstring")  SimulationElement::getWavelength "double SimulationElement::getWavelength() const
+";
+
+%feature("docstring")  SimulationElement::getAlphaI "double SimulationElement::getAlphaI() const
+";
+
+%feature("docstring")  SimulationElement::getPhiI "double SimulationElement::getPhiI() const
+";
+
+%feature("docstring")  SimulationElement::getAlphaMean "double SimulationElement::getAlphaMean() const
+";
+
+%feature("docstring")  SimulationElement::getPhiMean "double SimulationElement::getPhiMean() const
+";
+
+%feature("docstring")  SimulationElement::setIntensity "void SimulationElement::setIntensity(double intensity)
+";
+
+%feature("docstring")  SimulationElement::addIntensity "void SimulationElement::addIntensity(double intensity)
+";
+
+%feature("docstring")  SimulationElement::getIntensity "double SimulationElement::getIntensity() const
+";
+
+%feature("docstring")  SimulationElement::getKi "kvector_t SimulationElement::getKi() const
+";
+
+%feature("docstring")  SimulationElement::getMeanKf "kvector_t SimulationElement::getMeanKf() const
+";
+
+%feature("docstring")  SimulationElement::getMeanQ "kvector_t SimulationElement::getMeanQ() const
+";
+
+%feature("docstring")  SimulationElement::getQ "kvector_t SimulationElement::getQ(double x, double y) const
+
+Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y. In-pixel coordinates take values from 0 to 1. 
+";
+
+%feature("docstring")  SimulationElement::getIntegrationFactor "double SimulationElement::getIntegrationFactor(double x, double y) const
+";
+
+%feature("docstring")  SimulationElement::getSolidAngle "double SimulationElement::getSolidAngle() const
+";
+
+%feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const
+";
+
+%feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
+";
+
+%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool is_specular)
+
+Set specularity indication on/off. 
+";
+
+%feature("docstring")  SimulationElement::isSpecular "bool SimulationElement::isSpecular() const
+
+Tells if simulation element corresponds to a specular peak. 
+";
+
+
+// File: structThreadInfo.xml
+%feature("docstring") ThreadInfo "
+
+Information to run simulation with dedicated number of threads.
+
+C++ includes: ThreadInfo.h
+";
+
+%feature("docstring")  ThreadInfo::ThreadInfo "ThreadInfo::ThreadInfo()
+";
+
+
 // File: classTransform3D.xml
 %feature("docstring") Transform3D "
 
@@ -605,6 +1077,79 @@ Determine if the transformation is trivial (identity)
 %feature("docstring") Exceptions::UnknownClassRegistrationException "";
 
 %feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
+";
+
+
+// File: classVariableBinAxis.xml
+%feature("docstring") VariableBinAxis "
+
+Axis with variable bin size.
+
+C++ includes: VariableBinAxis.h
+";
+
+%feature("docstring")  VariableBinAxis::VariableBinAxis "VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins, const std::vector< double > &bin_boundaries)
+
+VariableBinAxis constructor.
+
+Parameters:
+-----------
+
+name: 
+Axis name
+
+nbins: 
+number of bins
+
+bin_boundaries: 
+Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. 
+";
+
+%feature("docstring")  VariableBinAxis::~VariableBinAxis "virtual VariableBinAxis::~VariableBinAxis()
+";
+
+%feature("docstring")  VariableBinAxis::clone "VariableBinAxis * VariableBinAxis::clone() const
+
+clone function 
+";
+
+%feature("docstring")  VariableBinAxis::size "size_t VariableBinAxis::size() const
+
+retrieve the number of bins 
+";
+
+%feature("docstring")  VariableBinAxis::getBin "Bin1D VariableBinAxis::getBin(size_t index) const
+
+retrieve a 1d bin for the given index 
+";
+
+%feature("docstring")  VariableBinAxis::getMin "double VariableBinAxis::getMin() const
+
+Returns value of first point of axis. 
+";
+
+%feature("docstring")  VariableBinAxis::getMax "double VariableBinAxis::getMax() const
+
+Returns value of last point of axis. 
+";
+
+%feature("docstring")  VariableBinAxis::getBinCenter "double VariableBinAxis::getBinCenter(size_t index) const
+";
+
+%feature("docstring")  VariableBinAxis::findClosestIndex "size_t VariableBinAxis::findClosestIndex(double value) const
+
+find bin index which is best match for given value 
+";
+
+%feature("docstring")  VariableBinAxis::getBinCenters "std::vector< double > VariableBinAxis::getBinCenters() const
+";
+
+%feature("docstring")  VariableBinAxis::getBinBoundaries "std::vector<double> VariableBinAxis::getBinBoundaries() const
+";
+
+%feature("docstring")  VariableBinAxis::createClippedAxis "VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const
+
+Creates a new clipped axis. 
 ";
 
 
@@ -948,6 +1493,60 @@ Returns true if operation system is Windows.
 ";
 
 
+// File: Bin_8cpp.xml
+%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
+
+Checks if value is contained in bin: value in [m_lower, m_upper) 
+";
+
+
+// File: Bin_8h.xml
+%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
+
+Checks if value is contained in bin: value in [m_lower, m_upper) 
+";
+
+
+// File: ConstKBinAxis_8cpp.xml
+
+
+// File: ConstKBinAxis_8h.xml
+
+
+// File: CustomBinAxis_8cpp.xml
+
+
+// File: CustomBinAxis_8h.xml
+
+
+// File: FixedBinAxis_8cpp.xml
+
+
+// File: FixedBinAxis_8h.xml
+
+
+// File: IAxis_8cpp.xml
+
+
+// File: IAxis_8h.xml
+%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
+
+global helper function for comparison of axes 
+";
+
+
+// File: PointwiseAxis_8cpp.xml
+
+
+// File: PointwiseAxis_8h.xml
+
+
+// File: VariableBinAxis_8cpp.xml
+
+
+// File: VariableBinAxis_8h.xml
+
+
 // File: MathConstants_8h.xml
 
 
@@ -955,6 +1554,21 @@ Returns true if operation system is Windows.
 
 
 // File: Units_8h.xml
+
+
+// File: IPixel_8h.xml
+
+
+// File: PolarizationHandler_8cpp.xml
+
+
+// File: PolarizationHandler_8h.xml
+
+
+// File: SimulationElement_8cpp.xml
+
+
+// File: SimulationElement_8h.xml
 
 
 // File: CloneableVector_8h.xml
@@ -1042,6 +1656,9 @@ Template function to create an integrator object
 // File: SysUtils_8h.xml
 
 
+// File: ThreadInfo_8h.xml
+
+
 // File: BasicVector3D_8cpp.xml
 %feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 
@@ -1068,10 +1685,16 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 // File: Vectors3D_8h.xml
 
 
+// File: dir_601becd875582af070010d10b4fc90ee.xml
+
+
 // File: dir_628593db0cdce5a76fb85526ae5aa762.xml
 
 
 // File: dir_53458346a71374f205070d8bd3d865f1.xml
+
+
+// File: dir_ec49f598ebf9445998ce86a14e7c0417.xml
 
 
 // File: dir_38a5ec4dd9a60e867dacdb92549a13e0.xml

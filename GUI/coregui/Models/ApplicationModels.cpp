@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Histo/IntensityDataIOFactory.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Scattering/ISample.h"
 #include "Core/Simulation/OffSpecSimulation.h"

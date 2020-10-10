@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_HISTOGRAM2D_H
 #define BORNAGAIN_CORE_INTENSITY_HISTOGRAM2D_H
 
-#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Histo/IHistogram.h"
+#include "Core/Intensity/ArrayUtils.h"
 
 //! Two dimensional histogram.
 //! @ingroup tools

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/AxesItems.h"
-#include "Core/Axis/FixedBinAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
 
 const QString BasicAxisItem::P_IS_VISIBLE = "Visibility";
 const QString BasicAxisItem::P_NBINS = "Nbins";

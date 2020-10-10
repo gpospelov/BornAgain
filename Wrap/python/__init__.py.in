@@ -15,8 +15,9 @@ if sys.version_info >= (3, 8, 0) and sys.platform == 'win32':
             if p and os.path.exists(p):
                 os.add_dll_directory(os.path.abspath(p))
 
-from libBornAgainFit import *
 from libBornAgainBase import *
+from libBornAgainFit import *
+from libBornAgainParam import *
 from libBornAgainCore import *
 
 

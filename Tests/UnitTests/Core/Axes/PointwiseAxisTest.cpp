@@ -1,5 +1,5 @@
-#include "Core/Axis/PointwiseAxis.h"
-#include "Core/Axis/FixedBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
+#include "Base/Axis/FixedBinAxis.h"
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>

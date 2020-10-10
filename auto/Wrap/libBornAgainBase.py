@@ -143,6 +143,1541 @@ _libBornAgainBase.SwigPyIterator_swigregister(SwigPyIterator)
 
 SHARED_PTR_DISOWN = _libBornAgainBase.SHARED_PTR_DISOWN
 
+
+import warnings
+def deprecated(message):
+  def deprecated_decorator(func):
+      def deprecated_func(*args, **kwargs):
+          warnings.simplefilter('always', DeprecationWarning)  # turn off filter
+          warnings.warn("{} is a deprecated function. {}".format(func.__name__, message),
+                        category=DeprecationWarning,
+                        stacklevel=2)
+          warnings.simplefilter('default', DeprecationWarning)  # reset filter
+          return func(*args, **kwargs)
+      return deprecated_func
+  return deprecated_decorator
+
+class vdouble1d_t(object):
+    r"""Proxy of C++ std::vector< double > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vdouble1d_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vdouble1d_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vdouble1d_t self) -> bool"""
+        return _libBornAgainBase.vdouble1d_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vdouble1d_t self) -> bool"""
+        return _libBornAgainBase.vdouble1d_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vdouble1d_t self) -> std::vector< double >::size_type"""
+        return _libBornAgainBase.vdouble1d_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vdouble1d_t self, std::vector< double >::difference_type i, std::vector< double >::difference_type j) -> vdouble1d_t"""
+        return _libBornAgainBase.vdouble1d_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vdouble1d_t self, std::vector< double >::difference_type i, std::vector< double >::difference_type j)
+        __setslice__(vdouble1d_t self, std::vector< double >::difference_type i, std::vector< double >::difference_type j, vdouble1d_t v)
+        """
+        return _libBornAgainBase.vdouble1d_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vdouble1d_t self, std::vector< double >::difference_type i, std::vector< double >::difference_type j)"""
+        return _libBornAgainBase.vdouble1d_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vdouble1d_t self, std::vector< double >::difference_type i)
+        __delitem__(vdouble1d_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vdouble1d_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vdouble1d_t self, PySliceObject * slice) -> vdouble1d_t
+        __getitem__(vdouble1d_t self, std::vector< double >::difference_type i) -> std::vector< double >::value_type const &
+        """
+        return _libBornAgainBase.vdouble1d_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vdouble1d_t self, PySliceObject * slice, vdouble1d_t v)
+        __setitem__(vdouble1d_t self, PySliceObject * slice)
+        __setitem__(vdouble1d_t self, std::vector< double >::difference_type i, std::vector< double >::value_type const & x)
+        """
+        return _libBornAgainBase.vdouble1d_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vdouble1d_t self) -> std::vector< double >::value_type"""
+        return _libBornAgainBase.vdouble1d_t_pop(self)
+
+    def append(self, x):
+        r"""append(vdouble1d_t self, std::vector< double >::value_type const & x)"""
+        return _libBornAgainBase.vdouble1d_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vdouble1d_t self) -> bool"""
+        return _libBornAgainBase.vdouble1d_t_empty(self)
+
+    def size(self):
+        r"""size(vdouble1d_t self) -> std::vector< double >::size_type"""
+        return _libBornAgainBase.vdouble1d_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vdouble1d_t self, vdouble1d_t v)"""
+        return _libBornAgainBase.vdouble1d_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vdouble1d_t self) -> std::vector< double >::iterator"""
+        return _libBornAgainBase.vdouble1d_t_begin(self)
+
+    def end(self):
+        r"""end(vdouble1d_t self) -> std::vector< double >::iterator"""
+        return _libBornAgainBase.vdouble1d_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vdouble1d_t self) -> std::vector< double >::reverse_iterator"""
+        return _libBornAgainBase.vdouble1d_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vdouble1d_t self) -> std::vector< double >::reverse_iterator"""
+        return _libBornAgainBase.vdouble1d_t_rend(self)
+
+    def clear(self):
+        r"""clear(vdouble1d_t self)"""
+        return _libBornAgainBase.vdouble1d_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vdouble1d_t self) -> std::vector< double >::allocator_type"""
+        return _libBornAgainBase.vdouble1d_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vdouble1d_t self)"""
+        return _libBornAgainBase.vdouble1d_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vdouble1d_t self, std::vector< double >::iterator pos) -> std::vector< double >::iterator
+        erase(vdouble1d_t self, std::vector< double >::iterator first, std::vector< double >::iterator last) -> std::vector< double >::iterator
+        """
+        return _libBornAgainBase.vdouble1d_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vdouble1d_t self) -> vdouble1d_t
+        __init__(vdouble1d_t self, vdouble1d_t other) -> vdouble1d_t
+        __init__(vdouble1d_t self, std::vector< double >::size_type size) -> vdouble1d_t
+        __init__(vdouble1d_t self, std::vector< double >::size_type size, std::vector< double >::value_type const & value) -> vdouble1d_t
+        """
+        _libBornAgainBase.vdouble1d_t_swiginit(self, _libBornAgainBase.new_vdouble1d_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vdouble1d_t self, std::vector< double >::value_type const & x)"""
+        return _libBornAgainBase.vdouble1d_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vdouble1d_t self) -> std::vector< double >::value_type const &"""
+        return _libBornAgainBase.vdouble1d_t_front(self)
+
+    def back(self):
+        r"""back(vdouble1d_t self) -> std::vector< double >::value_type const &"""
+        return _libBornAgainBase.vdouble1d_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vdouble1d_t self, std::vector< double >::size_type n, std::vector< double >::value_type const & x)"""
+        return _libBornAgainBase.vdouble1d_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vdouble1d_t self, std::vector< double >::size_type new_size)
+        resize(vdouble1d_t self, std::vector< double >::size_type new_size, std::vector< double >::value_type const & x)
+        """
+        return _libBornAgainBase.vdouble1d_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vdouble1d_t self, std::vector< double >::iterator pos, std::vector< double >::value_type const & x) -> std::vector< double >::iterator
+        insert(vdouble1d_t self, std::vector< double >::iterator pos, std::vector< double >::size_type n, std::vector< double >::value_type const & x)
+        """
+        return _libBornAgainBase.vdouble1d_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vdouble1d_t self, std::vector< double >::size_type n)"""
+        return _libBornAgainBase.vdouble1d_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vdouble1d_t self) -> std::vector< double >::size_type"""
+        return _libBornAgainBase.vdouble1d_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vdouble1d_t
+
+# Register vdouble1d_t in _libBornAgainBase:
+_libBornAgainBase.vdouble1d_t_swigregister(vdouble1d_t)
+
+class vdouble2d_t(object):
+    r"""Proxy of C++ std::vector< std::vector< double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vdouble2d_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vdouble2d_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vdouble2d_t self) -> bool"""
+        return _libBornAgainBase.vdouble2d_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vdouble2d_t self) -> bool"""
+        return _libBornAgainBase.vdouble2d_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vdouble2d_t self) -> std::vector< std::vector< double > >::size_type"""
+        return _libBornAgainBase.vdouble2d_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vdouble2d_t self, std::vector< std::vector< double > >::difference_type i, std::vector< std::vector< double > >::difference_type j) -> vdouble2d_t"""
+        return _libBornAgainBase.vdouble2d_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vdouble2d_t self, std::vector< std::vector< double > >::difference_type i, std::vector< std::vector< double > >::difference_type j)
+        __setslice__(vdouble2d_t self, std::vector< std::vector< double > >::difference_type i, std::vector< std::vector< double > >::difference_type j, vdouble2d_t v)
+        """
+        return _libBornAgainBase.vdouble2d_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vdouble2d_t self, std::vector< std::vector< double > >::difference_type i, std::vector< std::vector< double > >::difference_type j)"""
+        return _libBornAgainBase.vdouble2d_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vdouble2d_t self, std::vector< std::vector< double > >::difference_type i)
+        __delitem__(vdouble2d_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vdouble2d_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vdouble2d_t self, PySliceObject * slice) -> vdouble2d_t
+        __getitem__(vdouble2d_t self, std::vector< std::vector< double > >::difference_type i) -> vdouble1d_t
+        """
+        return _libBornAgainBase.vdouble2d_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vdouble2d_t self, PySliceObject * slice, vdouble2d_t v)
+        __setitem__(vdouble2d_t self, PySliceObject * slice)
+        __setitem__(vdouble2d_t self, std::vector< std::vector< double > >::difference_type i, vdouble1d_t x)
+        """
+        return _libBornAgainBase.vdouble2d_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vdouble2d_t self) -> vdouble1d_t"""
+        return _libBornAgainBase.vdouble2d_t_pop(self)
+
+    def append(self, x):
+        r"""append(vdouble2d_t self, vdouble1d_t x)"""
+        return _libBornAgainBase.vdouble2d_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vdouble2d_t self) -> bool"""
+        return _libBornAgainBase.vdouble2d_t_empty(self)
+
+    def size(self):
+        r"""size(vdouble2d_t self) -> std::vector< std::vector< double > >::size_type"""
+        return _libBornAgainBase.vdouble2d_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vdouble2d_t self, vdouble2d_t v)"""
+        return _libBornAgainBase.vdouble2d_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vdouble2d_t self) -> std::vector< std::vector< double > >::iterator"""
+        return _libBornAgainBase.vdouble2d_t_begin(self)
+
+    def end(self):
+        r"""end(vdouble2d_t self) -> std::vector< std::vector< double > >::iterator"""
+        return _libBornAgainBase.vdouble2d_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vdouble2d_t self) -> std::vector< std::vector< double > >::reverse_iterator"""
+        return _libBornAgainBase.vdouble2d_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vdouble2d_t self) -> std::vector< std::vector< double > >::reverse_iterator"""
+        return _libBornAgainBase.vdouble2d_t_rend(self)
+
+    def clear(self):
+        r"""clear(vdouble2d_t self)"""
+        return _libBornAgainBase.vdouble2d_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vdouble2d_t self) -> std::vector< std::vector< double > >::allocator_type"""
+        return _libBornAgainBase.vdouble2d_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vdouble2d_t self)"""
+        return _libBornAgainBase.vdouble2d_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vdouble2d_t self, std::vector< std::vector< double > >::iterator pos) -> std::vector< std::vector< double > >::iterator
+        erase(vdouble2d_t self, std::vector< std::vector< double > >::iterator first, std::vector< std::vector< double > >::iterator last) -> std::vector< std::vector< double > >::iterator
+        """
+        return _libBornAgainBase.vdouble2d_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vdouble2d_t self) -> vdouble2d_t
+        __init__(vdouble2d_t self, vdouble2d_t other) -> vdouble2d_t
+        __init__(vdouble2d_t self, std::vector< std::vector< double > >::size_type size) -> vdouble2d_t
+        __init__(vdouble2d_t self, std::vector< std::vector< double > >::size_type size, vdouble1d_t value) -> vdouble2d_t
+        """
+        _libBornAgainBase.vdouble2d_t_swiginit(self, _libBornAgainBase.new_vdouble2d_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vdouble2d_t self, vdouble1d_t x)"""
+        return _libBornAgainBase.vdouble2d_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vdouble2d_t self) -> vdouble1d_t"""
+        return _libBornAgainBase.vdouble2d_t_front(self)
+
+    def back(self):
+        r"""back(vdouble2d_t self) -> vdouble1d_t"""
+        return _libBornAgainBase.vdouble2d_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vdouble2d_t self, std::vector< std::vector< double > >::size_type n, vdouble1d_t x)"""
+        return _libBornAgainBase.vdouble2d_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vdouble2d_t self, std::vector< std::vector< double > >::size_type new_size)
+        resize(vdouble2d_t self, std::vector< std::vector< double > >::size_type new_size, vdouble1d_t x)
+        """
+        return _libBornAgainBase.vdouble2d_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vdouble2d_t self, std::vector< std::vector< double > >::iterator pos, vdouble1d_t x) -> std::vector< std::vector< double > >::iterator
+        insert(vdouble2d_t self, std::vector< std::vector< double > >::iterator pos, std::vector< std::vector< double > >::size_type n, vdouble1d_t x)
+        """
+        return _libBornAgainBase.vdouble2d_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vdouble2d_t self, std::vector< std::vector< double > >::size_type n)"""
+        return _libBornAgainBase.vdouble2d_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vdouble2d_t self) -> std::vector< std::vector< double > >::size_type"""
+        return _libBornAgainBase.vdouble2d_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vdouble2d_t
+
+# Register vdouble2d_t in _libBornAgainBase:
+_libBornAgainBase.vdouble2d_t_swigregister(vdouble2d_t)
+
+class vector_integer_t(object):
+    r"""Proxy of C++ std::vector< int > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_integer_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vector_integer_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_integer_t self) -> bool"""
+        return _libBornAgainBase.vector_integer_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_integer_t self) -> bool"""
+        return _libBornAgainBase.vector_integer_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_integer_t self) -> std::vector< int >::size_type"""
+        return _libBornAgainBase.vector_integer_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_integer_t self, std::vector< int >::difference_type i, std::vector< int >::difference_type j) -> vector_integer_t"""
+        return _libBornAgainBase.vector_integer_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_integer_t self, std::vector< int >::difference_type i, std::vector< int >::difference_type j)
+        __setslice__(vector_integer_t self, std::vector< int >::difference_type i, std::vector< int >::difference_type j, vector_integer_t v)
+        """
+        return _libBornAgainBase.vector_integer_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_integer_t self, std::vector< int >::difference_type i, std::vector< int >::difference_type j)"""
+        return _libBornAgainBase.vector_integer_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_integer_t self, std::vector< int >::difference_type i)
+        __delitem__(vector_integer_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vector_integer_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_integer_t self, PySliceObject * slice) -> vector_integer_t
+        __getitem__(vector_integer_t self, std::vector< int >::difference_type i) -> std::vector< int >::value_type const &
+        """
+        return _libBornAgainBase.vector_integer_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_integer_t self, PySliceObject * slice, vector_integer_t v)
+        __setitem__(vector_integer_t self, PySliceObject * slice)
+        __setitem__(vector_integer_t self, std::vector< int >::difference_type i, std::vector< int >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_integer_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_integer_t self) -> std::vector< int >::value_type"""
+        return _libBornAgainBase.vector_integer_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_integer_t self, std::vector< int >::value_type const & x)"""
+        return _libBornAgainBase.vector_integer_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_integer_t self) -> bool"""
+        return _libBornAgainBase.vector_integer_t_empty(self)
+
+    def size(self):
+        r"""size(vector_integer_t self) -> std::vector< int >::size_type"""
+        return _libBornAgainBase.vector_integer_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vector_integer_t self, vector_integer_t v)"""
+        return _libBornAgainBase.vector_integer_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_integer_t self) -> std::vector< int >::iterator"""
+        return _libBornAgainBase.vector_integer_t_begin(self)
+
+    def end(self):
+        r"""end(vector_integer_t self) -> std::vector< int >::iterator"""
+        return _libBornAgainBase.vector_integer_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_integer_t self) -> std::vector< int >::reverse_iterator"""
+        return _libBornAgainBase.vector_integer_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_integer_t self) -> std::vector< int >::reverse_iterator"""
+        return _libBornAgainBase.vector_integer_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_integer_t self)"""
+        return _libBornAgainBase.vector_integer_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_integer_t self) -> std::vector< int >::allocator_type"""
+        return _libBornAgainBase.vector_integer_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_integer_t self)"""
+        return _libBornAgainBase.vector_integer_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_integer_t self, std::vector< int >::iterator pos) -> std::vector< int >::iterator
+        erase(vector_integer_t self, std::vector< int >::iterator first, std::vector< int >::iterator last) -> std::vector< int >::iterator
+        """
+        return _libBornAgainBase.vector_integer_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_integer_t self) -> vector_integer_t
+        __init__(vector_integer_t self, vector_integer_t other) -> vector_integer_t
+        __init__(vector_integer_t self, std::vector< int >::size_type size) -> vector_integer_t
+        __init__(vector_integer_t self, std::vector< int >::size_type size, std::vector< int >::value_type const & value) -> vector_integer_t
+        """
+        _libBornAgainBase.vector_integer_t_swiginit(self, _libBornAgainBase.new_vector_integer_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_integer_t self, std::vector< int >::value_type const & x)"""
+        return _libBornAgainBase.vector_integer_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_integer_t self) -> std::vector< int >::value_type const &"""
+        return _libBornAgainBase.vector_integer_t_front(self)
+
+    def back(self):
+        r"""back(vector_integer_t self) -> std::vector< int >::value_type const &"""
+        return _libBornAgainBase.vector_integer_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_integer_t self, std::vector< int >::size_type n, std::vector< int >::value_type const & x)"""
+        return _libBornAgainBase.vector_integer_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_integer_t self, std::vector< int >::size_type new_size)
+        resize(vector_integer_t self, std::vector< int >::size_type new_size, std::vector< int >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_integer_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_integer_t self, std::vector< int >::iterator pos, std::vector< int >::value_type const & x) -> std::vector< int >::iterator
+        insert(vector_integer_t self, std::vector< int >::iterator pos, std::vector< int >::size_type n, std::vector< int >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_integer_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_integer_t self, std::vector< int >::size_type n)"""
+        return _libBornAgainBase.vector_integer_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_integer_t self) -> std::vector< int >::size_type"""
+        return _libBornAgainBase.vector_integer_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vector_integer_t
+
+# Register vector_integer_t in _libBornAgainBase:
+_libBornAgainBase.vector_integer_t_swigregister(vector_integer_t)
+
+class vinteger2d_t(object):
+    r"""Proxy of C++ std::vector< std::vector< int > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vinteger2d_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vinteger2d_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vinteger2d_t self) -> bool"""
+        return _libBornAgainBase.vinteger2d_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vinteger2d_t self) -> bool"""
+        return _libBornAgainBase.vinteger2d_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vinteger2d_t self) -> std::vector< std::vector< int > >::size_type"""
+        return _libBornAgainBase.vinteger2d_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j) -> vinteger2d_t"""
+        return _libBornAgainBase.vinteger2d_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j)
+        __setslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j, vinteger2d_t v)
+        """
+        return _libBornAgainBase.vinteger2d_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j)"""
+        return _libBornAgainBase.vinteger2d_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i)
+        __delitem__(vinteger2d_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vinteger2d_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vinteger2d_t self, PySliceObject * slice) -> vinteger2d_t
+        __getitem__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i) -> vector_integer_t
+        """
+        return _libBornAgainBase.vinteger2d_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vinteger2d_t self, PySliceObject * slice, vinteger2d_t v)
+        __setitem__(vinteger2d_t self, PySliceObject * slice)
+        __setitem__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, vector_integer_t x)
+        """
+        return _libBornAgainBase.vinteger2d_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vinteger2d_t self) -> vector_integer_t"""
+        return _libBornAgainBase.vinteger2d_t_pop(self)
+
+    def append(self, x):
+        r"""append(vinteger2d_t self, vector_integer_t x)"""
+        return _libBornAgainBase.vinteger2d_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vinteger2d_t self) -> bool"""
+        return _libBornAgainBase.vinteger2d_t_empty(self)
+
+    def size(self):
+        r"""size(vinteger2d_t self) -> std::vector< std::vector< int > >::size_type"""
+        return _libBornAgainBase.vinteger2d_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vinteger2d_t self, vinteger2d_t v)"""
+        return _libBornAgainBase.vinteger2d_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vinteger2d_t self) -> std::vector< std::vector< int > >::iterator"""
+        return _libBornAgainBase.vinteger2d_t_begin(self)
+
+    def end(self):
+        r"""end(vinteger2d_t self) -> std::vector< std::vector< int > >::iterator"""
+        return _libBornAgainBase.vinteger2d_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vinteger2d_t self) -> std::vector< std::vector< int > >::reverse_iterator"""
+        return _libBornAgainBase.vinteger2d_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vinteger2d_t self) -> std::vector< std::vector< int > >::reverse_iterator"""
+        return _libBornAgainBase.vinteger2d_t_rend(self)
+
+    def clear(self):
+        r"""clear(vinteger2d_t self)"""
+        return _libBornAgainBase.vinteger2d_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vinteger2d_t self) -> std::vector< std::vector< int > >::allocator_type"""
+        return _libBornAgainBase.vinteger2d_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vinteger2d_t self)"""
+        return _libBornAgainBase.vinteger2d_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vinteger2d_t self, std::vector< std::vector< int > >::iterator pos) -> std::vector< std::vector< int > >::iterator
+        erase(vinteger2d_t self, std::vector< std::vector< int > >::iterator first, std::vector< std::vector< int > >::iterator last) -> std::vector< std::vector< int > >::iterator
+        """
+        return _libBornAgainBase.vinteger2d_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vinteger2d_t self) -> vinteger2d_t
+        __init__(vinteger2d_t self, vinteger2d_t other) -> vinteger2d_t
+        __init__(vinteger2d_t self, std::vector< std::vector< int > >::size_type size) -> vinteger2d_t
+        __init__(vinteger2d_t self, std::vector< std::vector< int > >::size_type size, vector_integer_t value) -> vinteger2d_t
+        """
+        _libBornAgainBase.vinteger2d_t_swiginit(self, _libBornAgainBase.new_vinteger2d_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vinteger2d_t self, vector_integer_t x)"""
+        return _libBornAgainBase.vinteger2d_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vinteger2d_t self) -> vector_integer_t"""
+        return _libBornAgainBase.vinteger2d_t_front(self)
+
+    def back(self):
+        r"""back(vinteger2d_t self) -> vector_integer_t"""
+        return _libBornAgainBase.vinteger2d_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vinteger2d_t self, std::vector< std::vector< int > >::size_type n, vector_integer_t x)"""
+        return _libBornAgainBase.vinteger2d_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vinteger2d_t self, std::vector< std::vector< int > >::size_type new_size)
+        resize(vinteger2d_t self, std::vector< std::vector< int > >::size_type new_size, vector_integer_t x)
+        """
+        return _libBornAgainBase.vinteger2d_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vinteger2d_t self, std::vector< std::vector< int > >::iterator pos, vector_integer_t x) -> std::vector< std::vector< int > >::iterator
+        insert(vinteger2d_t self, std::vector< std::vector< int > >::iterator pos, std::vector< std::vector< int > >::size_type n, vector_integer_t x)
+        """
+        return _libBornAgainBase.vinteger2d_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vinteger2d_t self, std::vector< std::vector< int > >::size_type n)"""
+        return _libBornAgainBase.vinteger2d_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vinteger2d_t self) -> std::vector< std::vector< int > >::size_type"""
+        return _libBornAgainBase.vinteger2d_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vinteger2d_t
+
+# Register vinteger2d_t in _libBornAgainBase:
+_libBornAgainBase.vinteger2d_t_swigregister(vinteger2d_t)
+
+class vector_longinteger_t(object):
+    r"""Proxy of C++ std::vector< unsigned long > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_longinteger_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vector_longinteger_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_longinteger_t self) -> bool"""
+        return _libBornAgainBase.vector_longinteger_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_longinteger_t self) -> bool"""
+        return _libBornAgainBase.vector_longinteger_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_longinteger_t self) -> std::vector< unsigned long >::size_type"""
+        return _libBornAgainBase.vector_longinteger_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_longinteger_t self, std::vector< unsigned long >::difference_type i, std::vector< unsigned long >::difference_type j) -> vector_longinteger_t"""
+        return _libBornAgainBase.vector_longinteger_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_longinteger_t self, std::vector< unsigned long >::difference_type i, std::vector< unsigned long >::difference_type j)
+        __setslice__(vector_longinteger_t self, std::vector< unsigned long >::difference_type i, std::vector< unsigned long >::difference_type j, vector_longinteger_t v)
+        """
+        return _libBornAgainBase.vector_longinteger_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_longinteger_t self, std::vector< unsigned long >::difference_type i, std::vector< unsigned long >::difference_type j)"""
+        return _libBornAgainBase.vector_longinteger_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_longinteger_t self, std::vector< unsigned long >::difference_type i)
+        __delitem__(vector_longinteger_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vector_longinteger_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_longinteger_t self, PySliceObject * slice) -> vector_longinteger_t
+        __getitem__(vector_longinteger_t self, std::vector< unsigned long >::difference_type i) -> std::vector< unsigned long >::value_type const &
+        """
+        return _libBornAgainBase.vector_longinteger_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_longinteger_t self, PySliceObject * slice, vector_longinteger_t v)
+        __setitem__(vector_longinteger_t self, PySliceObject * slice)
+        __setitem__(vector_longinteger_t self, std::vector< unsigned long >::difference_type i, std::vector< unsigned long >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_longinteger_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_longinteger_t self) -> std::vector< unsigned long >::value_type"""
+        return _libBornAgainBase.vector_longinteger_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_longinteger_t self, std::vector< unsigned long >::value_type const & x)"""
+        return _libBornAgainBase.vector_longinteger_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_longinteger_t self) -> bool"""
+        return _libBornAgainBase.vector_longinteger_t_empty(self)
+
+    def size(self):
+        r"""size(vector_longinteger_t self) -> std::vector< unsigned long >::size_type"""
+        return _libBornAgainBase.vector_longinteger_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vector_longinteger_t self, vector_longinteger_t v)"""
+        return _libBornAgainBase.vector_longinteger_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_longinteger_t self) -> std::vector< unsigned long >::iterator"""
+        return _libBornAgainBase.vector_longinteger_t_begin(self)
+
+    def end(self):
+        r"""end(vector_longinteger_t self) -> std::vector< unsigned long >::iterator"""
+        return _libBornAgainBase.vector_longinteger_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_longinteger_t self) -> std::vector< unsigned long >::reverse_iterator"""
+        return _libBornAgainBase.vector_longinteger_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_longinteger_t self) -> std::vector< unsigned long >::reverse_iterator"""
+        return _libBornAgainBase.vector_longinteger_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_longinteger_t self)"""
+        return _libBornAgainBase.vector_longinteger_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_longinteger_t self) -> std::vector< unsigned long >::allocator_type"""
+        return _libBornAgainBase.vector_longinteger_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_longinteger_t self)"""
+        return _libBornAgainBase.vector_longinteger_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_longinteger_t self, std::vector< unsigned long >::iterator pos) -> std::vector< unsigned long >::iterator
+        erase(vector_longinteger_t self, std::vector< unsigned long >::iterator first, std::vector< unsigned long >::iterator last) -> std::vector< unsigned long >::iterator
+        """
+        return _libBornAgainBase.vector_longinteger_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_longinteger_t self) -> vector_longinteger_t
+        __init__(vector_longinteger_t self, vector_longinteger_t other) -> vector_longinteger_t
+        __init__(vector_longinteger_t self, std::vector< unsigned long >::size_type size) -> vector_longinteger_t
+        __init__(vector_longinteger_t self, std::vector< unsigned long >::size_type size, std::vector< unsigned long >::value_type const & value) -> vector_longinteger_t
+        """
+        _libBornAgainBase.vector_longinteger_t_swiginit(self, _libBornAgainBase.new_vector_longinteger_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_longinteger_t self, std::vector< unsigned long >::value_type const & x)"""
+        return _libBornAgainBase.vector_longinteger_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_longinteger_t self) -> std::vector< unsigned long >::value_type const &"""
+        return _libBornAgainBase.vector_longinteger_t_front(self)
+
+    def back(self):
+        r"""back(vector_longinteger_t self) -> std::vector< unsigned long >::value_type const &"""
+        return _libBornAgainBase.vector_longinteger_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_longinteger_t self, std::vector< unsigned long >::size_type n, std::vector< unsigned long >::value_type const & x)"""
+        return _libBornAgainBase.vector_longinteger_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_longinteger_t self, std::vector< unsigned long >::size_type new_size)
+        resize(vector_longinteger_t self, std::vector< unsigned long >::size_type new_size, std::vector< unsigned long >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_longinteger_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_longinteger_t self, std::vector< unsigned long >::iterator pos, std::vector< unsigned long >::value_type const & x) -> std::vector< unsigned long >::iterator
+        insert(vector_longinteger_t self, std::vector< unsigned long >::iterator pos, std::vector< unsigned long >::size_type n, std::vector< unsigned long >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_longinteger_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_longinteger_t self, std::vector< unsigned long >::size_type n)"""
+        return _libBornAgainBase.vector_longinteger_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_longinteger_t self) -> std::vector< unsigned long >::size_type"""
+        return _libBornAgainBase.vector_longinteger_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vector_longinteger_t
+
+# Register vector_longinteger_t in _libBornAgainBase:
+_libBornAgainBase.vector_longinteger_t_swigregister(vector_longinteger_t)
+
+class vector_complex_t(object):
+    r"""Proxy of C++ std::vector< std::complex< double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_complex_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vector_complex_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_complex_t self) -> bool"""
+        return _libBornAgainBase.vector_complex_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_complex_t self) -> bool"""
+        return _libBornAgainBase.vector_complex_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_complex_t self) -> std::vector< std::complex< double > >::size_type"""
+        return _libBornAgainBase.vector_complex_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_complex_t self, std::vector< std::complex< double > >::difference_type i, std::vector< std::complex< double > >::difference_type j) -> vector_complex_t"""
+        return _libBornAgainBase.vector_complex_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_complex_t self, std::vector< std::complex< double > >::difference_type i, std::vector< std::complex< double > >::difference_type j)
+        __setslice__(vector_complex_t self, std::vector< std::complex< double > >::difference_type i, std::vector< std::complex< double > >::difference_type j, vector_complex_t v)
+        """
+        return _libBornAgainBase.vector_complex_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_complex_t self, std::vector< std::complex< double > >::difference_type i, std::vector< std::complex< double > >::difference_type j)"""
+        return _libBornAgainBase.vector_complex_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_complex_t self, std::vector< std::complex< double > >::difference_type i)
+        __delitem__(vector_complex_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vector_complex_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_complex_t self, PySliceObject * slice) -> vector_complex_t
+        __getitem__(vector_complex_t self, std::vector< std::complex< double > >::difference_type i) -> std::vector< std::complex< double > >::value_type const &
+        """
+        return _libBornAgainBase.vector_complex_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_complex_t self, PySliceObject * slice, vector_complex_t v)
+        __setitem__(vector_complex_t self, PySliceObject * slice)
+        __setitem__(vector_complex_t self, std::vector< std::complex< double > >::difference_type i, std::vector< std::complex< double > >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_complex_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_complex_t self) -> std::vector< std::complex< double > >::value_type"""
+        return _libBornAgainBase.vector_complex_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_complex_t self, std::vector< std::complex< double > >::value_type const & x)"""
+        return _libBornAgainBase.vector_complex_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_complex_t self) -> bool"""
+        return _libBornAgainBase.vector_complex_t_empty(self)
+
+    def size(self):
+        r"""size(vector_complex_t self) -> std::vector< std::complex< double > >::size_type"""
+        return _libBornAgainBase.vector_complex_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vector_complex_t self, vector_complex_t v)"""
+        return _libBornAgainBase.vector_complex_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_complex_t self) -> std::vector< std::complex< double > >::iterator"""
+        return _libBornAgainBase.vector_complex_t_begin(self)
+
+    def end(self):
+        r"""end(vector_complex_t self) -> std::vector< std::complex< double > >::iterator"""
+        return _libBornAgainBase.vector_complex_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_complex_t self) -> std::vector< std::complex< double > >::reverse_iterator"""
+        return _libBornAgainBase.vector_complex_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_complex_t self) -> std::vector< std::complex< double > >::reverse_iterator"""
+        return _libBornAgainBase.vector_complex_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_complex_t self)"""
+        return _libBornAgainBase.vector_complex_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_complex_t self) -> std::vector< std::complex< double > >::allocator_type"""
+        return _libBornAgainBase.vector_complex_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_complex_t self)"""
+        return _libBornAgainBase.vector_complex_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_complex_t self, std::vector< std::complex< double > >::iterator pos) -> std::vector< std::complex< double > >::iterator
+        erase(vector_complex_t self, std::vector< std::complex< double > >::iterator first, std::vector< std::complex< double > >::iterator last) -> std::vector< std::complex< double > >::iterator
+        """
+        return _libBornAgainBase.vector_complex_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_complex_t self) -> vector_complex_t
+        __init__(vector_complex_t self, vector_complex_t other) -> vector_complex_t
+        __init__(vector_complex_t self, std::vector< std::complex< double > >::size_type size) -> vector_complex_t
+        __init__(vector_complex_t self, std::vector< std::complex< double > >::size_type size, std::vector< std::complex< double > >::value_type const & value) -> vector_complex_t
+        """
+        _libBornAgainBase.vector_complex_t_swiginit(self, _libBornAgainBase.new_vector_complex_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_complex_t self, std::vector< std::complex< double > >::value_type const & x)"""
+        return _libBornAgainBase.vector_complex_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_complex_t self) -> std::vector< std::complex< double > >::value_type const &"""
+        return _libBornAgainBase.vector_complex_t_front(self)
+
+    def back(self):
+        r"""back(vector_complex_t self) -> std::vector< std::complex< double > >::value_type const &"""
+        return _libBornAgainBase.vector_complex_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_complex_t self, std::vector< std::complex< double > >::size_type n, std::vector< std::complex< double > >::value_type const & x)"""
+        return _libBornAgainBase.vector_complex_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_complex_t self, std::vector< std::complex< double > >::size_type new_size)
+        resize(vector_complex_t self, std::vector< std::complex< double > >::size_type new_size, std::vector< std::complex< double > >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_complex_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_complex_t self, std::vector< std::complex< double > >::iterator pos, std::vector< std::complex< double > >::value_type const & x) -> std::vector< std::complex< double > >::iterator
+        insert(vector_complex_t self, std::vector< std::complex< double > >::iterator pos, std::vector< std::complex< double > >::size_type n, std::vector< std::complex< double > >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_complex_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_complex_t self, std::vector< std::complex< double > >::size_type n)"""
+        return _libBornAgainBase.vector_complex_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_complex_t self) -> std::vector< std::complex< double > >::size_type"""
+        return _libBornAgainBase.vector_complex_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vector_complex_t
+
+# Register vector_complex_t in _libBornAgainBase:
+_libBornAgainBase.vector_complex_t_swigregister(vector_complex_t)
+
+class vector_string_t(object):
+    r"""Proxy of C++ std::vector< std::string > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_string_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vector_string_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_string_t self) -> bool"""
+        return _libBornAgainBase.vector_string_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_string_t self) -> bool"""
+        return _libBornAgainBase.vector_string_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_string_t self) -> std::vector< std::string >::size_type"""
+        return _libBornAgainBase.vector_string_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_string_t self, std::vector< std::string >::difference_type i, std::vector< std::string >::difference_type j) -> vector_string_t"""
+        return _libBornAgainBase.vector_string_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_string_t self, std::vector< std::string >::difference_type i, std::vector< std::string >::difference_type j)
+        __setslice__(vector_string_t self, std::vector< std::string >::difference_type i, std::vector< std::string >::difference_type j, vector_string_t v)
+        """
+        return _libBornAgainBase.vector_string_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_string_t self, std::vector< std::string >::difference_type i, std::vector< std::string >::difference_type j)"""
+        return _libBornAgainBase.vector_string_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_string_t self, std::vector< std::string >::difference_type i)
+        __delitem__(vector_string_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vector_string_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_string_t self, PySliceObject * slice) -> vector_string_t
+        __getitem__(vector_string_t self, std::vector< std::string >::difference_type i) -> std::vector< std::string >::value_type const &
+        """
+        return _libBornAgainBase.vector_string_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_string_t self, PySliceObject * slice, vector_string_t v)
+        __setitem__(vector_string_t self, PySliceObject * slice)
+        __setitem__(vector_string_t self, std::vector< std::string >::difference_type i, std::vector< std::string >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_string_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_string_t self) -> std::vector< std::string >::value_type"""
+        return _libBornAgainBase.vector_string_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_string_t self, std::vector< std::string >::value_type const & x)"""
+        return _libBornAgainBase.vector_string_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_string_t self) -> bool"""
+        return _libBornAgainBase.vector_string_t_empty(self)
+
+    def size(self):
+        r"""size(vector_string_t self) -> std::vector< std::string >::size_type"""
+        return _libBornAgainBase.vector_string_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vector_string_t self, vector_string_t v)"""
+        return _libBornAgainBase.vector_string_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_string_t self) -> std::vector< std::string >::iterator"""
+        return _libBornAgainBase.vector_string_t_begin(self)
+
+    def end(self):
+        r"""end(vector_string_t self) -> std::vector< std::string >::iterator"""
+        return _libBornAgainBase.vector_string_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_string_t self) -> std::vector< std::string >::reverse_iterator"""
+        return _libBornAgainBase.vector_string_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_string_t self) -> std::vector< std::string >::reverse_iterator"""
+        return _libBornAgainBase.vector_string_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_string_t self)"""
+        return _libBornAgainBase.vector_string_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_string_t self) -> std::vector< std::string >::allocator_type"""
+        return _libBornAgainBase.vector_string_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_string_t self)"""
+        return _libBornAgainBase.vector_string_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_string_t self, std::vector< std::string >::iterator pos) -> std::vector< std::string >::iterator
+        erase(vector_string_t self, std::vector< std::string >::iterator first, std::vector< std::string >::iterator last) -> std::vector< std::string >::iterator
+        """
+        return _libBornAgainBase.vector_string_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_string_t self) -> vector_string_t
+        __init__(vector_string_t self, vector_string_t other) -> vector_string_t
+        __init__(vector_string_t self, std::vector< std::string >::size_type size) -> vector_string_t
+        __init__(vector_string_t self, std::vector< std::string >::size_type size, std::vector< std::string >::value_type const & value) -> vector_string_t
+        """
+        _libBornAgainBase.vector_string_t_swiginit(self, _libBornAgainBase.new_vector_string_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_string_t self, std::vector< std::string >::value_type const & x)"""
+        return _libBornAgainBase.vector_string_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_string_t self) -> std::vector< std::string >::value_type const &"""
+        return _libBornAgainBase.vector_string_t_front(self)
+
+    def back(self):
+        r"""back(vector_string_t self) -> std::vector< std::string >::value_type const &"""
+        return _libBornAgainBase.vector_string_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_string_t self, std::vector< std::string >::size_type n, std::vector< std::string >::value_type const & x)"""
+        return _libBornAgainBase.vector_string_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_string_t self, std::vector< std::string >::size_type new_size)
+        resize(vector_string_t self, std::vector< std::string >::size_type new_size, std::vector< std::string >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_string_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_string_t self, std::vector< std::string >::iterator pos, std::vector< std::string >::value_type const & x) -> std::vector< std::string >::iterator
+        insert(vector_string_t self, std::vector< std::string >::iterator pos, std::vector< std::string >::size_type n, std::vector< std::string >::value_type const & x)
+        """
+        return _libBornAgainBase.vector_string_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_string_t self, std::vector< std::string >::size_type n)"""
+        return _libBornAgainBase.vector_string_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_string_t self) -> std::vector< std::string >::size_type"""
+        return _libBornAgainBase.vector_string_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vector_string_t
+
+# Register vector_string_t in _libBornAgainBase:
+_libBornAgainBase.vector_string_t_swigregister(vector_string_t)
+
+class map_string_double_t(object):
+    r"""Proxy of C++ std::map< std::string,double > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(map_string_double_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.map_string_double_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(map_string_double_t self) -> bool"""
+        return _libBornAgainBase.map_string_double_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(map_string_double_t self) -> bool"""
+        return _libBornAgainBase.map_string_double_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(map_string_double_t self) -> std::map< std::string,double >::size_type"""
+        return _libBornAgainBase.map_string_double_t___len__(self)
+    def __iter__(self):
+        return self.key_iterator()
+    def iterkeys(self):
+        return self.key_iterator()
+    def itervalues(self):
+        return self.value_iterator()
+    def iteritems(self):
+        return self.iterator()
+
+    def __getitem__(self, key):
+        r"""__getitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key) -> std::map< std::string,double >::mapped_type const &"""
+        return _libBornAgainBase.map_string_double_t___getitem__(self, key)
+
+    def __delitem__(self, key):
+        r"""__delitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key)"""
+        return _libBornAgainBase.map_string_double_t___delitem__(self, key)
+
+    def has_key(self, key):
+        r"""has_key(map_string_double_t self, std::map< std::string,double >::key_type const & key) -> bool"""
+        return _libBornAgainBase.map_string_double_t_has_key(self, key)
+
+    def keys(self):
+        r"""keys(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainBase.map_string_double_t_keys(self)
+
+    def values(self):
+        r"""values(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainBase.map_string_double_t_values(self)
+
+    def items(self):
+        r"""items(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainBase.map_string_double_t_items(self)
+
+    def __contains__(self, key):
+        r"""__contains__(map_string_double_t self, std::map< std::string,double >::key_type const & key) -> bool"""
+        return _libBornAgainBase.map_string_double_t___contains__(self, key)
+
+    def key_iterator(self):
+        r"""key_iterator(map_string_double_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.map_string_double_t_key_iterator(self)
+
+    def value_iterator(self):
+        r"""value_iterator(map_string_double_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.map_string_double_t_value_iterator(self)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key)
+        __setitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key, std::map< std::string,double >::mapped_type const & x)
+        """
+        return _libBornAgainBase.map_string_double_t___setitem__(self, *args)
+
+    def asdict(self):
+        r"""asdict(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainBase.map_string_double_t_asdict(self)
+
+    def __init__(self, *args):
+        r"""
+        __init__(map_string_double_t self, std::less< std::string > const & other) -> map_string_double_t
+        __init__(map_string_double_t self) -> map_string_double_t
+        __init__(map_string_double_t self, map_string_double_t other) -> map_string_double_t
+        """
+        _libBornAgainBase.map_string_double_t_swiginit(self, _libBornAgainBase.new_map_string_double_t(*args))
+
+    def empty(self):
+        r"""empty(map_string_double_t self) -> bool"""
+        return _libBornAgainBase.map_string_double_t_empty(self)
+
+    def size(self):
+        r"""size(map_string_double_t self) -> std::map< std::string,double >::size_type"""
+        return _libBornAgainBase.map_string_double_t_size(self)
+
+    def swap(self, v):
+        r"""swap(map_string_double_t self, map_string_double_t v)"""
+        return _libBornAgainBase.map_string_double_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(map_string_double_t self) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainBase.map_string_double_t_begin(self)
+
+    def end(self):
+        r"""end(map_string_double_t self) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainBase.map_string_double_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(map_string_double_t self) -> std::map< std::string,double >::reverse_iterator"""
+        return _libBornAgainBase.map_string_double_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(map_string_double_t self) -> std::map< std::string,double >::reverse_iterator"""
+        return _libBornAgainBase.map_string_double_t_rend(self)
+
+    def clear(self):
+        r"""clear(map_string_double_t self)"""
+        return _libBornAgainBase.map_string_double_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(map_string_double_t self) -> std::map< std::string,double >::allocator_type"""
+        return _libBornAgainBase.map_string_double_t_get_allocator(self)
+
+    def count(self, x):
+        r"""count(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::size_type"""
+        return _libBornAgainBase.map_string_double_t_count(self, x)
+
+    def erase(self, *args):
+        r"""
+        erase(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::size_type
+        erase(map_string_double_t self, std::map< std::string,double >::iterator position)
+        erase(map_string_double_t self, std::map< std::string,double >::iterator first, std::map< std::string,double >::iterator last)
+        """
+        return _libBornAgainBase.map_string_double_t_erase(self, *args)
+
+    def find(self, x):
+        r"""find(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainBase.map_string_double_t_find(self, x)
+
+    def lower_bound(self, x):
+        r"""lower_bound(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainBase.map_string_double_t_lower_bound(self, x)
+
+    def upper_bound(self, x):
+        r"""upper_bound(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainBase.map_string_double_t_upper_bound(self, x)
+    __swig_destroy__ = _libBornAgainBase.delete_map_string_double_t
+
+# Register map_string_double_t in _libBornAgainBase:
+_libBornAgainBase.map_string_double_t_swigregister(map_string_double_t)
+
+class pvacuum_double_t(object):
+    r"""Proxy of C++ std::pair< double,double > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(pvacuum_double_t self) -> pvacuum_double_t
+        __init__(pvacuum_double_t self, double first, double second) -> pvacuum_double_t
+        __init__(pvacuum_double_t self, pvacuum_double_t other) -> pvacuum_double_t
+        """
+        _libBornAgainBase.pvacuum_double_t_swiginit(self, _libBornAgainBase.new_pvacuum_double_t(*args))
+    first = property(_libBornAgainBase.pvacuum_double_t_first_get, _libBornAgainBase.pvacuum_double_t_first_set, doc=r"""first : double""")
+    second = property(_libBornAgainBase.pvacuum_double_t_second_get, _libBornAgainBase.pvacuum_double_t_second_set, doc=r"""second : double""")
+    def __len__(self):
+        return 2
+    def __repr__(self):
+        return str((self.first, self.second))
+    def __getitem__(self, index): 
+        if not (index % 2):
+            return self.first
+        else:
+            return self.second
+    def __setitem__(self, index, val):
+        if not (index % 2):
+            self.first = val
+        else:
+            self.second = val
+    __swig_destroy__ = _libBornAgainBase.delete_pvacuum_double_t
+
+# Register pvacuum_double_t in _libBornAgainBase:
+_libBornAgainBase.pvacuum_double_t_swigregister(pvacuum_double_t)
+
+class vector_pvacuum_double_t(object):
+    r"""Proxy of C++ std::vector< std::pair< double,double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_pvacuum_double_t self) -> SwigPyIterator"""
+        return _libBornAgainBase.vector_pvacuum_double_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_pvacuum_double_t self) -> bool"""
+        return _libBornAgainBase.vector_pvacuum_double_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_pvacuum_double_t self) -> bool"""
+        return _libBornAgainBase.vector_pvacuum_double_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainBase.vector_pvacuum_double_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j) -> vector_pvacuum_double_t"""
+        return _libBornAgainBase.vector_pvacuum_double_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)
+        __setslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j, vector_pvacuum_double_t v)
+        """
+        return _libBornAgainBase.vector_pvacuum_double_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)"""
+        return _libBornAgainBase.vector_pvacuum_double_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i)
+        __delitem__(vector_pvacuum_double_t self, PySliceObject * slice)
+        """
+        return _libBornAgainBase.vector_pvacuum_double_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_pvacuum_double_t self, PySliceObject * slice) -> vector_pvacuum_double_t
+        __getitem__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i) -> pvacuum_double_t
+        """
+        return _libBornAgainBase.vector_pvacuum_double_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_pvacuum_double_t self, PySliceObject * slice, vector_pvacuum_double_t v)
+        __setitem__(vector_pvacuum_double_t self, PySliceObject * slice)
+        __setitem__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::difference_type i, pvacuum_double_t x)
+        """
+        return _libBornAgainBase.vector_pvacuum_double_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_pvacuum_double_t self) -> pvacuum_double_t"""
+        return _libBornAgainBase.vector_pvacuum_double_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_pvacuum_double_t self, pvacuum_double_t x)"""
+        return _libBornAgainBase.vector_pvacuum_double_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_pvacuum_double_t self) -> bool"""
+        return _libBornAgainBase.vector_pvacuum_double_t_empty(self)
+
+    def size(self):
+        r"""size(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainBase.vector_pvacuum_double_t_size(self)
+
+    def swap(self, v):
+        r"""swap(vector_pvacuum_double_t self, vector_pvacuum_double_t v)"""
+        return _libBornAgainBase.vector_pvacuum_double_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainBase.vector_pvacuum_double_t_begin(self)
+
+    def end(self):
+        r"""end(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainBase.vector_pvacuum_double_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainBase.vector_pvacuum_double_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainBase.vector_pvacuum_double_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_pvacuum_double_t self)"""
+        return _libBornAgainBase.vector_pvacuum_double_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::allocator_type"""
+        return _libBornAgainBase.vector_pvacuum_double_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_pvacuum_double_t self)"""
+        return _libBornAgainBase.vector_pvacuum_double_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator pos) -> std::vector< std::pair< double,double > >::iterator
+        erase(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator first, std::vector< std::pair< double,double > >::iterator last) -> std::vector< std::pair< double,double > >::iterator
+        """
+        return _libBornAgainBase.vector_pvacuum_double_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_pvacuum_double_t self) -> vector_pvacuum_double_t
+        __init__(vector_pvacuum_double_t self, vector_pvacuum_double_t other) -> vector_pvacuum_double_t
+        __init__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type size) -> vector_pvacuum_double_t
+        __init__(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type size, pvacuum_double_t value) -> vector_pvacuum_double_t
+        """
+        _libBornAgainBase.vector_pvacuum_double_t_swiginit(self, _libBornAgainBase.new_vector_pvacuum_double_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_pvacuum_double_t self, pvacuum_double_t x)"""
+        return _libBornAgainBase.vector_pvacuum_double_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_pvacuum_double_t self) -> pvacuum_double_t"""
+        return _libBornAgainBase.vector_pvacuum_double_t_front(self)
+
+    def back(self):
+        r"""back(vector_pvacuum_double_t self) -> pvacuum_double_t"""
+        return _libBornAgainBase.vector_pvacuum_double_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type n, pvacuum_double_t x)"""
+        return _libBornAgainBase.vector_pvacuum_double_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type new_size)
+        resize(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type new_size, pvacuum_double_t x)
+        """
+        return _libBornAgainBase.vector_pvacuum_double_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator pos, pvacuum_double_t x) -> std::vector< std::pair< double,double > >::iterator
+        insert(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::size_type n, pvacuum_double_t x)
+        """
+        return _libBornAgainBase.vector_pvacuum_double_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_pvacuum_double_t self, std::vector< std::pair< double,double > >::size_type n)"""
+        return _libBornAgainBase.vector_pvacuum_double_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_pvacuum_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainBase.vector_pvacuum_double_t_capacity(self)
+    __swig_destroy__ = _libBornAgainBase.delete_vector_pvacuum_double_t
+
+# Register vector_pvacuum_double_t in _libBornAgainBase:
+_libBornAgainBase.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
+
 class ICloneable(object):
     r"""
 
@@ -354,8 +1889,8 @@ BACKWARD_FFT = _libBornAgainBase.BACKWARD_FFT
 
 def FastFourierTransform(*args):
     r"""
-    FastFourierTransform(std::vector< complex_t,std::allocator< complex_t > > const & data, MathFunctions::EFFTDirection tcase) -> std::vector< complex_t,std::allocator< complex_t > >
-    FastFourierTransform(std::vector< double,std::allocator< double > > const & data, MathFunctions::EFFTDirection tcase) -> std::vector< complex_t,std::allocator< complex_t > >
+    FastFourierTransform(vector_complex_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
+    FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
     std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
 
     simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
@@ -365,7 +1900,7 @@ def FastFourierTransform(*args):
 
 def ConvolveFFT(signal, resfunc):
     r"""
-    ConvolveFFT(std::vector< double,std::allocator< double > > const & signal, std::vector< double,std::allocator< double > > const & resfunc) -> std::vector< complex_t,std::allocator< complex_t > >
+    ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> vector_complex_t
     std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
 
     convolution of two real vectors of equal size 
@@ -404,6 +1939,54 @@ def GeneratePoissonRandom(average):
 
     """
     return _libBornAgainBase.GeneratePoissonRandom(average)
+class ThreadInfo(object):
+    r"""
+
+
+    Information to run simulation with dedicated number of threads.
+
+    C++ includes: ThreadInfo.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(ThreadInfo self) -> ThreadInfo
+        ThreadInfo::ThreadInfo()
+
+        """
+        _libBornAgainBase.ThreadInfo_swiginit(self, _libBornAgainBase.new_ThreadInfo())
+    n_threads = property(_libBornAgainBase.ThreadInfo_n_threads_get, _libBornAgainBase.ThreadInfo_n_threads_set, doc=r"""n_threads : unsigned int""")
+    n_batches = property(_libBornAgainBase.ThreadInfo_n_batches_get, _libBornAgainBase.ThreadInfo_n_batches_set, doc=r"""n_batches : unsigned int""")
+    current_batch = property(_libBornAgainBase.ThreadInfo_current_batch_get, _libBornAgainBase.ThreadInfo_current_batch_set, doc=r"""current_batch : unsigned int""")
+    __swig_destroy__ = _libBornAgainBase.delete_ThreadInfo
+
+# Register ThreadInfo in _libBornAgainBase:
+_libBornAgainBase.ThreadInfo_swigregister(ThreadInfo)
+cvar = _libBornAgainBase.cvar
+I = cvar.I
+nanometer = cvar.nanometer
+angstrom = cvar.angstrom
+micrometer = cvar.micrometer
+millimeter = cvar.millimeter
+meter = cvar.meter
+nm = cvar.nm
+nm2 = cvar.nm2
+barn = cvar.barn
+radian = cvar.radian
+milliradian = cvar.milliradian
+degree = cvar.degree
+steradian = cvar.steradian
+rad = cvar.rad
+mrad = cvar.mrad
+sr = cvar.sr
+deg = cvar.deg
+tesla = cvar.tesla
+gauss = cvar.gauss
+
 
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     r"""
@@ -414,6 +1997,788 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
 
     """
     return _libBornAgainBase.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
+class Bin1D(object):
+    r"""Proxy of C++ Bin1D class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Bin1D self) -> Bin1D
+        __init__(Bin1D self, double lower, double upper) -> Bin1D
+        Bin1D::Bin1D(double lower, double upper)
+
+        """
+        _libBornAgainBase.Bin1D_swiginit(self, _libBornAgainBase.new_Bin1D(*args))
+    m_lower = property(_libBornAgainBase.Bin1D_m_lower_get, _libBornAgainBase.Bin1D_m_lower_set, doc=r"""m_lower : double""")
+    m_upper = property(_libBornAgainBase.Bin1D_m_upper_get, _libBornAgainBase.Bin1D_m_upper_set, doc=r"""m_upper : double""")
+
+    def getMidPoint(self):
+        r"""
+        getMidPoint(Bin1D self) -> double
+        double Bin1D::getMidPoint() const
+
+        """
+        return _libBornAgainBase.Bin1D_getMidPoint(self)
+
+    def getBinSize(self):
+        r"""
+        getBinSize(Bin1D self) -> double
+        double Bin1D::getBinSize() const
+
+        """
+        return _libBornAgainBase.Bin1D_getBinSize(self)
+    __swig_destroy__ = _libBornAgainBase.delete_Bin1D
+
+# Register Bin1D in _libBornAgainBase:
+_libBornAgainBase.Bin1D_swigregister(Bin1D)
+
+
+def BinContains(bin, value):
+    r"""
+    BinContains(Bin1D bin, double value) -> bool
+    bool BinContains(const Bin1D &bin, double value)
+
+    Checks if value is contained in bin: value in [m_lower, m_upper) 
+
+    """
+    return _libBornAgainBase.BinContains(bin, value)
+class Bin1DKVector(object):
+    r"""
+
+
+    An one-dimensional range of kvector_t's.
+
+    C++ includes: Bin.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Bin1DKVector self) -> Bin1DKVector
+        __init__(Bin1DKVector self, kvector_t lower, kvector_t upper) -> Bin1DKVector
+        __init__(Bin1DKVector self, double wavelength, Bin1D alpha_bin, Bin1D phi_bin) -> Bin1DKVector
+        Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
+
+        creation on  Bin1DKVector from alpha and phi bins 
+
+        """
+        _libBornAgainBase.Bin1DKVector_swiginit(self, _libBornAgainBase.new_Bin1DKVector(*args))
+
+    def getMidPoint(self):
+        r"""
+        getMidPoint(Bin1DKVector self) -> kvector_t
+        kvector_t Bin1DKVector::getMidPoint() const
+
+        """
+        return _libBornAgainBase.Bin1DKVector_getMidPoint(self)
+
+    def getDelta(self):
+        r"""
+        getDelta(Bin1DKVector self) -> kvector_t
+        kvector_t Bin1DKVector::getDelta() const
+
+        """
+        return _libBornAgainBase.Bin1DKVector_getDelta(self)
+    m_q_lower = property(_libBornAgainBase.Bin1DKVector_m_q_lower_get, _libBornAgainBase.Bin1DKVector_m_q_lower_set, doc=r"""m_q_lower : kvector_t""")
+    m_q_upper = property(_libBornAgainBase.Bin1DKVector_m_q_upper_get, _libBornAgainBase.Bin1DKVector_m_q_upper_set, doc=r"""m_q_upper : kvector_t""")
+    __swig_destroy__ = _libBornAgainBase.delete_Bin1DKVector
+
+# Register Bin1DKVector in _libBornAgainBase:
+_libBornAgainBase.Bin1DKVector_swigregister(Bin1DKVector)
+
+class Bin1DCVector(object):
+    r"""
+
+
+    An one-dimensional range of cvector_t's.
+
+    C++ includes: Bin.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Bin1DCVector self) -> Bin1DCVector
+        __init__(Bin1DCVector self, cvector_t lower, cvector_t upper) -> Bin1DCVector
+        __init__(Bin1DCVector self, double wavelength, Bin1D alpha_bin, Bin1D phi_bin) -> Bin1DCVector
+        Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin)
+
+        creation on  Bin1DCVector from alpha and phi bins 
+
+        """
+        _libBornAgainBase.Bin1DCVector_swiginit(self, _libBornAgainBase.new_Bin1DCVector(*args))
+
+    def getMidPoint(self):
+        r"""
+        getMidPoint(Bin1DCVector self) -> cvector_t
+        cvector_t Bin1DCVector::getMidPoint() const
+
+        """
+        return _libBornAgainBase.Bin1DCVector_getMidPoint(self)
+
+    def getDelta(self):
+        r"""
+        getDelta(Bin1DCVector self) -> cvector_t
+        cvector_t Bin1DCVector::getDelta() const
+
+        """
+        return _libBornAgainBase.Bin1DCVector_getDelta(self)
+    m_q_lower = property(_libBornAgainBase.Bin1DCVector_m_q_lower_get, _libBornAgainBase.Bin1DCVector_m_q_lower_set, doc=r"""m_q_lower : cvector_t""")
+    m_q_upper = property(_libBornAgainBase.Bin1DCVector_m_q_upper_get, _libBornAgainBase.Bin1DCVector_m_q_upper_set, doc=r"""m_q_upper : cvector_t""")
+    __swig_destroy__ = _libBornAgainBase.delete_Bin1DCVector
+
+# Register Bin1DCVector in _libBornAgainBase:
+_libBornAgainBase.Bin1DCVector_swigregister(Bin1DCVector)
+
+class IAxis(object):
+    r"""
+
+
+    Interface for one-dimensional axes.
+
+    C++ includes: IAxis.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IAxis self) -> IAxis
+        virtual IAxis* IAxis::clone() const =0
+
+        clone function 
+
+        """
+        return _libBornAgainBase.IAxis_clone(self)
+    __swig_destroy__ = _libBornAgainBase.delete_IAxis
+
+    def size(self):
+        r"""
+        size(IAxis self) -> size_t
+        virtual size_t IAxis::size() const =0
+
+        retrieve the number of bins 
+
+        """
+        return _libBornAgainBase.IAxis_size(self)
+
+    def getName(self):
+        r"""
+        getName(IAxis self) -> std::string
+        std::string IAxis::getName() const
+
+        retrieve the label of the axis 
+
+        """
+        return _libBornAgainBase.IAxis_getName(self)
+
+    def setName(self, name):
+        r"""
+        setName(IAxis self, std::string name)
+        void IAxis::setName(std::string name)
+
+        Sets the axis label. 
+
+        """
+        return _libBornAgainBase.IAxis_setName(self, name)
+
+    def getBin(self, index):
+        r"""
+        getBin(IAxis self, size_t index) -> Bin1D
+        virtual Bin1D IAxis::getBin(size_t index) const =0
+
+        retrieve a 1d bin for the given index 
+
+        """
+        return _libBornAgainBase.IAxis_getBin(self, index)
+
+    def getMin(self):
+        r"""
+        getMin(IAxis self) -> double
+        virtual double IAxis::getMin() const =0
+
+        Returns value of first point of axis. 
+
+        """
+        return _libBornAgainBase.IAxis_getMin(self)
+
+    def getMax(self):
+        r"""
+        getMax(IAxis self) -> double
+        virtual double IAxis::getMax() const =0
+
+        Returns value of last point of axis. 
+
+        """
+        return _libBornAgainBase.IAxis_getMax(self)
+
+    def getBinCenter(self, index):
+        r"""
+        getBinCenter(IAxis self, size_t index) -> double
+        virtual double IAxis::getBinCenter(size_t index) const =0
+
+        """
+        return _libBornAgainBase.IAxis_getBinCenter(self, index)
+
+    def findClosestIndex(self, value):
+        r"""
+        findClosestIndex(IAxis self, double value) -> size_t
+        virtual size_t IAxis::findClosestIndex(double value) const =0
+
+        find bin index which is best match for given value 
+
+        """
+        return _libBornAgainBase.IAxis_findClosestIndex(self, value)
+
+    def __eq__(self, right):
+        r"""__eq__(IAxis self, IAxis right) -> bool"""
+        return _libBornAgainBase.IAxis___eq__(self, right)
+
+    def __ne__(self, right):
+        r"""__ne__(IAxis self, IAxis right) -> bool"""
+        return _libBornAgainBase.IAxis___ne__(self, right)
+
+    def getBinCenters(self):
+        r"""
+        getBinCenters(IAxis self) -> vdouble1d_t
+        std::vector< double > IAxis::getBinCenters() const
+
+        """
+        return _libBornAgainBase.IAxis_getBinCenters(self)
+
+    def getBinBoundaries(self):
+        r"""
+        getBinBoundaries(IAxis self) -> vdouble1d_t
+        std::vector< double > IAxis::getBinBoundaries() const
+
+        """
+        return _libBornAgainBase.IAxis_getBinBoundaries(self)
+
+    def createClippedAxis(self, left, right):
+        r"""
+        createClippedAxis(IAxis self, double left, double right) -> IAxis
+        IAxis * IAxis::createClippedAxis(double left, double right) const
+
+        Creates a new clipped axis. 
+
+        """
+        return _libBornAgainBase.IAxis_createClippedAxis(self, left, right)
+
+    def contains(self, value):
+        r"""
+        contains(IAxis self, double value) -> bool
+        bool IAxis::contains(double value) const
+
+        Returns true if axis contains given point. 
+
+        """
+        return _libBornAgainBase.IAxis_contains(self, value)
+
+# Register IAxis in _libBornAgainBase:
+_libBornAgainBase.IAxis_swigregister(IAxis)
+
+
+def HaveSameNameAndShape(left, right):
+    r"""
+    HaveSameNameAndShape(IAxis left, IAxis right) -> bool
+    bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
+
+    global helper function for comparison of axes 
+
+    """
+    return _libBornAgainBase.HaveSameNameAndShape(left, right)
+class VariableBinAxis(IAxis):
+    r"""
+
+
+    Axis with variable bin size.
+
+    C++ includes: VariableBinAxis.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, name, nbins, bin_boundaries):
+        r"""
+        __init__(VariableBinAxis self, std::string const & name, size_t nbins, vdouble1d_t bin_boundaries) -> VariableBinAxis
+        VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins, const std::vector< double > &bin_boundaries)
+
+        VariableBinAxis constructor.
+
+        Parameters:
+        -----------
+
+        name: 
+        Axis name
+
+        nbins: 
+        number of bins
+
+        bin_boundaries: 
+        Array of size nbins+1 containing low-edges for each bin and upper edge of last bin. 
+
+        """
+        _libBornAgainBase.VariableBinAxis_swiginit(self, _libBornAgainBase.new_VariableBinAxis(name, nbins, bin_boundaries))
+    __swig_destroy__ = _libBornAgainBase.delete_VariableBinAxis
+
+    def clone(self):
+        r"""
+        clone(VariableBinAxis self) -> VariableBinAxis
+        VariableBinAxis * VariableBinAxis::clone() const
+
+        clone function 
+
+        """
+        return _libBornAgainBase.VariableBinAxis_clone(self)
+
+    def size(self):
+        r"""
+        size(VariableBinAxis self) -> size_t
+        size_t VariableBinAxis::size() const
+
+        retrieve the number of bins 
+
+        """
+        return _libBornAgainBase.VariableBinAxis_size(self)
+
+    def getBin(self, index):
+        r"""
+        getBin(VariableBinAxis self, size_t index) -> Bin1D
+        Bin1D VariableBinAxis::getBin(size_t index) const
+
+        retrieve a 1d bin for the given index 
+
+        """
+        return _libBornAgainBase.VariableBinAxis_getBin(self, index)
+
+    def getMin(self):
+        r"""
+        getMin(VariableBinAxis self) -> double
+        double VariableBinAxis::getMin() const
+
+        Returns value of first point of axis. 
+
+        """
+        return _libBornAgainBase.VariableBinAxis_getMin(self)
+
+    def getMax(self):
+        r"""
+        getMax(VariableBinAxis self) -> double
+        double VariableBinAxis::getMax() const
+
+        Returns value of last point of axis. 
+
+        """
+        return _libBornAgainBase.VariableBinAxis_getMax(self)
+
+    def getBinCenter(self, index):
+        r"""
+        getBinCenter(VariableBinAxis self, size_t index) -> double
+        double VariableBinAxis::getBinCenter(size_t index) const
+
+        """
+        return _libBornAgainBase.VariableBinAxis_getBinCenter(self, index)
+
+    def findClosestIndex(self, value):
+        r"""
+        findClosestIndex(VariableBinAxis self, double value) -> size_t
+        size_t VariableBinAxis::findClosestIndex(double value) const
+
+        find bin index which is best match for given value 
+
+        """
+        return _libBornAgainBase.VariableBinAxis_findClosestIndex(self, value)
+
+    def getBinCenters(self):
+        r"""
+        getBinCenters(VariableBinAxis self) -> vdouble1d_t
+        std::vector< double > VariableBinAxis::getBinCenters() const
+
+        """
+        return _libBornAgainBase.VariableBinAxis_getBinCenters(self)
+
+    def getBinBoundaries(self):
+        r"""
+        getBinBoundaries(VariableBinAxis self) -> vdouble1d_t
+        std::vector<double> VariableBinAxis::getBinBoundaries() const
+
+        """
+        return _libBornAgainBase.VariableBinAxis_getBinBoundaries(self)
+
+    def createClippedAxis(self, left, right):
+        r"""
+        createClippedAxis(VariableBinAxis self, double left, double right) -> VariableBinAxis
+        VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const
+
+        Creates a new clipped axis. 
+
+        """
+        return _libBornAgainBase.VariableBinAxis_createClippedAxis(self, left, right)
+
+    def __getitem__(self, i):
+        r"""__getitem__(VariableBinAxis self, unsigned int i) -> double"""
+        return _libBornAgainBase.VariableBinAxis___getitem__(self, i)
+
+# Register VariableBinAxis in _libBornAgainBase:
+_libBornAgainBase.VariableBinAxis_swigregister(VariableBinAxis)
+
+class ConstKBinAxis(VariableBinAxis):
+    r"""
+
+
+    Axis with fixed bin size in sin(angle) space.
+
+    C++ includes: ConstKBinAxis.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, name, nbins, start, end):
+        r"""
+        __init__(ConstKBinAxis self, std::string const & name, size_t nbins, double start, double end) -> ConstKBinAxis
+        ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start, double end)
+
+        ConstKBinAxis constructor.
+
+        Parameters:
+        -----------
+
+        name: 
+        Axis name
+
+        nbins: 
+        number of bins
+
+        start: 
+        low edge of first bin
+
+        end: 
+        upper edge of last bin 
+
+        """
+        _libBornAgainBase.ConstKBinAxis_swiginit(self, _libBornAgainBase.new_ConstKBinAxis(name, nbins, start, end))
+    __swig_destroy__ = _libBornAgainBase.delete_ConstKBinAxis
+
+    def clone(self):
+        r"""
+        clone(ConstKBinAxis self) -> ConstKBinAxis
+        ConstKBinAxis * ConstKBinAxis::clone() const final
+
+        clone function 
+
+        """
+        return _libBornAgainBase.ConstKBinAxis_clone(self)
+
+    def createClippedAxis(self, left, right):
+        r"""
+        createClippedAxis(ConstKBinAxis self, double left, double right) -> ConstKBinAxis
+        ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const final
+
+        Creates a new clipped axis. 
+
+        """
+        return _libBornAgainBase.ConstKBinAxis_createClippedAxis(self, left, right)
+
+# Register ConstKBinAxis in _libBornAgainBase:
+_libBornAgainBase.ConstKBinAxis_swigregister(ConstKBinAxis)
+
+class CustomBinAxis(VariableBinAxis):
+    r"""
+
+
+    Axis with fixed bin size in sin(angle) space used for numerical comparison with IsGisaxs. The main feature of the axis is that it produces zero bin sizes.
+
+    C++ includes: CustomBinAxis.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, name, nbins, start, end):
+        r"""
+        __init__(CustomBinAxis self, std::string const & name, size_t nbins, double start, double end) -> CustomBinAxis
+        CustomBinAxis::CustomBinAxis(const std::string &name, size_t nbins, double start, double end)
+
+        CustomBinAxis constructor.
+
+        Parameters:
+        -----------
+
+        name: 
+        Axis name
+
+        nbins: 
+        number of bins
+
+        start: 
+        center of first bin (IsGisaxs convention)
+
+        end: 
+        center of last bin (IsGisaxs convention) 
+
+        """
+        _libBornAgainBase.CustomBinAxis_swiginit(self, _libBornAgainBase.new_CustomBinAxis(name, nbins, start, end))
+    __swig_destroy__ = _libBornAgainBase.delete_CustomBinAxis
+
+    def clone(self):
+        r"""
+        clone(CustomBinAxis self) -> CustomBinAxis
+        CustomBinAxis * CustomBinAxis::clone() const
+
+        clone function 
+
+        """
+        return _libBornAgainBase.CustomBinAxis_clone(self)
+
+    def getBin(self, index):
+        r"""
+        getBin(CustomBinAxis self, size_t index) -> Bin1D
+        Bin1D CustomBinAxis::getBin(size_t index) const
+
+        retrieve a 1d bin for the given index 
+
+        """
+        return _libBornAgainBase.CustomBinAxis_getBin(self, index)
+
+    def getBinCenters(self):
+        r"""
+        getBinCenters(CustomBinAxis self) -> vdouble1d_t
+        std::vector< double > CustomBinAxis::getBinCenters() const
+
+        """
+        return _libBornAgainBase.CustomBinAxis_getBinCenters(self)
+
+    def createClippedAxis(self, left, right):
+        r"""
+        createClippedAxis(CustomBinAxis self, double left, double right) -> CustomBinAxis
+        CustomBinAxis * CustomBinAxis::createClippedAxis(double left, double right) const
+
+        Creates a new clipped axis. 
+
+        """
+        return _libBornAgainBase.CustomBinAxis_createClippedAxis(self, left, right)
+
+# Register CustomBinAxis in _libBornAgainBase:
+_libBornAgainBase.CustomBinAxis_swigregister(CustomBinAxis)
+
+class FixedBinAxis(IAxis):
+    r"""
+
+
+    Axis with fixed bin size.
+
+    C++ includes: FixedBinAxis.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, name, nbins, start, end):
+        r"""
+        __init__(FixedBinAxis self, std::string const & name, size_t nbins, double start, double end) -> FixedBinAxis
+        FixedBinAxis::FixedBinAxis(const std::string &name, size_t nbins, double start, double end)
+
+        FixedBinAxis constructor.
+
+        Parameters:
+        -----------
+
+        name: 
+        Axis name
+
+        nbins: 
+        number of bins
+
+        start: 
+        low edge of first bin
+
+        end: 
+        upper edge of last bin 
+
+        """
+        _libBornAgainBase.FixedBinAxis_swiginit(self, _libBornAgainBase.new_FixedBinAxis(name, nbins, start, end))
+    __swig_destroy__ = _libBornAgainBase.delete_FixedBinAxis
+
+    def clone(self):
+        r"""
+        clone(FixedBinAxis self) -> FixedBinAxis
+        FixedBinAxis * FixedBinAxis::clone() const
+
+        clone function 
+
+        """
+        return _libBornAgainBase.FixedBinAxis_clone(self)
+
+    def size(self):
+        r"""
+        size(FixedBinAxis self) -> size_t
+        size_t FixedBinAxis::size() const
+
+        retrieve the number of bins 
+
+        """
+        return _libBornAgainBase.FixedBinAxis_size(self)
+
+    def getBin(self, index):
+        r"""
+        getBin(FixedBinAxis self, size_t index) -> Bin1D
+        Bin1D FixedBinAxis::getBin(size_t index) const
+
+        retrieve a 1d bin for the given index 
+
+        """
+        return _libBornAgainBase.FixedBinAxis_getBin(self, index)
+
+    def getMin(self):
+        r"""
+        getMin(FixedBinAxis self) -> double
+        double FixedBinAxis::getMin() const
+
+        Returns value of first point of axis. 
+
+        """
+        return _libBornAgainBase.FixedBinAxis_getMin(self)
+
+    def getMax(self):
+        r"""
+        getMax(FixedBinAxis self) -> double
+        double FixedBinAxis::getMax() const
+
+        Returns value of last point of axis. 
+
+        """
+        return _libBornAgainBase.FixedBinAxis_getMax(self)
+
+    def getBinCenter(self, index):
+        r"""
+        getBinCenter(FixedBinAxis self, size_t index) -> double
+        double FixedBinAxis::getBinCenter(size_t index) const
+
+        """
+        return _libBornAgainBase.FixedBinAxis_getBinCenter(self, index)
+
+    def findClosestIndex(self, value):
+        r"""
+        findClosestIndex(FixedBinAxis self, double value) -> size_t
+        size_t FixedBinAxis::findClosestIndex(double value) const
+
+        find bin index which is best match for given value 
+
+        """
+        return _libBornAgainBase.FixedBinAxis_findClosestIndex(self, value)
+
+    def getBinCenters(self):
+        r"""
+        getBinCenters(FixedBinAxis self) -> vdouble1d_t
+        std::vector< double > FixedBinAxis::getBinCenters() const
+
+        """
+        return _libBornAgainBase.FixedBinAxis_getBinCenters(self)
+
+    def getBinBoundaries(self):
+        r"""
+        getBinBoundaries(FixedBinAxis self) -> vdouble1d_t
+        std::vector< double > FixedBinAxis::getBinBoundaries() const
+
+        """
+        return _libBornAgainBase.FixedBinAxis_getBinBoundaries(self)
+
+    def createClippedAxis(self, left, right):
+        r"""
+        createClippedAxis(FixedBinAxis self, double left, double right) -> FixedBinAxis
+        FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
+
+        Creates a new clipped axis. 
+
+        """
+        return _libBornAgainBase.FixedBinAxis_createClippedAxis(self, left, right)
+
+    def __getitem__(self, i):
+        r"""__getitem__(FixedBinAxis self, unsigned int i) -> double"""
+        return _libBornAgainBase.FixedBinAxis___getitem__(self, i)
+
+# Register FixedBinAxis in _libBornAgainBase:
+_libBornAgainBase.FixedBinAxis_swigregister(FixedBinAxis)
+
+class IPixel(object):
+    r"""
+
+
+    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+
+    C++ includes: IPixel.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainBase.delete_IPixel
+
+    def clone(self):
+        r"""
+        clone(IPixel self) -> IPixel
+        virtual IPixel* IPixel::clone() const =0
+
+        """
+        return _libBornAgainBase.IPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
+        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
+
+        """
+        return _libBornAgainBase.IPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
+        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
+
+        """
+        return _libBornAgainBase.IPixel_getK(self, x, y, wavelength)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(IPixel self, double x, double y) -> double
+        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+
+        """
+        return _libBornAgainBase.IPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(IPixel self) -> double
+        virtual double IPixel::getSolidAngle() const =0
+
+        """
+        return _libBornAgainBase.IPixel_getSolidAngle(self)
+
+# Register IPixel in _libBornAgainBase:
+_libBornAgainBase.IPixel_swigregister(IPixel)
+
 class kvector_t(object):
     r"""
 
@@ -509,7 +2874,7 @@ class kvector_t(object):
     def conj(self):
         r"""
         conj(kvector_t self) -> kvector_t
-        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
 
         """
         return _libBornAgainBase.kvector_t_conj(self)
@@ -557,7 +2922,9 @@ class kvector_t(object):
     def phi(self):
         r"""
         phi(kvector_t self) -> double
-        double BasicVector3D< double >::phi() const
+        double BasicVector3D< T >::phi() const
+
+        Returns azimuth angle. 
 
         """
         return _libBornAgainBase.kvector_t_phi(self)
@@ -565,7 +2932,9 @@ class kvector_t(object):
     def theta(self):
         r"""
         theta(kvector_t self) -> double
-        double BasicVector3D< double >::theta() const
+        double BasicVector3D< T >::theta() const
+
+        Returns polar angle. 
 
         """
         return _libBornAgainBase.kvector_t_theta(self)
@@ -573,7 +2942,9 @@ class kvector_t(object):
     def cosTheta(self):
         r"""
         cosTheta(kvector_t self) -> double
-        double BasicVector3D< double >::cosTheta() const
+        double BasicVector3D< T >::cosTheta() const
+
+        Returns cosine of polar angle. 
 
         """
         return _libBornAgainBase.kvector_t_cosTheta(self)
@@ -581,7 +2952,9 @@ class kvector_t(object):
     def sin2Theta(self):
         r"""
         sin2Theta(kvector_t self) -> double
-        double BasicVector3D< double >::sin2Theta() const
+        double BasicVector3D< T >::sin2Theta() const
+
+        Returns squared sine of polar angle. 
 
         """
         return _libBornAgainBase.kvector_t_sin2Theta(self)
@@ -589,7 +2962,7 @@ class kvector_t(object):
     def unit(self):
         r"""
         unit(kvector_t self) -> kvector_t
-        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
 
         """
         return _libBornAgainBase.kvector_t_unit(self)
@@ -597,7 +2970,9 @@ class kvector_t(object):
     def complex(self):
         r"""
         complex(kvector_t self) -> cvector_t
-        BasicVector3D< std::complex< double > > BasicVector3D< double >::complex() const
+        BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
+
+        Returns this, trivially converted to complex type. 
 
         """
         return _libBornAgainBase.kvector_t_complex(self)
@@ -605,7 +2980,7 @@ class kvector_t(object):
     def real(self):
         r"""
         real(kvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const
+        BasicVector3D< double > BasicVector3D< complex_t >::real() const
 
         """
         return _libBornAgainBase.kvector_t_real(self)
@@ -613,7 +2988,9 @@ class kvector_t(object):
     def angle(self, v):
         r"""
         angle(kvector_t self, kvector_t v) -> double
-        double BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
+        double BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
+
+        Returns angle with respect to another vector. 
 
         """
         return _libBornAgainBase.kvector_t_angle(self, v)
@@ -631,26 +3008,6 @@ class kvector_t(object):
 
 # Register kvector_t in _libBornAgainBase:
 _libBornAgainBase.kvector_t_swigregister(kvector_t)
-cvar = _libBornAgainBase.cvar
-I = cvar.I
-nanometer = cvar.nanometer
-angstrom = cvar.angstrom
-micrometer = cvar.micrometer
-millimeter = cvar.millimeter
-meter = cvar.meter
-nm = cvar.nm
-nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
-rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
-deg = cvar.deg
-tesla = cvar.tesla
-gauss = cvar.gauss
 
 class vector_kvector_t(object):
     r"""Proxy of C++ std::vector< BasicVector3D< double > > class."""
@@ -914,7 +3271,7 @@ class cvector_t(object):
     def conj(self):
         r"""
         conj(cvector_t self) -> cvector_t
-        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::conj() const
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
 
         """
         return _libBornAgainBase.cvector_t_conj(self)
@@ -962,7 +3319,7 @@ class cvector_t(object):
     def unit(self):
         r"""
         unit(cvector_t self) -> cvector_t
-        BasicVector3D< std::complex< double > > BasicVector3D< std::complex< double > >::unit() const
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
 
         """
         return _libBornAgainBase.cvector_t_unit(self)
@@ -970,7 +3327,7 @@ class cvector_t(object):
     def real(self):
         r"""
         real(cvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< std::complex< double > >::real() const
+        BasicVector3D< double > BasicVector3D< complex_t >::real() const
 
         """
         return _libBornAgainBase.cvector_t_real(self)

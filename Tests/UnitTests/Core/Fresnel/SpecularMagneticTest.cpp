@@ -7,7 +7,7 @@
 #include "Core/Multilayer/SpecularMagneticNewTanhStrategy.h"
 #include "Core/Multilayer/SpecularMagneticStrategy.h"
 #include "Core/Multilayer/SpecularScalarTanhStrategy.h"
-#include "Core/Parametrization/SimulationOptions.h"
+#include "Core/RT/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>
 

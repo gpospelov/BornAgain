@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Core/Fitting/ObjectiveMetric.h"
+#include "Core/Data/OutputData.h"
 #include "Core/Fitting/ObjectiveMetricUtils.h"
 #include "Core/Fitting/SimDataPair.h"
-#include "Core/Data/OutputData.h"
 #include <cmath>
 #include <limits>
 

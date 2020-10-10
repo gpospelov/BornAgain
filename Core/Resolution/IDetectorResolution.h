@@ -17,7 +17,7 @@
 
 #include "Base/Types/ICloneable.h"
 #include "Core/Data/OutputData.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 
 //! Interface for detector resolution algorithms
 //! @ingroup algorithms_internal

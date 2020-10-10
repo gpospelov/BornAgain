@@ -17,7 +17,7 @@
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Export/ExportToPython.h"
-#include "Core/InputOutput/IntensityDataIOFactory.h"
+#include "Core/Histo/IntensityDataIOFactory.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
 #include <fstream>

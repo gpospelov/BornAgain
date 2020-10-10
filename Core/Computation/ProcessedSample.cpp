@@ -22,8 +22,8 @@
 #include "Core/Multilayer/MultiLayerUtils.h"
 #include "Core/Multilayer/ScalarFresnelMap.h"
 #include "Core/Multilayer/Slice.h"
-#include "Core/Parametrization/SimulationOptions.h"
 #include "Core/Particle/HomogeneousRegion.h"
+#include "Core/RT/SimulationOptions.h"
 
 namespace
 {

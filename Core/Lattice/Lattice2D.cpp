@@ -14,8 +14,8 @@
 
 #include "Core/Lattice/Lattice2D.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Parametrization/ParameterPool.h"
-#include "Core/Parametrization/RealParameter.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include <cmath>
 
 // ************************************************************************** //

@@ -18,7 +18,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/ICloneable.h"
 #include "Core/Correlations/IDistribution2DSampler.h"
-#include "Core/Parametrization/INode.h"
+#include "Param/Node/INode.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal

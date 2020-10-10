@@ -1,7 +1,7 @@
 #include "Core/SampleBuilderEngine/SampleBuilderNode.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/ParameterPool.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Param/Base/ParameterPool.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>

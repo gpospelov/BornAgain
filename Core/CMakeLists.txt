@@ -5,7 +5,6 @@
 set(name Core)
 set(lib BornAgain${name})
 
-
 # --- source and include files ---
 
 file(GLOB source_files */*.cpp)
@@ -27,8 +26,7 @@ set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 # --- external dependencies ---
 
 target_link_libraries(${lib}
-    ${BornAgainBase_LIBRARY}
-    ${BornAgainFit_LIBRARY}
+    ${BornAgainParam_LIBRARY}
     ${CMAKE_THREAD_LIBS_INIT})
 
 if(BORNAGAIN_TIFF_SUPPORT)

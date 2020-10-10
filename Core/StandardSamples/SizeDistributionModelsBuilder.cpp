@@ -19,11 +19,11 @@
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Parametrization/Distributions.h"
-#include "Core/Parametrization/ParameterPattern.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"
 #include "Core/StandardSamples/ReferenceMaterials.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
 
 MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {

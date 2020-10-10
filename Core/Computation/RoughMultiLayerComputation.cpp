@@ -21,7 +21,7 @@
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/Slice.h"
-#include "Core/Pixel/SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 
 #include <cerf>

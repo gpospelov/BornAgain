@@ -22,12 +22,12 @@
 #ifdef _WIN32
 #pragma warning(push)
 #pragma warning(disable : 4267)
-#include "Math/GSLNLSMinimizer.h"
+#include <Math/GSLNLSMinimizer.h>
 #pragma warning(pop)
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#include "Math/GSLNLSMinimizer.h"
+#include <Math/GSLNLSMinimizer.h>
 #pragma GCC diagnostic pop
 #endif
 

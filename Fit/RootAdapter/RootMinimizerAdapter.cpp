@@ -20,7 +20,7 @@
 #include "Fit/RootAdapter/RootResidualFunction.h"
 #include "Fit/RootAdapter/RootScalarFunction.h"
 #include "Fit/Tools/StringUtils.h"
-#include "Math/Minimizer.h"
+#include <Math/Minimizer.h>
 
 using namespace Fit;
 

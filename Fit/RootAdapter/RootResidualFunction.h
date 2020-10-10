@@ -18,11 +18,11 @@
 #include "Fit/Kernel/KernelTypes.h"
 
 #ifdef _WIN32
-#include "Math/FitMethodFunction.h"
+#include <Math/FitMethodFunction.h>
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#include "Math/FitMethodFunction.h"
+#include <Math/FitMethodFunction.h>
 #pragma GCC diagnostic pop
 #endif
 

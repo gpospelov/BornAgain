@@ -21,8 +21,8 @@
 #include "GUI/coregui/Views/JobWidgets/JobSelectorToolBar.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/utils/StyleUtils.h"
-#include <minisplitter.h>
 #include <QHBoxLayout>
+#include <minisplitter.h>
 
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     : QWidget(parent), m_splitter(new Manhattan::MiniSplitter),

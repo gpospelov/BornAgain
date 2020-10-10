@@ -21,11 +21,11 @@
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)
     : IFormFactorBorn(
-        {"FullSpheroid",
-         "ellipsoid of revolution",
-         {{"Radius", "nm", "revolution radius", 0, +INF, 0},
-          {"Height", "nm", "height = twice the radius in non-revolution direction", 0, +INF, 0}}},
-        P),
+          {"FullSpheroid",
+           "ellipsoid of revolution",
+           {{"Radius", "nm", "revolution radius", 0, +INF, 0},
+            {"Height", "nm", "height = twice the radius in non-revolution direction", 0, +INF, 0}}},
+          P),
       m_radius(m_P[0]), m_height(m_P[1])
 {
     onChange();

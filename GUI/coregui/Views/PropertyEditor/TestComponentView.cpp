@@ -26,13 +26,13 @@
 #include "GUI/coregui/Views/PropertyEditor/ComponentTreeView.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/utils/StyleUtils.h"
-#include <minisplitter.h>
 #include <QBoxLayout>
 #include <QDebug>
 #include <QItemSelectionModel>
 #include <QPushButton>
 #include <QTreeView>
 #include <limits>
+#include <minisplitter.h>
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
     : m_mainWindow(mainWindow), m_sampleModel(new SampleModel(this)),

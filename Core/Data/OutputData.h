@@ -15,11 +15,11 @@
 #ifndef BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 #define BORNAGAIN_CORE_INTENSITY_OUTPUTDATA_H
 
+#include "Base/Axis/FixedBinAxis.h"
 #include "Base/Types/SafePointerVector.h"
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/PyObject.h"
 #include "Base/Utils/ThreadInfo.h"
-#include "Base/Axis/FixedBinAxis.h"
 #include "Core/Data/LLData.h"
 #include "Core/Data/OutputDataIterator.h"
 #include <sstream>

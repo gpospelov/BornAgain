@@ -113,11 +113,11 @@ double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
 
 FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector<double> P)
     : IFTDecayFunction2D(
-        {"FTDecayFunction2DVoigt",
-         "class_tooltip",
-         {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
-           +INF, 0}}},
-        P),
+          {"FTDecayFunction2DVoigt",
+           "class_tooltip",
+           {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
+             +INF, 0}}},
+          P),
       m_eta(m_P[0])
 {
 }

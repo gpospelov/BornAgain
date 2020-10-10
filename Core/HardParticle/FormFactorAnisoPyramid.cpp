@@ -27,13 +27,13 @@ const PolyhedralTopology FormFactorAnisoPyramid::topology = {{{{3, 2, 1, 0}, tru
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector<double> P)
     : IFormFactorPolyhedron(
-        {"AnisoPyramid",
-         "frsutum with rectangular base",
-         {{"Length", "nm", "side length of base in x direction", 0, +INF, 0},
-          {"Width", "nm", "side length of base in y direction", 0, +INF, 0},
-          {"Height", "nm", "height", 0, +INF, 0},
-          {"Alpha", "rad", "angle between base and any side face", 0., M_PI_2, 0}}},
-        P),
+          {"AnisoPyramid",
+           "frsutum with rectangular base",
+           {{"Length", "nm", "side length of base in x direction", 0, +INF, 0},
+            {"Width", "nm", "side length of base in y direction", 0, +INF, 0},
+            {"Height", "nm", "height", 0, +INF, 0},
+            {"Alpha", "rad", "angle between base and any side face", 0., M_PI_2, 0}}},
+          P),
       m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2]), m_alpha(m_P[3])
 {
     onChange();

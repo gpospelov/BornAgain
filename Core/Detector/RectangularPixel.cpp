@@ -15,9 +15,9 @@
 #include "Core/Detector/RectangularPixel.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Base/Pixel/SimulationElement.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Base/Pixel/SimulationElement.h"
 #include "Core/Resolution/IDetectorResolution.h"
 
 RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)

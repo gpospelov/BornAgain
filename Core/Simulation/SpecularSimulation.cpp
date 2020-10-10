@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Axis/PointwiseAxis.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"

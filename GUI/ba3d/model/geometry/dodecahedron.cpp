@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "GUI/ba3d/model/geometry.h"
 #include "Base/Utils/Assert.h"
+#include "GUI/ba3d/model/geometry.h"
 #include <QQuaternion>
 #include <qmath.h>
 

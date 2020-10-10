@@ -15,8 +15,8 @@
 #include "GUI/coregui/Views/IntensityDataWidgets/FontScalingEvent.h"
 #include "Base/Utils/Assert.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
-#include <qcustomplot.h>
 #include <QResizeEvent>
+#include <qcustomplot.h>
 
 namespace
 {

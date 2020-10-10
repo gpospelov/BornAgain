@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/BeamItems.h"
-#include "Base/Const/Units.h"
 #include "Base/Axis/IAxis.h"
+#include "Base/Const/Units.h"
 #include "Core/Beam/Beam.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"

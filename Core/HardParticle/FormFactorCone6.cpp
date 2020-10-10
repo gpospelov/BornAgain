@@ -29,12 +29,12 @@ const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true
 
 FormFactorCone6::FormFactorCone6(const std::vector<double> P)
     : IFormFactorPolyhedron(
-        {"Cone6",
-         "frustum with regular hexagonal base",
-         {{"BaseEdge", "nm", "base edge length", 0, +INF, 0},
-          {"Height", "nm", "height", 0, +INF, 0},
-          {"Alpha", "rad", "angle between base and a side face", 0., M_PI_2, 0}}},
-        P),
+          {"Cone6",
+           "frustum with regular hexagonal base",
+           {{"BaseEdge", "nm", "base edge length", 0, +INF, 0},
+            {"Height", "nm", "height", 0, +INF, 0},
+            {"Alpha", "rad", "angle between base and a side face", 0., M_PI_2, 0}}},
+          P),
       m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
     onChange();

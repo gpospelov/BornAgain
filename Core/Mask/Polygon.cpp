@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Mask/Polygon.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Axis/Bin.h"
+#include "Base/Types/Exceptions.h"
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>

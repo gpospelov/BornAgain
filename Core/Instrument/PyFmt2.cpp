@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/PyFmt2.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/Algorithms.h"
 #include "Base/Utils/PyFmt.h"
-#include "Base/Axis/FixedBinAxis.h"
-#include "Base/Axis/PointwiseAxis.h"
 #include "Core/Mask/Ellipse.h"
 #include "Core/Mask/InfinitePlane.h"
 #include "Core/Mask/Line.h"

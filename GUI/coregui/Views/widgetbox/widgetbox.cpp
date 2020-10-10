@@ -48,12 +48,12 @@
 
 #include "GUI/coregui/Views/widgetbox/qdesigner_utils_p.h"
 
-#include <QtGui/QDropEvent>
 #include <QApplication>
 #include <QDrag>
 #include <QLineEdit>
 #include <QToolBar>
 #include <QVBoxLayout>
+#include <QtGui/QDropEvent>
 
 #include <QtGui/QIcon>
 

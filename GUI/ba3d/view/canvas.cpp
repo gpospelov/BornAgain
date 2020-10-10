@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/ba3d/view/canvas.h"
+#include "Base/Utils/Assert.h"
 #include "GUI/ba3d/model/geometry.h"
 #include "GUI/ba3d/model/model.h"
-#include "Base/Utils/Assert.h"
 #include "GUI/ba3d/view/buffer.h"
 #include "GUI/ba3d/view/program.h"
 

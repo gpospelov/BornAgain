@@ -1,7 +1,7 @@
 #include "Core/Simulation/SpecularSimulation.h"
+#include "Base/Axis/VariableBinAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Base/Axis/VariableBinAxis.h"
 #include "Core/Histo/Histogram1D.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"

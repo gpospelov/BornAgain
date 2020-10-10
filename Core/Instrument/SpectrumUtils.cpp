@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/SpectrumUtils.h"
-#include <tspectrum.h>
 #include <cmath>
+#include <tspectrum.h>
 
 std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2D& hist,
                                                                 double sigma,

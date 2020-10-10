@@ -13316,10 +13316,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -13409,13 +13409,16 @@ C++ includes: ZLimits.h
 // File: namespace_0D314.xml
 
 
-// File: namespace_0D328.xml
+// File: namespace_0D326.xml
 
 
-// File: namespace_0D337.xml
+// File: namespace_0D335.xml
 
 
-// File: namespace_0D341.xml
+// File: namespace_0D339.xml
+
+
+// File: namespace_0D349.xml
 
 
 // File: namespace_0D351.xml
@@ -13424,7 +13427,7 @@ C++ includes: ZLimits.h
 // File: namespace_0D353.xml
 
 
-// File: namespace_0D355.xml
+// File: namespace_0D359.xml
 
 
 // File: namespace_0D361.xml
@@ -13442,37 +13445,34 @@ C++ includes: ZLimits.h
 // File: namespace_0D369.xml
 
 
-// File: namespace_0D371.xml
+// File: namespace_0D373.xml
 
 
 // File: namespace_0D375.xml
 
 
-// File: namespace_0D377.xml
-
-
-// File: namespace_0D393.xml
+// File: namespace_0D391.xml
 
 
 // File: namespace_0D4.xml
 
 
-// File: namespace_0D421.xml
+// File: namespace_0D419.xml
+
+
+// File: namespace_0D424.xml
 
 
 // File: namespace_0D426.xml
 
 
-// File: namespace_0D428.xml
+// File: namespace_0D436.xml
 
 
-// File: namespace_0D438.xml
+// File: namespace_0D442.xml
 
 
-// File: namespace_0D444.xml
-
-
-// File: namespace_0D448.xml
+// File: namespace_0D446.xml
 
 
 // File: namespace_0D458.xml
@@ -15293,12 +15293,6 @@ magnetization (in A/m)
 // File: FormFactorCoherentSum_8h.xml
 
 
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
 // File: FormFactorDWBAPol_8cpp.xml
 
 
@@ -15695,6 +15689,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: FormFactorDecoratorRotation_8h.xml
+
+
+// File: FormFactorDWBA_8cpp.xml
+
+
+// File: FormFactorDWBA_8h.xml
 
 
 // File: IFormFactor_8cpp.xml

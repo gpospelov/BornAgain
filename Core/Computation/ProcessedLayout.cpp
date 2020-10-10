@@ -17,7 +17,7 @@
 #include "Core/Correlations/ILayout.h"
 #include "Core/Scattering/FormFactorBAPol.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
-#include "Core/Multilayer/FormFactorDWBA.h"
+#include "Core/Scattering/FormFactorDWBA.h"
 #include "Core/Multilayer/FormFactorDWBAPol.h"
 #include "Core/Multilayer/Slice.h"
 #include "Core/Multilayer/SlicedFormFactorList.h"

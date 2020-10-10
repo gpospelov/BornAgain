@@ -37,7 +37,6 @@ public:
 
 private:
     void createStrategy();
-    void checkInterferenceFunction(const IInterferenceFunction* p_iff);
 
     const ProcessedLayout* mp_layout;
     SimulationOptions m_sim_params;

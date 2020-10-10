@@ -38,7 +38,9 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 void LayoutStrategyBuilder::createStrategy()
 {
     const IInterferenceFunction* p_iff = mp_layout->interferenceFunction();
-    checkInterferenceFunction(p_iff);
+    if (p_iff && mp_layout->numberOfSlices() > 1 && !p_iff->supportsMultilayer())
+        throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
+                                 "interference function does not support multiple layers");
 
     auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
     if (p_radial_para && p_radial_para->kappa() > 0.0) {
@@ -50,12 +52,4 @@ void LayoutStrategyBuilder::createStrategy()
     if (!mP_strategy)
         throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
     mP_strategy->init(mp_layout->formFactorList(), p_iff);
-}
-
-void LayoutStrategyBuilder::checkInterferenceFunction(const IInterferenceFunction* p_iff)
-{
-    auto n_slices = mp_layout->numberOfSlices();
-    if (p_iff && n_slices > 1 && !p_iff->supportsMultilayer())
-        throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
-                                 "interference function does not support multiple layers");
 }

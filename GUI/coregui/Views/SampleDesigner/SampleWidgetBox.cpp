@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Views/SampleDesigner/SampleWidgetBox.h"
 #include "GUI/coregui/Views/widgetbox/widgetbox.h"
-#include "styledbar.h"
+#include <styledbar.h>
 #include <QVBoxLayout>
 
 #if QT_VERSION < 0x050000

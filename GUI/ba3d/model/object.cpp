@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/ba3d/model/object.h"
-#include "../view/canvas.h"
+#include "GUI/ba3d/view/canvas.h"
 #include "GUI/ba3d/model/geometry.h"
 #include "GUI/ba3d/model/model.h"
 #include <cmath>

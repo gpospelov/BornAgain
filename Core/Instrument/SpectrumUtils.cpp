@@ -14,7 +14,7 @@
 
 #include "Core/Instrument/SpectrumUtils.h"
 #include "Core/Intensity/ArrayUtils.h"
-#include "tspectrum.h"
+#include <tspectrum.h>
 #include <cmath>
 
 std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2D& hist,

@@ -15,7 +15,7 @@
 #include "GUI/coregui/Views/CommonWidgets/DocksController.h"
 #include "Base/Utils/Assert.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
-#include "fancymainwindow.h"
+#include <fancymainwindow.h>
 #include <QAbstractItemView>
 #include <QAction>
 #include <QDockWidget>

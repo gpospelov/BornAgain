@@ -6205,9 +6205,7 @@ init detector with beam settings
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
-
-Usage:
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm. Usage:
 
 C++ includes: IntensityDataIOFactory.h
 ";
@@ -7511,10 +7509,10 @@ Inherited by  SpecularScalarStrategy,  SpecularMagneticOldStrategy,  SpecularMag
 C++ includes: ISpecularStrategy.h
 ";
 
-%feature("docstring")  ISpecularStrategy::~ISpecularStrategy "virtual ISpecularStrategy::~ISpecularStrategy()=default
+%feature("docstring")  ISpecularStrategy::ISpecularStrategy "ISpecularStrategy::ISpecularStrategy()=default
 ";
 
-%feature("docstring")  ISpecularStrategy::ISpecularStrategy "ISpecularStrategy::ISpecularStrategy()=default
+%feature("docstring")  ISpecularStrategy::~ISpecularStrategy "virtual ISpecularStrategy::~ISpecularStrategy()=default
 ";
 
 %feature("docstring")  ISpecularStrategy::ISpecularStrategy "ISpecularStrategy::ISpecularStrategy(const ISpecularStrategy &other)=delete
@@ -8006,7 +8004,7 @@ Returns lateral correlation length.
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
-The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part). The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part).The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
 
 C++ includes: LayersWithAbsorptionBuilder.h
 ";
@@ -8846,7 +8844,7 @@ Indicates if the peak shape encodes angular disorder, in which case all peaks in
 // File: classMultiLayer.xml
 %feature("docstring") MultiLayer "
 
-Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
+Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
 
 ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
@@ -10045,43 +10043,6 @@ weight_factors:
 user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
-%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-uncertainties: 
-array with experimental data uncertainties.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
-%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
 
 // File: classPoissonNoiseBackground.xml
 %feature("docstring") PoissonNoiseBackground "
@@ -10107,7 +10068,7 @@ C++ includes: PoissonNoiseBackground.h
 // File: classPolygon.xml
 %feature("docstring") Polygon "
 
-A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
 C++ includes: Polygon.h
 ";
@@ -10982,43 +10943,6 @@ C++ includes: ObjectiveMetric.h
 ";
 
 %feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double RelativeDifferenceMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
-%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-uncertainties: 
-array with experimental data uncertainties.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
-%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
 
 Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
 
@@ -13425,187 +13349,187 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d123.xml
+// File: namespace_0D123.xml
 
 
-// File: namespace_0d135.xml
+// File: namespace_0D135.xml
 
 
-// File: namespace_0d143.xml
+// File: namespace_0D143.xml
 
 
-// File: namespace_0d148.xml
+// File: namespace_0D148.xml
 
 
-// File: namespace_0d157.xml
+// File: namespace_0D157.xml
 
 
-// File: namespace_0d159.xml
+// File: namespace_0D159.xml
 
 
-// File: namespace_0d16.xml
+// File: namespace_0D16.xml
 
 
-// File: namespace_0d163.xml
+// File: namespace_0D163.xml
 
 
-// File: namespace_0d2.xml
+// File: namespace_0D2.xml
 
 
-// File: namespace_0d226.xml
+// File: namespace_0D226.xml
 
 
-// File: namespace_0d229.xml
+// File: namespace_0D229.xml
 
 
-// File: namespace_0d246.xml
+// File: namespace_0D246.xml
 
 
-// File: namespace_0d248.xml
+// File: namespace_0D248.xml
 
 
-// File: namespace_0d25.xml
+// File: namespace_0D25.xml
 
 
-// File: namespace_0d252.xml
+// File: namespace_0D252.xml
 
 
-// File: namespace_0d258.xml
+// File: namespace_0D258.xml
 
 
-// File: namespace_0d284.xml
+// File: namespace_0D284.xml
 
 
-// File: namespace_0d306.xml
+// File: namespace_0D306.xml
 
 
-// File: namespace_0d310.xml
+// File: namespace_0D310.xml
 
 
-// File: namespace_0d314.xml
+// File: namespace_0D314.xml
 
 
-// File: namespace_0d330.xml
+// File: namespace_0D328.xml
 
 
-// File: namespace_0d339.xml
+// File: namespace_0D337.xml
 
 
-// File: namespace_0d343.xml
+// File: namespace_0D341.xml
 
 
-// File: namespace_0d353.xml
+// File: namespace_0D351.xml
 
 
-// File: namespace_0d355.xml
+// File: namespace_0D353.xml
 
 
-// File: namespace_0d357.xml
+// File: namespace_0D355.xml
 
 
-// File: namespace_0d363.xml
+// File: namespace_0D361.xml
 
 
-// File: namespace_0d365.xml
+// File: namespace_0D363.xml
 
 
-// File: namespace_0d367.xml
+// File: namespace_0D365.xml
 
 
-// File: namespace_0d369.xml
+// File: namespace_0D367.xml
 
 
-// File: namespace_0d371.xml
+// File: namespace_0D369.xml
 
 
-// File: namespace_0d373.xml
+// File: namespace_0D371.xml
 
 
-// File: namespace_0d377.xml
+// File: namespace_0D375.xml
 
 
-// File: namespace_0d379.xml
+// File: namespace_0D377.xml
 
 
-// File: namespace_0d395.xml
+// File: namespace_0D393.xml
 
 
-// File: namespace_0d4.xml
+// File: namespace_0D4.xml
 
 
-// File: namespace_0d423.xml
+// File: namespace_0D421.xml
 
 
-// File: namespace_0d428.xml
+// File: namespace_0D426.xml
 
 
-// File: namespace_0d430.xml
+// File: namespace_0D428.xml
 
 
-// File: namespace_0d440.xml
+// File: namespace_0D438.xml
 
 
-// File: namespace_0d446.xml
+// File: namespace_0D444.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0D448.xml
 
 
-// File: namespace_0d458.xml
+// File: namespace_0D458.xml
 
 
-// File: namespace_0d481.xml
+// File: namespace_0D481.xml
 
 
-// File: namespace_0d489.xml
+// File: namespace_0D489.xml
 
 
-// File: namespace_0d495.xml
+// File: namespace_0D495.xml
 
 
-// File: namespace_0d497.xml
+// File: namespace_0D497.xml
 
 
-// File: namespace_0d508.xml
+// File: namespace_0D508.xml
 
 
-// File: namespace_0d520.xml
+// File: namespace_0D520.xml
 
 
-// File: namespace_0d526.xml
+// File: namespace_0D526.xml
 
 
-// File: namespace_0d530.xml
+// File: namespace_0D530.xml
 
 
-// File: namespace_0d548.xml
+// File: namespace_0D548.xml
 
 
-// File: namespace_0d567.xml
+// File: namespace_0D567.xml
 
 
-// File: namespace_0d581.xml
+// File: namespace_0D581.xml
 
 
-// File: namespace_0d64.xml
+// File: namespace_0D64.xml
 
 
-// File: namespace_0d66.xml
+// File: namespace_0D66.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0D68.xml
 
 
-// File: namespace_0d72.xml
+// File: namespace_0D72.xml
 
 
-// File: namespace_0d84.xml
+// File: namespace_0D84.xml
 
 
-// File: namespace_0d90.xml
+// File: namespace_0D90.xml
 
 
-// File: namespace_0d94.xml
+// File: namespace_0D94.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -13880,7 +13804,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 %feature("docstring")  MaterialUtils::MagnetizationCorrection "Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -15357,12 +15281,6 @@ magnetization (in A/m)
 // File: DecouplingApproximationStrategy_8h.xml
 
 
-// File: FormFactorBAPol_8cpp.xml
-
-
-// File: FormFactorBAPol_8h.xml
-
-
 // File: FormFactorCoherentPart_8cpp.xml
 
 
@@ -15753,6 +15671,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: QSpecScan_8h.xml
+
+
+// File: FormFactorBAPol_8cpp.xml
+
+
+// File: FormFactorBAPol_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml

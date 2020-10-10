@@ -28,7 +28,7 @@
 #include "GUI/coregui/Views/PropertyEditor/ComponentTreeView.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/utils/StyleUtils.h"
-#include "minisplitter.h"
+#include <minisplitter.h>
 #include <QBoxLayout>
 #include <QDebug>
 #include <QItemSelectionModel>

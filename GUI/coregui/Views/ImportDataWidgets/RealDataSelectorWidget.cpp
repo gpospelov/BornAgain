@@ -19,7 +19,7 @@
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorActions.h"
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorHBar.h"
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorToolBar.h"
-#include "minisplitter.h"
+#include <minisplitter.h>
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
 

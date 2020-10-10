@@ -22,7 +22,7 @@
 #include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/utils/StyleUtils.h"
-#include "minisplitter.h"
+#include <minisplitter.h>
 #include <QHBoxLayout>
 
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)

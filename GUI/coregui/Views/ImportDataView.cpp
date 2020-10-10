@@ -18,7 +18,7 @@
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorWidget.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
-#include "minisplitter.h"
+#include <minisplitter.h>
 #include <QVBoxLayout>
 
 namespace

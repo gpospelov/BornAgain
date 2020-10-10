@@ -20,7 +20,7 @@
 #include "GUI/coregui/Views/JobWidgets/ProjectionsPropertyPanel.h"
 #include "GUI/coregui/Views/JobWidgets/ProjectionsToolBar.h"
 #include "GUI/coregui/Views/JobWidgets/ProjectionsWidget.h"
-#include "minisplitter.h"
+#include <minisplitter.h>
 #include <QItemSelectionModel>
 #include <QSplitter>
 

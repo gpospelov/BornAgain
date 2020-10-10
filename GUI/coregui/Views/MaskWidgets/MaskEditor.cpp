@@ -19,7 +19,7 @@
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorPropertyPanel.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorToolBar.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskGraphicsScene.h"
-#include "minisplitter.h"
+#include <minisplitter.h>
 #include <QBoxLayout>
 #include <QContextMenuEvent>
 

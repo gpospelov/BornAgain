@@ -1,8 +1,6 @@
 #include "Param/Distrib/ParameterDistribution.h"
 #include "Base/Types/Exceptions.h"
-#include "Param/Base/IParameterized.h"
 #include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterSample.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>

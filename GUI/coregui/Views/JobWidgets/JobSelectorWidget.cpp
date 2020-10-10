@@ -19,7 +19,6 @@
 #include "GUI/coregui/Views/JobWidgets/JobPropertiesWidget.h"
 #include "GUI/coregui/Views/JobWidgets/JobSelectorActions.h"
 #include "GUI/coregui/Views/JobWidgets/JobSelectorToolBar.h"
-#include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <minisplitter.h>

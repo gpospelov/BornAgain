@@ -15,7 +15,6 @@
 #include "Core/Histo/Histogram2D.h"
 #include "Base/Axis/VariableBinAxis.h"
 #include "Core/Histo/Histogram1D.h"
-#include "Core/Intensity/ArrayUtils.h"
 #include <memory>
 
 Histogram2D::Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup)

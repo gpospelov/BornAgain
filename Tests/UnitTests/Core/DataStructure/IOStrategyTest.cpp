@@ -1,4 +1,3 @@
-#include "Base/Axis/FixedBinAxis.h"
 #include "Core/Data/OutputData.h"
 #include "Core/InputOutput/OutputDataReadStrategy.h"
 #include "Core/InputOutput/OutputDataWriteStrategy.h"

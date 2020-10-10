@@ -17,7 +17,6 @@
 #include "Core/Computation/IBackground.h"
 #include "Core/Histo/Histogram2D.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Base/Pixel/SimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 

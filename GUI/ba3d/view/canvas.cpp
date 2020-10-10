@@ -17,7 +17,6 @@
 #include "GUI/ba3d/model/model.h"
 #include "Base/Utils/Assert.h"
 #include "GUI/ba3d/view/buffer.h"
-#include "GUI/ba3d/view/camera.h"
 #include "GUI/ba3d/view/program.h"
 
 #include <QMouseEvent>

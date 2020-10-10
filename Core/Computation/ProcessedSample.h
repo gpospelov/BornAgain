@@ -15,8 +15,6 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
 #define BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
 
-#include "Base/Vector/Vectors3D.h"
-#include "Core/Material/Material.h"
 #include "Core/Multilayer/Slice.h"
 #include <map>
 #include <memory>

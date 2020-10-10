@@ -14,7 +14,6 @@
 
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Particle/ParticleDistribution.h"

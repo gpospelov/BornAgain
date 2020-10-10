@@ -14,7 +14,6 @@
 
 #include "Param/Base/IterationStrategy.h"
 #include "Base/Utils/Assert.h"
-#include "Param/Node/INode.h"
 #include "Param/Node/NodeIterator.h"
 
 PreorderStrategy::PreorderStrategy() = default;

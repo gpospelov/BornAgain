@@ -1,7 +1,6 @@
 #include "Core/HardParticle/HardParticles.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Particle/Particle.h"
-#include "Core/Particle/ParticleDistribution.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DistributionItems.h"
 #include "GUI/coregui/Models/MaterialModel.h"

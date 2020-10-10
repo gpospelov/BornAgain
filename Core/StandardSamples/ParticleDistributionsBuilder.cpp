@@ -27,7 +27,6 @@
 #include "Core/StandardSamples/ReferenceMaterials.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterPattern.h"
-#include "Param/Varia/ParameterSample.h"
 
 MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {

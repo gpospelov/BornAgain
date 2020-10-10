@@ -18,10 +18,7 @@
 #include "Core/Fitting/ObjectiveMetricUtils.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
 #include "Core/Instrument/ChiSquaredModule.h"
-#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Simulation/Simulation.h"
-#include "Fit/Kernel/MinimizerResult.h"
-#include "Fit/Kernel/Parameters.h"
 #include <stdexcept>
 
 class IMetricWrapper

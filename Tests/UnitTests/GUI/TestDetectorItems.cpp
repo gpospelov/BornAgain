@@ -3,7 +3,6 @@
 #include "Core/Resolution/ConvolutionDetectorResolution.h"
 #include "Core/Resolution/ResolutionFunction2DGaussian.h"
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
 #include "GUI/coregui/Models/RectangularDetectorItem.h"

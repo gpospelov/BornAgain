@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "BATesting.h"
-#include "Base/Utils/Assert.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Histo/IntensityDataIOFactory.h"
 #include "Core/Instrument/IntensityDataFunctions.h"

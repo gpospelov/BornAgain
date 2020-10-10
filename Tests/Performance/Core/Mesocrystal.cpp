@@ -18,8 +18,6 @@
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/HardParticle/FormFactorCylinder.h"
 #include "Core/Lattice/ISelectionRule.h"
-#include "Core/Lattice/Lattice.h"
-#include "Core/Material/Material.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"

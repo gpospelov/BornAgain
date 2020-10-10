@@ -16,11 +16,9 @@
 #define BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
 
 #include "Base/Types/CloneableVector.h"
-#include "Base/Types/ICloneable.h"
 #include "Core/Detector/DetectionProperties.h"
 #include "Core/Detector/SimulationAreaIterator.h"
 #include "Core/Unit/IUnitConverter.h"
-#include "Param/Node/INode.h"
 
 class Beam;
 class DetectorMask;

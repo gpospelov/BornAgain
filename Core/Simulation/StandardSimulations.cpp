@@ -14,7 +14,6 @@
 
 #include "Core/Simulation/StandardSimulations.h"
 #include "Base/Const/Units.h"
-#include "Base/Axis/FixedBinAxis.h"
 #include "Core/Beam/FootprintGauss.h"
 #include "Core/Beam/FootprintSquare.h"
 #include "Core/Computation/ConstantBackground.h"

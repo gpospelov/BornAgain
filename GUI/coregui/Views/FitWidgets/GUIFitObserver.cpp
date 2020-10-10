@@ -14,9 +14,7 @@
 
 #include "GUI/coregui/Views/FitWidgets/GUIFitObserver.h"
 #include "Core/Fitting/FitObjective.h"
-#include "Fit/Kernel/MinimizerResult.h"
 #include "Fit/Tools/MinimizerUtils.h"
-#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
 GUIFitObserver::GUIFitObserver(QObject* parent)

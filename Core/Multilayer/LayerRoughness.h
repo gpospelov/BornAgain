@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H
 #define BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H
 
-#include "Base/Vector/Vectors3D.h"
 #include "Core/Scattering/ISample.h"
 
 //! A roughness of interface between two layers.

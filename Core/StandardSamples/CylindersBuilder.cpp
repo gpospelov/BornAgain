@@ -20,7 +20,6 @@
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
-#include "Core/Scattering/Rotations.h"
 #include "Core/StandardSamples/ReferenceMaterials.h"
 
 // -----------------------------------------------------------------------------

@@ -13,13 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/ObjectiveMetric.h"
 #include "Core/Simulation/Simulation.h"
-#include "Fit/Kernel/KernelTypes.h"
 #include "Fit/Kernel/Minimizer.h"
-#include "Fit/Kernel/Parameters.h"
 #include "Fit/Minimizer/IMinimizer.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"

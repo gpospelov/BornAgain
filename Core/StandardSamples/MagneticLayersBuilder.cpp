@@ -21,7 +21,6 @@
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Multilayer/RoughnessModels.h"
 #include "Core/Particle/Particle.h"
 
 namespace

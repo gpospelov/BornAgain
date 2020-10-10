@@ -1,5 +1,4 @@
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"

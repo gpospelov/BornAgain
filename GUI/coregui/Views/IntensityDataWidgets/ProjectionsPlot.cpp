@@ -19,7 +19,6 @@
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
-#include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Views/FitWidgets/plot_constants.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.h"
 #include <qcustomplot.h>

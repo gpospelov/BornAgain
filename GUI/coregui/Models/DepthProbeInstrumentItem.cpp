@@ -17,7 +17,6 @@
 #include "Core/Detector/SimpleUnitConverters.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "GUI/coregui/Models/AxesItems.h"
-#include "GUI/coregui/Models/BeamDistributionItem.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"
 #include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
 #include "GUI/coregui/Models/TransformToDomain.h"

@@ -14,7 +14,6 @@
 
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Base/Const/MathConstants.h"
-#include "Base/Utils/Assert.h"
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/DepthProbeComputation.h"
 #include "Core/Computation/IBackground.h"

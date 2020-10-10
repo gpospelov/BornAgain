@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Histo/SimulationResult.h"
-#include "Base/Axis/FixedBinAxis.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Histo/Histogram2D.h"
 
 SimulationResult::SimulationResult(const OutputData<double>& data,

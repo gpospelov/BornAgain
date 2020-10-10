@@ -23,7 +23,6 @@
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Fit/Tools/StringUtils.h"
 #include "Param/Base/ParameterPool.h"
-#include "Param/Varia/ParameterSample.h"
 #include <gsl/gsl_errno.h>
 #include <iomanip>
 #include <iostream>

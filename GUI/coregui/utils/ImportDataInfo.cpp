@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "GUI/coregui/utils/ImportDataInfo.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Unit/AxisNames.h"
 #include "GUI/coregui/Models/JobItemUtils.h"

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/SpectrumUtils.h"
-#include "Core/Intensity/ArrayUtils.h"
 #include <tspectrum.h>
 #include <cmath>
 

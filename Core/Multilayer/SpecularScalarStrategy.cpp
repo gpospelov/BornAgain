@@ -16,7 +16,6 @@
 #include "Core/Multilayer/KzComputation.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Multilayer/Slice.h"
 #include <Eigen/Dense>
 #include <stdexcept>
 

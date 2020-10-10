@@ -22,7 +22,6 @@
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
-#include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterUtils.h"
 
 namespace

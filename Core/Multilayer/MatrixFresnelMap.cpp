@@ -13,9 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/MatrixFresnelMap.h"
-#include "Core/Multilayer/Slice.h"
 #include "Core/Multilayer/SpecularMagneticOldStrategy.h"
-#include "Core/Multilayer/SpecularMagneticStrategy.h"
 #include "Base/Pixel/SimulationElement.h"
 #include <functional>
 

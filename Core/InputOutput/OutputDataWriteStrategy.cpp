@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/InputOutput/OutputDataWriteStrategy.h"
-#include "Core/Data/OutputData.h" // needed by some compilers
 #include "Core/InputOutput/TiffHandler.h"
 #include "Core/Intensity/ArrayUtils.h"
 #include <cmath>

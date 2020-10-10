@@ -17,7 +17,6 @@
 
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/IDetector.h"
-#include "Param/Node/INode.h"
 #include <memory>
 
 template <class T> class OutputData;

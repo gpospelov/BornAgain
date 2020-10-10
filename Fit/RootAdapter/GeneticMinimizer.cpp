@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Fit/RootAdapter/GeneticMinimizer.h"
-#include "Fit/Kernel/Parameter.h"
 #include <Math/GeneticMinimizer.h>
 
 namespace

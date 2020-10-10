@@ -1,5 +1,4 @@
 #include "Base/Pixel/PolarizationHandler.h"
-#include "Base/Vector/EigenCore.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class PolarizationHandlerTest : public ::testing::Test

@@ -12,9 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Param/Node/INode.h"
 #include "Base/Utils/Algorithms.h"
-#include "Base/Utils/Assert.h"
 #include "Param/Base/IterationStrategy.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"

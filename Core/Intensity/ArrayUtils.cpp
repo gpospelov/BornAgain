@@ -15,7 +15,6 @@
 #ifdef BORNAGAIN_PYTHON
 
 #include "Core/Intensity/ArrayUtils.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/PythonCore.h"
 
 PyObject* ArrayUtils::createNumpyArray(const std::vector<double>& data)

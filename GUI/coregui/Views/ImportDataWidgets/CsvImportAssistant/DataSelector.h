@@ -15,11 +15,8 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H
 
-#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportTable.h"
-#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
-#include "GUI/coregui/utils/ImportDataInfo.h"
 #include <QAction>
 #include <QComboBox>
 #include <QDialog>

@@ -1,8 +1,6 @@
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Base/Types/Exceptions.h"
-#include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
 #include "Core/Histo/Histogram1D.h"
 #include "Core/Material/MaterialFactoryFuncs.h"

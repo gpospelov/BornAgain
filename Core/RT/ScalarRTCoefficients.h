@@ -15,8 +15,6 @@
 #ifndef BORNAGAIN_CORE_RT_SCALARRTCOEFFICIENTS_H
 #define BORNAGAIN_CORE_RT_SCALARRTCOEFFICIENTS_H
 
-#include "Base/Types/Complex.h"
-#include "Base/Vector/EigenCore.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 
 //! Specular reflection and transmission coefficients in a layer in case

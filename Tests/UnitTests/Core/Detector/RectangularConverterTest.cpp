@@ -1,5 +1,4 @@
 #include "Base/Const/Units.h"
-#include "Base/Vector/Vectors3D.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Core/Detector/SimpleUnitConverters.h"

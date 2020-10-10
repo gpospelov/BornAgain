@@ -17,7 +17,6 @@
 
 #include "Core/Aggregate/IInterferenceFunction.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Beam/Beam.h"
 #include "Core/Instrument/Instrument.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"

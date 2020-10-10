@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/Instrument.h"
-#include "Core/Beam/Beam.h"
 #include "Core/Detector/DetectorFunctions.h"
 #include "Core/Detector/SphericalDetector.h"
 #include "Core/Histo/Histogram2D.h"

@@ -15,7 +15,6 @@
 #include "Core/Unit/UnitConverter1D.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Data/OutputData.h"

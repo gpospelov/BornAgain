@@ -14,7 +14,6 @@
 
 #include "Core/StandardSamples/ParticleInVacuumBuilder.h"
 #include "Base/Const/Units.h"
-#include "Base/Types/Exceptions.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/Multilayer/Layer.h"

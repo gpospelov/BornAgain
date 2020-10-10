@@ -1,6 +1,5 @@
 #include "Core/Detector/SpecularDetector1D.h"
 #include "Base/Const/Units.h"
-#include "Base/Axis/FixedBinAxis.h"
 #include "Core/Beam/Beam.h"
 #include "Core/Data/OutputData.h"
 #include "Core/Detector/SimulationArea.h"

@@ -14,11 +14,9 @@
 
 #include "GUI/coregui/Views/PropertyEditor/TestComponentView.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Scattering/ISample.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
-#include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionModelDelegate.h"

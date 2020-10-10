@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 #include "Base/Const/Units.h"
-#include "Base/Utils/Assert.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"
 #include "GUI/coregui/Models/RealLimitsItems.h"

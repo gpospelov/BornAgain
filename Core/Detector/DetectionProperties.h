@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_DETECTOR_DETECTIONPROPERTIES_H
 
 #include "Base/Vector/EigenCore.h"
-#include "Base/Vector/Vectors3D.h"
 #include "Param/Node/INode.h"
 
 //! Detector properties (efficiency, transmission).

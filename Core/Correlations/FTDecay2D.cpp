@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Correlations/FTDecay2D.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Utils/MathFunctions.h"
 #include <algorithm>
 

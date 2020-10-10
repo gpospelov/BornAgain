@@ -15,7 +15,6 @@
 #include "Param/Distrib/ParameterDistribution.h"
 #include "Base/Types/Exceptions.h"
 #include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterSample.h"
 
 ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              const IDistribution1D& distribution,

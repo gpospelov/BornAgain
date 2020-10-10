@@ -15,8 +15,6 @@
 #ifndef BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H
 #define BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H
 
-#include "Core/Data/OutputData.h"
-#include "Core/Fitting/FitTypes.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/SimDataPair.h"
 #include "Core/Intensity/ArrayUtils.h"

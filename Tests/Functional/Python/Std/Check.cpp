@@ -14,7 +14,6 @@
 
 #include "BABuild.h"
 #include "BATesting.h"
-#include "Base/Utils/Assert.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Histo/IntensityDataIOFactory.h"

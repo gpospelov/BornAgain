@@ -12,7 +12,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Tests/GTestWrapper/google_test.h"

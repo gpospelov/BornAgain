@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Core/Histo/IHistogram.h"
 #include "Core/Histo/Histogram1D.h"
 #include "Core/Histo/Histogram2D.h"
 #include "Core/Histo/IntensityDataIOFactory.h" // TODO rm

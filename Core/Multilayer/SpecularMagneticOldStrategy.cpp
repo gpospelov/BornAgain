@@ -17,7 +17,6 @@
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Multilayer/Slice.h"
 #include <Eigen/LU>
 
 namespace

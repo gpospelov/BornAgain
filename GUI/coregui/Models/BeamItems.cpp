@@ -14,12 +14,9 @@
 
 #include "GUI/coregui/Models/BeamItems.h"
 #include "Base/Const/Units.h"
-#include "Base/Utils/Assert.h"
 #include "Base/Axis/IAxis.h"
 #include "Core/Beam/Beam.h"
-#include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
-#include "GUI/coregui/Models/BeamDistributionItem.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"
 #include "GUI/coregui/Models/FootprintItems.h"
 #include "GUI/coregui/Models/GroupItem.h"

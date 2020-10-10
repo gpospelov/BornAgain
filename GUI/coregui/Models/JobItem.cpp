@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobItem.h"
-#include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
 #include "GUI/coregui/Models/InstrumentItems.h"

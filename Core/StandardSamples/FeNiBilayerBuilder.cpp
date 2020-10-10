@@ -16,12 +16,10 @@
 #include "Core/StandardSamples/FeNiBilayerBuilder.h"
 #include "Base/Const/PhysicalConstants.h"
 #include "Base/Const/Units.h"
-#include "Base/Types/Complex.h"
 #include "Core/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerRoughness.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Multilayer/RoughnessModels.h"
 
 namespace
 {

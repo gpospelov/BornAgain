@@ -27,7 +27,6 @@
 #include "Core/HardParticle/FormFactorDodecahedron.h"
 #include "Core/HardParticle/FormFactorDot.h"
 #include "Core/HardParticle/FormFactorEllipsoidalCylinder.h"
-#include "Core/HardParticle/FormFactorFullSphere.h"
 #include "Core/HardParticle/FormFactorFullSpheroid.h"
 #include "Core/HardParticle/FormFactorHemiEllipsoid.h"
 #include "Core/HardParticle/FormFactorHollowSphere.h"

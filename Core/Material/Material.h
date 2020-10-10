@@ -15,9 +15,6 @@
 #ifndef BORNAGAIN_CORE_MATERIAL_MATERIAL_H
 #define BORNAGAIN_CORE_MATERIAL_MATERIAL_H
 
-#include "Base/Types/Complex.h"
-#include "Base/Vector/EigenCore.h"
-#include "Base/Vector/Vectors3D.h"
 #include "Core/Material/BaseMaterialImpl.h"
 #include <memory>
 #include <vector>

@@ -1,5 +1,4 @@
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/Models/GroupInfo.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"

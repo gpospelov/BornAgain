@@ -14,7 +14,6 @@
 
 #include "Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.h"
 #include "Fit/RootAdapter/GSLMultiMinimizer.h"
-#include "Fit/Tools/AttLimits.h"
 #include "Fit/Tools/MinimizerUtils.h"
 #include "Fit/Tools/StringUtils.h"
 #include <stdexcept>

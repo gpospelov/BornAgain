@@ -16,7 +16,7 @@
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/utils/hostosinfo.h"
-#include "progressbar.h"
+#include <progressbar.h>
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPaintDevice>

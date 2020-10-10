@@ -30,7 +30,7 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/hostosinfo.h"
 #include "fancytabwidget.h"
-#include "progressbar.h"
+#include <progressbar.h>
 #include "stylehelper.h"
 #include <QAction>
 #include <QApplication>

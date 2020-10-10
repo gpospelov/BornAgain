@@ -13409,13 +13409,13 @@ C++ includes: ZLimits.h
 // File: namespace_0D314.xml
 
 
-// File: namespace_0D326.xml
+// File: namespace_0D333.xml
 
 
-// File: namespace_0D335.xml
+// File: namespace_0D337.xml
 
 
-// File: namespace_0D339.xml
+// File: namespace_0D347.xml
 
 
 // File: namespace_0D349.xml
@@ -13424,7 +13424,7 @@ C++ includes: ZLimits.h
 // File: namespace_0D351.xml
 
 
-// File: namespace_0D353.xml
+// File: namespace_0D357.xml
 
 
 // File: namespace_0D359.xml
@@ -13442,37 +13442,37 @@ C++ includes: ZLimits.h
 // File: namespace_0D367.xml
 
 
-// File: namespace_0D369.xml
+// File: namespace_0D371.xml
 
 
 // File: namespace_0D373.xml
 
 
-// File: namespace_0D375.xml
-
-
-// File: namespace_0D391.xml
+// File: namespace_0D389.xml
 
 
 // File: namespace_0D4.xml
 
 
-// File: namespace_0D419.xml
+// File: namespace_0D417.xml
+
+
+// File: namespace_0D422.xml
 
 
 // File: namespace_0D424.xml
 
 
-// File: namespace_0D426.xml
+// File: namespace_0D434.xml
 
 
-// File: namespace_0D436.xml
+// File: namespace_0D440.xml
 
 
-// File: namespace_0D442.xml
+// File: namespace_0D444.xml
 
 
-// File: namespace_0D446.xml
+// File: namespace_0D456.xml
 
 
 // File: namespace_0D458.xml
@@ -15293,12 +15293,6 @@ magnetization (in A/m)
 // File: FormFactorCoherentSum_8h.xml
 
 
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
-
-
 // File: IFresnelMap_8cpp.xml
 
 
@@ -15695,6 +15689,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: FormFactorDWBA_8h.xml
+
+
+// File: FormFactorDWBAPol_8cpp.xml
+
+
+// File: FormFactorDWBAPol_8h.xml
 
 
 // File: IFormFactor_8cpp.xml

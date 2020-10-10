@@ -18,7 +18,7 @@
 #include "Core/Scattering/FormFactorBAPol.h"
 #include "Core/Multilayer/FormFactorCoherentSum.h"
 #include "Core/Scattering/FormFactorDWBA.h"
-#include "Core/Multilayer/FormFactorDWBAPol.h"
+#include "Core/Scattering/FormFactorDWBAPol.h"
 #include "Core/Multilayer/Slice.h"
 #include "Core/Multilayer/SlicedFormFactorList.h"
 #include "Core/Particle/IParticle.h"

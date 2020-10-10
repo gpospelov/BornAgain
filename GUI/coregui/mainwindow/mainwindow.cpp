@@ -29,9 +29,9 @@
 #include "GUI/coregui/mainwindow/tooltipdatabase.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/hostosinfo.h"
-#include "fancytabwidget.h"
+#include <fancytabwidget.h>
 #include <progressbar.h>
-#include "stylehelper.h"
+#include <stylehelper.h>
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>

@@ -47,12 +47,8 @@
 #include <QtDesigner/QDesignerFormWindowManagerInterface>
 
 #include "GUI/coregui/Views/widgetbox/qdesigner_utils_p.h"
-//#include <filterwidget_p.h>
 
 #include <QtGui/QDropEvent>
-//#include <QtWidgets/QVBoxLayout>
-//#include <QtWidgets/QApplication>
-//#include <QtWidgets/QToolBar>
 #include <QApplication>
 #include <QDrag>
 #include <QLineEdit>

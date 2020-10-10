@@ -277,5 +277,4 @@ void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout* layout)
 //    d->block_update = false;
 //}
 
-//#include <columnresizer.moc>
 // vi: ts=4 sw=4 et

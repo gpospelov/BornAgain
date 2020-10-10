@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_HISTOGRAMPLOT_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_HISTOGRAMPLOT_H
 
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 #include <QWidget>
 
 class HistogramPlot : public QWidget

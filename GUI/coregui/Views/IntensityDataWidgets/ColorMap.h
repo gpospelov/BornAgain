@@ -16,7 +16,7 @@
 #define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAP_H
 
 #include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 #include <QMap>
 #include <QPoint>
 #include <memory>

@@ -16,7 +16,7 @@
 #include "Base/Utils/Assert.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 #include <QResizeEvent>
 
 namespace

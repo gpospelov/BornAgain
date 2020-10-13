@@ -13,13 +13,10 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/ObjectiveMetric.h"
 #include "Core/Simulation/Simulation.h"
-#include "Fit/Kernel/KernelTypes.h"
 #include "Fit/Kernel/Minimizer.h"
-#include "Fit/Kernel/Parameters.h"
 #include "Fit/Minimizer/IMinimizer.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
@@ -59,13 +56,13 @@ void FitObjectiveBuilder::runFit()
     auto result =
         requires_residuals
             ? minimizer.minimize(
-                [&](const Fit::Parameters& params) {
-                    return m_fit_objective->evaluate_residuals(params);
-                },
-                createParameters())
+                  [&](const Fit::Parameters& params) {
+                      return m_fit_objective->evaluate_residuals(params);
+                  },
+                  createParameters())
             : minimizer.minimize(
-                [&](const Fit::Parameters& params) { return m_fit_objective->evaluate(params); },
-                createParameters());
+                  [&](const Fit::Parameters& params) { return m_fit_objective->evaluate(params); },
+                  createParameters());
     m_fit_objective->finalize(result);
 }
 

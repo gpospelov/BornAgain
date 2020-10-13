@@ -1,4 +1,3 @@
-#include "Core/Data/OutputData.h"
 #include "Core/Histo/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DataItem.h"
@@ -8,7 +7,6 @@
 #include "GUI/coregui/Models/JobModelFunctions.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/RealDataModel.h"
-#include "GUI/coregui/mainwindow/OutputDataIOHistory.h"
 #include "GUI/coregui/mainwindow/OutputDataIOService.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"

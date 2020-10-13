@@ -14,7 +14,6 @@
 
 #include "Core/InputOutput/OutputDataReadStrategy.h"
 #include "Base/Axis/PointwiseAxis.h"
-#include "Core/Data/OutputData.h"
 #include "Core/InputOutput/DataFormatUtils.h"
 #include "Core/InputOutput/TiffHandler.h"
 #include "Core/Intensity/ArrayUtils.h"

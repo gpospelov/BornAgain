@@ -1,7 +1,6 @@
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>

@@ -24,7 +24,6 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/Simulation.h"
 
 int main()
 {

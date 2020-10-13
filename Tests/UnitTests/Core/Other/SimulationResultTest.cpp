@@ -1,5 +1,3 @@
-#include "Core/Histo/SimulationResult.h"
-#include "Core/Data/OutputData.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Tests/GTestWrapper/google_test.h"
 

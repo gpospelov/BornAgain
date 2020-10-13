@@ -1,4 +1,3 @@
-#include "Base/Const/MathConstants.h"
 #include "Core/Correlations/FTDistributions1D.h"
 #include "Core/Correlations/FTDistributions2D.h"
 #include "Param/Base/RealParameter.h"

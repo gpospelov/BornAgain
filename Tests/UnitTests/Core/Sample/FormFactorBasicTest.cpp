@@ -1,7 +1,6 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Core/HardParticle/HardParticles.h"
-#include "Core/Scattering/IFormFactorBorn.h"
 #include "Core/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 

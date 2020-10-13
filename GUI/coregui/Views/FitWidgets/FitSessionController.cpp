@@ -19,7 +19,6 @@
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Views/FitWidgets/FitLog.h"
 #include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
-#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
 #include "GUI/coregui/Views/FitWidgets/FitWorkerLauncher.h"
 #include "GUI/coregui/Views/FitWidgets/GUIFitObserver.h"
 #include "GUI/coregui/utils/GUIHelpers.h"

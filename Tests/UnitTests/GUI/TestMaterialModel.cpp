@@ -1,5 +1,4 @@
 #include "GUI/coregui/Models/MaterialDataItems.h"
-#include "GUI/coregui/Models/MaterialItem.h"
 #include "GUI/coregui/Models/MaterialModel.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "Tests/GTestWrapper/google_test.h"

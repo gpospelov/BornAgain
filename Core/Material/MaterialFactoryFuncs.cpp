@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "Core/Material/MaterialFactoryFuncs.h"
 #include "Base/Const/Units.h"
 #include "Core/Material/MaterialBySLDImpl.h"
 #include "Core/Material/MaterialUtils.h"

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Correlations/FTDecay1D.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Utils/MathFunctions.h"
 #include <algorithm>
 
@@ -108,11 +107,11 @@ double FTDecayFunction1DTriangle::evaluate(double q) const
 
 FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(const std::vector<double> P)
     : IFTDecayFunction1D(
-        {"FTDecayFunction1DVoigt",
-         "class_tooltip",
-         {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
-           +INF, 0}}},
-        P),
+          {"FTDecayFunction1DVoigt",
+           "class_tooltip",
+           {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
+             +INF, 0}}},
+          P),
       m_eta(m_P[0])
 {
 }

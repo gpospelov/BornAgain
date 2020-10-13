@@ -14,7 +14,6 @@
 
 #include "Tests/Functional/GUI/Other/SaveLoadProject.h"
 #include "BATesting.h"
-#include "Base/Utils/Assert.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"

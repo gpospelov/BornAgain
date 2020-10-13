@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Detector/SimulationArea.h"
-#include "Base/Types/Exceptions.h"
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetector.h"
 #include "Core/Detector/RegionOfInterest.h"

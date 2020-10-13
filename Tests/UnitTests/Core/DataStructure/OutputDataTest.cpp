@@ -1,6 +1,3 @@
-#include "Core/Data/OutputData.h"
-#include "Base/Utils/ThreadInfo.h"
-#include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
 #include "Core/Instrument/IntensityDataFunctions.h"
 #include "Tests/GTestWrapper/google_test.h"

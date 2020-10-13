@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/FormFactorDWBA.h
-//! @brief     Defines class FormFactorDWBA.
+//! @file      Core/Scattering/FormFactorDWBAPol.h
+//! @brief     Defines class FormFactorDWBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,24 +12,25 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBA_H
-#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBA_H
+#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H
+#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H
 
 #include "Core/Scattering/IFormFactor.h"
 #include <memory>
 
 class ILayerRTCoefficients;
 
-//! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactor.
+//! Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized IFormFactor.
+
 //! @ingroup formfactors_internal
 
-class FormFactorDWBA final : public IFormFactor
+class FormFactorDWBAPol final : public IFormFactor
 {
 public:
-    FormFactorDWBA(const IFormFactor& form_factor);
-    ~FormFactorDWBA() override;
+    FormFactorDWBAPol(const IFormFactor& form_factor);
+    ~FormFactorDWBAPol() override;
 
-    FormFactorDWBA* clone() const override;
+    FormFactorDWBAPol* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
@@ -38,8 +39,11 @@ public:
         mP_form_factor->setAmbientMaterial(std::move(material));
     }
 
-    //! Calculates and returns a form factor calculation in DWBA
+    //! Throws not-implemented exception
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+
+    //! Calculates and returns a polarized form factor calculation in DWBA
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
     double volume() const override { return mP_form_factor->volume(); }
 
@@ -62,4 +66,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> mp_out_coeffs;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBA_H
+#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H

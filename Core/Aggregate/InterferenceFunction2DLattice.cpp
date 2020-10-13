@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction2DLattice.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
 #include "Param/Base/RealParameter.h"

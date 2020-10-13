@@ -49,10 +49,6 @@
 #include <QtXml/QDomDocument>
 
 #include <QtGui/QIcon>
-//#include <QtWidgets/QListView>
-//#include <QtWidgets/QLineEdit>
-//#include <QtWidgets/QItemDelegate>
-//#include <QtCore/QSortFilterProxyModel>
 
 #include <QItemDelegate>
 #include <QLineEdit>

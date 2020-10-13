@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Axis/PointwiseAxis.h"
+#include "Base/Const/MathConstants.h"
 #include "Core/Beam/IFootprintFactor.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"
@@ -25,7 +25,6 @@
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Scan/AngularSpecScan.h"
-#include "Core/Scan/ISpecularScan.h"
 #include "Core/Unit/UnitConverter1D.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"

@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
 #define BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
 
-#include "Base/Vector/Vectors3D.h"
 #include "Core/Scattering/IFormFactor.h"
 
 class IShape;

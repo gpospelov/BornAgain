@@ -18,10 +18,7 @@
 #include "Core/Fitting/ObjectiveMetricUtils.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
 #include "Core/Instrument/ChiSquaredModule.h"
-#include "Core/Intensity/ArrayUtils.h"
 #include "Core/Simulation/Simulation.h"
-#include "Fit/Kernel/MinimizerResult.h"
-#include "Fit/Kernel/Parameters.h"
 #include <stdexcept>
 
 class IMetricWrapper
@@ -64,7 +61,7 @@ simulation_builder_t FitObjective::simulationBuilder(PyBuilderCallback& callback
 
 FitObjective::FitObjective()
     : m_metric_module(
-        std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>())),
+          std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>())),
       m_fit_status(std::make_unique<FitStatus>(this))
 {
 }

@@ -16,7 +16,6 @@
 #include "Core/Particle/SlicedParticle.h"
 #include "Core/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Core/Scattering/Rotations.h"
-#include "Core/Scattering/ZLimits.h"
 #include "Param/Base/RealParameter.h"
 
 IParticle::~IParticle() = default;

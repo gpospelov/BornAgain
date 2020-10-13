@@ -16,7 +16,6 @@
 #include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterSample.h"
 
 DistributionHandler::DistributionHandler() : m_nbr_combinations(1)
 {

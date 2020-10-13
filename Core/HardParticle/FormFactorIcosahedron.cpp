@@ -44,7 +44,7 @@ const PolyhedralTopology FormFactorIcosahedron::topology = {{// bottom:
 
 FormFactorIcosahedron::FormFactorIcosahedron(const std::vector<double> P)
     : IFormFactorPolyhedron(
-        {"Icosahedron", "regular icosahedron", {{"Edge", "nm", "edge length", 0, +INF, 0}}}, P),
+          {"Icosahedron", "regular icosahedron", {{"Edge", "nm", "edge length", 0, +INF, 0}}}, P),
       m_edge(m_P[0])
 {
     onChange();

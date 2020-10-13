@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H
 
 #include "Base/Types/Complex.h"
-#include "Base/Types/ICloneable.h"
 #include "Base/Vector/Vectors3D.h"
 #include <vector>
 

@@ -18,7 +18,6 @@
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterSample.h"
 #include "Param/Varia/ParameterUtils.h"
 #include <map>
 

@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Mask/Line.h"
-#include "Base/Utils/Algorithms.h"
 #include "Base/Axis/Bin.h"
+#include "Base/Utils/Algorithms.h"
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/linestring.hpp>

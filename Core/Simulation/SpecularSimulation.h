@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 
-#include "Core/Data/OutputData.h"
 #include "Core/RT/ILayerRTCoefficients.h"
 #include "Core/Simulation/Simulation.h"
 

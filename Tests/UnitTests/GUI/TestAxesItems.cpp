@@ -1,6 +1,6 @@
-#include "Base/Const/Units.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
+#include "Base/Const/Units.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/PropertyItem.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"

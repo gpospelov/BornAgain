@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/SampleDesigner/MultiLayerView.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerMimeData.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"

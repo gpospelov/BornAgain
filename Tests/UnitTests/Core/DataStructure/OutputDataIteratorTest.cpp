@@ -1,4 +1,3 @@
-#include "Core/Data/OutputDataIterator.h"
 #include "Core/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 

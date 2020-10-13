@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/RealSpaceWidgets/IPositionBuilder.h"
 #include "Core/Aggregate/InterferenceFunctions.h"
-#include "Core/Lattice/Lattice2D.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpace2DParacrystalUtils.h"
 #include <cmath>
 #include <random>

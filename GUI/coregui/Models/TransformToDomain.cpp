@@ -25,7 +25,6 @@
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"
 #include "GUI/coregui/Models/ComboProperty.h"
-#include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
 #include "GUI/coregui/Models/FTDistributionItems.h"
 #include "GUI/coregui/Models/JobItem.h"
@@ -51,7 +50,6 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
-#include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/RangedDistributions.h"
 #include "Param/Varia/ParameterPattern.h"
 

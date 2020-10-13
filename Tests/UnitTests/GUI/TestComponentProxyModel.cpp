@@ -5,7 +5,6 @@
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/ModelUtils.h"
 #include "GUI/coregui/Models/ParticleItem.h"
-#include "GUI/coregui/Models/ProxyModelStrategy.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"

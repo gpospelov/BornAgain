@@ -15,7 +15,6 @@
 #include "GUI/coregui/Views/MaskWidgets/MaskEditorPropertyPanel.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
-#include "GUI/coregui/Views/AccordionWidget/AccordionWidget.h"
 #include "GUI/coregui/Views/AccordionWidget/ContentPane.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QListView>

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include "Core/Correlations/FTDecay1D.h"

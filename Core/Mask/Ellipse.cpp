@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Mask/Ellipse.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Axis/Bin.h"
+#include "Base/Types/Exceptions.h"
 
 //! @param xcenter x-coordinate of Ellipse's center
 //! @param ycenter y-coordinate of Ellipse's center

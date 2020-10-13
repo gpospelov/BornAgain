@@ -22,7 +22,6 @@
 #include "Core/RT/SimulationOptions.h"
 #include "Core/SampleBuilderEngine/SampleProvider.h"
 #include "Param/Distrib/DistributionHandler.h"
-#include "Param/Node/INode.h"
 
 template <class T> class OutputData;
 class IBackground;

@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
 #define BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
 
-#include "Base/Vector/Vectors3D.h"
 #include "Core/Particle/HomogeneousRegion.h"
 #include "Core/Scattering/ISample.h"
 

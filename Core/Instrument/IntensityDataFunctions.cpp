@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Detector/IDetector.h"
 #include "Core/Histo/IHistogram.h"
 #include "Core/Histo/SimulationResult.h"
 #include "Core/Instrument/FourierTransform.h"

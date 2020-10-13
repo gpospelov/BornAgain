@@ -3,7 +3,6 @@
 #include "GUI/coregui/Models/ParticleDistributionItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 

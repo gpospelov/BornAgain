@@ -14,12 +14,10 @@
 
 #include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Core/Multilayer/MultiLayer.h"
-#include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Fit/Tools/StringUtils.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/FitParameterHelper.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"

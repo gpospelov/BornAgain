@@ -14,7 +14,6 @@
 
 #include "Core/Material/MaterialUtils.h"
 #include "Base/Const/PhysicalConstants.h"
-#include "Core/Material/Material.h"
 
 using PhysConsts::g_factor_n;
 using PhysConsts::h_bar;

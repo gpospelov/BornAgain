@@ -15,9 +15,6 @@
 #ifndef BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H
 #define BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H
 
-#include "Base/Types/Complex.h"
-#include "Base/Vector/EigenCore.h"
-#include "Base/Vector/Vectors3D.h"
 #include "Core/Material/Material.h"
 
 //! A number of materials-related helper functions for internal use

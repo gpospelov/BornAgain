@@ -17,10 +17,10 @@
 #include "GUI/coregui/Models/RealLimitsItems.h"
 #include "GUI/coregui/Views/InfoWidgets/WarningSign.h"
 #include "Param/Distrib/Distributions.h"
-#include "qcustomplot.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <algorithm>
+#include <qcustomplot.h>
 
 namespace
 {

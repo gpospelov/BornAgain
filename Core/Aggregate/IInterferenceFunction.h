@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H
 #define BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H
 
-#include "Base/Vector/Vectors3D.h"
 #include "Core/Scattering/ISample.h"
 
 //! Pure virtual base class of interference functions.

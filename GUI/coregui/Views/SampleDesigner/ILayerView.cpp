@@ -12,10 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "GUI/coregui/Views/SampleDesigner/ILayerView.h"
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "GUI/coregui/Models/SessionItem.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"

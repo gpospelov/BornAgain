@@ -15,7 +15,6 @@
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "Core/Simulation/Simulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"

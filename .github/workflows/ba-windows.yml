@@ -59,7 +59,7 @@ jobs:
         cd ${{github.workspace}}
         mkdir deps
         Get-Date -Format G
-        wget https://iffcloud.fz-juelich.de/s/3S6DBmrQ5RXeRkX/download -O ${{runner.temp}}\libboost.zip
+        wget http://apps.jcns.fz-juelich.de/src/WinLibs/libboost1.73.win64.zip -O ${{runner.temp}}\libboost.zip
         wget http://apps.jcns.fz-juelich.de/src/WinLibs/libcerf1.13.mingw64.zip -O ${{runner.temp}}\libcerf.zip
         wget http://apps.jcns.fz-juelich.de/src/WinLibs/libfftw3.win64.zip -O ${{runner.temp}}\libfftw.zip
         wget http://apps.jcns.fz-juelich.de/src/WinLibs/libgsl-static.win64.zip -O ${{runner.temp}}\libgsl.zip

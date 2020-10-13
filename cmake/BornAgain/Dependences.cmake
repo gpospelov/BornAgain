@@ -27,6 +27,7 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
+add_definitions(-DBOOST_UUID_FORCE_AUTO_LINK) # line is needed to link bcrypt for MSVC
 
 # Boost component libraries (do not list headers here)
 set(boost_libraries_required filesystem iostreams program_options)

@@ -15,4 +15,232 @@
 #include <string>
 
 
+class SwigDirector_ISample : public ISample, public Swig::Director {
+
+public:
+    SwigDirector_ISample(PyObject *self);
+    SwigDirector_ISample(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
+    virtual ~SwigDirector_ISample();
+    virtual ISample *clone() const;
+    virtual void transferToCPP();
+    virtual ParameterPool *createParameterTree() const;
+    virtual void onChange();
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
+    virtual std::vector< INode const *, std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
+    virtual Material const *material() const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class ISample doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[9];
+#endif
+
+};
+
+
+class SwigDirector_IFormFactor : public IFormFactor, public Swig::Director {
+
+public:
+    SwigDirector_IFormFactor(PyObject *self);
+    SwigDirector_IFormFactor(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
+    virtual ~SwigDirector_IFormFactor();
+    virtual IFormFactor *clone() const;
+    virtual void transferToCPP();
+    virtual ParameterPool *createParameterTree() const;
+    virtual void onChange();
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
+    virtual std::vector< INode const *, std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
+    virtual Material const *material() const;
+    virtual void setAmbientMaterial(Material arg0);
+    virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
+    virtual double volume() const;
+    virtual double radialExtension() const;
+    virtual double bottomZ(IRotation const &rotation) const;
+    virtual double topZ(IRotation const &rotation) const;
+    virtual bool canSliceAnalytically(IRotation const &rot) const;
+    virtual bool canSliceAnalyticallySwigPublic(IRotation const &rot) const {
+      return IFormFactor::canSliceAnalytically(rot);
+    }
+    virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
+    virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
+      return IFormFactor::sliceFormFactor(limits,rot,translation);
+    }
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IFormFactor doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[17];
+#endif
+
+};
+
+
+class SwigDirector_IFormFactorBorn : public IFormFactorBorn, public Swig::Director {
+
+public:
+    SwigDirector_IFormFactorBorn(PyObject *self);
+    SwigDirector_IFormFactorBorn(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
+    virtual ~SwigDirector_IFormFactorBorn();
+    virtual IFormFactorBorn *clone() const;
+    virtual void transferToCPP();
+    virtual ParameterPool *createParameterTree() const;
+    virtual void onChange();
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
+    virtual std::vector< INode const *, std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
+    virtual Material const *material() const;
+    virtual void setAmbientMaterial(Material arg0);
+    virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
+    virtual double volume() const;
+    virtual double radialExtension() const;
+    virtual double bottomZ(IRotation const &rotation) const;
+    virtual double topZ(IRotation const &rotation) const;
+    virtual bool canSliceAnalytically(IRotation const &rot) const;
+    virtual bool canSliceAnalyticallySwigPublic(IRotation const &rot) const {
+      return IFormFactorBorn::canSliceAnalytically(rot);
+    }
+    virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
+    virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
+      return IFormFactor::sliceFormFactor(limits,rot,translation);
+    }
+    virtual complex_t evaluate_for_q(cvector_t q) const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IFormFactorBorn doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[18];
+#endif
+
+};
+
+
+class SwigDirector_ISampleBuilder : public ISampleBuilder, public Swig::Director {
+
+public:
+    SwigDirector_ISampleBuilder(PyObject *self);
+    virtual ~SwigDirector_ISampleBuilder();
+    virtual ParameterPool *createParameterTree() const;
+    virtual void onChange();
+    virtual MultiLayer *buildSample() const;
+    virtual MultiLayer *createSampleByIndex(size_t arg0);
+    virtual size_t size();
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class ISampleBuilder doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[5];
+#endif
+
+};
+
+
 #endif

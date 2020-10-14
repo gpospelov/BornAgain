@@ -24,6 +24,8 @@
 %include "ignoreBase.i"
 %include "ignoreSample.i"
 
+%rename(MaterialProfile_cpp) MaterialProfile;
+
 %rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
 %rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
 %rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;
@@ -35,22 +37,10 @@
 %rename(uncertaintyData_cpp) FitObjective::uncertaintyData;
 %rename(containsUncertainties_cpp) FitObjective::containsUncertainties;
 %rename(allPairsHaveUncertainties_cpp) FitObjective::allPairsHaveUncertainties;
-%rename(MaterialProfile_cpp) MaterialProfile;
-
-// force swig to use move ctor instead of copy ctor
-%typemap(out) SlicedParticle %{
-    $result = SWIG_NewPointerObj(new $1_ltype(std::move($1)), $&1_descriptor, SWIG_POINTER_OWN);
-  %}
-
-%shared_ptr(ISampleBuilder)
 
 %feature("director") PyBuilderCallback;  // used in extendCore.i
 %feature("director") PyObserverCallback; // used in extendCore.i
 
-%feature("director") ISampleBuilder;     // used in mesocrystal1.py
-%feature("director") ISample;            // needed by IFormFactor
-%feature("director") IFormFactor;        // needed by IFormFactorBorn
-%feature("director") IFormFactorBorn;    // used in CustomFormFactor.py
 %feature("director") FitObjective;       // used in custom_objective_function.py
 
 // Propagate python exceptions (from https://stackoverflow.com/questions/4811492)
@@ -84,7 +74,6 @@
 #include "Core/Fitting/IObserver.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
-#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
@@ -92,7 +81,6 @@
 #include "Core/Simulation/Simulation2D.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
@@ -127,84 +115,6 @@
 #include "Device/Resolution/ScanResolution.h"
 #include "Device/Scan/AngularSpecScan.h"
 #include "Device/Scan/QSpecScan.h"
-#include "Sample/Aggregate/IInterferenceFunction.h"
-#include "Sample/Aggregate/InterferenceFunction1DLattice.h"
-#include "Sample/Aggregate/InterferenceFunction2DLattice.h"
-#include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
-#include "Sample/Aggregate/InterferenceFunction2DSuperLattice.h"
-#include "Sample/Aggregate/InterferenceFunction3DLattice.h"
-#include "Sample/Aggregate/InterferenceFunctionFinite2DLattice.h"
-#include "Sample/Aggregate/InterferenceFunctionFinite3DLattice.h"
-#include "Sample/Aggregate/InterferenceFunctionHardDisk.h"
-#include "Sample/Aggregate/InterferenceFunctionNone.h"
-#include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
-#include "Sample/Aggregate/InterferenceFunctionTwin.h"
-#include "Sample/Aggregate/ParticleLayout.h"
-#include "Sample/Correlations/FTDecay1D.h"
-#include "Sample/Correlations/FTDecay2D.h"
-#include "Sample/Correlations/FTDistributions1D.h"
-#include "Sample/Correlations/FTDistributions2D.h"
-#include "Sample/Correlations/ILayout.h"
-#include "Sample/Correlations/IPeakShape.h"
-#include "Sample/HardParticle/FormFactorAnisoPyramid.h"
-#include "Sample/HardParticle/FormFactorBar.h"
-#include "Sample/HardParticle/FormFactorBox.h"
-#include "Sample/HardParticle/FormFactorCantellatedCube.h"
-#include "Sample/HardParticle/FormFactorCone.h"
-#include "Sample/HardParticle/FormFactorCone6.h"
-#include "Sample/HardParticle/FormFactorCosineRipple.h"
-#include "Sample/HardParticle/FormFactorCuboctahedron.h"
-#include "Sample/HardParticle/FormFactorCylinder.h"
-#include "Sample/HardParticle/FormFactorDodecahedron.h"
-#include "Sample/HardParticle/FormFactorDot.h"
-#include "Sample/HardParticle/FormFactorEllipsoidalCylinder.h"
-#include "Sample/HardParticle/FormFactorFullSphere.h"
-#include "Sample/HardParticle/FormFactorFullSpheroid.h"
-#include "Sample/HardParticle/FormFactorHemiEllipsoid.h"
-#include "Sample/HardParticle/FormFactorHollowSphere.h"
-#include "Sample/HardParticle/FormFactorIcosahedron.h"
-#include "Sample/HardParticle/FormFactorLongBoxGauss.h"
-#include "Sample/HardParticle/FormFactorLongBoxLorentz.h"
-#include "Sample/HardParticle/FormFactorPrism3.h"
-#include "Sample/HardParticle/FormFactorPrism6.h"
-#include "Sample/HardParticle/FormFactorPyramid.h"
-#include "Sample/HardParticle/FormFactorSawtoothRipple.h"
-#include "Sample/HardParticle/FormFactorTetrahedron.h"
-#include "Sample/HardParticle/FormFactorTruncatedCube.h"
-#include "Sample/HardParticle/FormFactorTruncatedSphere.h"
-#include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
-#include "Sample/HardParticle/IFormFactorPolyhedron.h"
-#include "Sample/HardParticle/IFormFactorPrism.h"
-#include "Sample/Lattice/ILatticeOrientation.h"
-#include "Sample/Lattice/ISelectionRule.h"
-#include "Sample/Lattice/Lattice.h"
-#include "Sample/Lattice/Lattice2D.h"
-#include "Sample/Lattice/LatticeUtils.h"
-#include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Sample/Material/WavevectorInfo.h"
-#include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Multilayer/LayerRoughness.h"
-#include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Particle/Crystal.h"
-#include "Sample/Particle/FormFactorCrystal.h"
-#include "Sample/Particle/FormFactorWeighted.h"
-#include "Sample/Particle/IAbstractParticle.h"
-#include "Sample/Particle/IClusteredParticles.h"
-#include "Sample/Particle/IParticle.h"
-#include "Sample/Particle/MesoCrystal.h"
-#include "Sample/Particle/Particle.h"
-#include "Sample/Particle/ParticleComposition.h"
-#include "Sample/Particle/ParticleCoreShell.h"
-#include "Sample/Particle/ParticleDistribution.h"
-#include "Sample/Particle/SlicedParticle.h"
-#include "Sample/RT/SimulationOptions.h"
-#include "Sample/Scattering/IFormFactorDecorator.h"
-#include "Sample/Scattering/ISample.h"
-#include "Sample/Scattering/Rotations.h"
-#include "Sample/SoftParticle/FormFactorGauss.h"
-#include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
-#include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Fit/Kernel/FitOptions.h"
 %}
 
@@ -223,21 +133,6 @@
 %newobject PyArrayImport::importArrayToOutputData;
 %newobject IHistogram::createFrom(const std::string& filename);
 %newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
-
-%newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
-%newobject InterferenceFunction2DLattice::createHexagonal(double lattice_length, double xi);
-%newobject InterferenceFunction2DParaCrystal::createSquare(
-        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
-%newobject InterferenceFunction2DParaCrystal::createHexagonal(
-        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
-%newobject InterferenceFunction2DSuperLattice::createSquare(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
-%newobject InterferenceFunction2DSuperLattice::createHexagonal(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
-%newobject InterferenceFunctionFinite2DLattice::createSquare(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
-%newobject InterferenceFunctionFinite2DLattice::createHexagonal(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
 
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
@@ -261,15 +156,16 @@
 %import(module="libBornAgainParam") "Param/Distrib/ParameterDistribution.h"
 %include "fromParam.i"
 
+%import(module="libBornAgainSample") "Sample/Scattering/ISample.h"
+%import(module="libBornAgainSample") "Sample/Scattering/IFormFactor.h"
+%import(module="libBornAgainSample") "Sample/Scattering/IFormFactorBorn.h"
+
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
 
-%template(vector_IFormFactorPtr_t) std::vector<IFormFactor*>;
-
 %include "Fit/TestEngine/IFactory.h"
-%template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 
 %include "Device/Data/OutputData.h"
@@ -280,103 +176,6 @@
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
 
 %include "BAVersion.h"
-
-%include "Sample/RT/SimulationOptions.h"
-
-%include "Sample/Scattering/ISample.h"
-%include "Sample/Scattering/IFormFactor.h"
-%include "Sample/Scattering/IFormFactorBorn.h"
-%include "Sample/Scattering/IFormFactorDecorator.h"
-
-%include "Sample/Scattering/Rotations.h"
-
-%include "Sample/Particle/FormFactorCrystal.h"
-%include "Sample/Particle/FormFactorWeighted.h"
-%include "Sample/Particle/IAbstractParticle.h"
-%include "Sample/Particle/IClusteredParticles.h"
-%include "Sample/Particle/Crystal.h"
-%include "Sample/Particle/IParticle.h"
-%include "Sample/Particle/MesoCrystal.h"
-%include "Sample/Particle/Particle.h"
-%include "Sample/Particle/ParticleComposition.h"
-%include "Sample/Particle/ParticleCoreShell.h"
-%include "Sample/Particle/ParticleDistribution.h"
-
-%include "Sample/Correlations/FTDecay1D.h"
-%include "Sample/Correlations/FTDecay2D.h"
-%include "Sample/Correlations/FTDistributions1D.h"
-%include "Sample/Correlations/FTDistributions2D.h"
-%include "Sample/Correlations/FTDecay1D.h"
-%include "Sample/Correlations/FTDecay2D.h"
-%include "Sample/Correlations/ILayout.h"
-%include "Sample/Correlations/IPeakShape.h"
-
-%include "Sample/Aggregate/IInterferenceFunction.h"
-%include "Sample/Aggregate/InterferenceFunction1DLattice.h"
-%include "Sample/Aggregate/InterferenceFunction2DLattice.h"
-%include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
-%include "Sample/Aggregate/InterferenceFunction2DSuperLattice.h"
-%include "Sample/Aggregate/InterferenceFunction3DLattice.h"
-%include "Sample/Aggregate/InterferenceFunctionFinite2DLattice.h"
-%include "Sample/Aggregate/InterferenceFunctionFinite3DLattice.h"
-%include "Sample/Aggregate/InterferenceFunctionHardDisk.h"
-%include "Sample/Aggregate/InterferenceFunctionNone.h"
-%include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
-%include "Sample/Aggregate/InterferenceFunctionTwin.h"
-%include "Sample/Aggregate/ParticleLayout.h"
-
-%include "Sample/Multilayer/Layer.h"
-%include "Sample/Multilayer/LayerRoughness.h"
-%include "Sample/Multilayer/MultiLayer.h"
-
-// SWIG workaround for using axes units the same way as they are used in cpp files
-%rename(RoughnessModel) RoughnessModelWrap;
-%include "Sample/Multilayer/RoughnessModels.h"
-
-%include "Sample/HardParticle/IFormFactorPolyhedron.h"
-%include "Sample/HardParticle/IFormFactorPrism.h"
-%include "Sample/HardParticle/IProfileRipple.h"
-
-%include "Sample/HardParticle/FormFactorAnisoPyramid.h"
-%include "Sample/HardParticle/FormFactorBox.h"
-%include "Sample/HardParticle/FormFactorCantellatedCube.h"
-%include "Sample/HardParticle/FormFactorCone.h"
-%include "Sample/HardParticle/FormFactorCone6.h"
-%include "Sample/HardParticle/FormFactorCosineRipple.h"
-%include "Sample/HardParticle/FormFactorCuboctahedron.h"
-%include "Sample/HardParticle/FormFactorCylinder.h"
-%include "Sample/HardParticle/FormFactorDodecahedron.h"
-%include "Sample/HardParticle/FormFactorDot.h"
-%include "Sample/HardParticle/FormFactorEllipsoidalCylinder.h"
-%include "Sample/HardParticle/FormFactorFullSphere.h"
-%include "Sample/HardParticle/FormFactorFullSpheroid.h"
-%include "Sample/HardParticle/FormFactorHemiEllipsoid.h"
-%include "Sample/HardParticle/FormFactorHollowSphere.h"
-%include "Sample/HardParticle/FormFactorIcosahedron.h"
-%include "Sample/HardParticle/FormFactorLongBoxGauss.h"
-%include "Sample/HardParticle/FormFactorLongBoxLorentz.h"
-%include "Sample/HardParticle/FormFactorPrism3.h"
-%include "Sample/HardParticle/FormFactorPrism6.h"
-%include "Sample/HardParticle/FormFactorPyramid.h"
-%include "Sample/HardParticle/FormFactorSawtoothRipple.h"
-%include "Sample/HardParticle/FormFactorTetrahedron.h"
-%include "Sample/HardParticle/FormFactorTruncatedCube.h"
-%include "Sample/HardParticle/FormFactorTruncatedSphere.h"
-%include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
-
-%include "Sample/SoftParticle/FormFactorGauss.h"
-%include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
-%include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
-
-%include "Sample/Lattice/ILatticeOrientation.h"
-%include "Sample/Lattice/ISelectionRule.h"
-%include "Sample/Lattice/Lattice.h"
-%include "Sample/Lattice/Lattice2D.h"
-%include "Sample/Lattice/LatticeUtils.h"
-
-%include "Sample/Material/Material.h"
-%include "Sample/Material/MaterialFactoryFuncs.h"
-%include "Sample/Material/WavevectorInfo.h"
 
 %include "Device/Mask/IShape2D.h"
 %include "Device/Mask/Ellipse.h"
@@ -429,8 +228,6 @@
 %include "Core/Fitting/IterationInfo.h"
 %include "Core/Fitting/PyFittingCallbacks.h"
 
-%include "Sample/SampleBuilderEngine/ISampleBuilder.h"
-
 %include "Core/Simulation/Simulation.h"
 %include "Core/Simulation/Simulation2D.h"
 %include "Core/Simulation/GISASSimulation.h"
@@ -443,7 +240,6 @@
 %include "Core/Computation/PoissonNoiseBackground.h"
 %include "Core/Computation/MultiLayerFuncs.h"
 
-%include "Sample/StandardSamples/SampleBuilderFactory.h"
 %include "Core/Simulation/SimulationFactory.h"
 
 %extend BasicVector3D<double> {
@@ -473,31 +269,6 @@
         (*($self))[i] = value;
         return (*($self))[i];
     }
-};
-
-%extend ISampleBuilder {
-    virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
-        return &(($self)->IParameterized::registerParameter(name, (double*)parpointer)); }
-
-    virtual void setParameterValue(const std::string& name, double value) {
-        ($self)->IParameterized::setParameterValue(name, value); }
-
-    virtual std::string parametersToString() const {
-        return ($self)->IParameterized::parametersToString();
-        }
-
-    virtual ParameterPool* createParameterTree() const {
-        return ($self)->IParameterized::createParameterTree();
-        }
-
-    virtual ParameterPool* parameterPool() const {
-        return ($self)->IParameterized::parameterPool();
-    }
-
-    virtual void onChange() {
-        return ($self)->IParameterized::onChange();
-    }
-
 };
 
 // needed to prevent ownership problems with passed ISampleBuilder

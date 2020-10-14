@@ -14,7 +14,7 @@
 
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>
 
 //! This function, called from run, has different implementations in Core/Py/Gui tests:

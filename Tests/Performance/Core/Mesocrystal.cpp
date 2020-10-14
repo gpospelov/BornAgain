@@ -25,7 +25,7 @@
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleComposition.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include <iostream>

@@ -15,7 +15,7 @@
 #include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Fit/Tools/StringUtils.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DocumentModel.h"

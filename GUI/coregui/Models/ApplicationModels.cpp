@@ -17,7 +17,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/StandardSimulations.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"

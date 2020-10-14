@@ -18,7 +18,7 @@
 #include "Device/Detector/DetectorFunctions.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Fit/Tools/StringUtils.h"

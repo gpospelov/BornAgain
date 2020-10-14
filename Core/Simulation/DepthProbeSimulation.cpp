@@ -22,7 +22,7 @@
 #include "Device/Histo/Histogram1D.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"

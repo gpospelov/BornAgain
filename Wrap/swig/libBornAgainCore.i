@@ -84,7 +84,7 @@
 #include "Core/Fitting/IObserver.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
@@ -92,7 +92,7 @@
 #include "Core/Simulation/Simulation2D.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
@@ -429,7 +429,7 @@
 %include "Core/Fitting/IterationInfo.h"
 %include "Core/Fitting/PyFittingCallbacks.h"
 
-%include "Core/SampleBuilderEngine/ISampleBuilder.h"
+%include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 %include "Core/Simulation/Simulation.h"
 %include "Core/Simulation/Simulation2D.h"
@@ -443,7 +443,7 @@
 %include "Core/Computation/PoissonNoiseBackground.h"
 %include "Core/Computation/MultiLayerFuncs.h"
 
-%include "Core/StandardSamples/SampleBuilderFactory.h"
+%include "Sample/StandardSamples/SampleBuilderFactory.h"
 %include "Core/Simulation/SimulationFactory.h"
 
 %extend BasicVector3D<double> {

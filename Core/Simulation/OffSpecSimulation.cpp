@@ -17,7 +17,7 @@
 #include "Device/Detector/SimpleUnitConverters.h"
 #include "Device/Histo/Histogram2D.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"

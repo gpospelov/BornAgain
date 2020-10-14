@@ -15,7 +15,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/Simulation/StandardSimulations.h"
-#include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
+#include "Sample/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include <chrono>
 
 using Results = std::vector<std::pair<int, long>>;

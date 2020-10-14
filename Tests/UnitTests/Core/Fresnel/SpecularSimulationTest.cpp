@@ -6,7 +6,7 @@
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Device/Scan/AngularSpecScan.h"
 #include "Device/Scan/QSpecScan.h"
 #include "Param/Base/RealParameter.h"

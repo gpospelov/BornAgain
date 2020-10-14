@@ -25,7 +25,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/StandardSamples/CylindersBuilder.h"
+#include "Sample/StandardSamples/CylindersBuilder.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterPattern.h"
 

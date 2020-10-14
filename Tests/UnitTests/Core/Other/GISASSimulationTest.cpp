@@ -1,6 +1,6 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class GISASSimulationTest : public ::testing::Test

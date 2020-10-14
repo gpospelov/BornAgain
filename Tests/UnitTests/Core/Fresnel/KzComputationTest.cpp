@@ -5,7 +5,7 @@
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/RT/SimulationOptions.h"
-#include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
+#include "Sample/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class KzComputationTest : public ::testing::Test

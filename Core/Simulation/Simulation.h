@@ -20,7 +20,7 @@
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/Instrument.h"
 #include "Sample/RT/SimulationOptions.h"
-#include "Core/SampleBuilderEngine/SampleProvider.h"
+#include "Sample/SampleBuilderEngine/SampleProvider.h"
 #include "Param/Distrib/DistributionHandler.h"
 
 template <class T> class OutputData;

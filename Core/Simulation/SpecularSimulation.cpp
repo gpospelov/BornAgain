@@ -23,7 +23,7 @@
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Multilayer/SpecularSimulationElement.h"
-#include "Core/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Device/Scan/AngularSpecScan.h"
 #include "Device/Unit/UnitConverter1D.h"
 #include "Param/Base/ParameterPool.h"

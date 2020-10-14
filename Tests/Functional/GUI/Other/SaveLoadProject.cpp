@@ -16,7 +16,7 @@
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"

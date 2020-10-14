@@ -839,6 +839,8 @@ INPUT                  = @CMAKE_SOURCE_DIR@/Doc/Doxygen \
                          @CMAKE_SOURCE_DIR@/Base \
                          @CMAKE_SOURCE_DIR@/Fit \
                          @CMAKE_SOURCE_DIR@/Param \
+                         @CMAKE_SOURCE_DIR@/Sample \
+                         @CMAKE_SOURCE_DIR@/Device \
                          @CMAKE_SOURCE_DIR@/Core
 
 # This tag can be used to specify the character encoding of the source files

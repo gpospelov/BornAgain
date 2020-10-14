@@ -14,9 +14,9 @@
 
 #include "Core/Particle/HomogeneousRegion.h"
 #include "Base/Const/Units.h"
-#include "Core/Material/MaterialBySLDImpl.h"
-#include "Core/Material/MaterialUtils.h"
-#include "Core/Material/RefractiveMaterialImpl.h"
+#include "Sample/Material/MaterialBySLDImpl.h"
+#include "Sample/Material/MaterialUtils.h"
+#include "Sample/Material/RefractiveMaterialImpl.h"
 #include <functional>
 
 namespace

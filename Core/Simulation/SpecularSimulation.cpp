@@ -20,7 +20,7 @@
 #include "Core/Computation/SpecularComputation.h"
 #include "Core/Detector/SpecularDetector1D.h"
 #include "Core/Histo/Histogram1D.h"
-#include "Core/Material/MaterialUtils.h"
+#include "Sample/Material/MaterialUtils.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularSimulationElement.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"

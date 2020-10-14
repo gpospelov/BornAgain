@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
 
 #include "Base/Types/SafePointerVector.h"
-#include "Core/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IFormFactorBorn.h"
 #include <memory>
 
 //! A sphere with log normal radius distribution.

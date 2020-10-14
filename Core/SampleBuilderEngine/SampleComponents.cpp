@@ -14,7 +14,7 @@
 
 #include "Core/SampleBuilderEngine/SampleComponents.h"
 #include "Base/Const/Units.h"
-#include "Core/HardParticle/HardParticles.h"
+#include "Sample/HardParticle/HardParticles.h"
 
 // ************************************************************************** //
 FTDistribution2DComponents::FTDistribution2DComponents()

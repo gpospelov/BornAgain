@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_LAYERINTERFACE_H
 #define BORNAGAIN_CORE_MULTILAYER_LAYERINTERFACE_H
 
-#include "Core/Scattering/ISample.h"
+#include "Sample/Scattering/ISample.h"
 #include <memory>
 
 class LayerRoughness;

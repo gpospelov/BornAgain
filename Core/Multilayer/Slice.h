@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_SLICE_H
 #define BORNAGAIN_CORE_MULTILAYER_SLICE_H
 
-#include "Core/Material/Material.h"
+#include "Sample/Material/Material.h"
 #include <memory>
 
 class LayerRoughness;

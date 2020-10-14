@@ -18,7 +18,7 @@
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Correlations/FTDecay1D.h"
 #include "Core/Correlations/FTDecay2D.h"
-#include "Core/HardParticle/FormFactorCylinder.h"
+#include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"

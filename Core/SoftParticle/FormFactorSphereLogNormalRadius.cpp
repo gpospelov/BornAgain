@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
-#include "Core/LibFF/SomeFormFactors.h"
-#include "Core/Shapes/TruncatedEllipsoid.h"
+#include "Sample/LibFF/SomeFormFactors.h"
+#include "Sample/Shapes/TruncatedEllipsoid.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterSample.h"
 

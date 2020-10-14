@@ -3776,14 +3776,7 @@ def GetVersionNumber():
     r"""GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
 class IShape2D(libBornAgainBase.ICloneable):
-    r"""
-
-
-    Basic class for all shapes in 2D.
-
-    C++ includes: IShape2D.h
-
-    """
+    r"""Proxy of C++ IShape2D class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -3792,21 +3785,13 @@ class IShape2D(libBornAgainBase.ICloneable):
     __repr__ = _swig_repr
 
     def clone(self):
-        r"""
-        clone(IShape2D self) -> IShape2D
-        virtual IShape2D* IShape2D::clone() const =0
-
-        """
+        r"""clone(IShape2D self) -> IShape2D"""
         return _libBornAgainCore.IShape2D_clone(self)
 
     def contains(self, *args):
         r"""
         contains(IShape2D self, double x, double y) -> bool
         contains(IShape2D self, Bin1D const & binx, Bin1D const & biny) -> bool
-        virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
         """
         return _libBornAgainCore.IShape2D_contains(self, *args)
     __swig_destroy__ = _libBornAgainCore.delete_IShape2D
@@ -3819,101 +3804,44 @@ minor_version_number = cvar.minor_version_number
 patch_version_number = cvar.patch_version_number
 
 class Ellipse(IShape2D):
-    r"""
-
-
-    Ellipse shape.
-
-    C++ includes: Ellipse.h
-
-    """
+    r"""Proxy of C++ Ellipse class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, xcenter, ycenter, xradius, yradius, theta=0.0):
-        r"""
-        __init__(Ellipse self, double xcenter, double ycenter, double xradius, double yradius, double theta=0.0) -> Ellipse
-        Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta=0.0)
-
-        Parameters:
-        -----------
-
-        xcenter: 
-        x-coordinate of  Ellipse's center
-
-        ycenter: 
-        y-coordinate of  Ellipse's center
-
-        xradius: 
-        Radius along x-axis
-
-        yradius: 
-        Radius along y-axis
-
-        theta: 
-        Angle of  Ellipse rotation in radians 
-
-        """
+        r"""__init__(Ellipse self, double xcenter, double ycenter, double xradius, double yradius, double theta=0.0) -> Ellipse"""
         _libBornAgainCore.Ellipse_swiginit(self, _libBornAgainCore.new_Ellipse(xcenter, ycenter, xradius, yradius, theta))
 
     def clone(self):
-        r"""
-        clone(Ellipse self) -> Ellipse
-        Ellipse* Ellipse::clone() const
-
-        """
+        r"""clone(Ellipse self) -> Ellipse"""
         return _libBornAgainCore.Ellipse_clone(self)
 
     def contains(self, *args):
         r"""
         contains(Ellipse self, double x, double y) -> bool
         contains(Ellipse self, Bin1D const & binx, Bin1D const & biny) -> bool
-        bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
-
         """
         return _libBornAgainCore.Ellipse_contains(self, *args)
 
     def getCenterX(self):
-        r"""
-        getCenterX(Ellipse self) -> double
-        double Ellipse::getCenterX() const
-
-        """
+        r"""getCenterX(Ellipse self) -> double"""
         return _libBornAgainCore.Ellipse_getCenterX(self)
 
     def getCenterY(self):
-        r"""
-        getCenterY(Ellipse self) -> double
-        double Ellipse::getCenterY() const
-
-        """
+        r"""getCenterY(Ellipse self) -> double"""
         return _libBornAgainCore.Ellipse_getCenterY(self)
 
     def getRadiusX(self):
-        r"""
-        getRadiusX(Ellipse self) -> double
-        double Ellipse::getRadiusX() const
-
-        """
+        r"""getRadiusX(Ellipse self) -> double"""
         return _libBornAgainCore.Ellipse_getRadiusX(self)
 
     def getRadiusY(self):
-        r"""
-        getRadiusY(Ellipse self) -> double
-        double Ellipse::getRadiusY() const
-
-        """
+        r"""getRadiusY(Ellipse self) -> double"""
         return _libBornAgainCore.Ellipse_getRadiusY(self)
 
     def getTheta(self):
-        r"""
-        getTheta(Ellipse self) -> double
-        double Ellipse::getTheta() const
-
-        """
+        r"""getTheta(Ellipse self) -> double"""
         return _libBornAgainCore.Ellipse_getTheta(self)
     __swig_destroy__ = _libBornAgainCore.delete_Ellipse
 
@@ -3921,42 +3849,23 @@ class Ellipse(IShape2D):
 _libBornAgainCore.Ellipse_swigregister(Ellipse)
 
 class Line(IShape2D):
-    r"""
-
-
-    A line segment.
-
-    C++ includes: Line.h
-
-    """
+    r"""Proxy of C++ Line class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, x1, y1, x2, y2):
-        r"""
-        __init__(Line self, double x1, double y1, double x2, double y2) -> Line
-        Line::Line(double x1, double y1, double x2, double y2)
-
-        """
+        r"""__init__(Line self, double x1, double y1, double x2, double y2) -> Line"""
         _libBornAgainCore.Line_swiginit(self, _libBornAgainCore.new_Line(x1, y1, x2, y2))
 
     def clone(self):
-        r"""
-        clone(Line self) -> Line
-        Line* Line::clone() const
-
-        """
+        r"""clone(Line self) -> Line"""
         return _libBornAgainCore.Line_clone(self)
 
     def contains(self, *args):
         r"""
         contains(Line self, double x, double y) -> bool
         contains(Line self, Bin1D const & binx, Bin1D const & biny) -> bool
-        bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
         """
         return _libBornAgainCore.Line_contains(self, *args)
     __swig_destroy__ = _libBornAgainCore.delete_Line
@@ -3965,57 +3874,28 @@ class Line(IShape2D):
 _libBornAgainCore.Line_swigregister(Line)
 
 class VerticalLine(IShape2D):
-    r"""
-
-
-    An infinite vertical line.
-
-    C++ includes: Line.h
-
-    """
+    r"""Proxy of C++ VerticalLine class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, x):
-        r"""
-        __init__(VerticalLine self, double x) -> VerticalLine
-        VerticalLine::VerticalLine(double x)
-
-        Parameters:
-        -----------
-
-        x: 
-        The value at which it crosses x-axes 
-
-        """
+        r"""__init__(VerticalLine self, double x) -> VerticalLine"""
         _libBornAgainCore.VerticalLine_swiginit(self, _libBornAgainCore.new_VerticalLine(x))
 
     def clone(self):
-        r"""
-        clone(VerticalLine self) -> VerticalLine
-        VerticalLine* VerticalLine::clone() const
-
-        """
+        r"""clone(VerticalLine self) -> VerticalLine"""
         return _libBornAgainCore.VerticalLine_clone(self)
 
     def contains(self, *args):
         r"""
         contains(VerticalLine self, double x, double y) -> bool
         contains(VerticalLine self, Bin1D const & binx, Bin1D const & biny) -> bool
-        bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
         """
         return _libBornAgainCore.VerticalLine_contains(self, *args)
 
     def getXpos(self):
-        r"""
-        getXpos(VerticalLine self) -> double
-        double VerticalLine::getXpos() const
-
-        """
+        r"""getXpos(VerticalLine self) -> double"""
         return _libBornAgainCore.VerticalLine_getXpos(self)
     __swig_destroy__ = _libBornAgainCore.delete_VerticalLine
 
@@ -4023,57 +3903,28 @@ class VerticalLine(IShape2D):
 _libBornAgainCore.VerticalLine_swigregister(VerticalLine)
 
 class HorizontalLine(IShape2D):
-    r"""
-
-
-    An infinite horizontal line.
-
-    C++ includes: Line.h
-
-    """
+    r"""Proxy of C++ HorizontalLine class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, y):
-        r"""
-        __init__(HorizontalLine self, double y) -> HorizontalLine
-        HorizontalLine::HorizontalLine(double y)
-
-        Parameters:
-        -----------
-
-        y: 
-        The value at which it crosses y-axes 
-
-        """
+        r"""__init__(HorizontalLine self, double y) -> HorizontalLine"""
         _libBornAgainCore.HorizontalLine_swiginit(self, _libBornAgainCore.new_HorizontalLine(y))
 
     def clone(self):
-        r"""
-        clone(HorizontalLine self) -> HorizontalLine
-        HorizontalLine* HorizontalLine::clone() const
-
-        """
+        r"""clone(HorizontalLine self) -> HorizontalLine"""
         return _libBornAgainCore.HorizontalLine_clone(self)
 
     def contains(self, *args):
         r"""
         contains(HorizontalLine self, double x, double y) -> bool
         contains(HorizontalLine self, Bin1D const & binx, Bin1D const & biny) -> bool
-        bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
         """
         return _libBornAgainCore.HorizontalLine_contains(self, *args)
 
     def getYpos(self):
-        r"""
-        getYpos(HorizontalLine self) -> double
-        double HorizontalLine::getYpos() const
-
-        """
+        r"""getYpos(HorizontalLine self) -> double"""
         return _libBornAgainCore.HorizontalLine_getYpos(self)
     __swig_destroy__ = _libBornAgainCore.delete_HorizontalLine
 
@@ -4081,14 +3932,7 @@ class HorizontalLine(IShape2D):
 _libBornAgainCore.HorizontalLine_swigregister(HorizontalLine)
 
 class Polygon(IShape2D):
-    r"""
-
-
-    A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
-
-    C++ includes: Polygon.h
-
-    """
+    r"""Proxy of C++ Polygon class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -4098,143 +3942,71 @@ class Polygon(IShape2D):
         __init__(Polygon self, vdouble1d_t x, vdouble1d_t y) -> Polygon
         __init__(Polygon self, vdouble2d_t points) -> Polygon
         __init__(Polygon self, PolygonPrivate const * d) -> Polygon
-        Polygon::Polygon(const PolygonPrivate *d)
-
         """
         _libBornAgainCore.Polygon_swiginit(self, _libBornAgainCore.new_Polygon(*args))
     __swig_destroy__ = _libBornAgainCore.delete_Polygon
 
     def clone(self):
-        r"""
-        clone(Polygon self) -> Polygon
-        virtual Polygon* Polygon::clone() const
-
-        """
+        r"""clone(Polygon self) -> Polygon"""
         return _libBornAgainCore.Polygon_clone(self)
 
     def contains(self, *args):
         r"""
         contains(Polygon self, double x, double y) -> bool
         contains(Polygon self, Bin1D const & binx, Bin1D const & biny) -> bool
-        bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
         """
         return _libBornAgainCore.Polygon_contains(self, *args)
 
     def getArea(self):
-        r"""
-        getArea(Polygon self) -> double
-        double Polygon::getArea() const
-
-        """
+        r"""getArea(Polygon self) -> double"""
         return _libBornAgainCore.Polygon_getArea(self)
 
     def getPoints(self, xpos, ypos):
-        r"""
-        getPoints(Polygon self, vdouble1d_t xpos, vdouble1d_t ypos)
-        void Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const
-
-        """
+        r"""getPoints(Polygon self, vdouble1d_t xpos, vdouble1d_t ypos)"""
         return _libBornAgainCore.Polygon_getPoints(self, xpos, ypos)
 
 # Register Polygon in _libBornAgainCore:
 _libBornAgainCore.Polygon_swigregister(Polygon)
 
 class Rectangle(IShape2D):
-    r"""
-
-
-    The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
-
-    C++ includes: Rectangle.h
-
-    """
+    r"""Proxy of C++ Rectangle class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, xlow, ylow, xup, yup):
-        r"""
-        __init__(Rectangle self, double xlow, double ylow, double xup, double yup) -> Rectangle
-        Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
-
-        Parameters:
-        -----------
-
-        xlow: 
-        x-coordinate of lower left corner
-
-        ylow: 
-        y-coordinate of lower left corner
-
-        xup: 
-        x-coordinate of upper right corner
-
-        yup: 
-        y-coordinate of upper right corner 
-
-        """
+        r"""__init__(Rectangle self, double xlow, double ylow, double xup, double yup) -> Rectangle"""
         _libBornAgainCore.Rectangle_swiginit(self, _libBornAgainCore.new_Rectangle(xlow, ylow, xup, yup))
 
     def clone(self):
-        r"""
-        clone(Rectangle self) -> Rectangle
-        Rectangle* Rectangle::clone() const
-
-        """
+        r"""clone(Rectangle self) -> Rectangle"""
         return _libBornAgainCore.Rectangle_clone(self)
 
     def contains(self, *args):
         r"""
         contains(Rectangle self, double x, double y) -> bool
         contains(Rectangle self, Bin1D const & binx, Bin1D const & biny) -> bool
-        bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
-
-        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-
         """
         return _libBornAgainCore.Rectangle_contains(self, *args)
 
     def getArea(self):
-        r"""
-        getArea(Rectangle self) -> double
-        double Rectangle::getArea() const
-
-        """
+        r"""getArea(Rectangle self) -> double"""
         return _libBornAgainCore.Rectangle_getArea(self)
 
     def getXlow(self):
-        r"""
-        getXlow(Rectangle self) -> double
-        double Rectangle::getXlow() const
-
-        """
+        r"""getXlow(Rectangle self) -> double"""
         return _libBornAgainCore.Rectangle_getXlow(self)
 
     def getYlow(self):
-        r"""
-        getYlow(Rectangle self) -> double
-        double Rectangle::getYlow() const
-
-        """
+        r"""getYlow(Rectangle self) -> double"""
         return _libBornAgainCore.Rectangle_getYlow(self)
 
     def getXup(self):
-        r"""
-        getXup(Rectangle self) -> double
-        double Rectangle::getXup() const
-
-        """
+        r"""getXup(Rectangle self) -> double"""
         return _libBornAgainCore.Rectangle_getXup(self)
 
     def getYup(self):
-        r"""
-        getYup(Rectangle self) -> double
-        double Rectangle::getYup() const
-
-        """
+        r"""getYup(Rectangle self) -> double"""
         return _libBornAgainCore.Rectangle_getYup(self)
     __swig_destroy__ = _libBornAgainCore.delete_Rectangle
 
@@ -4398,14 +4170,7 @@ class SimulationOptions(object):
 _libBornAgainCore.SimulationOptions_swigregister(SimulationOptions)
 
 class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
-    r"""
-
-
-    Pure virtual base class for sample components and properties related to scattering.
-
-    C++ includes: ISample.h
-
-    """
+    r"""Proxy of C++ ISample class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -4414,8 +4179,6 @@ class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         r"""
         __init__(ISample self) -> ISample
         __init__(ISample self, NodeMeta meta, vdouble1d_t PValues) -> ISample
-        ISample::ISample(const NodeMeta &meta, const std::vector< double > &PValues)
-
         """
         if self.__class__ == ISample:
             _self = None
@@ -4424,33 +4187,15 @@ class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         _libBornAgainCore.ISample_swiginit(self, _libBornAgainCore.new_ISample(_self, *args))
 
     def clone(self):
-        r"""
-        clone(ISample self) -> ISample
-        ISample* ISample::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(ISample self) -> ISample"""
         return _libBornAgainCore.ISample_clone(self)
 
     def material(self):
-        r"""
-        material(ISample self) -> Material
-        virtual const Material* ISample::material() const
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
+        r"""material(ISample self) -> Material"""
         return _libBornAgainCore.ISample_material(self)
 
     def containedMaterials(self):
-        r"""
-        containedMaterials(ISample self) -> std::vector< Material const *,std::allocator< Material const * > >
-        std::vector< const Material * > ISample::containedMaterials() const
-
-        Returns set of unique materials contained in this  ISample. 
-
-        """
+        r"""containedMaterials(ISample self) -> std::vector< Material const *,std::allocator< Material const * > >"""
         return _libBornAgainCore.ISample_containedMaterials(self)
     __swig_destroy__ = _libBornAgainCore.delete_ISample
     def __disown__(self):
@@ -4462,18 +4207,7 @@ class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 _libBornAgainCore.ISample_swigregister(ISample)
 
 class IFormFactor(ISample):
-    r"""
-
-
-    Pure virtual base class for all form factors.
-
-    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-
-    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
-
-    C++ includes: IFormFactor.h
-
-    """
+    r"""Proxy of C++ IFormFactor class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -4482,8 +4216,6 @@ class IFormFactor(ISample):
         r"""
         __init__(IFormFactor self) -> IFormFactor
         __init__(IFormFactor self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactor
-        IFormFactor::IFormFactor(const NodeMeta &meta, const std::vector< double > &PValues)
-
         """
         if self.__class__ == IFormFactor:
             _self = None
@@ -4493,83 +4225,35 @@ class IFormFactor(ISample):
     __swig_destroy__ = _libBornAgainCore.delete_IFormFactor
 
     def clone(self):
-        r"""
-        clone(IFormFactor self) -> IFormFactor
-        IFormFactor* IFormFactor::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(IFormFactor self) -> IFormFactor"""
         return _libBornAgainCore.IFormFactor_clone(self)
 
     def createSlicedFormFactor(self, limits, rot, translation):
-        r"""
-        createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor
-        IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
-
-        Creates a (possibly sliced) form factor with the given rotation and translation. 
-
-        """
+        r"""createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
         return _libBornAgainCore.IFormFactor_createSlicedFormFactor(self, limits, rot, translation)
 
     def setAmbientMaterial(self, arg0):
-        r"""
-        setAmbientMaterial(IFormFactor self, Material arg0)
-        virtual void IFormFactor::setAmbientMaterial(Material)=0
-
-        Passes the material in which this particle is embedded. 
-
-        """
+        r"""setAmbientMaterial(IFormFactor self, Material arg0)"""
         return _libBornAgainCore.IFormFactor_setAmbientMaterial(self, arg0)
 
     def evaluate(self, wavevectors):
-        r"""
-        evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t
-        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
-
-        """
+        r"""evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t"""
         return _libBornAgainCore.IFormFactor_evaluate(self, wavevectors)
 
     def volume(self):
-        r"""
-        volume(IFormFactor self) -> double
-        double IFormFactor::volume() const
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
+        r"""volume(IFormFactor self) -> double"""
         return _libBornAgainCore.IFormFactor_volume(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(IFormFactor self) -> double
-        virtual double IFormFactor::radialExtension() const =0
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(IFormFactor self) -> double"""
         return _libBornAgainCore.IFormFactor_radialExtension(self)
 
     def bottomZ(self, rotation):
-        r"""
-        bottomZ(IFormFactor self, IRotation rotation) -> double
-        virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""bottomZ(IFormFactor self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactor_bottomZ(self, rotation)
 
     def topZ(self, rotation):
-        r"""
-        topZ(IFormFactor self, IRotation rotation) -> double
-        virtual double IFormFactor::topZ(const IRotation &rotation) const =0
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""topZ(IFormFactor self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactor_topZ(self, rotation)
 
     def canSliceAnalytically(self, rot):
@@ -4589,23 +4273,10 @@ _libBornAgainCore.IFormFactor_swigregister(IFormFactor)
 
 
 def createTransformedFormFactor(formfactor, rot, translation):
-    r"""
-    createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
-    IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-
-    """
+    r"""createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor"""
     return _libBornAgainCore.createTransformedFormFactor(formfactor, rot, translation)
 class IFormFactorBorn(IFormFactor):
-    r"""
-
-
-    Pure virtual base class for Born form factors.
-
-    In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
-
-    C++ includes: IFormFactorBorn.h
-
-    """
+    r"""Proxy of C++ IFormFactorBorn class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -4614,8 +4285,6 @@ class IFormFactorBorn(IFormFactor):
         r"""
         __init__(IFormFactorBorn self) -> IFormFactorBorn
         __init__(IFormFactorBorn self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactorBorn
-        IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)
-
         """
         if self.__class__ == IFormFactorBorn:
             _self = None
@@ -4625,63 +4294,27 @@ class IFormFactorBorn(IFormFactor):
     __swig_destroy__ = _libBornAgainCore.delete_IFormFactorBorn
 
     def clone(self):
-        r"""
-        clone(IFormFactorBorn self) -> IFormFactorBorn
-        IFormFactorBorn* IFormFactorBorn::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(IFormFactorBorn self) -> IFormFactorBorn"""
         return _libBornAgainCore.IFormFactorBorn_clone(self)
 
     def setAmbientMaterial(self, arg0):
-        r"""
-        setAmbientMaterial(IFormFactorBorn self, Material arg0)
-        void IFormFactorBorn::setAmbientMaterial(Material) override
-
-        Passes the material in which this particle is embedded. 
-
-        """
+        r"""setAmbientMaterial(IFormFactorBorn self, Material arg0)"""
         return _libBornAgainCore.IFormFactorBorn_setAmbientMaterial(self, arg0)
 
     def evaluate(self, wavevectors):
-        r"""
-        evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
-        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
-
-        """
+        r"""evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t"""
         return _libBornAgainCore.IFormFactorBorn_evaluate(self, wavevectors)
 
     def bottomZ(self, rotation):
-        r"""
-        bottomZ(IFormFactorBorn self, IRotation rotation) -> double
-        double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""bottomZ(IFormFactorBorn self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorBorn_bottomZ(self, rotation)
 
     def topZ(self, rotation):
-        r"""
-        topZ(IFormFactorBorn self, IRotation rotation) -> double
-        double IFormFactorBorn::topZ(const IRotation &rotation) const override
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""topZ(IFormFactorBorn self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorBorn_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
 
     def canSliceAnalytically(self, rot):
@@ -4700,14 +4333,7 @@ class IFormFactorBorn(IFormFactor):
 _libBornAgainCore.IFormFactorBorn_swigregister(IFormFactorBorn)
 
 class SlicingEffects(object):
-    r"""
-
-
-    Nested structure that holds slicing effects on position and removed parts.
-
-    C++ includes: IFormFactorBorn.h
-
-    """
+    r"""Proxy of C++ SlicingEffects class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -4716,15 +4342,7 @@ class SlicingEffects(object):
     dz_top = property(_libBornAgainCore.SlicingEffects_dz_top_get, _libBornAgainCore.SlicingEffects_dz_top_set, doc=r"""dz_top : double""")
 
     def __init__(self):
-        r"""
-        __init__(SlicingEffects self) -> SlicingEffects
-
-
-        Nested structure that holds slicing effects on position and removed parts.
-
-        C++ includes: IFormFactorBorn.h
-
-        """
+        r"""__init__(SlicingEffects self) -> SlicingEffects"""
         _libBornAgainCore.SlicingEffects_swiginit(self, _libBornAgainCore.new_SlicingEffects())
     __swig_destroy__ = _libBornAgainCore.delete_SlicingEffects
 
@@ -4732,16 +4350,7 @@ class SlicingEffects(object):
 _libBornAgainCore.SlicingEffects_swigregister(SlicingEffects)
 
 class IFormFactorDecorator(IFormFactor):
-    r"""
-
-
-    Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
-
-    This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
-
-    C++ includes: IFormFactorDecorator.h
-
-    """
+    r"""Proxy of C++ IFormFactorDecorator class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -4751,85 +4360,38 @@ class IFormFactorDecorator(IFormFactor):
     __swig_destroy__ = _libBornAgainCore.delete_IFormFactorDecorator
 
     def clone(self):
-        r"""
-        clone(IFormFactorDecorator self) -> IFormFactorDecorator
-        IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(IFormFactorDecorator self) -> IFormFactorDecorator"""
         return _libBornAgainCore.IFormFactorDecorator_clone(self)
 
     def setAmbientMaterial(self, material):
-        r"""
-        setAmbientMaterial(IFormFactorDecorator self, Material material)
-        void IFormFactorDecorator::setAmbientMaterial(Material material) override
-
-        Passes the material in which this particle is embedded. 
-
-        """
+        r"""setAmbientMaterial(IFormFactorDecorator self, Material material)"""
         return _libBornAgainCore.IFormFactorDecorator_setAmbientMaterial(self, material)
 
     def volume(self):
-        r"""
-        volume(IFormFactorDecorator self) -> double
-        double IFormFactorDecorator::volume() const override
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
+        r"""volume(IFormFactorDecorator self) -> double"""
         return _libBornAgainCore.IFormFactorDecorator_volume(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(IFormFactorDecorator self) -> double
-        double IFormFactorDecorator::radialExtension() const override
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(IFormFactorDecorator self) -> double"""
         return _libBornAgainCore.IFormFactorDecorator_radialExtension(self)
 
     def bottomZ(self, rotation):
-        r"""
-        bottomZ(IFormFactorDecorator self, IRotation rotation) -> double
-        double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""bottomZ(IFormFactorDecorator self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorDecorator_bottomZ(self, rotation)
 
     def topZ(self, rotation):
-        r"""
-        topZ(IFormFactorDecorator self, IRotation rotation) -> double
-        double IFormFactorDecorator::topZ(const IRotation &rotation) const override
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""topZ(IFormFactorDecorator self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorDecorator_topZ(self, rotation)
 
     def getFormFactor(self):
-        r"""
-        getFormFactor(IFormFactorDecorator self) -> IFormFactor
-        const IFormFactor* IFormFactorDecorator::getFormFactor() const
-
-        """
+        r"""getFormFactor(IFormFactorDecorator self) -> IFormFactor"""
         return _libBornAgainCore.IFormFactorDecorator_getFormFactor(self)
 
 # Register IFormFactorDecorator in _libBornAgainCore:
 _libBornAgainCore.IFormFactorDecorator_swigregister(IFormFactorDecorator)
 
 class IRotation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
-    r"""
-
-
-    Pure virtual interface for rotations.
-
-    C++ includes: Rotations.h
-
-    """
+    r"""Proxy of C++ IRotation class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -4848,57 +4410,27 @@ class IRotation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         return _libBornAgainCore.IRotation_createIdentity()
 
     def clone(self):
-        r"""
-        clone(IRotation self) -> IRotation
-        virtual IRotation* IRotation::clone() const =0
-
-        """
+        r"""clone(IRotation self) -> IRotation"""
         return _libBornAgainCore.IRotation_clone(self)
 
     def createInverse(self):
-        r"""
-        createInverse(IRotation self) -> IRotation
-        virtual IRotation* IRotation::createInverse() const =0
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
+        r"""createInverse(IRotation self) -> IRotation"""
         return _libBornAgainCore.IRotation_createInverse(self)
 
     def getTransform3D(self):
-        r"""
-        getTransform3D(IRotation self) -> Transform3D
-        virtual Transform3D IRotation::getTransform3D() const =0
-
-        Returns transformation. 
-
-        """
+        r"""getTransform3D(IRotation self) -> Transform3D"""
         return _libBornAgainCore.IRotation_getTransform3D(self)
 
     def transformed(self, v):
-        r"""
-        transformed(IRotation self, kvector_t v) -> kvector_t
-        kvector_t IRotation::transformed(const kvector_t &v) const
-
-        """
+        r"""transformed(IRotation self, kvector_t v) -> kvector_t"""
         return _libBornAgainCore.IRotation_transformed(self, v)
 
     def isIdentity(self):
-        r"""
-        isIdentity(IRotation self) -> bool
-        bool IRotation::isIdentity() const
-
-        Returns true if rotation matrix is identity matrix (no rotations) 
-
-        """
+        r"""isIdentity(IRotation self) -> bool"""
         return _libBornAgainCore.IRotation_isIdentity(self)
 
     def zInvariant(self):
-        r"""
-        zInvariant(IRotation self) -> bool
-        bool IRotation::zInvariant() const
-
-        """
+        r"""zInvariant(IRotation self) -> bool"""
         return _libBornAgainCore.IRotation_zInvariant(self)
     __swig_destroy__ = _libBornAgainCore.delete_IRotation
 
@@ -4915,79 +4447,36 @@ def IRotation_createIdentity():
 
 
 def createProduct(left, right):
-    r"""
-    createProduct(IRotation left, IRotation right) -> IRotation
-    IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-    Returns concatenated rotation (first right, then left). 
-
-    """
+    r"""createProduct(IRotation left, IRotation right) -> IRotation"""
     return _libBornAgainCore.createProduct(left, right)
 class IdentityRotation(IRotation):
-    r"""
-
-
-    The identity rotation, which leaves everything in place.
-
-    C++ includes: Rotations.h
-
-    """
+    r"""Proxy of C++ IdentityRotation class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self):
-        r"""
-        __init__(IdentityRotation self) -> IdentityRotation
-        IdentityRotation::IdentityRotation()
-
-        """
+        r"""__init__(IdentityRotation self) -> IdentityRotation"""
         _libBornAgainCore.IdentityRotation_swiginit(self, _libBornAgainCore.new_IdentityRotation())
 
     def clone(self):
-        r"""
-        clone(IdentityRotation self) -> IdentityRotation
-        IdentityRotation* IdentityRotation::clone() const
-
-        """
+        r"""clone(IdentityRotation self) -> IdentityRotation"""
         return _libBornAgainCore.IdentityRotation_clone(self)
 
     def createInverse(self):
-        r"""
-        createInverse(IdentityRotation self) -> IdentityRotation
-        IdentityRotation* IdentityRotation::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
+        r"""createInverse(IdentityRotation self) -> IdentityRotation"""
         return _libBornAgainCore.IdentityRotation_createInverse(self)
 
     def accept(self, visitor):
-        r"""
-        accept(IdentityRotation self, INodeVisitor * visitor)
-        void IdentityRotation::accept(INodeVisitor *visitor) const
-
-        """
+        r"""accept(IdentityRotation self, INodeVisitor * visitor)"""
         return _libBornAgainCore.IdentityRotation_accept(self, visitor)
 
     def getTransform3D(self):
-        r"""
-        getTransform3D(IdentityRotation self) -> Transform3D
-        Transform3D IdentityRotation::getTransform3D() const
-
-        Returns transformation. 
-
-        """
+        r"""getTransform3D(IdentityRotation self) -> Transform3D"""
         return _libBornAgainCore.IdentityRotation_getTransform3D(self)
 
     def isIdentity(self):
-        r"""
-        isIdentity(IdentityRotation self) -> bool
-        bool IdentityRotation::isIdentity() const
-
-        Returns true if rotation matrix is identity matrix (no rotations) 
-
-        """
+        r"""isIdentity(IdentityRotation self) -> bool"""
         return _libBornAgainCore.IdentityRotation_isIdentity(self)
     __swig_destroy__ = _libBornAgainCore.delete_IdentityRotation
 
@@ -4995,14 +4484,7 @@ class IdentityRotation(IRotation):
 _libBornAgainCore.IdentityRotation_swigregister(IdentityRotation)
 
 class RotationX(IRotation):
-    r"""
-
-
-    A rotation about the x axis.
-
-    C++ includes: Rotations.h
-
-    """
+    r"""Proxy of C++ RotationX class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -5011,53 +4493,27 @@ class RotationX(IRotation):
         r"""
         __init__(RotationX self, vdouble1d_t P) -> RotationX
         __init__(RotationX self, double angle) -> RotationX
-        RotationX::RotationX(double angle)
-
         """
         _libBornAgainCore.RotationX_swiginit(self, _libBornAgainCore.new_RotationX(*args))
 
     def clone(self):
-        r"""
-        clone(RotationX self) -> RotationX
-        RotationX* RotationX::clone() const
-
-        """
+        r"""clone(RotationX self) -> RotationX"""
         return _libBornAgainCore.RotationX_clone(self)
 
     def createInverse(self):
-        r"""
-        createInverse(RotationX self) -> RotationX
-        RotationX* RotationX::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
+        r"""createInverse(RotationX self) -> RotationX"""
         return _libBornAgainCore.RotationX_createInverse(self)
 
     def accept(self, visitor):
-        r"""
-        accept(RotationX self, INodeVisitor * visitor)
-        void RotationX::accept(INodeVisitor *visitor) const
-
-        """
+        r"""accept(RotationX self, INodeVisitor * visitor)"""
         return _libBornAgainCore.RotationX_accept(self, visitor)
 
     def getAngle(self):
-        r"""
-        getAngle(RotationX self) -> double
-        double RotationX::getAngle() const
-
-        """
+        r"""getAngle(RotationX self) -> double"""
         return _libBornAgainCore.RotationX_getAngle(self)
 
     def getTransform3D(self):
-        r"""
-        getTransform3D(RotationX self) -> Transform3D
-        Transform3D RotationX::getTransform3D() const
-
-        Returns transformation. 
-
-        """
+        r"""getTransform3D(RotationX self) -> Transform3D"""
         return _libBornAgainCore.RotationX_getTransform3D(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationX
 
@@ -5065,14 +4521,7 @@ class RotationX(IRotation):
 _libBornAgainCore.RotationX_swigregister(RotationX)
 
 class RotationY(IRotation):
-    r"""
-
-
-    A rotation about the y axis.
-
-    C++ includes: Rotations.h
-
-    """
+    r"""Proxy of C++ RotationY class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -5081,53 +4530,27 @@ class RotationY(IRotation):
         r"""
         __init__(RotationY self, vdouble1d_t P) -> RotationY
         __init__(RotationY self, double angle) -> RotationY
-        RotationY::RotationY(double angle)
-
         """
         _libBornAgainCore.RotationY_swiginit(self, _libBornAgainCore.new_RotationY(*args))
 
     def clone(self):
-        r"""
-        clone(RotationY self) -> RotationY
-        RotationY* RotationY::clone() const
-
-        """
+        r"""clone(RotationY self) -> RotationY"""
         return _libBornAgainCore.RotationY_clone(self)
 
     def createInverse(self):
-        r"""
-        createInverse(RotationY self) -> RotationY
-        RotationY* RotationY::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
+        r"""createInverse(RotationY self) -> RotationY"""
         return _libBornAgainCore.RotationY_createInverse(self)
 
     def accept(self, visitor):
-        r"""
-        accept(RotationY self, INodeVisitor * visitor)
-        void RotationY::accept(INodeVisitor *visitor) const
-
-        """
+        r"""accept(RotationY self, INodeVisitor * visitor)"""
         return _libBornAgainCore.RotationY_accept(self, visitor)
 
     def getAngle(self):
-        r"""
-        getAngle(RotationY self) -> double
-        double RotationY::getAngle() const
-
-        """
+        r"""getAngle(RotationY self) -> double"""
         return _libBornAgainCore.RotationY_getAngle(self)
 
     def getTransform3D(self):
-        r"""
-        getTransform3D(RotationY self) -> Transform3D
-        Transform3D RotationY::getTransform3D() const
-
-        Returns transformation. 
-
-        """
+        r"""getTransform3D(RotationY self) -> Transform3D"""
         return _libBornAgainCore.RotationY_getTransform3D(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationY
 
@@ -5135,14 +4558,7 @@ class RotationY(IRotation):
 _libBornAgainCore.RotationY_swigregister(RotationY)
 
 class RotationZ(IRotation):
-    r"""
-
-
-    A rotation about the z axis.
-
-    C++ includes: Rotations.h
-
-    """
+    r"""Proxy of C++ RotationZ class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -5151,53 +4567,27 @@ class RotationZ(IRotation):
         r"""
         __init__(RotationZ self, vdouble1d_t P) -> RotationZ
         __init__(RotationZ self, double angle) -> RotationZ
-        RotationZ::RotationZ(double angle)
-
         """
         _libBornAgainCore.RotationZ_swiginit(self, _libBornAgainCore.new_RotationZ(*args))
 
     def clone(self):
-        r"""
-        clone(RotationZ self) -> RotationZ
-        RotationZ* RotationZ::clone() const
-
-        """
+        r"""clone(RotationZ self) -> RotationZ"""
         return _libBornAgainCore.RotationZ_clone(self)
 
     def createInverse(self):
-        r"""
-        createInverse(RotationZ self) -> RotationZ
-        RotationZ* RotationZ::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
+        r"""createInverse(RotationZ self) -> RotationZ"""
         return _libBornAgainCore.RotationZ_createInverse(self)
 
     def accept(self, visitor):
-        r"""
-        accept(RotationZ self, INodeVisitor * visitor)
-        void RotationZ::accept(INodeVisitor *visitor) const
-
-        """
+        r"""accept(RotationZ self, INodeVisitor * visitor)"""
         return _libBornAgainCore.RotationZ_accept(self, visitor)
 
     def getAngle(self):
-        r"""
-        getAngle(RotationZ self) -> double
-        double RotationZ::getAngle() const
-
-        """
+        r"""getAngle(RotationZ self) -> double"""
         return _libBornAgainCore.RotationZ_getAngle(self)
 
     def getTransform3D(self):
-        r"""
-        getTransform3D(RotationZ self) -> Transform3D
-        Transform3D RotationZ::getTransform3D() const
-
-        Returns transformation. 
-
-        """
+        r"""getTransform3D(RotationZ self) -> Transform3D"""
         return _libBornAgainCore.RotationZ_getTransform3D(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationZ
 
@@ -5205,14 +4595,7 @@ class RotationZ(IRotation):
 _libBornAgainCore.RotationZ_swigregister(RotationZ)
 
 class RotationEuler(IRotation):
-    r"""
-
-
-    A sequence of rotations about the z-x'-z'' axes.
-
-    C++ includes: Rotations.h
-
-    """
+    r"""Proxy of C++ RotationEuler class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -5221,69 +4604,35 @@ class RotationEuler(IRotation):
         r"""
         __init__(RotationEuler self, vdouble1d_t P) -> RotationEuler
         __init__(RotationEuler self, double alpha, double beta, double gamma) -> RotationEuler
-        RotationEuler::RotationEuler(double alpha, double beta, double gamma)
-
         """
         _libBornAgainCore.RotationEuler_swiginit(self, _libBornAgainCore.new_RotationEuler(*args))
 
     def clone(self):
-        r"""
-        clone(RotationEuler self) -> RotationEuler
-        RotationEuler* RotationEuler::clone() const
-
-        """
+        r"""clone(RotationEuler self) -> RotationEuler"""
         return _libBornAgainCore.RotationEuler_clone(self)
 
     def createInverse(self):
-        r"""
-        createInverse(RotationEuler self) -> IRotation
-        IRotation * RotationEuler::createInverse() const
-
-        Returns a new  IRotation object that is the current object's inverse. 
-
-        """
+        r"""createInverse(RotationEuler self) -> IRotation"""
         return _libBornAgainCore.RotationEuler_createInverse(self)
 
     def accept(self, visitor):
-        r"""
-        accept(RotationEuler self, INodeVisitor * visitor)
-        void RotationEuler::accept(INodeVisitor *visitor) const
-
-        """
+        r"""accept(RotationEuler self, INodeVisitor * visitor)"""
         return _libBornAgainCore.RotationEuler_accept(self, visitor)
 
     def getAlpha(self):
-        r"""
-        getAlpha(RotationEuler self) -> double
-        double RotationEuler::getAlpha() const
-
-        """
+        r"""getAlpha(RotationEuler self) -> double"""
         return _libBornAgainCore.RotationEuler_getAlpha(self)
 
     def getBeta(self):
-        r"""
-        getBeta(RotationEuler self) -> double
-        double RotationEuler::getBeta() const
-
-        """
+        r"""getBeta(RotationEuler self) -> double"""
         return _libBornAgainCore.RotationEuler_getBeta(self)
 
     def getGamma(self):
-        r"""
-        getGamma(RotationEuler self) -> double
-        double RotationEuler::getGamma() const
-
-        """
+        r"""getGamma(RotationEuler self) -> double"""
         return _libBornAgainCore.RotationEuler_getGamma(self)
 
     def getTransform3D(self):
-        r"""
-        getTransform3D(RotationEuler self) -> Transform3D
-        Transform3D RotationEuler::getTransform3D() const
-
-        Returns transformation. 
-
-        """
+        r"""getTransform3D(RotationEuler self) -> Transform3D"""
         return _libBornAgainCore.RotationEuler_getTransform3D(self)
     __swig_destroy__ = _libBornAgainCore.delete_RotationEuler
 
@@ -5577,8 +4926,6 @@ class FormFactorCrystal(IFormFactor):
         clone(FormFactorCrystal self) -> FormFactorCrystal
         FormFactorCrystal* FormFactorCrystal::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.FormFactorCrystal_clone(self)
 
@@ -5595,8 +4942,6 @@ class FormFactorCrystal(IFormFactor):
         setAmbientMaterial(FormFactorCrystal self, Material material)
         void FormFactorCrystal::setAmbientMaterial(Material material) override
 
-        Passes the material in which this particle is embedded. 
-
         """
         return _libBornAgainCore.FormFactorCrystal_setAmbientMaterial(self, material)
 
@@ -5604,8 +4949,6 @@ class FormFactorCrystal(IFormFactor):
         r"""
         volume(FormFactorCrystal self) -> double
         double FormFactorCrystal::volume() const override final
-
-        Returns the total volume of the particle of this form factor's shape. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_volume(self)
@@ -5615,8 +4958,6 @@ class FormFactorCrystal(IFormFactor):
         radialExtension(FormFactorCrystal self) -> double
         double FormFactorCrystal::radialExtension() const override final
 
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
         """
         return _libBornAgainCore.FormFactorCrystal_radialExtension(self)
 
@@ -5624,8 +4965,6 @@ class FormFactorCrystal(IFormFactor):
         r"""
         bottomZ(FormFactorCrystal self, IRotation rotation) -> double
         double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_bottomZ(self, rotation)
@@ -5635,8 +4974,6 @@ class FormFactorCrystal(IFormFactor):
         topZ(FormFactorCrystal self, IRotation rotation) -> double
         double FormFactorCrystal::topZ(const IRotation &rotation) const override final
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
         """
         return _libBornAgainCore.FormFactorCrystal_topZ(self, rotation)
 
@@ -5644,8 +4981,6 @@ class FormFactorCrystal(IFormFactor):
         r"""
         evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
         complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_evaluate(self, wavevectors)
@@ -5657,7 +4992,7 @@ class FormFactorWeighted(IFormFactor):
     r"""
 
 
-    Coherent sum of different scalar  IFormFactor's with different weights.
+    Coherent sum of different scalar IFormFactor's with different weights.
 
     Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
@@ -5682,8 +5017,6 @@ class FormFactorWeighted(IFormFactor):
         clone(FormFactorWeighted self) -> FormFactorWeighted
         FormFactorWeighted * FormFactorWeighted::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.FormFactorWeighted_clone(self)
 
@@ -5700,8 +5033,6 @@ class FormFactorWeighted(IFormFactor):
         radialExtension(FormFactorWeighted self) -> double
         double FormFactorWeighted::radialExtension() const override final
 
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
         """
         return _libBornAgainCore.FormFactorWeighted_radialExtension(self)
 
@@ -5710,8 +5041,6 @@ class FormFactorWeighted(IFormFactor):
         bottomZ(FormFactorWeighted self, IRotation rotation) -> double
         double FormFactorWeighted::bottomZ(const IRotation &rotation) const override final
 
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
         """
         return _libBornAgainCore.FormFactorWeighted_bottomZ(self, rotation)
 
@@ -5719,8 +5048,6 @@ class FormFactorWeighted(IFormFactor):
         r"""
         topZ(FormFactorWeighted self, IRotation rotation) -> double
         double FormFactorWeighted::topZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_topZ(self, rotation)
@@ -5738,8 +5065,6 @@ class FormFactorWeighted(IFormFactor):
         setAmbientMaterial(FormFactorWeighted self, Material material)
         void FormFactorWeighted::setAmbientMaterial(Material material) override final
 
-        Passes the material in which this particle is embedded. 
-
         """
         return _libBornAgainCore.FormFactorWeighted_setAmbientMaterial(self, material)
 
@@ -5747,8 +5072,6 @@ class FormFactorWeighted(IFormFactor):
         r"""
         evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
         complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_evaluate(self, wavevectors)
@@ -5779,8 +5102,6 @@ class IAbstractParticle(ISample):
         r"""
         clone(IAbstractParticle self) -> IAbstractParticle
         virtual IAbstractParticle* IAbstractParticle::clone() const =0
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.IAbstractParticle_clone(self)
@@ -5861,8 +5182,6 @@ class IClusteredParticles(ISample):
         clone(IClusteredParticles self) -> IClusteredParticles
         IClusteredParticles* IClusteredParticles::clone() const override=0
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.IClusteredParticles_clone(self)
 
@@ -5916,8 +5235,6 @@ class Crystal(IClusteredParticles):
         r"""
         clone(Crystal self) -> Crystal
         Crystal * Crystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.Crystal_clone(self)
@@ -5998,8 +5315,6 @@ class IParticle(IAbstractParticle):
         r"""
         clone(IParticle self) -> IParticle
         IParticle* IParticle::clone() const override=0
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.IParticle_clone(self)
@@ -6173,8 +5488,6 @@ class MesoCrystal(IParticle):
         clone(MesoCrystal self) -> MesoCrystal
         MesoCrystal * MesoCrystal::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.MesoCrystal_clone(self)
 
@@ -6236,8 +5549,6 @@ class Particle(IParticle):
         clone(Particle self) -> Particle
         Particle * Particle::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.Particle_clone(self)
 
@@ -6271,8 +5582,6 @@ class Particle(IParticle):
         r"""
         material(Particle self) -> Material
         const Material* Particle::material() const override final
-
-        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.Particle_material(self)
@@ -6324,8 +5633,6 @@ class ParticleComposition(IParticle):
         r"""
         clone(ParticleComposition self) -> ParticleComposition
         ParticleComposition * ParticleComposition::clone() const override final
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.ParticleComposition_clone(self)
@@ -6433,8 +5740,6 @@ class ParticleCoreShell(IParticle):
         clone(ParticleCoreShell self) -> ParticleCoreShell
         ParticleCoreShell * ParticleCoreShell::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.ParticleCoreShell_clone(self)
 
@@ -6508,8 +5813,6 @@ class ParticleDistribution(IAbstractParticle):
         r"""
         clone(ParticleDistribution self) -> ParticleDistribution
         ParticleDistribution * ParticleDistribution::clone() const override final
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.ParticleDistribution_clone(self)
@@ -7888,8 +7191,6 @@ class ILayout(ISample):
         clone(ILayout self) -> ILayout
         virtual ILayout* ILayout::clone() const =0
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.ILayout_clone(self)
 
@@ -7996,8 +7297,6 @@ class IPeakShape(ISample):
         clone(IPeakShape self) -> IPeakShape
         virtual IPeakShape* IPeakShape::clone() const =0
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.IPeakShape_clone(self)
 
@@ -8051,8 +7350,6 @@ class IsotropicGaussPeakShape(IPeakShape):
         clone(IsotropicGaussPeakShape self) -> IsotropicGaussPeakShape
         IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.IsotropicGaussPeakShape_clone(self)
 
@@ -8104,8 +7401,6 @@ class IsotropicLorentzPeakShape(IPeakShape):
         clone(IsotropicLorentzPeakShape self) -> IsotropicLorentzPeakShape
         IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.IsotropicLorentzPeakShape_clone(self)
 
@@ -8156,8 +7451,6 @@ class GaussFisherPeakShape(IPeakShape):
         r"""
         clone(GaussFisherPeakShape self) -> GaussFisherPeakShape
         GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.GaussFisherPeakShape_clone(self)
@@ -8220,8 +7513,6 @@ class LorentzFisherPeakShape(IPeakShape):
         clone(LorentzFisherPeakShape self) -> LorentzFisherPeakShape
         LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.LorentzFisherPeakShape_clone(self)
 
@@ -8282,8 +7573,6 @@ class MisesFisherGaussPeakShape(IPeakShape):
         r"""
         clone(MisesFisherGaussPeakShape self) -> MisesFisherGaussPeakShape
         MisesFisherGaussPeakShape * MisesFisherGaussPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.MisesFisherGaussPeakShape_clone(self)
@@ -8346,8 +7635,6 @@ class MisesGaussPeakShape(IPeakShape):
         clone(MisesGaussPeakShape self) -> MisesGaussPeakShape
         MisesGaussPeakShape * MisesGaussPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.MisesGaussPeakShape_clone(self)
 
@@ -8402,8 +7689,6 @@ class IInterferenceFunction(ISample):
         r"""
         clone(IInterferenceFunction self) -> IInterferenceFunction
         virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.IInterferenceFunction_clone(self)
@@ -8510,8 +7795,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
         InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_clone(self)
 
@@ -8593,8 +7876,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         r"""
         clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
         InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_clone(self)
@@ -8741,8 +8022,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         r"""
         clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
         InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_clone(self)
@@ -8963,8 +8242,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
         InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_clone(self)
 
@@ -9098,8 +8375,6 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
         InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_clone(self)
 
@@ -9206,8 +8481,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         r"""
         clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
         InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_clone(self)
@@ -9326,8 +8599,6 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
         InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_clone(self)
 
@@ -9421,8 +8692,6 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
         clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk
         InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.InterferenceFunctionHardDisk_clone(self)
 
@@ -9489,8 +8758,6 @@ class InterferenceFunctionNone(IInterferenceFunction):
         clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
         InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.InterferenceFunctionNone_clone(self)
 
@@ -9542,8 +8809,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         r"""
         clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
         InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_clone(self)
@@ -9684,8 +8949,6 @@ class InterferenceFunctionTwin(IInterferenceFunction):
         clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin
         InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.InterferenceFunctionTwin_clone(self)
 
@@ -9729,7 +8992,7 @@ class ParticleLayout(ILayout):
     r"""
 
 
-    Decorator class that adds particles to  ISample objects.
+    Decorator class that adds particles to ISample objects.
 
     C++ includes: ParticleLayout.h
 
@@ -9752,8 +9015,6 @@ class ParticleLayout(ILayout):
         r"""
         clone(ParticleLayout self) -> ParticleLayout
         ParticleLayout * ParticleLayout::clone() const final override
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.ParticleLayout_clone(self)
@@ -10338,8 +9599,6 @@ class Layer(ISample):
         clone(Layer self) -> Layer
         Layer * Layer::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.Layer_clone(self)
 
@@ -10373,8 +9632,6 @@ class Layer(ISample):
         r"""
         material(Layer self) -> Material
         const Material* Layer::material() const override final
-
-        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.Layer_material(self)
@@ -10474,8 +9731,6 @@ class LayerRoughness(ISample):
         r"""
         clone(LayerRoughness self) -> LayerRoughness
         LayerRoughness* LayerRoughness::clone() const
-
-        Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.LayerRoughness_clone(self)
@@ -10755,14 +10010,7 @@ class RoughnessModel(object):
 _libBornAgainCore.RoughnessModel_swigregister(RoughnessModel)
 
 class IFormFactorPolyhedron(IFormFactorBorn):
-    r"""
-
-
-    A polyhedron, for form factor computation.
-
-    C++ includes: IFormFactorPolyhedron.h
-
-    """
+    r"""Proxy of C++ IFormFactorPolyhedron class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -10772,85 +10020,38 @@ class IFormFactorPolyhedron(IFormFactorBorn):
     __swig_destroy__ = _libBornAgainCore.delete_IFormFactorPolyhedron
 
     def bottomZ(self, rotation):
-        r"""
-        bottomZ(IFormFactorPolyhedron self, IRotation rotation) -> double
-        double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""bottomZ(IFormFactorPolyhedron self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorPolyhedron_bottomZ(self, rotation)
 
     def topZ(self, rotation):
-        r"""
-        topZ(IFormFactorPolyhedron self, IRotation rotation) -> double
-        double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""topZ(IFormFactorPolyhedron self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorPolyhedron_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(IFormFactorPolyhedron self, cvector_t q) -> complex_t
-        complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(IFormFactorPolyhedron self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.IFormFactorPolyhedron_evaluate_for_q(self, q)
 
     def evaluate_centered(self, q):
-        r"""
-        evaluate_centered(IFormFactorPolyhedron self, cvector_t q) -> complex_t
-        complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
-
-        """
+        r"""evaluate_centered(IFormFactorPolyhedron self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.IFormFactorPolyhedron_evaluate_centered(self, q)
 
     def volume(self):
-        r"""
-        volume(IFormFactorPolyhedron self) -> double
-        double IFormFactorPolyhedron::volume() const override final
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
+        r"""volume(IFormFactorPolyhedron self) -> double"""
         return _libBornAgainCore.IFormFactorPolyhedron_volume(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(IFormFactorPolyhedron self) -> double
-        double IFormFactorPolyhedron::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(IFormFactorPolyhedron self) -> double"""
         return _libBornAgainCore.IFormFactorPolyhedron_radialExtension(self)
 
     def assert_platonic(self):
-        r"""
-        assert_platonic(IFormFactorPolyhedron self)
-        void IFormFactorPolyhedron::assert_platonic() const
-
-        Assertions for Platonic solid. 
-
-        """
+        r"""assert_platonic(IFormFactorPolyhedron self)"""
         return _libBornAgainCore.IFormFactorPolyhedron_assert_platonic(self)
 
 # Register IFormFactorPolyhedron in _libBornAgainCore:
 _libBornAgainCore.IFormFactorPolyhedron_swigregister(IFormFactorPolyhedron)
 
 class IFormFactorPrism(IFormFactorBorn):
-    r"""
-
-
-    A prism with a polygonal base, for form factor computation.
-
-    C++ includes: IFormFactorPrism.h
-
-    """
+    r"""Proxy of C++ IFormFactorPrism class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -10860,75 +10061,34 @@ class IFormFactorPrism(IFormFactorBorn):
     __swig_destroy__ = _libBornAgainCore.delete_IFormFactorPrism
 
     def bottomZ(self, rotation):
-        r"""
-        bottomZ(IFormFactorPrism self, IRotation rotation) -> double
-        double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""bottomZ(IFormFactorPrism self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorPrism_bottomZ(self, rotation)
 
     def topZ(self, rotation):
-        r"""
-        topZ(IFormFactorPrism self, IRotation rotation) -> double
-        double IFormFactorPrism::topZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""topZ(IFormFactorPrism self, IRotation rotation) -> double"""
         return _libBornAgainCore.IFormFactorPrism_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(IFormFactorPrism self, cvector_t q) -> complex_t
-        complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const override
-
-        Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
-
-        """
+        r"""evaluate_for_q(IFormFactorPrism self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.IFormFactorPrism_evaluate_for_q(self, q)
 
     def volume(self):
-        r"""
-        volume(IFormFactorPrism self) -> double
-        double IFormFactorPrism::volume() const override
-
-        Returns the volume of this prism. 
-
-        """
+        r"""volume(IFormFactorPrism self) -> double"""
         return _libBornAgainCore.IFormFactorPrism_volume(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(IFormFactorPrism self) -> double
-        double IFormFactorPrism::radialExtension() const override
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(IFormFactorPrism self) -> double"""
         return _libBornAgainCore.IFormFactorPrism_radialExtension(self)
 
     def getHeight(self):
-        r"""
-        getHeight(IFormFactorPrism self) -> double
-        double IFormFactorPrism::getHeight() const
-
-        """
+        r"""getHeight(IFormFactorPrism self) -> double"""
         return _libBornAgainCore.IFormFactorPrism_getHeight(self)
 
 # Register IFormFactorPrism in _libBornAgainCore:
 _libBornAgainCore.IFormFactorPrism_swigregister(IFormFactorPrism)
 
 class IProfileRipple(IFormFactorBorn):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: IProfileRipple.h
-
-    """
+    r"""Proxy of C++ IProfileRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -10937,47 +10097,23 @@ class IProfileRipple(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def getLength(self):
-        r"""
-        getLength(IProfileRipple self) -> double
-        double IProfileRipple::getLength() const
-
-        """
+        r"""getLength(IProfileRipple self) -> double"""
         return _libBornAgainCore.IProfileRipple_getLength(self)
 
     def getHeight(self):
-        r"""
-        getHeight(IProfileRipple self) -> double
-        double IProfileRipple::getHeight() const
-
-        """
+        r"""getHeight(IProfileRipple self) -> double"""
         return _libBornAgainCore.IProfileRipple_getHeight(self)
 
     def getWidth(self):
-        r"""
-        getWidth(IProfileRipple self) -> double
-        double IProfileRipple::getWidth() const
-
-        """
+        r"""getWidth(IProfileRipple self) -> double"""
         return _libBornAgainCore.IProfileRipple_getWidth(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(IProfileRipple self) -> double
-        double IProfileRipple::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(IProfileRipple self) -> double"""
         return _libBornAgainCore.IProfileRipple_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(IProfileRipple self, cvector_t q) -> complex_t
-        complex_t IProfileRipple::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(IProfileRipple self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.IProfileRipple_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_IProfileRipple
 
@@ -10985,14 +10121,7 @@ class IProfileRipple(IFormFactorBorn):
 _libBornAgainCore.IProfileRipple_swigregister(IProfileRipple)
 
 class IProfileRectangularRipple(IProfileRipple):
-    r"""
-
-
-    Base class for form factors with a rectangular ripple (bar) profile in the yz plane.
-
-    C++ includes: IProfileRipple.h
-
-    """
+    r"""Proxy of C++ IProfileRectangularRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -11005,14 +10134,7 @@ class IProfileRectangularRipple(IProfileRipple):
 _libBornAgainCore.IProfileRectangularRipple_swigregister(IProfileRectangularRipple)
 
 class ICosineRipple(IProfileRipple):
-    r"""
-
-
-    Base class for form factors with a cosine ripple profile in the yz plane.
-
-    C++ includes: IProfileRipple.h
-
-    """
+    r"""Proxy of C++ ICosineRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -11025,14 +10147,7 @@ class ICosineRipple(IProfileRipple):
 _libBornAgainCore.ICosineRipple_swigregister(ICosineRipple)
 
 class ISawtoothRipple(IProfileRipple):
-    r"""
-
-
-    Base class for form factors with a triangular ripple profile in the yz plane.
-
-    C++ includes: IProfileRipple.h
-
-    """
+    r"""Proxy of C++ ISawtoothRipple class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -11041,11 +10156,7 @@ class ISawtoothRipple(IProfileRipple):
     __repr__ = _swig_repr
 
     def getAsymmetry(self):
-        r"""
-        getAsymmetry(ISawtoothRipple self) -> double
-        double ISawtoothRipple::getAsymmetry() const
-
-        """
+        r"""getAsymmetry(ISawtoothRipple self) -> double"""
         return _libBornAgainCore.ISawtoothRipple_getAsymmetry(self)
     __swig_destroy__ = _libBornAgainCore.delete_ISawtoothRipple
 
@@ -11053,14 +10164,7 @@ class ISawtoothRipple(IProfileRipple):
 _libBornAgainCore.ISawtoothRipple_swigregister(ISawtoothRipple)
 
 class FormFactorAnisoPyramid(IFormFactorPolyhedron):
-    r"""
-
-
-    A frustum (truncated pyramid) with rectangular base.
-
-    C++ includes: FormFactorAnisoPyramid.h
-
-    """
+    r"""Proxy of C++ FormFactorAnisoPyramid class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11069,59 +10173,31 @@ class FormFactorAnisoPyramid(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorAnisoPyramid self, vdouble1d_t P) -> FormFactorAnisoPyramid
         __init__(FormFactorAnisoPyramid self, double length, double width, double height, double alpha) -> FormFactorAnisoPyramid
-        FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
-
         """
         _libBornAgainCore.FormFactorAnisoPyramid_swiginit(self, _libBornAgainCore.new_FormFactorAnisoPyramid(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid
-        FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid"""
         return _libBornAgainCore.FormFactorAnisoPyramid_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorAnisoPyramid self, INodeVisitor * visitor)
-        void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorAnisoPyramid self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorAnisoPyramid_accept(self, visitor)
 
     def getLength(self):
-        r"""
-        getLength(FormFactorAnisoPyramid self) -> double
-        double FormFactorAnisoPyramid::getLength() const
-
-        """
+        r"""getLength(FormFactorAnisoPyramid self) -> double"""
         return _libBornAgainCore.FormFactorAnisoPyramid_getLength(self)
 
     def getWidth(self):
-        r"""
-        getWidth(FormFactorAnisoPyramid self) -> double
-        double FormFactorAnisoPyramid::getWidth() const
-
-        """
+        r"""getWidth(FormFactorAnisoPyramid self) -> double"""
         return _libBornAgainCore.FormFactorAnisoPyramid_getWidth(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorAnisoPyramid self) -> double
-        double FormFactorAnisoPyramid::getHeight() const
-
-        """
+        r"""getHeight(FormFactorAnisoPyramid self) -> double"""
         return _libBornAgainCore.FormFactorAnisoPyramid_getHeight(self)
 
     def getAlpha(self):
-        r"""
-        getAlpha(FormFactorAnisoPyramid self) -> double
-        double FormFactorAnisoPyramid::getAlpha() const
-
-        """
+        r"""getAlpha(FormFactorAnisoPyramid self) -> double"""
         return _libBornAgainCore.FormFactorAnisoPyramid_getAlpha(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorAnisoPyramid
 
@@ -11129,14 +10205,7 @@ class FormFactorAnisoPyramid(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorAnisoPyramid_swigregister(FormFactorAnisoPyramid)
 
 class FormFactorBox(IFormFactorPrism):
-    r"""
-
-
-    A rectangular prism (parallelepiped).
-
-    C++ includes: FormFactorBox.h
-
-    """
+    r"""Proxy of C++ FormFactorBox class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11145,73 +10214,35 @@ class FormFactorBox(IFormFactorPrism):
         r"""
         __init__(FormFactorBox self, vdouble1d_t P) -> FormFactorBox
         __init__(FormFactorBox self, double length, double width, double height) -> FormFactorBox
-        FormFactorBox::FormFactorBox(double length, double width, double height)
-
         """
         _libBornAgainCore.FormFactorBox_swiginit(self, _libBornAgainCore.new_FormFactorBox(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorBox self) -> FormFactorBox
-        FormFactorBox* FormFactorBox::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorBox self) -> FormFactorBox"""
         return _libBornAgainCore.FormFactorBox_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorBox self, INodeVisitor * visitor)
-        void FormFactorBox::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorBox self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorBox_accept(self, visitor)
 
     def getLength(self):
-        r"""
-        getLength(FormFactorBox self) -> double
-        double FormFactorBox::getLength() const
-
-        """
+        r"""getLength(FormFactorBox self) -> double"""
         return _libBornAgainCore.FormFactorBox_getLength(self)
 
     def getWidth(self):
-        r"""
-        getWidth(FormFactorBox self) -> double
-        double FormFactorBox::getWidth() const
-
-        """
+        r"""getWidth(FormFactorBox self) -> double"""
         return _libBornAgainCore.FormFactorBox_getWidth(self)
 
     def volume(self):
-        r"""
-        volume(FormFactorBox self) -> double
-        double FormFactorBox::volume() const override final
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
+        r"""volume(FormFactorBox self) -> double"""
         return _libBornAgainCore.FormFactorBox_volume(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorBox self) -> double
-        double FormFactorBox::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorBox self) -> double"""
         return _libBornAgainCore.FormFactorBox_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
-        complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorBox_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorBox
 
@@ -11219,14 +10250,7 @@ class FormFactorBox(IFormFactorPrism):
 _libBornAgainCore.FormFactorBox_swigregister(FormFactorBox)
 
 class FormFactorCantellatedCube(IFormFactorPolyhedron):
-    r"""
-
-
-    A cube, with truncation of all edges and corners, as in Croset (2017) Fig 7
-
-    C++ includes: FormFactorCantellatedCube.h
-
-    """
+    r"""Proxy of C++ FormFactorCantellatedCube class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11235,43 +10259,23 @@ class FormFactorCantellatedCube(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorCantellatedCube self, vdouble1d_t P) -> FormFactorCantellatedCube
         __init__(FormFactorCantellatedCube self, double length, double removed_length) -> FormFactorCantellatedCube
-        FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
-
         """
         _libBornAgainCore.FormFactorCantellatedCube_swiginit(self, _libBornAgainCore.new_FormFactorCantellatedCube(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCantellatedCube self) -> FormFactorCantellatedCube
-        FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCantellatedCube self) -> FormFactorCantellatedCube"""
         return _libBornAgainCore.FormFactorCantellatedCube_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCantellatedCube self, INodeVisitor * visitor)
-        void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCantellatedCube self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCantellatedCube_accept(self, visitor)
 
     def getLength(self):
-        r"""
-        getLength(FormFactorCantellatedCube self) -> double
-        double FormFactorCantellatedCube::getLength() const
-
-        """
+        r"""getLength(FormFactorCantellatedCube self) -> double"""
         return _libBornAgainCore.FormFactorCantellatedCube_getLength(self)
 
     def getRemovedLength(self):
-        r"""
-        getRemovedLength(FormFactorCantellatedCube self) -> double
-        double FormFactorCantellatedCube::getRemovedLength() const
-
-        """
+        r"""getRemovedLength(FormFactorCantellatedCube self) -> double"""
         return _libBornAgainCore.FormFactorCantellatedCube_getRemovedLength(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCantellatedCube
 
@@ -11279,14 +10283,7 @@ class FormFactorCantellatedCube(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorCantellatedCube_swigregister(FormFactorCantellatedCube)
 
 class FormFactorCone(IFormFactorBorn):
-    r"""
-
-
-    A conical frustum (cone truncated parallel to the base) with circular base.
-
-    C++ includes: FormFactorCone.h
-
-    """
+    r"""Proxy of C++ FormFactorCone class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11295,71 +10292,35 @@ class FormFactorCone(IFormFactorBorn):
         r"""
         __init__(FormFactorCone self, vdouble1d_t P) -> FormFactorCone
         __init__(FormFactorCone self, double radius, double height, double alpha) -> FormFactorCone
-        FormFactorCone::FormFactorCone(double radius, double height, double alpha)
-
         """
         _libBornAgainCore.FormFactorCone_swiginit(self, _libBornAgainCore.new_FormFactorCone(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCone self) -> FormFactorCone
-        FormFactorCone* FormFactorCone::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCone self) -> FormFactorCone"""
         return _libBornAgainCore.FormFactorCone_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCone self, INodeVisitor * visitor)
-        void FormFactorCone::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCone self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCone_accept(self, visitor)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorCone self) -> double
-        double FormFactorCone::getHeight() const
-
-        """
+        r"""getHeight(FormFactorCone self) -> double"""
         return _libBornAgainCore.FormFactorCone_getHeight(self)
 
     def getAlpha(self):
-        r"""
-        getAlpha(FormFactorCone self) -> double
-        double FormFactorCone::getAlpha() const
-
-        """
+        r"""getAlpha(FormFactorCone self) -> double"""
         return _libBornAgainCore.FormFactorCone_getAlpha(self)
 
     def getRadius(self):
-        r"""
-        getRadius(FormFactorCone self) -> double
-        double FormFactorCone::getRadius() const
-
-        """
+        r"""getRadius(FormFactorCone self) -> double"""
         return _libBornAgainCore.FormFactorCone_getRadius(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorCone self) -> double
-        double FormFactorCone::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorCone self) -> double"""
         return _libBornAgainCore.FormFactorCone_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t
-        complex_t FormFactorCone::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorCone_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone
 
@@ -11367,14 +10328,7 @@ class FormFactorCone(IFormFactorBorn):
 _libBornAgainCore.FormFactorCone_swigregister(FormFactorCone)
 
 class FormFactorCone6(IFormFactorPolyhedron):
-    r"""
-
-
-    A frustum (truncated pyramid) with regular hexagonal base.
-
-    C++ includes: FormFactorCone6.h
-
-    """
+    r"""Proxy of C++ FormFactorCone6 class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11383,51 +10337,27 @@ class FormFactorCone6(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorCone6 self, vdouble1d_t P) -> FormFactorCone6
         __init__(FormFactorCone6 self, double base_edge, double height, double alpha) -> FormFactorCone6
-        FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
-
         """
         _libBornAgainCore.FormFactorCone6_swiginit(self, _libBornAgainCore.new_FormFactorCone6(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCone6 self) -> FormFactorCone6
-        FormFactorCone6* FormFactorCone6::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCone6 self) -> FormFactorCone6"""
         return _libBornAgainCore.FormFactorCone6_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCone6 self, INodeVisitor * visitor)
-        void FormFactorCone6::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCone6 self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCone6_accept(self, visitor)
 
     def getBaseEdge(self):
-        r"""
-        getBaseEdge(FormFactorCone6 self) -> double
-        double FormFactorCone6::getBaseEdge() const
-
-        """
+        r"""getBaseEdge(FormFactorCone6 self) -> double"""
         return _libBornAgainCore.FormFactorCone6_getBaseEdge(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorCone6 self) -> double
-        double FormFactorCone6::getHeight() const
-
-        """
+        r"""getHeight(FormFactorCone6 self) -> double"""
         return _libBornAgainCore.FormFactorCone6_getHeight(self)
 
     def getAlpha(self):
-        r"""
-        getAlpha(FormFactorCone6 self) -> double
-        double FormFactorCone6::getAlpha() const
-
-        """
+        r"""getAlpha(FormFactorCone6 self) -> double"""
         return _libBornAgainCore.FormFactorCone6_getAlpha(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone6
 
@@ -11435,14 +10365,7 @@ class FormFactorCone6(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorCone6_swigregister(FormFactorCone6)
 
 class FormFactorCosineRippleBox(ICosineRipple):
-    r"""
-
-
-    The form factor for a cosine ripple, with box profile in elongation direction.
-
-    C++ includes: FormFactorCosineRipple.h
-
-    """
+    r"""Proxy of C++ FormFactorCosineRippleBox class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11451,27 +10374,15 @@ class FormFactorCosineRippleBox(ICosineRipple):
         r"""
         __init__(FormFactorCosineRippleBox self, vdouble1d_t P) -> FormFactorCosineRippleBox
         __init__(FormFactorCosineRippleBox self, double length, double width, double height) -> FormFactorCosineRippleBox
-        FormFactorCosineRippleBox::FormFactorCosineRippleBox(double length, double width, double height)
-
         """
         _libBornAgainCore.FormFactorCosineRippleBox_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleBox(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCosineRippleBox self) -> FormFactorCosineRippleBox
-        FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCosineRippleBox self) -> FormFactorCosineRippleBox"""
         return _libBornAgainCore.FormFactorCosineRippleBox_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCosineRippleBox self, INodeVisitor * visitor)
-        void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCosineRippleBox self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCosineRippleBox_accept(self, visitor)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleBox
 
@@ -11479,14 +10390,7 @@ class FormFactorCosineRippleBox(ICosineRipple):
 _libBornAgainCore.FormFactorCosineRippleBox_swigregister(FormFactorCosineRippleBox)
 
 class FormFactorCosineRippleGauss(ICosineRipple):
-    r"""
-
-
-    The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-    C++ includes: FormFactorCosineRipple.h
-
-    """
+    r"""Proxy of C++ FormFactorCosineRippleGauss class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11495,27 +10399,15 @@ class FormFactorCosineRippleGauss(ICosineRipple):
         r"""
         __init__(FormFactorCosineRippleGauss self, vdouble1d_t P) -> FormFactorCosineRippleGauss
         __init__(FormFactorCosineRippleGauss self, double length, double width, double height) -> FormFactorCosineRippleGauss
-        FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(double length, double width, double height)
-
         """
         _libBornAgainCore.FormFactorCosineRippleGauss_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleGauss(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCosineRippleGauss self) -> FormFactorCosineRippleGauss
-        FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCosineRippleGauss self) -> FormFactorCosineRippleGauss"""
         return _libBornAgainCore.FormFactorCosineRippleGauss_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCosineRippleGauss self, INodeVisitor * visitor)
-        void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCosineRippleGauss self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCosineRippleGauss_accept(self, visitor)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleGauss
 
@@ -11523,14 +10415,7 @@ class FormFactorCosineRippleGauss(ICosineRipple):
 _libBornAgainCore.FormFactorCosineRippleGauss_swigregister(FormFactorCosineRippleGauss)
 
 class FormFactorCosineRippleLorentz(ICosineRipple):
-    r"""
-
-
-    The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-    C++ includes: FormFactorCosineRipple.h
-
-    """
+    r"""Proxy of C++ FormFactorCosineRippleLorentz class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11539,27 +10424,15 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
         r"""
         __init__(FormFactorCosineRippleLorentz self, vdouble1d_t P) -> FormFactorCosineRippleLorentz
         __init__(FormFactorCosineRippleLorentz self, double length, double width, double height) -> FormFactorCosineRippleLorentz
-        FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(double length, double width, double height)
-
         """
         _libBornAgainCore.FormFactorCosineRippleLorentz_swiginit(self, _libBornAgainCore.new_FormFactorCosineRippleLorentz(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCosineRippleLorentz self) -> FormFactorCosineRippleLorentz
-        FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCosineRippleLorentz self) -> FormFactorCosineRippleLorentz"""
         return _libBornAgainCore.FormFactorCosineRippleLorentz_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCosineRippleLorentz self, INodeVisitor * visitor)
-        void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCosineRippleLorentz self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCosineRippleLorentz_accept(self, visitor)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCosineRippleLorentz
 
@@ -11567,14 +10440,7 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
 _libBornAgainCore.FormFactorCosineRippleLorentz_swigregister(FormFactorCosineRippleLorentz)
 
 class FormFactorCuboctahedron(IFormFactorPolyhedron):
-    r"""
-
-
-    A truncated bifrustum with quadratic base.
-
-    C++ includes: FormFactorCuboctahedron.h
-
-    """
+    r"""Proxy of C++ FormFactorCuboctahedron class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11583,59 +10449,31 @@ class FormFactorCuboctahedron(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorCuboctahedron self, vdouble1d_t P) -> FormFactorCuboctahedron
         __init__(FormFactorCuboctahedron self, double length, double height, double height_ratio, double alpha) -> FormFactorCuboctahedron
-        FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
-
         """
         _libBornAgainCore.FormFactorCuboctahedron_swiginit(self, _libBornAgainCore.new_FormFactorCuboctahedron(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCuboctahedron self) -> FormFactorCuboctahedron
-        FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCuboctahedron self) -> FormFactorCuboctahedron"""
         return _libBornAgainCore.FormFactorCuboctahedron_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCuboctahedron self, INodeVisitor * visitor)
-        void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCuboctahedron self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCuboctahedron_accept(self, visitor)
 
     def getLength(self):
-        r"""
-        getLength(FormFactorCuboctahedron self) -> double
-        double FormFactorCuboctahedron::getLength() const
-
-        """
+        r"""getLength(FormFactorCuboctahedron self) -> double"""
         return _libBornAgainCore.FormFactorCuboctahedron_getLength(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorCuboctahedron self) -> double
-        double FormFactorCuboctahedron::getHeight() const
-
-        """
+        r"""getHeight(FormFactorCuboctahedron self) -> double"""
         return _libBornAgainCore.FormFactorCuboctahedron_getHeight(self)
 
     def getHeightRatio(self):
-        r"""
-        getHeightRatio(FormFactorCuboctahedron self) -> double
-        double FormFactorCuboctahedron::getHeightRatio() const
-
-        """
+        r"""getHeightRatio(FormFactorCuboctahedron self) -> double"""
         return _libBornAgainCore.FormFactorCuboctahedron_getHeightRatio(self)
 
     def getAlpha(self):
-        r"""
-        getAlpha(FormFactorCuboctahedron self) -> double
-        double FormFactorCuboctahedron::getAlpha() const
-
-        """
+        r"""getAlpha(FormFactorCuboctahedron self) -> double"""
         return _libBornAgainCore.FormFactorCuboctahedron_getAlpha(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCuboctahedron
 
@@ -11643,14 +10481,7 @@ class FormFactorCuboctahedron(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorCuboctahedron_swigregister(FormFactorCuboctahedron)
 
 class FormFactorCylinder(IFormFactorBorn):
-    r"""
-
-
-    A circular cylinder.
-
-    C++ includes: FormFactorCylinder.h
-
-    """
+    r"""Proxy of C++ FormFactorCylinder class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11659,63 +10490,31 @@ class FormFactorCylinder(IFormFactorBorn):
         r"""
         __init__(FormFactorCylinder self, vdouble1d_t P) -> FormFactorCylinder
         __init__(FormFactorCylinder self, double radius, double height) -> FormFactorCylinder
-        FormFactorCylinder::FormFactorCylinder(double radius, double height)
-
         """
         _libBornAgainCore.FormFactorCylinder_swiginit(self, _libBornAgainCore.new_FormFactorCylinder(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorCylinder self) -> FormFactorCylinder
-        FormFactorCylinder* FormFactorCylinder::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorCylinder self) -> FormFactorCylinder"""
         return _libBornAgainCore.FormFactorCylinder_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorCylinder self, INodeVisitor * visitor)
-        void FormFactorCylinder::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorCylinder self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorCylinder_accept(self, visitor)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorCylinder self) -> double
-        double FormFactorCylinder::getHeight() const
-
-        """
+        r"""getHeight(FormFactorCylinder self) -> double"""
         return _libBornAgainCore.FormFactorCylinder_getHeight(self)
 
     def getRadius(self):
-        r"""
-        getRadius(FormFactorCylinder self) -> double
-        double FormFactorCylinder::getRadius() const
-
-        """
+        r"""getRadius(FormFactorCylinder self) -> double"""
         return _libBornAgainCore.FormFactorCylinder_getRadius(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorCylinder self) -> double
-        double FormFactorCylinder::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorCylinder self) -> double"""
         return _libBornAgainCore.FormFactorCylinder_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t
-        complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorCylinder_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorCylinder
 
@@ -11723,14 +10522,7 @@ class FormFactorCylinder(IFormFactorBorn):
 _libBornAgainCore.FormFactorCylinder_swigregister(FormFactorCylinder)
 
 class FormFactorDodecahedron(IFormFactorPolyhedron):
-    r"""
-
-
-    A regular dodecahedron.
-
-    C++ includes: FormFactorDodecahedron.h
-
-    """
+    r"""Proxy of C++ FormFactorDodecahedron class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11739,35 +10531,19 @@ class FormFactorDodecahedron(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorDodecahedron self, vdouble1d_t P) -> FormFactorDodecahedron
         __init__(FormFactorDodecahedron self, double edge) -> FormFactorDodecahedron
-        FormFactorDodecahedron::FormFactorDodecahedron(double edge)
-
         """
         _libBornAgainCore.FormFactorDodecahedron_swiginit(self, _libBornAgainCore.new_FormFactorDodecahedron(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorDodecahedron self) -> FormFactorDodecahedron
-        FormFactorDodecahedron* FormFactorDodecahedron::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorDodecahedron self) -> FormFactorDodecahedron"""
         return _libBornAgainCore.FormFactorDodecahedron_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorDodecahedron self, INodeVisitor * visitor)
-        void FormFactorDodecahedron::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorDodecahedron self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorDodecahedron_accept(self, visitor)
 
     def getEdge(self):
-        r"""
-        getEdge(FormFactorDodecahedron self) -> double
-        double FormFactorDodecahedron::getEdge() const
-
-        """
+        r"""getEdge(FormFactorDodecahedron self) -> double"""
         return _libBornAgainCore.FormFactorDodecahedron_getEdge(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorDodecahedron
 
@@ -11775,14 +10551,7 @@ class FormFactorDodecahedron(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorDodecahedron_swigregister(FormFactorDodecahedron)
 
 class FormFactorDot(IFormFactorBorn):
-    r"""
-
-
-    A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
-
-    C++ includes: FormFactorDot.h
-
-    """
+    r"""Proxy of C++ FormFactorDot class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11791,75 +10560,35 @@ class FormFactorDot(IFormFactorBorn):
         r"""
         __init__(FormFactorDot self, vdouble1d_t P) -> FormFactorDot
         __init__(FormFactorDot self, double radius) -> FormFactorDot
-        FormFactorDot::FormFactorDot(double radius)
-
         """
         _libBornAgainCore.FormFactorDot_swiginit(self, _libBornAgainCore.new_FormFactorDot(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorDot self) -> FormFactorDot
-        FormFactorDot* FormFactorDot::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorDot self) -> FormFactorDot"""
         return _libBornAgainCore.FormFactorDot_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorDot self, INodeVisitor * visitor)
-        void FormFactorDot::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorDot self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorDot_accept(self, visitor)
 
     def getRadius(self):
-        r"""
-        getRadius(FormFactorDot self) -> double
-        double FormFactorDot::getRadius() const
-
-        """
+        r"""getRadius(FormFactorDot self) -> double"""
         return _libBornAgainCore.FormFactorDot_getRadius(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorDot self) -> double
-        double FormFactorDot::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorDot self) -> double"""
         return _libBornAgainCore.FormFactorDot_radialExtension(self)
 
     def bottomZ(self, arg2):
-        r"""
-        bottomZ(FormFactorDot self, IRotation arg2) -> double
-        double FormFactorDot::bottomZ(const IRotation &) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""bottomZ(FormFactorDot self, IRotation arg2) -> double"""
         return _libBornAgainCore.FormFactorDot_bottomZ(self, arg2)
 
     def topZ(self, arg2):
-        r"""
-        topZ(FormFactorDot self, IRotation arg2) -> double
-        double FormFactorDot::topZ(const IRotation &) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""topZ(FormFactorDot self, IRotation arg2) -> double"""
         return _libBornAgainCore.FormFactorDot_topZ(self, arg2)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorDot self, cvector_t q) -> complex_t
-        complex_t FormFactorDot::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorDot self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorDot_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorDot
 
@@ -11867,14 +10596,7 @@ class FormFactorDot(IFormFactorBorn):
 _libBornAgainCore.FormFactorDot_swigregister(FormFactorDot)
 
 class FormFactorEllipsoidalCylinder(IFormFactorBorn):
-    r"""
-
-
-    A cylinder with elliptical base.
-
-    C++ includes: FormFactorEllipsoidalCylinder.h
-
-    """
+    r"""Proxy of C++ FormFactorEllipsoidalCylinder class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11883,71 +10605,35 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         r"""
         __init__(FormFactorEllipsoidalCylinder self, vdouble1d_t P) -> FormFactorEllipsoidalCylinder
         __init__(FormFactorEllipsoidalCylinder self, double radius_x, double radius_y, double height) -> FormFactorEllipsoidalCylinder
-        FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
-
         """
         _libBornAgainCore.FormFactorEllipsoidalCylinder_swiginit(self, _libBornAgainCore.new_FormFactorEllipsoidalCylinder(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorEllipsoidalCylinder self) -> FormFactorEllipsoidalCylinder
-        FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorEllipsoidalCylinder self) -> FormFactorEllipsoidalCylinder"""
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorEllipsoidalCylinder self, INodeVisitor * visitor)
-        void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorEllipsoidalCylinder self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_accept(self, visitor)
 
     def getRadiusX(self):
-        r"""
-        getRadiusX(FormFactorEllipsoidalCylinder self) -> double
-        double FormFactorEllipsoidalCylinder::getRadiusX() const
-
-        """
+        r"""getRadiusX(FormFactorEllipsoidalCylinder self) -> double"""
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadiusX(self)
 
     def getRadiusY(self):
-        r"""
-        getRadiusY(FormFactorEllipsoidalCylinder self) -> double
-        double FormFactorEllipsoidalCylinder::getRadiusY() const
-
-        """
+        r"""getRadiusY(FormFactorEllipsoidalCylinder self) -> double"""
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadiusY(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorEllipsoidalCylinder self) -> double
-        double FormFactorEllipsoidalCylinder::getHeight() const
-
-        """
+        r"""getHeight(FormFactorEllipsoidalCylinder self) -> double"""
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getHeight(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorEllipsoidalCylinder self) -> double
-        double FormFactorEllipsoidalCylinder::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorEllipsoidalCylinder self) -> double"""
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t
-        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorEllipsoidalCylinder
 
@@ -11955,14 +10641,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 _libBornAgainCore.FormFactorEllipsoidalCylinder_swigregister(FormFactorEllipsoidalCylinder)
 
 class FormFactorFullSphere(IFormFactorBorn):
-    r"""
-
-
-    A full sphere.
-
-    C++ includes: FormFactorFullSphere.h
-
-    """
+    r"""Proxy of C++ FormFactorFullSphere class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11971,75 +10650,35 @@ class FormFactorFullSphere(IFormFactorBorn):
         r"""
         __init__(FormFactorFullSphere self, vdouble1d_t P, bool position_at_center=False) -> FormFactorFullSphere
         __init__(FormFactorFullSphere self, double radius, bool position_at_center=False) -> FormFactorFullSphere
-        FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
-
         """
         _libBornAgainCore.FormFactorFullSphere_swiginit(self, _libBornAgainCore.new_FormFactorFullSphere(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorFullSphere self) -> FormFactorFullSphere
-        FormFactorFullSphere* FormFactorFullSphere::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorFullSphere self) -> FormFactorFullSphere"""
         return _libBornAgainCore.FormFactorFullSphere_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorFullSphere self, INodeVisitor * visitor)
-        void FormFactorFullSphere::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorFullSphere self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorFullSphere_accept(self, visitor)
 
     def getRadius(self):
-        r"""
-        getRadius(FormFactorFullSphere self) -> double
-        double FormFactorFullSphere::getRadius() const
-
-        """
+        r"""getRadius(FormFactorFullSphere self) -> double"""
         return _libBornAgainCore.FormFactorFullSphere_getRadius(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorFullSphere self) -> double
-        double FormFactorFullSphere::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorFullSphere self) -> double"""
         return _libBornAgainCore.FormFactorFullSphere_radialExtension(self)
 
     def bottomZ(self, rotation):
-        r"""
-        bottomZ(FormFactorFullSphere self, IRotation rotation) -> double
-        double FormFactorFullSphere::bottomZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""bottomZ(FormFactorFullSphere self, IRotation rotation) -> double"""
         return _libBornAgainCore.FormFactorFullSphere_bottomZ(self, rotation)
 
     def topZ(self, rotation):
-        r"""
-        topZ(FormFactorFullSphere self, IRotation rotation) -> double
-        double FormFactorFullSphere::topZ(const IRotation &rotation) const override final
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
+        r"""topZ(FormFactorFullSphere self, IRotation rotation) -> double"""
         return _libBornAgainCore.FormFactorFullSphere_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t
-        complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorFullSphere_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorFullSphere
 
@@ -12047,14 +10686,7 @@ class FormFactorFullSphere(IFormFactorBorn):
 _libBornAgainCore.FormFactorFullSphere_swigregister(FormFactorFullSphere)
 
 class FormFactorFullSpheroid(IFormFactorBorn):
-    r"""
-
-
-    A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
-
-    C++ includes: FormFactorFullSpheroid.h
-
-    """
+    r"""Proxy of C++ FormFactorFullSpheroid class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12063,63 +10695,31 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         r"""
         __init__(FormFactorFullSpheroid self, vdouble1d_t P) -> FormFactorFullSpheroid
         __init__(FormFactorFullSpheroid self, double radius, double height) -> FormFactorFullSpheroid
-        FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
-
         """
         _libBornAgainCore.FormFactorFullSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorFullSpheroid(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorFullSpheroid self) -> FormFactorFullSpheroid
-        FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorFullSpheroid self) -> FormFactorFullSpheroid"""
         return _libBornAgainCore.FormFactorFullSpheroid_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorFullSpheroid self, INodeVisitor * visitor)
-        void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorFullSpheroid self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorFullSpheroid_accept(self, visitor)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorFullSpheroid self) -> double
-        double FormFactorFullSpheroid::getHeight() const
-
-        """
+        r"""getHeight(FormFactorFullSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorFullSpheroid_getHeight(self)
 
     def getRadius(self):
-        r"""
-        getRadius(FormFactorFullSpheroid self) -> double
-        double FormFactorFullSpheroid::getRadius() const
-
-        """
+        r"""getRadius(FormFactorFullSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorFullSpheroid_getRadius(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorFullSpheroid self) -> double
-        double FormFactorFullSpheroid::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorFullSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorFullSpheroid_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t
-        complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorFullSpheroid_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorFullSpheroid
 
@@ -12127,14 +10727,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 _libBornAgainCore.FormFactorFullSpheroid_swigregister(FormFactorFullSpheroid)
 
 class FormFactorHemiEllipsoid(IFormFactorBorn):
-    r"""
-
-
-    An hemi ellipsoid, obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
-
-    C++ includes: FormFactorHemiEllipsoid.h
-
-    """
+    r"""Proxy of C++ FormFactorHemiEllipsoid class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12143,86 +10736,43 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         r"""
         __init__(FormFactorHemiEllipsoid self, vdouble1d_t P) -> FormFactorHemiEllipsoid
         __init__(FormFactorHemiEllipsoid self, double radius_x, double radius_y, double height) -> FormFactorHemiEllipsoid
-        FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
-
         """
         _libBornAgainCore.FormFactorHemiEllipsoid_swiginit(self, _libBornAgainCore.new_FormFactorHemiEllipsoid(*args))
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorHemiEllipsoid
 
     def clone(self):
-        r"""
-        clone(FormFactorHemiEllipsoid self) -> FormFactorHemiEllipsoid
-        FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorHemiEllipsoid self) -> FormFactorHemiEllipsoid"""
         return _libBornAgainCore.FormFactorHemiEllipsoid_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorHemiEllipsoid self, INodeVisitor * visitor)
-        void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorHemiEllipsoid self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorHemiEllipsoid_accept(self, visitor)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorHemiEllipsoid self) -> double
-        double FormFactorHemiEllipsoid::getHeight() const
-
-        """
+        r"""getHeight(FormFactorHemiEllipsoid self) -> double"""
         return _libBornAgainCore.FormFactorHemiEllipsoid_getHeight(self)
 
     def getRadiusX(self):
-        r"""
-        getRadiusX(FormFactorHemiEllipsoid self) -> double
-        double FormFactorHemiEllipsoid::getRadiusX() const
-
-        """
+        r"""getRadiusX(FormFactorHemiEllipsoid self) -> double"""
         return _libBornAgainCore.FormFactorHemiEllipsoid_getRadiusX(self)
 
     def getRadiusY(self):
-        r"""
-        getRadiusY(FormFactorHemiEllipsoid self) -> double
-        double FormFactorHemiEllipsoid::getRadiusY() const
-
-        """
+        r"""getRadiusY(FormFactorHemiEllipsoid self) -> double"""
         return _libBornAgainCore.FormFactorHemiEllipsoid_getRadiusY(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorHemiEllipsoid self) -> double
-        double FormFactorHemiEllipsoid::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorHemiEllipsoid self) -> double"""
         return _libBornAgainCore.FormFactorHemiEllipsoid_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t
-        complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorHemiEllipsoid_evaluate_for_q(self, q)
 
 # Register FormFactorHemiEllipsoid in _libBornAgainCore:
 _libBornAgainCore.FormFactorHemiEllipsoid_swigregister(FormFactorHemiEllipsoid)
 
 class FormFactorHollowSphere(IFormFactorBorn):
-    r"""
-
-
-    Integrated full sphere form factor over a uniform distribution of radii.
-
-    C++ includes: FormFactorHollowSphere.h
-
-    """
+    r"""Proxy of C++ FormFactorHollowSphere class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12231,47 +10781,23 @@ class FormFactorHollowSphere(IFormFactorBorn):
         r"""
         __init__(FormFactorHollowSphere self, vdouble1d_t P) -> FormFactorHollowSphere
         __init__(FormFactorHollowSphere self, double mean, double full_width) -> FormFactorHollowSphere
-        FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
-
         """
         _libBornAgainCore.FormFactorHollowSphere_swiginit(self, _libBornAgainCore.new_FormFactorHollowSphere(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorHollowSphere self) -> FormFactorHollowSphere
-        FormFactorHollowSphere* FormFactorHollowSphere::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorHollowSphere self) -> FormFactorHollowSphere"""
         return _libBornAgainCore.FormFactorHollowSphere_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorHollowSphere self, INodeVisitor * visitor)
-        void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorHollowSphere self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorHollowSphere_accept(self, visitor)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorHollowSphere self) -> double
-        double FormFactorHollowSphere::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorHollowSphere self) -> double"""
         return _libBornAgainCore.FormFactorHollowSphere_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorHollowSphere self, cvector_t q) -> complex_t
-        complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorHollowSphere self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorHollowSphere_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorHollowSphere
 
@@ -12279,14 +10805,7 @@ class FormFactorHollowSphere(IFormFactorBorn):
 _libBornAgainCore.FormFactorHollowSphere_swigregister(FormFactorHollowSphere)
 
 class FormFactorIcosahedron(IFormFactorPolyhedron):
-    r"""
-
-
-    A regular icosahedron.
-
-    C++ includes: FormFactorIcosahedron.h
-
-    """
+    r"""Proxy of C++ FormFactorIcosahedron class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12295,35 +10814,19 @@ class FormFactorIcosahedron(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorIcosahedron self, vdouble1d_t P) -> FormFactorIcosahedron
         __init__(FormFactorIcosahedron self, double edge) -> FormFactorIcosahedron
-        FormFactorIcosahedron::FormFactorIcosahedron(double edge)
-
         """
         _libBornAgainCore.FormFactorIcosahedron_swiginit(self, _libBornAgainCore.new_FormFactorIcosahedron(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorIcosahedron self) -> FormFactorIcosahedron
-        FormFactorIcosahedron* FormFactorIcosahedron::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorIcosahedron self) -> FormFactorIcosahedron"""
         return _libBornAgainCore.FormFactorIcosahedron_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorIcosahedron self, INodeVisitor * visitor)
-        void FormFactorIcosahedron::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorIcosahedron self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorIcosahedron_accept(self, visitor)
 
     def getEdge(self):
-        r"""
-        getEdge(FormFactorIcosahedron self) -> double
-        double FormFactorIcosahedron::getEdge() const
-
-        """
+        r"""getEdge(FormFactorIcosahedron self) -> double"""
         return _libBornAgainCore.FormFactorIcosahedron_getEdge(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorIcosahedron
 
@@ -12331,14 +10834,7 @@ class FormFactorIcosahedron(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorIcosahedron_swigregister(FormFactorIcosahedron)
 
 class FormFactorLongBoxGauss(IFormFactorBorn):
-    r"""
-
-
-    The form factor for a long rectangular box.
-
-    C++ includes: FormFactorLongBoxGauss.h
-
-    """
+    r"""Proxy of C++ FormFactorLongBoxGauss class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12347,71 +10843,35 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         r"""
         __init__(FormFactorLongBoxGauss self, vdouble1d_t P) -> FormFactorLongBoxGauss
         __init__(FormFactorLongBoxGauss self, double length, double width, double height) -> FormFactorLongBoxGauss
-        FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
-
         """
         _libBornAgainCore.FormFactorLongBoxGauss_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxGauss(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorLongBoxGauss self) -> FormFactorLongBoxGauss
-        FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorLongBoxGauss self) -> FormFactorLongBoxGauss"""
         return _libBornAgainCore.FormFactorLongBoxGauss_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorLongBoxGauss self, INodeVisitor * visitor)
-        void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorLongBoxGauss self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorLongBoxGauss_accept(self, visitor)
 
     def getLength(self):
-        r"""
-        getLength(FormFactorLongBoxGauss self) -> double
-        double FormFactorLongBoxGauss::getLength() const
-
-        """
+        r"""getLength(FormFactorLongBoxGauss self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxGauss_getLength(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorLongBoxGauss self) -> double
-        double FormFactorLongBoxGauss::getHeight() const
-
-        """
+        r"""getHeight(FormFactorLongBoxGauss self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxGauss_getHeight(self)
 
     def getWidth(self):
-        r"""
-        getWidth(FormFactorLongBoxGauss self) -> double
-        double FormFactorLongBoxGauss::getWidth() const
-
-        """
+        r"""getWidth(FormFactorLongBoxGauss self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxGauss_getWidth(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorLongBoxGauss self) -> double
-        double FormFactorLongBoxGauss::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorLongBoxGauss self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxGauss_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t
-        complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorLongBoxGauss_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongBoxGauss
 
@@ -12419,14 +10879,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
 _libBornAgainCore.FormFactorLongBoxGauss_swigregister(FormFactorLongBoxGauss)
 
 class FormFactorLongBoxLorentz(IFormFactorBorn):
-    r"""
-
-
-    The form factor for a long rectangular box.
-
-    C++ includes: FormFactorLongBoxLorentz.h
-
-    """
+    r"""Proxy of C++ FormFactorLongBoxLorentz class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12435,71 +10888,35 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         r"""
         __init__(FormFactorLongBoxLorentz self, vdouble1d_t P) -> FormFactorLongBoxLorentz
         __init__(FormFactorLongBoxLorentz self, double length, double width, double height) -> FormFactorLongBoxLorentz
-        FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
-
         """
         _libBornAgainCore.FormFactorLongBoxLorentz_swiginit(self, _libBornAgainCore.new_FormFactorLongBoxLorentz(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorLongBoxLorentz self) -> FormFactorLongBoxLorentz
-        FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorLongBoxLorentz self) -> FormFactorLongBoxLorentz"""
         return _libBornAgainCore.FormFactorLongBoxLorentz_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorLongBoxLorentz self, INodeVisitor * visitor)
-        void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorLongBoxLorentz self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorLongBoxLorentz_accept(self, visitor)
 
     def getLength(self):
-        r"""
-        getLength(FormFactorLongBoxLorentz self) -> double
-        double FormFactorLongBoxLorentz::getLength() const
-
-        """
+        r"""getLength(FormFactorLongBoxLorentz self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxLorentz_getLength(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorLongBoxLorentz self) -> double
-        double FormFactorLongBoxLorentz::getHeight() const
-
-        """
+        r"""getHeight(FormFactorLongBoxLorentz self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxLorentz_getHeight(self)
 
     def getWidth(self):
-        r"""
-        getWidth(FormFactorLongBoxLorentz self) -> double
-        double FormFactorLongBoxLorentz::getWidth() const
-
-        """
+        r"""getWidth(FormFactorLongBoxLorentz self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxLorentz_getWidth(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorLongBoxLorentz self) -> double
-        double FormFactorLongBoxLorentz::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorLongBoxLorentz self) -> double"""
         return _libBornAgainCore.FormFactorLongBoxLorentz_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t
-        complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorLongBoxLorentz_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongBoxLorentz
 
@@ -12507,14 +10924,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 _libBornAgainCore.FormFactorLongBoxLorentz_swigregister(FormFactorLongBoxLorentz)
 
 class FormFactorPrism3(IFormFactorPrism):
-    r"""
-
-
-    A prism based on an equilateral triangle.
-
-    C++ includes: FormFactorPrism3.h
-
-    """
+    r"""Proxy of C++ FormFactorPrism3 class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12523,35 +10933,19 @@ class FormFactorPrism3(IFormFactorPrism):
         r"""
         __init__(FormFactorPrism3 self, vdouble1d_t P) -> FormFactorPrism3
         __init__(FormFactorPrism3 self, double base_edge, double height) -> FormFactorPrism3
-        FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
-
         """
         _libBornAgainCore.FormFactorPrism3_swiginit(self, _libBornAgainCore.new_FormFactorPrism3(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorPrism3 self) -> FormFactorPrism3
-        FormFactorPrism3* FormFactorPrism3::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorPrism3 self) -> FormFactorPrism3"""
         return _libBornAgainCore.FormFactorPrism3_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorPrism3 self, INodeVisitor * visitor)
-        void FormFactorPrism3::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorPrism3 self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorPrism3_accept(self, visitor)
 
     def getBaseEdge(self):
-        r"""
-        getBaseEdge(FormFactorPrism3 self) -> double
-        double FormFactorPrism3::getBaseEdge() const
-
-        """
+        r"""getBaseEdge(FormFactorPrism3 self) -> double"""
         return _libBornAgainCore.FormFactorPrism3_getBaseEdge(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism3
 
@@ -12559,14 +10953,7 @@ class FormFactorPrism3(IFormFactorPrism):
 _libBornAgainCore.FormFactorPrism3_swigregister(FormFactorPrism3)
 
 class FormFactorPrism6(IFormFactorPrism):
-    r"""
-
-
-    A prism based on a regular hexagonal.
-
-    C++ includes: FormFactorPrism6.h
-
-    """
+    r"""Proxy of C++ FormFactorPrism6 class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12575,35 +10962,19 @@ class FormFactorPrism6(IFormFactorPrism):
         r"""
         __init__(FormFactorPrism6 self, vdouble1d_t P) -> FormFactorPrism6
         __init__(FormFactorPrism6 self, double base_edge, double height) -> FormFactorPrism6
-        FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
-
         """
         _libBornAgainCore.FormFactorPrism6_swiginit(self, _libBornAgainCore.new_FormFactorPrism6(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorPrism6 self) -> FormFactorPrism6
-        FormFactorPrism6* FormFactorPrism6::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorPrism6 self) -> FormFactorPrism6"""
         return _libBornAgainCore.FormFactorPrism6_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorPrism6 self, INodeVisitor * visitor)
-        void FormFactorPrism6::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorPrism6 self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorPrism6_accept(self, visitor)
 
     def getBaseEdge(self):
-        r"""
-        getBaseEdge(FormFactorPrism6 self) -> double
-        double FormFactorPrism6::getBaseEdge() const
-
-        """
+        r"""getBaseEdge(FormFactorPrism6 self) -> double"""
         return _libBornAgainCore.FormFactorPrism6_getBaseEdge(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPrism6
 
@@ -12611,14 +10982,7 @@ class FormFactorPrism6(IFormFactorPrism):
 _libBornAgainCore.FormFactorPrism6_swigregister(FormFactorPrism6)
 
 class FormFactorPyramid(IFormFactorPolyhedron):
-    r"""
-
-
-    A frustum with a quadratic base.
-
-    C++ includes: FormFactorPyramid.h
-
-    """
+    r"""Proxy of C++ FormFactorPyramid class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12627,51 +10991,27 @@ class FormFactorPyramid(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorPyramid self, vdouble1d_t P) -> FormFactorPyramid
         __init__(FormFactorPyramid self, double base_edge, double height, double alpha) -> FormFactorPyramid
-        FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
-
         """
         _libBornAgainCore.FormFactorPyramid_swiginit(self, _libBornAgainCore.new_FormFactorPyramid(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorPyramid self) -> FormFactorPyramid
-        FormFactorPyramid* FormFactorPyramid::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorPyramid self) -> FormFactorPyramid"""
         return _libBornAgainCore.FormFactorPyramid_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorPyramid self, INodeVisitor * visitor)
-        void FormFactorPyramid::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorPyramid self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorPyramid_accept(self, visitor)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorPyramid self) -> double
-        double FormFactorPyramid::getHeight() const
-
-        """
+        r"""getHeight(FormFactorPyramid self) -> double"""
         return _libBornAgainCore.FormFactorPyramid_getHeight(self)
 
     def getBaseEdge(self):
-        r"""
-        getBaseEdge(FormFactorPyramid self) -> double
-        double FormFactorPyramid::getBaseEdge() const
-
-        """
+        r"""getBaseEdge(FormFactorPyramid self) -> double"""
         return _libBornAgainCore.FormFactorPyramid_getBaseEdge(self)
 
     def getAlpha(self):
-        r"""
-        getAlpha(FormFactorPyramid self) -> double
-        double FormFactorPyramid::getAlpha() const
-
-        """
+        r"""getAlpha(FormFactorPyramid self) -> double"""
         return _libBornAgainCore.FormFactorPyramid_getAlpha(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPyramid
 
@@ -12679,14 +11019,7 @@ class FormFactorPyramid(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorPyramid_swigregister(FormFactorPyramid)
 
 class FormFactorSawtoothRippleBox(ISawtoothRipple):
-    r"""
-
-
-    The form factor for a cosine ripple, with box profile in elongation direction.
-
-    C++ includes: FormFactorSawtoothRipple.h
-
-    """
+    r"""Proxy of C++ FormFactorSawtoothRippleBox class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12695,27 +11028,15 @@ class FormFactorSawtoothRippleBox(ISawtoothRipple):
         r"""
         __init__(FormFactorSawtoothRippleBox self, vdouble1d_t P) -> FormFactorSawtoothRippleBox
         __init__(FormFactorSawtoothRippleBox self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleBox
-        FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox(double length, double width, double height, double asymmetry)
-
         """
         _libBornAgainCore.FormFactorSawtoothRippleBox_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleBox(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorSawtoothRippleBox self) -> FormFactorSawtoothRippleBox
-        FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorSawtoothRippleBox self) -> FormFactorSawtoothRippleBox"""
         return _libBornAgainCore.FormFactorSawtoothRippleBox_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorSawtoothRippleBox self, INodeVisitor * visitor)
-        void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorSawtoothRippleBox self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorSawtoothRippleBox_accept(self, visitor)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleBox
 
@@ -12723,14 +11044,7 @@ class FormFactorSawtoothRippleBox(ISawtoothRipple):
 _libBornAgainCore.FormFactorSawtoothRippleBox_swigregister(FormFactorSawtoothRippleBox)
 
 class FormFactorSawtoothRippleGauss(ISawtoothRipple):
-    r"""
-
-
-    The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-    C++ includes: FormFactorSawtoothRipple.h
-
-    """
+    r"""Proxy of C++ FormFactorSawtoothRippleGauss class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12739,27 +11053,15 @@ class FormFactorSawtoothRippleGauss(ISawtoothRipple):
         r"""
         __init__(FormFactorSawtoothRippleGauss self, vdouble1d_t P) -> FormFactorSawtoothRippleGauss
         __init__(FormFactorSawtoothRippleGauss self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleGauss
-        FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss(double length, double width, double height, double asymmetry)
-
         """
         _libBornAgainCore.FormFactorSawtoothRippleGauss_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleGauss(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorSawtoothRippleGauss self) -> FormFactorSawtoothRippleGauss
-        FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorSawtoothRippleGauss self) -> FormFactorSawtoothRippleGauss"""
         return _libBornAgainCore.FormFactorSawtoothRippleGauss_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorSawtoothRippleGauss self, INodeVisitor * visitor)
-        void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorSawtoothRippleGauss self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorSawtoothRippleGauss_accept(self, visitor)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleGauss
 
@@ -12767,14 +11069,7 @@ class FormFactorSawtoothRippleGauss(ISawtoothRipple):
 _libBornAgainCore.FormFactorSawtoothRippleGauss_swigregister(FormFactorSawtoothRippleGauss)
 
 class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
-    r"""
-
-
-    The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-    C++ includes: FormFactorSawtoothRipple.h
-
-    """
+    r"""Proxy of C++ FormFactorSawtoothRippleLorentz class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12783,27 +11078,15 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
         r"""
         __init__(FormFactorSawtoothRippleLorentz self, vdouble1d_t P) -> FormFactorSawtoothRippleLorentz
         __init__(FormFactorSawtoothRippleLorentz self, double length, double width, double height, double asymmetry) -> FormFactorSawtoothRippleLorentz
-        FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz(double length, double width, double height, double asymmetry)
-
         """
         _libBornAgainCore.FormFactorSawtoothRippleLorentz_swiginit(self, _libBornAgainCore.new_FormFactorSawtoothRippleLorentz(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorSawtoothRippleLorentz self) -> FormFactorSawtoothRippleLorentz
-        FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorSawtoothRippleLorentz self) -> FormFactorSawtoothRippleLorentz"""
         return _libBornAgainCore.FormFactorSawtoothRippleLorentz_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorSawtoothRippleLorentz self, INodeVisitor * visitor)
-        void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorSawtoothRippleLorentz self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorSawtoothRippleLorentz_accept(self, visitor)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorSawtoothRippleLorentz
 
@@ -12811,14 +11094,7 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
 _libBornAgainCore.FormFactorSawtoothRippleLorentz_swigregister(FormFactorSawtoothRippleLorentz)
 
 class FormFactorTetrahedron(IFormFactorPolyhedron):
-    r"""
-
-
-    A frustum with equilateral trigonal base.
-
-    C++ includes: FormFactorTetrahedron.h
-
-    """
+    r"""Proxy of C++ FormFactorTetrahedron class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12827,51 +11103,27 @@ class FormFactorTetrahedron(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorTetrahedron self, vdouble1d_t P) -> FormFactorTetrahedron
         __init__(FormFactorTetrahedron self, double base_edge, double height, double alpha) -> FormFactorTetrahedron
-        FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
-
         """
         _libBornAgainCore.FormFactorTetrahedron_swiginit(self, _libBornAgainCore.new_FormFactorTetrahedron(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorTetrahedron self) -> FormFactorTetrahedron
-        FormFactorTetrahedron* FormFactorTetrahedron::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorTetrahedron self) -> FormFactorTetrahedron"""
         return _libBornAgainCore.FormFactorTetrahedron_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorTetrahedron self, INodeVisitor * visitor)
-        void FormFactorTetrahedron::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorTetrahedron self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorTetrahedron_accept(self, visitor)
 
     def getBaseEdge(self):
-        r"""
-        getBaseEdge(FormFactorTetrahedron self) -> double
-        double FormFactorTetrahedron::getBaseEdge() const
-
-        """
+        r"""getBaseEdge(FormFactorTetrahedron self) -> double"""
         return _libBornAgainCore.FormFactorTetrahedron_getBaseEdge(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorTetrahedron self) -> double
-        double FormFactorTetrahedron::getHeight() const
-
-        """
+        r"""getHeight(FormFactorTetrahedron self) -> double"""
         return _libBornAgainCore.FormFactorTetrahedron_getHeight(self)
 
     def getAlpha(self):
-        r"""
-        getAlpha(FormFactorTetrahedron self) -> double
-        double FormFactorTetrahedron::getAlpha() const
-
-        """
+        r"""getAlpha(FormFactorTetrahedron self) -> double"""
         return _libBornAgainCore.FormFactorTetrahedron_getAlpha(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTetrahedron
 
@@ -12879,14 +11131,7 @@ class FormFactorTetrahedron(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
 
 class FormFactorTruncatedCube(IFormFactorPolyhedron):
-    r"""
-
-
-    A cube, with tetrahedral truncation of all corners
-
-    C++ includes: FormFactorTruncatedCube.h
-
-    """
+    r"""Proxy of C++ FormFactorTruncatedCube class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12895,43 +11140,23 @@ class FormFactorTruncatedCube(IFormFactorPolyhedron):
         r"""
         __init__(FormFactorTruncatedCube self, vdouble1d_t P) -> FormFactorTruncatedCube
         __init__(FormFactorTruncatedCube self, double length, double removed_length) -> FormFactorTruncatedCube
-        FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
-
         """
         _libBornAgainCore.FormFactorTruncatedCube_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedCube(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube
-        FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube"""
         return _libBornAgainCore.FormFactorTruncatedCube_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorTruncatedCube self, INodeVisitor * visitor)
-        void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorTruncatedCube self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorTruncatedCube_accept(self, visitor)
 
     def getLength(self):
-        r"""
-        getLength(FormFactorTruncatedCube self) -> double
-        double FormFactorTruncatedCube::getLength() const
-
-        """
+        r"""getLength(FormFactorTruncatedCube self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedCube_getLength(self)
 
     def getRemovedLength(self):
-        r"""
-        getRemovedLength(FormFactorTruncatedCube self) -> double
-        double FormFactorTruncatedCube::getRemovedLength() const
-
-        """
+        r"""getRemovedLength(FormFactorTruncatedCube self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedCube_getRemovedLength(self)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedCube
 
@@ -12939,14 +11164,7 @@ class FormFactorTruncatedCube(IFormFactorPolyhedron):
 _libBornAgainCore.FormFactorTruncatedCube_swigregister(FormFactorTruncatedCube)
 
 class FormFactorTruncatedSphere(IFormFactorBorn):
-    r"""
-
-
-    A truncated Sphere.
-
-    C++ includes: FormFactorTruncatedSphere.h
-
-    """
+    r"""Proxy of C++ FormFactorTruncatedSphere class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -12955,71 +11173,35 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         r"""
         __init__(FormFactorTruncatedSphere self, vdouble1d_t P) -> FormFactorTruncatedSphere
         __init__(FormFactorTruncatedSphere self, double radius, double height, double dh) -> FormFactorTruncatedSphere
-        FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
-
         """
         _libBornAgainCore.FormFactorTruncatedSphere_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSphere(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorTruncatedSphere self) -> FormFactorTruncatedSphere
-        FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorTruncatedSphere self) -> FormFactorTruncatedSphere"""
         return _libBornAgainCore.FormFactorTruncatedSphere_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorTruncatedSphere self, INodeVisitor * visitor)
-        void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorTruncatedSphere self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorTruncatedSphere_accept(self, visitor)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorTruncatedSphere self) -> double
-        double FormFactorTruncatedSphere::getHeight() const
-
-        """
+        r"""getHeight(FormFactorTruncatedSphere self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSphere_getHeight(self)
 
     def getRadius(self):
-        r"""
-        getRadius(FormFactorTruncatedSphere self) -> double
-        double FormFactorTruncatedSphere::getRadius() const
-
-        """
+        r"""getRadius(FormFactorTruncatedSphere self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadius(self)
 
     def getRemovedTop(self):
-        r"""
-        getRemovedTop(FormFactorTruncatedSphere self) -> double
-        double FormFactorTruncatedSphere::getRemovedTop() const
-
-        """
+        r"""getRemovedTop(FormFactorTruncatedSphere self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSphere_getRemovedTop(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorTruncatedSphere self) -> double
-        double FormFactorTruncatedSphere::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorTruncatedSphere self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSphere_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
-        complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const override final
-
-        Complex form factor. 
-
-        """
+        r"""evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorTruncatedSphere_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSphere
 
@@ -13027,14 +11209,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
 _libBornAgainCore.FormFactorTruncatedSphere_swigregister(FormFactorTruncatedSphere)
 
 class FormFactorTruncatedSpheroid(IFormFactorBorn):
-    r"""
-
-
-    A truncated spheroid. An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
-
-    C++ includes: FormFactorTruncatedSpheroid.h
-
-    """
+    r"""Proxy of C++ FormFactorTruncatedSpheroid class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -13043,79 +11218,39 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         r"""
         __init__(FormFactorTruncatedSpheroid self, vdouble1d_t P) -> FormFactorTruncatedSpheroid
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh) -> FormFactorTruncatedSpheroid
-        FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh)
-
         """
         _libBornAgainCore.FormFactorTruncatedSpheroid_swiginit(self, _libBornAgainCore.new_FormFactorTruncatedSpheroid(*args))
 
     def clone(self):
-        r"""
-        clone(FormFactorTruncatedSpheroid self) -> FormFactorTruncatedSpheroid
-        FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
+        r"""clone(FormFactorTruncatedSpheroid self) -> FormFactorTruncatedSpheroid"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_clone(self)
 
     def accept(self, visitor):
-        r"""
-        accept(FormFactorTruncatedSpheroid self, INodeVisitor * visitor)
-        void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const override final
-
-        """
+        r"""accept(FormFactorTruncatedSpheroid self, INodeVisitor * visitor)"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_accept(self, visitor)
 
     def getRadius(self):
-        r"""
-        getRadius(FormFactorTruncatedSpheroid self) -> double
-        double FormFactorTruncatedSpheroid::getRadius() const
-
-        """
+        r"""getRadius(FormFactorTruncatedSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getRadius(self)
 
     def getHeight(self):
-        r"""
-        getHeight(FormFactorTruncatedSpheroid self) -> double
-        double FormFactorTruncatedSpheroid::getHeight() const
-
-        """
+        r"""getHeight(FormFactorTruncatedSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getHeight(self)
 
     def getHeightFlattening(self):
-        r"""
-        getHeightFlattening(FormFactorTruncatedSpheroid self) -> double
-        double FormFactorTruncatedSpheroid::getHeightFlattening() const
-
-        """
+        r"""getHeightFlattening(FormFactorTruncatedSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getHeightFlattening(self)
 
     def getRemovedTop(self):
-        r"""
-        getRemovedTop(FormFactorTruncatedSpheroid self) -> double
-        double FormFactorTruncatedSpheroid::getRemovedTop() const
-
-        """
+        r"""getRemovedTop(FormFactorTruncatedSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getRemovedTop(self)
 
     def radialExtension(self):
-        r"""
-        radialExtension(FormFactorTruncatedSpheroid self) -> double
-        double FormFactorTruncatedSpheroid::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
+        r"""radialExtension(FormFactorTruncatedSpheroid self) -> double"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_radialExtension(self)
 
     def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t
-        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
+        r"""evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t"""
         return _libBornAgainCore.FormFactorTruncatedSpheroid_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSpheroid
 
@@ -13149,8 +11284,6 @@ class FormFactorGaussSphere(IFormFactorBorn):
         clone(FormFactorGaussSphere self) -> FormFactorGaussSphere
         FormFactorGaussSphere* FormFactorGaussSphere::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.FormFactorGaussSphere_clone(self)
 
@@ -13175,8 +11308,6 @@ class FormFactorGaussSphere(IFormFactorBorn):
         radialExtension(FormFactorGaussSphere self) -> double
         double FormFactorGaussSphere::radialExtension() const override final
 
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
         """
         return _libBornAgainCore.FormFactorGaussSphere_radialExtension(self)
 
@@ -13184,8 +11315,6 @@ class FormFactorGaussSphere(IFormFactorBorn):
         r"""
         evaluate_for_q(FormFactorGaussSphere self, cvector_t q) -> complex_t
         complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorGaussSphere_evaluate_for_q(self, q)
@@ -13221,8 +11350,6 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
         FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_clone(self)
 
@@ -13239,8 +11366,6 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         radialExtension(FormFactorSphereGaussianRadius self) -> double
         double FormFactorSphereGaussianRadius::radialExtension() const override final
 
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_radialExtension(self)
 
@@ -13248,8 +11373,6 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         r"""
         evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
         complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
@@ -13285,8 +11408,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
         FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const override final
 
-        Returns a clone of this  ISample object. 
-
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_clone(self)
 
@@ -13303,8 +11424,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         radialExtension(FormFactorSphereLogNormalRadius self) -> double
         double FormFactorSphereLogNormalRadius::radialExtension() const override final
 
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_radialExtension(self)
 
@@ -13312,8 +11431,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         r"""
         evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
         complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
@@ -13685,7 +11802,7 @@ class Simulation2D(Simulation):
         -----------
 
         shape: 
-        The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
+        The shape of mask (Rectangle, Polygon, Line, Ellipse)
 
         mask_value: 
         The value of mask 
@@ -14638,7 +12755,7 @@ class IDetector2D(IDetector):
         -----------
 
         shape: 
-        The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
+        The shape of mask (Rectangle, Polygon, Line, Ellipse)
 
         mask_value: 
         The value of mask 
@@ -17898,140 +16015,61 @@ def createBCTLattice(a, c, orientation):
     """
     return _libBornAgainCore.createBCTLattice(a, c, orientation)
 class Material(object):
-    r"""
-
-
-    A wrapper for underlying material implementation
-
-    C++ includes: Material.h
-
-    """
+    r"""Proxy of C++ Material class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, material):
-        r"""
-        __init__(Material self, Material material) -> Material
-        Material::Material(Material &&material)=default
-
-        """
+        r"""__init__(Material self, Material material) -> Material"""
         _libBornAgainCore.Material_swiginit(self, _libBornAgainCore.new_Material(material))
 
     def inverted(self):
-        r"""
-        inverted(Material self) -> Material
-        Material Material::inverted() const
-
-        Constructs a material with inverted magnetization. 
-
-        """
+        r"""inverted(Material self) -> Material"""
         return _libBornAgainCore.Material_inverted(self)
 
     def refractiveIndex(self, wavelength):
-        r"""
-        refractiveIndex(Material self, double wavelength) -> complex_t
-        complex_t Material::refractiveIndex(double wavelength) const
-
-        Returns refractive index. 
-
-        """
+        r"""refractiveIndex(Material self, double wavelength) -> complex_t"""
         return _libBornAgainCore.Material_refractiveIndex(self, wavelength)
 
     def refractiveIndex2(self, wavelength):
-        r"""
-        refractiveIndex2(Material self, double wavelength) -> complex_t
-        complex_t Material::refractiveIndex2(double wavelength) const
-
-        Returns squared refractive index. 
-
-        """
+        r"""refractiveIndex2(Material self, double wavelength) -> complex_t"""
         return _libBornAgainCore.Material_refractiveIndex2(self, wavelength)
 
     def isScalarMaterial(self):
-        r"""
-        isScalarMaterial(Material self) -> bool
-        bool Material::isScalarMaterial() const
-
-        Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-
-        """
+        r"""isScalarMaterial(Material self) -> bool"""
         return _libBornAgainCore.Material_isScalarMaterial(self)
 
     def isMagneticMaterial(self):
-        r"""
-        isMagneticMaterial(Material self) -> bool
-        bool Material::isMagneticMaterial() const
-
-        """
+        r"""isMagneticMaterial(Material self) -> bool"""
         return _libBornAgainCore.Material_isMagneticMaterial(self)
 
     def getName(self):
-        r"""
-        getName(Material self) -> std::string
-        std::string Material::getName() const
-
-        Returns the name of material. 
-
-        """
+        r"""getName(Material self) -> std::string"""
         return _libBornAgainCore.Material_getName(self)
 
     def magnetization(self):
-        r"""
-        magnetization(Material self) -> kvector_t
-        kvector_t Material::magnetization() const
-
-        Get the magnetization (in A/m) 
-
-        """
+        r"""magnetization(Material self) -> kvector_t"""
         return _libBornAgainCore.Material_magnetization(self)
 
     def materialData(self):
-        r"""
-        materialData(Material self) -> complex_t
-        complex_t Material::materialData() const
-
-        Returns underlying material data. The units of returned values are the same as the ones passed to material factory functions 
-
-        """
+        r"""materialData(Material self) -> complex_t"""
         return _libBornAgainCore.Material_materialData(self)
 
     def isEmpty(self):
-        r"""
-        isEmpty(Material self) -> bool
-        bool Material::isEmpty() const
-
-        Returns true if material underlying data is nullptr. 
-
-        """
+        r"""isEmpty(Material self) -> bool"""
         return _libBornAgainCore.Material_isEmpty(self)
 
     def isDefaultMaterial(self):
-        r"""
-        isDefaultMaterial(Material self) -> bool
-        bool Material::isDefaultMaterial() const
-
-        Returns true if material has refractive index of (1.0, 0.0) and zero magnetization. 
-
-        """
+        r"""isDefaultMaterial(Material self) -> bool"""
         return _libBornAgainCore.Material_isDefaultMaterial(self)
 
     def scalarSubtrSLD(self, wavevectors):
-        r"""
-        scalarSubtrSLD(Material self, WavevectorInfo wavevectors) -> complex_t
-        complex_t Material::scalarSubtrSLD(const WavevectorInfo &wavevectors) const
-
-        Returns (  $ \\pi/\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 
-
-        """
+        r"""scalarSubtrSLD(Material self, WavevectorInfo wavevectors) -> complex_t"""
         return _libBornAgainCore.Material_scalarSubtrSLD(self, wavevectors)
 
     def rotatedMaterial(self, transform):
-        r"""
-        rotatedMaterial(Material self, Transform3D const & transform) -> Material
-        Material Material::rotatedMaterial(const Transform3D &transform) const
-
-        """
+        r"""rotatedMaterial(Material self, Transform3D const & transform) -> Material"""
         return _libBornAgainCore.Material_rotatedMaterial(self, transform)
     __swig_destroy__ = _libBornAgainCore.delete_Material
 
@@ -18044,10 +16082,6 @@ def HomogeneousMaterial(*args):
     HomogeneousMaterial() -> Material
     HomogeneousMaterial(std::string const & name, double delta, double beta, kvector_t magnetization={}) -> Material
     HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization={}) -> Material
-    Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
-
-    Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\delta$ and  $\\beta$ for refractive index  $n = 1 - \\delta + i \\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
-
     """
     return _libBornAgainCore.HomogeneousMaterial(*args)
 
@@ -18055,36 +16089,10 @@ def MaterialBySLD(*args):
     r"""
     MaterialBySLD() -> Material
     MaterialBySLD(std::string const & name, double sld_real, double sld_imag, kvector_t magnetization={}) -> Material
-    Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
-
-    Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
-
-    Parameters:
-    -----------
-
-    name: 
-    material name
-
-    sld_real: 
-    real part of the scattering length density, inverse square angstroms
-
-    sld_imag: 
-    imaginary part of the scattering length density, inverse square angstroms
-
-    magnetization: 
-    magnetization (in A/m) 
-
     """
     return _libBornAgainCore.MaterialBySLD(*args)
 class WavevectorInfo(object):
-    r"""
-
-
-    Holds all wavevector information relevant for calculating form factors.
-
-    C++ includes: WavevectorInfo.h
-
-    """
+    r"""Proxy of C++ WavevectorInfo class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -18098,49 +16106,27 @@ class WavevectorInfo(object):
         r"""
         __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
         __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
-        WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
-
         """
         _libBornAgainCore.WavevectorInfo_swiginit(self, _libBornAgainCore.new_WavevectorInfo(*args))
 
     def transformed(self, transform):
-        r"""
-        transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
-        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
-
-        """
+        r"""transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo"""
         return _libBornAgainCore.WavevectorInfo_transformed(self, transform)
 
     def getKi(self):
-        r"""
-        getKi(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getKi() const
-
-        """
+        r"""getKi(WavevectorInfo self) -> cvector_t"""
         return _libBornAgainCore.WavevectorInfo_getKi(self)
 
     def getKf(self):
-        r"""
-        getKf(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getKf() const
-
-        """
+        r"""getKf(WavevectorInfo self) -> cvector_t"""
         return _libBornAgainCore.WavevectorInfo_getKf(self)
 
     def getQ(self):
-        r"""
-        getQ(WavevectorInfo self) -> cvector_t
-        cvector_t WavevectorInfo::getQ() const
-
-        """
+        r"""getQ(WavevectorInfo self) -> cvector_t"""
         return _libBornAgainCore.WavevectorInfo_getQ(self)
 
     def getWavelength(self):
-        r"""
-        getWavelength(WavevectorInfo self) -> double
-        double WavevectorInfo::getWavelength() const
-
-        """
+        r"""getWavelength(WavevectorInfo self) -> double"""
         return _libBornAgainCore.WavevectorInfo_getWavelength(self)
     __swig_destroy__ = _libBornAgainCore.delete_WavevectorInfo
 

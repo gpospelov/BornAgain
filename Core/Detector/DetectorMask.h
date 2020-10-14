@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_DETECTOR_DETECTORMASK_H
 
 #include "Core/Data/OutputData.h"
-#include "Core/Mask/IShape2D.h"
+#include "Device/Mask/IShape2D.h"
 
 class IDetector2D;
 template <class T> class OutputData;

@@ -16,8 +16,8 @@
 #define BORNAGAIN_CORE_PARTICLE_PARTICLE_H
 
 #include "Core/Particle/IParticle.h"
-#include "Core/Scattering/FormFactorDecoratorMaterial.h"
-#include "Core/Scattering/FormFactorDecoratorRotation.h"
+#include "Sample/Scattering/FormFactorDecoratorMaterial.h"
+#include "Sample/Scattering/FormFactorDecoratorRotation.h"
 
 //! A particle with a form factor and refractive index.
 //! @ingroup samples

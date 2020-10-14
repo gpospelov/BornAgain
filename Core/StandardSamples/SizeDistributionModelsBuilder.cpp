@@ -16,7 +16,7 @@
 #include "Base/Const/Units.h"
 #include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/HardParticle/FormFactorCylinder.h"
+#include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Particle/Particle.h"

@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_PARTICLE_FORMFACTORCRYSTAL_H
 
 #include "Core/Lattice/Lattice.h"
-#include "Core/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a MesoCrystal.
 //! @ingroup formfactors

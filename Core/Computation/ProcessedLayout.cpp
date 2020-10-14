@@ -19,9 +19,9 @@
 #include "Core/Multilayer/Slice.h"
 #include "Core/Multilayer/SlicedFormFactorList.h"
 #include "Core/Particle/IParticle.h"
-#include "Core/Scattering/FormFactorBAPol.h"
-#include "Core/Scattering/FormFactorDWBA.h"
-#include "Core/Scattering/FormFactorDWBAPol.h"
+#include "Sample/Scattering/FormFactorBAPol.h"
+#include "Sample/Scattering/FormFactorDWBA.h"
+#include "Sample/Scattering/FormFactorDWBAPol.h"
 
 namespace
 {

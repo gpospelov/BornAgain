@@ -14,7 +14,7 @@
 
 #include "Core/Detector/RegionOfInterest.h"
 #include "Core/Detector/IDetector2D.h"
-#include "Core/Mask/Rectangle.h"
+#include "Device/Mask/Rectangle.h"
 
 RegionOfInterest::RegionOfInterest(const IDetector2D& detector, double xlow, double ylow,
                                    double xup, double yup)

@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
 
 #include "Core/Particle/HomogeneousRegion.h"
-#include "Core/Scattering/ISample.h"
+#include "Sample/Scattering/ISample.h"
 
 class IFormFactor;
 class IRotation;

@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_MULTILAYER_SLICEDFORMFACTORLIST_H
 
 #include "Core/Particle/HomogeneousRegion.h"
-#include "Core/Scattering/IFormFactor.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include <map>
 #include <memory>
 

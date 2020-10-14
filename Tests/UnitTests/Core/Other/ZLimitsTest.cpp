@@ -1,4 +1,4 @@
-#include "Core/Scattering/ZLimits.h"
+#include "Sample/Scattering/ZLimits.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <stdexcept>
 

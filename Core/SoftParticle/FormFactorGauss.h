@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H
 #define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORGAUSS_H
 
-#include "Core/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a Gaussian sphere.
 //! @ingroup softParticle

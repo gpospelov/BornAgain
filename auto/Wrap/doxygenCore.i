@@ -164,89 +164,6 @@ C++ includes: SimulationResult.h
 // File: structArrayUtils_1_1CreateDataImpl_1_1baseClass_3_01std_1_1vector_3_01T_00_01A_01_4_01_4.xml
 
 
-// File: classBaseMaterialImpl.xml
-%feature("docstring") BaseMaterialImpl "
-
-Interface for material implementation classes. Inherited by  MagneticMaterialImpl, which has further children.
-
-C++ includes: BaseMaterialImpl.h
-";
-
-%feature("docstring")  BaseMaterialImpl::BaseMaterialImpl "BaseMaterialImpl::BaseMaterialImpl(const std::string &name)
-
-Constructs basic material with name. 
-";
-
-%feature("docstring")  BaseMaterialImpl::~BaseMaterialImpl "virtual BaseMaterialImpl::~BaseMaterialImpl()=default
-";
-
-%feature("docstring")  BaseMaterialImpl::clone "virtual BaseMaterialImpl* BaseMaterialImpl::clone() const =0
-
-Returns pointer to a copy of material. 
-";
-
-%feature("docstring")  BaseMaterialImpl::inverted "virtual BaseMaterialImpl* BaseMaterialImpl::inverted() const =0
-
-Constructs a material with inverted magnetization. 
-";
-
-%feature("docstring")  BaseMaterialImpl::refractiveIndex "virtual complex_t BaseMaterialImpl::refractiveIndex(double wavelength) const =0
-
-Returns refractive index. 
-";
-
-%feature("docstring")  BaseMaterialImpl::refractiveIndex2 "virtual complex_t BaseMaterialImpl::refractiveIndex2(double wavelength) const =0
-
-Returns squared refractive index. 
-";
-
-%feature("docstring")  BaseMaterialImpl::isScalarMaterial "virtual bool BaseMaterialImpl::isScalarMaterial() const =0
-
-Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-";
-
-%feature("docstring")  BaseMaterialImpl::isMagneticMaterial "virtual bool BaseMaterialImpl::isMagneticMaterial() const =0
-";
-
-%feature("docstring")  BaseMaterialImpl::magnetization "virtual kvector_t BaseMaterialImpl::magnetization() const =0
-
-Returns the magnetization (in A/m) 
-";
-
-%feature("docstring")  BaseMaterialImpl::materialData "virtual complex_t BaseMaterialImpl::materialData() const =0
-
-Returns underlying material data. 
-";
-
-%feature("docstring")  BaseMaterialImpl::typeID "virtual MATERIAL_TYPES BaseMaterialImpl::typeID() const =0
-
-Returns type of material implementation. 
-";
-
-%feature("docstring")  BaseMaterialImpl::scalarSubtrSLD "virtual complex_t BaseMaterialImpl::scalarSubtrSLD(const WavevectorInfo &wavevectors) const =0
-
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld being the scattering length density. 
-";
-
-%feature("docstring")  BaseMaterialImpl::polarizedSubtrSLD "virtual Eigen::Matrix2cd BaseMaterialImpl::polarizedSubtrSLD(const WavevectorInfo &wavevectors) const =0
-
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections. 
-";
-
-%feature("docstring")  BaseMaterialImpl::rotatedMaterial "virtual BaseMaterialImpl* BaseMaterialImpl::rotatedMaterial(const Transform3D &transform) const =0
-";
-
-%feature("docstring")  BaseMaterialImpl::print "virtual void BaseMaterialImpl::print(std::ostream &ostr) const =0
-
-Prints object data. 
-";
-
-%feature("docstring")  BaseMaterialImpl::getName "const std::string& BaseMaterialImpl::getName() const
-
-Returns name of the material. 
-";
-
-
 // File: classBasic2DLatticeBuilder.xml
 %feature("docstring") Basic2DLatticeBuilder "
 
@@ -386,16 +303,6 @@ Returns the polarization density matrix (in spin basis along z-axis)
 ";
 
 %feature("docstring")  Beam::getChildren "std::vector< const INode * > Beam::getChildren() const override
-";
-
-
-// File: classBox.xml
-%feature("docstring") Box "";
-
-%feature("docstring")  Box::Box "Box::Box(double length, double width, double height)
-";
-
-%feature("docstring")  Box::~Box "Box::~Box()
 ";
 
 
@@ -778,8 +685,6 @@ C++ includes: Crystal.h
 ";
 
 %feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  Crystal::accept "void Crystal::accept(INodeVisitor *visitor) const override final
@@ -1332,16 +1237,6 @@ returns true if has masks
 ";
 
 
-// File: classDoubleEllipse.xml
-%feature("docstring") DoubleEllipse "";
-
-%feature("docstring")  DoubleEllipse::DoubleEllipse "DoubleEllipse::DoubleEllipse(double r0_x, double r0_y, double z, double rz_x, double rz_y)
-";
-
-%feature("docstring")  DoubleEllipse::~DoubleEllipse "DoubleEllipse::~DoubleEllipse()
-";
-
-
 // File: classDWBAComputation.xml
 %feature("docstring") DWBAComputation "
 
@@ -1396,64 +1291,6 @@ C++ includes: DWBASingleComputation.h
 %feature("docstring")  DWBASingleComputation::regionMap "const std::map< size_t, std::vector< HomogeneousRegion > > & DWBASingleComputation::regionMap() const
 
 Retrieves a map of regions for the calculation of averaged layers. 
-";
-
-
-// File: classEllipse.xml
-%feature("docstring") Ellipse "
-
-Ellipse shape.
-
-C++ includes: Ellipse.h
-";
-
-%feature("docstring")  Ellipse::Ellipse "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta=0.0)
-
-Parameters:
------------
-
-xcenter: 
-x-coordinate of  Ellipse's center
-
-ycenter: 
-y-coordinate of  Ellipse's center
-
-xradius: 
-Radius along x-axis
-
-yradius: 
-Radius along y-axis
-
-theta: 
-Angle of  Ellipse rotation in radians 
-";
-
-%feature("docstring")  Ellipse::clone "Ellipse* Ellipse::clone() const
-";
-
-%feature("docstring")  Ellipse::contains "bool Ellipse::contains(double x, double y) const
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  Ellipse::contains "bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
-
-Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
-";
-
-%feature("docstring")  Ellipse::getCenterX "double Ellipse::getCenterX() const
-";
-
-%feature("docstring")  Ellipse::getCenterY "double Ellipse::getCenterY() const
-";
-
-%feature("docstring")  Ellipse::getRadiusX "double Ellipse::getRadiusX() const
-";
-
-%feature("docstring")  Ellipse::getRadiusY "double Ellipse::getRadiusY() const
-";
-
-%feature("docstring")  Ellipse::getTheta "double Ellipse::getTheta() const
 ";
 
 
@@ -1896,218 +1733,6 @@ Print python-formatted footprint definition.
 ";
 
 
-// File: classFormFactorAnisoPyramid.xml
-%feature("docstring") FormFactorAnisoPyramid "
-
-A frustum (truncated pyramid) with rectangular base.
-
-C++ includes: FormFactorAnisoPyramid.h
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::accept "void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::getLength "double FormFactorAnisoPyramid::getLength() const
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::getWidth "double FormFactorAnisoPyramid::getWidth() const
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::getHeight "double FormFactorAnisoPyramid::getHeight() const
-";
-
-%feature("docstring")  FormFactorAnisoPyramid::getAlpha "double FormFactorAnisoPyramid::getAlpha() const
-";
-
-
-// File: classFormFactorBAPol.xml
-%feature("docstring") FormFactorBAPol "
-
-Evaluates the matrix BA term in a polarized  IFormFactor.
-
-C++ includes: FormFactorBAPol.h
-";
-
-%feature("docstring")  FormFactorBAPol::FormFactorBAPol "FormFactorBAPol::FormFactorBAPol(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  FormFactorBAPol::~FormFactorBAPol "FormFactorBAPol::~FormFactorBAPol() override
-";
-
-%feature("docstring")  FormFactorBAPol::clone "FormFactorBAPol * FormFactorBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorBAPol::accept "void FormFactorBAPol::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  FormFactorBAPol::setAmbientMaterial "void FormFactorBAPol::setAmbientMaterial(Material material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  FormFactorBAPol::evaluate "complex_t FormFactorBAPol::evaluate(const WavevectorInfo &wavevectors) const override
-
-Throws not-implemented exception. 
-";
-
-%feature("docstring")  FormFactorBAPol::evaluatePol "Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Calculates and returns a polarized form factor calculation in BA. 
-";
-
-%feature("docstring")  FormFactorBAPol::volume "double FormFactorBAPol::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorBAPol::radialExtension "double FormFactorBAPol::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorBAPol::bottomZ "double FormFactorBAPol::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorBAPol::topZ "double FormFactorBAPol::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-
-// File: classFormFactorBarGauss.xml
-%feature("docstring") FormFactorBarGauss "
-
-The form factor of an elongated bar, with Gaussian profile in elongation direction.
-
-C++ includes: FormFactorBar.h
-";
-
-%feature("docstring")  FormFactorBarGauss::FormFactorBarGauss "FormFactorBarGauss::FormFactorBarGauss(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorBarGauss::FormFactorBarGauss "FormFactorBarGauss::FormFactorBarGauss(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorBarGauss::clone "FormFactorBarGauss * FormFactorBarGauss::clone() const final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorBarGauss::accept "void FormFactorBarGauss::accept(INodeVisitor *visitor) const final
-";
-
-
-// File: classFormFactorBarLorentz.xml
-%feature("docstring") FormFactorBarLorentz "
-
-The form factor of an elongated, with Lorentz form factor in elongation direction.
-
-C++ includes: FormFactorBar.h
-";
-
-%feature("docstring")  FormFactorBarLorentz::FormFactorBarLorentz "FormFactorBarLorentz::FormFactorBarLorentz(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorBarLorentz::FormFactorBarLorentz "FormFactorBarLorentz::FormFactorBarLorentz(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorBarLorentz::clone "FormFactorBarLorentz * FormFactorBarLorentz::clone() const final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorBarLorentz::accept "void FormFactorBarLorentz::accept(INodeVisitor *visitor) const final
-";
-
-
-// File: classFormFactorBox.xml
-%feature("docstring") FormFactorBox "
-
-A rectangular prism (parallelepiped).
-
-C++ includes: FormFactorBox.h
-";
-
-%feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorBox::clone "FormFactorBox* FormFactorBox::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorBox::accept "void FormFactorBox::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorBox::getLength "double FormFactorBox::getLength() const
-";
-
-%feature("docstring")  FormFactorBox::getWidth "double FormFactorBox::getWidth() const
-";
-
-%feature("docstring")  FormFactorBox::volume "double FormFactorBox::volume() const override final
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorBox::radialExtension "double FormFactorBox::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorCantellatedCube.xml
-%feature("docstring") FormFactorCantellatedCube "
-
-A cube, with truncation of all edges and corners, as in Croset (2017) Fig 7
-
-C++ includes: FormFactorCantellatedCube.h
-";
-
-%feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
-";
-
-%feature("docstring")  FormFactorCantellatedCube::clone "FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCantellatedCube::accept "void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorCantellatedCube::getLength "double FormFactorCantellatedCube::getLength() const
-";
-
-%feature("docstring")  FormFactorCantellatedCube::getRemovedLength "double FormFactorCantellatedCube::getRemovedLength() const
-";
-
-
 // File: classFormFactorCoherentPart.xml
 %feature("docstring") FormFactorCoherentPart "
 
@@ -2183,80 +1808,6 @@ C++ includes: SampleComponents.h
 ";
 
 
-// File: classFormFactorCone.xml
-%feature("docstring") FormFactorCone "
-
-A conical frustum (cone truncated parallel to the base) with circular base.
-
-C++ includes: FormFactorCone.h
-";
-
-%feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(double radius, double height, double alpha)
-";
-
-%feature("docstring")  FormFactorCone::clone "FormFactorCone* FormFactorCone::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCone::accept "void FormFactorCone::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorCone::getHeight "double FormFactorCone::getHeight() const
-";
-
-%feature("docstring")  FormFactorCone::getAlpha "double FormFactorCone::getAlpha() const
-";
-
-%feature("docstring")  FormFactorCone::getRadius "double FormFactorCone::getRadius() const
-";
-
-%feature("docstring")  FormFactorCone::radialExtension "double FormFactorCone::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorCone::evaluate_for_q "complex_t FormFactorCone::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorCone6.xml
-%feature("docstring") FormFactorCone6 "
-
-A frustum (truncated pyramid) with regular hexagonal base.
-
-C++ includes: FormFactorCone6.h
-";
-
-%feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
-";
-
-%feature("docstring")  FormFactorCone6::clone "FormFactorCone6* FormFactorCone6::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCone6::accept "void FormFactorCone6::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorCone6::getBaseEdge "double FormFactorCone6::getBaseEdge() const
-";
-
-%feature("docstring")  FormFactorCone6::getHeight "double FormFactorCone6::getHeight() const
-";
-
-%feature("docstring")  FormFactorCone6::getAlpha "double FormFactorCone6::getAlpha() const
-";
-
-
 // File: classFormFactorCoreShell.xml
 %feature("docstring") FormFactorCoreShell "
 
@@ -2274,110 +1825,29 @@ C++ includes: FormFactorCoreShell.h
 ";
 
 %feature("docstring")  FormFactorCoreShell::clone "FormFactorCoreShell * FormFactorCoreShell::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  FormFactorCoreShell::accept "void FormFactorCoreShell::accept(INodeVisitor *visitor) const override final
 ";
 
 %feature("docstring")  FormFactorCoreShell::radialExtension "double FormFactorCoreShell::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorCoreShell::bottomZ "double FormFactorCoreShell::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorCoreShell::topZ "double FormFactorCoreShell::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(Material material) override final
-
-Passes the material in which this particle is embedded. 
 ";
 
 %feature("docstring")  FormFactorCoreShell::evaluate "complex_t FormFactorCoreShell::evaluate(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 %feature("docstring")  FormFactorCoreShell::evaluatePol "Eigen::Matrix2cd FormFactorCoreShell::evaluatePol(const WavevectorInfo &wavevectors) const override final
 
 Calculates and returns a polarized form factor calculation in DWBA. 
-";
-
-
-// File: classFormFactorCosineRippleBox.xml
-%feature("docstring") FormFactorCosineRippleBox "
-
-The form factor for a cosine ripple, with box profile in elongation direction.
-
-C++ includes: FormFactorCosineRipple.h
-";
-
-%feature("docstring")  FormFactorCosineRippleBox::FormFactorCosineRippleBox "FormFactorCosineRippleBox::FormFactorCosineRippleBox(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCosineRippleBox::FormFactorCosineRippleBox "FormFactorCosineRippleBox::FormFactorCosineRippleBox(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorCosineRippleBox::clone "FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCosineRippleBox::accept "void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const override final
-";
-
-
-// File: classFormFactorCosineRippleGauss.xml
-%feature("docstring") FormFactorCosineRippleGauss "
-
-The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-C++ includes: FormFactorCosineRipple.h
-";
-
-%feature("docstring")  FormFactorCosineRippleGauss::FormFactorCosineRippleGauss "FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCosineRippleGauss::FormFactorCosineRippleGauss "FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorCosineRippleGauss::clone "FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCosineRippleGauss::accept "void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const override final
-";
-
-
-// File: classFormFactorCosineRippleLorentz.xml
-%feature("docstring") FormFactorCosineRippleLorentz "
-
-The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-C++ includes: FormFactorCosineRipple.h
-";
-
-%feature("docstring")  FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz "FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz "FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorCosineRippleLorentz::clone "FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCosineRippleLorentz::accept "void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const override final
 ";
 
 
@@ -2396,565 +1866,30 @@ C++ includes: FormFactorCrystal.h
 ";
 
 %feature("docstring")  FormFactorCrystal::clone "FormFactorCrystal* FormFactorCrystal::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  FormFactorCrystal::accept "void FormFactorCrystal::accept(INodeVisitor *visitor) const override final
 ";
 
 %feature("docstring")  FormFactorCrystal::setAmbientMaterial "void FormFactorCrystal::setAmbientMaterial(Material material) override
-
-Passes the material in which this particle is embedded. 
 ";
 
 %feature("docstring")  FormFactorCrystal::volume "double FormFactorCrystal::volume() const override final
-
-Returns the total volume of the particle of this form factor's shape. 
 ";
 
 %feature("docstring")  FormFactorCrystal::radialExtension "double FormFactorCrystal::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorCrystal::bottomZ "double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorCrystal::topZ "double FormFactorCrystal::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 %feature("docstring")  FormFactorCrystal::evaluatePol "Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
-// File: classFormFactorCuboctahedron.xml
-%feature("docstring") FormFactorCuboctahedron "
-
-A truncated bifrustum with quadratic base.
-
-C++ includes: FormFactorCuboctahedron.h
-";
-
-%feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
-";
-
-%feature("docstring")  FormFactorCuboctahedron::clone "FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCuboctahedron::accept "void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorCuboctahedron::getLength "double FormFactorCuboctahedron::getLength() const
-";
-
-%feature("docstring")  FormFactorCuboctahedron::getHeight "double FormFactorCuboctahedron::getHeight() const
-";
-
-%feature("docstring")  FormFactorCuboctahedron::getHeightRatio "double FormFactorCuboctahedron::getHeightRatio() const
-";
-
-%feature("docstring")  FormFactorCuboctahedron::getAlpha "double FormFactorCuboctahedron::getAlpha() const
-";
-
-
-// File: classFormFactorCylinder.xml
-%feature("docstring") FormFactorCylinder "
-
-A circular cylinder.
-
-C++ includes: FormFactorCylinder.h
-";
-
-%feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(double radius, double height)
-";
-
-%feature("docstring")  FormFactorCylinder::clone "FormFactorCylinder* FormFactorCylinder::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorCylinder::accept "void FormFactorCylinder::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorCylinder::getHeight "double FormFactorCylinder::getHeight() const
-";
-
-%feature("docstring")  FormFactorCylinder::getRadius "double FormFactorCylinder::getRadius() const
-";
-
-%feature("docstring")  FormFactorCylinder::radialExtension "double FormFactorCylinder::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorCylinder::evaluate_for_q "complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorDecoratorMaterial.xml
-%feature("docstring") FormFactorDecoratorMaterial "
-
-Decorates a scalar formfactor with the correct factor for the material's refractive index and that of its surrounding material.
-
-C++ includes: FormFactorDecoratorMaterial.h
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() override final
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::clone "FormFactorDecoratorMaterial * FormFactorDecoratorMaterial::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::accept "void FormFactorDecoratorMaterial::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::setMaterial "void FormFactorDecoratorMaterial::setMaterial(Material material)
-
-Sets the material of the scatterer. 
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::setAmbientMaterial "void FormFactorDecoratorMaterial::setAmbientMaterial(Material material) override
-
-Sets the ambient material. 
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::evaluate "complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorMaterial::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
-// File: classFormFactorDecoratorPositionFactor.xml
-%feature("docstring") FormFactorDecoratorPositionFactor "
-
-Decorates a form factor with a position dependent phase factor.
-
-C++ includes: FormFactorDecoratorPositionFactor.h
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, const kvector_t &position)
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::accept "void FormFactorDecoratorPositionFactor::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::bottomZ "double FormFactorDecoratorPositionFactor::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::topZ "double FormFactorDecoratorPositionFactor::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
-// File: classFormFactorDecoratorRotation.xml
-%feature("docstring") FormFactorDecoratorRotation "
-
-Equips a form factor with a rotation.
-
-C++ includes: FormFactorDecoratorRotation.h
-";
-
-%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &rotation)
-
-Constructor, setting form factor and rotation. 
-";
-
-%feature("docstring")  FormFactorDecoratorRotation::clone "FormFactorDecoratorRotation * FormFactorDecoratorRotation::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorDecoratorRotation::bottomZ "double FormFactorDecoratorRotation::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDecoratorRotation::topZ "double FormFactorDecoratorRotation::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorRotation::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorRotation::evaluatePol(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
-// File: classFormFactorDodecahedron.xml
-%feature("docstring") FormFactorDodecahedron "
-
-A regular dodecahedron.
-
-C++ includes: FormFactorDodecahedron.h
-";
-
-%feature("docstring")  FormFactorDodecahedron::FormFactorDodecahedron "FormFactorDodecahedron::FormFactorDodecahedron(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorDodecahedron::FormFactorDodecahedron "FormFactorDodecahedron::FormFactorDodecahedron(double edge)
-";
-
-%feature("docstring")  FormFactorDodecahedron::clone "FormFactorDodecahedron* FormFactorDodecahedron::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDodecahedron::accept "void FormFactorDodecahedron::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorDodecahedron::getEdge "double FormFactorDodecahedron::getEdge() const
-";
-
-
-// File: classFormFactorDot.xml
-%feature("docstring") FormFactorDot "
-
-A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
-
-C++ includes: FormFactorDot.h
-";
-
-%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(double radius)
-";
-
-%feature("docstring")  FormFactorDot::clone "FormFactorDot* FormFactorDot::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDot::accept "void FormFactorDot::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorDot::getRadius "double FormFactorDot::getRadius() const
-";
-
-%feature("docstring")  FormFactorDot::radialExtension "double FormFactorDot::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorDot::bottomZ "double FormFactorDot::bottomZ(const IRotation &) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDot::topZ "double FormFactorDot::topZ(const IRotation &) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDot::evaluate_for_q "complex_t FormFactorDot::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorDWBA.xml
-%feature("docstring") FormFactorDWBA "
-
-Evaluates the coherent sum of the four DWBA terms in a scalar  IFormFactor.
-
-C++ includes: FormFactorDWBA.h
-";
-
-%feature("docstring")  FormFactorDWBA::FormFactorDWBA "FormFactorDWBA::FormFactorDWBA(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "FormFactorDWBA::~FormFactorDWBA() override
-";
-
-%feature("docstring")  FormFactorDWBA::clone "FormFactorDWBA * FormFactorDWBA::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDWBA::accept "void FormFactorDWBA::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(Material material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const override
-
-Calculates and returns a form factor calculation in DWBA. 
-";
-
-%feature("docstring")  FormFactorDWBA::volume "double FormFactorDWBA::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorDWBA::radialExtension "double FormFactorDWBA::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorDWBA::bottomZ "double FormFactorDWBA::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBA::topZ "double FormFactorDWBA::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
-
-Sets reflection/transmission info. 
-";
-
-
-// File: classFormFactorDWBAPol.xml
-%feature("docstring") FormFactorDWBAPol "
-
-Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized  IFormFactor.
-
-C++ includes: FormFactorDWBAPol.h
-";
-
-%feature("docstring")  FormFactorDWBAPol::FormFactorDWBAPol "FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  FormFactorDWBAPol::~FormFactorDWBAPol "FormFactorDWBAPol::~FormFactorDWBAPol() override
-";
-
-%feature("docstring")  FormFactorDWBAPol::clone "FormFactorDWBAPol * FormFactorDWBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(Material material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
-
-Throws not-implemented exception. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::evaluatePol "Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Calculates and returns a polarized form factor calculation in DWBA. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::volume "double FormFactorDWBAPol::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::radialExtension "double FormFactorDWBAPol::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorDWBAPol::bottomZ "double FormFactorDWBAPol::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::topZ "double FormFactorDWBAPol::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
-
-Sets reflection/transmission info. 
-";
-
-
-// File: classFormFactorEllipsoidalCylinder.xml
-%feature("docstring") FormFactorEllipsoidalCylinder "
-
-A cylinder with elliptical base.
-
-C++ includes: FormFactorEllipsoidalCylinder.h
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::clone "FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::accept "void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::getRadiusX "double FormFactorEllipsoidalCylinder::getRadiusX() const
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::getRadiusY "double FormFactorEllipsoidalCylinder::getRadiusY() const
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::getHeight "double FormFactorEllipsoidalCylinder::getHeight() const
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::radialExtension "double FormFactorEllipsoidalCylinder::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::evaluate_for_q "complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorFullSphere.xml
-%feature("docstring") FormFactorFullSphere "
-
-A full sphere.
-
-C++ includes: FormFactorFullSphere.h
-";
-
-%feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(const std::vector< double > P, bool position_at_center=false)
-";
-
-%feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
-";
-
-%feature("docstring")  FormFactorFullSphere::clone "FormFactorFullSphere* FormFactorFullSphere::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorFullSphere::accept "void FormFactorFullSphere::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorFullSphere::getRadius "double FormFactorFullSphere::getRadius() const
-";
-
-%feature("docstring")  FormFactorFullSphere::radialExtension "double FormFactorFullSphere::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorFullSphere::bottomZ "double FormFactorFullSphere::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorFullSphere::topZ "double FormFactorFullSphere::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorFullSpheroid.xml
-%feature("docstring") FormFactorFullSpheroid "
-
-A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
-
-C++ includes: FormFactorFullSpheroid.h
-";
-
-%feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
-";
-
-%feature("docstring")  FormFactorFullSpheroid::clone "FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorFullSpheroid::accept "void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorFullSpheroid::getHeight "double FormFactorFullSpheroid::getHeight() const
-";
-
-%feature("docstring")  FormFactorFullSpheroid::getRadius "double FormFactorFullSpheroid::getRadius() const
-";
-
-%feature("docstring")  FormFactorFullSpheroid::radialExtension "double FormFactorFullSpheroid::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorFullSpheroid::evaluate_for_q "complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -2973,8 +1908,6 @@ C++ includes: FormFactorGauss.h
 ";
 
 %feature("docstring")  FormFactorGaussSphere::clone "FormFactorGaussSphere* FormFactorGaussSphere::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  FormFactorGaussSphere::accept "void FormFactorGaussSphere::accept(INodeVisitor *visitor) const override final
@@ -2984,354 +1917,9 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorGaussSphere::radialExtension "double FormFactorGaussSphere::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorGaussSphere::evaluate_for_q "complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorHemiEllipsoid.xml
-%feature("docstring") FormFactorHemiEllipsoid "
-
-An hemi ellipsoid, obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
-
-C++ includes: FormFactorHemiEllipsoid.h
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid "virtual FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::clone "FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::accept "void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::getHeight "double FormFactorHemiEllipsoid::getHeight() const
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::getRadiusX "double FormFactorHemiEllipsoid::getRadiusX() const
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::getRadiusY "double FormFactorHemiEllipsoid::getRadiusY() const
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::radialExtension "double FormFactorHemiEllipsoid::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::evaluate_for_q "complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorHollowSphere.xml
-%feature("docstring") FormFactorHollowSphere "
-
-Integrated full sphere form factor over a uniform distribution of radii.
-
-C++ includes: FormFactorHollowSphere.h
-";
-
-%feature("docstring")  FormFactorHollowSphere::FormFactorHollowSphere "FormFactorHollowSphere::FormFactorHollowSphere(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorHollowSphere::FormFactorHollowSphere "FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
-";
-
-%feature("docstring")  FormFactorHollowSphere::clone "FormFactorHollowSphere* FormFactorHollowSphere::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorHollowSphere::accept "void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorHollowSphere::radialExtension "double FormFactorHollowSphere::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorHollowSphere::evaluate_for_q "complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorIcosahedron.xml
-%feature("docstring") FormFactorIcosahedron "
-
-A regular icosahedron.
-
-C++ includes: FormFactorIcosahedron.h
-";
-
-%feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(double edge)
-";
-
-%feature("docstring")  FormFactorIcosahedron::clone "FormFactorIcosahedron* FormFactorIcosahedron::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorIcosahedron::accept "void FormFactorIcosahedron::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorIcosahedron::getEdge "double FormFactorIcosahedron::getEdge() const
-";
-
-
-// File: classFormFactorLongBoxGauss.xml
-%feature("docstring") FormFactorLongBoxGauss "
-
-The form factor for a long rectangular box.
-
-C++ includes: FormFactorLongBoxGauss.h
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::clone "FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::accept "void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::getLength "double FormFactorLongBoxGauss::getLength() const
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::getHeight "double FormFactorLongBoxGauss::getHeight() const
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::getWidth "double FormFactorLongBoxGauss::getWidth() const
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::radialExtension "double FormFactorLongBoxGauss::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLongBoxGauss::evaluate_for_q "complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorLongBoxLorentz.xml
-%feature("docstring") FormFactorLongBoxLorentz "
-
-The form factor for a long rectangular box.
-
-C++ includes: FormFactorLongBoxLorentz.h
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::clone "FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::accept "void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::getLength "double FormFactorLongBoxLorentz::getLength() const
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::getHeight "double FormFactorLongBoxLorentz::getHeight() const
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::getWidth "double FormFactorLongBoxLorentz::getWidth() const
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::radialExtension "double FormFactorLongBoxLorentz::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLongBoxLorentz::evaluate_for_q "complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorPrism3.xml
-%feature("docstring") FormFactorPrism3 "
-
-A prism based on an equilateral triangle.
-
-C++ includes: FormFactorPrism3.h
-";
-
-%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
-";
-
-%feature("docstring")  FormFactorPrism3::clone "FormFactorPrism3* FormFactorPrism3::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorPrism3::accept "void FormFactorPrism3::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorPrism3::getBaseEdge "double FormFactorPrism3::getBaseEdge() const
-";
-
-
-// File: classFormFactorPrism6.xml
-%feature("docstring") FormFactorPrism6 "
-
-A prism based on a regular hexagonal.
-
-C++ includes: FormFactorPrism6.h
-";
-
-%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
-";
-
-%feature("docstring")  FormFactorPrism6::clone "FormFactorPrism6* FormFactorPrism6::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorPrism6::accept "void FormFactorPrism6::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorPrism6::getBaseEdge "double FormFactorPrism6::getBaseEdge() const
-";
-
-
-// File: classFormFactorPyramid.xml
-%feature("docstring") FormFactorPyramid "
-
-A frustum with a quadratic base.
-
-C++ includes: FormFactorPyramid.h
-";
-
-%feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
-";
-
-%feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid* FormFactorPyramid::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorPyramid::accept "void FormFactorPyramid::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorPyramid::getHeight "double FormFactorPyramid::getHeight() const
-";
-
-%feature("docstring")  FormFactorPyramid::getBaseEdge "double FormFactorPyramid::getBaseEdge() const
-";
-
-%feature("docstring")  FormFactorPyramid::getAlpha "double FormFactorPyramid::getAlpha() const
-";
-
-
-// File: classFormFactorSawtoothRippleBox.xml
-%feature("docstring") FormFactorSawtoothRippleBox "
-
-The form factor for a cosine ripple, with box profile in elongation direction.
-
-C++ includes: FormFactorSawtoothRipple.h
-";
-
-%feature("docstring")  FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox "FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox "FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox(double length, double width, double height, double asymmetry)
-";
-
-%feature("docstring")  FormFactorSawtoothRippleBox::clone "FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorSawtoothRippleBox::accept "void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const override final
-";
-
-
-// File: classFormFactorSawtoothRippleGauss.xml
-%feature("docstring") FormFactorSawtoothRippleGauss "
-
-The form factor for a cosine ripple, with Gaussian profile in elongation direction.
-
-C++ includes: FormFactorSawtoothRipple.h
-";
-
-%feature("docstring")  FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss "FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss "FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss(double length, double width, double height, double asymmetry)
-";
-
-%feature("docstring")  FormFactorSawtoothRippleGauss::clone "FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorSawtoothRippleGauss::accept "void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const override final
-";
-
-
-// File: classFormFactorSawtoothRippleLorentz.xml
-%feature("docstring") FormFactorSawtoothRippleLorentz "
-
-The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
-
-C++ includes: FormFactorSawtoothRipple.h
-";
-
-%feature("docstring")  FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz "FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz "FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz(double length, double width, double height, double asymmetry)
-";
-
-%feature("docstring")  FormFactorSawtoothRippleLorentz::clone "FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorSawtoothRippleLorentz::accept "void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const override final
 ";
 
 
@@ -3350,21 +1938,15 @@ C++ includes: FormFactorSphereGaussianRadius.h
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::clone "FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::accept "void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const override final
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::radialExtension "double FormFactorSphereGaussianRadius::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::evaluate_for_q "complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -3383,176 +1965,22 @@ C++ includes: FormFactorSphereLogNormalRadius.h
 ";
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::clone "FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::accept "void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const override final
 ";
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::radialExtension "double FormFactorSphereLogNormalRadius::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::evaluate_for_q "complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorTetrahedron.xml
-%feature("docstring") FormFactorTetrahedron "
-
-A frustum with equilateral trigonal base.
-
-C++ includes: FormFactorTetrahedron.h
-";
-
-%feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
-";
-
-%feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron* FormFactorTetrahedron::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorTetrahedron::accept "void FormFactorTetrahedron::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorTetrahedron::getBaseEdge "double FormFactorTetrahedron::getBaseEdge() const
-";
-
-%feature("docstring")  FormFactorTetrahedron::getHeight "double FormFactorTetrahedron::getHeight() const
-";
-
-%feature("docstring")  FormFactorTetrahedron::getAlpha "double FormFactorTetrahedron::getAlpha() const
-";
-
-
-// File: classFormFactorTruncatedCube.xml
-%feature("docstring") FormFactorTruncatedCube "
-
-A cube, with tetrahedral truncation of all corners
-
-C++ includes: FormFactorTruncatedCube.h
-";
-
-%feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
-";
-
-%feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorTruncatedCube::accept "void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorTruncatedCube::getLength "double FormFactorTruncatedCube::getLength() const
-";
-
-%feature("docstring")  FormFactorTruncatedCube::getRemovedLength "double FormFactorTruncatedCube::getRemovedLength() const
-";
-
-
-// File: classFormFactorTruncatedSphere.xml
-%feature("docstring") FormFactorTruncatedSphere "
-
-A truncated Sphere.
-
-C++ includes: FormFactorTruncatedSphere.h
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::clone "FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::accept "void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::getHeight "double FormFactorTruncatedSphere::getHeight() const
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::getRadius "double FormFactorTruncatedSphere::getRadius() const
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::getRemovedTop "double FormFactorTruncatedSphere::getRemovedTop() const
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::radialExtension "double FormFactorTruncatedSphere::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::evaluate_for_q "complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const override final
-
-Complex form factor. 
-";
-
-
-// File: classFormFactorTruncatedSpheroid.xml
-%feature("docstring") FormFactorTruncatedSpheroid "
-
-A truncated spheroid. An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
-
-C++ includes: FormFactorTruncatedSpheroid.h
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(const std::vector< double > P)
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh)
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::clone "FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::accept "void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const override final
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::getRadius "double FormFactorTruncatedSpheroid::getRadius() const
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::getHeight "double FormFactorTruncatedSpheroid::getHeight() const
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::getHeightFlattening "double FormFactorTruncatedSpheroid::getHeightFlattening() const
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::getRemovedTop "double FormFactorTruncatedSpheroid::getRemovedTop() const
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::radialExtension "double FormFactorTruncatedSpheroid::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::evaluate_for_q "complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorWeighted.xml
 %feature("docstring") FormFactorWeighted "
 
-Coherent sum of different scalar  IFormFactor's with different weights.
+Coherent sum of different scalar IFormFactor's with different weights.
 
 Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
@@ -3566,39 +1994,27 @@ C++ includes: FormFactorWeighted.h
 ";
 
 %feature("docstring")  FormFactorWeighted::clone "FormFactorWeighted * FormFactorWeighted::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  FormFactorWeighted::accept "void FormFactorWeighted::accept(INodeVisitor *visitor) const override final
 ";
 
 %feature("docstring")  FormFactorWeighted::radialExtension "double FormFactorWeighted::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorWeighted::bottomZ "double FormFactorWeighted::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorWeighted::topZ "double FormFactorWeighted::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
 ";
 
 %feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(Material material) override final
-
-Passes the material in which this particle is embedded. 
 ";
 
 %feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 %feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const override final
@@ -4210,8 +2626,6 @@ C++ includes: IPeakShape.h
 ";
 
 %feature("docstring")  GaussFisherPeakShape::clone "GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  GaussFisherPeakShape::accept "void GaussFisherPeakShape::accept(INodeVisitor *visitor) const override
@@ -4614,40 +3028,6 @@ C++ includes: HomogeneousRegion.h
 ";
 
 
-// File: classHorizontalLine.xml
-%feature("docstring") HorizontalLine "
-
-An infinite horizontal line.
-
-C++ includes: Line.h
-";
-
-%feature("docstring")  HorizontalLine::HorizontalLine "HorizontalLine::HorizontalLine(double y)
-
-Parameters:
------------
-
-y: 
-The value at which it crosses y-axes 
-";
-
-%feature("docstring")  HorizontalLine::clone "HorizontalLine* HorizontalLine::clone() const
-";
-
-%feature("docstring")  HorizontalLine::contains "bool HorizontalLine::contains(double x, double y) const
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  HorizontalLine::contains "bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
-
-Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-";
-
-%feature("docstring")  HorizontalLine::getYpos "double HorizontalLine::getYpos() const
-";
-
-
 // File: classIAbstractParticle.xml
 %feature("docstring") IAbstractParticle "
 
@@ -4668,8 +3048,6 @@ C++ includes: IAbstractParticle.h
 ";
 
 %feature("docstring")  IAbstractParticle::clone "virtual IAbstractParticle* IAbstractParticle::clone() const =0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(INodeVisitor *visitor) const
@@ -4773,8 +3151,6 @@ C++ includes: IClusteredParticles.h
 ";
 
 %feature("docstring")  IClusteredParticles::clone "IClusteredParticles* IClusteredParticles::clone() const override=0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
@@ -4811,51 +3187,6 @@ C++ includes: IComputation.h
 ";
 
 %feature("docstring")  IComputation::errorMessage "std::string IComputation::errorMessage() const
-";
-
-
-// File: classICosineRipple.xml
-%feature("docstring") ICosineRipple "
-
-Base class for form factors with a cosine ripple profile in the yz plane.
-
-C++ includes: IProfileRipple.h
-";
-
-%feature("docstring")  ICosineRipple::ICosineRipple "ICosineRipple::ICosineRipple(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-
-// File: classIdentityRotation.xml
-%feature("docstring") IdentityRotation "
-
-The identity rotation, which leaves everything in place.
-
-C++ includes: Rotations.h
-";
-
-%feature("docstring")  IdentityRotation::IdentityRotation "IdentityRotation::IdentityRotation()
-";
-
-%feature("docstring")  IdentityRotation::clone "IdentityRotation* IdentityRotation::clone() const
-";
-
-%feature("docstring")  IdentityRotation::createInverse "IdentityRotation* IdentityRotation::createInverse() const
-
-Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  IdentityRotation::accept "void IdentityRotation::accept(INodeVisitor *visitor) const
-";
-
-%feature("docstring")  IdentityRotation::getTransform3D "Transform3D IdentityRotation::getTransform3D() const
-
-Returns transformation. 
-";
-
-%feature("docstring")  IdentityRotation::isIdentity "bool IdentityRotation::isIdentity() const
-
-Returns true if rotation matrix is identity matrix (no rotations) 
 ";
 
 
@@ -5017,7 +3348,7 @@ Parameters:
 -----------
 
 shape: 
-The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
+The shape of mask (Rectangle, Polygon, Line, Ellipse)
 
 mask_value: 
 The value of mask 
@@ -5147,279 +3478,6 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 %feature("docstring")  IFootprintFactor::print "virtual std::string IFootprintFactor::print() const =0
 
 Print python-formatted footprint definition. 
-";
-
-
-// File: classIFormFactor.xml
-%feature("docstring") IFormFactor "
-
-Pure virtual base class for all form factors.
-
-The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-
-Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
-
-C++ includes: IFormFactor.h
-";
-
-%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()=default
-";
-
-%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IFormFactor::~IFormFactor "IFormFactor::~IFormFactor()=default
-";
-
-%feature("docstring")  IFormFactor::clone "IFormFactor* IFormFactor::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IFormFactor::createSlicedFormFactor "IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
-
-Creates a (possibly sliced) form factor with the given rotation and translation. 
-";
-
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(Material)=0
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  IFormFactor::evaluate "virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  IFormFactor::evaluatePol "Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo &wavevectors) const
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-%feature("docstring")  IFormFactor::volume "double IFormFactor::volume() const
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  IFormFactor::radialExtension "virtual double IFormFactor::radialExtension() const =0
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  IFormFactor::bottomZ "virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactor::topZ "virtual double IFormFactor::topZ(const IRotation &rotation) const =0
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactor::setSpecularInfo "void IFormFactor::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients >, std::unique_ptr< const ILayerRTCoefficients >)
-
-Sets reflection/transmission info. 
-";
-
-
-// File: classIFormFactorBorn.xml
-%feature("docstring") IFormFactorBorn "
-
-Pure virtual base class for Born form factors.
-
-In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
-
-C++ includes: IFormFactorBorn.h
-";
-
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()
-";
-
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn()
-";
-
-%feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(Material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-%feature("docstring")  IFormFactorBorn::bottomZ "double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorBorn::topZ "double IFormFactorBorn::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classIFormFactorDecorator.xml
-%feature("docstring") IFormFactorDecorator "
-
-Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
-
-This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
-
-C++ includes: IFormFactorDecorator.h
-";
-
-%feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  IFormFactorDecorator::~IFormFactorDecorator "IFormFactorDecorator::~IFormFactorDecorator() override
-";
-
-%feature("docstring")  IFormFactorDecorator::clone "IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(Material material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  IFormFactorDecorator::volume "double IFormFactorDecorator::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  IFormFactorDecorator::radialExtension "double IFormFactorDecorator::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  IFormFactorDecorator::bottomZ "double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorDecorator::topZ "double IFormFactorDecorator::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorDecorator::getFormFactor "const IFormFactor* IFormFactorDecorator::getFormFactor() const
-";
-
-
-// File: classIFormFactorPolyhedron.xml
-%feature("docstring") IFormFactorPolyhedron "
-
-A polyhedron, for form factor computation.
-
-C++ includes: IFormFactorPolyhedron.h
-";
-
-%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron()=delete
-";
-
-%feature("docstring")  IFormFactorPolyhedron::IFormFactorPolyhedron "IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta &meta, const std::vector< double > &PValues)
-
-The mathematics implemented here is described in full detail in a paper by Joachim Wuttke, entitled \"Form factor (Fourier shape transform) of polygon and polyhedron.\" 
-";
-
-%feature("docstring")  IFormFactorPolyhedron::~IFormFactorPolyhedron "IFormFactorPolyhedron::~IFormFactorPolyhedron()
-";
-
-%feature("docstring")  IFormFactorPolyhedron::bottomZ "double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorPolyhedron::topZ "double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorPolyhedron::evaluate_for_q "complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-%feature("docstring")  IFormFactorPolyhedron::evaluate_centered "complex_t IFormFactorPolyhedron::evaluate_centered(cvector_t q) const
-";
-
-%feature("docstring")  IFormFactorPolyhedron::volume "double IFormFactorPolyhedron::volume() const override final
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  IFormFactorPolyhedron::radialExtension "double IFormFactorPolyhedron::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  IFormFactorPolyhedron::assert_platonic "void IFormFactorPolyhedron::assert_platonic() const
-
-Assertions for Platonic solid. 
-";
-
-
-// File: classIFormFactorPrism.xml
-%feature("docstring") IFormFactorPrism "
-
-A prism with a polygonal base, for form factor computation.
-
-C++ includes: IFormFactorPrism.h
-";
-
-%feature("docstring")  IFormFactorPrism::IFormFactorPrism "IFormFactorPrism::IFormFactorPrism(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IFormFactorPrism::~IFormFactorPrism "IFormFactorPrism::~IFormFactorPrism()
-";
-
-%feature("docstring")  IFormFactorPrism::bottomZ "double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorPrism::topZ "double IFormFactorPrism::topZ(const IRotation &rotation) const override final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorPrism::evaluate_for_q "complex_t IFormFactorPrism::evaluate_for_q(cvector_t q) const override
-
-Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
-";
-
-%feature("docstring")  IFormFactorPrism::volume "double IFormFactorPrism::volume() const override
-
-Returns the volume of this prism. 
-";
-
-%feature("docstring")  IFormFactorPrism::radialExtension "double IFormFactorPrism::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  IFormFactorPrism::getHeight "double IFormFactorPrism::getHeight() const
 ";
 
 
@@ -5864,8 +3922,6 @@ C++ includes: IInterferenceFunction.h
 ";
 
 %feature("docstring")  IInterferenceFunction::clone "virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IInterferenceFunction::evaluate "double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
@@ -6017,8 +4073,6 @@ C++ includes: ILayout.h
 ";
 
 %feature("docstring")  ILayout::clone "virtual ILayout* ILayout::clone() const =0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  ILayout::accept "virtual void ILayout::accept(INodeVisitor *visitor) const =0
@@ -6067,31 +4121,6 @@ Sets the relative weight of this layout.
 ";
 
 %feature("docstring")  IMetricWrapper::compute "virtual double IMetricWrapper::compute(const std::vector< SimDataPair > &fit_objects, size_t n_pars) const =0
-";
-
-
-// File: classInfinitePlane.xml
-%feature("docstring") InfinitePlane "
-
-The infinite plane is used for masking everything once and forever.
-
-C++ includes: InfinitePlane.h
-";
-
-%feature("docstring")  InfinitePlane::InfinitePlane "InfinitePlane::InfinitePlane()
-";
-
-%feature("docstring")  InfinitePlane::clone "InfinitePlane* InfinitePlane::clone() const
-";
-
-%feature("docstring")  InfinitePlane::contains "bool InfinitePlane::contains(double, double) const
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  InfinitePlane::contains "bool InfinitePlane::contains(const Bin1D &, const Bin1D &) const
-
-Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 
@@ -6267,8 +4296,6 @@ rotation of lattice with respect to x-axis in radians
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
@@ -6330,8 +4357,6 @@ rotation of the lattice with respect to the x-axis (beam direction) in radians
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
@@ -6407,8 +4432,6 @@ the damping (coherence) length of the paracrystal in nanometers
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
@@ -6532,8 +4555,6 @@ correlation length in direction 2
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
@@ -6584,8 +4605,6 @@ C++ includes: InterferenceFunction3DLattice.h
 ";
 
 %feature("docstring")  InterferenceFunction3DLattice::clone "InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunction3DLattice::accept "void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
@@ -6664,8 +4683,6 @@ number of lattice cells in the second lattice direction
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::clone "InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::accept "void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
@@ -6710,8 +4727,6 @@ C++ includes: InterferenceFunctionFinite3DLattice.h
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::clone "InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::accept "void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
@@ -6755,8 +4770,6 @@ C++ includes: InterferenceFunctionHardDisk.h
 ";
 
 %feature("docstring")  InterferenceFunctionHardDisk::clone "InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunctionHardDisk::accept "void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
@@ -6786,8 +4799,6 @@ C++ includes: InterferenceFunctionNone.h
 ";
 
 %feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
@@ -6817,8 +4828,6 @@ the damping (coherence) length of the paracrystal in nanometers
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
@@ -6885,8 +4894,6 @@ C++ includes: InterferenceFunctionTwin.h
 ";
 
 %feature("docstring")  InterferenceFunctionTwin::clone "InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  InterferenceFunctionTwin::accept "void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
@@ -6986,8 +4993,6 @@ C++ includes: IParticle.h
 ";
 
 %feature("docstring")  IParticle::clone "IParticle* IParticle::clone() const override=0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IParticle::createFormFactor "IFormFactor * IParticle::createFormFactor() const
@@ -7093,8 +5098,6 @@ C++ includes: IPeakShape.h
 ";
 
 %feature("docstring")  IPeakShape::clone "virtual IPeakShape* IPeakShape::clone() const =0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IPeakShape::evaluate "virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
@@ -7105,49 +5108,6 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 %feature("docstring")  IPeakShape::angularDisorder "virtual bool IPeakShape::angularDisorder() const
 
 Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
-";
-
-
-// File: classIProfileRectangularRipple.xml
-%feature("docstring") IProfileRectangularRipple "
-
-Base class for form factors with a rectangular ripple (bar) profile in the yz plane.
-
-C++ includes: IProfileRipple.h
-";
-
-%feature("docstring")  IProfileRectangularRipple::IProfileRectangularRipple "IProfileRectangularRipple::IProfileRectangularRipple(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-
-// File: classIProfileRipple.xml
-%feature("docstring") IProfileRipple "
-
-Base class for form factors with a cosine ripple profile in the yz plane.
-
-C++ includes: IProfileRipple.h
-";
-
-%feature("docstring")  IProfileRipple::IProfileRipple "IProfileRipple::IProfileRipple(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IProfileRipple::getLength "double IProfileRipple::getLength() const
-";
-
-%feature("docstring")  IProfileRipple::getHeight "double IProfileRipple::getHeight() const
-";
-
-%feature("docstring")  IProfileRipple::getWidth "double IProfileRipple::getWidth() const
-";
-
-%feature("docstring")  IProfileRipple::radialExtension "double IProfileRipple::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  IProfileRipple::evaluate_for_q "complex_t IProfileRipple::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -7193,72 +5153,6 @@ C++ includes: IResolutionFunction2D.h
 ";
 
 
-// File: classIRotation.xml
-%feature("docstring") IRotation "
-
-Pure virtual interface for rotations.
-
-C++ includes: Rotations.h
-";
-
-%feature("docstring")  IRotation::IRotation "IRotation::IRotation(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IRotation::clone "virtual IRotation* IRotation::clone() const =0
-";
-
-%feature("docstring")  IRotation::createInverse "virtual IRotation* IRotation::createInverse() const =0
-
-Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  IRotation::getTransform3D "virtual Transform3D IRotation::getTransform3D() const =0
-
-Returns transformation. 
-";
-
-%feature("docstring")  IRotation::transformed "kvector_t IRotation::transformed(const kvector_t &v) const
-";
-
-%feature("docstring")  IRotation::isIdentity "bool IRotation::isIdentity() const
-
-Returns true if rotation matrix is identity matrix (no rotations) 
-";
-
-%feature("docstring")  IRotation::zInvariant "bool IRotation::zInvariant() const
-";
-
-
-// File: classISample.xml
-%feature("docstring") ISample "
-
-Pure virtual base class for sample components and properties related to scattering.
-
-C++ includes: ISample.h
-";
-
-%feature("docstring")  ISample::ISample "ISample::ISample()=default
-";
-
-%feature("docstring")  ISample::ISample "ISample::ISample(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  ISample::clone "ISample* ISample::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ISample::material "virtual const Material* ISample::material() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
-%feature("docstring")  ISample::containedMaterials "std::vector< const Material * > ISample::containedMaterials() const
-
-Returns set of unique materials contained in this  ISample. 
-";
-
-
 // File: classISampleBuilder.xml
 %feature("docstring") ISampleBuilder "
 
@@ -7280,21 +5174,6 @@ C++ includes: ISampleBuilder.h
 ";
 
 %feature("docstring")  ISampleBuilder::size "virtual size_t ISampleBuilder::size()
-";
-
-
-// File: classISawtoothRipple.xml
-%feature("docstring") ISawtoothRipple "
-
-Base class for form factors with a triangular ripple profile in the yz plane.
-
-C++ includes: IProfileRipple.h
-";
-
-%feature("docstring")  ISawtoothRipple::ISawtoothRipple "ISawtoothRipple::ISawtoothRipple(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  ISawtoothRipple::getAsymmetry "double ISawtoothRipple::getAsymmetry() const
 ";
 
 
@@ -7340,53 +5219,6 @@ C++ includes: IsGISAXSDetector.h
 ";
 
 
-// File: classIShape.xml
-%feature("docstring") IShape "
-
-Pure virtual base class for different shapes.
-
-In contrast to the form factors, these shapes only provide an intereface for returning a set of vertices.
-
-C++ includes: IShape.h
-";
-
-%feature("docstring")  IShape::IShape "IShape::IShape()
-";
-
-%feature("docstring")  IShape::~IShape "virtual IShape::~IShape()
-";
-
-%feature("docstring")  IShape::vertices "std::vector< kvector_t > IShape::vertices() const
-
-Retrieves a list of the vertices constituting this concrete shape. 
-";
-
-
-// File: classIShape2D.xml
-%feature("docstring") IShape2D "
-
-Basic class for all shapes in 2D.
-
-C++ includes: IShape2D.h
-";
-
-%feature("docstring")  IShape2D::IShape2D "IShape2D::IShape2D(const char *name)
-";
-
-%feature("docstring")  IShape2D::clone "virtual IShape2D* IShape2D::clone() const =0
-";
-
-%feature("docstring")  IShape2D::contains "virtual bool IShape2D::contains(double x, double y) const =0
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  IShape2D::contains "virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
-
-Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-";
-
-
 // File: classIsotropicGaussPeakShape.xml
 %feature("docstring") IsotropicGaussPeakShape "
 
@@ -7402,8 +5234,6 @@ C++ includes: IPeakShape.h
 ";
 
 %feature("docstring")  IsotropicGaussPeakShape::clone "IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IsotropicGaussPeakShape::accept "void IsotropicGaussPeakShape::accept(INodeVisitor *visitor) const override
@@ -7430,8 +5260,6 @@ C++ includes: IPeakShape.h
 ";
 
 %feature("docstring")  IsotropicLorentzPeakShape::clone "IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IsotropicLorentzPeakShape::accept "void IsotropicLorentzPeakShape::accept(INodeVisitor *visitor) const override
@@ -7810,8 +5638,6 @@ thickness of a layer in nanometers
 ";
 
 %feature("docstring")  Layer::clone "Layer * Layer::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const override final
@@ -7826,8 +5652,6 @@ Sets layer thickness in nanometers.
 ";
 
 %feature("docstring")  Layer::material "const Material* Layer::material() const override final
-
-Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  Layer::setMaterial "void Layer::setMaterial(Material material)
@@ -7891,8 +5715,6 @@ C++ includes: LayerInterface.h
 ";
 
 %feature("docstring")  LayerInterface::clone "LayerInterface * LayerInterface::clone() const
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  LayerInterface::accept "virtual void LayerInterface::accept(INodeVisitor *visitor) const
@@ -7949,8 +5771,6 @@ lateral correlation length of the roughness in nanometers
 ";
 
 %feature("docstring")  LayerRoughness::clone "LayerRoughness* LayerRoughness::clone() const
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  LayerRoughness::accept "virtual void LayerRoughness::accept(INodeVisitor *visitor) const
@@ -8052,31 +5872,6 @@ C++ includes: LayoutStrategyBuilder.h
 ";
 
 %feature("docstring")  LayoutStrategyBuilder::releaseStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::releaseStrategy()
-";
-
-
-// File: classLine.xml
-%feature("docstring") Line "
-
-A line segment.
-
-C++ includes: Line.h
-";
-
-%feature("docstring")  Line::Line "Line::Line(double x1, double y1, double x2, double y2)
-";
-
-%feature("docstring")  Line::clone "Line* Line::clone() const
-";
-
-%feature("docstring")  Line::contains "bool Line::contains(double x, double y) const
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  Line::contains "bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
-
-Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 
@@ -8207,8 +6002,6 @@ C++ includes: IPeakShape.h
 ";
 
 %feature("docstring")  LorentzFisherPeakShape::clone "LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  LorentzFisherPeakShape::accept "void LorentzFisherPeakShape::accept(INodeVisitor *visitor) const override
@@ -8246,54 +6039,6 @@ C++ includes: MagneticLayersBuilder.h
 ";
 
 %feature("docstring")  MagneticLayerBuilder::buildSample "MultiLayer * MagneticLayerBuilder::buildSample() const
-";
-
-
-// File: classMagneticMaterialImpl.xml
-%feature("docstring") MagneticMaterialImpl "
-
-Basic implementation for magnetized material. Inherited by  RefractiveMaterialImpl and  MaterialBySLDImpl. Incorporates data and methods required to handle material magnetization.
-
-C++ includes: MagneticMaterialImpl.h
-";
-
-%feature("docstring")  MagneticMaterialImpl::MagneticMaterialImpl "MagneticMaterialImpl::MagneticMaterialImpl(const std::string &name, kvector_t magnetization)
-
-Constructs basic material with name and magnetization. 
-";
-
-%feature("docstring")  MagneticMaterialImpl::~MagneticMaterialImpl "virtual MagneticMaterialImpl::~MagneticMaterialImpl()=default
-";
-
-%feature("docstring")  MagneticMaterialImpl::clone "MagneticMaterialImpl* MagneticMaterialImpl::clone() const override=0
-
-Returns pointer to a copy of material. 
-";
-
-%feature("docstring")  MagneticMaterialImpl::inverted "MagneticMaterialImpl * MagneticMaterialImpl::inverted() const override final
-
-Constructs a material with inverted magnetization. 
-";
-
-%feature("docstring")  MagneticMaterialImpl::isScalarMaterial "bool MagneticMaterialImpl::isScalarMaterial() const override final
-
-Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-";
-
-%feature("docstring")  MagneticMaterialImpl::isMagneticMaterial "bool MagneticMaterialImpl::isMagneticMaterial() const override final
-";
-
-%feature("docstring")  MagneticMaterialImpl::magnetization "kvector_t MagneticMaterialImpl::magnetization() const override final
-
-Returns the magnetization (in A/m) 
-";
-
-%feature("docstring")  MagneticMaterialImpl::polarizedSubtrSLD "Eigen::Matrix2cd MagneticMaterialImpl::polarizedSubtrSLD(const WavevectorInfo &wavevectors) const override final
-
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections. 
-";
-
-%feature("docstring")  MagneticMaterialImpl::rotatedMaterial "MagneticMaterialImpl * MagneticMaterialImpl::rotatedMaterial(const Transform3D &transform) const override final
 ";
 
 
@@ -8342,139 +6087,6 @@ C++ includes: MagneticLayersBuilder.h
 ";
 
 %feature("docstring")  MagneticSubstrateZeroFieldBuilder::buildSample "MultiLayer * MagneticSubstrateZeroFieldBuilder::buildSample() const
-";
-
-
-// File: classMaterial.xml
-%feature("docstring") Material "
-
-A wrapper for underlying material implementation
-
-C++ includes: Material.h
-";
-
-%feature("docstring")  Material::Material "Material::Material(std::unique_ptr< BaseMaterialImpl > material_impl)
-
-Creates material with particular material implementation. 
-";
-
-%feature("docstring")  Material::Material "Material::Material(const Material &material)
-";
-
-%feature("docstring")  Material::Material "Material::Material(Material &&material)=default
-";
-
-%feature("docstring")  Material::inverted "Material Material::inverted() const
-
-Constructs a material with inverted magnetization. 
-";
-
-%feature("docstring")  Material::refractiveIndex "complex_t Material::refractiveIndex(double wavelength) const
-
-Returns refractive index. 
-";
-
-%feature("docstring")  Material::refractiveIndex2 "complex_t Material::refractiveIndex2(double wavelength) const
-
-Returns squared refractive index. 
-";
-
-%feature("docstring")  Material::isScalarMaterial "bool Material::isScalarMaterial() const
-
-Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-";
-
-%feature("docstring")  Material::isMagneticMaterial "bool Material::isMagneticMaterial() const
-";
-
-%feature("docstring")  Material::getName "std::string Material::getName() const
-
-Returns the name of material. 
-";
-
-%feature("docstring")  Material::typeID "MATERIAL_TYPES Material::typeID() const
-
-Returns the type of underlying material implementation. 
-";
-
-%feature("docstring")  Material::magnetization "kvector_t Material::magnetization() const
-
-Get the magnetization (in A/m) 
-";
-
-%feature("docstring")  Material::materialData "complex_t Material::materialData() const
-
-Returns underlying material data. The units of returned values are the same as the ones passed to material factory functions 
-";
-
-%feature("docstring")  Material::isEmpty "bool Material::isEmpty() const
-
-Returns true if material underlying data is nullptr. 
-";
-
-%feature("docstring")  Material::isDefaultMaterial "bool Material::isDefaultMaterial() const
-
-Returns true if material has refractive index of (1.0, 0.0) and zero magnetization. 
-";
-
-%feature("docstring")  Material::scalarSubtrSLD "complex_t Material::scalarSubtrSLD(const WavevectorInfo &wavevectors) const
-
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 
-";
-
-%feature("docstring")  Material::polarizedSubtrSLD "Eigen::Matrix2cd Material::polarizedSubtrSLD(const WavevectorInfo &wavevectors) const
-
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections. 
-";
-
-%feature("docstring")  Material::rotatedMaterial "Material Material::rotatedMaterial(const Transform3D &transform) const
-";
-
-
-// File: classMaterialBySLDImpl.xml
-%feature("docstring") MaterialBySLDImpl "
-
-Material implementation based on wavelength-independent data (valid for a range of wavelengths)
-
-C++ includes: MaterialBySLDImpl.h
-";
-
-%feature("docstring")  MaterialBySLDImpl::~MaterialBySLDImpl "virtual MaterialBySLDImpl::~MaterialBySLDImpl()=default
-";
-
-%feature("docstring")  MaterialBySLDImpl::clone "MaterialBySLDImpl * MaterialBySLDImpl::clone() const override
-
-Returns pointer to a copy of material. 
-";
-
-%feature("docstring")  MaterialBySLDImpl::refractiveIndex "complex_t MaterialBySLDImpl::refractiveIndex(double wavelength) const override
-
-Returns refractive index. 
-";
-
-%feature("docstring")  MaterialBySLDImpl::refractiveIndex2 "complex_t MaterialBySLDImpl::refractiveIndex2(double wavelength) const override
-
-Returns squared refractive index. 
-";
-
-%feature("docstring")  MaterialBySLDImpl::materialData "complex_t MaterialBySLDImpl::materialData() const override
-
-Returns underlying material data. 
-";
-
-%feature("docstring")  MaterialBySLDImpl::typeID "MATERIAL_TYPES MaterialBySLDImpl::typeID() const override
-
-Returns type of material implementation. 
-";
-
-%feature("docstring")  MaterialBySLDImpl::scalarSubtrSLD "complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo &wavevectors) const override
-
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 
-";
-
-%feature("docstring")  MaterialBySLDImpl::print "void MaterialBySLDImpl::print(std::ostream &ostr) const override
-
-Prints object data. 
 ";
 
 
@@ -8702,8 +6314,6 @@ C++ includes: MesoCrystal.h
 ";
 
 %feature("docstring")  MesoCrystal::clone "MesoCrystal * MesoCrystal::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  MesoCrystal::accept "void MesoCrystal::accept(INodeVisitor *visitor) const override final
@@ -8783,8 +6393,6 @@ C++ includes: IPeakShape.h
 ";
 
 %feature("docstring")  MisesFisherGaussPeakShape::clone "MisesFisherGaussPeakShape * MisesFisherGaussPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  MisesFisherGaussPeakShape::accept "void MisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
@@ -8816,8 +6424,6 @@ C++ includes: IPeakShape.h
 ";
 
 %feature("docstring")  MisesGaussPeakShape::clone "MisesGaussPeakShape * MisesGaussPeakShape::clone() const override
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  MisesGaussPeakShape::accept "void MisesGaussPeakShape::accept(INodeVisitor *visitor) const override
@@ -9116,15 +6722,6 @@ C++ includes: SimpleUnitConverters.h
 ";
 
 %feature("docstring")  OffSpecularConverter::defaultUnits "Axes::Units OffSpecularConverter::defaultUnits() const final
-";
-
-
-// File: structOneSidedLimit.xml
-%feature("docstring") OneSidedLimit "
-
-Helper class that represents a onesided limit
-
-C++ includes: ZLimits.h
 ";
 
 
@@ -9672,8 +7269,6 @@ C++ includes: Particle.h
 ";
 
 %feature("docstring")  Particle::clone "Particle * Particle::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  Particle::accept "void Particle::accept(INodeVisitor *visitor) const override final
@@ -9688,8 +7283,6 @@ Creates a sliced form factor for this particle.
 ";
 
 %feature("docstring")  Particle::material "const Material* Particle::material() const override final
-
-Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  Particle::setFormFactor "void Particle::setFormFactor(const IFormFactor &form_factor)
@@ -9717,8 +7310,6 @@ C++ includes: ParticleComposition.h
 ";
 
 %feature("docstring")  ParticleComposition::clone "ParticleComposition * ParticleComposition::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(INodeVisitor *visitor) const override final
@@ -9784,8 +7375,6 @@ C++ includes: ParticleCoreShell.h
 ";
 
 %feature("docstring")  ParticleCoreShell::clone "ParticleCoreShell * ParticleCoreShell::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  ParticleCoreShell::accept "void ParticleCoreShell::accept(INodeVisitor *visitor) const override final
@@ -9818,8 +7407,6 @@ C++ includes: ParticleDistribution.h
 ";
 
 %feature("docstring")  ParticleDistribution::clone "ParticleDistribution * ParticleDistribution::clone() const override final
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const override final
@@ -9883,7 +7470,7 @@ C++ includes: ParticleInVacuumBuilder.h
 // File: classParticleLayout.xml
 %feature("docstring") ParticleLayout "
 
-Decorator class that adds particles to  ISample objects.
+Decorator class that adds particles to ISample objects.
 
 C++ includes: ParticleLayout.h
 ";
@@ -9898,8 +7485,6 @@ C++ includes: ParticleLayout.h
 ";
 
 %feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const final override
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const final override
@@ -9988,15 +7573,6 @@ Merges its region map into the given one (notice non-const reference parameter)
 ";
 
 
-// File: structParticleLimits.xml
-%feature("docstring") ParticleLimits "
-
-Vertical extension of a particle, specified by bottom and top z coordinate.
-
-C++ includes: ZLimits.h
-";
-
-
 // File: classPlainMultiLayerBySLDBuilder.xml
 %feature("docstring") PlainMultiLayerBySLDBuilder "
 
@@ -10062,251 +7638,6 @@ C++ includes: PoissonNoiseBackground.h
 ";
 
 %feature("docstring")  PoissonNoiseBackground::addBackGround "double PoissonNoiseBackground::addBackGround(double intensity) const override final
-";
-
-
-// File: classPolygon.xml
-%feature("docstring") Polygon "
-
-A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
-
-C++ includes: Polygon.h
-";
-
-%feature("docstring")  Polygon::Polygon "Polygon::Polygon(const std::vector< double > x, const std::vector< double > y)
-
-Parameters:
------------
-
-x: 
-Vector of x-coordinates of polygon points.
-
-y: 
-Vector of y-coordinates of polygon points. 
-";
-
-%feature("docstring")  Polygon::Polygon "Polygon::Polygon(const std::vector< std::vector< double >> points)
-
-Polygon defined by two dimensional array with (x,y) coordinates of polygon points. The size of second dimension should be 2. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
-
-Parameters:
------------
-
-points: 
-Two dimensional vector of (x,y) coordinates of polygon points. 
-";
-
-%feature("docstring")  Polygon::Polygon "Polygon::Polygon(const PolygonPrivate *d)
-";
-
-%feature("docstring")  Polygon::~Polygon "Polygon::~Polygon()
-";
-
-%feature("docstring")  Polygon::clone "virtual Polygon* Polygon::clone() const
-";
-
-%feature("docstring")  Polygon::contains "bool Polygon::contains(double x, double y) const
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  Polygon::contains "bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
-
-Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-";
-
-%feature("docstring")  Polygon::getArea "double Polygon::getArea() const
-";
-
-%feature("docstring")  Polygon::getPoints "void Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const
-";
-
-
-// File: classPolygonalTopology.xml
-%feature("docstring") PolygonalTopology "
-
-For internal use in  PolyhedralFace.
-
-C++ includes: PolyhedralTopology.h
-";
-
-
-// File: classPolygonPrivate.xml
-%feature("docstring") PolygonPrivate "
-
-The private data for polygons to hide boost dependency from the header. 
-";
-
-%feature("docstring")  PolygonPrivate::init_from "void PolygonPrivate::init_from(const std::vector< double > &x, const std::vector< double > &y)
-";
-
-%feature("docstring")  PolygonPrivate::get_points "void PolygonPrivate::get_points(std::vector< double > &xpos, std::vector< double > &ypos)
-";
-
-
-// File: classPolyhedralEdge.xml
-%feature("docstring") PolyhedralEdge "
-
-One edge of a polygon, for form factor computation.
-
-C++ includes: PolyhedralComponents.h
-";
-
-%feature("docstring")  PolyhedralEdge::PolyhedralEdge "PolyhedralEdge::PolyhedralEdge(const kvector_t _Vlow, const kvector_t _Vhig)
-";
-
-%feature("docstring")  PolyhedralEdge::E "kvector_t PolyhedralEdge::E() const
-";
-
-%feature("docstring")  PolyhedralEdge::R "kvector_t PolyhedralEdge::R() const
-";
-
-%feature("docstring")  PolyhedralEdge::qE "complex_t PolyhedralEdge::qE(cvector_t q) const
-";
-
-%feature("docstring")  PolyhedralEdge::qR "complex_t PolyhedralEdge::qR(cvector_t q) const
-";
-
-%feature("docstring")  PolyhedralEdge::contrib "complex_t PolyhedralEdge::contrib(int m, cvector_t qpa, complex_t qrperp) const
-
-Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M! 
-";
-
-
-// File: classPolyhedralFace.xml
-%feature("docstring") PolyhedralFace "
-
-A polygon, for form factor computation.
-
-C++ includes: PolyhedralComponents.h
-";
-
-%feature("docstring")  PolyhedralFace::PolyhedralFace "PolyhedralFace::PolyhedralFace(const std::vector< kvector_t > &_V=std::vector< kvector_t >(), bool _sym_S2=false)
-
-Sets internal variables for given vertex chain.
-
-Parameters:
------------
-
-V: 
-oriented vertex list
-
-_sym_S2: 
-true if face has a perpedicular two-fold symmetry axis 
-";
-
-%feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
-";
-
-%feature("docstring")  PolyhedralFace::pyramidalVolume "double PolyhedralFace::pyramidalVolume() const
-";
-
-%feature("docstring")  PolyhedralFace::radius3d "double PolyhedralFace::radius3d() const
-";
-
-%feature("docstring")  PolyhedralFace::normalProjectionConj "complex_t PolyhedralFace::normalProjectionConj(cvector_t q) const
-
-Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]. 
-";
-
-%feature("docstring")  PolyhedralFace::ff_n "complex_t PolyhedralFace::ff_n(int m, cvector_t q) const
-
-Returns contribution qn*f_n [of order q^(n+1)] from this face to the polyhedral form factor. 
-";
-
-%feature("docstring")  PolyhedralFace::ff "complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
-
-Returns the contribution ff(q) of this face to the polyhedral form factor. 
-";
-
-%feature("docstring")  PolyhedralFace::ff_2D "complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
-
-Returns the two-dimensional form factor of this face, for use in a prism. 
-";
-
-%feature("docstring")  PolyhedralFace::assert_Ci "void PolyhedralFace::assert_Ci(const PolyhedralFace &other) const
-
-Throws if deviation from inversion symmetry is detected. Does not check vertices. 
-";
-
-
-// File: classPolyhedralTopology.xml
-%feature("docstring") PolyhedralTopology "
-
-For internal use in  IFormFactorPolyhedron.
-
-C++ includes: PolyhedralTopology.h
-";
-
-
-// File: classPolyhedron.xml
-%feature("docstring") Polyhedron "
-
-A polyhedron, implementation class for use in  IFormFactorPolyhedron.
-
-C++ includes: Polyhedron.h
-";
-
-%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron()=delete
-";
-
-%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron(const Polyhedron &)=delete
-";
-
-%feature("docstring")  Polyhedron::Polyhedron "Polyhedron::Polyhedron(const PolyhedralTopology &topology, double z_bottom, const std::vector< kvector_t > &vertices)
-";
-
-%feature("docstring")  Polyhedron::~Polyhedron "Polyhedron::~Polyhedron()
-";
-
-%feature("docstring")  Polyhedron::assert_platonic "void Polyhedron::assert_platonic() const
-";
-
-%feature("docstring")  Polyhedron::volume "double Polyhedron::volume() const
-";
-
-%feature("docstring")  Polyhedron::radius "double Polyhedron::radius() const
-";
-
-%feature("docstring")  Polyhedron::vertices "const std::vector< kvector_t > & Polyhedron::vertices()
-";
-
-%feature("docstring")  Polyhedron::evaluate_for_q "complex_t Polyhedron::evaluate_for_q(const cvector_t &q) const
-
-needed for topZ, bottomZ computation
-
-Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
-";
-
-%feature("docstring")  Polyhedron::evaluate_centered "complex_t Polyhedron::evaluate_centered(const cvector_t &q) const
-
-Returns the form factor F(q) of this polyhedron, with origin at z=0. 
-";
-
-
-// File: classPrism.xml
-%feature("docstring") Prism "";
-
-%feature("docstring")  Prism::Prism "Prism::Prism()=delete
-";
-
-%feature("docstring")  Prism::Prism "Prism::Prism(const Prism &)=delete
-";
-
-%feature("docstring")  Prism::Prism "Prism::Prism(bool symmetry_Ci, double height, const std::vector< kvector_t > &vertices)
-
-The mathematics implemented here is described in full detail in a paper by Joachim Wuttke, entitled \"Form factor (Fourier shape transform) of polygon and polyhedron.\" 
-";
-
-%feature("docstring")  Prism::area "double Prism::area() const
-";
-
-%feature("docstring")  Prism::vertices "const std::vector< kvector_t > & Prism::vertices()
-";
-
-%feature("docstring")  Prism::evaluate_for_q "complex_t Prism::evaluate_for_q(const cvector_t &q) const
-
-needed for topZ, bottomZ computation 
 ";
 
 
@@ -10594,61 +7925,6 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring") Lattice2D::ReciprocalBases "";
 
 
-// File: classRectangle.xml
-%feature("docstring") Rectangle "
-
-The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
-
-C++ includes: Rectangle.h
-";
-
-%feature("docstring")  Rectangle::Rectangle "Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
-
-Parameters:
------------
-
-xlow: 
-x-coordinate of lower left corner
-
-ylow: 
-y-coordinate of lower left corner
-
-xup: 
-x-coordinate of upper right corner
-
-yup: 
-y-coordinate of upper right corner 
-";
-
-%feature("docstring")  Rectangle::clone "Rectangle* Rectangle::clone() const
-";
-
-%feature("docstring")  Rectangle::contains "bool Rectangle::contains(double x, double y) const
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  Rectangle::contains "bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
-
-Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-";
-
-%feature("docstring")  Rectangle::getArea "double Rectangle::getArea() const
-";
-
-%feature("docstring")  Rectangle::getXlow "double Rectangle::getXlow() const
-";
-
-%feature("docstring")  Rectangle::getYlow "double Rectangle::getYlow() const
-";
-
-%feature("docstring")  Rectangle::getXup "double Rectangle::getXup() const
-";
-
-%feature("docstring")  Rectangle::getYup "double Rectangle::getYup() const
-";
-
-
 // File: classRectangularConverter.xml
 %feature("docstring") RectangularConverter "
 
@@ -10822,53 +8098,6 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 
-// File: classRefractiveMaterialImpl.xml
-%feature("docstring") RefractiveMaterialImpl "
-
-Material implementation based on refractive coefficiencts (valid for one wavelength value only)
-
-C++ includes: RefractiveMaterialImpl.h
-";
-
-%feature("docstring")  RefractiveMaterialImpl::~RefractiveMaterialImpl "virtual RefractiveMaterialImpl::~RefractiveMaterialImpl()=default
-";
-
-%feature("docstring")  RefractiveMaterialImpl::clone "RefractiveMaterialImpl * RefractiveMaterialImpl::clone() const override
-
-Returns pointer to a copy of material. 
-";
-
-%feature("docstring")  RefractiveMaterialImpl::refractiveIndex "complex_t RefractiveMaterialImpl::refractiveIndex(double wavelength) const override
-
-Returns refractive index For this particular implementation returned value does not depend on passed wavelength 
-";
-
-%feature("docstring")  RefractiveMaterialImpl::refractiveIndex2 "complex_t RefractiveMaterialImpl::refractiveIndex2(double wavelength) const override
-
-Returns squared refractive index. For this particular implementation returned value does not depend on passed wavelength. 
-";
-
-%feature("docstring")  RefractiveMaterialImpl::materialData "complex_t RefractiveMaterialImpl::materialData() const override
-
-Returns underlying material data. 
-";
-
-%feature("docstring")  RefractiveMaterialImpl::typeID "MATERIAL_TYPES RefractiveMaterialImpl::typeID() const override
-
-Returns type of material implementation. 
-";
-
-%feature("docstring")  RefractiveMaterialImpl::scalarSubtrSLD "complex_t RefractiveMaterialImpl::scalarSubtrSLD(const WavevectorInfo &wavevectors) const override
-
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density. If the wavelength associated with passed wavevector is different from the one associated with refractive coefficients used during the object construction, provided result is inconsistent. 
-";
-
-%feature("docstring")  RefractiveMaterialImpl::print "void RefractiveMaterialImpl::print(std::ostream &ostr) const override
-
-Prints object data. 
-";
-
-
 // File: classRegionOfInterest.xml
 %feature("docstring") RegionOfInterest "
 
@@ -11002,26 +8231,6 @@ C++ includes: ResonatorBuilder.h
 ";
 
 
-// File: classRippleCosine.xml
-%feature("docstring") RippleCosine "";
-
-%feature("docstring")  RippleCosine::RippleCosine "RippleCosine::RippleCosine(double length, double width, double height)
-";
-
-%feature("docstring")  RippleCosine::~RippleCosine "RippleCosine::~RippleCosine()
-";
-
-
-// File: classRippleSawtooth.xml
-%feature("docstring") RippleSawtooth "";
-
-%feature("docstring")  RippleSawtooth::RippleSawtooth "RippleSawtooth::RippleSawtooth(double length, double width, double height, double asymmetry)
-";
-
-%feature("docstring")  RippleSawtooth::~RippleSawtooth "RippleSawtooth::~RippleSawtooth()
-";
-
-
 // File: classRotatedCylindersBuilder.xml
 %feature("docstring") RotatedCylindersBuilder "
 
@@ -11073,154 +8282,6 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 %feature("docstring")  RotatedSquareLatticeBuilder::buildSample "MultiLayer * RotatedSquareLatticeBuilder::buildSample() const
-";
-
-
-// File: classRotationEuler.xml
-%feature("docstring") RotationEuler "
-
-A sequence of rotations about the z-x'-z'' axes.
-
-C++ includes: Rotations.h
-";
-
-%feature("docstring")  RotationEuler::RotationEuler "RotationEuler::RotationEuler(const std::vector< double > P)
-";
-
-%feature("docstring")  RotationEuler::RotationEuler "RotationEuler::RotationEuler(double alpha, double beta, double gamma)
-";
-
-%feature("docstring")  RotationEuler::clone "RotationEuler* RotationEuler::clone() const
-";
-
-%feature("docstring")  RotationEuler::createInverse "IRotation * RotationEuler::createInverse() const
-
-Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  RotationEuler::accept "void RotationEuler::accept(INodeVisitor *visitor) const
-";
-
-%feature("docstring")  RotationEuler::getAlpha "double RotationEuler::getAlpha() const
-";
-
-%feature("docstring")  RotationEuler::getBeta "double RotationEuler::getBeta() const
-";
-
-%feature("docstring")  RotationEuler::getGamma "double RotationEuler::getGamma() const
-";
-
-%feature("docstring")  RotationEuler::getTransform3D "Transform3D RotationEuler::getTransform3D() const
-
-Returns transformation. 
-";
-
-
-// File: classRotationX.xml
-%feature("docstring") RotationX "
-
-A rotation about the x axis.
-
-C++ includes: Rotations.h
-";
-
-%feature("docstring")  RotationX::RotationX "RotationX::RotationX(const std::vector< double > P)
-
-Constructor of rotation around x-axis. 
-";
-
-%feature("docstring")  RotationX::RotationX "RotationX::RotationX(double angle)
-";
-
-%feature("docstring")  RotationX::clone "RotationX* RotationX::clone() const
-";
-
-%feature("docstring")  RotationX::createInverse "RotationX* RotationX::createInverse() const
-
-Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  RotationX::accept "void RotationX::accept(INodeVisitor *visitor) const
-";
-
-%feature("docstring")  RotationX::getAngle "double RotationX::getAngle() const
-";
-
-%feature("docstring")  RotationX::getTransform3D "Transform3D RotationX::getTransform3D() const
-
-Returns transformation. 
-";
-
-
-// File: classRotationY.xml
-%feature("docstring") RotationY "
-
-A rotation about the y axis.
-
-C++ includes: Rotations.h
-";
-
-%feature("docstring")  RotationY::RotationY "RotationY::RotationY(const std::vector< double > P)
-
-Constructor of rotation around y-axis. 
-";
-
-%feature("docstring")  RotationY::RotationY "RotationY::RotationY(double angle)
-";
-
-%feature("docstring")  RotationY::clone "RotationY* RotationY::clone() const
-";
-
-%feature("docstring")  RotationY::createInverse "RotationY* RotationY::createInverse() const
-
-Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  RotationY::accept "void RotationY::accept(INodeVisitor *visitor) const
-";
-
-%feature("docstring")  RotationY::getAngle "double RotationY::getAngle() const
-";
-
-%feature("docstring")  RotationY::getTransform3D "Transform3D RotationY::getTransform3D() const
-
-Returns transformation. 
-";
-
-
-// File: classRotationZ.xml
-%feature("docstring") RotationZ "
-
-A rotation about the z axis.
-
-C++ includes: Rotations.h
-";
-
-%feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(const std::vector< double > P)
-
-Constructor of rotation around z-axis. 
-";
-
-%feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(double angle)
-";
-
-%feature("docstring")  RotationZ::clone "RotationZ* RotationZ::clone() const
-";
-
-%feature("docstring")  RotationZ::createInverse "RotationZ* RotationZ::createInverse() const
-
-Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  RotationZ::accept "void RotationZ::accept(INodeVisitor *visitor) const
-";
-
-%feature("docstring")  RotationZ::getAngle "double RotationZ::getAngle() const
-";
-
-%feature("docstring")  RotationZ::getTransform3D "Transform3D RotationZ::getTransform3D() const
-
-Returns transformation. 
 ";
 
 
@@ -11975,7 +9036,7 @@ Parameters:
 -----------
 
 shape: 
-The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
+The shape of mask (Rectangle, Polygon, Line, Ellipse)
 
 mask_value: 
 The value of mask 
@@ -12386,15 +9447,6 @@ C++ includes: SlicedFormFactorList.h
 Struct that contains information on a sliced particle. This information is needed for evaluating the sliced form factor and the average of a material, used in the Fresnel calculations.
 
 C++ includes: SlicedParticle.h
-";
-
-
-// File: structSlicingEffects.xml
-%feature("docstring") SlicingEffects "
-
-Nested structure that holds slicing effects on position and removed parts.
-
-C++ includes: IFormFactorBorn.h
 ";
 
 
@@ -13021,16 +10073,6 @@ C++ includes: RipplesBuilder.h
 ";
 
 
-// File: classTruncatedEllipsoid.xml
-%feature("docstring") TruncatedEllipsoid "";
-
-%feature("docstring")  TruncatedEllipsoid::TruncatedEllipsoid "TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height, double dh)
-";
-
-%feature("docstring")  TruncatedEllipsoid::~TruncatedEllipsoid "TruncatedEllipsoid::~TruncatedEllipsoid()
-";
-
-
 // File: classTSampledRange.xml
 %feature("docstring") TSampledRange "
 
@@ -13252,101 +10294,10 @@ C++ includes: VarianceFunctions.h
 ";
 
 
-// File: classVerticalLine.xml
-%feature("docstring") VerticalLine "
-
-An infinite vertical line.
-
-C++ includes: Line.h
-";
-
-%feature("docstring")  VerticalLine::VerticalLine "VerticalLine::VerticalLine(double x)
-
-Parameters:
------------
-
-x: 
-The value at which it crosses x-axes 
-";
-
-%feature("docstring")  VerticalLine::clone "VerticalLine* VerticalLine::clone() const
-";
-
-%feature("docstring")  VerticalLine::contains "bool VerticalLine::contains(double x, double y) const
-
-Returns true if point with given coordinates is inside or on border of the shape. 
-";
-
-%feature("docstring")  VerticalLine::contains "bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
-
-Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
-";
-
-%feature("docstring")  VerticalLine::getXpos "double VerticalLine::getXpos() const
-";
-
-
-// File: classWavevectorInfo.xml
-%feature("docstring") WavevectorInfo "
-
-Holds all wavevector information relevant for calculating form factors.
-
-C++ includes: WavevectorInfo.h
-";
-
-%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
-";
-
-%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
-";
-
-%feature("docstring")  WavevectorInfo::transformed "WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
-";
-
-%feature("docstring")  WavevectorInfo::getKi "cvector_t WavevectorInfo::getKi() const
-";
-
-%feature("docstring")  WavevectorInfo::getKf "cvector_t WavevectorInfo::getKf() const
-";
-
-%feature("docstring")  WavevectorInfo::getQ "cvector_t WavevectorInfo::getQ() const
-";
-
-%feature("docstring")  WavevectorInfo::getWavelength "double WavevectorInfo::getWavelength() const
-";
-
-
 // File: classConvolve_1_1Workspace.xml
 
 
 // File: classFourierTransform_1_1Workspace.xml
-
-
-// File: classZLimits.xml
-%feature("docstring") ZLimits "
-
-Class that contains upper and lower limits of the z-coordinate for the slicing of form factors.
-
-C++ includes: ZLimits.h
-";
-
-%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits()
-";
-
-%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits(double min, double max)
-";
-
-%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits(OneSidedLimit lower_limit, OneSidedLimit upper_limit)
-";
-
-%feature("docstring")  ZLimits::isFinite "bool ZLimits::isFinite() const
-";
-
-%feature("docstring")  ZLimits::lowerLimit "OneSidedLimit ZLimits::lowerLimit() const
-";
-
-%feature("docstring")  ZLimits::upperLimit "OneSidedLimit ZLimits::upperLimit() const
-";
 
 
 // File: namespace_0D123.xml
@@ -13373,46 +10324,82 @@ C++ includes: ZLimits.h
 // File: namespace_0D163.xml
 
 
+// File: namespace_0D176.xml
+
+
+// File: namespace_0D178.xml
+
+
+// File: namespace_0D182.xml
+
+
+// File: namespace_0D188.xml
+
+
 // File: namespace_0D2.xml
 
 
-// File: namespace_0D226.xml
+// File: namespace_0D214.xml
 
 
-// File: namespace_0D229.xml
+// File: namespace_0D236.xml
 
 
-// File: namespace_0D246.xml
-
-
-// File: namespace_0D248.xml
+// File: namespace_0D240.xml
 
 
 // File: namespace_0D25.xml
 
 
+// File: namespace_0D250.xml
+
+
 // File: namespace_0D252.xml
 
 
-// File: namespace_0D258.xml
+// File: namespace_0D254.xml
 
 
-// File: namespace_0D284.xml
+// File: namespace_0D260.xml
 
 
-// File: namespace_0D306.xml
+// File: namespace_0D262.xml
 
 
-// File: namespace_0D310.xml
+// File: namespace_0D264.xml
 
 
-// File: namespace_0D314.xml
+// File: namespace_0D266.xml
 
 
-// File: namespace_0D333.xml
+// File: namespace_0D268.xml
+
+
+// File: namespace_0D270.xml
+
+
+// File: namespace_0D274.xml
+
+
+// File: namespace_0D276.xml
+
+
+// File: namespace_0D292.xml
+
+
+// File: namespace_0D320.xml
+
+
+// File: namespace_0D325.xml
+
+
+// File: namespace_0D327.xml
 
 
 // File: namespace_0D337.xml
+
+
+// File: namespace_0D343.xml
 
 
 // File: namespace_0D347.xml
@@ -13421,16 +10408,7 @@ C++ includes: ZLimits.h
 // File: namespace_0D349.xml
 
 
-// File: namespace_0D351.xml
-
-
 // File: namespace_0D357.xml
-
-
-// File: namespace_0D359.xml
-
-
-// File: namespace_0D361.xml
 
 
 // File: namespace_0D363.xml
@@ -13439,76 +10417,28 @@ C++ includes: ZLimits.h
 // File: namespace_0D365.xml
 
 
-// File: namespace_0D367.xml
+// File: namespace_0D376.xml
 
 
-// File: namespace_0D371.xml
+// File: namespace_0D388.xml
 
 
-// File: namespace_0D373.xml
+// File: namespace_0D394.xml
 
 
-// File: namespace_0D389.xml
+// File: namespace_0D398.xml
 
 
 // File: namespace_0D4.xml
 
 
-// File: namespace_0D417.xml
+// File: namespace_0D416.xml
 
 
-// File: namespace_0D422.xml
+// File: namespace_0D435.xml
 
 
-// File: namespace_0D424.xml
-
-
-// File: namespace_0D434.xml
-
-
-// File: namespace_0D440.xml
-
-
-// File: namespace_0D444.xml
-
-
-// File: namespace_0D456.xml
-
-
-// File: namespace_0D458.xml
-
-
-// File: namespace_0D481.xml
-
-
-// File: namespace_0D489.xml
-
-
-// File: namespace_0D495.xml
-
-
-// File: namespace_0D497.xml
-
-
-// File: namespace_0D508.xml
-
-
-// File: namespace_0D520.xml
-
-
-// File: namespace_0D526.xml
-
-
-// File: namespace_0D530.xml
-
-
-// File: namespace_0D548.xml
-
-
-// File: namespace_0D567.xml
-
-
-// File: namespace_0D581.xml
+// File: namespace_0D449.xml
 
 
 // File: namespace_0D64.xml
@@ -13584,9 +10514,6 @@ Creates 2D vector from  OutputData.
 
 %feature("docstring")  AxisNames::InitSampleDepthAxis "std::map< Axes::Units, std::string > AxisNames::InitSampleDepthAxis()
 ";
-
-
-// File: namespaceboost_1_1geometry.xml
 
 
 // File: namespaceDataFormatUtils.xml
@@ -13790,26 +10717,6 @@ Creates Fourier Transform ( OutputData format) of intensity map ( OutputData for
 ";
 
 
-// File: namespaceMaterialUtils.xml
-%feature("docstring")  MaterialUtils::ScalarReducedPotential "complex_t MaterialUtils::ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
-
-Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (non-polarized material case) 
-";
-
-%feature("docstring")  MaterialUtils::PolarizedReducedPotential "Eigen::Matrix2cd MaterialUtils::PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k, double n_ref)
-
-Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (polarized material case) 
-";
-
-%feature("docstring")  MaterialUtils::MagnetizationCorrection "Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
-";
-
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
-
-Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
-";
-
-
 // File: namespaceMultiLayerUtils.xml
 %feature("docstring")  MultiLayerUtils::LayerThickness "double MultiLayerUtils::LayerThickness(const MultiLayer &multilayer, size_t i)
 
@@ -13973,41 +10880,6 @@ A path to import BornAgain library. If empty, relies on PYTHONPATH
 
 
 // File: namespacerefMat.xml
-
-
-// File: namespaceripples.xml
-%feature("docstring")  ripples::factor_x_box "complex_t ripples::factor_x_box(complex_t q, double l)
-";
-
-%feature("docstring")  ripples::factor_x_Gauss "complex_t ripples::factor_x_Gauss(complex_t q, double l)
-";
-
-%feature("docstring")  ripples::factor_x_Lorentz "complex_t ripples::factor_x_Lorentz(complex_t q, double l)
-";
-
-%feature("docstring")  ripples::profile_yz_bar "complex_t ripples::profile_yz_bar(complex_t qy, complex_t qz, double width, double height)
-
-Complex form factor of rectangular ripple (bar). 
-";
-
-%feature("docstring")  ripples::profile_yz_cosine "complex_t ripples::profile_yz_cosine(complex_t qy, complex_t qz, double width, double height)
-
-Complex form factor of triangular ripple. 
-";
-
-%feature("docstring")  ripples::profile_yz_triangular "complex_t ripples::profile_yz_triangular(complex_t qy, complex_t qz, double width, double height, double asymmetry)
-
-Complex form factor of triangular ripple. 
-";
-
-
-// File: namespacesomeff.xml
-%feature("docstring")  someff::ffSphere "complex_t someff::ffSphere(cvector_t q, double R)
-
-Returns the form factor of a sphere of radius R.
-
-Used by the hard sphere and by several soft sphere classes. 
-";
 
 
 // File: namespaceSpectrumUtils.xml
@@ -14742,216 +11614,6 @@ make Swappable
 // File: SimDataPair_8h.xml
 
 
-// File: FormFactorAnisoPyramid_8cpp.xml
-
-
-// File: FormFactorAnisoPyramid_8h.xml
-
-
-// File: FormFactorBar_8cpp.xml
-
-
-// File: FormFactorBar_8h.xml
-
-
-// File: FormFactorBox_8cpp.xml
-
-
-// File: FormFactorBox_8h.xml
-
-
-// File: FormFactorCantellatedCube_8cpp.xml
-
-
-// File: FormFactorCantellatedCube_8h.xml
-
-
-// File: FormFactorCone_8cpp.xml
-
-
-// File: FormFactorCone_8h.xml
-
-
-// File: FormFactorCone6_8cpp.xml
-
-
-// File: FormFactorCone6_8h.xml
-
-
-// File: FormFactorCosineRipple_8cpp.xml
-
-
-// File: FormFactorCosineRipple_8h.xml
-
-
-// File: FormFactorCuboctahedron_8cpp.xml
-
-
-// File: FormFactorCuboctahedron_8h.xml
-
-
-// File: FormFactorCylinder_8cpp.xml
-
-
-// File: FormFactorCylinder_8h.xml
-
-
-// File: FormFactorDodecahedron_8cpp.xml
-
-
-// File: FormFactorDodecahedron_8h.xml
-
-
-// File: FormFactorDot_8cpp.xml
-
-
-// File: FormFactorDot_8h.xml
-
-
-// File: FormFactorEllipsoidalCylinder_8cpp.xml
-
-
-// File: FormFactorEllipsoidalCylinder_8h.xml
-
-
-// File: FormFactorFullSphere_8cpp.xml
-
-
-// File: FormFactorFullSphere_8h.xml
-
-
-// File: FormFactorFullSpheroid_8cpp.xml
-
-
-// File: FormFactorFullSpheroid_8h.xml
-
-
-// File: FormFactorHemiEllipsoid_8cpp.xml
-
-
-// File: FormFactorHemiEllipsoid_8h.xml
-
-
-// File: FormFactorHollowSphere_8cpp.xml
-
-
-// File: FormFactorHollowSphere_8h.xml
-
-
-// File: FormFactorIcosahedron_8cpp.xml
-
-
-// File: FormFactorIcosahedron_8h.xml
-
-
-// File: FormFactorLongBoxGauss_8cpp.xml
-
-
-// File: FormFactorLongBoxGauss_8h.xml
-
-
-// File: FormFactorLongBoxLorentz_8cpp.xml
-
-
-// File: FormFactorLongBoxLorentz_8h.xml
-
-
-// File: FormFactorPrism3_8cpp.xml
-
-
-// File: FormFactorPrism3_8h.xml
-
-
-// File: FormFactorPrism6_8cpp.xml
-
-
-// File: FormFactorPrism6_8h.xml
-
-
-// File: FormFactorPyramid_8cpp.xml
-
-
-// File: FormFactorPyramid_8h.xml
-
-
-// File: FormFactorSawtoothRipple_8cpp.xml
-
-
-// File: FormFactorSawtoothRipple_8h.xml
-
-
-// File: FormFactorTetrahedron_8cpp.xml
-
-
-// File: FormFactorTetrahedron_8h.xml
-
-
-// File: FormFactorTruncatedCube_8cpp.xml
-
-
-// File: FormFactorTruncatedCube_8h.xml
-
-
-// File: FormFactorTruncatedSphere_8cpp.xml
-
-
-// File: FormFactorTruncatedSphere_8h.xml
-
-
-// File: FormFactorTruncatedSpheroid_8cpp.xml
-
-
-// File: FormFactorTruncatedSpheroid_8h.xml
-
-
-// File: HardParticles_8h.xml
-
-
-// File: IFormFactorPolyhedron_8cpp.xml
-
-
-// File: IFormFactorPolyhedron_8h.xml
-
-
-// File: IFormFactorPrism_8cpp.xml
-
-
-// File: IFormFactorPrism_8h.xml
-
-
-// File: IProfileRipple_8cpp.xml
-
-
-// File: IProfileRipple_8h.xml
-
-
-// File: PolyhedralComponents_8cpp.xml
-
-
-// File: PolyhedralComponents_8h.xml
-
-
-// File: PolyhedralTopology_8h.xml
-
-
-// File: Polyhedron_8cpp.xml
-
-
-// File: Polyhedron_8h.xml
-
-
-// File: Prism_8cpp.xml
-
-
-// File: Prism_8h.xml
-
-
-// File: Ripples_8cpp.xml
-
-
-// File: Ripples_8h.xml
-
-
 // File: Histogram1D_8cpp.xml
 
 
@@ -15124,155 +11786,6 @@ make Swappable
 
 
 // File: LatticeUtils_8h.xml
-
-
-// File: SomeFormFactors_8cpp.xml
-
-
-// File: SomeFormFactors_8h.xml
-
-
-// File: Ellipse_8cpp.xml
-
-
-// File: Ellipse_8h.xml
-
-
-// File: InfinitePlane_8h.xml
-
-
-// File: IShape2D_8h.xml
-
-
-// File: Line_8cpp.xml
-
-
-// File: Line_8h.xml
-
-
-// File: Polygon_8cpp.xml
-
-
-// File: Polygon_8h.xml
-
-
-// File: Rectangle_8cpp.xml
-
-
-// File: Rectangle_8h.xml
-
-
-// File: BaseMaterialImpl_8h.xml
-
-
-// File: MagneticMaterialImpl_8cpp.xml
-
-
-// File: MagneticMaterialImpl_8h.xml
-
-
-// File: Material_8cpp.xml
-
-
-// File: Material_8h.xml
-
-
-// File: MaterialBySLDImpl_8cpp.xml
-
-
-// File: MaterialBySLDImpl_8h.xml
-
-
-// File: MaterialFactoryFuncs_8cpp.xml
-%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization)
-
-Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
-";
-
-%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization)
-";
-
-%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial()
-";
-
-%feature("docstring")  MaterialBySLD "Material MaterialBySLD()
-";
-
-%feature("docstring")  MaterialBySLD "Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization)
-
-Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
-
-Parameters:
------------
-
-name: 
-material name
-
-sld_real: 
-real part of the scattering length density, inverse square angstroms
-
-sld_imag: 
-imaginary part of the scattering length density, inverse square angstroms
-
-magnetization: 
-magnetization (in A/m) 
-";
-
-
-// File: MaterialFactoryFuncs_8h.xml
-%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial()
-";
-
-%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization={})
-";
-
-%feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization={})
-
-Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
-";
-
-%feature("docstring")  MaterialBySLD "Material MaterialBySLD()
-";
-
-%feature("docstring")  MaterialBySLD "Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization={})
-
-Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
-
-Parameters:
------------
-
-name: 
-material name
-
-sld_real: 
-real part of the scattering length density, inverse square angstroms
-
-sld_imag: 
-imaginary part of the scattering length density, inverse square angstroms
-
-magnetization: 
-magnetization (in A/m) 
-";
-
-
-// File: MaterialUtils_8cpp.xml
-%feature("docstring")  Unit_Matrix "const Eigen::Matrix2cd Unit_Matrix(Eigen::Matrix2cd::Identity())
-";
-
-
-// File: MaterialUtils_8h.xml
-
-
-// File: RefractiveMaterialImpl_8cpp.xml
-
-
-// File: RefractiveMaterialImpl_8h.xml
-
-
-// File: WavevectorInfo_8cpp.xml
-
-
-// File: WavevectorInfo_8h.xml
 
 
 // File: DecouplingApproximationStrategy_8cpp.xml
@@ -15661,161 +12174,6 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: QSpecScan_8h.xml
 
 
-// File: FormFactorBAPol_8cpp.xml
-
-
-// File: FormFactorBAPol_8h.xml
-
-
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
-
-
-// File: IFormFactor_8cpp.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
-
-
-// File: IFormFactor_8h.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
-
-
-// File: IFormFactorBorn_8cpp.xml
-
-
-// File: IFormFactorBorn_8h.xml
-
-
-// File: IFormFactorDecorator_8h.xml
-
-
-// File: ISample_8cpp.xml
-
-
-// File: ISample_8h.xml
-
-
-// File: Rotations_8cpp.xml
-%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
-// File: Rotations_8h.xml
-%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
-// File: ZLimits_8cpp.xml
-%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
-";
-
-
-// File: ZLimits_8h.xml
-%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
-";
-
-%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
-";
-
-
-// File: Box_8cpp.xml
-
-
-// File: Box_8h.xml
-
-
-// File: DoubleEllipse_8cpp.xml
-
-
-// File: DoubleEllipse_8h.xml
-
-
-// File: IShape_8cpp.xml
-%feature("docstring")  RectangleVertices "std::vector<kvector_t> RectangleVertices(double length, double width, double z)
-
-Helper functions to construct lists of vertices
-
-Generate vertices of centered rectangle at height z 
-";
-
-%feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
-
-Generate vertices of centered ellipse with given semi-axes at height z. 
-";
-
-
-// File: IShape_8h.xml
-%feature("docstring")  RectangleVertices "std::vector<kvector_t> RectangleVertices(double length, double width, double z)
-
-Helper functions to construct lists of vertices
-
-Generate vertices of centered rectangle at height z 
-";
-
-%feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
-
-Generate vertices of centered ellipse with given semi-axes at height z. 
-";
-
-
-// File: RippleCosine_8cpp.xml
-
-
-// File: RippleCosine_8h.xml
-
-
-// File: RippleSawtooth_8cpp.xml
-
-
-// File: RippleSawtooth_8h.xml
-
-
-// File: TruncatedEllipsoid_8cpp.xml
-
-
-// File: TruncatedEllipsoid_8h.xml
-
-
 // File: DepthProbeSimulation_8cpp.xml
 
 
@@ -16154,9 +12512,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
 
 
-// File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
-
-
 // File: dir_0af69761ac55fbb3eaeece0bb92e99d9.xml
 
 
@@ -16170,15 +12525,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
-
-
-// File: dir_d04d250384f806f208dc324f8a3d90cd.xml
-
-
-// File: dir_24998d15d4ee11ef081e71321705b47b.xml
-
-
-// File: dir_0bf70e747e161ad6105733dd3b116e64.xml
 
 
 // File: dir_c21740227f50b02f28bdacfb625f042a.xml
@@ -16197,12 +12543,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_6de83e740cfcd9d0abfe8dffab2832a5.xml
-
-
-// File: dir_6babb1605c026604526d064f820d612b.xml
-
-
-// File: dir_39b907ea01a3fff6bda4d39415594941.xml
 
 
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml

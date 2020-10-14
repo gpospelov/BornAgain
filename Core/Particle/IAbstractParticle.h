@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H
 #define BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H
 
-#include "Core/Scattering/ISample.h"
+#include "Sample/Scattering/ISample.h"
 
 class IRotation;
 

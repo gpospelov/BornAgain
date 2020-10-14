@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H
 
-#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
 
 //! Reference materials for use in tests and exemplary samples.
 

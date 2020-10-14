@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
 #define BORNAGAIN_CORE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
 
-#include "Core/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IFormFactorBorn.h"
 #include <memory>
 
 //! A sphere with gaussian radius distribution.

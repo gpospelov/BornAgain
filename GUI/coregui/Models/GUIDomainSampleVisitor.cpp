@@ -15,7 +15,7 @@
 #include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
 #include "Base/Const/Units.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/HardParticle/HardParticles.h"
+#include "Sample/HardParticle/HardParticles.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/MultiLayerUtils.h"

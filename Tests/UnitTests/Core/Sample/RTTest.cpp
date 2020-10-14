@@ -1,7 +1,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Core/Aggregate/ParticleLayout.h"
 #include "Core/Computation/ProcessedSample.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/LayerRoughness.h"

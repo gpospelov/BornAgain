@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_FORMFACTORWEIGHTED_H
 #define BORNAGAIN_CORE_PARTICLE_FORMFACTORWEIGHTED_H
 
-#include "Core/Scattering/IFormFactor.h"
+#include "Sample/Scattering/IFormFactor.h"
 
 //! Coherent sum of different scalar IFormFactor's with different weights.
 //!

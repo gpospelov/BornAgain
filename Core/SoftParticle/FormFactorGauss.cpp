@@ -14,7 +14,7 @@
 
 #include "Core/SoftParticle/FormFactorGauss.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Shapes/Box.h"
+#include "Sample/Shapes/Box.h"
 #include <limits>
 
 FormFactorGaussSphere::FormFactorGaussSphere(const std::vector<double> P)

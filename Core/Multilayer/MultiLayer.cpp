@@ -15,7 +15,7 @@
 #include "Core/Multilayer/MultiLayer.h"
 #include "Base/Types/Exceptions.h"
 #include "Core/Correlations/ILayout.h"
-#include "Core/Material/MaterialUtils.h"
+#include "Sample/Material/MaterialUtils.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerFillLimits.h"
 #include "Core/Multilayer/LayerInterface.h"

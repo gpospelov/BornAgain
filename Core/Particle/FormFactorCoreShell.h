@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_FORMFACTORCORESHELL_H
 #define BORNAGAIN_CORE_PARTICLE_FORMFACTORCORESHELL_H
 
-#include "Core/Scattering/IFormFactor.h"
+#include "Sample/Scattering/IFormFactor.h"
 
 #include <memory>
 

@@ -1,6 +1,6 @@
 #include "Base/Const/Units.h"
 #include "Core/Computation/ProcessedSample.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/MultiLayer.h"
 #include "Core/Multilayer/SpecularMagneticOldStrategy.h"

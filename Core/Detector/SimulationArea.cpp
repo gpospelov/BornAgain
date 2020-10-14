@@ -16,7 +16,7 @@
 #include "Core/Detector/DetectorMask.h"
 #include "Core/Detector/IDetector.h"
 #include "Core/Detector/RegionOfInterest.h"
-#include "Core/Mask/Rectangle.h"
+#include "Device/Mask/Rectangle.h"
 #include <sstream>
 
 SimulationArea::SimulationArea(const IDetector* detector) : m_detector(detector), m_max_index(0)

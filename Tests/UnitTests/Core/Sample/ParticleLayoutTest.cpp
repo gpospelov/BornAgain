@@ -3,7 +3,7 @@
 #include "Core/Aggregate/InterferenceFunction1DLattice.h"
 #include "Core/Aggregate/InterferenceFunctionNone.h"
 #include "Core/Export/INodeUtils.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Core/Particle/Particle.h"
 #include "Tests/GTestWrapper/google_test.h"
 

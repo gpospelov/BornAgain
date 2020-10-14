@@ -1,7 +1,7 @@
 #include "Core/Particle/ParticleComposition.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/HardParticle/FormFactorFullSphere.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
+#include "Sample/HardParticle/FormFactorFullSphere.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Core/Particle/Particle.h"
 #include "Tests/GTestWrapper/google_test.h"
 

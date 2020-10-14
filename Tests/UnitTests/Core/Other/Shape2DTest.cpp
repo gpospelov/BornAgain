@@ -1,9 +1,9 @@
 #include "Base/Axis/Bin.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Core/Mask/Ellipse.h"
-#include "Core/Mask/Line.h"
-#include "Core/Mask/Rectangle.h"
+#include "Device/Mask/Ellipse.h"
+#include "Device/Mask/Line.h"
+#include "Device/Mask/Rectangle.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

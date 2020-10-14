@@ -16,7 +16,7 @@
 #include "Core/Multilayer/Slice.h"
 #include "Core/Particle/IParticle.h"
 #include "Core/Particle/SlicedParticle.h"
-#include "Core/Scattering/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include <utility>
 
 namespace

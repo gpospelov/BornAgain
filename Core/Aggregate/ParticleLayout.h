@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_AGGREGATE_PARTICLELAYOUT_H
 
 #include "Core/Correlations/ILayout.h"
-#include "Core/Scattering/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include <memory>
 
 class IAbstractParticle;

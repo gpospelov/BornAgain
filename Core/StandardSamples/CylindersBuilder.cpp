@@ -15,7 +15,7 @@
 #include "Core/StandardSamples/CylindersBuilder.h"
 #include "Base/Const/Units.h"
 #include "Core/Aggregate/ParticleLayout.h"
-#include "Core/HardParticle/FormFactorCylinder.h"
+#include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Core/Multilayer/Layer.h"
 #include "Core/Multilayer/LayerInterface.h"
 #include "Core/Multilayer/MultiLayer.h"

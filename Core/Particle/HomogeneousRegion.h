@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
 #define BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
 
-#include "Core/Material/Material.h"
+#include "Sample/Material/Material.h"
 
 //! Struct that contains information on a single homogeneous region of a particle inside
 //! a single layer.

@@ -1,5 +1,5 @@
 #include "Core/Detector/SphericalDetector.h"
-#include "Core/Mask/Polygon.h"
+#include "Device/Mask/Polygon.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

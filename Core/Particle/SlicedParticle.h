@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_PARTICLE_SLICEDPARTICLE_H
 
 #include "Core/Particle/HomogeneousRegion.h"
-#include "Core/Scattering/IFormFactor.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include <memory>
 
 //! Struct that contains information on a sliced particle.

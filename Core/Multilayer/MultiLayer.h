@@ -17,8 +17,8 @@
 
 #include "Base/Types/SafePointerVector.h"
 #include "Core/Multilayer/RoughnessModels.h"
-#include "Core/Scattering/ISample.h"
-#include "Core/Scattering/ZLimits.h"
+#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ZLimits.h"
 
 #include <functional>
 

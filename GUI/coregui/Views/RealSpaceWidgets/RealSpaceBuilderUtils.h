@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDERUTILS_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEBUILDERUTILS_H
 
-#include "Core/Scattering/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include <QVector3D>
 #include <memory>
 #include <utility>

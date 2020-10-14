@@ -26,7 +26,8 @@ set(${lib}_LIBRARY ${lib} PARENT_SCOPE)
 # --- external dependencies ---
 
 target_link_libraries(${lib}
-    ${BornAgainParam_LIBRARY}
+    ${BornAgainSample_LIBRARY}
+    ${BornAgainDevice_LIBRARY}
     ${CMAKE_THREAD_LIBS_INIT})
 
 if(BORNAGAIN_TIFF_SUPPORT)

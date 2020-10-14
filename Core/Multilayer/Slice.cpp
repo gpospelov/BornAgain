@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Multilayer/Slice.h"
-#include "Core/Material/MaterialUtils.h"
+#include "Sample/Material/MaterialUtils.h"
 #include "Core/Multilayer/LayerRoughness.h"
 
 Slice::Slice(double thickness, const Material& material)

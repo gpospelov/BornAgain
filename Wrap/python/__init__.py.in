@@ -18,6 +18,8 @@ if sys.version_info >= (3, 8, 0) and sys.platform == 'win32':
 from libBornAgainBase import *
 from libBornAgainFit import *
 from libBornAgainParam import *
+from libBornAgainSample import *
+from libBornAgainDevice import *
 from libBornAgainCore import *
 
 

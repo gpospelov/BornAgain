@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 
-#include "Core/Multilayer/RoughnessModels.h"
+#include "Sample/Multilayer/RoughnessModels.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Builds sample: spheres in substrate layer with a zero magnetic field.

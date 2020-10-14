@@ -17,9 +17,9 @@
 #include "Base/Const/PhysicalConstants.h"
 #include "Base/Const/Units.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 namespace
 {

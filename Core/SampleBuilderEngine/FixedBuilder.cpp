@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/SampleBuilderEngine/FixedBuilder.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 FixedBuilder::FixedBuilder(const MultiLayer& sample) : m_sample(sample.clone()) {}
 

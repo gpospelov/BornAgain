@@ -4,7 +4,7 @@
 #include "Sample/Material/MaterialBySLDImpl.h"
 #include "Sample/Material/RefractiveMaterialImpl.h"
 #include "Sample/Material/WavevectorInfo.h"
-#include "Core/Particle/HomogeneousRegion.h"
+#include "Sample/Particle/HomogeneousRegion.h"
 #include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 

@@ -14,14 +14,14 @@
 
 #include "Core/StandardSamples/LatticeBuilder.h"
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/InterferenceFunction1DLattice.h"
-#include "Core/Aggregate/ParticleLayout.h"
-#include "Core/Correlations/FTDecay1D.h"
-#include "Core/Correlations/FTDecay2D.h"
+#include "Sample/Aggregate/InterferenceFunction1DLattice.h"
+#include "Sample/Aggregate/ParticleLayout.h"
+#include "Sample/Correlations/FTDecay1D.h"
+#include "Sample/Correlations/FTDecay2D.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Particle/Particle.h"
 #include "Core/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* Lattice1DBuilder::buildSample() const

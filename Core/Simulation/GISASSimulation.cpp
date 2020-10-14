@@ -16,7 +16,7 @@
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Histo/Histogram2D.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 

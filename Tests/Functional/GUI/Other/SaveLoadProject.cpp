@@ -15,7 +15,7 @@
 #include "Tests/Functional/GUI/Other/SaveLoadProject.h"
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DetectorItems.h"

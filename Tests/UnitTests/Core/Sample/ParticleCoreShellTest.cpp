@@ -1,9 +1,9 @@
-#include "Core/Particle/ParticleCoreShell.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Sample/HardParticle/HardParticles.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Core/Particle/Particle.h"
+#include "Sample/Particle/Particle.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleCoreShellTest : public ::testing::Test

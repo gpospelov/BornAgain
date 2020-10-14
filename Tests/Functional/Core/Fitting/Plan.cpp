@@ -14,7 +14,7 @@
 
 #include "Tests/Functional/Core/Fitting/Plan.h"
 #include "Core/Fitting/FitObjective.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "Fit/Kernel/Minimizer.h"

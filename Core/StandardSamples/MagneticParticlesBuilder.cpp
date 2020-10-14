@@ -14,15 +14,15 @@
 
 #include "Core/StandardSamples/MagneticParticlesBuilder.h"
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/ParticleLayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/LayerInterface.h"
-#include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/LayerInterface.h"
+#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Particle/Particle.h"
 
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and zero magnetic field

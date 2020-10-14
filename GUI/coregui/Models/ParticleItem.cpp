@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleItem.h"
-#include "Core/Particle/Particle.h"
+#include "Sample/Particle/Particle.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/ModelPath.h"
 #include "GUI/coregui/Models/ParticleCoreShellItem.h"

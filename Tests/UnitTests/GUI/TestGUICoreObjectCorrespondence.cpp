@@ -1,5 +1,5 @@
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/InterferenceFunctions.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/HardParticle/HardParticles.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"

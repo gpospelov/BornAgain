@@ -19,7 +19,7 @@
 #include "Core/Detector/IDetector2D.h"
 #include "Core/Histo/SimulationResult.h"
 #include "Core/Instrument/Instrument.h"
-#include "Core/RT/SimulationOptions.h"
+#include "Sample/RT/SimulationOptions.h"
 #include "Core/SampleBuilderEngine/SampleProvider.h"
 #include "Param/Distrib/DistributionHandler.h"
 

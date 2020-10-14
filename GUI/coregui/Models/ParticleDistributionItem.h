@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARTICLEDISTRIBUTIONITEM_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_PARTICLEDISTRIBUTIONITEM_H
 
-#include "Core/Particle/ParticleDistribution.h"
+#include "Sample/Particle/ParticleDistribution.h"
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 #include <string>
 #include <vector>

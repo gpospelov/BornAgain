@@ -14,12 +14,12 @@
 
 #include "Core/StandardSamples/CoreShellParticleBuilder.h"
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/ParticleLayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorBox.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Particle/ParticleCoreShell.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 #include "Core/StandardSamples/ReferenceMaterials.h"
 
 // --- CoreShellParticleBuilder ---

@@ -15,7 +15,7 @@
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "Base/Const/Units.h"
 #include "Sample/HardParticle/HardParticles.h"
-#include "Core/SoftParticle/SoftParticles.h"
+#include "Sample/SoftParticle/SoftParticles.h"
 
 /* ------------------------------------------------ */
 

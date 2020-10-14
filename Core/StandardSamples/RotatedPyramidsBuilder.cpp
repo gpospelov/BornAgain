@@ -14,11 +14,11 @@
 
 #include "Core/StandardSamples/RotatedPyramidsBuilder.h"
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/ParticleLayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorPyramid.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Particle.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Particle/Particle.h"
 #include "Core/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* RotatedPyramidsBuilder::buildSample() const

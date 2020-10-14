@@ -21,7 +21,7 @@
 #include "Core/Detector/SpecularDetector1D.h"
 #include "Core/Histo/Histogram1D.h"
 #include "Sample/Material/MaterialUtils.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"

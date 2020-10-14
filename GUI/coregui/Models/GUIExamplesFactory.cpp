@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/GUIExamplesFactory.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include <memory>

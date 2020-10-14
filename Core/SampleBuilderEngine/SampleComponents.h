@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
 #define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
 
-#include "Core/Correlations/FTDistributions2D.h"
+#include "Sample/Correlations/FTDistributions2D.h"
 #include "Core/SampleBuilderEngine/IRegistry.h"
 
 //! @class FTDistribution2DComponents

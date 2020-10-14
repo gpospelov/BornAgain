@@ -1,4 +1,4 @@
-#include "Core/Lattice/Lattice2D.h"
+#include "Sample/Lattice/Lattice2D.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class Lattice2DTest : public ::testing::Test

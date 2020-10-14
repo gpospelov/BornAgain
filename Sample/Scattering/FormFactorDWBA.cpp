@@ -14,7 +14,7 @@
 
 #include "Sample/Scattering/FormFactorDWBA.h"
 #include "Sample/Material/WavevectorInfo.h"
-#include "Core/RT/ILayerRTCoefficients.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor) : mP_form_factor(form_factor.clone())
 {

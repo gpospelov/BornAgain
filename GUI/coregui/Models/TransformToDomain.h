@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMTODOMAIN_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMTODOMAIN_H
 
-#include "Core/Aggregate/IInterferenceFunction.h"
-#include "Core/Aggregate/ParticleLayout.h"
+#include "Sample/Aggregate/IInterferenceFunction.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Core/Instrument/Instrument.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/IParticle.h"
-#include "Core/Particle/ParticleDistribution.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Particle/IParticle.h"
+#include "Sample/Particle/ParticleDistribution.h"
 #include "Param/Distrib/Distributions.h" // for IDistribution1D
 #include <memory>
 

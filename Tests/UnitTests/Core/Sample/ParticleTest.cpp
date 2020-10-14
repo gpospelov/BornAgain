@@ -1,4 +1,4 @@
-#include "Core/Particle/Particle.h"
+#include "Sample/Particle/Particle.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"

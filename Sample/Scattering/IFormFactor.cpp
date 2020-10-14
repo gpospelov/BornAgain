@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Sample/Material/WavevectorInfo.h"
-#include "Core/RT/ILayerRTCoefficients.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/FormFactorDecoratorRotation.h"
 #include <memory>

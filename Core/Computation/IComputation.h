@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_COMPUTATION_ICOMPUTATION_H
 
 #include "Core/Computation/ComputationStatus.h"
-#include "Core/RT/SimulationOptions.h"
+#include "Sample/RT/SimulationOptions.h"
 #include <memory>
 #include <vector>
 

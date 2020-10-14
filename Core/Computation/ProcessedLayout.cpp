@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "Core/Computation/ProcessedLayout.h"
-#include "Core/Aggregate/IInterferenceFunction.h"
-#include "Core/Correlations/ILayout.h"
-#include "Core/Multilayer/FormFactorCoherentSum.h"
-#include "Core/Multilayer/Slice.h"
-#include "Core/Multilayer/SlicedFormFactorList.h"
-#include "Core/Particle/IParticle.h"
+#include "Sample/Aggregate/IInterferenceFunction.h"
+#include "Sample/Correlations/ILayout.h"
+#include "Sample/Multilayer/FormFactorCoherentSum.h"
+#include "Sample/Multilayer/Slice.h"
+#include "Sample/Multilayer/SlicedFormFactorList.h"
+#include "Sample/Particle/IParticle.h"
 #include "Sample/Scattering/FormFactorBAPol.h"
 #include "Sample/Scattering/FormFactorDWBA.h"
 #include "Sample/Scattering/FormFactorDWBAPol.h"

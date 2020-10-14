@@ -14,10 +14,10 @@
 
 #include "Core/Computation/LayoutStrategyBuilder.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Aggregate/InterferenceFunctionRadialParaCrystal.h"
+#include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Computation/ProcessedLayout.h"
-#include "Core/Multilayer/DecouplingApproximationStrategy.h"
-#include "Core/Multilayer/SSCApproximationStrategy.h"
+#include "Sample/Multilayer/DecouplingApproximationStrategy.h"
+#include "Sample/Multilayer/SSCApproximationStrategy.h"
 
 LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout* p_layout,
                                              const SimulationOptions& sim_params, bool polarized)

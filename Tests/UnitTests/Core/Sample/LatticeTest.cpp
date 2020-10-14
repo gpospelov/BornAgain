@@ -1,4 +1,4 @@
-#include "Core/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Vector/Transform3D.h"
 #include "Tests/GTestWrapper/google_test.h"

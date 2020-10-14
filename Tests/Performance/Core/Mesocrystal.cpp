@@ -12,22 +12,22 @@
 //
 // ************************************************************************** //
 
-#include "Core/Particle/MesoCrystal.h"
+#include "Sample/Particle/MesoCrystal.h"
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/ParticleLayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Core/Detector/RectangularDetector.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
-#include "Core/Lattice/ISelectionRule.h"
+#include "Sample/Lattice/ISelectionRule.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/LayerRoughness.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/Particle/Crystal.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Particle/ParticleComposition.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Particle/Crystal.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleComposition.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/SoftParticle/FormFactorSphereLogNormalRadius.h"
+#include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include <iostream>
 
 namespace

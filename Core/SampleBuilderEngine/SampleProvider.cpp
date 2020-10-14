@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/SampleBuilderEngine/SampleProvider.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 SampleProvider::SampleProvider() = default;
 

@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/Simulation/StandardSimulations.h"
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"

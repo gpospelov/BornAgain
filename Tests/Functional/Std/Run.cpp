@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>

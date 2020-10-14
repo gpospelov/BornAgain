@@ -14,8 +14,8 @@
 
 #include "Core/StandardSamples/HomogeneousMultilayerBuilder.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 MultiLayer* HomogeneousMultilayerBuilder::buildSample() const
 {

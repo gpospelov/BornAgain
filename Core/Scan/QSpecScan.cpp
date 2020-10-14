@@ -17,7 +17,7 @@
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"
 #include "Core/Instrument/PyFmt2.h"
-#include "Core/Multilayer/SpecularSimulationElement.h"
+#include "Sample/Multilayer/SpecularSimulationElement.h"
 #include "Core/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
 

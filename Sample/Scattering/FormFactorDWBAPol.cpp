@@ -14,7 +14,7 @@
 
 #include "Sample/Scattering/FormFactorDWBAPol.h"
 #include "Sample/Material/WavevectorInfo.h"
-#include "Core/RT/ILayerRTCoefficients.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 
 namespace
 {

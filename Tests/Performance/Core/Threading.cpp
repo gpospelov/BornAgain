@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Base/Const/Units.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/StandardSamples/CylindersBuilder.h"
 #include "Core/StandardSamples/ParaCrystalBuilder.h"

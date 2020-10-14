@@ -15,8 +15,8 @@
 #include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include "Base/Const/Units.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder(int n_layers)
     : m_number_of_layers(n_layers), m_si{2.0704e-06, 2.3726e-11}, m_ti{-1.9493e-06, 9.6013e-10},

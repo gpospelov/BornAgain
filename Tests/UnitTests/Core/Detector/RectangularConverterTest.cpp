@@ -1,7 +1,7 @@
 #include "Base/Const/Units.h"
-#include "Core/Beam/Beam.h"
-#include "Core/Detector/RectangularDetector.h"
-#include "Core/Detector/SimpleUnitConverters.h"
+#include "Device/Beam/Beam.h"
+#include "Device/Detector/RectangularDetector.h"
+#include "Device/Detector/SimpleUnitConverters.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 

@@ -16,7 +16,7 @@
 #include "Base/Const/Units.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Core/Detector/RectangularDetector.h"
+#include "Device/Detector/RectangularDetector.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Device/Mask/Rectangle.h"

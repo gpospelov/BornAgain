@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/FootprintItems.h"
-#include "Core/Beam/FootprintGauss.h"
-#include "Core/Beam/FootprintSquare.h"
+#include "Device/Beam/FootprintGauss.h"
+#include "Device/Beam/FootprintSquare.h"
 
 namespace
 {

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H
 
-#include "Core/InputOutput/DataFormatUtils.h"
+#include "Device/InputOutput/DataFormatUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvReader.h"
 #include "GUI/coregui/utils/ImportDataInfo.h"

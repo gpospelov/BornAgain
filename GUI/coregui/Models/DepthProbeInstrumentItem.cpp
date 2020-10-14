@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Models/DepthProbeInstrumentItem.h"
 #include "Base/Const/Units.h"
-#include "Core/Detector/SimpleUnitConverters.h"
+#include "Device/Detector/SimpleUnitConverters.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"

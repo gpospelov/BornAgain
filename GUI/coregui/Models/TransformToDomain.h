@@ -17,7 +17,7 @@
 
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Core/Instrument/Instrument.h"
+#include "Device/Instrument/Instrument.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"

@@ -1,8 +1,8 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Core/Beam/Beam.h"
-#include "Core/Detector/SimpleUnitConverters.h"
+#include "Device/Beam/Beam.h"
+#include "Device/Detector/SimpleUnitConverters.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class DepthProbeConverterTest : public ::testing::Test

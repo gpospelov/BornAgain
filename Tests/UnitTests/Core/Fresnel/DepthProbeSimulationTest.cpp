@@ -1,7 +1,7 @@
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Core/Histo/Histogram2D.h"
+#include "Device/Histo/Histogram2D.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

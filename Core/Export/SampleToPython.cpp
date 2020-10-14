@@ -18,7 +18,7 @@
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleLabelHandler.h"
-#include "Core/Instrument/PyFmt2.h"
+#include "Device/Instrument/PyFmt2.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
 #include "Sample/Multilayer/LayerRoughness.h"

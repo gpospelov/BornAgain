@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATACANVAS_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATACANVAS_H
 
-#include "Core/Data/OutputData.h"
+#include "Device/Data/OutputData.h"
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <memory>
 

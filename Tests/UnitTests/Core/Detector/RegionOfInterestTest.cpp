@@ -1,5 +1,5 @@
-#include "Core/Detector/RegionOfInterest.h"
-#include "Core/Detector/SphericalDetector.h"
+#include "Device/Detector/RegionOfInterest.h"
+#include "Device/Detector/SphericalDetector.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

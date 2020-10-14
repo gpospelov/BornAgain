@@ -14,8 +14,8 @@
 
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Computation/DWBAComputation.h"
-#include "Core/Detector/SimpleUnitConverters.h"
-#include "Core/Histo/Histogram2D.h"
+#include "Device/Detector/SimpleUnitConverters.h"
+#include "Device/Histo/Histogram2D.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"

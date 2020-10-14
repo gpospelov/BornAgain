@@ -15,7 +15,7 @@
 #include "Core/Simulation/Simulation.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/IComputation.h"
-#include "Core/Detector/DetectorFunctions.h"
+#include "Device/Detector/DetectorFunctions.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Core/SampleBuilderEngine/ISampleBuilder.h"

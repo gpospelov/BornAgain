@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaskWidgets/MaskResultsPresenter.h"
-#include "Core/Detector/DetectorMask.h"
-#include "Core/Detector/RegionOfInterest.h"
+#include "Device/Detector/DetectorMask.h"
+#include "Device/Detector/RegionOfInterest.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/SessionModel.h"

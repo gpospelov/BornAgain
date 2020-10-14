@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ResolutionFunctionItems.h"
-#include "Core/Resolution/ResolutionFunction2DGaussian.h"
+#include "Device/Resolution/ResolutionFunction2DGaussian.h"
 
 ResolutionFunctionItem::ResolutionFunctionItem(const QString& name) : SessionItem(name) {}
 

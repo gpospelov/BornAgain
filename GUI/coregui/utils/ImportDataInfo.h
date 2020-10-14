@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_UTILS_IMPORTDATAINFO_H
 #define BORNAGAIN_GUI_COREGUI_UTILS_IMPORTDATAINFO_H
 
-#include "Core/Unit/IUnitConverter.h"
+#include "Device/Unit/IUnitConverter.h"
 #include <QString>
 #include <memory>
 

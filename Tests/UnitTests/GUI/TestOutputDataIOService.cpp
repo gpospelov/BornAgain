@@ -1,4 +1,4 @@
-#include "Core/Histo/IntensityDataIOFactory.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/JobItem.h"

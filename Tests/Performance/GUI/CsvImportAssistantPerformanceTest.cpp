@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Tests/Performance/GUI/CsvImportAssistantPerformanceTest.h"
-#include "Core/InputOutput/OutputDataReadFactory.h"
-#include "Core/InputOutput/OutputDataWriteFactory.h"
-#include "Core/Intensity/ArrayUtils.h"
+#include "Device/InputOutput/OutputDataReadFactory.h"
+#include "Device/InputOutput/OutputDataWriteFactory.h"
+#include "Device/Intensity/ArrayUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include <ctime>
 #include <iostream>

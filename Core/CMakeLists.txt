@@ -30,12 +30,6 @@ target_link_libraries(${lib}
     ${BornAgainDevice_LIBRARY}
     ${CMAKE_THREAD_LIBS_INIT})
 
-if(BORNAGAIN_TIFF_SUPPORT)
-    target_compile_definitions(${lib} PUBLIC -DBORNAGAIN_TIFF_SUPPORT)
-    target_include_directories(${lib} PUBLIC ${TIFF_INCLUDE_DIR})
-    target_link_libraries(${lib} ${TIFF_LIBRARIES})
-endif()
-
 target_include_directories(${lib}
     PUBLIC ${CMAKE_SOURCE_DIR}
     ${tspectrum_INCLUDE_DIR}

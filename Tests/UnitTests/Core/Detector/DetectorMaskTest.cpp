@@ -1,4 +1,4 @@
-#include "Core/Detector/SphericalDetector.h"
+#include "Device/Detector/SphericalDetector.h"
 #include "Device/Mask/Polygon.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>

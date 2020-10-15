@@ -60,10 +60,10 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
 {
     if (!m_use_cache) {
         auto coeffs = m_Strategy->Execute(slices, kvec);
-        return ISpecularStrategy::coefficient_pointer_type(coeffs[layer_index]->clone());
+        return std::unique_ptr<const ILayerRTCoefficients>(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
-    return ISpecularStrategy::coefficient_pointer_type(coef_vector[layer_index]->clone());
+    return std::unique_ptr<const ILayerRTCoefficients>(coef_vector[layer_index]->clone());
 }
 
 const ISpecularStrategy::coeffs_t&

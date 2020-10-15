@@ -37,8 +37,7 @@ public:
     virtual ~ISpecularStrategy() = default;
     ISpecularStrategy(const ISpecularStrategy& other) = delete;
 
-    using coefficient_pointer_type = std::unique_ptr<const ILayerRTCoefficients>;
-    using coeffs_t = std::vector<coefficient_pointer_type>;
+    using coeffs_t = std::vector<std::unique_ptr<const ILayerRTCoefficients>>;
 
     virtual coeffs_t Execute(const std::vector<Slice>& slices, const kvector_t& k) const = 0;
 

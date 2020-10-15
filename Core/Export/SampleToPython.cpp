@@ -14,11 +14,12 @@
 
 #include "Core/Export/SampleToPython.h"
 #include "Base/Utils/PyFmt.h"
-#include "Sample/Aggregate/InterferenceFunctions.h"
-#include "Sample/Aggregate/ParticleLayout.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleLabelHandler.h"
 #include "Device/Instrument/PyFmt2.h"
+#include "Param/Varia/ParameterUtils.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
 #include "Sample/Multilayer/LayerRoughness.h"
@@ -29,7 +30,6 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
-#include "Param/Varia/ParameterUtils.h"
 #include <iomanip>
 #include <map>
 #include <set>

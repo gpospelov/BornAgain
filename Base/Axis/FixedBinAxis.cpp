@@ -126,8 +126,8 @@ bool FixedBinAxis::equals(const IAxis& other) const
 std::string FixedBinAxis::pyString(const std::string& units, size_t) const
 {
     std::ostringstream result;
-    result << "ba.FixedBinAxis(" << pyfmt::printString(getName()) << ", "
-           << size() << ", " << pyfmt::printValue(getMin(), units) << ", "
-           << pyfmt::printValue(getMax(), units) << ")";
+    result << "ba.FixedBinAxis(" << pyfmt::printString(getName()) << ", " << size() << ", "
+           << pyfmt::printValue(getMin(), units) << ", " << pyfmt::printValue(getMax(), units)
+           << ")";
     return result.str();
 }

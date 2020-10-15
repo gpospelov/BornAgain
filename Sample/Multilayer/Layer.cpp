@@ -14,9 +14,9 @@
 
 #include "Sample/Multilayer/Layer.h"
 #include "Base/Types/Exceptions.h"
-#include "Sample/Correlations/ILayout.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
+#include "Sample/Correlations/ILayout.h"
 
 //! Constructor of a layer with thickness and material
 //! @param material: material the layer is made of

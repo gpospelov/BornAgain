@@ -14,6 +14,8 @@
 
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Base/Types/Exceptions.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include "Sample/Correlations/ILayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
@@ -21,8 +23,6 @@
 #include "Sample/Multilayer/LayerInterface.h"
 #include "Sample/Multilayer/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Param/Base/ParameterPool.h"
-#include "Param/Base/RealParameter.h"
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {

@@ -1,6 +1,6 @@
 #include "Base/Const/MathConstants.h"
-#include "Sample/Aggregate/ParticleLayout.h"
 #include "Core/Computation/ProcessedSample.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"

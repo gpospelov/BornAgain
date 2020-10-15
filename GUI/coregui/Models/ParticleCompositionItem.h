@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECOMPOSITIONITEM_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_PARTICLECOMPOSITIONITEM_H
 
-#include "Sample/Particle/ParticleComposition.h"
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
+#include "Sample/Particle/ParticleComposition.h"
 
 class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem
 {

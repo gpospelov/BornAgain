@@ -25,10 +25,10 @@ SpecularSimulationElement::SpecularSimulationElement(double kz)
 
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
     : m_intensity(0.0), m_calculation_flag(true),
-      m_kz_computation([k = vecOfLambdaAlphaPhi(wavelength, alpha, 0.0)](
-                           const std::vector<Slice>& slices) {
-          return KzComputation::computeKzFromRefIndices(slices, k);
-      })
+      m_kz_computation(
+          [k = vecOfLambdaAlphaPhi(wavelength, alpha, 0.0)](const std::vector<Slice>& slices) {
+              return KzComputation::computeKzFromRefIndices(slices, k);
+          })
 {
 }
 

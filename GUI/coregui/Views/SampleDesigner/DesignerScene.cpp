@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/FilterPropertyProxy.h"
 #include "GUI/coregui/Models/GUIExamplesFactory.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
@@ -30,6 +29,7 @@
 #include "GUI/coregui/Views/SampleDesigner/NodeEditorConnection.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleViewAligner.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleViewFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QItemSelection>
 #include <QPainter>

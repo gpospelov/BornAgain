@@ -1,10 +1,10 @@
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Base/Const/Units.h"
+#include "Param/Distrib/Distributions.h"
 #include "Sample/HardParticle/FormFactorCone.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Particle/Particle.h"
-#include "Param/Distrib/Distributions.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleDistributionTest : public ::testing::Test

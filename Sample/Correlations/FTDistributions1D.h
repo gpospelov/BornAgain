@@ -16,8 +16,8 @@
 #define BORNAGAIN_CORE_CORRELATIONS_FTDISTRIBUTIONS1D_H
 
 #include "Base/Types/ICloneable.h"
-#include "Sample/Correlations/IDistribution1DSampler.h"
 #include "Param/Node/INode.h"
+#include "Sample/Correlations/IDistribution1DSampler.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.

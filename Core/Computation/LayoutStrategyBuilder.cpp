@@ -14,8 +14,8 @@
 
 #include "Core/Computation/LayoutStrategyBuilder.h"
 #include "Base/Types/Exceptions.h"
-#include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Core/Computation/ProcessedLayout.h"
+#include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Sample/Multilayer/DecouplingApproximationStrategy.h"
 #include "Sample/Multilayer/SSCApproximationStrategy.h"
 

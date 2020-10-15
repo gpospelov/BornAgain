@@ -14,12 +14,12 @@
 
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "Base/Const/Units.h"
-#include "Sample/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Models/FTDecayFunctionItems.h"
 #include "GUI/coregui/Models/FTDistributionItems.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/ModelPath.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
 
 namespace
 {

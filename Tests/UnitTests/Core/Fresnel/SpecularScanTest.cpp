@@ -1,11 +1,11 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Device/Beam/FootprintGauss.h"
-#include "Sample/Multilayer/SpecularSimulationElement.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Device/Scan/AngularSpecScan.h"
 #include "Device/Scan/QSpecScan.h"
 #include "Param/Distrib/RangedDistributions.h"
+#include "Sample/Multilayer/SpecularSimulationElement.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test

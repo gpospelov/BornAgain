@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleCompositionItem.h"
-#include "Sample/Particle/MesoCrystal.h"
-#include "Sample/Particle/Particle.h"
-#include "Sample/Particle/ParticleCoreShell.h"
 #include "GUI/coregui/Models/MesoCrystalItem.h"
 #include "GUI/coregui/Models/ModelPath.h"
 #include "GUI/coregui/Models/ParticleCoreShellItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
+#include "Sample/Particle/MesoCrystal.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 
 namespace
 {

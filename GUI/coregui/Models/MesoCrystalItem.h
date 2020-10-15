@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_MESOCRYSTALITEM_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_MESOCRYSTALITEM_H
 
-#include "Sample/Lattice/Lattice.h"
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
+#include "Sample/Lattice/Lattice.h"
 
 class IFormFactor;
 class IParticle;

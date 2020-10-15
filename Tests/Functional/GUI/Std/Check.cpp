@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Device/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/Simulation.h"
+#include "Device/Instrument/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"

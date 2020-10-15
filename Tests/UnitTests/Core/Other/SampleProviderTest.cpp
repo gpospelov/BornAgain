@@ -1,8 +1,8 @@
 #include "Sample/SampleBuilderEngine/SampleProvider.h"
-#include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

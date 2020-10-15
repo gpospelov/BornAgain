@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/GUIExamplesFactory.h"
+#include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
-#include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include <memory>
 
 //! Defines correspondance between example name and real name of simulation from SimulationFactory

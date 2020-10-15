@@ -1,9 +1,9 @@
 #include "Base/Const/Units.h"
-#include "Sample/Aggregate/InterferenceFunctions.h"
-#include "Sample/HardParticle/HardParticles.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "Param/Base/ParameterPool.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
+#include "Sample/HardParticle/HardParticles.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class TestGUICoreObjectCorrespondence : public ::testing::Test

@@ -13,9 +13,7 @@
 // ************************************************************************** //
 
 #include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Fit/Tools/StringUtils.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DocumentModel.h"
@@ -35,6 +33,8 @@
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Param/Base/ParameterPool.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <QStack>
 
 namespace

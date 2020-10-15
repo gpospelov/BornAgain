@@ -1,7 +1,7 @@
 #include "Base/Const/Units.h"
 #include "Base/Utils/Algorithms.h"
-#include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
+#include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class TestFormFactorItems : public ::testing::Test

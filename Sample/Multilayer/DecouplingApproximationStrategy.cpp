@@ -16,10 +16,10 @@
 #include "Base/Pixel/SimulationElement.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/MathFunctions.h"
+#include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Multilayer/FormFactorCoherentSum.h"
 #include "Sample/Multilayer/InterferenceFunctionUtils.h"
-#include "Param/Base/RealParameter.h"
 
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
 using InterferenceFunctionUtils::PrecomputeScalarFormFactors;

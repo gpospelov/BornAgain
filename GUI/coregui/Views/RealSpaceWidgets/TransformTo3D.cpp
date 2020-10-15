@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
 #include "Base/Const/Units.h"
-#include "Sample/HardParticle/HardParticles.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
 #include "GUI/coregui/Models/LayerItem.h"
@@ -24,6 +23,7 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h"
+#include "Sample/HardParticle/HardParticles.h"
 
 namespace
 {

@@ -15,10 +15,6 @@
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceMesoCrystalUtils.h"
 #include "Base/Const/Units.h"
 #include "Base/Types/Exceptions.h"
-#include "Sample/HardParticle/HardParticles.h"
-#include "Sample/Particle/MesoCrystal.h"
-#include "Sample/Particle/Particle.h"
-#include "Sample/Particle/ParticleCoreShell.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/MesoCrystalItem.h"
 #include "GUI/coregui/Models/ParticleCompositionItem.h"
@@ -27,6 +23,10 @@
 #include "GUI/coregui/Views/RealSpaceWidgets/Particle3DContainer.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
+#include "Sample/HardParticle/HardParticles.h"
+#include "Sample/Particle/MesoCrystal.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 
 namespace
 {

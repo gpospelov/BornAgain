@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
 #define BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
 
-#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Fit/TestEngine/IFactory.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 class MultiLayer;
 

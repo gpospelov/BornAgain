@@ -14,9 +14,9 @@
 
 #include "Sample/SampleBuilderEngine/SampleBuilderNode.h"
 #include "Base/Utils/Assert.h"
+#include "Param/Base/ParameterPool.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
-#include "Param/Base/ParameterPool.h"
 #include <stdexcept>
 
 namespace

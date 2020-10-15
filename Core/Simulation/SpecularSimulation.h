@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 
-#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Core/Simulation/Simulation.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 
 class IAxis;
 class IComputation;

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
-#include "Sample/Material/Material.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
@@ -29,6 +28,7 @@
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/mainwindow/AppSvc.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Sample/Material/Material.h"
 #include <QColorDialog>
 
 namespace

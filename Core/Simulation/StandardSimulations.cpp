@@ -14,9 +14,13 @@
 
 #include "Core/Simulation/StandardSimulations.h"
 #include "Base/Const/Units.h"
+#include "Core/Computation/ConstantBackground.h"
+#include "Core/Simulation/DepthProbeSimulation.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
-#include "Core/Computation/ConstantBackground.h"
 #include "Device/Detector/IsGISAXSDetector.h"
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Mask/Ellipse.h"
@@ -27,15 +31,11 @@
 #include "Device/Resolution/ScanResolution.h"
 #include "Device/Scan/AngularSpecScan.h"
 #include "Device/Scan/QSpecScan.h"
-#include "Core/Simulation/DepthProbeSimulation.h"
-#include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
-#include "Core/Simulation/SpecularSimulation.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/RangedDistributions.h"
 #include "Param/Varia/ParameterPattern.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <memory>
 
 namespace

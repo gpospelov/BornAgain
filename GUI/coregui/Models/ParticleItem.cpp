@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleItem.h"
-#include "Sample/Particle/Particle.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/ModelPath.h"
 #include "GUI/coregui/Models/ParticleCoreShellItem.h"
@@ -22,6 +21,7 @@
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "Sample/Particle/Particle.h"
 
 using SessionItemUtils::SetVectorItem;
 

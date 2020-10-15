@@ -1,4 +1,3 @@
-#include "Sample/Particle/Particle.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
@@ -8,6 +7,7 @@
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
+#include "Sample/Particle/Particle.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <QObject>
 

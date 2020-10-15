@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/RealSpaceWidgets/IPositionBuilder.h"
-#include "Sample/Aggregate/InterferenceFunctions.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpace2DParacrystalUtils.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
 #include <cmath>
 #include <random>
 

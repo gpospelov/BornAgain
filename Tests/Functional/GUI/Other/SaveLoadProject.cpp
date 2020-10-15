@@ -15,8 +15,6 @@
 #include "Tests/Functional/GUI/Other/SaveLoadProject.h"
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
-#include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"
@@ -30,6 +28,8 @@
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
 #include "GUI/coregui/utils/MessageService.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>

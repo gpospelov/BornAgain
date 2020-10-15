@@ -26789,6 +26789,51 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IAxis_pyString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IAxis *arg1 = (IAxis *) 0 ;
+  std::string *arg2 = 0 ;
+  size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IAxis_pyString", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_pyString" "', argument " "1"" of type '" "IAxis const *""'"); 
+  }
+  arg1 = reinterpret_cast< IAxis * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IAxis_pyString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IAxis_pyString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IAxis_pyString" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  result = ((IAxis const *)arg1)->pyString((std::string const &)*arg2,arg3);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *IAxis_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -27168,6 +27213,51 @@ SWIGINTERN PyObject *_wrap_VariableBinAxis_createClippedAxis(PyObject *SWIGUNUSE
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VariableBinAxis, 0 |  0 );
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_VariableBinAxis_pyString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  VariableBinAxis *arg1 = (VariableBinAxis *) 0 ;
+  std::string *arg2 = 0 ;
+  size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "VariableBinAxis_pyString", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VariableBinAxis, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_pyString" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
+  }
+  arg1 = reinterpret_cast< VariableBinAxis * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "VariableBinAxis_pyString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "VariableBinAxis_pyString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "VariableBinAxis_pyString" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  result = ((VariableBinAxis const *)arg1)->pyString((std::string const &)*arg2,arg3);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
@@ -27897,6 +27987,51 @@ SWIGINTERN PyObject *_wrap_FixedBinAxis_createClippedAxis(PyObject *SWIGUNUSEDPA
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FixedBinAxis, 0 |  0 );
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FixedBinAxis_pyString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FixedBinAxis *arg1 = (FixedBinAxis *) 0 ;
+  std::string *arg2 = 0 ;
+  size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "FixedBinAxis_pyString", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FixedBinAxis, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_pyString" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
+  }
+  arg1 = reinterpret_cast< FixedBinAxis * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FixedBinAxis_pyString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FixedBinAxis_pyString" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FixedBinAxis_pyString" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  result = ((FixedBinAxis const *)arg1)->pyString((std::string const &)*arg2,arg3);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
@@ -33965,6 +34100,11 @@ static PyMethodDef SwigMethods[] = {
 		"Returns true if axis contains given point. \n"
 		"\n"
 		""},
+	 { "IAxis_pyString", _wrap_IAxis_pyString, METH_VARARGS, "\n"
+		"IAxis_pyString(IAxis self, std::string const & units, size_t offset) -> std::string\n"
+		"virtual std::string IAxis::pyString(const std::string &units, size_t offset) const =0\n"
+		"\n"
+		""},
 	 { "IAxis_swigregister", IAxis_swigregister, METH_O, NULL},
 	 { "HaveSameNameAndShape", _wrap_HaveSameNameAndShape, METH_VARARGS, "\n"
 		"HaveSameNameAndShape(IAxis left, IAxis right) -> bool\n"
@@ -34059,6 +34199,11 @@ static PyMethodDef SwigMethods[] = {
 		"VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const\n"
 		"\n"
 		"Creates a new clipped axis. \n"
+		"\n"
+		""},
+	 { "VariableBinAxis_pyString", _wrap_VariableBinAxis_pyString, METH_VARARGS, "\n"
+		"VariableBinAxis_pyString(VariableBinAxis self, std::string const & units, size_t offset) -> std::string\n"
+		"std::string VariableBinAxis::pyString(const std::string &units, size_t offset) const final\n"
 		"\n"
 		""},
 	 { "VariableBinAxis___getitem__", _wrap_VariableBinAxis___getitem__, METH_VARARGS, "VariableBinAxis___getitem__(VariableBinAxis self, unsigned int i) -> double"},
@@ -34251,6 +34396,11 @@ static PyMethodDef SwigMethods[] = {
 		"FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const\n"
 		"\n"
 		"Creates a new clipped axis. \n"
+		"\n"
+		""},
+	 { "FixedBinAxis_pyString", _wrap_FixedBinAxis_pyString, METH_VARARGS, "\n"
+		"FixedBinAxis_pyString(FixedBinAxis self, std::string const & units, size_t arg3) -> std::string\n"
+		"std::string FixedBinAxis::pyString(const std::string &units, size_t) const final\n"
 		"\n"
 		""},
 	 { "FixedBinAxis___getitem__", _wrap_FixedBinAxis___getitem__, METH_VARARGS, "FixedBinAxis___getitem__(FixedBinAxis self, unsigned int i) -> double"},

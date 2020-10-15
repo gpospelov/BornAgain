@@ -59,7 +59,7 @@
 #include "Param/Varia/ParameterPattern.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerInterface.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Slice/LayerRoughness.h"
 

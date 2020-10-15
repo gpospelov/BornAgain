@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Sample/Specular/SpecularScalarStrategy.h"
-#include "Sample/Multilayer/KzComputation.h"
+#include "Sample/Slice/KzComputation.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Slice/Slice.h"

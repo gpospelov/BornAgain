@@ -1,4 +1,4 @@
-#include "Sample/Multilayer/LayerInterface.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Slice/LayerRoughness.h"

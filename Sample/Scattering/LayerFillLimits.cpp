@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Multilayer/LayerFillLimits.cpp
+//! @file      Sample/Scattering/LayerFillLimits.cpp
 //! @brief     Implements class LayerFillLimits.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Multilayer/LayerFillLimits.h"
+#include "Sample/Scattering/LayerFillLimits.h"
 #include <algorithm>
 #include <stdexcept>
 

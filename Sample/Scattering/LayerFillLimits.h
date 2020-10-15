@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Multilayer/LayerFillLimits.h
+//! @file      Sample/Scattering/LayerFillLimits.h
 //! @brief     Defines class LayerFillLimits.
 //!
 //! @homepage  http://www.bornagainproject.org

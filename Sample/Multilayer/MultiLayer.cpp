@@ -19,8 +19,8 @@
 #include "Sample/Correlations/ILayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerFillLimits.h"
-#include "Sample/Multilayer/LayerInterface.h"
+#include "Sample/Scattering/LayerFillLimits.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Slice/LayerRoughness.h"
 

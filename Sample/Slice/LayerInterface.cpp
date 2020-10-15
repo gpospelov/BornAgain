@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Multilayer/LayerInterface.cpp
+//! @file      Sample/Slice/LayerInterface.cpp
 //! @brief     Implements class LayerInterface.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Multilayer/LayerInterface.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Base/Types/Exceptions.h"
 #include "Sample/Slice/LayerRoughness.h"
 

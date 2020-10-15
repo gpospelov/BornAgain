@@ -15,7 +15,7 @@
 #include "Sample/Specular/SpecularMagneticOldStrategy.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerInterface.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Slice/Slice.h"
 #include <Eigen/LU>

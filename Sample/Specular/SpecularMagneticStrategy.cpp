@@ -14,7 +14,7 @@
 
 #include "Sample/Specular/SpecularMagneticStrategy.h"
 #include "Base/Const/PhysicalConstants.h"
-#include "Sample/Multilayer/KzComputation.h"
+#include "Sample/Slice/KzComputation.h"
 #include "Sample/Slice/Slice.h"
 
 namespace

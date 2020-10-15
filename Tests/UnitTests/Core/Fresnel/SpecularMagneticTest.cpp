@@ -1,7 +1,7 @@
 #include "Base/Const/Units.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Sample/Multilayer/KzComputation.h"
+#include "Sample/Slice/KzComputation.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/RT/SimulationOptions.h"

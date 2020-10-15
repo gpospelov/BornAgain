@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Multilayer/LayerInterface.h
+//! @file      Sample/Slice/LayerInterface.h
 //! @brief     Defines class LayerInterface.
 //!
 //! @homepage  http://www.bornagainproject.org

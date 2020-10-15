@@ -4,7 +4,7 @@
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerInterface.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include "Tests/GTestWrapper/google_test.h"

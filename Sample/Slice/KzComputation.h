@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Multilayer/KzComputation.h
+//! @file      Sample/Slice/KzComputation.h
 //! @brief     Declares functions from KzComputation namespace.
 //!
 //! @homepage  http://www.bornagainproject.org

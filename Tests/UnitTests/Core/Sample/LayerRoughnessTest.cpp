@@ -1,4 +1,4 @@
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Param/Varia/ParameterPattern.h"
 #include "Tests/GTestWrapper/google_test.h"
 

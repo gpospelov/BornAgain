@@ -4,9 +4,9 @@
 #include "Sample/Multilayer/KzComputation.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Multilayer/SpecularMagneticNewTanhStrategy.h"
-#include "Sample/Multilayer/SpecularMagneticStrategy.h"
-#include "Sample/Multilayer/SpecularScalarTanhStrategy.h"
+#include "Sample/Specular/SpecularMagneticNewTanhStrategy.h"
+#include "Sample/Specular/SpecularMagneticStrategy.h"
+#include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>

@@ -19,7 +19,7 @@
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
 

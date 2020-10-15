@@ -3,8 +3,8 @@
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Multilayer/SpecularMagneticOldStrategy.h"
-#include "Sample/Multilayer/SpecularScalarTanhStrategy.h"
+#include "Sample/Specular/SpecularMagneticOldStrategy.h"
+#include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 

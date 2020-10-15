@@ -94,7 +94,7 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/FormFactorCrystal.h"
@@ -195,7 +195,7 @@
 %include "Sample/Aggregate/ParticleLayout.h"
 
 %include "Sample/Multilayer/Layer.h"
-%include "Sample/Multilayer/LayerRoughness.h"
+%include "Sample/Slice/LayerRoughness.h"
 %include "Sample/Multilayer/MultiLayer.h"
 
 // SWIG workaround for using axes units the same way as they are used in cpp files

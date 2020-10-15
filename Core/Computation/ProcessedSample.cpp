@@ -16,10 +16,10 @@
 #include "Core/Computation/ProcessedLayout.h"
 #include "Core/Computation/SpecularStrategyBuilder.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerRoughness.h"
-#include "Sample/Multilayer/MatrixFresnelMap.h"
+#include "Sample/Slice/LayerRoughness.h"
+#include "Sample/Fresnel/MatrixFresnelMap.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Sample/Multilayer/ScalarFresnelMap.h"
+#include "Sample/Fresnel/ScalarFresnelMap.h"
 #include "Sample/Particle/HomogeneousRegion.h"
 #include "Sample/RT/SimulationOptions.h"
 

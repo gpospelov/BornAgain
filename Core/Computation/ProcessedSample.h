@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
 #define BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
 
-#include "Sample/Multilayer/Slice.h"
+#include "Sample/Slice/Slice.h"
 #include <map>
 #include <memory>
 #include <vector>

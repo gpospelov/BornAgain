@@ -14,7 +14,7 @@
 
 #include "Sample/Multilayer/KzComputation.h"
 #include "Base/Const/Units.h"
-#include "Sample/Multilayer/Slice.h"
+#include "Sample/Slice/Slice.h"
 
 namespace
 {

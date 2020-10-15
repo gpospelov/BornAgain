@@ -14,7 +14,7 @@
 
 #include "Sample/Multilayer/LayerInterface.h"
 #include "Base/Types/Exceptions.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 
 LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr)
 {

@@ -1,4 +1,4 @@
-#include "Sample/Multilayer/FormFactorCoherentSum.h"
+#include "Sample/Fresnel/FormFactorCoherentSum.h"
 #include "Base/Types/Exceptions.h"
 #include "Sample/HardParticle/FormFactorDot.h"
 #include "Tests/GTestWrapper/google_test.h"

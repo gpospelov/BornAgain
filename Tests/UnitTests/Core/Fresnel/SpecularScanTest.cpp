@@ -5,7 +5,7 @@
 #include "Device/Scan/AngularSpecScan.h"
 #include "Device/Scan/QSpecScan.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Sample/Multilayer/SpecularSimulationElement.h"
+#include "Sample/Specular/SpecularSimulationElement.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test

@@ -20,7 +20,7 @@
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Computation/ProgressHandler.h"
 #include "Core/Computation/RoughMultiLayerComputation.h"
-#include "Sample/Multilayer/IFresnelMap.h"
+#include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,

@@ -20,7 +20,7 @@
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/IParticle.h"
 #include "Sample/Particle/ParticleDistribution.h"

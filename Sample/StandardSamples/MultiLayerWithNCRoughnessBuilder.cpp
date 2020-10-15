@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Sample/StandardSamples/MultiLayerWithNCRoughnessBuilder.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
 MultiLayer* MultiLayerWithNCRoughnessBuilder::buildSample() const

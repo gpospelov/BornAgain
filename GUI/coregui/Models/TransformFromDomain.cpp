@@ -60,7 +60,7 @@
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Particle/Particle.h"
 
 using namespace INodeUtils;

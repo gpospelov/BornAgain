@@ -5,7 +5,7 @@
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 

@@ -21,6 +21,7 @@
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Particle/HomogeneousRegion.h"
 #include "Sample/RT/SimulationOptions.h"
+#include "Sample/Scattering/ZLimits.h"
 #include "Sample/Slice/LayerRoughness.h"
 
 namespace

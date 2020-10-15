@@ -7834,43 +7834,43 @@ C++ includes: ZLimits.h
 // File: namespace_0D16.xml
 
 
-// File: namespace_0D161.xml
+// File: namespace_0D163.xml
+
+
+// File: namespace_0D165.xml
 
 
 // File: namespace_0D167.xml
 
 
-// File: namespace_0D169.xml
+// File: namespace_0D177.xml
 
 
-// File: namespace_0D171.xml
-
-
-// File: namespace_0D181.xml
+// File: namespace_0D199.xml
 
 
 // File: namespace_0D2.xml
 
 
-// File: namespace_0D203.xml
+// File: namespace_0D201.xml
 
 
-// File: namespace_0D205.xml
+// File: namespace_0D211.xml
 
 
-// File: namespace_0D215.xml
+// File: namespace_0D227.xml
 
 
-// File: namespace_0D231.xml
+// File: namespace_0D229.xml
 
 
-// File: namespace_0D233.xml
+// File: namespace_0D236.xml
 
 
 // File: namespace_0D25.xml
 
 
-// File: namespace_0D256.xml
+// File: namespace_0D254.xml
 
 
 // File: namespace_0D262.xml
@@ -8639,18 +8639,6 @@ magnetization (in A/m)
 // File: Layer_8h.xml
 
 
-// File: LayerFillLimits_8cpp.xml
-
-
-// File: LayerFillLimits_8h.xml
-
-
-// File: LayerInterface_8cpp.xml
-
-
-// File: LayerInterface_8h.xml
-
-
 // File: MultiLayer_8cpp.xml
 
 
@@ -8888,6 +8876,12 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: ISample_8h.xml
 
 
+// File: LayerFillLimits_8cpp.xml
+
+
+// File: LayerFillLimits_8h.xml
+
+
 // File: Rotations_8cpp.xml
 %feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
 
@@ -8986,6 +8980,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: KzComputation_8h.xml
+
+
+// File: LayerInterface_8cpp.xml
+
+
+// File: LayerInterface_8h.xml
 
 
 // File: LayerRoughness_8cpp.xml

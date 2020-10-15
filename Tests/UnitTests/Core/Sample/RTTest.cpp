@@ -4,10 +4,10 @@
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Sample/RT/SimulationOptions.h"
+#include "Sample/Slice/LayerRoughness.h"
+#include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class RTTest : public ::testing::Test

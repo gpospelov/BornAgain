@@ -60,8 +60,8 @@
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Particle/Particle.h"
+#include "Sample/Slice/LayerRoughness.h"
 
 using namespace INodeUtils;
 using SessionItemUtils::SetVectorItem;

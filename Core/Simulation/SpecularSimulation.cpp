@@ -27,8 +27,8 @@
 #include "Param/Distrib/Distributions.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Specular/SpecularSimulationElement.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/Specular/SpecularSimulationElement.h"
 
 namespace
 {

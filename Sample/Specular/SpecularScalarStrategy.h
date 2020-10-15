@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
 #define BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
 
-#include "Sample/Specular/ISpecularStrategy.h"
 #include "Sample/RT/ScalarRTCoefficients.h"
+#include "Sample/Specular/ISpecularStrategy.h"
 #include <memory>
 #include <vector>
 

@@ -22,7 +22,6 @@
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/MesoCrystal.h"
@@ -30,6 +29,7 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include <iomanip>
 #include <map>
 #include <set>

@@ -33,10 +33,6 @@ class Slice;
 class SpecularScalarStrategy : public ISpecularStrategy
 {
 public:
-    using coefficient_type = ScalarRTCoefficients;
-    using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;
-    using coeffs_t = std::vector<coefficient_pointer_type>;
-
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
     virtual ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,

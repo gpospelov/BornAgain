@@ -35,7 +35,6 @@ public:
     ISpecularStrategy() = default;
     virtual ~ISpecularStrategy() = default;
     ISpecularStrategy(const ISpecularStrategy& other) = delete;
-    ISpecularStrategy& operator=(const ISpecularStrategy& other) = delete;
 
     using coefficient_type = ILayerRTCoefficients;
     using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;

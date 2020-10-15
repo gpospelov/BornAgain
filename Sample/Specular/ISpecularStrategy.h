@@ -15,11 +15,12 @@
 #ifndef BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
 #define BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
 
+#include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
-#include "Sample/RT/ILayerRTCoefficients.h"
 #include <memory>
 #include <vector>
 
+class ILayerRTCoefficients;
 class Slice;
 
 //! Interface for the Fresnel computations, both in the scalar and magnetic case

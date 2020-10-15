@@ -20,6 +20,7 @@
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Slice/LayerRoughness.h"
 
 #include <cerf>

@@ -15,6 +15,7 @@
 #include "Core/Computation/GISASSpecularComputation.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Sample/Fresnel/IFresnelMap.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 
 GISASSpecularComputation::GISASSpecularComputation(const IFresnelMap* p_fresnel_map)
     : mp_fresnel_map{p_fresnel_map}

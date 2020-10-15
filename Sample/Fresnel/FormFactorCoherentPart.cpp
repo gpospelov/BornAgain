@@ -16,6 +16,7 @@
 #include "Base/Pixel/SimulationElement.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Material/WavevectorInfo.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Scattering/IFormFactor.h"
 
 FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff) : mP_ff(p_ff) {}

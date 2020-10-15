@@ -6805,7 +6805,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Param/Distrib/RangedDistributions.h"
 
 
-
   namespace swig {
     template <>  struct traits< BasicVector3D< double > > {
       typedef pointer_category category;

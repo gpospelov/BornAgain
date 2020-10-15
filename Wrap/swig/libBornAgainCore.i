@@ -54,16 +54,6 @@
     }
 }
 
- // deprecations:
-%rename(getArrayObsolete) IHistogram::getArray;
-%extend IHistogram {
-    %pythoncode %{
-         @deprecated("Deprecated. Use array() instead.")
-         def getArray(self):
-             return self.getArrayObsolete()
-    %}
- };
-
 %{
 #include "BAVersion.h"
 #include "Core/Computation/ConstantBackground.h"
@@ -81,79 +71,14 @@
 #include "Core/Simulation/Simulation2D.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Device/Beam/Beam.h"
-#include "Device/Beam/FootprintGauss.h"
-#include "Device/Beam/FootprintSquare.h"
-#include "Device/Data/OutputData.h"
-#include "Device/Detector/DetectorMask.h"
-#include "Device/Detector/IDetector2D.h"
-#include "Device/Detector/IsGISAXSDetector.h"
-#include "Device/Detector/RectangularDetector.h"
-#include "Device/Detector/SphericalDetector.h"
-#include "Device/Histo/Histogram1D.h"
-#include "Device/Histo/Histogram2D.h"
-#include "Device/Histo/IHistogram.h"
-#include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Histo/SimulationResult.h"
-#include "Device/Instrument/ChiSquaredModule.h"
-#include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Instrument/Instrument.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
-#include "Device/Instrument/PyArrayImportUtils.h"
-#include "Device/Instrument/SpectrumUtils.h"
-#include "Device/Instrument/VarianceFunctions.h"
-#include "Device/Intensity/IIntensityFunction.h"
-#include "Device/Intensity/IIntensityFunction.h"
-#include "Device/Mask/Ellipse.h"
-#include "Device/Mask/IShape2D.h"
-#include "Device/Mask/Line.h"
-#include "Device/Mask/Polygon.h"
-#include "Device/Mask/Rectangle.h"
-#include "Device/Resolution/IDetectorResolution.h"
-#include "Device/Resolution/IResolutionFunction2D.h"
-#include "Device/Resolution/ResolutionFunction2DGaussian.h"
-#include "Device/Resolution/ScanResolution.h"
-#include "Device/Scan/AngularSpecScan.h"
-#include "Device/Scan/QSpecScan.h"
 #include "Fit/Kernel/FitOptions.h"
 %}
-
-// ownership
-
-%newobject ScanResolution::scanRelativeResolution;
-%newobject ScanResolution::scanAbsoluteResolution;
-
-%newobject SimulationResult::histogram2d(Axes::Units units_type = Axes::Units::DEFAULT) const;
-
-%newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
-%newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
-
-%newobject DetectorMask::createHistogram() const;
-
-%newobject PyArrayImport::importArrayToOutputData;
-%newobject IHistogram::createFrom(const std::string& filename);
-%newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
 
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%import(module="libBornAgainFit") "Fit/Tools/AttLimits.h"
-%import(module="libBornAgainFit") "Fit/Tools/Attributes.h"
-%import(module="libBornAgainFit") "Fit/Tools/RealLimits.h"
-%import(module="libBornAgainFit") "Fit/Kernel/Parameters.h"
-%import(module="libBornAgainFit") "Fit/Kernel/Parameter.h"
-
-%import(module="libBornAgainBase") "Base/Types/Complex.h"
-%import(module="libBornAgainBase") "Base/Types/ICloneable.h"
-%import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
-%import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
-%import(module="libBornAgainBase") "Base/Axis/IAxis.h"
 %include "fromBase.i"
 
-%import(module="libBornAgainParam") "Param/Base/ParameterPool.h"
-%import(module="libBornAgainParam") "Param/Base/IParameterized.h"
-%import(module="libBornAgainParam") "Param/Node/INode.h"
-%import(module="libBornAgainParam") "Param/Distrib/ParameterDistribution.h"
 %include "fromParam.i"
 
 %import(module="libBornAgainSample") "Sample/Scattering/ISample.h"
@@ -168,59 +93,11 @@
 %include "Fit/TestEngine/IFactory.h"
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 
-%include "Device/Data/OutputData.h"
-%template(IntensityData) OutputData<double>;
-
 %include "Core/Fitting/FitObjective.h"
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
 
 %include "BAVersion.h"
-
-%include "Device/Mask/IShape2D.h"
-%include "Device/Mask/Ellipse.h"
-%include "Device/Mask/Line.h"
-%include "Device/Mask/Polygon.h"
-%include "Device/Mask/Rectangle.h"
-
-%include "Device/Histo/IntensityDataIOFactory.h"
-
-%include "Device/Detector/IDetector.h"
-%include "Device/Detector/IDetector2D.h"
-%include "Device/Detector/SphericalDetector.h"
-%include "Device/Detector/DetectorMask.h"
-%include "Device/Detector/IsGISAXSDetector.h"
-%include "Device/Detector/RectangularDetector.h"
-
-%include "Device/Resolution/IDetectorResolution.h"
-%include "Device/Resolution/IResolutionFunction2D.h"
-%include "Device/Resolution/ResolutionFunction2DGaussian.h"
-%include "Device/Resolution/ScanResolution.h"
-
-%include "Device/Histo/IHistogram.h"
-%include "Device/Intensity/IIntensityFunction.h"
-%include "Device/Unit/IUnitConverter.h"
-
-%include "Device/Histo/Histogram1D.h"
-%include "Device/Histo/Histogram2D.h"
-%include "Device/Instrument/IntensityDataFunctions.h"
-
-%include "Device/Instrument/IChiSquaredModule.h"
-%include "Device/Scan/ISpecularScan.h"
-
-%include "Device/Scan/AngularSpecScan.h"
-%include "Device/Instrument/ChiSquaredModule.h"
-%include "Device/Instrument/Instrument.h"
-%include "Device/Instrument/PyArrayImportUtils.h"
-%include "Device/Scan/QSpecScan.h"
-%include "Device/Histo/SimulationResult.h"
-%include "Device/Instrument/SpectrumUtils.h"
-%include "Device/Instrument/VarianceFunctions.h"
-
-%include "Device/Beam/Beam.h"
-%include "Device/Beam/IFootprintFactor.h"
-%include "Device/Beam/FootprintGauss.h"
-%include "Device/Beam/FootprintSquare.h"
 
 %include "Fit/Kernel/FitOptions.h"
 
@@ -253,24 +130,6 @@
         return - *($self); }
 };
 
-%extend OutputData<double> {
-    double __getitem__(unsigned int i) { return (*($self))[i]; }
-    double __setitem__(unsigned int i, double value)
-    {
-        (*($self))[i] = value;
-        return (*($self))[i];
-    }
-};
-
-%extend SimulationResult {
-    double __getitem__(unsigned int i) { return (*($self))[i]; }
-    double __setitem__(unsigned int i, double value)
-    {
-        (*($self))[i] = value;
-        return (*($self))[i];
-    }
-};
-
 // needed to prevent ownership problems with passed ISampleBuilder
 %extend Simulation {
     %pythoncode %{
@@ -287,34 +146,6 @@
              self.setSampleBuilderCpp(ptr)
     %}
  };
-
-// fancy names for ScanResolution static functions
-%pythoncode %{
-    def ScanRelativeResolution(distribution, rel_dev):
-        """
-        Creates a scan resolution from the given distribution and
-        relative deviation values (that is, the ratios of standard
-        deviations and means).
-        :param distribution: bornagain.RangedDistribution object
-        :param rel_dev: either single-valued or a numpy array.
-                        In the latter case should coinside in
-                        size with later used mean values array.
-        :return: bornagain.ScanResolution object
-        """
-        return ScanResolution_scanRelativeResolution(distribution, rel_dev)
-
-    def ScanAbsoluteResolution(distribution, std_dev):
-        """
-        Creates a scan resolution from the given distribution and
-        standard deviation values.
-        :param distribution: bornagain.RangedDistribution object
-        :param std_dev: either single-valued or a numpy array.
-                        In the latter case should coinside in
-                        size with later used mean values array.
-        :return: bornagain.ScanResolution object
-        """
-        return ScanResolution_scanAbsoluteResolution(distribution, std_dev)
-%}
 
 %pythoncode %{
 class SimulationBuilderWrapper(PyBuilderCallback):

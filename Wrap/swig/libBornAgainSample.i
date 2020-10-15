@@ -119,16 +119,8 @@
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 %}
 
-%import(module="libBornAgainBase") "Base/Types/Complex.h"
-%import(module="libBornAgainBase") "Base/Types/ICloneable.h"
-%import(module="libBornAgainBase") "Base/Vector/BasicVector3D.h"
-%import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
 %include "fromBase.i"
 
-%import(module="libBornAgainParam") "Param/Base/ParameterPool.h"
-%import(module="libBornAgainParam") "Param/Base/IParameterized.h"
-%import(module="libBornAgainParam") "Param/Node/INode.h"
-%import(module="libBornAgainParam") "Param/Distrib/ParameterDistribution.h"
 %include "fromParam.i"
 
 %newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);

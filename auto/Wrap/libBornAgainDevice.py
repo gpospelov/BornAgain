@@ -1678,4 +1678,4733 @@ class vector_pvacuum_double_t(object):
 # Register vector_pvacuum_double_t in _libBornAgainDevice:
 _libBornAgainDevice.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
 
+import libBornAgainFit
+import libBornAgainBase
+class kvector_t(object):
+    r"""Proxy of C++ BasicVector3D< double > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(kvector_t self) -> kvector_t
+        __init__(kvector_t self, double const x1, double const y1, double const z1) -> kvector_t
+        """
+        _libBornAgainDevice.kvector_t_swiginit(self, _libBornAgainDevice.new_kvector_t(*args))
+
+    def x(self):
+        r"""x(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_x(self)
+
+    def y(self):
+        r"""y(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_y(self)
+
+    def z(self):
+        r"""z(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_z(self)
+
+    def setX(self, a):
+        r"""setX(kvector_t self, double const & a)"""
+        return _libBornAgainDevice.kvector_t_setX(self, a)
+
+    def setY(self, a):
+        r"""setY(kvector_t self, double const & a)"""
+        return _libBornAgainDevice.kvector_t_setY(self, a)
+
+    def setZ(self, a):
+        r"""setZ(kvector_t self, double const & a)"""
+        return _libBornAgainDevice.kvector_t_setZ(self, a)
+
+    def __iadd__(self, v):
+        r"""__iadd__(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainDevice.kvector_t___iadd__(self, v)
+
+    def __isub__(self, v):
+        r"""__isub__(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainDevice.kvector_t___isub__(self, v)
+
+    def conj(self):
+        r"""conj(kvector_t self) -> kvector_t"""
+        return _libBornAgainDevice.kvector_t_conj(self)
+
+    def mag2(self):
+        r"""mag2(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_mag2(self)
+
+    def mag(self):
+        r"""mag(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_mag(self)
+
+    def magxy2(self):
+        r"""magxy2(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_magxy2(self)
+
+    def magxy(self):
+        r"""magxy(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_magxy(self)
+
+    def phi(self):
+        r"""phi(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_phi(self)
+
+    def theta(self):
+        r"""theta(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_theta(self)
+
+    def cosTheta(self):
+        r"""cosTheta(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_cosTheta(self)
+
+    def sin2Theta(self):
+        r"""sin2Theta(kvector_t self) -> double"""
+        return _libBornAgainDevice.kvector_t_sin2Theta(self)
+
+    def unit(self):
+        r"""unit(kvector_t self) -> kvector_t"""
+        return _libBornAgainDevice.kvector_t_unit(self)
+
+    def complex(self):
+        r"""complex(kvector_t self) -> cvector_t"""
+        return _libBornAgainDevice.kvector_t_complex(self)
+
+    def real(self):
+        r"""real(kvector_t self) -> kvector_t"""
+        return _libBornAgainDevice.kvector_t_real(self)
+
+    def angle(self, v):
+        r"""angle(kvector_t self, kvector_t v) -> double"""
+        return _libBornAgainDevice.kvector_t_angle(self, v)
+
+    def project(self, v):
+        r"""project(kvector_t self, kvector_t v) -> kvector_t"""
+        return _libBornAgainDevice.kvector_t_project(self, v)
+    __swig_destroy__ = _libBornAgainDevice.delete_kvector_t
+
+# Register kvector_t in _libBornAgainDevice:
+_libBornAgainDevice.kvector_t_swigregister(kvector_t)
+
+class vector_kvector_t(object):
+    r"""Proxy of C++ std::vector< BasicVector3D< double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_kvector_t self) -> SwigPyIterator"""
+        return _libBornAgainDevice.vector_kvector_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_kvector_t self) -> bool"""
+        return _libBornAgainDevice.vector_kvector_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_kvector_t self) -> bool"""
+        return _libBornAgainDevice.vector_kvector_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainDevice.vector_kvector_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j) -> vector_kvector_t"""
+        return _libBornAgainDevice.vector_kvector_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j, vector_kvector_t v)
+        """
+        return _libBornAgainDevice.vector_kvector_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)"""
+        return _libBornAgainDevice.vector_kvector_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i)
+        __delitem__(vector_kvector_t self, PySliceObject * slice)
+        """
+        return _libBornAgainDevice.vector_kvector_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_kvector_t self, PySliceObject * slice) -> vector_kvector_t
+        __getitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i) -> kvector_t
+        """
+        return _libBornAgainDevice.vector_kvector_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_kvector_t self, PySliceObject * slice, vector_kvector_t v)
+        __setitem__(vector_kvector_t self, PySliceObject * slice)
+        __setitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, kvector_t x)
+        """
+        return _libBornAgainDevice.vector_kvector_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainDevice.vector_kvector_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_kvector_t self, kvector_t x)"""
+        return _libBornAgainDevice.vector_kvector_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_kvector_t self) -> bool"""
+        return _libBornAgainDevice.vector_kvector_t_empty(self)
+
+    def size(self):
+        r"""size(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainDevice.vector_kvector_t_size(self)
+
+    def swap(self, v):
+        r"""
+        swap(vector_kvector_t self, vector_kvector_t v)
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainDevice.vector_kvector_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
+        return _libBornAgainDevice.vector_kvector_t_begin(self)
+
+    def end(self):
+        r"""end(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
+        return _libBornAgainDevice.vector_kvector_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
+        return _libBornAgainDevice.vector_kvector_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
+        return _libBornAgainDevice.vector_kvector_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_kvector_t self)"""
+        return _libBornAgainDevice.vector_kvector_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::allocator_type"""
+        return _libBornAgainDevice.vector_kvector_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_kvector_t self)"""
+        return _libBornAgainDevice.vector_kvector_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos) -> std::vector< BasicVector3D< double > >::iterator
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator first, std::vector< BasicVector3D< double > >::iterator last) -> std::vector< BasicVector3D< double > >::iterator
+        """
+        return _libBornAgainDevice.vector_kvector_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_kvector_t self) -> vector_kvector_t
+        __init__(vector_kvector_t self, vector_kvector_t other) -> vector_kvector_t
+        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size) -> vector_kvector_t
+        __init__(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type size, kvector_t value) -> vector_kvector_t
+        """
+        _libBornAgainDevice.vector_kvector_t_swiginit(self, _libBornAgainDevice.new_vector_kvector_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_kvector_t self, kvector_t x)"""
+        return _libBornAgainDevice.vector_kvector_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainDevice.vector_kvector_t_front(self)
+
+    def back(self):
+        r"""back(vector_kvector_t self) -> kvector_t"""
+        return _libBornAgainDevice.vector_kvector_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)"""
+        return _libBornAgainDevice.vector_kvector_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size)
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size, kvector_t x)
+        """
+        return _libBornAgainDevice.vector_kvector_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, kvector_t x) -> std::vector< BasicVector3D< double > >::iterator
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)
+        """
+        return _libBornAgainDevice.vector_kvector_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n)"""
+        return _libBornAgainDevice.vector_kvector_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
+        return _libBornAgainDevice.vector_kvector_t_capacity(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_vector_kvector_t
+
+# Register vector_kvector_t in _libBornAgainDevice:
+_libBornAgainDevice.vector_kvector_t_swigregister(vector_kvector_t)
+
+class cvector_t(object):
+    r"""Proxy of C++ BasicVector3D< std::complex< double > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(cvector_t self) -> cvector_t
+        __init__(cvector_t self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
+        """
+        _libBornAgainDevice.cvector_t_swiginit(self, _libBornAgainDevice.new_cvector_t(*args))
+
+    def x(self):
+        r"""x(cvector_t self) -> std::complex< double >"""
+        return _libBornAgainDevice.cvector_t_x(self)
+
+    def y(self):
+        r"""y(cvector_t self) -> std::complex< double >"""
+        return _libBornAgainDevice.cvector_t_y(self)
+
+    def z(self):
+        r"""z(cvector_t self) -> std::complex< double >"""
+        return _libBornAgainDevice.cvector_t_z(self)
+
+    def setX(self, a):
+        r"""setX(cvector_t self, std::complex< double > const & a)"""
+        return _libBornAgainDevice.cvector_t_setX(self, a)
+
+    def setY(self, a):
+        r"""setY(cvector_t self, std::complex< double > const & a)"""
+        return _libBornAgainDevice.cvector_t_setY(self, a)
+
+    def setZ(self, a):
+        r"""setZ(cvector_t self, std::complex< double > const & a)"""
+        return _libBornAgainDevice.cvector_t_setZ(self, a)
+
+    def __iadd__(self, v):
+        r"""__iadd__(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainDevice.cvector_t___iadd__(self, v)
+
+    def __isub__(self, v):
+        r"""__isub__(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainDevice.cvector_t___isub__(self, v)
+
+    def conj(self):
+        r"""conj(cvector_t self) -> cvector_t"""
+        return _libBornAgainDevice.cvector_t_conj(self)
+
+    def mag2(self):
+        r"""mag2(cvector_t self) -> double"""
+        return _libBornAgainDevice.cvector_t_mag2(self)
+
+    def mag(self):
+        r"""mag(cvector_t self) -> double"""
+        return _libBornAgainDevice.cvector_t_mag(self)
+
+    def magxy2(self):
+        r"""magxy2(cvector_t self) -> double"""
+        return _libBornAgainDevice.cvector_t_magxy2(self)
+
+    def magxy(self):
+        r"""magxy(cvector_t self) -> double"""
+        return _libBornAgainDevice.cvector_t_magxy(self)
+
+    def unit(self):
+        r"""unit(cvector_t self) -> cvector_t"""
+        return _libBornAgainDevice.cvector_t_unit(self)
+
+    def real(self):
+        r"""real(cvector_t self) -> kvector_t"""
+        return _libBornAgainDevice.cvector_t_real(self)
+
+    def project(self, v):
+        r"""project(cvector_t self, cvector_t v) -> cvector_t"""
+        return _libBornAgainDevice.cvector_t_project(self, v)
+    __swig_destroy__ = _libBornAgainDevice.delete_cvector_t
+
+# Register cvector_t in _libBornAgainDevice:
+_libBornAgainDevice.cvector_t_swigregister(cvector_t)
+
+class vector_cvector_t(object):
+    r"""Proxy of C++ std::vector< BasicVector3D< std::complex< double > > > class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        r"""iterator(vector_cvector_t self) -> SwigPyIterator"""
+        return _libBornAgainDevice.vector_cvector_t_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        r"""__nonzero__(vector_cvector_t self) -> bool"""
+        return _libBornAgainDevice.vector_cvector_t___nonzero__(self)
+
+    def __bool__(self):
+        r"""__bool__(vector_cvector_t self) -> bool"""
+        return _libBornAgainDevice.vector_cvector_t___bool__(self)
+
+    def __len__(self):
+        r"""__len__(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainDevice.vector_cvector_t___len__(self)
+
+    def __getslice__(self, i, j):
+        r"""__getslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j) -> vector_cvector_t"""
+        return _libBornAgainDevice.vector_cvector_t___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        r"""
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j, vector_cvector_t v)
+        """
+        return _libBornAgainDevice.vector_cvector_t___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        r"""__delslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)"""
+        return _libBornAgainDevice.vector_cvector_t___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        r"""
+        __delitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i)
+        __delitem__(vector_cvector_t self, PySliceObject * slice)
+        """
+        return _libBornAgainDevice.vector_cvector_t___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        r"""
+        __getitem__(vector_cvector_t self, PySliceObject * slice) -> vector_cvector_t
+        __getitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i) -> cvector_t
+        """
+        return _libBornAgainDevice.vector_cvector_t___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        r"""
+        __setitem__(vector_cvector_t self, PySliceObject * slice, vector_cvector_t v)
+        __setitem__(vector_cvector_t self, PySliceObject * slice)
+        __setitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, cvector_t x)
+        """
+        return _libBornAgainDevice.vector_cvector_t___setitem__(self, *args)
+
+    def pop(self):
+        r"""pop(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainDevice.vector_cvector_t_pop(self)
+
+    def append(self, x):
+        r"""append(vector_cvector_t self, cvector_t x)"""
+        return _libBornAgainDevice.vector_cvector_t_append(self, x)
+
+    def empty(self):
+        r"""empty(vector_cvector_t self) -> bool"""
+        return _libBornAgainDevice.vector_cvector_t_empty(self)
+
+    def size(self):
+        r"""size(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainDevice.vector_cvector_t_size(self)
+
+    def swap(self, v):
+        r"""
+        swap(vector_cvector_t self, vector_cvector_t v)
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainDevice.vector_cvector_t_swap(self, v)
+
+    def begin(self):
+        r"""begin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
+        return _libBornAgainDevice.vector_cvector_t_begin(self)
+
+    def end(self):
+        r"""end(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
+        return _libBornAgainDevice.vector_cvector_t_end(self)
+
+    def rbegin(self):
+        r"""rbegin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        return _libBornAgainDevice.vector_cvector_t_rbegin(self)
+
+    def rend(self):
+        r"""rend(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        return _libBornAgainDevice.vector_cvector_t_rend(self)
+
+    def clear(self):
+        r"""clear(vector_cvector_t self)"""
+        return _libBornAgainDevice.vector_cvector_t_clear(self)
+
+    def get_allocator(self):
+        r"""get_allocator(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::allocator_type"""
+        return _libBornAgainDevice.vector_cvector_t_get_allocator(self)
+
+    def pop_back(self):
+        r"""pop_back(vector_cvector_t self)"""
+        return _libBornAgainDevice.vector_cvector_t_pop_back(self)
+
+    def erase(self, *args):
+        r"""
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator first, std::vector< BasicVector3D< std::complex< double > > >::iterator last) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        """
+        return _libBornAgainDevice.vector_cvector_t_erase(self, *args)
+
+    def __init__(self, *args):
+        r"""
+        __init__(vector_cvector_t self) -> vector_cvector_t
+        __init__(vector_cvector_t self, vector_cvector_t other) -> vector_cvector_t
+        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size) -> vector_cvector_t
+        __init__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type size, cvector_t value) -> vector_cvector_t
+        """
+        _libBornAgainDevice.vector_cvector_t_swiginit(self, _libBornAgainDevice.new_vector_cvector_t(*args))
+
+    def push_back(self, x):
+        r"""push_back(vector_cvector_t self, cvector_t x)"""
+        return _libBornAgainDevice.vector_cvector_t_push_back(self, x)
+
+    def front(self):
+        r"""front(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainDevice.vector_cvector_t_front(self)
+
+    def back(self):
+        r"""back(vector_cvector_t self) -> cvector_t"""
+        return _libBornAgainDevice.vector_cvector_t_back(self)
+
+    def assign(self, n, x):
+        r"""assign(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)"""
+        return _libBornAgainDevice.vector_cvector_t_assign(self, n, x)
+
+    def resize(self, *args):
+        r"""
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size)
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size, cvector_t x)
+        """
+        return _libBornAgainDevice.vector_cvector_t_resize(self, *args)
+
+    def insert(self, *args):
+        r"""
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, cvector_t x) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)
+        """
+        return _libBornAgainDevice.vector_cvector_t_insert(self, *args)
+
+    def reserve(self, n):
+        r"""reserve(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n)"""
+        return _libBornAgainDevice.vector_cvector_t_reserve(self, n)
+
+    def capacity(self):
+        r"""capacity(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
+        return _libBornAgainDevice.vector_cvector_t_capacity(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_vector_cvector_t
+
+# Register vector_cvector_t in _libBornAgainDevice:
+_libBornAgainDevice.vector_cvector_t_swigregister(vector_cvector_t)
+
+import libBornAgainParam
+class IntensityData(object):
+    r"""
+
+
+    Template class to store data of any type in multi-dimensional space.
+
+    C++ includes: OutputData.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(IntensityData self) -> IntensityData
+        OutputData< T >::OutputData(const OutputData &)=delete
+
+        """
+        _libBornAgainDevice.IntensityData_swiginit(self, _libBornAgainDevice.new_IntensityData())
+    __swig_destroy__ = _libBornAgainDevice.delete_IntensityData
+
+    def clone(self):
+        r"""
+        clone(IntensityData self) -> IntensityData
+        OutputData< T > * OutputData< T >::clone() const
+
+        """
+        return _libBornAgainDevice.IntensityData_clone(self)
+
+    def copyFrom(self, x):
+        r"""
+        copyFrom(IntensityData self, IntensityData x)
+        void OutputData< T >::copyFrom(const OutputData< T > &x)
+
+        """
+        return _libBornAgainDevice.IntensityData_copyFrom(self, x)
+
+    def meanValues(self):
+        r"""
+        meanValues(IntensityData self) -> IntensityData
+        OutputData< double > * OutputData< T >::meanValues() const
+
+        """
+        return _libBornAgainDevice.IntensityData_meanValues(self)
+
+    def addAxis(self, *args):
+        r"""
+        addAxis(IntensityData self, IAxis new_axis)
+        addAxis(IntensityData self, std::string const & name, size_t size, double start, double end)
+        void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)
+
+        """
+        return _libBornAgainDevice.IntensityData_addAxis(self, *args)
+
+    def getAxis(self, *args):
+        r"""
+        getAxis(IntensityData self, size_t serial_number) -> IAxis
+        getAxis(IntensityData self, std::string const & axis_name) -> IAxis
+        const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
+
+        returns axis with given name 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAxis(self, *args)
+
+    def getRank(self):
+        r"""
+        getRank(IntensityData self) -> size_t
+        size_t OutputData< T >::getRank() const
+
+        Returns number of dimensions. 
+
+        """
+        return _libBornAgainDevice.IntensityData_getRank(self)
+
+    def getAllocatedSize(self):
+        r"""
+        getAllocatedSize(IntensityData self) -> size_t
+        size_t OutputData< T >::getAllocatedSize() const
+
+        Returns total size of data buffer (product of bin number in every dimension). 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAllocatedSize(self)
+
+    def getAllSizes(self):
+        r"""
+        getAllSizes(IntensityData self) -> std::vector< size_t,std::allocator< size_t > >
+        std::vector< size_t > OutputData< T >::getAllSizes() const
+
+        Returns all sizes of its axes. 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAllSizes(self)
+
+    def getRawDataVector(self):
+        r"""
+        getRawDataVector(IntensityData self) -> vdouble1d_t
+        std::vector< T > OutputData< T >::getRawDataVector() const
+
+        Returns copy of raw data vector. 
+
+        """
+        return _libBornAgainDevice.IntensityData_getRawDataVector(self)
+
+    def totalSum(self):
+        r"""
+        totalSum(IntensityData self) -> double
+        T OutputData< T >::totalSum() const
+
+        Returns sum of all values in the data structure. 
+
+        """
+        return _libBornAgainDevice.IntensityData_totalSum(self)
+
+    def begin(self, *args):
+        r"""
+        begin(IntensityData self) -> OutputData< double >::iterator
+        begin(IntensityData self) -> OutputData< double >::const_iterator
+        OutputData< T >::const_iterator OutputData< T >::begin() const
+
+        Returns read-only iterator that points to the first element. 
+
+        """
+        return _libBornAgainDevice.IntensityData_begin(self, *args)
+
+    def end(self, *args):
+        r"""
+        end(IntensityData self) -> OutputData< double >::iterator
+        end(IntensityData self) -> OutputData< double >::const_iterator
+        const_iterator OutputData< T >::end() const
+
+        Returns read-only iterator that points to the one past last element. 
+
+        """
+        return _libBornAgainDevice.IntensityData_end(self, *args)
+
+    def getAxesBinIndices(self, global_index):
+        r"""
+        getAxesBinIndices(IntensityData self, size_t global_index) -> vector_integer_t
+        std::vector< int > OutputData< T >::getAxesBinIndices(size_t global_index) const
+
+        Returns vector of axes indices for given global index
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        Vector of bin indices for all axes defined 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAxesBinIndices(self, global_index)
+
+    def getAxisBinIndex(self, *args):
+        r"""
+        getAxisBinIndex(IntensityData self, size_t global_index, size_t i_selected_axis) -> size_t
+        getAxisBinIndex(IntensityData self, size_t global_index, std::string const & axis_name) -> size_t
+        size_t OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
+
+        Returns axis bin index for given global index
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        axis_name: 
+        The name of selected axis.
+
+        Corresponding bin index for selected axis 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAxisBinIndex(self, *args)
+
+    def toGlobalIndex(self, axes_indices):
+        r"""
+        toGlobalIndex(IntensityData self, std::vector< unsigned int,std::allocator< unsigned int > > const & axes_indices) -> size_t
+        size_t OutputData< T >::toGlobalIndex(const std::vector< unsigned > &axes_indices) const
+
+        Returns global index for specified indices of axes
+
+        Parameters:
+        -----------
+
+        axes_indices: 
+        Vector of axes indices for all specified axes in this dataset
+
+        Corresponding global index 
+
+        """
+        return _libBornAgainDevice.IntensityData_toGlobalIndex(self, axes_indices)
+
+    def findGlobalIndex(self, coordinates):
+        r"""
+        findGlobalIndex(IntensityData self, vdouble1d_t coordinates) -> size_t
+        size_t OutputData< T >::findGlobalIndex(const std::vector< double > &coordinates) const
+
+        Returns global index for specified axes values
+
+        Parameters:
+        -----------
+
+        coordinates: 
+        Vector of axes coordinates for all specified axes in this dataset
+
+        Closest global index 
+
+        """
+        return _libBornAgainDevice.IntensityData_findGlobalIndex(self, coordinates)
+
+    def getAxisValue(self, *args):
+        r"""
+        getAxisValue(IntensityData self, size_t global_index, size_t i_selected_axis) -> double
+        getAxisValue(IntensityData self, size_t global_index, std::string const & axis_name) -> double
+        double OutputData< T >::getAxisValue(size_t global_index, const std::string &axis_name) const
+
+        Returns the value of selected axis for given global_index.
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        axis_name: 
+        The name of selected axis.
+
+        corresponding bin center of selected axis 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAxisValue(self, *args)
+
+    def getAxesValues(self, global_index):
+        r"""
+        getAxesValues(IntensityData self, size_t global_index) -> vdouble1d_t
+        std::vector< double > OutputData< T >::getAxesValues(size_t global_index) const
+
+        Returns values on all defined axes for given globalbin number
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        Vector of corresponding bin centers 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAxesValues(self, global_index)
+
+    def getAxisBin(self, *args):
+        r"""
+        getAxisBin(IntensityData self, size_t global_index, size_t i_selected_axis) -> Bin1D
+        getAxisBin(IntensityData self, size_t global_index, std::string const & axis_name) -> Bin1D
+        Bin1D OutputData< T >::getAxisBin(size_t global_index, const std::string &axis_name) const
+
+        Returns bin of selected axis for given global_index.
+
+        Parameters:
+        -----------
+
+        global_index: 
+        The global index of this data structure.
+
+        axis_name: 
+        The name of selected axis.
+
+        Corresponding Bin1D object 
+
+        """
+        return _libBornAgainDevice.IntensityData_getAxisBin(self, *args)
+
+    def clear(self):
+        r"""
+        clear(IntensityData self)
+        void OutputData< T >::clear()
+
+        Sets object into initial state (no dimensions, data) 
+
+        """
+        return _libBornAgainDevice.IntensityData_clear(self)
+
+    def setAllTo(self, value):
+        r"""
+        setAllTo(IntensityData self, double const & value)
+        void OutputData< T >::setAllTo(const T &value)
+
+        Sets content of output data to specific value. 
+
+        """
+        return _libBornAgainDevice.IntensityData_setAllTo(self, value)
+
+    def scaleAll(self, factor):
+        r"""
+        scaleAll(IntensityData self, double const & factor)
+        void OutputData< T >::scaleAll(const T &factor)
+
+        multiply every item of this output data by value 
+
+        """
+        return _libBornAgainDevice.IntensityData_scaleAll(self, factor)
+
+    def setAxisSizes(self, rank, n_dims):
+        r"""
+        setAxisSizes(IntensityData self, size_t rank, int * n_dims)
+        void OutputData< T >::setAxisSizes(size_t rank, int *n_dims)
+
+        Adds 'rank' axes with indicated sizes. 
+
+        """
+        return _libBornAgainDevice.IntensityData_setAxisSizes(self, rank, n_dims)
+
+    def setRawDataVector(self, data_vector):
+        r"""
+        setRawDataVector(IntensityData self, vdouble1d_t data_vector)
+        void OutputData< T >::setRawDataVector(const std::vector< T > &data_vector)
+
+        Sets new values to raw data vector. 
+
+        """
+        return _libBornAgainDevice.IntensityData_setRawDataVector(self, data_vector)
+
+    def setRawDataArray(self, source):
+        r"""
+        setRawDataArray(IntensityData self, double const * source)
+        void OutputData< T >::setRawDataArray(const T *source)
+
+        Sets new values to raw data array. 
+
+        """
+        return _libBornAgainDevice.IntensityData_setRawDataArray(self, source)
+
+    def __iadd__(self, right):
+        r"""__iadd__(IntensityData self, IntensityData right) -> IntensityData"""
+        return _libBornAgainDevice.IntensityData___iadd__(self, right)
+
+    def __isub__(self, right):
+        r"""__isub__(IntensityData self, IntensityData right) -> IntensityData"""
+        return _libBornAgainDevice.IntensityData___isub__(self, right)
+
+    def __itruediv__(self, *args):
+        return _libBornAgainDevice.IntensityData___itruediv__(self, *args)
+    __idiv__ = __itruediv__
+
+
+
+    def __imul__(self, right):
+        r"""__imul__(IntensityData self, IntensityData right) -> IntensityData"""
+        return _libBornAgainDevice.IntensityData___imul__(self, right)
+
+    def getValue(self, index):
+        r"""
+        getValue(IntensityData self, size_t index) -> double
+        double OutputData< double >::getValue(size_t index) const
+
+        """
+        return _libBornAgainDevice.IntensityData_getValue(self, index)
+
+    def getArray(self):
+        r"""
+        getArray(IntensityData self) -> PyObject *
+        PyObject * OutputData< double >::getArray() const
+
+        returns data as Python numpy array 
+
+        """
+        return _libBornAgainDevice.IntensityData_getArray(self)
+
+    def isInitialized(self):
+        r"""
+        isInitialized(IntensityData self) -> bool
+        bool OutputData< T >::isInitialized() const
+
+        returns true if object is correctly initialized 
+
+        """
+        return _libBornAgainDevice.IntensityData_isInitialized(self)
+
+    def allocate(self):
+        r"""
+        allocate(IntensityData self)
+        void OutputData< T >::allocate()
+
+        memory allocation for current dimensions configuration 
+
+        """
+        return _libBornAgainDevice.IntensityData_allocate(self)
+
+    def __getitem__(self, i):
+        r"""__getitem__(IntensityData self, unsigned int i) -> double"""
+        return _libBornAgainDevice.IntensityData___getitem__(self, i)
+
+    def __setitem__(self, i, value):
+        r"""__setitem__(IntensityData self, unsigned int i, double value) -> double"""
+        return _libBornAgainDevice.IntensityData___setitem__(self, i, value)
+
+# Register IntensityData in _libBornAgainDevice:
+_libBornAgainDevice.IntensityData_swigregister(IntensityData)
+
+class Beam(libBornAgainParam.INode):
+    r"""
+
+
+    Beam defined by wavelength, direction and intensity.
+
+    C++ includes: Beam.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Beam self, double wavelength, double alpha, double phi, double intensity) -> Beam
+        __init__(Beam self, Beam other) -> Beam
+        Beam::Beam(const Beam &other)
+
+        """
+        _libBornAgainDevice.Beam_swiginit(self, _libBornAgainDevice.new_Beam(*args))
+    __swig_destroy__ = _libBornAgainDevice.delete_Beam
+
+    @staticmethod
+    def horizontalBeam():
+        r"""horizontalBeam() -> Beam"""
+        return _libBornAgainDevice.Beam_horizontalBeam()
+
+    def getCentralK(self):
+        r"""
+        getCentralK(Beam self) -> kvector_t
+        kvector_t Beam::getCentralK() const
+
+        Returns the wavevector. 
+
+        """
+        return _libBornAgainDevice.Beam_getCentralK(self)
+
+    def setCentralK(self, wavelength, alpha_i, phi_i):
+        r"""
+        setCentralK(Beam self, double wavelength, double alpha_i, double phi_i)
+        void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
+
+        Sets the wavevector in terms of wavelength and incoming angles. 
+
+        """
+        return _libBornAgainDevice.Beam_setCentralK(self, wavelength, alpha_i, phi_i)
+
+    def getIntensity(self):
+        r"""
+        getIntensity(Beam self) -> double
+        double Beam::getIntensity() const
+
+        Returns the beam intensity in neutrons/sec. 
+
+        """
+        return _libBornAgainDevice.Beam_getIntensity(self)
+
+    def setIntensity(self, intensity):
+        r"""
+        setIntensity(Beam self, double intensity)
+        void Beam::setIntensity(double intensity)
+
+        Sets the beam intensity in neutrons/sec. 
+
+        """
+        return _libBornAgainDevice.Beam_setIntensity(self, intensity)
+
+    def footprintFactor(self):
+        r"""
+        footprintFactor(Beam self) -> IFootprintFactor
+        const IFootprintFactor * Beam::footprintFactor() const
+
+        Returns footprint factor. 
+
+        """
+        return _libBornAgainDevice.Beam_footprintFactor(self)
+
+    def setFootprintFactor(self, shape_factor):
+        r"""
+        setFootprintFactor(Beam self, IFootprintFactor shape_factor)
+        void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
+
+        Sets footprint factor to the beam. 
+
+        """
+        return _libBornAgainDevice.Beam_setFootprintFactor(self, shape_factor)
+
+    def setWidthRatio(self, width_ratio):
+        r"""
+        setWidthRatio(Beam self, double width_ratio)
+        void Beam::setWidthRatio(double width_ratio)
+
+        Sets beam to sample width ratio in footprint factor. 
+
+        """
+        return _libBornAgainDevice.Beam_setWidthRatio(self, width_ratio)
+
+    def setPolarization(self, bloch_vector):
+        r"""
+        setPolarization(Beam self, kvector_t bloch_vector)
+        void Beam::setPolarization(const kvector_t bloch_vector)
+
+        Sets the polarization density matrix according to the given Bloch vector. 
+
+        """
+        return _libBornAgainDevice.Beam_setPolarization(self, bloch_vector)
+
+    def getBlochVector(self):
+        r"""
+        getBlochVector(Beam self) -> kvector_t
+        kvector_t Beam::getBlochVector() const
+
+        """
+        return _libBornAgainDevice.Beam_getBlochVector(self)
+
+    def getWavelength(self):
+        r"""
+        getWavelength(Beam self) -> double
+        double Beam::getWavelength() const
+
+        """
+        return _libBornAgainDevice.Beam_getWavelength(self)
+
+    def getAlpha(self):
+        r"""
+        getAlpha(Beam self) -> double
+        double Beam::getAlpha() const
+
+        """
+        return _libBornAgainDevice.Beam_getAlpha(self)
+
+    def getPhi(self):
+        r"""
+        getPhi(Beam self) -> double
+        double Beam::getPhi() const
+
+        """
+        return _libBornAgainDevice.Beam_getPhi(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(Beam self, INodeVisitor * visitor)
+        void Beam::accept(INodeVisitor *visitor) const override
+
+        """
+        return _libBornAgainDevice.Beam_accept(self, visitor)
+
+    def getChildren(self):
+        r"""
+        getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >
+        std::vector< const INode * > Beam::getChildren() const override
+
+        """
+        return _libBornAgainDevice.Beam_getChildren(self)
+
+# Register Beam in _libBornAgainDevice:
+_libBornAgainDevice.Beam_swigregister(Beam)
+
+def Beam_horizontalBeam():
+    r"""Beam_horizontalBeam() -> Beam"""
+    return _libBornAgainDevice.Beam_horizontalBeam()
+
+class IFootprintFactor(libBornAgainBase.ICloneable, libBornAgainParam.INode):
+    r"""
+
+
+    Abstract base for classes that calculate the beam footprint factor
+
+    C++ includes: IFootprintFactor.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_IFootprintFactor
+
+    def clone(self):
+        r"""
+        clone(IFootprintFactor self) -> IFootprintFactor
+        virtual IFootprintFactor* IFootprintFactor::clone() const =0
+
+        """
+        return _libBornAgainDevice.IFootprintFactor_clone(self)
+
+    def setWidthRatio(self, width_ratio):
+        r"""
+        setWidthRatio(IFootprintFactor self, double width_ratio)
+        void IFootprintFactor::setWidthRatio(double width_ratio)
+
+        """
+        return _libBornAgainDevice.IFootprintFactor_setWidthRatio(self, width_ratio)
+
+    def widthRatio(self):
+        r"""
+        widthRatio(IFootprintFactor self) -> double
+        double IFootprintFactor::widthRatio() const
+
+        """
+        return _libBornAgainDevice.IFootprintFactor_widthRatio(self)
+
+    def calculate(self, alpha):
+        r"""
+        calculate(IFootprintFactor self, double alpha) -> double
+        virtual double IFootprintFactor::calculate(double alpha) const =0
+
+        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+
+        """
+        return _libBornAgainDevice.IFootprintFactor_calculate(self, alpha)
+
+    def _print(self):
+        r"""
+        _print(IFootprintFactor self) -> std::string
+        virtual std::string IFootprintFactor::print() const =0
+
+        Print python-formatted footprint definition. 
+
+        """
+        return _libBornAgainDevice.IFootprintFactor__print(self)
+
+# Register IFootprintFactor in _libBornAgainDevice:
+_libBornAgainDevice.IFootprintFactor_swigregister(IFootprintFactor)
+
+class FootprintGauss(IFootprintFactor):
+    r"""
+
+
+    Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\[ \\exp{-1/2} \\] from the peak intensity.
+
+    C++ includes: FootprintGauss.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FootprintGauss self, vdouble1d_t P) -> FootprintGauss
+        __init__(FootprintGauss self, double width_ratio) -> FootprintGauss
+        FootprintGauss::FootprintGauss(double width_ratio)
+
+        """
+        _libBornAgainDevice.FootprintGauss_swiginit(self, _libBornAgainDevice.new_FootprintGauss(*args))
+
+    def accept(self, visitor):
+        r"""
+        accept(FootprintGauss self, INodeVisitor * visitor)
+        void FootprintGauss::accept(INodeVisitor *visitor) const override
+
+        """
+        return _libBornAgainDevice.FootprintGauss_accept(self, visitor)
+
+    def clone(self):
+        r"""
+        clone(FootprintGauss self) -> FootprintGauss
+        FootprintGauss * FootprintGauss::clone() const override
+
+        """
+        return _libBornAgainDevice.FootprintGauss_clone(self)
+
+    def calculate(self, alpha):
+        r"""
+        calculate(FootprintGauss self, double alpha) -> double
+        double FootprintGauss::calculate(double alpha) const override
+
+        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+
+        """
+        return _libBornAgainDevice.FootprintGauss_calculate(self, alpha)
+
+    def _print(self):
+        r"""
+        _print(FootprintGauss self) -> std::string
+        std::string FootprintGauss::print() const override
+
+        Print python-formatted footprint definition. 
+
+        """
+        return _libBornAgainDevice.FootprintGauss__print(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_FootprintGauss
+
+# Register FootprintGauss in _libBornAgainDevice:
+_libBornAgainDevice.FootprintGauss_swigregister(FootprintGauss)
+
+class FootprintSquare(IFootprintFactor):
+    r"""
+
+
+    Calculates footprint coefficient for a square beam
+
+    C++ includes: FootprintSquare.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(FootprintSquare self, vdouble1d_t P) -> FootprintSquare
+        __init__(FootprintSquare self, double width_ratio) -> FootprintSquare
+        FootprintSquare::FootprintSquare(double width_ratio)
+
+        """
+        _libBornAgainDevice.FootprintSquare_swiginit(self, _libBornAgainDevice.new_FootprintSquare(*args))
+
+    def accept(self, visitor):
+        r"""
+        accept(FootprintSquare self, INodeVisitor * visitor)
+        void FootprintSquare::accept(INodeVisitor *visitor) const override
+
+        """
+        return _libBornAgainDevice.FootprintSquare_accept(self, visitor)
+
+    def clone(self):
+        r"""
+        clone(FootprintSquare self) -> FootprintSquare
+        FootprintSquare * FootprintSquare::clone() const override
+
+        """
+        return _libBornAgainDevice.FootprintSquare_clone(self)
+
+    def calculate(self, alpha):
+        r"""
+        calculate(FootprintSquare self, double alpha) -> double
+        double FootprintSquare::calculate(double alpha) const override
+
+        Calculate footprint correction coefficient from the beam incident angle  alpha. 
+
+        """
+        return _libBornAgainDevice.FootprintSquare_calculate(self, alpha)
+
+    def _print(self):
+        r"""
+        _print(FootprintSquare self) -> std::string
+        std::string FootprintSquare::print() const override
+
+        Print python-formatted footprint definition. 
+
+        """
+        return _libBornAgainDevice.FootprintSquare__print(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_FootprintSquare
+
+# Register FootprintSquare in _libBornAgainDevice:
+_libBornAgainDevice.FootprintSquare_swigregister(FootprintSquare)
+
+class IIntensityFunction(object):
+    r"""
+
+
+    Interface for applying arbitrary function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_IIntensityFunction
+
+    def clone(self):
+        r"""
+        clone(IIntensityFunction self) -> IIntensityFunction
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
+
+        """
+        return _libBornAgainDevice.IIntensityFunction_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IIntensityFunction self, double value) -> double
+        virtual double IIntensityFunction::evaluate(double value) const =0
+
+        """
+        return _libBornAgainDevice.IIntensityFunction_evaluate(self, value)
+
+# Register IIntensityFunction in _libBornAgainDevice:
+_libBornAgainDevice.IIntensityFunction_swigregister(IIntensityFunction)
+
+class IntensityFunctionLog(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying log function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionLog self) -> IntensityFunctionLog
+        IntensityFunctionLog * IntensityFunctionLog::clone() const
+
+        """
+        return _libBornAgainDevice.IntensityFunctionLog_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionLog self, double value) -> double
+        double IntensityFunctionLog::evaluate(double value) const
+
+        """
+        return _libBornAgainDevice.IntensityFunctionLog_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
+
+
+        Algorithm for applying log function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainDevice.IntensityFunctionLog_swiginit(self, _libBornAgainDevice.new_IntensityFunctionLog())
+    __swig_destroy__ = _libBornAgainDevice.delete_IntensityFunctionLog
+
+# Register IntensityFunctionLog in _libBornAgainDevice:
+_libBornAgainDevice.IntensityFunctionLog_swigregister(IntensityFunctionLog)
+
+class IntensityFunctionSqrt(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying sqrt function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
+
+        """
+        return _libBornAgainDevice.IntensityFunctionSqrt_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionSqrt self, double value) -> double
+        double IntensityFunctionSqrt::evaluate(double value) const
+
+        """
+        return _libBornAgainDevice.IntensityFunctionSqrt_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+
+        Algorithm for applying sqrt function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainDevice.IntensityFunctionSqrt_swiginit(self, _libBornAgainDevice.new_IntensityFunctionSqrt())
+    __swig_destroy__ = _libBornAgainDevice.delete_IntensityFunctionSqrt
+
+# Register IntensityFunctionSqrt in _libBornAgainDevice:
+_libBornAgainDevice.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
+
+class IShape2D(libBornAgainBase.ICloneable):
+    r"""
+
+
+    Basic class for all shapes in 2D.
+
+    C++ includes: IShape2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IShape2D self) -> IShape2D
+        virtual IShape2D* IShape2D::clone() const =0
+
+        """
+        return _libBornAgainDevice.IShape2D_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(IShape2D self, double x, double y) -> bool
+        contains(IShape2D self, Bin1D const & binx, Bin1D const & biny) -> bool
+        virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainDevice.IShape2D_contains(self, *args)
+    __swig_destroy__ = _libBornAgainDevice.delete_IShape2D
+
+# Register IShape2D in _libBornAgainDevice:
+_libBornAgainDevice.IShape2D_swigregister(IShape2D)
+
+class Ellipse(IShape2D):
+    r"""
+
+
+    Ellipse shape.
+
+    C++ includes: Ellipse.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, xcenter, ycenter, xradius, yradius, theta=0.0):
+        r"""
+        __init__(Ellipse self, double xcenter, double ycenter, double xradius, double yradius, double theta=0.0) -> Ellipse
+        Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta=0.0)
+
+        Parameters:
+        -----------
+
+        xcenter: 
+        x-coordinate of  Ellipse's center
+
+        ycenter: 
+        y-coordinate of  Ellipse's center
+
+        xradius: 
+        Radius along x-axis
+
+        yradius: 
+        Radius along y-axis
+
+        theta: 
+        Angle of  Ellipse rotation in radians 
+
+        """
+        _libBornAgainDevice.Ellipse_swiginit(self, _libBornAgainDevice.new_Ellipse(xcenter, ycenter, xradius, yradius, theta))
+
+    def clone(self):
+        r"""
+        clone(Ellipse self) -> Ellipse
+        Ellipse* Ellipse::clone() const
+
+        """
+        return _libBornAgainDevice.Ellipse_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Ellipse self, double x, double y) -> bool
+        contains(Ellipse self, Bin1D const & binx, Bin1D const & biny) -> bool
+        bool Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
+
+        """
+        return _libBornAgainDevice.Ellipse_contains(self, *args)
+
+    def getCenterX(self):
+        r"""
+        getCenterX(Ellipse self) -> double
+        double Ellipse::getCenterX() const
+
+        """
+        return _libBornAgainDevice.Ellipse_getCenterX(self)
+
+    def getCenterY(self):
+        r"""
+        getCenterY(Ellipse self) -> double
+        double Ellipse::getCenterY() const
+
+        """
+        return _libBornAgainDevice.Ellipse_getCenterY(self)
+
+    def getRadiusX(self):
+        r"""
+        getRadiusX(Ellipse self) -> double
+        double Ellipse::getRadiusX() const
+
+        """
+        return _libBornAgainDevice.Ellipse_getRadiusX(self)
+
+    def getRadiusY(self):
+        r"""
+        getRadiusY(Ellipse self) -> double
+        double Ellipse::getRadiusY() const
+
+        """
+        return _libBornAgainDevice.Ellipse_getRadiusY(self)
+
+    def getTheta(self):
+        r"""
+        getTheta(Ellipse self) -> double
+        double Ellipse::getTheta() const
+
+        """
+        return _libBornAgainDevice.Ellipse_getTheta(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_Ellipse
+
+# Register Ellipse in _libBornAgainDevice:
+_libBornAgainDevice.Ellipse_swigregister(Ellipse)
+
+class Line(IShape2D):
+    r"""
+
+
+    A line segment.
+
+    C++ includes: Line.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, x1, y1, x2, y2):
+        r"""
+        __init__(Line self, double x1, double y1, double x2, double y2) -> Line
+        Line::Line(double x1, double y1, double x2, double y2)
+
+        """
+        _libBornAgainDevice.Line_swiginit(self, _libBornAgainDevice.new_Line(x1, y1, x2, y2))
+
+    def clone(self):
+        r"""
+        clone(Line self) -> Line
+        Line* Line::clone() const
+
+        """
+        return _libBornAgainDevice.Line_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Line self, double x, double y) -> bool
+        contains(Line self, Bin1D const & binx, Bin1D const & biny) -> bool
+        bool Line::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainDevice.Line_contains(self, *args)
+    __swig_destroy__ = _libBornAgainDevice.delete_Line
+
+# Register Line in _libBornAgainDevice:
+_libBornAgainDevice.Line_swigregister(Line)
+
+class VerticalLine(IShape2D):
+    r"""
+
+
+    An infinite vertical line.
+
+    C++ includes: Line.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, x):
+        r"""
+        __init__(VerticalLine self, double x) -> VerticalLine
+        VerticalLine::VerticalLine(double x)
+
+        Parameters:
+        -----------
+
+        x: 
+        The value at which it crosses x-axes 
+
+        """
+        _libBornAgainDevice.VerticalLine_swiginit(self, _libBornAgainDevice.new_VerticalLine(x))
+
+    def clone(self):
+        r"""
+        clone(VerticalLine self) -> VerticalLine
+        VerticalLine* VerticalLine::clone() const
+
+        """
+        return _libBornAgainDevice.VerticalLine_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(VerticalLine self, double x, double y) -> bool
+        contains(VerticalLine self, Bin1D const & binx, Bin1D const & biny) -> bool
+        bool VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainDevice.VerticalLine_contains(self, *args)
+
+    def getXpos(self):
+        r"""
+        getXpos(VerticalLine self) -> double
+        double VerticalLine::getXpos() const
+
+        """
+        return _libBornAgainDevice.VerticalLine_getXpos(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_VerticalLine
+
+# Register VerticalLine in _libBornAgainDevice:
+_libBornAgainDevice.VerticalLine_swigregister(VerticalLine)
+
+class HorizontalLine(IShape2D):
+    r"""
+
+
+    An infinite horizontal line.
+
+    C++ includes: Line.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, y):
+        r"""
+        __init__(HorizontalLine self, double y) -> HorizontalLine
+        HorizontalLine::HorizontalLine(double y)
+
+        Parameters:
+        -----------
+
+        y: 
+        The value at which it crosses y-axes 
+
+        """
+        _libBornAgainDevice.HorizontalLine_swiginit(self, _libBornAgainDevice.new_HorizontalLine(y))
+
+    def clone(self):
+        r"""
+        clone(HorizontalLine self) -> HorizontalLine
+        HorizontalLine* HorizontalLine::clone() const
+
+        """
+        return _libBornAgainDevice.HorizontalLine_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(HorizontalLine self, double x, double y) -> bool
+        contains(HorizontalLine self, Bin1D const & binx, Bin1D const & biny) -> bool
+        bool HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainDevice.HorizontalLine_contains(self, *args)
+
+    def getYpos(self):
+        r"""
+        getYpos(HorizontalLine self) -> double
+        double HorizontalLine::getYpos() const
+
+        """
+        return _libBornAgainDevice.HorizontalLine_getYpos(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_HorizontalLine
+
+# Register HorizontalLine in _libBornAgainDevice:
+_libBornAgainDevice.HorizontalLine_swigregister(HorizontalLine)
+
+class Polygon(IShape2D):
+    r"""
+
+
+    A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+
+    C++ includes: Polygon.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Polygon self, vdouble1d_t x, vdouble1d_t y) -> Polygon
+        __init__(Polygon self, vdouble2d_t points) -> Polygon
+        __init__(Polygon self, PolygonPrivate const * d) -> Polygon
+        Polygon::Polygon(const PolygonPrivate *d)
+
+        """
+        _libBornAgainDevice.Polygon_swiginit(self, _libBornAgainDevice.new_Polygon(*args))
+    __swig_destroy__ = _libBornAgainDevice.delete_Polygon
+
+    def clone(self):
+        r"""
+        clone(Polygon self) -> Polygon
+        virtual Polygon* Polygon::clone() const
+
+        """
+        return _libBornAgainDevice.Polygon_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Polygon self, double x, double y) -> bool
+        contains(Polygon self, Bin1D const & binx, Bin1D const & biny) -> bool
+        bool Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainDevice.Polygon_contains(self, *args)
+
+    def getArea(self):
+        r"""
+        getArea(Polygon self) -> double
+        double Polygon::getArea() const
+
+        """
+        return _libBornAgainDevice.Polygon_getArea(self)
+
+    def getPoints(self, xpos, ypos):
+        r"""
+        getPoints(Polygon self, vdouble1d_t xpos, vdouble1d_t ypos)
+        void Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const
+
+        """
+        return _libBornAgainDevice.Polygon_getPoints(self, xpos, ypos)
+
+# Register Polygon in _libBornAgainDevice:
+_libBornAgainDevice.Polygon_swigregister(Polygon)
+
+class Rectangle(IShape2D):
+    r"""
+
+
+    The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
+
+    C++ includes: Rectangle.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, xlow, ylow, xup, yup):
+        r"""
+        __init__(Rectangle self, double xlow, double ylow, double xup, double yup) -> Rectangle
+        Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
+
+        Parameters:
+        -----------
+
+        xlow: 
+        x-coordinate of lower left corner
+
+        ylow: 
+        y-coordinate of lower left corner
+
+        xup: 
+        x-coordinate of upper right corner
+
+        yup: 
+        y-coordinate of upper right corner 
+
+        """
+        _libBornAgainDevice.Rectangle_swiginit(self, _libBornAgainDevice.new_Rectangle(xlow, ylow, xup, yup))
+
+    def clone(self):
+        r"""
+        clone(Rectangle self) -> Rectangle
+        Rectangle* Rectangle::clone() const
+
+        """
+        return _libBornAgainDevice.Rectangle_clone(self)
+
+    def contains(self, *args):
+        r"""
+        contains(Rectangle self, double x, double y) -> bool
+        contains(Rectangle self, Bin1D const & binx, Bin1D const & biny) -> bool
+        bool Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
+
+        Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+
+        """
+        return _libBornAgainDevice.Rectangle_contains(self, *args)
+
+    def getArea(self):
+        r"""
+        getArea(Rectangle self) -> double
+        double Rectangle::getArea() const
+
+        """
+        return _libBornAgainDevice.Rectangle_getArea(self)
+
+    def getXlow(self):
+        r"""
+        getXlow(Rectangle self) -> double
+        double Rectangle::getXlow() const
+
+        """
+        return _libBornAgainDevice.Rectangle_getXlow(self)
+
+    def getYlow(self):
+        r"""
+        getYlow(Rectangle self) -> double
+        double Rectangle::getYlow() const
+
+        """
+        return _libBornAgainDevice.Rectangle_getYlow(self)
+
+    def getXup(self):
+        r"""
+        getXup(Rectangle self) -> double
+        double Rectangle::getXup() const
+
+        """
+        return _libBornAgainDevice.Rectangle_getXup(self)
+
+    def getYup(self):
+        r"""
+        getYup(Rectangle self) -> double
+        double Rectangle::getYup() const
+
+        """
+        return _libBornAgainDevice.Rectangle_getYup(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_Rectangle
+
+# Register Rectangle in _libBornAgainDevice:
+_libBornAgainDevice.Rectangle_swigregister(Rectangle)
+
+class IDetectorResolution(libBornAgainBase.ICloneable, libBornAgainParam.INode):
+    r"""
+
+
+    Interface for detector resolution algorithms
+
+    C++ includes: IDetectorResolution.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_IDetectorResolution
+
+    def applyDetectorResolution(self, p_intensity_map):
+        r"""
+        applyDetectorResolution(IDetectorResolution self, IntensityData p_intensity_map)
+        virtual void IDetectorResolution::applyDetectorResolution(OutputData< double > *p_intensity_map) const =0
+
+        Apply the resolution function to the intensity data. 
+
+        """
+        return _libBornAgainDevice.IDetectorResolution_applyDetectorResolution(self, p_intensity_map)
+
+    def clone(self):
+        r"""
+        clone(IDetectorResolution self) -> IDetectorResolution
+        virtual IDetectorResolution* IDetectorResolution::clone() const =0
+
+        """
+        return _libBornAgainDevice.IDetectorResolution_clone(self)
+
+# Register IDetectorResolution in _libBornAgainDevice:
+_libBornAgainDevice.IDetectorResolution_swigregister(IDetectorResolution)
+
+class IResolutionFunction2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
+    r"""
+
+
+    Interface providing two-dimensional resolution function.
+
+    C++ includes: IResolutionFunction2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_IResolutionFunction2D
+
+    def evaluateCDF(self, x, y):
+        r"""
+        evaluateCDF(IResolutionFunction2D self, double x, double y) -> double
+        virtual double IResolutionFunction2D::evaluateCDF(double x, double y) const =0
+
+        """
+        return _libBornAgainDevice.IResolutionFunction2D_evaluateCDF(self, x, y)
+
+    def clone(self):
+        r"""
+        clone(IResolutionFunction2D self) -> IResolutionFunction2D
+        virtual IResolutionFunction2D* IResolutionFunction2D::clone() const =0
+
+        """
+        return _libBornAgainDevice.IResolutionFunction2D_clone(self)
+
+# Register IResolutionFunction2D in _libBornAgainDevice:
+_libBornAgainDevice.IResolutionFunction2D_swigregister(IResolutionFunction2D)
+
+class ResolutionFunction2DGaussian(IResolutionFunction2D):
+    r"""
+
+
+    Simple gaussian two-dimensional resolution function.
+
+    C++ includes: ResolutionFunction2DGaussian.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, sigma_x, sigma_y):
+        r"""
+        __init__(ResolutionFunction2DGaussian self, double sigma_x, double sigma_y) -> ResolutionFunction2DGaussian
+        ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
+
+        """
+        _libBornAgainDevice.ResolutionFunction2DGaussian_swiginit(self, _libBornAgainDevice.new_ResolutionFunction2DGaussian(sigma_x, sigma_y))
+
+    def evaluateCDF(self, x, y):
+        r"""
+        evaluateCDF(ResolutionFunction2DGaussian self, double x, double y) -> double
+        double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
+
+        """
+        return _libBornAgainDevice.ResolutionFunction2DGaussian_evaluateCDF(self, x, y)
+
+    def clone(self):
+        r"""
+        clone(ResolutionFunction2DGaussian self) -> ResolutionFunction2DGaussian
+        ResolutionFunction2DGaussian* ResolutionFunction2DGaussian::clone() const
+
+        """
+        return _libBornAgainDevice.ResolutionFunction2DGaussian_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(ResolutionFunction2DGaussian self, INodeVisitor * visitor)
+        void ResolutionFunction2DGaussian::accept(INodeVisitor *visitor) const final
+
+        """
+        return _libBornAgainDevice.ResolutionFunction2DGaussian_accept(self, visitor)
+
+    def getSigmaX(self):
+        r"""
+        getSigmaX(ResolutionFunction2DGaussian self) -> double
+        double ResolutionFunction2DGaussian::getSigmaX() const
+
+        """
+        return _libBornAgainDevice.ResolutionFunction2DGaussian_getSigmaX(self)
+
+    def getSigmaY(self):
+        r"""
+        getSigmaY(ResolutionFunction2DGaussian self) -> double
+        double ResolutionFunction2DGaussian::getSigmaY() const
+
+        """
+        return _libBornAgainDevice.ResolutionFunction2DGaussian_getSigmaY(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_ResolutionFunction2DGaussian
+
+# Register ResolutionFunction2DGaussian in _libBornAgainDevice:
+_libBornAgainDevice.ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
+
+class ScanResolution(libBornAgainBase.ICloneable):
+    r"""
+
+
+    Container for reflectivity resolution data.
+
+    C++ includes: ScanResolution.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_ScanResolution
+
+    @staticmethod
+    def scanRelativeResolution(*args):
+        r"""
+        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainDevice.ScanResolution_scanRelativeResolution(*args)
+
+    @staticmethod
+    def scanAbsoluteResolution(*args):
+        r"""
+        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
+
+# Register ScanResolution in _libBornAgainDevice:
+_libBornAgainDevice.ScanResolution_swigregister(ScanResolution)
+
+def ScanResolution_scanRelativeResolution(*args):
+    r"""
+    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainDevice.ScanResolution_scanRelativeResolution(*args)
+
+def ScanResolution_scanAbsoluteResolution(*args):
+    r"""
+    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
+
+class IChiSquaredModule(libBornAgainBase.ICloneable):
+    r"""
+
+
+    Interface residual calculations.
+
+    C++ includes: IChiSquaredModule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_IChiSquaredModule
+
+    def clone(self):
+        r"""
+        clone(IChiSquaredModule self) -> IChiSquaredModule
+        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
+
+        clone method 
+
+        """
+        return _libBornAgainDevice.IChiSquaredModule_clone(self)
+
+    def varianceFunction(self):
+        r"""
+        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
+        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
+
+        Returns squared function. 
+
+        """
+        return _libBornAgainDevice.IChiSquaredModule_varianceFunction(self)
+
+    def setVarianceFunction(self, variance_function):
+        r"""
+        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
+        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
+
+        Sets squared function. 
+
+        """
+        return _libBornAgainDevice.IChiSquaredModule_setVarianceFunction(self, variance_function)
+
+    def getIntensityFunction(self):
+        r"""
+        getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
+        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
+
+        Returns data rescaler. 
+
+        """
+        return _libBornAgainDevice.IChiSquaredModule_getIntensityFunction(self)
+
+    def setIntensityFunction(self, intensity_function):
+        r"""
+        setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)
+        void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+
+        Sets data rescaler. 
+
+        """
+        return _libBornAgainDevice.IChiSquaredModule_setIntensityFunction(self, intensity_function)
+
+    def residual(self, a, b, weight):
+        r"""
+        residual(IChiSquaredModule self, double a, double b, double weight) -> double
+        virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
+
+        """
+        return _libBornAgainDevice.IChiSquaredModule_residual(self, a, b, weight)
+
+# Register IChiSquaredModule in _libBornAgainDevice:
+_libBornAgainDevice.IChiSquaredModule_swigregister(IChiSquaredModule)
+
+class ChiSquaredModule(IChiSquaredModule):
+    r"""
+
+
+    Calculation of chi2 between two data sets.
+
+    C++ includes: ChiSquaredModule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ChiSquaredModule self) -> ChiSquaredModule
+        __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
+        ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
+
+        """
+        _libBornAgainDevice.ChiSquaredModule_swiginit(self, _libBornAgainDevice.new_ChiSquaredModule(*args))
+    __swig_destroy__ = _libBornAgainDevice.delete_ChiSquaredModule
+
+    def clone(self):
+        r"""
+        clone(ChiSquaredModule self) -> ChiSquaredModule
+        virtual ChiSquaredModule* ChiSquaredModule::clone() const
+
+        clone method 
+
+        """
+        return _libBornAgainDevice.ChiSquaredModule_clone(self)
+
+    def residual(self, a, b, weight):
+        r"""
+        residual(ChiSquaredModule self, double a, double b, double weight) -> double
+        double ChiSquaredModule::residual(double a, double b, double weight)
+
+        """
+        return _libBornAgainDevice.ChiSquaredModule_residual(self, a, b, weight)
+
+# Register ChiSquaredModule in _libBornAgainDevice:
+_libBornAgainDevice.ChiSquaredModule_swigregister(ChiSquaredModule)
+
+class Instrument(libBornAgainParam.INode):
+    r"""
+
+
+    Assembles beam, detector and their relative positions with respect to the sample.
+
+    C++ includes: Instrument.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Instrument self) -> Instrument
+        __init__(Instrument self, Instrument other) -> Instrument
+        Instrument::Instrument(const Instrument &other)
+
+        """
+        _libBornAgainDevice.Instrument_swiginit(self, _libBornAgainDevice.new_Instrument(*args))
+    __swig_destroy__ = _libBornAgainDevice.delete_Instrument
+
+    def accept(self, visitor):
+        r"""
+        accept(Instrument self, INodeVisitor * visitor)
+        void Instrument::accept(INodeVisitor *visitor) const final
+
+        """
+        return _libBornAgainDevice.Instrument_accept(self, visitor)
+
+    def getBeam(self, *args):
+        r"""
+        getBeam(Instrument self) -> Beam
+        getBeam(Instrument self) -> Beam
+        const Beam& Instrument::getBeam() const
+
+        """
+        return _libBornAgainDevice.Instrument_getBeam(self, *args)
+
+    def setBeam(self, beam):
+        r"""
+        setBeam(Instrument self, Beam beam)
+        void Instrument::setBeam(const Beam &beam)
+
+        """
+        return _libBornAgainDevice.Instrument_setBeam(self, beam)
+
+    def setBeamParameters(self, wavelength, alpha_i, phi_i):
+        r"""
+        setBeamParameters(Instrument self, double wavelength, double alpha_i, double phi_i)
+        void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
+
+        Sets the beam wavelength and incoming angles. 
+
+        """
+        return _libBornAgainDevice.Instrument_setBeamParameters(self, wavelength, alpha_i, phi_i)
+
+    def setBeamIntensity(self, intensity):
+        r"""
+        setBeamIntensity(Instrument self, double intensity)
+        void Instrument::setBeamIntensity(double intensity)
+
+        """
+        return _libBornAgainDevice.Instrument_setBeamIntensity(self, intensity)
+
+    def setBeamPolarization(self, bloch_vector):
+        r"""
+        setBeamPolarization(Instrument self, kvector_t bloch_vector)
+        void Instrument::setBeamPolarization(const kvector_t bloch_vector)
+
+        Sets the beam's polarization according to the given Bloch vector. 
+
+        """
+        return _libBornAgainDevice.Instrument_setBeamPolarization(self, bloch_vector)
+
+    def getBeamIntensity(self):
+        r"""
+        getBeamIntensity(Instrument self) -> double
+        double Instrument::getBeamIntensity() const
+
+        """
+        return _libBornAgainDevice.Instrument_getBeamIntensity(self)
+
+    def getDetector(self):
+        r"""
+        getDetector(Instrument self) -> IDetector
+        const IDetector * Instrument::getDetector() const
+
+        """
+        return _libBornAgainDevice.Instrument_getDetector(self)
+
+    def detector(self, *args):
+        r"""
+        detector(Instrument self) -> IDetector
+        detector(Instrument self) -> IDetector
+        const IDetector & Instrument::detector() const
+
+        """
+        return _libBornAgainDevice.Instrument_detector(self, *args)
+
+    def detector2D(self, *args):
+        r"""
+        detector2D(Instrument self) -> IDetector2D
+        detector2D(Instrument self) -> IDetector2D
+        const IDetector2D & Instrument::detector2D() const
+
+        """
+        return _libBornAgainDevice.Instrument_detector2D(self, *args)
+
+    def getDetectorMask(self):
+        r"""
+        getDetectorMask(Instrument self) -> DetectorMask
+        const DetectorMask * Instrument::getDetectorMask() const
+
+        """
+        return _libBornAgainDevice.Instrument_getDetectorMask(self)
+
+    def getDetectorAxis(self, index):
+        r"""
+        getDetectorAxis(Instrument self, size_t index) -> IAxis
+        const IAxis & Instrument::getDetectorAxis(size_t index) const
+
+        """
+        return _libBornAgainDevice.Instrument_getDetectorAxis(self, index)
+
+    def getDetectorDimension(self):
+        r"""
+        getDetectorDimension(Instrument self) -> size_t
+        size_t Instrument::getDetectorDimension() const
+
+        """
+        return _libBornAgainDevice.Instrument_getDetectorDimension(self)
+
+    def setDetector(self, detector):
+        r"""
+        setDetector(Instrument self, IDetector detector)
+        void Instrument::setDetector(const IDetector &detector)
+
+        Sets the detector (axes can be overwritten later) 
+
+        """
+        return _libBornAgainDevice.Instrument_setDetector(self, detector)
+
+    def setDetectorResolutionFunction(self, p_resolution_function):
+        r"""
+        setDetectorResolutionFunction(Instrument self, IResolutionFunction2D p_resolution_function)
+        void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
+
+        Sets detector resolution function. 
+
+        """
+        return _libBornAgainDevice.Instrument_setDetectorResolutionFunction(self, p_resolution_function)
+
+    def removeDetectorResolution(self):
+        r"""
+        removeDetectorResolution(Instrument self)
+        void Instrument::removeDetectorResolution()
+
+        Removes detector resolution function. 
+
+        """
+        return _libBornAgainDevice.Instrument_removeDetectorResolution(self)
+
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
+        r"""
+        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
+        void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+        Sets the polarization analyzer characteristics of the detector. 
+
+        """
+        return _libBornAgainDevice.Instrument_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+    def applyDetectorResolution(self, p_intensity_map):
+        r"""
+        applyDetectorResolution(Instrument self, IntensityData p_intensity_map)
+        void Instrument::applyDetectorResolution(OutputData< double > *p_intensity_map) const
+
+        apply the detector resolution to the given intensity map 
+
+        """
+        return _libBornAgainDevice.Instrument_applyDetectorResolution(self, p_intensity_map)
+
+    def initDetector(self):
+        r"""
+        initDetector(Instrument self)
+        void Instrument::initDetector()
+
+        init detector with beam settings 
+
+        """
+        return _libBornAgainDevice.Instrument_initDetector(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(Instrument self) -> std::vector< INode const *,std::allocator< INode const * > >
+        std::vector< const INode * > Instrument::getChildren() const
+
+        """
+        return _libBornAgainDevice.Instrument_getChildren(self)
+
+# Register Instrument in _libBornAgainDevice:
+_libBornAgainDevice.Instrument_swigregister(Instrument)
+
+
+def RelativeDifference(dat, ref):
+    r"""
+    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
+    double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
+
+    """
+    return _libBornAgainDevice.RelativeDifference(dat, ref)
+
+def checkRelativeDifference(dat, ref, threshold):
+    r"""
+    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
+    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+    Returns true is relative difference is below threshold; prints informative output. 
+
+    """
+    return _libBornAgainDevice.checkRelativeDifference(dat, ref, threshold)
+
+def getRelativeDifference(*args):
+    r"""
+    getRelativeDifference(IntensityData dat, IntensityData ref) -> double
+    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+
+    """
+    return _libBornAgainDevice.getRelativeDifference(*args)
+
+def coordinateToBinf(*args):
+    r"""
+    coordinateToBinf(double coordinate, IAxis axis) -> double
+    coordinateToBinf(double & x, double & y, IntensityData data)
+    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
+
+    """
+    return _libBornAgainDevice.coordinateToBinf(*args)
+
+def coordinateFromBinf(*args):
+    r"""
+    coordinateFromBinf(double value, IAxis axis) -> double
+    coordinateFromBinf(double & x, double & y, IntensityData data)
+    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
+
+    """
+    return _libBornAgainDevice.coordinateFromBinf(*args)
+
+def create2DArrayfromOutputData(data):
+    r"""
+    create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t
+    std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
+
+    Creates a vector of vectors of double (2D Array) from  OutputData. 
+
+    """
+    return _libBornAgainDevice.create2DArrayfromOutputData(data)
+
+def FT2DArray(signal):
+    r"""
+    FT2DArray(vdouble2d_t signal) -> vdouble2d_t
+    std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
+
+    Creates a Fourier Transform of a 2D Array (vector of vectors). 
+
+    """
+    return _libBornAgainDevice.FT2DArray(signal)
+
+def importArrayToOutputData(*args):
+    r"""
+    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
+    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
+    OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
+
+    for importing 2D array of doubles from python into  OutputData
+
+    """
+    return _libBornAgainDevice.importArrayToOutputData(*args)
+
+def FindPeaks(*args):
+    r"""
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t
+    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+    """
+    return _libBornAgainDevice.FindPeaks(*args)
+class IVarianceFunction(object):
+    r"""
+
+
+    Variance function interface.
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_IVarianceFunction
+
+    def clone(self):
+        r"""
+        clone(IVarianceFunction self) -> IVarianceFunction
+        virtual IVarianceFunction* IVarianceFunction::clone() const =0
+
+        """
+        return _libBornAgainDevice.IVarianceFunction_clone(self)
+
+    def variance(self, real_value, simulated_value):
+        r"""
+        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
+        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
+
+        """
+        return _libBornAgainDevice.IVarianceFunction_variance(self, real_value, simulated_value)
+
+# Register IVarianceFunction in _libBornAgainDevice:
+_libBornAgainDevice.IVarianceFunction_swigregister(IVarianceFunction)
+
+class VarianceConstantFunction(IVarianceFunction):
+    r"""
+
+
+    Returns 1.0 as variance value
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(VarianceConstantFunction self) -> VarianceConstantFunction
+        VarianceConstantFunction * VarianceConstantFunction::clone() const override
+
+        """
+        return _libBornAgainDevice.VarianceConstantFunction_clone(self)
+
+    def variance(self, arg2, arg3):
+        r"""
+        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
+        double VarianceConstantFunction::variance(double, double) const override
+
+        """
+        return _libBornAgainDevice.VarianceConstantFunction_variance(self, arg2, arg3)
+
+    def __init__(self):
+        r"""
+        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
+
+
+        Returns 1.0 as variance value
+
+        C++ includes: VarianceFunctions.h
+
+        """
+        _libBornAgainDevice.VarianceConstantFunction_swiginit(self, _libBornAgainDevice.new_VarianceConstantFunction())
+    __swig_destroy__ = _libBornAgainDevice.delete_VarianceConstantFunction
+
+# Register VarianceConstantFunction in _libBornAgainDevice:
+_libBornAgainDevice.VarianceConstantFunction_swigregister(VarianceConstantFunction)
+
+class VarianceSimFunction(IVarianceFunction):
+    r"""
+
+
+    Returns max(sim, epsilon)
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, epsilon=1.0):
+        r"""
+        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
+        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+
+        """
+        _libBornAgainDevice.VarianceSimFunction_swiginit(self, _libBornAgainDevice.new_VarianceSimFunction(epsilon))
+
+    def clone(self):
+        r"""
+        clone(VarianceSimFunction self) -> VarianceSimFunction
+        VarianceSimFunction * VarianceSimFunction::clone() const override
+
+        """
+        return _libBornAgainDevice.VarianceSimFunction_clone(self)
+
+    def variance(self, exp, sim):
+        r"""
+        variance(VarianceSimFunction self, double exp, double sim) -> double
+        double VarianceSimFunction::variance(double exp, double sim) const override
+
+        """
+        return _libBornAgainDevice.VarianceSimFunction_variance(self, exp, sim)
+    __swig_destroy__ = _libBornAgainDevice.delete_VarianceSimFunction
+
+# Register VarianceSimFunction in _libBornAgainDevice:
+_libBornAgainDevice.VarianceSimFunction_swigregister(VarianceSimFunction)
+
+class ISpecularScan(libBornAgainBase.ICloneable):
+    r"""
+
+
+    Base abstract class for all types of specular scans.
+
+    C++ includes: ISpecularScan.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    angle = _libBornAgainDevice.ISpecularScan_angle
+    
+    q = _libBornAgainDevice.ISpecularScan_q
+    
+    __swig_destroy__ = _libBornAgainDevice.delete_ISpecularScan
+
+    def clone(self):
+        r"""
+        clone(ISpecularScan self) -> ISpecularScan
+        ISpecularScan* ISpecularScan::clone() const override=0
+
+        """
+        return _libBornAgainDevice.ISpecularScan_clone(self)
+
+    def dataType(self):
+        r"""
+        dataType(ISpecularScan self) -> ISpecularScan::SPECULAR_DATA_TYPE
+        SPECULAR_DATA_TYPE ISpecularScan::dataType() const
+
+        """
+        return _libBornAgainDevice.ISpecularScan_dataType(self)
+
+# Register ISpecularScan in _libBornAgainDevice:
+_libBornAgainDevice.ISpecularScan_swigregister(ISpecularScan)
+
+class AngularSpecScan(ISpecularScan):
+    r"""
+
+
+    Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
+
+    C++ includes: AngularSpecScan.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
+        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+
+        """
+        _libBornAgainDevice.AngularSpecScan_swiginit(self, _libBornAgainDevice.new_AngularSpecScan(*args))
+    __swig_destroy__ = _libBornAgainDevice.delete_AngularSpecScan
+
+    def clone(self):
+        r"""
+        clone(AngularSpecScan self) -> AngularSpecScan
+        AngularSpecScan * AngularSpecScan::clone() const override
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_clone(self)
+
+    def setFootprintFactor(self, f_factor):
+        r"""
+        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
+        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+        Sets footprint correction factor. 
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_setFootprintFactor(self, f_factor)
+
+    def setWavelengthResolution(self, resolution):
+        r"""
+        setWavelengthResolution(AngularSpecScan self, ScanResolution resolution)
+        void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
+
+        Sets wavelength resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_setWavelengthResolution(self, resolution)
+
+    def setRelativeWavelengthResolution(self, *args):
+        r"""
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets wavelength resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
+
+    def setAbsoluteWavelengthResolution(self, *args):
+        r"""
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets wavelength resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
+
+    def setAngleResolution(self, resolution):
+        r"""
+        setAngleResolution(AngularSpecScan self, ScanResolution resolution)
+        void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+        Sets angle resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_setAngleResolution(self, resolution)
+
+    def setRelativeAngularResolution(self, *args):
+        r"""
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets angular resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_setRelativeAngularResolution(self, *args)
+
+    def setAbsoluteAngularResolution(self, *args):
+        r"""
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets angular resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainDevice.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
+
+# Register AngularSpecScan in _libBornAgainDevice:
+_libBornAgainDevice.AngularSpecScan_swigregister(AngularSpecScan)
+
+class QSpecScan(ISpecularScan):
+    r"""
+
+
+    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+    C++ includes: QSpecScan.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
+        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
+        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
+        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+
+        """
+        _libBornAgainDevice.QSpecScan_swiginit(self, _libBornAgainDevice.new_QSpecScan(*args))
+    __swig_destroy__ = _libBornAgainDevice.delete_QSpecScan
+
+    def clone(self):
+        r"""
+        clone(QSpecScan self) -> QSpecScan
+        QSpecScan * QSpecScan::clone() const override
+
+        """
+        return _libBornAgainDevice.QSpecScan_clone(self)
+
+    def setQResolution(self, resolution):
+        r"""
+        setQResolution(QSpecScan self, ScanResolution resolution)
+        void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+        Sets q resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainDevice.QSpecScan_setQResolution(self, resolution)
+
+    def setRelativeQResolution(self, *args):
+        r"""
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets qz resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainDevice.QSpecScan_setRelativeQResolution(self, *args)
+
+    def setAbsoluteQResolution(self, *args):
+        r"""
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets qz resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainDevice.QSpecScan_setAbsoluteQResolution(self, *args)
+
+# Register QSpecScan in _libBornAgainDevice:
+_libBornAgainDevice.QSpecScan_swigregister(QSpecScan)
+
+class Axes(object):
+    r"""
+
+
+    Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainDevice.Axes_DEFAULT
+    
+    NBINS = _libBornAgainDevice.Axes_NBINS
+    
+    RADIANS = _libBornAgainDevice.Axes_RADIANS
+    
+    DEGREES = _libBornAgainDevice.Axes_DEGREES
+    
+    MM = _libBornAgainDevice.Axes_MM
+    
+    QSPACE = _libBornAgainDevice.Axes_QSPACE
+    
+    QXQY = _libBornAgainDevice.Axes_QXQY
+    
+    RQ4 = _libBornAgainDevice.Axes_RQ4
+    
+
+    def __init__(self):
+        r"""
+        __init__(Axes self) -> Axes
+
+
+        Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+        C++ includes: IUnitConverter.h
+
+        """
+        _libBornAgainDevice.Axes_swiginit(self, _libBornAgainDevice.new_Axes())
+    __swig_destroy__ = _libBornAgainDevice.delete_Axes
+
+# Register Axes in _libBornAgainDevice:
+_libBornAgainDevice.Axes_swigregister(Axes)
+
+class IUnitConverter(libBornAgainBase.ICloneable):
+    r"""
+
+
+    Interface to provide axis translations to different units for simulation output
+
+    C++ includes: IUnitConverter.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainDevice.delete_IUnitConverter
+
+    def clone(self):
+        r"""
+        clone(IUnitConverter self) -> IUnitConverter
+        virtual IUnitConverter* IUnitConverter::clone() const =0
+
+        """
+        return _libBornAgainDevice.IUnitConverter_clone(self)
+
+    def dimension(self):
+        r"""
+        dimension(IUnitConverter self) -> size_t
+        virtual size_t IUnitConverter::dimension() const =0
+
+        """
+        return _libBornAgainDevice.IUnitConverter_dimension(self)
+
+    def calculateMin(self, i_axis, units_type):
+        r"""
+        calculateMin(IUnitConverter self, size_t i_axis, Axes::Units units_type) -> double
+        virtual double IUnitConverter::calculateMin(size_t i_axis, Axes::Units units_type) const =0
+
+        """
+        return _libBornAgainDevice.IUnitConverter_calculateMin(self, i_axis, units_type)
+
+    def calculateMax(self, i_axis, units_type):
+        r"""
+        calculateMax(IUnitConverter self, size_t i_axis, Axes::Units units_type) -> double
+        virtual double IUnitConverter::calculateMax(size_t i_axis, Axes::Units units_type) const =0
+
+        """
+        return _libBornAgainDevice.IUnitConverter_calculateMax(self, i_axis, units_type)
+
+    def axisSize(self, i_axis):
+        r"""
+        axisSize(IUnitConverter self, size_t i_axis) -> size_t
+        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
+
+        """
+        return _libBornAgainDevice.IUnitConverter_axisSize(self, i_axis)
+
+    def axisName(self, *args):
+        r"""
+        axisName(IUnitConverter self, size_t i_axis, Axes::Units units_type=Axes::Units::DEFAULT) -> std::string
+        std::string IUnitConverter::axisName(size_t i_axis, Axes::Units units_type=Axes::Units::DEFAULT) const
+
+        """
+        return _libBornAgainDevice.IUnitConverter_axisName(self, *args)
+
+    def availableUnits(self):
+        r"""
+        availableUnits(IUnitConverter self) -> std::vector< Axes::Units,std::allocator< Axes::Units > >
+        virtual std::vector<Axes::Units> IUnitConverter::availableUnits() const =0
+
+        """
+        return _libBornAgainDevice.IUnitConverter_availableUnits(self)
+
+    def defaultUnits(self):
+        r"""
+        defaultUnits(IUnitConverter self) -> Axes::Units
+        virtual Axes::Units IUnitConverter::defaultUnits() const =0
+
+        """
+        return _libBornAgainDevice.IUnitConverter_defaultUnits(self)
+
+    def substituteDefaultUnits(self, units):
+        r"""
+        substituteDefaultUnits(IUnitConverter self, Axes::Units units) -> Axes::Units
+        Axes::Units IUnitConverter::substituteDefaultUnits(Axes::Units units) const
+
+        """
+        return _libBornAgainDevice.IUnitConverter_substituteDefaultUnits(self, units)
+
+# Register IUnitConverter in _libBornAgainDevice:
+_libBornAgainDevice.IUnitConverter_swigregister(IUnitConverter)
+cvar = _libBornAgainDevice.cvar
+axisUnitName = cvar.axisUnitName
+axisUnitLabel = cvar.axisUnitLabel
+
+class DetectorMask(object):
+    r"""
+
+
+    Collection of detector masks.
+
+    C++ includes: DetectorMask.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(DetectorMask self) -> DetectorMask
+        __init__(DetectorMask self, DetectorMask other) -> DetectorMask
+        DetectorMask::DetectorMask(const DetectorMask &other)
+
+        """
+        _libBornAgainDevice.DetectorMask_swiginit(self, _libBornAgainDevice.new_DetectorMask(*args))
+
+    def addMask(self, shape, mask_value):
+        r"""
+        addMask(DetectorMask self, IShape2D shape, bool mask_value)
+        void DetectorMask::addMask(const IShape2D &shape, bool mask_value)
+
+        Add mask to the stack of detector masks. The value "true" means that the area will be excluded from the analysis.
+
+        Parameters:
+        -----------
+
+        shape: 
+        The shape of mask.
+
+        mask_value: 
+        The value of mask 
+
+        """
+        return _libBornAgainDevice.DetectorMask_addMask(self, shape, mask_value)
+
+    def initMaskData(self, *args):
+        r"""
+        initMaskData(DetectorMask self, IDetector2D detector)
+        initMaskData(DetectorMask self, IntensityData data)
+        void DetectorMask::initMaskData(const OutputData< double > &data)
+
+        """
+        return _libBornAgainDevice.DetectorMask_initMaskData(self, *args)
+
+    def isMasked(self, index):
+        r"""
+        isMasked(DetectorMask self, size_t index) -> bool
+        bool DetectorMask::isMasked(size_t index) const
+
+        """
+        return _libBornAgainDevice.DetectorMask_isMasked(self, index)
+
+    def getMaskData(self):
+        r"""
+        getMaskData(DetectorMask self) -> OutputData< bool > const *
+        const OutputData<bool>* DetectorMask::getMaskData() const
+
+        """
+        return _libBornAgainDevice.DetectorMask_getMaskData(self)
+
+    def createHistogram(self):
+        r"""
+        createHistogram(DetectorMask self) -> Histogram2D
+        Histogram2D * DetectorMask::createHistogram() const
+
+        """
+        return _libBornAgainDevice.DetectorMask_createHistogram(self)
+
+    def removeMasks(self):
+        r"""
+        removeMasks(DetectorMask self)
+        void DetectorMask::removeMasks()
+
+        remove all masks and return object to initial state 
+
+        """
+        return _libBornAgainDevice.DetectorMask_removeMasks(self)
+
+    def hasMasks(self):
+        r"""
+        hasMasks(DetectorMask self) -> bool
+        bool DetectorMask::hasMasks() const
+
+        returns true if has masks 
+
+        """
+        return _libBornAgainDevice.DetectorMask_hasMasks(self)
+
+    def numberOfMaskedChannels(self):
+        r"""
+        numberOfMaskedChannels(DetectorMask self) -> int
+        int DetectorMask::numberOfMaskedChannels() const
+
+        """
+        return _libBornAgainDevice.DetectorMask_numberOfMaskedChannels(self)
+
+    def numberOfMasks(self):
+        r"""
+        numberOfMasks(DetectorMask self) -> size_t
+        size_t DetectorMask::numberOfMasks() const
+
+        """
+        return _libBornAgainDevice.DetectorMask_numberOfMasks(self)
+
+    def getMaskShape(self, mask_index, mask_value):
+        r"""
+        getMaskShape(DetectorMask self, size_t mask_index, bool & mask_value) -> IShape2D
+        const IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
+
+        """
+        return _libBornAgainDevice.DetectorMask_getMaskShape(self, mask_index, mask_value)
+    __swig_destroy__ = _libBornAgainDevice.delete_DetectorMask
+
+# Register DetectorMask in _libBornAgainDevice:
+_libBornAgainDevice.DetectorMask_swigregister(DetectorMask)
+
+class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
+    r"""
+
+
+    Abstract detector interface.
+
+    C++ includes: IDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IDetector self) -> IDetector
+        IDetector* IDetector::clone() const override=0
+
+        """
+        return _libBornAgainDevice.IDetector_clone(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_IDetector
+
+    def init(self, arg2):
+        r"""
+        init(IDetector self, Beam arg2)
+        virtual void IDetector::init(const Beam &)
+
+        Inits detector with the beam settings. 
+
+        """
+        return _libBornAgainDevice.IDetector_init(self, arg2)
+
+    def addAxis(self, axis):
+        r"""
+        addAxis(IDetector self, IAxis axis)
+        void IDetector::addAxis(const IAxis &axis)
+
+        """
+        return _libBornAgainDevice.IDetector_addAxis(self, axis)
+
+    def getAxis(self, index):
+        r"""
+        getAxis(IDetector self, size_t index) -> IAxis
+        const IAxis & IDetector::getAxis(size_t index) const
+
+        """
+        return _libBornAgainDevice.IDetector_getAxis(self, index)
+
+    def dimension(self):
+        r"""
+        dimension(IDetector self) -> size_t
+        size_t IDetector::dimension() const
+
+        Returns actual dimensionality of the detector (number of defined axes) 
+
+        """
+        return _libBornAgainDevice.IDetector_dimension(self)
+
+    def axisBinIndex(self, index, selected_axis):
+        r"""
+        axisBinIndex(IDetector self, size_t index, size_t selected_axis) -> size_t
+        size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
+
+        Calculate axis index for given global index. 
+
+        """
+        return _libBornAgainDevice.IDetector_axisBinIndex(self, index, selected_axis)
+
+    def totalSize(self):
+        r"""
+        totalSize(IDetector self) -> size_t
+        size_t IDetector::totalSize() const
+
+        Returns total number of pixels. 
+
+        """
+        return _libBornAgainDevice.IDetector_totalSize(self)
+
+    def detectorMask(self):
+        r"""
+        detectorMask(IDetector self) -> DetectorMask
+        virtual const DetectorMask* IDetector::detectorMask() const =0
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainDevice.IDetector_detectorMask(self)
+
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
+        r"""
+        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
+        void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+        Sets the polarization analyzer characteristics of the detector. 
+
+        """
+        return _libBornAgainDevice.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+    def setDetectorResolution(self, p_detector_resolution):
+        r"""
+        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
+        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+        Sets the detector resolution. 
+
+        """
+        return _libBornAgainDevice.IDetector_setDetectorResolution(self, p_detector_resolution)
+
+    def setResolutionFunction(self, resFunc):
+        r"""
+        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
+        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+
+        """
+        return _libBornAgainDevice.IDetector_setResolutionFunction(self, resFunc)
+
+    def applyDetectorResolution(self, p_intensity_map):
+        r"""
+        applyDetectorResolution(IDetector self, IntensityData p_intensity_map)
+        void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const
+
+        Applies the detector resolution to the given intensity maps. 
+
+        """
+        return _libBornAgainDevice.IDetector_applyDetectorResolution(self, p_intensity_map)
+
+    def removeDetectorResolution(self):
+        r"""
+        removeDetectorResolution(IDetector self)
+        void IDetector::removeDetectorResolution()
+
+        Removes detector resolution function. 
+
+        """
+        return _libBornAgainDevice.IDetector_removeDetectorResolution(self)
+
+    def detectorResolution(self):
+        r"""
+        detectorResolution(IDetector self) -> IDetectorResolution
+        const IDetectorResolution * IDetector::detectorResolution() const
+
+        Returns a pointer to detector resolution object. 
+
+        """
+        return _libBornAgainDevice.IDetector_detectorResolution(self)
+
+    def regionOfInterest(self):
+        r"""
+        regionOfInterest(IDetector self) -> RegionOfInterest const *
+        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
+
+        Returns region of interest if exists. 
+
+        """
+        return _libBornAgainDevice.IDetector_regionOfInterest(self)
+
+    def resetRegionOfInterest(self):
+        r"""
+        resetRegionOfInterest(IDetector self)
+        virtual void IDetector::resetRegionOfInterest()=0
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
+        return _libBornAgainDevice.IDetector_resetRegionOfInterest(self)
+
+    def detectionProperties(self):
+        r"""
+        detectionProperties(IDetector self) -> DetectionProperties const &
+        const DetectionProperties& IDetector::detectionProperties() const
+
+        Returns detection properties. 
+
+        """
+        return _libBornAgainDevice.IDetector_detectionProperties(self)
+
+    def createDetectorIntensity(self, elements):
+        r"""
+        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
+        OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
+
+        Returns new intensity map with detector resolution applied. Map will be cropped to ROI if ROI is present. 
+
+        """
+        return _libBornAgainDevice.IDetector_createDetectorIntensity(self, elements)
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(IDetector self) -> Axes::Units
+        virtual Axes::Units IDetector::defaultAxesUnits() const
+
+        Return default axes units. 
+
+        """
+        return _libBornAgainDevice.IDetector_defaultAxesUnits(self)
+
+    def numberOfSimulationElements(self):
+        r"""
+        numberOfSimulationElements(IDetector self) -> size_t
+        size_t IDetector::numberOfSimulationElements() const
+
+        Returns number of simulation elements. 
+
+        """
+        return _libBornAgainDevice.IDetector_numberOfSimulationElements(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >
+        std::vector< const INode * > IDetector::getChildren() const override
+
+        """
+        return _libBornAgainDevice.IDetector_getChildren(self)
+
+    def iterate(self, func, visit_masks=False):
+        r"""
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
+        void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+
+        """
+        return _libBornAgainDevice.IDetector_iterate(self, func, visit_masks)
+
+# Register IDetector in _libBornAgainDevice:
+_libBornAgainDevice.IDetector_swigregister(IDetector)
+
+class IDetector2D(IDetector):
+    r"""
+
+
+    Abstract 2D detector interface.
+
+    C++ includes: IDetector2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IDetector2D self) -> IDetector2D
+        IDetector2D* IDetector2D::clone() const override=0
+
+        """
+        return _libBornAgainDevice.IDetector2D_clone(self)
+    __swig_destroy__ = _libBornAgainDevice.delete_IDetector2D
+
+    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
+        r"""
+        setDetectorParameters(IDetector2D self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
+        void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
+
+        Sets detector parameters using angle ranges. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
+
+    def removeMasks(self):
+        r"""
+        removeMasks(IDetector2D self)
+        void IDetector2D::removeMasks()
+
+        Removes all masks from the detector. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_removeMasks(self)
+
+    def detectorMask(self):
+        r"""
+        detectorMask(IDetector2D self) -> DetectorMask
+        const DetectorMask * IDetector2D::detectorMask() const override
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_detectorMask(self)
+
+    def addMask(self, shape, mask_value=True):
+        r"""
+        addMask(IDetector2D self, IShape2D shape, bool mask_value=True)
+        void IDetector2D::addMask(const IShape2D &shape, bool mask_value=true)
+
+        Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
+
+        Parameters:
+        -----------
+
+        shape: 
+        The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
+
+        mask_value: 
+        The value of mask 
+
+        """
+        return _libBornAgainDevice.IDetector2D_addMask(self, shape, mask_value)
+
+    def maskAll(self):
+        r"""
+        maskAll(IDetector2D self)
+        void IDetector2D::maskAll()
+
+        Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
+
+        """
+        return _libBornAgainDevice.IDetector2D_maskAll(self)
+
+    def regionOfInterest(self):
+        r"""
+        regionOfInterest(IDetector2D self) -> RegionOfInterest const *
+        const RegionOfInterest * IDetector2D::regionOfInterest() const override
+
+        Returns region of interest if exists. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_regionOfInterest(self)
+
+    def setRegionOfInterest(self, xlow, ylow, xup, yup):
+        r"""
+        setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)
+        void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+        Sets rectangular region of interest with lower left and upper right corners defined. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+
+    def resetRegionOfInterest(self):
+        r"""
+        resetRegionOfInterest(IDetector2D self)
+        void IDetector2D::resetRegionOfInterest() override
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_resetRegionOfInterest(self)
+
+    def active_indices(self):
+        r"""
+        active_indices(IDetector2D self) -> std::vector< size_t,std::allocator< size_t > >
+        std::vector< size_t > IDetector2D::active_indices() const
+
+        Returns vector of unmasked detector indices. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_active_indices(self)
+
+    def createPixel(self, index):
+        r"""
+        createPixel(IDetector2D self, size_t index) -> IPixel *
+        virtual IPixel* IDetector2D::createPixel(size_t index) const =0
+
+        Creates an IPixel for the given  OutputData object and index. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_createPixel(self, index)
+
+    def indexOfSpecular(self, beam):
+        r"""
+        indexOfSpecular(IDetector2D self, Beam beam) -> size_t
+        virtual size_t IDetector2D::indexOfSpecular(const Beam &beam) const =0
+
+        Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
+
+        """
+        return _libBornAgainDevice.IDetector2D_indexOfSpecular(self, beam)
+
+# Register IDetector2D in _libBornAgainDevice:
+_libBornAgainDevice.IDetector2D_swigregister(IDetector2D)
+
+class RectangularDetector(IDetector2D):
+    r"""
+
+
+    A flat rectangular detector with axes and resolution function.
+
+    C++ includes: RectangularDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    GENERIC = _libBornAgainDevice.RectangularDetector_GENERIC
+    
+    PERPENDICULAR_TO_SAMPLE = _libBornAgainDevice.RectangularDetector_PERPENDICULAR_TO_SAMPLE
+    
+    PERPENDICULAR_TO_DIRECT_BEAM = _libBornAgainDevice.RectangularDetector_PERPENDICULAR_TO_DIRECT_BEAM
+    
+    PERPENDICULAR_TO_REFLECTED_BEAM = _libBornAgainDevice.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM
+    
+    PERPENDICULAR_TO_REFLECTED_BEAM_DPOS = _libBornAgainDevice.RectangularDetector_PERPENDICULAR_TO_REFLECTED_BEAM_DPOS
+    
+
+    def __init__(self, *args):
+        r"""
+        __init__(RectangularDetector self, size_t nxbins, double width, size_t nybins, double height) -> RectangularDetector
+        __init__(RectangularDetector self, RectangularDetector other) -> RectangularDetector
+        RectangularDetector::RectangularDetector(const RectangularDetector &other)
+
+        """
+        _libBornAgainDevice.RectangularDetector_swiginit(self, _libBornAgainDevice.new_RectangularDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(RectangularDetector self) -> RectangularDetector
+        RectangularDetector * RectangularDetector::clone() const override
+
+        """
+        return _libBornAgainDevice.RectangularDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(RectangularDetector self, INodeVisitor * visitor)
+        void RectangularDetector::accept(INodeVisitor *visitor) const final
+
+        """
+        return _libBornAgainDevice.RectangularDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainDevice.delete_RectangularDetector
+
+    def init(self, beam):
+        r"""
+        init(RectangularDetector self, Beam beam)
+        void RectangularDetector::init(const Beam &beam) override
+
+        Inits detector with the beam settings. 
+
+        """
+        return _libBornAgainDevice.RectangularDetector_init(self, beam)
+
+    def setPosition(self, *args):
+        r"""
+        setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction=kvector_t(0.0, -1.0, 0.0))
+        void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
+
+        """
+        return _libBornAgainDevice.RectangularDetector_setPosition(self, *args)
+
+    def setPerpendicularToSampleX(self, distance, u0, v0):
+        r"""
+        setPerpendicularToSampleX(RectangularDetector self, double distance, double u0, double v0)
+        void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
+
+        """
+        return _libBornAgainDevice.RectangularDetector_setPerpendicularToSampleX(self, distance, u0, v0)
+
+    def setPerpendicularToDirectBeam(self, distance, u0, v0):
+        r"""
+        setPerpendicularToDirectBeam(RectangularDetector self, double distance, double u0, double v0)
+        void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0)
+
+        """
+        return _libBornAgainDevice.RectangularDetector_setPerpendicularToDirectBeam(self, distance, u0, v0)
+
+    def setPerpendicularToReflectedBeam(self, distance, u0=0.0, v0=0.0):
+        r"""
+        setPerpendicularToReflectedBeam(RectangularDetector self, double distance, double u0=0.0, double v0=0.0)
+        void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0=0.0, double v0=0.0)
+
+        """
+        return _libBornAgainDevice.RectangularDetector_setPerpendicularToReflectedBeam(self, distance, u0, v0)
+
+    def setDirectBeamPosition(self, u0, v0):
+        r"""
+        setDirectBeamPosition(RectangularDetector self, double u0, double v0)
+        void RectangularDetector::setDirectBeamPosition(double u0, double v0)
+
+        """
+        return _libBornAgainDevice.RectangularDetector_setDirectBeamPosition(self, u0, v0)
+
+    def getWidth(self):
+        r"""
+        getWidth(RectangularDetector self) -> double
+        double RectangularDetector::getWidth() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getWidth(self)
+
+    def getHeight(self):
+        r"""
+        getHeight(RectangularDetector self) -> double
+        double RectangularDetector::getHeight() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getHeight(self)
+
+    def getNbinsX(self):
+        r"""
+        getNbinsX(RectangularDetector self) -> size_t
+        size_t RectangularDetector::getNbinsX() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getNbinsX(self)
+
+    def getNbinsY(self):
+        r"""
+        getNbinsY(RectangularDetector self) -> size_t
+        size_t RectangularDetector::getNbinsY() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getNbinsY(self)
+
+    def getNormalVector(self):
+        r"""
+        getNormalVector(RectangularDetector self) -> kvector_t
+        kvector_t RectangularDetector::getNormalVector() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getNormalVector(self)
+
+    def getU0(self):
+        r"""
+        getU0(RectangularDetector self) -> double
+        double RectangularDetector::getU0() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getU0(self)
+
+    def getV0(self):
+        r"""
+        getV0(RectangularDetector self) -> double
+        double RectangularDetector::getV0() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getV0(self)
+
+    def getDirectionVector(self):
+        r"""
+        getDirectionVector(RectangularDetector self) -> kvector_t
+        kvector_t RectangularDetector::getDirectionVector() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getDirectionVector(self)
+
+    def getDistance(self):
+        r"""
+        getDistance(RectangularDetector self) -> double
+        double RectangularDetector::getDistance() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getDistance(self)
+
+    def getDirectBeamU0(self):
+        r"""
+        getDirectBeamU0(RectangularDetector self) -> double
+        double RectangularDetector::getDirectBeamU0() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getDirectBeamU0(self)
+
+    def getDirectBeamV0(self):
+        r"""
+        getDirectBeamV0(RectangularDetector self) -> double
+        double RectangularDetector::getDirectBeamV0() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getDirectBeamV0(self)
+
+    def getDetectorArrangment(self):
+        r"""
+        getDetectorArrangment(RectangularDetector self) -> RectangularDetector::EDetectorArrangement
+        RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_getDetectorArrangment(self)
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(RectangularDetector self) -> Axes::Units
+        Axes::Units RectangularDetector::defaultAxesUnits() const override
+
+        return default axes units 
+
+        """
+        return _libBornAgainDevice.RectangularDetector_defaultAxesUnits(self)
+
+    def regionOfInterestPixel(self):
+        r"""
+        regionOfInterestPixel(RectangularDetector self) -> RectangularPixel *
+        RectangularPixel * RectangularDetector::regionOfInterestPixel() const
+
+        """
+        return _libBornAgainDevice.RectangularDetector_regionOfInterestPixel(self)
+
+# Register RectangularDetector in _libBornAgainDevice:
+_libBornAgainDevice.RectangularDetector_swigregister(RectangularDetector)
+
+class SphericalDetector(IDetector2D):
+    r"""
+
+
+    A spherical detector with axes and resolution function.
+
+    C++ includes: SphericalDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(SphericalDetector self) -> SphericalDetector
+        __init__(SphericalDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalDetector
+        __init__(SphericalDetector self, SphericalDetector other) -> SphericalDetector
+        SphericalDetector::SphericalDetector(const SphericalDetector &other)
+
+        """
+        _libBornAgainDevice.SphericalDetector_swiginit(self, _libBornAgainDevice.new_SphericalDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(SphericalDetector self) -> SphericalDetector
+        SphericalDetector * SphericalDetector::clone() const override
+
+        """
+        return _libBornAgainDevice.SphericalDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(SphericalDetector self, INodeVisitor * visitor)
+        void SphericalDetector::accept(INodeVisitor *visitor) const override
+
+        """
+        return _libBornAgainDevice.SphericalDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainDevice.delete_SphericalDetector
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(SphericalDetector self) -> Axes::Units
+        Axes::Units SphericalDetector::defaultAxesUnits() const override
+
+        return default axes units 
+
+        """
+        return _libBornAgainDevice.SphericalDetector_defaultAxesUnits(self)
+
+# Register SphericalDetector in _libBornAgainDevice:
+_libBornAgainDevice.SphericalDetector_swigregister(SphericalDetector)
+
+class IsGISAXSDetector(SphericalDetector):
+    r"""
+
+
+    A spherical detector used for validation with IsGISAXS results.
+
+    C++ includes: IsGISAXSDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(IsGISAXSDetector self) -> IsGISAXSDetector
+        __init__(IsGISAXSDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> IsGISAXSDetector
+        __init__(IsGISAXSDetector self, IsGISAXSDetector other) -> IsGISAXSDetector
+        IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
+
+        """
+        _libBornAgainDevice.IsGISAXSDetector_swiginit(self, _libBornAgainDevice.new_IsGISAXSDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(IsGISAXSDetector self) -> IsGISAXSDetector
+        IsGISAXSDetector * IsGISAXSDetector::clone() const override
+
+        """
+        return _libBornAgainDevice.IsGISAXSDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(IsGISAXSDetector self, INodeVisitor * visitor)
+        void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
+
+        """
+        return _libBornAgainDevice.IsGISAXSDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainDevice.delete_IsGISAXSDetector
+
+# Register IsGISAXSDetector in _libBornAgainDevice:
+_libBornAgainDevice.IsGISAXSDetector_swigregister(IsGISAXSDetector)
+
+class IHistogram(object):
+    r"""
+
+
+    Base class for 1D and 2D histograms holding values of double type.
+
+    C++ includes: IHistogram.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    INTEGRAL = _libBornAgainDevice.IHistogram_INTEGRAL
+    
+    AVERAGE = _libBornAgainDevice.IHistogram_AVERAGE
+    
+    STANDARD_ERROR = _libBornAgainDevice.IHistogram_STANDARD_ERROR
+    
+    NENTRIES = _libBornAgainDevice.IHistogram_NENTRIES
+    
+    __swig_destroy__ = _libBornAgainDevice.delete_IHistogram
+
+    def clone(self):
+        r"""
+        clone(IHistogram self) -> IHistogram
+        virtual IHistogram* IHistogram::clone() const =0
+
+        """
+        return _libBornAgainDevice.IHistogram_clone(self)
+
+    def getRank(self):
+        r"""
+        getRank(IHistogram self) -> size_t
+        virtual size_t IHistogram::getRank() const =0
+
+        Returns number of histogram dimensions. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getRank(self)
+
+    def getTotalNumberOfBins(self):
+        r"""
+        getTotalNumberOfBins(IHistogram self) -> size_t
+        size_t IHistogram::getTotalNumberOfBins() const
+
+        Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getTotalNumberOfBins(self)
+
+    def getXaxis(self):
+        r"""
+        getXaxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::getXaxis() const
+
+        returns x-axis 
+
+        """
+        return _libBornAgainDevice.IHistogram_getXaxis(self)
+
+    def getYaxis(self):
+        r"""
+        getYaxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::getYaxis() const
+
+        returns y-axis for 2D histograms 
+
+        """
+        return _libBornAgainDevice.IHistogram_getYaxis(self)
+
+    def getXmin(self):
+        r"""
+        getXmin(IHistogram self) -> double
+        double IHistogram::getXmin() const
+
+        Returns x-axis min (lower edge of first bin). 
+
+        """
+        return _libBornAgainDevice.IHistogram_getXmin(self)
+
+    def getXmax(self):
+        r"""
+        getXmax(IHistogram self) -> double
+        double IHistogram::getXmax() const
+
+        Returns x-axis max (upper edge of last bin). 
+
+        """
+        return _libBornAgainDevice.IHistogram_getXmax(self)
+
+    def getNbinsX(self):
+        r"""
+        getNbinsX(IHistogram self) -> size_t
+        size_t IHistogram::getNbinsX() const
+
+        Returns number of bins on x-axis. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getNbinsX(self)
+
+    def getYmin(self):
+        r"""
+        getYmin(IHistogram self) -> double
+        double IHistogram::getYmin() const
+
+        Returns y-axis min (lower edge of first bin) for 2D histograms. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getYmin(self)
+
+    def getYmax(self):
+        r"""
+        getYmax(IHistogram self) -> double
+        double IHistogram::getYmax() const
+
+        Returns y-axis max (upper edge of last bin) for 2D histograms. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getYmax(self)
+
+    def getNbinsY(self):
+        r"""
+        getNbinsY(IHistogram self) -> size_t
+        size_t IHistogram::getNbinsY() const
+
+        Returns number of bins on y-axis. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getNbinsY(self)
+
+    def getGlobalBin(self, binx, biny=0):
+        r"""
+        getGlobalBin(IHistogram self, size_t binx, size_t biny=0) -> size_t
+        size_t IHistogram::getGlobalBin(size_t binx, size_t biny=0) const
+
+        Returns global bin index for given axes indices. For 1D, just returns binx. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getGlobalBin(self, binx, biny)
+
+    def findGlobalBin(self, x, y):
+        r"""
+        findGlobalBin(IHistogram self, double x, double y) -> size_t
+        size_t IHistogram::findGlobalBin(double x, double y) const
+
+        Returns closest global bin index for given axes coordinates. 
+
+        """
+        return _libBornAgainDevice.IHistogram_findGlobalBin(self, x, y)
+
+    def getXaxisIndex(self, i):
+        r"""
+        getXaxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::getXaxisIndex(size_t i) const
+
+        Returns x-axis index for global bin index i. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getXaxisIndex(self, i)
+
+    def getYaxisIndex(self, i):
+        r"""
+        getYaxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::getYaxisIndex(size_t i) const
+
+        Returns y-axis index for global bin index i. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getYaxisIndex(self, i)
+
+    def getXaxisValue(self, i):
+        r"""
+        getXaxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::getXaxisValue(size_t i)
+
+        Returns the center of bin i of the x axis. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getXaxisValue(self, i)
+
+    def getYaxisValue(self, i):
+        r"""
+        getYaxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::getYaxisValue(size_t i)
+
+        Returns the center of bin i of the y axis. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getYaxisValue(self, i)
+
+    def getData(self, *args):
+        r"""
+        getData(IHistogram self) -> OutputData< CumulativeValue > const
+        getData(IHistogram self) -> OutputData< CumulativeValue > &
+        OutputData<CumulativeValue>& IHistogram::getData()
+
+        """
+        return _libBornAgainDevice.IHistogram_getData(self, *args)
+
+    def getBinContent(self, *args):
+        r"""
+        getBinContent(IHistogram self, size_t i) -> double
+        getBinContent(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::getBinContent(size_t binx, size_t biny) const
+
+        Returns content (accumulated value) of the 2D histogram bin. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getBinContent(self, *args)
+
+    def setBinContent(self, i, value):
+        r"""
+        setBinContent(IHistogram self, size_t i, double value)
+        void IHistogram::setBinContent(size_t i, double value)
+
+        Sets content of the bin corresponding to the globalbin number. 
+
+        """
+        return _libBornAgainDevice.IHistogram_setBinContent(self, i, value)
+
+    def addBinContent(self, i, value):
+        r"""
+        addBinContent(IHistogram self, size_t i, double value)
+        void IHistogram::addBinContent(size_t i, double value)
+
+        Add the value to the bin. 
+
+        """
+        return _libBornAgainDevice.IHistogram_addBinContent(self, i, value)
+
+    def getBinError(self, *args):
+        r"""
+        getBinError(IHistogram self, size_t i) -> double
+        getBinError(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::getBinError(size_t binx, size_t biny) const
+
+        Returns error of the bin with given indices (for 2D histograms). 
+
+        """
+        return _libBornAgainDevice.IHistogram_getBinError(self, *args)
+
+    def getBinAverage(self, *args):
+        r"""
+        getBinAverage(IHistogram self, size_t i) -> double
+        getBinAverage(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::getBinAverage(size_t binx, size_t biny) const
+
+        Returns average value of the bin with given indices (for 2D histograms). 
+
+        """
+        return _libBornAgainDevice.IHistogram_getBinAverage(self, *args)
+
+    def getBinNumberOfEntries(self, *args):
+        r"""
+        getBinNumberOfEntries(IHistogram self, size_t i) -> int
+        getBinNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int
+        int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
+
+        Returns number of entries in the bin with given indices (for 2D histograms). 
+
+        """
+        return _libBornAgainDevice.IHistogram_getBinNumberOfEntries(self, *args)
+
+    def getMaximum(self):
+        r"""
+        getMaximum(IHistogram self) -> double
+        double IHistogram::getMaximum() const
+
+        Returns histogram maximum value (maximum of  getBinContent() over all bins) 
+
+        """
+        return _libBornAgainDevice.IHistogram_getMaximum(self)
+
+    def getMaximumBinIndex(self):
+        r"""
+        getMaximumBinIndex(IHistogram self) -> size_t
+        size_t IHistogram::getMaximumBinIndex() const
+
+        Returns globalbin index with maximum content. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getMaximumBinIndex(self)
+
+    def getMinimum(self):
+        r"""
+        getMinimum(IHistogram self) -> double
+        double IHistogram::getMinimum() const
+
+        Returns histogram minimum value (minimum of  getBinContent() over all bins) 
+
+        """
+        return _libBornAgainDevice.IHistogram_getMinimum(self)
+
+    def getMinimumBinIndex(self):
+        r"""
+        getMinimumBinIndex(IHistogram self) -> size_t
+        size_t IHistogram::getMinimumBinIndex() const
+
+        Returns globalbin index with minimum content. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getMinimumBinIndex(self)
+
+    def scale(self, value):
+        r"""
+        scale(IHistogram self, double value)
+        void IHistogram::scale(double value)
+
+        Multiply this histogram (every bin content value) by a constant. 
+
+        """
+        return _libBornAgainDevice.IHistogram_scale(self, value)
+
+    def integral(self):
+        r"""
+        integral(IHistogram self) -> double
+        double IHistogram::integral() const
+
+        Returns integral of bins content (computed as a sum of all bin content). 
+
+        """
+        return _libBornAgainDevice.IHistogram_integral(self)
+
+    def array(self, *args):
+        r"""
+        array(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
+        PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
+
+        Returns numpy array with bin content (accumulated values). 
+
+        """
+        return _libBornAgainDevice.IHistogram_array(self, *args)
+
+    def getArrayObsolete(self, *args):
+        r"""
+        getArrayObsolete(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> PyObject
+        PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
+
+        Deprecated
+        Use  array() instead. 
+
+        """
+        return _libBornAgainDevice.IHistogram_getArrayObsolete(self, *args)
+
+    def reset(self):
+        r"""
+        reset(IHistogram self)
+        void IHistogram::reset()
+
+        Reset histogram content (axes remains) 
+
+        """
+        return _libBornAgainDevice.IHistogram_reset(self)
+
+    @staticmethod
+    def createHistogram(source):
+        r"""createHistogram(IntensityData source) -> IHistogram"""
+        return _libBornAgainDevice.IHistogram_createHistogram(source)
+
+    @staticmethod
+    def createFrom(*args):
+        r"""
+        createFrom(std::string const & filename) -> IHistogram
+        createFrom(vdouble2d_t data) -> IHistogram
+        """
+        return _libBornAgainDevice.IHistogram_createFrom(*args)
+
+    def createOutputData(self, *args):
+        r"""
+        createOutputData(IHistogram self, IHistogram::DataType dataType=DataType::INTEGRAL) -> IntensityData
+        OutputData< double > * IHistogram::createOutputData(DataType dataType=DataType::INTEGRAL) const
+
+        creates new  OutputData with histogram's shape and values corresponding to DataType
+
+        creates new  OutputData with histogram's shape and put there values corresponding to DataType 
+
+        """
+        return _libBornAgainDevice.IHistogram_createOutputData(self, *args)
+
+    def hasSameShape(self, other):
+        r"""
+        hasSameShape(IHistogram self, IHistogram other) -> bool
+        bool IHistogram::hasSameShape(const IHistogram &other) const
+
+        Returns true if objects a) have same dimensions b) bin boundaries of axes coincide. 
+
+        """
+        return _libBornAgainDevice.IHistogram_hasSameShape(self, other)
+
+    def hasSameDimensions(self, other):
+        r"""
+        hasSameDimensions(IHistogram self, IHistogram other) -> bool
+        bool IHistogram::hasSameDimensions(const IHistogram &other) const
+
+        Returns true if object have same rank and number of axes bins. 
+
+        """
+        return _libBornAgainDevice.IHistogram_hasSameDimensions(self, other)
+
+    def __iadd__(self, right):
+        r"""__iadd__(IHistogram self, IHistogram right) -> IHistogram"""
+        return _libBornAgainDevice.IHistogram___iadd__(self, right)
+
+    def relativeDifferenceHistogram(self, rhs):
+        r"""
+        relativeDifferenceHistogram(IHistogram self, IHistogram rhs) -> IHistogram
+        IHistogram * IHistogram::relativeDifferenceHistogram(const IHistogram &rhs)
+
+        returns histogram representing relative difference of two histograms. 
+
+        """
+        return _libBornAgainDevice.IHistogram_relativeDifferenceHistogram(self, rhs)
+
+    def save(self, filename):
+        r"""
+        save(IHistogram self, std::string const & filename)
+        void IHistogram::save(const std::string &filename)
+
+        Saves histogram in file Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) 
+
+        """
+        return _libBornAgainDevice.IHistogram_save(self, filename)
+
+    def load(self, filename):
+        r"""
+        load(IHistogram self, std::string const & filename)
+        void IHistogram::load(const std::string &filename)
+
+        Loads histogram from file, the shape of array in file should match Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) Only bin content will be loaded, histogram axes remain the same. 
+
+        """
+        return _libBornAgainDevice.IHistogram_load(self, filename)
+
+    @deprecated("Deprecated. Use array() instead.")
+    def getArray(self):
+        return self.getArrayObsolete()
+
+
+# Register IHistogram in _libBornAgainDevice:
+_libBornAgainDevice.IHistogram_swigregister(IHistogram)
+
+def IHistogram_createHistogram(source):
+    r"""IHistogram_createHistogram(IntensityData source) -> IHistogram"""
+    return _libBornAgainDevice.IHistogram_createHistogram(source)
+
+def IHistogram_createFrom(*args):
+    r"""
+    IHistogram_createFrom(std::string const & filename) -> IHistogram
+    IHistogram_createFrom(vdouble2d_t data) -> IHistogram
+    """
+    return _libBornAgainDevice.IHistogram_createFrom(*args)
+
+class Histogram1D(IHistogram):
+    r"""
+
+
+    One dimensional histogram.
+
+    C++ includes: Histogram1D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Histogram1D self, int nbinsx, double xlow, double xup) -> Histogram1D
+        __init__(Histogram1D self, int nbinsx, vdouble1d_t xbins) -> Histogram1D
+        __init__(Histogram1D self, IAxis axis) -> Histogram1D
+        __init__(Histogram1D self, IntensityData data) -> Histogram1D
+        Histogram1D::Histogram1D(const OutputData< double > &data)
+
+        Constructor for 1D histograms from basic  OutputData object. 
+
+        """
+        _libBornAgainDevice.Histogram1D_swiginit(self, _libBornAgainDevice.new_Histogram1D(*args))
+
+    def clone(self):
+        r"""
+        clone(Histogram1D self) -> Histogram1D
+        Histogram1D * Histogram1D::clone() const
+
+        Returns clone of other histogram. 
+
+        """
+        return _libBornAgainDevice.Histogram1D_clone(self)
+
+    def getRank(self):
+        r"""
+        getRank(Histogram1D self) -> size_t
+        size_t Histogram1D::getRank() const
+
+        Returns the number of histogram dimensions. 
+
+        """
+        return _libBornAgainDevice.Histogram1D_getRank(self)
+
+    def fill(self, x, weight=1.0):
+        r"""
+        fill(Histogram1D self, double x, double weight=1.0) -> int
+        int Histogram1D::fill(double x, double weight=1.0)
+
+        Increment bin with abscissa x with a weight. 
+
+        """
+        return _libBornAgainDevice.Histogram1D_fill(self, x, weight)
+
+    def getBinCenters(self):
+        r"""
+        getBinCenters(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::getBinCenters() const
+
+        returns vector of histogram bin centers 
+
+        """
+        return _libBornAgainDevice.Histogram1D_getBinCenters(self)
+
+    def getBinValues(self):
+        r"""
+        getBinValues(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::getBinValues() const
+
+        returns vector of bin content (the value accumulated by bins) 
+
+        """
+        return _libBornAgainDevice.Histogram1D_getBinValues(self)
+
+    def getBinErrors(self):
+        r"""
+        getBinErrors(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::getBinErrors() const
+
+        returns vector of bin errors 
+
+        """
+        return _libBornAgainDevice.Histogram1D_getBinErrors(self)
+
+    def getBinCentersNumpy(self):
+        r"""
+        getBinCentersNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::getBinCentersNumpy() const
+
+        """
+        return _libBornAgainDevice.Histogram1D_getBinCentersNumpy(self)
+
+    def getBinValuesNumpy(self):
+        r"""
+        getBinValuesNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::getBinValuesNumpy() const
+
+        """
+        return _libBornAgainDevice.Histogram1D_getBinValuesNumpy(self)
+
+    def getBinErrorsNumpy(self):
+        r"""
+        getBinErrorsNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::getBinErrorsNumpy() const
+
+        """
+        return _libBornAgainDevice.Histogram1D_getBinErrorsNumpy(self)
+
+    def crop(self, xmin, xmax):
+        r"""
+        crop(Histogram1D self, double xmin, double xmax) -> Histogram1D
+        Histogram1D * Histogram1D::crop(double xmin, double xmax)
+
+        Creates new histogram by applying crop on axis. 
+
+        """
+        return _libBornAgainDevice.Histogram1D_crop(self, xmin, xmax)
+    __swig_destroy__ = _libBornAgainDevice.delete_Histogram1D
+
+# Register Histogram1D in _libBornAgainDevice:
+_libBornAgainDevice.Histogram1D_swigregister(Histogram1D)
+
+class Histogram2D(IHistogram):
+    r"""
+
+
+    Two dimensional histogram.
+
+    C++ includes: Histogram2D.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Histogram2D self, int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup) -> Histogram2D
+        __init__(Histogram2D self, int nbinsx, vdouble1d_t xbins, int nbinsy, vdouble1d_t ybins) -> Histogram2D
+        __init__(Histogram2D self, IAxis axis_x, IAxis axis_y) -> Histogram2D
+        __init__(Histogram2D self, IntensityData data) -> Histogram2D
+        __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
+        Histogram2D::Histogram2D(std::vector< std::vector< double >> data)
+
+        Constructor for 2D histograms from numpy array (thanks to swig) 
+
+        """
+        _libBornAgainDevice.Histogram2D_swiginit(self, _libBornAgainDevice.new_Histogram2D(*args))
+
+    def clone(self):
+        r"""
+        clone(Histogram2D self) -> Histogram2D
+        Histogram2D * Histogram2D::clone() const
+
+        Returns clone of other histogram. 
+
+        """
+        return _libBornAgainDevice.Histogram2D_clone(self)
+
+    def getRank(self):
+        r"""
+        getRank(Histogram2D self) -> size_t
+        size_t Histogram2D::getRank() const
+
+        Returns the number of histogram dimensions. 
+
+        """
+        return _libBornAgainDevice.Histogram2D_getRank(self)
+
+    def fill(self, x, y, weight=1.0):
+        r"""
+        fill(Histogram2D self, double x, double y, double weight=1.0) -> int
+        int Histogram2D::fill(double x, double y, double weight=1.0)
+
+        Increment bin with abscissa x and ordinate y with a weight. 
+
+        """
+        return _libBornAgainDevice.Histogram2D_fill(self, x, y, weight)
+
+    def projectionX(self, *args):
+        r"""
+        projectionX(Histogram2D self) -> Histogram1D
+        projectionX(Histogram2D self, double yvalue) -> Histogram1D
+        projectionX(Histogram2D self, double ylow, double yup) -> Histogram1D
+        Histogram1D * Histogram2D::projectionX(double ylow, double yup)
+
+        Project a 2D histogram into 1D histogram along X. The projection is made from all y-bins corresponding to ordinate between ylow and yup.
+
+        Parameters:
+        -----------
+
+        ylow: 
+        lower edje on y-axis
+
+        yup: 
+        upper edje on y-axis 
+
+        """
+        return _libBornAgainDevice.Histogram2D_projectionX(self, *args)
+
+    def projectionY(self, *args):
+        r"""
+        projectionY(Histogram2D self) -> Histogram1D
+        projectionY(Histogram2D self, double xvalue) -> Histogram1D
+        projectionY(Histogram2D self, double xlow, double xup) -> Histogram1D
+        Histogram1D * Histogram2D::projectionY(double xlow, double xup)
+
+        Project a 2D histogram into 1D histogram along Y. The projection is made from all x-bins corresponding to abscissa between xlow and xup.
+
+        Parameters:
+        -----------
+
+        xlow: 
+        lower edje on x-axis
+
+        xup: 
+        upper edje on x-axis 
+
+        """
+        return _libBornAgainDevice.Histogram2D_projectionY(self, *args)
+
+    def crop(self, xmin, ymin, xmax, ymax):
+        r"""
+        crop(Histogram2D self, double xmin, double ymin, double xmax, double ymax) -> Histogram2D
+        Histogram2D * Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
+
+        Creates new histogram by applying rectangular clip. 
+
+        """
+        return _libBornAgainDevice.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
+
+    def setContent(self, data):
+        r"""
+        setContent(Histogram2D self, vdouble2d_t data)
+        void Histogram2D::setContent(const std::vector< std::vector< double >> &data)
+
+        Sets the values in histograms channels from numpy array,. 
+
+        """
+        return _libBornAgainDevice.Histogram2D_setContent(self, data)
+
+    def addContent(self, data):
+        r"""
+        addContent(Histogram2D self, vdouble2d_t data)
+        void Histogram2D::addContent(const std::vector< std::vector< double >> &data)
+
+        Add to values in histograms channels from numpy array,. 
+
+        """
+        return _libBornAgainDevice.Histogram2D_addContent(self, data)
+    __swig_destroy__ = _libBornAgainDevice.delete_Histogram2D
+
+# Register Histogram2D in _libBornAgainDevice:
+_libBornAgainDevice.Histogram2D_swigregister(Histogram2D)
+
+class IntensityDataIOFactory(object):
+    r"""
+
+
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+
+    C++ includes: IntensityDataIOFactory.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    @staticmethod
+    def readOutputData(file_name):
+        r"""readOutputData(std::string const & file_name) -> IntensityData"""
+        return _libBornAgainDevice.IntensityDataIOFactory_readOutputData(file_name)
+
+    @staticmethod
+    def readReflectometryData(file_name):
+        r"""readReflectometryData(std::string const & file_name) -> IntensityData"""
+        return _libBornAgainDevice.IntensityDataIOFactory_readReflectometryData(file_name)
+
+    @staticmethod
+    def readIntensityData(file_name):
+        r"""readIntensityData(std::string const & file_name) -> IHistogram"""
+        return _libBornAgainDevice.IntensityDataIOFactory_readIntensityData(file_name)
+
+    @staticmethod
+    def writeOutputData(data, file_name):
+        r"""writeOutputData(IntensityData data, std::string const & file_name)"""
+        return _libBornAgainDevice.IntensityDataIOFactory_writeOutputData(data, file_name)
+
+    @staticmethod
+    def writeIntensityData(histogram, file_name):
+        r"""writeIntensityData(IHistogram histogram, std::string const & file_name)"""
+        return _libBornAgainDevice.IntensityDataIOFactory_writeIntensityData(histogram, file_name)
+
+    @staticmethod
+    def writeSimulationResult(result, file_name):
+        r"""writeSimulationResult(SimulationResult result, std::string const & file_name)"""
+        return _libBornAgainDevice.IntensityDataIOFactory_writeSimulationResult(result, file_name)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
+
+
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+
+        C++ includes: IntensityDataIOFactory.h
+
+        """
+        _libBornAgainDevice.IntensityDataIOFactory_swiginit(self, _libBornAgainDevice.new_IntensityDataIOFactory())
+    __swig_destroy__ = _libBornAgainDevice.delete_IntensityDataIOFactory
+
+# Register IntensityDataIOFactory in _libBornAgainDevice:
+_libBornAgainDevice.IntensityDataIOFactory_swigregister(IntensityDataIOFactory)
+
+def IntensityDataIOFactory_readOutputData(file_name):
+    r"""IntensityDataIOFactory_readOutputData(std::string const & file_name) -> IntensityData"""
+    return _libBornAgainDevice.IntensityDataIOFactory_readOutputData(file_name)
+
+def IntensityDataIOFactory_readReflectometryData(file_name):
+    r"""IntensityDataIOFactory_readReflectometryData(std::string const & file_name) -> IntensityData"""
+    return _libBornAgainDevice.IntensityDataIOFactory_readReflectometryData(file_name)
+
+def IntensityDataIOFactory_readIntensityData(file_name):
+    r"""IntensityDataIOFactory_readIntensityData(std::string const & file_name) -> IHistogram"""
+    return _libBornAgainDevice.IntensityDataIOFactory_readIntensityData(file_name)
+
+def IntensityDataIOFactory_writeOutputData(data, file_name):
+    r"""IntensityDataIOFactory_writeOutputData(IntensityData data, std::string const & file_name)"""
+    return _libBornAgainDevice.IntensityDataIOFactory_writeOutputData(data, file_name)
+
+def IntensityDataIOFactory_writeIntensityData(histogram, file_name):
+    r"""IntensityDataIOFactory_writeIntensityData(IHistogram histogram, std::string const & file_name)"""
+    return _libBornAgainDevice.IntensityDataIOFactory_writeIntensityData(histogram, file_name)
+
+def IntensityDataIOFactory_writeSimulationResult(result, file_name):
+    r"""IntensityDataIOFactory_writeSimulationResult(SimulationResult result, std::string const & file_name)"""
+    return _libBornAgainDevice.IntensityDataIOFactory_writeSimulationResult(result, file_name)
+
+class AxisInfo(object):
+    r"""
+
+
+    Information about an axis in specific units. Can be used for plotting.
+
+    C++ includes: SimulationResult.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    m_name = property(_libBornAgainDevice.AxisInfo_m_name_get, _libBornAgainDevice.AxisInfo_m_name_set, doc=r"""m_name : std::string""")
+    m_min = property(_libBornAgainDevice.AxisInfo_m_min_get, _libBornAgainDevice.AxisInfo_m_min_set, doc=r"""m_min : double""")
+    m_max = property(_libBornAgainDevice.AxisInfo_m_max_get, _libBornAgainDevice.AxisInfo_m_max_set, doc=r"""m_max : double""")
+
+    def __init__(self):
+        r"""
+        __init__(AxisInfo self) -> AxisInfo
+
+
+        Information about an axis in specific units. Can be used for plotting.
+
+        C++ includes: SimulationResult.h
+
+        """
+        _libBornAgainDevice.AxisInfo_swiginit(self, _libBornAgainDevice.new_AxisInfo())
+    __swig_destroy__ = _libBornAgainDevice.delete_AxisInfo
+
+# Register AxisInfo in _libBornAgainDevice:
+_libBornAgainDevice.AxisInfo_swigregister(AxisInfo)
+
+class SimulationResult(object):
+    r"""
+
+
+    Wrapper around OutputData<double> that also provides unit conversions.
+
+    C++ includes: SimulationResult.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(SimulationResult self) -> SimulationResult
+        __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
+        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
+        SimulationResult::SimulationResult(SimulationResult &&other)
+
+        """
+        _libBornAgainDevice.SimulationResult_swiginit(self, _libBornAgainDevice.new_SimulationResult(*args))
+
+    def histogram2d(self, *args):
+        r"""
+        histogram2d(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> Histogram2D
+        Histogram2D * SimulationResult::histogram2d(Axes::Units units=Axes::Units::DEFAULT) const
+
+        """
+        return _libBornAgainDevice.SimulationResult_histogram2d(self, *args)
+
+    def axisInfo(self, *args):
+        r"""
+        axisInfo(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> std::vector< AxisInfo,std::allocator< AxisInfo > >
+        std::vector< AxisInfo > SimulationResult::axisInfo(Axes::Units units=Axes::Units::DEFAULT) const
+
+        Provide  AxisInfo for each axis and the given units. 
+
+        """
+        return _libBornAgainDevice.SimulationResult_axisInfo(self, *args)
+
+    def converter(self):
+        r"""
+        converter(SimulationResult self) -> IUnitConverter
+        const IUnitConverter & SimulationResult::converter() const
+
+        Returns underlying unit converter. 
+
+        """
+        return _libBornAgainDevice.SimulationResult_converter(self)
+
+    def size(self):
+        r"""
+        size(SimulationResult self) -> size_t
+        size_t SimulationResult::size() const
+
+        """
+        return _libBornAgainDevice.SimulationResult_size(self)
+
+    def empty(self):
+        r"""
+        empty(SimulationResult self) -> bool
+        bool SimulationResult::empty() const
+
+        """
+        return _libBornAgainDevice.SimulationResult_empty(self)
+
+    def array(self, *args):
+        r"""
+        array(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> PyObject
+        PyObject * SimulationResult::array(Axes::Units units=Axes::Units::DEFAULT) const
+
+        returns intensity data as Python numpy array 
+
+        """
+        return _libBornAgainDevice.SimulationResult_array(self, *args)
+
+    def axis(self, *args):
+        r"""
+        axis(SimulationResult self, Axes::Units units=Axes::Units::DEFAULT) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis, Axes::Units units=Axes::Units::DEFAULT) -> vdouble1d_t
+        std::vector< double > SimulationResult::axis(size_t i_axis, Axes::Units units=Axes::Units::DEFAULT) const
+
+        Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
+
+        """
+        return _libBornAgainDevice.SimulationResult_axis(self, *args)
+
+    def __getitem__(self, i):
+        r"""__getitem__(SimulationResult self, unsigned int i) -> double"""
+        return _libBornAgainDevice.SimulationResult___getitem__(self, i)
+
+    def __setitem__(self, i, value):
+        r"""__setitem__(SimulationResult self, unsigned int i, double value) -> double"""
+        return _libBornAgainDevice.SimulationResult___setitem__(self, i, value)
+    __swig_destroy__ = _libBornAgainDevice.delete_SimulationResult
+
+# Register SimulationResult in _libBornAgainDevice:
+_libBornAgainDevice.SimulationResult_swigregister(SimulationResult)
+
+
+def ScanRelativeResolution(distribution, rel_dev):
+    """
+    Creates a scan resolution from the given distribution and
+    relative deviation values (that is, the ratios of standard
+    deviations and means).
+    :param distribution: bornagain.RangedDistribution object
+    :param rel_dev: either single-valued or a numpy array.
+                    In the latter case should coinside in
+                    size with later used mean values array.
+    :return: bornagain.ScanResolution object
+    """
+    return ScanResolution_scanRelativeResolution(distribution, rel_dev)
+
+def ScanAbsoluteResolution(distribution, std_dev):
+    """
+    Creates a scan resolution from the given distribution and
+    standard deviation values.
+    :param distribution: bornagain.RangedDistribution object
+    :param std_dev: either single-valued or a numpy array.
+                    In the latter case should coinside in
+                    size with later used mean values array.
+    :return: bornagain.ScanResolution object
+    """
+    return ScanResolution_scanAbsoluteResolution(distribution, std_dev)
+
 

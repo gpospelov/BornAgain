@@ -21,8 +21,6 @@
 #include <memory>
 #include <vector>
 
-class IKzComputation;
-class MultiLayer;
 class Slice;
 
 //! Data stucture containing both input and output of a single image pixel

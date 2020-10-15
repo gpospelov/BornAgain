@@ -23,8 +23,7 @@
 
 class Slice;
 
-//! Data stucture containing both input and output of a single image pixel
-//! for specular simulation.
+//! Data stucture containing both input and output of a single image pixel for specular simulation.
 //! @ingroup simulation
 
 class SpecularSimulationElement
@@ -41,7 +40,7 @@ public:
     SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
 
     //! Assigns PolarizationHandler.
-    void setPolarizationHandler(PolarizationHandler handler);
+    void setPolarizationHandler(const PolarizationHandler& handler);
 
     //! Returns assigned PolarizationHandler.
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }

@@ -7504,7 +7504,7 @@ C++ includes: SpecularSimulationElement.h
 %feature("docstring")  SpecularSimulationElement::~SpecularSimulationElement "SpecularSimulationElement::~SpecularSimulationElement()
 ";
 
-%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(PolarizationHandler handler)
+%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler &handler)
 
 Assigns PolarizationHandler. 
 ";

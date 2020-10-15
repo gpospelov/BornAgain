@@ -25,7 +25,7 @@ SpecularSimulationElement::SpecularSimulationElement(double kz)
 
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
     : m_intensity(0.0), m_calculation_flag(true),
-      m_kz_computation([k = vecOfLambdaAlphaPhi(wavelength, alpha, /*phi =*/0.0)](
+      m_kz_computation([k = vecOfLambdaAlphaPhi(wavelength, alpha, 0.0)](
                            const std::vector<Slice>& slices) {
           return KzComputation::computeKzFromRefIndices(slices, k);
       })
@@ -57,9 +57,9 @@ operator=(const SpecularSimulationElement& other)
     return *this;
 }
 
-void SpecularSimulationElement::setPolarizationHandler(PolarizationHandler handler)
+void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler& handler)
 {
-    m_polarization = std::move(handler);
+    m_polarization = handler;
 }
 
 std::vector<complex_t> SpecularSimulationElement::produceKz(const std::vector<Slice>& slices)

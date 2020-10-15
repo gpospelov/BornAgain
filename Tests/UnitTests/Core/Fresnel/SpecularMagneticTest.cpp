@@ -17,14 +17,12 @@ class SpecularMagneticTest : public ::testing::Test
 {
 protected:
     std::unique_ptr<ProcessedSample> sample_zerofield();
-
     std::unique_ptr<ProcessedSample> sample_degenerate();
-    //! Compares results with scalar case
+
+    template <typename Strategy> void test_degenerate();
     template <typename Strategy>
     void testZeroField(const kvector_t& k, const ProcessedSample& sample);
     template <typename Strategy> void testcase_zerofield(std::vector<double>&& angles);
-
-    template <typename Strategy> void test_degenerate();
 };
 
 template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhStrategy>()
@@ -54,6 +52,7 @@ template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhSt
     }
 }
 
+    //! Compares results with scalar case
 template <typename Strategy>
 void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample)
 {
@@ -65,23 +64,20 @@ void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSamp
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
     for (size_t i = 0; i < coeffs_scalar.size(); ++i) {
-        const ScalarRTCoefficients& RTScalar =
-            *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[i].get());
+        auto* RTScalar = coeffs_scalar[i].get();
+        auto* RTMatrix = coeffs_zerofield[i].get();
 
-        auto& RTMatrix =
-            *dynamic_cast<const typename Strategy::coefficient_type*>(coeffs_zerofield[i].get());
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->T1plus(), RTScalar->T1plus(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->T2plus(), RTScalar->T2plus(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->R1plus(), RTScalar->R1plus(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->R2plus(), RTScalar->R2plus(), eps);
 
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.T1plus(), RTScalar.T1plus(), eps);
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.T2plus(), RTScalar.T2plus(), eps);
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.R1plus(), RTScalar.R1plus(), eps);
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.R2plus(), RTScalar.R2plus(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->T1min(), RTScalar->T1min(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->T2min(), RTScalar->T2min(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->R1min(), RTScalar->R1min(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->R2min(), RTScalar->R2min(), eps);
 
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.T1min(), RTScalar.T1min(), eps);
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.T2min(), RTScalar.T2min(), eps);
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.R1min(), RTScalar.R1min(), eps);
-        EXPECT_NEAR_VECTOR2CD(RTMatrix.R2min(), RTScalar.R2min(), eps);
-
-        EXPECT_NEAR_VECTOR2CD(RTScalar.getKz(), RTMatrix.getKz(), eps);
+        EXPECT_NEAR_VECTOR2CD(RTMatrix->getKz(), RTScalar->getKz(), eps);
     }
 }
 

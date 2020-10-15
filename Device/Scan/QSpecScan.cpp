@@ -16,7 +16,6 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"
-#include "Device/Instrument/PyFmt2.h"
 #include "Sample/Multilayer/SpecularSimulationElement.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
@@ -111,7 +110,7 @@ std::string QSpecScan::print() const
 {
     std::stringstream result;
     const std::string axis_def = pyfmt::indent() + "axis = ";
-    result << axis_def << pyfmt2::printAxis(*coordinateAxis(), "", axis_def.size()) << "\n";
+    result << axis_def << coordinateAxis()->pyString("", axis_def.size()) << "\n";
 
     result << pyfmt::indent() << "scan = ba.QSpecScan(axis)";
     if (!m_resolution->empty()) {

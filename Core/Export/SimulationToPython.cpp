@@ -286,7 +286,7 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     const Beam& beam = simulation.getInstrument().getBeam();
 
     const std::string axis_def = pyfmt::indent() + "alpha_i_axis = ";
-    result << axis_def << pyfmt2::printAxis(*simulation.beamAxis(), "rad", axis_def.size()) << "\n";
+    result << axis_def << simulation.beamAxis()->pyString("rad", axis_def.size()) << "\n";
 
     result << pyfmt::indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", "

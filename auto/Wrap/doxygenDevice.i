@@ -3793,11 +3793,6 @@ Prints distribution with constructor parameters in given units. ba.DistributionG
 %feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
 ";
 
-%feature("docstring")  pyfmt2::printAxis "std::string pyfmt2::printAxis(const IAxis &axis, const std::string &units, size_t offset)
-
-Prints python-script definition for given axis. offset is used for alignment and indentation in multiple-line definitions 
-";
-
 
 // File: namespaceSpectrumUtils.xml
 %feature("docstring")  SpectrumUtils::FindPeaks "std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)

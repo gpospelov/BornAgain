@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "Device/Instrument/PyFmt2.h"
-#include "Base/Axis/FixedBinAxis.h"
-#include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/Algorithms.h"
@@ -138,11 +136,6 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
            << pyfmt::printRealLimitsArg(par_distr.getLimits(), units) << ")";
 
     return result.str();
-}
-
-std::string printAxis(const IAxis& axis, const std::string& units, size_t offset)
-{
-    return axis.pyString(units, offset);
 }
 
 } // namespace pyfmt2

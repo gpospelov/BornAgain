@@ -20,11 +20,6 @@
 #include "Param/Distrib/RangedDistributions.h"
 #include "Sample/Slice/SpecularSimulationElement.h"
 
-namespace
-{
-const RealLimits qz_limits = RealLimits::nonnegative();
-}
-
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
     : ISpecularScan(SPECULAR_DATA_TYPE::q),
       m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),
@@ -66,7 +61,7 @@ std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() c
     result.reserve(qz.size());
     for (size_t i = 0, size = qz.size(); i < size; ++i) {
         result.emplace_back(-qz[i] / 2.0);
-        if (!qz_limits.isInRange(qz[i]))
+        if (qz[i]<0)
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -165,7 +160,7 @@ void QSpecScan::checkInitialization()
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values shall "
                                  "be sorted in ascending order.");
 
-    if (!qz_limits.isInRange(axis_values.front()))
+    if (axis_values.front()<0)
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values are out "
                                  "of acceptable range.");
 }

@@ -23,9 +23,6 @@
 
 namespace
 {
-const RealLimits wl_limits = RealLimits::nonnegative();
-const RealLimits inc_limits = RealLimits::limited(0.0, M_PI_2);
-
 std::vector<std::vector<double>>
 extractValues(std::vector<std::vector<ParameterSample>> samples,
               const std::function<double(const ParameterSample&)> extractor)
@@ -94,7 +91,7 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
         const double wl = paired_values[i].first;
         const double inc = paired_values[i].second;
         result.emplace_back(wl, -inc);
-        if (!wl_limits.isInRange(wl) || !inc_limits.isInRange(inc))
+        if (wl<0 || inc<0 || inc>M_PI_2)
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -207,7 +204,7 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
         for (size_t k = pos_inc; k < n_inc_samples && left > 0; ++k) {
             pos_inc = 0;
             double angle = sample_values[i][k];
-            double footprint = inc_limits.isInRange(angle) ? m_footprint->calculate(angle) : 1.0;
+            double footprint = (angle>=0 && angle<=M_PI_2) ? m_footprint->calculate(angle) : 1.0;
             for (size_t j = pos_wl; j < n_wl_samples && left > 0; ++j) {
                 pos_wl = 0;
                 result[pos_res] = footprint;

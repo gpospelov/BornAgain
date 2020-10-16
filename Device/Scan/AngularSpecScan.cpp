@@ -59,11 +59,11 @@ AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, doubl
 
 AngularSpecScan* AngularSpecScan::clone() const
 {
-    auto result = std::make_unique<AngularSpecScan>(m_wl, *m_inc_angle);
+    auto* result = new AngularSpecScan(m_wl, *m_inc_angle);
     result->setFootprintFactor(m_footprint.get());
     result->setWavelengthResolution(*m_wl_resolution);
     result->setAngleResolution(*m_inc_resolution);
-    return result.release();
+    return result;
 }
 
 AngularSpecScan::~AngularSpecScan() = default;
@@ -183,7 +183,7 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
     const auto sample_values = extractValues(
         applyIncResolution(), [](const ParameterSample& sample) { return sample.value; });
 
-    size_t pos_out = start / (n_wl_samples * n_inc_samples);
+    const size_t pos_out = start / (n_wl_samples * n_inc_samples);
     size_t pos_inc = (start - pos_out * n_wl_samples * n_inc_samples) / n_wl_samples;
     size_t pos_wl = (start - pos_inc * n_wl_samples);
     int left = static_cast<int>(n_elements);
@@ -214,9 +214,9 @@ AngularSpecScan::createIntensities(const std::vector<SpecularSimulationElement>&
     const size_t axis_size = m_inc_angle->size();
     std::vector<double> result(axis_size, 0.0);
 
-    auto wl_weights = extractValues(applyWlResolution(),
+    const auto wl_weights = extractValues(applyWlResolution(),
                                     [](const ParameterSample& sample) { return sample.weight; });
-    auto inc_weights = extractValues(applyIncResolution(),
+    const auto inc_weights = extractValues(applyIncResolution(),
                                      [](const ParameterSample& sample) { return sample.weight; });
 
     size_t elem_pos = 0;
@@ -266,7 +266,7 @@ void AngularSpecScan::checkInitialization()
         throw std::runtime_error(
             "Error in AngularSpecScan::checkInitialization: wavelength shell be positive");
 
-    std::vector<double> axis_values = m_inc_angle->getBinCenters();
+    const std::vector<double> axis_values = m_inc_angle->getBinCenters();
     if (!std::is_sorted(axis_values.begin(), axis_values.end()))
         throw std::runtime_error("Error in AngularSpecScan::checkInitialization: q-vector values "
                                  "shall be sorted in ascending order.");
@@ -316,7 +316,7 @@ extractValues(std::vector<std::vector<ParameterSample>> samples,
     std::vector<std::vector<double>> result;
     result.resize(samples.size());
     for (size_t i = 0, size = result.size(); i < size; ++i) {
-        auto& sample_row = samples[i];
+        const auto& sample_row = samples[i];
         auto& result_row = result[i];
         result_row.reserve(sample_row.size());
         std::for_each(sample_row.begin(), sample_row.end(),

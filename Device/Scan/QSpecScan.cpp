@@ -52,16 +52,16 @@ QSpecScan::~QSpecScan() = default;
 
 QSpecScan* QSpecScan::clone() const
 {
-    auto result = std::make_unique<QSpecScan>(*m_qs);
+    auto* result = new QSpecScan(*m_qs);
     result->setQResolution(*m_resolution);
-    return result.release();
+    return result;
 }
 
 //! Generates simulation elements for specular simulations
 std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() const
 {
     std::vector<SpecularSimulationElement> result;
-    std::vector<double> qz = generateQzVector();
+    const std::vector<double> qz = generateQzVector();
 
     result.reserve(qz.size());
     for (size_t i = 0, size = qz.size(); i < size; ++i) {

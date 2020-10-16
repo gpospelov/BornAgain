@@ -81,7 +81,7 @@ public:
     virtual std::vector< INode const *, std::allocator< INode const * > > getChildren() const;
     virtual void setParent(INode const *newParent);
     virtual Material const *material() const;
-    virtual void setAmbientMaterial(Material arg0);
+    virtual void setAmbientMaterial(Material const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double volume() const;
     virtual double radialExtension() const;
@@ -146,7 +146,7 @@ public:
     virtual std::vector< INode const *, std::allocator< INode const * > > getChildren() const;
     virtual void setParent(INode const *newParent);
     virtual Material const *material() const;
-    virtual void setAmbientMaterial(Material arg0);
+    virtual void setAmbientMaterial(Material const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double volume() const;
     virtual double radialExtension() const;

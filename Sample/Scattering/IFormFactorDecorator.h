@@ -32,7 +32,7 @@ public:
     ~IFormFactorDecorator() override { delete mp_form_factor; }
     IFormFactorDecorator* clone() const override = 0;
 
-    void setAmbientMaterial(Material material) override
+    void setAmbientMaterial(const Material& material) override
     {
         mp_form_factor->setAmbientMaterial(material);
     }

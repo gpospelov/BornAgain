@@ -34,14 +34,14 @@ FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
     return result;
 }
 
-void FormFactorDecoratorMaterial::setMaterial(Material material)
+void FormFactorDecoratorMaterial::setMaterial(const Material& material)
 {
-    m_material = std::move(material);
+    m_material = material;
 }
 
-void FormFactorDecoratorMaterial::setAmbientMaterial(Material material)
+void FormFactorDecoratorMaterial::setAmbientMaterial(const Material& material)
 {
-    m_ambient_material = std::move(material);
+    m_ambient_material = material;
 }
 
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const

@@ -3275,7 +3275,7 @@ class IFormFactor(ISample):
     def setAmbientMaterial(self, arg0):
         r"""
         setAmbientMaterial(IFormFactor self, Material arg0)
-        virtual void IFormFactor::setAmbientMaterial(Material)=0
+        virtual void IFormFactor::setAmbientMaterial(const Material &)=0
 
         Passes the material in which this particle is embedded. 
 
@@ -3397,7 +3397,7 @@ class IFormFactorBorn(IFormFactor):
     def setAmbientMaterial(self, arg0):
         r"""
         setAmbientMaterial(IFormFactorBorn self, Material arg0)
-        void IFormFactorBorn::setAmbientMaterial(Material) override
+        void IFormFactorBorn::setAmbientMaterial(const Material &) override
 
         Passes the material in which this particle is embedded. 
 
@@ -3523,7 +3523,7 @@ class IFormFactorDecorator(IFormFactor):
     def setAmbientMaterial(self, material):
         r"""
         setAmbientMaterial(IFormFactorDecorator self, Material material)
-        void IFormFactorDecorator::setAmbientMaterial(Material material) override
+        void IFormFactorDecorator::setAmbientMaterial(const Material &material) override
 
         Passes the material in which this particle is embedded. 
 
@@ -4093,7 +4093,7 @@ class FormFactorCrystal(IFormFactor):
     def setAmbientMaterial(self, material):
         r"""
         setAmbientMaterial(FormFactorCrystal self, Material material)
-        void FormFactorCrystal::setAmbientMaterial(Material material) override
+        void FormFactorCrystal::setAmbientMaterial(const Material &material) override
 
         Passes the material in which this particle is embedded. 
 
@@ -4236,7 +4236,7 @@ class FormFactorWeighted(IFormFactor):
     def setAmbientMaterial(self, material):
         r"""
         setAmbientMaterial(FormFactorWeighted self, Material material)
-        void FormFactorWeighted::setAmbientMaterial(Material material) override final
+        void FormFactorWeighted::setAmbientMaterial(const Material &material) override final
 
         Passes the material in which this particle is embedded. 
 

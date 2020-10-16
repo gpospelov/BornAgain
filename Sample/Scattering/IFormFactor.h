@@ -15,12 +15,14 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
 #define BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
 
-#include "Sample/Material/Material.h"
+#include "Base/Types/Complex.h"
 #include "Sample/Scattering/ISample.h"
 #include "Sample/Scattering/ZLimits.h"
+#include <Eigen/Core>
 
 class ILayerRTCoefficients;
 class IRotation;
+class Material;
 class WavevectorInfo;
 
 //! Pure virtual base class for all form factors.
@@ -48,7 +50,7 @@ public:
                                         kvector_t translation) const;
 
     //! Passes the material in which this particle is embedded.
-    virtual void setAmbientMaterial(Material) = 0;
+    virtual void setAmbientMaterial(const Material&) = 0;
 
     //! Returns scattering amplitude for complex wavevectors ki, kf.
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const = 0;

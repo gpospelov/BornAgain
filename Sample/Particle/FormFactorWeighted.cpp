@@ -66,7 +66,7 @@ void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor, double we
     m_weights.push_back(weight);
 }
 
-void FormFactorWeighted::setAmbientMaterial(Material material)
+void FormFactorWeighted::setAmbientMaterial(const Material& material)
 {
     for (size_t index = 0; index < m_form_factors.size(); ++index)
         m_form_factors[index]->setAmbientMaterial(material);

@@ -23,12 +23,27 @@
 
 namespace
 {
-std::vector<std::vector<double>>
-extractValues(std::vector<std::vector<ParameterSample>> samples,
-              const std::function<double(const ParameterSample&)> extractor);
-
 const RealLimits wl_limits = RealLimits::nonnegative();
 const RealLimits inc_limits = RealLimits::limited(0.0, M_PI_2);
+
+std::vector<std::vector<double>>
+extractValues(std::vector<std::vector<ParameterSample>> samples,
+              const std::function<double(const ParameterSample&)> extractor)
+{
+    std::vector<std::vector<double>> result;
+    result.resize(samples.size());
+    for (size_t i = 0, size = result.size(); i < size; ++i) {
+        const auto& sample_row = samples[i];
+        auto& result_row = result[i];
+        result_row.reserve(sample_row.size());
+        std::for_each(sample_row.begin(), sample_row.end(),
+                      [&result_row, &extractor](const ParameterSample& sample) {
+                          result_row.push_back(extractor(sample));
+                      });
+    }
+    return result;
+}
+
 } // namespace
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
@@ -306,24 +321,3 @@ AngularSpecScan::DistrOutput AngularSpecScan::applyIncResolution() const
         m_inc_res_cache = m_inc_resolution->generateSamples(m_inc_angle->getBinCenters());
     return m_inc_res_cache;
 }
-
-namespace
-{
-std::vector<std::vector<double>>
-extractValues(std::vector<std::vector<ParameterSample>> samples,
-              const std::function<double(const ParameterSample&)> extractor)
-{
-    std::vector<std::vector<double>> result;
-    result.resize(samples.size());
-    for (size_t i = 0, size = result.size(); i < size; ++i) {
-        const auto& sample_row = samples[i];
-        auto& result_row = result[i];
-        result_row.reserve(sample_row.size());
-        std::for_each(sample_row.begin(), sample_row.end(),
-                      [&result_row, &extractor](const ParameterSample& sample) {
-                          result_row.push_back(extractor(sample));
-                      });
-    }
-    return result;
-}
-} // namespace

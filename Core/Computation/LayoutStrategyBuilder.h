@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_LAYOUTSTRATEGYBUILDER_H
 #define BORNAGAIN_CORE_COMPUTATION_LAYOUTSTRATEGYBUILDER_H
 
-#include "Core/RT/SimulationOptions.h"
+#include "Sample/RT/SimulationOptions.h"
 #include <memory>
 
 class IInterferenceFunction;

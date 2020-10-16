@@ -1,0 +1,29 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Sample/StandardSamples/LatticeBuilder.h
+//! @brief     Defines class Lattice1DBuilder.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
+#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_LATTICEBUILDER_H
+#define BORNAGAIN_CORE_STANDARDSAMPLES_LATTICEBUILDER_H
+
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
+
+//! Builds sample: cylinders with 1DDL structure factor.
+//! @ingroup standard_samples
+
+class Lattice1DBuilder : public ISampleBuilder
+{
+public:
+    MultiLayer* buildSample() const;
+};
+
+#endif // BORNAGAIN_CORE_STANDARDSAMPLES_LATTICEBUILDER_H

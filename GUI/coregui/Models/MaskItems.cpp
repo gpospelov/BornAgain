@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/MaskItems.h"
-#include "Core/Mask/Ellipse.h"
-#include "Core/Mask/InfinitePlane.h"
-#include "Core/Mask/Line.h"
-#include "Core/Mask/Polygon.h"
-#include "Core/Mask/Rectangle.h"
+#include "Device/Mask/Ellipse.h"
+#include "Device/Mask/InfinitePlane.h"
+#include "Device/Mask/Line.h"
+#include "Device/Mask/Polygon.h"
+#include "Device/Mask/Rectangle.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
 MaskContainerItem::MaskContainerItem() : SessionItem("MaskContainer")

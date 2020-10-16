@@ -14,7 +14,7 @@
 
 #include "Core/Computation/ProfileHelper.h"
 #include "Core/Computation/ProcessedSample.h"
-#include "Core/Multilayer/LayerRoughness.h"
+#include "Sample/Multilayer/LayerRoughness.h"
 
 namespace
 {

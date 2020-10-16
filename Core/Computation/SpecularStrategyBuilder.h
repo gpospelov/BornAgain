@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_SPECULARSTRATEGYBUILDER_H
 #define BORNAGAIN_CORE_COMPUTATION_SPECULARSTRATEGYBUILDER_H
 
-#include "Core/Multilayer/ISpecularStrategy.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/ISpecularStrategy.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 class SpecularStrategyBuilder
 {

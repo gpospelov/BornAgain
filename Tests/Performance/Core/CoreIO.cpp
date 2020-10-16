@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Data/OutputData.h"
-#include "Core/Histo/IntensityDataIOFactory.h"
+#include "Device/Data/OutputData.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Fit/TestEngine/Numeric.h"
 #include "Tests/Performance/Benchmark.h"
 #include <boost/format.hpp>

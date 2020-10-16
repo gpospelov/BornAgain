@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Views/InfoWidgets/PySampleWidget.h"
 #include "Core/Export/ExportToPython.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/SampleModel.h"

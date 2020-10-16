@@ -1,11 +1,11 @@
-#include "Core/Multilayer/KzComputation.h"
+#include "Sample/Multilayer/KzComputation.h"
 #include "Base/Const/Units.h"
 #include "Core/Computation/ProcessedSample.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/RT/SimulationOptions.h"
-#include "Core/StandardSamples/PlainMultiLayerBySLDBuilder.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/RT/SimulationOptions.h"
+#include "Sample/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class KzComputationTest : public ::testing::Test

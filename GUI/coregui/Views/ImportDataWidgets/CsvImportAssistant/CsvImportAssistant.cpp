@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/InputOutput/DataFormatUtils.cpp"
+#include "Device/InputOutput/DataFormatUtils.cpp"
 // TODO avoid importing a cpp file
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/DataSelector.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"

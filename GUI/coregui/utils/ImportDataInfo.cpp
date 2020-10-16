@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Data/OutputData.h"
-#include "Core/Unit/AxisNames.h"
+#include "Device/Data/OutputData.h"
+#include "Device/Unit/AxisNames.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"

@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "Core/Histo/IntensityDataIOFactory.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/StandardSimulations.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"

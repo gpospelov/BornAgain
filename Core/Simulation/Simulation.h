@@ -16,11 +16,11 @@
 #define BORNAGAIN_CORE_SIMULATION_SIMULATION_H
 
 #include "Core/Computation/ProgressHandler.h"
-#include "Core/Detector/IDetector2D.h"
-#include "Core/Histo/SimulationResult.h"
-#include "Core/Instrument/Instrument.h"
-#include "Core/RT/SimulationOptions.h"
-#include "Core/SampleBuilderEngine/SampleProvider.h"
+#include "Device/Detector/IDetector2D.h"
+#include "Device/Histo/SimulationResult.h"
+#include "Device/Instrument/Instrument.h"
+#include "Sample/RT/SimulationOptions.h"
+#include "Sample/SampleBuilderEngine/SampleProvider.h"
 #include "Param/Distrib/DistributionHandler.h"
 
 template <class T> class OutputData;

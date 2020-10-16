@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Base/Const/Units.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/StandardSamples/CylindersBuilder.h"
-#include "Core/StandardSamples/ParaCrystalBuilder.h"
+#include "Sample/StandardSamples/CylindersBuilder.h"
+#include "Sample/StandardSamples/ParaCrystalBuilder.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterPattern.h"
 #include "Tests/Performance/Core/ThreadingComponents.h"

@@ -1,4 +1,4 @@
-#include "Core/Mask/Polygon.h"
+#include "Device/Mask/Polygon.h"
 #include "Base/Axis/Bin.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>

@@ -1,10 +1,10 @@
-#include "Core/Aggregate/ParticleLayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/InterferenceFunction1DLattice.h"
-#include "Core/Aggregate/InterferenceFunctionNone.h"
+#include "Sample/Aggregate/InterferenceFunction1DLattice.h"
+#include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Core/Export/INodeUtils.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Particle/Particle.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Particle/Particle.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleLayoutTest : public ::testing::Test

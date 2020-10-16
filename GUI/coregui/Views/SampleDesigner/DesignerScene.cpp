@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/FilterPropertyProxy.h"
 #include "GUI/coregui/Models/GUIExamplesFactory.h"
 #include "GUI/coregui/Models/InstrumentModel.h"

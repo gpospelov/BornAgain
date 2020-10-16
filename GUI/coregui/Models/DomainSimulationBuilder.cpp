@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
 #include "Base/Const/Units.h"
-#include "Core/Beam/IFootprintFactor.h"
+#include "Device/Beam/IFootprintFactor.h"
 #include "Core/Computation/IBackground.h"
-#include "Core/Scan/AngularSpecScan.h"
+#include "Device/Scan/AngularSpecScan.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"

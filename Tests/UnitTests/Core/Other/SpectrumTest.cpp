@@ -1,4 +1,4 @@
-#include "Core/Instrument/SpectrumUtils.h"
+#include "Device/Instrument/SpectrumUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <tspectrum.h>

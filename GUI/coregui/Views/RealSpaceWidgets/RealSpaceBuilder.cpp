@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.h"
 #include "Base/Const/Units.h"
-#include "Core/Aggregate/InterferenceFunctions.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Particle/ParticleCoreShell.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/LayerItem.h"

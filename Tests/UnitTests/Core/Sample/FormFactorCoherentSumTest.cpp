@@ -1,6 +1,6 @@
-#include "Core/Multilayer/FormFactorCoherentSum.h"
+#include "Sample/Multilayer/FormFactorCoherentSum.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/HardParticle/FormFactorDot.h"
+#include "Sample/HardParticle/FormFactorDot.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class FormFactorCoherentSumTest : public ::testing::Test

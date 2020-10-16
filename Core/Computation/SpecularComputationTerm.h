@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
 #define BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
 
-#include "Core/Multilayer/ISpecularStrategy.h"
+#include "Sample/Multilayer/ISpecularStrategy.h"
 
 #include <memory>
 #include <vector>

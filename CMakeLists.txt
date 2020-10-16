@@ -109,7 +109,7 @@ endif()
 ## recurse into the given subdirectories
 
 # BornAgain components are build as separate shared libraries
-set(CoreComponents "Base;Fit;Param;Core")
+set(CoreComponents "Base;Fit;Param;Sample;Device;Core")
 set(AllComponents "${CoreComponents};GUI")
 
 # code analysis

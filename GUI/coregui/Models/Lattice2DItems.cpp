@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "Base/Const/Units.h"
-#include "Core/Lattice/Lattice2D.h"
+#include "Sample/Lattice/Lattice2D.h"
 
 namespace
 {

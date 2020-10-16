@@ -17,7 +17,7 @@
 
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/SimDataPair.h"
-#include "Core/Intensity/ArrayUtils.h"
+#include "Device/Intensity/ArrayUtils.h"
 #include "Fit/Kernel/MinimizerResult.h"
 
 class FitStatus;

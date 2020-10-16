@@ -1,4 +1,4 @@
-#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Device/Instrument/IntensityDataFunctions.h"
 #include "Base/Axis/VariableBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 

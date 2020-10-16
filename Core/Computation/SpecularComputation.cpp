@@ -16,7 +16,7 @@
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Computation/ProgressHandler.h"
 #include "Core/Computation/SpecularStrategyBuilder.h"
-#include "Core/Multilayer/SpecularSimulationElement.h"
+#include "Sample/Multilayer/SpecularSimulationElement.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");

@@ -1,4 +1,4 @@
-#include "Core/Particle/Particle.h"
+#include "Sample/Particle/Particle.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"

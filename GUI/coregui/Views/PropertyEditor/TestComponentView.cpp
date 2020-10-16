@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/PropertyEditor/TestComponentView.h"
-#include "Core/Multilayer/MultiLayer.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
 #include "GUI/coregui/Models/MaterialModel.h"

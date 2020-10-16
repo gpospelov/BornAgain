@@ -1,4 +1,4 @@
-#include "Core/Particle/TRange.h"
+#include "Sample/Particle/TRange.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <algorithm>
 

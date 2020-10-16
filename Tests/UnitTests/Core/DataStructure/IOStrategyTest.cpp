@@ -1,6 +1,6 @@
-#include "Core/Data/OutputData.h"
-#include "Core/InputOutput/OutputDataReadStrategy.h"
-#include "Core/InputOutput/OutputDataWriteStrategy.h"
+#include "Device/Data/OutputData.h"
+#include "Device/InputOutput/OutputDataReadStrategy.h"
+#include "Device/InputOutput/OutputDataWriteStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class IOStrategyTest : public ::testing::Test

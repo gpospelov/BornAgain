@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobModelFunctions.h"
-#include "Core/Detector/DetectorFunctions.h"
-#include "Core/Detector/IDetector2D.h"
-#include "Core/Instrument/Instrument.h"
+#include "Device/Detector/DetectorFunctions.h"
+#include "Device/Detector/IDetector2D.h"
+#include "Device/Instrument/Instrument.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"
 #include "GUI/coregui/Models/DetectorItems.h"

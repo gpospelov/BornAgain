@@ -1,4 +1,4 @@
-#include "Core/Detector/RectangularDetector.h"
+#include "Device/Detector/RectangularDetector.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/Algorithms.h"
 #include "Core/Simulation/GISASSimulation.h"

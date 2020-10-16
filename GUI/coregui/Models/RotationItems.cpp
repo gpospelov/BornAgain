@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Models/RotationItems.h"
 #include "Base/Const/Units.h"
-#include "Core/Scattering/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 
 // ----------------------------------------------------------------------------
 

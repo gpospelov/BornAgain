@@ -1,6 +1,6 @@
 #include "Base/Axis/VariableBinAxis.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/InputOutput/DataFormatUtils.h"
+#include "Device/InputOutput/DataFormatUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class VariableBinAxisTest : public ::testing::Test

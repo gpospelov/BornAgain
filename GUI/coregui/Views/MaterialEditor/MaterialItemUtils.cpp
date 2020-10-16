@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
-#include "Core/Material/Material.h"
+#include "Sample/Material/Material.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"

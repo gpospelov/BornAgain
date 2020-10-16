@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "Core/Computation/SpecularStrategyBuilder.h"
-#include "Core/Multilayer/MultiLayerUtils.h"
-#include "Core/Multilayer/SpecularMagneticNewNCStrategy.h"
-#include "Core/Multilayer/SpecularMagneticNewTanhStrategy.h"
-#include "Core/Multilayer/SpecularScalarNCStrategy.h"
-#include "Core/Multilayer/SpecularScalarTanhStrategy.h"
+#include "Sample/Multilayer/MultiLayerUtils.h"
+#include "Sample/Multilayer/SpecularMagneticNewNCStrategy.h"
+#include "Sample/Multilayer/SpecularMagneticNewTanhStrategy.h"
+#include "Sample/Multilayer/SpecularScalarNCStrategy.h"
+#include "Sample/Multilayer/SpecularScalarTanhStrategy.h"
 
 std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLayer& sample,
                                                                   const bool magnetic)

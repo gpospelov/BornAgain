@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Tests/Performance/GUI/GUIPerformanceTest.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"

@@ -1,5 +1,5 @@
-#include "Core/Histo/Histogram2D.h"
-#include "Core/Histo/Histogram1D.h"
+#include "Device/Histo/Histogram2D.h"
+#include "Device/Histo/Histogram1D.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

@@ -1,7 +1,7 @@
 #include "Base/Const/Units.h"
-#include "Core/Beam/Beam.h"
-#include "Core/Detector/SimpleUnitConverters.h"
-#include "Core/Detector/SphericalDetector.h"
+#include "Device/Beam/Beam.h"
+#include "Device/Detector/SimpleUnitConverters.h"
+#include "Device/Detector/SphericalDetector.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SphericalConverterTest : public ::testing::Test

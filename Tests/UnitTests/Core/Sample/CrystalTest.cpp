@@ -1,5 +1,5 @@
-#include "Core/Particle/Crystal.h"
-#include "Core/Particle/ParticleComposition.h"
+#include "Sample/Particle/Crystal.h"
+#include "Sample/Particle/ParticleComposition.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class CrystalTest : public ::testing::Test

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_UNITCONVERTERUTILS_H
 #define BORNAGAIN_CORE_SIMULATION_UNITCONVERTERUTILS_H
 
-#include "Core/Unit/IUnitConverter.h"
+#include "Device/Unit/IUnitConverter.h"
 
 class Instrument;
 class Simulation;

@@ -1,4 +1,4 @@
-#include "Core/Data/OutputData.h"
+#include "Device/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class OutputDataIteratorTest : public ::testing::Test

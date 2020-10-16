@@ -1,4 +1,4 @@
-#include "Core/Intensity/ArrayUtils.h"
+#include "Device/Intensity/ArrayUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 

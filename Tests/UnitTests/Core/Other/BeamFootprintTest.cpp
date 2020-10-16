@@ -1,7 +1,7 @@
 #include "Base/Const/Units.h"
-#include "Core/Beam/Beam.h"
-#include "Core/Beam/FootprintGauss.h"
-#include "Core/Beam/FootprintSquare.h"
+#include "Device/Beam/Beam.h"
+#include "Device/Beam/FootprintGauss.h"
+#include "Device/Beam/FootprintSquare.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 #include <limits>

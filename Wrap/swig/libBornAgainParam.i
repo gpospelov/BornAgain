@@ -40,7 +40,6 @@
 #include "Param/Distrib/ParameterDistribution.h"
 #include "Param/Varia/ParameterSample.h"
 #include "Param/Distrib/RangedDistributions.h"
-
 %}
 
 %import(module="libBornAgainBase") "Base/Types/Complex.h"

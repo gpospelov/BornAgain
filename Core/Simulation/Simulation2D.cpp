@@ -16,9 +16,9 @@
 #include "Base/Pixel/SimulationElement.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
-#include "Core/Detector/DetectorContext.h"
-#include "Core/Detector/DetectorFunctions.h"
-#include "Core/Histo/Histogram2D.h"
+#include "Device/Detector/DetectorContext.h"
+#include "Device/Detector/DetectorFunctions.h"
+#include "Device/Histo/Histogram2D.h"
 
 Simulation2D::Simulation2D() = default;
 

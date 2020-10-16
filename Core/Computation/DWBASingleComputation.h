@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_DWBASINGLECOMPUTATION_H
 #define BORNAGAIN_CORE_COMPUTATION_DWBASINGLECOMPUTATION_H
 
-#include "Core/Particle/HomogeneousRegion.h"
+#include "Sample/Particle/HomogeneousRegion.h"
 #include <map>
 #include <memory>
 #include <vector>

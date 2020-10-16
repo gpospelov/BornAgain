@@ -1,5 +1,5 @@
-#include "Core/Lattice/LatticeUtils.h"
-#include "Core/Lattice/ILatticeOrientation.h"
+#include "Sample/Lattice/LatticeUtils.h"
+#include "Sample/Lattice/ILatticeOrientation.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class LatticeUtilsTest : public ::testing::Test

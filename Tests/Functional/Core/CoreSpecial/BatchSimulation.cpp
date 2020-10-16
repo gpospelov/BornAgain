@@ -11,9 +11,9 @@
 //
 // ************************************************************************** //
 
-#include "Core/Instrument/IntensityDataFunctions.h"
+#include "Device/Instrument/IntensityDataFunctions.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>

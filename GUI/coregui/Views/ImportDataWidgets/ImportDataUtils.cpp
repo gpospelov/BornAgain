@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include "Base/Axis/PointwiseAxis.h"
-#include "Core/Histo/IntensityDataIOFactory.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"

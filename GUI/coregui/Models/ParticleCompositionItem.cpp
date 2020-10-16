@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ParticleCompositionItem.h"
-#include "Core/Particle/MesoCrystal.h"
-#include "Core/Particle/Particle.h"
-#include "Core/Particle/ParticleCoreShell.h"
+#include "Sample/Particle/MesoCrystal.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 #include "GUI/coregui/Models/MesoCrystalItem.h"
 #include "GUI/coregui/Models/ModelPath.h"
 #include "GUI/coregui/Models/ParticleCoreShellItem.h"

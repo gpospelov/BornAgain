@@ -1,4 +1,4 @@
-#include "Core/Resolution/ScanResolution.h"
+#include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>

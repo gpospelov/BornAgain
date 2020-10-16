@@ -2,9 +2,9 @@
 #define BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H
 
 #include "Base/Const/Units.h"
-#include "Core/Material/MaterialFactoryFuncs.h"
-#include "Core/Multilayer/Layer.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Fit/Kernel/Parameters.h"
 #include <memory>

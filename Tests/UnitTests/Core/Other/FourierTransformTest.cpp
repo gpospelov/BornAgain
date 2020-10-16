@@ -1,6 +1,6 @@
-#include "Core/Instrument/FourierTransform.h"
+#include "Device/Instrument/FourierTransform.h"
 #include "Base/Const/MathConstants.h"
-#include "Core/Data/OutputData.h"
+#include "Device/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class FourierTransformTest : public ::testing::Test

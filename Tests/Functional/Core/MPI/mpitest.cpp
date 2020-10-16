@@ -1,10 +1,10 @@
 #include <mpi.h>
 
-#include "Core/Histo/IntensityDataIOFactory.h"
-#include "Core/Instrument/IntensityDataFunctions.h"
-#include "Core/Multilayer/MultiLayer.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
+#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Core/StandardSamples/SampleBuilderFactory.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 
 #include <iostream>
 

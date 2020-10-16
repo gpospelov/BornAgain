@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Sample/Particle/IParticle.h"
+#include "Param/Base/RealParameter.h"
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/Rotations.h"
-#include "Param/Base/RealParameter.h"
 
 IParticle::~IParticle() = default;
 

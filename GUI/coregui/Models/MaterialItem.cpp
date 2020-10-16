@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Material/MaterialFactoryFuncs.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
 
 using SessionItemUtils::GetVectorItem;
 

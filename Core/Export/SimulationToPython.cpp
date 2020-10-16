@@ -15,22 +15,22 @@
 #include "Core/Export/SimulationToPython.h"
 #include "Base/Utils/Algorithms.h"
 #include "Base/Utils/PyFmt.h"
-#include "Device/Beam/FootprintGauss.h"
-#include "Device/Beam/FootprintSquare.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
+#include "Core/Export/INodeUtils.h"
+#include "Core/Export/SampleToPython.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/SpecularSimulation.h"
+#include "Device/Beam/FootprintGauss.h"
+#include "Device/Beam/FootprintSquare.h"
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/RegionOfInterest.h"
 #include "Device/Detector/SphericalDetector.h"
-#include "Core/Export/INodeUtils.h"
-#include "Core/Export/SampleToPython.h"
 #include "Device/Instrument/PyFmt2.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
 #include "Device/Scan/ISpecularScan.h"
-#include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
-#include "Core/Simulation/SpecularSimulation.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
@@ -286,7 +286,7 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     const Beam& beam = simulation.getInstrument().getBeam();
 
     const std::string axis_def = pyfmt::indent() + "alpha_i_axis = ";
-    result << axis_def << pyfmt2::printAxis(*simulation.beamAxis(), "rad", axis_def.size()) << "\n";
+    result << axis_def << simulation.beamAxis()->pyString("rad", axis_def.size()) << "\n";
 
     result << pyfmt::indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", "

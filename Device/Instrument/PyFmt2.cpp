@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "Device/Instrument/PyFmt2.h"
-#include "Base/Axis/FixedBinAxis.h"
-#include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/Algorithms.h"
@@ -136,32 +134,6 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
            << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
            << pyfmt::printDouble(par_distr.getSigmaFactor())
            << pyfmt::printRealLimitsArg(par_distr.getLimits(), units) << ")";
-
-    return result.str();
-}
-
-std::string printAxis(const IAxis& axis, const std::string& units, size_t offset)
-{
-    std::ostringstream result;
-
-    if (auto fixedAxis = dynamic_cast<const FixedBinAxis*>(&axis)) {
-        result << "ba.FixedBinAxis(" << pyfmt::printString(fixedAxis->getName()) << ", "
-               << fixedAxis->size() << ", " << pyfmt::printValue(fixedAxis->getMin(), units) << ", "
-               << pyfmt::printValue(fixedAxis->getMax(), units) << ")";
-    } else if (auto pointwise_axis = dynamic_cast<const PointwiseAxis*>(&axis)) {
-        const std::string py_def_call = "numpy.asarray([";
-        const size_t total_offset = offset + py_def_call.size();
-        result << py_def_call;
-
-        std::vector<double> points = pointwise_axis->getBinCenters();
-        for (auto iter = points.begin(); iter != points.end() - 1; ++iter) {
-            result << pyfmt::printValue(*iter, units) << ",\n";
-            result << pyfmt::indent(total_offset);
-        }
-        result << pyfmt::printValue(points.back(), units) << "])";
-    } else {
-        throw std::runtime_error("pyfmt2::printAxis() -> Error. Unsupported axis");
-    }
 
     return result.str();
 }

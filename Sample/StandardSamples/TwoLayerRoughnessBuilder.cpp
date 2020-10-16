@@ -15,8 +15,8 @@
 #include "Sample/StandardSamples/TwoLayerRoughnessBuilder.h"
 #include "Base/Const/Units.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* TwoLayerRoughnessBuilder::buildSample() const

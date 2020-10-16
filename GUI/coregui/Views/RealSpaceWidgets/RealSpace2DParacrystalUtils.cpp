@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpace2DParacrystalUtils.h"
-#include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h"
+#include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
 
 namespace
 {

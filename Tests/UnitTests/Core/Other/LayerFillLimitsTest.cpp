@@ -1,4 +1,4 @@
-#include "Sample/Multilayer/LayerFillLimits.h"
+#include "Sample/Scattering/LayerFillLimits.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <stdexcept>
 

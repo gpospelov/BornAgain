@@ -16,8 +16,8 @@
 #include "Base/Const/Units.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include <memory>
 
 ResonatorBuilder::ResonatorBuilder() : ISampleBuilder(), m_l_ti(13.0 * Units::nm)

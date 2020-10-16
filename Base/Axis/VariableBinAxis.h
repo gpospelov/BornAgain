@@ -52,6 +52,8 @@ public:
 
     virtual VariableBinAxis* createClippedAxis(double left, double right) const;
 
+    std::string pyString(const std::string& units, size_t offset) const final;
+
 protected:
     VariableBinAxis(const std::string& name, size_t nbins = 0);
     void setBinBoundaries(const std::vector<double>& bin_boundaries);

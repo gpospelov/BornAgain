@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Base/Axis/PointwiseAxis.h"
+#include "Base/Utils/PyFmt.h"
 #include <algorithm>
 #include <iomanip>
 #include <stdexcept>
@@ -81,6 +82,21 @@ PointwiseAxis* PointwiseAxis::createClippedAxis(double left, double right) const
     auto end = m_coordinates.begin() + static_cast<diff_t>(findClosestIndex(right)) + 1;
 
     return new PointwiseAxis(getName(), std::vector<double>(begin, end));
+}
+
+std::string PointwiseAxis::pyString(const std::string& units, size_t offset) const
+{
+    std::ostringstream result;
+    const std::string py_def_call = "numpy.asarray([";
+    const size_t total_offset = offset + py_def_call.size();
+    result << py_def_call;
+    std::vector<double> points = getBinCenters();
+    for (auto iter = points.begin(); iter != points.end() - 1; ++iter) {
+        result << pyfmt::printValue(*iter, units) << ",\n";
+        result << pyfmt::indent(total_offset);
+    }
+    result << pyfmt::printValue(points.back(), units) << "])";
+    return result.str();
 }
 
 void PointwiseAxis::print(std::ostream& ostr) const

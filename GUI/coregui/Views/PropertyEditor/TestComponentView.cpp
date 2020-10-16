@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Views/PropertyEditor/TestComponentView.h"
-#include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
 #include "GUI/coregui/Models/MaterialModel.h"
@@ -26,6 +24,8 @@
 #include "GUI/coregui/Views/PropertyEditor/ComponentTreeView.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/utils/StyleUtils.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <QBoxLayout>
 #include <QDebug>
 #include <QItemSelectionModel>

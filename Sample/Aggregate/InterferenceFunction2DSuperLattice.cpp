@@ -17,8 +17,8 @@
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
 #include "Base/Utils/MathFunctions.h"
-#include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Param/Base/RealParameter.h"
+#include "Sample/Aggregate/InterferenceFunctionNone.h"
 
 #include <limits>
 

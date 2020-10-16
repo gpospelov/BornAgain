@@ -1,6 +1,6 @@
+#include "Core/Computation/ProcessedSample.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Core/Computation/ProcessedSample.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"

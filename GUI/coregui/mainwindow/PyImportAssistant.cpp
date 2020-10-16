@@ -17,8 +17,6 @@
 #include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "BABuild.h"
 #include "Base/Utils/SysUtils.h"
-#include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Multilayer/PyImport.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Views/InfoWidgets/ComboSelectorDialog.h"
 #include "GUI/coregui/Views/InfoWidgets/DetailedMessageBox.h"
@@ -27,6 +25,8 @@
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/mainwindow/projectmanager.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/PyImport.h"
 #include <QApplication>
 #include <QDebug>
 #include <QFileDialog>

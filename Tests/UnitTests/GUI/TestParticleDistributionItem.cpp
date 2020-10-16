@@ -1,6 +1,3 @@
-#include "Sample/HardParticle/HardParticles.h"
-#include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Sample/Particle/Particle.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DistributionItems.h"
 #include "GUI/coregui/Models/MaterialModel.h"
@@ -11,6 +8,9 @@
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialEditor.h"
 #include "Param/Distrib/Distributions.h"
+#include "Sample/HardParticle/HardParticles.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Particle/Particle.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <QXmlStreamWriter>
 

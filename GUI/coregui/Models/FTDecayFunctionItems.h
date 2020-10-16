@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_FTDECAYFUNCTIONITEMS_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_FTDECAYFUNCTIONITEMS_H
 
+#include "GUI/coregui/Models/SessionItem.h"
 #include "Sample/Correlations/FTDecay1D.h"
 #include "Sample/Correlations/FTDecay2D.h"
-#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ FTDecayFunction1DItem : public SessionItem
 {

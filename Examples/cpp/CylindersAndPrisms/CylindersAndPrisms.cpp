@@ -14,16 +14,16 @@
 // ********************************************************************************************** //
 
 #include "Base/Const/Units.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Device/Histo/Histogram2D.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Sample/HardParticle/FormFactorPrism3.h"
-#include "Device/Histo/Histogram2D.h"
-#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
-#include "Core/Simulation/GISASSimulation.h"
 
 int main()
 {

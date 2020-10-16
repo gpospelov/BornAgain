@@ -2287,6 +2287,14 @@ class IAxis(object):
         """
         return _libBornAgainBase.IAxis_contains(self, value)
 
+    def pyString(self, units, offset):
+        r"""
+        pyString(IAxis self, std::string const & units, size_t offset) -> std::string
+        virtual std::string IAxis::pyString(const std::string &units, size_t offset) const =0
+
+        """
+        return _libBornAgainBase.IAxis_pyString(self, units, offset)
+
 # Register IAxis in _libBornAgainBase:
 _libBornAgainBase.IAxis_swigregister(IAxis)
 
@@ -2429,6 +2437,14 @@ class VariableBinAxis(IAxis):
 
         """
         return _libBornAgainBase.VariableBinAxis_createClippedAxis(self, left, right)
+
+    def pyString(self, units, offset):
+        r"""
+        pyString(VariableBinAxis self, std::string const & units, size_t offset) -> std::string
+        std::string VariableBinAxis::pyString(const std::string &units, size_t offset) const final
+
+        """
+        return _libBornAgainBase.VariableBinAxis_pyString(self, units, offset)
 
     def __getitem__(self, i):
         r"""__getitem__(VariableBinAxis self, unsigned int i) -> double"""
@@ -2711,6 +2727,14 @@ class FixedBinAxis(IAxis):
 
         """
         return _libBornAgainBase.FixedBinAxis_createClippedAxis(self, left, right)
+
+    def pyString(self, units, arg3):
+        r"""
+        pyString(FixedBinAxis self, std::string const & units, size_t arg3) -> std::string
+        std::string FixedBinAxis::pyString(const std::string &units, size_t) const final
+
+        """
+        return _libBornAgainBase.FixedBinAxis_pyString(self, units, arg3)
 
     def __getitem__(self, i):
         r"""__getitem__(FixedBinAxis self, unsigned int i) -> double"""

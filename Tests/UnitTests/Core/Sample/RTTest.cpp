@@ -1,13 +1,13 @@
 #include "Base/Const/MathConstants.h"
-#include "Sample/Aggregate/ParticleLayout.h"
 #include "Core/Computation/ProcessedSample.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerInterface.h"
-#include "Sample/Multilayer/LayerRoughness.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Multilayer/SpecularScalarTanhStrategy.h"
 #include "Sample/RT/SimulationOptions.h"
+#include "Sample/Slice/LayerRoughness.h"
+#include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class RTTest : public ::testing::Test

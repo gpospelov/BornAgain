@@ -16,9 +16,9 @@
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Export/ExportToPython.h"
+#include "Core/Simulation/Simulation.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
-#include "Core/Simulation/Simulation.h"
 #include <fstream>
 #include <iostream>
 

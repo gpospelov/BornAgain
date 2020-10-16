@@ -14,13 +14,13 @@
 
 #include "Core/Export/SampleLabelHandler.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
-#include "Sample/Multilayer/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include <set>
 
 std::string SampleLabelHandler::labelCrystal(const Crystal* cr)

@@ -15,15 +15,15 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMTODOMAIN_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_TRANSFORMTODOMAIN_H
 
+#include "Device/Instrument/Instrument.h"
+#include "Param/Distrib/Distributions.h" // for IDistribution1D
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Device/Instrument/Instrument.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/IParticle.h"
 #include "Sample/Particle/ParticleDistribution.h"
-#include "Param/Distrib/Distributions.h" // for IDistribution1D
+#include "Sample/Slice/LayerRoughness.h"
 #include <memory>
 
 class AngularSpecScan;

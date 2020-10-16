@@ -15,8 +15,8 @@
 #include "Sample/Lattice/Lattice.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Vector/Transform3D.h"
-#include "Sample/Lattice/ISelectionRule.h"
 #include "Param/Base/RealParameter.h"
+#include "Sample/Lattice/ISelectionRule.h"
 #include <gsl/gsl_linalg.h>
 
 Lattice::Lattice()

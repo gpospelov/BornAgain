@@ -7504,7 +7504,7 @@ C++ includes: SpecularSimulationElement.h
 %feature("docstring")  SpecularSimulationElement::~SpecularSimulationElement "SpecularSimulationElement::~SpecularSimulationElement()
 ";
 
-%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(PolarizationHandler handler)
+%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler &handler)
 
 Assigns PolarizationHandler. 
 ";
@@ -7813,88 +7813,88 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D104.xml
+// File: namespace_0D114.xml
 
 
-// File: namespace_0D107.xml
-
-
-// File: namespace_0D113.xml
-
-
-// File: namespace_0D125.xml
-
-
-// File: namespace_0D129.xml
+// File: namespace_0D117.xml
 
 
 // File: namespace_0D133.xml
 
 
-// File: namespace_0D152.xml
+// File: namespace_0D145.xml
 
 
-// File: namespace_0D156.xml
+// File: namespace_0D149.xml
+
+
+// File: namespace_0D153.xml
 
 
 // File: namespace_0D16.xml
 
 
-// File: namespace_0D166.xml
+// File: namespace_0D163.xml
 
 
-// File: namespace_0D168.xml
+// File: namespace_0D165.xml
 
 
-// File: namespace_0D170.xml
+// File: namespace_0D167.xml
 
 
-// File: namespace_0D176.xml
+// File: namespace_0D177.xml
 
 
-// File: namespace_0D178.xml
-
-
-// File: namespace_0D180.xml
-
-
-// File: namespace_0D182.xml
-
-
-// File: namespace_0D184.xml
-
-
-// File: namespace_0D186.xml
-
-
-// File: namespace_0D190.xml
-
-
-// File: namespace_0D192.xml
+// File: namespace_0D199.xml
 
 
 // File: namespace_0D2.xml
 
 
-// File: namespace_0D208.xml
+// File: namespace_0D201.xml
 
 
-// File: namespace_0D230.xml
+// File: namespace_0D211.xml
 
 
-// File: namespace_0D232.xml
+// File: namespace_0D227.xml
 
 
-// File: namespace_0D242.xml
+// File: namespace_0D229.xml
+
+
+// File: namespace_0D236.xml
 
 
 // File: namespace_0D25.xml
 
 
-// File: namespace_0D258.xml
+// File: namespace_0D254.xml
 
 
-// File: namespace_0D260.xml
+// File: namespace_0D262.xml
+
+
+// File: namespace_0D274.xml
+
+
+// File: namespace_0D276.xml
+
+
+// File: namespace_0D278.xml
+
+
+// File: namespace_0D280.xml
+
+
+// File: namespace_0D282.xml
+
+
+// File: namespace_0D286.xml
+
+
+// File: namespace_0D288.xml
 
 
 // File: namespace_0D290.xml
@@ -8217,6 +8217,36 @@ Used by the hard sphere and by several soft sphere classes.
 // File: IPeakShape_8h.xml
 
 
+// File: FormFactorCoherentPart_8cpp.xml
+
+
+// File: FormFactorCoherentPart_8h.xml
+
+
+// File: FormFactorCoherentSum_8cpp.xml
+
+
+// File: FormFactorCoherentSum_8h.xml
+
+
+// File: IFresnelMap_8cpp.xml
+
+
+// File: IFresnelMap_8h.xml
+
+
+// File: MatrixFresnelMap_8cpp.xml
+
+
+// File: MatrixFresnelMap_8h.xml
+
+
+// File: ScalarFresnelMap_8cpp.xml
+
+
+// File: ScalarFresnelMap_8h.xml
+
+
 // File: FormFactorAnisoPyramid_8cpp.xml
 
 
@@ -8427,6 +8457,36 @@ Used by the hard sphere and by several soft sphere classes.
 // File: Ripples_8h.xml
 
 
+// File: DecouplingApproximationStrategy_8cpp.xml
+
+
+// File: DecouplingApproximationStrategy_8h.xml
+
+
+// File: IInterferenceFunctionStrategy_8cpp.xml
+
+
+// File: IInterferenceFunctionStrategy_8h.xml
+
+
+// File: InterferenceFunctionUtils_8cpp.xml
+
+
+// File: InterferenceFunctionUtils_8h.xml
+
+
+// File: SSCAHelper_8cpp.xml
+
+
+// File: SSCAHelper_8h.xml
+
+
+// File: SSCApproximationStrategy_8cpp.xml
+
+
+// File: SSCApproximationStrategy_8h.xml
+
+
 // File: ILatticeOrientation_8cpp.xml
 
 
@@ -8573,79 +8633,10 @@ magnetization (in A/m)
 // File: WavevectorInfo_8h.xml
 
 
-// File: DecouplingApproximationStrategy_8cpp.xml
-
-
-// File: DecouplingApproximationStrategy_8h.xml
-
-
-// File: FormFactorCoherentPart_8cpp.xml
-
-
-// File: FormFactorCoherentPart_8h.xml
-
-
-// File: FormFactorCoherentSum_8cpp.xml
-
-
-// File: FormFactorCoherentSum_8h.xml
-
-
-// File: IFresnelMap_8cpp.xml
-
-
-// File: IFresnelMap_8h.xml
-
-
-// File: IInterferenceFunctionStrategy_8cpp.xml
-
-
-// File: IInterferenceFunctionStrategy_8h.xml
-
-
-// File: InterferenceFunctionUtils_8cpp.xml
-
-
-// File: InterferenceFunctionUtils_8h.xml
-
-
-// File: ISpecularStrategy_8h.xml
-
-
-// File: KzComputation_8cpp.xml
-
-
-// File: KzComputation_8h.xml
-
-
 // File: Layer_8cpp.xml
 
 
 // File: Layer_8h.xml
-
-
-// File: LayerFillLimits_8cpp.xml
-
-
-// File: LayerFillLimits_8h.xml
-
-
-// File: LayerInterface_8cpp.xml
-
-
-// File: LayerInterface_8h.xml
-
-
-// File: LayerRoughness_8cpp.xml
-
-
-// File: LayerRoughness_8h.xml
-
-
-// File: MatrixFresnelMap_8cpp.xml
-
-
-// File: MatrixFresnelMap_8h.xml
 
 
 // File: MultiLayer_8cpp.xml
@@ -8670,90 +8661,6 @@ magnetization (in A/m)
 
 
 // File: RoughnessModels_8h.xml
-
-
-// File: ScalarFresnelMap_8cpp.xml
-
-
-// File: ScalarFresnelMap_8h.xml
-
-
-// File: Slice_8cpp.xml
-
-
-// File: Slice_8h.xml
-
-
-// File: SlicedFormFactorList_8cpp.xml
-
-
-// File: SlicedFormFactorList_8h.xml
-
-
-// File: SpecularMagneticNewNCStrategy_8cpp.xml
-
-
-// File: SpecularMagneticNewNCStrategy_8h.xml
-
-
-// File: SpecularMagneticNewStrategy_8cpp.xml
-
-
-// File: SpecularMagneticNewStrategy_8h.xml
-
-
-// File: SpecularMagneticNewTanhStrategy_8cpp.xml
-
-
-// File: SpecularMagneticNewTanhStrategy_8h.xml
-
-
-// File: SpecularMagneticOldStrategy_8cpp.xml
-
-
-// File: SpecularMagneticOldStrategy_8h.xml
-
-
-// File: SpecularMagneticStrategy_8cpp.xml
-
-
-// File: SpecularMagneticStrategy_8h.xml
-
-
-// File: SpecularScalarNCStrategy_8cpp.xml
-
-
-// File: SpecularScalarNCStrategy_8h.xml
-
-
-// File: SpecularScalarStrategy_8cpp.xml
-
-
-// File: SpecularScalarStrategy_8h.xml
-
-
-// File: SpecularScalarTanhStrategy_8cpp.xml
-
-
-// File: SpecularScalarTanhStrategy_8h.xml
-
-
-// File: SpecularSimulationElement_8cpp.xml
-
-
-// File: SpecularSimulationElement_8h.xml
-
-
-// File: SSCAHelper_8cpp.xml
-
-
-// File: SSCAHelper_8h.xml
-
-
-// File: SSCApproximationStrategy_8cpp.xml
-
-
-// File: SSCApproximationStrategy_8h.xml
 
 
 // File: Crystal_8cpp.xml
@@ -8969,6 +8876,12 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: ISample_8h.xml
 
 
+// File: LayerFillLimits_8cpp.xml
+
+
+// File: LayerFillLimits_8h.xml
+
+
 // File: Rotations_8cpp.xml
 %feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
 
@@ -9063,6 +8976,42 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: TruncatedEllipsoid_8h.xml
 
 
+// File: KzComputation_8cpp.xml
+
+
+// File: KzComputation_8h.xml
+
+
+// File: LayerInterface_8cpp.xml
+
+
+// File: LayerInterface_8h.xml
+
+
+// File: LayerRoughness_8cpp.xml
+
+
+// File: LayerRoughness_8h.xml
+
+
+// File: Slice_8cpp.xml
+
+
+// File: Slice_8h.xml
+
+
+// File: SlicedFormFactorList_8cpp.xml
+
+
+// File: SlicedFormFactorList_8h.xml
+
+
+// File: SpecularSimulationElement_8cpp.xml
+
+
+// File: SpecularSimulationElement_8h.xml
+
+
 // File: FormFactorGauss_8cpp.xml
 
 
@@ -9082,6 +9031,57 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SoftParticles_8h.xml
+
+
+// File: ISpecularStrategy_8h.xml
+
+
+// File: SpecularMagneticNewNCStrategy_8cpp.xml
+
+
+// File: SpecularMagneticNewNCStrategy_8h.xml
+
+
+// File: SpecularMagneticNewStrategy_8cpp.xml
+
+
+// File: SpecularMagneticNewStrategy_8h.xml
+
+
+// File: SpecularMagneticNewTanhStrategy_8cpp.xml
+
+
+// File: SpecularMagneticNewTanhStrategy_8h.xml
+
+
+// File: SpecularMagneticOldStrategy_8cpp.xml
+
+
+// File: SpecularMagneticOldStrategy_8h.xml
+
+
+// File: SpecularMagneticStrategy_8cpp.xml
+
+
+// File: SpecularMagneticStrategy_8h.xml
+
+
+// File: SpecularScalarNCStrategy_8cpp.xml
+
+
+// File: SpecularScalarNCStrategy_8h.xml
+
+
+// File: SpecularScalarStrategy_8cpp.xml
+
+
+// File: SpecularScalarStrategy_8h.xml
+
+
+// File: SpecularScalarTanhStrategy_8cpp.xml
+
+
+// File: SpecularScalarTanhStrategy_8h.xml
 
 
 // File: BoxCompositionBuilder_8cpp.xml
@@ -9299,7 +9299,13 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: dir_7b210e8d28f50f0c519681ee1b473363.xml
 
 
+// File: dir_e6ff3e2fec27a07ceb0da6f4d6911ef2.xml
+
+
 // File: dir_844f24c588eea1b259def164cc466f1a.xml
+
+
+// File: dir_4517c083a90cc85a9a1560bcd67541e1.xml
 
 
 // File: dir_da063889c15f3636a66540651967c41d.xml
@@ -9332,7 +9338,13 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: dir_7002b98d93049c66d9f454102abc535d.xml
 
 
+// File: dir_853a8df00e778b87ff55618a6b919e4c.xml
+
+
 // File: dir_ccd033f493018670b3204f8d6a838d21.xml
+
+
+// File: dir_4bb6681b49b81f2bef6bc1e3a5b08661.xml
 
 
 // File: dir_d9d42b37b662547974602e66402128ce.xml

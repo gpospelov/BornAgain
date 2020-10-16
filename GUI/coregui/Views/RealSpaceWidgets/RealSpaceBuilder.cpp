@@ -14,9 +14,6 @@
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.h"
 #include "Base/Const/Units.h"
-#include "Sample/Aggregate/InterferenceFunctions.h"
-#include "Sample/Particle/Particle.h"
-#include "Sample/Particle/ParticleCoreShell.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/LayerItem.h"
@@ -35,6 +32,9 @@
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpacePositionBuilder.h"
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 #include <QDebug>
 
 namespace

@@ -14,17 +14,17 @@
 
 #include "Tests/Functional/Core/Fitting/PlanCases.h"
 #include "Base/Const/Units.h"
+#include "Core/Fitting/FitObjective.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Device/Detector/RectangularDetector.h"
+#include "Device/Mask/Rectangle.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Device/Detector/RectangularDetector.h"
-#include "Core/Fitting/FitObjective.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
-#include "Device/Mask/Rectangle.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
-#include "Core/Simulation/GISASSimulation.h"
 
 using namespace Fit;
 

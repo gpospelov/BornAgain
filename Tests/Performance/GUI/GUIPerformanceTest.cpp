@@ -13,9 +13,7 @@
 // ************************************************************************** //
 
 #include "Tests/Performance/GUI/GUIPerformanceTest.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DocumentModel.h"
@@ -32,6 +30,8 @@
 #include "GUI/coregui/Models/ParameterTreeUtils.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Tests/Performance/Benchmark.h"
 #include <QCoreApplication>
 #include <QDebug>

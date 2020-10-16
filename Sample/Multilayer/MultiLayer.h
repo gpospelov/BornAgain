@@ -18,8 +18,6 @@
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Multilayer/RoughnessModels.h"
 #include "Sample/Scattering/ISample.h"
-#include "Sample/Scattering/ZLimits.h"
-
 #include <functional>
 
 class ILayout;

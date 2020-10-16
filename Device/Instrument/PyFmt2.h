@@ -23,7 +23,6 @@ class IParameterized;
 class IShape2D;
 class RealParameter;
 class ParameterDistribution;
-class IAxis;
 
 //! Utility functions for writing Python code snippets.
 
@@ -41,11 +40,6 @@ std::string printDistribution(const IDistribution1D& par_distr, const std::strin
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
                                        const std::string& distVarName,
                                        const std::string& units = "");
-
-//! Prints python-script definition for given axis.
-//! offset is used for alignment and indentation in multiple-line definitions
-std::string printAxis(const IAxis& axis, const std::string& units, size_t offset);
-
 } // namespace pyfmt2
 
 #endif // BORNAGAIN_CORE_PYIO_PYTHONFORMATTING_H

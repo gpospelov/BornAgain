@@ -14,6 +14,8 @@
 
 #include "Sample/StandardSamples/SizeDistributionModelsBuilder.h"
 #include "Base/Const/Units.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
 #include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
@@ -22,8 +24,6 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
 
 MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {

@@ -15,13 +15,14 @@
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Computation/ProcessedLayout.h"
 #include "Core/Computation/SpecularStrategyBuilder.h"
+#include "Sample/Fresnel/MatrixFresnelMap.h"
+#include "Sample/Fresnel/ScalarFresnelMap.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Multilayer/LayerRoughness.h"
-#include "Sample/Multilayer/MatrixFresnelMap.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Sample/Multilayer/ScalarFresnelMap.h"
 #include "Sample/Particle/HomogeneousRegion.h"
 #include "Sample/RT/SimulationOptions.h"
+#include "Sample/Scattering/ZLimits.h"
+#include "Sample/Slice/LayerRoughness.h"
 
 namespace
 {

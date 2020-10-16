@@ -73,6 +73,8 @@ public:
     //! Creates a new clipped axis
     PointwiseAxis* createClippedAxis(double left, double right) const override;
 
+    std::string pyString(const std::string& units, size_t offset) const final;
+
 private:
     void print(std::ostream& ostr) const override;
     bool equals(const IAxis& other) const override;

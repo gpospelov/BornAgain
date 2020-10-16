@@ -14,10 +14,10 @@
 
 #include "Tests/Functional/Core/Fitting/Plan.h"
 #include "Core/Fitting/FitObjective.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Fit/Kernel/Minimizer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 
 Plan::Plan(const std::string& name, bool residual_based)
     : MinimizerTestPlan(name), m_residual_based(residual_based)

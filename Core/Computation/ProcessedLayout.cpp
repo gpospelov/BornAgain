@@ -15,13 +15,13 @@
 #include "Core/Computation/ProcessedLayout.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Correlations/ILayout.h"
-#include "Sample/Multilayer/FormFactorCoherentSum.h"
-#include "Sample/Multilayer/Slice.h"
-#include "Sample/Multilayer/SlicedFormFactorList.h"
+#include "Sample/Fresnel/FormFactorCoherentSum.h"
 #include "Sample/Particle/IParticle.h"
 #include "Sample/Scattering/FormFactorBAPol.h"
 #include "Sample/Scattering/FormFactorDWBA.h"
 #include "Sample/Scattering/FormFactorDWBAPol.h"
+#include "Sample/Slice/Slice.h"
+#include "Sample/Slice/SlicedFormFactorList.h"
 
 namespace
 {

@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
+#include "Fit/Tools/RealLimits.h"
 #include "Sample/LibFF/SomeFormFactors.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
-#include "Fit/Tools/RealLimits.h"
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(const std::vector<double> P)
     : IFormFactorBorn({"FormFactorSphereGaussianRadius",

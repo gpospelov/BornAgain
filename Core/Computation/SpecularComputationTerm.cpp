@@ -14,8 +14,9 @@
 
 #include "Core/Computation/SpecularComputationTerm.h"
 #include "Core/Computation/DelayedProgressCounter.h"
-#include "Sample/Multilayer/SpecularScalarStrategy.h"
-#include "Sample/Multilayer/SpecularSimulationElement.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
+#include "Sample/Specular/ISpecularStrategy.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
 
 SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy)
     : m_Strategy(std::move(strategy)){};
@@ -49,7 +50,7 @@ SpecularScalarTerm::~SpecularScalarTerm() = default;
 void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
+    const auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(std::norm(coeff.front()->getScalarR()));
 }
 
@@ -63,17 +64,17 @@ SpecularMatrixTerm::~SpecularMatrixTerm() = default;
 void SpecularMatrixTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
+    const auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(intensity(elem, coeff.front()));
 }
 
 double SpecularMatrixTerm::intensity(const SpecularSimulationElement& elem,
-                                     const ISpecularStrategy::coefficient_pointer_type& coeff) const
+                                     const std::unique_ptr<const ILayerRTCoefficients>& coeff) const
 {
     const auto& polarization = elem.polarizationHandler().getPolarization();
     const auto& analyzer = elem.polarizationHandler().getAnalyzerOperator();
 
-    auto R = coeff->getReflectionMatrix();
+    const auto R = coeff->getReflectionMatrix();
 
     const complex_t result = (polarization * R.adjoint() * analyzer * R).trace();
 

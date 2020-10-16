@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "Base/Const/Units.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
@@ -26,6 +25,7 @@
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 namespace
 {

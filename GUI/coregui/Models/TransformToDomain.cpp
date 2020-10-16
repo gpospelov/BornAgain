@@ -14,13 +14,9 @@
 
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "Base/Const/Units.h"
-#include "Sample/Aggregate/InterferenceFunctions.h"
-#include "Sample/Particle/MesoCrystal.h"
-#include "Sample/Particle/Particle.h"
-#include "Sample/Particle/ParticleCoreShell.h"
+#include "Core/Simulation/GISASSimulation.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Device/Scan/AngularSpecScan.h"
-#include "Core/Simulation/GISASSimulation.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"
@@ -52,6 +48,10 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Param/Distrib/RangedDistributions.h"
 #include "Param/Varia/ParameterPattern.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
+#include "Sample/Particle/MesoCrystal.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 
 using SessionItemUtils::GetVectorItem;
 

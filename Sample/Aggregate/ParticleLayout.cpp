@@ -14,11 +14,11 @@
 
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Base/Types/Exceptions.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleDistribution.h"
-#include "Param/Base/ParameterPool.h"
-#include "Param/Base/RealParameter.h"
 
 namespace
 {

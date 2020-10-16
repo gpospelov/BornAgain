@@ -1,4 +1,4 @@
-#include "Sample/Multilayer/KzComputation.h"
+#include "Sample/Slice/KzComputation.h"
 #include "Base/Const/Units.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"

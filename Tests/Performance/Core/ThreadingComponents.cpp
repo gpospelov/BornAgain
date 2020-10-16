@@ -14,20 +14,20 @@
 
 #include "Tests/Performance/Core/ThreadingComponents.h"
 #include "Base/Const/Units.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Device/Detector/RectangularDetector.h"
+#include "Device/Mask/Rectangle.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Device/Detector/RectangularDetector.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
-#include "Device/Mask/Rectangle.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleDistribution.h"
-#include "Core/Simulation/GISASSimulation.h"
 #include "Sample/StandardSamples/CylindersBuilder.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
 
 namespace
 {

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/SimulationFactory.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>
 

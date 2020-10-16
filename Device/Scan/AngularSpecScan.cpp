@@ -17,10 +17,9 @@
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"
 #include "Device/Beam/IFootprintFactor.h"
-#include "Device/Instrument/PyFmt2.h"
-#include "Sample/Multilayer/SpecularSimulationElement.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
 
 namespace
 {
@@ -239,7 +238,7 @@ std::string AngularSpecScan::print() const
     std::stringstream result;
     result << "\n" << pyfmt::indent() << "# Defining specular scan:\n";
     const std::string axis_def = pyfmt::indent() + "axis = ";
-    result << axis_def << pyfmt2::printAxis(*coordinateAxis(), "rad", axis_def.size()) << "\n";
+    result << axis_def << coordinateAxis()->pyString("rad", axis_def.size()) << "\n";
 
     result << pyfmt::indent() << "scan = ";
     result << "ba.AngularSpecScan(" << pyfmt::printDouble(m_wl) << ", axis)\n";

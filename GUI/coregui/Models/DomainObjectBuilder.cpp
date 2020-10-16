@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
 #include "Base/Const/Units.h"
+#include "Core/Simulation/UnitConverterUtils.h"
 #include "Device/Detector/IDetector2D.h"
 #include "Device/Detector/SimpleUnitConverters.h"
-#include "Core/Simulation/UnitConverterUtils.h"
 #include "Device/Unit/UnitConverter1D.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/ComboProperty.h"

@@ -14,18 +14,18 @@
 
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Base/Const/MathConstants.h"
-#include "Device/Beam/IFootprintFactor.h"
 #include "Core/Computation/DepthProbeComputation.h"
 #include "Core/Computation/IBackground.h"
+#include "Device/Beam/IFootprintFactor.h"
 #include "Device/Detector/SimpleUnitConverters.h"
 #include "Device/Detector/SpecularDetector1D.h"
 #include "Device/Histo/Histogram1D.h"
-#include "Sample/Material/MaterialUtils.h"
-#include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
+#include "Sample/Material/MaterialUtils.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 namespace
 {

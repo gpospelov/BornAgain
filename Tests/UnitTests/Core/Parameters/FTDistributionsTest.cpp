@@ -1,6 +1,6 @@
+#include "Param/Base/RealParameter.h"
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
-#include "Param/Base/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

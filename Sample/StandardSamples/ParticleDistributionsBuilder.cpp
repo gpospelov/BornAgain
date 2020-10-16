@@ -14,6 +14,8 @@
 
 #include "Sample/StandardSamples/ParticleDistributionsBuilder.h"
 #include "Base/Const/Units.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorBox.h"
 #include "Sample/HardParticle/FormFactorCone.h"
@@ -25,8 +27,6 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
-#include "Param/Distrib/Distributions.h"
-#include "Param/Varia/ParameterPattern.h"
 
 MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {

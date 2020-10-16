@@ -15,6 +15,7 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
+#include "Base/Utils/PyFmt.h"
 #include <iomanip>
 #include <limits>
 
@@ -120,4 +121,13 @@ bool FixedBinAxis::equals(const IAxis& other) const
         return true;
     }
     return false;
+}
+
+std::string FixedBinAxis::pyString(const std::string& units, size_t) const
+{
+    std::ostringstream result;
+    result << "ba.FixedBinAxis(" << pyfmt::printString(getName()) << ", " << size() << ", "
+           << pyfmt::printValue(getMin(), units) << ", " << pyfmt::printValue(getMax(), units)
+           << ")";
+    return result.str();
 }

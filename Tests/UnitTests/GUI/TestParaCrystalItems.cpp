@@ -1,11 +1,11 @@
 #include "Base/Const/Units.h"
-#include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "GUI/coregui/Models/FTDistributionItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
+#include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class TestParaCrystalItems : public ::testing::Test

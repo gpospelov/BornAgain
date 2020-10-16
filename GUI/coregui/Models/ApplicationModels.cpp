@@ -13,11 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "Device/Histo/IntensityDataIOFactory.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/StandardSimulations.h"
-#include "Sample/StandardSamples/SampleBuilderFactory.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
@@ -32,6 +30,8 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include "GUI/coregui/utils/MessageService.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <QtCore/QXmlStreamWriter>
 
 ApplicationModels::ApplicationModels(QObject* parent)

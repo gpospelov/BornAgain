@@ -27,12 +27,17 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
+add_definitions(-DBOOST_UUID_FORCE_AUTO_LINK) # line is needed to link bcrypt for MSVC
 
 # Boost component libraries (do not list headers here)
 set(boost_libraries_required filesystem iostreams program_options)
 if(WIN32)
     # system seems to be indirectly required
-    list(APPEND boost_libraries_required bzip2 system zlib)
+    list(APPEND boost_libraries_required system)
+    find_package(BZip2 REQUIRED)
+    find_package(ZLIB REQUIRED)
+    find_package(LibLZMA REQUIRED)
+    find_library(ZSTD_LIBRARY NAMES zstd)
 endif()
 find_package(Boost 1.65.1 COMPONENTS ${boost_libraries_required} REQUIRED)
 # In spite of the "REQUIRED" flag, FindBoost will not terminate if some components are missing
@@ -41,6 +46,10 @@ if(NOT Boost_FOUND)
 endif()
 message(STATUS "Found Boost includes at ${Boost_INCLUDE_DIRS}, libraries at ${Boost_LIBRARY_DIRS}")
 
+# requires these libs in target_link_libraries for win only
+if(WIN32)
+    list(APPEND Boost_LIBRARIES ${BZIP2_LIBRARIES} ${ZLIB_LIBRARIES} ${LIBLZMA_LIBRARIES} ${ZSTD_LIBRARY})
+endif()
 # === optional packages ===
 
 # --- MPI support ---

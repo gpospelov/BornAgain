@@ -28,11 +28,10 @@ FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() = default;
 
 FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {
-    std::unique_ptr<FormFactorDecoratorMaterial> P_result(
-        new FormFactorDecoratorMaterial(*mp_form_factor));
-    P_result->setMaterial(m_material);
-    P_result->setAmbientMaterial(m_ambient_material);
-    return P_result.release();
+    auto* result = new FormFactorDecoratorMaterial(*mp_form_factor);
+    result->setMaterial(m_material);
+    result->setAmbientMaterial(m_ambient_material);
+    return result;
 }
 
 void FormFactorDecoratorMaterial::setMaterial(Material material)

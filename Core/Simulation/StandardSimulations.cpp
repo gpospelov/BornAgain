@@ -393,14 +393,14 @@ GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
 
 GISASSimulation* StandardSimulations::ExtraLongWavelengthGISAS()
 {
-    std::unique_ptr<GISASSimulation> simulation(new GISASSimulation());
+    auto* simulation = new GISASSimulation;
     simulation->setDetectorParameters(100, -1.0 * Units::deg, 1.0 * Units::deg, 100, 0.0,
                                       2.0 * Units::deg);
 
     simulation->setBeamParameters(13.52 * Units::nm, 0.2 * Units::deg, 0.0 * Units::deg);
     simulation->setBeamIntensity(1.0e+08);
     simulation->getOptions().setIncludeSpecular(true);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecular()
@@ -411,10 +411,10 @@ SpecularSimulation* StandardSimulations::BasicSpecular()
     const double max_angle = 5 * Units::deg;
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
 
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    auto* result = new SpecularSimulation();
     result->setScan(scan);
     result->getOptions().setUseAvgMaterials(true);
-    return result.release();
+    return result;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularQ()
@@ -434,10 +434,10 @@ SpecularSimulation* StandardSimulations::BasicSpecularQ()
     }
     QSpecScan q_scan(qs);
 
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    auto* result = new SpecularSimulation;
     result->setScan(q_scan);
     result->getOptions().setUseAvgMaterials(true);
-    return result.release();
+    return result;
 }
 
 SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
@@ -450,9 +450,9 @@ SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(gaussian_ff.get());
 
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    auto* result = new SpecularSimulation;
     result->setScan(scan);
-    return result.release();
+    return result;
 }
 
 SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
@@ -465,9 +465,9 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(square_ff.get());
 
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    auto* result = new SpecularSimulation;
     result->setScan(scan);
-    return result.release();
+    return result;
 }
 
 SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
@@ -492,10 +492,9 @@ SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
     scan.setWavelengthResolution(*wl_res);
     scan.setAngleResolution(*ang_res);
 
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    auto* result = new SpecularSimulation;
     result->setScan(scan);
-
-    return result.release();
+    return result;
 }
 
 SpecularSimulation* StandardSimulations::TOFRWithRelativeResolution()
@@ -504,10 +503,10 @@ SpecularSimulation* StandardSimulations::TOFRWithRelativeResolution()
     QSpecScan q_scan(qs);
     q_scan.setRelativeQResolution(RangedDistributionGaussian(20, 2.0), 0.03);
 
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    auto* result = new SpecularSimulation;
     result->setScan(q_scan);
     result->getOptions().setUseAvgMaterials(true);
-    return result.release();
+    return result;
 }
 
 SpecularSimulation* StandardSimulations::TOFRWithPointwiseResolution()
@@ -522,75 +521,75 @@ SpecularSimulation* StandardSimulations::TOFRWithPointwiseResolution()
                   [&resolutions](double q_val) { resolutions.push_back(0.03 * q_val); });
     q_scan.setAbsoluteQResolution(RangedDistributionGaussian(20, 2.0), resolutions);
 
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    auto* result = new SpecularSimulation;
     result->setScan(q_scan);
     result->getOptions().setUseAvgMaterials(true);
-    return result.release();
+    return result;
 }
 
 // ------------ polarized specular ----------------
 SpecularSimulation* StandardSimulations::BasicSpecularPP()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecular());
+    auto* simulation = BasicSpecular();
     simulation->setBeamPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularPM()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecular());
+    auto* simulation = BasicSpecular();
     simulation->setBeamPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularMP()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecular());
+    auto* simulation = BasicSpecular();
     simulation->setBeamPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularMM()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecular());
+    auto* simulation = BasicSpecular();
     simulation->setBeamPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularQPP()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecularQ());
+    auto* simulation = BasicSpecularQ();
     simulation->setBeamPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularQMM()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecularQ());
+    auto* simulation = BasicSpecularQ();
     simulation->setBeamPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularQPM()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecularQ());
+    auto* simulation = BasicSpecularQ();
     simulation->setBeamPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecularQMP()
 {
-    std::unique_ptr<SpecularSimulation> simulation(BasicSpecularQ());
+    auto* simulation = BasicSpecularQ();
     simulation->setBeamPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
-    return simulation.release();
+    return simulation;
 }
 
 // ----------------------- off-spec simulations ------------------
@@ -598,7 +597,7 @@ SpecularSimulation* StandardSimulations::BasicSpecularQMP()
 // OffSpec simulation used in ResonatorOffSpecSetup.py
 OffSpecSimulation* StandardSimulations::MiniOffSpec()
 {
-    std::unique_ptr<OffSpecSimulation> result(new OffSpecSimulation());
+    auto* result = new OffSpecSimulation;
 
     const int n_alpha(19);
     const double alpha_min(0.0 * Units::deg);
@@ -619,12 +618,12 @@ OffSpecSimulation* StandardSimulations::MiniOffSpec()
     result->setBeamIntensity(1e9);
     result->getOptions().setIncludeSpecular(true);
 
-    return result.release();
+    return result;
 }
 
 DepthProbeSimulation* StandardSimulations::BasicDepthProbe()
 {
-    auto result = std::make_unique<DepthProbeSimulation>();
+    auto* result = new DepthProbeSimulation;
 
     const double wavelength = 10.0 * Units::angstrom;
     const size_t n_alpha = 20;
@@ -637,14 +636,14 @@ DepthProbeSimulation* StandardSimulations::BasicDepthProbe()
     result->setBeamParameters(wavelength, n_alpha, alpha_min, alpha_max);
     result->setZSpan(n_z, z_min, z_max);
 
-    return result.release();
+    return result;
 }
 
 //! Simulation with fitting.
 //! Beam intensity set to provide reasonably large values in detector channels.
 GISASSimulation* StandardSimulations::MiniGISASFit()
 {
-    GISASSimulation* result = new GISASSimulation();
+    auto* result = new GISASSimulation;
     result->setDetectorParameters(25, -2.0 * Units::degree, 2.0 * Units::degree, 25,
                                   0.0 * Units::degree, 2.0 * Units::degree);
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);

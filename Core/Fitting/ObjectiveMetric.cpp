@@ -27,9 +27,9 @@ const double ln10 = std::log(10.0);
 
 template <class T> T* copyMetric(const T& metric)
 {
-    std::unique_ptr<T> result(new T());
+    auto* result = new T;
     result->setNorm(metric.norm());
-    return result.release();
+    return result;
 }
 
 void checkIntegrity(const std::vector<double>& sim_data, const std::vector<double>& exp_data,

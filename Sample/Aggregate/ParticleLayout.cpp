@@ -76,14 +76,14 @@ ParticleLayout* ParticleLayout::clone() const
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance,
                                  const kvector_t position, const IRotation& rotation)
 {
-    std::unique_ptr<IAbstractParticle> P_particle_clone{particle.clone()};
+    IAbstractParticle* particle_clone = particle.clone();
     if (abundance >= 0.0)
-        P_particle_clone->setAbundance(abundance);
+        particle_clone->setAbundance(abundance);
     if (!rotation.isIdentity())
-        P_particle_clone->rotate(rotation);
+        particle_clone->rotate(rotation);
     if (position != kvector_t(0, 0, 0))
-        P_particle_clone->translate(position);
-    addAndRegisterAbstractParticle(P_particle_clone.release());
+        particle_clone->translate(position);
+    addAndRegisterAbstractParticle(particle_clone);
 }
 
 //! Returns information on all particles (type and abundance)

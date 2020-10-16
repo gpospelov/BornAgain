@@ -35,7 +35,7 @@ MultiLayer::~MultiLayer() = default;
 
 MultiLayer* MultiLayer::clone() const
 {
-    std::unique_ptr<MultiLayer> ret(new MultiLayer());
+    auto* ret = new MultiLayer;
     ret->setCrossCorrLength(crossCorrLength());
     ret->setExternalField(externalField());
     ret->setRoughnessModel(roughnessModel());
@@ -47,7 +47,7 @@ MultiLayer* MultiLayer::clone() const
         else
             ret->addLayer(*layer);
     }
-    return ret.release();
+    return ret;
 }
 
 //! Adds layer with default (zero) roughness

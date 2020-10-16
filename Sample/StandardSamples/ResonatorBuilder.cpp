@@ -27,7 +27,7 @@ ResonatorBuilder::ResonatorBuilder() : ISampleBuilder(), m_l_ti(13.0 * Units::nm
 
 MultiLayer* ResonatorBuilder::buildSample() const
 {
-    std::unique_ptr<MultiLayer> result(new MultiLayer);
+    auto* result = new MultiLayer;
 
     Material m_Si = HomogeneousMaterial("Si", 8.25218379931e-06, 0.0);
     Material m_Ti = HomogeneousMaterial("Ti", -7.6593316363e-06, 3.81961616312e-09);
@@ -58,5 +58,5 @@ MultiLayer* ResonatorBuilder::buildSample() const
 
     result->setCrossCorrLength(400 * Units::nm);
 
-    return result.release();
+    return result;
 }

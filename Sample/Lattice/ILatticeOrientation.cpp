@@ -43,9 +43,9 @@ MillerIndexOrientation::MillerIndexOrientation(MillerIndexOrientation::QComponen
 
 MillerIndexOrientation* MillerIndexOrientation::clone() const
 {
-    auto P_result = std::make_unique<MillerIndexOrientation>(m_q1, m_ind1, m_q2, m_ind2);
-    P_result->usePrimitiveLattice(m_prim_lattice);
-    return P_result.release();
+    auto* result = new MillerIndexOrientation(m_q1, m_ind1, m_q2, m_ind2);
+    result->usePrimitiveLattice(m_prim_lattice);
+    return result;
 }
 
 MillerIndexOrientation::~MillerIndexOrientation() = default;

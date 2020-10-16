@@ -290,11 +290,10 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
     std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
     for (auto& val : angles)
         val += angle_shift;
-    auto result =
-        std::make_unique<AngularSpecScan>(wl, PointwiseAxis("alpha_i", std::move(angles)));
+    auto* result = new AngularSpecScan(wl, PointwiseAxis("alpha_i", std::move(angles)));
     result->setFootprintFactor(scan.footprintFactor());
     result->setWavelengthResolution(*scan.wavelengthResolution());
     result->setAngleResolution(*scan.angleResolution());
-    return std::unique_ptr<ISpecularScan>(result.release());
+    return std::unique_ptr<ISpecularScan>(result);
 }
 } // namespace

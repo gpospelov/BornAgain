@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularSimulationElement.cpp
+//! @file      Sample/Slice/SpecularSimulationElement.cpp
 //! @brief     Implements the class SpecularSimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Specular/SpecularSimulationElement.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
 #include "Sample/Slice/KzComputation.h"
 
 SpecularSimulationElement::SpecularSimulationElement(double kz)

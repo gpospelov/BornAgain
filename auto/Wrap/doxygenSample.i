@@ -7876,9 +7876,6 @@ C++ includes: ZLimits.h
 // File: namespace_0D262.xml
 
 
-// File: namespace_0D272.xml
-
-
 // File: namespace_0D274.xml
 
 
@@ -7891,10 +7888,13 @@ C++ includes: ZLimits.h
 // File: namespace_0D280.xml
 
 
-// File: namespace_0D284.xml
+// File: namespace_0D282.xml
 
 
 // File: namespace_0D286.xml
+
+
+// File: namespace_0D288.xml
 
 
 // File: namespace_0D290.xml
@@ -9006,6 +9006,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: SlicedFormFactorList_8h.xml
 
 
+// File: SpecularSimulationElement_8cpp.xml
+
+
+// File: SpecularSimulationElement_8h.xml
+
+
 // File: FormFactorGauss_8cpp.xml
 
 
@@ -9076,12 +9082,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SpecularScalarTanhStrategy_8h.xml
-
-
-// File: SpecularSimulationElement_8cpp.xml
-
-
-// File: SpecularSimulationElement_8h.xml
 
 
 // File: BoxCompositionBuilder_8cpp.xml

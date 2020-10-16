@@ -28,7 +28,7 @@
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
-#include "Sample/Specular/SpecularSimulationElement.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
 
 namespace
 {

@@ -18,7 +18,7 @@
 #include "Base/Utils/PyFmt.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Sample/Specular/SpecularSimulationElement.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
 
 namespace
 {

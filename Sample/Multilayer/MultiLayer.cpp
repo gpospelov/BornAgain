@@ -19,9 +19,9 @@
 #include "Sample/Correlations/ILayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Scattering/LayerFillLimits.h"
 #include "Sample/Slice/LayerInterface.h"
-#include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Slice/LayerRoughness.h"
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)

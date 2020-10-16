@@ -17,9 +17,9 @@
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
 // -----------------------------------------------------------------------------

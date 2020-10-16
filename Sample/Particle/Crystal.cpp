@@ -47,8 +47,8 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
         P_basis_clone->rotate(*p_rotation);
     P_basis_clone->translate(translation);
     const std::unique_ptr<IFormFactor> P_basis_ff(P_basis_clone->createFormFactor());
-    return new FormFactorCrystal(
-        transformed_lattice, *P_basis_ff, meso_crystal_form_factor, m_position_variance);
+    return new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor,
+                                 m_position_variance);
 }
 
 std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const

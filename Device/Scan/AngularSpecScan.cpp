@@ -91,7 +91,7 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
         const double wl = paired_values[i].first;
         const double inc = paired_values[i].second;
         result.emplace_back(wl, -inc);
-        if (wl<0 || inc<0 || inc>M_PI_2)
+        if (wl < 0 || inc < 0 || inc > M_PI_2)
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -204,7 +204,8 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
         for (size_t k = pos_inc; k < n_inc_samples && left > 0; ++k) {
             pos_inc = 0;
             double angle = sample_values[i][k];
-            double footprint = (angle>=0 && angle<=M_PI_2) ? m_footprint->calculate(angle) : 1.0;
+            double footprint =
+                (angle >= 0 && angle <= M_PI_2) ? m_footprint->calculate(angle) : 1.0;
             for (size_t j = pos_wl; j < n_wl_samples && left > 0; ++j) {
                 pos_wl = 0;
                 result[pos_res] = footprint;
@@ -226,10 +227,10 @@ AngularSpecScan::createIntensities(const std::vector<SpecularSimulationElement>&
     const size_t axis_size = m_inc_angle->size();
     std::vector<double> result(axis_size, 0.0);
 
-    const auto wl_weights = extractValues(applyWlResolution(),
-                                    [](const ParameterSample& sample) { return sample.weight; });
-    const auto inc_weights = extractValues(applyIncResolution(),
-                                     [](const ParameterSample& sample) { return sample.weight; });
+    const auto wl_weights = extractValues(
+        applyWlResolution(), [](const ParameterSample& sample) { return sample.weight; });
+    const auto inc_weights = extractValues(
+        applyIncResolution(), [](const ParameterSample& sample) { return sample.weight; });
 
     size_t elem_pos = 0;
     for (size_t i = 0; i < axis_size; ++i) {

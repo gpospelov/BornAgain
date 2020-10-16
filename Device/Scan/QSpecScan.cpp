@@ -61,7 +61,7 @@ std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() c
     result.reserve(qz.size());
     for (size_t i = 0, size = qz.size(); i < size; ++i) {
         result.emplace_back(-qz[i] / 2.0);
-        if (qz[i]<0)
+        if (qz[i] < 0)
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -160,7 +160,7 @@ void QSpecScan::checkInitialization()
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values shall "
                                  "be sorted in ascending order.");
 
-    if (axis_values.front()<0)
+    if (axis_values.front() < 0)
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values are out "
                                  "of acceptable range.");
 }

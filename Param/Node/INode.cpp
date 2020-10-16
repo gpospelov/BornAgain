@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Base/Utils/Algorithms.h"
-#include "Param/Base/IterationStrategy.h"
+#include "Param/Node/IterationStrategy.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Node/NodeIterator.h"

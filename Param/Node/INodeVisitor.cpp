@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Param/Base/IterationStrategy.h"
+#include "Param/Node/IterationStrategy.h"
 #include "Param/Node/NodeIterator.h"
 
 void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)

@@ -16,13 +16,13 @@
 #define BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H
 
 #include "Device/Beam/Beam.h"
-#include "Device/Detector/IDetector.h"
 #include <memory>
 
 template <class T> class OutputData;
 class Histogram2D;
 class DetectorMask;
 class IAxis;
+class IDetector;
 class IDetector2D;
 class IResolutionFunction2D;
 class SimulationElement;
@@ -90,7 +90,7 @@ public:
     std::vector<const INode*> getChildren() const;
 
 protected:
-    std::unique_ptr<IDetector> mP_detector;
+    std::unique_ptr<IDetector> m_detector;
     Beam m_beam;
 };
 

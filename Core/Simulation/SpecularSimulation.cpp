@@ -54,6 +54,14 @@ SpecularSimulation::SpecularSimulation() : Simulation()
     initialize();
 }
 
+SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
+    : Simulation(other),
+      m_data_handler(other.m_data_handler ? other.m_data_handler->clone() : nullptr),
+      m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
+{
+    initialize();
+}
+
 SpecularSimulation::~SpecularSimulation() = default;
 
 SpecularSimulation* SpecularSimulation::clone() const
@@ -161,14 +169,6 @@ SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_ele
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
                                                  begin + static_cast<long>(n_elements));
-}
-
-SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : Simulation(other),
-      m_data_handler(other.m_data_handler ? other.m_data_handler->clone() : nullptr),
-      m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
-{
-    initialize();
 }
 
 void SpecularSimulation::checkCache() const

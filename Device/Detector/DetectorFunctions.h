@@ -33,15 +33,6 @@ namespace DetectorFunctions
 //! Returns true if the data has same axes size (nx,ny) with the detector.
 bool hasSameDimensions(const IDetector& detector, const OutputData<double>& data);
 
-// TODO replace two functions below with the template function after change of
-// OutputData::getAxis signature
-
-//! Returns string representation of axes dimension in the form "(nx,ny)"
-std::string axesToString(const IDetector& detector);
-
-//! Returns string representation of axes dimension in the form "(nx,ny)"
-std::string axesToString(const OutputData<double>& data);
-
 } // namespace DetectorFunctions
 
 #endif // BORNAGAIN_CORE_DETECTOR_DETECTORFUNCTIONS_H

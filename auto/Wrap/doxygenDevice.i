@@ -3668,16 +3668,6 @@ Parse double values from string to vector of double.
 Returns true if the data has same axes size (nx,ny) with the detector. 
 ";
 
-%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const IDetector &detector)
-
-Returns string representation of axes dimension in the form \"(nx,ny)\". 
-";
-
-%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
-
-Returns string representation of axes dimension in the form \"(nx,ny)\". 
-";
-
 
 // File: namespaceIntensityDataFunctions.xml
 %feature("docstring")  IntensityDataFunctions::RelativeDifference "double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)

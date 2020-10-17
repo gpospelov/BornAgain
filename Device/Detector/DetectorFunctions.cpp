@@ -14,12 +14,6 @@
 
 #include "Device/Detector/DetectorFunctions.h"
 #include "Device/Data/OutputData.h"
-#include "Device/Detector/SimulationArea.h"
-#include "Fit/Tools/StringUtils.h"
-#include <algorithm>
-#include <cctype>
-#include <map>
-#include <sstream>
 
 bool DetectorFunctions::hasSameDimensions(const IDetector& detector, const OutputData<double>& data)
 {
@@ -31,34 +25,4 @@ bool DetectorFunctions::hasSameDimensions(const IDetector& detector, const Outpu
             return false;
 
     return true;
-}
-
-std::string DetectorFunctions::axesToString(const IDetector& detector)
-{
-    std::ostringstream result;
-
-    result << "(";
-    for (size_t i = 0; i < detector.dimension(); ++i) {
-        result << detector.getAxis(i).size();
-        if (i != detector.dimension() - 1)
-            result << ",";
-    }
-    result << ")";
-
-    return result.str();
-}
-
-std::string DetectorFunctions::axesToString(const OutputData<double>& data)
-{
-    std::ostringstream result;
-
-    result << "(";
-    for (size_t i = 0; i < data.getRank(); ++i) {
-        result << data.getAxis(i).size();
-        if (i != data.getRank() - 1)
-            result << ",";
-    }
-    result << ")";
-
-    return result.str();
 }

@@ -54,7 +54,7 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
         throw Exceptions::ClassInitializationException("OffSpecSimulation::prepareSimulation() "
                                                        "-> Error. Incoming alpha range size < 1.");
     const double alpha_zero = alpha_axis.getMin();
-    m_instrument.setBeamParameters(wavelength, alpha_zero, phi_i);
+    instrument().setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }
 
@@ -76,7 +76,7 @@ std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
 size_t OffSpecSimulation::intensityMapSize() const
 {
     checkInitialization();
-    return mP_alpha_i_axis->size() * m_instrument.getDetectorAxis(1).size();
+    return mP_alpha_i_axis->size() * instrument().getDetectorAxis(1).size();
 }
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : Simulation2D(other)
@@ -90,7 +90,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : Simulatio
 void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
-    Beam beam = m_instrument.getBeam();
+    Beam beam = instrument().getBeam();
     const double wavelength = beam.getWavelength();
     const double phi_i = beam.getPhi();
 
@@ -125,7 +125,7 @@ void OffSpecSimulation::validateParametrization(const ParameterDistribution& par
 void OffSpecSimulation::transferResultsToIntensityMap()
 {
     checkInitialization();
-    const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
+    const IAxis& phi_axis = instrument().getDetectorAxis(0);
     size_t phi_f_size = phi_axis.size();
     if (phi_f_size * m_intensity_map.getAllocatedSize() != m_sim_elements.size())
         throw Exceptions::RuntimeErrorException(
@@ -140,23 +140,23 @@ void OffSpecSimulation::updateIntensityMap()
     m_intensity_map.clear();
     if (mP_alpha_i_axis)
         m_intensity_map.addAxis(*mP_alpha_i_axis);
-    size_t detector_dimension = m_instrument.getDetectorDimension();
+    size_t detector_dimension = instrument().getDetectorDimension();
     if (detector_dimension == 2)
-        m_intensity_map.addAxis(m_instrument.getDetectorAxis(1));
+        m_intensity_map.addAxis(instrument().getDetectorAxis(1));
     m_intensity_map.setAllTo(0.);
 }
 
 void OffSpecSimulation::transferDetectorImage(size_t index)
 {
     OutputData<double> detector_image;
-    size_t detector_dimension = m_instrument.getDetectorDimension();
+    size_t detector_dimension = instrument().getDetectorDimension();
     for (size_t dim = 0; dim < detector_dimension; ++dim)
-        detector_image.addAxis(m_instrument.getDetectorAxis(dim));
+        detector_image.addAxis(instrument().getDetectorAxis(dim));
     size_t detector_size = detector_image.getAllocatedSize();
     for (size_t i = 0; i < detector_size; ++i)
         detector_image[i] = m_sim_elements[index * detector_size + i].getIntensity();
-    m_instrument.applyDetectorResolution(&detector_image);
-    size_t y_axis_size = m_instrument.getDetectorAxis(1).size();
+    instrument().applyDetectorResolution(&detector_image);
+    size_t y_axis_size = instrument().getDetectorAxis(1).size();
     for (size_t i = 0; i < detector_size; ++i)
         m_intensity_map[index * y_axis_size + i % y_axis_size] += detector_image[i];
 }
@@ -166,7 +166,7 @@ void OffSpecSimulation::checkInitialization() const
     if (!mP_alpha_i_axis || mP_alpha_i_axis->size() < 1)
         throw Exceptions::ClassInitializationException("OffSpecSimulation::checkInitialization() "
                                                        "Incoming alpha range not configured.");
-    if (m_instrument.getDetectorDimension() != 2)
+    if (instrument().getDetectorDimension() != 2)
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::checkInitialization: detector is not two-dimensional");
 }

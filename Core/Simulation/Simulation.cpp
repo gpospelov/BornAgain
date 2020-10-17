@@ -113,7 +113,7 @@ Simulation::Simulation()
 Simulation::Simulation(const Simulation& other)
     : ICloneable(), INode(), m_sample_provider(other.m_sample_provider), m_options(other.m_options),
       m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress),
-      m_instrument(other.m_instrument)
+      m_instrument(other.instrument())
 {
     if (other.mP_background)
         setBackground(*other.mP_background);
@@ -142,35 +142,35 @@ void Simulation::setTerminalProgressMonitor()
 
 void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
 {
-    m_instrument.setDetectorResolutionFunction(resolution_function);
+    instrument().setDetectorResolutionFunction(resolution_function);
 }
 
 void Simulation::removeDetectorResolutionFunction()
 {
-    m_instrument.removeDetectorResolution();
+    instrument().removeDetectorResolution();
 }
 
 //! Sets the polarization analyzer characteristics of the detector
 void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                        double total_transmission)
 {
-    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
+    instrument().setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 void Simulation::setBeamIntensity(double intensity)
 {
-    m_instrument.setBeamIntensity(intensity);
+    instrument().setBeamIntensity(intensity);
 }
 
 double Simulation::getBeamIntensity() const
 {
-    return m_instrument.getBeamIntensity();
+    return instrument().getBeamIntensity();
 }
 
 //! Sets the beam polarization according to the given Bloch vector
 void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 {
-    m_instrument.setBeamPolarization(bloch_vector);
+    instrument().setBeamPolarization(bloch_vector);
 }
 
 void Simulation::prepareSimulation()
@@ -250,7 +250,7 @@ void Simulation::setBackground(const IBackground& bg)
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
-    result.push_back(&m_instrument);
+    result.push_back(&instrument());
     result << m_sample_provider.getChildren();
     if (mP_background)
         result.push_back(mP_background.get());

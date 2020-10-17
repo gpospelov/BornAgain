@@ -71,7 +71,7 @@ SpecularSimulation* SpecularSimulation::clone() const
 
 void SpecularSimulation::prepareSimulation()
 {
-    if (m_instrument.getDetectorDimension() != 1) // detector must have only one axis
+    if (instrument().getDetectorDimension() != 1) // detector must have only one axis
         throw std::runtime_error("Error in SpecularSimulation::prepareSimulation: the detector was "
                                  "not properly configured.");
     instrument().initDetector();
@@ -107,12 +107,12 @@ void SpecularSimulation::setScan(const ISpecularScan& scan)
     m_data_handler.reset(scan.clone());
 
     SpecularDetector1D detector(*scan.coordinateAxis());
-    m_instrument.setDetector(detector);
+    instrument().setDetector(detector);
 
     // TODO: remove when pointwise resolution is implemented
     if (scan.dataType() == ISpecularScan::angle) {
         const auto& angular_scan = static_cast<const AngularSpecScan&>(scan);
-        m_instrument.setBeamParameters(angular_scan.wavelength(), 0.0, 0.0);
+        instrument().setBeamParameters(angular_scan.wavelength(), 0.0, 0.0);
     }
 }
 
@@ -136,7 +136,7 @@ size_t SpecularSimulation::intensityMapSize() const
 
 void SpecularSimulation::initSimulationElementVector()
 {
-    const auto& beam = m_instrument.getBeam();
+    const auto& beam = instrument().getBeam();
     m_sim_elements = generateSimulationElements(beam);
 
     if (!m_cache.empty())
@@ -161,7 +161,7 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
 
     // add polarization and analyzer operators
     const auto& polarization = beam.getPolarization();
-    const auto& analyzer = m_instrument.detector().detectionProperties().analyzerOperator();
+    const auto& analyzer = instrument().detector().detectionProperties().analyzerOperator();
 
     for (auto& elem : elements)
         elem.setPolarizationHandler({polarization, analyzer});
@@ -206,7 +206,7 @@ void SpecularSimulation::initialize()
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    m_instrument.getBeam().parameter("InclinationAngle")->setLimits(
+    instrument().getBeam().parameter("InclinationAngle")->setLimits(
         RealLimits::limited(-M_PI_2, M_PI_2));
 }
 

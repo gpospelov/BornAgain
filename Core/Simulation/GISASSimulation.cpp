@@ -27,7 +27,7 @@ GISASSimulation::GISASSimulation()
 
 void GISASSimulation::prepareSimulation()
 {
-    if (m_instrument.getDetectorDimension() != 2)
+    if (instrument().getDetectorDimension() != 2)
         throw Exceptions::LogicErrorException(
             "GISASSimulation::prepareSimulation() "
             "-> Error. The detector was not properly configured.");
@@ -48,7 +48,7 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
     if (wavelength <= 0.0)
         throw Exceptions::ClassInitializationException(
             "Simulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
-    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
+    instrument().setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
 size_t GISASSimulation::intensityMapSize() const
@@ -65,7 +65,7 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other) : Simulation2D(ot
 
 void GISASSimulation::initSimulationElementVector()
 {
-    auto beam = m_instrument.getBeam();
+    auto beam = instrument().getBeam();
     m_sim_elements = generateSimulationElements(beam);
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);

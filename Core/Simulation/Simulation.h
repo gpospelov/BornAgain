@@ -121,7 +121,6 @@ protected:
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;
-    Instrument m_instrument;
     std::unique_ptr<IBackground> mP_background;
 
 private:
@@ -152,6 +151,8 @@ private:
     // used in MPI calculations for transfer of partial results
     virtual std::vector<double> rawResults() const = 0;
     virtual void setRawResults(const std::vector<double>& raw_data) = 0;
+
+    Instrument m_instrument;
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_SIMULATION_H

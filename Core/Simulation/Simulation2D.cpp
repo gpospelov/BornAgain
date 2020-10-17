@@ -27,27 +27,27 @@ Simulation2D::~Simulation2D() = default;
 void Simulation2D::prepareSimulation()
 {
     Simulation::prepareSimulation();
-    m_detector_context = m_instrument.detector2D().createContext();
+    m_detector_context = instrument().detector2D().createContext();
 }
 
 void Simulation2D::removeMasks()
 {
-    m_instrument.detector2D().removeMasks();
+    instrument().detector2D().removeMasks();
 }
 
 void Simulation2D::addMask(const IShape2D& shape, bool mask_value)
 {
-    m_instrument.detector2D().addMask(shape, mask_value);
+    instrument().detector2D().addMask(shape, mask_value);
 }
 
 void Simulation2D::maskAll()
 {
-    m_instrument.detector2D().maskAll();
+    instrument().detector2D().maskAll();
 }
 
 void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_instrument.detector2D().setRegionOfInterest(xlow, ylow, xup, yup);
+    instrument().detector2D().setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
 Simulation2D::Simulation2D(const Simulation2D& other)
@@ -65,13 +65,13 @@ size_t Simulation2D::numberOfSimulationElements() const
 void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
                                          double y_min, double y_max)
 {
-    m_instrument.detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
+    instrument().detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
 }
 
 void Simulation2D::setDetector(const IDetector2D& detector)
 {
-    m_instrument.setDetector(detector);
+    instrument().setDetector(detector);
     initUnitConverter();
 }
 
@@ -91,7 +91,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     const double phi_i = beam.getPhi();
     const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
 
-    const IDetector2D& detector = m_instrument.detector2D();
+    const IDetector2D& detector = instrument().detector2D();
     const Eigen::Matrix2cd analyzer_operator = detector.detectionProperties().analyzerOperator();
     const size_t spec_index = detector.indexOfSpecular(beam);
 

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "Device/Instrument/Instrument.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Device/Detector/SphericalDetector.h"
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Resolution/IResolutionFunction2D.h"

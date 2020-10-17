@@ -17,7 +17,6 @@
 #include "Base/Pixel/SimulationElement.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Detector/DetectorContext.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Device/Detector/RegionOfInterest.h"
 #include "Device/Detector/SimulationArea.h"
 #include "Device/Mask/InfinitePlane.h"

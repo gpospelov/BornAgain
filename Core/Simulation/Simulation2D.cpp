@@ -17,7 +17,6 @@
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Device/Detector/DetectorContext.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Device/Histo/Histogram2D.h"
 
 Simulation2D::Simulation2D() = default;

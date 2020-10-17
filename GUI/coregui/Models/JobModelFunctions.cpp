@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobModelFunctions.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Device/Detector/IDetector2D.h"
 #include "Device/Instrument/Instrument.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"

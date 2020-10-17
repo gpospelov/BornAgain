@@ -112,7 +112,7 @@ Simulation::Simulation()
 
 Simulation::Simulation(const Simulation& other)
     : ICloneable(), INode(), m_sample_provider(other.m_sample_provider), m_options(other.m_options),
-      m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress),
+      m_progress(other.m_progress), m_distribution_handler(other.m_distribution_handler),
       m_instrument(other.instrument())
 {
     if (other.mP_background)

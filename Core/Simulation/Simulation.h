@@ -119,7 +119,6 @@ protected:
 
     SampleProvider m_sample_provider;
     SimulationOptions m_options;
-    DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;
     std::unique_ptr<IBackground> mP_background;
 
@@ -152,6 +151,7 @@ private:
     virtual std::vector<double> rawResults() const = 0;
     virtual void setRawResults(const std::vector<double>& raw_data) = 0;
 
+    DistributionHandler m_distribution_handler;
     Instrument m_instrument;
 };
 

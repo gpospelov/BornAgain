@@ -101,9 +101,6 @@ private:
     //! Gets the number of elements this simulation needs to calculate
     size_t numberOfSimulationElements() const override;
 
-    //! Creates intensity data from simulation elements
-    std::unique_ptr<OutputData<double>> createIntensityData() const;
-
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 

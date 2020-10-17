@@ -85,9 +85,16 @@ size_t SpecularSimulation::numberOfSimulationElements() const
 
 SimulationResult SpecularSimulation::result() const
 {
-    auto data = createIntensityData();
+    OutputData<double> data;
+    data.addAxis(*coordinateAxis());
+
+    if (!m_sim_elements.empty())
+        data.setRawDataVector(m_data_handler->createIntensities(m_sim_elements));
+    else
+        data.setAllTo(0.0);
+
     auto converter = UnitConverter1D::createUnitConverter(*m_data_handler);
-    return SimulationResult(*data, *converter);
+    return SimulationResult(data, *converter);
 }
 
 void SpecularSimulation::setScan(const ISpecularScan& scan)
@@ -247,20 +254,6 @@ void SpecularSimulation::moveDataFromCache()
         m_sim_elements[i].setIntensity(m_cache[i]);
     m_cache.clear();
     m_cache.shrink_to_fit();
-}
-
-std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const
-{
-    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis(*coordinateAxis());
-
-    if (!m_sim_elements.empty()) {
-        std::vector<double> data = m_data_handler->createIntensities(m_sim_elements);
-        result->setRawDataVector(data);
-    } else
-        result->setAllTo(0.0);
-
-    return result;
 }
 
 std::vector<double> SpecularSimulation::rawResults() const

@@ -203,8 +203,8 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
     for (size_t i = pos_out; left > 0; ++i)
         for (size_t k = pos_inc; k < n_inc_samples && left > 0; ++k) {
             pos_inc = 0;
-            double angle = sample_values[i][k];
-            double footprint =
+            const double angle = sample_values[i][k];
+            const double footprint =
                 (angle >= 0 && angle <= M_PI_2) ? m_footprint->calculate(angle) : 1.0;
             for (size_t j = pos_wl; j < n_wl_samples && left > 0; ++j) {
                 pos_wl = 0;

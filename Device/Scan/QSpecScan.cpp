@@ -88,7 +88,7 @@ QSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_e
     const size_t axis_size = m_qs->size();
     std::vector<double> result(axis_size, 0.0);
 
-    auto samples = applyQResolution();
+    const auto samples = applyQResolution();
 
     size_t elem_pos = 0;
     for (size_t i = 0; i < axis_size; ++i) {
@@ -167,7 +167,7 @@ void QSpecScan::checkInitialization()
 
 std::vector<double> QSpecScan::generateQzVector() const
 {
-    auto samples = applyQResolution();
+    const auto samples = applyQResolution();
 
     std::vector<double> result;
     result.reserve(numberOfSimulationElements());

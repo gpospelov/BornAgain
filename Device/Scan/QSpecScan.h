@@ -22,9 +22,8 @@ class ParameterSample;
 class RangedDistribution;
 class ScanResolution;
 
-//! Scan type with z-components of scattering vector
-//! as coordinate values. Wavelength and incident angles
-//! are not accessible separately.
+//! Scan type with z-components of scattering vector as coordinate values.
+//! Wavelength and incident angles are not accessible separately.
 
 class QSpecScan : public ISpecularScan
 {

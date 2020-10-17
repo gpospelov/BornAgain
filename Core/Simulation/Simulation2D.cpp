@@ -128,11 +128,11 @@ void Simulation2D::normalize(size_t start_ind, size_t n_elements)
 
 void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
 {
-    if (!mP_background)
+    if (!background())
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
-        element.setIntensity(mP_background->addBackGround(element.getIntensity()));
+        element.setIntensity(background()->addBackGround(element.getIntensity()));
     }
 }
 

@@ -120,7 +120,6 @@ protected:
     SampleProvider m_sample_provider;
     SimulationOptions m_options;
     ProgressHandler m_progress;
-    std::unique_ptr<IBackground> mP_background;
 
 private:
     void initialize();
@@ -153,6 +152,7 @@ private:
 
     DistributionHandler m_distribution_handler;
     Instrument m_instrument;
+    std::unique_ptr<IBackground> mP_background;
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_SIMULATION_H

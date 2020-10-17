@@ -246,10 +246,9 @@ void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
 
 void DepthProbeSimulation::addBackGroundIntensity(size_t, size_t)
 {
-    if (!mP_background)
-        return;
-    throw std::runtime_error("Error in DepthProbeSimulation::addBackGroundIntensity: background is "
-                             "not allowed for this type of simulation");
+    if (background())
+        throw std::runtime_error(
+            "Error: nonzero background is not supported by DepthProbeSimulation");
 }
 
 void DepthProbeSimulation::addDataToCache(double weight)

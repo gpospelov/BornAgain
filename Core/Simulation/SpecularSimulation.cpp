@@ -232,11 +232,11 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
 
 void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
 {
-    if (!mP_background)
+    if (!background())
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
-        element.setIntensity(mP_background->addBackGround(element.getIntensity()));
+        element.setIntensity(background()->addBackGround(element.getIntensity()));
     }
 }
 

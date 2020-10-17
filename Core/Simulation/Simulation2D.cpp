@@ -80,7 +80,7 @@ std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(si
 {
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
+    return std::make_unique<DWBAComputation>(*sample(), options(), progress(), begin,
                                              begin + static_cast<long>(n_elements));
 }
 
@@ -126,13 +126,13 @@ void Simulation2D::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+void Simulation2D::addBackgroundIntensity(size_t start_ind, size_t n_elements)
 {
     if (!background())
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
-        element.setIntensity(background()->addBackGround(element.getIntensity()));
+        element.setIntensity(background()->addBackground(element.getIntensity()));
     }
 }
 

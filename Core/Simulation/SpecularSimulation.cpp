@@ -174,7 +174,7 @@ SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_ele
 {
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
-    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
+    return std::make_unique<SpecularComputation>(*sample(), options(), progress(), begin,
                                                  begin + static_cast<long>(n_elements));
 }
 
@@ -230,13 +230,13 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+void SpecularSimulation::addBackgroundIntensity(size_t start_ind, size_t n_elements)
 {
     if (!background())
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
-        element.setIntensity(background()->addBackGround(element.getIntensity()));
+        element.setIntensity(background()->addBackground(element.getIntensity()));
     }
 }
 

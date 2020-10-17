@@ -119,7 +119,7 @@ C++ includes: ConstantBackground.h
 %feature("docstring")  ConstantBackground::accept "void ConstantBackground::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  ConstantBackground::addBackGround "double ConstantBackground::addBackGround(double intensity) const override final
+%feature("docstring")  ConstantBackground::addBackground "double ConstantBackground::addBackground(double intensity) const override final
 ";
 
 
@@ -708,7 +708,7 @@ C++ includes: IBackground.h
 %feature("docstring")  IBackground::clone "virtual IBackground* IBackground::clone() const =0
 ";
 
-%feature("docstring")  IBackground::addBackGround "virtual double IBackground::addBackGround(double element) const =0
+%feature("docstring")  IBackground::addBackground "virtual double IBackground::addBackground(double element) const =0
 ";
 
 
@@ -1162,7 +1162,7 @@ C++ includes: PoissonNoiseBackground.h
 %feature("docstring")  PoissonNoiseBackground::accept "void PoissonNoiseBackground::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  PoissonNoiseBackground::addBackGround "double PoissonNoiseBackground::addBackGround(double intensity) const override final
+%feature("docstring")  PoissonNoiseBackground::addBackground "double PoissonNoiseBackground::addBackground(double intensity) const override final
 ";
 
 

@@ -72,7 +72,7 @@ public:
     void setSampleBuilder(const std::shared_ptr<ISampleBuilder>& sample_builder);
 
     void setBackground(const IBackground& bg);
-    const IBackground* background() const { return mP_background.get(); }
+    const IBackground* background() const { return m_background.get(); }
 
     //! Returns the total number of the intensity values in the simulation result
     virtual size_t intensityMapSize() const = 0;
@@ -117,9 +117,8 @@ protected:
     //! Gets the number of elements this simulation needs to calculate
     virtual size_t numberOfSimulationElements() const = 0;
 
-    SampleProvider m_sample_provider;
-    SimulationOptions m_options;
-    ProgressHandler m_progress;
+    const SimulationOptions& options() const { return m_options; }
+    ProgressHandler& progress() { return m_progress; }
 
 private:
     void initialize();
@@ -135,7 +134,7 @@ private:
     //! Checks the distribution validity for simulation.
     virtual void validateParametrization(const ParameterDistribution&) const {}
 
-    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) = 0;
+    virtual void addBackgroundIntensity(size_t start_ind, size_t n_elements) = 0;
 
     //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
     //! @param start_ind Index of the first element to operate on
@@ -150,9 +149,12 @@ private:
     virtual std::vector<double> rawResults() const = 0;
     virtual void setRawResults(const std::vector<double>& raw_data) = 0;
 
+    SimulationOptions m_options;
+    ProgressHandler m_progress;
+    SampleProvider m_sample_provider;
     DistributionHandler m_distribution_handler;
     Instrument m_instrument;
-    std::unique_ptr<IBackground> mP_background;
+    std::unique_ptr<IBackground> m_background;
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_SIMULATION_H

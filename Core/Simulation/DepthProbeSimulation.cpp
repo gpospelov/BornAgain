@@ -178,7 +178,7 @@ DepthProbeSimulation::generateSingleThreadedComputation(size_t start, size_t n_e
 {
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
-    return std::make_unique<DepthProbeComputation>(*sample(), m_options, m_progress, begin,
+    return std::make_unique<DepthProbeComputation>(*sample(), options(), progress(), begin,
                                                    begin + static_cast<long>(n_elements));
 }
 
@@ -244,7 +244,7 @@ void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void DepthProbeSimulation::addBackGroundIntensity(size_t, size_t)
+void DepthProbeSimulation::addBackgroundIntensity(size_t, size_t)
 {
     if (background())
         throw std::runtime_error(

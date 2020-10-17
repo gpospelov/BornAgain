@@ -92,7 +92,7 @@ private:
     //! @param n_elements Number of elements to process
     void normalize(size_t start_ind, size_t n_elements) override;
 
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+    void addBackgroundIntensity(size_t start_ind, size_t n_elements) override;
 
     void addDataToCache(double weight) override;
 

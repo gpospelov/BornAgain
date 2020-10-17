@@ -33,7 +33,7 @@ ConstantBackground* ConstantBackground::clone() const
     return new ConstantBackground(m_background_value);
 }
 
-double ConstantBackground::addBackGround(double intensity) const
+double ConstantBackground::addBackground(double intensity) const
 {
     return intensity + m_background_value;
 }

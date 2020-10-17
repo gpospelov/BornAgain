@@ -33,7 +33,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    double addBackGround(double intensity) const override final;
+    double addBackground(double intensity) const override final;
 
 private:
     const double& m_background_value;

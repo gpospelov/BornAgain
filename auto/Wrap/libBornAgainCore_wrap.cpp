@@ -40641,7 +40641,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IBackground_addBackGround(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBackground_addBackground(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IBackground *arg1 = (IBackground *) 0 ;
   double arg2 ;
@@ -40652,18 +40652,18 @@ SWIGINTERN PyObject *_wrap_IBackground_addBackGround(PyObject *SWIGUNUSEDPARM(se
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IBackground_addBackGround", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IBackground_addBackground", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBackground, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBackground_addBackGround" "', argument " "1"" of type '" "IBackground const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBackground_addBackground" "', argument " "1"" of type '" "IBackground const *""'"); 
   }
   arg1 = reinterpret_cast< IBackground * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IBackground_addBackGround" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IBackground_addBackground" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((IBackground const *)arg1)->addBackGround(arg2);
+  result = (double)((IBackground const *)arg1)->addBackground(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -40833,7 +40833,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ConstantBackground_addBackGround(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ConstantBackground_addBackground(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ConstantBackground *arg1 = (ConstantBackground *) 0 ;
   double arg2 ;
@@ -40844,18 +40844,18 @@ SWIGINTERN PyObject *_wrap_ConstantBackground_addBackGround(PyObject *SWIGUNUSED
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "ConstantBackground_addBackGround", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "ConstantBackground_addBackground", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ConstantBackground, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstantBackground_addBackGround" "', argument " "1"" of type '" "ConstantBackground const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstantBackground_addBackground" "', argument " "1"" of type '" "ConstantBackground const *""'"); 
   }
   arg1 = reinterpret_cast< ConstantBackground * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ConstantBackground_addBackGround" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ConstantBackground_addBackground" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((ConstantBackground const *)arg1)->addBackGround(arg2);
+  result = (double)((ConstantBackground const *)arg1)->addBackground(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -40961,7 +40961,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_PoissonNoiseBackground_addBackGround(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_PoissonNoiseBackground_addBackground(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   PoissonNoiseBackground *arg1 = (PoissonNoiseBackground *) 0 ;
   double arg2 ;
@@ -40972,18 +40972,18 @@ SWIGINTERN PyObject *_wrap_PoissonNoiseBackground_addBackGround(PyObject *SWIGUN
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "PoissonNoiseBackground_addBackGround", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "PoissonNoiseBackground_addBackground", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PoissonNoiseBackground, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PoissonNoiseBackground_addBackGround" "', argument " "1"" of type '" "PoissonNoiseBackground const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PoissonNoiseBackground_addBackground" "', argument " "1"" of type '" "PoissonNoiseBackground const *""'"); 
   }
   arg1 = reinterpret_cast< PoissonNoiseBackground * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "PoissonNoiseBackground_addBackGround" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "PoissonNoiseBackground_addBackground" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)((PoissonNoiseBackground const *)arg1)->addBackGround(arg2);
+  result = (double)((PoissonNoiseBackground const *)arg1)->addBackground(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -42943,9 +42943,9 @@ static PyMethodDef SwigMethods[] = {
 		"virtual IBackground* IBackground::clone() const =0\n"
 		"\n"
 		""},
-	 { "IBackground_addBackGround", _wrap_IBackground_addBackGround, METH_VARARGS, "\n"
-		"IBackground_addBackGround(IBackground self, double element) -> double\n"
-		"virtual double IBackground::addBackGround(double element) const =0\n"
+	 { "IBackground_addBackground", _wrap_IBackground_addBackground, METH_VARARGS, "\n"
+		"IBackground_addBackground(IBackground self, double element) -> double\n"
+		"virtual double IBackground::addBackground(double element) const =0\n"
 		"\n"
 		""},
 	 { "IBackground_swigregister", IBackground_swigregister, METH_O, NULL},
@@ -42970,9 +42970,9 @@ static PyMethodDef SwigMethods[] = {
 		"void ConstantBackground::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
-	 { "ConstantBackground_addBackGround", _wrap_ConstantBackground_addBackGround, METH_VARARGS, "\n"
-		"ConstantBackground_addBackGround(ConstantBackground self, double intensity) -> double\n"
-		"double ConstantBackground::addBackGround(double intensity) const override final\n"
+	 { "ConstantBackground_addBackground", _wrap_ConstantBackground_addBackground, METH_VARARGS, "\n"
+		"ConstantBackground_addBackground(ConstantBackground self, double intensity) -> double\n"
+		"double ConstantBackground::addBackground(double intensity) const override final\n"
 		"\n"
 		""},
 	 { "delete_ConstantBackground", _wrap_delete_ConstantBackground, METH_O, "delete_ConstantBackground(ConstantBackground self)"},
@@ -42993,9 +42993,9 @@ static PyMethodDef SwigMethods[] = {
 		"void PoissonNoiseBackground::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
-	 { "PoissonNoiseBackground_addBackGround", _wrap_PoissonNoiseBackground_addBackGround, METH_VARARGS, "\n"
-		"PoissonNoiseBackground_addBackGround(PoissonNoiseBackground self, double intensity) -> double\n"
-		"double PoissonNoiseBackground::addBackGround(double intensity) const override final\n"
+	 { "PoissonNoiseBackground_addBackground", _wrap_PoissonNoiseBackground_addBackground, METH_VARARGS, "\n"
+		"PoissonNoiseBackground_addBackground(PoissonNoiseBackground self, double intensity) -> double\n"
+		"double PoissonNoiseBackground::addBackground(double intensity) const override final\n"
 		"\n"
 		""},
 	 { "delete_PoissonNoiseBackground", _wrap_delete_PoissonNoiseBackground, METH_O, "delete_PoissonNoiseBackground(PoissonNoiseBackground self)"},

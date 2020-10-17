@@ -115,8 +115,8 @@ Simulation::Simulation(const Simulation& other)
       m_progress(other.m_progress), m_distribution_handler(other.m_distribution_handler),
       m_instrument(other.instrument())
 {
-    if (other.mP_background)
-        setBackground(*other.mP_background);
+    if (other.m_background)
+        setBackground(*other.m_background);
     initialize();
 }
 
@@ -243,8 +243,8 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder>& s
 
 void Simulation::setBackground(const IBackground& bg)
 {
-    mP_background.reset(bg.clone());
-    registerChild(mP_background.get());
+    m_background.reset(bg.clone());
+    registerChild(m_background.get());
 }
 
 std::vector<const INode*> Simulation::getChildren() const
@@ -252,8 +252,8 @@ std::vector<const INode*> Simulation::getChildren() const
     std::vector<const INode*> result;
     result.push_back(&instrument());
     result << m_sample_provider.getChildren();
-    if (mP_background)
-        result.push_back(mP_background.get());
+    if (m_background)
+        result.push_back(m_background.get());
     return result;
 }
 
@@ -293,7 +293,7 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
     runComputations(std::move(computations));
 
     normalize(batch_start, batch_size);
-    addBackGroundIntensity(batch_start, batch_size);
+    addBackgroundIntensity(batch_start, batch_size);
     addDataToCache(weight);
 }
 

@@ -25,7 +25,7 @@ PoissonNoiseBackground* PoissonNoiseBackground::clone() const
     return new PoissonNoiseBackground;
 }
 
-double PoissonNoiseBackground::addBackGround(double intensity) const
+double PoissonNoiseBackground::addBackground(double intensity) const
 {
     return MathFunctions::GeneratePoissonRandom(intensity);
 }

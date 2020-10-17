@@ -4192,13 +4192,13 @@ class IBackground(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.IBackground_clone(self)
 
-    def addBackGround(self, element):
+    def addBackground(self, element):
         r"""
-        addBackGround(IBackground self, double element) -> double
-        virtual double IBackground::addBackGround(double element) const =0
+        addBackground(IBackground self, double element) -> double
+        virtual double IBackground::addBackground(double element) const =0
 
         """
-        return _libBornAgainCore.IBackground_addBackGround(self, element)
+        return _libBornAgainCore.IBackground_addBackground(self, element)
 
 # Register IBackground in _libBornAgainCore:
 _libBornAgainCore.IBackground_swigregister(IBackground)
@@ -4249,13 +4249,13 @@ class ConstantBackground(IBackground):
         """
         return _libBornAgainCore.ConstantBackground_accept(self, visitor)
 
-    def addBackGround(self, intensity):
+    def addBackground(self, intensity):
         r"""
-        addBackGround(ConstantBackground self, double intensity) -> double
-        double ConstantBackground::addBackGround(double intensity) const override final
+        addBackground(ConstantBackground self, double intensity) -> double
+        double ConstantBackground::addBackground(double intensity) const override final
 
         """
-        return _libBornAgainCore.ConstantBackground_addBackGround(self, intensity)
+        return _libBornAgainCore.ConstantBackground_addBackground(self, intensity)
     __swig_destroy__ = _libBornAgainCore.delete_ConstantBackground
 
 # Register ConstantBackground in _libBornAgainCore:
@@ -4298,13 +4298,13 @@ class PoissonNoiseBackground(IBackground):
         """
         return _libBornAgainCore.PoissonNoiseBackground_accept(self, visitor)
 
-    def addBackGround(self, intensity):
+    def addBackground(self, intensity):
         r"""
-        addBackGround(PoissonNoiseBackground self, double intensity) -> double
-        double PoissonNoiseBackground::addBackGround(double intensity) const override final
+        addBackground(PoissonNoiseBackground self, double intensity) -> double
+        double PoissonNoiseBackground::addBackground(double intensity) const override final
 
         """
-        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, intensity)
+        return _libBornAgainCore.PoissonNoiseBackground_addBackground(self, intensity)
     __swig_destroy__ = _libBornAgainCore.delete_PoissonNoiseBackground
 
 # Register PoissonNoiseBackground in _libBornAgainCore:

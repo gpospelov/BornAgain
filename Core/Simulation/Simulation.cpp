@@ -219,9 +219,9 @@ void Simulation::runMPISimulation()
     ompi.runSimulation(this);
 }
 
-void Simulation::setInstrument(const Instrument& instrument)
+void Simulation::setInstrument(const Instrument& instrument_)
 {
-    m_instrument = instrument;
+    m_instrument = instrument_;
     updateIntensityMap();
 }
 

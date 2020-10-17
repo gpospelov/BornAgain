@@ -51,7 +51,7 @@ public:
     //! Run a simulation in a MPI environment
     void runMPISimulation();
 
-    void setInstrument(const Instrument& instrument);
+    void setInstrument(const Instrument& instrument_);
     const Instrument& getInstrument() const { return m_instrument; }
     Instrument& getInstrument() { return m_instrument; }
 

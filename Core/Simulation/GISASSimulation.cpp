@@ -37,10 +37,9 @@ void GISASSimulation::prepareSimulation()
 
 SimulationResult GISASSimulation::result() const
 {
-    const auto& instrument = getInstrument();
-    const auto converter = UnitConverterUtils::createConverterForGISAS(instrument);
+    const auto converter = UnitConverterUtils::createConverterForGISAS(getInstrument());
     const std::unique_ptr<OutputData<double>> data(
-        instrument.detector().createDetectorIntensity(m_sim_elements));
+        getInstrument().detector().createDetectorIntensity(m_sim_elements));
     return SimulationResult(*data, *converter);
 }
 

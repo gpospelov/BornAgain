@@ -17,7 +17,6 @@
 #include "Core/Computation/IComputation.h"
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Fit/Tools/StringUtils.h"
 #include "Param/Base/ParameterPool.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -30,6 +29,18 @@
 
 namespace
 {
+
+bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& data)
+{
+    if (data.getRank() != detector.dimension())
+        return false;
+
+    for (size_t i = 0; i < detector.dimension(); ++i)
+        if (data.getAxis(i).size() != detector.getAxis(i).size())
+            return false;
+
+    return true;
+}
 
 size_t getIndexStep(size_t total_size, size_t n_handlers)
 {
@@ -111,9 +122,9 @@ Simulation::Simulation()
 }
 
 Simulation::Simulation(const Simulation& other)
-    : ICloneable(), INode(), m_sample_provider(other.m_sample_provider), m_options(other.m_options),
-      m_progress(other.m_progress), m_distribution_handler(other.m_distribution_handler),
-      m_instrument(other.instrument())
+    : ICloneable(), INode(), m_options(other.m_options), m_progress(other.m_progress),
+      m_sample_provider(other.m_sample_provider),
+      m_distribution_handler(other.m_distribution_handler), m_instrument(other.instrument())
 {
     if (other.m_background)
         setBackground(*other.m_background);
@@ -321,7 +332,7 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
             roi_data->setRawDataVector(data.getRawDataVector());
         }
 
-    } else if (DetectorFunctions::hasSameDimensions(detector, data)) {
+    } else if (detHasSameDimensions(detector, data)) {
         // exp data has same shape as the detector, we have to put orig data to smaller roi map
         detector.iterate(
             [&](IDetector::const_iterator it) {

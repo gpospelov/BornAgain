@@ -30,7 +30,7 @@ namespace
 {
 // TODO: remove when pointwise resolution is implemented
 std::unique_ptr<AngularSpecScan> mangledDataHandler(const ISpecularScan& data_handler,
-                                                  const Beam& beam)
+                                                    const Beam& beam)
 {
     if (data_handler.dataType() != ISpecularScan::angle)
         throw std::runtime_error("Error in mangledDataHandler: invalid usage");
@@ -206,8 +206,10 @@ void SpecularSimulation::initialize()
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    instrument().getBeam().parameter("InclinationAngle")->setLimits(
-        RealLimits::limited(-M_PI_2, M_PI_2));
+    instrument()
+        .getBeam()
+        .parameter("InclinationAngle")
+        ->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
 void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)

@@ -29,7 +29,7 @@
 namespace
 {
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
+std::unique_ptr<AngularSpecScan> mangledDataHandler(const ISpecularScan& data_handler,
                                                   const Beam& beam)
 {
     if (data_handler.dataType() != ISpecularScan::angle)
@@ -45,7 +45,7 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
     result->setFootprintFactor(scan.footprintFactor());
     result->setWavelengthResolution(*scan.wavelengthResolution());
     result->setAngleResolution(*scan.angleResolution());
-    return std::unique_ptr<ISpecularScan>(result);
+    return std::unique_ptr<AngularSpecScan>(result);
 }
 } // namespace
 

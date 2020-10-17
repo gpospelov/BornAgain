@@ -199,8 +199,8 @@ void SpecularSimulation::initialize()
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    auto inclination = m_instrument.getBeam().parameter("InclinationAngle");
-    inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
+    m_instrument.getBeam().parameter("InclinationAngle")->setLimits(
+        RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
 void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)

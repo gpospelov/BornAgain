@@ -30,11 +30,23 @@ namespace
 {
 // TODO: remove when pointwise resolution is implemented
 std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
-                                                  const Beam& beam);
+                                                  const Beam& beam)
+{
+    if (data_handler.dataType() != ISpecularScan::angle)
+        throw std::runtime_error("Error in mangledDataHandler: invalid usage");
+    const auto& scan = static_cast<const AngularSpecScan&>(data_handler);
 
-const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
-const double zero_phi_i = 0.0;
-const double zero_alpha_i = 0.0;
+    const double wl = beam.getWavelength();
+    const double angle_shift = beam.getAlpha();
+    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
+    for (auto& val : angles)
+        val += angle_shift;
+    auto* result = new AngularSpecScan(wl, PointwiseAxis("alpha_i", std::move(angles)));
+    result->setFootprintFactor(scan.footprintFactor());
+    result->setWavelengthResolution(*scan.wavelengthResolution());
+    result->setAngleResolution(*scan.angleResolution());
+    return std::unique_ptr<ISpecularScan>(result);
+}
 } // namespace
 
 SpecularSimulation::SpecularSimulation() : Simulation()
@@ -85,7 +97,7 @@ void SpecularSimulation::setScan(const ISpecularScan& scan)
     // TODO: remove when pointwise resolution is implemented
     if (scan.dataType() == ISpecularScan::angle) {
         const auto& angular_scan = static_cast<const AngularSpecScan&>(scan);
-        m_instrument.setBeamParameters(angular_scan.wavelength(), zero_alpha_i, zero_phi_i);
+        m_instrument.setBeamParameters(angular_scan.wavelength(), 0.0, 0.0);
     }
 }
 
@@ -270,26 +282,3 @@ void SpecularSimulation::setRawResults(const std::vector<double>& raw_data)
         m_sim_elements[i].setIntensity(raw_data[i]);
     transferResultsToIntensityMap();
 }
-
-namespace
-{
-// TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
-                                                  const Beam& beam)
-{
-    if (data_handler.dataType() != ISpecularScan::angle)
-        throw std::runtime_error("Error in mangledDataHandler: invalid usage");
-    auto& scan = static_cast<const AngularSpecScan&>(data_handler);
-
-    const double wl = beam.getWavelength();
-    const double angle_shift = beam.getAlpha();
-    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
-    for (auto& val : angles)
-        val += angle_shift;
-    auto* result = new AngularSpecScan(wl, PointwiseAxis("alpha_i", std::move(angles)));
-    result->setFootprintFactor(scan.footprintFactor());
-    result->setWavelengthResolution(*scan.wavelengthResolution());
-    result->setAngleResolution(*scan.angleResolution());
-    return std::unique_ptr<ISpecularScan>(result);
-}
-} // namespace

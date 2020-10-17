@@ -14,7 +14,6 @@
 
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Base/Axis/PointwiseAxis.h"
-#include "Base/Const/MathConstants.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"
 #include "Device/Beam/IFootprintFactor.h"
@@ -25,9 +24,6 @@
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
-#include "Sample/Material/MaterialUtils.h"
-#include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Sample/Slice/SpecularSimulationElement.h"
 
 namespace

@@ -55,7 +55,7 @@ void LinkInstrumentManager::setModels(InstrumentModel* instrumentModel,
 
 //! Returns InstrumentItem for given identifier.
 
-InstrumentItem* LinkInstrumentManager::getInstrument(const QString& identifier)
+InstrumentItem* LinkInstrumentManager::instrument(const QString& identifier)
 {
     for (int i = 0; i < m_instrumentVec.size(); ++i)
         if (m_instrumentVec[i].m_identifier == identifier)
@@ -99,7 +99,7 @@ QString LinkInstrumentManager::instrumentIdentifier(int comboIndex)
 bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realDataItem,
                                                     const QString& identifier)
 {
-    auto instrumentItem = getInstrument(identifier);
+    auto instrumentItem = instrument(identifier);
 
     // linking to null instrument is possible, it means unlinking from currently linked
     if (!instrumentItem)
@@ -143,7 +143,7 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem* dataItem,
     if (property == RealDataItem::P_INSTRUMENT_ID) {
         RealDataItem* realDataItem = dynamic_cast<RealDataItem*>(dataItem);
         QString identifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-        realDataItem->linkToInstrument(getInstrument(identifier));
+        realDataItem->linkToInstrument(instrument(identifier));
     }
 }
 
@@ -187,7 +187,7 @@ void LinkInstrumentManager::updateLinks()
 {
     for (auto realDataItem : m_realDataModel->topItems<RealDataItem>()) {
         QString identifier = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-        auto instrumentItem = getInstrument(identifier);
+        auto instrumentItem = instrument(identifier);
 
         if (!instrumentItem) {
             // if no instrument with P_INSTRUMENT_ID exists, break the link

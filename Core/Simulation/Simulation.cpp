@@ -307,7 +307,7 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
     auto converter = UnitConverterUtils::createConverter(*this);
     auto roi_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
 
-    const IDetector& detector = getInstrument().detector();
+    const IDetector& detector = instrument().detector();
 
     if (roi_data->hasSameDimensions(data)) {
         // data is already cropped to ROI

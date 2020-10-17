@@ -68,7 +68,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
     ASSERT(p_instrument_model);
 
     QString name = instrument_name.isEmpty()
-                       ? QString::fromStdString(simulation.getInstrument().getName())
+                       ? QString::fromStdString(simulation.instrument().getName())
                        : instrument_name;
 
     if (auto gisasSimulation = dynamic_cast<const GISASSimulation*>(&simulation)) {

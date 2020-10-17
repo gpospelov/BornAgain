@@ -38,14 +38,14 @@ TEST_F(TestLinkInstrument, test_linkInstrumentManager)
     EXPECT_EQ(spy.count(), 1);
     EXPECT_EQ(manager.instrumentNames(), QStringList() << "Undefined" << instrument->itemName());
 
-    EXPECT_EQ(manager.getInstrument(identifier), instrument);
+    EXPECT_EQ(manager.instrument(identifier), instrument);
     EXPECT_EQ(manager.instrumentComboIndex(identifier), 1);
 
     // removing instrument
     instrumentModel.removeRow(0);
     EXPECT_EQ(spy.count(), 2);
     EXPECT_EQ(manager.instrumentNames(), QStringList() << "Undefined");
-    QVERIFY(manager.getInstrument(identifier) == nullptr);
+    QVERIFY(manager.instrument(identifier) == nullptr);
     EXPECT_EQ(manager.instrumentComboIndex(identifier), -1);
 }
 

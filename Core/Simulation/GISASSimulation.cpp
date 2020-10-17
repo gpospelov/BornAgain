@@ -31,15 +31,15 @@ void GISASSimulation::prepareSimulation()
         throw Exceptions::LogicErrorException(
             "GISASSimulation::prepareSimulation() "
             "-> Error. The detector was not properly configured.");
-    getInstrument().initDetector();
+    instrument().initDetector();
     Simulation2D::prepareSimulation();
 }
 
 SimulationResult GISASSimulation::result() const
 {
-    const auto converter = UnitConverterUtils::createConverterForGISAS(getInstrument());
+    const auto converter = UnitConverterUtils::createConverterForGISAS(instrument());
     const std::unique_ptr<OutputData<double>> data(
-        getInstrument().detector().createDetectorIntensity(m_sim_elements));
+        instrument().detector().createDetectorIntensity(m_sim_elements));
     return SimulationResult(*data, *converter);
 }
 
@@ -54,7 +54,7 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
 size_t GISASSimulation::intensityMapSize() const
 {
     size_t result = 0;
-    getInstrument().detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
+    instrument().detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
     return result;
 }
 

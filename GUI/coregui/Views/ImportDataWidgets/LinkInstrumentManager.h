@@ -49,7 +49,7 @@ public:
 
     void setModels(InstrumentModel* instrumentModel, RealDataModel* realDataModel);
 
-    InstrumentItem* getInstrument(const QString& identifier);
+    InstrumentItem* instrument(const QString& identifier);
     QStringList instrumentNames() const;
     int instrumentComboIndex(const QString& identifier);
     QString instrumentIdentifier(int comboIndex);

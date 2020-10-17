@@ -52,8 +52,8 @@ public:
     void runMPISimulation();
 
     void setInstrument(const Instrument& instrument_);
-    const Instrument& getInstrument() const { return m_instrument; }
-    Instrument& getInstrument() { return m_instrument; }
+    const Instrument& instrument() const { return m_instrument; }
+    Instrument& instrument() { return m_instrument; }
 
     void setBeamIntensity(double intensity);
     double getBeamIntensity() const;

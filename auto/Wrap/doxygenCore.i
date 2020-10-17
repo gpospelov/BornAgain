@@ -1697,13 +1697,13 @@ Run simulation with possible averaging over parameter distributions.
 Run a simulation in a MPI environment. 
 ";
 
-%feature("docstring")  Simulation::setInstrument "void Simulation::setInstrument(const Instrument &instrument)
+%feature("docstring")  Simulation::setInstrument "void Simulation::setInstrument(const Instrument &instrument_)
 ";
 
-%feature("docstring")  Simulation::getInstrument "const Instrument& Simulation::getInstrument() const
+%feature("docstring")  Simulation::instrument "const Instrument& Simulation::instrument() const
 ";
 
-%feature("docstring")  Simulation::getInstrument "Instrument& Simulation::getInstrument()
+%feature("docstring")  Simulation::instrument "Instrument& Simulation::instrument()
 ";
 
 %feature("docstring")  Simulation::setBeamIntensity "void Simulation::setBeamIntensity(double intensity)

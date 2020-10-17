@@ -37932,7 +37932,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation_getInstrument__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Simulation_instrument__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Simulation *arg1 = (Simulation *) 0 ;
   void *argp1 = 0 ;
@@ -37942,10 +37942,10 @@ SWIGINTERN PyObject *_wrap_Simulation_getInstrument__SWIG_0(PyObject *SWIGUNUSED
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation_getInstrument" "', argument " "1"" of type '" "Simulation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation_instrument" "', argument " "1"" of type '" "Simulation const *""'"); 
   }
   arg1 = reinterpret_cast< Simulation * >(argp1);
-  result = (Instrument *) &((Simulation const *)arg1)->getInstrument();
+  result = (Instrument *) &((Simulation const *)arg1)->instrument();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Instrument, 0 |  0 );
   return resultobj;
 fail:
@@ -37953,7 +37953,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation_getInstrument__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Simulation_instrument__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Simulation *arg1 = (Simulation *) 0 ;
   void *argp1 = 0 ;
@@ -37963,10 +37963,10 @@ SWIGINTERN PyObject *_wrap_Simulation_getInstrument__SWIG_1(PyObject *SWIGUNUSED
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation_getInstrument" "', argument " "1"" of type '" "Simulation *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation_instrument" "', argument " "1"" of type '" "Simulation *""'"); 
   }
   arg1 = reinterpret_cast< Simulation * >(argp1);
-  result = (Instrument *) &(arg1)->getInstrument();
+  result = (Instrument *) &(arg1)->instrument();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Instrument, 0 |  0 );
   return resultobj;
 fail:
@@ -37974,13 +37974,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation_getInstrument(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Simulation_instrument(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[2] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Simulation_getInstrument", 0, 1, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Simulation_instrument", 0, 1, argv))) SWIG_fail;
   --argc;
   if (argc == 1) {
     int _v;
@@ -37988,7 +37988,7 @@ SWIGINTERN PyObject *_wrap_Simulation_getInstrument(PyObject *self, PyObject *ar
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Simulation, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_Simulation_getInstrument__SWIG_1(self, argc, argv);
+      return _wrap_Simulation_instrument__SWIG_1(self, argc, argv);
     }
   }
   if (argc == 1) {
@@ -37997,15 +37997,15 @@ SWIGINTERN PyObject *_wrap_Simulation_getInstrument(PyObject *self, PyObject *ar
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Simulation, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_Simulation_getInstrument__SWIG_0(self, argc, argv);
+      return _wrap_Simulation_instrument__SWIG_0(self, argc, argv);
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Simulation_getInstrument'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Simulation_instrument'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Simulation::getInstrument() const\n"
-    "    Simulation::getInstrument()\n");
+    "    Simulation::instrument() const\n"
+    "    Simulation::instrument()\n");
   return 0;
 }
 
@@ -42476,14 +42476,14 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "Simulation_setInstrument", _wrap_Simulation_setInstrument, METH_VARARGS, "\n"
-		"Simulation_setInstrument(Simulation self, Instrument const & instrument)\n"
-		"void Simulation::setInstrument(const Instrument &instrument)\n"
+		"Simulation_setInstrument(Simulation self, Instrument const & instrument_)\n"
+		"void Simulation::setInstrument(const Instrument &instrument_)\n"
 		"\n"
 		""},
-	 { "Simulation_getInstrument", _wrap_Simulation_getInstrument, METH_VARARGS, "\n"
-		"Simulation_getInstrument(Simulation self) -> Instrument const\n"
-		"Simulation_getInstrument(Simulation self) -> Instrument &\n"
-		"Instrument& Simulation::getInstrument()\n"
+	 { "Simulation_instrument", _wrap_Simulation_instrument, METH_VARARGS, "\n"
+		"Simulation_instrument(Simulation self) -> Instrument const\n"
+		"Simulation_instrument(Simulation self) -> Instrument &\n"
+		"Instrument& Simulation::instrument()\n"
 		"\n"
 		""},
 	 { "Simulation_setBeamIntensity", _wrap_Simulation_setBeamIntensity, METH_VARARGS, "\n"

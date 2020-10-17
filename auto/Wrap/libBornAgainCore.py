@@ -3458,22 +3458,22 @@ class Simulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.Simulation_runMPISimulation(self)
 
-    def setInstrument(self, instrument):
+    def setInstrument(self, instrument_):
         r"""
-        setInstrument(Simulation self, Instrument const & instrument)
-        void Simulation::setInstrument(const Instrument &instrument)
+        setInstrument(Simulation self, Instrument const & instrument_)
+        void Simulation::setInstrument(const Instrument &instrument_)
 
         """
-        return _libBornAgainCore.Simulation_setInstrument(self, instrument)
+        return _libBornAgainCore.Simulation_setInstrument(self, instrument_)
 
-    def getInstrument(self, *args):
+    def instrument(self, *args):
         r"""
-        getInstrument(Simulation self) -> Instrument const
-        getInstrument(Simulation self) -> Instrument &
-        Instrument& Simulation::getInstrument()
+        instrument(Simulation self) -> Instrument const
+        instrument(Simulation self) -> Instrument &
+        Instrument& Simulation::instrument()
 
         """
-        return _libBornAgainCore.Simulation_getInstrument(self, *args)
+        return _libBornAgainCore.Simulation_instrument(self, *args)
 
     def setBeamIntensity(self, intensity):
         r"""

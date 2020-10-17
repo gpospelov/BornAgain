@@ -48,7 +48,7 @@ UnitConverterUtils::createConverterForGISAS(const Instrument& instrument)
 std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simulation& simulation)
 {
     if (auto gisas = dynamic_cast<const GISASSimulation*>(&simulation)) {
-        return createConverterForGISAS(gisas->getInstrument());
+        return createConverterForGISAS(gisas->instrument());
 
     } else if (auto spec = dynamic_cast<const SpecularSimulation*>(&simulation)) {
         return UnitConverter1D::createUnitConverter(*spec->dataHandler());

@@ -74,7 +74,7 @@ void SpecularSimulation::prepareSimulation()
     if (m_instrument.getDetectorDimension() != 1) // detector must have only one axis
         throw std::runtime_error("Error in SpecularSimulation::prepareSimulation: the detector was "
                                  "not properly configured.");
-    getInstrument().initDetector();
+    instrument().initDetector();
     Simulation::prepareSimulation();
 }
 
@@ -219,7 +219,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     std::vector<double> footprints;
     // TODO: use just m_data_handler when pointwise resolution is implemented
     if (m_data_handler->dataType() == ISpecularScan::angle)
-        footprints = mangledDataHandler(*m_data_handler, getInstrument().getBeam())
+        footprints = mangledDataHandler(*m_data_handler, instrument().getBeam())
                          ->footprint(start_ind, n_elements);
     else
         footprints = m_data_handler->footprint(start_ind, n_elements);

@@ -17,7 +17,6 @@
 #include "Core/Computation/IComputation.h"
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Fit/Tools/StringUtils.h"
 #include "Param/Base/ParameterPool.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -30,6 +29,18 @@
 
 namespace
 {
+
+bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& data)
+{
+    if (data.getRank() != detector.dimension())
+        return false;
+
+    for (size_t i = 0; i < detector.dimension(); ++i)
+        if (data.getAxis(i).size() != detector.getAxis(i).size())
+            return false;
+
+    return true;
+}
 
 size_t getIndexStep(size_t total_size, size_t n_handlers)
 {
@@ -111,12 +122,12 @@ Simulation::Simulation()
 }
 
 Simulation::Simulation(const Simulation& other)
-    : ICloneable(), INode(), m_sample_provider(other.m_sample_provider), m_options(other.m_options),
-      m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress),
-      m_instrument(other.m_instrument)
+    : ICloneable(), INode(), m_options(other.m_options), m_progress(other.m_progress),
+      m_sample_provider(other.m_sample_provider),
+      m_distribution_handler(other.m_distribution_handler), m_instrument(other.instrument())
 {
-    if (other.mP_background)
-        setBackground(*other.mP_background);
+    if (other.m_background)
+        setBackground(*other.m_background);
     initialize();
 }
 
@@ -142,35 +153,35 @@ void Simulation::setTerminalProgressMonitor()
 
 void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
 {
-    m_instrument.setDetectorResolutionFunction(resolution_function);
+    instrument().setDetectorResolutionFunction(resolution_function);
 }
 
 void Simulation::removeDetectorResolutionFunction()
 {
-    m_instrument.removeDetectorResolution();
+    instrument().removeDetectorResolution();
 }
 
 //! Sets the polarization analyzer characteristics of the detector
 void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                        double total_transmission)
 {
-    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
+    instrument().setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 void Simulation::setBeamIntensity(double intensity)
 {
-    m_instrument.setBeamIntensity(intensity);
+    instrument().setBeamIntensity(intensity);
 }
 
 double Simulation::getBeamIntensity() const
 {
-    return m_instrument.getBeamIntensity();
+    return instrument().getBeamIntensity();
 }
 
 //! Sets the beam polarization according to the given Bloch vector
 void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 {
-    m_instrument.setBeamPolarization(bloch_vector);
+    instrument().setBeamPolarization(bloch_vector);
 }
 
 void Simulation::prepareSimulation()
@@ -219,9 +230,9 @@ void Simulation::runMPISimulation()
     ompi.runSimulation(this);
 }
 
-void Simulation::setInstrument(const Instrument& instrument)
+void Simulation::setInstrument(const Instrument& instrument_)
 {
-    m_instrument = instrument;
+    m_instrument = instrument_;
     updateIntensityMap();
 }
 
@@ -243,17 +254,17 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder>& s
 
 void Simulation::setBackground(const IBackground& bg)
 {
-    mP_background.reset(bg.clone());
-    registerChild(mP_background.get());
+    m_background.reset(bg.clone());
+    registerChild(m_background.get());
 }
 
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
-    result.push_back(&m_instrument);
+    result.push_back(&instrument());
     result << m_sample_provider.getChildren();
-    if (mP_background)
-        result.push_back(mP_background.get());
+    if (m_background)
+        result.push_back(m_background.get());
     return result;
 }
 
@@ -293,7 +304,7 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
     runComputations(std::move(computations));
 
     normalize(batch_start, batch_size);
-    addBackGroundIntensity(batch_start, batch_size);
+    addBackgroundIntensity(batch_start, batch_size);
     addDataToCache(weight);
 }
 
@@ -307,7 +318,7 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
     auto converter = UnitConverterUtils::createConverter(*this);
     auto roi_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
 
-    const IDetector& detector = getInstrument().detector();
+    const IDetector& detector = instrument().detector();
 
     if (roi_data->hasSameDimensions(data)) {
         // data is already cropped to ROI
@@ -321,7 +332,7 @@ SimulationResult Simulation::convertData(const OutputData<double>& data,
             roi_data->setRawDataVector(data.getRawDataVector());
         }
 
-    } else if (DetectorFunctions::hasSameDimensions(detector, data)) {
+    } else if (detHasSameDimensions(detector, data)) {
         // exp data has same shape as the detector, we have to put orig data to smaller roi map
         detector.iterate(
             [&](IDetector::const_iterator it) {

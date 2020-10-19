@@ -22,8 +22,8 @@ class ParameterSample;
 class RangedDistribution;
 class ScanResolution;
 
-//! Scan type with inclination angles as coordinate
-//! values and a unique wavelength. Features footprint correction.
+//! Scan type with inclination angles as coordinate values and a unique wavelength.
+//! Features footprint correction.
 class AngularSpecScan : public ISpecularScan
 {
 public:

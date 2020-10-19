@@ -48,13 +48,13 @@ IFormFactor* ParticleComposition::createFormFactor() const
 {
     if (m_particles.empty())
         return {};
-    std::unique_ptr<FormFactorWeighted> P_result{new FormFactorWeighted()};
+    auto* result = new FormFactorWeighted;
     auto particles = decompose();
     for (auto p_particle : particles) {
         std::unique_ptr<IFormFactor> P_particle_ff{p_particle->createFormFactor()};
-        P_result->addFormFactor(*P_particle_ff);
+        result->addFormFactor(*P_particle_ff);
     }
-    return P_result.release();
+    return result;
 }
 
 void ParticleComposition::addParticle(const IParticle& particle)

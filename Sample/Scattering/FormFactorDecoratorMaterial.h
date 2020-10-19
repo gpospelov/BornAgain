@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_CORE_SCATTERING_FORMFACTORDECORATORMATERIAL_H
 #define BORNAGAIN_CORE_SCATTERING_FORMFACTORDECORATORMATERIAL_H
 
+#include "Sample/Material/Material.h"
 #include "Sample/Scattering/IFormFactorDecorator.h"
 #include <memory>
 
@@ -34,10 +35,10 @@ public:
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     //! Sets the material of the scatterer
-    void setMaterial(Material material);
+    void setMaterial(const Material& material);
 
     //! Sets the ambient material
-    void setAmbientMaterial(Material material) override;
+    void setAmbientMaterial(const Material& material) override;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 #ifndef SWIG

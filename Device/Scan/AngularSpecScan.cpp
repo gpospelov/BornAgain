@@ -25,10 +25,22 @@ namespace
 {
 std::vector<std::vector<double>>
 extractValues(std::vector<std::vector<ParameterSample>> samples,
-              const std::function<double(const ParameterSample&)> extractor);
+              const std::function<double(const ParameterSample&)> extractor)
+{
+    std::vector<std::vector<double>> result;
+    result.resize(samples.size());
+    for (size_t i = 0, size = result.size(); i < size; ++i) {
+        const auto& sample_row = samples[i];
+        auto& result_row = result[i];
+        result_row.reserve(sample_row.size());
+        std::for_each(sample_row.begin(), sample_row.end(),
+                      [&result_row, &extractor](const ParameterSample& sample) {
+                          result_row.push_back(extractor(sample));
+                      });
+    }
+    return result;
+}
 
-const RealLimits wl_limits = RealLimits::nonnegative();
-const RealLimits inc_limits = RealLimits::limited(0.0, M_PI_2);
 } // namespace
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
@@ -59,11 +71,11 @@ AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, doubl
 
 AngularSpecScan* AngularSpecScan::clone() const
 {
-    auto result = std::make_unique<AngularSpecScan>(m_wl, *m_inc_angle);
+    auto* result = new AngularSpecScan(m_wl, *m_inc_angle);
     result->setFootprintFactor(m_footprint.get());
     result->setWavelengthResolution(*m_wl_resolution);
     result->setAngleResolution(*m_inc_resolution);
-    return result.release();
+    return result;
 }
 
 AngularSpecScan::~AngularSpecScan() = default;
@@ -79,7 +91,7 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
         const double wl = paired_values[i].first;
         const double inc = paired_values[i].second;
         result.emplace_back(wl, -inc);
-        if (!wl_limits.isInRange(wl) || !inc_limits.isInRange(inc))
+        if (wl < 0 || inc < 0 || inc > M_PI_2)
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -183,7 +195,7 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
     const auto sample_values = extractValues(
         applyIncResolution(), [](const ParameterSample& sample) { return sample.value; });
 
-    size_t pos_out = start / (n_wl_samples * n_inc_samples);
+    const size_t pos_out = start / (n_wl_samples * n_inc_samples);
     size_t pos_inc = (start - pos_out * n_wl_samples * n_inc_samples) / n_wl_samples;
     size_t pos_wl = (start - pos_inc * n_wl_samples);
     int left = static_cast<int>(n_elements);
@@ -191,8 +203,9 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
     for (size_t i = pos_out; left > 0; ++i)
         for (size_t k = pos_inc; k < n_inc_samples && left > 0; ++k) {
             pos_inc = 0;
-            double angle = sample_values[i][k];
-            double footprint = inc_limits.isInRange(angle) ? m_footprint->calculate(angle) : 1.0;
+            const double angle = sample_values[i][k];
+            const double footprint =
+                (angle >= 0 && angle <= M_PI_2) ? m_footprint->calculate(angle) : 1.0;
             for (size_t j = pos_wl; j < n_wl_samples && left > 0; ++j) {
                 pos_wl = 0;
                 result[pos_res] = footprint;
@@ -214,10 +227,10 @@ AngularSpecScan::createIntensities(const std::vector<SpecularSimulationElement>&
     const size_t axis_size = m_inc_angle->size();
     std::vector<double> result(axis_size, 0.0);
 
-    auto wl_weights = extractValues(applyWlResolution(),
-                                    [](const ParameterSample& sample) { return sample.weight; });
-    auto inc_weights = extractValues(applyIncResolution(),
-                                     [](const ParameterSample& sample) { return sample.weight; });
+    const auto wl_weights = extractValues(
+        applyWlResolution(), [](const ParameterSample& sample) { return sample.weight; });
+    const auto inc_weights = extractValues(
+        applyIncResolution(), [](const ParameterSample& sample) { return sample.weight; });
 
     size_t elem_pos = 0;
     for (size_t i = 0; i < axis_size; ++i) {
@@ -266,7 +279,7 @@ void AngularSpecScan::checkInitialization()
         throw std::runtime_error(
             "Error in AngularSpecScan::checkInitialization: wavelength shell be positive");
 
-    std::vector<double> axis_values = m_inc_angle->getBinCenters();
+    const std::vector<double> axis_values = m_inc_angle->getBinCenters();
     if (!std::is_sorted(axis_values.begin(), axis_values.end()))
         throw std::runtime_error("Error in AngularSpecScan::checkInitialization: q-vector values "
                                  "shall be sorted in ascending order.");
@@ -306,24 +319,3 @@ AngularSpecScan::DistrOutput AngularSpecScan::applyIncResolution() const
         m_inc_res_cache = m_inc_resolution->generateSamples(m_inc_angle->getBinCenters());
     return m_inc_res_cache;
 }
-
-namespace
-{
-std::vector<std::vector<double>>
-extractValues(std::vector<std::vector<ParameterSample>> samples,
-              const std::function<double(const ParameterSample&)> extractor)
-{
-    std::vector<std::vector<double>> result;
-    result.resize(samples.size());
-    for (size_t i = 0, size = result.size(); i < size; ++i) {
-        auto& sample_row = samples[i];
-        auto& result_row = result[i];
-        result_row.reserve(sample_row.size());
-        std::for_each(sample_row.begin(), sample_row.end(),
-                      [&result_row, &extractor](const ParameterSample& sample) {
-                          result_row.push_back(extractor(sample));
-                      });
-    }
-    return result;
-}
-} // namespace

@@ -19,9 +19,9 @@
 #include "Sample/Correlations/ILayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Scattering/LayerFillLimits.h"
 #include "Sample/Slice/LayerInterface.h"
-#include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Slice/LayerRoughness.h"
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
@@ -35,7 +35,7 @@ MultiLayer::~MultiLayer() = default;
 
 MultiLayer* MultiLayer::clone() const
 {
-    std::unique_ptr<MultiLayer> ret(new MultiLayer());
+    auto* ret = new MultiLayer;
     ret->setCrossCorrLength(crossCorrLength());
     ret->setExternalField(externalField());
     ret->setRoughnessModel(roughnessModel());
@@ -47,7 +47,7 @@ MultiLayer* MultiLayer::clone() const
         else
             ret->addLayer(*layer);
     }
-    return ret.release();
+    return ret;
 }
 
 //! Adds layer with default (zero) roughness

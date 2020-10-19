@@ -20,11 +20,6 @@
 #include "Param/Distrib/RangedDistributions.h"
 #include "Sample/Slice/SpecularSimulationElement.h"
 
-namespace
-{
-const RealLimits qz_limits = RealLimits::nonnegative();
-}
-
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
     : ISpecularScan(SPECULAR_DATA_TYPE::q),
       m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),
@@ -52,21 +47,21 @@ QSpecScan::~QSpecScan() = default;
 
 QSpecScan* QSpecScan::clone() const
 {
-    auto result = std::make_unique<QSpecScan>(*m_qs);
+    auto* result = new QSpecScan(*m_qs);
     result->setQResolution(*m_resolution);
-    return result.release();
+    return result;
 }
 
 //! Generates simulation elements for specular simulations
 std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() const
 {
     std::vector<SpecularSimulationElement> result;
-    std::vector<double> qz = generateQzVector();
+    const std::vector<double> qz = generateQzVector();
 
     result.reserve(qz.size());
     for (size_t i = 0, size = qz.size(); i < size; ++i) {
         result.emplace_back(-qz[i] / 2.0);
-        if (!qz_limits.isInRange(qz[i]))
+        if (qz[i] < 0)
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -93,7 +88,7 @@ QSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_e
     const size_t axis_size = m_qs->size();
     std::vector<double> result(axis_size, 0.0);
 
-    auto samples = applyQResolution();
+    const auto samples = applyQResolution();
 
     size_t elem_pos = 0;
     for (size_t i = 0; i < axis_size; ++i) {
@@ -165,14 +160,14 @@ void QSpecScan::checkInitialization()
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values shall "
                                  "be sorted in ascending order.");
 
-    if (!qz_limits.isInRange(axis_values.front()))
+    if (axis_values.front() < 0)
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values are out "
                                  "of acceptable range.");
 }
 
 std::vector<double> QSpecScan::generateQzVector() const
 {
-    auto samples = applyQResolution();
+    const auto samples = applyQResolution();
 
     std::vector<double> result;
     result.reserve(numberOfSimulationElements());

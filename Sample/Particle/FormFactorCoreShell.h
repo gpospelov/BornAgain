@@ -41,7 +41,7 @@ public:
 
     double topZ(const IRotation& rotation) const override final;
 
-    void setAmbientMaterial(Material material) override final;
+    void setAmbientMaterial(const Material& material) override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 

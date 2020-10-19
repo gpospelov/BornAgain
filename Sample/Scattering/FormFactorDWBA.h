@@ -33,9 +33,9 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    void setAmbientMaterial(Material material) override
+    void setAmbientMaterial(const Material& material) override
     {
-        mP_form_factor->setAmbientMaterial(std::move(material));
+        mP_form_factor->setAmbientMaterial(material);
     }
 
     //! Calculates and returns a form factor calculation in DWBA

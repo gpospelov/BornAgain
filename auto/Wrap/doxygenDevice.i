@@ -3527,31 +3527,28 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classFourierTransform_1_1Workspace.xml
 
 
+// File: namespace_0D113.xml
+
+
 // File: namespace_0D115.xml
 
 
-// File: namespace_0D117.xml
+// File: namespace_0D125.xml
 
 
-// File: namespace_0D121.xml
+// File: namespace_0D33.xml
 
 
-// File: namespace_0D127.xml
-
-
-// File: namespace_0D35.xml
+// File: namespace_0D56.xml
 
 
 // File: namespace_0D58.xml
 
 
-// File: namespace_0D60.xml
+// File: namespace_0D62.xml
 
 
-// File: namespace_0D64.xml
-
-
-// File: namespace_0D70.xml
+// File: namespace_0D68.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3662,23 +3659,6 @@ Parse double values from string to vector of double.
 ";
 
 %feature("docstring")  DataFormatUtils::readLineOfDoubles "void DataFormatUtils::readLineOfDoubles(std::vector< double > &buffer, std::istringstream &iss)
-";
-
-
-// File: namespaceDetectorFunctions.xml
-%feature("docstring")  DetectorFunctions::hasSameDimensions "bool DetectorFunctions::hasSameDimensions(const IDetector &detector, const OutputData< double > &data)
-
-Returns true if the data has same axes size (nx,ny) with the detector. 
-";
-
-%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const IDetector &detector)
-
-Returns string representation of axes dimension in the form \"(nx,ny)\". 
-";
-
-%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
-
-Returns string representation of axes dimension in the form \"(nx,ny)\". 
 ";
 
 
@@ -3860,12 +3840,6 @@ make Swappable
 
 
 // File: DetectorContext_8h.xml
-
-
-// File: DetectorFunctions_8cpp.xml
-
-
-// File: DetectorFunctions_8h.xml
 
 
 // File: DetectorMask_8cpp.xml

@@ -99,7 +99,7 @@ size_t DepthProbeSimulation::intensityMapSize() const
 
 std::unique_ptr<IUnitConverter> DepthProbeSimulation::createUnitConverter() const
 {
-    return std::make_unique<DepthProbeConverter>(m_instrument.getBeam(), *m_alpha_axis, *m_z_axis);
+    return std::make_unique<DepthProbeConverter>(instrument().getBeam(), *m_alpha_axis, *m_z_axis);
 }
 
 DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
@@ -133,21 +133,21 @@ void DepthProbeSimulation::setBeamParameters(double lambda, const IAxis& alpha_a
             "Error in DepthProbeSimulation::setBeamParameters: angle axis is empty");
 
     SpecularDetector1D detector(alpha_axis);
-    m_instrument.setDetector(detector);
+    instrument().setDetector(detector);
     m_alpha_axis.reset(alpha_axis.clone());
 
     // beam is initialized with zero-valued angles
     // Zero-valued incident alpha is required for proper
     // taking into account beam resolution effects
-    m_instrument.setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
+    instrument().setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
 
     if (beam_shape)
-        m_instrument.getBeam().setFootprintFactor(*beam_shape);
+        instrument().getBeam().setFootprintFactor(*beam_shape);
 }
 
 void DepthProbeSimulation::initSimulationElementVector()
 {
-    const auto& beam = m_instrument.getBeam();
+    const auto& beam = instrument().getBeam();
     m_sim_elements = generateSimulationElements(beam);
 
     if (!m_cache.empty())
@@ -178,7 +178,7 @@ DepthProbeSimulation::generateSingleThreadedComputation(size_t start, size_t n_e
 {
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
-    return std::make_unique<DepthProbeComputation>(*sample(), m_options, m_progress, begin,
+    return std::make_unique<DepthProbeComputation>(*sample(), options(), progress(), begin,
                                                    begin + static_cast<long>(n_elements));
 }
 
@@ -224,7 +224,7 @@ void DepthProbeSimulation::initialize()
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    auto inclination = m_instrument.getBeam().parameter("InclinationAngle");
+    auto inclination = instrument().getBeam().parameter("InclinationAngle");
     inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
@@ -236,7 +236,7 @@ void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
         const double alpha_i = -element.getAlphaI();
-        const auto footprint = m_instrument.getBeam().footprintFactor();
+        const auto footprint = instrument().getBeam().footprintFactor();
         double intensity_factor = beam_intensity;
         if (footprint != nullptr)
             intensity_factor = intensity_factor * footprint->calculate(alpha_i);
@@ -244,12 +244,11 @@ void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void DepthProbeSimulation::addBackGroundIntensity(size_t, size_t)
+void DepthProbeSimulation::addBackgroundIntensity(size_t, size_t)
 {
-    if (!mP_background)
-        return;
-    throw std::runtime_error("Error in DepthProbeSimulation::addBackGroundIntensity: background is "
-                             "not allowed for this type of simulation");
+    if (background())
+        throw std::runtime_error(
+            "Error: nonzero background is not supported by DepthProbeSimulation");
 }
 
 void DepthProbeSimulation::addDataToCache(double weight)

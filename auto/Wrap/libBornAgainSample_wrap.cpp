@@ -8053,9 +8053,9 @@ Material const *SwigDirector_IFormFactor::material() const {
 }
 
 
-void SwigDirector_IFormFactor::setAmbientMaterial(Material arg0) {
+void SwigDirector_IFormFactor::setAmbientMaterial(Material const &arg0) {
   swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Material((const Material &)arg0)), SWIGTYPE_p_Material, SWIG_POINTER_OWN |  0 );
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&arg0), SWIGTYPE_p_Material,  0 );
   if (!swig_get_self()) {
     Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactor.__init__.");
   }
@@ -8596,9 +8596,9 @@ Material const *SwigDirector_IFormFactorBorn::material() const {
 }
 
 
-void SwigDirector_IFormFactorBorn::setAmbientMaterial(Material arg0) {
+void SwigDirector_IFormFactorBorn::setAmbientMaterial(Material const &arg0) {
   swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Material((const Material &)arg0)), SWIGTYPE_p_Material, SWIG_POINTER_OWN |  0 );
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&arg0), SWIGTYPE_p_Material,  0 );
   if (!swig_get_self()) {
     Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
   }
@@ -38895,10 +38895,10 @@ fail:
 SWIGINTERN PyObject *_wrap_IFormFactor_setAmbientMaterial(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IFormFactor *arg1 = (IFormFactor *) 0 ;
-  SwigValueWrapper< Material > arg2 ;
+  Material *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   Swig::Director *director = 0;
@@ -38910,26 +38910,21 @@ SWIGINTERN PyObject *_wrap_IFormFactor_setAmbientMaterial(PyObject *SWIGUNUSEDPA
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactor_setAmbientMaterial" "', argument " "1"" of type '" "IFormFactor *""'"); 
   }
   arg1 = reinterpret_cast< IFormFactor * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactor_setAmbientMaterial" "', argument " "2"" of type '" "Material""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactor_setAmbientMaterial" "', argument " "2"" of type '" "Material""'");
-    } else {
-      Material * temp = reinterpret_cast< Material * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactor_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
   }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactor_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
+  }
+  arg2 = reinterpret_cast< Material * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
       Swig::DirectorPureVirtualException::raise("IFormFactor::setAmbientMaterial");
     } else {
-      (arg1)->setAmbientMaterial(arg2);
+      (arg1)->setAmbientMaterial((Material const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39557,10 +39552,10 @@ fail:
 SWIGINTERN PyObject *_wrap_IFormFactorBorn_setAmbientMaterial(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
-  SwigValueWrapper< Material > arg2 ;
+  Material *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   Swig::Director *director = 0;
@@ -39572,26 +39567,21 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_setAmbientMaterial(PyObject *SWIGUNUS
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "1"" of type '" "IFormFactorBorn *""'"); 
   }
   arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "2"" of type '" "Material""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "2"" of type '" "Material""'");
-    } else {
-      Material * temp = reinterpret_cast< Material * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
   }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
+  }
+  arg2 = reinterpret_cast< Material * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      (arg1)->IFormFactorBorn::setAmbientMaterial(arg2);
+      (arg1)->IFormFactorBorn::setAmbientMaterial((Material const &)*arg2);
     } else {
-      (arg1)->setAmbientMaterial(arg2);
+      (arg1)->setAmbientMaterial((Material const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -40218,10 +40208,10 @@ fail:
 SWIGINTERN PyObject *_wrap_IFormFactorDecorator_setAmbientMaterial(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IFormFactorDecorator *arg1 = (IFormFactorDecorator *) 0 ;
-  SwigValueWrapper< Material > arg2 ;
+  Material *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
@@ -40231,20 +40221,15 @@ SWIGINTERN PyObject *_wrap_IFormFactorDecorator_setAmbientMaterial(PyObject *SWI
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorDecorator_setAmbientMaterial" "', argument " "1"" of type '" "IFormFactorDecorator *""'"); 
   }
   arg1 = reinterpret_cast< IFormFactorDecorator * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorDecorator_setAmbientMaterial" "', argument " "2"" of type '" "Material""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorDecorator_setAmbientMaterial" "', argument " "2"" of type '" "Material""'");
-    } else {
-      Material * temp = reinterpret_cast< Material * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorDecorator_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
   }
-  (arg1)->setAmbientMaterial(arg2);
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorDecorator_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
+  }
+  arg2 = reinterpret_cast< Material * >(argp2);
+  (arg1)->setAmbientMaterial((Material const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -42063,10 +42048,10 @@ fail:
 SWIGINTERN PyObject *_wrap_FormFactorCrystal_setAmbientMaterial(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FormFactorCrystal *arg1 = (FormFactorCrystal *) 0 ;
-  SwigValueWrapper< Material > arg2 ;
+  Material *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
@@ -42076,20 +42061,15 @@ SWIGINTERN PyObject *_wrap_FormFactorCrystal_setAmbientMaterial(PyObject *SWIGUN
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FormFactorCrystal_setAmbientMaterial" "', argument " "1"" of type '" "FormFactorCrystal *""'"); 
   }
   arg1 = reinterpret_cast< FormFactorCrystal * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FormFactorCrystal_setAmbientMaterial" "', argument " "2"" of type '" "Material""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FormFactorCrystal_setAmbientMaterial" "', argument " "2"" of type '" "Material""'");
-    } else {
-      Material * temp = reinterpret_cast< Material * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FormFactorCrystal_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
   }
-  (arg1)->setAmbientMaterial(arg2);
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FormFactorCrystal_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
+  }
+  arg2 = reinterpret_cast< Material * >(argp2);
+  (arg1)->setAmbientMaterial((Material const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -42552,10 +42532,10 @@ fail:
 SWIGINTERN PyObject *_wrap_FormFactorWeighted_setAmbientMaterial(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FormFactorWeighted *arg1 = (FormFactorWeighted *) 0 ;
-  SwigValueWrapper< Material > arg2 ;
+  Material *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
@@ -42565,20 +42545,15 @@ SWIGINTERN PyObject *_wrap_FormFactorWeighted_setAmbientMaterial(PyObject *SWIGU
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FormFactorWeighted_setAmbientMaterial" "', argument " "1"" of type '" "FormFactorWeighted *""'"); 
   }
   arg1 = reinterpret_cast< FormFactorWeighted * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FormFactorWeighted_setAmbientMaterial" "', argument " "2"" of type '" "Material""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FormFactorWeighted_setAmbientMaterial" "', argument " "2"" of type '" "Material""'");
-    } else {
-      Material * temp = reinterpret_cast< Material * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FormFactorWeighted_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
   }
-  (arg1)->setAmbientMaterial(arg2);
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FormFactorWeighted_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
+  }
+  arg2 = reinterpret_cast< Material * >(argp2);
+  (arg1)->setAmbientMaterial((Material const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -72311,7 +72286,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactor_setAmbientMaterial", _wrap_IFormFactor_setAmbientMaterial, METH_VARARGS, "\n"
 		"IFormFactor_setAmbientMaterial(IFormFactor self, Material arg0)\n"
-		"virtual void IFormFactor::setAmbientMaterial(Material)=0\n"
+		"virtual void IFormFactor::setAmbientMaterial(const Material &)=0\n"
 		"\n"
 		"Passes the material in which this particle is embedded. \n"
 		"\n"
@@ -72381,7 +72356,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactorBorn_setAmbientMaterial", _wrap_IFormFactorBorn_setAmbientMaterial, METH_VARARGS, "\n"
 		"IFormFactorBorn_setAmbientMaterial(IFormFactorBorn self, Material arg0)\n"
-		"void IFormFactorBorn::setAmbientMaterial(Material) override\n"
+		"void IFormFactorBorn::setAmbientMaterial(const Material &) override\n"
 		"\n"
 		"Passes the material in which this particle is embedded. \n"
 		"\n"
@@ -72451,7 +72426,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactorDecorator_setAmbientMaterial", _wrap_IFormFactorDecorator_setAmbientMaterial, METH_VARARGS, "\n"
 		"IFormFactorDecorator_setAmbientMaterial(IFormFactorDecorator self, Material material)\n"
-		"void IFormFactorDecorator::setAmbientMaterial(Material material) override\n"
+		"void IFormFactorDecorator::setAmbientMaterial(const Material &material) override\n"
 		"\n"
 		"Passes the material in which this particle is embedded. \n"
 		"\n"
@@ -72762,7 +72737,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCrystal_setAmbientMaterial", _wrap_FormFactorCrystal_setAmbientMaterial, METH_VARARGS, "\n"
 		"FormFactorCrystal_setAmbientMaterial(FormFactorCrystal self, Material material)\n"
-		"void FormFactorCrystal::setAmbientMaterial(Material material) override\n"
+		"void FormFactorCrystal::setAmbientMaterial(const Material &material) override\n"
 		"\n"
 		"Passes the material in which this particle is embedded. \n"
 		"\n"
@@ -72854,7 +72829,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorWeighted_setAmbientMaterial", _wrap_FormFactorWeighted_setAmbientMaterial, METH_VARARGS, "\n"
 		"FormFactorWeighted_setAmbientMaterial(FormFactorWeighted self, Material material)\n"
-		"void FormFactorWeighted::setAmbientMaterial(Material material) override final\n"
+		"void FormFactorWeighted::setAmbientMaterial(const Material &material) override final\n"
 		"\n"
 		"Passes the material in which this particle is embedded. \n"
 		"\n"

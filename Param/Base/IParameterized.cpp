@@ -32,9 +32,9 @@ IParameterized::~IParameterized() = default;
 
 ParameterPool* IParameterized::createParameterTree() const
 {
-    std::unique_ptr<ParameterPool> result(new ParameterPool);
-    m_pool->copyToExternalPool("/" + getName() + "/", result.get());
-    return result.release();
+    auto* result = new ParameterPool;
+    m_pool->copyToExternalPool("/" + getName() + "/", result);
+    return result;
 }
 
 std::string IParameterized::parametersToString() const

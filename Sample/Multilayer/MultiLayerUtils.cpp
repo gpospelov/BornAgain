@@ -16,10 +16,10 @@
 #include "Sample/Correlations/ILayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Scattering/LayerFillLimits.h"
-#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/IParticle.h"
+#include "Sample/Scattering/LayerFillLimits.h"
+#include "Sample/Slice/LayerInterface.h"
 
 namespace
 {

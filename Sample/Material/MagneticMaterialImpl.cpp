@@ -44,9 +44,9 @@ MagneticMaterialImpl::MagneticMaterialImpl(const std::string& name, kvector_t ma
 MagneticMaterialImpl* MagneticMaterialImpl::inverted() const
 {
     std::string name = isScalarMaterial() ? getName() : getName() + "_inv";
-    std::unique_ptr<MagneticMaterialImpl> result(this->clone());
+    MagneticMaterialImpl* result = this->clone();
     result->setMagnetization(-magnetization());
-    return result.release();
+    return result;
 }
 
 bool MagneticMaterialImpl::isScalarMaterial() const
@@ -74,7 +74,7 @@ Eigen::Matrix2cd MagneticMaterialImpl::polarizedSubtrSLD(const WavevectorInfo& w
 MagneticMaterialImpl* MagneticMaterialImpl::rotatedMaterial(const Transform3D& transform) const
 {
     kvector_t transformed_field = transform.transformed(m_magnetization);
-    std::unique_ptr<MagneticMaterialImpl> result(this->clone());
+    MagneticMaterialImpl* result = this->clone();
     result->setMagnetization(transformed_field);
-    return result.release();
+    return result;
 }

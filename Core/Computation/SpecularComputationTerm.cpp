@@ -15,7 +15,6 @@
 #include "Core/Computation/SpecularComputationTerm.h"
 #include "Core/Computation/DelayedProgressCounter.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
-#include "Sample/Specular/ISpecularStrategy.h"
 #include "Sample/Slice/SpecularSimulationElement.h"
 
 SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy)

@@ -61,7 +61,7 @@ std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation()
 
 void SpecularSimulationTest::checkBeamState(const SpecularSimulation& sim)
 {
-    const auto* inclination = sim.getInstrument().getBeam().parameter("InclinationAngle");
+    const auto* inclination = sim.instrument().getBeam().parameter("InclinationAngle");
     const auto test_limits = RealLimits::limited(-M_PI_2, M_PI_2);
     EXPECT_EQ(test_limits, inclination->limits());
     EXPECT_EQ(0.0, inclination->value());
@@ -86,7 +86,7 @@ TEST_F(SpecularSimulationTest, SetAngularScan)
     SpecularSimulation sim;
     AngularSpecScan scan(1.0, std::vector<double>{1.0 * Units::deg, 3.0 * Units::deg});
     sim.setScan(scan);
-    const auto& beam = sim.getInstrument().getBeam();
+    const auto& beam = sim.instrument().getBeam();
 
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->getMin());
@@ -135,7 +135,7 @@ TEST_F(SpecularSimulationTest, SetQScan)
     QSpecScan scan(std::vector<double>{1.0, 3.0});
     sim.setScan(scan);
 
-    const auto& beam = sim.getInstrument().getBeam();
+    const auto& beam = sim.instrument().getBeam();
 
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0, sim.coordinateAxis()->getMin());
@@ -245,7 +245,7 @@ TEST_F(SpecularSimulationTest, AddingBeamDistributions)
 TEST_F(SpecularSimulationTest, OutOfRangeAngles)
 {
     auto sim = defaultSimulation();
-    auto& beam = sim->getInstrument().getBeam();
+    auto& beam = sim->instrument().getBeam();
     beam.parameter("InclinationAngle")->setValue(-0.2 * Units::deg);
 
     sim->runSimulation();

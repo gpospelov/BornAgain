@@ -29,7 +29,7 @@ public:
     virtual ~IBackground();
     virtual IBackground* clone() const = 0;
 
-    virtual double addBackGround(double element) const = 0;
+    virtual double addBackground(double element) const = 0;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H

@@ -37,7 +37,7 @@ public:
 
     IFormFactorBorn* clone() const override = 0;
 
-    void setAmbientMaterial(Material) override {}
+    void setAmbientMaterial(const Material&) override {}
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 

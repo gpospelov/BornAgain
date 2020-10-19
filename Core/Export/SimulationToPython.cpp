@@ -145,7 +145,7 @@ std::string SimulationToPython::defineSpecularSimulation(const SpecularSimulatio
 
 std::string SimulationToPython::defineDetector(const Simulation* simulation) const
 {
-    const IDetector* const detector = simulation->getInstrument().getDetector();
+    const IDetector* const detector = simulation->instrument().getDetector();
     if (detector->dimension() != 2)
         throw Exceptions::RuntimeErrorException("SimulationToPython::defineDetector: "
                                                 "detector must be two-dimensional for GISAS");
@@ -220,7 +220,7 @@ std::string SimulationToPython::defineDetector(const Simulation* simulation) con
 std::string SimulationToPython::defineDetectorResolutionFunction(const Simulation* simulation) const
 {
     std::ostringstream result;
-    const IDetector* detector = simulation->getInstrument().getDetector();
+    const IDetector* detector = simulation->instrument().getDetector();
 
     if (const IDetectorResolution* p_resfunc = detector->detectorResolution()) {
         if (auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
@@ -246,7 +246,7 @@ std::string
 SimulationToPython::defineDetectorPolarizationAnalysis(const Simulation* simulation) const
 {
     std::ostringstream result;
-    const IDetector* detector = simulation->getInstrument().getDetector();
+    const IDetector* detector = simulation->instrument().getDetector();
     kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
     double analyzer_efficiency = detector->detectionProperties().analyzerEfficiency();
     double analyzer_total_transmission =
@@ -268,7 +268,7 @@ SimulationToPython::defineDetectorPolarizationAnalysis(const Simulation* simulat
 std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulation) const
 {
     std::ostringstream result;
-    const Beam& beam = simulation.getInstrument().getBeam();
+    const Beam& beam = simulation.instrument().getBeam();
 
     result << pyfmt::indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", " << pyfmt::printDegrees(beam.getAlpha())
@@ -283,7 +283,7 @@ std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulatio
 std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simulation) const
 {
     std::ostringstream result;
-    const Beam& beam = simulation.getInstrument().getBeam();
+    const Beam& beam = simulation.instrument().getBeam();
 
     const std::string axis_def = pyfmt::indent() + "alpha_i_axis = ";
     result << axis_def << simulation.beamAxis()->pyString("rad", axis_def.size()) << "\n";
@@ -307,7 +307,7 @@ std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& sim
     result << *scan << "\n";
 
     result << pyfmt::indent() << "simulation.setScan(scan)\n";
-    result << defineBeamIntensity(simulation.getInstrument().getBeam());
+    result << defineBeamIntensity(simulation.instrument().getBeam());
     result << "\n";
     return result.str();
 }
@@ -371,7 +371,7 @@ std::string SimulationToPython::defineMasks(const Simulation* simulation) const
     std::ostringstream result;
     result << std::setprecision(12);
 
-    const IDetector* detector = simulation->getInstrument().getDetector();
+    const IDetector* detector = simulation->instrument().getDetector();
     const DetectorMask* detectorMask = detector->detectorMask();
     if (detectorMask && detectorMask->numberOfMasks()) {
         result << "\n";

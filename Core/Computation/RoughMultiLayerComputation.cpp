@@ -18,9 +18,9 @@
 #include "Core/Computation/ProcessedSample.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
+#include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
 
 #include <cerf>

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Param/Base/IterationStrategy.cpp
+//! @file      Param/Node/IterationStrategy.cpp
 //! @brief     Implements class IterationStrategy and children.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Param/Base/IterationStrategy.h"
+#include "Param/Node/IterationStrategy.h"
 #include "Base/Utils/Assert.h"
 #include "Param/Node/NodeIterator.h"
 

@@ -27,20 +27,19 @@ GISASSimulation::GISASSimulation()
 
 void GISASSimulation::prepareSimulation()
 {
-    if (m_instrument.getDetectorDimension() != 2)
+    if (instrument().getDetectorDimension() != 2)
         throw Exceptions::LogicErrorException(
             "GISASSimulation::prepareSimulation() "
             "-> Error. The detector was not properly configured.");
-    getInstrument().initDetector();
+    instrument().initDetector();
     Simulation2D::prepareSimulation();
 }
 
 SimulationResult GISASSimulation::result() const
 {
-    const auto& instrument = getInstrument();
-    const auto converter = UnitConverterUtils::createConverterForGISAS(instrument);
+    const auto converter = UnitConverterUtils::createConverterForGISAS(instrument());
     const std::unique_ptr<OutputData<double>> data(
-        instrument.detector().createDetectorIntensity(m_sim_elements));
+        instrument().detector().createDetectorIntensity(m_sim_elements));
     return SimulationResult(*data, *converter);
 }
 
@@ -49,13 +48,13 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
     if (wavelength <= 0.0)
         throw Exceptions::ClassInitializationException(
             "Simulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
-    m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
+    instrument().setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
 size_t GISASSimulation::intensityMapSize() const
 {
     size_t result = 0;
-    getInstrument().detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
+    instrument().detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
     return result;
 }
 
@@ -66,7 +65,7 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other) : Simulation2D(ot
 
 void GISASSimulation::initSimulationElementVector()
 {
-    auto beam = m_instrument.getBeam();
+    auto beam = instrument().getBeam();
     m_sim_elements = generateSimulationElements(beam);
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);

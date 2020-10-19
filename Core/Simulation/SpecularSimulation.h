@@ -16,7 +16,6 @@
 #define BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 
 #include "Core/Simulation/Simulation.h"
-#include "Sample/RT/ILayerRTCoefficients.h"
 
 class IAxis;
 class IComputation;
@@ -93,7 +92,7 @@ private:
     //! @param n_elements Number of elements to process
     void normalize(size_t start_ind, size_t n_elements) override;
 
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+    void addBackgroundIntensity(size_t start_ind, size_t n_elements) override;
 
     void addDataToCache(double weight) override;
 
@@ -101,9 +100,6 @@ private:
 
     //! Gets the number of elements this simulation needs to calculate
     size_t numberOfSimulationElements() const override;
-
-    //! Creates intensity data from simulation elements
-    std::unique_ptr<OutputData<double>> createIntensityData() const;
 
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;

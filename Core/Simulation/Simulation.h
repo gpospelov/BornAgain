@@ -51,9 +51,9 @@ public:
     //! Run a simulation in a MPI environment
     void runMPISimulation();
 
-    void setInstrument(const Instrument& instrument);
-    const Instrument& getInstrument() const { return m_instrument; }
-    Instrument& getInstrument() { return m_instrument; }
+    void setInstrument(const Instrument& instrument_);
+    const Instrument& instrument() const { return m_instrument; }
+    Instrument& instrument() { return m_instrument; }
 
     void setBeamIntensity(double intensity);
     double getBeamIntensity() const;
@@ -72,7 +72,7 @@ public:
     void setSampleBuilder(const std::shared_ptr<ISampleBuilder>& sample_builder);
 
     void setBackground(const IBackground& bg);
-    const IBackground* background() const { return mP_background.get(); }
+    const IBackground* background() const { return m_background.get(); }
 
     //! Returns the total number of the intensity values in the simulation result
     virtual size_t intensityMapSize() const = 0;
@@ -117,12 +117,8 @@ protected:
     //! Gets the number of elements this simulation needs to calculate
     virtual size_t numberOfSimulationElements() const = 0;
 
-    SampleProvider m_sample_provider;
-    SimulationOptions m_options;
-    DistributionHandler m_distribution_handler;
-    ProgressHandler m_progress;
-    Instrument m_instrument;
-    std::unique_ptr<IBackground> mP_background;
+    const SimulationOptions& options() const { return m_options; }
+    ProgressHandler& progress() { return m_progress; }
 
 private:
     void initialize();
@@ -138,7 +134,7 @@ private:
     //! Checks the distribution validity for simulation.
     virtual void validateParametrization(const ParameterDistribution&) const {}
 
-    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) = 0;
+    virtual void addBackgroundIntensity(size_t start_ind, size_t n_elements) = 0;
 
     //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
     //! @param start_ind Index of the first element to operate on
@@ -152,6 +148,13 @@ private:
     // used in MPI calculations for transfer of partial results
     virtual std::vector<double> rawResults() const = 0;
     virtual void setRawResults(const std::vector<double>& raw_data) = 0;
+
+    SimulationOptions m_options;
+    ProgressHandler m_progress;
+    SampleProvider m_sample_provider;
+    DistributionHandler m_distribution_handler;
+    Instrument m_instrument;
+    std::unique_ptr<IBackground> m_background;
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_SIMULATION_H

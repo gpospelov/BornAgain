@@ -1615,10 +1615,10 @@ C++ includes: Unit.h
 ";
 
 
-// File: namespace_0D12.xml
+// File: namespace_0D10.xml
 
 
-// File: namespace_0D16.xml
+// File: namespace_0D14.xml
 
 
 // File: namespace_0D24.xml
@@ -1668,12 +1668,6 @@ Prints RealLimits in the form of argument (in the context of  ParameterDistribut
 
 
 // File: IParameterized_8h.xml
-
-
-// File: IterationStrategy_8cpp.xml
-
-
-// File: IterationStrategy_8h.xml
 
 
 // File: ParameterPool_8cpp.xml
@@ -1739,6 +1733,12 @@ Prints RealLimits in the form of argument (in the context of  ParameterDistribut
 
 %feature("docstring")  VisitNodesPostorder "void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
 ";
+
+
+// File: IterationStrategy_8cpp.xml
+
+
+// File: IterationStrategy_8h.xml
 
 
 // File: NodeIterator_8cpp.xml

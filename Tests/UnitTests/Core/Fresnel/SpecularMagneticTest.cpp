@@ -1,10 +1,10 @@
 #include "Base/Const/Units.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Sample/Slice/KzComputation.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/RT/SimulationOptions.h"
+#include "Sample/Slice/KzComputation.h"
 #include "Sample/Specular/SpecularMagneticNewTanhStrategy.h"
 #include "Sample/Specular/SpecularMagneticStrategy.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
@@ -52,7 +52,7 @@ template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhSt
     }
 }
 
-    //! Compares results with scalar case
+//! Compares results with scalar case
 template <typename Strategy>
 void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample)
 {

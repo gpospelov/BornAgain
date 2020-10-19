@@ -13,22 +13,21 @@
 // ************************************************************************** //
 
 #include "Device/Instrument/Instrument.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Device/Detector/SphericalDetector.h"
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Resolution/IResolutionFunction2D.h"
 
-Instrument::Instrument() : mP_detector(new SphericalDetector), m_beam(Beam::horizontalBeam())
+Instrument::Instrument() : m_detector(new SphericalDetector), m_beam(Beam::horizontalBeam())
 {
     setName("Instrument");
-    registerChild(mP_detector.get());
+    registerChild(m_detector.get());
     registerChild(&m_beam);
 }
 
 Instrument::Instrument(const Instrument& other) : INode(), m_beam(other.m_beam)
 {
-    if (other.mP_detector)
-        setDetector(*other.mP_detector);
+    if (other.m_detector)
+        setDetector(*other.m_detector);
     registerChild(&m_beam);
     setName(other.getName());
 }
@@ -40,67 +39,67 @@ Instrument& Instrument::operator=(const Instrument& other)
     if (this != &other) {
         m_beam = other.m_beam;
         registerChild(&m_beam);
-        if (other.mP_detector)
-            setDetector(*other.mP_detector);
+        if (other.m_detector)
+            setDetector(*other.m_detector);
     }
     return *this;
 }
 
 void Instrument::setDetector(const IDetector& detector)
 {
-    mP_detector.reset(detector.clone());
-    registerChild(mP_detector.get());
+    m_detector.reset(detector.clone());
+    registerChild(m_detector.get());
     initDetector();
 }
 
 void Instrument::initDetector()
 {
-    if (!mP_detector)
+    if (!m_detector)
         throw Exceptions::RuntimeErrorException(
             "Instrument::initDetector() -> Error. Detector is not initialized.");
-    mP_detector->init(getBeam());
+    m_detector->init(getBeam());
 }
 
 std::vector<const INode*> Instrument::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&m_beam);
-    if (mP_detector)
-        result.push_back(mP_detector.get());
+    if (m_detector)
+        result.push_back(m_detector.get());
     return result;
 }
 
 void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function)
 {
-    mP_detector->setResolutionFunction(p_resolution_function);
+    m_detector->setResolutionFunction(p_resolution_function);
 }
 
 void Instrument::removeDetectorResolution()
 {
-    mP_detector->removeDetectorResolution();
+    m_detector->removeDetectorResolution();
 }
 
 void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) const
 {
-    mP_detector->applyDetectorResolution(p_intensity_map);
+    m_detector->applyDetectorResolution(p_intensity_map);
 }
 
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
-    if (mP_detector)
+    if (m_detector)
         initDetector();
 }
 
 const DetectorMask* Instrument::getDetectorMask() const
 {
-    return mP_detector->detectorMask();
+    return m_detector->detectorMask();
 }
 
 void Instrument::setBeam(const Beam& beam)
 {
     m_beam = beam;
-    if (mP_detector)
+    if (m_detector)
         initDetector();
 }
 
@@ -121,26 +120,26 @@ double Instrument::getBeamIntensity() const
 
 const IDetector* Instrument::getDetector() const
 {
-    ASSERT(mP_detector);
-    return mP_detector.get();
+    ASSERT(m_detector);
+    return m_detector.get();
 }
 
 const IDetector& Instrument::detector() const
 {
-    ASSERT(mP_detector);
-    return *mP_detector;
+    ASSERT(m_detector);
+    return *m_detector;
 }
 
 IDetector& Instrument::detector()
 {
-    ASSERT(mP_detector);
-    return *mP_detector;
+    ASSERT(m_detector);
+    return *m_detector;
 }
 
 IDetector2D& Instrument::detector2D()
 {
-    ASSERT(mP_detector);
-    IDetector2D* p = dynamic_cast<IDetector2D*>(mP_detector.get());
+    ASSERT(m_detector);
+    IDetector2D* p = dynamic_cast<IDetector2D*>(m_detector.get());
     if (!p)
         throw std::runtime_error("Error: Detector is not twodimensional");
     return *p;
@@ -148,8 +147,8 @@ IDetector2D& Instrument::detector2D()
 
 const IDetector2D& Instrument::detector2D() const
 {
-    ASSERT(mP_detector);
-    IDetector2D* const p = dynamic_cast<IDetector2D* const>(mP_detector.get());
+    ASSERT(m_detector);
+    IDetector2D* const p = dynamic_cast<IDetector2D* const>(m_detector.get());
     if (!p)
         throw std::runtime_error("Error: Detector is not twodimensional");
     return *p;
@@ -157,16 +156,16 @@ const IDetector2D& Instrument::detector2D() const
 
 const IAxis& Instrument::getDetectorAxis(size_t index) const
 {
-    return mP_detector->getAxis(index);
+    return m_detector->getAxis(index);
 }
 
 size_t Instrument::getDetectorDimension() const
 {
-    return mP_detector->dimension();
+    return m_detector->dimension();
 }
 
 void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                        double total_transmission)
 {
-    mP_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
+    m_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
 }

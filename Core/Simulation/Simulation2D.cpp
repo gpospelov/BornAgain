@@ -17,7 +17,6 @@
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Device/Detector/DetectorContext.h"
-#include "Device/Detector/DetectorFunctions.h"
 #include "Device/Histo/Histogram2D.h"
 
 Simulation2D::Simulation2D() = default;
@@ -27,27 +26,27 @@ Simulation2D::~Simulation2D() = default;
 void Simulation2D::prepareSimulation()
 {
     Simulation::prepareSimulation();
-    m_detector_context = m_instrument.detector2D().createContext();
+    m_detector_context = instrument().detector2D().createContext();
 }
 
 void Simulation2D::removeMasks()
 {
-    m_instrument.detector2D().removeMasks();
+    instrument().detector2D().removeMasks();
 }
 
 void Simulation2D::addMask(const IShape2D& shape, bool mask_value)
 {
-    m_instrument.detector2D().addMask(shape, mask_value);
+    instrument().detector2D().addMask(shape, mask_value);
 }
 
 void Simulation2D::maskAll()
 {
-    m_instrument.detector2D().maskAll();
+    instrument().detector2D().maskAll();
 }
 
 void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_instrument.detector2D().setRegionOfInterest(xlow, ylow, xup, yup);
+    instrument().detector2D().setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
 Simulation2D::Simulation2D(const Simulation2D& other)
@@ -65,13 +64,13 @@ size_t Simulation2D::numberOfSimulationElements() const
 void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
                                          double y_min, double y_max)
 {
-    m_instrument.detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
+    instrument().detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
 }
 
 void Simulation2D::setDetector(const IDetector2D& detector)
 {
-    m_instrument.setDetector(detector);
+    instrument().setDetector(detector);
     initUnitConverter();
 }
 
@@ -80,7 +79,7 @@ std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(si
 {
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
+    return std::make_unique<DWBAComputation>(*sample(), options(), progress(), begin,
                                              begin + static_cast<long>(n_elements));
 }
 
@@ -91,7 +90,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     const double phi_i = beam.getPhi();
     const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
 
-    const IDetector2D& detector = m_instrument.detector2D();
+    const IDetector2D& detector = instrument().detector2D();
     const Eigen::Matrix2cd analyzer_operator = detector.detectionProperties().analyzerOperator();
     const size_t spec_index = detector.indexOfSpecular(beam);
 
@@ -126,13 +125,13 @@ void Simulation2D::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+void Simulation2D::addBackgroundIntensity(size_t start_ind, size_t n_elements)
 {
-    if (!mP_background)
+    if (!background())
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
-        element.setIntensity(mP_background->addBackGround(element.getIntensity()));
+        element.setIntensity(background()->addBackground(element.getIntensity()));
     }
 }
 

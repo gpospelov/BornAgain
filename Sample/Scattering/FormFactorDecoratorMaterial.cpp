@@ -28,21 +28,20 @@ FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() = default;
 
 FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {
-    std::unique_ptr<FormFactorDecoratorMaterial> P_result(
-        new FormFactorDecoratorMaterial(*mp_form_factor));
-    P_result->setMaterial(m_material);
-    P_result->setAmbientMaterial(m_ambient_material);
-    return P_result.release();
+    auto* result = new FormFactorDecoratorMaterial(*mp_form_factor);
+    result->setMaterial(m_material);
+    result->setAmbientMaterial(m_ambient_material);
+    return result;
 }
 
-void FormFactorDecoratorMaterial::setMaterial(Material material)
+void FormFactorDecoratorMaterial::setMaterial(const Material& material)
 {
-    m_material = std::move(material);
+    m_material = material;
 }
 
-void FormFactorDecoratorMaterial::setAmbientMaterial(Material material)
+void FormFactorDecoratorMaterial::setAmbientMaterial(const Material& material)
 {
-    m_ambient_material = std::move(material);
+    m_ambient_material = material;
 }
 
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const

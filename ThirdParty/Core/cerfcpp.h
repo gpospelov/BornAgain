@@ -7,8 +7,15 @@ TODO:
 
 */
 
+#ifndef CERFCPP_H
+#define CERFCPP_H
+
+#ifndef CERF_AS_CPP
+
 #include <cerf.h>
 #include <complex>
+#include <complex.h>
+typedef double _Complex _cerf_cmplx;
 
 std::complex<double> cerfcx(const std::complex<double>& z)
 {
@@ -16,3 +23,7 @@ std::complex<double> cerfcx(const std::complex<double>& z)
     return {reinterpret_cast<const double(&)[2]>(ret)[0],
             reinterpret_cast<const double(&)[2]>(ret)[1]};
 }
+
+#endif // not CERF_AS_CPP
+
+#endif // CERFCPP_H

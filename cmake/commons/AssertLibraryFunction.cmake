@@ -36,18 +36,18 @@
 # Typically, Find<Package>.cmake looks like the following:
 #
 # ::
-# 
+#
 #   find_path(<Package>_INCLUDE_DIR <include_file>)
 #   find_library(<Package>_LIBRARIES NAMES <library_name> <Package>)
-#   
+#
 #   include(FindPackageHandleStandardArgs)
 #   find_package_handle_standard_args(<Package> DEFAULT_MSG <Package>_LIBRARIES <Package>_INCLUDE_DIR)
-#   
+#
 #   include(commons/AssertLibraryFunction)
 #   assert_library_function(<Package> <function_name> "")
-#   
+#
 #   mark_as_advanced(<Package>_INCLUDE_DIR <Package>_LIBRARIES)
-#   
+#
 # The result of ASSERT_LIBRARY_FUNCTION is cached in a variable named
 # ${LIBNAME}_${FUNCTION}.
 
@@ -68,14 +68,14 @@ endmacro()
 function(ASSERT_LIBRARY_FUNCTION LIBNAME FUNCTION LOCATION)
     set(LIBRARY ${${LIBNAME}_LIBRARIES})
     set(VARIABLE ${LIBNAME}_${FUNCTION})
-    set(_MSG "Search ${FUNCTION} in ${LIBRARY}")
+    set(_MSG "Search function ${FUNCTION} in ${LIBRARY}")
     if(DEFINED "${VARIABLE}")
         if(${${VARIABLE}})
             alf_status_message("${_MSG} -- cached")
             return()
         endif()
     endif()
-    alf_status_message("Search ${FUNCTION} in ${LIBRARY}")
+    alf_status_message("${_MSG} ...")
     set(MACRO_CHECK_LIBRARY_EXISTS_DEFINITION
         "-DCHECK_FUNCTION_EXISTS=${FUNCTION} ${CMAKE_REQUIRED_FLAGS}")
     set(CHECK_LIBRARY_EXISTS_LIBRARIES ${LIBRARY})

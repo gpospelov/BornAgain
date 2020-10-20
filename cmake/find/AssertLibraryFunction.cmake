@@ -2,8 +2,8 @@
 # AssertLibraryFunction
 # ---------------------
 #
-# ASSERT_LIBRARY_FUNCTION checks whether given libraries contain
-# a given function. If this is not the case, a fatal error is raised.
+# Defines the function assert_library_function, which checks whether given libraries
+# contain a given function. If this is not the case, a fatal error is raised.
 #
 # CHECK_LIBRARY_EXISTS(LIBNAME FUNCTION LOCATION)
 #
@@ -32,7 +32,7 @@
 #   find_package(<Package> [QUIET] [REQUIRED])
 #
 # Within a Find<Package>.cmake module, find_package_handle_standard_args
-# must be called before any call of ASSERT_LIBRARY_FUNCTION.
+# must be called before any call of assert_library_function.
 # Typically, Find<Package>.cmake looks like the following:
 #
 # ::
@@ -48,7 +48,7 @@
 #
 #   mark_as_advanced(<Package>_INCLUDE_DIR <Package>_LIBRARIES)
 #
-# The result of ASSERT_LIBRARY_FUNCTION is cached in a variable named
+# The result of assert_library_function is cached in a variable named
 # ${LIBNAME}_${FUNCTION}.
 
 #=============================================================================
@@ -64,7 +64,7 @@ macro(alf_status_message _msg)
     endif()
 endmacro()
 
-function(ASSERT_LIBRARY_FUNCTION LIBNAME FUNCTION LOCATION)
+function(assert_library_function LIBNAME FUNCTION LOCATION)
     set(LIBRARY ${${LIBNAME}_LIBRARIES})
     set(VARIABLE ${LIBNAME}_${FUNCTION})
     set(_MSG "Search function ${FUNCTION} in ${LIBRARY}")

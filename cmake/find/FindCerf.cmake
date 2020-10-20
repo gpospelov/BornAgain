@@ -14,7 +14,7 @@
 
 set(Cerf_ULTIMATELY_REQUIRED ${Cerf_FIND_REQUIRED})
 set(Cerf_FIND_REQUIRED FALSE)
-set(Cerf_FIND_VERSION 1.13)
+# set(Cerf_FIND_VERSION 1.13) incompatible with Debian package
 
 find_package(PkgConfig QUIET)
 if(PKG_CONFIG_FOUND)

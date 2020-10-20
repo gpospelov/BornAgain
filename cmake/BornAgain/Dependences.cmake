@@ -73,7 +73,10 @@ endif()
 
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
 
-    find_package(Python3 COMPONENTS Interpreter Development NumPy)
+    find_package(Python3)
+    if(NOT Python3_FOUND)
+        message(FATAL_ERROR "Python3 not found.")
+    endif()
 
     message(STATUS "  Python3_VERSION              : ${Python3_VERSION}")
     message(STATUS "  Python3_INTERPRETER_ID       : ${Python3_INTERPRETER_ID}")
@@ -83,20 +86,24 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     message(STATUS "  Python3_INCLUDE_DIRS         : ${Python3_INCLUDE_DIRS}")
     message(STATUS "  Python3_LIBRARIES            : ${Python3_LIBRARIES}")
     message(STATUS "  Python3_LIBRARY_DIRS         : ${Python3_LIBRARY_DIRS}")
+
+    find_package(Python3 COMPONENTS Interpreter)
+    if(NOT Python3_FOUND)
+        message(FATAL_ERROR "Python3 interpreter not found.")
+    endif()
+
+    find_package(Python3 COMPONENTS Interpreter Development)
+    if(NOT Python3_Development_FOUND)
+        message(FATAL_ERROR
+            "Python.h not found. Probably you need to install package libpython3-dev (or similar).")
+    endif()
+
+    find_package(Python3 COMPONENTS Interpreter Development NumPy)
+    if(NOT Python3_NumPy_FOUND)
+        message(FATAL_ERROR "Python3-NumPy not found.")
+    endif()
     message(STATUS "  Python3_NumPy_VERSION        : ${Python3_NumPy_VERSION}")
     message(STATUS "  Python3_NumPy_INCLUDE_DIRS   : ${Python3_NumPy_INCLUDE_DIRS}")
-
-    if(NOT Python3_FOUND)
-        message(FATAL_ERROR "No Python requested components.")
-    endif()
-
-    if(NOT Python3_Development_FOUND)
-        message(FATAL_ERROR "No Python.h has been found.")
-    endif()
-
-    if(NOT Python3_NumPy_FOUND)
-        message(FATAL_ERROR "Numpy was not found.")
-    endif()
 
 endif()
 

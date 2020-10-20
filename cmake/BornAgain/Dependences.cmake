@@ -67,12 +67,7 @@ if(BORNAGAIN_TIFF_SUPPORT)
 endif()
 
 # --- Python ---
-if(CONFIGURE_BINDINGS AND CONFIGURE_PYTHON_DOCS)
-    find_package(Doxygen REQUIRED)
-endif()
-
-if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-
+if(BORNAGAIN_PYTHON)
     find_package(Python3)
     if(NOT Python3_FOUND)
         message(FATAL_ERROR "Python3 not found.")
@@ -105,13 +100,16 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     message(STATUS "  Python3_NumPy_VERSION        : ${Python3_NumPy_VERSION}")
     message(STATUS "  Python3_NumPy_INCLUDE_DIRS   : ${Python3_NumPy_INCLUDE_DIRS}")
 
-endif()
+    if(CONFIGURE_BINDINGS)
+        find_package(SWIG 4.0 REQUIRED)
+        include(${SWIG_USE_FILE})
+        message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE} with flags '${SWIG_FLAGS}'; CMake definitions in ${SWIG_USE_FILE}")
 
-# --- Swig ---
-if(BORNAGAIN_PYTHON AND CONFIGURE_BINDINGS)
-    find_package(SWIG 4.0 REQUIRED)
-    include(${SWIG_USE_FILE})
-    message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE} with flags '${SWIG_FLAGS}'; CMake definitions in ${SWIG_USE_FILE}")
+        if(CONFIGURE_PYTHON_DOCS)
+            find_package(Doxygen REQUIRED)
+        endif()
+    endif()
+
 endif()
 
 # --- man page generation ---

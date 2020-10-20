@@ -10,9 +10,10 @@ TODO:
 #ifndef CERFCPP_H
 #define CERFCPP_H
 
+#include <cerf.h>
+
 #ifndef CERF_AS_CPP
 
-#include <cerf.h>
 #include <complex>
 #include <complex.h>
 typedef double _Complex _cerf_cmplx;

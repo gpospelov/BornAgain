@@ -19,7 +19,9 @@ find_path(Cerf_INCLUDE_DIR cerf.h)
 find_library(Cerf_LIBRARIES NAMES cerf libcerf)
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Cerf DEFAULT_MSG Cerf_LIBRARIES Cerf_INCLUDE_DIR)
+find_package_handle_standard_args(Cerf
+    REQUIRED_VARS Cerf_LIBRARIES Cerf_INCLUDE_DIR
+    VERSION_VAR Cerf_VERSION)
 
 if(Cerf_FOUND)
    message(STATUS "Found libcerf, version ${Cerf_VERSION}, lib=${Cerf_LIBRARIES},\

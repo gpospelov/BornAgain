@@ -48,11 +48,11 @@ if(NOT Cerf_FOUND)
         message(STATUS "Found neither libcerf nor libcerfcpp")
         return()
     endif()
-    message(STATUS "Found libcerfcpp, version ${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"
+    message(STATUS "Found libcerf, language=CPP, version=${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"
         " include_dir=${Cerf_INCLUDE_DIR}.")
     set(Cerf_IS_CPP ON)
 else()
-    message(STATUS "Found libcerf, version ${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"
+    message(STATUS "Found libcerf, language=C, version=${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"
         " include_dir=${Cerf_INCLUDE_DIR}.")
     set(Cerf_IS_CPP OFF)
 endif()

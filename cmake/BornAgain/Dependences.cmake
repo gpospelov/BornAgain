@@ -19,7 +19,6 @@ else()
 endif()
 
 find_package(Cerf REQUIRED)
-message(STATUS "Cerf found=${Cerf_FOUND} lib=${Cerf_LIBRARIES} inc=${Cerf_INCLUDE_DIR} version={Cerf_VERSION}")
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut
@@ -50,6 +49,7 @@ message(STATUS "Found Boost includes at ${Boost_INCLUDE_DIRS}, libraries at ${Bo
 if(WIN32)
     list(APPEND Boost_LIBRARIES ${BZIP2_LIBRARIES} ${ZLIB_LIBRARIES} ${LIBLZMA_LIBRARIES} ${ZSTD_LIBRARY})
 endif()
+
 # === optional packages ===
 
 # --- MPI support ---

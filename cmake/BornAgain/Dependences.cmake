@@ -19,6 +19,9 @@ else()
 endif()
 
 find_package(Cerf REQUIRED)
+if(Cerf_IS_CPP)
+    add_compile_definitions(CERF_AS_CPP=ON)
+endif()
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut

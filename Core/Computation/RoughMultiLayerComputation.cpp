@@ -22,7 +22,8 @@
 #include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
-#include <cerf.h>
+
+#include "cerfcpp.h"
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)

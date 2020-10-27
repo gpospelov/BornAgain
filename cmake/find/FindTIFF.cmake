@@ -69,7 +69,7 @@ The following cache variables may also be set:
 cmake_policy(PUSH)
 cmake_policy(SET CMP0057 NEW)
 
-find_path(TIFF_INCLUDE_DIR tiff.h)
+find_path(TIFF_INCLUDE_DIR tiff.h PATH_SUFFIXES libtiff) # patched with respect to my CMake contrib
 
 set(TIFF_NAMES ${TIFF_NAMES} tiff libtiff tiff3 libtiff3)
 foreach(name ${TIFF_NAMES})

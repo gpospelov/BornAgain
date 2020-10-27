@@ -19,7 +19,9 @@ else()
 endif()
 
 find_package(Cerf REQUIRED)
-message(STATUS "Cerf found=${Cerf_FOUND} lib=${Cerf_LIBRARIES} inc=${Cerf_INCLUDE_DIR} version={Cerf_VERSION}")
+if(Cerf_IS_CPP)
+    add_compile_definitions(CERF_AS_CPP=ON)
+endif()
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut
@@ -50,6 +52,7 @@ message(STATUS "Found Boost includes at ${Boost_INCLUDE_DIRS}, libraries at ${Bo
 if(WIN32)
     list(APPEND Boost_LIBRARIES ${BZIP2_LIBRARIES} ${ZLIB_LIBRARIES} ${LIBLZMA_LIBRARIES} ${ZSTD_LIBRARY})
 endif()
+
 # === optional packages ===
 
 # --- MPI support ---
@@ -67,13 +70,11 @@ if(BORNAGAIN_TIFF_SUPPORT)
 endif()
 
 # --- Python ---
-if(CONFIGURE_BINDINGS AND CONFIGURE_PYTHON_DOCS)
-    find_package(Doxygen REQUIRED)
-endif()
-
-if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-
-    find_package(Python3 COMPONENTS Interpreter Development NumPy)
+if(BORNAGAIN_PYTHON)
+    find_package(Python3)
+    if(NOT Python3_FOUND)
+        message(FATAL_ERROR "Python3 not found.")
+    endif()
 
     message(STATUS "  Python3_VERSION              : ${Python3_VERSION}")
     message(STATUS "  Python3_INTERPRETER_ID       : ${Python3_INTERPRETER_ID}")
@@ -83,28 +84,35 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     message(STATUS "  Python3_INCLUDE_DIRS         : ${Python3_INCLUDE_DIRS}")
     message(STATUS "  Python3_LIBRARIES            : ${Python3_LIBRARIES}")
     message(STATUS "  Python3_LIBRARY_DIRS         : ${Python3_LIBRARY_DIRS}")
+
+    find_package(Python3 COMPONENTS Interpreter)
+    if(NOT Python3_FOUND)
+        message(FATAL_ERROR "Python3 interpreter not found.")
+    endif()
+
+    find_package(Python3 COMPONENTS Interpreter Development)
+    if(NOT Python3_Development_FOUND)
+        message(FATAL_ERROR
+            "Python.h not found. Probably you need to install package libpython3-dev (or similar).")
+    endif()
+
+    find_package(Python3 COMPONENTS Interpreter Development NumPy)
+    if(NOT Python3_NumPy_FOUND)
+        message(FATAL_ERROR "Python3-NumPy not found.")
+    endif()
     message(STATUS "  Python3_NumPy_VERSION        : ${Python3_NumPy_VERSION}")
     message(STATUS "  Python3_NumPy_INCLUDE_DIRS   : ${Python3_NumPy_INCLUDE_DIRS}")
 
-    if(NOT Python3_FOUND)
-        message(FATAL_ERROR "No Python requested components.")
+    if(CONFIGURE_BINDINGS)
+        find_package(SWIG 4.0 REQUIRED)
+        include(${SWIG_USE_FILE})
+        message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE} with flags '${SWIG_FLAGS}'; CMake definitions in ${SWIG_USE_FILE}")
+
+        if(CONFIGURE_PYTHON_DOCS)
+            find_package(Doxygen REQUIRED)
+        endif()
     endif()
 
-    if(NOT Python3_Development_FOUND)
-        message(FATAL_ERROR "No Python.h has been found.")
-    endif()
-
-    if(NOT Python3_NumPy_FOUND)
-        message(FATAL_ERROR "Numpy was not found.")
-    endif()
-
-endif()
-
-# --- Swig ---
-if(BORNAGAIN_PYTHON AND CONFIGURE_BINDINGS)
-    find_package(SWIG 4.0 REQUIRED)
-    include(${SWIG_USE_FILE})
-    message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE} with flags '${SWIG_FLAGS}'; CMake definitions in ${SWIG_USE_FILE}")
 endif()
 
 # --- man page generation ---
@@ -133,7 +141,8 @@ if(WIN32)
         "${Python3_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}.lib")
     get_filename_component(UTF_BASE_NAME ${win_python_lib} NAME_WE)
     get_filename_component(UTF_PATH ${Python3_EXECUTABLE} PATH)
-    message(STATUS "Python dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
+    message(STATUS "Python dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll"
+        " - installed in ${destination_lib}")
     install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
@@ -141,16 +150,12 @@ if(WIN32)
     get_filename_component(DIR ${Cerf_LIB} DIRECTORY)
     get_filename_component(cerf ${Cerf_LIB} NAME_WE)
 
-    set(DLL_MSG "")
-    foreach(LIB IN ITEMS ${cerf} libgcc_s_seh-1 libstdc++-6 libwinpthread-1)
-        set(DLL "${DIR}/${LIB}.dll")
-        if (NOT EXISTS ${DLL})
-            message(FATAL_ERROR "Dynamic load library ${DLL} (needed for cerf) does not exist")
-        endif()
-        install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
-        string(APPEND DLL_MSG " ${DLL}")
-    endforeach()
-    message(STATUS "Cerf dlls: ${DLL_MSG}")
+    set(DLL "${DIR}/cerfcpp.dll")
+    if (NOT EXISTS ${DLL})
+        message(FATAL_ERROR "Dynamic load library ${DLL} (needed for cerf) does not exist")
+    endif()
+    install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
+    message(STATUS "Cerf dll: ${DLL} - installed in ${destination_lib}")
 
     set(DLL_MSG "")
     foreach(LIB IN LISTS FFTW3_LIBRARIES TIFF_LIBRARIES)
@@ -161,6 +166,6 @@ if(WIN32)
         install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
         string(APPEND DLL_MSG " ${DLL}")
     endforeach()
-    message(STATUS "Other dlls: ${DLL_MSG}")
+    message(STATUS "Other dlls: ${DLL_MSG} - installed in ${destination_lib}")
 
 endif(WIN32)

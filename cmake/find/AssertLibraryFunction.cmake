@@ -2,8 +2,8 @@
 # AssertLibraryFunction
 # ---------------------
 #
-# ASSERT_LIBRARY_FUNCTION checks whether given libraries contain
-# a given function. If this is not the case, a fatal error is raised.
+# Defines the function assert_library_function, which checks whether given libraries
+# contain a given function. If this is not the case, a fatal error is raised.
 #
 # CHECK_LIBRARY_EXISTS(LIBNAME FUNCTION LOCATION)
 #
@@ -32,23 +32,23 @@
 #   find_package(<Package> [QUIET] [REQUIRED])
 #
 # Within a Find<Package>.cmake module, find_package_handle_standard_args
-# must be called before any call of ASSERT_LIBRARY_FUNCTION.
+# must be called before any call of assert_library_function.
 # Typically, Find<Package>.cmake looks like the following:
 #
 # ::
-# 
+#
 #   find_path(<Package>_INCLUDE_DIR <include_file>)
 #   find_library(<Package>_LIBRARIES NAMES <library_name> <Package>)
-#   
+#
 #   include(FindPackageHandleStandardArgs)
 #   find_package_handle_standard_args(<Package> DEFAULT_MSG <Package>_LIBRARIES <Package>_INCLUDE_DIR)
-#   
-#   include(commons/AssertLibraryFunction)
+#
+#   include(AssertLibraryFunction)
 #   assert_library_function(<Package> <function_name> "")
-#   
+#
 #   mark_as_advanced(<Package>_INCLUDE_DIR <Package>_LIBRARIES)
-#   
-# The result of ASSERT_LIBRARY_FUNCTION is cached in a variable named
+#
+# The result of assert_library_function is cached in a variable named
 # ${LIBNAME}_${FUNCTION}.
 
 #=============================================================================
@@ -57,7 +57,6 @@
 # License: BSD(see cmake License for details)
 #=============================================================================
 
-
 macro(alf_status_message _msg)
     if( ${LIBNAME}_FIND_QUIETLY )
     else()
@@ -65,17 +64,17 @@ macro(alf_status_message _msg)
     endif()
 endmacro()
 
-function(ASSERT_LIBRARY_FUNCTION LIBNAME FUNCTION LOCATION)
+function(assert_library_function LIBNAME FUNCTION LOCATION)
     set(LIBRARY ${${LIBNAME}_LIBRARIES})
     set(VARIABLE ${LIBNAME}_${FUNCTION})
-    set(_MSG "Search ${FUNCTION} in ${LIBRARY}")
+    set(_MSG "Search function ${FUNCTION} in ${LIBRARY}")
     if(DEFINED "${VARIABLE}")
         if(${${VARIABLE}})
             alf_status_message("${_MSG} -- cached")
             return()
         endif()
     endif()
-    alf_status_message("Search ${FUNCTION} in ${LIBRARY}")
+    alf_status_message("${_MSG} ...")
     set(MACRO_CHECK_LIBRARY_EXISTS_DEFINITION
         "-DCHECK_FUNCTION_EXISTS=${FUNCTION} ${CMAKE_REQUIRED_FLAGS}")
     set(CHECK_LIBRARY_EXISTS_LIBRARIES ${LIBRARY})

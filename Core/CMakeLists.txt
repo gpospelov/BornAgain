@@ -10,13 +10,6 @@ set(lib BornAgain${name})
 file(GLOB source_files */*.cpp)
 file(GLOB include_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} */*.h)
 
-if((NOT Cerf_IS_CPP) AND (NOT WIN32)) # TEMPORARY
-    list(APPEND source_files ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper/cerf_ptr.c)
-endif()
-if(${Cerf_IS_CPP})
-    string(APPEND CMAKE_CXX_FLAGS " -DCERF_AS_CPP=ON")
-endif()
-
 # --- make the library ---
 
 MakeLib(${name} ${lib} ${CMAKE_CURRENT_BINARY_DIR}/Wrap)
@@ -34,7 +27,7 @@ target_include_directories(${lib}
     PUBLIC ${CMAKE_SOURCE_DIR}
     ${tspectrum_INCLUDE_DIR}
     ${Cerf_INCLUDE_DIR}
-    ${CMAKE_SOURCE_DIR}/ThirdParty/Core/cerf_wrapper # TEMPORARY
+    ${CMAKE_SOURCE_DIR}/ThirdParty/Core/ # TEMPORARY
     )
 target_link_libraries(${lib}
     ${tspectrum_LIBRARY} ${Cerf_LIBRARIES})

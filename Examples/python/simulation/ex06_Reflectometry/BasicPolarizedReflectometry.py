@@ -6,6 +6,7 @@ magnetized sample.
 import bornagain as ba
 from bornagain import deg, angstrom
 
+import matplotlib.pyplot as plt
 
 def get_sample():
     """
@@ -43,8 +44,8 @@ def get_simulation(scan_size=500):
     return simulation
 
 
-def run_simulation(polarization=ba.kvector_t(0.0, 1.0, 0.0),
-                   analyzer=ba.kvector_t(0.0, 1.0, 0.0)):
+def run_simulation(polarization=ba.kvector_t(0, 1, 0),
+                   analyzer=ba.kvector_t(0, 1, 0)):
     """
     Runs simulation and returns its result.
     """
@@ -60,20 +61,28 @@ def run_simulation(polarization=ba.kvector_t(0.0, 1.0, 0.0),
     return simulation.result()
 
 
-def plot(pp, mm):
-    from matplotlib import pyplot as plt
-
-    ba.plot_simulation_result(pp, postpone_show=True)
-    plt.semilogy(mm.axis(), mm.array())
-    plt.legend(['Up-Up', 'Down-Down'],
-               loc='upper right')
-
+def plot(data, labels):
+    
+    plt.figure()
+    for d, l in zip(data, labels):
+        plt.semilogy( d.axis(), 
+                        d.array(), 
+                        label=l, linewidth=1)
+        
+    plt.legend( loc='upper right' )
+    plt.gca().yaxis.set_ticks_position('both')
+    plt.gca().xaxis.set_ticks_position('both')
+    
+    plt.xlabel(r"$\alpha_i$ [deg]")
+    plt.ylabel("Reflectivity")
+    
+    plt.tight_layout()
     plt.show()
 
 
 if __name__ == '__main__':
-    results_pp = run_simulation(ba.kvector_t(0.0, 1.0, 0.0),
-                                ba.kvector_t(0.0, 1.0, 0.0))
-    results_mm = run_simulation(ba.kvector_t(0.0, -1.0, 0.0),
-                                ba.kvector_t(0.0, -1.0, 0.0))
-    plot(results_pp, results_mm)
+    results_pp = run_simulation(ba.kvector_t(0,  1, 0),
+                                ba.kvector_t(0,  1, 0))
+    results_mm = run_simulation(ba.kvector_t(0, -1, 0),
+                                ba.kvector_t(0, -1, 0))
+    plot([results_pp, results_mm], ["$++$", "$--$"])

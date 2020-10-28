@@ -27,7 +27,6 @@ std::string error_description(const std::string& title)
     std::stringstream buf;
     buf << title << "\n";
     buf << PyEmbeddedUtils::pythonStackTrace() << "\n";
-    PyErr_Print(); // to terminal
     return buf.str();
 }
 

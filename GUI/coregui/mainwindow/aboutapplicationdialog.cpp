@@ -58,7 +58,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget* parent) : QDialog(parent
 {
     QColor bgColor(240, 240, 240, 255);
     QPalette palette;
-    palette.setColor(QPalette::Background, bgColor);
+    palette.setColor(QPalette::Window, bgColor);
     setAutoFillBackground(true);
     setPalette(palette);
 

@@ -71,7 +71,7 @@ endif()
 
 # --- Python ---
 if(BORNAGAIN_PYTHON)
-    find_package(Python3)
+    find_package(Python3 COMPONENTS Interpreter Development)
     if(NOT Python3_FOUND)
         message(FATAL_ERROR "Python3 not found.")
     endif()

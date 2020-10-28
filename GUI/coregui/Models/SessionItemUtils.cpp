@@ -84,7 +84,7 @@ int SessionItemUtils::ParentVisibleRow(const SessionItem& item)
     return result;
 }
 
-QVariant SessionItemUtils::TextColorRole(const SessionItem& item)
+QVariant SessionItemUtils::ForegroundRole(const SessionItem& item)
 {
     return item.isEnabled() ? QVariant() : QColor(Qt::gray);
 }

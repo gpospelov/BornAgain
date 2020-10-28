@@ -1,7 +1,8 @@
 """
-An example of computing reflectivity on a
-magnetized sample.
+An example of computing splin-flip reflectivity from 
+a magnetized sample.
 """
+import numpy
 
 import bornagain as ba
 from bornagain import deg, angstrom
@@ -12,11 +13,19 @@ def get_sample():
     """
     Defines sample and returns it
     """
+    
+    # parametrize the magnetization
+    magnetizationMagnitude = 1e8
+    angle                  = 30 * deg
+    magnetizationVector    = ba.kvector_t(
+                    magnetizationMagnitude * numpy.sin(angle), 
+                    magnetizationMagnitude * numpy.cos(angle), 
+                    0)
 
     # creating materials
     m_ambient = ba.MaterialBySLD("Ambient", 0.0, 0.0)
-    m_layer_mat = ba.MaterialBySLD("Layer", 1e-4, 1e-8,
-                                   ba.kvector_t(0.0, 1e8, 0.0))
+    m_layer_mat = ba.MaterialBySLD("Layer", 1e-4, 1e-8, 
+                                   magnetizationVector)
     m_substrate = ba.MaterialBySLD("Substrate", 7e-5, 2e-6)
 
     # creating layers
@@ -85,4 +94,11 @@ if __name__ == '__main__':
                                 ba.kvector_t(0,  1, 0))
     results_mm = run_simulation(ba.kvector_t(0, -1, 0),
                                 ba.kvector_t(0, -1, 0))
-    plot([results_pp, results_mm], ["$++$", "$--$"])
+
+    results_pm = run_simulation(ba.kvector_t(0,  1, 0),
+                                ba.kvector_t(0, -1, 0))
+    results_mp = run_simulation(ba.kvector_t(0, -1, 0),
+                                ba.kvector_t(0,  1, 0))
+
+    plot([results_pp, results_mm, results_pm, results_mp], 
+         ["$++$", "$--$", "$+-$", "$-+$"])

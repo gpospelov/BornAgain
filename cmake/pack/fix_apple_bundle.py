@@ -1,5 +1,7 @@
 """
-Script to fix all dependencies in OS X bundle. Runs automatically when -DBORNAGAIN_APPLE_BUNDLE
+Script to fix all dependencies in OS X bundle.
+Runs automatically when -DBORNAGAIN_APPLE_BUNDLE.
+Called via cmake/configurables/FixAppleBundle.cmake.in.
 """
 from __future__ import print_function
 import os
@@ -425,7 +427,7 @@ def fix_apple_bundle():
 
 if __name__ == '__main__':
     if not platform.system() == 'Darwin':
-        exit("This script is intended for MacOs systems. Exiting...")
+        exit("This script is intended for MacOS. Exiting...")
 
     if len(sys.argv) != 2:
         exit("Please specify bundle location")

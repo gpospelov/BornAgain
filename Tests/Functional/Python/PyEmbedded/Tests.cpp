@@ -101,7 +101,7 @@ TEST_F(PyEmbedded, FunctionCall)
         throw std::runtime_error("Can't build arguments list");
     }
 
-    PyObject* result = PyEval_CallObject(pfun, pargs);
+    PyObject* result = PyObject_Call(pfun, pargs, nullptr);
     Py_DecRef(pfun);
     Py_DecRef(pargs);
     if (!result)
@@ -150,7 +150,7 @@ TEST_F(PyEmbedded, MethodCall)
         throw std::runtime_error("Can't build arguments list");
     }
 
-    PyObject* pinst = PyEval_CallObject(pclass, pargs);
+    PyObject* pinst = PyObject_Call(pclass, pargs, nullptr);
     Py_DecRef(pclass);
     Py_DecRef(pargs);
 
@@ -169,7 +169,7 @@ TEST_F(PyEmbedded, MethodCall)
         throw std::runtime_error("Can't build arguments list");
     }
 
-    PyObject* pres = PyEval_CallObject(pmeth, pargs2);
+    PyObject* pres = PyObject_Call(pmeth, pargs2, nullptr);
     Py_DecRef(pmeth);
     Py_DecRef(pargs);
 

@@ -44,7 +44,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
       m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier()))
 {
     QPalette palette;
-    palette.setColor(QPalette::Background, QColor(240, 240, 240, 255));
+    palette.setColor(QPalette::Window, QColor(240, 240, 240, 255));
     setAutoFillBackground(true);
     setPalette(palette);
 

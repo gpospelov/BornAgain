@@ -83,8 +83,8 @@ QVariant SessionModel::data(const QModelIndex& index, int role) const
         } else if (role == Qt::ToolTipRole) {
             return SessionItemUtils::ToolTipRole(*item, index.column());
 
-        } else if (role == Qt::TextColorRole) {
-            return SessionItemUtils::TextColorRole(*item);
+        } else if (role == Qt::ForegroundRole) {
+            return SessionItemUtils::ForegroundRole(*item);
         } else if (role == Qt::DecorationRole && index.column() == SessionFlags::ITEM_VALUE) {
             return SessionItemUtils::DecorationRole(*item);
         } else if (role == Qt::CheckStateRole && index.column() == SessionFlags::ITEM_VALUE) {

@@ -38,7 +38,7 @@ void SetVectorItem(const SessionItem& item, const QString& name, kvector_t value
 int ParentVisibleRow(const SessionItem& item);
 
 //! Returns text color for given item.
-QVariant TextColorRole(const SessionItem& item);
+QVariant ForegroundRole(const SessionItem& item);
 
 //! Returns tooltip for given item.
 QVariant ToolTipRole(const SessionItem& item, int ncol = 0);

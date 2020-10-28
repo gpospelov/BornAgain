@@ -105,7 +105,7 @@ QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
             return result;
     }
 
-    if (role == Qt::TextColorRole) {
+    if (role == Qt::ForegroundRole) {
         QVariant result = textColor(index);
         if (result.isValid())
             return result;

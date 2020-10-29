@@ -83,7 +83,7 @@ SpecularSimulation::SpecularSimulation() : Simulation()
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other),
-      m_data_handler(other.m_data_handler ? other.m_data_handler->clone() : nullptr),
+      m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
       m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
     initialize();
@@ -107,7 +107,7 @@ void SpecularSimulation::prepareSimulation()
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    return m_data_handler->numberOfSimulationElements();
+    return m_scan->numberOfSimulationElements();
 }
 
 SimulationResult SpecularSimulation::result() const
@@ -116,11 +116,11 @@ SimulationResult SpecularSimulation::result() const
     data.addAxis(*coordinateAxis());
 
     if (!m_sim_elements.empty())
-        data.setRawDataVector(m_data_handler->createIntensities(m_sim_elements));
+        data.setRawDataVector(m_scan->createIntensities(m_sim_elements));
     else
         data.setAllTo(0.0);
 
-    auto converter = UnitConverter1D::createUnitConverter(*m_data_handler);
+    auto converter = UnitConverter1D::createUnitConverter(*m_scan);
     return SimulationResult(data, *converter);
 }
 
@@ -131,7 +131,7 @@ void SpecularSimulation::setScan(const ISpecularScan& scan)
         throw std::runtime_error(
             "Error in SpecularSimulation::setScan: minimum value on coordinate axis is negative.");
 
-    m_data_handler.reset(scan.clone());
+    m_scan.reset(scan.clone());
 
     SpecularDetector1D detector(*scan.coordinateAxis());
     instrument().setDetector(detector);
@@ -145,27 +145,27 @@ void SpecularSimulation::setScan(const ISpecularScan& scan)
 
 const IAxis* SpecularSimulation::coordinateAxis() const
 {
-    if (!m_data_handler || !m_data_handler->coordinateAxis())
+    if (!m_scan || !m_scan->coordinateAxis())
         throw std::runtime_error(
             "Error in SpecularSimulation::getAlphaAxis: coordinate axis was not initialized.");
-    return m_data_handler->coordinateAxis();
+    return m_scan->coordinateAxis();
 }
 
 const IFootprintFactor* SpecularSimulation::footprintFactor() const
 {
-    return m_data_handler->footprintFactor();
+    return m_scan->footprintFactor();
 }
 
 size_t SpecularSimulation::intensityMapSize() const
 {
-    return m_data_handler->coordinateAxis()->size();
+    return m_scan->coordinateAxis()->size();
 }
 
 void SpecularSimulation::initSimulationElementVector()
 {
-    if (!m_data_handler)
+    if (!m_scan)
         throw std::runtime_error("Error in SpecularSimulation: beam parameters were not set.");
-    m_sim_elements = generateSimulationElements(instrument(), *m_data_handler);
+    m_sim_elements = generateSimulationElements(instrument(), *m_scan);
 
     if (!m_cache.empty())
         return;
@@ -222,12 +222,12 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
         return; // no normalization when beam intensity is zero
 
     std::vector<double> footprints;
-    // TODO: use just m_data_handler when pointwise resolution is implemented
-    if (m_data_handler->dataType() == ISpecularScan::angle)
-        footprints = mangledDataHandler(*m_data_handler, instrument().getBeam())
+    // TODO: use just m_scan when pointwise resolution is implemented
+    if (m_scan->dataType() == ISpecularScan::angle)
+        footprints = mangledDataHandler(*m_scan, instrument().getBeam())
                          ->footprint(start_ind, n_elements);
     else
-        footprints = m_data_handler->footprint(start_ind, n_elements);
+        footprints = m_scan->footprint(start_ind, n_elements);
 
     for (size_t i = start_ind, k = 0; i < start_ind + n_elements; ++i, ++k) {
         auto& element = m_sim_elements[i];

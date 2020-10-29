@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Computation/SpecularComputationTerm.h
-//! @brief     Defines functor SpecularComputationTerm.
+//! @brief     Defines classes SpecularComputationTerm, SpecularScalarTerm, SpecularMatrixTerm
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,7 +28,7 @@ class Slice;
 //! Computes the specular scattering.
 //! Used by SpecularComputation.
 //!
-//! Inherited by SpecularScalarTerm, SpecularMatrixTerm
+//! Pure virtual base class of SpecularScalarTerm, SpecularMatrixTerm
 //!
 //! @ingroup algorithms_internal
 
@@ -65,7 +65,6 @@ public:
 private:
     ~SpecularScalarTerm() override;
 
-protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
 };
 
@@ -81,10 +80,7 @@ public:
 private:
     ~SpecularMatrixTerm() override;
 
-protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
-    double intensity(const SpecularSimulationElement& elem,
-                     const std::unique_ptr<const ILayerRTCoefficients>& coeff) const;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H

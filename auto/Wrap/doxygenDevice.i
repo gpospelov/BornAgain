@@ -1832,9 +1832,6 @@ C++ includes: ISpecularScan.h
 %feature("docstring")  ISpecularScan::ISpecularScan "ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
 ";
 
-%feature("docstring")  ISpecularScan::~ISpecularScan "ISpecularScan::~ISpecularScan() override
-";
-
 %feature("docstring")  ISpecularScan::clone "ISpecularScan* ISpecularScan::clone() const override=0
 ";
 

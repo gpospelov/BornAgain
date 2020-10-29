@@ -15,5 +15,3 @@
 #include "Device/Scan/ISpecularScan.h"
 
 ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type) : m_data_type(data_type) {}
-
-ISpecularScan::~ISpecularScan() = default;

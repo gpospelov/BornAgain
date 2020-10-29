@@ -32,7 +32,6 @@ public:
     enum SPECULAR_DATA_TYPE { angle, q };
 
     ISpecularScan(SPECULAR_DATA_TYPE data_type);
-    ~ISpecularScan() override;
     ISpecularScan* clone() const override = 0;
 
 #ifndef SWIG

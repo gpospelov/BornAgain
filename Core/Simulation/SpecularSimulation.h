@@ -70,9 +70,6 @@ private:
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
 
-    //! Generate simulation elements for given beam
-    std::vector<SpecularSimulationElement> generateSimulationElements(const Beam& beam);
-
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process

@@ -18,18 +18,14 @@
 // ASSERT must be declared as a macro, not a function, in order for the error
 // message to correctly report the source line where the assertion failed.
 
-#ifdef HAVE_QT
+// For an alternative implementation that calls qFatal, see Base/Utils/Assert.h < 29oct20.
 
-#include <QtGlobal>
-#define ASSERT(condition)                                                                          \
-    if (!(condition))                                                                              \
-    qFatal("Assertion %s failed in %s, line %d", (#condition), __FILE__, __LINE__)
+#include <stdexcept>
+#include <sstream>
 
-#else // HAVE_QT undefined
-
-#include <cassert>
-#define ASSERT(condition) assert(condition)
-
-#endif // HAVE_QT
+#define ASSERT(condition) if (!(condition)) { \
+    std::stringstream msg; \
+    msg <<  "Assertion " << (#condition) << " failed in " << __FILE__ << ", line " << __LINE__; \
+    throw std::runtime_error(msg.str()); }
 
 #endif // BORNAGAIN_BASE_UTILS_ASSERT_H

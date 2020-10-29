@@ -2,6 +2,8 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/GTestWrapper/google_test.h"
 
+#define EXPECT_ASSERT_TRIGGERED(condition) EXPECT_THROW((condition), std::runtime_error)
+
 class TestSessionItem : public ::testing::Test
 {
 };
@@ -25,7 +27,7 @@ TEST_F(TestSessionItem, defaultTag)
 
     // insertion without tag is forbidden
     SessionItem* child = new SessionItem(modelType);
-    EXPECT_DEATH(item->insertItem(0, child), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(0, child));
     delete child;
     EXPECT_EQ(item->numberOfChildren(), 0);
 }
@@ -55,7 +57,7 @@ TEST_F(TestSessionItem, singleTagAndItems)
     SessionItem* child = new SessionItem(modelType);
     EXPECT_TRUE(item->insertItem(0, child, tag1));
     // double insertion is forbidden
-    EXPECT_DEATH(item->insertItem(0, child, tag1), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(0, child, tag1));
     EXPECT_TRUE(child->parent() == item.get());
     EXPECT_EQ(item->numberOfChildren(), 1);
 
@@ -135,7 +137,7 @@ TEST_F(TestSessionItem, tagWithLimits)
         EXPECT_TRUE(item->insertItem(-1, child, tag1));
     }
     auto extra = new SessionItem(modelType);
-    EXPECT_DEATH(item->insertItem(-1, extra, tag1), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(-1, extra, tag1));
 }
 
 TEST_F(TestSessionItem, tagsAndModelTypes)
@@ -250,25 +252,25 @@ TEST_F(TestSessionItem, modelTypes)
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model2), "Tag1"));
 
     auto child = new SessionItem(model3);
-    EXPECT_DEATH(item->insertItem(0, child, "Tag1"), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(0, child, "Tag1"));
     delete child;
 
     child = new SessionItem(model4);
-    EXPECT_DEATH(item->insertItem(0, child, "Tag1"), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(0, child, "Tag1"));
     delete child;
 
     child = new SessionItem(model5);
-    EXPECT_DEATH(item->insertItem(0, child, "Tag1"), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(0, child, "Tag1"));
     delete child;
 
     EXPECT_TRUE(item->registerTag("Tag2", 0, -1, QStringList() << model3 << model4 << model5));
 
     child = new SessionItem(model1);
-    EXPECT_DEATH(item->insertItem(0, child, "Tag2"), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(0, child, "Tag2"));
     delete child;
 
     child = new SessionItem(model2);
-    EXPECT_DEATH(item->insertItem(0, child, "Tag2"), ".*");
+    EXPECT_ASSERT_TRIGGERED(item->insertItem(0, child, "Tag2"));
     delete child;
 
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model3), "Tag2"));

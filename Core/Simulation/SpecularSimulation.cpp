@@ -49,14 +49,15 @@ std::unique_ptr<AngularSpecScan> mangledDataHandler(const ISpecularScan& data_ha
     return std::unique_ptr<AngularSpecScan>(result);
 }
 
-std::vector<SpecularSimulationElement>
-generateSimulationElements(const Instrument& instrument, const ISpecularScan& data_handler)
+std::vector<SpecularSimulationElement> generateSimulationElements(const Instrument& instrument,
+                                                                  const ISpecularScan& data_handler)
 {
     std::vector<SpecularSimulationElement> result;
 
     // TODO: remove if-else statement when pointwise resolution is implemented
     if (data_handler.dataType() == ISpecularScan::angle)
-        result = mangledDataHandler(data_handler, instrument.getBeam())->generateSimulationElements();
+        result =
+            mangledDataHandler(data_handler, instrument.getBeam())->generateSimulationElements();
     else
         result = data_handler.generateSimulationElements();
 
@@ -82,8 +83,7 @@ SpecularSimulation::SpecularSimulation() : Simulation()
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : Simulation(other),
-      m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
+    : Simulation(other), m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
       m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
     initialize();
@@ -224,8 +224,8 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented
     if (m_scan->dataType() == ISpecularScan::angle)
-        footprints = mangledDataHandler(*m_scan, instrument().getBeam())
-                         ->footprint(start_ind, n_elements);
+        footprints =
+            mangledDataHandler(*m_scan, instrument().getBeam())->footprint(start_ind, n_elements);
     else
         footprints = m_scan->footprint(start_ind, n_elements);
 

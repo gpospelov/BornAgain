@@ -30,12 +30,8 @@ namespace
 {
 
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<AngularSpecScan> mangledScan(const ISpecularScan& scan_, const Beam& beam)
+std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const Beam& beam)
 {
-    if (scan_.dataType() != ISpecularScan::angle)
-        throw std::runtime_error("Error in mangledScan: invalid usage");
-    const auto& scan = static_cast<const AngularSpecScan&>(scan_);
-
     const double wl = beam.getWavelength();
     const double angle_shift = beam.getAlpha();
     std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
@@ -54,8 +50,8 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
     std::vector<SpecularSimulationElement> result;
 
     // TODO: remove if-else statement when pointwise resolution is implemented
-    if (scan.dataType() == ISpecularScan::angle)
-        result = mangledScan(scan, instrument.getBeam())->generateSimulationElements();
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
+        result = mangledScan(*aScan, instrument.getBeam())->generateSimulationElements();
     else
         result = scan.generateSimulationElements();
 
@@ -135,10 +131,8 @@ void SpecularSimulation::setScan(const ISpecularScan& scan)
     instrument().setDetector(detector);
 
     // TODO: remove when pointwise resolution is implemented
-    if (scan.dataType() == ISpecularScan::angle) {
-        const auto& angular_scan = static_cast<const AngularSpecScan&>(scan);
-        instrument().setBeamParameters(angular_scan.wavelength(), 0.0, 0.0);
-    }
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
+        instrument().setBeamParameters(aScan->wavelength(), 0.0, 0.0);
 }
 
 const IAxis* SpecularSimulation::coordinateAxis() const
@@ -221,8 +215,8 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
 
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented
-    if (m_scan->dataType() == ISpecularScan::angle)
-        footprints = mangledScan(*m_scan, instrument().getBeam())->footprint(start_ind, n_elements);
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(m_scan.get()))
+        footprints = mangledScan(*aScan, instrument().getBeam())->footprint(start_ind, n_elements);
     else
         footprints = m_scan->footprint(start_ind, n_elements);
 

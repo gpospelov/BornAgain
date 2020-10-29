@@ -82,14 +82,27 @@ AngularSpecScan::~AngularSpecScan() = default;
 
 std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElements() const
 {
-    std::vector<SpecularSimulationElement> result;
-    const std::vector<WlAnglePair> paired_values = generateWlAnglePairs();
+    std::vector<std::pair<double, double>> w_i_pairs;
+    w_i_pairs.reserve(numberOfSimulationElements());
 
-    const size_t res_size = paired_values.size();
+    const size_t axis_size = m_inc_angle->size();
+    const auto wls = extractValues(applyWlResolution(),
+                                   [](const ParameterSample& sample) { return sample.value; });
+    const auto incs = extractValues(applyIncResolution(),
+                                    [](const ParameterSample& sample) { return sample.value; });
+
+    for (size_t i = 0; i < axis_size; ++i)
+        for (size_t k = 0, size_incs = incs[i].size(); k < size_incs; ++k)
+            for (size_t j = 0, size_wls = wls[i].size(); j < size_wls; ++j)
+                w_i_pairs.emplace_back(wls[i][j], incs[i][k]);
+
+    const size_t res_size = w_i_pairs.size();
+
+    std::vector<SpecularSimulationElement> result;
     result.reserve(res_size);
     for (size_t i = 0; i < res_size; ++i) {
-        const double wl = paired_values[i].first;
-        const double inc = paired_values[i].second;
+        const double wl = w_i_pairs[i].first;
+        const double inc = w_i_pairs[i].second;
         result.emplace_back(wl, -inc);
         if (wl < 0 || inc < 0 || inc > M_PI_2)
             result.back().setCalculationFlag(false); // false = exclude from calculations
@@ -285,25 +298,6 @@ void AngularSpecScan::checkInitialization()
                                  "shall be sorted in ascending order.");
 
     // TODO: check for inclination angle limits after switching to pointwise resolution.
-}
-
-std::vector<AngularSpecScan::WlAnglePair> AngularSpecScan::generateWlAnglePairs() const
-{
-    std::vector<WlAnglePair> result;
-    result.reserve(numberOfSimulationElements());
-
-    const size_t axis_size = m_inc_angle->size();
-    const auto wls = extractValues(applyWlResolution(),
-                                   [](const ParameterSample& sample) { return sample.value; });
-    const auto incs = extractValues(applyIncResolution(),
-                                    [](const ParameterSample& sample) { return sample.value; });
-
-    for (size_t i = 0; i < axis_size; ++i)
-        for (size_t k = 0, size_incs = incs[i].size(); k < size_incs; ++k)
-            for (size_t j = 0, size_wls = wls[i].size(); j < size_wls; ++j)
-                result.emplace_back(wls[i][j], incs[i][k]);
-
-    return result;
 }
 
 AngularSpecScan::DistrOutput AngularSpecScan::applyWlResolution() const

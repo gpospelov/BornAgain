@@ -109,11 +109,9 @@ public:
                                       const std::vector<double>& std_dev);
 
 private:
-    using WlAnglePair = std::pair<double, double>;
     using DistrOutput = std::vector<std::vector<ParameterSample>>;
 
     void checkInitialization();
-    std::vector<WlAnglePair> generateWlAnglePairs() const;
     DistrOutput applyWlResolution() const;
     DistrOutput applyIncResolution() const;
 

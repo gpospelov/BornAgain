@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Scan/QSpecScan.cpp
+//! @file      Core/Scan/QSpecScan.cpp
 //! @brief     Implements QSpecScan class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Device/Scan/QSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"

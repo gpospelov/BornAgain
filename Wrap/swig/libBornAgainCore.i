@@ -24,6 +24,8 @@
 %include "ignoreBase.i"
 %include "ignoreSample.i"
 
+%ignore ISpecularScan;
+
 %rename(MaterialProfile_cpp) MaterialProfile;
 
 %rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
@@ -56,6 +58,8 @@
 
 %{
 #include "BAVersion.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/MultiLayerFuncs.h"
@@ -104,6 +108,10 @@
 %include "Core/Fitting/IObserver.h"
 %include "Core/Fitting/IterationInfo.h"
 %include "Core/Fitting/PyFittingCallbacks.h"
+
+%include "Core/Scan/ISpecularScan.h"
+%include "Core/Scan/AngularSpecScan.h"
+%include "Core/Scan/QSpecScan.h"
 
 %include "Core/Simulation/Simulation.h"
 %include "Core/Simulation/Simulation2D.h"

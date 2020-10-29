@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Scan/AngularSpecScan.cpp
+//! @file      Core/Scan/AngularSpecScan.cpp
 //! @brief     Implements AngularSpecScan class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Device/Scan/AngularSpecScan.h"
+#include "Core/Scan/AngularSpecScan.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"

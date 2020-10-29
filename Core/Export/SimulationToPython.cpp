@@ -30,7 +30,7 @@
 #include "Device/Instrument/PyFmt2.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
-#include "Device/Scan/ISpecularScan.h"
+#include "Core/Scan/ISpecularScan.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>

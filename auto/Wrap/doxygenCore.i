@@ -1,6 +1,123 @@
 
 // File: index.xml
 
+// File: classAngularSpecScan.xml
+%feature("docstring") AngularSpecScan "
+
+Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
+
+C++ includes: AngularSpecScan.h
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, std::vector< double > inc_angle)
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, const IAxis &inc_angle)
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+";
+
+%feature("docstring")  AngularSpecScan::~AngularSpecScan "AngularSpecScan::~AngularSpecScan() override
+";
+
+%feature("docstring")  AngularSpecScan::clone "AngularSpecScan * AngularSpecScan::clone() const override
+";
+
+%feature("docstring")  AngularSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > AngularSpecScan::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  AngularSpecScan::coordinateAxis "virtual const IAxis* AngularSpecScan::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  AngularSpecScan::footprintFactor "virtual const IFootprintFactor* AngularSpecScan::footprintFactor() const override
+
+Returns IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  AngularSpecScan::footprint "std::vector< double > AngularSpecScan::footprint(size_t i, size_t n_elements) const override
+
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
+";
+
+%feature("docstring")  AngularSpecScan::numberOfSimulationElements "size_t AngularSpecScan::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  AngularSpecScan::createIntensities "std::vector< double > AngularSpecScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const override
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
+";
+
+%feature("docstring")  AngularSpecScan::print "std::string AngularSpecScan::print() const override
+
+Print scan definition in python format. 
+";
+
+%feature("docstring")  AngularSpecScan::wavelength "double AngularSpecScan::wavelength() const
+";
+
+%feature("docstring")  AngularSpecScan::wavelengthResolution "const ScanResolution* AngularSpecScan::wavelengthResolution() const
+";
+
+%feature("docstring")  AngularSpecScan::angleResolution "const ScanResolution* AngularSpecScan::angleResolution() const
+";
+
+%feature("docstring")  AngularSpecScan::setFootprintFactor "void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+Sets footprint correction factor. 
+";
+
+%feature("docstring")  AngularSpecScan::setWavelengthResolution "void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
+
+Sets wavelength resolution values via ScanResolution object. 
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets wavelength resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets wavelength resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAngleResolution "void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+Sets angle resolution values via ScanResolution object. 
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets angular resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets angular resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+
 // File: classChi2Metric.xml
 %feature("docstring") Chi2Metric "
 
@@ -787,6 +904,53 @@ method which is used by observable subject to notify change in status
 ";
 
 
+// File: classISpecularScan.xml
+%feature("docstring") ISpecularScan "
+
+Pure virtual base class for all types of specular scans.
+
+C++ includes: ISpecularScan.h
+";
+
+%feature("docstring")  ISpecularScan::clone "ISpecularScan* ISpecularScan::clone() const override=0
+";
+
+%feature("docstring")  ISpecularScan::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularScan::generateSimulationElements() const =0
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  ISpecularScan::coordinateAxis "virtual const IAxis* ISpecularScan::coordinateAxis() const =0
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  ISpecularScan::footprintFactor "virtual const IFootprintFactor* ISpecularScan::footprintFactor() const =0
+
+Returns IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  ISpecularScan::footprint "virtual std::vector<double> ISpecularScan::footprint(size_t i, size_t n_elements) const =0
+
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
+";
+
+%feature("docstring")  ISpecularScan::numberOfSimulationElements "virtual size_t ISpecularScan::numberOfSimulationElements() const =0
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  ISpecularScan::createIntensities "virtual std::vector<double> ISpecularScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const =0
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
+";
+
+%feature("docstring")  ISpecularScan::print "virtual std::string ISpecularScan::print() const =0
+
+Print scan definition in python format. 
+";
+
+
 // File: classIterationInfo.xml
 %feature("docstring") IterationInfo "
 
@@ -1384,6 +1548,90 @@ C++ includes: PyFittingCallbacks.h
 ";
 
 %feature("docstring")  PyObserverCallback::update "void PyObserverCallback::update(const FitObjective &)
+";
+
+
+// File: classQSpecScan.xml
+%feature("docstring") QSpecScan "
+
+Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+C++ includes: QSpecScan.h
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(std::vector< double > qs_nm)
+
+Accepts qz-value vector (in inverse nm) 
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(const IAxis &qs_nm)
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+";
+
+%feature("docstring")  QSpecScan::~QSpecScan "QSpecScan::~QSpecScan() override
+";
+
+%feature("docstring")  QSpecScan::clone "QSpecScan * QSpecScan::clone() const override
+";
+
+%feature("docstring")  QSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > QSpecScan::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  QSpecScan::coordinateAxis "virtual const IAxis* QSpecScan::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  QSpecScan::footprintFactor "virtual const IFootprintFactor* QSpecScan::footprintFactor() const override
+
+Returns IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  QSpecScan::footprint "std::vector< double > QSpecScan::footprint(size_t i, size_t n_elements) const override
+
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
+";
+
+%feature("docstring")  QSpecScan::numberOfSimulationElements "size_t QSpecScan::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  QSpecScan::createIntensities "std::vector< double > QSpecScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const override
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
+";
+
+%feature("docstring")  QSpecScan::print "std::string QSpecScan::print() const override
+
+Print scan definition in python format. 
+";
+
+%feature("docstring")  QSpecScan::setQResolution "void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+Sets q resolution values via ScanResolution object. 
+";
+
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets qz resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+";
+
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets qz resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 ";
 
 
@@ -1995,7 +2243,7 @@ C++ includes: SpecularComputation.h
 
 Computes the specular scattering. Used by  SpecularComputation.
 
-Inherited by  SpecularScalarTerm,  SpecularMatrixTerm
+Pure virtual base class of  SpecularScalarTerm,  SpecularMatrixTerm
 
 C++ includes: SpecularComputationTerm.h
 ";
@@ -2012,7 +2260,7 @@ C++ includes: SpecularComputationTerm.h
 %feature("docstring")  SpecularComputationTerm::setProgressHandler "void SpecularComputationTerm::setProgressHandler(ProgressHandler *p_progress)
 ";
 
-%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem, const std::vector< Slice > &slices) const
+%feature("docstring")  SpecularComputationTerm::computeIntensity "void SpecularComputationTerm::computeIntensity(SpecularSimulationElement &elem, const std::vector< Slice > &slices) const
 ";
 
 
@@ -2100,6 +2348,117 @@ Returns internal data handler.
 %feature("docstring") SpecularStrategyBuilder "";
 
 
+// File: classUnitConverter1D.xml
+%feature("docstring") UnitConverter1D "
+
+Conversion of axis units for the case of 1D simulation result.
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D() override=default
+";
+
+%feature("docstring")  UnitConverter1D::clone "UnitConverter1D* UnitConverter1D::clone() const override=0
+";
+
+%feature("docstring")  UnitConverter1D::dimension "size_t UnitConverter1D::dimension() const override
+
+Returns dimensionality of converted canvas. 
+";
+
+%feature("docstring")  UnitConverter1D::calculateMin "double UnitConverter1D::calculateMin(size_t i_axis, Axes::Units units_type) const override
+
+Calculates minimum on-axis value in given units. 
+";
+
+%feature("docstring")  UnitConverter1D::calculateMax "double UnitConverter1D::calculateMax(size_t i_axis, Axes::Units units_type) const override
+
+Calculates maximum on-axis value in given units. 
+";
+
+%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, Axes::Units units) const override
+
+Creates axis in converted units. 
+";
+
+%feature("docstring")  UnitConverter1D::createConvertedData "std::unique_ptr< OutputData< double > > UnitConverter1D::createConvertedData(const OutputData< double > &data, Axes::Units units) const override
+
+Creates  OutputData array in converter units. 
+";
+
+
+// File: classUnitConverterConvSpec.xml
+%feature("docstring") UnitConverterConvSpec "
+
+Conversion of axis units for the case of conventional (angle-based) reflectometry.
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const Beam &beam, const IAxis &axis, Axes::Units axis_units=Axes::Units::RADIANS)
+
+Constructs the object for unit conversion. 
+";
+
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const AngularSpecScan &handler)
+";
+
+%feature("docstring")  UnitConverterConvSpec::~UnitConverterConvSpec "UnitConverterConvSpec::~UnitConverterConvSpec() override
+";
+
+%feature("docstring")  UnitConverterConvSpec::clone "UnitConverterConvSpec * UnitConverterConvSpec::clone() const override
+";
+
+%feature("docstring")  UnitConverterConvSpec::axisSize "size_t UnitConverterConvSpec::axisSize(size_t i_axis) const override
+
+Returns the size of underlying axis. 
+";
+
+%feature("docstring")  UnitConverterConvSpec::availableUnits "std::vector< Axes::Units > UnitConverterConvSpec::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
+%feature("docstring")  UnitConverterConvSpec::defaultUnits "Axes::Units UnitConverterConvSpec::defaultUnits() const override
+
+Returns default units to convert to. 
+";
+
+
+// File: classUnitConverterQSpec.xml
+%feature("docstring") UnitConverterQSpec "
+
+Conversion of axis units for the case of q-defined reflectometry.
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const QSpecScan &handler)
+";
+
+%feature("docstring")  UnitConverterQSpec::~UnitConverterQSpec "UnitConverterQSpec::~UnitConverterQSpec() override
+";
+
+%feature("docstring")  UnitConverterQSpec::clone "UnitConverterQSpec * UnitConverterQSpec::clone() const override
+";
+
+%feature("docstring")  UnitConverterQSpec::axisSize "size_t UnitConverterQSpec::axisSize(size_t i_axis) const override
+
+Returns the size of underlying axis. 
+";
+
+%feature("docstring")  UnitConverterQSpec::availableUnits "std::vector< Axes::Units > UnitConverterQSpec::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
+%feature("docstring")  UnitConverterQSpec::defaultUnits "Axes::Units UnitConverterQSpec::defaultUnits() const override
+
+Returns default units to convert to. 
+";
+
+
 // File: namespace_0d29.xml
 
 
@@ -2110,6 +2469,9 @@ Returns internal data handler.
 
 
 // File: namespace_0d37.xml
+
+
+// File: namespace_0d41.xml
 
 
 // File: namespace_0d45.xml
@@ -2133,13 +2495,19 @@ Returns internal data handler.
 // File: namespace_0d75.xml
 
 
-// File: namespace_0d83.xml
+// File: namespace_0d80.xml
 
 
-// File: namespace_0d89.xml
+// File: namespace_0d82.xml
 
 
-// File: namespace_0d91.xml
+// File: namespace_0d90.xml
+
+
+// File: namespace_0d96.xml
+
+
+// File: namespace_0d98.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2665,6 +3033,27 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: SimDataPair_8h.xml
 
 
+// File: AngularSpecScan_8cpp.xml
+
+
+// File: AngularSpecScan_8h.xml
+
+
+// File: ISpecularScan_8h.xml
+
+
+// File: QSpecScan_8cpp.xml
+
+
+// File: QSpecScan_8h.xml
+
+
+// File: UnitConverter1D_8cpp.xml
+
+
+// File: UnitConverter1D_8h.xml
+
+
 // File: DepthProbeSimulation_8cpp.xml
 
 
@@ -2735,6 +3124,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
+
+
+// File: dir_6de83e740cfcd9d0abfe8dffab2832a5.xml
 
 
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml

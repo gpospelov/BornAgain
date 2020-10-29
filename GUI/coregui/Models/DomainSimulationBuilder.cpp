@@ -20,7 +20,7 @@
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Beam/IFootprintFactor.h"
-#include "Device/Scan/AngularSpecScan.h"
+#include "Core/Scan/AngularSpecScan.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "GUI/coregui/Models/DepthProbeInstrumentItem.h"

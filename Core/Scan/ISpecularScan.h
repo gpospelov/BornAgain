@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Scan/ISpecularScan.h
+//! @file      Core/Scan/ISpecularScan.h
 //! @brief     Declares and implements pure virtual class ISpecularScan.
 //!
 //! @homepage  http://www.bornagainproject.org

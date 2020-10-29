@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Scan/QSpecScan.h
+//! @file      Core/Scan/QSpecScan.h
 //! @brief     Declares QSpecScan class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_QSPECSCAN_H
 #define BORNAGAIN_CORE_INSTRUMENT_QSPECSCAN_H
 
-#include "Device/Scan/ISpecularScan.h"
+#include "Core/Scan/ISpecularScan.h"
 #include <memory>
 
 class ParameterSample;

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Scan/AngularSpecScan.h
+//! @file      Core/Scan/AngularSpecScan.h
 //! @brief     Declares AngularSpecScan class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_INSTRUMENT_ANGULARSPECSCAN_H
 #define BORNAGAIN_CORE_INSTRUMENT_ANGULARSPECSCAN_H
 
-#include "Device/Scan/ISpecularScan.h"
+#include "Core/Scan/ISpecularScan.h"
 #include <memory>
 
 class ParameterSample;

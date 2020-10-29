@@ -94,7 +94,7 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
             const double inc = incs[i][k];
             for (size_t j = 0, size_wls = wls[i].size(); j < size_wls; ++j) {
                 const double wl = wls[i][j];
-                result.emplace_back(wl, -inc);
+                result.emplace_back(SpecularSimulationElement(wl, -inc));
                 if (wl < 0 || inc < 0 || inc > M_PI_2)
                     result.back().setCalculationFlag(false); // false = exclude from calculations
             }

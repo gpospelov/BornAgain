@@ -48,5 +48,5 @@ void SpecularComputation::runProtected()
     m_computation_term->setProgressHandler(mp_progress);
     auto& slices = mP_processed_sample->averageSlices();
     for (auto it = m_begin_it; it != m_end_it; ++it)
-        m_computation_term->compute(*it, slices);
+        m_computation_term->computeIntensity(*it, slices);
 }

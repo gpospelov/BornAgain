@@ -42,7 +42,7 @@ public:
     SpecularComputationTerm& operator=(const SpecularComputationTerm& other) = delete;
 
     void setProgressHandler(ProgressHandler* p_progress);
-    void compute(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const;
+    void computeIntensity(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const;
 
 protected:
     virtual void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const = 0;

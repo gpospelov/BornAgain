@@ -36,8 +36,8 @@ void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
     mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
-void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
-                                      const std::vector<Slice>& slices) const
+void SpecularComputationTerm::computeIntensity(SpecularSimulationElement& elem,
+                                               const std::vector<Slice>& slices) const
 {
     if (!elem.isCalculated())
         return;

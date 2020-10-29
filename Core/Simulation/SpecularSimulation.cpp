@@ -30,12 +30,12 @@ namespace
 {
 
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<AngularSpecScan> mangledDataHandler(const ISpecularScan& data_handler,
+std::unique_ptr<AngularSpecScan> mangledScan(const ISpecularScan& scan_,
                                                     const Beam& beam)
 {
-    if (data_handler.dataType() != ISpecularScan::angle)
-        throw std::runtime_error("Error in mangledDataHandler: invalid usage");
-    const auto& scan = static_cast<const AngularSpecScan&>(data_handler);
+    if (scan_.dataType() != ISpecularScan::angle)
+        throw std::runtime_error("Error in mangledScan: invalid usage");
+    const auto& scan = static_cast<const AngularSpecScan&>(scan_);
 
     const double wl = beam.getWavelength();
     const double angle_shift = beam.getAlpha();
@@ -50,16 +50,16 @@ std::unique_ptr<AngularSpecScan> mangledDataHandler(const ISpecularScan& data_ha
 }
 
 std::vector<SpecularSimulationElement> generateSimulationElements(const Instrument& instrument,
-                                                                  const ISpecularScan& data_handler)
+                                                                  const ISpecularScan& scan)
 {
     std::vector<SpecularSimulationElement> result;
 
     // TODO: remove if-else statement when pointwise resolution is implemented
-    if (data_handler.dataType() == ISpecularScan::angle)
+    if (scan.dataType() == ISpecularScan::angle)
         result =
-            mangledDataHandler(data_handler, instrument.getBeam())->generateSimulationElements();
+            mangledScan(scan, instrument.getBeam())->generateSimulationElements();
     else
-        result = data_handler.generateSimulationElements();
+        result = scan.generateSimulationElements();
 
     // add polarization and analyzer operators
     const auto& polarization = instrument.getBeam().getPolarization();
@@ -225,7 +225,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     // TODO: use just m_scan when pointwise resolution is implemented
     if (m_scan->dataType() == ISpecularScan::angle)
         footprints =
-            mangledDataHandler(*m_scan, instrument().getBeam())->footprint(start_ind, n_elements);
+            mangledScan(*m_scan, instrument().getBeam())->footprint(start_ind, n_elements);
     else
         footprints = m_scan->footprint(start_ind, n_elements);
 

@@ -15,6 +15,7 @@
 #include "Core/Computation/SpecularComputation.h"
 #include "Core/Computation/ProcessedSample.h"
 #include "Core/Computation/ProgressHandler.h"
+#include "Core/Computation/SpecularComputationTerm.h"
 #include "Core/Computation/SpecularStrategyBuilder.h"
 #include "Sample/Slice/SpecularSimulationElement.h"
 

@@ -4285,47 +4285,7 @@ class VarianceSimFunction(IVarianceFunction):
 # Register VarianceSimFunction in _libBornAgainDevice:
 _libBornAgainDevice.VarianceSimFunction_swigregister(VarianceSimFunction)
 
-class ISpecularScan(libBornAgainBase.ICloneable):
-    r"""
-
-
-    Base abstract class for all types of specular scans.
-
-    C++ includes: ISpecularScan.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    angle = _libBornAgainDevice.ISpecularScan_angle
-    
-    q = _libBornAgainDevice.ISpecularScan_q
-    
-    __swig_destroy__ = _libBornAgainDevice.delete_ISpecularScan
-
-    def clone(self):
-        r"""
-        clone(ISpecularScan self) -> ISpecularScan
-        ISpecularScan* ISpecularScan::clone() const override=0
-
-        """
-        return _libBornAgainDevice.ISpecularScan_clone(self)
-
-    def dataType(self):
-        r"""
-        dataType(ISpecularScan self) -> ISpecularScan::SPECULAR_DATA_TYPE
-        SPECULAR_DATA_TYPE ISpecularScan::dataType() const
-
-        """
-        return _libBornAgainDevice.ISpecularScan_dataType(self)
-
-# Register ISpecularScan in _libBornAgainDevice:
-_libBornAgainDevice.ISpecularScan_swigregister(ISpecularScan)
-
-class AngularSpecScan(ISpecularScan):
+class AngularSpecScan(object):
     r"""
 
 
@@ -4436,7 +4396,7 @@ class AngularSpecScan(ISpecularScan):
 # Register AngularSpecScan in _libBornAgainDevice:
 _libBornAgainDevice.AngularSpecScan_swigregister(AngularSpecScan)
 
-class QSpecScan(ISpecularScan):
+class QSpecScan(object):
     r"""
 
 

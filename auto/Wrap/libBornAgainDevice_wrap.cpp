@@ -37160,81 +37160,6 @@ SWIGINTERN PyObject *VarianceSimFunction_swiginit(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_delete_ISpecularScan(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISpecularScan *arg1 = (ISpecularScan *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISpecularScan, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ISpecularScan" "', argument " "1"" of type '" "ISpecularScan *""'"); 
-  }
-  arg1 = reinterpret_cast< ISpecularScan * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ISpecularScan_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISpecularScan *arg1 = (ISpecularScan *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ISpecularScan *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISpecularScan, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISpecularScan_clone" "', argument " "1"" of type '" "ISpecularScan const *""'"); 
-  }
-  arg1 = reinterpret_cast< ISpecularScan * >(argp1);
-  result = (ISpecularScan *)((ISpecularScan const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ISpecularScan, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ISpecularScan_dataType(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISpecularScan *arg1 = (ISpecularScan *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ISpecularScan::SPECULAR_DATA_TYPE result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISpecularScan, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISpecularScan_dataType" "', argument " "1"" of type '" "ISpecularScan const *""'"); 
-  }
-  arg1 = reinterpret_cast< ISpecularScan * >(argp1);
-  result = (ISpecularScan::SPECULAR_DATA_TYPE)((ISpecularScan const *)arg1)->dataType();
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *ISpecularScan_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_ISpecularScan, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
 SWIGINTERN PyObject *_wrap_new_AngularSpecScan__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -49054,22 +48979,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_VarianceSimFunction", _wrap_delete_VarianceSimFunction, METH_O, "delete_VarianceSimFunction(VarianceSimFunction self)"},
 	 { "VarianceSimFunction_swigregister", VarianceSimFunction_swigregister, METH_O, NULL},
 	 { "VarianceSimFunction_swiginit", VarianceSimFunction_swiginit, METH_VARARGS, NULL},
-	 { "delete_ISpecularScan", _wrap_delete_ISpecularScan, METH_O, "\n"
-		"delete_ISpecularScan(ISpecularScan self)\n"
-		"ISpecularScan::~ISpecularScan() override\n"
-		"\n"
-		""},
-	 { "ISpecularScan_clone", _wrap_ISpecularScan_clone, METH_O, "\n"
-		"ISpecularScan_clone(ISpecularScan self) -> ISpecularScan\n"
-		"ISpecularScan* ISpecularScan::clone() const override=0\n"
-		"\n"
-		""},
-	 { "ISpecularScan_dataType", _wrap_ISpecularScan_dataType, METH_O, "\n"
-		"ISpecularScan_dataType(ISpecularScan self) -> ISpecularScan::SPECULAR_DATA_TYPE\n"
-		"SPECULAR_DATA_TYPE ISpecularScan::dataType() const\n"
-		"\n"
-		""},
-	 { "ISpecularScan_swigregister", ISpecularScan_swigregister, METH_O, NULL},
 	 { "new_AngularSpecScan", _wrap_new_AngularSpecScan, METH_VARARGS, "\n"
 		"AngularSpecScan(double wl, vdouble1d_t inc_angle)\n"
 		"AngularSpecScan(double wl, IAxis inc_angle)\n"
@@ -51788,8 +51697,6 @@ SWIG_init(void) {
   // thread safe initialization
   swig::container_owner_attribute();
   
-  SWIG_Python_SetConstant(d, "ISpecularScan_angle",SWIG_From_int(static_cast< int >(ISpecularScan::angle)));
-  SWIG_Python_SetConstant(d, "ISpecularScan_q",SWIG_From_int(static_cast< int >(ISpecularScan::q)));
   SWIG_Python_SetConstant(d, "Axes_DEFAULT",SWIG_From_int(static_cast< int >(Axes::DEFAULT)));
   SWIG_Python_SetConstant(d, "Axes_NBINS",SWIG_From_int(static_cast< int >(Axes::NBINS)));
   SWIG_Python_SetConstant(d, "Axes_RADIANS",SWIG_From_int(static_cast< int >(Axes::RADIANS)));

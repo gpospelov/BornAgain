@@ -23,6 +23,8 @@
 
 %include "ignoreBase.i"
 
+%ignore ISpecularScan;
+
 // deprecations:
 %rename(getArrayObsolete) IHistogram::getArray;
 %extend IHistogram {

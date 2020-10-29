@@ -65,7 +65,7 @@ public:
 #endif // SWIG
 
 private:
-    SpecularSimulation(const SpecularSimulation& other);
+    SpecularSimulation(const SpecularSimulation& other); // used by clone()
 
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;

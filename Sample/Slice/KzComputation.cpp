@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Slice/KzComputation.cpp
-//! @brief     Implements functions from KzComputation namespace.
+//! @brief     Implements functions in namespace KzComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,11 +18,25 @@
 
 namespace
 {
-complex_t normalizedSLD(const Material& material);
+complex_t normalizedSLD(const Material& material)
+{
+    if (material.typeID() != MATERIAL_TYPES::MaterialBySLD)
+        throw std::runtime_error("Error in normalizedSLD: passed material has wrong type");
 
-// use small imaginary value if passed argument is very small
-complex_t checkForUnderflow(complex_t val);
+    complex_t sld = std::conj(material.materialData()) / (Units::angstrom * Units::angstrom);
+    sld *= 4.0 * M_PI;
+    return sld;
+}
+
+complex_t checkForUnderflow(complex_t val)
+{
+    return std::norm(val) < 1e-80 ? complex_t(0.0, 1e-40) : val;
+}
 } // namespace
+
+// ************************************************************************** //
+// namespace KzComputatin
+// ************************************************************************** //
 
 std::vector<complex_t> KzComputation::computeReducedKz(const std::vector<Slice>& slices,
                                                        kvector_t k)
@@ -77,21 +91,3 @@ std::vector<complex_t> KzComputation::computeKzFromRefIndices(const std::vector<
     }
     return kz;
 }
-
-namespace
-{
-complex_t normalizedSLD(const Material& material)
-{
-    if (material.typeID() != MATERIAL_TYPES::MaterialBySLD)
-        throw std::runtime_error("Error in normalizedSLD: passed material has wrong type");
-
-    complex_t sld = std::conj(material.materialData()) / (Units::angstrom * Units::angstrom);
-    sld *= 4.0 * M_PI;
-    return sld;
-}
-
-complex_t checkForUnderflow(complex_t val)
-{
-    return std::norm(val) < 1e-80 ? complex_t(0.0, 1e-40) : val;
-}
-} // namespace

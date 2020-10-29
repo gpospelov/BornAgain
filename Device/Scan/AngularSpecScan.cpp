@@ -44,7 +44,7 @@ extractValues(std::vector<std::vector<ParameterSample>> samples,
 } // namespace
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
-    : ISpecularScan(SPECULAR_DATA_TYPE::angle), m_wl(wl),
+    : m_wl(wl),
       m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle))),
       m_wl_resolution(ScanResolution::scanEmptyResolution()),
       m_inc_resolution(ScanResolution::scanEmptyResolution())
@@ -53,7 +53,7 @@ AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
 }
 
 AngularSpecScan::AngularSpecScan(double wl, const IAxis& inc_angle)
-    : ISpecularScan(SPECULAR_DATA_TYPE::angle), m_wl(wl), m_inc_angle(inc_angle.clone()),
+    : m_wl(wl), m_inc_angle(inc_angle.clone()),
       m_wl_resolution(ScanResolution::scanEmptyResolution()),
       m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
@@ -61,7 +61,7 @@ AngularSpecScan::AngularSpecScan(double wl, const IAxis& inc_angle)
 }
 
 AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
-    : ISpecularScan(SPECULAR_DATA_TYPE::angle), m_wl(wl),
+    : m_wl(wl),
       m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max)),
       m_wl_resolution(ScanResolution::scanEmptyResolution()),
       m_inc_resolution(ScanResolution::scanEmptyResolution())

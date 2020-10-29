@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/Scan/ISpecularScan.h
-//! @brief     Declares ISpecularScan abstract class.
+//! @brief     Declares and implements pure virtual class ISpecularScan.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,13 +25,11 @@ class IAxis;
 class IFootprintFactor;
 class SpecularSimulationElement;
 
-//! Base abstract class for all types of specular scans.
+//! Pure virtual base class for all types of specular scans.
+
 class ISpecularScan : public ICloneable
 {
 public:
-    enum SPECULAR_DATA_TYPE { angle, q };
-
-    ISpecularScan(SPECULAR_DATA_TYPE data_type);
     ISpecularScan* clone() const override = 0;
 
 #ifndef SWIG
@@ -58,11 +56,6 @@ public:
     //! Print scan definition in python format
     virtual std::string print() const = 0;
 #endif // SWIG
-
-    SPECULAR_DATA_TYPE dataType() const { return m_data_type; }
-
-private:
-    SPECULAR_DATA_TYPE m_data_type;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const ISpecularScan& scan)

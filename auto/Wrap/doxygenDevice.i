@@ -1824,12 +1824,9 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classISpecularScan.xml
 %feature("docstring") ISpecularScan "
 
-Base abstract class for all types of specular scans.
+Pure virtual base class for all types of specular scans.
 
 C++ includes: ISpecularScan.h
-";
-
-%feature("docstring")  ISpecularScan::ISpecularScan "ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
 ";
 
 %feature("docstring")  ISpecularScan::clone "ISpecularScan* ISpecularScan::clone() const override=0
@@ -1868,9 +1865,6 @@ Returns intensity vector corresponding to convolution of given simulation elemen
 %feature("docstring")  ISpecularScan::print "virtual std::string ISpecularScan::print() const =0
 
 Print scan definition in python format. 
-";
-
-%feature("docstring")  ISpecularScan::dataType "SPECULAR_DATA_TYPE ISpecularScan::dataType() const
 ";
 
 
@@ -3532,7 +3526,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d115.xml
 
 
-// File: namespace_0d125.xml
+// File: namespace_0d124.xml
 
 
 // File: namespace_0d33.xml
@@ -4133,9 +4127,6 @@ make Swappable
 
 
 // File: AngularSpecScan_8h.xml
-
-
-// File: ISpecularScan_8cpp.xml
 
 
 // File: ISpecularScan_8h.xml

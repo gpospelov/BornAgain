@@ -30,8 +30,7 @@ namespace
 {
 
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<AngularSpecScan> mangledScan(const ISpecularScan& scan_,
-                                                    const Beam& beam)
+std::unique_ptr<AngularSpecScan> mangledScan(const ISpecularScan& scan_, const Beam& beam)
 {
     if (scan_.dataType() != ISpecularScan::angle)
         throw std::runtime_error("Error in mangledScan: invalid usage");
@@ -56,8 +55,7 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 
     // TODO: remove if-else statement when pointwise resolution is implemented
     if (scan.dataType() == ISpecularScan::angle)
-        result =
-            mangledScan(scan, instrument.getBeam())->generateSimulationElements();
+        result = mangledScan(scan, instrument.getBeam())->generateSimulationElements();
     else
         result = scan.generateSimulationElements();
 
@@ -224,8 +222,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented
     if (m_scan->dataType() == ISpecularScan::angle)
-        footprints =
-            mangledScan(*m_scan, instrument().getBeam())->footprint(start_ind, n_elements);
+        footprints = mangledScan(*m_scan, instrument().getBeam())->footprint(start_ind, n_elements);
     else
         footprints = m_scan->footprint(start_ind, n_elements);
 

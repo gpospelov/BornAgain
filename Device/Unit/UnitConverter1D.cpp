@@ -32,16 +32,15 @@ std::unique_ptr<PointwiseAxis>
 createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator, std::string name);
 } // namespace
 
-std::unique_ptr<UnitConverter1D> UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
+std::unique_ptr<UnitConverter1D> UnitConverter1D::createUnitConverter(const ISpecularScan& scan)
 {
-    if (handler.dataType() == ISpecularScan::angle)
-        return std::make_unique<UnitConverterConvSpec>(
-            static_cast<const AngularSpecScan&>(handler));
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
+        return std::make_unique<UnitConverterConvSpec>(*aScan);
 
-    if (handler.dataType() == ISpecularScan::q)
-        return std::make_unique<UnitConverterQSpec>(static_cast<const QSpecScan&>(handler));
+    if (const auto* qScan = dynamic_cast<const QSpecScan*>(&scan))
+        return std::make_unique<UnitConverterQSpec>(*qScan);
 
-    throw std::runtime_error("No known unit conversions for passed type of specular data handler.");
+    throw std::runtime_error("Bug in UnitConverter1D::createUnitConverter: invalid case");
 }
 
 size_t UnitConverter1D::dimension() const

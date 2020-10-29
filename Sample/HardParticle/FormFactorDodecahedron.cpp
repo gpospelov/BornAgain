@@ -34,7 +34,7 @@ const PolyhedralTopology FormFactorDodecahedron::topology = {{// bottom:
 
 FormFactorDodecahedron::FormFactorDodecahedron(const std::vector<double> P)
     : IFormFactorPolyhedron(
-          {"Dodecahedron", "regular dodecahedron", {{"Edge", "nm", "edge length", 0, +INF, 0}}}, P),
+        {"Dodecahedron", "regular dodecahedron", {{"Edge", "nm", "edge length", 0, +INF, 0}}}, P),
       m_edge(m_P[0])
 {
     onChange();

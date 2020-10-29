@@ -137,8 +137,8 @@ OutputDataIterator<TValue, TContainer>::OutputDataIterator(
 
 template <class TValue, class TContainer>
 template <class TValue2, class TContainer2>
-OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::
-operator=(const OutputDataIterator<TValue2, TContainer2>& right)
+OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator=(
+    const OutputDataIterator<TValue2, TContainer2>& right)
 {
     OutputDataIterator<TValue, TContainer> copy(right);
     swap(copy);
@@ -146,8 +146,8 @@ operator=(const OutputDataIterator<TValue2, TContainer2>& right)
 }
 
 template <class TValue, class TContainer>
-OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::
-operator=(const OutputDataIterator<TValue, TContainer>& right)
+OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator=(
+    const OutputDataIterator<TValue, TContainer>& right)
 {
     OutputDataIterator<TValue, TContainer> copy(right);
     swap(copy);

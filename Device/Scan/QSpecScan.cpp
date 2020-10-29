@@ -60,7 +60,7 @@ std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() c
     std::vector<SpecularSimulationElement> result;
     result.reserve(qz.size());
     for (size_t i = 0, size = qz.size(); i < size; ++i)
-        result.emplace_back(SpecularSimulationElement(-qz[i] / 2.0, qz[i]>=0));
+        result.emplace_back(SpecularSimulationElement(-qz[i] / 2.0, qz[i] >= 0));
     return result;
 }
 

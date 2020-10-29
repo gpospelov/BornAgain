@@ -65,7 +65,8 @@ void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
 // class SpecularMatrixTerm
 // ************************************************************************** //
 
-namespace {
+namespace
+{
 
 double matrix_intensity(const SpecularSimulationElement& elem,
                         const std::unique_ptr<const ILayerRTCoefficients>& coeff)

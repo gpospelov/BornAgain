@@ -23,7 +23,8 @@ SpecularSimulationElement::SpecularSimulationElement(double kz, bool computable)
 {
 }
 
-SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha, bool computable)
+SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha,
+                                                     bool computable)
     : m_intensity(0.0), m_computable(computable),
       m_kz_computation(
           [k = vecOfLambdaAlphaPhi(wavelength, alpha, 0.0)](const std::vector<Slice>& slices) {
@@ -40,15 +41,14 @@ SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationEle
 
 SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&& other) noexcept
     : m_polarization(std::move(other.m_polarization)), m_intensity(other.m_intensity),
-      m_computable(other.m_computable),
-      m_kz_computation(std::move(other.m_kz_computation))
+      m_computable(other.m_computable), m_kz_computation(std::move(other.m_kz_computation))
 {
 }
 
 SpecularSimulationElement::~SpecularSimulationElement() = default;
 
-SpecularSimulationElement& SpecularSimulationElement::
-operator=(const SpecularSimulationElement& other)
+SpecularSimulationElement&
+SpecularSimulationElement::operator=(const SpecularSimulationElement& other)
 {
     if (this != &other) {
         SpecularSimulationElement tmp(other);

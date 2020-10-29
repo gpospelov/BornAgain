@@ -32,14 +32,13 @@ const PolyhedralTopology FormFactorCuboctahedron::topology = {{{{3, 2, 1, 0}, tr
 
 FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector<double> P)
     : IFormFactorPolyhedron(
-          {"Cuboctahedron",
-           "truncated quadratic bipyramid",
-           {{"Length", "nm", "edge length of base square (common face of both pyramids)", 0, +INF,
-             0},
-            {"Height", "nm", "height of the lower pyramid", 0, +INF, 0},
-            {"HeightRatio", "nm", "height ratio of upper to lower pyramid", 0, +INF, 0},
-            {"Alpha", "rad", "angle between the base and a side face", 0., M_PI_2, 0}}},
-          P),
+        {"Cuboctahedron",
+         "truncated quadratic bipyramid",
+         {{"Length", "nm", "edge length of base square (common face of both pyramids)", 0, +INF, 0},
+          {"Height", "nm", "height of the lower pyramid", 0, +INF, 0},
+          {"HeightRatio", "nm", "height ratio of upper to lower pyramid", 0, +INF, 0},
+          {"Alpha", "rad", "angle between the base and a side face", 0., M_PI_2, 0}}},
+        P),
       m_length(m_P[0]), m_height(m_P[1]), m_height_ratio(m_P[2]), m_alpha(m_P[3])
 {
     onChange();

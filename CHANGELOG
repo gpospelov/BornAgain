@@ -1,3 +1,5 @@
+BornAgain-1.18.99, ongoing development
+
 BornAgain-1.18.0, released 2020.10.30
   > API changes:
     1) Shorter names for FootprintSquare, FootprintGauss
@@ -24,6 +26,7 @@ BornAgain-1.18.0, released 2020.10.30
     5) New, and more stable, implementation of polarized Fresnel computation
     6) Scalar Fresnel computation unified with polarized implementation
     7) Directory Core broken into a hierarchy: Core, Device, Sample, Param, Base
+    8) Request C++17
   > Issues from external (GitHub) tracker:
     * #918:  Specular peak location wrong when using flat detector
     * #946:  CTest points to broken visualization scripts

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Scan/QSpecScan.cpp
+//! @file      Core/Scan/QSpecScan.cpp
 //! @brief     Implements QSpecScan class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Device/Scan/QSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"
@@ -21,23 +21,21 @@
 #include "Sample/Slice/SpecularSimulationElement.h"
 
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
-    : ISpecularScan(SPECULAR_DATA_TYPE::q),
-      m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),
+    : m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),
       m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 QSpecScan::QSpecScan(const IAxis& qs_nm)
-    : ISpecularScan(SPECULAR_DATA_TYPE::q), m_qs(qs_nm.clone()),
+    : m_qs(qs_nm.clone()),
       m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
-    : ISpecularScan(SPECULAR_DATA_TYPE::q),
-      m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max)),
+    : m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max)),
       m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
@@ -55,16 +53,12 @@ QSpecScan* QSpecScan::clone() const
 //! Generates simulation elements for specular simulations
 std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() const
 {
-    std::vector<SpecularSimulationElement> result;
     const std::vector<double> qz = generateQzVector();
 
+    std::vector<SpecularSimulationElement> result;
     result.reserve(qz.size());
-    for (size_t i = 0, size = qz.size(); i < size; ++i) {
-        result.emplace_back(-qz[i] / 2.0);
-        if (qz[i] < 0)
-            result.back().setCalculationFlag(false); // false = exclude from calculations
-    }
-
+    for (size_t i = 0, size = qz.size(); i < size; ++i)
+        result.emplace_back(SpecularSimulationElement(-qz[i] / 2.0, qz[i] >= 0));
     return result;
 }
 

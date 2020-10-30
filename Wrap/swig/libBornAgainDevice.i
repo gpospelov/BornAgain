@@ -67,8 +67,6 @@
 #include "Device/Resolution/IResolutionFunction2D.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
 #include "Device/Resolution/ScanResolution.h"
-#include "Device/Scan/AngularSpecScan.h"
-#include "Device/Scan/QSpecScan.h"
 %}
 
 %import(module="libBornAgainFit") "Fit/Tools/AttLimits.h"
@@ -120,10 +118,6 @@
 %include "Device/Instrument/PyArrayImportUtils.h"
 %include "Device/Instrument/SpectrumUtils.h"
 %include "Device/Instrument/VarianceFunctions.h"
-
-%include "Device/Scan/ISpecularScan.h"
-%include "Device/Scan/AngularSpecScan.h"
-%include "Device/Scan/QSpecScan.h"
 
 %include "Device/Unit/IUnitConverter.h"
 

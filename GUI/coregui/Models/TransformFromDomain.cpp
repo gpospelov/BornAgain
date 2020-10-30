@@ -33,7 +33,7 @@
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
 #include "Device/Resolution/ScanResolution.h"
-#include "Device/Scan/AngularSpecScan.h"
+#include "Core/Scan/AngularSpecScan.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"

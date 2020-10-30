@@ -3401,6 +3401,186 @@ class PyObserverCallback(object):
 # Register PyObserverCallback in _libBornAgainCore:
 _libBornAgainCore.PyObserverCallback_swigregister(PyObserverCallback)
 
+class AngularSpecScan(object):
+    r"""
+
+
+    Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
+
+    C++ includes: AngularSpecScan.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
+        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+
+        """
+        _libBornAgainCore.AngularSpecScan_swiginit(self, _libBornAgainCore.new_AngularSpecScan(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
+
+    def clone(self):
+        r"""
+        clone(AngularSpecScan self) -> AngularSpecScan
+        AngularSpecScan * AngularSpecScan::clone() const override
+
+        """
+        return _libBornAgainCore.AngularSpecScan_clone(self)
+
+    def setFootprintFactor(self, f_factor):
+        r"""
+        setFootprintFactor(AngularSpecScan self, IFootprintFactor const * f_factor)
+        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+        Sets footprint correction factor. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
+
+    def setWavelengthResolution(self, resolution):
+        r"""
+        setWavelengthResolution(AngularSpecScan self, ScanResolution const & resolution)
+        void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
+
+        Sets wavelength resolution values via ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setWavelengthResolution(self, resolution)
+
+    def setRelativeWavelengthResolution(self, *args):
+        r"""
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets wavelength resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
+
+    def setAbsoluteWavelengthResolution(self, *args):
+        r"""
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets wavelength resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
+
+    def setAngleResolution(self, resolution):
+        r"""
+        setAngleResolution(AngularSpecScan self, ScanResolution const & resolution)
+        void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+        Sets angle resolution values via ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAngleResolution(self, resolution)
+
+    def setRelativeAngularResolution(self, *args):
+        r"""
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets angular resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeAngularResolution(self, *args)
+
+    def setAbsoluteAngularResolution(self, *args):
+        r"""
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets angular resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
+
+# Register AngularSpecScan in _libBornAgainCore:
+_libBornAgainCore.AngularSpecScan_swigregister(AngularSpecScan)
+
+class QSpecScan(object):
+    r"""
+
+
+    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+    C++ includes: QSpecScan.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
+        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
+        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
+        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+
+        """
+        _libBornAgainCore.QSpecScan_swiginit(self, _libBornAgainCore.new_QSpecScan(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
+
+    def clone(self):
+        r"""
+        clone(QSpecScan self) -> QSpecScan
+        QSpecScan * QSpecScan::clone() const override
+
+        """
+        return _libBornAgainCore.QSpecScan_clone(self)
+
+    def setQResolution(self, resolution):
+        r"""
+        setQResolution(QSpecScan self, ScanResolution const & resolution)
+        void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+        Sets q resolution values via ScanResolution object. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setQResolution(self, resolution)
+
+    def setRelativeQResolution(self, *args):
+        r"""
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets qz resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setRelativeQResolution(self, *args)
+
+    def setAbsoluteQResolution(self, *args):
+        r"""
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets qz resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
+
+# Register QSpecScan in _libBornAgainCore:
+_libBornAgainCore.QSpecScan_swigregister(QSpecScan)
+
 class Simulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 

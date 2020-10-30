@@ -34,11 +34,11 @@ const PolyhedralTopology FormFactorTruncatedCube::topology = {
 
 FormFactorTruncatedCube::FormFactorTruncatedCube(const std::vector<double> P)
     : IFormFactorPolyhedron(
-          {"TruncatedCube",
-           "class_tooltip",
-           {{"Length", "nm", "untruncated edge length", 0, +INF, 0},
-            {"RemovedLength", "nm", "edge length removed from one corner", 0, +INF, 0}}},
-          P),
+        {"TruncatedCube",
+         "class_tooltip",
+         {{"Length", "nm", "untruncated edge length", 0, +INF, 0},
+          {"RemovedLength", "nm", "edge length removed from one corner", 0, +INF, 0}}},
+        P),
       m_length(m_P[0]), m_removed_length(m_P[1])
 {
     onChange();

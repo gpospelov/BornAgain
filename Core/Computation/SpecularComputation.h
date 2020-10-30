@@ -16,9 +16,9 @@
 #define BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATION_H
 
 #include "Core/Computation/IComputation.h"
-#include "Core/Computation/SpecularComputationTerm.h"
 
 class MultiLayer;
+class SpecularComputationTerm;
 class SpecularSimulationElement;
 
 //! Performs a single-threaded specular computation with given sample.

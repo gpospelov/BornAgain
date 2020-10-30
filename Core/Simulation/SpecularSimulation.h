@@ -61,17 +61,14 @@ public:
 
 #ifndef SWIG
     //! Returns internal data handler
-    const ISpecularScan* dataHandler() const { return m_data_handler.get(); }
+    const ISpecularScan* dataHandler() const { return m_scan.get(); }
 #endif // SWIG
 
 private:
-    SpecularSimulation(const SpecularSimulation& other);
+    SpecularSimulation(const SpecularSimulation& other); // used by clone()
 
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
-
-    //! Generate simulation elements for given beam
-    std::vector<SpecularSimulationElement> generateSimulationElements(const Beam& beam);
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
@@ -104,7 +101,7 @@ private:
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 
-    std::unique_ptr<ISpecularScan> m_data_handler;
+    std::unique_ptr<ISpecularScan> m_scan;
     std::vector<SpecularSimulationElement> m_sim_elements;
     std::vector<double> m_cache;
 };

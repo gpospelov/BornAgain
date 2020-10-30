@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Unit/UnitConverter1D.h
+//! @file      Core/Scan/UnitConverter1D.h
 //! @brief     Defines UnitConverter1D class and derived classes.
 //!
 //! @homepage  http://www.bornagainproject.org

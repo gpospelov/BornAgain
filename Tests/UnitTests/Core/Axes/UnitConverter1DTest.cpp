@@ -1,11 +1,11 @@
-#include "Device/Unit/UnitConverter1D.h"
+#include "Core/Scan/UnitConverter1D.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Data/OutputData.h"
-#include "Device/Scan/QSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test

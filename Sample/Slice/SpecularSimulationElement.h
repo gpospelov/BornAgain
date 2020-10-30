@@ -29,8 +29,8 @@ class Slice;
 class SpecularSimulationElement
 {
 public:
-    SpecularSimulationElement(double kz);
-    SpecularSimulationElement(double wavelength, double alpha);
+    SpecularSimulationElement(double kz, bool computable);
+    SpecularSimulationElement(double wavelength, double alpha, bool computable);
 
     SpecularSimulationElement(const SpecularSimulationElement& other);
     SpecularSimulationElement(SpecularSimulationElement&& other) noexcept;
@@ -48,9 +48,8 @@ public:
     double getIntensity() const { return m_intensity; }
     void setIntensity(double intensity) { m_intensity = intensity; }
 
-    //! Set calculation flag (if it's false, zero intensity is assigned to the element)
-    void setCalculationFlag(bool calculation_flag) { m_calculation_flag = calculation_flag; }
-    bool isCalculated() const { return m_calculation_flag; }
+    //! Returns calculation flag (if it's false, zero intensity is assigned to the element)
+    bool isCalculated() const { return m_computable; }
 
     //! Returns kz values for Abeles computation of reflection/transition coefficients
     std::vector<complex_t> produceKz(const std::vector<Slice>& slices);
@@ -60,7 +59,7 @@ private:
 
     PolarizationHandler m_polarization;
     double m_intensity; //!< simulated intensity for detector cell
-    bool m_calculation_flag;
+    const bool m_computable;
     std::function<std::vector<complex_t>(const std::vector<Slice>&)> m_kz_computation;
 };
 

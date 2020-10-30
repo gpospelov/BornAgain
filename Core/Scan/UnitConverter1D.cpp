@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Unit/UnitConverter1D.cpp
+//! @file      Core/Scan/UnitConverter1D.cpp
 //! @brief     Implements UnitConverter1D class and derived classes.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "Device/Unit/UnitConverter1D.h"
+#include "Core/Scan/UnitConverter1D.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Data/OutputData.h"
-#include "Device/Scan/AngularSpecScan.h"
-#include "Device/Scan/QSpecScan.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Device/Unit/AxisNames.h"
 
 namespace
@@ -32,16 +32,15 @@ std::unique_ptr<PointwiseAxis>
 createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator, std::string name);
 } // namespace
 
-std::unique_ptr<UnitConverter1D> UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
+std::unique_ptr<UnitConverter1D> UnitConverter1D::createUnitConverter(const ISpecularScan& scan)
 {
-    if (handler.dataType() == ISpecularScan::angle)
-        return std::make_unique<UnitConverterConvSpec>(
-            static_cast<const AngularSpecScan&>(handler));
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
+        return std::make_unique<UnitConverterConvSpec>(*aScan);
 
-    if (handler.dataType() == ISpecularScan::q)
-        return std::make_unique<UnitConverterQSpec>(static_cast<const QSpecScan&>(handler));
+    if (const auto* qScan = dynamic_cast<const QSpecScan*>(&scan))
+        return std::make_unique<UnitConverterQSpec>(*qScan);
 
-    throw std::runtime_error("No known unit conversions for passed type of specular data handler.");
+    throw std::runtime_error("Bug in UnitConverter1D::createUnitConverter: invalid case");
 }
 
 size_t UnitConverter1D::dimension() const

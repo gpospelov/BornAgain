@@ -48,12 +48,12 @@ const PolyhedralTopology FormFactorCantellatedCube::topology = {
 
 FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector<double> P)
     : IFormFactorPolyhedron(
-          {"CantellatedCube",
-           "a cube with truncated edges and vertices",
-           {{"Length", "nm", "length of untruncated edge", 0, +INF, 0},
-            {"RemovedLength", "nm",
-             "side length of the trirectangular tetrahedron removed one corner", 0, +INF, 0}}},
-          P),
+        {"CantellatedCube",
+         "a cube with truncated edges and vertices",
+         {{"Length", "nm", "length of untruncated edge", 0, +INF, 0},
+          {"RemovedLength", "nm",
+           "side length of the trirectangular tetrahedron removed one corner", 0, +INF, 0}}},
+        P),
       m_length(m_P[0]), m_removed_length(m_P[1])
 {
     onChange();

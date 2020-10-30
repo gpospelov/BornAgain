@@ -19,7 +19,6 @@
 %ignore FormFactorDWBAPol;
 %ignore ISampleVisitor::visit(const FormFactorDWBA*);
 %ignore ISampleVisitor::visit(const FormFactorDWBAPol*);
-%ignore ISpecularScan;
 %ignore Lattice2D::ReciprocalBases;
 %ignore Lattice2D::reciprocalBases();
 %ignore RoughMultiLayerComputation;

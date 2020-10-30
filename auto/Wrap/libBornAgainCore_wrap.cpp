@@ -3097,114 +3097,118 @@ namespace Swig {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_AxisInfo swig_types[0]
-#define SWIGTYPE_p_BasicVector3DT_double_t swig_types[1]
-#define SWIGTYPE_p_BasicVector3DT_int_t swig_types[2]
-#define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[3]
-#define SWIGTYPE_p_CallbackMap_t swig_types[4]
-#define SWIGTYPE_p_ConstantBackground swig_types[5]
-#define SWIGTYPE_p_CreateItemCallback swig_types[6]
-#define SWIGTYPE_p_DepthProbeSimulation swig_types[7]
-#define SWIGTYPE_p_DistributionHandler swig_types[8]
-#define SWIGTYPE_p_FitObjective swig_types[9]
-#define SWIGTYPE_p_FitOptions swig_types[10]
-#define SWIGTYPE_p_Fit__MinimizerResult swig_types[11]
-#define SWIGTYPE_p_Fit__Parameters swig_types[12]
-#define SWIGTYPE_p_GISASSimulation swig_types[13]
-#define SWIGTYPE_p_IAxis swig_types[14]
-#define SWIGTYPE_p_IBackground swig_types[15]
-#define SWIGTYPE_p_IChiSquaredModule swig_types[16]
-#define SWIGTYPE_p_ICloneable swig_types[17]
-#define SWIGTYPE_p_IDetector2D swig_types[18]
-#define SWIGTYPE_p_IDistribution1D swig_types[19]
-#define SWIGTYPE_p_IFactoryT_std__string_Simulation_t swig_types[20]
-#define SWIGTYPE_p_IFootprintFactor swig_types[21]
-#define SWIGTYPE_p_IFormFactor swig_types[22]
-#define SWIGTYPE_p_IFormFactorBorn swig_types[23]
-#define SWIGTYPE_p_INode swig_types[24]
-#define SWIGTYPE_p_INodeVisitor swig_types[25]
-#define SWIGTYPE_p_IObservable swig_types[26]
-#define SWIGTYPE_p_IObserver swig_types[27]
-#define SWIGTYPE_p_IParameterized swig_types[28]
-#define SWIGTYPE_p_IResolutionFunction2D swig_types[29]
-#define SWIGTYPE_p_ISample swig_types[30]
-#define SWIGTYPE_p_IShape2D swig_types[31]
-#define SWIGTYPE_p_ISpecularScan swig_types[32]
-#define SWIGTYPE_p_Instrument swig_types[33]
-#define SWIGTYPE_p_IterationInfo swig_types[34]
-#define SWIGTYPE_p_MultiLayer swig_types[35]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[36]
-#define SWIGTYPE_p_OutputDataT_double_t swig_types[37]
-#define SWIGTYPE_p_ParameterDistribution swig_types[38]
-#define SWIGTYPE_p_ParameterPool swig_types[39]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[40]
-#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[41]
-#define SWIGTYPE_p_PyBuilderCallback swig_types[42]
-#define SWIGTYPE_p_PyObserverCallback swig_types[43]
-#define SWIGTYPE_p_RealLimits swig_types[44]
-#define SWIGTYPE_p_Simulation swig_types[45]
-#define SWIGTYPE_p_Simulation2D swig_types[46]
-#define SWIGTYPE_p_SimulationFactory swig_types[47]
-#define SWIGTYPE_p_SimulationOptions swig_types[48]
-#define SWIGTYPE_p_SimulationResult swig_types[49]
-#define SWIGTYPE_p_SpecularSimulation swig_types[50]
-#define SWIGTYPE_p_allocator_type swig_types[51]
-#define SWIGTYPE_p_char swig_types[52]
-#define SWIGTYPE_p_difference_type swig_types[53]
-#define SWIGTYPE_p_first_type swig_types[54]
-#define SWIGTYPE_p_int swig_types[55]
-#define SWIGTYPE_p_key_type swig_types[56]
-#define SWIGTYPE_p_long_long swig_types[57]
-#define SWIGTYPE_p_mapped_type swig_types[58]
-#define SWIGTYPE_p_observer_t swig_types[59]
-#define SWIGTYPE_p_p_PyObject swig_types[60]
-#define SWIGTYPE_p_second_type swig_types[61]
-#define SWIGTYPE_p_short swig_types[62]
-#define SWIGTYPE_p_signed_char swig_types[63]
-#define SWIGTYPE_p_size_type swig_types[64]
-#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[65]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[66]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[67]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[68]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[69]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[70]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[71]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[72]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[73]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[74]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[75]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[76]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[77]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[78]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[79]
-#define SWIGTYPE_p_std__functionT_Simulation_pfF_t swig_types[80]
-#define SWIGTYPE_p_std__invalid_argument swig_types[81]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[82]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[83]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[84]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[85]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[86]
-#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[87]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[88]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[89]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[90]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[91]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[92]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[93]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[94]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[95]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[96]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[97]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[98]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[99]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[100]
-#define SWIGTYPE_p_unsigned_char swig_types[101]
-#define SWIGTYPE_p_unsigned_int swig_types[102]
-#define SWIGTYPE_p_unsigned_long_long swig_types[103]
-#define SWIGTYPE_p_unsigned_short swig_types[104]
-#define SWIGTYPE_p_value_type swig_types[105]
-static swig_type_info *swig_types[107];
-static swig_module_info swig_module = {swig_types, 106, 0, 0, 0, 0};
+#define SWIGTYPE_p_AngularSpecScan swig_types[0]
+#define SWIGTYPE_p_AxisInfo swig_types[1]
+#define SWIGTYPE_p_BasicVector3DT_double_t swig_types[2]
+#define SWIGTYPE_p_BasicVector3DT_int_t swig_types[3]
+#define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[4]
+#define SWIGTYPE_p_CallbackMap_t swig_types[5]
+#define SWIGTYPE_p_ConstantBackground swig_types[6]
+#define SWIGTYPE_p_CreateItemCallback swig_types[7]
+#define SWIGTYPE_p_DepthProbeSimulation swig_types[8]
+#define SWIGTYPE_p_DistributionHandler swig_types[9]
+#define SWIGTYPE_p_FitObjective swig_types[10]
+#define SWIGTYPE_p_FitOptions swig_types[11]
+#define SWIGTYPE_p_Fit__MinimizerResult swig_types[12]
+#define SWIGTYPE_p_Fit__Parameters swig_types[13]
+#define SWIGTYPE_p_GISASSimulation swig_types[14]
+#define SWIGTYPE_p_IAxis swig_types[15]
+#define SWIGTYPE_p_IBackground swig_types[16]
+#define SWIGTYPE_p_IChiSquaredModule swig_types[17]
+#define SWIGTYPE_p_ICloneable swig_types[18]
+#define SWIGTYPE_p_IDetector2D swig_types[19]
+#define SWIGTYPE_p_IDistribution1D swig_types[20]
+#define SWIGTYPE_p_IFactoryT_std__string_Simulation_t swig_types[21]
+#define SWIGTYPE_p_IFootprintFactor swig_types[22]
+#define SWIGTYPE_p_IFormFactor swig_types[23]
+#define SWIGTYPE_p_IFormFactorBorn swig_types[24]
+#define SWIGTYPE_p_INode swig_types[25]
+#define SWIGTYPE_p_INodeVisitor swig_types[26]
+#define SWIGTYPE_p_IObservable swig_types[27]
+#define SWIGTYPE_p_IObserver swig_types[28]
+#define SWIGTYPE_p_IParameterized swig_types[29]
+#define SWIGTYPE_p_IResolutionFunction2D swig_types[30]
+#define SWIGTYPE_p_ISample swig_types[31]
+#define SWIGTYPE_p_IShape2D swig_types[32]
+#define SWIGTYPE_p_ISpecularScan swig_types[33]
+#define SWIGTYPE_p_Instrument swig_types[34]
+#define SWIGTYPE_p_IterationInfo swig_types[35]
+#define SWIGTYPE_p_MultiLayer swig_types[36]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[37]
+#define SWIGTYPE_p_OutputDataT_double_t swig_types[38]
+#define SWIGTYPE_p_ParameterDistribution swig_types[39]
+#define SWIGTYPE_p_ParameterPool swig_types[40]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[41]
+#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[42]
+#define SWIGTYPE_p_PyBuilderCallback swig_types[43]
+#define SWIGTYPE_p_PyObserverCallback swig_types[44]
+#define SWIGTYPE_p_QSpecScan swig_types[45]
+#define SWIGTYPE_p_RangedDistribution swig_types[46]
+#define SWIGTYPE_p_RealLimits swig_types[47]
+#define SWIGTYPE_p_ScanResolution swig_types[48]
+#define SWIGTYPE_p_Simulation swig_types[49]
+#define SWIGTYPE_p_Simulation2D swig_types[50]
+#define SWIGTYPE_p_SimulationFactory swig_types[51]
+#define SWIGTYPE_p_SimulationOptions swig_types[52]
+#define SWIGTYPE_p_SimulationResult swig_types[53]
+#define SWIGTYPE_p_SpecularSimulation swig_types[54]
+#define SWIGTYPE_p_allocator_type swig_types[55]
+#define SWIGTYPE_p_char swig_types[56]
+#define SWIGTYPE_p_difference_type swig_types[57]
+#define SWIGTYPE_p_first_type swig_types[58]
+#define SWIGTYPE_p_int swig_types[59]
+#define SWIGTYPE_p_key_type swig_types[60]
+#define SWIGTYPE_p_long_long swig_types[61]
+#define SWIGTYPE_p_mapped_type swig_types[62]
+#define SWIGTYPE_p_observer_t swig_types[63]
+#define SWIGTYPE_p_p_PyObject swig_types[64]
+#define SWIGTYPE_p_second_type swig_types[65]
+#define SWIGTYPE_p_short swig_types[66]
+#define SWIGTYPE_p_signed_char swig_types[67]
+#define SWIGTYPE_p_size_type swig_types[68]
+#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[69]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[70]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[71]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[72]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[73]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[74]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[75]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[76]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[77]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[78]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[79]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[80]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[81]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[82]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[83]
+#define SWIGTYPE_p_std__functionT_Simulation_pfF_t swig_types[84]
+#define SWIGTYPE_p_std__invalid_argument swig_types[85]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[86]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[87]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[88]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[89]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[90]
+#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[91]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[92]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[93]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[94]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[95]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[96]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[97]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[98]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[99]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[100]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[101]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[102]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[103]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[104]
+#define SWIGTYPE_p_unsigned_char swig_types[105]
+#define SWIGTYPE_p_unsigned_int swig_types[106]
+#define SWIGTYPE_p_unsigned_long_long swig_types[107]
+#define SWIGTYPE_p_unsigned_short swig_types[108]
+#define SWIGTYPE_p_value_type swig_types[109]
+static swig_type_info *swig_types[111];
+static swig_module_info swig_module = {swig_types, 110, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6698,6 +6702,8 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
 
 #include "BAVersion.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/MultiLayerFuncs.h"
@@ -37789,6 +37795,1401 @@ SWIGINTERN PyObject *PyObserverCallback_swiginit(PyObject *SWIGUNUSEDPARM(self),
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_new_AngularSpecScan__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  std::vector< double,std::allocator< double > > arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  AngularSpecScan *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_AngularSpecScan" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_AngularSpecScan" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > >""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (AngularSpecScan *)new AngularSpecScan(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AngularSpecScan, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_AngularSpecScan__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  IAxis *arg2 = 0 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  AngularSpecScan *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_AngularSpecScan" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_AngularSpecScan" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_AngularSpecScan" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  arg2 = reinterpret_cast< IAxis * >(argp2);
+  result = (AngularSpecScan *)new AngularSpecScan(arg1,(IAxis const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AngularSpecScan, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_AngularSpecScan__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  AngularSpecScan *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_AngularSpecScan" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_AngularSpecScan" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_AngularSpecScan" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_AngularSpecScan" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (AngularSpecScan *)new AngularSpecScan(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AngularSpecScan, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_AngularSpecScan(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_AngularSpecScan", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_AngularSpecScan__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      int res = swig::asptr(argv[1], (std::vector< double,std::allocator< double > >**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_AngularSpecScan__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_int(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_AngularSpecScan__SWIG_2(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_AngularSpecScan'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    AngularSpecScan::AngularSpecScan(double,std::vector< double,std::allocator< double > >)\n"
+    "    AngularSpecScan::AngularSpecScan(double,IAxis const &)\n"
+    "    AngularSpecScan::AngularSpecScan(double,int,double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_AngularSpecScan(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_AngularSpecScan" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  AngularSpecScan *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_clone" "', argument " "1"" of type '" "AngularSpecScan const *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  result = (AngularSpecScan *)((AngularSpecScan const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setFootprintFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  IFootprintFactor *arg2 = (IFootprintFactor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "AngularSpecScan_setFootprintFactor", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setFootprintFactor" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IFootprintFactor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setFootprintFactor" "', argument " "2"" of type '" "IFootprintFactor const *""'"); 
+  }
+  arg2 = reinterpret_cast< IFootprintFactor * >(argp2);
+  (arg1)->setFootprintFactor((IFootprintFactor const *)arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setWavelengthResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  ScanResolution *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "AngularSpecScan_setWavelengthResolution", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setWavelengthResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ScanResolution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setWavelengthResolution" "', argument " "2"" of type '" "ScanResolution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setWavelengthResolution" "', argument " "2"" of type '" "ScanResolution const &""'"); 
+  }
+  arg2 = reinterpret_cast< ScanResolution * >(argp2);
+  (arg1)->setWavelengthResolution((ScanResolution const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setRelativeWavelengthResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  (arg1)->setRelativeWavelengthResolution((RangedDistribution const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setRelativeWavelengthResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  std::vector< double,std::allocator< double > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res3 = swig::asptr(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setRelativeWavelengthResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  (arg1)->setRelativeWavelengthResolution((RangedDistribution const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setRelativeWavelengthResolution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "AngularSpecScan_setRelativeWavelengthResolution", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_AngularSpecScan_setRelativeWavelengthResolution__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = swig::asptr(argv[2], (std::vector< double,std::allocator< double > >**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_AngularSpecScan_setRelativeWavelengthResolution__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'AngularSpecScan_setRelativeWavelengthResolution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    AngularSpecScan::setRelativeWavelengthResolution(RangedDistribution const &,double)\n"
+    "    AngularSpecScan::setRelativeWavelengthResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setAbsoluteWavelengthResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  (arg1)->setAbsoluteWavelengthResolution((RangedDistribution const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setAbsoluteWavelengthResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  std::vector< double,std::allocator< double > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res3 = swig::asptr(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setAbsoluteWavelengthResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  (arg1)->setAbsoluteWavelengthResolution((RangedDistribution const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setAbsoluteWavelengthResolution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "AngularSpecScan_setAbsoluteWavelengthResolution", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_AngularSpecScan_setAbsoluteWavelengthResolution__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = swig::asptr(argv[2], (std::vector< double,std::allocator< double > >**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_AngularSpecScan_setAbsoluteWavelengthResolution__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'AngularSpecScan_setAbsoluteWavelengthResolution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    AngularSpecScan::setAbsoluteWavelengthResolution(RangedDistribution const &,double)\n"
+    "    AngularSpecScan::setAbsoluteWavelengthResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setAngleResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  ScanResolution *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "AngularSpecScan_setAngleResolution", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setAngleResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ScanResolution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setAngleResolution" "', argument " "2"" of type '" "ScanResolution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setAngleResolution" "', argument " "2"" of type '" "ScanResolution const &""'"); 
+  }
+  arg2 = reinterpret_cast< ScanResolution * >(argp2);
+  (arg1)->setAngleResolution((ScanResolution const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setRelativeAngularResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  (arg1)->setRelativeAngularResolution((RangedDistribution const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setRelativeAngularResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  std::vector< double,std::allocator< double > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res3 = swig::asptr(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setRelativeAngularResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  (arg1)->setRelativeAngularResolution((RangedDistribution const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setRelativeAngularResolution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "AngularSpecScan_setRelativeAngularResolution", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_AngularSpecScan_setRelativeAngularResolution__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = swig::asptr(argv[2], (std::vector< double,std::allocator< double > >**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_AngularSpecScan_setRelativeAngularResolution__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'AngularSpecScan_setRelativeAngularResolution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    AngularSpecScan::setRelativeAngularResolution(RangedDistribution const &,double)\n"
+    "    AngularSpecScan::setRelativeAngularResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setAbsoluteAngularResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  (arg1)->setAbsoluteAngularResolution((RangedDistribution const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setAbsoluteAngularResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  AngularSpecScan *arg1 = (AngularSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  std::vector< double,std::allocator< double > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_AngularSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "1"" of type '" "AngularSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< AngularSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res3 = swig::asptr(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AngularSpecScan_setAbsoluteAngularResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  (arg1)->setAbsoluteAngularResolution((RangedDistribution const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AngularSpecScan_setAbsoluteAngularResolution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "AngularSpecScan_setAbsoluteAngularResolution", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_AngularSpecScan_setAbsoluteAngularResolution__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_AngularSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = swig::asptr(argv[2], (std::vector< double,std::allocator< double > >**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_AngularSpecScan_setAbsoluteAngularResolution__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'AngularSpecScan_setAbsoluteAngularResolution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    AngularSpecScan::setAbsoluteAngularResolution(RangedDistribution const &,double)\n"
+    "    AngularSpecScan::setAbsoluteAngularResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *AngularSpecScan_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_AngularSpecScan, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *AngularSpecScan_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_QSpecScan__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > arg1 ;
+  QSpecScan *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "new_QSpecScan" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > >""'"); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (QSpecScan *)new QSpecScan(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_QSpecScan, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_QSpecScan__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IAxis *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  QSpecScan *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IAxis,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_QSpecScan" "', argument " "1"" of type '" "IAxis const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_QSpecScan" "', argument " "1"" of type '" "IAxis const &""'"); 
+  }
+  arg1 = reinterpret_cast< IAxis * >(argp1);
+  result = (QSpecScan *)new QSpecScan((IAxis const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_QSpecScan, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_QSpecScan__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  QSpecScan *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_QSpecScan" "', argument " "1"" of type '" "int""'");
+  } 
+  arg1 = static_cast< int >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_QSpecScan" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_QSpecScan" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (QSpecScan *)new QSpecScan(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_QSpecScan, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_QSpecScan(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_QSpecScan", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_QSpecScan__SWIG_1(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_QSpecScan__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_int(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_QSpecScan__SWIG_2(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_QSpecScan'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    QSpecScan::QSpecScan(std::vector< double,std::allocator< double > >)\n"
+    "    QSpecScan::QSpecScan(IAxis const &)\n"
+    "    QSpecScan::QSpecScan(int,double,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_QSpecScan(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_QSpecScan" "', argument " "1"" of type '" "QSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  QSpecScan *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_clone" "', argument " "1"" of type '" "QSpecScan const *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  result = (QSpecScan *)((QSpecScan const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_QSpecScan, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_setQResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  ScanResolution *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "QSpecScan_setQResolution", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_setQResolution" "', argument " "1"" of type '" "QSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ScanResolution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "QSpecScan_setQResolution" "', argument " "2"" of type '" "ScanResolution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "QSpecScan_setQResolution" "', argument " "2"" of type '" "ScanResolution const &""'"); 
+  }
+  arg2 = reinterpret_cast< ScanResolution * >(argp2);
+  (arg1)->setQResolution((ScanResolution const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_setRelativeQResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_setRelativeQResolution" "', argument " "1"" of type '" "QSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "QSpecScan_setRelativeQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "QSpecScan_setRelativeQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "QSpecScan_setRelativeQResolution" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  (arg1)->setRelativeQResolution((RangedDistribution const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_setRelativeQResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  std::vector< double,std::allocator< double > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_setRelativeQResolution" "', argument " "1"" of type '" "QSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "QSpecScan_setRelativeQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "QSpecScan_setRelativeQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res3 = swig::asptr(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "QSpecScan_setRelativeQResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "QSpecScan_setRelativeQResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  (arg1)->setRelativeQResolution((RangedDistribution const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_setRelativeQResolution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "QSpecScan_setRelativeQResolution", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_QSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_QSpecScan_setRelativeQResolution__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_QSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = swig::asptr(argv[2], (std::vector< double,std::allocator< double > >**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_QSpecScan_setRelativeQResolution__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'QSpecScan_setRelativeQResolution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    QSpecScan::setRelativeQResolution(RangedDistribution const &,double)\n"
+    "    QSpecScan::setRelativeQResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_setAbsoluteQResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "1"" of type '" "QSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  (arg1)->setAbsoluteQResolution((RangedDistribution const &)*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_setAbsoluteQResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  RangedDistribution *arg2 = 0 ;
+  std::vector< double,std::allocator< double > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "1"" of type '" "QSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "2"" of type '" "RangedDistribution const &""'"); 
+  }
+  arg2 = reinterpret_cast< RangedDistribution * >(argp2);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res3 = swig::asptr(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "QSpecScan_setAbsoluteQResolution" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  (arg1)->setAbsoluteQResolution((RangedDistribution const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_setAbsoluteQResolution(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "QSpecScan_setAbsoluteQResolution", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_QSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_QSpecScan_setAbsoluteQResolution__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_QSpecScan, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = swig::asptr(argv[2], (std::vector< double,std::allocator< double > >**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_QSpecScan_setAbsoluteQResolution__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'QSpecScan_setAbsoluteQResolution'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    QSpecScan::setAbsoluteQResolution(RangedDistribution const &,double)\n"
+    "    QSpecScan::setAbsoluteQResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *QSpecScan_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_QSpecScan, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *QSpecScan_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
 SWIGINTERN PyObject *_wrap_delete_Simulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Simulation *arg1 = (Simulation *) 0 ;
@@ -42442,6 +43843,124 @@ static PyMethodDef SwigMethods[] = {
 	 { "disown_PyObserverCallback", _wrap_disown_PyObserverCallback, METH_O, NULL},
 	 { "PyObserverCallback_swigregister", PyObserverCallback_swigregister, METH_O, NULL},
 	 { "PyObserverCallback_swiginit", PyObserverCallback_swiginit, METH_VARARGS, NULL},
+	 { "new_AngularSpecScan", _wrap_new_AngularSpecScan, METH_VARARGS, "\n"
+		"AngularSpecScan(double wl, vdouble1d_t inc_angle)\n"
+		"AngularSpecScan(double wl, IAxis inc_angle)\n"
+		"new_AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan\n"
+		"AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)\n"
+		"\n"
+		"Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. \n"
+		"\n"
+		""},
+	 { "delete_AngularSpecScan", _wrap_delete_AngularSpecScan, METH_O, "\n"
+		"delete_AngularSpecScan(AngularSpecScan self)\n"
+		"AngularSpecScan::~AngularSpecScan() override\n"
+		"\n"
+		""},
+	 { "AngularSpecScan_clone", _wrap_AngularSpecScan_clone, METH_O, "\n"
+		"AngularSpecScan_clone(AngularSpecScan self) -> AngularSpecScan\n"
+		"AngularSpecScan * AngularSpecScan::clone() const override\n"
+		"\n"
+		""},
+	 { "AngularSpecScan_setFootprintFactor", _wrap_AngularSpecScan_setFootprintFactor, METH_VARARGS, "\n"
+		"AngularSpecScan_setFootprintFactor(AngularSpecScan self, IFootprintFactor const * f_factor)\n"
+		"void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)\n"
+		"\n"
+		"Sets footprint correction factor. \n"
+		"\n"
+		""},
+	 { "AngularSpecScan_setWavelengthResolution", _wrap_AngularSpecScan_setWavelengthResolution, METH_VARARGS, "\n"
+		"AngularSpecScan_setWavelengthResolution(AngularSpecScan self, ScanResolution const & resolution)\n"
+		"void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)\n"
+		"\n"
+		"Sets wavelength resolution values via ScanResolution object. \n"
+		"\n"
+		""},
+	 { "AngularSpecScan_setRelativeWavelengthResolution", _wrap_AngularSpecScan_setRelativeWavelengthResolution, METH_VARARGS, "\n"
+		"AngularSpecScan_setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)\n"
+		"AngularSpecScan_setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)\n"
+		"void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)\n"
+		"\n"
+		"Sets wavelength resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. \n"
+		"\n"
+		""},
+	 { "AngularSpecScan_setAbsoluteWavelengthResolution", _wrap_AngularSpecScan_setAbsoluteWavelengthResolution, METH_VARARGS, "\n"
+		"AngularSpecScan_setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)\n"
+		"AngularSpecScan_setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)\n"
+		"void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)\n"
+		"\n"
+		"Sets wavelength resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. \n"
+		"\n"
+		""},
+	 { "AngularSpecScan_setAngleResolution", _wrap_AngularSpecScan_setAngleResolution, METH_VARARGS, "\n"
+		"AngularSpecScan_setAngleResolution(AngularSpecScan self, ScanResolution const & resolution)\n"
+		"void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)\n"
+		"\n"
+		"Sets angle resolution values via ScanResolution object. \n"
+		"\n"
+		""},
+	 { "AngularSpecScan_setRelativeAngularResolution", _wrap_AngularSpecScan_setRelativeAngularResolution, METH_VARARGS, "\n"
+		"AngularSpecScan_setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)\n"
+		"AngularSpecScan_setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)\n"
+		"void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)\n"
+		"\n"
+		"Sets angular resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. \n"
+		"\n"
+		""},
+	 { "AngularSpecScan_setAbsoluteAngularResolution", _wrap_AngularSpecScan_setAbsoluteAngularResolution, METH_VARARGS, "\n"
+		"AngularSpecScan_setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)\n"
+		"AngularSpecScan_setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)\n"
+		"void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)\n"
+		"\n"
+		"Sets angular resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. \n"
+		"\n"
+		""},
+	 { "AngularSpecScan_swigregister", AngularSpecScan_swigregister, METH_O, NULL},
+	 { "AngularSpecScan_swiginit", AngularSpecScan_swiginit, METH_VARARGS, NULL},
+	 { "new_QSpecScan", _wrap_new_QSpecScan, METH_VARARGS, "\n"
+		"QSpecScan(vdouble1d_t qs_nm)\n"
+		"QSpecScan(IAxis qs_nm)\n"
+		"new_QSpecScan(int nbins, double qz_min, double qz_max) -> QSpecScan\n"
+		"QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)\n"
+		"\n"
+		"Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. \n"
+		"\n"
+		""},
+	 { "delete_QSpecScan", _wrap_delete_QSpecScan, METH_O, "\n"
+		"delete_QSpecScan(QSpecScan self)\n"
+		"QSpecScan::~QSpecScan() override\n"
+		"\n"
+		""},
+	 { "QSpecScan_clone", _wrap_QSpecScan_clone, METH_O, "\n"
+		"QSpecScan_clone(QSpecScan self) -> QSpecScan\n"
+		"QSpecScan * QSpecScan::clone() const override\n"
+		"\n"
+		""},
+	 { "QSpecScan_setQResolution", _wrap_QSpecScan_setQResolution, METH_VARARGS, "\n"
+		"QSpecScan_setQResolution(QSpecScan self, ScanResolution const & resolution)\n"
+		"void QSpecScan::setQResolution(const ScanResolution &resolution)\n"
+		"\n"
+		"Sets q resolution values via ScanResolution object. \n"
+		"\n"
+		""},
+	 { "QSpecScan_setRelativeQResolution", _wrap_QSpecScan_setRelativeQResolution, METH_VARARGS, "\n"
+		"QSpecScan_setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)\n"
+		"QSpecScan_setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)\n"
+		"void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)\n"
+		"\n"
+		"Sets qz resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. \n"
+		"\n"
+		""},
+	 { "QSpecScan_setAbsoluteQResolution", _wrap_QSpecScan_setAbsoluteQResolution, METH_VARARGS, "\n"
+		"QSpecScan_setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)\n"
+		"QSpecScan_setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)\n"
+		"void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)\n"
+		"\n"
+		"Sets qz resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. \n"
+		"\n"
+		""},
+	 { "QSpecScan_swigregister", QSpecScan_swigregister, METH_O, NULL},
+	 { "QSpecScan_swiginit", QSpecScan_swiginit, METH_VARARGS, NULL},
 	 { "delete_Simulation", _wrap_delete_Simulation, METH_O, "\n"
 		"delete_Simulation(Simulation self)\n"
 		"Simulation::~Simulation()\n"
@@ -43064,6 +44583,12 @@ static void *_p_SpecularSimulationTo_p_Simulation(void *x, int *SWIGUNUSEDPARM(n
 static void *_p_OffSpecSimulationTo_p_Simulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Simulation *) (Simulation2D *) ((OffSpecSimulation *) x));
 }
+static void *_p_AngularSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISpecularScan *)  ((AngularSpecScan *) x));
+}
+static void *_p_QSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISpecularScan *)  ((QSpecScan *) x));
+}
 static void *_p_IFormFactorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((IFormFactor *) x));
 }
@@ -43151,26 +44676,20 @@ static void *_p_OffSpecSimulationTo_p_Simulation2D(void *x, int *SWIGUNUSEDPARM(
 static void *_p_IFormFactorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((IFormFactor *) x));
 }
-static void *_p_Simulation2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (Simulation *) ((Simulation2D *) x));
-}
-static void *_p_IFormFactorBornTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
-}
-static void *_p_SimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((Simulation *) x));
-}
-static void *_p_GISASSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (Simulation *)(Simulation2D *) ((GISASSimulation *) x));
-}
-static void *_p_DepthProbeSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (Simulation *) ((DepthProbeSimulation *) x));
+static void *_p_OffSpecSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (Simulation *)(Simulation2D *) ((OffSpecSimulation *) x));
 }
 static void *_p_SpecularSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (Simulation *) ((SpecularSimulation *) x));
 }
-static void *_p_OffSpecSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (Simulation *)(Simulation2D *) ((OffSpecSimulation *) x));
+static void *_p_DepthProbeSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (Simulation *) ((DepthProbeSimulation *) x));
+}
+static void *_p_GISASSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (Simulation *)(Simulation2D *) ((GISASSimulation *) x));
+}
+static void *_p_SimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((Simulation *) x));
 }
 static void *_p_IBackgroundTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *)  ((IBackground *) x));
@@ -43184,9 +44703,25 @@ static void *_p_PoissonNoiseBackgroundTo_p_ICloneable(void *x, int *SWIGUNUSEDPA
 static void *_p_ParameterPoolTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *)  ((ParameterPool *) x));
 }
+static void *_p_ISpecularScanTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((ISpecularScan *) x));
+}
 static void *_p_ISampleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *)  ((ISample *) x));
 }
+static void *_p_QSpecScanTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (ISpecularScan *) ((QSpecScan *) x));
+}
+static void *_p_AngularSpecScanTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (ISpecularScan *) ((AngularSpecScan *) x));
+}
+static void *_p_IFormFactorBornTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
+}
+static void *_p_Simulation2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (Simulation *) ((Simulation2D *) x));
+}
+static swig_type_info _swigt__p_AngularSpecScan = {"_p_AngularSpecScan", "AngularSpecScan *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_AxisInfo = {"_p_AxisInfo", "std::vector< AxisInfo >::value_type *|AxisInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_double_t", "std::vector< BasicVector3D< double > >::value_type *|kvector_t *|BasicVector3D< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
@@ -43231,7 +44766,10 @@ static swig_type_info _swigt__p_PoissonNoiseBackground = {"_p_PoissonNoiseBackgr
 static swig_type_info _swigt__p_ProgressHandler__Callback_t = {"_p_ProgressHandler__Callback_t", "ProgressHandler::Callback_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PyBuilderCallback = {"_p_PyBuilderCallback", "PyBuilderCallback *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PyObserverCallback = {"_p_PyObserverCallback", "PyObserverCallback *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_QSpecScan = {"_p_QSpecScan", "QSpecScan *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_RangedDistribution = {"_p_RangedDistribution", "RangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ScanResolution = {"_p_ScanResolution", "ScanResolution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Simulation = {"_p_Simulation", "Simulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Simulation2D = {"_p_Simulation2D", "Simulation2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SimulationFactory = {"_p_SimulationFactory", "SimulationFactory *", 0, 0, (void*)0, 0};
@@ -43295,6 +44833,7 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "unsigned
 static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
+  &_swigt__p_AngularSpecScan,
   &_swigt__p_AxisInfo,
   &_swigt__p_BasicVector3DT_double_t,
   &_swigt__p_BasicVector3DT_int_t,
@@ -43339,7 +44878,10 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ProgressHandler__Callback_t,
   &_swigt__p_PyBuilderCallback,
   &_swigt__p_PyObserverCallback,
+  &_swigt__p_QSpecScan,
+  &_swigt__p_RangedDistribution,
   &_swigt__p_RealLimits,
+  &_swigt__p_ScanResolution,
   &_swigt__p_Simulation,
   &_swigt__p_Simulation2D,
   &_swigt__p_SimulationFactory,
@@ -43403,6 +44945,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_value_type,
 };
 
+static swig_cast_info _swigc__p_AngularSpecScan[] = {  {&_swigt__p_AngularSpecScan, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_AxisInfo[] = {  {&_swigt__p_AxisInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_double_t[] = {  {&_swigt__p_BasicVector3DT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_int_t[] = {  {&_swigt__p_BasicVector3DT_int_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -43424,7 +44967,7 @@ static swig_cast_info _swigc__p_IFormFactor[] = {{&_swigt__p_IFormFactor, 0, 0, 
 static swig_cast_info _swigc__p_ParameterPool[] = {{&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISample[] = {{&_swigt__p_ISample, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorBorn[] = {{&_swigt__p_IFormFactorBorn, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_Simulation, _p_SimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ICloneable, 0, 0},  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_Simulation, _p_SimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISpecularScan, _p_ISpecularScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_IDetector2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_IDistribution1D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFactoryT_std__string_Simulation_t[] = {  {&_swigt__p_SimulationFactory, _p_SimulationFactoryTo_p_IFactoryT_std__string_Simulation_t, 0, 0},  {&_swigt__p_IFactoryT_std__string_Simulation_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -43436,7 +44979,7 @@ static swig_cast_info _swigc__p_IObserver[] = {  {&_swigt__p_IObserver, 0, 0, 0}
 static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_Simulation, _p_SimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IShape2D[] = {  {&_swigt__p_IShape2D, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ISpecularScan[] = {  {&_swigt__p_ISpecularScan, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISpecularScan[] = {  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ISpecularScan, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ISpecularScan, 0, 0},  {&_swigt__p_ISpecularScan, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Instrument[] = {  {&_swigt__p_Instrument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IterationInfo[] = {  {&_swigt__p_IterationInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MultiLayer[] = {  {&_swigt__p_MultiLayer, 0, 0, 0},{0, 0, 0, 0}};
@@ -43447,7 +44990,10 @@ static swig_cast_info _swigc__p_PoissonNoiseBackground[] = {  {&_swigt__p_Poisso
 static swig_cast_info _swigc__p_ProgressHandler__Callback_t[] = {  {&_swigt__p_ProgressHandler__Callback_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PyBuilderCallback[] = {  {&_swigt__p_PyBuilderCallback, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PyObserverCallback[] = {  {&_swigt__p_PyObserverCallback, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_QSpecScan[] = {  {&_swigt__p_QSpecScan, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_RangedDistribution[] = {  {&_swigt__p_RangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ScanResolution[] = {  {&_swigt__p_ScanResolution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Simulation[] = {  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_Simulation, 0, 0},  {&_swigt__p_Simulation, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_Simulation, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_Simulation, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_Simulation, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_Simulation, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Simulation2D[] = {  {&_swigt__p_Simulation2D, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_Simulation2D, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_Simulation2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SimulationFactory[] = {  {&_swigt__p_SimulationFactory, 0, 0, 0},{0, 0, 0, 0}};
@@ -43511,6 +45057,7 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
+  _swigc__p_AngularSpecScan,
   _swigc__p_AxisInfo,
   _swigc__p_BasicVector3DT_double_t,
   _swigc__p_BasicVector3DT_int_t,
@@ -43555,7 +45102,10 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ProgressHandler__Callback_t,
   _swigc__p_PyBuilderCallback,
   _swigc__p_PyObserverCallback,
+  _swigc__p_QSpecScan,
+  _swigc__p_RangedDistribution,
   _swigc__p_RealLimits,
+  _swigc__p_ScanResolution,
   _swigc__p_Simulation,
   _swigc__p_Simulation2D,
   _swigc__p_SimulationFactory,

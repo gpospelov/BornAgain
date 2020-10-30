@@ -639,7 +639,7 @@ perform the actual integration over the ranges [min_array, max_array]
 // File: classIPixel.xml
 %feature("docstring") IPixel "
 
-Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel. Pure virtual base class for SphericalPixel and RectangularPixel.
 
 C++ includes: IPixel.h
 ";

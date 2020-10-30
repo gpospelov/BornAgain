@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Base/Pixel/SimulationElement.h"
+#include "Base/Pixel/IPixel.h"
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      std::unique_ptr<IPixel> pixel)

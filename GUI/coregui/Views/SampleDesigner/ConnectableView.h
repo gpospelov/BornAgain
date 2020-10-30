@@ -12,12 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef CONNECTABLEVIEW_H
-#define CONNECTABLEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_CONNECTABLEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_CONNECTABLEVIEW_H
 
-#include "IView.h"
-#include "NodeEditorPort.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/SampleDesigner/IView.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorPort.h"
 
 class QPainter;
 class QStyleOptionGraphicsItem;
@@ -25,11 +24,11 @@ class QWidget;
 class NodeEditorPort;
 
 //! view of ISample's with rectangular shape and node functionality
-class BA_CORE_API_ ConnectableView : public IView
+class ConnectableView : public IView
 {
     Q_OBJECT
 public:
-    ConnectableView(QGraphicsItem* parent = 0, QRectF rect = QRectF(0, 0, 50, 50));
+    ConnectableView(QGraphicsItem* parent = 0, QRectF rect = {0, 0, 50, 50});
     virtual ~ConnectableView() {}
     int type() const { return ViewTypes::ISAMPLE_RECT; }
 
@@ -86,4 +85,4 @@ private:
 //    //! сalls the ISampleViewVisitor's visit method
 //};
 
-#endif // CONNECTABLEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_CONNECTABLEVIEW_H

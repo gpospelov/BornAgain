@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBQUEUEDATA_H
-#define JOBQUEUEDATA_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_JOBQUEUEDATA_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_JOBQUEUEDATA_H
 
-#include "WinDllMacros.h"
 #include <QMap>
 #include <QObject>
 
@@ -26,7 +25,7 @@ class JobWorker;
 
 //! The JobQueueData class holds all objects/logic to run simulation in a thread.
 
-class BA_CORE_API_ JobQueueData : public QObject
+class JobQueueData : public QObject
 {
     Q_OBJECT
 public:
@@ -69,4 +68,4 @@ private:
     JobModel* m_jobModel;
 };
 
-#endif // JOBQUEUEDATA_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_JOBQUEUEDATA_H

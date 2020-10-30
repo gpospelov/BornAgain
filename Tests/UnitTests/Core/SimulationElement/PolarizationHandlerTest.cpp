@@ -1,12 +1,10 @@
-#include "PolarizationHandler.h"
-#include "EigenCore.h"
-#include "google_test.h"
+#include "Base/Pixel/PolarizationHandler.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class PolarizationHandlerTest : public ::testing::Test
 {
 protected:
     PolarizationHandlerTest();
-    ~PolarizationHandlerTest();
 
     Eigen::Matrix2cd identity;
     Eigen::Matrix2cd test_matrix;
@@ -19,8 +17,6 @@ PolarizationHandlerTest::PolarizationHandlerTest()
     : identity(Eigen::Matrix2cd::Identity()), test_matrix(testMatrix())
 {
 }
-
-PolarizationHandlerTest::~PolarizationHandlerTest() = default;
 
 Eigen::Matrix2cd PolarizationHandlerTest::testMatrix()
 {

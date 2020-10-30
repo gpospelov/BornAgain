@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITCOMPARISONWIDGET1D_NEW_H
-#define FITCOMPARISONWIDGET1D_NEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITCOMPARISONWIDGET1D_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITCOMPARISONWIDGET1D_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class Data1DViewItem;
 class FitComparison1DViewController;
@@ -29,7 +29,7 @@ class QAction;
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
 
-class BA_CORE_API_ FitComparisonWidget1D : public SessionItemWidget
+class FitComparisonWidget1D : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -59,4 +59,4 @@ private:
     FitComparison1DViewController* m_comparisonController;
 };
 
-#endif // FITCOMPARISONWIDGET1D_NEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITCOMPARISONWIDGET1D_H

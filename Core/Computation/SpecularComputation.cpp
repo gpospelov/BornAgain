@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "SpecularComputation.h"
-#include "MultiLayer.h"
-#include "ProcessedSample.h"
-#include "ProgressHandler.h"
-#include "SpecularSimulationElement.h"
-#include "SpecularStrategyBuilder.h"
+#include "Core/Computation/SpecularComputation.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Core/Computation/ProgressHandler.h"
+#include "Core/Computation/SpecularComputationTerm.h"
+#include "Core/Computation/SpecularStrategyBuilder.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");
@@ -49,5 +49,5 @@ void SpecularComputation::runProtected()
     m_computation_term->setProgressHandler(mp_progress);
     auto& slices = mP_processed_sample->averageSlices();
     for (auto it = m_begin_it; it != m_end_it; ++it)
-        m_computation_term->compute(*it, slices);
+        m_computation_term->computeIntensity(*it, slices);
 }

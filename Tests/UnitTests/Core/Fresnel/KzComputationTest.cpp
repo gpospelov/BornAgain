@@ -1,17 +1,15 @@
-#include "KzComputation.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "PlainMultiLayerBySLDBuilder.h"
-#include "ProcessedSample.h"
-#include "SimulationOptions.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Sample/Slice/KzComputation.h"
+#include "Base/Const/Units.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/RT/SimulationOptions.h"
+#include "Sample/StandardSamples/PlainMultiLayerBySLDBuilder.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class KzComputationTest : public ::testing::Test
 {
-protected:
-    ~KzComputationTest() override = default;
 };
 
 TEST_F(KzComputationTest, initial)

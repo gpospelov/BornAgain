@@ -12,10 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKUNITSCONVERTER_H
-#define MASKUNITSCONVERTER_H
-
-#include "WinDllMacros.h"
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKUNITSCONVERTER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKUNITSCONVERTER_H
 
 class IntensityDataItem;
 class SessionItem;
@@ -30,7 +28,7 @@ class QString;
 //! On second step masks are converted from bin-fraction coordinates into current axes of
 //! OutputData.
 
-class BA_CORE_API_ MaskUnitsConverter
+class MaskUnitsConverter
 {
 public:
     enum EConvertionDirection { TO_NBINS, FROM_NBINS, UNDEFINED };
@@ -52,4 +50,4 @@ private:
     EConvertionDirection m_direction;
 };
 
-#endif // MASKUNITSCONVERTER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKUNITSCONVERTER_H

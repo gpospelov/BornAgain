@@ -1,16 +1,12 @@
-#include "FormFactorItems.h"
-#include "FormFactors.h"
-#include "Numeric.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Base/Const/Units.h"
+#include "Base/Utils/Algorithms.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "Sample/HardParticle/FormFactorAnisoPyramid.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class TestFormFactorItems : public ::testing::Test
 {
-public:
-    ~TestFormFactorItems();
 };
-
-TestFormFactorItems::~TestFormFactorItems() = default;
 
 TEST_F(TestFormFactorItems, test_AnisoPyramidItem)
 {
@@ -26,5 +22,5 @@ TEST_F(TestFormFactorItems, test_AnisoPyramidItem)
     EXPECT_EQ(p_ff->getLength(), 20.0);
     EXPECT_EQ(p_ff->getWidth(), 16.0);
     EXPECT_EQ(p_ff->getHeight(), 13.0);
-    EXPECT_TRUE(Numeric::AreAlmostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
+    EXPECT_TRUE(algo::almostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
 }

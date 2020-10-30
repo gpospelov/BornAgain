@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERSETTINGSWIDGET_H
-#define MINIMIZERSETTINGSWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_MINIMIZERSETTINGSWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_MINIMIZERSETTINGSWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class ComponentEditor;
@@ -25,7 +24,7 @@ class MinimizerContainerItem;
 //! The MinimizerSettingsWidget contains editor for all minnimizer settings and related fit
 //! options. Part of FitSuiteWidget.
 
-class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
+class MinimizerSettingsWidget : public QWidget
 {
     Q_OBJECT
 
@@ -43,4 +42,4 @@ private:
     ComponentEditor* m_componentEditor;
 };
 
-#endif // MINIMIZERSETTINGSWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_MINIMIZERSETTINGSWIDGET_H

@@ -12,15 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef DATASELECTOR_H
-#define DATASELECTOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H
 
-#include "CsvDataColumn.h"
-#include "CsvImportAssistant.h"
-#include "CsvImportTable.h"
-#include "CsvNamespace.h"
-#include "ImportDataInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportTable.h"
 #include <QAction>
 #include <QComboBox>
 #include <QDialog>
@@ -45,7 +41,7 @@ public:
     double intensityMultiplier() const { return m_tableWidget->intensityMultiplier(); }
     double coordinateMultiplier() const { return m_tableWidget->coordinateMultiplier(); }
     std::set<int> rowsToDiscard() const { return m_tableWidget->rowsToDiscard(); }
-    AxesUnits units() const;
+    Axes::Units units() const;
     void setDataArray(csv::DataArray csvArray)
     {
         m_data = std::move(csvArray);
@@ -92,4 +88,4 @@ private:
     QPushButton* m_cancelButton;
     QLabel* m_errorLabel;
 };
-#endif // DATASELECTOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_DATASELECTOR_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTUNINGMODEL_H
-#define PARAMETERTUNINGMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTUNINGMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTUNINGMODEL_H
 
-#include "FilterPropertyProxy.h"
+#include "GUI/coregui/Models/FilterPropertyProxy.h"
 
 class ParameterItem;
 
@@ -25,7 +25,7 @@ class ParameterItem;
 //! to the FitParametersWidget.
 //!
 
-class BA_CORE_API_ ParameterTuningModel : public FilterPropertyProxy
+class ParameterTuningModel : public FilterPropertyProxy
 {
     Q_OBJECT
 
@@ -50,4 +50,4 @@ inline Qt::DropActions ParameterTuningModel::supportedDropActions() const
     return Qt::IgnoreAction;
 }
 
-#endif // PARAMETERTUNINGMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PARAMETERTUNINGMODEL_H

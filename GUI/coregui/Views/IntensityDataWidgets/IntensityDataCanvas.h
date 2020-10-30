@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATACANVAS_H
-#define INTENSITYDATACANVAS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATACANVAS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATACANVAS_H
 
-#include "OutputData.h"
-#include "SessionItemWidget.h"
+#include "Device/Data/OutputData.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <memory>
 
 class SessionItem;
@@ -27,7 +27,7 @@ class QAction;
 //! The IntensityDataCanvas class represents IntensityDataItem as color map,
 //! provides standard actions (reset view, save as) for external toolbars and context menus.
 
-class BA_CORE_API_ IntensityDataCanvas : public SessionItemWidget
+class IntensityDataCanvas : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -59,4 +59,4 @@ private:
     QAction* m_savePlotAction;
 };
 
-#endif // INTENSITYDATACANVAS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATACANVAS_H

@@ -12,14 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARCOMPUTATION_H_
-#define SPECULARCOMPUTATION_H_
+#ifndef BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATION_H
+#define BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATION_H
 
-#include "IComputation.h"
-#include "SimulationOptions.h"
-#include "SpecularComputationTerm.h"
+#include "Core/Computation/IComputation.h"
 
 class MultiLayer;
+class SpecularComputationTerm;
 class SpecularSimulationElement;
 
 //! Performs a single-threaded specular computation with given sample.
@@ -46,4 +45,4 @@ private:
     std::unique_ptr<SpecularComputationTerm> m_computation_term;
 };
 
-#endif /* SPECULARCOMPUTATION_H_ */
+#endif // BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATION_H

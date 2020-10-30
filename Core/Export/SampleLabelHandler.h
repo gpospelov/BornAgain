@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLELABELHANDLER_H
-#define SAMPLELABELHANDLER_H
+#ifndef BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
+#define BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 
-#include "Exceptions.h"
-#include "OrderedMap.h"
+#include "Base/Types/Exceptions.h"
+#include "Core/Export/OrderedMap.h"
 
 class Crystal;
 class IAbstractParticle;
@@ -42,7 +42,7 @@ template <class Key> class LabelMap : public OrderedMap<Key, std::string>
 //! The handler which construct labels for sample variables during python script generation.
 //! @ingroup tools_internal
 
-class BA_CORE_API_ SampleLabelHandler
+class SampleLabelHandler
 {
 public:
     typedef LabelMap<const Crystal*> crystals_t;
@@ -124,4 +124,4 @@ private:
     roughnesses_t m_LayerRoughnessLabel;
 };
 
-#endif // SAMPLELABELHANDLER_H
+#endif // BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H

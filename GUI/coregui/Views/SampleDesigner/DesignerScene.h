@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef DESIGNERSCENE_H
-#define DESIGNERSCENE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERSCENE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERSCENE_H
 
-#include "WinDllMacros.h"
 #include <QGraphicsScene>
 #include <QMap>
 #include <QModelIndex>
@@ -35,7 +34,7 @@ class FilterPropertyProxy;
 class MaterialModel;
 
 //! Main class which represents SessionModel on graphics scene
-class BA_CORE_API_ DesignerScene : public QGraphicsScene
+class DesignerScene : public QGraphicsScene
 {
     Q_OBJECT
 
@@ -67,7 +66,7 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last);
     void onRowsRemoved(const QModelIndex& parent, int first, int last);
 
-    void setLayerInterfaceLine(const QLineF& line = QLineF())
+    void setLayerInterfaceLine(const QLineF& line = {})
     {
         m_layer_interface_line = line;
         invalidate();
@@ -90,7 +89,7 @@ protected:
 
 private:
     IView* addViewForItem(SessionItem* item);
-    void updateViews(const QModelIndex& parentIndex = QModelIndex(), IView* parentView = 0);
+    void updateViews(const QModelIndex& parentIndex = {}, IView* parentView = 0);
     void deleteViews(const QModelIndex& parentIndex);
     void alignViews();
     void removeItemViewFromScene(SessionItem* item);
@@ -118,4 +117,4 @@ private:
     NodeEditor* m_nodeEditor;
 };
 
-#endif // DESIGNERSCENE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERSCENE_H

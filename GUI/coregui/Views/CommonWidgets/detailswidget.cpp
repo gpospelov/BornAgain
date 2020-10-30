@@ -23,9 +23,9 @@
 **
 ****************************************************************************/
 
-#include "detailswidget.h"
-#include "detailsbutton.h"
-#include "hostosinfo.h"
+#include "GUI/coregui/Views/CommonWidgets/detailswidget.h"
+#include "GUI/coregui/Views/CommonWidgets/detailsbutton.h"
+#include "GUI/coregui/utils/hostosinfo.h"
 
 #include <QApplication>
 #include <QCheckBox>
@@ -63,7 +63,7 @@ const bool FlatProjectsMode(false);
 namespace Utils
 {
 
-static const int MARGIN = 8;
+const int MARGIN = 8;
 
 class DetailsWidgetPrivate
 {

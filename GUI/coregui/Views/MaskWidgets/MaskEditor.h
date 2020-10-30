@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITOR_H
-#define MASKEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITOR_H
 
-#include "WinDllMacros.h"
 #include <QMainWindow>
 #include <QModelIndex>
 #include <QWidget>
@@ -33,7 +32,7 @@ class MiniSplitter;
 
 //! Main class to draw masks on top of intensity data map
 
-class BA_CORE_API_ MaskEditor : public QMainWindow
+class MaskEditor : public QMainWindow
 {
     Q_OBJECT
 public:
@@ -66,4 +65,4 @@ private:
     Manhattan::MiniSplitter* m_splitter;
 };
 
-#endif // MASKEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITOR_H

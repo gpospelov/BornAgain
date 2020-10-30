@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef OUTPUTDATAIOSERVICE_H
-#define OUTPUTDATAIOSERVICE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOSERVICE_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOSERVICE_H
 
-#include "OutputDataIOHistory.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/mainwindow/OutputDataIOHistory.h"
 #include <QObject>
 
 class ApplicationModels;
@@ -28,7 +27,7 @@ class SaveLoadInterface;
 //! Listens all models and keep tracks of changes in items. Provides logic to
 //! not to re-save already saved data.
 
-class BA_CORE_API_ OutputDataIOService : public QObject
+class OutputDataIOService : public QObject
 {
     Q_OBJECT
 public:
@@ -51,4 +50,4 @@ private:
     ApplicationModels* m_applicationModels;
 };
 
-#endif // OUTPUTDATAIOSERVICE_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_OUTPUTDATAIOSERVICE_H

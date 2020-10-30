@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef REALLIMITS_H
-#define REALLIMITS_H
+#ifndef BORNAGAIN_FIT_TOOLS_REALLIMITS_H
+#define BORNAGAIN_FIT_TOOLS_REALLIMITS_H
 
-#include "WinDllMacros.h"
 #include <ostream>
 #include <string>
 
 //! Limits for a real fit parameter.
 //! @ingroup fitting
 
-class BA_CORE_API_ RealLimits
+class RealLimits
 {
 public:
     RealLimits();
@@ -109,4 +108,4 @@ protected:
     double m_upper_limit;   //! maximum allowed value
 };
 
-#endif // REALLIMITS_H
+#endif // BORNAGAIN_FIT_TOOLS_REALLIMITS_H

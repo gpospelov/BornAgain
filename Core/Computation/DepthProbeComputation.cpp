@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Computation/DepthProbeComputation.cpp
-//! @brief     Implements class SpecularComputation.
+//! @brief     Implements class DepthProbeComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "DepthProbeComputation.h"
-#include "DepthProbeElement.h"
-#include "MultiLayer.h"
-#include "ProgressHandler.h"
+#include "Core/Computation/DepthProbeComputation.h"
+#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Computation/ProgressHandler.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 static_assert(std::is_copy_constructible<DepthProbeComputation>::value == false,
               "DepthProbeComputation should not be copy constructible");

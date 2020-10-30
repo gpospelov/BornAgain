@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ROTATIONITEMS_H
-#define ROTATIONITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_ROTATIONITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_ROTATIONITEMS_H
 
-#include "SessionItem.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class IRotation;
 
@@ -61,4 +60,4 @@ public:
     std::unique_ptr<IRotation> createRotation() const;
 };
 
-#endif // ROTATIONITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_ROTATIONITEMS_H

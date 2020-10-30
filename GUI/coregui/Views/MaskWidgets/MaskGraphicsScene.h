@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKGRAPHICSSCENE_H
-#define MASKGRAPHICSSCENE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSSCENE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSSCENE_H
 
-#include "MaskDrawingContext.h"
-#include "MaskEditorHelper.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskDrawingContext.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h"
 #include <QGraphicsScene>
 #include <QMap>
 #include <QModelIndex>
@@ -38,7 +38,7 @@ class ColorMap;
 
 //! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 
-class BA_CORE_API_ MaskGraphicsScene : public QGraphicsScene
+class MaskGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
@@ -80,7 +80,7 @@ protected:
 
 private:
     void updateProxyWidget();
-    void updateViews(const QModelIndex& parentIndex = QModelIndex(), IShape2DView* parentView = 0);
+    void updateViews(const QModelIndex& parentIndex = {}, IShape2DView* parentView = 0);
     IShape2DView* addViewForItem(SessionItem* item);
     void deleteViews(const QModelIndex& itemIndex);
     void removeItemViewFromScene(SessionItem* item);
@@ -123,4 +123,4 @@ private:
     MaskDrawingContext m_context;
 };
 
-#endif // MASKGRAPHICSSCENE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKGRAPHICSSCENE_H

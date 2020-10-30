@@ -1,16 +1,12 @@
-#include "FixedBinAxis.h"
-#include "DataFormatUtils.h"
-#include "Exceptions.h"
-#include "google_test.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Types/Exceptions.h"
+#include "Device/InputOutput/DataFormatUtils.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 
 class FixedBinAxisTest : public ::testing::Test
 {
-protected:
-    ~FixedBinAxisTest();
 };
-
-FixedBinAxisTest::~FixedBinAxisTest() = default;
 
 TEST_F(FixedBinAxisTest, IndexedAccessor)
 {

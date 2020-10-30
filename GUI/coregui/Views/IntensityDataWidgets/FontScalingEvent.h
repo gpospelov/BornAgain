@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef FONTSCALINGEVENT_H
-#define FONTSCALINGEVENT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_FONTSCALINGEVENT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_FONTSCALINGEVENT_H
 
-#include "WinDllMacros.h"
 #include <QFont>
 #include <QMap>
 #include <QObject>
@@ -26,7 +25,7 @@ class ScientificPlot;
 //! Provides event filter for ScientificPlot. Its goal is to make font size adjustments
 //! on resize events.
 
-class BA_CORE_API_ FontScalingEvent : public QObject
+class FontScalingEvent : public QObject
 {
     Q_OBJECT
 
@@ -46,4 +45,4 @@ private:
     QMap<QString, QFont> m_fonts;
 };
 
-#endif // FONTSCALINGEVENT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_FONTSCALINGEVENT_H

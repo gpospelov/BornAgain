@@ -12,16 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef SLIDERSETTINGSWIDGET_H
-#define SLIDERSETTINGSWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SLIDERSETTINGSWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SLIDERSETTINGSWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class QRadioButton;
 class QCheckBox;
 
-class BA_CORE_API_ SliderSettingsWidget : public QWidget
+class SliderSettingsWidget : public QWidget
 {
     Q_OBJECT
 
@@ -44,4 +43,4 @@ private:
     QCheckBox* m_lockzCheckBox;
 };
 
-#endif // SLIDERSETTINGSWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SLIDERSETTINGSWIDGET_H

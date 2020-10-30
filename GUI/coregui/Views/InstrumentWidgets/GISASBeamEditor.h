@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GISASBEAMEDITOR_H
-#define GISASBEAMEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_GISASBEAMEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_GISASBEAMEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ComponentEditor;
 class QGridLayout;
@@ -25,7 +25,7 @@ class ColumnResizer;
 
 //! GISAS beam editor. Operates on GISASInstrumentItem.
 
-class BA_CORE_API_ GISASBeamEditor : public SessionItemWidget
+class GISASBeamEditor : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -49,4 +49,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif // GISASBEAMEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_GISASBEAMEDITOR_H

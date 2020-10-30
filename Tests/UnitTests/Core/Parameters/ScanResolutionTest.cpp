@@ -1,18 +1,14 @@
-#include "ScanResolution.h"
-#include "ParameterSample.h"
-#include "RangedDistributions.h"
-#include "google_test.h"
+#include "Device/Resolution/ScanResolution.h"
+#include "Param/Distrib/RangedDistributions.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 
 class ScanResolutionTest : public ::testing::Test
 {
 protected:
     using DistrOutput = std::vector<std::vector<ParameterSample>>;
-    ~ScanResolutionTest();
     void compareResults(const DistrOutput& lhs, const DistrOutput& rhs);
 };
-
-ScanResolutionTest::~ScanResolutionTest() = default;
 
 void ScanResolutionTest::compareResults(const DistrOutput& lhs, const DistrOutput& rhs)
 {

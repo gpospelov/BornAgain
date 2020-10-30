@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONXML_H
-#define SESSIONXML_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONXML_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONXML_H
 
-#include "WinDllMacros.h"
 #include <QVariant>
 
 class QXmlStreamWriter;
@@ -52,14 +51,14 @@ const QString ExternalPropertyTextAtt("Text");
 const QString ExternalPropertyColorAtt("Color");
 const QString ExternalPropertyIdentifierAtt("Identifier");
 
-BA_CORE_API_ void writeTo(QXmlStreamWriter* writer, SessionItem* parent);
-BA_CORE_API_ void writeItemAndChildItems(QXmlStreamWriter* writer, const SessionItem* item);
-BA_CORE_API_ void writeVariant(QXmlStreamWriter* writer, QVariant variant, int role);
+void writeTo(QXmlStreamWriter* writer, SessionItem* parent);
+void writeItemAndChildItems(QXmlStreamWriter* writer, const SessionItem* item);
+void writeVariant(QXmlStreamWriter* writer, QVariant variant, int role);
 
-BA_CORE_API_ void readItems(QXmlStreamReader* reader, SessionItem* parent,
-                            QString topTag = QString(), MessageService* messageService = nullptr);
-BA_CORE_API_ QString readProperty(QXmlStreamReader* reader, SessionItem* item,
-                                  MessageService* messageService = nullptr);
+void readItems(QXmlStreamReader* reader, SessionItem* parent, QString topTag = "",
+               MessageService* messageService = nullptr);
+QString readProperty(QXmlStreamReader* reader, SessionItem* item,
+                     MessageService* messageService = nullptr);
 } // namespace SessionXML
 
-#endif // SESSIONXML_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONXML_H

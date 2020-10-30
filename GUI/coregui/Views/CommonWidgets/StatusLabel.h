@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef STATUSLABEL_H
-#define STATUSLABEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_STATUSLABEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_STATUSLABEL_H
 
-#include "WinDllMacros.h"
 #include <QFrame>
 
 class QPaintEvent;
@@ -26,7 +25,7 @@ class QPaintEvent;
 //! This class is intended for ColorMapLabel, where the size of font is adjusted automatically
 //! depending from available space.
 
-class BA_CORE_API_ StatusLabel : public QFrame
+class StatusLabel : public QFrame
 {
     Q_OBJECT
 
@@ -47,4 +46,4 @@ private:
     QFont m_font;
 };
 
-#endif // STATUSLABEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_STATUSLABEL_H

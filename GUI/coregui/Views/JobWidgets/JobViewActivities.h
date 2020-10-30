@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBVIEWACTIVITIES_H
-#define JOBVIEWACTIVITIES_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWACTIVITIES_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWACTIVITIES_H
 
-#include "JobViewFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/JobWidgets/JobViewFlags.h"
 #include <QMap>
 #include <QStringList>
 #include <QVector>
@@ -24,7 +23,7 @@
 //! The JobViewActivities class is a helper static class to get info related to JobView activities
 //! (JobViewActivity, RealTimeActivity and FittingActivity).
 
-class BA_CORE_API_ JobViewActivities
+class JobViewActivities
 {
 
 public:
@@ -38,4 +37,4 @@ private:
     static activity_map_t m_activityToDocks;
 };
 
-#endif // JOBVIEWACTIVITIES_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWACTIVITIES_H

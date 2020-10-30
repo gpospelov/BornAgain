@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef POLARIZATIONANALYSISEDITOR_H
-#define POLARIZATIONANALYSISEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_POLARIZATIONANALYSISEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_POLARIZATIONANALYSISEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ComponentEditor;
 class GISASInstrumentItem;
@@ -27,7 +27,7 @@ class ColumnResizer;
 //! Polarization analysis editor (beam polarization, analyzer properies) for GISASInstrumentEditor.
 //! Operates on GISASInstrumentItem.
 
-class BA_CORE_API_ PolarizationAnalysisEditor : public SessionItemWidget
+class PolarizationAnalysisEditor : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -51,4 +51,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif // POLARIZATIONANALYSISEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_POLARIZATIONANALYSISEDITOR_H

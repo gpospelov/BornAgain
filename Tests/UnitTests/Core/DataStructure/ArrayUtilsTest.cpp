@@ -1,15 +1,10 @@
-#include "ArrayUtils.h"
-#include "IAxis.h"
-#include "google_test.h"
+#include "Device/Intensity/ArrayUtils.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 
 class ArrayUtilsTest : public ::testing::Test
 {
-protected:
-    ~ArrayUtilsTest();
 };
-
-ArrayUtilsTest::~ArrayUtilsTest() = default;
 
 TEST_F(ArrayUtilsTest, OutputDataFromVector1D)
 {

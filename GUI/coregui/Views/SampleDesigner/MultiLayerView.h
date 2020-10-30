@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERVIEW_H
-#define MULTILAYERVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_MULTILAYERVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_MULTILAYERVIEW_H
 
-#include "ILayerView.h"
+#include "GUI/coregui/Views/SampleDesigner/ILayerView.h"
 
 class DesignerMimeData;
 class QGraphicsSceneDragDropEvent;
 
 //! Class representing view of MultiLayer.
 //! Handles drop of other MultiLayer and Layer views on top of it
-class BA_CORE_API_ MultiLayerView : public ILayerView
+class MultiLayerView : public ILayerView
 {
     Q_OBJECT
 
@@ -62,4 +62,4 @@ private:
     QList<QLineF> m_interfaces;
 };
 
-#endif // MULTILAYERVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_MULTILAYERVIEW_H

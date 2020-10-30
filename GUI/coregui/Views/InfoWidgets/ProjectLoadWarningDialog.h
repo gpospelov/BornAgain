@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTLOADWARNINGDIALOG_H
-#define PROJECTLOADWARNINGDIALOG_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_PROJECTLOADWARNINGDIALOG_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_PROJECTLOADWARNINGDIALOG_H
 
-#include "WinDllMacros.h"
 #include <QDialog>
 #include <QStringList>
 
@@ -28,13 +27,13 @@ class QTableWidgetItem;
 //! @class ProjectLoadWarningDialog
 //! @brief The dialog to inform user about encountered problems during the loading of old project
 
-class BA_CORE_API_ ProjectLoadWarningDialog : public QDialog
+class ProjectLoadWarningDialog : public QDialog
 {
     Q_OBJECT
 
 public:
     ProjectLoadWarningDialog(QWidget* parent, const MessageService* messageService = 0,
-                             const QString& documentVersion = QString());
+                             const QString& documentVersion = "");
 
 private:
     QWidget* createTopPanel();
@@ -54,4 +53,4 @@ private:
     QString m_projectDocumentVersion;
 };
 
-#endif // PROJECTLOADWARNINGDIALOG_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_PROJECTLOADWARNINGDIALOG_H

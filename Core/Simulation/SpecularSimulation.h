@@ -12,17 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSIMULATION_H
-#define SPECULARSIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 
-#include "ILayerRTCoefficients.h"
-#include "OutputData.h"
-#include "Simulation.h"
+#include "Core/Simulation/Simulation.h"
 
 class IAxis;
 class IComputation;
 class IFootprintFactor;
-class IMultiLayerBuilder;
+class ISampleBuilder;
 class ISample;
 class ISpecularScan;
 class MultiLayer;
@@ -31,12 +29,10 @@ class SpecularSimulationElement;
 //! Main class to run a specular simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ SpecularSimulation : public Simulation
+class SpecularSimulation : public Simulation
 {
 public:
     SpecularSimulation();
-    SpecularSimulation(const MultiLayer& sample);
-    SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     ~SpecularSimulation() override;
 
     SpecularSimulation* clone() const override;
@@ -65,17 +61,14 @@ public:
 
 #ifndef SWIG
     //! Returns internal data handler
-    const ISpecularScan* dataHandler() const { return m_data_handler.get(); }
+    const ISpecularScan* dataHandler() const { return m_scan.get(); }
 #endif // SWIG
 
 private:
-    SpecularSimulation(const SpecularSimulation& other);
+    SpecularSimulation(const SpecularSimulation& other); // used by clone()
 
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
-
-    //! Generate simulation elements for given beam
-    std::vector<SpecularSimulationElement> generateSimulationElements(const Beam& beam);
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
@@ -96,7 +89,7 @@ private:
     //! @param n_elements Number of elements to process
     void normalize(size_t start_ind, size_t n_elements) override;
 
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+    void addBackgroundIntensity(size_t start_ind, size_t n_elements) override;
 
     void addDataToCache(double weight) override;
 
@@ -105,15 +98,12 @@ private:
     //! Gets the number of elements this simulation needs to calculate
     size_t numberOfSimulationElements() const override;
 
-    //! Creates intensity data from simulation elements
-    std::unique_ptr<OutputData<double>> createIntensityData() const;
-
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 
-    std::unique_ptr<ISpecularScan> m_data_handler;
+    std::unique_ptr<ISpecularScan> m_scan;
     std::vector<SpecularSimulationElement> m_sim_elements;
     std::vector<double> m_cache;
 };
 
-#endif // SPECULARSIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H

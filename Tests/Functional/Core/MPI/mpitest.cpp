@@ -1,10 +1,10 @@
 #include <mpi.h>
 
-#include "IntensityDataFunctions.h"
-#include "IntensityDataIOFactory.h"
-#include "MultiLayer.h"
-#include "SampleBuilderFactory.h"
-#include "SimulationFactory.h"
+#include "Core/Simulation/SimulationFactory.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
+#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 
 #include <iostream>
 
@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     Simulation* p_simulation = sim_factory.createItem("BasicGISAS");
     SampleBuilderFactory sample_factory;
     const std::unique_ptr<MultiLayer> P_sample(
-        sample_factory.createSample("CylindersInDWBABuilder"));
+        sample_factory.createSampleByName("CylindersInDWBABuilder"));
     p_simulation->setSample(*P_sample);
 
     // make backup of original simulation options

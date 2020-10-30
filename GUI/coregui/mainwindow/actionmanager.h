@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef ACTIONMANAGER_H
-#define ACTIONMANAGER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_ACTIONMANAGER_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_ACTIONMANAGER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class QMenu;
@@ -26,7 +25,7 @@ class QShortcut;
 
 //! Class to handle MainWindow's menu and corresponding actions
 
-class BA_CORE_API_ ActionManager : public QObject
+class ActionManager : public QObject
 {
     Q_OBJECT
 public:
@@ -38,7 +37,9 @@ private slots:
     void toggleCheckForUpdates(bool status);
     void setSessionModelViewActive(bool status);
     void onAboutApplication();
+#ifdef BORNAGAIN_PYTHON
     void onImportFromPythonScript();
+#endif // BORNAGAIN_PYTHON
 
 private:
     MainWindow* m_mainWindow;
@@ -64,4 +65,4 @@ private:
     void createGlobalShortcuts();
 };
 
-#endif // ACTIONMANAGER_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_ACTIONMANAGER_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTIOPTION_H
-#define MULTIOPTION_H
+#ifndef BORNAGAIN_FIT_TOOLS_MULTIOPTION_H
+#define BORNAGAIN_FIT_TOOLS_MULTIOPTION_H
 
-#include "WinDllMacros.h"
 #include <boost/variant.hpp>
 #include <string>
 
@@ -23,16 +22,15 @@
 //! Relies on boost::variant, will be switched to std::variant in C++-17.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ MultiOption
+class MultiOption
 {
 public:
     using variant_t = boost::variant<int, double, std::string>;
 
-    explicit MultiOption(const std::string& name = std::string());
+    explicit MultiOption(const std::string& name = "");
 
     template <typename T>
-    explicit MultiOption(const std::string& name, const T& t,
-                         const std::string& descripion = std::string());
+    explicit MultiOption(const std::string& name, const T& t, const std::string& descripion = "");
 
     std::string name() const;
 
@@ -76,4 +74,4 @@ template <typename T> T MultiOption::getDefault() const
     return boost::get<T>(m_default_value);
 }
 
-#endif // MULTIOPTION_H
+#endif // BORNAGAIN_FIT_TOOLS_MULTIOPTION_H

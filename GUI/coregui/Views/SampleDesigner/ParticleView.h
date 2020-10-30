@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLEVIEW_H
-#define PARTICLEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEVIEW_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 #include <QPixmap>
 
 //! Class representing view of Particle item
-class BA_CORE_API_ ParticleView : public ConnectableView
+class ParticleView : public ConnectableView
 {
     Q_OBJECT
 
@@ -44,4 +44,4 @@ private:
     QPixmap m_pixmap;
 };
 
-#endif // PARTICLEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_PARTICLEVIEW_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALEDITOR_H
-#define MATERIALEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITOR_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class MaterialModel;
@@ -30,7 +29,7 @@ class ExternalProperty;
 
 //! Main widget of MaterialEditor
 
-class BA_CORE_API_ MaterialEditor : public QWidget
+class MaterialEditor : public QWidget
 {
     Q_OBJECT
 
@@ -65,4 +64,4 @@ private:
     bool m_model_was_modified;
 };
 
-#endif // MATERIALEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITOR_H

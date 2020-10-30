@@ -12,12 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCOMBOWIDGET_H
-#define ITEMCOMBOWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H
 
-#include "IFactory.h"
-#include "SessionItemWidget.h"
-#include "WinDllMacros.h"
+#include "Fit/TestEngine/IFactory.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QMap>
 #include <QString>
 #include <QWidget>
@@ -33,7 +32,7 @@ class QStackedWidget;
 //! For example, in JobOutputDataWidget the results of the job can be presented with either
 //! IntensityDataWidget or FitDataWidget, depending from the JobView's activity type.
 
-class BA_CORE_API_ ItemComboWidget : public SessionItemWidget
+class ItemComboWidget : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -70,4 +69,4 @@ private:
     QMap<QString, SessionItemWidget*> m_presentationTypeToWidget;
 };
 
-#endif // ITEMCOMBOWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H

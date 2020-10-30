@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBLISTWIDGET_H
-#define JOBLISTWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QModelIndexList>
 #include <QWidget>
 
@@ -29,7 +28,7 @@ class SessionItem;
 
 //! The JobListWidget class contains list view to select job items.
 
-class BA_CORE_API_ JobListWidget : public QWidget
+class JobListWidget : public QWidget
 {
     Q_OBJECT
 public:
@@ -60,4 +59,4 @@ private:
     JobModel* m_jobModel;
 };
 
-#endif // JOBLISTWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTWIDGET_H

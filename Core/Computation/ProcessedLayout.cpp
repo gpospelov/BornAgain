@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "ProcessedLayout.h"
-#include "FormFactorBAPol.h"
-#include "FormFactorCoherentSum.h"
-#include "FormFactorDWBA.h"
-#include "FormFactorDWBAPol.h"
-#include "IInterferenceFunction.h"
-#include "ILayout.h"
-#include "IParticle.h"
-#include "Slice.h"
-#include "SlicedFormFactorList.h"
+#include "Core/Computation/ProcessedLayout.h"
+#include "Sample/Aggregate/IInterferenceFunction.h"
+#include "Sample/Correlations/ILayout.h"
+#include "Sample/Fresnel/FormFactorCoherentSum.h"
+#include "Sample/Particle/IParticle.h"
+#include "Sample/Scattering/FormFactorBAPol.h"
+#include "Sample/Scattering/FormFactorDWBA.h"
+#include "Sample/Scattering/FormFactorDWBAPol.h"
+#include "Sample/Slice/Slice.h"
+#include "Sample/Slice/SlicedFormFactorList.h"
 
 namespace
 {
@@ -96,7 +96,7 @@ FormFactorCoherentSum ProcessedLayout::ProcessParticle(const IParticle& particle
                                                        double z_ref)
 {
     double abundance = particle.abundance();
-    auto sliced_ffs = SlicedFormFactorList::CreateSlicedFormFactors(particle, slices, z_ref);
+    auto sliced_ffs = SlicedFormFactorList::createSlicedFormFactors(particle, slices, z_ref);
     auto region_map = sliced_ffs.regionMap();
     ScaleRegionMap(region_map, abundance);
     mergeRegionMap(region_map);
@@ -106,12 +106,12 @@ FormFactorCoherentSum ProcessedLayout::ProcessParticle(const IParticle& particle
         std::unique_ptr<IFormFactor> P_ff_framework;
         if (slices.size() > 1) {
             if (m_polarized)
-                P_ff_framework.reset(new FormFactorDWBAPol(*ff_pair.first));
+                P_ff_framework = std::make_unique<FormFactorDWBAPol>(*ff_pair.first);
             else
-                P_ff_framework.reset(new FormFactorDWBA(*ff_pair.first));
+                P_ff_framework = std::make_unique<FormFactorDWBA>(*ff_pair.first);
         } else {
             if (m_polarized)
-                P_ff_framework.reset(new FormFactorBAPol(*ff_pair.first));
+                P_ff_framework = std::make_unique<FormFactorBAPol>(*ff_pair.first);
             else
                 P_ff_framework.reset(ff_pair.first->clone());
         }

@@ -10,7 +10,7 @@ def get_sample():
     Returns a sample with spherical particles on a substrate,
     forming a hexagonal 2D lattice.
     """
-    m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
@@ -19,17 +19,17 @@ def get_sample():
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(sphere)
 
-    interference = ba.InterferenceFunction2DLattice.createHexagonal(20.0*nm)
-    pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm)
+    interference = ba.InterferenceFunction2DLattice.createHexagonal(20.0*nm, 0*deg)
+    pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm, 0)
     interference.setDecayFunction(pdf)
 
     particle_layout.setInterferenceFunction(interference)
 
-    air_layer = ba.Layer(m_air)
-    air_layer.addLayout(particle_layout)
+    vacuum_layer = ba.Layer(m_vacuum)
+    vacuum_layer.addLayout(particle_layout)
     substrate_layer = ba.Layer(m_substrate, 0)
     multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
 

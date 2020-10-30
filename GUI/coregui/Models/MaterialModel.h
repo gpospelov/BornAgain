@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALMODEL_H
-#define MATERIALMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MATERIALMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MATERIALMODEL_H
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 class MaterialItem;
 class ExternalProperty;
 
-class BA_CORE_API_ MaterialModel : public SessionModel
+class MaterialModel : public SessionModel
 {
     Q_OBJECT
 
@@ -43,4 +43,4 @@ private:
     MaterialItem* createMaterial(const QString& name);
 };
 
-#endif // MATERIALMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MATERIALMODEL_H

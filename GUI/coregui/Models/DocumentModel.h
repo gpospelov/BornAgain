@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef DOCUMENTMODEL_H
-#define DOCUMENTMODEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_DOCUMENTMODEL_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_DOCUMENTMODEL_H
 
-#include "SessionModel.h"
+#include "GUI/coregui/Models/SessionModel.h"
 
 class SimulationOptionsItem;
 
 //! The DocumentModel class is a model with GUI settings related to the opened project.
 //! Can be the place to store splitter position, etc.
 
-class BA_CORE_API_ DocumentModel : public SessionModel
+class DocumentModel : public SessionModel
 {
     Q_OBJECT
 
@@ -32,4 +32,4 @@ public:
     SimulationOptionsItem* simulationOptionsItem();
 };
 
-#endif // DOCUMENTMODEL_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_DOCUMENTMODEL_H

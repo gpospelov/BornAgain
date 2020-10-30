@@ -1,9 +1,6 @@
-#include "OutputData.h"
-#include "FixedBinAxis.h"
-#include "IntensityDataFunctions.h"
-#include "ThreadInfo.h"
-#include "VariableBinAxis.h"
-#include "google_test.h"
+#include "Base/Axis/VariableBinAxis.h"
+#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <algorithm>
 
 class OutputDataTest : public ::testing::Test

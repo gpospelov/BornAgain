@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTICOMBOPROPERTYEDITOR_H
-#define MULTICOMBOPROPERTYEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_MULTICOMBOPROPERTYEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_MULTICOMBOPROPERTYEDITOR_H
 
-#include "CustomEditors.h"
+#include "GUI/coregui/Views/PropertyEditor/CustomEditors.h"
 #include <QStyledItemDelegate>
 #include <memory>
 
@@ -25,7 +25,7 @@ class QStyleOptionViewItem;
 
 //! Provides custom editor for ComboProperty with multi-select option.
 
-class BA_CORE_API_ MultiComboPropertyEditor : public CustomEditor
+class MultiComboPropertyEditor : public CustomEditor
 {
     Q_OBJECT
 public:
@@ -66,4 +66,4 @@ public:
                const QModelIndex& index) const;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_MULTICOMBOPROPERTYEDITOR_H

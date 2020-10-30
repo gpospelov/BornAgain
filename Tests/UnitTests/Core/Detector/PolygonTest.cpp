@@ -1,15 +1,11 @@
-#include "Polygon.h"
-#include "Bin.h"
-#include "google_test.h"
+#include "Device/Mask/Polygon.h"
+#include "Base/Axis/Bin.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class PolygonTest : public ::testing::Test
 {
-public:
-    ~PolygonTest();
 };
-
-PolygonTest::~PolygonTest() = default;
 
 TEST_F(PolygonTest, SimpleRectangle)
 {

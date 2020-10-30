@@ -1,18 +1,15 @@
-#include "CustomBinAxis.h"
-#include "DataFormatUtils.h"
-#include "MathConstants.h"
-#include "google_test.h"
+#include "Base/Axis/CustomBinAxis.h"
+#include "Base/Const/MathConstants.h"
+#include "Device/InputOutput/DataFormatUtils.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 
 class CusomBinAxisTest : public ::testing::Test
 {
 protected:
     CusomBinAxisTest() : m_axis("name", 100, -1.0, 1.0) {}
-    ~CusomBinAxisTest();
     CustomBinAxis m_axis;
 };
-
-CusomBinAxisTest::~CusomBinAxisTest() = default;
 
 TEST_F(CusomBinAxisTest, CheckClone)
 {

@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef OPTIONCONTAINER_H
-#define OPTIONCONTAINER_H
+#ifndef BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H
+#define BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H
 
-#include "MultiOption.h"
-#include "WinDllMacros.h"
+#include "Fit/Tools/MultiOption.h"
 #include <map>
 #include <memory>
 #include <stdexcept>
@@ -25,7 +24,7 @@
 //! Stores multi option (int,double,string) in a container.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ OptionContainer
+class OptionContainer
 {
 public:
     using option_t = std::shared_ptr<MultiOption>;
@@ -38,8 +37,7 @@ public:
     OptionContainer& operator=(const OptionContainer& other);
 
     template <class T>
-    option_t addOption(const std::string& optionName, T value,
-                       const std::string& description = std::string());
+    option_t addOption(const std::string& optionName, T value, const std::string& description = "");
 
     option_t option(const std::string& optionName);
     const option_t option(const std::string& optionName) const;
@@ -56,6 +54,7 @@ public:
     const_iterator end() const { return m_options.end(); }
 
     size_t size() const { return m_options.size(); }
+    bool empty() const { return size() == 0; }
 
 protected:
     bool exists(const std::string& name);
@@ -91,4 +90,4 @@ template <class T> void OptionContainer::setOptionValue(const std::string& optio
             + optionName + "'");
 }
 
-#endif // OPTIONCONTAINER_H
+#endif // BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBSELECTORACTIONS_H
-#define JOBSELECTORACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORACTIONS_H
 
-#include "WinDllMacros.h"
 #include <QModelIndex>
 #include <QObject>
 
@@ -28,7 +27,7 @@ class QMenu;
 //! The JobSelectorActions class contains actions to run/remove jobs. Actions are used by the
 //! toolbar and JobSelectorList's context menu.
 
-class BA_CORE_API_ JobSelectorActions : public QObject
+class JobSelectorActions : public QObject
 {
     Q_OBJECT
 public:
@@ -39,7 +38,7 @@ public:
 public slots:
     void onRunJob();
     void onRemoveJob();
-    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint = QModelIndex());
+    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint = {});
     void equalizeSelectedToJob(int selected_id);
 
 private:
@@ -55,4 +54,4 @@ private:
     JobModel* m_jobModel;
 };
 
-#endif // JOBSELECTORACTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORACTIONS_H

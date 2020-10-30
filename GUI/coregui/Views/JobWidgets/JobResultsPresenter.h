@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBRESULTSPRESENTER_H
-#define JOBRESULTSPRESENTER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBRESULTSPRESENTER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBRESULTSPRESENTER_H
 
-#include "ItemComboWidget.h"
-#include "JobViewFlags.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemComboWidget.h"
+#include "GUI/coregui/Views/JobWidgets/JobViewFlags.h"
 
 //! Presents results of job (JobItem) using stack of different widgets and combo box in the
 //! right top corner of JobView, to switch between widgets.
 
-class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
+class JobResultsPresenter : public ItemComboWidget
 {
     Q_OBJECT
 
@@ -37,4 +37,4 @@ protected:
     QStringList presentationList(SessionItem* item) override;
 };
 
-#endif // JOBRESULTSPRESENTER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBRESULTSPRESENTER_H

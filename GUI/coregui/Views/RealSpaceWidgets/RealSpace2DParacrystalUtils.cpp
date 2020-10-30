@@ -12,11 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "RealSpace2DParacrystalUtils.h"
-#include "FTDistributions2D.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "Lattice2D.h"
-#include "RealSpaceCanvas.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpace2DParacrystalUtils.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h"
+#include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
 
 namespace
 {

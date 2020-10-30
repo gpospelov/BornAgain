@@ -1,15 +1,11 @@
-#include "FormFactorCoherentSum.h"
-#include "Exceptions.h"
-#include "FormFactorDot.h"
-#include "google_test.h"
+#include "Sample/Fresnel/FormFactorCoherentSum.h"
+#include "Base/Types/Exceptions.h"
+#include "Sample/HardParticle/FormFactorDot.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class FormFactorCoherentSumTest : public ::testing::Test
 {
-protected:
-    ~FormFactorCoherentSumTest();
 };
-
-FormFactorCoherentSumTest::~FormFactorCoherentSumTest() = default;
 
 TEST_F(FormFactorCoherentSumTest, RelAbundance)
 {

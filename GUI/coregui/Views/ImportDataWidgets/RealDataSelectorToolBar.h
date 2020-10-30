@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATASELECTORTOOLBAR_H
-#define REALDATASELECTORTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class RealDataSelectorActions;
 class QToolButton;
@@ -23,7 +23,7 @@ class QToolButton;
 //! The RealDataSelectorToolBar class represents a narrow toolbar on top of
 //! RealDataSelectorWidget (ImportDataView)
 
-class BA_CORE_API_ RealDataSelectorToolBar : public StyledToolBar
+class RealDataSelectorToolBar : public StyledToolBar
 {
     Q_OBJECT
 public:
@@ -35,4 +35,4 @@ private:
     QToolButton* m_removeDataButton;
 };
 
-#endif // REALDATASELECTORTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORTOOLBAR_H

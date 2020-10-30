@@ -1,18 +1,16 @@
-#include "ArrayUtils.h"
-#include "AxisNames.h"
-#include "CsvImportAssistant.h"
-#include "JobItemUtils.h"
-#include "OutputDataReadFactory.h"
-#include "OutputDataWriteFactory.h"
-#include "SpecularDataItem.h"
-#include "google_test.h"
+#include "Device/InputOutput/OutputDataReadFactory.h"
+#include "Device/InputOutput/OutputDataWriteFactory.h"
+#include "Device/Intensity/ArrayUtils.h"
+#include "Device/Unit/AxisNames.h"
+#include "GUI/coregui/Models/JobItemUtils.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 
 class TestCsvImportAssistant : public ::testing::Test
 {
 protected:
-    ~TestCsvImportAssistant();
-
     const std::string m_testFilename = "tmp_TestCsvImportAssistant.txt";
     const std::vector<std::vector<double>> m_testVector = {
         {0.0, 1.0, 2.0, 3.0},     {4.0, 5.0, 6.0, 7.0},     {8.0, 9.0, 10.0, 11.0},
@@ -50,8 +48,6 @@ protected:
     }
 };
 
-TestCsvImportAssistant::~TestCsvImportAssistant() = default;
-
 //! Testing component items of particle item.
 TEST_F(TestCsvImportAssistant, test_readFile)
 {
@@ -83,7 +79,7 @@ TEST_F(TestCsvImportAssistant, test_readFile)
     CsvImportAssistant assistant(testFilename());
 
     assistant.setIntensityColumn(1);
-    assistant.setCoordinateColumn(3, AxesUnits::DEGREES);
+    assistant.setCoordinateColumn(3, Axes::Units::DEGREES);
     assistant.setFirstRow(5);
     assistant.setLastRow(7);
 
@@ -99,7 +95,7 @@ TEST_F(TestCsvImportAssistant, test_readFile)
     EXPECT_EQ(DataRank, 1u);
     EXPECT_EQ(AllocSize, 3u);
     EXPECT_EQ(RawDataVec, expected);
-    EXPECT_EQ(UnitsLabel, JobItemUtils::nameFromAxesUnits(AxesUnits::DEGREES));
-    EXPECT_EQ(AxisLabel0, QString::fromStdString(AxisNames::InitSpecAxis()[AxesUnits::DEGREES]));
+    EXPECT_EQ(UnitsLabel, JobItemUtils::nameFromAxesUnits(Axes::Units::DEGREES));
+    EXPECT_EQ(AxisLabel0, QString::fromStdString(AxisNames::InitSpecAxis()[Axes::Units::DEGREES]));
     EXPECT_EQ(AxisLabel1, SpecularDataAxesNames::y_axis_default_name);
 }

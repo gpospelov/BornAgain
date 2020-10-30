@@ -12,10 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFUNCTIONADAPTER_H
-#define IFUNCTIONADAPTER_H
-
-#include "WinDllMacros.h"
+#ifndef BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
 
 namespace Fit
 {
@@ -23,7 +21,7 @@ namespace Fit
 //! Base class for objective function adapters, which converts user functions
 //! to minimize into the function which minimization machinery expects.
 
-class BA_CORE_API_ IFunctionAdapter
+class IFunctionAdapter
 {
 public:
     IFunctionAdapter();
@@ -39,4 +37,4 @@ protected:
 
 } // namespace Fit
 
-#endif //  IFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H

@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PLOTEVENTINFO_H
-#define PLOTEVENTINFO_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOTEVENTINFO_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOTEVENTINFO_H
 
-#include "ScientificPlot.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include <QString>
 
 class ColorMap;
@@ -24,7 +23,7 @@ class SpecularPlot;
 
 //! Contains parameters of mouse position in 1D or 2D plot.
 
-class BA_CORE_API_ PlotEventInfo
+class PlotEventInfo
 {
     using PLOT_TYPE = ScientificPlot::PLOT_TYPE;
 
@@ -62,4 +61,4 @@ private:
     PLOT_TYPE m_info_type;
 };
 
-#endif // PLOTEVENTINFO_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOTEVENTINFO_H

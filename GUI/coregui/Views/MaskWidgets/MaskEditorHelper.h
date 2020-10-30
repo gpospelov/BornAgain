@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORHELPER_H
-#define MASKEDITORHELPER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORHELPER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORHELPER_H
 
-#include "WinDllMacros.h"
 #include <QGraphicsItem>
 
 class QBrush;
@@ -25,7 +24,7 @@ class QPointF;
 
 //! Static class to provide MaskEditor with common settings (colors, gradients, etc)
 
-class BA_CORE_API_ MaskEditorHelper
+class MaskEditorHelper
 {
 public:
     enum EViewTypes {
@@ -51,4 +50,4 @@ public:
     static QRectF getMarkerRectangle(const QPointF& pos);
 };
 
-#endif // MASKEDITORHELPER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORHELPER_H

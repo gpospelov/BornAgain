@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "ResidualFunctionAdapter.h"
-#include "RootResidualFunction.h"
+#include "Fit/RootAdapter/ResidualFunctionAdapter.h"
+#include "Fit/RootAdapter/RootResidualFunction.h"
 #include <cassert>
 #include <sstream>
 
@@ -104,7 +104,7 @@ double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars
         m_residuals = get_residuals(pars);
     }
 
-    if (gradients.size()) {
+    if (!gradients.empty()) {
         // Non zero size means that minimizer wants to know gradients.
         if (pars.size() != gradients.size())
             throw std::runtime_error("ResidualFunctionAdapter::element_residual() -> Error. "

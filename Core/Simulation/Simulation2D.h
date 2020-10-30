@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATION2D_H
-#define SIMULATION2D_H
+#ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
+#define BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 
-#include "Simulation.h"
-#include "SimulationResult.h"
+#include "Core/Simulation/Simulation.h"
 
 class DetectorContext;
 
@@ -24,12 +23,10 @@ class DetectorContext;
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
 
-class BA_CORE_API_ Simulation2D : public Simulation
+class Simulation2D : public Simulation
 {
 public:
     Simulation2D();
-    Simulation2D(const MultiLayer& p_sample);
-    Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
     ~Simulation2D() override;
 
     Simulation2D* clone() const override = 0;
@@ -88,7 +85,7 @@ protected:
     //! @param n_elements Number of elements to process
     void normalize(size_t start_ind, size_t n_elements) override;
 
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+    void addBackgroundIntensity(size_t start_ind, size_t n_elements) override;
 
     void addDataToCache(double weight) override;
 
@@ -96,11 +93,11 @@ protected:
 
     std::vector<SimulationElement> m_sim_elements;
     std::vector<double> m_cache;
-    std::unique_ptr<DetectorContext> detector_context;
 
 private:
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
+    std::unique_ptr<DetectorContext> m_detector_context;
 };
 
-#endif // SIMULATION2D_H
+#endif // BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H

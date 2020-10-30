@@ -12,27 +12,26 @@
 //
 // ************************************************************************** //
 
-#include "ApplicationModels.h"
-#include "DocumentModel.h"
-#include "GUIObjectBuilder.h"
-#include "ISample.h"
-#include "ImportDataUtils.h"
-#include "InstrumentItems.h"
-#include "InstrumentModel.h"
-#include "IntensityDataIOFactory.h"
-#include "IntensityDataItem.h"
-#include "JobItem.h"
-#include "JobModel.h"
-#include "MaterialModel.h"
-#include "MaterialPropertyController.h"
-#include "MessageService.h"
-#include "MultiLayer.h"
-#include "OffSpecSimulation.h"
-#include "RealDataItem.h"
-#include "RealDataModel.h"
-#include "SampleBuilderFactory.h"
-#include "SampleModel.h"
-#include "StandardSimulations.h"
+#include "GUI/coregui/Models/ApplicationModels.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/StandardSimulations.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
+#include "GUI/coregui/Models/DocumentModel.h"
+#include "GUI/coregui/Models/GUIObjectBuilder.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/InstrumentModel.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Models/MaterialModel.h"
+#include "GUI/coregui/Models/MaterialPropertyController.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/RealDataModel.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
+#include "GUI/coregui/utils/MessageService.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <QtCore/QXmlStreamWriter>
 
 ApplicationModels::ApplicationModels(QObject* parent)
@@ -45,7 +44,7 @@ ApplicationModels::ApplicationModels(QObject* parent)
     // createTestJob();
 }
 
-ApplicationModels::~ApplicationModels() {}
+ApplicationModels::~ApplicationModels() = default;
 
 DocumentModel* ApplicationModels::documentModel()
 {
@@ -81,11 +80,11 @@ JobModel* ApplicationModels::jobModel()
 void ApplicationModels::resetModels()
 {
     m_documentModel->clear();
-    m_documentModel->insertNewItem(Constants::SimulationOptionsType);
+    m_documentModel->insertNewItem("SimulationOptions");
 
     m_materialModel->clear();
     m_materialModel->addRefractiveMaterial("Default", 1e-3, 1e-5);
-    m_materialModel->addRefractiveMaterial("Air", 0.0, 0.0);
+    m_materialModel->addRefractiveMaterial("Vacuum", 0.0, 0.0);
     m_materialModel->addRefractiveMaterial("Particle", 6e-4, 2e-8);
     m_materialModel->addRefractiveMaterial("Substrate", 6e-6, 2e-8);
 
@@ -96,7 +95,7 @@ void ApplicationModels::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    SessionItem* instrument = m_instrumentModel->insertNewItem(Constants::GISASInstrumentType);
+    SessionItem* instrument = m_instrumentModel->insertNewItem("GISASInstrument");
     instrument->setItemName("GISAS");
 }
 
@@ -130,7 +129,7 @@ void ApplicationModels::createMaterialModel()
 
 void ApplicationModels::createSampleModel()
 {
-    Q_ASSERT(m_materialModel);
+    ASSERT(m_materialModel);
     delete m_sampleModel;
     m_sampleModel = new SampleModel(this);
     connectModel(m_sampleModel);
@@ -160,7 +159,8 @@ void ApplicationModels::createJobModel()
 void ApplicationModels::createTestSample()
 {
     SampleBuilderFactory factory;
-    const std::unique_ptr<MultiLayer> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
+    const std::unique_ptr<MultiLayer> P_sample(
+        factory.createSampleByName("CylindersAndPrismsBuilder"));
 
     GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *P_sample);
 
@@ -180,8 +180,7 @@ void ApplicationModels::createTestJob()
 
 void ApplicationModels::createTestRealData()
 {
-    auto realDataItem =
-        dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
+    auto realDataItem = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
     realDataItem->setItemName("realdata");
 
     std::unique_ptr<OutputData<double>> data(
@@ -226,7 +225,7 @@ QList<SessionModel*> ApplicationModels::modelList()
 
 QVector<SessionItem*> ApplicationModels::nonXMLData() const
 {
-    Q_ASSERT(m_realDataModel && m_jobModel && m_instrumentModel);
+    ASSERT(m_realDataModel && m_jobModel && m_instrumentModel);
     return QVector<SessionItem*>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData()
                                    << m_instrumentModel->nonXMLData();
 }

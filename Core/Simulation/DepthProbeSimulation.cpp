@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/DepthProbeSimulation.cpp
-//! @brief     Implements class OffSpecSimulation.
+//! @brief     Implements class DepthProbeSimulation
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "DepthProbeSimulation.h"
-#include "DepthProbeComputation.h"
-#include "Distributions.h"
-#include "Histogram1D.h"
-#include "IBackground.h"
-#include "IFootprintFactor.h"
-#include "IMultiLayerBuilder.h"
-#include "MaterialUtils.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
-#include "SimpleUnitConverters.h"
-#include "SpecularDetector1D.h"
+#include "Core/Simulation/DepthProbeSimulation.h"
+#include "Base/Const/MathConstants.h"
+#include "Core/Computation/DepthProbeComputation.h"
+#include "Core/Computation/IBackground.h"
+#include "Device/Beam/IFootprintFactor.h"
+#include "Device/Detector/SimpleUnitConverters.h"
+#include "Device/Detector/SpecularDetector1D.h"
+#include "Device/Histo/Histogram1D.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Sample/Material/MaterialUtils.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 namespace
 {
@@ -35,17 +35,6 @@ const double zero_alpha_i = 0.0;
 } // namespace
 
 DepthProbeSimulation::DepthProbeSimulation() : Simulation()
-{
-    initialize();
-}
-
-DepthProbeSimulation::DepthProbeSimulation(const MultiLayer& sample) : Simulation(sample)
-{
-    initialize();
-}
-
-DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder)
-    : Simulation(sample_builder)
 {
     initialize();
 }
@@ -66,7 +55,7 @@ SimulationResult DepthProbeSimulation::result() const
 {
     validityCheck();
     auto data = createIntensityData();
-    return SimulationResult(*data, *createUnitConverter().get());
+    return SimulationResult(*data, *createUnitConverter());
 }
 
 void DepthProbeSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
@@ -110,7 +99,7 @@ size_t DepthProbeSimulation::intensityMapSize() const
 
 std::unique_ptr<IUnitConverter> DepthProbeSimulation::createUnitConverter() const
 {
-    return std::make_unique<DepthProbeConverter>(m_instrument.getBeam(), *m_alpha_axis, *m_z_axis);
+    return std::make_unique<DepthProbeConverter>(instrument().getBeam(), *m_alpha_axis, *m_z_axis);
 }
 
 DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
@@ -120,9 +109,8 @@ DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
         m_alpha_axis.reset(other.m_alpha_axis->clone());
     if (other.m_z_axis)
         m_z_axis.reset(other.m_z_axis->clone());
-    if (!m_sim_elements.empty())
-        for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter)
-            iter->setZPositions(m_alpha_axis.get());
+    for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter)
+        iter->setZPositions(m_alpha_axis.get());
     initialize();
 }
 
@@ -145,21 +133,21 @@ void DepthProbeSimulation::setBeamParameters(double lambda, const IAxis& alpha_a
             "Error in DepthProbeSimulation::setBeamParameters: angle axis is empty");
 
     SpecularDetector1D detector(alpha_axis);
-    m_instrument.setDetector(detector);
+    instrument().setDetector(detector);
     m_alpha_axis.reset(alpha_axis.clone());
 
     // beam is initialized with zero-valued angles
     // Zero-valued incident alpha is required for proper
     // taking into account beam resolution effects
-    m_instrument.setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
+    instrument().setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
 
     if (beam_shape)
-        m_instrument.getBeam().setFootprintFactor(*beam_shape);
+        instrument().getBeam().setFootprintFactor(*beam_shape);
 }
 
 void DepthProbeSimulation::initSimulationElementVector()
 {
-    const auto& beam = m_instrument.getBeam();
+    const auto& beam = instrument().getBeam();
     m_sim_elements = generateSimulationElements(beam);
 
     if (!m_cache.empty())
@@ -188,9 +176,9 @@ std::vector<DepthProbeElement> DepthProbeSimulation::generateSimulationElements(
 std::unique_ptr<IComputation>
 DepthProbeSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
-    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
-    return std::make_unique<DepthProbeComputation>(*sample(), m_options, m_progress, begin,
+    return std::make_unique<DepthProbeComputation>(*sample(), options(), progress(), begin,
                                                    begin + static_cast<long>(n_elements));
 }
 
@@ -225,18 +213,18 @@ void DepthProbeSimulation::validateParametrization(const ParameterDistribution& 
     const std::vector<RealParameter*> names =
         parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
-        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+        if (par->getName().find("InclinationAngle") != std::string::npos && !zero_mean)
             throw std::runtime_error("Error in DepthProbeSimulation: parameter distribution of "
                                      "beam inclination angle should have zero mean.");
 }
 
 void DepthProbeSimulation::initialize()
 {
-    setName(BornAgain::DepthProbeSimulationType);
+    setName("DepthProbeSimulation");
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    auto inclination = m_instrument.getBeam().parameter(BornAgain::Inclination);
+    auto inclination = instrument().getBeam().parameter("InclinationAngle");
     inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
@@ -248,7 +236,7 @@ void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
         const double alpha_i = -element.getAlphaI();
-        const auto footprint = m_instrument.getBeam().footprintFactor();
+        const auto footprint = instrument().getBeam().footprintFactor();
         double intensity_factor = beam_intensity;
         if (footprint != nullptr)
             intensity_factor = intensity_factor * footprint->calculate(alpha_i);
@@ -256,12 +244,11 @@ void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void DepthProbeSimulation::addBackGroundIntensity(size_t, size_t)
+void DepthProbeSimulation::addBackgroundIntensity(size_t, size_t)
 {
-    if (!mP_background)
-        return;
-    throw std::runtime_error("Error in DepthProbeSimulation::addBackGroundIntensity: background is "
-                             "not allowed for this type of simulation");
+    if (background())
+        throw std::runtime_error(
+            "Error: nonzero background is not supported by DepthProbeSimulation");
 }
 
 void DepthProbeSimulation::addDataToCache(double weight)

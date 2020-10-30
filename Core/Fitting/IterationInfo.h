@@ -12,18 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef ITERATIONINFO_H
-#define ITERATIONINFO_H
+#ifndef BORNAGAIN_CORE_FITTING_ITERATIONINFO_H
+#define BORNAGAIN_CORE_FITTING_ITERATIONINFO_H
 
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameters.h"
 #include <map>
 #include <string>
 
 //! Stores fit iteration info to track fit flow from various observers.
 //! Used in context of FitObjective.
 
-class BA_CORE_API_ IterationInfo
+class IterationInfo
 {
 public:
     IterationInfo();
@@ -46,4 +45,4 @@ private:
     unsigned m_iteration_count;
 };
 
-#endif // ITERATIONINFO_H
+#endif // BORNAGAIN_CORE_FITTING_ITERATIONINFO_H

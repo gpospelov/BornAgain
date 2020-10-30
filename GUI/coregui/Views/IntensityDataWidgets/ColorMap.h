@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef COLORMAP_H
-#define COLORMAP_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAP_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAP_H
 
-#include "ScientificPlot.h"
-#include "qcustomplot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include <QMap>
 #include <QPoint>
 #include <memory>
+#include <qcustomplot.h>
 
 class IntensityDataItem;
 class QCustomPlot;
@@ -33,7 +33,7 @@ class ScientificPlotEvent;
 //! Provides a minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
-class BA_CORE_API_ ColorMap : public ScientificPlot
+class ColorMap : public ScientificPlot
 {
     Q_OBJECT
 
@@ -107,4 +107,4 @@ private:
     bool m_block_update;
 };
 
-#endif // COLORMAP_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAP_H

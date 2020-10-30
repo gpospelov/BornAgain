@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSESSIONWIDGET_H
-#define FITSESSIONWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONWIDGET_H
 
-#include "FitProgressInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
 #include <QWidget>
 
 class QTabWidget;
@@ -32,7 +31,7 @@ class JobMessagePanel;
 //! Contains all fit settings for given JobItem (fit parameters,
 //! minimizer settings). Controlled by FitActivityPanel.
 
-class BA_CORE_API_ FitSessionWidget : public QWidget
+class FitSessionWidget : public QWidget
 {
     Q_OBJECT
 
@@ -58,4 +57,4 @@ private:
     FitSessionController* m_sessionController;
 };
 
-#endif // FITSUITEWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONWIDGET_H

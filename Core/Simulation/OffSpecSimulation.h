@@ -12,24 +12,21 @@
 //
 // ************************************************************************** //
 
-#ifndef OFFSPECSIMULATION_H
-#define OFFSPECSIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
 
-#include "Simulation2D.h"
-#include "SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
+#include "Core/Simulation/Simulation2D.h"
 
 class Histogram2D;
 
 //! Main class to run an off-specular simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ OffSpecSimulation : public Simulation2D
+class OffSpecSimulation : public Simulation2D
 {
 public:
     OffSpecSimulation();
-    OffSpecSimulation(const MultiLayer& p_sample);
-    OffSpecSimulation(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder);
-
     ~OffSpecSimulation() final {}
 
     OffSpecSimulation* clone() const override { return new OffSpecSimulation(*this); }
@@ -88,4 +85,4 @@ private:
     OutputData<double> m_intensity_map;
 };
 
-#endif // OFFSPECSIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H

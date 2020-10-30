@@ -12,48 +12,73 @@
 //
 // ************************************************************************** //
 
-#include "SpecularSimulation.h"
-#include "AngularSpecScan.h"
-#include "Distributions.h"
-#include "Histogram1D.h"
-#include "IBackground.h"
-#include "IFootprintFactor.h"
-#include "IMultiLayerBuilder.h"
-#include "ISpecularScan.h"
-#include "MaterialUtils.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ParameterPool.h"
-#include "PointwiseAxis.h"
-#include "RealParameter.h"
-#include "SpecularComputation.h"
-#include "SpecularDetector1D.h"
-#include "SpecularSimulationElement.h"
-#include "UnitConverter1D.h"
+#include "Core/Simulation/SpecularSimulation.h"
+#include "Base/Axis/PointwiseAxis.h"
+#include "Core/Computation/IBackground.h"
+#include "Core/Computation/SpecularComputation.h"
+#include "Device/Beam/IFootprintFactor.h"
+#include "Device/Detector/SpecularDetector1D.h"
+#include "Device/Histo/Histogram1D.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/UnitConverter1D.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
 
 namespace
 {
-// TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
-                                                  const Beam& beam);
 
-const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
-const double zero_phi_i = 0.0;
-const double zero_alpha_i = 0.0;
+// TODO: remove when pointwise resolution is implemented
+std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const Beam& beam)
+{
+    const double wl = beam.getWavelength();
+    const double angle_shift = beam.getAlpha();
+    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
+    for (auto& val : angles)
+        val += angle_shift;
+    auto* result = new AngularSpecScan(wl, PointwiseAxis("alpha_i", std::move(angles)));
+    result->setFootprintFactor(scan.footprintFactor());
+    result->setWavelengthResolution(*scan.wavelengthResolution());
+    result->setAngleResolution(*scan.angleResolution());
+    return std::unique_ptr<AngularSpecScan>(result);
+}
+
+std::vector<SpecularSimulationElement> generateSimulationElements(const Instrument& instrument,
+                                                                  const ISpecularScan& scan)
+{
+    std::vector<SpecularSimulationElement> result;
+
+    // TODO: remove if-else statement when pointwise resolution is implemented
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
+        result = mangledScan(*aScan, instrument.getBeam())->generateSimulationElements();
+    else
+        result = scan.generateSimulationElements();
+
+    // add polarization and analyzer operators
+    const auto& polarization = instrument.getBeam().getPolarization();
+    const auto& analyzer = instrument.detector().detectionProperties().analyzerOperator();
+
+    for (auto& elem : result)
+        elem.setPolarizationHandler({polarization, analyzer});
+
+    return result;
+}
+
 } // namespace
+
+// ************************************************************************** //
+// class SpecularSimulation
+// ************************************************************************** //
 
 SpecularSimulation::SpecularSimulation() : Simulation()
 {
     initialize();
 }
 
-SpecularSimulation::SpecularSimulation(const MultiLayer& sample) : Simulation(sample)
-{
-    initialize();
-}
-
-SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder)
-    : Simulation(sample_builder)
+SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
+    : Simulation(other), m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
+      m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
     initialize();
 }
@@ -67,23 +92,30 @@ SpecularSimulation* SpecularSimulation::clone() const
 
 void SpecularSimulation::prepareSimulation()
 {
-    if (m_instrument.getDetectorDimension() != 1) // detector must have only one axis
+    if (instrument().getDetectorDimension() != 1) // detector must have only one axis
         throw std::runtime_error("Error in SpecularSimulation::prepareSimulation: the detector was "
                                  "not properly configured.");
-    getInstrument().initDetector();
+    instrument().initDetector();
     Simulation::prepareSimulation();
 }
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    return m_data_handler->numberOfSimulationElements();
+    return m_scan->numberOfSimulationElements();
 }
 
 SimulationResult SpecularSimulation::result() const
 {
-    auto data = createIntensityData();
-    auto converter = UnitConverter1D::createUnitConverter(*m_data_handler);
-    return SimulationResult(*data, *converter);
+    OutputData<double> data;
+    data.addAxis(*coordinateAxis());
+
+    if (!m_sim_elements.empty())
+        data.setRawDataVector(m_scan->createIntensities(m_sim_elements));
+    else
+        data.setAllTo(0.0);
+
+    auto converter = UnitConverter1D::createUnitConverter(*m_scan);
+    return SimulationResult(data, *converter);
 }
 
 void SpecularSimulation::setScan(const ISpecularScan& scan)
@@ -93,86 +125,52 @@ void SpecularSimulation::setScan(const ISpecularScan& scan)
         throw std::runtime_error(
             "Error in SpecularSimulation::setScan: minimum value on coordinate axis is negative.");
 
-    m_data_handler.reset(scan.clone());
+    m_scan.reset(scan.clone());
 
     SpecularDetector1D detector(*scan.coordinateAxis());
-    m_instrument.setDetector(detector);
+    instrument().setDetector(detector);
 
     // TODO: remove when pointwise resolution is implemented
-    if (scan.dataType() == ISpecularScan::angle) {
-        const auto& angular_scan = static_cast<const AngularSpecScan&>(scan);
-        m_instrument.setBeamParameters(angular_scan.wavelength(), zero_alpha_i, zero_phi_i);
-    }
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
+        instrument().setBeamParameters(aScan->wavelength(), 0.0, 0.0);
 }
 
 const IAxis* SpecularSimulation::coordinateAxis() const
 {
-    if (!m_data_handler || !m_data_handler->coordinateAxis())
+    if (!m_scan || !m_scan->coordinateAxis())
         throw std::runtime_error(
             "Error in SpecularSimulation::getAlphaAxis: coordinate axis was not initialized.");
-    return m_data_handler->coordinateAxis();
+    return m_scan->coordinateAxis();
 }
 
 const IFootprintFactor* SpecularSimulation::footprintFactor() const
 {
-    return m_data_handler->footprintFactor();
+    return m_scan->footprintFactor();
 }
 
 size_t SpecularSimulation::intensityMapSize() const
 {
-    return m_data_handler->coordinateAxis()->size();
+    return m_scan->coordinateAxis()->size();
 }
 
 void SpecularSimulation::initSimulationElementVector()
 {
-    const auto& beam = m_instrument.getBeam();
-    m_sim_elements = generateSimulationElements(beam);
+    if (!m_scan)
+        throw std::runtime_error("Error in SpecularSimulation: beam parameters were not set.");
+    m_sim_elements = generateSimulationElements(instrument(), *m_scan);
 
     if (!m_cache.empty())
         return;
     m_cache.resize(m_sim_elements.size(), 0);
 }
 
-std::vector<SpecularSimulationElement>
-SpecularSimulation::generateSimulationElements(const Beam& beam)
-{
-    if (!m_data_handler)
-        throw std::runtime_error("Error in SpecularSimulation::generateSimulationElements: beam "
-                                 "parameters were not set.");
-
-    std::vector<SpecularSimulationElement> elements;
-
-    // TODO: remove if-else statement when pointwise resolution is implemented
-    if (m_data_handler->dataType() == ISpecularScan::angle)
-        elements = mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
-    else
-        elements = m_data_handler->generateSimulationElements();
-
-    // add polarization and analyzer operators
-    const auto& polarization = beam.getPolarization();
-    const auto& analyzer = m_instrument.getDetector()->detectionProperties().analyzerOperator();
-
-    for (auto& elem : elements)
-        elem.setPolarizationHandler({polarization, analyzer});
-
-    return elements;
-}
-
 std::unique_ptr<IComputation>
 SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
-    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
-    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
+    return std::make_unique<SpecularComputation>(*sample(), options(), progress(), begin,
                                                  begin + static_cast<long>(n_elements));
-}
-
-SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : Simulation(other),
-      m_data_handler(other.m_data_handler ? other.m_data_handler->clone() : nullptr),
-      m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
-{
-    initialize();
 }
 
 void SpecularSimulation::checkCache() const
@@ -192,19 +190,21 @@ void SpecularSimulation::validateParametrization(const ParameterDistribution& pa
     const std::vector<RealParameter*> names =
         parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
-        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+        if (par->getName().find("InclinationAngle") != std::string::npos && !zero_mean)
             throw std::runtime_error("Error in SpecularSimulation: parameter distribution of "
                                      "beam inclination angle should have zero mean.");
 }
 
 void SpecularSimulation::initialize()
 {
-    setName(BornAgain::SpecularSimulationType);
+    setName("SpecularSimulation");
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    auto inclination = m_instrument.getBeam().parameter(BornAgain::Inclination);
-    inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
+    instrument()
+        .getBeam()
+        .parameter("InclinationAngle")
+        ->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
 void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
@@ -214,12 +214,11 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
         return; // no normalization when beam intensity is zero
 
     std::vector<double> footprints;
-    // TODO: use just m_data_handler when pointwise resolution is implemented
-    if (m_data_handler->dataType() == ISpecularScan::angle)
-        footprints = mangledDataHandler(*m_data_handler, getInstrument().getBeam())
-                         ->footprint(start_ind, n_elements);
+    // TODO: use just m_scan when pointwise resolution is implemented
+    if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(m_scan.get()))
+        footprints = mangledScan(*aScan, instrument().getBeam())->footprint(start_ind, n_elements);
     else
-        footprints = m_data_handler->footprint(start_ind, n_elements);
+        footprints = m_scan->footprint(start_ind, n_elements);
 
     for (size_t i = start_ind, k = 0; i < start_ind + n_elements; ++i, ++k) {
         auto& element = m_sim_elements[i];
@@ -227,13 +226,13 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+void SpecularSimulation::addBackgroundIntensity(size_t start_ind, size_t n_elements)
 {
-    if (!mP_background)
+    if (!background())
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
-        element.setIntensity(mP_background->addBackGround(element.getIntensity()));
+        element.setIntensity(background()->addBackground(element.getIntensity()));
     }
 }
 
@@ -253,27 +252,12 @@ void SpecularSimulation::moveDataFromCache()
     m_cache.shrink_to_fit();
 }
 
-std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const
-{
-    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis(*coordinateAxis());
-
-    if (!m_sim_elements.empty()) {
-        std::vector<double> data = m_data_handler->createIntensities(m_sim_elements);
-        result->setRawDataVector(data);
-    } else
-        result->setAllTo(0.0);
-
-    return result;
-}
-
 std::vector<double> SpecularSimulation::rawResults() const
 {
     std::vector<double> result;
     result.resize(m_sim_elements.size());
-    for (unsigned i = 0; i < m_sim_elements.size(); ++i) {
+    for (unsigned i = 0; i < m_sim_elements.size(); ++i)
         result[i] = m_sim_elements[i].getIntensity();
-    }
     return result;
 }
 
@@ -283,32 +267,7 @@ void SpecularSimulation::setRawResults(const std::vector<double>& raw_data)
     if (raw_data.size() != m_sim_elements.size())
         throw std::runtime_error("SpecularSimulation::setRawResults: size of vector passed as "
                                  "argument doesn't match number of elements in this simulation");
-    for (unsigned i = 0; i < raw_data.size(); i++) {
+    for (unsigned i = 0; i < raw_data.size(); i++)
         m_sim_elements[i].setIntensity(raw_data[i]);
-    }
     transferResultsToIntensityMap();
 }
-
-namespace
-{
-// TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
-                                                  const Beam& beam)
-{
-    if (data_handler.dataType() != ISpecularScan::angle)
-        throw std::runtime_error("Error in mangledDataHandler: invalid usage");
-    auto& scan = static_cast<const AngularSpecScan&>(data_handler);
-
-    const double wl = beam.getWavelength();
-    const double angle_shift = beam.getAlpha();
-    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
-    for (auto& val : angles)
-        val += angle_shift;
-    auto result =
-        std::make_unique<AngularSpecScan>(wl, PointwiseAxis("alpha_i", std::move(angles)));
-    result->setFootprintFactor(scan.footprintFactor());
-    result->setWavelengthResolution(*scan.wavelengthResolution());
-    result->setAngleResolution(*scan.angleResolution());
-    return std::unique_ptr<ISpecularScan>(result.release());
-}
-} // namespace

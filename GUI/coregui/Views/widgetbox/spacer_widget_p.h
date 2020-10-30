@@ -50,13 +50,11 @@
 // We mean it.
 //
 
-#ifndef SPACER_WIDGET_P_H
-#define SPACER_WIDGET_P_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_SPACER_WIDGET_P_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_SPACER_WIDGET_P_H
 
-#include "shared_global_p.h"
+#include "GUI/coregui/Views/widgetbox/shared_global_p.h"
 
-//#include <QtWidgets/QWidget>
-//#include <QtWidgets/QSizePolicy>
 #include <QSizePolicy>
 #include <QWidget>
 
@@ -116,4 +114,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // SPACER_WIDGET_P_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_SPACER_WIDGET_P_H

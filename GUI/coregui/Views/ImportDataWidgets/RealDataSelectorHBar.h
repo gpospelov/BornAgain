@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATASELECTORHBAR_H
-#define REALDATASELECTORHBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORHBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORHBAR_H
 
-#include "WinDllMacros.h"
 #include <QToolBar>
 
 class RealDataSelectorActions;
@@ -23,7 +22,7 @@ class QToolButton;
 
 //! Toolbar on top of selector tree with hamburger-like menu button.
 
-class BA_CORE_API_ RealDataSelectorHBar : public QToolBar
+class RealDataSelectorHBar : public QToolBar
 {
     Q_OBJECT
 public:
@@ -37,4 +36,4 @@ private:
     RealDataSelectorActions* m_actions;
 };
 
-#endif // REALDATASELECTORHBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_REALDATASELECTORHBAR_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef APPLICATIONMODELS_H
-#define APPLICATIONMODELS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_APPLICATIONMODELS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_APPLICATIONMODELS_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class SessionModel;
@@ -29,7 +28,7 @@ class JobModel;
 class MaterialPropertyController;
 class MessageService;
 
-class BA_CORE_API_ ApplicationModels : public QObject
+class ApplicationModels : public QObject
 {
     Q_OBJECT
 public:
@@ -80,4 +79,4 @@ private:
     MaterialPropertyController* m_materialPropertyController;
 };
 
-#endif // APPLICATIONMODELS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_APPLICATIONMODELS_H

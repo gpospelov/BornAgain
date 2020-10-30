@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEWSTATUSBAR_H
-#define SAMPLEVIEWSTATUSBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWSTATUSBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWSTATUSBAR_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;
@@ -24,7 +23,7 @@ class QComboBox;
 
 //! Narrow status bar at very bottom of SampleView to access dock menu.
 
-class BA_CORE_API_ SampleViewStatusBar : public QWidget
+class SampleViewStatusBar : public QWidget
 {
     Q_OBJECT
 public:
@@ -40,4 +39,4 @@ private:
     MainWindow* m_mainWindow;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWSTATUSBAR_H

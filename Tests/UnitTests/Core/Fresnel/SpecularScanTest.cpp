@@ -1,20 +1,16 @@
-#include "AngularSpecScan.h"
-#include "FixedBinAxis.h"
-#include "FootprintFactorGaussian.h"
-#include "PointwiseAxis.h"
-#include "QSpecScan.h"
-#include "RangedDistributions.h"
-#include "ScanResolution.h"
-#include "SpecularSimulationElement.h"
-#include "google_test.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
+#include "Device/Beam/FootprintGauss.h"
+#include "Device/Resolution/ScanResolution.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
+#include "Param/Distrib/RangedDistributions.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test
 {
-protected:
-    ~SpecularScanTest();
 };
-
-SpecularScanTest::~SpecularScanTest() = default;
 
 TEST_F(SpecularScanTest, AngularScanInit)
 {
@@ -22,7 +18,6 @@ TEST_F(SpecularScanTest, AngularScanInit)
         EXPECT_EQ(scan.wavelength(), 0.1);
         EXPECT_EQ(axis, *scan.coordinateAxis());
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
-        EXPECT_EQ(scan.dataType(), ISpecularScan::angle);
         EXPECT_EQ(scan.footprintFactor(), nullptr);
         EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
         EXPECT_THROW(scan.footprint(1, axis.size()), std::runtime_error);
@@ -49,7 +44,7 @@ TEST_F(SpecularScanTest, AngularScanWithFootprint)
     AngularSpecScan scan(0.1, std::vector<double>{0.1, 0.2, 0.3});
     EXPECT_EQ(scan.footprintFactor(), nullptr);
 
-    const IFootprintFactor& f_factor = FootprintFactorGaussian(0.1);
+    const IFootprintFactor& f_factor = FootprintGauss(0.1);
     scan.setFootprintFactor(&f_factor);
 
     EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{f_factor.calculate(0.1)});
@@ -71,7 +66,7 @@ TEST_F(SpecularScanTest, FootprintAndWavelengthResolution)
         ScanResolution::scanRelativeResolution(RangedDistributionGate(3, 2.0), 0.1));
     scan.setWavelengthResolution(*scan_res);
 
-    const IFootprintFactor& f_factor = FootprintFactorGaussian(0.1);
+    const IFootprintFactor& f_factor = FootprintGauss(0.1);
     scan.setFootprintFactor(&f_factor);
 
     std::vector<double> expected{
@@ -102,7 +97,7 @@ TEST_F(SpecularScanTest, FootprintAndAllResolutions)
         ScanResolution::scanRelativeResolution(RangedDistributionGate(2, 2.0), 0.1));
     scan.setAngleResolution(*inc_res);
 
-    const IFootprintFactor& f_factor = FootprintFactorGaussian(0.1);
+    const IFootprintFactor& f_factor = FootprintGauss(0.1);
     scan.setFootprintFactor(&f_factor);
 
     auto samples = inc_res->generateSamples(std::vector<double>{0.1, 0.2, 0.3});
@@ -132,7 +127,6 @@ TEST_F(SpecularScanTest, QScanInit)
     auto check = [](const QSpecScan& scan, const IAxis& axis) {
         EXPECT_EQ(axis, *scan.coordinateAxis());
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
-        EXPECT_EQ(scan.dataType(), ISpecularScan::q);
         EXPECT_EQ(scan.footprintFactor(), nullptr);
         EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
         EXPECT_THROW(scan.footprint(1, axis.size()), std::runtime_error);
@@ -161,23 +155,20 @@ TEST_F(SpecularScanTest, AngularScanClone)
     std::unique_ptr<AngularSpecScan> scan_clone(scan.clone());
     EXPECT_EQ(*scan_clone->coordinateAxis(), *scan.coordinateAxis());
     EXPECT_NE(scan_clone->coordinateAxis(), scan.coordinateAxis());
-    EXPECT_EQ(scan_clone->dataType(), scan.dataType());
     EXPECT_EQ(scan_clone->wavelength(), scan.wavelength());
     EXPECT_EQ(scan_clone->footprintFactor(), nullptr);
 
-    const IFootprintFactor& f_factor = FootprintFactorGaussian(0.1);
+    const IFootprintFactor& f_factor = FootprintGauss(0.1);
     scan.setFootprintFactor(&f_factor);
 
     std::unique_ptr<AngularSpecScan> scan_clone2(scan.clone());
     EXPECT_EQ(*scan_clone2->coordinateAxis(), *scan.coordinateAxis());
-    EXPECT_EQ(scan_clone2->dataType(), scan.dataType());
     EXPECT_EQ(scan_clone2->wavelength(), scan.wavelength());
 
     EXPECT_EQ(scan_clone2->footprintFactor()->widthRatio(), f_factor.widthRatio());
     EXPECT_NE(scan_clone2->footprintFactor(), scan.footprintFactor());
     EXPECT_NE(scan_clone2->footprintFactor(), &f_factor);
-    EXPECT_NE(dynamic_cast<const FootprintFactorGaussian*>(scan_clone2->footprintFactor()),
-              nullptr);
+    EXPECT_NE(dynamic_cast<const FootprintGauss*>(scan_clone2->footprintFactor()), nullptr);
 }
 
 TEST_F(SpecularScanTest, QScanClone)
@@ -187,7 +178,6 @@ TEST_F(SpecularScanTest, QScanClone)
     std::unique_ptr<QSpecScan> scan_clone(scan.clone());
     EXPECT_EQ(*scan_clone->coordinateAxis(), *scan.coordinateAxis());
     EXPECT_NE(scan_clone->coordinateAxis(), scan.coordinateAxis());
-    EXPECT_EQ(scan_clone->dataType(), scan.dataType());
     EXPECT_EQ(scan_clone->footprintFactor(), nullptr);
 }
 

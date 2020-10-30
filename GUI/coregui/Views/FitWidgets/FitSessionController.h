@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSESSIONCONTROLLER_H
-#define FITSESSIONCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONCONTROLLER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 #include <memory>
 
@@ -29,7 +28,7 @@ class FitObjectiveBuilder;
 //! Controls all activity related to the single fitting task for JobItem.
 //! Provides interaction between FitSessionWidget and fit observers.
 
-class BA_CORE_API_ FitSessionController : public QObject
+class FitSessionController : public QObject
 {
     Q_OBJECT
 public:
@@ -67,4 +66,4 @@ private:
     bool m_block_progress_update;
 };
 
-#endif // FITSESSIONCONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITSESSIONCONTROLLER_H

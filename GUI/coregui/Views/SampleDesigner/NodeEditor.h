@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef NODEEDITOR_H
-#define NODEEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_NODEEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_NODEEDITOR_H
 
 /*
  * Node editor: original code is taken from
@@ -21,7 +21,6 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class QGraphicsScene;
@@ -33,7 +32,7 @@ class QGraphicsSceneMouseEvent;
 //! The NodeEditor class implement for QGraphicsScene an editable schematic
 //! of the dependency graph, displaying nodes and the connections between their
 //! attributes
-class BA_CORE_API_ NodeEditor : public QObject
+class NodeEditor : public QObject
 {
     Q_OBJECT
 
@@ -60,4 +59,4 @@ private:
     NodeEditorConnection* m_conn;
 };
 
-#endif // NODEEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_NODEEDITOR_H

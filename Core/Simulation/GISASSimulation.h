@@ -12,25 +12,22 @@
 //
 // ************************************************************************** //
 
-#ifndef GISASSIMULATION_H
-#define GISASSIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H
 
-#include "Simulation2D.h"
-#include "SimulationElement.h"
+#include "Base/Pixel/SimulationElement.h"
+#include "Core/Simulation/Simulation2D.h"
 
 class MultiLayer;
-class IMultiLayerBuilder;
+class ISampleBuilder;
 
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ GISASSimulation : public Simulation2D
+class GISASSimulation : public Simulation2D
 {
 public:
     GISASSimulation();
-    GISASSimulation(const MultiLayer& p_sample);
-    GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
-
     ~GISASSimulation() {}
 
     GISASSimulation* clone() const override { return new GISASSimulation(*this); }
@@ -59,4 +56,4 @@ private:
     void initialize();
 };
 
-#endif // GISASSIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H

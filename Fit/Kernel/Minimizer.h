@@ -12,13 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZER_H
-#define MINIMIZER_H
+#ifndef BORNAGAIN_FIT_KERNEL_MINIMIZER_H
+#define BORNAGAIN_FIT_KERNEL_MINIMIZER_H
 
-#include "KernelTypes.h"
-#include "MinimizerResult.h"
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Kernel/MinimizerResult.h"
 #include <functional>
 #include <memory>
 #include <string>
@@ -35,7 +33,7 @@ class Kernel;
 //! A main class to run fitting.
 //! @ingroup fitting
 
-class BA_CORE_API_ Minimizer
+class Minimizer
 {
 public:
     Minimizer();
@@ -61,4 +59,4 @@ private:
 
 } // namespace Fit
 
-#endif // MINIMIZER_H
+#endif // BORNAGAIN_FIT_KERNEL_MINIMIZER_H

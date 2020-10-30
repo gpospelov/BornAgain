@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTVIEW_H
-#define INSTRUMENTVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTVIEW_H
 
-#include "ItemStackPresenter.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h"
 #include <QWidget>
 
 class MainWindow;
@@ -27,7 +26,7 @@ class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
 
-class BA_CORE_API_ InstrumentView : public QWidget
+class InstrumentView : public QWidget
 {
     Q_OBJECT
 
@@ -51,4 +50,4 @@ private:
     InstrumentModel* m_instrumentModel;
 };
 
-#endif // INSTRUMENTVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTVIEW_H

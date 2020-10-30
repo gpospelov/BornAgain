@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIFITOBSERVER_H
-#define GUIFITOBSERVER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_GUIFITOBSERVER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_GUIFITOBSERVER_H
 
-#include "FitProgressInfo.h"
+#include "GUI/coregui/Views/FitWidgets/FitProgressInfo.h"
 #include <QObject>
 #include <condition_variable>
 #include <mutex>
@@ -27,7 +27,7 @@ class FitObjective;
 //! Serves as observer for FitObjective and saves fit iteration data for later display
 //! in GUI widgets.
 
-class BA_CORE_API_ GUIFitObserver : public QObject
+class GUIFitObserver : public QObject
 {
     Q_OBJECT
 
@@ -58,4 +58,4 @@ private:
     FitProgressInfo m_iteration_info;
 };
 
-#endif // GUIFITOBSERVER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_GUIFITOBSERVER_H

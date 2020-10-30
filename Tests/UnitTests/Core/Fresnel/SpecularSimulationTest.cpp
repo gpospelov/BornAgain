@@ -1,27 +1,24 @@
-#include "SpecularSimulation.h"
-#include "AngularSpecScan.h"
-#include "Distributions.h"
-#include "Exceptions.h"
-#include "FixedBinAxis.h"
-#include "Histogram1D.h"
-#include "IMultiLayerBuilder.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ParameterPattern.h"
-#include "QSpecScan.h"
-#include "RealParameter.h"
-#include "Units.h"
-#include "VariableBinAxis.h"
-#include "google_test.h"
+#include "Core/Simulation/SpecularSimulation.h"
+#include "Base/Axis/VariableBinAxis.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Const/Units.h"
+#include "Device/Histo/Histogram1D.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
+#include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 
 class SpecularSimulationTest : public ::testing::Test
 {
 protected:
     SpecularSimulationTest();
-    ~SpecularSimulationTest();
 
     std::unique_ptr<SpecularSimulation> defaultSimulation();
     void checkBeamState(const SpecularSimulation& sim);
@@ -44,8 +41,6 @@ SpecularSimulationTest::SpecularSimulationTest()
     multilayer.addLayer(layer2);
 }
 
-SpecularSimulationTest::~SpecularSimulationTest() = default;
-
 TEST_F(SpecularSimulationTest, InitialState)
 {
     SpecularSimulation sim;
@@ -66,7 +61,7 @@ std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation()
 
 void SpecularSimulationTest::checkBeamState(const SpecularSimulation& sim)
 {
-    const auto* inclination = sim.getInstrument().getBeam().parameter(BornAgain::Inclination);
+    const auto* inclination = sim.instrument().getBeam().parameter("InclinationAngle");
     const auto test_limits = RealLimits::limited(-M_PI_2, M_PI_2);
     EXPECT_EQ(test_limits, inclination->limits());
     EXPECT_EQ(0.0, inclination->value());
@@ -91,7 +86,7 @@ TEST_F(SpecularSimulationTest, SetAngularScan)
     SpecularSimulation sim;
     AngularSpecScan scan(1.0, std::vector<double>{1.0 * Units::deg, 3.0 * Units::deg});
     sim.setScan(scan);
-    const auto& beam = sim.getInstrument().getBeam();
+    const auto& beam = sim.instrument().getBeam();
 
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->getMin());
@@ -140,7 +135,7 @@ TEST_F(SpecularSimulationTest, SetQScan)
     QSpecScan scan(std::vector<double>{1.0, 3.0});
     sim.setScan(scan);
 
-    const auto& beam = sim.getInstrument().getBeam();
+    const auto& beam = sim.instrument().getBeam();
 
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0, sim.coordinateAxis()->getMin());
@@ -186,9 +181,9 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->getRank(), 1u);
 
-    EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(AxesUnits::RADIANS).front(),
+    EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(Axes::Units::RADIANS).front(),
                 Units::degree * 1e-11);
-    EXPECT_NEAR(1.9 * Units::degree, sim_result.axis(AxesUnits::RADIANS).back(),
+    EXPECT_NEAR(1.9 * Units::degree, sim_result.axis(Axes::Units::RADIANS).back(),
                 Units::degree * 1e-10);
 
     checkBeamState(*sim);
@@ -226,11 +221,11 @@ TEST_F(SpecularSimulationTest, AddingBeamDistributions)
     DistributionGaussian distribution(1.0, 2.0);
 
     ParameterPattern wl_pattern;
-    wl_pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    wl_pattern.beginsWith("*").add("Beam").add("Wavelength");
     ParameterPattern incl_ang_pattern;
-    incl_ang_pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
+    incl_ang_pattern.beginsWith("*").add("Beam").add("InclinationAngle");
     ParameterPattern beam_pattern;
-    beam_pattern.beginsWith("*").add(BornAgain::BeamType).add("*");
+    beam_pattern.beginsWith("*").add("Beam").add("*");
 
     EXPECT_THROW(sim->addParameterDistribution(incl_ang_pattern.toStdString(), distribution, 5),
                  std::runtime_error);
@@ -250,8 +245,8 @@ TEST_F(SpecularSimulationTest, AddingBeamDistributions)
 TEST_F(SpecularSimulationTest, OutOfRangeAngles)
 {
     auto sim = defaultSimulation();
-    auto& beam = sim->getInstrument().getBeam();
-    beam.parameter(BornAgain::Inclination)->setValue(-0.2 * Units::deg);
+    auto& beam = sim->instrument().getBeam();
+    beam.parameter("InclinationAngle")->setValue(-0.2 * Units::deg);
 
     sim->runSimulation();
     auto sim_result = sim->result();

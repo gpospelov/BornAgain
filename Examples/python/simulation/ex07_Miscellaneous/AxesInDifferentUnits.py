@@ -13,7 +13,7 @@ def get_sample():
     Returns a sample with uncorrelated cylinders on a substrate.
     """
     # defining materials
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
@@ -23,12 +23,12 @@ def get_sample():
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
 
-    air_layer = ba.Layer(m_ambience)
-    air_layer.addLayout(particle_layout)
+    vacuum_layer = ba.Layer(m_vacuum)
+    vacuum_layer.addLayout(particle_layout)
     substrate_layer = ba.Layer(m_substrate)
 
     multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
 
@@ -90,16 +90,16 @@ def plot(result):
                      xlabel=r'$X_{mm}$', ylabel=r'$Y_{mm}$', zlabel=None)
 
     plt.subplot(2, 2, 2)
-    ba.plot_colormap(result, units=ba.AxesUnits.NBINS, title="In number of bins",
+    ba.plot_colormap(result, units=ba.Axes.NBINS, title="In number of bins",
                      xlabel=r'$X_{nbins}$', ylabel=r'$Y_{nbins}$', zlabel=None)
 
     plt.subplot(2, 2, 3)
-    ba.plot_colormap(result, units=ba.AxesUnits.DEGREES, title="In degs",
+    ba.plot_colormap(result, units=ba.Axes.DEGREES, title="In degs",
                      xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
                      zlabel=None)
 
     plt.subplot(2, 2, 4)
-    ba.plot_colormap(result, units=ba.AxesUnits.QSPACE, title="Q-space",
+    ba.plot_colormap(result, units=ba.Axes.QSPACE, title="Q-space",
                      xlabel=r'$Q_{y} [1/nm]$', ylabel=r'$Q_{z} [1/nm]$', zlabel=None)
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)

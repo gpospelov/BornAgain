@@ -12,15 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKDRAWINGCONTEXT_H
-#define MASKDRAWINGCONTEXT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKDRAWINGCONTEXT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKDRAWINGCONTEXT_H
 
-#include "MaskEditorFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 
 //! Helper class for MaskGraphicsScene to hold drawing conditions
 
-class BA_CORE_API_ MaskDrawingContext
+class MaskDrawingContext
 {
 public:
     MaskDrawingContext();
@@ -57,4 +56,4 @@ private:
     bool m_drawing_in_progress;
 };
 
-#endif // MASKDRAWINGCONTEXT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKDRAWINGCONTEXT_H

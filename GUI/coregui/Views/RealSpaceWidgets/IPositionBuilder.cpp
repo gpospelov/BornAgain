@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "IPositionBuilder.h"
-#include "InterferenceFunctions.h"
-#include "Lattice2D.h"
-#include "RealSpace2DParacrystalUtils.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/IPositionBuilder.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpace2DParacrystalUtils.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
 #include <cmath>
 #include <random>
 
@@ -105,9 +104,8 @@ Lattice1DPositionBuilder::~Lattice1DPositionBuilder() = default;
 std::vector<std::vector<double>> Lattice1DPositionBuilder::generatePositionsImpl(double layer_size,
                                                                                  double) const
 {
-    auto lattice_pars = mP_iff->getLatticeParameters();
-    double length = lattice_pars.m_length;
-    double xi = lattice_pars.m_xi;
+    const double length = mP_iff->getLength();
+    const double xi = mP_iff->getXi();
 
     // Take the maximum possible integer multiple of the lattice vector required
     // for populating particles correctly within the 3D model's boundaries

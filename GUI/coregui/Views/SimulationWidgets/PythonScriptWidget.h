@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PYTHONSCRIPTWIDGET_H
-#define PYTHONSCRIPTWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_PYTHONSCRIPTWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_PYTHONSCRIPTWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QDialog>
 
 class QToolBar;
@@ -28,7 +27,7 @@ class SimulationOptionsItem;
 //! The PythonScriptWidget displays a python script which represents full simulation.
 //! Part of SimulationSetupWidget
 
-class BA_CORE_API_ PythonScriptWidget : public QDialog
+class PythonScriptWidget : public QDialog
 {
     Q_OBJECT
 
@@ -38,7 +37,7 @@ public:
     void generatePythonScript(const MultiLayerItem* sampleItem,
                               const InstrumentItem* instrumentItem,
                               const SimulationOptionsItem* optionItem = 0,
-                              const QString& outputDir = QString());
+                              const QString& outputDir = "");
 
 private slots:
     void onExportToFileButton();
@@ -50,4 +49,4 @@ private:
     QString m_outputDir;
 };
 
-#endif // PYTHONSCRIPTWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SIMULATIONWIDGETS_PYTHONSCRIPTWIDGET_H

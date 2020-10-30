@@ -12,16 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef FITWORKER_H
-#define FITWORKER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITWORKER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITWORKER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 #include <memory>
 
 class FitObjectiveBuilder;
 
-class BA_CORE_API_ FitWorker : public QObject
+class FitWorker : public QObject
 {
     Q_OBJECT
 
@@ -47,4 +46,4 @@ private:
     std::shared_ptr<FitObjectiveBuilder> m_fit_objective;
 };
 
-#endif // FITWORKER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITWORKER_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBSELECTORWIDGET_H
-#define JOBSELECTORWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class JobModel;
@@ -33,7 +32,7 @@ class MiniSplitter;
 //! The JobSelectorWidget class represents left panel of JobView. Contains a tree to select jobs
 //! on the top and job property editor at the bottom.
 
-class BA_CORE_API_ JobSelectorWidget : public QWidget
+class JobSelectorWidget : public QWidget
 {
     Q_OBJECT
 
@@ -65,4 +64,4 @@ private:
     JobModel* m_jobModel;
 };
 
-#endif // JOBSELECTORWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBSELECTORWIDGET_H

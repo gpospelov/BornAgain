@@ -12,30 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "OffSpecSimulation.h"
-#include "BornAgainNamespace.h"
-#include "DWBAComputation.h"
-#include "Distributions.h"
-#include "Histogram2D.h"
-#include "IMultiLayerBuilder.h"
-#include "MultiLayer.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
-#include "SimpleUnitConverters.h"
-#include "SimulationElement.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Computation/DWBAComputation.h"
+#include "Device/Detector/SimpleUnitConverters.h"
+#include "Device/Histo/Histogram2D.h"
+#include "Param/Base/ParameterPool.h"
+#include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 OffSpecSimulation::OffSpecSimulation()
-{
-    initialize();
-}
-
-OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample) : Simulation2D(p_sample)
-{
-    initialize();
-}
-
-OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation2D(p_sample_builder)
 {
     initialize();
 }
@@ -55,13 +42,9 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
 SimulationResult OffSpecSimulation::result() const
 {
     auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
-    auto p_det = dynamic_cast<const IDetector2D*>(getInstrument().getDetector());
-    if (p_det) {
-        OffSpecularConverter converter(*p_det, getInstrument().getBeam(), *mP_alpha_i_axis);
-        return SimulationResult(*data, converter);
-    }
-    throw std::runtime_error("Error in OffSpecSimulation::result: "
-                             "wrong or absent detector type");
+    OffSpecularConverter converter(instrument().detector2D(), instrument().getBeam(),
+                                   *mP_alpha_i_axis);
+    return SimulationResult(*data, converter);
 }
 
 void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_axis, double phi_i)
@@ -71,7 +54,7 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
         throw Exceptions::ClassInitializationException("OffSpecSimulation::prepareSimulation() "
                                                        "-> Error. Incoming alpha range size < 1.");
     const double alpha_zero = alpha_axis.getMin();
-    m_instrument.setBeamParameters(wavelength, alpha_zero, phi_i);
+    instrument().setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }
 
@@ -82,19 +65,18 @@ const IAxis* OffSpecSimulation::beamAxis() const
 
 std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
 {
-    const IDetector* detector = getInstrument().getDetector();
     const IAxis* axis = beamAxis();
-    if (!detector || !axis)
-        throw std::runtime_error("Error in OffSpecSimulation::createUnitConverter: missing detector"
-                                 "or inclination angle axis");
-    return std::make_unique<OffSpecularConverter>(static_cast<const IDetector2D&>(*detector),
-                                                  getInstrument().getBeam(), *axis);
+    if (!axis)
+        throw std::runtime_error("Error in OffSpecSimulation::createUnitConverter:"
+                                 " missing inclination angle axis");
+    return std::make_unique<OffSpecularConverter>(instrument().detector2D(), instrument().getBeam(),
+                                                  *axis);
 }
 
 size_t OffSpecSimulation::intensityMapSize() const
 {
     checkInitialization();
-    return mP_alpha_i_axis->size() * m_instrument.getDetectorAxis(1).size();
+    return mP_alpha_i_axis->size() * instrument().getDetectorAxis(1).size();
 }
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : Simulation2D(other)
@@ -108,7 +90,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : Simulatio
 void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
-    Beam beam = m_instrument.getBeam();
+    Beam beam = instrument().getBeam();
     const double wavelength = beam.getWavelength();
     const double phi_i = beam.getPhi();
 
@@ -135,7 +117,7 @@ void OffSpecSimulation::validateParametrization(const ParameterDistribution& par
     const std::vector<RealParameter*> names =
         parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
-        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+        if (par->getName().find("InclinationAngle") != std::string::npos && !zero_mean)
             throw std::runtime_error("Error in OffSpecSimulation: parameter distribution of "
                                      "beam inclination angle should have zero mean.");
 }
@@ -143,7 +125,7 @@ void OffSpecSimulation::validateParametrization(const ParameterDistribution& par
 void OffSpecSimulation::transferResultsToIntensityMap()
 {
     checkInitialization();
-    const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
+    const IAxis& phi_axis = instrument().getDetectorAxis(0);
     size_t phi_f_size = phi_axis.size();
     if (phi_f_size * m_intensity_map.getAllocatedSize() != m_sim_elements.size())
         throw Exceptions::RuntimeErrorException(
@@ -158,23 +140,23 @@ void OffSpecSimulation::updateIntensityMap()
     m_intensity_map.clear();
     if (mP_alpha_i_axis)
         m_intensity_map.addAxis(*mP_alpha_i_axis);
-    size_t detector_dimension = m_instrument.getDetectorDimension();
+    size_t detector_dimension = instrument().getDetectorDimension();
     if (detector_dimension == 2)
-        m_intensity_map.addAxis(m_instrument.getDetectorAxis(1));
+        m_intensity_map.addAxis(instrument().getDetectorAxis(1));
     m_intensity_map.setAllTo(0.);
 }
 
 void OffSpecSimulation::transferDetectorImage(size_t index)
 {
     OutputData<double> detector_image;
-    size_t detector_dimension = m_instrument.getDetectorDimension();
+    size_t detector_dimension = instrument().getDetectorDimension();
     for (size_t dim = 0; dim < detector_dimension; ++dim)
-        detector_image.addAxis(m_instrument.getDetectorAxis(dim));
+        detector_image.addAxis(instrument().getDetectorAxis(dim));
     size_t detector_size = detector_image.getAllocatedSize();
     for (size_t i = 0; i < detector_size; ++i)
         detector_image[i] = m_sim_elements[index * detector_size + i].getIntensity();
-    m_instrument.applyDetectorResolution(&detector_image);
-    size_t y_axis_size = m_instrument.getDetectorAxis(1).size();
+    instrument().applyDetectorResolution(&detector_image);
+    size_t y_axis_size = instrument().getDetectorAxis(1).size();
     for (size_t i = 0; i < detector_size; ++i)
         m_intensity_map[index * y_axis_size + i % y_axis_size] += detector_image[i];
 }
@@ -184,12 +166,12 @@ void OffSpecSimulation::checkInitialization() const
     if (!mP_alpha_i_axis || mP_alpha_i_axis->size() < 1)
         throw Exceptions::ClassInitializationException("OffSpecSimulation::checkInitialization() "
                                                        "Incoming alpha range not configured.");
-    if (m_instrument.getDetectorDimension() != 2)
+    if (instrument().getDetectorDimension() != 2)
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::checkInitialization: detector is not two-dimensional");
 }
 
 void OffSpecSimulation::initialize()
 {
-    setName(BornAgain::OffSpecSimulationType);
+    setName("OffSpecSimulation");
 }

@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ExternalProperty.h"
-#include "MaterialItem.h"
-#include "MaterialModel.h"
+#include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
+#include "GUI/coregui/Models/MaterialItem.h"
+#include "GUI/coregui/Models/MaterialModel.h"
 
-ExternalProperty::ExternalProperty() {}
+ExternalProperty::ExternalProperty() = default;
 
 QString ExternalProperty::text() const
 {

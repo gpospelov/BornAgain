@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARINSTRUMENTEDITOR_H_
-#define SPECULARINSTRUMENTEDITOR_H_
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_SPECULARINSTRUMENTEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_SPECULARINSTRUMENTEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class SpecularInstrumentItem;
 class SpecularBeamEditor;
@@ -24,7 +24,7 @@ class PolarizationAnalysisEditor;
 class ColumnResizer;
 class QVBoxLayout;
 
-class BA_CORE_API_ SpecularInstrumentEditor : public SessionItemWidget
+class SpecularInstrumentEditor : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -42,4 +42,4 @@ private:
     PolarizationAnalysisEditor* m_polarizationAnalysisEditor;
 };
 
-#endif /* SPECULARINSTRUMENTEDITOR_H_ */
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_SPECULARINSTRUMENTEDITOR_H

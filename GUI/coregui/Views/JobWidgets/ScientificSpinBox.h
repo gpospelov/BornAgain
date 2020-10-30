@@ -12,13 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef SCIENTIFICSPINBOX_H
-#define SCIENTIFICSPINBOX_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SCIENTIFICSPINBOX_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SCIENTIFICSPINBOX_H
 
-#include "WinDllMacros.h"
 #include <QAbstractSpinBox>
 
-class BA_CORE_API_ ScientificSpinBox : public QAbstractSpinBox
+class ScientificSpinBox : public QAbstractSpinBox
 {
     Q_OBJECT
 
@@ -68,4 +67,4 @@ private:
     QDoubleValidator m_validator;
 };
 
-#endif // SCIENTIFICSPINBOX_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_SCIENTIFICSPINBOX_H

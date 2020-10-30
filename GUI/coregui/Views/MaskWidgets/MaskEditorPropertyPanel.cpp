@@ -12,12 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "MaskEditorPropertyPanel.h"
-#include "AccordionWidget.h"
-#include "ComponentEditor.h"
-#include "ContentPane.h"
-#include "IntensityDataItem.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorPropertyPanel.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Views/AccordionWidget/ContentPane.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QListView>
 #include <QVBoxLayout>
 
@@ -97,7 +96,7 @@ void MaskEditorPropertyPanel::setMaskContext(SessionModel* model,
 void MaskEditorPropertyPanel::resetContext()
 {
     m_maskModel = nullptr;
-    m_rootIndex = QModelIndex();
+    m_rootIndex = {};
     m_intensityDataItem = nullptr;
     m_listView->setModel(nullptr);
     m_maskPropertyEditor->setItem(nullptr);
@@ -106,7 +105,7 @@ void MaskEditorPropertyPanel::resetContext()
 
 QItemSelectionModel* MaskEditorPropertyPanel::selectionModel()
 {
-    Q_ASSERT(m_listView);
+    ASSERT(m_listView);
     return m_listView->selectionModel();
 }
 
@@ -123,7 +122,7 @@ void MaskEditorPropertyPanel::setPanelHidden(bool value)
         m_plotPropertyEditor->setItem(nullptr);
     } else {
         QModelIndexList indexes = selectionModel()->selectedIndexes();
-        if (indexes.size())
+        if (!indexes.empty())
             m_maskPropertyEditor->setItem(m_maskModel->itemForIndex(indexes.front()));
 
         m_plotPropertyEditor->setItem(m_intensityDataItem);
@@ -133,7 +132,7 @@ void MaskEditorPropertyPanel::setPanelHidden(bool value)
 void MaskEditorPropertyPanel::onSelectionChanged(const QItemSelection& selected,
                                                  const QItemSelection&)
 {
-    if (selected.size())
+    if (!selected.empty())
         m_maskPropertyEditor->setItem(m_maskModel->itemForIndex(selected.indexes().front()));
     else
         m_maskPropertyEditor->setItem(nullptr);

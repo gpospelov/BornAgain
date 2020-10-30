@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBSERVER_H
-#define FITOBSERVER_H
+#ifndef BORNAGAIN_CORE_FITTING_FITOBSERVER_H
+#define BORNAGAIN_CORE_FITTING_FITOBSERVER_H
 
-#include "FitTypes.h"
+#include "Core/Fitting/FitTypes.h"
 #include <functional>
 #include <vector>
 
@@ -86,7 +86,7 @@ template <class T> void FitObserver<T>::notify_all(const T& data)
 
 template <class T> bool FitObserver<T>::need_notify(int every_nth)
 {
-    return m_notify_count == 0 || m_notify_count % every_nth == 0 ? true : false;
+    return m_notify_count == 0 || m_notify_count % every_nth == 0;
 }
 
-#endif // FITOBSERVER_H
+#endif // BORNAGAIN_CORE_FITTING_FITOBSERVER_H

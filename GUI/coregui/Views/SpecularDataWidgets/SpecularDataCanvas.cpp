@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "SpecularDataCanvas.h"
-#include "AppSvc.h"
-#include "SavePlotAssistant.h"
-#include "SpecularDataItem.h"
-#include "SpecularPlotCanvas.h"
-#include "plot_constants.h"
-#include "projectmanager.h"
-#include "qcustomplot.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/SpecularDataCanvas.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
+#include "GUI/coregui/Views/FitWidgets/plot_constants.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/SavePlotAssistant.h"
+#include "GUI/coregui/Views/SpecularDataWidgets/SpecularPlotCanvas.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
+#include <qcustomplot.h>
 
 SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
     : SessionItemWidget(parent), m_plot_canvas(new SpecularPlotCanvas),
@@ -84,7 +84,7 @@ void SpecularDataCanvas::onMousePress(QMouseEvent* event)
 SpecularDataItem* SpecularDataCanvas::specularDataItem()
 {
     SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(currentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 

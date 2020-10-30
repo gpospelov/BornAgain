@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PROGRESSHANDLER_H
-#define PROGRESSHANDLER_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H
+#define BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H
 
-#include "WinDllMacros.h"
 #include <functional>
 
 class MultiLayer;
@@ -28,7 +27,7 @@ class MultiLayer;
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ProgressHandler
+class ProgressHandler
 {
 public:
     typedef std::function<bool(size_t)> Callback_t;
@@ -61,4 +60,4 @@ private:
     bool defaultMonitorExec(int);
 };
 
-#endif // PROGRESSHANDLER_H
+#endif // BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H

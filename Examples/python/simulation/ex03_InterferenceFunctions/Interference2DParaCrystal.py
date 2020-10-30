@@ -9,7 +9,7 @@ def get_sample():
     """
     Returns a sample with cylinders on a substrate, forming a 2D paracrystal
     """
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
@@ -19,7 +19,7 @@ def get_sample():
 
     interference = ba.InterferenceFunction2DParaCrystal.createSquare(
         10.0*nm, 0.0, 20.0*micrometer, 20.0*micrometer)
-    pdf = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm)
+    pdf = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm, 0)
     interference.setProbabilityDistributions(pdf, pdf)
 
     particle_layout = ba.ParticleLayout()
@@ -27,13 +27,13 @@ def get_sample():
     particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
-    air_layer = ba.Layer(m_ambience)
-    air_layer.addLayout(particle_layout)
+    vacuum_layer = ba.Layer(m_vacuum)
+    vacuum_layer.addLayout(particle_layout)
 
     substrate_layer = ba.Layer(m_substrate)
 
     multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayer(substrate_layer)
     print(multi_layer.parametersToString())
     print(multi_layer.treeToString())

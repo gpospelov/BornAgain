@@ -12,14 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "MaskResultsPresenter.h"
-#include "DetectorMask.h"
-#include "IShape2D.h"
-#include "IntensityDataItem.h"
-#include "MaskItems.h"
-#include "OutputData.h"
-#include "RegionOfInterest.h"
-#include "SessionModel.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskResultsPresenter.h"
+#include "Device/Detector/DetectorMask.h"
+#include "Device/Detector/RegionOfInterest.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/MaskItems.h"
+#include "GUI/coregui/Models/SessionModel.h"
 #include <QVBoxLayout>
 
 MaskResultsPresenter::MaskResultsPresenter(QWidget* parent)
@@ -96,7 +94,7 @@ OutputData<double>* MaskResultsPresenter::createMaskPresentation() const
     for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
         if (MaskItem* maskItem = dynamic_cast<MaskItem*>(m_maskModel->itemForIndex(itemIndex))) {
-            if (maskItem->modelType() == Constants::RegionOfInterestType) {
+            if (maskItem->modelType() == "RegionOfInterest") {
                 double xlow = maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
                 double ylow = maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
                 double xup = maskItem->getItemValue(RectangleItem::P_XUP).toDouble();

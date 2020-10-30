@@ -12,15 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef CSVIMPORTTABLE_H
-#define CSVIMPORTTABLE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTTABLE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTTABLE_H
 
-#include "CsvDataColumn.h"
-#include "CsvNamespace.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
 #include <QTableWidget>
 #include <set>
 
-class BA_CORE_API_ CsvImportData : public QObject
+class CsvImportData : public QObject
 {
 public:
     // FIXME: move DATA_TYPE enumeration to csv namespace
@@ -117,4 +116,4 @@ private:
     bool m_data_is_suitable;
 };
 
-#endif // CSVIMPORTTABLE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTTABLE_H

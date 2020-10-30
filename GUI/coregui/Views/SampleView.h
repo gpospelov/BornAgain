@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEW_H
-#define SAMPLEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H
 
-#include "WinDllMacros.h"
-#include "fancymainwindow.h"
+#include <fancymainwindow.h>
 
 class MainWindow;
 class SampleViewDocks;
@@ -29,7 +28,7 @@ class QShowEvent;
 class QHideEvent;
 class SampleViewActions;
 
-class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
+class SampleView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
@@ -65,4 +64,4 @@ private:
     SampleViewStatusBar* m_statusBar;
 };
 
-#endif // SAMPLEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H

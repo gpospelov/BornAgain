@@ -12,22 +12,20 @@
 //
 // ************************************************************************** //
 
-#ifndef IVIEW_H
-#define IVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_IVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_IVIEW_H
 
-#include "WinDllMacros.h"
-#include "ViewTypes.h"
+#include "GUI/coregui/Views/SampleDesigner/ViewTypes.h"
 #include <QGraphicsObject>
 #include <memory>
 
 class SessionItem;
 
 //! parent class for graphic representation of all ISample's
-class BA_CORE_API_ IView : public QGraphicsObject
+class IView : public QGraphicsObject
 {
     Q_OBJECT
 public:
-
     IView(QGraphicsItem* parent = 0);
     virtual ~IView();
 
@@ -64,4 +62,4 @@ inline SessionItem* IView::getItem()
     return m_item;
 }
 
-#endif // IVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_IVIEW_H

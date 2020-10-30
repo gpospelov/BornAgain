@@ -1,16 +1,11 @@
-#include "DetectorMask.h"
-#include "Polygon.h"
-#include "SphericalDetector.h"
-#include "google_test.h"
+#include "Device/Detector/SphericalDetector.h"
+#include "Device/Mask/Polygon.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class DetectorMaskTest : public ::testing::Test
 {
-public:
-    ~DetectorMaskTest();
 };
-
-DetectorMaskTest::~DetectorMaskTest() = default;
 
 TEST_F(DetectorMaskTest, InitialState)
 {

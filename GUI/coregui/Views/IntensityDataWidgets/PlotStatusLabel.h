@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PLOTSTATUSLABEL_H
-#define PLOTSTATUSLABEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOTSTATUSLABEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOTSTATUSLABEL_H
 
-#include "StatusLabel.h"
+#include "GUI/coregui/Views/CommonWidgets/StatusLabel.h"
 #include <QList>
 
 class ScientificPlot;
@@ -26,7 +26,7 @@ class QResizeEvent;
 //! depending on available space in parent layout. Also doesn't trigger layout resize,
 //! being happy with place it has.
 
-class BA_CORE_API_ PlotStatusLabel : public StatusLabel
+class PlotStatusLabel : public StatusLabel
 {
     Q_OBJECT
 public:
@@ -51,4 +51,4 @@ private:
     QList<ScientificPlot*> m_plots;
 };
 
-#endif // PLOTSTATUSLABEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PLOTSTATUSLABEL_H

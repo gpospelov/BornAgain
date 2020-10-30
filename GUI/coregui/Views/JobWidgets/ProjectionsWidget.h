@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSWIDGET_H
-#define PROJECTIONSWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSWIDGET_H
 
-#include "MaskEditorFlags.h"
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 
 class ProjectionsPlot;
 class QTabWidget;
 
 //! Holds tabs of vertical and horizontal projections, located at the bottom of ProjectionsEditor.
 
-class BA_CORE_API_ ProjectionsWidget : public SessionItemWidget
+class ProjectionsWidget : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -51,4 +51,4 @@ private:
     QTabWidget* m_tabWidget;
 };
 
-#endif // PROJECTIONSWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSWIDGET_H

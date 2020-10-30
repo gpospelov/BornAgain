@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONWIDGET_H
-#define DISTRIBUTIONWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONWIDGET_H
 
-#include "qcustomplot.h"
 #include <QWidget>
+#include <qcustomplot.h>
 
 class SessionItem;
 class QLabel;
@@ -67,4 +67,4 @@ private:
     WarningSign* m_warningSign;
 };
 
-#endif // DISTRIBUTIONWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONWIDGET_H

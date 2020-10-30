@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALEDITORTOOLBAR_H
-#define MATERIALEDITORTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITORTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITORTOOLBAR_H
 
-#include "WinDllMacros.h"
 #include <QToolBar>
 
 class QAction;
@@ -26,7 +25,7 @@ class QMenu;
 
 //! Toolbar for MaterialEditor.
 
-class BA_CORE_API_ MaterialEditorToolBar : public QToolBar
+class MaterialEditorToolBar : public QToolBar
 {
     Q_OBJECT
 public:
@@ -52,4 +51,4 @@ private:
     QAction* m_removeMaterialAction;
 };
 
-#endif // MATERIALEDITORTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_MATERIALEDITORTOOLBAR_H

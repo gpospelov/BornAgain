@@ -1,26 +1,20 @@
-#include "ComboProperty.h"
-#include "ComponentProxyModel.h"
-#include "ComponentProxyStrategy.h"
-#include "FormFactorItems.h"
-#include "GroupItem.h"
-#include "ModelUtils.h"
-#include "ParticleItem.h"
-#include "ProxyModelStrategy.h"
-#include "SessionModel.h"
-#include "VectorItem.h"
-#include "google_test.h"
-#include "item_constants.h"
-#include "test_utils.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/ComponentProxyModel.h"
+#include "GUI/coregui/Models/ComponentProxyStrategy.h"
+#include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Models/VectorItem.h"
+#include "Tests/GTestWrapper/google_test.h"
+#include "Tests/UnitTests/GUI/Utils.h"
 #include <QDebug>
 #include <QSignalSpy>
 
 class TestComponentProxyModel : public ::testing::Test
 {
-public:
-    ~TestComponentProxyModel();
 };
-
-TestComponentProxyModel::~TestComponentProxyModel() = default;
 
 //! Empty proxy model.
 
@@ -53,7 +47,7 @@ TEST_F(TestComponentProxyModel, test_setModel)
 TEST_F(TestComponentProxyModel, test_setModelWithItem)
 {
     SessionModel model("TestModel");
-    model.insertNewItem(Constants::PropertyType);
+    model.insertNewItem("Property");
 
     ComponentProxyModel proxy;
     proxy.setSessionModel(&model);
@@ -71,7 +65,7 @@ TEST_F(TestComponentProxyModel, test_setModelWithVector)
     const int ncols = static_cast<int>(SessionFlags::MAX_COLUMNS);
 
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem(Constants::VectorType);
+    SessionItem* item = model.insertNewItem("Vector");
     item->setItemValue(VectorItem::P_X, 1.0);
     item->setItemValue(VectorItem::P_Y, 2.0);
     item->setItemValue(VectorItem::P_Z, 3.0);
@@ -162,9 +156,9 @@ TEST_F(TestComponentProxyModel, test_setModelWithVector)
 TEST_F(TestComponentProxyModel, test_displayRole)
 {
     SessionModel model("TestModel");
-    SessionItem* item1 = model.insertNewItem(Constants::PropertyType);
+    SessionItem* item1 = model.insertNewItem("Property");
     item1->setValue(1.0);
-    SessionItem* item2 = model.insertNewItem(Constants::PropertyType);
+    SessionItem* item2 = model.insertNewItem("Property");
     item2->setValue(2.0);
 
     EXPECT_EQ(model.data(model.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 1.0);
@@ -182,7 +176,7 @@ TEST_F(TestComponentProxyModel, test_displayRole)
 TEST_F(TestComponentProxyModel, test_setData)
 {
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem(Constants::PropertyType);
+    SessionItem* item = model.insertNewItem("Property");
     item->setValue(1.0);
 
     ComponentProxyModel proxy;
@@ -227,13 +221,13 @@ TEST_F(TestComponentProxyModel, test_insertRows)
     ComponentProxyModel proxy;
     proxy.setSessionModel(&model);
 
-    EXPECT_TRUE(model.hasChildren(QModelIndex()) == false);
-    EXPECT_TRUE(proxy.hasChildren(QModelIndex()) == false);
+    EXPECT_FALSE(model.hasChildren(QModelIndex()));
+    EXPECT_FALSE(proxy.hasChildren(QModelIndex()));
 
     QSignalSpy spyProxy(&proxy, &ComponentProxyModel::layoutChanged);
 
     // inserting item in the source
-    model.insertNewItem(Constants::PropertyType);
+    model.insertNewItem("Property");
     EXPECT_EQ(spyProxy.count(), 1);
     EXPECT_EQ(proxy.rowCount(QModelIndex()), 1);
 }
@@ -250,11 +244,11 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
     proxy.setSessionModel(&model);
 
     // inserting particle
-    SessionItem* item = model.insertNewItem(Constants::ParticleType);
+    SessionItem* item = model.insertNewItem("Particle");
     auto group = dynamic_cast<GroupItem*>(item->getItem(ParticleItem::P_FORM_FACTOR));
     SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
     EXPECT_TRUE(ffItem->parent() == group);
-    EXPECT_TRUE(ffItem->modelType() == Constants::CylinderType);
+    EXPECT_TRUE(ffItem->modelType() == "Cylinder");
 
     // original indices
     QModelIndex particleIndex = model.indexOfItem(item);
@@ -275,10 +269,10 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
 
     // CylinderItem shouldn't exist anymore in proxy
     QModelIndex ffProxyIndex = proxy.mapFromSource(ffIndex);
-    EXPECT_TRUE(ffProxyIndex.isValid() == false);
+    EXPECT_FALSE(ffProxyIndex.isValid());
 
     QModelIndex radiusProxyIndex = proxy.mapFromSource(radiusIndex);
-    EXPECT_TRUE(radiusProxyIndex.isValid() == true);
+    EXPECT_TRUE(radiusProxyIndex.isValid());
     EXPECT_TRUE(radiusProxyIndex.parent() == groupProxyIndex);
 }
 
@@ -295,21 +289,21 @@ TEST_F(TestComponentProxyModel, test_componentStrategyFormFactorChanges)
     proxy.setSessionModel(&model);
 
     // inserting particle
-    SessionItem* item = model.insertNewItem(Constants::ParticleType);
+    SessionItem* item = model.insertNewItem("Particle");
     auto group = dynamic_cast<GroupItem*>(item->getItem(ParticleItem::P_FORM_FACTOR));
     SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
     EXPECT_TRUE(ffItem->parent() == group);
-    EXPECT_TRUE(ffItem->modelType() == Constants::CylinderType);
+    EXPECT_TRUE(ffItem->modelType() == "Cylinder");
 
     // changing form factor type
-    group->setCurrentType(Constants::FullSphereType);
+    group->setCurrentType("FullSphere");
 
     QModelIndex groupProxyIndex = proxy.mapFromSource(model.indexOfItem(group));
     EXPECT_EQ(proxy.rowCount(groupProxyIndex), 1); // sphere radius
     EXPECT_EQ(proxy.columnCount(groupProxyIndex), 2);
 
     // changing back to Cylinder
-    group->setCurrentType(Constants::CylinderType);
+    group->setCurrentType("Cylinder");
     groupProxyIndex = proxy.mapFromSource(model.indexOfItem(group));
     EXPECT_EQ(proxy.rowCount(groupProxyIndex), 2); // cylinder radius, length
     EXPECT_EQ(proxy.columnCount(groupProxyIndex), 2);
@@ -328,7 +322,7 @@ TEST_F(TestComponentProxyModel, test_setRootPropertyItem)
     proxy.setSessionModel(&model);
 
     // inserting simple property item
-    SessionItem* item = model.insertNewItem(Constants::PropertyType);
+    SessionItem* item = model.insertNewItem("Property");
     item->setValue(42.0);
     proxy.setRootIndex(model.indexOfItem(item));
 
@@ -365,17 +359,17 @@ TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
     proxy.setSessionModel(&model);
 
     // inserting multilayer with two layers
-    auto multilayer = model.insertNewItem(Constants::MultiLayerType);
-    auto layer1 = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
-    auto layout = model.insertNewItem(Constants::ParticleLayoutType, model.indexOfItem(layer1));
-    model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    auto multilayer = model.insertNewItem("MultiLayer");
+    auto layer1 = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto layout = model.insertNewItem("ParticleLayout", model.indexOfItem(layer1));
+    model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     proxy.setRootIndex(model.indexOfItem(layer1));
     EXPECT_EQ(proxy.rowCount(QModelIndex()), 1);
     EXPECT_EQ(proxy.columnCount(QModelIndex()), 2);
 
     QModelIndex multilayerProxyIndex = proxy.mapFromSource(model.indexOfItem(multilayer));
-    EXPECT_TRUE(multilayerProxyIndex.isValid() == false);
+    EXPECT_FALSE(multilayerProxyIndex.isValid());
 
     QModelIndex layerProxyIndex = proxy.mapFromSource(model.indexOfItem(layer1));
     EXPECT_EQ(proxy.rowCount(layerProxyIndex), 4); // thickness, material, slices, roughness
@@ -385,5 +379,5 @@ TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
 
     // ParticleLayout should be excluded from proxy tree
     QModelIndex layoutProxyIndex = proxy.mapFromSource(model.indexOfItem(layout));
-    EXPECT_TRUE(layoutProxyIndex.isValid() == false);
+    EXPECT_FALSE(layoutProxyIndex.isValid());
 }

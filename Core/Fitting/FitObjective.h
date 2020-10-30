@@ -12,15 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVE_H
-#define FITOBJECTIVE_H
+#ifndef BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H
+#define BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H
 
-#include "ArrayUtils.h"
-#include "FitTypes.h"
-#include "IterationInfo.h"
-#include "MinimizerResult.h"
-#include "OutputData.h"
-#include "SimDataPair.h"
+#include "Core/Fitting/IterationInfo.h"
+#include "Core/Fitting/SimDataPair.h"
+#include "Device/Intensity/ArrayUtils.h"
+#include "Fit/Kernel/MinimizerResult.h"
 
 class FitStatus;
 class IChiSquaredModule;
@@ -32,7 +30,7 @@ class PyObserverCallback;
 //! Holds vector of `SimDataPair`s (experimental data and simulation results) for use in fitting.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitObjective
+class FitObjective
 {
     static simulation_builder_t simulationBuilder(PyBuilderCallback& callback);
 
@@ -86,12 +84,10 @@ public:
     std::vector<double> uncertainties() const;
     std::vector<double> weights_array() const;
 
-    //! Initializes printing to standard output during the fitting.
-    //! @param every_nth: Print every n'th iteration.
+    //! Initializes printing to standard output on every_nth fit iteration.
     void initPrint(int every_nth);
 
-    //! Initializes plotting during the fitting using Python callable.
-    //! @param every_nth: Called on every n'th iteration.
+    //! Initializes observer callback to be called on every_nth fit iteration.
     void initPlot(int every_nth, PyObserverCallback& callback);
 
     IterationInfo iterationInfo() const;
@@ -146,4 +142,4 @@ private:
     std::unique_ptr<FitStatus> m_fit_status;
 };
 
-#endif // FITOBJECTIVE_H
+#endif // BORNAGAIN_CORE_FITTING_FITOBJECTIVE_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERWIDGET_H
-#define FITPARAMETERWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITPARAMETERWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITPARAMETERWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <memory>
 
 class JobItem;
@@ -35,7 +35,7 @@ class OverlayLabelController;
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
 
-class BA_CORE_API_ FitParameterWidget : public SessionItemWidget
+class FitParameterWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -96,4 +96,4 @@ private:
     OverlayLabelController* m_infoLabel;
 };
 
-#endif // FITPARAMETERWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITPARAMETERWIDGET_H

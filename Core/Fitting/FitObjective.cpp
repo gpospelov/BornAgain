@@ -12,16 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "FitObjective.h"
-#include "ArrayUtils.h"
-#include "ChiSquaredModule.h"
-#include "FitStatus.h"
-#include "MinimizerResult.h"
-#include "ObjectiveMetric.h"
-#include "ObjectiveMetricUtils.h"
-#include "Parameters.h"
-#include "PyFittingCallbacks.h"
-#include "Simulation.h"
+#include "Core/Fitting/FitObjective.h"
+#include "Core/Fitting/FitStatus.h"
+#include "Core/Fitting/ObjectiveMetric.h"
+#include "Core/Fitting/ObjectiveMetricUtils.h"
+#include "Core/Fitting/PyFittingCallbacks.h"
+#include "Core/Simulation/Simulation.h"
+#include "Device/Instrument/ChiSquaredModule.h"
 #include <stdexcept>
 
 class IMetricWrapper
@@ -35,7 +32,7 @@ public:
 class ChiModuleWrapper : public IMetricWrapper
 {
 public:
-    ChiModuleWrapper(std::unique_ptr<IChiSquaredModule> module);
+    explicit ChiModuleWrapper(std::unique_ptr<IChiSquaredModule> module);
     double compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const override;
 
 private:
@@ -45,7 +42,7 @@ private:
 class ObjectiveMetricWrapper : public IMetricWrapper
 {
 public:
-    ObjectiveMetricWrapper(std::unique_ptr<ObjectiveMetric> module);
+    explicit ObjectiveMetricWrapper(std::unique_ptr<ObjectiveMetric> module);
     double compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const override;
 
 private:
@@ -105,8 +102,9 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
 
 size_t FitObjective::numberOfFitElements() const
 {
-    return std::accumulate(m_fit_objects.begin(), m_fit_objects.end(), 0u,
-                           [](size_t acc, auto& obj) { return acc + obj.numberOfFitElements(); });
+    return std::accumulate(
+        m_fit_objects.begin(), m_fit_objects.end(), 0u,
+        [](size_t acc, auto& obj) -> size_t { return acc + obj.numberOfFitElements(); });
 }
 
 //! Returns simulation result in the form of SimulationResult.

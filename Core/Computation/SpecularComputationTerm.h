@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Computation/SpecularComputationTerm.h
-//! @brief     Defines functor SpecularComputationTerm.
+//! @brief     Defines classes SpecularComputationTerm, SpecularScalarTerm, SpecularMatrixTerm
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARCOMPUTATIONTERM_H_
-#define SPECULARCOMPUTATIONTERM_H_
+#ifndef BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
+#define BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
 
-#include "ISpecularStrategy.h"
-
+#include "Sample/Specular/ISpecularStrategy.h"
 #include <memory>
 #include <vector>
 
@@ -28,6 +27,9 @@ class Slice;
 
 //! Computes the specular scattering.
 //! Used by SpecularComputation.
+//!
+//! Pure virtual base class of SpecularScalarTerm, SpecularMatrixTerm
+//!
 //! @ingroup algorithms_internal
 
 class SpecularComputationTerm
@@ -40,7 +42,7 @@ public:
     SpecularComputationTerm& operator=(const SpecularComputationTerm& other) = delete;
 
     void setProgressHandler(ProgressHandler* p_progress);
-    void compute(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const;
+    void computeIntensity(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const;
 
 protected:
     virtual void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const = 0;
@@ -51,6 +53,10 @@ private:
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
 
+//! Computes the specular scattering for a scalar sample
+//! Used by SpecularComputation.
+//! @ingroup algorithms_internal
+
 class SpecularScalarTerm : public SpecularComputationTerm
 {
 public:
@@ -59,9 +65,12 @@ public:
 private:
     ~SpecularScalarTerm() override;
 
-protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
 };
+
+//! Computes the specular scattering for a magnetic sample
+//! Used by SpecularComputation.
+//! @ingroup algorithms_internal
 
 class SpecularMatrixTerm : public SpecularComputationTerm
 {
@@ -71,10 +80,7 @@ public:
 private:
     ~SpecularMatrixTerm() override;
 
-protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
-    double intensity(const SpecularSimulationElement& elem,
-                     ISpecularStrategy::single_coeff_t& coeff) const;
 };
 
-#endif /* SPECULARCOMPUTATIONTERM_H_ */
+#endif // BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H

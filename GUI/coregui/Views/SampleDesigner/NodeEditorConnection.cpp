@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "NodeEditorConnection.h"
-#include "ConnectableView.h"
-#include "NodeEditorPort.h"
+#include "GUI/coregui/Views/SampleDesigner/NodeEditorConnection.h"
+#include "Base/Utils/Assert.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 #include <QBrush>
 #include <QGraphicsScene>
 #include <QPainter>
@@ -94,13 +94,13 @@ NodeEditorPort* NodeEditorConnection::port2() const
 
 NodeEditorPort* NodeEditorConnection::inputPort()
 {
-    Q_ASSERT(m_port1 && m_port2);
+    ASSERT(m_port1 && m_port2);
     return (m_port1->isInput() ? m_port1 : m_port2);
 }
 
 NodeEditorPort* NodeEditorConnection::outputPort()
 {
-    Q_ASSERT(m_port1 && m_port2);
+    ASSERT(m_port1 && m_port2);
     return (m_port1->isOutput() ? m_port1 : m_port2);
 }
 
@@ -122,16 +122,16 @@ void NodeEditorConnection::paint(QPainter* painter, const QStyleOptionGraphicsIt
 
 ConnectableView* NodeEditorConnection::getParentView()
 {
-    Q_ASSERT(inputPort() != outputPort());
+    ASSERT(inputPort() != outputPort());
     ConnectableView* result = dynamic_cast<ConnectableView*>(inputPort()->parentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }
 
 ConnectableView* NodeEditorConnection::getChildView()
 {
-    Q_ASSERT(inputPort() != outputPort());
+    ASSERT(inputPort() != outputPort());
     ConnectableView* result = dynamic_cast<ConnectableView*>(outputPort()->parentItem());
-    Q_ASSERT(result);
+    ASSERT(result);
     return result;
 }

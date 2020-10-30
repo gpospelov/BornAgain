@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEDESIGNER_H
-#define SAMPLEDESIGNER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEDESIGNER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEDESIGNER_H
 
-#include "DesignerScene.h"
-#include "DesignerView.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerScene.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerView.h"
 #include <QObject>
 #include <QStackedWidget>
 
@@ -28,7 +28,7 @@ class FilterPropertyProxy;
 class ApplicationModels;
 
 //! sample designer interface
-class BA_CORE_API_ SampleDesignerInterface : public QObject
+class SampleDesignerInterface : public QObject
 {
     Q_OBJECT
 
@@ -41,7 +41,7 @@ public:
 };
 
 //! sample designer provide central window with graphic scene to drag and drop
-class BA_CORE_API_ SampleDesigner : public SampleDesignerInterface
+class SampleDesigner : public SampleDesignerInterface
 {
     Q_OBJECT
 
@@ -62,4 +62,4 @@ private:
     DesignerView* m_designerView;   //! graphical representation of scene with object
 };
 
-#endif // SAMPLEDESIGNER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEDESIGNER_H

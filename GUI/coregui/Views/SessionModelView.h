@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONMODELVIEW_H
-#define SESSIONMODELVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SESSIONMODELVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SESSIONMODELVIEW_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;
@@ -30,7 +29,7 @@ class SessionModelDelegate;
 //! models. It appears as an additional view in the main navigation bar on the left, right
 //! after the jobView (if corresponding setting of MainWindow is On).
 
-class BA_CORE_API_ SessionModelView : public QWidget
+class SessionModelView : public QWidget
 {
     Q_OBJECT
 
@@ -55,4 +54,4 @@ private:
     QVector<ModelTreeView*> m_content;
 };
 
-#endif // SESSIONMODELVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SESSIONMODELVIEW_H

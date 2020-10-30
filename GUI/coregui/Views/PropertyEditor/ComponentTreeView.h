@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTTREEVIEW_H
-#define COMPONENTTREEVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEVIEW_H
 
-#include "ComponentView.h"
+#include "GUI/coregui/Views/PropertyEditor/ComponentView.h"
 #include <memory>
 
 class QTreeView;
@@ -31,7 +31,7 @@ class ComponentTreeActions;
 //! Component property tree for SessionItems.
 //! Shows only PropertyItems and current items of GroupProperties.
 
-class BA_CORE_API_ ComponentTreeView : public ComponentView
+class ComponentTreeView : public ComponentView
 {
     Q_OBJECT
 public:
@@ -60,4 +60,4 @@ private:
     bool m_show_root_item; //!< Tree will starts from item itself, if true.
 };
 
-#endif //  COMPONENTTREEVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEVIEW_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTEDITORWIDGET_H
-#define INSTRUMENTEDITORWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTEDITORWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTEDITORWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class SessionItem;
@@ -26,7 +25,7 @@ class InstrumentPresenter;
 //! Main widget of InstrumentView. Contains InstrumentPresenter
 //! showing proper insturment editor for given instrument type.
 
-class BA_CORE_API_ InstrumentEditorWidget : public QWidget
+class InstrumentEditorWidget : public QWidget
 {
     Q_OBJECT
 
@@ -53,4 +52,4 @@ private:
     bool m_block_signals;
 };
 
-#endif // INSTRUMENTEDITORWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTEDITORWIDGET_H

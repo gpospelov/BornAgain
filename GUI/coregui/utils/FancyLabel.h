@@ -12,15 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef FANCYLABEL_H
-#define FANCYLABEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_FANCYLABEL_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_FANCYLABEL_H
 
-#include "WinDllMacros.h"
 #include <QLabel>
 
 //! The FancyLabel class is QLabel-like class with trivail animation, when text slowly
 //! appears on the screen from left to right pretending to be typed
-class BA_CORE_API_ FancyLabel : public QLabel
+class FancyLabel : public QLabel
 {
     Q_OBJECT
 public:
@@ -41,4 +40,4 @@ private:
     int m_current_index;
 };
 
-#endif // FANCYLABEL_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_FANCYLABEL_H

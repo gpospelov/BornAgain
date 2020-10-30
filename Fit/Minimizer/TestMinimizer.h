@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTMINIMIZER_H
-#define TESTMINIMIZER_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H
+#define BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H
 
-#include "IMinimizer.h"
+#include "Fit/Minimizer/IMinimizer.h"
 
 //! A trivial minimizer that calls the objective function once. Used to test the whole chain.
 
-class BA_CORE_API_ TestMinimizer : public IMinimizer
+class TestMinimizer : public IMinimizer
 {
 public:
     TestMinimizer();
@@ -35,4 +35,4 @@ private:
     scalar_function_t m_fcn;
 };
 
-#endif // TESTMINIMIZER_H
+#endif // BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H

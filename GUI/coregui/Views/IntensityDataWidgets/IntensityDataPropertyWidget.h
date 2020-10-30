@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAPROPERTYWIDGET_H
-#define INTENSITYDATAPROPERTYWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATAPROPERTYWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATAPROPERTYWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class IntensityDataItem;
 class ComponentEditor;
@@ -23,7 +23,7 @@ class SessionItem;
 
 //! The IntensityDataPropertyWidget shows ComponentEditor for given IntensityDataItem.
 
-class BA_CORE_API_ IntensityDataPropertyWidget : public SessionItemWidget
+class IntensityDataPropertyWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -47,4 +47,4 @@ private:
     ComponentEditor* m_componentEditor;
 };
 
-#endif // INTENSITYDATAPROPERTYWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATAPROPERTYWIDGET_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef COLORMAPCANVAS_H
-#define COLORMAPCANVAS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAPCANVAS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAPCANVAS_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ColorMap;
 class FontScalingEvent;
@@ -27,7 +27,7 @@ class QCustomPlot;
 //! control of font size, status string appearance, defines common actions
 //! (reset view, save plot, show context menu).
 
-class BA_CORE_API_ ColorMapCanvas : public SessionItemWidget
+class ColorMapCanvas : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -50,4 +50,4 @@ private:
     PlotStatusLabel* m_statusLabel;
 };
 
-#endif // COLORMAPCANVAS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_COLORMAPCANVAS_H

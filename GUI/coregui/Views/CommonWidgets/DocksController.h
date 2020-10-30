@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef DOCKSCONTROLLER_H
-#define DOCKSCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H
 
-#include "DockWidgetInfo.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/CommonWidgets/DockWidgetInfo.h"
 #include <QObject>
 #include <QSize>
 #include <map>
@@ -28,7 +27,7 @@ class FancyMainWindow;
 
 //! Handles appearance of docked widgets in the context of FancyMainWindow.
 
-class BA_CORE_API_ DocksController : public QObject
+class DocksController : public QObject
 {
     Q_OBJECT
 
@@ -68,4 +67,4 @@ private:
     DockSizeInfo m_dock_info;
 };
 
-#endif //  DOCKSCONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H

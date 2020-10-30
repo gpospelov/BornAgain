@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "RealDataSelectorWidget.h"
-#include "ItemSelectorWidget.h"
-#include "RealDataModel.h"
-#include "RealDataPropertiesWidget.h"
-#include "RealDataSelectorActions.h"
-#include "RealDataSelectorHBar.h"
-#include "RealDataSelectorToolBar.h"
-#include "minisplitter.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorWidget.h"
+#include "GUI/coregui/Models/RealDataModel.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataPropertiesWidget.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorActions.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorHBar.h"
+#include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorToolBar.h"
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
+#include <minisplitter.h>
 
 RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     : QWidget(parent), m_selectorActions(new RealDataSelectorActions(this)),

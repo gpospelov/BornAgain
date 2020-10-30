@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef DESIGNERHELPER_H
-#define DESIGNERHELPER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERHELPER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERHELPER_H
 
-#include "WinDllMacros.h"
 #include <QColor>
 #include <QGradient>
 #include <QGraphicsItem>
 #include <QRect>
 
 //! collection of static methods with SampleDesigner geometry settings
-class BA_CORE_API_ DesignerHelper
+class DesignerHelper
 {
 public:
     static int layerWidth();
@@ -79,4 +78,4 @@ public:
     static int getPythonEditorFontSize();
 };
 
-#endif // DESIGNERHELPER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_DESIGNERHELPER_H

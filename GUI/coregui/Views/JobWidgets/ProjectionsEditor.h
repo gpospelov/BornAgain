@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSEDITOR_H
-#define PROJECTIONSEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITOR_H
 
-#include "WinDllMacros.h"
 #include <QMainWindow>
 
 class SessionModel;
@@ -36,7 +35,7 @@ class MiniSplitter;
 
 //! Editor to draw projections on top of intensity plot. Part of
 
-class BA_CORE_API_ ProjectionsEditor : public QMainWindow
+class ProjectionsEditor : public QMainWindow
 {
     Q_OBJECT
 
@@ -63,4 +62,4 @@ private:
     QSplitter* m_bottomSplitter;
 };
 
-#endif // PROJECTIONSEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITOR_H

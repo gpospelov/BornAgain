@@ -39,12 +39,11 @@
 **
 ****************************************************************************/
 
-#ifndef WIDGETBOXCATEGORYLISTVIEW_H
-#define WIDGETBOXCATEGORYLISTVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOXCATEGORYLISTVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOXCATEGORYLISTVIEW_H
 
 #include <QtDesigner/QDesignerWidgetBoxInterface>
 
-//#include <QtWidgets/QListView>
 #include <QListView>
 #include <QtCore/QList>
 
@@ -122,4 +121,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // WIDGETBOXCATEGORYLISTVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOXCATEGORYLISTVIEW_H

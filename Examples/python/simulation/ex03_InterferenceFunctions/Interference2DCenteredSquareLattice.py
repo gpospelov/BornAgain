@@ -12,14 +12,14 @@ def get_sample():
     forming a 2D centered square lattice
     """
     # defining materials
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    interference = ba.InterferenceFunction2DLattice.createSquare(25.0*nm)
+    interference = ba.InterferenceFunction2DLattice.createSquare(25.0*nm, 0)
     pdf = ba.FTDecayFunction2DCauchy(300.0*nm/2.0/numpy.pi,
-                                     100.0*nm/2.0/numpy.pi)
+                                     100.0*nm/2.0/numpy.pi, 0)
     interference.setDecayFunction(pdf)
 
     particle_layout = ba.ParticleLayout()
@@ -33,12 +33,12 @@ def get_sample():
     particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
-    air_layer = ba.Layer(m_ambience)
-    air_layer.addLayout(particle_layout)
+    vacuum_layer = ba.Layer(m_vacuum)
+    vacuum_layer.addLayout(particle_layout)
     substrate_layer = ba.Layer(m_substrate)
 
     multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayer(substrate_layer)
 
     print(multi_layer.treeToString())

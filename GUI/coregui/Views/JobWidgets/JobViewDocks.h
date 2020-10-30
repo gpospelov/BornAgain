@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBVIEWDOCKS_H
-#define JOBVIEWDOCKS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWDOCKS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWDOCKS_H
 
-#include "DocksController.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
 
 class JobView;
 class JobSelectorWidget;
@@ -32,7 +32,7 @@ class JobItem;
 //! It's main method setActivity handles visibility logic for all of (JobSelectorWidget,
 //! JobOutputDataWidget, JobRealTimeWidget and FitPanelWidget).
 
-class BA_CORE_API_ JobViewDocks : public DocksController
+class JobViewDocks : public DocksController
 {
     Q_OBJECT
 
@@ -63,4 +63,4 @@ private:
     JobView* m_jobView;
 };
 
-#endif // JOBVIEWDOCKS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBVIEWDOCKS_H

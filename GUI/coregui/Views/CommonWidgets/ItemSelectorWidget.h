@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMSELECTORWIDGET_H
-#define ITEMSELECTORWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSELECTORWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSELECTORWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QItemSelectionModel>
 #include <QWidget>
 #include <memory>
@@ -31,7 +30,7 @@ class SessionDecorationModel;
 //! The ItemSelectorWidget class holds QListView to show top level items of SessionModel.
 //! Used in InstrumentView, ImportDataView, JobSelectorView to switch between items.
 
-class BA_CORE_API_ ItemSelectorWidget : public QWidget
+class ItemSelectorWidget : public QWidget
 {
     Q_OBJECT
 
@@ -71,4 +70,4 @@ protected:
     std::unique_ptr<SessionDecorationModel> m_decorationModel;
 };
 
-#endif // ITEMSELECTORWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSELECTORWIDGET_H

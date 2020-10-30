@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMANMINIMIZER_H
-#define SIMANMINIMIZER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H
 
-#include "RootMinimizerAdapter.h"
+#include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
 namespace ROOT
 {
@@ -28,7 +28,7 @@ class GSLSimAnMinimizer;
 //! Wrapper for the CERN ROOT facade of the GSL simmulated annealing minimizer.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ SimAnMinimizer : public RootMinimizerAdapter
+class SimAnMinimizer : public RootMinimizerAdapter
 {
 public:
     SimAnMinimizer();
@@ -77,4 +77,4 @@ private:
     std::unique_ptr<ROOT::Math::GSLSimAnMinimizer> m_siman_minimizer;
 };
 
-#endif // SIMANMINIMIZER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H

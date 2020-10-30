@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBREALTIMETOOLBAR_H
-#define JOBREALTIMETOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBREALTIMETOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBREALTIMETOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class QToolButton;
 
 //! Represents a toolbar with buttons for ParameterTuningWidget.
 
-class BA_CORE_API_ JobRealTimeToolBar : public StyledToolBar
+class JobRealTimeToolBar : public StyledToolBar
 {
     Q_OBJECT
 
@@ -35,4 +35,4 @@ private:
     QToolButton* m_resetParametersButton;
 };
 
-#endif // JOBREALTIMETOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBREALTIMETOOLBAR_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef FITFLOWWIDGET_H
-#define FITFLOWWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITFLOWWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITFLOWWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class HistogramPlot;
 class FitSuiteItem;
@@ -23,7 +23,7 @@ class FitSuiteItem;
 //! The FitFlowWidget class is intended for showing chi2 .vs interation count dependency.
 //! The main goal is to fill vacant place in FitComparisonWidget.
 
-class BA_CORE_API_ FitFlowWidget : public SessionItemWidget
+class FitFlowWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -41,4 +41,4 @@ private:
     QVector<double> m_y;
 };
 
-#endif // FITFLOWWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITFLOWWIDGET_H

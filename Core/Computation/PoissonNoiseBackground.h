@@ -12,25 +12,24 @@
 //
 // ************************************************************************** //
 
-#ifndef POISSONNOISEBACKGROUND_H
-#define POISSONNOISEBACKGROUND_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H
+#define BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H
 
-#include "IBackground.h"
+#include "Core/Computation/IBackground.h"
 
 //! Class representing Poisson noise on top of the scattered intensity
 //!
 //! @ingroup simulation
 
-class BA_CORE_API_ PoissonNoiseBackground : public IBackground
+class PoissonNoiseBackground : public IBackground
 {
 public:
     PoissonNoiseBackground();
-    ~PoissonNoiseBackground();
     PoissonNoiseBackground* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    double addBackGround(double intensity) const override final;
+    double addBackground(double intensity) const override final;
 };
 
-#endif // POISSONNOISEBACKGROUND_H
+#endif // BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H

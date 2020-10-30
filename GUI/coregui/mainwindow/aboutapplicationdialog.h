@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef ABOUTAPPLICATIONDIALOG_H
-#define ABOUTAPPLICATIONDIALOG_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_ABOUTAPPLICATIONDIALOG_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_ABOUTAPPLICATIONDIALOG_H
 
-#include "WinDllMacros.h"
 #include <QDialog>
 
 class QBoxLayout;
 
 //! About BornAgain dialog.
 
-class BA_CORE_API_ AboutApplicationDialog : public QDialog
+class AboutApplicationDialog : public QDialog
 {
     Q_OBJECT
 public:
@@ -34,4 +33,4 @@ private:
     QBoxLayout* createButtonLayout();
 };
 
-#endif // ABOUTAPPLICATIONDIALOG_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_ABOUTAPPLICATIONDIALOG_H

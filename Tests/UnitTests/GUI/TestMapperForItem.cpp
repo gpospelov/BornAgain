@@ -1,10 +1,8 @@
-#include "LayerItem.h"
-#include "MultiLayerItem.h"
-#include "SampleModel.h"
-#include "SessionItem.h"
-#include "SessionItemUtils.h"
-#include "google_test.h"
-#include "item_constants.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SessionItemUtils.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 using SessionItemUtils::ParentRow;
@@ -97,7 +95,6 @@ class TestMapperForItem : public ::testing::Test
 {
 public:
     TestMapperForItem() : m_mapped_item(0) {}
-    ~TestMapperForItem();
 
     void setItem(SessionItem* item, Widget* widget = 0, bool with_subscription = false)
     {
@@ -111,8 +108,6 @@ public:
     SessionItem* m_mapped_item;
     std::unique_ptr<ModelMapper> m_mapper;
 };
-
-TestMapperForItem::~TestMapperForItem() = default;
 
 TEST_F(TestMapperForItem, test_initialCondition)
 {
@@ -132,8 +127,8 @@ TEST_F(TestMapperForItem, test_onPropertyChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Mapper is looking on child; set property of child
     setItem(layer, &w);
@@ -192,8 +187,8 @@ TEST_F(TestMapperForItem, test_onParentChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Mapper is looking on child; changing child's parent
     setItem(layer, &w);
@@ -210,12 +205,12 @@ TEST_F(TestMapperForItem, test_onChildrenChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
 
     // Mapper is looking on parent; adding new child to parent
     setItem(multilayer, &w);
     EXPECT_TRUE(m_mapped_item == multilayer);
-    model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     EXPECT_EQ(w.m_onPropertyChangeCount, 0);
     EXPECT_EQ(w.m_onChildPropertyChangeCount, 2);
@@ -230,13 +225,13 @@ TEST_F(TestMapperForItem, test_onSiblingsChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Mapper is looking on child; adding another child to parent
     setItem(layer, &w);
     EXPECT_TRUE(m_mapped_item == layer);
-    SessionItem* layer2 = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    SessionItem* layer2 = model.insertNewItem("Layer", model.indexOfItem(multilayer));
     Q_UNUSED(layer2);
 
     EXPECT_EQ(w.m_onPropertyChangeCount, 0);
@@ -255,8 +250,8 @@ TEST_F(TestMapperForItem, test_Subscription)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Mapper is looking on child; set property of child
     setItem(layer, &w, true);
@@ -284,8 +279,8 @@ TEST_F(TestMapperForItem, test_TwoWidgetsSubscription)
 {
     Widget w1, w2;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
 
     // Mapper is looking on child; set property of child
     setItem(layer);
@@ -308,9 +303,9 @@ TEST_F(TestMapperForItem, test_AboutToRemoveChild)
 {
     Widget w;
     SampleModel model;
-    SessionItem* container = model.insertNewItem(Constants::ProjectionContainerType);
+    SessionItem* container = model.insertNewItem("ProjectionContainer");
 
-    SessionItem* line = model.insertNewItem(Constants::HorizontalLineMaskType, container->index());
+    SessionItem* line = model.insertNewItem("HorizontalLineMask", container->index());
 
     setItem(container, &w);
     EXPECT_EQ(w.m_onAboutToRemoveChild, 0);

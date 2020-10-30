@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACECANVAS_H
-#define REALSPACECANVAS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACECANVAS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACECANVAS_H
 
-#include "WinDllMacros.h"
 #include <QItemSelectionModel>
 #include <QModelIndex>
 #include <QWidget>
@@ -56,7 +55,7 @@ private:
 };
 
 //! Provides 3D object generation for RealSpaceWidget.
-class BA_CORE_API_ RealSpaceCanvas : public QWidget
+class RealSpaceCanvas : public QWidget
 {
     Q_OBJECT
 
@@ -77,7 +76,7 @@ public slots:
     void onLockViewAction(bool view_locked);
     void onChangeLayerSizeAction(double layer_size_scale);
     void onSavePictureAction();
-    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last);
 
 private slots:
     void onDataChanged(const QModelIndex& index);
@@ -102,4 +101,4 @@ private:
     void savePicture(const QPixmap& pixmap);
 };
 
-#endif // REALSPACESCENE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACECANVAS_H

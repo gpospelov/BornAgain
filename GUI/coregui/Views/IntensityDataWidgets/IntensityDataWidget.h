@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAWIDGET_H
-#define INTENSITYDATAWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATAWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATAWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <memory>
 
 class SessionItem;
@@ -29,7 +29,7 @@ class IntensityDataFFTPresenter;
 //! A common widget to display color map (IntensityDataCanvas) and properties
 //! (IntensityDataPropertyWidget) of intensity data item.
 
-class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
+class IntensityDataWidget : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -52,4 +52,4 @@ private:
     IntensityDataFFTPresenter* m_fftPresenter;
 };
 
-#endif // INTENSITYDATAWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_INTENSITYDATAWIDGET_H

@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBVIEW_H
-#define JOBVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
 
-#include "WinDllMacros.h"
-#include "fancymainwindow.h"
+#include <fancymainwindow.h>
 
 class MainWindow;
 class JobViewDocks;
@@ -27,7 +26,7 @@ class JobItem;
 //! The JobView class is a main view to show list of jobs, job results and widgets for real time
 //! and fitting activities.
 
-class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
+class JobView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
@@ -63,4 +62,4 @@ private:
     MainWindow* m_mainWindow;
 };
 
-#endif // JOBVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H

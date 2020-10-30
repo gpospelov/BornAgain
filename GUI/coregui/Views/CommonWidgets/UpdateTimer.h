@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef UPDATETIMER_H
-#define UPDATETIMER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_UPDATETIMER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_UPDATETIMER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class QTimer;
@@ -25,7 +24,7 @@ class QTimer;
 
 //! Used in ColorMap plot to avoid often replot of CustomPlot.
 
-class BA_CORE_API_ UpdateTimer : public QObject
+class UpdateTimer : public QObject
 {
     Q_OBJECT
 public:
@@ -33,7 +32,7 @@ public:
 
     void reset();
 
-    void setTimeInterval(int timerInterval);
+    void setWallclockTimer(int timerInterval);
 
 signals:
     void timeToUpdate();
@@ -51,4 +50,4 @@ private:
     QTimer* m_timer;
 };
 
-#endif // UPDATETIMER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_UPDATETIMER_H

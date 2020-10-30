@@ -12,12 +12,12 @@ def get_sample():
     The structure is modelled as a 2D Lattice.
     """
     # defining materials
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ff = ba.FormFactorRipple1Box(100*nm, 20*nm, 4*nm)
+    ff = ba.FormFactorCosineRippleBox(100*nm, 20*nm, 4*nm)
     particle = ba.Particle(m_particle, ff)
 
     particle_layout = ba.ParticleLayout()
@@ -25,17 +25,16 @@ def get_sample():
 
     interference = ba.InterferenceFunction2DLattice(
         200.0*nm, 50.0*nm, 90.0*deg, 0.0*deg)
-    pdf = ba.FTDecayFunction2DCauchy(
-        1000.*nm/2./numpy.pi, 100.*nm/2./numpy.pi)
+    pdf = ba.FTDecayFunction2DCauchy(1000.*nm/2./numpy.pi, 100.*nm/2./numpy.pi, 0)
     interference.setDecayFunction(pdf)
     particle_layout.setInterferenceFunction(interference)
 
     # assemble the sample
-    air_layer = ba.Layer(m_ambience)
-    air_layer.addLayout(particle_layout)
+    vacuum_layer = ba.Layer(m_vacuum)
+    vacuum_layer.addLayout(particle_layout)
     substrate_layer = ba.Layer(m_substrate)
     multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayer(substrate_layer)
 
     return multi_layer

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSEDITORACTIONS_H
-#define PROJECTIONSEDITORACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITORACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITORACTIONS_H
 
-#include "WinDllMacros.h"
 #include <QList>
 #include <QModelIndex>
 #include <QObject>
@@ -27,7 +26,7 @@ class IntensityDataItem;
 
 //! Provides various actions for ProjectionsEditor.
 
-class BA_CORE_API_ ProjectionsEditorActions : public QObject
+class ProjectionsEditorActions : public QObject
 {
     Q_OBJECT
 
@@ -60,4 +59,4 @@ private:
     QWidget* m_parent;
 };
 
-#endif // PROJECTIONSEDITORACTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSEDITORACTIONS_H

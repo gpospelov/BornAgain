@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerOptions.h"
-#include "StringUtils.h"
+#include "Fit/Minimizer/MinimizerOptions.h"
+#include "Fit/Tools/StringUtils.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -27,7 +27,7 @@ std::string MinimizerOptions::toOptionString() const
 {
     std::ostringstream result;
     for (auto option : m_options) {
-        result << option->name() << std::string("=") << option->value() << delimeter;
+        result << option->name() << "=" << option->value() << delimeter;
     }
     return result.str();
 }
@@ -38,7 +38,7 @@ void MinimizerOptions::setOptionString(const std::string& options)
     std::vector<std::string> tokens = StringUtils::split(options, delimeter);
     try {
         for (std::string opt : tokens)
-            if (opt.size())
+            if (!opt.empty())
                 processCommand(opt);
     } catch (std::exception& ex) {
         std::ostringstream ostr;

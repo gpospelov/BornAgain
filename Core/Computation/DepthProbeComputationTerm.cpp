@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "DepthProbeComputationTerm.h"
-#include "DelayedProgressCounter.h"
-#include "DepthProbeElement.h"
-#include "IAxis.h"
-#include "IFresnelMap.h"
-#include "ILayerRTCoefficients.h"
-#include "ProcessedSample.h"
+#include "Core/Computation/DepthProbeComputationTerm.h"
+#include "Base/Axis/IAxis.h"
+#include "Core/Computation/DelayedProgressCounter.h"
+#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/IFresnelMap.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)
     : mp_sample{p_sample}
@@ -29,7 +29,7 @@ DepthProbeComputationTerm::~DepthProbeComputationTerm() = default;
 
 void DepthProbeComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
+    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
 void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const

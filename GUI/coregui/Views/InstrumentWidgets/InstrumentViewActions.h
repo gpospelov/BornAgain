@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTVIEWACTIONS_H
-#define INSTRUMENTVIEWACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWACTIONS_H
 
-#include "WinDllMacros.h"
 #include <QMap>
 #include <QObject>
 
@@ -27,7 +26,7 @@ class QMenu;
 
 //! Collection of actions to add/remove/clone instrument.
 
-class BA_CORE_API_ InstrumentViewActions : public QObject
+class InstrumentViewActions : public QObject
 {
     Q_OBJECT
 
@@ -60,4 +59,4 @@ private:
     QItemSelectionModel* m_selectionModel;
 };
 
-#endif // INSTRUMENTVIEWACTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWACTIONS_H

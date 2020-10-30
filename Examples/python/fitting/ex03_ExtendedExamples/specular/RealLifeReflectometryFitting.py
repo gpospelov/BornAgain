@@ -91,7 +91,7 @@ def create_simulation(arg_dict, bin_start, bin_end):
     """
     wavelength = 1.54 * ba.angstrom
     alpha_distr = ba.RangedDistributionGaussian(30, 3)
-    footprint = ba.FootprintFactorGaussian(arg_dict["footprint_factor"])
+    footprint = ba.FootprintGauss(arg_dict["footprint_factor"])
 
     scan = ba.AngularSpecScan(wavelength,
                               get_real_data_axis(bin_start, bin_end))
@@ -109,7 +109,7 @@ def buildSample(arg_dict):
     Creates sample and returns it
     """
     # defining materials
-    m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_si_o2 = ba.HomogeneousMaterial("SiO2",
         8.57040868e-06 * arg_dict["concentration"],
         1.11016654e-07 * arg_dict["concentration"])
@@ -119,13 +119,13 @@ def buildSample(arg_dict):
     r_si = ba.LayerRoughness(arg_dict["roughness"], 0, 0)
 
     # layers
-    air_layer = ba.Layer(m_air)
+    vacuum_layer = ba.Layer(m_vacuum)
     oxide_layer = ba.Layer(m_si_o2, arg_dict["thickness"])
     substrate_layer = ba.Layer(m_si)
 
     # assembling multilayer
     multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayerWithTopRoughness(oxide_layer, r_si)
     multi_layer.addLayerWithTopRoughness(substrate_layer, r_si)
 
@@ -253,7 +253,7 @@ def plot_result(sim_result, ref_result, bin_start=0, bin_end=-1):
                  sim_result.axis(), sim_data,
                  ref_result.axis(), ref_data)
 
-    xlabel = ba.get_axes_labels(sim_result, ba.AxesUnits.DEFAULT)[0]
+    xlabel = ba.get_axes_labels(sim_result, ba.Axes.DEFAULT)[0]
     ylabel = "Intensity"
     plt.xlabel(xlabel, fontsize=16)
     plt.ylabel(ylabel, fontsize=16)

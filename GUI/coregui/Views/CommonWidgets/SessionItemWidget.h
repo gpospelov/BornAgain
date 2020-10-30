@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONITEMWIDGET_H
-#define SESSIONITEMWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_SESSIONITEMWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_SESSIONITEMWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class SessionItem;
@@ -28,7 +27,7 @@ class SessionItemController;
 //! The main purpose is to save performance, when item keeps changing its properties, while
 //! widget is hidden.
 
-class BA_CORE_API_ SessionItemWidget : public QWidget
+class SessionItemWidget : public QWidget
 {
     Q_OBJECT
 public:
@@ -51,4 +50,4 @@ private:
     SessionItemController* m_itemController;
 };
 
-#endif // SESSIONITEMWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_SESSIONITEMWIDGET_H

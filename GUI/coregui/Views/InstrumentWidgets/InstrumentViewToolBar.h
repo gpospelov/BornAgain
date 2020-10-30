@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTVIEWTOOLBAR_H
-#define INSTRUMENTVIEWTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 #include <QList>
 
 class QAction;
@@ -25,7 +25,7 @@ class QMenu;
 
 //! Styled tool bar on top of InstrumentView with add/remove/clone instrument buttons.
 
-class BA_CORE_API_ InstrumentViewToolBar : public StyledToolBar
+class InstrumentViewToolBar : public StyledToolBar
 {
     Q_OBJECT
 
@@ -42,4 +42,4 @@ private:
     QMenu* m_addInstrumentMenu;
 };
 
-#endif // INSTRUMENTVIEWTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTVIEWTOOLBAR_H

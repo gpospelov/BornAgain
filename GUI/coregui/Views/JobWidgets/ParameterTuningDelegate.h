@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTUNINGDELEGATE_H
-#define PARAMETERTUNINGDELEGATE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PARAMETERTUNINGDELEGATE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PARAMETERTUNINGDELEGATE_H
 
-#include "RealLimits.h"
+#include "Fit/Tools/RealLimits.h"
 #include <QItemDelegate>
 #include <memory>
 
@@ -25,7 +25,7 @@ class ParameterItem;
 class ScientificSpinBox;
 class SessionItem;
 
-class BA_CORE_API_ ParameterTuningDelegate : public QItemDelegate
+class ParameterTuningDelegate : public QItemDelegate
 {
     Q_OBJECT
 
@@ -88,4 +88,4 @@ private:
     bool m_isReadOnly;
 };
 
-#endif // PARAMETERTUNINGDELEGATE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PARAMETERTUNINGDELEGATE_H

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONVIEWS_H
-#define INTERFERENCEFUNCTIONVIEWS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_INTERFERENCEFUNCTIONVIEWS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_INTERFERENCEFUNCTIONVIEWS_H
 
-#include "ConnectableView.h"
+#include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
-class BA_CORE_API_ InterferenceFunction1DLatticeView : public ConnectableView
+class InterferenceFunction1DLatticeView : public ConnectableView
 {
     Q_OBJECT
 public:
@@ -25,7 +25,7 @@ public:
     int type() const { return ViewTypes::INTERFERENCE_FUNCTION_1D_LATTICE; }
 };
 
-class BA_CORE_API_ InterferenceFunction2DLatticeView : public ConnectableView
+class InterferenceFunction2DLatticeView : public ConnectableView
 {
     Q_OBJECT
 public:
@@ -33,7 +33,7 @@ public:
     int type() const { return ViewTypes::INTERFERENCE_FUNCTION_2D_LATTICE; }
 };
 
-class BA_CORE_API_ InterferenceFunction2DParaCrystalView : public ConnectableView
+class InterferenceFunction2DParaCrystalView : public ConnectableView
 {
     Q_OBJECT
 public:
@@ -41,7 +41,7 @@ public:
     int type() const { return ViewTypes::INTERFERENCE_FUNCTION_2D_PARA; }
 };
 
-class BA_CORE_API_ InterferenceFunctionFinite2DLatticeView : public ConnectableView
+class InterferenceFunctionFinite2DLatticeView : public ConnectableView
 {
     Q_OBJECT
 public:
@@ -49,7 +49,7 @@ public:
     int type() const { return ViewTypes::INTERFERENCE_FUNCTION_FINITE_2D_LATTICE; }
 };
 
-class BA_CORE_API_ InterferenceFunctionHardDiskView : public ConnectableView
+class InterferenceFunctionHardDiskView : public ConnectableView
 {
     Q_OBJECT
 public:
@@ -57,7 +57,7 @@ public:
     int type() const { return ViewTypes::INTERFERENCE_FUNCTION_HARD_DISK; }
 };
 
-class BA_CORE_API_ InterferenceFunctionRadialParaCrystalView : public ConnectableView
+class InterferenceFunctionRadialParaCrystalView : public ConnectableView
 {
     Q_OBJECT
 public:
@@ -65,4 +65,4 @@ public:
     int type() const { return ViewTypes::INTERFERENCE_FUNCTION_RADIAL_PARA; }
 };
 
-#endif // INTERFERENCEFUNCTIONVIEWS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_INTERFERENCEFUNCTIONVIEWS_H

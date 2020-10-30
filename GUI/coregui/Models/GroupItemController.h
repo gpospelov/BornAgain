@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GROUPITEMCONTROLLER_H
-#define GROUPITEMCONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GROUPITEMCONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GROUPITEMCONTROLLER_H
 
-#include "GroupInfo.h"
+#include "GUI/coregui/Models/GroupInfo.h"
 #include <QStringList>
 #include <QVariant>
 
@@ -23,7 +23,7 @@ class SessionItem;
 
 //! Provides logic for manipulating items belonging to GroupItem parent.
 
-class BA_CORE_API_ GroupItemController
+class GroupItemController
 {
 public:
     GroupItemController(SessionItem* groupItem, GroupInfo groupInfo);
@@ -53,4 +53,4 @@ private:
     GroupInfo m_groupInfo;
 };
 
-#endif // GROUPITEMCONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GROUPITEMCONTROLLER_H

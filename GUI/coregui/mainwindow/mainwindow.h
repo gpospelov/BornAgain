@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
 
-#include "WinDllMacros.h"
-#include "fancymainwindow.h"
+#include <fancymainwindow.h>
 
 namespace Manhattan
 {
@@ -43,14 +42,14 @@ class ActionManager;
 class ToolTipDataBase;
 class UpdateNotifier;
 
-class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
+class MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
     enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, MAXVIEWCOUNT };
 
-    explicit MainWindow(QWidget* parent = nullptr);
+    explicit MainWindow();
 
     MaterialModel* materialModel();
     InstrumentModel* instrumentModel();
@@ -101,4 +100,4 @@ private:
     SessionModelView* m_sessionModelView;
 };
 
-#endif // MAINWINDOW_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H

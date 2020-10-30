@@ -12,32 +12,25 @@
 //
 // ************************************************************************** //
 
-#include "FitObjectiveBuilder.h"
-#include "ChiSquaredModule.h"
-#include "DataItem.h"
-#include "DomainSimulationBuilder.h"
-#include "FitObjective.h"
-#include "FitParameterItems.h"
-#include "FitSuiteItem.h"
-#include "GUIFitObserver.h"
-#include "GUIHelpers.h"
-#include "IIntensityFunction.h"
-#include "IMinimizer.h"
-#include "JobItem.h"
-#include "KernelTypes.h"
-#include "Minimizer.h"
-#include "MinimizerItem.h"
-#include "MultiLayer.h"
-#include "ObjectiveMetric.h"
-#include "OutputData.h"
-#include "Parameters.h"
-#include "RealDataItem.h"
-#include "Simulation.h"
-#include "VarianceFunctions.h"
+#include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
+#include "Core/Fitting/FitObjective.h"
+#include "Core/Fitting/ObjectiveMetric.h"
+#include "Core/Simulation/Simulation.h"
+#include "Fit/Kernel/Minimizer.h"
+#include "Fit/Minimizer/IMinimizer.h"
+#include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/Models/DomainSimulationBuilder.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
+#include "GUI/coregui/Models/FitSuiteItem.h"
+#include "GUI/coregui/Models/JobItem.h"
+#include "GUI/coregui/Models/MinimizerItem.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Views/FitWidgets/GUIFitObserver.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 
 FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem) : m_jobItem(jobItem)
 {
-    Q_ASSERT(m_jobItem->fitSuiteItem());
+    ASSERT(m_jobItem->fitSuiteItem());
 }
 
 FitObjectiveBuilder::~FitObjectiveBuilder() = default;
@@ -88,14 +81,12 @@ std::unique_ptr<FitObjective> FitObjectiveBuilder::createFitObjective() const
 
 std::unique_ptr<IMinimizer> FitObjectiveBuilder::createMinimizer() const
 {
-    auto fitSuiteItem = m_jobItem->fitSuiteItem();
-    return fitSuiteItem->minimizerContainerItem()->createMinimizer();
+    return m_jobItem->fitSuiteItem()->minimizerContainerItem()->createMinimizer();
 }
 
 Fit::Parameters FitObjectiveBuilder::createParameters() const
 {
-    auto fitSuiteItem = m_jobItem->fitSuiteItem();
-    return fitSuiteItem->fitParameterContainerItem()->createParameters();
+    return m_jobItem->fitSuiteItem()->fitParameterContainerItem()->createParameters();
 }
 
 void FitObjectiveBuilder::attachObserver(std::shared_ptr<GUIFitObserver> observer)
@@ -127,8 +118,8 @@ std::unique_ptr<OutputData<double>> FitObjectiveBuilder::createOutputData() cons
         throw GUIHelpers::Error("FitObjectiveBuilder::createOutputData() -> No Real Data defined.");
 
     const DataItem* intensity_item = realDataItem->dataItem();
-    Q_ASSERT(intensity_item);
-    Q_ASSERT(intensity_item->getOutputData());
+    ASSERT(intensity_item);
+    ASSERT(intensity_item->getOutputData());
 
     return std::unique_ptr<OutputData<double>>(intensity_item->getOutputData()->clone());
 }

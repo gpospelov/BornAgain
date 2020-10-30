@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARDATACANVAS_H
-#define SPECULARDATACANVAS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARDATACANVAS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARDATACANVAS_H
 
-#include "SessionItemWidget.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QWidget>
 
 class SpecularDataItem;
 class SpecularPlotCanvas;
 
-class BA_CORE_API_ SpecularDataCanvas : public SessionItemWidget
+class SpecularDataCanvas : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -49,4 +48,4 @@ private:
     QAction* m_save_plot_action;
 };
 
-#endif // SPECULARDATACANVAS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARDATACANVAS_H

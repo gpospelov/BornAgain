@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SAVESERVICE_H
-#define SAVESERVICE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVESERVICE_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVESERVICE_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 #include <QQueue>
 
@@ -24,7 +23,7 @@ class AutosaveController;
 
 //! Provides save/autosave of ProjectDocument in a thread.
 
-class BA_CORE_API_ SaveService : public QObject
+class SaveService : public QObject
 {
     Q_OBJECT
 
@@ -63,4 +62,4 @@ private:
     ProjectDocument* m_document;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVESERVICE_H

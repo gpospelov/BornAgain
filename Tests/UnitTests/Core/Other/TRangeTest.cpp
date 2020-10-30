@@ -1,5 +1,5 @@
-#include "TRange.h"
-#include "google_test.h"
+#include "Sample/Particle/TRange.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <algorithm>
 
 class TRangeTest : public ::testing::Test

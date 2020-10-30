@@ -12,25 +12,21 @@
 //
 // ************************************************************************** //
 
-#include "RealSpaceMesoCrystalUtils.h"
-#include "Exceptions.h"
-#include "HardParticles.h"
-#include "IFormFactor.h"
-#include "IParticle.h"
-#include "Lattice2DItems.h"
-#include "MesoCrystal.h"
-#include "MesoCrystalItem.h"
-#include "Particle.h"
-#include "Particle3DContainer.h"
-#include "ParticleCompositionItem.h"
-#include "ParticleCoreShell.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleDistribution.h"
-#include "ParticleDistributionItem.h"
-#include "RealSpaceBuilderUtils.h"
-#include "TransformTo3D.h"
-#include "Units.h"
-#include <ba3d/model/particles.h>
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceMesoCrystalUtils.h"
+#include "Base/Const/Units.h"
+#include "Base/Types/Exceptions.h"
+#include "GUI/coregui/Models/Lattice2DItems.h"
+#include "GUI/coregui/Models/MesoCrystalItem.h"
+#include "GUI/coregui/Models/ParticleCompositionItem.h"
+#include "GUI/coregui/Models/ParticleCoreShellItem.h"
+#include "GUI/coregui/Models/ParticleDistributionItem.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/Particle3DContainer.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
+#include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
+#include "Sample/HardParticle/HardParticles.h"
+#include "Sample/Particle/MesoCrystal.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleCoreShell.h"
 
 namespace
 {
@@ -255,40 +251,40 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         if (std::abs(positionInside.x()) <= l_z && std::abs(positionInside.y()) <= l_z
             && (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
-    } else if (dynamic_cast<const FormFactorRipple1Box*>(outerShape)) {
-        // TODO: Implement Ripple1Box
+    } else if (dynamic_cast<const FormFactorCosineRippleBox*>(outerShape)) {
+        // TODO: Implement CosineRippleBox
         std::ostringstream ostr;
-        ostr << "Sorry, outer shape Ripple1Box not yet implemented for Mesocrystal";
+        ostr << "Sorry, outer shape CosineRippleBox not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (dynamic_cast<const FormFactorRipple1Gauss*>(outerShape)) {
-        // TODO: Implement Ripple1Gauss
+    } else if (dynamic_cast<const FormFactorCosineRippleGauss*>(outerShape)) {
+        // TODO: Implement CosineRippleGauss
         std::ostringstream ostr;
-        ostr << "Sorry, outer shape Ripple1Gauss not yet implemented for Mesocrystal";
+        ostr << "Sorry, outer shape CosineRippleGauss not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (dynamic_cast<const FormFactorRipple1Lorentz*>(outerShape)) {
-        // TODO: Implement Ripple1Lorentz
+    } else if (dynamic_cast<const FormFactorCosineRippleLorentz*>(outerShape)) {
+        // TODO: Implement CosineRippleLorentz
         std::ostringstream ostr;
-        ostr << "Sorry, outer shape Ripple1Lorentz not yet implemented for Mesocrystal";
+        ostr << "Sorry, outer shape CosineRippleLorentz not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (dynamic_cast<const FormFactorRipple2Box*>(outerShape)) {
-        // TODO: Implement Ripple2Box
+    } else if (dynamic_cast<const FormFactorSawtoothRippleBox*>(outerShape)) {
+        // TODO: Implement SawtoothRippleBox
         std::ostringstream ostr;
-        ostr << "Sorry, outer shape Ripple2Box not yet implemented for Mesocrystal";
+        ostr << "Sorry, outer shape SawtoothRippleBox not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (dynamic_cast<const FormFactorRipple2Gauss*>(outerShape)) {
-        // TODO: Implement Ripple2Gauss
+    } else if (dynamic_cast<const FormFactorSawtoothRippleGauss*>(outerShape)) {
+        // TODO: Implement SawtoothRippleGauss
         std::ostringstream ostr;
-        ostr << "Sorry, outer shape Ripple2Gauss not yet implemented for Mesocrystal";
+        ostr << "Sorry, outer shape SawtoothRippleGauss not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (dynamic_cast<const FormFactorRipple2Lorentz*>(outerShape)) {
-        // TODO: Implement Ripple2Lorentz
+    } else if (dynamic_cast<const FormFactorSawtoothRippleLorentz*>(outerShape)) {
+        // TODO: Implement SawtoothRippleLorentz
         std::ostringstream ostr;
-        ostr << "Sorry, outer shape Ripple2Lorentz not yet implemented for Mesocrystal";
+        ostr << "Sorry, outer shape SawtoothRippleLorentz not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
     } else if (auto ff_Tetrahedron = dynamic_cast<const FormFactorTetrahedron*>(outerShape)) {
@@ -348,7 +344,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 }
 } // namespace
 
-RealSpaceMesoCrystal::~RealSpaceMesoCrystal() {}
+RealSpaceMesoCrystal::~RealSpaceMesoCrystal() = default;
 
 RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem,
                                            double total_abundance, const QVector3D& origin)
@@ -438,14 +434,14 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
                   static_cast<float>(mesoCrystal_translation.z())));
 
     // assign grey (default) color to the outer shape
-    QColor color = QColor();
+    QColor color = {};
     color.setAlphaF(0.3);
     outerShape3D->color = color;
     mesoCrystal3DContainer.addParticle(outerShape3D.release(), true);
 
     // set the correct abundance for the MesoCrystal
     mesoCrystal3DContainer.setCumulativeAbundance(M_clone->abundance() / m_total_abundance);
-    mesoCrystal3DContainer.setParticleType(Constants::MesoCrystalType);
+    mesoCrystal3DContainer.setParticleType("MesoCrystal");
 
     return mesoCrystal3DContainer;
 }

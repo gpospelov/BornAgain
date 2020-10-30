@@ -12,18 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "ImportDataUtils.h"
-#include "AppSvc.h"
-#include "AxesItems.h"
-#include "BornAgainNamespace.h"
-#include "CsvImportAssistant.h"
-#include "GUIHelpers.h"
-#include "InstrumentItems.h"
-#include "IntensityDataIOFactory.h"
-#include "IntensityDataItem.h"
-#include "PointwiseAxis.h"
-#include "RealDataItem.h"
-#include "projectmanager.h"
+#include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
+#include "Base/Axis/PointwiseAxis.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
+#include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
+#include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
@@ -90,13 +89,13 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
         || DataFormatUtils::isIntFile(fileName.toStdString())
         || DataFormatUtils::isTiffFile(fileName.toStdString())) {
         try {
-            return ImportDataInfo(ImportKnownData(fileName), AxesUnits::QSPACE);
+            return ImportDataInfo(ImportKnownData(fileName), Axes::Units::QSPACE);
         } catch (...) {
             return getFromImportAssistant(fileName);
         }
     } else {
         try {
-            return ImportDataInfo(ImportReflectometryData(fileName), AxesUnits::QSPACE);
+            return ImportDataInfo(ImportReflectometryData(fileName), Axes::Units::QSPACE);
         } catch (...) {
             QString message =
                 QString("There was a problem while trying to import data from "

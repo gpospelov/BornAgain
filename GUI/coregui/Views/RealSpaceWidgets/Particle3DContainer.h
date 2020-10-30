@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PARTICLE3DCONTAINER_H
-#define PARTICLE3DCONTAINER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_PARTICLE3DCONTAINER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_PARTICLE3DCONTAINER_H
 
-#include "WinDllMacros.h"
 #include <QString>
 #include <memory>
 #include <vector>
@@ -28,7 +27,7 @@ class Particle;
 }
 } // namespace RealSpace
 
-class BA_CORE_API_ Particle3DContainer
+class Particle3DContainer
 {
 public:
     Particle3DContainer() : m_cumulativeAbundance(0) {}
@@ -60,4 +59,4 @@ private:
     std::vector<bool> m_containerParticlesBlend;
 };
 
-#endif // PARTICLE3DCONTAINER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_PARTICLE3DCONTAINER_H

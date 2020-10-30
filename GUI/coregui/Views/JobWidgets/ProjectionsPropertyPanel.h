@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSPROPERTYPANEL_H
-#define PROJECTIONSPROPERTYPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSPROPERTYPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSPROPERTYPANEL_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class ComponentEditor;
 
-class BA_CORE_API_ ProjectionsPropertyPanel : public SessionItemWidget
+class ProjectionsPropertyPanel : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -37,4 +37,4 @@ private:
     ComponentEditor* m_componentEditor;
 };
 
-#endif // PROJECTIONSPROPERTYPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_PROJECTIONSPROPERTYPANEL_H

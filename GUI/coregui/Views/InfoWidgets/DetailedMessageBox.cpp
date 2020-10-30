@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "DetailedMessageBox.h"
-#include "DesignerHelper.h"
+#include "GUI/coregui/Views/InfoWidgets/DetailedMessageBox.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include <QApplication>
 #include <QLabel>
 #include <QMessageBox>
@@ -43,7 +43,7 @@ DetailedMessageBox::DetailedMessageBox(QWidget* parent, const QString& title, co
 
     QColor bgColor(240, 240, 240, 255);
     QPalette palette;
-    palette.setColor(QPalette::Background, bgColor);
+    palette.setColor(QPalette::Window, bgColor);
     setAutoFillBackground(true);
     setPalette(palette);
 
@@ -89,7 +89,7 @@ QBoxLayout* DetailedMessageBox::createLogoLayout()
     return result;
 }
 
-//! Create right layout with text and QComboBox selection.
+//! Creates right layout with text and QComboBox selection.
 
 QBoxLayout* DetailedMessageBox::createInfoLayout()
 {

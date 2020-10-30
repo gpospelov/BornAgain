@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBLISTVIEWDELEGATE_H
-#define JOBLISTVIEWDELEGATE_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTVIEWDELEGATE_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTVIEWDELEGATE_H
 
-#include "WinDllMacros.h"
 #include <QItemDelegate>
 #include <QMap>
 #include <QRect>
@@ -23,7 +22,7 @@
 class JobItem;
 
 //! ViewDelegate to show progress bar JobQueuListView
-class BA_CORE_API_ JobListViewDelegate : public QItemDelegate
+class JobListViewDelegate : public QItemDelegate
 {
     Q_OBJECT
 public:
@@ -50,4 +49,4 @@ private:
     QMap<QString, QColor> m_status_to_color;
 };
 
-#endif // JOBLISTVIEWDELEGATE_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBLISTVIEWDELEGATE_H

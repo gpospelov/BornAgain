@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ObjectiveMetric.h"
-#include "ObjectiveMetricUtils.h"
-#include "OutputData.h"
-#include "SimDataPair.h"
+#include "Core/Fitting/ObjectiveMetric.h"
+#include "Core/Fitting/ObjectiveMetricUtils.h"
+#include "Core/Fitting/SimDataPair.h"
+#include "Device/Data/OutputData.h"
 #include <cmath>
 #include <limits>
 
@@ -27,9 +27,9 @@ const double ln10 = std::log(10.0);
 
 template <class T> T* copyMetric(const T& metric)
 {
-    std::unique_ptr<T> result(new T());
+    auto* result = new T;
     result->setNorm(metric.norm());
-    return result.release();
+    return result;
 }
 
 void checkIntegrity(const std::vector<double>& sim_data, const std::vector<double>& exp_data,
@@ -234,8 +234,8 @@ double RQ4Metric::compute(const SimDataPair& data_pair, bool use_weights) const
         return Chi2Metric::compute(data_pair, use_weights);
 
     // fetching data in RQ4 form
-    auto sim_data = data_pair.simulationResult().data(AxesUnits::RQ4);
-    auto exp_data = data_pair.experimentalData().data(AxesUnits::RQ4);
+    auto sim_data = data_pair.simulationResult().data(Axes::Units::RQ4);
+    auto exp_data = data_pair.experimentalData().data(Axes::Units::RQ4);
 
     return computeFromArrays(sim_data->getRawDataVector(), exp_data->getRawDataVector(),
                              data_pair.user_weights_array());

@@ -17,471 +17,288 @@
 
 %module(directors="1", moduleimport="import $module") "libBornAgainCore"
 
-%feature("autodoc");
+%include "commons.i"
 
-/**/
-%include "stdint.i"
-%include "std_complex.i"
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_map.i"
-%include "std_shared_ptr.i"
+%include "../../auto/Wrap/doxygenCore.i"
 
-// TODO CLARIFY WHY THIS IS INCLUDED
-%include "../../auto/Wrap/doxygen_core.i"
+%include "ignoreBase.i"
+%include "ignoreSample.i"
 
-// include the list of smart pointers (common between Core and Fit)
-%include "shared_pointers.i"
+%ignore ISpecularScan;
 
-%include "warnings.i"
-%include "deprecated.i"
-%include "ignores.i"
-%include "renameCore.i"
-%include "directors.i"
+%rename(MaterialProfile_cpp) MaterialProfile;
 
-%template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector<std::vector<double>>;
-%template(vector_integer_t) std::vector<int>;
-%template(vinteger2d_t) std::vector<std::vector<int>>;
-%template(vector_longinteger_t) std::vector<unsigned long int>;
-%template(vector_complex_t) std::vector< std::complex<double>>;
-%template(vector_string_t) std::vector<std::string>;
-%template(map_string_double_t) std::map<std::string, double>;
-%template(pair_double_t) std::pair<double, double>;
-%template(vector_pair_double_t) std::vector<std::pair<double, double>>;
-%nodefaultctor ParameterPool;
+%rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
+%rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
+%rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;
+%rename(evaluate_residuals_cpp) FitObjective::evaluate_residuals;
+%rename(evaluate_cpp) FitObjective::evaluate;
+%rename(finalize_cpp) FitObjective::finalize;
+%rename(initPlot_cpp) FitObjective::initPlot;
+%rename(uncertainties_cpp) FitObjective::uncertainties;
+%rename(uncertaintyData_cpp) FitObjective::uncertaintyData;
+%rename(containsUncertainties_cpp) FitObjective::containsUncertainties;
+%rename(allPairsHaveUncertainties_cpp) FitObjective::allPairsHaveUncertainties;
 
-#define SWIG_FILE_WITH_INIT
+%feature("director") PyBuilderCallback;  // used in extendCore.i
+%feature("director") PyObserverCallback; // used in extendCore.i
 
-%{
-#define SWIG_FILE_WITH_INIT
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-%}
+%feature("director") FitObjective;       // used in custom_objective_function.py
 
-%include "numpy.i"
-%init %{
-    import_array();
-%}
-
-#define GCC_DIAG_OFF(x)
-#define GCC_DIAG_ON(x)
-
-#ifndef BORNAGAIN_PYTHON
-#define BORNAGAIN_PYTHON
-#endif
-
-%import "WinDllMacros.h"
+// Propagate python exceptions (from https://stackoverflow.com/questions/4811492)
+%feature("director:except") {
+    if( $error != NULL ) {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
+        PyErr_Restore( ptype, pvalue, ptraceback );
+        PyErr_Print();
+        Py_Exit(1);
+    }
+}
 
 %{
-#include "AngularSpecScan.h"
 #include "BAVersion.h"
-#include "BasicVector3D.h"
-#include "Beam.h"
-#include "Bin.h"
-#include "ChiSquaredModule.h"
-#include "Complex.h"
-#include "ConstantBackground.h"
-#include "ConstKBinAxis.h"
-#include "Crystal.h"
-#include "CustomBinAxis.h"
-#include "DepthProbeSimulation.h"
-#include "DetectorMask.h"
-#include "Distributions.h"
-#include "Ellipse.h"
-#include "FTDecayFunctions.h"
-#include "FTDistributions1D.h"
-#include "FTDistributions2D.h"
-#include "FitOptions.h"
-#include "PyFittingCallbacks.h"
-#include "FitObjective.h"
-#include "FixedBinAxis.h"
-#include "FootprintFactorGaussian.h"
-#include "FootprintFactorSquare.h"
-#include "FormFactorAnisoPyramid.h"
-#include "FormFactorBar.h"
-#include "FormFactorBox.h"
-#include "FormFactorCantellatedCube.h"
-#include "FormFactorCone.h"
-#include "FormFactorCone6.h"
-#include "FormFactorCrystal.h"
-#include "FormFactorCuboctahedron.h"
-#include "FormFactorCylinder.h"
-#include "FormFactorDebyeBueche.h"
-#include "FormFactorDodecahedron.h"
-#include "FormFactorDot.h"
-#include "FormFactorEllipsoidalCylinder.h"
-#include "FormFactorFullSphere.h"
-#include "FormFactorFullSpheroid.h"
-#include "FormFactorGauss.h"
-#include "FormFactorHemiEllipsoid.h"
-#include "FormFactorIcosahedron.h"
-#include "FormFactorLongBoxGauss.h"
-#include "FormFactorLongBoxLorentz.h"
-#include "FormFactorLorentz.h"
-#include "FormFactorOrnsteinZernike.h"
-#include "FormFactorPolyhedron.h"
-#include "FormFactorPolyhedron.h"
-#include "FormFactorPrism3.h"
-#include "FormFactorPrism6.h"
-#include "FormFactorPyramid.h"
-#include "FormFactorRipple1.h"
-#include "FormFactorRipple2.h"
-#include "FormFactorSphereGaussianRadius.h"
-#include "FormFactorSphereLogNormalRadius.h"
-#include "FormFactorSphereUniformRadius.h"
-#include "FormFactorTetrahedron.h"
-#include "FormFactorTruncatedCube.h"
-#include "FormFactorTruncatedSphere.h"
-#include "FormFactorTruncatedSpheroid.h"
-#include "FormFactorWeighted.h"
-#include "GISASSimulation.h"
-#include "Histogram1D.h"
-#include "Histogram2D.h"
-#include "IAbstractParticle.h"
-#include "IBackground.h"
-#include "ICloneable.h"
-#include "IClusteredParticles.h"
-#include "IDetector2D.h"
-#include "IDetectorResolution.h"
-#include "IFormFactorDecorator.h"
-#include "IHistogram.h"
-#include "IIntensityFunction.h"
-#include "IInterferenceFunction.h"
-#include "ILayout.h"
-#include "INamed.h"
-#include "INode.h"
-#include "IObserver.h"
-#include "IParameterized.h"
-#include "IParticle.h"
-#include "IPeakShape.h"
-#include "IResolutionFunction2D.h"
-#include "ISample.h"
-#include "IMultiLayerBuilder.h"
-#include "INodeVisitor.h"
-#include "ISelectionRule.h"
-#include "IShape2D.h"
-#include "ISingleton.h"
-#include "Instrument.h"
-#include "IntensityDataFunctions.h"
-#include "IntensityDataIOFactory.h"
-#include "InterferenceFunction1DLattice.h"
-#include "InterferenceFunction2DLattice.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "InterferenceFunction2DSuperLattice.h"
-#include "InterferenceFunction3DLattice.h"
-#include "InterferenceFunctionFinite2DLattice.h"
-#include "InterferenceFunctionFinite3DLattice.h"
-#include "InterferenceFunctionHardDisk.h"
-#include "InterferenceFunctionNone.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "InterferenceFunctionTwin.h"
-#include "IsGISAXSDetector.h"
-#include "ILatticeOrientation.h"
-#include "Lattice.h"
-#include "LatticeUtils.h"
-#include "Lattice1DParameters.h"
-#include "Lattice2D.h"
-#include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
-#include "Line.h"
-#include "MaterialFactoryFuncs.h"
-#include "MathFunctions.h"
-#include "MesoCrystal.h"
-#include "MultiLayer.h"
-#include "MultiLayerFuncs.h"
-#include "OffSpecSimulation.h"
-#include "OutputData.h"
-#include "ParameterDistribution.h"
-#include "ParameterPool.h"
-#include "ParameterSample.h"
-#include "Particle.h"
-#include "ParticleComposition.h"
-#include "ParticleCoreShell.h"
-#include "ParticleDistribution.h"
-#include "ParticleLayout.h"
-#include "PoissonNoiseBackground.h"
-#include "Polygon.h"
-#include "PyArrayImportUtils.h"
-#include "QSpecScan.h"
-#include "RangedDistributions.h"
-#include "RealParameter.h"
-#include "Rectangle.h"
-#include "RectangularDetector.h"
-#include "ResolutionFunction2DGaussian.h"
-#include "Ripples.h"
-#include "Rotations.h"
-#include "SampleBuilderFactory.h"
-#include "ScanResolution.h"
-#include "Simulation.h"
-#include "Simulation2D.h"
-#include "SimulationFactory.h"
-#include "SimulationOptions.h"
-#include "SimulationResult.h"
-#include "SlicedParticle.h"
-#include "SpecularSimulation.h"
-#include "SphericalDetector.h"
-#include "ThreadInfo.h"
-#include "Units.h"
-#include "VariableBinAxis.h"
-#include "Vectors3D.h"
-#include "WavevectorInfo.h"
-#include "IChiSquaredModule.h"
-#include "IIntensityFunction.h"
-#include "IIntensityNormalizer.h"
-#include "VarianceFunctions.h"
-#include "IterationInfo.h"
-#include "SpectrumUtils.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
+#include "Core/Computation/ConstantBackground.h"
+#include "Core/Computation/IBackground.h"
+#include "Core/Computation/MultiLayerFuncs.h"
+#include "Core/Computation/PoissonNoiseBackground.h"
+#include "Core/Fitting/FitObjective.h"
+#include "Core/Fitting/IObserver.h"
+#include "Core/Fitting/IterationInfo.h"
+#include "Core/Fitting/PyFittingCallbacks.h"
+#include "Core/Simulation/DepthProbeSimulation.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/Simulation2D.h"
+#include "Core/Simulation/SimulationFactory.h"
+#include "Core/Simulation/SpecularSimulation.h"
+#include "Fit/Kernel/FitOptions.h"
 %}
-
-// ownership
-
-%newobject ScanResolution::scanRelativeResolution;
-%newobject ScanResolution::scanAbsoluteResolution;
-
-%newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
-%newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
-%newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
-
-%newobject DetectorMask::createHistogram() const;
-
-%newobject PyArrayImport::importArrayToOutputData;
-%newobject IHistogram::createFrom(const std::string& filename);
-%newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
-
-%newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
-%newobject InterferenceFunction2DLattice::createHexagonal(double lattice_length, double xi);
-%newobject InterferenceFunction2DParaCrystal::createSquare(
-        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
-%newobject InterferenceFunction2DParaCrystal::createHexagonal(
-        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
-%newobject InterferenceFunction2DSuperLattice::createSquare(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
-%newobject InterferenceFunction2DSuperLattice::createHexagonal(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
-%newobject InterferenceFunctionFinite2DLattice::createSquare(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
-%newobject InterferenceFunctionFinite2DLattice::createHexagonal(
-        double lattice_length, double xi, unsigned size_1, unsigned size_2);
 
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%import(module="libBornAgainFit") "AttLimits.h"
-%import(module="libBornAgainFit") "Attributes.h"
-%import(module="libBornAgainFit") "RealLimits.h"
-%import(module="libBornAgainFit") "Parameters.h"
-%import(module="libBornAgainFit") "Parameter.h"
+%include "fromBase.i"
 
-%include "BAVersion.h"
-%include "BasicVector3D.h"
-%include "ICloneable.h"
-%include "INamed.h"
-%include "IParameterized.h"
-%include "INode.h"
+%include "fromParam.i"
 
-// need to tell SWIG explicitly to instantiate these templates with given types
-%template(swig_dummy_type_inode_vector) std::vector<INode*>;
-%template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
+%import(module="libBornAgainSample") "Sample/Scattering/ISample.h"
+%import(module="libBornAgainSample") "Sample/Scattering/IFormFactor.h"
+%import(module="libBornAgainSample") "Sample/Scattering/IFormFactorBorn.h"
+
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
-// SWIG does not automatically instantiate templates, so we declare these by hand
-%template(kvector_t) BasicVector3D<double>;
-%template(vector_kvector_t) std::vector<BasicVector3D<double>>;
-%template(cvector_t) BasicVector3D<std::complex<double>>;
-%template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
+%template(swig_dummy_type_inode_vector) std::vector<INode*>;
+%template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
 
-// SWIG workaround for using axes units the same way as they are used in cpp files
-%rename(AxesUnits) AxesUnitsWrap;
-%rename(RoughnessModel) RoughnessModelWrap;
+%include "Fit/TestEngine/IFactory.h"
+%template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 
-%include "Complex.h"
-%include "Units.h"
-%include "Vectors3D.h"
-%include "WavevectorInfo.h"
-
-%include "Beam.h"
-%include "Bin.h"
-
-%include "IAxis.h"
-%include "VariableBinAxis.h"
-%include "ConstKBinAxis.h"
-%include "CustomBinAxis.h"
-
-%include "IShape2D.h"
-%include "ISample.h"
-%include "IChiSquaredModule.h"
-%include "IObserver.h"
-%include "IIntensityFunction.h"
-%include "IIntensityNormalizer.h"
-%include "VarianceFunctions.h"
-%include "ChiSquaredModule.h"
-%include "FitOptions.h"
-%include "PyFittingCallbacks.h"
-
-%include "FitObjective.h"
+%include "Core/Fitting/FitObjective.h"
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
 
-%include "MathFunctions.h"
-%include "IFactory.h"
-%include "IMultiLayerBuilder.h"
-%include "INodeVisitor.h"
-%include "IClusteredParticles.h"
-%include "Crystal.h"
-%include "Distributions.h"
-%include "DetectorMask.h"
-%include "Ellipse.h"
-%include "FTDecayFunctions.h"
-%include "FTDistributions1D.h"
-%include "FTDistributions2D.h"
-%include "FixedBinAxis.h"
-%include "IFormFactor.h"
-%template(vector_IFormFactorPtr_t) std::vector<IFormFactor*>;
-%include "IFormFactorBorn.h"
-%include "IFormFactorDecorator.h"
-%include "FormFactorPolyhedron.h"
-%include "ProfileBar.h"
-%include "ProfileRipple1.h"
-%include "ProfileRipple2.h"
-%include "Ripples.h"
+%include "BAVersion.h"
 
-%include "FormFactorAnisoPyramid.h"
-%include "FormFactorBox.h"
-%include "FormFactorCantellatedCube.h"
-%include "FormFactorCone.h"
-%include "FormFactorCone6.h"
-%include "FormFactorCrystal.h"
-%include "FormFactorCuboctahedron.h"
-%include "FormFactorCylinder.h"
-%include "FormFactorDebyeBueche.h"
-%include "FormFactorDodecahedron.h"
-%include "FormFactorDot.h"
-%include "FormFactorEllipsoidalCylinder.h"
-%include "FormFactorFullSphere.h"
-%include "FormFactorFullSpheroid.h"
-%include "FormFactorGauss.h"
-%include "FormFactorHemiEllipsoid.h"
-%include "FormFactorIcosahedron.h"
-%include "FormFactorLongBoxGauss.h"
-%include "FormFactorLongBoxLorentz.h"
-%include "FormFactorLorentz.h"
-%include "FormFactorOrnsteinZernike.h"
-%include "FormFactorPolyhedron.h"
-%include "FormFactorPrism3.h"
-%include "FormFactorPrism6.h"
-%include "FormFactorPyramid.h"
-%include "FormFactorRipple1.h"
-%include "FormFactorRipple2.h"
-%include "FormFactorSphereGaussianRadius.h"
-%include "FormFactorSphereLogNormalRadius.h"
-%include "FormFactorSphereUniformRadius.h"
-%include "FormFactorTetrahedron.h"
-%include "FormFactorTruncatedCube.h"
-%include "FormFactorTruncatedSphere.h"
-%include "FormFactorTruncatedSpheroid.h"
-%include "FormFactorWeighted.h"
+%include "Fit/Kernel/FitOptions.h"
 
-%include "IFootprintFactor.h"
-%include "FootprintFactorGaussian.h"
-%include "FootprintFactorSquare.h"
+%include "Core/Fitting/IObserver.h"
+%include "Core/Fitting/IterationInfo.h"
+%include "Core/Fitting/PyFittingCallbacks.h"
 
-%include "Simulation.h"
-%include "Simulation2D.h"
-%include "SimulationOptions.h"
-%include "GISASSimulation.h"
-%include "IHistogram.h"
-%include "Histogram1D.h"
-%include "Histogram2D.h"
-%include "SimulationResult.h"
-%include "IBackground.h"
-%include "ConstantBackground.h"
-%include "IDetector.h"
-%include "IDetector2D.h"
-%include "IDetectorResolution.h"
-%include "Distributions.h"
-%include "FTDecayFunctions.h"
-%include "IInterferenceFunction.h"
-%include "ILayout.h"
-%include "IAbstractParticle.h"
-%include "IParameter.h" // needed?
-%template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
-%include "IParticle.h"
-%include "IPeakShape.h"
-%include "IResolutionFunction2D.h"
-%include "Rotations.h"
-%include "ISelectionRule.h"
-%include "ISingleton.h"
-%include "Instrument.h"
-%include "IntensityDataFunctions.h"
-%include "IntensityDataIOFactory.h"
-%include "InterferenceFunction1DLattice.h"
-%include "InterferenceFunction2DLattice.h"
-%include "InterferenceFunction2DParaCrystal.h"
-%include "InterferenceFunction2DSuperLattice.h"
-%include "InterferenceFunction3DLattice.h"
-%include "InterferenceFunctionFinite2DLattice.h"
-%include "InterferenceFunctionFinite3DLattice.h"
-%include "InterferenceFunctionHardDisk.h"
-%include "InterferenceFunctionNone.h"
-%include "InterferenceFunctionRadialParaCrystal.h"
-%include "InterferenceFunctionTwin.h"
-%include "IPixel.h"
-%include "SphericalDetector.h"
-%include "IsGISAXSDetector.h"
-%include "ILatticeOrientation.h"
-%include "Lattice.h"
-%include "LatticeUtils.h"
-%include "Lattice1DParameters.h"
-%include "Lattice2D.h"
-%include "Layer.h"
-%include "LayerRoughness.h"
-%include "Line.h"
-%include "Material.h"
-%include "MaterialFactoryFuncs.h"
-%include "MesoCrystal.h"
-%include "MultiLayer.h"
-%include "MultiLayerFuncs.h"
-%include "OffSpecSimulation.h"
-%include "IIntensityFunction.h"
-%include "OutputData.h"
-%template(IntensityData) OutputData<double>;
-%include "ParameterDistribution.h"
-%include "ParameterPool.h"
-%include "ParameterSample.h"
-%template(ParameterSampleVector) std::vector<ParameterSample>;
-%include "Particle.h"
-%include "ParticleComposition.h"
-%include "ParticleCoreShell.h"
-%include "ParticleDistribution.h"
-%include "ParticleLayout.h"
-%include "PyArrayImportUtils.h"
-%include "PoissonNoiseBackground.h"
-%include "Polygon.h"
-%include "RangedDistributions.h"
-%include "RealParameter.h"
-%include "Rectangle.h"
-%include "RectangularDetector.h"
-%include "ResolutionFunction2DGaussian.h"
-%include "Rotations.h"
-%include "RoughnessModels.h"
-%include "ISelectionRule.h"
-%include "DepthProbeSimulation.h"
-%include "SpecularSimulation.h"
-%include "ThreadInfo.h"
-%template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
-%include "SampleBuilderFactory.h"
-%template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
-%include "SimulationFactory.h"
-%include "IUnitConverter.h"
-%include "IterationInfo.h"
-%include "SpectrumUtils.h"
+%include "Core/Scan/ISpecularScan.h"
+%include "Core/Scan/AngularSpecScan.h"
+%include "Core/Scan/QSpecScan.h"
 
-%include "ScanResolution.h"
+%include "Core/Simulation/Simulation.h"
+%include "Core/Simulation/Simulation2D.h"
+%include "Core/Simulation/GISASSimulation.h"
+%include "Core/Simulation/DepthProbeSimulation.h"
+%include "Core/Simulation/SpecularSimulation.h"
+%include "Core/Simulation/OffSpecSimulation.h"
 
-%include "ISpecularScan.h"
-%include "AngularSpecScan.h"
-%include "QSpecScan.h"
+%include "Core/Computation/IBackground.h"
+%include "Core/Computation/ConstantBackground.h"
+%include "Core/Computation/PoissonNoiseBackground.h"
+%include "Core/Computation/MultiLayerFuncs.h"
 
-%include "extendCore.i"
+%include "Core/Simulation/SimulationFactory.h"
+
+%extend BasicVector3D<double> {
+    BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const {
+        return *($self) + rhs; }
+    BasicVector3D<double> __mul__(double c) const {
+        return c * *($self); }
+    BasicVector3D<double> __rmul__(double c) const {
+        return *($self) * c; }
+    BasicVector3D<double> __neg__() const {
+        return - *($self); }
+};
+
+// needed to prevent ownership problems with passed ISampleBuilder
+%extend Simulation {
+    %pythoncode %{
+         def setSampleBuilder(self, ptr):
+             self.samplebuilder = ptr
+             self.setSampleBuilderCpp(ptr)
+    %}
+ };
+
+%extend SpecularSimulation {
+    %pythoncode %{
+         def setSampleBuilder(self, ptr):
+             self.samplebuilder = ptr
+             self.setSampleBuilderCpp(ptr)
+    %}
+ };
+
+%pythoncode %{
+class SimulationBuilderWrapper(PyBuilderCallback):
+    def __init__(self, f):
+        super(SimulationBuilderWrapper, self).__init__()
+        self.f_ = f
+
+    def create_par_dict(self, pars):
+        """
+        Convertion of ba.Parameters to Python dictionary
+        """
+        pars_dict = dict()
+        for index, p in enumerate(pars):
+            pars_dict[p.name()] = p.value
+        return pars_dict
+
+    def build_simulation(self, obj):
+        simulation = self.f_(self.create_par_dict(obj))
+        simulation.__disown__()
+        return simulation
+
+
+%}
+
+%pythoncode %{
+class ObserverCallbackWrapper(PyObserverCallback):
+    def __init__(self, callback):
+        super(ObserverCallbackWrapper, self).__init__()
+        self.callback_ = callback
+
+    def update(self, fit_objective):
+        return self.callback_(fit_objective)
+
+%}
+
+%extend FitObjective {
+%pythoncode %{
+    def addSimulationAndData(self, callback, data, *args, **kwargs):
+        """
+        Sets simulation and experimental data to the fit objective.
+        Optionally accepts experimental data uncertainties and
+        user-defined dataset weight.
+
+        Arguments:
+
+        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        The function must use fit parameter dictionary as its input.
+
+        data -- numpy array with experimental data.
+
+        uncertainties -- numpy array with experimental data uncertainties.
+        Array shape must correspond to the shape of data. Optional argument.
+
+        weight -- user-defined weight of the dataset. If not specified, defaults to 1.0.
+        """
+        if not hasattr(self, 'callback_container'):
+            self.callback_container = []
+        wrp = SimulationBuilderWrapper(callback)
+        self.callback_container.append(wrp)
+        return self.addSimulationAndData_cpp(wrp, data, *args, **kwargs)
+
+    def convert_params(self, params):
+        """
+        Converts parameters to what FitObjective::evaluate expects
+        """
+
+        if str(params.__module__) == "lmfit.parameter":
+            bapars = libBornAgainFit.Parameters()
+            for p in params:
+                bapars.add(p, params[p].value)
+            return bapars
+        else:
+            return params
+
+    def evaluate_residuals(self, params):
+        return self.evaluate_residuals_cpp(self.convert_params(params))
+
+    def evaluate(self, params):
+        return self.evaluate_cpp(self.convert_params(params))
+
+    def convert_result(self, minim_result):
+        """
+        Converts result reported by arbitrary minimizer to ba.MinimizerResult
+        """
+
+        if str(minim_result.__module__) == "lmfit.minimizer":
+            return libBornAgainFit.MinimizerResult()
+        else:
+            return minim_result
+
+    def finalize(self, minimizer_result):
+        return self.finalize_cpp(self.convert_result(minimizer_result))
+
+    def create_default_plotter(self):
+        import plot_utils
+        self.m_plotter = plot_utils.PlotterGISAS()
+        return self.m_plotter.plot
+
+    def initPlot(self, every_nth, callback = None):
+        if not callback:
+            callback = self.create_default_plotter()
+
+        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
+        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
+
+    def uncertainties(self):
+        """
+        Returns one-dimensional array representing merged data uncertainties.
+        If any of the associated data pairs lack uncertainties, returns None.
+        """
+        if self.allPairsHaveUncertainties_cpp():
+            return self.uncertainties_cpp()
+        return None
+
+    def uncertaintyData(self, i=0):
+        """
+        Returns uncertainties for i-th simulation-data pair. If
+        no uncertainties are assigned to the data pair, returns
+        None.
+        """
+        if self.containsUncertainties_cpp(i):
+            return self.uncertaintyData_cpp(i)
+        return None
+%}
+};
+
+// --- Computation/MaterialProfile
+
+// Function with optional default limits and/or number of points
+%pythoncode %{
+    def MaterialProfile(multilayer, n_points=400, z_min=None, z_max=None):
+        """
+        Creates a material profile from the given multilayer. If no limits are given,
+        it will provide sensible default values, considering the included particles and
+        interface roughnesses.
+        :param multilayer: bornagain.MultiLayer object
+        :param n_points: number of points to generate
+        :param z_min: starting value for z
+        :param z_max: ending value for z
+        :return: numpy arrays containing z positions and the complex material values in those positions
+        """
+        def_z_min, def_z_max = DefaultMaterialProfileLimits(multilayer)
+        z_min = def_z_min if z_min is None else z_min
+        z_max = def_z_max if z_max is None else z_max
+        z_points = GenerateZValues(n_points, z_min, z_max)
+        material_values = MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
+        return (z_points, material_values)
+%}

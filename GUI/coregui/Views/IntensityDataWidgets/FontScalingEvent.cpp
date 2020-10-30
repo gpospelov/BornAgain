@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "FontScalingEvent.h"
-#include "ColorMap.h"
-#include "ScientificPlot.h"
-#include "qcustomplot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/FontScalingEvent.h"
+#include "Base/Utils/Assert.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ColorMap.h"
 #include <QResizeEvent>
+#include <qcustomplot.h>
 
 namespace
 {
@@ -33,7 +33,7 @@ bool FontScalingEvent::eventFilter(QObject* obj, QEvent* event)
 {
     if (event->type() == QEvent::Resize) {
         QResizeEvent* resizeEvent = static_cast<QResizeEvent*>(event);
-        Q_ASSERT(resizeEvent);
+        ASSERT(resizeEvent);
 
         if (!m_fonts.contains(tick_font)) {
             backupFonts();

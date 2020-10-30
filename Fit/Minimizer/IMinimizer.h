@@ -12,12 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef IMINIMIZER_H
-#define IMINIMIZER_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
+#define BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
 
-#include "KernelTypes.h"
-#include "MinimizerResult.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Kernel/MinimizerResult.h"
 #include <string>
 
 namespace Fit
@@ -28,7 +27,7 @@ class Parameters;
 //! Pure virtual interface for all kind minimizers.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ IMinimizer
+class IMinimizer
 {
 public:
     IMinimizer();
@@ -62,4 +61,4 @@ public:
 #endif // SWIG
 };
 
-#endif // IMINIMIZER_H
+#endif // BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H

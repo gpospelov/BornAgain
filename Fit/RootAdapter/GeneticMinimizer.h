@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef GENETICMINIMIZER_H
-#define GENETICMINIMIZER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H
 
-#include "RootMinimizerAdapter.h"
+#include "Fit/RootAdapter/RootMinimizerAdapter.h"
 
 namespace ROOT
 {
@@ -28,7 +28,7 @@ class GeneticMinimizer;
 //! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ GeneticMinimizer : public RootMinimizerAdapter
+class GeneticMinimizer : public RootMinimizerAdapter
 {
 public:
     GeneticMinimizer();
@@ -71,4 +71,4 @@ private:
     std::unique_ptr<ROOT::Math::GeneticMinimizer> m_genetic_minimizer;
 };
 
-#endif // GENETICMINIMIZER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H

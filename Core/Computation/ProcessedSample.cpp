@@ -12,19 +12,17 @@
 //
 // ************************************************************************** //
 
-#include "ProcessedSample.h"
-#include "HomogeneousRegion.h"
-#include "Layer.h"
-#include "LayerRoughness.h"
-#include "MaterialFactoryFuncs.h"
-#include "MatrixFresnelMap.h"
-#include "MultiLayer.h"
-#include "MultiLayerUtils.h"
-#include "ProcessedLayout.h"
-#include "ScalarFresnelMap.h"
-#include "SimulationOptions.h"
-#include "Slice.h"
-#include "SpecularStrategyBuilder.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Core/Computation/ProcessedLayout.h"
+#include "Core/Computation/SpecularStrategyBuilder.h"
+#include "Sample/Fresnel/MatrixFresnelMap.h"
+#include "Sample/Fresnel/ScalarFresnelMap.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayerUtils.h"
+#include "Sample/Particle/HomogeneousRegion.h"
+#include "Sample/RT/SimulationOptions.h"
+#include "Sample/Scattering/ZLimits.h"
+#include "Sample/Slice/LayerRoughness.h"
 
 namespace
 {
@@ -249,7 +247,7 @@ void ProcessedSample::addNSlices(size_t n, double thickness, const Material& mat
 
 void ProcessedSample::initBFields()
 {
-    if (m_slices.size() == 0)
+    if (m_slices.empty())
         return;
     double m_z0 = m_slices[0].material().magnetization().z();
     double b_z = Slice::Magnetic_Permeability * (m_ext_field.z() + m_z0);
@@ -285,9 +283,10 @@ std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& sample,
 {
     std::unique_ptr<IFresnelMap> P_result;
     if (ContainsMagneticSlice(slices))
-        P_result.reset(new MatrixFresnelMap(SpecularStrategyBuilder::build(sample, true)));
+        P_result = std::make_unique<MatrixFresnelMap>(SpecularStrategyBuilder::build(sample, true));
     else
-        P_result.reset(new ScalarFresnelMap(SpecularStrategyBuilder::build(sample, false)));
+        P_result =
+            std::make_unique<ScalarFresnelMap>(SpecularStrategyBuilder::build(sample, false));
     if (options.isIntegrate())
         P_result->disableCaching();
     return P_result;
@@ -332,7 +331,7 @@ CreateAverageMaterialSlices(const std::vector<Slice>& slices,
         if (!CheckRegions(entry.second))
             throw std::runtime_error("CreateAverageMaterialSlices: "
                                      "total volumetric fraction of particles exceeds 1!");
-        auto new_material = CreateAveragedMaterial(slice_mat, entry.second);
+        auto new_material = createAveragedMaterial(slice_mat, entry.second);
         result[i_slice].setMaterial(new_material);
     }
     return result;

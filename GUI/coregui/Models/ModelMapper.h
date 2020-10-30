@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef MODELMAPPER_H
-#define MODELMAPPER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_MODELMAPPER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_MODELMAPPER_H
 
-#include "WinDllMacros.h"
 #include <QModelIndex>
 #include <functional>
 
 class SessionModel;
 class SessionItem;
 
-class BA_CORE_API_ ModelMapper : public QObject
+class ModelMapper : public QObject
 {
     Q_OBJECT
 
@@ -59,7 +58,7 @@ public:
 
 public slots:
     void onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight,
-                       const QVector<int>& roles = QVector<int>());
+                       const QVector<int>& roles = {});
 
     void onRowsInserted(const QModelIndex& parent, int first, int last);
 
@@ -108,11 +107,10 @@ private:
 
 template <class U> inline void ModelMapper::clean_container(U& v, const void* caller)
 {
-    v.erase(std::remove_if(v.begin(), v.end(),
-                           [caller](typename U::value_type const& x) -> bool {
-                               return (x.second == caller ? true : false);
-                           }),
+    v.erase(std::remove_if(
+                v.begin(), v.end(),
+                [caller](typename U::value_type const& x) -> bool { return (x.second == caller); }),
             v.end());
 }
 
-#endif // MODELMAPPER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_MODELMAPPER_H

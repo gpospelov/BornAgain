@@ -1,16 +1,11 @@
-#include "RegionOfInterest.h"
-#include "Exceptions.h"
-#include "SphericalDetector.h"
-#include "google_test.h"
+#include "Device/Detector/RegionOfInterest.h"
+#include "Device/Detector/SphericalDetector.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class RegionOfInterestTest : public ::testing::Test
 {
-protected:
-    ~RegionOfInterestTest();
 };
-
-RegionOfInterestTest::~RegionOfInterestTest() = default;
 
 //! Testing region of interest with reasonable area within the detector.
 

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEWIDGET_H
-#define REALSPACEWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 #include <QTreeView>
@@ -27,7 +26,7 @@ class SampleModel;
 
 //! Prototype of real space widget to present sample structure in 3D view.
 
-class BA_CORE_API_ RealSpaceWidget : public QWidget
+class RealSpaceWidget : public QWidget
 {
     Q_OBJECT
 
@@ -47,4 +46,4 @@ private:
     QItemSelectionModel* m_selectionModel;
 };
 
-#endif // REALSPACEWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEWIDGET_H

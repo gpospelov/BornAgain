@@ -1,19 +1,15 @@
-#include "FixedBinAxis.h"
-#include "OutputData.h"
-#include "OutputDataReadStrategy.h"
-#include "OutputDataWriteStrategy.h"
-#include "google_test.h"
+#include "Device/Data/OutputData.h"
+#include "Device/InputOutput/OutputDataReadStrategy.h"
+#include "Device/InputOutput/OutputDataWriteStrategy.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class IOStrategyTest : public ::testing::Test
 {
 protected:
     IOStrategyTest();
-    ~IOStrategyTest() override;
 
     OutputData<double> m_model_data;
 };
-
-IOStrategyTest::~IOStrategyTest() = default;
 
 IOStrategyTest::IOStrategyTest()
 {

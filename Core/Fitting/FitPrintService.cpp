@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "FitPrintService.h"
-#include "FitObjective.h"
-#include "MinimizerResult.h"
-#include "StringUtils.h"
+#include "Core/Fitting/FitPrintService.h"
+#include "Core/Fitting/FitObjective.h"
+#include "Fit/Tools/StringUtils.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>

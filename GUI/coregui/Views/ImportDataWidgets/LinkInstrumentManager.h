@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef LINKINSTRUMENTMANAGER_H
-#define LINKINSTRUMENTMANAGER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_LINKINSTRUMENTMANAGER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_LINKINSTRUMENTMANAGER_H
 
-#include "WinDllMacros.h"
 #include <QList>
 #include <QObject>
 #include <QStringList>
@@ -32,7 +31,7 @@ class SessionModel;
 //! RealDataModel. Particularly, it notifies RealDataItem about changes in linked instruments
 //! to adjust axes of IntensityDataItem.
 
-class BA_CORE_API_ LinkInstrumentManager : public QObject
+class LinkInstrumentManager : public QObject
 {
     Q_OBJECT
 
@@ -50,7 +49,7 @@ public:
 
     void setModels(InstrumentModel* instrumentModel, RealDataModel* realDataModel);
 
-    InstrumentItem* getInstrument(const QString& identifier);
+    InstrumentItem* instrument(const QString& identifier);
     QStringList instrumentNames() const;
     int instrumentComboIndex(const QString& identifier);
     QString instrumentIdentifier(int comboIndex);
@@ -82,4 +81,4 @@ private:
     QVector<InstrumentInfo> m_instrumentVec;
 };
 
-#endif // LINKINSTRUMENTMANAGER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_LINKINSTRUMENTMANAGER_H

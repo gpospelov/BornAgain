@@ -1,20 +1,14 @@
-#include "SpecularDetector1D.h"
-#include "Beam.h"
-#include "BornAgainNamespace.h"
-#include "FixedBinAxis.h"
-#include "OutputData.h"
-#include "SimulationArea.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Device/Detector/SpecularDetector1D.h"
+#include "Base/Const/Units.h"
+#include "Device/Beam/Beam.h"
+#include "Device/Data/OutputData.h"
+#include "Device/Detector/SimulationArea.h"
+#include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 class SpecularDetectorTest : public ::testing::Test
 {
-protected:
-    ~SpecularDetectorTest();
 };
-
-SpecularDetectorTest::~SpecularDetectorTest() = default;
 
 // Default detector construction
 TEST_F(SpecularDetectorTest, basicBehaviour)
@@ -31,16 +25,10 @@ TEST_F(SpecularDetectorTest, basicBehaviour)
     EXPECT_EQ(1u, detector.dimension());
     EXPECT_EQ(axis.getMin(), detector.getAxis(0).getMin());
     EXPECT_EQ(axis.getMax(), detector.getAxis(0).getMax());
-    EXPECT_EQ(axis.getName(), detector.getAxis(0).getName());
 
     // throwing exceptions
     OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(detector.applyDetectorResolution(p_intensity_map), std::runtime_error);
-
-    // clearing detector
-    detector.clear();
-    EXPECT_EQ(0u, detector.dimension());
-    ASSERT_THROW(detector.getAxis(0), std::runtime_error);
 }
 
 // Creation of the detector map with axes in given units

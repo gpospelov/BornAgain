@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEMESOCRYSTALUTILS_H
-#define REALSPACEMESOCRYSTALUTILS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H
 
-#include "Rotations.h"
-#include "WinDllMacros.h"
+#include "Sample/Scattering/Rotations.h"
 #include <QVector3D>
 
 class Particle;
@@ -40,4 +39,4 @@ private:
     QVector3D m_origin;
 };
 
-#endif // REALSPACEMESOCRYSTALUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H

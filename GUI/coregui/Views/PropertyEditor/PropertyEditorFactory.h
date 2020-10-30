@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PROPERTYEDITORFACTORY_H
-#define PROPERTYEDITORFACTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_PROPERTYEDITORFACTORY_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_PROPERTYEDITORFACTORY_H
 
-#include "WinDllMacros.h"
 #include <QString>
 
 class QModelIndex;
@@ -29,14 +28,14 @@ namespace PropertyEditorFactory
 {
 
 //! Returns true if the index data has known (custom) convertion to string.
-BA_CORE_API_ bool hasStringRepresentation(const QModelIndex& index);
+bool hasStringRepresentation(const QModelIndex& index);
 
 //! Provides string representation of index data.
-BA_CORE_API_ QString toString(const QModelIndex& index);
+QString toString(const QModelIndex& index);
 
 //! Creates an editor suitable for editing of item.value()
-BA_CORE_API_ QWidget* CreateEditor(const SessionItem& item, QWidget* parent = nullptr);
+QWidget* CreateEditor(const SessionItem& item, QWidget* parent = nullptr);
 
 } // namespace PropertyEditorFactory
 
-#endif //  PROPERTYEDITORFACTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_PROPERTYEDITORFACTORY_H

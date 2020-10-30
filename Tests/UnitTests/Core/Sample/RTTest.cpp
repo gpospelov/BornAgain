@@ -1,20 +1,18 @@
-#include "BornAgainNamespace.h"
-#include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
-#include "MaterialFactoryFuncs.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "ProcessedSample.h"
-#include "SimulationOptions.h"
-#include "SpecularScalarTanhStrategy.h"
-#include "google_test.h"
+#include "Base/Const/MathConstants.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Aggregate/ParticleLayout.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/RT/SimulationOptions.h"
+#include "Sample/Slice/LayerInterface.h"
+#include "Sample/Slice/LayerRoughness.h"
+#include "Sample/Specular/SpecularScalarTanhStrategy.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class RTTest : public ::testing::Test
 {
 protected:
-    ~RTTest();
     void printCoeffs(const std::vector<ScalarRTCoefficients>& coeffs)
     { // for debug phases
         for (size_t i = 0; i < coeffs.size(); ++i) {
@@ -31,7 +29,7 @@ protected:
         EXPECT_NEAR(coeff1.t_r(1).real(), coeff2.t_r(1).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(1).imag(), coeff2.t_r(1).imag(), 1e-10);
     }
-    std::vector<ScalarRTCoefficients> getCoeffs(SpecularScalarTanhStrategy::coeffs_t&& inputCoeffs)
+    std::vector<ScalarRTCoefficients> getCoeffs(ISpecularStrategy::coeffs_t&& inputCoeffs)
     {
         std::vector<ScalarRTCoefficients> result;
         for (auto& coeff : inputCoeffs)
@@ -39,7 +37,7 @@ protected:
 
         return result;
     }
-    const Material air = HomogeneousMaterial("air", 1e-8, 1e-8);
+    const Material air = HomogeneousMaterial("Air", 1e-8, 1e-8);
     const Material amat = HomogeneousMaterial("material A", 2e-6, 8e-7);
     const Material bmat = HomogeneousMaterial("material B (high absorption)", 3e-5, 2e-4);
     const Material stone = HomogeneousMaterial("substrate material", 1e-6, 1e-7);
@@ -49,8 +47,6 @@ protected:
     MultiLayer sample1, sample2;
     std::vector<ScalarRTCoefficients> coeffs1, coeffs2;
 };
-
-RTTest::~RTTest() = default;
 
 TEST_F(RTTest, SplitLayer)
 {
@@ -86,7 +82,7 @@ TEST_F(RTTest, SplitBilayers)
 {
     // With exaggerated values of #layers, layer thickness, and absorption
     // so that we also test correct handling of floating-point overflow.
-    const int n = 200;
+    const int n = 250;
 
     sample1.addLayer(topLayer);
     for (size_t i = 0; i < n; ++i) {

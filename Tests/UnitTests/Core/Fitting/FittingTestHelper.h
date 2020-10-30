@@ -1,13 +1,12 @@
-#ifndef FITTINGTESTHELPER_H
-#define FITTINGTESTHELPER_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H
+#define BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H
 
-#include "GISASSimulation.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "OutputData.h"
-#include "Parameters.h"
-#include "Units.h"
+#include "Base/Const/Units.h"
+#include "Core/Simulation/GISASSimulation.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
 #include <memory>
 
 //! Helper class to simplify testing of SimDataPair and FitObjective
@@ -33,7 +32,8 @@ public:
         multilayer.addLayer(Layer(material));
         multilayer.addLayer(Layer(material));
 
-        std::unique_ptr<GISASSimulation> result(new GISASSimulation(multilayer));
+        std::unique_ptr<GISASSimulation> result(new GISASSimulation());
+        result->setSample(multilayer);
         result->setDetectorParameters(m_nx, m_xmin, m_xmax, m_ny, m_ymin, m_ymax);
 
         m_builder_calls++;
@@ -43,8 +43,8 @@ public:
     std::unique_ptr<OutputData<double>> createData(double value)
     {
         std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-        result->addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, m_nx, m_xmin, m_xmax));
-        result->addAxis(FixedBinAxis(BornAgain::ALPHA_AXIS_NAME, m_ny, m_ymin, m_ymax));
+        result->addAxis(FixedBinAxis("phi_f", m_nx, m_xmin, m_xmax));
+        result->addAxis(FixedBinAxis("alpha_f", m_ny, m_ymin, m_ymax));
         result->setAllTo(value);
         return result;
     }
@@ -52,4 +52,4 @@ public:
     size_t size() const { return m_nx * m_ny; }
 };
 
-#endif // FITTINGTESTHELPER_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_CORE_FITTING_FITTINGTESTHELPER_H

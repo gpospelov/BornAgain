@@ -12,10 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYOUTUTILS_H
-#define LAYOUTUTILS_H
-
-#include "WinDllMacros.h"
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_LAYOUTUTILS_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_LAYOUTUTILS_H
 
 class QLayout;
 class QGridLayout;
@@ -28,19 +26,19 @@ namespace LayoutUtils
 {
 
 //! Removes content from box layout.
-BA_CORE_API_ void clearLayout(QLayout* layout, bool deleteWidgets = true);
+void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
 //! Removes row from grid layout (important: doesn't change row count).
-BA_CORE_API_ void removeRow(QGridLayout* layout, int row, bool deleteWidgets = true);
+void removeRow(QGridLayout* layout, int row, bool deleteWidgets = true);
 
 //! Removes column from grid layout.
-BA_CORE_API_ void removeColumn(QGridLayout* layout, int column, bool deleteWidgets = true);
+void removeColumn(QGridLayout* layout, int column, bool deleteWidgets = true);
 
 //! Clear layout completely.
-BA_CORE_API_ void clearGridLayout(QGridLayout* layout, bool deleteWidgets = true);
+void clearGridLayout(QGridLayout* layout, bool deleteWidgets = true);
 
 //! Returns empty widget to occupy place in layout.
-BA_CORE_API_ QWidget* placeHolder();
+QWidget* placeHolder();
 } // namespace LayoutUtils
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_LAYOUTUTILS_H

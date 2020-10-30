@@ -12,15 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef STYLEDTOOLBAR_H
-#define STYLEDTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_STYLEDTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_STYLEDTOOLBAR_H
 
-#include "WinDllMacros.h"
 #include <QToolBar>
 
 //! The StyledToolBar class represents our standard narrow toolbar with the height 24 pixels.
 
-class BA_CORE_API_ StyledToolBar : public QToolBar
+class StyledToolBar : public QToolBar
 {
     Q_OBJECT
 
@@ -34,4 +33,4 @@ protected:
     void contextMenuEvent(QContextMenuEvent*);
 };
 
-#endif // STYLEDTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_STYLEDTOOLBAR_H

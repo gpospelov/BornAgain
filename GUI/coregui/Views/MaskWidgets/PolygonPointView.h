@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef POLYGONPOINTVIEW_H
-#define POLYGONPOINTVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONPOINTVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONPOINTVIEW_H
 
-#include "IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 
 //! This is a View of polygon point for PolygonMaskItem
 
-class BA_CORE_API_ PolygonPointView : public IShape2DView
+class PolygonPointView : public IShape2DView
 {
     Q_OBJECT
 
@@ -50,4 +50,4 @@ private:
     bool m_on_hover;
 };
 
-#endif // POLYGONPOINTVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_POLYGONPOINTVIEW_H

@@ -12,16 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEWFACTORY_H
-#define SAMPLEVIEWFACTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWFACTORY_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWFACTORY_H
 
-#include "WinDllMacros.h"
 #include <QMap>
 #include <QStringList>
 
 class IView;
 
-class BA_CORE_API_ SampleViewFactory
+class SampleViewFactory
 {
 public:
     static bool isValidType(const QString& name);
@@ -33,4 +32,4 @@ private:
     static QStringList m_valid_item_names;
 };
 
-#endif // SAMPLEVIEWFACTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWFACTORY_H

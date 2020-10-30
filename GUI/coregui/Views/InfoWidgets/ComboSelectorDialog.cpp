@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "ComboSelectorDialog.h"
-#include "DesignerHelper.h"
+#include "GUI/coregui/Views/InfoWidgets/ComboSelectorDialog.h"
+#include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include <QApplication>
 #include <QComboBox>
 #include <QLabel>
@@ -27,7 +27,7 @@ ComboSelectorDialog::ComboSelectorDialog(QWidget* parent)
 {
     QColor bgColor(240, 240, 240, 255);
     QPalette palette;
-    palette.setColor(QPalette::Background, bgColor);
+    palette.setColor(QPalette::Window, bgColor);
     setAutoFillBackground(true);
     setPalette(palette);
 
@@ -87,7 +87,7 @@ QBoxLayout* ComboSelectorDialog::createLogoLayout()
     return result;
 }
 
-//! Create right layout with text and QComboBox selection.
+//! Creates right layout with text and QComboBox selection.
 
 QBoxLayout* ComboSelectorDialog::createInfoLayout()
 {

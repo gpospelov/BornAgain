@@ -12,20 +12,21 @@
 //
 // ************************************************************************** //
 
-#include "PyImportAssistant.h"
-#include "AppSvc.h"
+#ifdef BORNAGAIN_PYTHON
+
+#include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "BABuild.h"
-#include "BornAgainNamespace.h"
-#include "ComboSelectorDialog.h"
-#include "DetailedMessageBox.h"
-#include "GUIHelpers.h"
-#include "GUIObjectBuilder.h"
-#include "MultiLayer.h"
-#include "ProjectUtils.h"
-#include "PyImport.h"
-#include "SysUtils.h"
-#include "mainwindow.h"
-#include "projectmanager.h"
+#include "Base/Utils/SysUtils.h"
+#include "GUI/coregui/Models/GUIObjectBuilder.h"
+#include "GUI/coregui/Views/InfoWidgets/ComboSelectorDialog.h"
+#include "GUI/coregui/Views/InfoWidgets/DetailedMessageBox.h"
+#include "GUI/coregui/mainwindow/AppSvc.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/mainwindow/mainwindow.h"
+#include "GUI/coregui/mainwindow/projectmanager.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/PyImport.h"
 #include <QApplication>
 #include <QDebug>
 #include <QFileDialog>
@@ -49,11 +50,11 @@ std::string bornagainDir()
 QString getCandidate(const QStringList& funcNames)
 {
     if (funcNames.isEmpty())
-        return QString();
+        return "";
 
     for (auto str : funcNames) {
         QString name = str.toLower();
-        if (name.contains(QStringLiteral("sample")) || name.contains(QStringLiteral("multilayer")))
+        if (name.contains("sample") || name.contains("multilayer"))
             return str;
     }
 
@@ -145,12 +146,11 @@ QString PyImportAssistant::getPySampleFunctionName(const QString& snippet)
 
     } catch (const std::exception& ex) {
         QApplication::restoreOverrideCursor();
-        QString message("Exception thrown while executing a Python code.\n\n");
+        QString message("Exception thrown while acquiring functions from Python code.\n\n");
         QString details = QString::fromStdString(std::string(ex.what()));
-        DetailedMessageBox warning(m_mainWindow, "Python failure", message, details);
-        warning.exec();
+        DetailedMessageBox(m_mainWindow, "Python failure", message, details).exec();
 
-        return QString();
+        return "";
     }
     QApplication::restoreOverrideCursor();
 
@@ -199,10 +199,9 @@ std::unique_ptr<MultiLayer> PyImportAssistant::createMultiLayer(const QString& s
 
     } catch (const std::exception& ex) {
         QApplication::restoreOverrideCursor();
-        QString message("Exception thrown while executing a Python code.\n\n");
+        QString message("Exception thrown while executing Python code to create multilayer.\n\n");
         QString details = QString::fromStdString(std::string(ex.what()));
-        DetailedMessageBox warning(m_mainWindow, "Python failure", message, details);
-        warning.exec();
+        DetailedMessageBox(m_mainWindow, "Python failure", message, details).exec();
     }
     QApplication::restoreOverrideCursor();
 
@@ -215,7 +214,7 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
 {
     try {
         QString name = sampleName;
-        if (multilayer.getName() != BornAgain::MultiLayerType)
+        if (multilayer.getName() != "MultiLayer")
             name = QString::fromStdString(multilayer.getName());
 
         GUIObjectBuilder::populateSampleModel(m_mainWindow->sampleModel(),
@@ -229,7 +228,8 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
         QString message("Exception thrown while trying to build GUI models.\n"
                         "GUI models might be in unconsistent state.\n\n");
         QString details = QString::fromStdString(std::string(ex.what()));
-        DetailedMessageBox warning(m_mainWindow, "GUIObjectBuilder failure", message, details);
-        warning.exec();
+        DetailedMessageBox(m_mainWindow, "GUIObjectBuilder failure", message, details).exec();
     }
 }
+
+#endif // BORNAGAIN_PYTHON

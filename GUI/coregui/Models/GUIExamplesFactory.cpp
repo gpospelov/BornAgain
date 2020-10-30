@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "GUIExamplesFactory.h"
-#include "GUIObjectBuilder.h"
-#include "MultiLayer.h"
-#include "SampleBuilderFactory.h"
+#include "GUI/coregui/Models/GUIExamplesFactory.h"
+#include "GUI/coregui/Models/GUIObjectBuilder.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <memory>
 
 //! Defines correspondance between example name and real name of simulation from SimulationFactory
@@ -66,7 +66,7 @@ SessionItem* GUIExamplesFactory::createSampleItems(const QString& name, SampleMo
     QString exampleName = m_name_to_registry[name];
 
     SampleBuilderFactory factory;
-    const std::unique_ptr<MultiLayer> sample(factory.createSample(exampleName.toStdString()));
+    const std::unique_ptr<MultiLayer> sample(factory.createSampleByName(exampleName.toStdString()));
 
     return GUIObjectBuilder::populateSampleModel(sampleModel, materialModel, *sample.get(), name);
 }
@@ -78,7 +78,7 @@ SessionItem* GUIExamplesFactory::createSampleItems(const QString& name, SampleMo
 //    SimulationFactory registry;
 //    const std::unique_ptr<GISASSimulation>
 //    P_simulation(registry.createSimulation(exampleName.toStdString()));
-//    Q_ASSERT(P_simulation.get());
+//    ASSERT(P_simulation.get());
 
 //    QString instrumentName = name + "_instrument";
 //    GUIObjectBuilder guiBuilder;

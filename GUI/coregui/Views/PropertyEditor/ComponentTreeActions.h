@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTREEACTIONS_H
-#define COMPONENTREEACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEACTIONS_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class SessionItem;
 
 //! Additional action for ComponentTreeView.
 
-class BA_CORE_API_ ComponentTreeActions : public QObject
+class ComponentTreeActions : public QObject
 {
     Q_OBJECT
 public:
@@ -32,4 +31,4 @@ public slots:
     void onCustomContextMenuRequested(const QPoint& point, SessionItem& item);
 };
 
-#endif // COMPONENTREEACTIONS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_COMPONENTTREEACTIONS_H

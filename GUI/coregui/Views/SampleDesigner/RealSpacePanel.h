@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACEPANEL_H
-#define REALSPACEPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_REALSPACEPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_REALSPACEPANEL_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class SampleModel;
@@ -24,7 +23,7 @@ class RealSpaceWidget;
 
 //! Panel with item selector, property editor on the right side of RealSpaceWidget.
 
-class BA_CORE_API_ RealSpacePanel : public QWidget
+class RealSpacePanel : public QWidget
 {
     Q_OBJECT
 
@@ -37,4 +36,4 @@ private:
     RealSpaceWidget* m_realSpaceWidget;
 };
 
-#endif // REALSPACEPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_REALSPACEPANEL_H

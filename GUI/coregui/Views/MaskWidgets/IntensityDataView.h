@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAVIEW_H
-#define INTENSITYDATAVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_INTENSITYDATAVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_INTENSITYDATAVIEW_H
 
-#include "IShape2DView.h"
-#include "SizeHandleElement.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/SizeHandleElement.h"
 #include <QMap>
 
 //! The IntensityDataView is nothing move than just transparent rectangle to cover axes area
@@ -26,7 +26,7 @@
 //! The size of the rectangle always matches axes viewport at any zoom level.
 //! All MasksViews are added to IntensityDataView as children.
 
-class BA_CORE_API_ IntensityDataView : public IShape2DView
+class IntensityDataView : public IShape2DView
 {
     Q_OBJECT
 public:
@@ -39,4 +39,4 @@ protected:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
-#endif // INTENSITYDATAVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_INTENSITYDATAVIEW_H

@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef LINEVIEWS_H
-#define LINEVIEWS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_LINEVIEWS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_LINEVIEWS_H
 
-#include "IShape2DView.h"
+#include "GUI/coregui/Views/MaskWidgets/IShape2DView.h"
 
 //! This is a view of VerticalLineItem mask
 
-class BA_CORE_API_ VerticalLineView : public IShape2DView
+class VerticalLineView : public IShape2DView
 {
     Q_OBJECT
 
@@ -40,7 +40,7 @@ protected:
 
 //! This is a view of HorizontalLineItem mask
 
-class BA_CORE_API_ HorizontalLineView : public IShape2DView
+class HorizontalLineView : public IShape2DView
 {
     Q_OBJECT
 
@@ -59,4 +59,4 @@ protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 };
 
-#endif // LINEVIEWS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_LINEVIEWS_H

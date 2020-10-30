@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTCOMPONENTVIEW_H
-#define TESTCOMPONENTVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_TESTCOMPONENTVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_TESTCOMPONENTVIEW_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;
@@ -67,4 +66,4 @@ private:
     bool m_isExpaned;
 };
 
-#endif // TESTCOMPONENTVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_TESTCOMPONENTVIEW_H

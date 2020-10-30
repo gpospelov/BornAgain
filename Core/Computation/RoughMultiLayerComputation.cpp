@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "RoughMultiLayerComputation.h"
-#include "Faddeeva.hh"
-#include "IFresnelMap.h"
-#include "ILayerRTCoefficients.h"
-#include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ProcessedSample.h"
-#include "SimulationElement.h"
-#include "Slice.h"
+#include "Core/Computation/RoughMultiLayerComputation.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Pixel/SimulationElement.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/IFresnelMap.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
+#include "Sample/Slice/LayerInterface.h"
+#include "Sample/Slice/LayerRoughness.h"
+
+#include <cerfcpp.h>
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
@@ -32,11 +32,11 @@ namespace
 {
 complex_t h_plus(complex_t z)
 {
-    return 0.5 * Faddeeva::erfcx(-mul_I(z) / std::sqrt(2.0));
+    return 0.5 * cerfcx(-mul_I(z) / std::sqrt(2.0));
 }
 complex_t h_min(complex_t z)
 {
-    return 0.5 * Faddeeva::erfcx(mul_I(z) / std::sqrt(2.0));
+    return 0.5 * cerfcx(mul_I(z) / std::sqrt(2.0));
 }
 } // namespace
 

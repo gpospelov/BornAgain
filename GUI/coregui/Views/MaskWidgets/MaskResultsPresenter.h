@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKRESULTSPRESENTER_H
-#define MASKRESULTSPRESENTER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKRESULTSPRESENTER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKRESULTSPRESENTER_H
 
-#include "MaskEditorFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include <QModelIndex>
 #include <QObject>
 #include <memory>
@@ -28,7 +27,7 @@ template <class T> class OutputData;
 //! Updates bin values inside IntensityData to display current mask state. Returns IntensityData
 //! to original state when requested.
 
-class BA_CORE_API_ MaskResultsPresenter : public QObject
+class MaskResultsPresenter : public QObject
 {
 public:
     MaskResultsPresenter(QWidget* parent = 0);
@@ -53,4 +52,4 @@ private:
     bool m_interpolation_flag_backup;
 };
 
-#endif // MASKRESULTSPRESENTER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKRESULTSPRESENTER_H

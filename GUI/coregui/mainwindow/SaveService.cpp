@@ -12,13 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "SaveService.h"
-#include "AutosaveController.h"
-#include "GUIHelpers.h"
-#include "ProjectUtils.h"
-#include "SaveThread.h"
-#include "UpdateTimer.h"
-#include "projectdocument.h"
+#include "GUI/coregui/mainwindow/SaveService.h"
+#include "Base/Utils/Assert.h"
+#include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
+#include "GUI/coregui/mainwindow/AutosaveController.h"
+#include "GUI/coregui/mainwindow/ProjectUtils.h"
+#include "GUI/coregui/mainwindow/SaveThread.h"
+#include "GUI/coregui/mainwindow/projectdocument.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QApplication>
 #include <QCoreApplication>
 #include <QTime>
@@ -40,7 +41,7 @@ void SaveService::setDocument(ProjectDocument* document)
 
 void SaveService::save(const QString& project_file_name)
 {
-    Q_ASSERT(m_document);
+    ASSERT(m_document);
 
     m_save_queue.enqueue(project_file_name);
     process_queue();
@@ -62,7 +63,7 @@ void SaveService::setAutosaveEnabled(bool value)
 
 bool SaveService::isAutosaveEnabled() const
 {
-    return m_autosave ? true : false;
+    return m_autosave;
 }
 
 void SaveService::setAutosaveTime(int timerInterval)
@@ -109,8 +110,8 @@ void SaveService::onAutosaveRequest()
 
 void SaveService::onProjectSaved()
 {
-    Q_ASSERT(m_document);
-    Q_ASSERT(m_is_saving);
+    ASSERT(m_document);
+    ASSERT(m_is_saving);
 
     m_is_saving = false;
     emit projectSaved();
@@ -121,7 +122,7 @@ void SaveService::onProjectSaved()
 
 void SaveService::process_queue()
 {
-    Q_ASSERT(m_document);
+    ASSERT(m_document);
 
     if (m_is_saving)
         return;

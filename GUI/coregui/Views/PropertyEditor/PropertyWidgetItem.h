@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PROPERTYWIDGETITEM_H
-#define PROPERTYWIDGETITEM_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_PROPERTYWIDGETITEM_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_PROPERTYWIDGETITEM_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class QLabel;
@@ -28,7 +27,7 @@ class SessionModelDelegate;
 //! Container to hold label and editor for PropertyItem.
 //! Contains also logic to map editor to SessionModel.
 
-class BA_CORE_API_ PropertyWidgetItem : public QObject
+class PropertyWidgetItem : public QObject
 {
     Q_OBJECT
 public:
@@ -52,4 +51,4 @@ private:
     const SessionItem* m_item;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_PROPERTYEDITOR_PROPERTYWIDGETITEM_H

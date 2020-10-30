@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef FITWORKERLAUNCHER_H
-#define FITWORKERLAUNCHER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITWORKERLAUNCHER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITWORKERLAUNCHER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 #include <atomic>
 #include <memory>
 
 class FitObjectiveBuilder;
 
-class BA_CORE_API_ FitWorkerLauncher : public QObject
+class FitWorkerLauncher : public QObject
 {
     Q_OBJECT
 
@@ -54,4 +53,4 @@ private:
     int m_duration;
 };
 
-#endif // FITWORKERLAUNCHER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITWORKERLAUNCHER_H

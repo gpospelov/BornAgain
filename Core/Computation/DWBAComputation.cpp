@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "DWBAComputation.h"
-#include "GISASSpecularComputation.h"
-#include "IFresnelMap.h"
-#include "MultiLayer.h"
-#include "ParticleLayoutComputation.h"
-#include "ProcessedLayout.h"
-#include "ProcessedSample.h"
-#include "ProgressHandler.h"
-#include "RoughMultiLayerComputation.h"
-#include "SimulationElement.h"
+#include "Core/Computation/DWBAComputation.h"
+#include "Base/Pixel/SimulationElement.h"
+#include "Core/Computation/GISASSpecularComputation.h"
+#include "Core/Computation/ParticleLayoutComputation.h"
+#include "Core/Computation/ProcessedLayout.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Core/Computation/ProgressHandler.h"
+#include "Core/Computation/RoughMultiLayerComputation.h"
+#include "Sample/Fresnel/IFresnelMap.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
               "DWBAComputation should not be copy constructable");

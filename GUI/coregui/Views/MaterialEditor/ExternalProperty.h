@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef EXTERNALPROPERTY_H
-#define EXTERNALPROPERTY_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_EXTERNALPROPERTY_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_EXTERNALPROPERTY_H
 
-#include "WinDllMacros.h"
 #include <QColor>
 #include <QMetaType>
 #include <QPixmap>
@@ -25,7 +24,7 @@
 //! The ExternalProperty class defines custom QVariant property to carry the text, color and
 //! an identifier.
 
-class BA_CORE_API_ ExternalProperty
+class ExternalProperty
 {
 public:
     explicit ExternalProperty();
@@ -57,4 +56,4 @@ private:
 
 Q_DECLARE_METATYPE(ExternalProperty)
 
-#endif // EXTERNALPROPERTY_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MATERIALEDITOR_EXTERNALPROPERTY_H

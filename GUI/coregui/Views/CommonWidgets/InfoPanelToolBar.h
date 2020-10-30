@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef INFOPANELTOOLBAR_H
-#define INFOPANELTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANELTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANELTOOLBAR_H
 
-#include "StyledToolBar.h"
+#include "GUI/coregui/mainwindow/StyledToolBar.h"
 
 class QAction;
 
 //! Toolbar for InfoPanel with collapse/expand buttons.
 
-class BA_CORE_API_ InfoPanelToolBar : public QToolBar
+class InfoPanelToolBar : public QToolBar
 {
     Q_OBJECT
 
@@ -44,4 +44,4 @@ private:
     bool m_expanded;
 };
 
-#endif // INFOPANELTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANELTOOLBAR_H

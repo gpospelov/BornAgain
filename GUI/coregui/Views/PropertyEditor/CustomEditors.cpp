@@ -12,14 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "CustomEditors.h"
-#include "ComboProperty.h"
-#include "CustomEventFilters.h"
-#include "ExternalProperty.h"
-#include "GUIHelpers.h"
-#include "GroupItemController.h"
-#include "MaterialItemUtils.h"
-#include "ScientificSpinBox.h"
+#include "GUI/coregui/Views/PropertyEditor/CustomEditors.h"
+#include "GUI/coregui/Models/ComboProperty.h"
+#include "GUI/coregui/Models/GroupItemController.h"
+#include "GUI/coregui/Views/JobWidgets/ScientificSpinBox.h"
+#include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
+#include "GUI/coregui/utils/CustomEventFilters.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QApplication>
 #include <QBoxLayout>
 #include <QCheckBox>
@@ -69,8 +68,7 @@ void CustomEditor::setDataIntern(const QVariant& data)
 
 ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     : CustomEditor(parent), m_textLabel(new QLabel), m_pixmapLabel(new QLabel),
-      m_focusFilter(new LostFocusFilter(this)),
-      m_extDialogType(Constants::MaterialEditorExternalType)
+      m_focusFilter(new LostFocusFilter(this)), m_extDialogType("ExtMaterialEditor")
 {
     setMouseTracking(true);
     setAutoFillBackground(true);
@@ -109,9 +107,9 @@ void ExternalPropertyEditor::buttonClicked()
     ExternalProperty property = m_data.value<ExternalProperty>();
 
     ExternalProperty newProperty;
-    if (m_extDialogType == Constants::MaterialEditorExternalType) {
+    if (m_extDialogType == "ExtMaterialEditor") {
         newProperty = MaterialItemUtils::selectMaterialProperty(property);
-    } else if (m_extDialogType == Constants::ColorEditorExternalType) {
+    } else if (m_extDialogType == "ExtColorEditor") {
         newProperty = MaterialItemUtils::selectColorProperty(property);
     } else {
         throw GUIHelpers::Error("ExternalPropertyEditor::buttonClicked() -> Unexpected dialog");
@@ -125,7 +123,7 @@ void ExternalPropertyEditor::buttonClicked()
 
 void ExternalPropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.canConvert<ExternalProperty>());
+    ASSERT(m_data.canConvert<ExternalProperty>());
     ExternalProperty materialProperty = m_data.value<ExternalProperty>();
     m_textLabel->setText(materialProperty.text());
     m_pixmapLabel->setPixmap(materialProperty.pixmap());
@@ -251,7 +249,7 @@ void ScientificDoublePropertyEditor::onEditingFinished()
 
 void ScientificDoublePropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Double);
+    ASSERT(m_data.type() == QVariant::Double);
     m_lineEdit->setText(QString::number(m_data.toDouble(), 'g'));
 }
 
@@ -307,7 +305,7 @@ void DoubleEditor::onEditingFinished()
 
 void DoubleEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Double);
+    ASSERT(m_data.type() == QVariant::Double);
     m_doubleEditor->setValue(m_data.toDouble());
 }
 
@@ -363,7 +361,7 @@ void ScientificSpinBoxEditor::onEditingFinished()
 
 void ScientificSpinBoxEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Double);
+    ASSERT(m_data.type() == QVariant::Double);
     m_doubleEditor->setValue(m_data.toDouble());
 }
 
@@ -437,7 +435,7 @@ void BoolEditor::onCheckBoxChange(bool value)
 
 void BoolEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Bool);
+    ASSERT(m_data.type() == QVariant::Bool);
     bool value = m_data.toBool();
 
     m_checkBox->blockSignals(true);

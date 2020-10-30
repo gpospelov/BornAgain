@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEWDOCKS_H
-#define SAMPLEVIEWDOCKS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWDOCKS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWDOCKS_H
 
-#include "DocksController.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
 
 class SampleView;
 class SampleWidgetBox;
@@ -28,7 +28,7 @@ class QAction;
 
 //! Holds all docked widgets for SampleView.
 
-class BA_CORE_API_ SampleViewDocks : public DocksController
+class SampleViewDocks : public DocksController
 {
     Q_OBJECT
 
@@ -62,4 +62,4 @@ private:
     RealSpacePanel* m_realSpacePanel;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWDOCKS_H

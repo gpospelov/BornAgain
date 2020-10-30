@@ -12,15 +12,15 @@
 //
 // ************************************************************************** //
 
-#ifndef SPHERICALDETECTOREDITOR_H
-#define SPHERICALDETECTOREDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_SPHERICALDETECTOREDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_SPHERICALDETECTOREDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 class SphericalDetectorItem;
 class ComponentEditor;
 class QGridLayout;
 
-class BA_CORE_API_ SphericalDetectorEditor : public SessionItemWidget
+class SphericalDetectorEditor : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -39,4 +39,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif // SPHERICALDETECTOREDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_SPHERICALDETECTOREDITOR_H

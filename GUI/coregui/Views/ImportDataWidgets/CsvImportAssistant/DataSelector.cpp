@@ -12,12 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "DataSelector.h"
-#include "CsvImportTable.h"
-#include "ImportDataInfo.h"
-#include "StyleUtils.h"
-#include "TableContextMenu.h"
-#include "mainwindow_constants.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/DataSelector.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/TableContextMenu.h"
+#include "GUI/coregui/mainwindow/mainwindow_constants.h"
+#include "GUI/coregui/utils/StyleUtils.h"
 #include <QFileDialog>
 #include <QFormLayout>
 #include <QGroupBox>
@@ -139,7 +137,7 @@ void DataSelector::updateSelection()
         m_coordinateUnitsComboBox->setEnabled(true);
     } else {
         m_coordinateUnitsComboBox->clear();
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::NBINS]);
+        m_coordinateUnitsComboBox->addItem(axisUnitLabel.at(Axes::Units::NBINS));
     }
 }
 
@@ -223,13 +221,14 @@ size_t DataSelector::maxLines() const
     return size_t(m_lastDataRowSpinBox->maximum());
 }
 
-AxesUnits DataSelector::units() const
+Axes::Units DataSelector::units() const
 {
-    AxesUnits defaultUnits = AxesUnits::NBINS;
-    for (int i = 0; i < csv::UnitsLabels.size(); i++)
-        if (m_coordinateUnitsComboBox->currentText() == csv::UnitsLabels[i])
-            return AxesUnits(i);
-    return defaultUnits;
+    for (int i = 0; i < csv::UnitsLabels.size(); i++) {
+        const Axes::Units u = static_cast<Axes::Units>(i);
+        if (m_coordinateUnitsComboBox->currentText() == QString(axisUnitLabel.at(u)))
+            return u;
+    }
+    return Axes::Units::NBINS; // default
 }
 
 char DataSelector::separator() const
@@ -285,7 +284,7 @@ QBoxLayout* DataSelector::createLayout()
     connect(m_cancelButton, &QPushButton::clicked, this, [this]() { reject(); });
 
     // Separator field -- This needs to communicate with importAssistant
-    m_separatorField = new QLineEdit(QString(""));
+    m_separatorField = new QLineEdit("");
     m_separatorField->setMaxLength(1);
     m_separatorField->setMaximumWidth(70);
     m_separatorField->setMinimumWidth(70);
@@ -322,7 +321,7 @@ QBoxLayout* DataSelector::createLayout()
     m_coordinateUnitsComboBox = new QComboBox();
     m_coordinateUnitsComboBox->setMaximumWidth(70);
     m_coordinateUnitsComboBox->setMinimumWidth(70);
-    m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::NBINS]);
+    m_coordinateUnitsComboBox->addItem(axisUnitLabel.at(Axes::Units::NBINS));
 
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);

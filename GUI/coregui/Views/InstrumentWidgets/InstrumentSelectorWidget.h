@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTSELECTORWIDGET_H
-#define INSTRUMENTSELECTORWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTSELECTORWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTSELECTORWIDGET_H
 
-#include "ItemSelectorWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.h"
 
 class InstrumentModel;
 
 //! Instrument selector on the left side of InstrumentView.
 
-class BA_CORE_API_ InstrumentSelectorWidget : public ItemSelectorWidget
+class InstrumentSelectorWidget : public ItemSelectorWidget
 {
     Q_OBJECT
 
@@ -32,4 +32,4 @@ public:
     QSize minimumSizeHint() const;
 };
 
-#endif // INSTRUMENTSELECTORWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_INSTRUMENTSELECTORWIDGET_H

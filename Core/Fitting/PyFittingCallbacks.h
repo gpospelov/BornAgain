@@ -12,13 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef PYFITTINGCALLBACKS_H
-#define PYFITTINGCALLBACKS_H
+#ifndef BORNAGAIN_CORE_FITTING_PYFITTINGCALLBACKS_H
+#define BORNAGAIN_CORE_FITTING_PYFITTINGCALLBACKS_H
 
 //! Collection of wrapper classes to call Python callable from C++.
 
-#include "Parameters.h"
-#include "WinDllMacros.h"
+#include "Fit/Kernel/Parameters.h"
 
 class Simulation;
 
@@ -26,7 +25,7 @@ class Simulation;
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
 //! intended to be overloaded from Python.
 
-class BA_CORE_API_ PyBuilderCallback
+class PyBuilderCallback
 {
 public:
     PyBuilderCallback();
@@ -41,7 +40,7 @@ class FitObjective;
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
 //! intended to be overloaded from Python.
 
-class BA_CORE_API_ PyObserverCallback
+class PyObserverCallback
 {
 public:
     PyObserverCallback();
@@ -50,4 +49,4 @@ public:
     virtual void update(const FitObjective&);
 };
 
-#endif //  PYFITTINGCALLBACKS_H
+#endif // BORNAGAIN_CORE_FITTING_PYFITTINGCALLBACKS_H

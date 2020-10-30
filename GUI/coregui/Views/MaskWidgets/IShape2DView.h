@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ISHAPE2DVIEW_H
-#define ISHAPE2DVIEW_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ISHAPE2DVIEW_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ISHAPE2DVIEW_H
 
-#include "MaskEditorHelper.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h"
 #include <QGraphicsObject>
 
 class SessionItem;
@@ -25,7 +24,7 @@ class QPainter;
 
 //! Main interface class for views representing MaskItems, Projections on graphics scene.
 
-class BA_CORE_API_ IShape2DView : public QGraphicsObject
+class IShape2DView : public QGraphicsObject
 {
     Q_OBJECT
 
@@ -73,4 +72,4 @@ private:
     void onItemPropertyChange(const QString& propertyName);
 };
 
-#endif // ISHAPE2DVIEW_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_ISHAPE2DVIEW_H

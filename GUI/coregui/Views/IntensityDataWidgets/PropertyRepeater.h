@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef PROPERTYREPEATER_H
-#define PROPERTYREPEATER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROPERTYREPEATER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROPERTYREPEATER_H
 
-#include "WinDllMacros.h"
 #include <QMap>
 #include <QObject>
 #include <QVector>
@@ -25,7 +24,7 @@ class SessionItem;
 //! Tracks property change (axes range, units etc) for the collection of IntensityDataItems
 //! and sets same properties for all of them.
 
-class BA_CORE_API_ PropertyRepeater : public QObject
+class PropertyRepeater : public QObject
 {
     Q_OBJECT
 public:
@@ -48,4 +47,4 @@ private:
     bool m_repeat_child_properties;
 };
 
-#endif // PROPERTYREPEATER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROPERTYREPEATER_H

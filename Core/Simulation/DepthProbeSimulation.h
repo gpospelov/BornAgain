@@ -1,10 +1,23 @@
-#ifndef DEPTHPROBESIMULATION_H
-#define DEPTHPROBESIMULATION_H
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Simulation/DepthProbeSimulation.h
+//! @brief     Defines class DepthProbeSimulation
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
-#include "DepthProbeElement.h"
-#include "ILayerRTCoefficients.h"
-#include "OutputData.h"
-#include "Simulation.h"
+#ifndef BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H
+
+#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Simulation/Simulation.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 
 #include <vector>
 
@@ -12,17 +25,15 @@ class IAxis;
 class IComputation;
 class IFootprintFactor;
 class ISample;
-class IMultiLayerBuilder;
+class ISampleBuilder;
 class MultiLayer;
 class Histogram1D;
 class IUnitConverter;
 
-class BA_CORE_API_ DepthProbeSimulation : public Simulation
+class DepthProbeSimulation : public Simulation
 {
 public:
     DepthProbeSimulation();
-    DepthProbeSimulation(const MultiLayer& sample);
-    DepthProbeSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     ~DepthProbeSimulation() override;
 
     DepthProbeSimulation* clone() const override;
@@ -92,7 +103,7 @@ private:
     //! @param n_elements Number of elements to process
     void normalize(size_t start_ind, size_t n_elements) override;
 
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+    void addBackgroundIntensity(size_t start_ind, size_t n_elements) override;
 
     void addDataToCache(double weight) override;
 
@@ -112,4 +123,4 @@ private:
     std::vector<std::valarray<double>> m_cache;
 };
 
-#endif // DEPTHPROBESIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H

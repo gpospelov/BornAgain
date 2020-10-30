@@ -12,10 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DATAITEMUTILS_H
-#define DATAITEMUTILS_H
-
-#include "WinDllMacros.h"
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_DATAITEMUTILS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_DATAITEMUTILS_H
 
 class IntensityDataItem;
 class SessionItem;
@@ -26,10 +24,10 @@ class SpecularDataItem;
 namespace DataItemUtils
 {
 //! Returns IntensityDataItem contained as a child in givent parent.
-BA_CORE_API_ IntensityDataItem* intensityDataItem(SessionItem* parent);
+IntensityDataItem* intensityDataItem(SessionItem* parent);
 
 //! Returns SpecularDataItem contained as a child in givent parent.
-BA_CORE_API_ SpecularDataItem* specularDataItem(SessionItem* parent);
+SpecularDataItem* specularDataItem(SessionItem* parent);
 } // namespace DataItemUtils
 
-#endif //  DATAITEMUTILS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_DATAITEMUTILS_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef FITOBJECTIVEBUILDER_H
-#define FITOBJECTIVEBUILDER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITOBJECTIVEBUILDER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITOBJECTIVEBUILDER_H
 
-#include "WinDllMacros.h"
 #include <memory>
 
 class JobItem;
@@ -30,7 +29,7 @@ class IMinimizer;
 class GUIFitObserver;
 class IChiSquaredModule;
 
-class BA_CORE_API_ FitObjectiveBuilder
+class FitObjectiveBuilder
 {
 public:
     FitObjectiveBuilder(JobItem* jobItem);
@@ -60,4 +59,4 @@ private:
     std::unique_ptr<FitObjective> m_fit_objective;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_FITOBJECTIVEBUILDER_H

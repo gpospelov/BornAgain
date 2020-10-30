@@ -12,17 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONITEMS_H
-#define PROJECTIONITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_PROJECTIONITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_PROJECTIONITEMS_H
 
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 //! A container to hold ProjectionItems, intended to store projections of color map on X, Y axes.
 
-class BA_CORE_API_ ProjectionContainerItem : public SessionItem
+class ProjectionContainerItem : public SessionItem
 {
 public:
     ProjectionContainerItem();
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_PROJECTIONITEMS_H

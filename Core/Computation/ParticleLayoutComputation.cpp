@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "ParticleLayoutComputation.h"
-#include "IInterferenceFunctionStrategy.h"
-#include "LayoutStrategyBuilder.h"
-#include "ProcessedLayout.h"
-#include "SimulationElement.h"
+#include "Core/Computation/ParticleLayoutComputation.h"
+#include "Base/Pixel/SimulationElement.h"
+#include "Core/Computation/LayoutStrategyBuilder.h"
+#include "Core/Computation/ProcessedLayout.h"
+#include "Sample/Interference/IInterferenceFunctionStrategy.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_layout,
                                                      const SimulationOptions& options,

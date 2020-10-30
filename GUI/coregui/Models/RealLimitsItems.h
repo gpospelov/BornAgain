@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef REALLIMITSITEMS_H
-#define REALLIMITSITEMS_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_REALLIMITSITEMS_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_REALLIMITSITEMS_H
 
-#include "RealLimits.h"
-#include "SessionItem.h"
+#include "GUI/coregui/Models/SessionItem.h"
 
 class BA_CORE_API_ RealLimitsItem : public SessionItem
 {
@@ -70,4 +69,4 @@ public:
     RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
-#endif // REALLIMITSITEMS_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_REALLIMITSITEMS_H

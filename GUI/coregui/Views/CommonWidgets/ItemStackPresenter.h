@@ -12,10 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMSTACKPRESENTER_H
-#define ITEMSTACKPRESENTER_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H
 
-#include "ItemStackWidget.h"
+#include "Base/Utils/Assert.h"
+#include "GUI/coregui/Views/CommonWidgets/ItemStackWidget.h"
 #include <QDebug>
 #include <QMap>
 #include <QStackedWidget>
@@ -25,7 +26,7 @@ class SessionItem;
 //! The ItemStackPresenter templated class extends ItemStackWidget so it could operate with
 //! SesionItem editor's of specified type, while still keeping signal/slots alive.
 
-template <class T> class BA_CORE_API_ ItemStackPresenter : public ItemStackWidget
+template <class T> class ItemStackPresenter : public ItemStackWidget
 {
 public:
     ItemStackPresenter(bool single_widget = false) : m_single_widget(single_widget) {}
@@ -84,7 +85,7 @@ template <class T> T* ItemStackPresenter<T>::currentWidget()
 template <class T> T* ItemStackPresenter<T>::itemWidget(SessionItem* item)
 {
     if (m_single_widget) {
-        if (m_itemToWidget.size())
+        if (!m_itemToWidget.empty())
             return m_itemToWidget.first();
     } else {
         return m_itemToWidget[item];
@@ -101,7 +102,7 @@ template <class T> void ItemStackPresenter<T>::hideWidgets()
 
 template <class T> void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
 {
-    Q_ASSERT(item);
+    ASSERT(item);
 
     if (m_single_widget)
         return;
@@ -133,4 +134,4 @@ template <class T> void ItemStackPresenter<T>::removeWidgets()
     m_itemToWidget.clear();
 }
 
-#endif // ITEMSTACKPRESENTER_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKPRESENTER_H

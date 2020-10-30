@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef IOBSERVER_H
-#define IOBSERVER_H
+#ifndef BORNAGAIN_CORE_FITTING_IOBSERVER_H
+#define BORNAGAIN_CORE_FITTING_IOBSERVER_H
 
-#include "WinDllMacros.h"
 #include <list>
 #include <memory>
 
@@ -24,7 +23,7 @@ class IObservable;
 //! Observer interface from %Observer pattern.
 //! @ingroup tools_internal
 
-class BA_CORE_API_ IObserver
+class IObserver
 {
 public:
     virtual ~IObserver();
@@ -36,7 +35,7 @@ public:
 //! Observable interface from %Observer pattern
 //! @ingroup tools_internal
 
-class BA_CORE_API_ IObservable
+class IObservable
 {
 public:
     //! Shared pointer is used when passing these objects from Python to C++
@@ -54,4 +53,4 @@ private:
     std::list<observer_t> m_observers;
 };
 
-#endif // IOBSERVER_H
+#endif // BORNAGAIN_CORE_FITTING_IOBSERVER_H

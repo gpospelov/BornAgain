@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONTOPYTHON_H
-#define SIMULATIONTOPYTHON_H
+#ifndef BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
+#define BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
 
-#include "WinDllMacros.h"
 #include <memory>
 #include <string>
 
@@ -28,7 +27,7 @@ class SpecularSimulation;
 
 //! Write a Python script that allows to run the current simulation.
 
-class BA_CORE_API_ SimulationToPython
+class SimulationToPython
 {
 public:
     enum EMainType {
@@ -62,4 +61,4 @@ private:
     std::string defineMain(EMainType mainType = RUN_SIMULATION);
 };
 
-#endif // SIMULATIONTOPYTHON_H
+#endif // BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H

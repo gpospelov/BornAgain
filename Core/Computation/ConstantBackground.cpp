@@ -12,29 +12,28 @@
 //
 // ************************************************************************** //
 
-#include "ConstantBackground.h"
-#include "RealParameter.h"
+#include "Core/Computation/ConstantBackground.h"
 
-ConstantBackground::ConstantBackground(double background_value)
-    : m_background_value(background_value)
+ConstantBackground::ConstantBackground(const std::vector<double> P)
+    : IBackground({"ConstantBackground",
+                   "class_tooltip",
+                   {{"BackgroundValue", "", "para_tooltip", 0, +INF, 0}}},
+                  P),
+      m_background_value(m_P[0])
 {
-    setName(BornAgain::ConstantBackgroundType);
-    init_parameters();
 }
 
-ConstantBackground::~ConstantBackground() = default;
+ConstantBackground::ConstantBackground(double background_value)
+    : ConstantBackground(std::vector<double>{background_value})
+{
+}
 
 ConstantBackground* ConstantBackground::clone() const
 {
     return new ConstantBackground(m_background_value);
 }
 
-double ConstantBackground::addBackGround(double intensity) const
+double ConstantBackground::addBackground(double intensity) const
 {
     return intensity + m_background_value;
-}
-
-void ConstantBackground::init_parameters()
-{
-    registerParameter(BornAgain::BackgroundValue, &m_background_value).setNonnegative();
 }

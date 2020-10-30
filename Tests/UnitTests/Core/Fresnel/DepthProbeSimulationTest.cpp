@@ -1,22 +1,20 @@
-#include "DepthProbeSimulation.h"
-#include "Distributions.h"
-#include "FixedBinAxis.h"
-#include "Histogram2D.h"
-#include "IMultiLayerBuilder.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MathConstants.h"
-#include "MultiLayer.h"
-#include "ParameterPattern.h"
-#include "RealParameter.h"
-#include "Units.h"
-#include "google_test.h"
+#include "Core/Simulation/DepthProbeSimulation.h"
+#include "Base/Const/MathConstants.h"
+#include "Base/Const/Units.h"
+#include "Device/Histo/Histogram2D.h"
+#include "Param/Base/RealParameter.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Varia/ParameterPattern.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/SampleBuilderEngine/ISampleBuilder.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class DepthProbeSimulationTest : public ::testing::Test
 {
 protected:
     DepthProbeSimulationTest();
-    ~DepthProbeSimulationTest();
 
     std::unique_ptr<DepthProbeSimulation> defaultSimulation();
     void checkBeamState(const DepthProbeSimulation& sim);
@@ -40,8 +38,6 @@ DepthProbeSimulationTest::DepthProbeSimulationTest()
     multilayer.addLayer(layer2);
 }
 
-DepthProbeSimulationTest::~DepthProbeSimulationTest() = default;
-
 std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulation()
 {
     std::unique_ptr<DepthProbeSimulation> result = std::make_unique<DepthProbeSimulation>();
@@ -53,7 +49,7 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulatio
 
 void DepthProbeSimulationTest::checkBeamState(const DepthProbeSimulation& sim)
 {
-    const auto* inclination = sim.getInstrument().getBeam().parameter(BornAgain::Inclination);
+    const auto* inclination = sim.instrument().getBeam().parameter("InclinationAngle");
     const auto test_limits = RealLimits::limited(-M_PI_2, M_PI_2);
     EXPECT_EQ(test_limits, inclination->limits());
     EXPECT_EQ(0.0, inclination->value());
@@ -103,7 +99,7 @@ TEST_F(DepthProbeSimulationTest, CheckAxesOfDefaultSimulation)
 TEST_F(DepthProbeSimulationTest, SetBeamParameters)
 {
     DepthProbeSimulation sim;
-    const auto& beam = sim.getInstrument().getBeam();
+    const auto& beam = sim.instrument().getBeam();
 
     sim.setBeamParameters(1.0, 10, 1.0 * Units::degree, 10.0 * Units::degree);
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
@@ -150,7 +146,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     sim->runSimulation();
     SimulationResult sim_result = sim->result();
 
-    EXPECT_THROW(sim_result.histogram2d(AxesUnits::MM), std::runtime_error);
+    EXPECT_THROW(sim_result.histogram2d(Axes::Units::MM), std::runtime_error);
 
     const std::unique_ptr<Histogram2D> depth_map(sim_result.histogram2d());
     EXPECT_EQ(10u * 12u, depth_map->getTotalNumberOfBins());
@@ -160,7 +156,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     EXPECT_EQ(-30.0, depth_map->getYaxis().getMin());
     EXPECT_EQ(10.0, depth_map->getYaxis().getMax());
 
-    EXPECT_THROW(sim_result.data(AxesUnits::MM), std::runtime_error);
+    EXPECT_THROW(sim_result.data(Axes::Units::MM), std::runtime_error);
 
     const auto output = sim_result.data();
     EXPECT_EQ(depth_map->getTotalNumberOfBins(), output->getAllocatedSize());
@@ -197,11 +193,11 @@ TEST_F(DepthProbeSimulationTest, AddingBeamDistributions)
     DistributionGaussian distribution(1.0, 2.0);
 
     ParameterPattern wl_pattern;
-    wl_pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    wl_pattern.beginsWith("*").add("Beam").add("Wavelength");
     ParameterPattern incl_ang_pattern;
-    incl_ang_pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
+    incl_ang_pattern.beginsWith("*").add("Beam").add("InclinationAngle");
     ParameterPattern beam_pattern;
-    beam_pattern.beginsWith("*").add(BornAgain::BeamType).add("*");
+    beam_pattern.beginsWith("*").add("Beam").add("*");
 
     EXPECT_THROW(sim->addParameterDistribution(incl_ang_pattern.toStdString(), distribution, 5),
                  std::runtime_error);

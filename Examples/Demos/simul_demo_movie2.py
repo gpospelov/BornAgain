@@ -18,12 +18,12 @@ Ngrowframes = 30
 # ----------------------------------
 def RunSimulation():
     # defining materials
-    mAir = HomogeneousMaterial("Air", 0.0, 0.0)
+    mVacuum = HomogeneousMaterial("Vacuum", 0.0, 0.0)
     mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    semisphere_ff = FormFactorTruncatedSphere(radius, radius)
+    semisphere_ff = FormFactorTruncatedSphere(radius, radius, 0)
     semisphere = Particle(mParticle, semisphere_ff)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(semisphere)
@@ -34,13 +34,13 @@ def RunSimulation():
     interference.setProbabilityDistribution(pdf)
     particle_layout.setInterferenceFunction(interference)
 
-    # air layer with particles and substrate form multi layer
-    air_layer = Layer(mAir)
-    air_layer.addLayout(particle_layout)
+    # vacuum layer with particles and substrate form multi layer
+    vacuum_layer = Layer(mVacuum)
+    vacuum_layer.addLayout(particle_layout)
     film_layer = Layer(mParticle, layer_thickness)
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayer(film_layer)
     multi_layer.addLayer(substrate_layer)
 

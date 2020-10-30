@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SAVEPROJECTIONSASSISTANT_H
-#define SAVEPROJECTIONSASSISTANT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPROJECTIONSASSISTANT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPROJECTIONSASSISTANT_H
 
-#include "WinDllMacros.h"
 #include <QString>
 #include <QVector>
 #include <memory>
@@ -27,7 +26,7 @@ class SessionItem;
 
 //! Assistant class which save all projections of IndensityDataItem into ASCII file.
 
-class BA_CORE_API_ SaveProjectionsAssistant
+class SaveProjectionsAssistant
 {
 public:
     SaveProjectionsAssistant();
@@ -58,4 +57,4 @@ private:
     QString projectionFileHeader(ProjectionsData& projectionsData);
 };
 
-#endif // SAVEPROJECTIONSASSISTANT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPROJECTIONSASSISTANT_H

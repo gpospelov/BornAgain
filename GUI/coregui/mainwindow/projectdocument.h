@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTDOCUMENT_H
-#define PROJECTDOCUMENT_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTDOCUMENT_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTDOCUMENT_H
 
-#include "ProjectFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/mainwindow/ProjectFlags.h"
 #include <QObject>
 
 class QIODevice;
@@ -39,12 +38,12 @@ const QString InfoNameAttribute("ProjectName");
 //! projectName()     - 'Untitled'
 //! projectDir()      - '/home/users/development/Untitled
 //! projectFileName() - '/home/users/development/Untitled/Untitled.pro'
-class BA_CORE_API_ ProjectDocument : public QObject
+class ProjectDocument : public QObject
 {
     Q_OBJECT
 
 public:
-    ProjectDocument(const QString& projectFileName = QString());
+    ProjectDocument(const QString& projectFileName = "");
 
     QString projectName() const;
     void setProjectName(const QString& text);
@@ -108,4 +107,4 @@ private:
     OutputDataIOService* m_dataService;
 };
 
-#endif // PROJECTDOCUMENT_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_PROJECTDOCUMENT_H

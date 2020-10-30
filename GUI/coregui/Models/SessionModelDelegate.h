@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONMODELDELEGATE_H
-#define SESSIONMODELDELEGATE_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODELDELEGATE_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODELDELEGATE_H
 
-#include "WinDllMacros.h"
 #include <QStyledItemDelegate>
 
 //! The SessionModelDelegate class presents the content of SessionModel items in
 //! standard QTreeView. Extents base QItemDelegate with possibility to show/edit
 //! our custom QVariant's.
 
-class BA_CORE_API_ SessionModelDelegate : public QStyledItemDelegate
+class SessionModelDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
@@ -51,4 +50,4 @@ private:
                           const QModelIndex& index, const QString& text) const;
 };
 
-#endif // SESSIONMODELDELEGATE_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_SESSIONMODELDELEGATE_H

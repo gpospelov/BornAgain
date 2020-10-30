@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef OFFSPECINSTRUMENTEDITOR_H
-#define OFFSPECINSTRUMENTEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_OFFSPECINSTRUMENTEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_OFFSPECINSTRUMENTEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class OffSpecInstrumentItem;
 class OffSpecBeamEditor;
@@ -24,7 +24,7 @@ class EnvironmentEditor;
 class PolarizationAnalysisEditor;
 class ColumnResizer;
 
-class BA_CORE_API_ OffSpecInstrumentEditor : public SessionItemWidget
+class OffSpecInstrumentEditor : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -43,4 +43,4 @@ private:
     PolarizationAnalysisEditor* m_polarizationAnalysisEditor;
 };
 
-#endif // OFFSPECINSTRUMENTEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INSTRUMENTWIDGETS_OFFSPECINSTRUMENTEDITOR_H

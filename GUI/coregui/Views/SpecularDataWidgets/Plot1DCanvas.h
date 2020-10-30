@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PLOT1DCANVAS_H
-#define PLOT1DCANVAS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_PLOT1DCANVAS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_PLOT1DCANVAS_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class FontScalingEvent;
 class PlotStatusLabel;
@@ -26,7 +26,7 @@ class Plot1D;
 //! for specular data presentation, and provides
 //! status string appearance.
 
-class BA_CORE_API_ Plot1DCanvas : public SessionItemWidget
+class Plot1DCanvas : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -49,4 +49,4 @@ private:
     PlotStatusLabel* m_statusLabel;
 };
 
-#endif // PLOT1DCANVAS_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_PLOT1DCANVAS_H

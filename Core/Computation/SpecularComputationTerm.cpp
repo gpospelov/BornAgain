@@ -12,11 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "SpecularComputationTerm.h"
-#include "DelayedProgressCounter.h"
-#include "ScalarRTCoefficients.h"
-#include "SpecularScalarStrategy.h"
-#include "SpecularSimulationElement.h"
+#include "Core/Computation/SpecularComputationTerm.h"
+#include "Core/Computation/DelayedProgressCounter.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
+#include "Sample/Slice/SpecularSimulationElement.h"
+
+// ************************************************************************** //
+// class SpecularComputationTerm
+// ************************************************************************** //
 
 SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy)
     : m_Strategy(std::move(strategy)){};
@@ -30,11 +33,11 @@ SpecularComputationTerm::~SpecularComputationTerm() = default;
 
 void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
+    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
-void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
-                                      const std::vector<Slice>& slices) const
+void SpecularComputationTerm::computeIntensity(SpecularSimulationElement& elem,
+                                               const std::vector<Slice>& slices) const
 {
     if (!elem.isCalculated())
         return;
@@ -45,14 +48,40 @@ void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
         mP_progress_counter->stepProgress();
 }
 
+// ************************************************************************** //
+// class SpecularScalarTerm
+// ************************************************************************** //
+
 SpecularScalarTerm::~SpecularScalarTerm() = default;
 
 void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
+    const auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(std::norm(coeff.front()->getScalarR()));
 }
+
+// ************************************************************************** //
+// class SpecularMatrixTerm
+// ************************************************************************** //
+
+namespace
+{
+
+double matrix_intensity(const SpecularSimulationElement& elem,
+                        const std::unique_ptr<const ILayerRTCoefficients>& coeff)
+{
+    const auto& polarization = elem.polarizationHandler().getPolarization();
+    const auto& analyzer = elem.polarizationHandler().getAnalyzerOperator();
+
+    const auto R = coeff->getReflectionMatrix();
+
+    const complex_t result = (polarization * R.adjoint() * analyzer * R).trace();
+
+    return std::abs(result);
+}
+
+} // namespace
 
 SpecularMatrixTerm::SpecularMatrixTerm(std::unique_ptr<ISpecularStrategy> strategy)
     : SpecularComputationTerm(std::move(strategy))
@@ -64,22 +93,6 @@ SpecularMatrixTerm::~SpecularMatrixTerm() = default;
 void SpecularMatrixTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
-    elem.setIntensity(intensity(elem, coeff.front()));
-}
-
-double SpecularMatrixTerm::intensity(const SpecularSimulationElement& elem,
-                                     ISpecularStrategy::single_coeff_t& coeff) const
-{
-    const auto& polarization = elem.polarizationHandler().getPolarization();
-    const auto& analyzer = elem.polarizationHandler().getAnalyzerOperator();
-
-    // constructing reflection operator
-    Eigen::Matrix2cd R;
-    R.col(0) = coeff->R1plus() + coeff->R2plus();
-    R.col(1) = coeff->R1min() + coeff->R2min();
-
-    const complex_t result = (polarization * R.adjoint() * analyzer * R).trace();
-
-    return std::abs(result);
+    const auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
+    elem.setIntensity(matrix_intensity(elem, coeff.front()));
 }

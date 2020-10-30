@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SAVEPLOTASSISTANT_H
-#define SAVEPLOTASSISTANT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPLOTASSISTANT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPLOTASSISTANT_H
 
-#include "WinDllMacros.h"
 #include <QString>
 #include <QVector>
 
@@ -25,7 +24,7 @@ template <class T> class OutputData;
 //! Assistant class which contains all logic for saving IntensityData to various formats
 //! from IntensityDataPlotWidget.
 
-class BA_CORE_API_ SavePlotAssistant
+class SavePlotAssistant
 {
 public:
     class Format
@@ -51,4 +50,4 @@ private:
     static QVector<Format> m_formats;
 };
 
-#endif // SAVEPLOTASSISTANT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_SAVEPLOTASSISTANT_H

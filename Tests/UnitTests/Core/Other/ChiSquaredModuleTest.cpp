@@ -1,23 +1,18 @@
-#include "ChiSquaredModule.h"
-#include "BornAgainNamespace.h"
-#include "OutputData.h"
-#include "VarianceFunctions.h"
-#include "google_test.h"
+#include "Device/Instrument/ChiSquaredModule.h"
+#include "Device/Data/OutputData.h"
+#include "Device/Instrument/VarianceFunctions.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 // TODO revise test
 
 class ChiSquaredModuleTest : public ::testing::Test
 {
 protected:
-    ~ChiSquaredModuleTest();
-
     ChiSquaredModule m_chi_empty;
     ChiSquaredModule m_chi_default;
     OutputData<double> m_real_data;
     OutputData<double> m_simul_data;
 };
-
-ChiSquaredModuleTest::~ChiSquaredModuleTest() = default;
 
 TEST_F(ChiSquaredModuleTest, InitialState)
 {

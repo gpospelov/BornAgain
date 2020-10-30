@@ -12,31 +12,27 @@
 //
 // ************************************************************************** //
 
-#include "SampleToPython.h"
-#include "Crystal.h"
-#include "IFormFactor.h"
-#include "INodeUtils.h"
-#include "InterferenceFunctions.h"
-#include "Lattice.h"
-#include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
-#include "Material.h"
-#include "MesoCrystal.h"
-#include "MultiLayer.h"
-#include "ParameterUtils.h"
-#include "Particle.h"
-#include "ParticleComposition.h"
-#include "ParticleCoreShell.h"
-#include "ParticleDistribution.h"
-#include "ParticleLayout.h"
-#include "PythonFormatting.h"
-#include "SampleLabelHandler.h"
+#include "Core/Export/SampleToPython.h"
+#include "Base/Utils/PyFmt.h"
+#include "Core/Export/INodeUtils.h"
+#include "Core/Export/SampleLabelHandler.h"
+#include "Device/Instrument/PyFmt2.h"
+#include "Param/Varia/ParameterUtils.h"
+#include "Sample/Aggregate/InterferenceFunctions.h"
+#include "Sample/Aggregate/ParticleLayout.h"
+#include "Sample/Multilayer/Layer.h"
+#include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Particle/Crystal.h"
+#include "Sample/Particle/MesoCrystal.h"
+#include "Sample/Particle/Particle.h"
+#include "Sample/Particle/ParticleComposition.h"
+#include "Sample/Particle/ParticleCoreShell.h"
+#include "Sample/Particle/ParticleDistribution.h"
+#include "Sample/Slice/LayerInterface.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include <iomanip>
 #include <map>
 #include <set>
-
-using namespace PythonFormatting;
 
 std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer)
 {
@@ -86,7 +82,7 @@ SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const
 {
-    return "def " + getSampleFunctionName() + "():\n" + defineMaterials() + defineLayers()
+    return "def " + pyfmt::getSampleFunctionName() + "():\n" + defineMaterials() + defineLayers()
            + defineFormFactors() + defineParticles() + defineCoreShellParticles()
            + defineParticleCompositions() + defineLattices() + defineCrystals()
            + defineMesoCrystals() + defineParticleDistributions() + defineInterferenceFunctions()
@@ -100,8 +96,8 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
 
 std::string SampleToPython::defineMaterials() const
 {
-    const auto themap = m_label->materialMap();
-    if (themap->size() == 0)
+    const LabelMap<const Material*>* themap = m_label->materialMap();
+    if (themap->empty())
         return "# No Materials.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -120,16 +116,16 @@ std::string SampleToPython::defineMaterials() const
         if (p_material->isScalarMaterial()) {
             result << indent() << m_label->labelMaterial(p_material) << " = ba."
                    << factory_name->second << "(\"" << p_material->getName() << "\", "
-                   << printDouble(material_data.real()) << ", " << printDouble(material_data.imag())
-                   << ")\n";
+                   << pyfmt::printDouble(material_data.real()) << ", "
+                   << pyfmt::printDouble(material_data.imag()) << ")\n";
         } else {
             kvector_t magnetic_field = p_material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
             result << indent() << m_label->labelMaterial(p_material) << " = ba."
                    << factory_name->second << "(\"" << p_material->getName();
-            result << "\", " << printDouble(material_data.real()) << ", "
-                   << printDouble(material_data.imag()) << ", "
+            result << "\", " << pyfmt::printDouble(material_data.real()) << ", "
+                   << pyfmt::printDouble(material_data.imag()) << ", "
                    << "magnetic_field)\n";
         }
     }
@@ -139,7 +135,7 @@ std::string SampleToPython::defineMaterials() const
 std::string SampleToPython::defineLayers() const
 {
     const auto themap = m_label->layerMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "# No Layers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -161,7 +157,7 @@ std::string SampleToPython::defineLayers() const
 std::string SampleToPython::defineFormFactors() const
 {
     const auto themap = m_label->formFactorMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -169,7 +165,7 @@ std::string SampleToPython::defineFormFactors() const
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const IFormFactor* p_ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << p_ff->getName() << "("
-               << argumentList(p_ff) << ")\n";
+               << pyfmt2::argumentList(p_ff) << ")\n";
     }
     return result.str();
 }
@@ -177,7 +173,7 @@ std::string SampleToPython::defineFormFactors() const
 std::string SampleToPython::defineParticles() const
 {
     const auto themap = m_label->particleMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -200,7 +196,7 @@ std::string SampleToPython::defineParticles() const
 std::string SampleToPython::defineCoreShellParticles() const
 {
     const auto themap = m_label->particleCoreShellMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -221,7 +217,7 @@ std::string SampleToPython::defineCoreShellParticles() const
 std::string SampleToPython::defineParticleDistributions() const
 {
     const auto themap = m_label->particleDistributionsMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
 
     std::ostringstream result;
@@ -231,23 +227,25 @@ std::string SampleToPython::defineParticleDistributions() const
     int index(1);
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleDistribution* p_particle_distr = it->first;
-        std::string units = ParameterUtils::mainParUnits(*p_particle_distr);
+
+        const std::string units = p_particle_distr->mainUnits();
+
         ParameterDistribution par_distr = p_particle_distr->parameterDistribution();
 
         // building distribution functions
         std::string s_distr = "distr_" + std::to_string(index);
         result << indent() << s_distr << " = "
-               << printDistribution(*par_distr.getDistribution(), units) << "\n";
+               << pyfmt2::printDistribution(*par_distr.getDistribution(), units) << "\n";
 
         // building parameter distribution
         std::string s_par_distr = "par_distr_" + std::to_string(index);
 
         result << indent() << s_par_distr << " = "
-               << printParameterDistribution(par_distr, s_distr, units) << "\n";
+               << pyfmt2::printParameterDistribution(par_distr, s_distr, units) << "\n";
 
         // linked parameters
         std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
-        if (linked_pars.size()) {
+        if (!linked_pars.empty()) {
             result << indent() << s_par_distr;
             for (size_t i = 0; i < linked_pars.size(); ++i)
                 result << ".linkParameter(\"" << linked_pars[i] << "\")";
@@ -267,7 +265,7 @@ std::string SampleToPython::defineParticleDistributions() const
 std::string SampleToPython::defineParticleCompositions() const
 {
     const auto themap = m_label->particleCompositionMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -290,7 +288,7 @@ std::string SampleToPython::defineParticleCompositions() const
 std::string SampleToPython::defineLattices() const
 {
     const auto themap = m_label->latticeMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -302,12 +300,12 @@ std::string SampleToPython::defineLattices() const
         kvector_t bas_b = p_lattice->getBasisVectorB();
         kvector_t bas_c = p_lattice->getBasisVectorC();
         result << indent() << lattice_name << " = ba.Lattice(\n";
-        result << indent() << indent() << "ba.kvector_t(" << printNm(bas_a.x()) << ", "
-               << printNm(bas_a.y()) << ", " << printNm(bas_a.z()) << "),\n";
-        result << indent() << indent() << "ba.kvector_t(" << printNm(bas_b.x()) << ", "
-               << printNm(bas_b.y()) << ", " << printNm(bas_b.z()) << "),\n";
-        result << indent() << indent() << "ba.kvector_t(" << printNm(bas_c.x()) << ", "
-               << printNm(bas_c.y()) << ", " << printNm(bas_c.z()) << "))\n";
+        result << indent() << indent() << "ba.kvector_t(" << pyfmt::printNm(bas_a.x()) << ", "
+               << pyfmt::printNm(bas_a.y()) << ", " << pyfmt::printNm(bas_a.z()) << "),\n";
+        result << indent() << indent() << "ba.kvector_t(" << pyfmt::printNm(bas_b.x()) << ", "
+               << pyfmt::printNm(bas_b.y()) << ", " << pyfmt::printNm(bas_b.z()) << "),\n";
+        result << indent() << indent() << "ba.kvector_t(" << pyfmt::printNm(bas_c.x()) << ", "
+               << pyfmt::printNm(bas_c.y()) << ", " << pyfmt::printNm(bas_c.z()) << "))\n";
     }
     return result.str();
 }
@@ -315,7 +313,7 @@ std::string SampleToPython::defineLattices() const
 std::string SampleToPython::defineCrystals() const
 {
     const auto themap = m_label->crystalMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -337,7 +335,7 @@ std::string SampleToPython::defineCrystals() const
 std::string SampleToPython::defineMesoCrystals() const
 {
     const auto themap = m_label->mesocrystalMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -361,7 +359,7 @@ std::string SampleToPython::defineMesoCrystals() const
 std::string SampleToPython::defineInterferenceFunctions() const
 {
     const auto themap = m_label->interferenceFunctionMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -373,50 +371,49 @@ std::string SampleToPython::defineInterferenceFunctions() const
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
         else if (auto p_lattice_1d =
                      dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
-            const Lattice1DParameters latticeParameters = p_lattice_1d->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
-                   << printNm(latticeParameters.m_length) << ", "
-                   << printDegrees(latticeParameters.m_xi) << ")\n";
+                   << pyfmt::printNm(p_lattice_1d->getLength()) << ", "
+                   << pyfmt::printDegrees(p_lattice_1d->getXi()) << ")\n";
 
             auto pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction1D>(*p_lattice_1d);
 
             if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
-                       << argumentList(pdf) << ")\n"
+                       << pyfmt2::argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         } else if (auto p_para_radial =
                        dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << printNm(p_para_radial->peakDistance()) << ", "
-                   << printNm(p_para_radial->dampingLength()) << ")\n";
+                   << pyfmt::printNm(p_para_radial->peakDistance()) << ", "
+                   << pyfmt::printNm(p_para_radial->dampingLength()) << ")\n";
 
             if (p_para_radial->kappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << printDouble(p_para_radial->kappa()) << ")\n";
+                       << pyfmt::printDouble(p_para_radial->kappa()) << ")\n";
 
             if (p_para_radial->domainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << printDouble(p_para_radial->domainSize()) << ")\n";
+                       << pyfmt::printDouble(p_para_radial->domainSize()) << ")\n";
 
             auto pdf = INodeUtils::OnlyChildOfType<IFTDistribution1D>(*p_para_radial);
 
             if (pdf->omega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
-                       << argumentList(pdf) << ")\n"
+                       << pyfmt2::argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
         } else if (auto p_lattice_2d =
                        dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
             const Lattice2D& lattice = p_lattice_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
-                   << printNm(lattice.length1()) << ", " << printNm(lattice.length2()) << ", "
-                   << printDegrees(lattice.latticeAngle()) << ", "
-                   << printDegrees(lattice.rotationAngle()) << ")\n";
+                   << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
+                   << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
+                   << pyfmt::printDegrees(lattice.rotationAngle()) << ")\n";
 
             auto pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*p_lattice_2d);
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
-                   << argumentList(pdf) << ")\n"
+                   << pyfmt2::argumentList(pdf) << ")\n"
                    << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
 
             if (p_lattice_2d->integrationOverXi() == true)
@@ -425,9 +422,9 @@ std::string SampleToPython::defineInterferenceFunctions() const
                        dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
             const Lattice2D& lattice = p_lattice_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunctionFinite2DLattice("
-                   << printNm(lattice.length1()) << ", " << printNm(lattice.length2()) << ", "
-                   << printDegrees(lattice.latticeAngle()) << ", "
-                   << printDegrees(lattice.rotationAngle()) << ", "
+                   << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
+                   << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
+                   << pyfmt::printDegrees(lattice.rotationAngle()) << ", "
                    << p_lattice_2d->numberUnitCells1() << ", " << p_lattice_2d->numberUnitCells2()
                    << ")\n";
 
@@ -438,14 +435,15 @@ std::string SampleToPython::defineInterferenceFunctions() const
             std::vector<double> domainSize = p_para_2d->domainSizes();
             const Lattice2D& lattice = p_para_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                   << printNm(lattice.length1()) << ", " << printNm(lattice.length2()) << ", "
-                   << printDegrees(lattice.latticeAngle()) << ", "
-                   << printDegrees(lattice.rotationAngle()) << ", "
-                   << printNm(p_para_2d->dampingLength()) << ")\n";
+                   << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
+                   << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
+                   << pyfmt::printDegrees(lattice.rotationAngle()) << ", "
+                   << pyfmt::printNm(p_para_2d->dampingLength()) << ")\n";
 
             if (domainSize[0] != 0.0 || domainSize[1] != 0.0)
-                result << indent() << it->second << ".setDomainSizes(" << printNm(domainSize[0])
-                       << ", " << printNm(domainSize[1]) << ")\n";
+                result << indent() << it->second << ".setDomainSizes("
+                       << pyfmt::printNm(domainSize[0]) << ", " << pyfmt::printNm(domainSize[1])
+                       << ")\n";
             if (p_para_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
 
@@ -455,19 +453,19 @@ std::string SampleToPython::defineInterferenceFunctions() const
             const IFTDistribution2D* pdf = pdf_vector[0];
 
             result << indent() << it->second << "_pdf_1  = ba." << pdf->getName() << "("
-                   << argumentList(pdf) << ")\n";
+                   << pyfmt2::argumentList(pdf) << ")\n";
 
             pdf = pdf_vector[1];
 
             result << indent() << it->second << "_pdf_2  = ba." << pdf->getName() << "("
-                   << argumentList(pdf) << ")\n";
+                   << pyfmt2::argumentList(pdf) << ")\n";
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
                    << "_pdf_1, " << it->second << "_pdf_2)\n";
         } else if (auto p_lattice_hd =
                        dynamic_cast<const InterferenceFunctionHardDisk*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionHardDisk("
-                   << printNm(p_lattice_hd->radius()) << ", "
-                   << printDouble(p_lattice_hd->density()) << ")\n";
+                   << pyfmt::printNm(p_lattice_hd->radius()) << ", "
+                   << pyfmt::printDouble(p_lattice_hd->density()) << ")\n";
         } else
             throw Exceptions::NotImplementedException(
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
@@ -475,7 +473,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
                 + interference->getName());
         if (interference->positionVariance() > 0.0) {
             result << indent() << it->second << ".setPositionVariance("
-                   << printNm2(interference->positionVariance()) << ")\n";
+                   << pyfmt::printNm2(interference->positionVariance()) << ")\n";
         }
     }
     return result.str();
@@ -484,7 +482,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
 std::string SampleToPython::defineParticleLayouts() const
 {
     const auto themap = m_label->particleLayoutMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -498,8 +496,8 @@ std::string SampleToPython::defineParticleLayouts() const
             for (auto p_particle : particles) {
                 double abundance = p_particle->abundance();
                 result << indent() << it->second << ".addParticle("
-                       << m_label->labelParticle(p_particle) << ", " << printDouble(abundance)
-                       << ")\n";
+                       << m_label->labelParticle(p_particle) << ", "
+                       << pyfmt::printDouble(abundance) << ")\n";
             }
             if (auto p_iff = INodeUtils::OnlyChildOfType<IInterferenceFunction>(*particleLayout))
                 result << indent() << it->second << ".setInterferenceFunction("
@@ -515,20 +513,20 @@ std::string SampleToPython::defineParticleLayouts() const
 std::string SampleToPython::defineRoughnesses() const
 {
     const auto themap = m_label->layerRoughnessMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Roughness Parameters\n";
     for (auto it = themap->begin(); it != themap->end(); ++it)
-        result << indent() << it->second << " = ba.LayerRoughness(" << argumentList(it->first)
-               << ")\n";
+        result << indent() << it->second << " = ba.LayerRoughness("
+               << pyfmt2::argumentList(it->first) << ")\n";
     return result.str();
 }
 
 std::string SampleToPython::addLayoutsToLayers() const
 {
-    if (m_label->particleLayoutMap()->size() == 0)
+    if (m_label->particleLayoutMap()->empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -547,7 +545,7 @@ std::string SampleToPython::addLayoutsToLayers() const
 std::string SampleToPython::defineMultiLayers() const
 {
     const auto themap = m_label->multiLayerMap();
-    if (themap->size() == 0)
+    if (themap->empty())
         return "# No MultiLayers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
@@ -561,9 +559,9 @@ std::string SampleToPython::defineMultiLayers() const
         if (external_field.mag() > 0.0) {
             std::string field_name = it->second + "_external_field";
             result << indent() << field_name << " = kvector_t("
-                   << printScientificDouble(external_field.x()) << ", "
-                   << printScientificDouble(external_field.y()) << ", "
-                   << printScientificDouble(external_field.z()) << ")\n";
+                   << pyfmt::printScientificDouble(external_field.x()) << ", "
+                   << pyfmt::printScientificDouble(external_field.y()) << ", "
+                   << pyfmt::printScientificDouble(external_field.z()) << ")\n";
             result << indent() << it->second << ".setExternalField(" << field_name << ")\n";
         }
         size_t numberOfLayers = it->first->numberOfLayers();
@@ -603,25 +601,26 @@ void SampleToPython::setRotationInformation(const IParticle* p_particle, std::st
         case Transform3D::EULER: {
             double alpha, beta, gamma;
             p_particle->rotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
-            result << indent() << name << "_rotation = ba.RotationEuler(" << printDegrees(alpha)
-                   << ", " << printDegrees(beta) << ", " << printDegrees(gamma) << ")\n";
+            result << indent() << name << "_rotation = ba.RotationEuler("
+                   << pyfmt::printDegrees(alpha) << ", " << pyfmt::printDegrees(beta) << ", "
+                   << pyfmt::printDegrees(gamma) << ")\n";
             break;
         }
         case Transform3D::XAXIS: {
             double alpha = p_particle->rotation()->getTransform3D().calculateRotateXAngle();
-            result << indent() << name << "_rotation = ba.RotationX(" << printDegrees(alpha)
+            result << indent() << name << "_rotation = ba.RotationX(" << pyfmt::printDegrees(alpha)
                    << ")\n";
             break;
         }
         case Transform3D::YAXIS: {
             double alpha = p_particle->rotation()->getTransform3D().calculateRotateYAngle();
-            result << indent() << name << "_rotation = ba.RotationY(" << printDegrees(alpha)
+            result << indent() << name << "_rotation = ba.RotationY(" << pyfmt::printDegrees(alpha)
                    << ")\n";
             break;
         }
         case Transform3D::ZAXIS: {
             double alpha = p_particle->rotation()->getTransform3D().calculateRotateZAngle();
-            result << indent() << name << "_rotation = ba.RotationZ(" << printDegrees(alpha)
+            result << indent() << name << "_rotation = ba.RotationZ(" << pyfmt::printDegrees(alpha)
                    << ")\n";
             break;
         }
@@ -637,8 +636,8 @@ void SampleToPython::setPositionInformation(const IParticle* p_particle, std::st
     bool has_position_info = (pos != kvector_t());
 
     if (has_position_info) {
-        result << indent() << name << "_position = kvector_t(" << printNm(pos.x()) << ", "
-               << printNm(pos.y()) << ", " << printNm(pos.z()) << ")\n";
+        result << indent() << name << "_position = kvector_t(" << pyfmt::printNm(pos.x()) << ", "
+               << pyfmt::printNm(pos.y()) << ", " << pyfmt::printNm(pos.z()) << ")\n";
 
         result << indent() << name << ".setPosition(" << name << "_position)\n";
     }

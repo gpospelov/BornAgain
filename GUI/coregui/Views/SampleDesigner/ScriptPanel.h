@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef SCRIPTPANEL_H
-#define SCRIPTPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SCRIPTPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SCRIPTPANEL_H
 
-#include "InfoPanel.h"
+#include "GUI/coregui/Views/CommonWidgets/InfoPanel.h"
 
 class SampleModel;
 class InstrumentModel;
@@ -23,7 +23,7 @@ class PySampleWidget;
 
 //! Resides at the bottom of SampleView and displays a Python script.
 
-class BA_CORE_API_ ScriptPanel : public InfoPanel
+class ScriptPanel : public InfoPanel
 {
     Q_OBJECT
 
@@ -37,4 +37,4 @@ private:
     PySampleWidget* m_pySampleWidget;
 };
 
-#endif // SCRIPTPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SCRIPTPANEL_H

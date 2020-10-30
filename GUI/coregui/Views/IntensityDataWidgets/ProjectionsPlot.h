@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONSPLOT_H
-#define PROJECTIONSPLOT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROJECTIONSPLOT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROJECTIONSPLOT_H
 
-#include "SessionItemWidget.h"
-#include "qcustomplot.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QMap>
 #include <memory>
+#include <qcustomplot.h>
 
 class IntensityDataItem;
 class ProjectionContainerItem;
@@ -27,7 +27,7 @@ class QCPGraph;
 
 //! A customplot based widget to display projections of IntensityDataItem on X,Y axes.
 
-class BA_CORE_API_ ProjectionsPlot : public SessionItemWidget
+class ProjectionsPlot : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -76,4 +76,4 @@ private:
     bool m_block_plot_update;
 };
 
-#endif // PROJECTIONSPLOT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INTENSITYDATAWIDGETS_PROJECTIONSPLOT_H

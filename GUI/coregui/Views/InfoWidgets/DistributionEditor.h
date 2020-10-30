@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef DISTRIBUTIONEDITOR_H
-#define DISTRIBUTIONEDITOR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONEDITOR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONEDITOR_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
 class QGroupBox;
 class GroupItem;
@@ -26,7 +26,7 @@ class DistributionItem;
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and property editor to change distribution parameters.
 
-class BA_CORE_API_ DistributionEditor : public SessionItemWidget
+class DistributionEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -49,4 +49,4 @@ private:
     QGroupBox* m_box;
 };
 
-#endif // DISTRIBUTIONEDITOR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_INFOWIDGETS_DISTRIBUTIONEDITOR_H

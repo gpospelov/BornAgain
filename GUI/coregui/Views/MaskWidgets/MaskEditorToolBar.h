@@ -12,11 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef MASKEDITORTOOLBAR_H
-#define MASKEDITORTOOLBAR_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORTOOLBAR_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORTOOLBAR_H
 
-#include "MaskEditorFlags.h"
-#include "WinDllMacros.h"
+#include "GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h"
 #include <QToolBar>
 
 class MaskEditorActions;
@@ -24,7 +23,7 @@ class QButtonGroup;
 
 //! Main class to draw masks on top of intensity data map
 
-class BA_CORE_API_ MaskEditorToolBar : public QToolBar
+class MaskEditorToolBar : public QToolBar
 {
     Q_OBJECT
 public:
@@ -61,4 +60,4 @@ private:
     MaskEditorFlags::Activity m_previousActivity;
 };
 
-#endif // MASKEDITORTOOLBAR_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_MASKWIDGETS_MASKEDITORTOOLBAR_H

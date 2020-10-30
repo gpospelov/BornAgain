@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARPLOT_H
-#define SPECULARPLOT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARPLOT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARPLOT_H
 
-#include "ScientificPlot.h"
-#include "qcustomplot.h"
+#include "GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h"
 #include <memory>
+#include <qcustomplot.h>
 
 class BasicAxisItem;
 class SpecularDataItem;
@@ -29,7 +29,7 @@ class UpdateTimer;
 //! Provides minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. Corresponds to ColorMap for 2D intensity data.
 
-class BA_CORE_API_ SpecularPlot : public ScientificPlot
+class SpecularPlot : public ScientificPlot
 {
     Q_OBJECT
 
@@ -109,4 +109,4 @@ private:
     bool m_block_update;
 };
 
-#endif // SPECULARPLOT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SPECULARDATAWIDGETS_SPECULARPLOT_H

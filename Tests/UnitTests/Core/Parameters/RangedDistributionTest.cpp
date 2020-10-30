@@ -1,13 +1,11 @@
-#include "Distributions.h"
-#include "ParameterSample.h"
-#include "RangedDistributions.h"
-#include "google_test.h"
+#include "Param/Distrib/Distributions.h"
+#include "Param/Distrib/RangedDistributions.h"
+#include "Param/Varia/ParameterSample.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 class RangedDistributionTest : public ::testing::Test
 {
 protected:
-    ~RangedDistributionTest();
-
     void checkDefaults(const RangedDistribution& distr);
 
     template <class T> void checkThrows();
@@ -18,8 +16,6 @@ protected:
 
     template <class T> void checkZeroWidth();
 };
-
-RangedDistributionTest::~RangedDistributionTest() = default;
 
 void RangedDistributionTest::checkDefaults(const RangedDistribution& distr)
 {
@@ -78,14 +74,14 @@ template <class T> void RangedDistributionTest::checkPrinting(std::string expect
     T distr(3, 1.0);
     std::stringstream print_ref;
     print_ref << "    distribution = ba." << expected_name << "(3, 1.0)";
-    std::string actual = distr.print();
+    std::string actual = distr.pyString();
     EXPECT_EQ(print_ref.str(), actual);
 
     T distr2(3, 1.0, 1.0, 2.0);
     std::stringstream print_ref2;
     print_ref2 << "    distribution = ba." << expected_name
                << "(3, 1.0, ba.RealLimits.limited(1.0, 2.0))";
-    actual = distr2.print();
+    actual = distr2.pyString();
     EXPECT_EQ(print_ref2.str(), actual);
 }
 

@@ -12,10 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAVELOADINTERFACE_H
-#define SAVELOADINTERFACE_H
-
-#include "WinDllMacros.h"
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVELOADINTERFACE_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVELOADINTERFACE_H
 
 #include <QDateTime>
 #include <QString>
@@ -23,7 +21,7 @@
 //! Purely virtual interface to handle non-XML
 //! data save and load.
 
-class BA_CORE_API_ SaveLoadInterface
+class SaveLoadInterface
 {
 public:
     virtual ~SaveLoadInterface();
@@ -50,4 +48,4 @@ public:
     QString fileName(const QString& projectDir) const;
 };
 
-#endif // SAVELOADINTERFACE_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_SAVELOADINTERFACE_H

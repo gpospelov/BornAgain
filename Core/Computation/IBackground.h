@@ -12,23 +12,24 @@
 //
 // ************************************************************************** //
 
-#ifndef IBACKGROUND_H
-#define IBACKGROUND_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
+#define BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
 
-#include "ICloneable.h"
-#include "INode.h"
+#include "Base/Types/ICloneable.h"
+#include "Param/Node/INode.h"
 
 //! Interface for a simulating the background signal
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ IBackground : public ICloneable, public INode
+class IBackground : public ICloneable, public INode
 {
 public:
+    IBackground(const NodeMeta& meta, const std::vector<double>& PValues);
     virtual ~IBackground();
     virtual IBackground* clone() const = 0;
 
-    virtual double addBackGround(double element) const = 0;
+    virtual double addBackground(double element) const = 0;
 };
 
-#endif // IBACKGROUND_H
+#endif // BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H

@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef RUNFITCONTROLWIDGET_H
-#define RUNFITCONTROLWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_RUNFITCONTROLWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_RUNFITCONTROLWIDGET_H
 
-#include "SessionItemWidget.h"
+#include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QWidget>
 
 class JobItem;
@@ -29,7 +29,7 @@ class JobMessagePanel;
 //! The RunFitControlWidget contains elements to start/stop fitting and to provide minimal
 //! diagnostic. Part of FitSuiteWidget.
 
-class BA_CORE_API_ RunFitControlWidget : public SessionItemWidget
+class RunFitControlWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
@@ -68,4 +68,4 @@ private:
     WarningSign* m_warningSign;
 };
 
-#endif // RUNFITCONTROLWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_FITWIDGETS_RUNFITCONTROLWIDGET_H

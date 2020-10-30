@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMSTACKWIDGET_H
-#define ITEMSTACKWIDGET_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKWIDGET_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKWIDGET_H
 
-#include "WinDllMacros.h"
 #include <QWidget>
 
 class SessionModel;
@@ -28,7 +27,7 @@ class SessionItem;
 //! specific editor's logic. Used in InstrumentView, ImportDataView, JobView to show editors for
 //! currently selected items.
 
-class BA_CORE_API_ ItemStackWidget : public QWidget
+class ItemStackWidget : public QWidget
 {
     Q_OBJECT
 
@@ -58,4 +57,4 @@ protected:
     QSize m_size_hint;
 };
 
-#endif // ITEMSTACKWIDGET_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMSTACKWIDGET_H

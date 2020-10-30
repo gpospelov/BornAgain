@@ -12,14 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef CSVIMPORTASSISTANT_H
-#define CSVIMPORTASSISTANT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H
 
-#include "CsvDataColumn.h"
-#include "CsvReader.h"
-#include "DataFormatUtils.h"
-#include "ImportDataInfo.h"
-#include "WinDllMacros.h"
+#include "Device/InputOutput/DataFormatUtils.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvDataColumn.h"
+#include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvReader.h"
+#include "GUI/coregui/utils/ImportDataInfo.h"
 #include <QStringList>
 #include <QWidget>
 #include <memory>
@@ -30,7 +29,7 @@ class csvSelectionState
 public:
     csvSelectionState()
         : m_intensityColNum(-1), m_intensityMultiplier(1.), m_coordinateColNum(-1),
-          m_coordinateMultiplier(1.), m_firstRow(-1), m_lastRow(-1), m_units(AxesUnits::NBINS)
+          m_coordinateMultiplier(1.), m_firstRow(-1), m_lastRow(-1), m_units(Axes::Units::NBINS)
     {
     }
 
@@ -40,13 +39,13 @@ public:
     double m_coordinateMultiplier;
     int m_firstRow;
     int m_lastRow;
-    AxesUnits m_units;
+    Axes::Units m_units;
 
     bool availableData() { return m_intensityColNum > -1; }
 };
 
 //! Logic for importing intensity data from csv files
-class BA_CORE_API_ CsvImportAssistant : public QObject
+class CsvImportAssistant : public QObject
 {
     Q_OBJECT
 public:
@@ -54,7 +53,7 @@ public:
     ImportDataInfo getData() { return m_dataAvailable ? fillData() : ImportDataInfo(); }
     static void showErrorMessage(std::string message);
     void setIntensityColumn(int iCol, double multiplier = 1.0);
-    void setCoordinateColumn(int iCol, AxesUnits units, double multiplier = 1.0);
+    void setCoordinateColumn(int iCol, Axes::Units units, double multiplier = 1.0);
     void setFirstRow(int iRow);
     void setLastRow(int iRow);
     size_t columnCount() { return m_csvArray[0].size(); }
@@ -83,7 +82,7 @@ private:
     int m_firstRow;
     int m_lastRow;
     std::set<int> m_rowsToDiscard;
-    AxesUnits m_units;
+    Axes::Units m_units;
     bool m_dataAvailable;
 };
-#endif // CSVIMPORTASSISTANT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_IMPORTDATAWIDGETS_CSVIMPORTASSISTANT_CSVIMPORTASSISTANT_H

@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIEXAMPLESFACTORY_H
-#define GUIEXAMPLESFACTORY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_GUIEXAMPLESFACTORY_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_GUIEXAMPLESFACTORY_H
 
-#include "WinDllMacros.h"
 #include <QMap>
 
 class SessionItem;
@@ -23,7 +22,7 @@ class SampleModel;
 class MaterialModel;
 
 //! Class that generates GUI model from
-class BA_CORE_API_ GUIExamplesFactory
+class GUIExamplesFactory
 {
 public:
     static bool isValidExampleName(const QString& name);
@@ -38,4 +37,4 @@ private:
     //!< correspondance of GUI example name and name from StandardSamples registry
 };
 
-#endif // GUIEXAMPLESFACTORY_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_GUIEXAMPLESFACTORY_H

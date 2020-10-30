@@ -1,18 +1,12 @@
-#include "Rotations.h"
-#include "google_test.h"
+#include "Base/Vector/Transform3D.h"
+#include "Sample/Scattering/Rotations.h"
+#include "Tests/GTestWrapper/google_test.h"
 
 #include <memory>
 
 class RotationTest : public ::testing::Test
 {
-protected:
-    RotationTest();
-    virtual ~RotationTest();
 };
-
-RotationTest::RotationTest() {}
-
-RotationTest::~RotationTest() {}
 
 TEST_F(RotationTest, XRotations)
 {

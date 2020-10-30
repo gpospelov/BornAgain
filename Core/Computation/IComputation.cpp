@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "IComputation.h"
-#include "MultiLayer.h"
-#include "ProcessedSample.h"
-#include "ProgressHandler.h"
-#include "SimulationElement.h"
+#include "Core/Computation/IComputation.h"
+#include "Base/Pixel/SimulationElement.h"
+#include "Core/Computation/ProcessedSample.h"
+#include "Core/Computation/ProgressHandler.h"
+#include "Sample/Multilayer/MultiLayer.h"
 
 IComputation::IComputation(const MultiLayer& sample, const SimulationOptions& options,
                            ProgressHandler& progress)

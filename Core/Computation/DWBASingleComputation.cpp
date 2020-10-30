@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "DWBASingleComputation.h"
-#include "DelayedProgressCounter.h"
-#include "GISASSpecularComputation.h"
-#include "ParticleLayoutComputation.h"
-#include "RoughMultiLayerComputation.h"
+#include "Core/Computation/DWBASingleComputation.h"
+#include "Core/Computation/DelayedProgressCounter.h"
+#include "Core/Computation/GISASSpecularComputation.h"
+#include "Core/Computation/ParticleLayoutComputation.h"
+#include "Core/Computation/RoughMultiLayerComputation.h"
 
 DWBASingleComputation::DWBASingleComputation() = default;
 
@@ -26,7 +26,7 @@ DWBASingleComputation::DWBASingleComputation(DWBASingleComputation&&) = default;
 
 void DWBASingleComputation::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
+    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
 void DWBASingleComputation::addLayoutComputation(ParticleLayoutComputation* p_layout_comp)

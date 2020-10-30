@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERHELPER_H
-#define FITPARAMETERHELPER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERHELPER_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERHELPER_H
 
-#include "WinDllMacros.h"
 #include <QStringList>
 
 class ParameterItem;
@@ -25,7 +24,7 @@ class FitParameterContainerItem;
 //! The FitParameterHelper class contains set of convenience static methods to handle
 //! various fitting items in given JobItem.
 
-class BA_CORE_API_ FitParameterHelper
+class FitParameterHelper
 {
 public:
     static void createFitParameter(FitParameterContainerItem* container,
@@ -45,4 +44,4 @@ public:
                                            const QString& link);
 };
 
-#endif // FITPARAMETERHELPER_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERHELPER_H

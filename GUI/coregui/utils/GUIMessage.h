@@ -12,15 +12,14 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIMESSAGE_H
-#define GUIMESSAGE_H
+#ifndef BORNAGAIN_GUI_COREGUI_UTILS_GUIMESSAGE_H
+#define BORNAGAIN_GUI_COREGUI_UTILS_GUIMESSAGE_H
 
-#include "WinDllMacros.h"
 #include <QString>
 
 class QObject;
 
-class BA_CORE_API_ GUIMessage
+class GUIMessage
 {
 public:
     GUIMessage(const QString& senderName, const QString& messageType,
@@ -43,4 +42,4 @@ private:
     QString m_messageDescription;
 };
 
-#endif // GUIMESSAGE_H
+#endif // BORNAGAIN_GUI_COREGUI_UTILS_GUIMESSAGE_H

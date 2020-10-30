@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef COMBOPROPERTY_H
-#define COMBOPROPERTY_H
+#ifndef BORNAGAIN_GUI_COREGUI_MODELS_COMBOPROPERTY_H
+#define BORNAGAIN_GUI_COREGUI_MODELS_COMBOPROPERTY_H
 
-#include "WinDllMacros.h"
 #include <QStringList>
 #include <QVariant>
 #include <QVector>
@@ -23,13 +22,12 @@
 //! Custom property to define list of string values with multiple selections.
 //! Intended for QVariant.
 
-class BA_CORE_API_ ComboProperty
+class ComboProperty
 {
 public:
     ComboProperty();
 
-    static ComboProperty fromList(const QStringList& values,
-                                  const QString& current_value = QString());
+    static ComboProperty fromList(const QStringList& values, const QString& current_value = "");
 
     QString getValue() const;
     void setValue(const QString& name);
@@ -75,4 +73,4 @@ private:
 
 Q_DECLARE_METATYPE(ComboProperty)
 
-#endif // COMBOPROPERTY_H
+#endif // BORNAGAIN_GUI_COREGUI_MODELS_COMBOPROPERTY_H

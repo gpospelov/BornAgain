@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEVIEWACTIONS_H
-#define SAMPLEVIEWACTIONS_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWACTIONS_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWACTIONS_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class SampleModel;
@@ -45,4 +44,4 @@ private:
     QItemSelectionModel* m_selection_model;
 };
 
-#endif
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLEVIEWACTIONS_H

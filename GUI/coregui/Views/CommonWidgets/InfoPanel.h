@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef INFOPANEL_H
-#define INFOPANEL_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANEL_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANEL_H
 
-#include "WinDllMacros.h"
 #include <QFrame>
 
 class QStackedWidget;
@@ -27,7 +26,7 @@ class QResizeEvent;
 
 //! Used in JobMessagePanel.
 
-class BA_CORE_API_ InfoPanel : public QFrame
+class InfoPanel : public QFrame
 {
     Q_OBJECT
 public:
@@ -54,4 +53,4 @@ protected:
     int m_cached_height;
 };
 
-#endif // INFOPANEL_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_INFOPANEL_H

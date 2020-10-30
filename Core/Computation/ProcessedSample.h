@@ -12,12 +12,10 @@
 //
 // ************************************************************************** //
 
-#ifndef PROCESSEDSAMPLE_H
-#define PROCESSEDSAMPLE_H
+#ifndef BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
+#define BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
 
-#include "Material.h"
-#include "Slice.h"
-#include "Vectors3D.h"
+#include "Sample/Slice/Slice.h"
 #include <map>
 #include <memory>
 #include <vector>
@@ -36,7 +34,7 @@ class SimulationOptions;
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ProcessedSample
+class ProcessedSample
 {
 public:
     ProcessedSample(const MultiLayer& sample, const SimulationOptions& options);
@@ -79,4 +77,4 @@ private:
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
-#endif // PROCESSEDSAMPLE_H
+#endif // BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H

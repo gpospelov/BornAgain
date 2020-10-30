@@ -14,30 +14,30 @@ def get_sample():
     Returns a sample with cylinders on a substrate.
     """
     # defining materials
-    m_ambience = ba.HomogeneousMaterial("Air", 0.0, 0.0)
+    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_layer = ba.HomogeneousMaterial("Layer", 3e-6, 2e-8)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 3e-5, 2e-8)
 
     # cylindrical particle
-    half_sphere_ff = ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius)
+    half_sphere_ff = ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius, 0)
     half_sphere = ba.Particle(m_particle, half_sphere_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(half_sphere)
 
     # interference function
-    interference = ba.InterferenceFunction2DLattice.createSquare(10*nm)
-    pdf = ba.FTDecayFunction2DCauchy(100*nm, 100*nm)
+    interference = ba.InterferenceFunction2DLattice.createSquare(10*nm, 0*deg)
+    pdf = ba.FTDecayFunction2DCauchy(100*nm, 100*nm, 0)
     interference.setDecayFunction(pdf)
     particle_layout.setInterferenceFunction(interference)
 
-    air_layer = ba.Layer(m_ambience)
-    air_layer.addLayout(particle_layout)
-    air_layer.setNumberOfSlices(n_slices)
+    vacuum_layer = ba.Layer(m_vacuum)
+    vacuum_layer.addLayout(particle_layout)
+    vacuum_layer.setNumberOfSlices(n_slices)
     substrate_layer = ba.Layer(m_substrate)
 
     multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(air_layer)
+    multi_layer.addLayer(vacuum_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
 

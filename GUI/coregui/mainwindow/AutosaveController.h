@@ -12,10 +12,9 @@
 //
 // ************************************************************************** //
 
-#ifndef AUTOSAVECONTROLLER_H
-#define AUTOSAVECONTROLLER_H
+#ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_AUTOSAVECONTROLLER_H
+#define BORNAGAIN_GUI_COREGUI_MAINWINDOW_AUTOSAVECONTROLLER_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class ProjectDocument;
@@ -23,7 +22,7 @@ class UpdateTimer;
 
 //! Triggers autosave request after some accumulated ammount of document changes.
 
-class BA_CORE_API_ AutosaveController : public QObject
+class AutosaveController : public QObject
 {
     Q_OBJECT
 public:
@@ -56,4 +55,4 @@ private:
     UpdateTimer* m_timer;
 };
 
-#endif // AUTOSAVECONTROLLER_H
+#endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_AUTOSAVECONTROLLER_H

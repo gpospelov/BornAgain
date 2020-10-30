@@ -12,17 +12,16 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBPROGRESSASSISTANT_H
-#define JOBPROGRESSASSISTANT_H
+#ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBPROGRESSASSISTANT_H
+#define BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBPROGRESSASSISTANT_H
 
-#include "WinDllMacros.h"
 #include <QObject>
 
 class MainWindow;
 
 //! The JobProgressAssistant class helps JobView to visualize current progress.
 
-class BA_CORE_API_ JobProgressAssistant : public QObject
+class JobProgressAssistant : public QObject
 {
     Q_OBJECT
 public:
@@ -35,4 +34,4 @@ private:
     MainWindow* m_mainWindow;
 };
 
-#endif // JOBPROGRESSASSISTANT_H
+#endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBWIDGETS_JOBPROGRESSASSISTANT_H

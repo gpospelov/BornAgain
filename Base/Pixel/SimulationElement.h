@@ -88,7 +88,9 @@ private:
     kvector_t getKf(double x, double y) const;
 
     PolarizationHandler m_polarization;
-    double m_wavelength, m_alpha_i, m_phi_i; //!< wavelength and angles of beam
+    double m_wavelength;                     //!< wavelength of beam
+    double m_alpha_i;                        //!< incident grazing angle
+    double m_phi_i;                          //!< incident angle in xy plane
     kvector_t m_k_i;                         //!< cached value of k_i
     kvector_t m_mean_kf;                     //!< cached value of mean_kf
     double m_intensity;                      //!< simulated intensity for detector cell

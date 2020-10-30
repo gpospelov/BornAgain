@@ -7,6 +7,8 @@
 #include <memory>
 #include <stdexcept>
 
+#define EXPECT_ASSERT_TRIGGERED(condition) EXPECT_THROW((condition), std::runtime_error)
+
 class SampleBuilderNodeTest : public ::testing::Test
 {
 public:
@@ -66,7 +68,7 @@ TEST_F(SampleBuilderNodeTest, builderParameters)
     builderNode.reset();
     EXPECT_EQ(builder.use_count(), 1);
     EXPECT_EQ(builderNode.parameterPool()->size(), 0u);
-    EXPECT_DEATH(builderNode.createMultiLayer(), ".*");
+    EXPECT_ASSERT_TRIGGERED(builderNode.createMultiLayer());
 }
 
 //! Checks assignment operator.

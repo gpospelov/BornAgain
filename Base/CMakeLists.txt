@@ -26,11 +26,6 @@ target_include_directories(${lib}
     )
 target_link_libraries(${lib} ${GSL_LIBRARIES} ${FFTW3_LIBRARIES} ${Boost_LIBRARIES})
 
-if(BORNAGAIN_GUI)
-    target_include_directories(${lib} PUBLIC ${Qt5Core_INCLUDE_DIRS})
-    target_link_libraries(${lib} ${Qt5Core_LIBRARIES})
-endif()
-
 if(BORNAGAIN_MPI)
     add_definitions(-DBORNAGAIN_MPI)
     include_directories(${MPI_INCLUDE_PATH})

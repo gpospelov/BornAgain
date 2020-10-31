@@ -37,13 +37,12 @@ public:
     SimulationElement(const SimulationElement& other);
     SimulationElement& operator=(const SimulationElement& other);
 
-    //! Construct SimulationElement from other element and restrict k_f to specific value in
-    //! the original detector pixel
-    SimulationElement pointElement(double x, double y) const;
-
     SimulationElement(SimulationElement&& other) noexcept;
 
     ~SimulationElement();
+
+    //! Returns copy of this SimulationElement with k_f given by in-pixel coordinate x,y.
+    SimulationElement pointElement(double x, double y) const;
 
     //! Returns assigned PolarizationHandler
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }

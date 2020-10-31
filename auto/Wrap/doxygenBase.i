@@ -900,15 +900,15 @@ C++ includes: SimulationElement.h
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
 ";
 
-%feature("docstring")  SimulationElement::pointElement "SimulationElement SimulationElement::pointElement(double x, double y) const
-
-Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
-";
-
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
 ";
 
 %feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
+";
+
+%feature("docstring")  SimulationElement::pointElement "SimulationElement SimulationElement::pointElement(double x, double y) const
+
+Returns copy of this  SimulationElement with k_f given by in-pixel coordinate x,y. 
 ";
 
 %feature("docstring")  SimulationElement::polarizationHandler "const PolarizationHandler& SimulationElement::polarizationHandler() const
@@ -1566,8 +1566,6 @@ global helper function for comparison of axes
 
 
 // File: SimulationElement_8cpp.xml
-%feature("docstring")  pointElement "SimulationElement pointElement(double x, double y) const
-";
 
 
 // File: SimulationElement_8h.xml

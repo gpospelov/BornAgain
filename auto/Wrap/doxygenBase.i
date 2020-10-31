@@ -1566,6 +1566,8 @@ global helper function for comparison of axes
 
 
 // File: SimulationElement_8cpp.xml
+%feature("docstring")  pointElement "SimulationElement pointElement(double x, double y) const
+";
 
 
 // File: SimulationElement_8h.xml

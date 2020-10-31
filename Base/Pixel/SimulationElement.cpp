@@ -36,15 +36,6 @@ SimulationElement::SimulationElement(const SimulationElement& other)
     m_pixel.reset(other.m_pixel->clone());
 }
 
-SimulationElement::SimulationElement(const SimulationElement& other, double x, double y)
-    : m_polarization(other.m_polarization), m_wavelength(other.m_wavelength),
-      m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(other.m_k_i),
-      m_mean_kf(other.m_mean_kf), m_intensity(other.m_intensity), m_is_specular(other.isSpecular())
-{
-    m_pixel.reset(other.m_pixel->createZeroSizePixel(x, y));
-    m_mean_kf = m_pixel->getK(0.5, 0.5, m_wavelength);
-}
-
 SimulationElement::SimulationElement(SimulationElement&& other) noexcept
     : m_polarization(std::move(other.m_polarization)), m_wavelength(other.m_wavelength),
       m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(std::move(other.m_k_i)),
@@ -62,6 +53,14 @@ SimulationElement& SimulationElement::operator=(const SimulationElement& other)
         tmp.swapContent(*this);
     }
     return *this;
+}
+
+SimulationElement SimulationElement::pointElement(double x, double y) const
+{
+    return {m_wavelength, m_alpha_i, m_phi_i,
+            std::unique_ptr<IPixel>(m_pixel->createZeroSizePixel(x, y)), // TODO simplify
+            m_polarization.getPolarization(), m_polarization.getAnalyzerOperator(),
+            m_is_specular};
 }
 
 kvector_t SimulationElement::getKi() const

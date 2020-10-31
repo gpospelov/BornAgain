@@ -79,7 +79,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fraction
 
     SimulationElement* pars = static_cast<SimulationElement*>(params);
 
-    SimulationElement sim_element(*pars, par0, par1);
+    SimulationElement sim_element = pars->pointElement(par0, par1);
     return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }
 

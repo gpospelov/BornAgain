@@ -900,7 +900,7 @@ C++ includes: SimulationElement.h
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
 ";
 
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
+%feature("docstring")  SimulationElement::pointElement "SimulationElement SimulationElement::pointElement(double x, double y) const
 
 Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
 ";

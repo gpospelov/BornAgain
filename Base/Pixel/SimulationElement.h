@@ -39,7 +39,7 @@ public:
 
     //! Construct SimulationElement from other element and restrict k_f to specific value in
     //! the original detector pixel
-    SimulationElement(const SimulationElement& other, double x, double y);
+    SimulationElement pointElement(double x, double y) const;
 
     SimulationElement(SimulationElement&& other) noexcept;
 

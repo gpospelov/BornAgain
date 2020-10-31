@@ -14,11 +14,6 @@
 
 #include "Device/Detector/RectangularPixel.h"
 #include "Base/Const/MathConstants.h"
-#include "Base/Const/Units.h"
-#include "Base/Pixel/SimulationElement.h"
-#include "Device/Beam/Beam.h"
-#include "Device/Detector/RegionOfInterest.h"
-#include "Device/Resolution/IDetectorResolution.h"
 
 RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
     : m_corner_pos(std::move(corner_pos)), m_width(std::move(width)), m_height(std::move(height))

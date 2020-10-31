@@ -21,7 +21,7 @@
 ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_layout,
                                                      const SimulationOptions& options,
                                                      bool polarized)
-    : mp_layout(p_layout)
+    : m_layout(p_layout)
 {
     LayoutStrategyBuilder builder(p_layout, options, polarized);
     m_strategy.reset(builder.releaseStrategy());
@@ -34,7 +34,7 @@ ParticleLayoutComputation::~ParticleLayoutComputation() = default;
 void ParticleLayoutComputation::compute(SimulationElement& elem) const
 {
     double alpha_f = elem.getAlphaMean();
-    size_t n_layers = mp_layout->numberOfSlices();
+    size_t n_layers = m_layout->numberOfSlices();
     if (n_layers > 1 && alpha_f < 0) {
         return; // zero for transmission with multilayers (n>1)
     } else {

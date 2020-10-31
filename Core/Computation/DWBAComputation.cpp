@@ -57,11 +57,11 @@ DWBAComputation::~DWBAComputation() = default;
 // This allows them to be added and normalized together to the beam afterwards
 void DWBAComputation::runProtected()
 {
-    if (!mp_progress->alive())
+    if (!m_progress->alive())
         return;
-    m_single_computation.setProgressHandler(mp_progress);
+    m_single_computation.setProgressHandler(m_progress);
     for (auto it = m_begin_it; it != m_end_it; ++it) {
-        if (!mp_progress->alive())
+        if (!m_progress->alive())
             break;
         m_single_computation.compute(*it);
     }

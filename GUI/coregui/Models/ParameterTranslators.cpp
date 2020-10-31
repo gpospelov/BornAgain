@@ -90,11 +90,11 @@ QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 
 //! Converts "/Layer1/LayerBasicRoughness/Sigma" into "/LayerInterface0/LayerBasicRoughness/Sigma"
 
-RoughnessTranslator::RoughnessTranslator(const SessionItem* p_parent) : mp_parent(p_parent) {}
+RoughnessTranslator::RoughnessTranslator(const SessionItem* p_parent) : m_parent(p_parent) {}
 
 RoughnessTranslator* RoughnessTranslator::clone() const
 {
-    return new RoughnessTranslator(mp_parent);
+    return new RoughnessTranslator(m_parent);
 }
 
 QStringList RoughnessTranslator::translate(const QStringList& list) const
@@ -129,7 +129,7 @@ int RoughnessTranslator::getLayerIndex(QString layerName) const
 
 int RoughnessTranslator::numberOfLayers() const
 {
-    QVector<SessionItem*> list = mp_parent->getChildrenOfType("Layer");
+    QVector<SessionItem*> list = m_parent->getChildrenOfType("Layer");
     return list.size();
 }
 

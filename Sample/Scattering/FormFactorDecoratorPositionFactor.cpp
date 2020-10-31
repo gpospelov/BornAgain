@@ -26,24 +26,24 @@ FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IForm
 double FormFactorDecoratorPositionFactor::bottomZ(const IRotation& rotation) const
 {
     kvector_t rotated_translation = rotation.transformed(m_position);
-    return mp_form_factor->bottomZ(rotation) + rotated_translation.z();
+    return m_form_factor->bottomZ(rotation) + rotated_translation.z();
 }
 
 double FormFactorDecoratorPositionFactor::topZ(const IRotation& rotation) const
 {
     kvector_t rotated_translation = rotation.transformed(m_position);
-    return mp_form_factor->topZ(rotation) + rotated_translation.z();
+    return m_form_factor->topZ(rotation) + rotated_translation.z();
 }
 
 complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return getPositionFactor(wavevectors) * mp_form_factor->evaluate(wavevectors);
+    return getPositionFactor(wavevectors) * m_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd
 FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    return getPositionFactor(wavevectors) * mp_form_factor->evaluatePol(wavevectors);
+    return getPositionFactor(wavevectors) * m_form_factor->evaluatePol(wavevectors);
 }
 
 complex_t

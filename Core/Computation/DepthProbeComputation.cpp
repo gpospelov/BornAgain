@@ -36,9 +36,9 @@ DepthProbeComputation::~DepthProbeComputation() = default;
 
 void DepthProbeComputation::runProtected()
 {
-    if (!mp_progress->alive())
+    if (!m_progress->alive())
         return;
-    m_computation_term.setProgressHandler(mp_progress);
+    m_computation_term.setProgressHandler(m_progress);
     for (auto it = m_begin_it; it != m_end_it; ++it) {
         m_computation_term.compute(*it);
     }

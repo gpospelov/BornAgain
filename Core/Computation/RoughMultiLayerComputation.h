@@ -32,7 +32,7 @@ public:
     void compute(SimulationElement& elem) const;
 
 private:
-    const ProcessedSample* mp_sample;
+    const ProcessedSample* m_sample;
     complex_t get_refractive_term(size_t ilayer, double wavelength) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
 };

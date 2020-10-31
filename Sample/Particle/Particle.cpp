@@ -62,12 +62,12 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
     std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
     if (m_rotation)
         P_rotation.reset(m_rotation->clone());
-    std::unique_ptr<IFormFactor> P_temp_ff(
+    std::unique_ptr<IFormFactor> P_tem_ff(
         m_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
-    if (!P_temp_ff)
+    if (!P_tem_ff)
         return {};
-    std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_temp_ff));
-    double volume = P_temp_ff->volume();
+    std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_tem_ff));
+    double volume = P_tem_ff->volume();
     Material transformed_material(m_material.rotatedMaterial(P_rotation->getTransform3D()));
     P_ff->setMaterial(transformed_material);
     SlicedParticle result;

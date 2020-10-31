@@ -30,7 +30,7 @@ void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map
 
 ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>& slices,
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
-    : mp_fresnel_map(p_fresnel_map), m_polarized(polarized)
+    : m_fresnel_map(p_fresnel_map), m_polarized(polarized)
 {
     m_n_slices = slices.size();
     collectFormFactors(layout, slices, z_ref);
@@ -40,7 +40,7 @@ ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>
 
 ProcessedLayout::ProcessedLayout(ProcessedLayout&& other)
 {
-    mp_fresnel_map = other.mp_fresnel_map;
+    m_fresnel_map = other.m_fresnel_map;
     m_polarized = other.m_polarized;
     m_n_slices = other.m_n_slices;
     m_surface_density = other.m_surface_density;
@@ -121,7 +121,7 @@ FormFactorCoherentSum ProcessedLayout::ProcessParticle(const IParticle& particle
         P_ff_framework->setAmbientMaterial(slice_material);
 
         auto part = FormFactorCoherentPart(P_ff_framework.release());
-        part.setSpecularInfo(mp_fresnel_map, slice_index);
+        part.setSpecularInfo(m_fresnel_map, slice_index);
 
         result.addCoherentPart(part);
     }

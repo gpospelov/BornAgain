@@ -128,9 +128,9 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
         const size_t rev_axis_i = n % 3;
         const size_t end_bin = data.getAxis(rev_axis_i).size() - 1;
         index_mapping = [rev_axis_i, end_bin](std::vector<int>& inds) {
-            const int tmp_index = inds[rev_axis_i];
+            const int tm_index = inds[rev_axis_i];
             inds[rev_axis_i] = inds[rev_axis_i ^ 1];
-            inds[rev_axis_i ^ 1] = static_cast<int>(end_bin) - tmp_index;
+            inds[rev_axis_i ^ 1] = static_cast<int>(end_bin) - tm_index;
         };
     }
 

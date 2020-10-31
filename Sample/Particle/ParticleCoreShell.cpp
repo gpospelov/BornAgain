@@ -30,7 +30,7 @@ ParticleCoreShell::~ParticleCoreShell() = default;
 
 ParticleCoreShell* ParticleCoreShell::clone() const
 {
-    ParticleCoreShell* p_result = new ParticleCoreShell(*mp_shell, *mp_core);
+    ParticleCoreShell* p_result = new ParticleCoreShell(*m_shell, *m_core);
     p_result->setAbundance(m_abundance);
     if (m_rotation)
         p_result->setRotation(*m_rotation);
@@ -40,20 +40,20 @@ ParticleCoreShell* ParticleCoreShell::clone() const
 
 SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
 {
-    if (!mp_core || !mp_shell)
+    if (!m_core || !m_shell)
         return {};
     std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
     if (m_rotation)
         P_rotation.reset(m_rotation->clone());
 
     // core
-    std::unique_ptr<Particle> P_core(mp_core->clone());
+    std::unique_ptr<Particle> P_core(m_core->clone());
     P_core->rotate(*P_rotation);
     P_core->translate(m_position);
     auto sliced_core = P_core->createSlicedParticle(limits);
 
     // shell
-    std::unique_ptr<Particle> P_shell(mp_shell->clone());
+    std::unique_ptr<Particle> P_shell(m_shell->clone());
     P_shell->rotate(*P_rotation);
     P_shell->translate(m_position);
     auto sliced_shell = P_shell->createSlicedParticle(limits);
@@ -86,26 +86,26 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
 
 std::vector<const INode*> ParticleCoreShell::getChildren() const
 {
-    return std::vector<const INode*>() << IParticle::getChildren() << mp_core << mp_shell;
+    return std::vector<const INode*>() << IParticle::getChildren() << m_core << m_shell;
 }
 
 void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
 {
-    mp_core.reset(core.clone());
-    mp_core->translate(relative_core_position);
-    registerChild(mp_core.get());
-    mp_core->registerAbundance(false);
+    m_core.reset(core.clone());
+    m_core->translate(relative_core_position);
+    registerChild(m_core.get());
+    m_core->registerAbundance(false);
 }
 
 void ParticleCoreShell::addAndRegisterShell(const Particle& shell)
 {
-    mp_shell.reset(shell.clone());
-    registerChild(mp_shell.get());
-    mp_shell->registerAbundance(false);
-    mp_shell->registerPosition(false);
+    m_shell.reset(shell.clone());
+    registerChild(m_shell.get());
+    m_shell->registerAbundance(false);
+    m_shell->registerPosition(false);
 }
 
-ParticleCoreShell::ParticleCoreShell() : mp_shell{nullptr}, mp_core{nullptr}
+ParticleCoreShell::ParticleCoreShell() : m_shell{nullptr}, m_core{nullptr}
 {
     setName("ParticleCoreShell");
 }

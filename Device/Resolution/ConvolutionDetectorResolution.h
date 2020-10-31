@@ -59,12 +59,12 @@ private:
 
     size_t m_dimension;
     cumulative_DF_1d m_res_function_1d;
-    std::unique_ptr<IResolutionFunction2D> mp_res_function_2d;
+    std::unique_ptr<IResolutionFunction2D> m_res_function_2d;
 };
 
 inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const
 {
-    return mp_res_function_2d.get();
+    return m_res_function_2d.get();
 }
 
 #endif // BORNAGAIN_CORE_DETECTOR_CONVOLUTIONDETECTORRESOLUTION_H

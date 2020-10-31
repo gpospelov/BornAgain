@@ -30,7 +30,7 @@ public:
 
     FormFactorCrystal* clone() const override final
     {
-        return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor,
+        return new FormFactorCrystal(m_lattice, *m_basis_form_factor, *m_meso_form_factor,
                                      m_position_variance);
     }
 
@@ -38,11 +38,11 @@ public:
 
     void setAmbientMaterial(const Material& material) override
     {
-        mp_basis_form_factor->setAmbientMaterial(material);
+        m_basis_form_factor->setAmbientMaterial(material);
     }
 
-    double volume() const override final { return mp_meso_form_factor->volume(); }
-    double radialExtension() const override final { return mp_meso_form_factor->radialExtension(); }
+    double volume() const override final { return m_meso_form_factor->volume(); }
+    double radialExtension() const override final { return m_meso_form_factor->radialExtension(); }
 
     double bottomZ(const IRotation& rotation) const override;
 
@@ -58,8 +58,8 @@ private:
     complex_t debyeWallerFactor(const kvector_t& q_i) const;
 
     Lattice m_lattice;
-    IFormFactor* mp_basis_form_factor;
-    IFormFactor* mp_meso_form_factor; //!< The outer shape of this mesocrystal
+    IFormFactor* m_basis_form_factor;
+    IFormFactor* m_meso_form_factor; //!< The outer shape of this mesocrystal
     double m_position_variance;
     double m_max_rec_length;
 };

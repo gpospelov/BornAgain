@@ -48,7 +48,7 @@ private:
     Crystal(IParticle* p_lattice_basis, const Lattice& lattice);
 
     Lattice m_lattice;
-    std::unique_ptr<IParticle> mp_lattice_basis;
+    std::unique_ptr<IParticle> m_lattice_basis;
     double m_position_variance;
 };
 

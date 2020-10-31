@@ -42,7 +42,7 @@ public:
     void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
 
 private:
-    const ProcessedLayout* mp_layout;
+    const ProcessedLayout* m_layout;
     std::unique_ptr<const IInterferenceFunctionStrategy> m_strategy;
     double m_surface_density;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;

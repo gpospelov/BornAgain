@@ -45,7 +45,7 @@ public:
 
 protected:
     SimulationOptions m_sim_options;
-    ProgressHandler* mp_progress;
+    ProgressHandler* m_progress;
     ComputationStatus m_status;
     std::unique_ptr<ProcessedSample> m_processed_sample;
 

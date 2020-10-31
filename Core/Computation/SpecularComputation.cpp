@@ -43,10 +43,10 @@ SpecularComputation::~SpecularComputation() = default;
 
 void SpecularComputation::runProtected()
 {
-    if (!mp_progress->alive())
+    if (!m_progress->alive())
         return;
 
-    m_computation_term->setProgressHandler(mp_progress);
+    m_computation_term->setProgressHandler(m_progress);
     auto& slices = m_processed_sample->averageSlices();
     for (auto it = m_begin_it; it != m_end_it; ++it)
         m_computation_term->computeIntensity(*it, slices);

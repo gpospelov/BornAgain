@@ -20,7 +20,7 @@
 
 IComputation::IComputation(const MultiLayer& sample, const SimulationOptions& options,
                            ProgressHandler& progress)
-    : m_sim_options(options), mp_progress(&progress),
+    : m_sim_options(options), m_progress(&progress),
       m_processed_sample(std::make_unique<ProcessedSample>(sample, options))
 {
 }

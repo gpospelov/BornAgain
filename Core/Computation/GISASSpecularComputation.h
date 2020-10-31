@@ -29,7 +29,7 @@ public:
     void compute(SimulationElement& elem) const;
 
 private:
-    const IFresnelMap* mp_fresnel_map;
+    const IFresnelMap* m_fresnel_map;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_GISASSPECULARCOMPUTATION_H

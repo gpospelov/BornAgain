@@ -31,7 +31,7 @@ public:
     void stepProgress();
 
 private:
-    ProgressHandler* mp_progress;
+    ProgressHandler* m_progress;
     const size_t m_interval;
     size_t m_count;
 };

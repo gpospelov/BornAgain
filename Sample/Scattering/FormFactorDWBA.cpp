@@ -27,9 +27,9 @@ FormFactorDWBA* FormFactorDWBA::clone() const
 {
     FormFactorDWBA* result = new FormFactorDWBA(*m_form_factor);
     std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
-        mp_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(mp_in_coeffs->clone()) : nullptr;
+        m_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_in_coeffs->clone()) : nullptr;
     std::unique_ptr<const ILayerRTCoefficients> p_out_coefs =
-        mp_out_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(mp_out_coeffs->clone())
+        m_out_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_out_coeffs->clone())
                       : nullptr;
     result->setSpecularInfo(std::move(p_in_coefs), std::move(p_out_coefs));
     return result;
@@ -39,13 +39,13 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
 {
     // Retrieve the two different incoming wavevectors in the layer
     cvector_t k_i_T = wavevectors.getKi();
-    k_i_T.setZ(-mp_in_coeffs->getScalarKz());
+    k_i_T.setZ(-m_in_coeffs->getScalarKz());
     cvector_t k_i_R = k_i_T;
     k_i_R.setZ(-k_i_T.z());
 
     // Retrieve the two different outgoing wavevector bins in the layer
     cvector_t k_f_T = wavevectors.getKf();
-    k_f_T.setZ(mp_out_coeffs->getScalarKz());
+    k_f_T.setZ(m_out_coeffs->getScalarKz());
     cvector_t k_f_R = k_f_T;
     k_f_R.setZ(-k_f_T.z());
 
@@ -57,10 +57,10 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
     WavevectorInfo k_RR(k_i_R, k_f_R, wavelength);
 
     // Get the four R,T coefficients
-    complex_t T_in = mp_in_coeffs->getScalarT();
-    complex_t R_in = mp_in_coeffs->getScalarR();
-    complex_t T_out = mp_out_coeffs->getScalarT();
-    complex_t R_out = mp_out_coeffs->getScalarR();
+    complex_t T_in = m_in_coeffs->getScalarT();
+    complex_t R_in = m_in_coeffs->getScalarR();
+    complex_t T_out = m_out_coeffs->getScalarT();
+    complex_t R_out = m_out_coeffs->getScalarR();
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface
@@ -85,6 +85,6 @@ double FormFactorDWBA::topZ(const IRotation& rotation) const
 void FormFactorDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
                                      std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
 {
-    mp_in_coeffs = std::move(p_in_coeffs);
-    mp_out_coeffs = std::move(p_out_coeffs);
+    m_in_coeffs = std::move(p_in_coeffs);
+    m_out_coeffs = std::move(p_out_coeffs);
 }

@@ -16,7 +16,7 @@
 #include "Core/Computation/ProgressHandler.h"
 
 DelayedProgressCounter::DelayedProgressCounter(ProgressHandler* p_progress, size_t interval)
-    : mp_progress(p_progress), m_interval(interval), m_count(0)
+    : m_progress(p_progress), m_interval(interval), m_count(0)
 {
 }
 
@@ -24,7 +24,7 @@ void DelayedProgressCounter::stepProgress()
 {
     ++m_count;
     if (m_count == m_interval) {
-        mp_progress->incrementDone(m_interval);
+        m_progress->incrementDone(m_interval);
         m_count = 0;
     }
 }

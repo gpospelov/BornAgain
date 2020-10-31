@@ -56,7 +56,7 @@ private:
         auto mf = static_cast<miser_integrand<T>>(p_cb->m_member_function);
         return (p_cb->m_object_pointer->*mf)(d_array, dim, p_cb->m_data);
     }
-    const T* mp_object;
+    const T* m_object;
     miser_integrand<T> m_member_function;
     size_t m_dim; //!< dimension of the integration
     gsl_monte_miser_state* m_gsl_workspace;
@@ -84,7 +84,7 @@ P_integrator_miser<T> make_integrator_miser(const T* object, miser_integrand<T> 
 template <class T>
 IntegratorMCMiser<T>::IntegratorMCMiser(const T* p_object, miser_integrand<T> p_member_function,
                                         size_t dim)
-    : mp_object(p_object), m_member_function(p_member_function),
+    : m_object(p_object), m_member_function(p_member_function),
       m_dim(dim), m_gsl_workspace{nullptr}
 {
     m_gsl_workspace = gsl_monte_miser_alloc(m_dim);
@@ -105,7 +105,7 @@ template <class T>
 double IntegratorMCMiser<T>::integrate(double* min_array, double* max_array, void* params,
                                        size_t nbr_points)
 {
-    CallBackHolder cb = {mp_object, m_member_function, params};
+    CallBackHolder cb = {m_object, m_member_function, params};
 
     gsl_monte_function f;
     f.f = StaticCallBack;

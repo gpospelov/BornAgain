@@ -62,8 +62,8 @@ private:
     //! The form factor for BA
     std::unique_ptr<IFormFactor> m_form_factor;
 
-    std::unique_ptr<const ILayerRTCoefficients> mp_in_coeffs;
-    std::unique_ptr<const ILayerRTCoefficients> mp_out_coeffs;
+    std::unique_ptr<const ILayerRTCoefficients> m_in_coeffs;
+    std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H

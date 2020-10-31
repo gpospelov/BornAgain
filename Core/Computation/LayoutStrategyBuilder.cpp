@@ -21,7 +21,7 @@
 
 LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout* p_layout,
                                              const SimulationOptions& sim_params, bool polarized)
-    : mp_layout(p_layout), m_sim_params(sim_params), m_polarized(polarized)
+    : m_layout(p_layout), m_sim_params(sim_params), m_polarized(polarized)
 {
     createStrategy();
 }
@@ -37,8 +37,8 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 void LayoutStrategyBuilder::createStrategy()
 {
-    const IInterferenceFunction* p_iff = mp_layout->interferenceFunction();
-    if (p_iff && mp_layout->numberOfSlices() > 1 && !p_iff->supportsMultilayer())
+    const IInterferenceFunction* p_iff = m_layout->interferenceFunction();
+    if (p_iff && m_layout->numberOfSlices() > 1 && !p_iff->supportsMultilayer())
         throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
                                  "interference function does not support multiple layers");
 
@@ -51,5 +51,5 @@ void LayoutStrategyBuilder::createStrategy()
     }
     if (!m_strategy)
         throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
-    m_strategy->init(mp_layout->formFactorList(), p_iff);
+    m_strategy->init(m_layout->formFactorList(), p_iff);
 }

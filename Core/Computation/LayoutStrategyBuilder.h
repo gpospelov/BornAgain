@@ -38,7 +38,7 @@ public:
 private:
     void createStrategy();
 
-    const ProcessedLayout* mp_layout;
+    const ProcessedLayout* m_layout;
     SimulationOptions m_sim_params;
     bool m_polarized; //!< polarized computation required?
     std::unique_ptr<IInterferenceFunctionStrategy> m_strategy;

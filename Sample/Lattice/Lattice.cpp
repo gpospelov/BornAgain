@@ -20,7 +20,7 @@
 #include <gsl/gsl_linalg.h>
 
 Lattice::Lattice()
-    : mp_selection_rule(nullptr), m_a({1.0, 0.0, 0.0}), m_b({0.0, 1.0, 0.0}), m_c({0.0, 0.0, 1.0}),
+    : m_selection_rule(nullptr), m_a({1.0, 0.0, 0.0}), m_b({0.0, 1.0, 0.0}), m_c({0.0, 0.0, 1.0}),
       m_cache_ok(false)
 {
     setName("Lattice");
@@ -29,7 +29,7 @@ Lattice::Lattice()
 }
 
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-    : mp_selection_rule(nullptr), m_a(a1), m_b(a2), m_c(a3), m_cache_ok(false)
+    : m_selection_rule(nullptr), m_a(a1), m_b(a2), m_c(a3), m_cache_ok(false)
 {
     setName("Lattice");
     initialize();
@@ -37,19 +37,19 @@ Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 }
 
 Lattice::Lattice(const Lattice& lattice)
-    : INode(), mp_selection_rule(nullptr), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c),
+    : INode(), m_selection_rule(nullptr), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c),
       m_cache_ok(false)
 {
     setName("Lattice");
     initialize();
-    if (lattice.mp_selection_rule)
-        setSelectionRule(*lattice.mp_selection_rule);
+    if (lattice.m_selection_rule)
+        setSelectionRule(*lattice.m_selection_rule);
     registerBasisVectors();
 }
 
 Lattice::~Lattice()
 {
-    delete mp_selection_rule;
+    delete m_selection_rule;
 }
 
 Lattice Lattice::createTransformedLattice(const Transform3D& transform) const
@@ -58,8 +58,8 @@ Lattice Lattice::createTransformedLattice(const Transform3D& transform) const
     kvector_t a2 = transform.transformed(m_b);
     kvector_t a3 = transform.transformed(m_c);
     Lattice result = {a1, a2, a3};
-    if (mp_selection_rule)
-        result.setSelectionRule(*mp_selection_rule);
+    if (m_selection_rule)
+        result.setSelectionRule(*m_selection_rule);
     return result;
 }
 
@@ -223,7 +223,7 @@ std::vector<kvector_t> Lattice::vectorsWithinRadius(const kvector_t input_vector
             for (int index_Z = -max_Z; index_Z <= max_Z; ++index_Z) {
                 ivector_t coords(index_X + nearest_coords[0], index_Y + nearest_coords[1],
                                  index_Z + nearest_coords[2]);
-                if (mp_selection_rule && !mp_selection_rule->coordinateSelected(coords))
+                if (m_selection_rule && !m_selection_rule->coordinateSelected(coords))
                     continue;
                 kvector_t latticePoint = coords[0] * v1 + coords[1] * v2 + coords[2] * v3;
                 if ((latticePoint - input_vector).mag() <= radius)
@@ -276,6 +276,6 @@ void Lattice::computeInverseVectors(const kvector_t v1, const kvector_t v2, cons
 
 void Lattice::setSelectionRule(const ISelectionRule& p_selection_rule)
 {
-    delete mp_selection_rule;
-    mp_selection_rule = p_selection_rule.clone();
+    delete m_selection_rule;
+    m_selection_rule = p_selection_rule.clone();
 }

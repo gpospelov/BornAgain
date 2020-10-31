@@ -12,31 +12,31 @@ protected:
     ParticleCoreShellTest();
     virtual ~ParticleCoreShellTest();
 
-    ParticleCoreShell* mp_coreshell;
+    ParticleCoreShell* m_coreshell;
 };
 
-ParticleCoreShellTest::ParticleCoreShellTest() : mp_coreshell(nullptr)
+ParticleCoreShellTest::ParticleCoreShellTest() : m_coreshell(nullptr)
 {
     Particle core;
     Particle shell;
     kvector_t position;
-    mp_coreshell = new ParticleCoreShell(shell, core, position);
+    m_coreshell = new ParticleCoreShell(shell, core, position);
 }
 
 ParticleCoreShellTest::~ParticleCoreShellTest()
 {
-    delete mp_coreshell;
+    delete m_coreshell;
 }
 
 TEST_F(ParticleCoreShellTest, InitialState)
 {
-    EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
-    EXPECT_EQ(nullptr, mp_coreshell->rotation());
+    EXPECT_EQ(nullptr, m_coreshell->createFormFactor());
+    EXPECT_EQ(nullptr, m_coreshell->rotation());
 }
 
 TEST_F(ParticleCoreShellTest, Clone)
 {
-    ParticleCoreShell* p_clone = mp_coreshell->clone();
+    ParticleCoreShell* p_clone = m_coreshell->clone();
     EXPECT_EQ(nullptr, p_clone->createFormFactor());
     EXPECT_EQ(nullptr, p_clone->rotation());
     delete p_clone;

@@ -33,7 +33,7 @@ public:
     void compute(DepthProbeElement& elem) const;
 
 private:
-    const ProcessedSample* mp_sample;
+    const ProcessedSample* m_sample;
     std::unique_ptr<DelayedProgressCounter> m_progress_counter;
 };
 

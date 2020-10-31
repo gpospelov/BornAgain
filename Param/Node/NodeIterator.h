@@ -101,17 +101,17 @@ public:
 protected:
     Strategy m_strategy;
     IteratorMemento m_memento_itor;
-    const INode* mp_root;
+    const INode* m_root;
 };
 
 template <class Strategy>
-inline NodeIterator<Strategy>::NodeIterator(const INode* root) : mp_root(root)
+inline NodeIterator<Strategy>::NodeIterator(const INode* root) : m_root(root)
 {
 }
 
 template <class Strategy> inline void NodeIterator<Strategy>::first()
 {
-    m_memento_itor = m_strategy.first(mp_root);
+    m_memento_itor = m_strategy.first(m_root);
 }
 
 template <class Strategy> inline void NodeIterator<Strategy>::next()

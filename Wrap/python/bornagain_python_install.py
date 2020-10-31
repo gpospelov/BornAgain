@@ -117,7 +117,7 @@ def get_application_dir():
     return app_dir
 
 
-def create_bundle_temp_dir():
+def create_bundle_tem_dir():
     """
     Creates temporary directory for BornAgain package bundle
     """
@@ -244,7 +244,7 @@ def create_bundle(app_dir):
     """
     Creates ready to install BornAgain Python bundle package
     """
-    bundle_dir = create_bundle_temp_dir()
+    bundle_dir = create_bundle_tem_dir()
     print('-'*80)
     print("Generating Python bundle in temporary '{0}'".format(bundle_dir))
     print('-'*80)

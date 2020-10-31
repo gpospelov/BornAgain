@@ -24,9 +24,9 @@ double ChiSquaredModule::residual(double a, double b, double weight)
     double value_simu = a;
     double value_real = b;
 
-    if (mp_intensity_function) {
-        value_simu = mp_intensity_function->evaluate(value_simu);
-        value_real = mp_intensity_function->evaluate(value_real);
+    if (m_intensity_function) {
+        value_simu = m_intensity_function->evaluate(value_simu);
+        value_real = m_intensity_function->evaluate(value_real);
     }
 
     double variance = m_variance_function->variance(value_real, value_simu);

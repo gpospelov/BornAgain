@@ -38,8 +38,8 @@ ParticleComposition* ParticleComposition::clone() const
     p_result->setAbundance(m_abundance);
     for (size_t index = 0; index < m_particles.size(); ++index)
         p_result->addParticle(*m_particles[index]);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
+    if (m_rotation)
+        p_result->setRotation(*m_rotation);
     p_result->setPosition(m_position);
     return p_result;
 }

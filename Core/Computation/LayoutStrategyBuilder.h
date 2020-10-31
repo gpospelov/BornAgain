@@ -41,7 +41,7 @@ private:
     const ProcessedLayout* mp_layout;
     SimulationOptions m_sim_params;
     bool m_polarized; //!< polarized computation required?
-    std::unique_ptr<IInterferenceFunctionStrategy> mP_strategy;
+    std::unique_ptr<IInterferenceFunctionStrategy> m_strategy;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_LAYOUTSTRATEGYBUILDER_H

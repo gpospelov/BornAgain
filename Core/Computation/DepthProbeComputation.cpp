@@ -28,7 +28,7 @@ DepthProbeComputation::DepthProbeComputation(const MultiLayer& multilayer,
                                              DepthProbeElementIter begin_it,
                                              DepthProbeElementIter end_it)
     : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it),
-      m_computation_term(mP_processed_sample.get())
+      m_computation_term(m_processed_sample.get())
 {
 }
 

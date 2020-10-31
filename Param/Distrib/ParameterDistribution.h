@@ -68,7 +68,7 @@ public:
 
 private:
     std::string m_name;
-    std::unique_ptr<IDistribution1D> mP_distribution;
+    std::unique_ptr<IDistribution1D> m_distribution;
     size_t m_nbr_samples;
     double m_sigma_factor;
     std::vector<std::string> m_linked_par_names;

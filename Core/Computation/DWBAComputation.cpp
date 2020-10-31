@@ -34,16 +34,16 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
                                  std::vector<SimulationElement>::iterator end_it)
     : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it)
 {
-    auto p_fresnel_map = mP_processed_sample->fresnelMap();
-    bool polarized = mP_processed_sample->containsMagneticMaterial();
-    for (const auto& layout : mP_processed_sample->layouts()) {
+    auto p_fresnel_map = m_processed_sample->fresnelMap();
+    bool polarized = m_processed_sample->containsMagneticMaterial();
+    for (const auto& layout : m_processed_sample->layouts()) {
         m_single_computation.addLayoutComputation(
             new ParticleLayoutComputation(&layout, m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
-    if (mP_processed_sample->hasRoughness())
+    if (m_processed_sample->hasRoughness())
         m_single_computation.setRoughnessComputation(
-            new RoughMultiLayerComputation(mP_processed_sample.get()));
+            new RoughMultiLayerComputation(m_processed_sample.get()));
     if (m_sim_options.includeSpecular())
         m_single_computation.setSpecularBinComputation(new GISASSpecularComputation(p_fresnel_map));
 }

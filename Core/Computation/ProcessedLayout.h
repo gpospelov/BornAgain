@@ -58,7 +58,7 @@ private:
     size_t m_n_slices;
     double m_surface_density;
     std::vector<FormFactorCoherentSum> m_formfactors;
-    std::unique_ptr<IInterferenceFunction> mP_iff;
+    std::unique_ptr<IInterferenceFunction> m_iff;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 

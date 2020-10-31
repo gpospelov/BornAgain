@@ -45,7 +45,7 @@ public:
 
 protected:
     Material m_material;
-    std::unique_ptr<IFormFactor> mP_form_factor;
+    std::unique_ptr<IFormFactor> m_form_factor;
 
 private:
     void initialize();

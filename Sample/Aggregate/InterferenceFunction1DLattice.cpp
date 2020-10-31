@@ -46,8 +46,8 @@ InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
     auto* ret = new InterferenceFunction1DLattice(m_length, m_xi);
     ret->setPositionVariance(m_position_var);
     ret->m_na = m_na;
-    if (mP_decay)
-        ret->setDecayFunction(*mP_decay);
+    if (m_decay)
+        ret->setDecayFunction(*m_decay);
     return ret;
 }
 
@@ -55,9 +55,9 @@ InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 //! @param decay: one-dimensional decay function in reciprocal space
 void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& decay)
 {
-    mP_decay.reset(decay.clone());
-    registerChild(mP_decay.get());
-    double decay_length = mP_decay->decayLength();
+    m_decay.reset(decay.clone());
+    registerChild(m_decay.get());
+    double decay_length = m_decay->decayLength();
     double qa_max = m_length * nmax / decay_length / M_TWOPI;
     m_na = static_cast<int>(std::lround(std::abs(qa_max) + 0.5));
     m_na = std::max(m_na, min_points);
@@ -65,12 +65,12 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& d
 
 std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
 {
-    return std::vector<const INode*>() << mP_decay;
+    return std::vector<const INode*>() << m_decay;
 }
 
 double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const
 {
-    ASSERT(mP_decay);
+    ASSERT(m_decay);
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();
@@ -89,7 +89,7 @@ double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const
 
     for (int i = -m_na; i < m_na + 1; ++i) {
         double qx = qx_frac + i * a_rec;
-        result += mP_decay->evaluate(qx);
+        result += m_decay->evaluate(qx);
     }
     return result / a;
 }

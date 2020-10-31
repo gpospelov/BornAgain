@@ -51,8 +51,8 @@ public:
 #endif
 
 protected:
-    std::unique_ptr<IFormFactor> mP_core;
-    std::unique_ptr<IFormFactor> mP_shell;
+    std::unique_ptr<IFormFactor> m_core;
+    std::unique_ptr<IFormFactor> m_shell;
 };
 
 #endif // BORNAGAIN_CORE_PARTICLE_FORMFACTORCORESHELL_H

@@ -50,7 +50,7 @@ protected:
     std::unique_ptr<ISpecularStrategy> m_Strategy;
 
 private:
-    std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
+    std::unique_ptr<DelayedProgressCounter> m_progress_counter;
 };
 
 //! Computes the specular scattering for a scalar sample

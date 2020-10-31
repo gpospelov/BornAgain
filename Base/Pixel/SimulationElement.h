@@ -94,7 +94,7 @@ private:
     kvector_t m_k_i;                         //!< cached value of k_i
     kvector_t m_mean_kf;                     //!< cached value of mean_kf
     double m_intensity;                      //!< simulated intensity for detector cell
-    std::unique_ptr<IPixel> mP_pixel;
+    std::unique_ptr<IPixel> m_pixel;
     bool m_is_specular;
 };
 

@@ -65,7 +65,7 @@ protected:
 
     //! IShape object, used to retrieve vertices (which may be approximate in the case
     //! of round shapes). For soft particles, this will be a hard mean shape.
-    std::unique_ptr<IShape> mP_shape;
+    std::unique_ptr<IShape> m_shape;
 
     //! Helper method for slicing
     SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,

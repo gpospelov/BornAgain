@@ -42,7 +42,7 @@ ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptio
       m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
-    mP_fresnel_map = CreateFresnelMap(sample, m_slices, options);
+    m_fresnel_map = CreateFresnelMap(sample, m_slices, options);
     initBFields();
     initLayouts(sample);
     initFresnelMap(options);
@@ -62,7 +62,7 @@ const std::vector<Slice>& ProcessedSample::slices() const
 
 const std::vector<Slice>& ProcessedSample::averageSlices() const
 {
-    return mP_fresnel_map->slices();
+    return m_fresnel_map->slices();
 }
 
 const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
@@ -72,7 +72,7 @@ const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
 
 const IFresnelMap* ProcessedSample::fresnelMap() const
 {
-    return mP_fresnel_map.get();
+    return m_fresnel_map.get();
 }
 
 double ProcessedSample::crossCorrelationLength() const
@@ -214,7 +214,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample)
             z_ref -= MultiLayerUtils::LayerThickness(sample, i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
-            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), m_polarized);
+            m_layouts.emplace_back(*p_layout, m_slices, z_ref, m_fresnel_map.get(), m_polarized);
             mergeRegionMap(m_layouts.back().regionMap());
         }
     }
@@ -269,9 +269,9 @@ void ProcessedSample::mergeRegionMap(
 void ProcessedSample::initFresnelMap(const SimulationOptions& sim_options)
 {
     if (sim_options.useAvgMaterials()) {
-        mP_fresnel_map->setSlices(CreateAverageMaterialSlices(m_slices, m_region_map));
+        m_fresnel_map->setSlices(CreateAverageMaterialSlices(m_slices, m_region_map));
     } else {
-        mP_fresnel_map->setSlices(m_slices);
+        m_fresnel_map->setSlices(m_slices);
     }
 }
 

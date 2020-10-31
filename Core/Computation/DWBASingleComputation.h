@@ -53,9 +53,9 @@ public:
 
 private:
     std::vector<std::unique_ptr<ParticleLayoutComputation>> m_layout_comps;
-    std::unique_ptr<RoughMultiLayerComputation> mP_roughness_comp;
-    std::unique_ptr<GISASSpecularComputation> mP_spec_comp;
-    std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
+    std::unique_ptr<RoughMultiLayerComputation> m_roughness_comp;
+    std::unique_ptr<GISASSpecularComputation> m_spec_comp;
+    std::unique_ptr<DelayedProgressCounter> m_progress_counter;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 

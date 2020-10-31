@@ -76,7 +76,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    std::unique_ptr<InterferenceFunction1DLattice> mP_iff;
+    std::unique_ptr<InterferenceFunction1DLattice> m_iff;
 };
 
 class Lattice2DPositionBuilder : public IPositionBuilder
@@ -89,7 +89,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    std::unique_ptr<InterferenceFunction2DLattice> mP_iff;
+    std::unique_ptr<InterferenceFunction2DLattice> m_iff;
 };
 
 class ParaCrystal2DPositionBuilder : public IPositionBuilder
@@ -102,7 +102,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    std::unique_ptr<InterferenceFunction2DParaCrystal> mP_iff;
+    std::unique_ptr<InterferenceFunction2DParaCrystal> m_iff;
 };
 
 class Finite2DLatticePositionBuilder : public IPositionBuilder
@@ -115,7 +115,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    std::unique_ptr<InterferenceFunctionFinite2DLattice> mP_iff;
+    std::unique_ptr<InterferenceFunctionFinite2DLattice> m_iff;
 };
 
 class RadialParacrystalPositionBuilder : public IPositionBuilder
@@ -128,7 +128,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    std::unique_ptr<InterferenceFunctionRadialParaCrystal> mP_iff;
+    std::unique_ptr<InterferenceFunctionRadialParaCrystal> m_iff;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_IPOSITIONBUILDER_H

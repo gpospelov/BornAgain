@@ -36,20 +36,20 @@ void OffSpecSimulation::prepareSimulation()
 size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
-    return Simulation2D::numberOfSimulationElements() * mP_alpha_i_axis->size();
+    return Simulation2D::numberOfSimulationElements() * m_alpha_i_axis->size();
 }
 
 SimulationResult OffSpecSimulation::result() const
 {
     auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
     OffSpecularConverter converter(instrument().detector2D(), instrument().getBeam(),
-                                   *mP_alpha_i_axis);
+                                   *m_alpha_i_axis);
     return SimulationResult(*data, converter);
 }
 
 void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_axis, double phi_i)
 {
-    mP_alpha_i_axis.reset(alpha_axis.clone());
+    m_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size() < 1)
         throw Exceptions::ClassInitializationException("OffSpecSimulation::prepareSimulation() "
                                                        "-> Error. Incoming alpha range size < 1.");
@@ -60,7 +60,7 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
 
 const IAxis* OffSpecSimulation::beamAxis() const
 {
-    return mP_alpha_i_axis.get();
+    return m_alpha_i_axis.get();
 }
 
 std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
@@ -76,13 +76,13 @@ std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
 size_t OffSpecSimulation::intensityMapSize() const
 {
     checkInitialization();
-    return mP_alpha_i_axis->size() * instrument().getDetectorAxis(1).size();
+    return m_alpha_i_axis->size() * instrument().getDetectorAxis(1).size();
 }
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : Simulation2D(other)
 {
-    if (other.mP_alpha_i_axis)
-        mP_alpha_i_axis.reset(other.mP_alpha_i_axis->clone());
+    if (other.m_alpha_i_axis)
+        m_alpha_i_axis.reset(other.m_alpha_i_axis->clone());
     m_intensity_map.copyFrom(other.m_intensity_map);
     initialize();
 }
@@ -94,9 +94,9 @@ void OffSpecSimulation::initSimulationElementVector()
     const double wavelength = beam.getWavelength();
     const double phi_i = beam.getPhi();
 
-    for (size_t i = 0; i < mP_alpha_i_axis->size(); ++i) {
+    for (size_t i = 0; i < m_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = mP_alpha_i_axis->getBin(i).getMidPoint();
+        double alpha_i = m_alpha_i_axis->getBin(i).getMidPoint();
         double total_alpha = alpha_i;
         beam.setCentralK(wavelength, total_alpha, phi_i);
         auto sim_elements_i = generateSimulationElements(beam);
@@ -131,15 +131,15 @@ void OffSpecSimulation::transferResultsToIntensityMap()
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::transferResultsToIntensityMap: "
             "intensity map size does not conform to number of calculated intensities");
-    for (size_t i = 0; i < mP_alpha_i_axis->size(); ++i)
+    for (size_t i = 0; i < m_alpha_i_axis->size(); ++i)
         transferDetectorImage(i);
 }
 
 void OffSpecSimulation::updateIntensityMap()
 {
     m_intensity_map.clear();
-    if (mP_alpha_i_axis)
-        m_intensity_map.addAxis(*mP_alpha_i_axis);
+    if (m_alpha_i_axis)
+        m_intensity_map.addAxis(*m_alpha_i_axis);
     size_t detector_dimension = instrument().getDetectorDimension();
     if (detector_dimension == 2)
         m_intensity_map.addAxis(instrument().getDetectorAxis(1));
@@ -163,7 +163,7 @@ void OffSpecSimulation::transferDetectorImage(size_t index)
 
 void OffSpecSimulation::checkInitialization() const
 {
-    if (!mP_alpha_i_axis || mP_alpha_i_axis->size() < 1)
+    if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
         throw Exceptions::ClassInitializationException("OffSpecSimulation::checkInitialization() "
                                                        "Incoming alpha range not configured.");
     if (instrument().getDetectorDimension() != 2)

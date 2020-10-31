@@ -48,7 +48,7 @@ private:
     void initRecRadius();
 
     Lattice m_lattice; // TODO ASAP unique_ptr as in otehr InterferenceFunction%s
-    std::unique_ptr<IPeakShape> mP_peak_shape;
+    std::unique_ptr<IPeakShape> m_peak_shape;
     double m_rec_radius; //!< radius in reciprocal space defining the nearest q vectors to use
 };
 

@@ -25,7 +25,7 @@
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lattice2D& lattice,
                                                                        unsigned size_1,
                                                                        unsigned size_2)
-    : IInterferenceFunction(0), m_integrate_xi(false), mP_substructure(nullptr), m_size_1(size_1),
+    : IInterferenceFunction(0), m_integrate_xi(false), m_substructure(nullptr), m_size_1(size_1),
       m_size_2(size_2)
 {
     setName("Interference2DSuperLattice");
@@ -51,22 +51,22 @@ InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() = defa
 
 InterferenceFunction2DSuperLattice* InterferenceFunction2DSuperLattice::clone() const
 {
-    auto* ret = new InterferenceFunction2DSuperLattice(*mP_lattice, m_size_1, m_size_2);
+    auto* ret = new InterferenceFunction2DSuperLattice(*m_lattice, m_size_1, m_size_2);
     ret->setPositionVariance(m_position_var);
-    ret->setSubstructureIFF(*mP_substructure);
+    ret->setSubstructureIFF(*m_substructure);
     ret->setIntegrationOverXi(integrationOverXi());
     return ret;
 }
 
 void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction& sub_iff)
 {
-    mP_substructure.reset(sub_iff.clone());
-    registerChild(mP_substructure.get());
+    m_substructure.reset(sub_iff.clone());
+    registerChild(m_substructure.get());
 }
 
 const IInterferenceFunction& InterferenceFunction2DSuperLattice::substructureIFF() const
 {
-    return *mP_substructure;
+    return *m_substructure;
 }
 
 //! Creates square lattice.
@@ -97,7 +97,7 @@ double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double ou
     m_qx = q.x();
     m_qy = q.y();
     if (!m_integrate_xi)
-        return interferenceForXi(mP_lattice->rotationAngle());
+        return interferenceForXi(m_lattice->rotationAngle());
     return RealIntegrator().integrate([&](double xi) -> double { return interferenceForXi(xi); },
                                       0.0, M_TWOPI)
            / M_TWOPI;
@@ -106,29 +106,29 @@ double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double ou
 void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
 {
     m_integrate_xi = integrate_xi;
-    mP_lattice->setRotationEnabled(!m_integrate_xi); // deregister Xi in the case of integration
+    m_lattice->setRotationEnabled(!m_integrate_xi); // deregister Xi in the case of integration
 }
 
 const Lattice2D& InterferenceFunction2DSuperLattice::lattice() const
 {
-    if (!mP_lattice)
+    if (!m_lattice)
         throw std::runtime_error("InterferenceFunctionFinite2DLattice::lattice() -> Error. "
                                  "No lattice defined.");
-    return *mP_lattice;
+    return *m_lattice;
 }
 
 std::vector<const INode*> InterferenceFunction2DSuperLattice::getChildren() const
 {
-    return std::vector<const INode*>() << mP_lattice << mP_substructure;
+    return std::vector<const INode*>() << m_lattice << m_substructure;
 }
 
 double InterferenceFunction2DSuperLattice::iff_without_dw(const kvector_t q) const
 {
     using MathFunctions::Laue;
 
-    const double a = mP_lattice->length1();
-    const double b = mP_lattice->length2();
-    const double xialpha = m_xi + mP_lattice->latticeAngle();
+    const double a = m_lattice->length1();
+    const double b = m_lattice->length2();
+    const double xialpha = m_xi + m_lattice->latticeAngle();
 
     const double qadiv2 = (q.x() * a * std::cos(m_xi) + q.y() * a * std::sin(m_xi)) / 2.0;
     const double qbdiv2 = (q.x() * b * std::cos(xialpha) + q.y() * b * std::sin(xialpha)) / 2.0;
@@ -138,8 +138,8 @@ double InterferenceFunction2DSuperLattice::iff_without_dw(const kvector_t q) con
 
 void InterferenceFunction2DSuperLattice::setLattice(const Lattice2D& lattice)
 {
-    mP_lattice.reset(lattice.clone());
-    registerChild(mP_lattice.get());
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
 }
 
 double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const
@@ -147,6 +147,6 @@ double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const
     m_xi = xi; // TODO ASAP don't set as collateratel effect; rm mutable
     const kvector_t q = kvector_t(m_qx, m_qy, 0.0);
     const double outer_iff = iff_no_inner(q, m_outer_iff);
-    const double delta_xi = xi - mP_lattice->rotationAngle();
-    return mP_substructure->evaluate(q.rotatedZ(-delta_xi), outer_iff);
+    const double delta_xi = xi - m_lattice->rotationAngle();
+    return m_substructure->evaluate(q.rotatedZ(-delta_xi), outer_iff);
 }

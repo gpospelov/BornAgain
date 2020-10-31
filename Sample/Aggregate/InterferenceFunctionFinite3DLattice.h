@@ -46,7 +46,7 @@ private:
     double iff_without_dw(const kvector_t q) const override final;
     void setLattice(const Lattice& lattice);
 
-    std::unique_ptr<Lattice> mP_lattice;
+    std::unique_ptr<Lattice> m_lattice;
     unsigned m_N_1, m_N_2, m_N_3; //!< Size of the finite lattice in lattice units
 };
 

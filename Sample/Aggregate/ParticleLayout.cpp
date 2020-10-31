@@ -34,7 +34,7 @@ bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 }
 } // namespace
 
-ParticleLayout::ParticleLayout() : mP_interference_function{nullptr}, m_total_particle_density{0.01}
+ParticleLayout::ParticleLayout() : m_interference_function{nullptr}, m_total_particle_density{0.01}
 {
     setName("ParticleLayout");
     registerParticleDensity();
@@ -42,7 +42,7 @@ ParticleLayout::ParticleLayout() : mP_interference_function{nullptr}, m_total_pa
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
-    : mP_interference_function{nullptr}, m_total_particle_density{0.01}
+    : m_interference_function{nullptr}, m_total_particle_density{0.01}
 {
     setName("ParticleLayout");
     addParticle(particle, abundance);
@@ -59,8 +59,8 @@ ParticleLayout* ParticleLayout::clone() const
     for (auto p_particle : m_particles)
         p_result->addAndRegisterAbstractParticle(p_particle->clone());
 
-    if (mP_interference_function)
-        p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+    if (m_interference_function)
+        p_result->setAndRegisterInterferenceFunction(m_interference_function->clone());
 
     p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
     p_result->setWeight(weight());
@@ -105,7 +105,7 @@ SafePointerVector<IParticle> ParticleLayout::particles() const
 
 const IInterferenceFunction* ParticleLayout::interferenceFunction() const
 {
-    return mP_interference_function.get();
+    return m_interference_function.get();
 }
 
 double ParticleLayout::getTotalAbundance() const
@@ -126,7 +126,7 @@ void ParticleLayout::setInterferenceFunction(const IInterferenceFunction& interf
 double ParticleLayout::totalParticleSurfaceDensity() const
 {
     double iff_density =
-        mP_interference_function ? mP_interference_function->getParticleDensity() : 0.0;
+        m_interference_function ? m_interference_function->getParticleDensity() : 0.0;
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
 }
 
@@ -142,7 +142,7 @@ std::vector<const INode*> ParticleLayout::getChildren() const
     std::vector<const INode*> result;
     for (auto particle : m_particles)
         result.push_back(particle);
-    result << mP_interference_function;
+    result << m_interference_function;
     return result;
 }
 
@@ -156,10 +156,10 @@ void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child)
 //! Sets interference function with simultaneous registration in parent class
 void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* child)
 {
-    mP_interference_function.reset(child);
+    m_interference_function.reset(child);
     registerChild(child);
 
-    if (particleDensityIsProvidedByInterference(*mP_interference_function))
+    if (particleDensityIsProvidedByInterference(*m_interference_function))
         registerParticleDensity(false);
     else
         registerParticleDensity(true);

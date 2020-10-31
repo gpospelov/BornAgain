@@ -35,7 +35,7 @@ ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>
     m_n_slices = slices.size();
     collectFormFactors(layout, slices, z_ref);
     if (auto p_iff = layout.interferenceFunction())
-        mP_iff.reset(p_iff->clone());
+        m_iff.reset(p_iff->clone());
 }
 
 ProcessedLayout::ProcessedLayout(ProcessedLayout&& other)
@@ -45,7 +45,7 @@ ProcessedLayout::ProcessedLayout(ProcessedLayout&& other)
     m_n_slices = other.m_n_slices;
     m_surface_density = other.m_surface_density;
     m_formfactors = std::move(other.m_formfactors);
-    mP_iff = std::move(other.mP_iff);
+    m_iff = std::move(other.m_iff);
     m_region_map = std::move(other.m_region_map);
 }
 
@@ -66,7 +66,7 @@ const std::vector<FormFactorCoherentSum>& ProcessedLayout::formFactorList() cons
 
 const IInterferenceFunction* ProcessedLayout::interferenceFunction() const
 {
-    return mP_iff.get();
+    return m_iff.get();
 }
 
 std::map<size_t, std::vector<HomogeneousRegion>> ProcessedLayout::regionMap() const

@@ -24,7 +24,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_la
     : mp_layout(p_layout)
 {
     LayoutStrategyBuilder builder(p_layout, options, polarized);
-    mP_strategy.reset(builder.releaseStrategy());
+    m_strategy.reset(builder.releaseStrategy());
     m_region_map = p_layout->regionMap();
     m_surface_density = p_layout->surfaceDensity();
 }
@@ -38,7 +38,7 @@ void ParticleLayoutComputation::compute(SimulationElement& elem) const
     if (n_layers > 1 && alpha_f < 0) {
         return; // zero for transmission with multilayers (n>1)
     } else {
-        elem.addIntensity(mP_strategy->evaluate(elem) * m_surface_density);
+        elem.addIntensity(m_strategy->evaluate(elem) * m_surface_density);
     }
 }
 

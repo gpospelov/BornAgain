@@ -81,7 +81,7 @@ private:
 
     void initialize();
 
-    std::unique_ptr<IAxis> mP_alpha_i_axis;
+    std::unique_ptr<IAxis> m_alpha_i_axis;
     OutputData<double> m_intensity_map;
 };
 

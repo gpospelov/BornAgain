@@ -40,16 +40,16 @@ Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors)
 
 double IFormFactorBorn::bottomZ(const IRotation& rotation) const
 {
-    if (!mP_shape)
+    if (!m_shape)
         return 0;
-    return BottomZ(mP_shape->vertices(), rotation);
+    return BottomZ(m_shape->vertices(), rotation);
 }
 
 double IFormFactorBorn::topZ(const IRotation& rotation) const
 {
-    if (!mP_shape)
+    if (!m_shape)
         return 0;
-    return TopZ(mP_shape->vertices(), rotation);
+    return TopZ(m_shape->vertices(), rotation);
 }
 
 bool IFormFactorBorn::canSliceAnalytically(const IRotation& rot) const

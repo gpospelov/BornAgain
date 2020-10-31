@@ -32,8 +32,8 @@ MesoCrystal* MesoCrystal::clone() const
     MesoCrystal* p_result =
         new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
     p_result->setAbundance(m_abundance);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
+    if (m_rotation)
+        p_result->setRotation(*m_rotation);
     p_result->setPosition(m_position);
     return p_result;
 }
@@ -48,8 +48,8 @@ SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
     if (!mp_particle_structure || !mp_meso_form_factor)
         return {};
     std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
-    if (mP_rotation)
-        P_rotation.reset(mP_rotation->clone());
+    if (m_rotation)
+        P_rotation.reset(m_rotation->clone());
     std::unique_ptr<IFormFactor> P_temp_ff(
         mp_meso_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     std::unique_ptr<IFormFactor> P_total_ff(
@@ -59,7 +59,7 @@ SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
     for (auto& region : regions)
         region.m_volume *= meso_volume;
     SlicedParticle result;
-    result.mP_slicedff = std::move(P_total_ff);
+    result.m_slicedff = std::move(P_total_ff);
     result.m_regions = regions;
     return result;
 }

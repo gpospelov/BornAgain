@@ -66,6 +66,6 @@ IFormFactor* FormFactorFullSpheroid::sliceFormFactor(ZLimits limits, const IRota
 
 void FormFactorFullSpheroid::onChange()
 {
-    mP_shape =
+    m_shape =
         std::make_unique<TruncatedEllipsoid>(m_radius, m_radius, m_height / 2.0, m_height, 0.0);
 }

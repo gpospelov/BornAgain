@@ -31,7 +31,7 @@ LayoutStrategyBuilder::~LayoutStrategyBuilder() = default;
 
 IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 {
-    return mP_strategy.release();
+    return m_strategy.release();
 }
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
@@ -45,11 +45,11 @@ void LayoutStrategyBuilder::createStrategy()
     auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
     if (p_radial_para && p_radial_para->kappa() > 0.0) {
         double kappa = p_radial_para->kappa();
-        mP_strategy = std::make_unique<SSCApproximationStrategy>(m_sim_params, kappa, m_polarized);
+        m_strategy = std::make_unique<SSCApproximationStrategy>(m_sim_params, kappa, m_polarized);
     } else {
-        mP_strategy = std::make_unique<DecouplingApproximationStrategy>(m_sim_params, m_polarized);
+        m_strategy = std::make_unique<DecouplingApproximationStrategy>(m_sim_params, m_polarized);
     }
-    if (!mP_strategy)
+    if (!m_strategy)
         throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
-    mP_strategy->init(mp_layout->formFactorList(), p_iff);
+    m_strategy->init(mp_layout->formFactorList(), p_iff);
 }

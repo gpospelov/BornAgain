@@ -32,8 +32,8 @@ ParticleCoreShell* ParticleCoreShell::clone() const
 {
     ParticleCoreShell* p_result = new ParticleCoreShell(*mp_shell, *mp_core);
     p_result->setAbundance(m_abundance);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
+    if (m_rotation)
+        p_result->setRotation(*m_rotation);
     p_result->setPosition(m_position);
     return p_result;
 }
@@ -43,8 +43,8 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     if (!mp_core || !mp_shell)
         return {};
     std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
-    if (mP_rotation)
-        P_rotation.reset(mP_rotation->clone());
+    if (m_rotation)
+        P_rotation.reset(m_rotation->clone());
 
     // core
     std::unique_ptr<Particle> P_core(mp_core->clone());
@@ -57,13 +57,13 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     P_shell->rotate(*P_rotation);
     P_shell->translate(m_position);
     auto sliced_shell = P_shell->createSlicedParticle(limits);
-    if (!sliced_shell.mP_slicedff)
+    if (!sliced_shell.m_slicedff)
         return {};
 
     SlicedParticle result;
     // if core out of limits, return sliced shell
-    if (!sliced_core.mP_slicedff) {
-        result.mP_slicedff.reset(sliced_shell.mP_slicedff.release());
+    if (!sliced_core.m_slicedff) {
+        result.m_slicedff.reset(sliced_shell.m_slicedff.release());
         result.m_regions.push_back(sliced_shell.m_regions.back());
         return result;
     }
@@ -72,12 +72,12 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     if (sliced_shell.m_regions.size() != 1)
         return {};
     auto shell_material = sliced_shell.m_regions[0].m_material;
-    sliced_core.mP_slicedff->setAmbientMaterial(shell_material);
+    sliced_core.m_slicedff->setAmbientMaterial(shell_material);
 
     // construct sliced particle
     sliced_shell.m_regions.back().m_volume -= sliced_core.m_regions.back().m_volume;
-    result.mP_slicedff.reset(new FormFactorCoreShell(sliced_core.mP_slicedff.release(),
-                                                     sliced_shell.mP_slicedff.release()));
+    result.m_slicedff.reset(new FormFactorCoreShell(sliced_core.m_slicedff.release(),
+                                                     sliced_shell.m_slicedff.release()));
     result.m_regions.push_back(sliced_core.m_regions.back());
     result.m_regions.push_back(sliced_shell.m_regions.back());
 

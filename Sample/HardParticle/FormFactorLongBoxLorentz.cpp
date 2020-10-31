@@ -54,5 +54,5 @@ IFormFactor* FormFactorLongBoxLorentz::sliceFormFactor(ZLimits limits, const IRo
 
 void FormFactorLongBoxLorentz::onChange()
 {
-    mP_shape = std::make_unique<Box>(m_length, m_width, m_height);
+    m_shape = std::make_unique<Box>(m_length, m_width, m_height);
 }

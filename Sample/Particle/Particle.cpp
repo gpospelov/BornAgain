@@ -28,28 +28,28 @@ Particle::Particle(Material material) : m_material(std::move(material))
 }
 
 Particle::Particle(Material material, const IFormFactor& form_factor)
-    : m_material(std::move(material)), mP_form_factor(form_factor.clone())
+    : m_material(std::move(material)), m_form_factor(form_factor.clone())
 {
     initialize();
-    registerChild(mP_form_factor.get());
+    registerChild(m_form_factor.get());
 }
 
 Particle::Particle(Material material, const IFormFactor& form_factor, const IRotation& rotation)
-    : m_material(std::move(material)), mP_form_factor(form_factor.clone())
+    : m_material(std::move(material)), m_form_factor(form_factor.clone())
 {
     initialize();
     setRotation(rotation);
-    registerChild(mP_form_factor.get());
+    registerChild(m_form_factor.get());
 }
 
 Particle* Particle::clone() const
 {
     Particle* p_result = new Particle(m_material);
     p_result->setAbundance(m_abundance);
-    if (mP_form_factor)
-        p_result->setFormFactor(*mP_form_factor);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
+    if (m_form_factor)
+        p_result->setFormFactor(*m_form_factor);
+    if (m_rotation)
+        p_result->setRotation(*m_rotation);
     p_result->setPosition(m_position);
 
     return p_result;
@@ -57,13 +57,13 @@ Particle* Particle::clone() const
 
 SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
 {
-    if (!mP_form_factor)
+    if (!m_form_factor)
         return {};
     std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
-    if (mP_rotation)
-        P_rotation.reset(mP_rotation->clone());
+    if (m_rotation)
+        P_rotation.reset(m_rotation->clone());
     std::unique_ptr<IFormFactor> P_temp_ff(
-        mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+        m_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     if (!P_temp_ff)
         return {};
     std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_temp_ff));
@@ -72,7 +72,7 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
     P_ff->setMaterial(transformed_material);
     SlicedParticle result;
     result.m_regions.push_back({volume, transformed_material});
-    result.mP_slicedff = std::move(P_ff);
+    result.m_slicedff = std::move(P_ff);
     return result;
 }
 
@@ -83,15 +83,15 @@ void Particle::setMaterial(Material material)
 
 void Particle::setFormFactor(const IFormFactor& form_factor)
 {
-    if (&form_factor != mP_form_factor.get()) {
-        mP_form_factor.reset(form_factor.clone());
-        registerChild(mP_form_factor.get());
+    if (&form_factor != m_form_factor.get()) {
+        m_form_factor.reset(form_factor.clone());
+        registerChild(m_form_factor.get());
     }
 }
 
 std::vector<const INode*> Particle::getChildren() const
 {
-    return std::vector<const INode*>() << IParticle::getChildren() << mP_form_factor;
+    return std::vector<const INode*>() << IParticle::getChildren() << m_form_factor;
 }
 
 void Particle::initialize()

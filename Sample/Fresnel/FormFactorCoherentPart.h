@@ -45,7 +45,7 @@ public:
     double radialExtension() const;
 
 private:
-    std::unique_ptr<IFormFactor> mP_ff;
+    std::unique_ptr<IFormFactor> m_ff;
     const IFresnelMap* mp_fresnel_map;
     size_t m_layer_index;
 };

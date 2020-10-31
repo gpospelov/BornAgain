@@ -29,7 +29,7 @@ DepthProbeComputationTerm::~DepthProbeComputationTerm() = default;
 
 void DepthProbeComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
+    m_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
 void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
@@ -68,7 +68,7 @@ void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
         }
         elem.setIntensities(std::move(intensities));
     }
-    if (mP_progress_counter) {
-        mP_progress_counter->stepProgress();
+    if (m_progress_counter) {
+        m_progress_counter->stepProgress();
     }
 }

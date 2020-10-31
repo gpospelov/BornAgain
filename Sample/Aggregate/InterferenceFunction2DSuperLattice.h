@@ -60,8 +60,8 @@ private:
     double interferenceForXi(double xi) const;
 
     bool m_integrate_xi; //!< Integrate over the orientation xi
-    std::unique_ptr<Lattice2D> mP_lattice;
-    std::unique_ptr<IInterferenceFunction> mP_substructure; //!< IFF of substructure
+    std::unique_ptr<Lattice2D> m_lattice;
+    std::unique_ptr<IInterferenceFunction> m_substructure; //!< IFF of substructure
     unsigned m_size_1, m_size_2; //!< Size of the finite lattice in lattice units
     mutable double m_outer_iff;
     mutable double m_qx;

@@ -23,7 +23,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
     : IParameterized("ParameterDistribution"), m_name(par_name), m_nbr_samples(nbr_samples),
       m_sigma_factor(sigma_factor), m_limits(limits), m_xmin(1.0), m_xmax(-1.0)
 {
-    mP_distribution.reset(distribution.clone());
+    m_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0)
         throw Exceptions::RuntimeErrorException(
             "ParameterDistribution::ParameterDistribution() -> Error."
@@ -40,7 +40,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
     : IParameterized("ParameterDistribution"), m_name(par_name), m_nbr_samples(nbr_samples),
       m_sigma_factor(0.0), m_xmin(xmin), m_xmax(xmax)
 {
-    mP_distribution.reset(distribution.clone());
+    m_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0) {
         throw Exceptions::RuntimeErrorException(
             "ParameterDistribution::ParameterDistribution() -> Error."
@@ -64,7 +64,7 @@ ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
       m_linked_par_names(other.m_linked_par_names), m_limits(other.m_limits), m_xmin(other.m_xmin),
       m_xmax(other.m_xmax)
 {
-    mP_distribution.reset(other.mP_distribution->clone());
+    m_distribution.reset(other.m_distribution->clone());
 }
 
 ParameterDistribution::~ParameterDistribution() = default;
@@ -75,7 +75,7 @@ ParameterDistribution& ParameterDistribution::operator=(const ParameterDistribut
         this->m_name = other.m_name;
         m_nbr_samples = other.m_nbr_samples;
         m_sigma_factor = other.m_sigma_factor;
-        mP_distribution.reset(other.mP_distribution->clone());
+        m_distribution.reset(other.m_distribution->clone());
         m_linked_par_names = other.m_linked_par_names;
         m_limits = other.m_limits;
         m_xmin = other.m_xmin;
@@ -92,7 +92,7 @@ ParameterDistribution& ParameterDistribution::linkParameter(std::string par_name
 
 size_t ParameterDistribution::getNbrSamples() const
 {
-    if (mP_distribution && mP_distribution->isDelta())
+    if (m_distribution && m_distribution->isDelta())
         return 1;
     return m_nbr_samples;
 }
@@ -100,17 +100,17 @@ size_t ParameterDistribution::getNbrSamples() const
 std::vector<ParameterSample> ParameterDistribution::generateSamples() const
 {
     if (m_xmin < m_xmax)
-        return mP_distribution->equidistantSamplesInRange(m_nbr_samples, m_xmin, m_xmax);
+        return m_distribution->equidistantSamplesInRange(m_nbr_samples, m_xmin, m_xmax);
     else
-        return mP_distribution->equidistantSamples(m_nbr_samples, m_sigma_factor, m_limits);
+        return m_distribution->equidistantSamples(m_nbr_samples, m_sigma_factor, m_limits);
 }
 
 const IDistribution1D* ParameterDistribution::getDistribution() const
 {
-    return mP_distribution.get();
+    return m_distribution.get();
 }
 
 IDistribution1D* ParameterDistribution::getDistribution()
 {
-    return mP_distribution.get();
+    return m_distribution.get();
 }

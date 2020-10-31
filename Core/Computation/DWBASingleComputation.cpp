@@ -26,7 +26,7 @@ DWBASingleComputation::DWBASingleComputation(DWBASingleComputation&&) = default;
 
 void DWBASingleComputation::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
+    m_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
 void DWBASingleComputation::addLayoutComputation(ParticleLayoutComputation* p_layout_comp)
@@ -37,12 +37,12 @@ void DWBASingleComputation::addLayoutComputation(ParticleLayoutComputation* p_la
 
 void DWBASingleComputation::setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp)
 {
-    mP_roughness_comp.reset(p_roughness_comp);
+    m_roughness_comp.reset(p_roughness_comp);
 }
 
 void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputation* p_spec_comp)
 {
-    mP_spec_comp.reset(p_spec_comp);
+    m_spec_comp.reset(p_spec_comp);
 }
 
 void DWBASingleComputation::compute(SimulationElement& elem) const
@@ -50,14 +50,14 @@ void DWBASingleComputation::compute(SimulationElement& elem) const
     for (auto& layout_comp : m_layout_comps) {
         layout_comp->compute(elem);
     }
-    if (mP_roughness_comp) { // also check absence of matrix RT coefficients
-        mP_roughness_comp->compute(elem);
+    if (m_roughness_comp) { // also check absence of matrix RT coefficients
+        m_roughness_comp->compute(elem);
     }
-    if (mP_spec_comp) { // also check absence of matrix RT coefficients
-        mP_spec_comp->compute(elem);
+    if (m_spec_comp) { // also check absence of matrix RT coefficients
+        m_spec_comp->compute(elem);
     }
-    if (mP_progress_counter) {
-        mP_progress_counter->stepProgress();
+    if (m_progress_counter) {
+        m_progress_counter->stepProgress();
     }
 }
 

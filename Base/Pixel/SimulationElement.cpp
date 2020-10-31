@@ -16,11 +16,15 @@
 #include "Base/Pixel/IPixel.h"
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     std::unique_ptr<IPixel> pixel)
-    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i),
+                                     std::unique_ptr<IPixel> pixel,
+                                     const Eigen::Matrix2cd& beam_polarization,
+                                     const Eigen::Matrix2cd& analyzer,
+                                     bool isSpecular_)
+    : m_polarization(beam_polarization, analyzer),
+      m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i),
       m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i)),
       m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength)), m_intensity(0.0), m_pixel(std::move(pixel)),
-      m_is_specular(false)
+      m_is_specular(isSpecular_)
 {
 }
 

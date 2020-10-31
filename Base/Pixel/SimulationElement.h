@@ -28,8 +28,12 @@ class IPixel;
 class SimulationElement
 {
 public:
+    SimulationElement() = delete;
     SimulationElement(double wavelength, double alpha_i, double phi_i,
-                      std::unique_ptr<IPixel> pixel);
+                      std::unique_ptr<IPixel> pixel,
+                      const Eigen::Matrix2cd& beam_polarization,
+                      const Eigen::Matrix2cd& analyzer,
+                      bool isSpecular_);
     SimulationElement(const SimulationElement& other);
     SimulationElement& operator=(const SimulationElement& other);
 
@@ -40,18 +44,6 @@ public:
     SimulationElement(SimulationElement&& other) noexcept;
 
     ~SimulationElement();
-
-    //! Sets the polarization density matrix (in spin basis along z-axis)
-    void setPolarization(const Eigen::Matrix2cd& polarization)
-    {
-        m_polarization.setPolarization(polarization);
-    }
-
-    //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator)
-    {
-        m_polarization.setAnalyzerOperator(polarization_operator);
-    }
 
     //! Returns assigned PolarizationHandler
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }
@@ -75,9 +67,6 @@ public:
 
     double getAlpha(double x, double y) const;
     double getPhi(double x, double y) const;
-
-    //! Set specularity indication on/off.
-    void setSpecular(bool is_specular) { m_is_specular = is_specular; }
 
     //! Tells if simulation element corresponds to a specular peak
     bool isSpecular() const { return m_is_specular; }

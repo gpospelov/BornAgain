@@ -68,7 +68,7 @@ IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
     return m_integrator->integrate(min_array, max_array, (void*)&sim_element,
-                                    m_options.getMcPoints());
+                                   m_options.getMcPoints());
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fractions, size_t,

@@ -77,7 +77,7 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     // construct sliced particle
     sliced_shell.m_regions.back().m_volume -= sliced_core.m_regions.back().m_volume;
     result.m_slicedff.reset(new FormFactorCoreShell(sliced_core.m_slicedff.release(),
-                                                     sliced_shell.m_slicedff.release()));
+                                                    sliced_shell.m_slicedff.release()));
     result.m_regions.push_back(sliced_core.m_regions.back());
     result.m_regions.push_back(sliced_shell.m_regions.back());
 

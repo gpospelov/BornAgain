@@ -44,8 +44,7 @@ extractValues(std::vector<std::vector<ParameterSample>> samples,
 } // namespace
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
-    : m_wl(wl),
-      m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle))),
+    : m_wl(wl), m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle))),
       m_wl_resolution(ScanResolution::scanEmptyResolution()),
       m_inc_resolution(ScanResolution::scanEmptyResolution())
 {

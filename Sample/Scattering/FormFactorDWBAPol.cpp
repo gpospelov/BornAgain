@@ -39,8 +39,7 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
     std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
         m_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_in_coeffs->clone()) : nullptr;
     std::unique_ptr<const ILayerRTCoefficients> p_out_coefs =
-        m_out_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_out_coeffs->clone())
-                      : nullptr;
+        m_out_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_out_coeffs->clone()) : nullptr;
     p_result->setSpecularInfo(std::move(p_in_coefs), std::move(p_out_coefs));
     return p_result;
 }

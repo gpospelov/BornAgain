@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/InstrumentItems.h"
+#include "Core/Scan/UnitConverter1D.h"
 #include "Device/Detector/IDetector2D.h"
 #include "Device/Instrument/Instrument.h"
-#include "Core/Scan/UnitConverter1D.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DetectorItems.h"

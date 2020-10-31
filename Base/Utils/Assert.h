@@ -20,12 +20,14 @@
 
 // For an alternative implementation that calls qFatal, see Base/Utils/Assert.h < 29oct20.
 
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
-#define ASSERT(condition) if (!(condition)) { \
-    std::stringstream msg; \
-    msg <<  "Assertion " << (#condition) << " failed in " << __FILE__ << ", line " << __LINE__; \
-    throw std::runtime_error(msg.str()); }
+#define ASSERT(condition)                                                                          \
+    if (!(condition)) {                                                                            \
+        std::stringstream msg;                                                                     \
+        msg << "Assertion " << (#condition) << " failed in " << __FILE__ << ", line " << __LINE__; \
+        throw std::runtime_error(msg.str());                                                       \
+    }
 
 #endif // BORNAGAIN_BASE_UTILS_ASSERT_H

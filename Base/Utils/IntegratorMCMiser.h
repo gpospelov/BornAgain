@@ -84,8 +84,7 @@ P_integrator_miser<T> make_integrator_miser(const T* object, miser_integrand<T> 
 template <class T>
 IntegratorMCMiser<T>::IntegratorMCMiser(const T* p_object, miser_integrand<T> p_member_function,
                                         size_t dim)
-    : m_object(p_object), m_member_function(p_member_function),
-      m_dim(dim), m_gsl_workspace{nullptr}
+    : m_object(p_object), m_member_function(p_member_function), m_dim(dim), m_gsl_workspace{nullptr}
 {
     m_gsl_workspace = gsl_monte_miser_alloc(m_dim);
 

@@ -16,10 +16,10 @@
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Device/Beam/Beam.h"
-#include "Device/Data/OutputData.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
+#include "Device/Beam/Beam.h"
+#include "Device/Data/OutputData.h"
 #include "Device/Unit/AxisNames.h"
 
 namespace

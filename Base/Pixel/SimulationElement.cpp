@@ -44,8 +44,8 @@ SimulationElement::SimulationElement(const SimulationElement& other, double x, d
 SimulationElement::SimulationElement(SimulationElement&& other) noexcept
     : m_polarization(std::move(other.m_polarization)), m_wavelength(other.m_wavelength),
       m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(std::move(other.m_k_i)),
-      m_mean_kf(other.m_mean_kf), m_intensity(other.m_intensity),
-      m_pixel(std::move(other.m_pixel)), m_is_specular(other.isSpecular())
+      m_mean_kf(other.m_mean_kf), m_intensity(other.m_intensity), m_pixel(std::move(other.m_pixel)),
+      m_is_specular(other.isSpecular())
 {
 }
 

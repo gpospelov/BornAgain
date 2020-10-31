@@ -28,8 +28,7 @@ QSpecScan::QSpecScan(std::vector<double> qs_nm)
 }
 
 QSpecScan::QSpecScan(const IAxis& qs_nm)
-    : m_qs(qs_nm.clone()),
-      m_resolution(ScanResolution::scanEmptyResolution())
+    : m_qs(qs_nm.clone()), m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }

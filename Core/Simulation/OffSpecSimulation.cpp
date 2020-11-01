@@ -99,9 +99,9 @@ void OffSpecSimulation::initSimulationElementVector()
         double alpha_i = m_alpha_i_axis->getBin(i).getMidPoint();
         double total_alpha = alpha_i;
         beam.setCentralK(wavelength, total_alpha, phi_i);
-        const std::vector<SimulationElement> sim_elements_i = generateSimulationElements(beam);
-        m_sim_elements.insert(m_sim_elements.end(), std::make_move_iterator(sim_elements_i.begin()),
-                              std::make_move_iterator(sim_elements_i.end()));
+        std::vector<SimulationElement> sim_elements_i = generateSimulationElements(beam);
+        for (auto ele: sim_elements_i)
+            m_sim_elements.emplace_back(ele);
     }
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);

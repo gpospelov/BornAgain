@@ -36,9 +36,9 @@ SimulationElement::SimulationElement(const SimulationElement& other)
     m_pixel.reset(other.m_pixel->clone());
 }
 
-SimulationElement::SimulationElement(SimulationElement&&) noexcept = default;
+SimulationElement::SimulationElement(SimulationElement&&) = default;
 
-SimulationElement::~SimulationElement() noexcept = default;
+SimulationElement::~SimulationElement() = default;
 
 SimulationElement SimulationElement::pointElement(double x, double y) const
 {

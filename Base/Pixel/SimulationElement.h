@@ -35,10 +35,9 @@ public:
                       const Eigen::Matrix2cd& analyzer,
                       bool isSpecular_);
     SimulationElement(const SimulationElement& other);
-    SimulationElement(SimulationElement&& other) noexcept;
+    SimulationElement(SimulationElement&& other);
     SimulationElement& operator=(const SimulationElement&) = delete;
-
-    ~SimulationElement() noexcept;
+    ~SimulationElement();
 
     //! Returns copy of this SimulationElement with k_f given by in-pixel coordinate x,y.
     SimulationElement pointElement(double x, double y) const;

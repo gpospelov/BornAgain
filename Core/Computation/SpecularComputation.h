@@ -41,8 +41,8 @@ private:
     void runProtected() override;
 
     //! these iterators define the span of detector bins this simulation will work on
-    SpecularElementIter m_begin_it, m_end_it;
-    std::unique_ptr<SpecularComputationTerm> m_computation_term;
+    const SpecularElementIter m_begin_it, m_end_it;
+    mutable std::unique_ptr<SpecularComputationTerm> m_computation_term;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATION_H

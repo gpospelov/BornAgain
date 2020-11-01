@@ -23,31 +23,22 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
     : m_polarization(beam_polarization, analyzer),
       m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i),
       m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i)),
-      m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength)), m_intensity(0.0), m_pixel(std::move(pixel)),
-      m_is_specular(isSpecular_)
+      m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength)), m_pixel(std::move(pixel)),
+      m_is_specular(isSpecular_), m_intensity(0.0)
 {
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other)
     : m_polarization(other.m_polarization), m_wavelength(other.m_wavelength),
       m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(other.m_k_i),
-      m_mean_kf(other.m_mean_kf), m_intensity(other.m_intensity), m_is_specular(other.isSpecular())
+      m_mean_kf(other.m_mean_kf), m_is_specular(other.isSpecular()), m_intensity(other.m_intensity)
 {
     m_pixel.reset(other.m_pixel->clone());
 }
 
-SimulationElement::SimulationElement(SimulationElement&& other) noexcept = default;
+SimulationElement::SimulationElement(SimulationElement&&) noexcept = default;
 
 SimulationElement::~SimulationElement() noexcept = default;
-
-SimulationElement& SimulationElement::operator=(const SimulationElement& other)
-{
-    if (this != &other) {
-        SimulationElement tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
-}
 
 SimulationElement SimulationElement::pointElement(double x, double y) const
 {
@@ -84,19 +75,6 @@ kvector_t SimulationElement::getMeanQ() const
 kvector_t SimulationElement::getQ(double x, double y) const
 {
     return getKi() - m_pixel->getK(x, y, m_wavelength);
-}
-
-void SimulationElement::swapContent(SimulationElement& other)
-{
-    m_polarization.swapContent(other.m_polarization);
-    std::swap(m_wavelength, other.m_wavelength);
-    std::swap(m_alpha_i, other.m_alpha_i);
-    std::swap(m_phi_i, other.m_phi_i);
-    std::swap(m_k_i, other.m_k_i);
-    std::swap(m_mean_kf, other.m_mean_kf);
-    std::swap(m_intensity, other.m_intensity);
-    std::swap(m_pixel, other.m_pixel);
-    std::swap(m_is_specular, other.m_is_specular);
 }
 
 double SimulationElement::getAlpha(double x, double y) const

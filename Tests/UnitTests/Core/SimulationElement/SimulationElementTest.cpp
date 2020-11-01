@@ -73,49 +73,6 @@ TEST_F(SimulationElementTest, copyConstructor)
     EXPECT_EQ(orig->isSpecular(), element.isSpecular());
 }
 
-TEST_F(SimulationElementTest, assignmentOperator)
-{
-    auto orig = createElement();
-    SimulationElement element(1.0, 1.0, 1.0, createPixel(), {}, {}, false);
-    element = *orig;
-
-    EXPECT_EQ(orig->getWavelength(), element.getWavelength());
-    EXPECT_EQ(orig->getAlphaI(), element.getAlphaI());
-    EXPECT_EQ(orig->getPhiI(), element.getPhiI());
-    EXPECT_EQ(orig->getAlphaMean(), element.getAlphaMean());
-    EXPECT_EQ(orig->getPhiMean(), element.getPhiMean());
-    EXPECT_EQ(orig->getIntensity(), element.getIntensity());
-    EXPECT_EQ(orig->getKi(), element.getKi());
-    EXPECT_EQ(orig->getMeanKf(), element.getMeanKf());
-    EXPECT_EQ(orig->getQ(0.5, 0.5), element.getQ(0.5, 0.5));
-    EXPECT_EQ(orig->getIntegrationFactor(0.5, 0.5), element.getIntegrationFactor(0.5, 0.5));
-    EXPECT_EQ(orig->getSolidAngle(), element.getSolidAngle());
-    EXPECT_EQ(orig->getAlpha(0.5, 0.5), element.getAlpha(0.5, 0.5));
-    EXPECT_EQ(orig->getPhi(0.5, 0.5), element.getPhi(0.5, 0.5));
-}
-
-TEST_F(SimulationElementTest, moveAssignment)
-{
-    SimulationElement for_move(1.0, 2.0, 3.0, createPixel(), {}, {}, false);
-    SimulationElement orig(1.0, 2.0, 3.0, createPixel(), {}, {}, false);
-    SimulationElement element = std::move(for_move);
-
-    EXPECT_EQ(orig.getWavelength(), element.getWavelength());
-    EXPECT_EQ(orig.getAlphaI(), element.getAlphaI());
-    EXPECT_EQ(orig.getPhiI(), element.getPhiI());
-    EXPECT_EQ(orig.getAlphaMean(), element.getAlphaMean());
-    EXPECT_EQ(orig.getPhiMean(), element.getPhiMean());
-    EXPECT_EQ(orig.getIntensity(), element.getIntensity());
-    EXPECT_EQ(orig.getKi(), element.getKi());
-    EXPECT_EQ(orig.getMeanKf(), element.getMeanKf());
-    EXPECT_EQ(orig.getQ(0.5, 0.5), element.getQ(0.5, 0.5));
-    EXPECT_EQ(orig.getIntegrationFactor(0.5, 0.5), element.getIntegrationFactor(0.5, 0.5));
-    EXPECT_EQ(orig.getSolidAngle(), element.getSolidAngle());
-    EXPECT_EQ(orig.getAlpha(0.5, 0.5), element.getAlpha(0.5, 0.5));
-    EXPECT_EQ(orig.getPhi(0.5, 0.5), element.getPhi(0.5, 0.5));
-    EXPECT_EQ(orig.isSpecular(), element.isSpecular());
-}
-
 TEST_F(SimulationElementTest, moveConstruction)
 {
     SimulationElement for_move(1.0, 2.0, 3.0, createPixel(), {}, {}, false);

@@ -35,9 +35,8 @@ public:
                       const Eigen::Matrix2cd& analyzer,
                       bool isSpecular_);
     SimulationElement(const SimulationElement& other);
-    SimulationElement& operator=(const SimulationElement& other);
-
     SimulationElement(SimulationElement&& other) noexcept;
+    SimulationElement& operator=(const SimulationElement&) = delete;
 
     ~SimulationElement() noexcept;
 
@@ -71,19 +70,17 @@ public:
     bool isSpecular() const { return m_is_specular; }
 
 private:
-    void swapContent(SimulationElement& other);
-
     kvector_t getKf(double x, double y) const;
 
-    PolarizationHandler m_polarization;
-    double m_wavelength; //!< wavelength of beam
-    double m_alpha_i;    //!< incident grazing angle
-    double m_phi_i;      //!< incident angle in xy plane
-    kvector_t m_k_i;     //!< cached value of k_i
-    kvector_t m_mean_kf; //!< cached value of mean_kf
-    double m_intensity;  //!< simulated intensity for detector cell
+    const PolarizationHandler m_polarization;
+    const double m_wavelength; //!< wavelength of beam
+    const double m_alpha_i;    //!< incident grazing angle
+    const double m_phi_i;      //!< incident angle in xy plane
+    const kvector_t m_k_i;     //!< cached value of k_i
+    const kvector_t m_mean_kf; //!< cached value of mean_kf
     std::unique_ptr<IPixel> m_pixel;
-    bool m_is_specular;
+    const bool m_is_specular;
+    double m_intensity;  //!< simulated intensity for detector cell
 };
 
 #endif // BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H

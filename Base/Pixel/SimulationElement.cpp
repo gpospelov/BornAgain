@@ -31,9 +31,9 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
 SimulationElement::SimulationElement(const SimulationElement& other)
     : m_polarization(other.m_polarization), m_wavelength(other.m_wavelength),
       m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(other.m_k_i),
-      m_mean_kf(other.m_mean_kf), m_is_specular(other.isSpecular()), m_intensity(other.m_intensity)
+      m_mean_kf(other.m_mean_kf), m_pixel(std::move(other.m_pixel->clone())),
+      m_is_specular(other.m_is_specular), m_intensity(other.m_intensity)
 {
-    m_pixel.reset(other.m_pixel->clone());
 }
 
 SimulationElement::SimulationElement(SimulationElement&&) = default;

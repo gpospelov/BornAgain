@@ -77,7 +77,7 @@ private:
     const double m_phi_i;      //!< incident angle in xy plane
     const kvector_t m_k_i;     //!< cached value of k_i
     const kvector_t m_mean_kf; //!< cached value of mean_kf
-    std::unique_ptr<IPixel> m_pixel;
+    mutable std::unique_ptr<IPixel> m_pixel;
     const bool m_is_specular;
     double m_intensity;  //!< simulated intensity for detector cell
 };

@@ -18,11 +18,9 @@
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      std::unique_ptr<IPixel> pixel,
                                      const Eigen::Matrix2cd& beam_polarization,
-                                     const Eigen::Matrix2cd& analyzer,
-                                     bool isSpecular_)
-    : m_polarization(beam_polarization, analyzer),
-      m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i),
-      m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i)),
+                                     const Eigen::Matrix2cd& analyzer, bool isSpecular_)
+    : m_polarization(beam_polarization, analyzer), m_wavelength(wavelength), m_alpha_i(alpha_i),
+      m_phi_i(phi_i), m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i)),
       m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength)), m_pixel(std::move(pixel)),
       m_is_specular(isSpecular_), m_intensity(0.0)
 {
@@ -42,9 +40,12 @@ SimulationElement::~SimulationElement() = default;
 
 SimulationElement SimulationElement::pointElement(double x, double y) const
 {
-    return {m_wavelength, m_alpha_i, m_phi_i,
+    return {m_wavelength,
+            m_alpha_i,
+            m_phi_i,
             std::unique_ptr<IPixel>(m_pixel->createZeroSizePixel(x, y)), // TODO simplify
-            m_polarization.getPolarization(), m_polarization.getAnalyzerOperator(),
+            m_polarization.getPolarization(),
+            m_polarization.getAnalyzerOperator(),
             m_is_specular};
 }
 

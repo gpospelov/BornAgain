@@ -115,8 +115,8 @@ private:
     DistrOutput applyWlResolution() const;
     DistrOutput applyIncResolution() const;
 
-    double m_wl;
-    std::unique_ptr<IAxis> m_inc_angle;
+    const double m_wl;
+    const std::unique_ptr<IAxis> m_inc_angle;
     std::unique_ptr<IFootprintFactor> m_footprint;
 
     std::unique_ptr<ScanResolution> m_wl_resolution;

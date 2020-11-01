@@ -100,8 +100,8 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     result.reserve(N);
     for (size_t element_index = 0; element_index < N; ++element_index) {
         SimulationElement element(wavelength, alpha_i, phi_i,
-                                  m_detector_context->createPixel(element_index),
-                                  beam_polarization, analyzer_operator,
+                                  m_detector_context->createPixel(element_index), beam_polarization,
+                                  analyzer_operator,
                                   m_detector_context->detectorIndex(element_index) == spec_index);
         result.emplace_back(std::move(element));
     }

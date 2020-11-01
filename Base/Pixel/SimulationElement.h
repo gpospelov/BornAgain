@@ -30,10 +30,8 @@ class SimulationElement
 public:
     SimulationElement() = delete;
     SimulationElement(double wavelength, double alpha_i, double phi_i,
-                      std::unique_ptr<IPixel> pixel,
-                      const Eigen::Matrix2cd& beam_polarization,
-                      const Eigen::Matrix2cd& analyzer,
-                      bool isSpecular_);
+                      std::unique_ptr<IPixel> pixel, const Eigen::Matrix2cd& beam_polarization,
+                      const Eigen::Matrix2cd& analyzer, bool isSpecular_);
     SimulationElement(const SimulationElement& other);
     SimulationElement(SimulationElement&& other);
     SimulationElement& operator=(const SimulationElement&) = delete;
@@ -79,7 +77,7 @@ private:
     const kvector_t m_mean_kf; //!< cached value of mean_kf
     mutable std::unique_ptr<IPixel> m_pixel;
     const bool m_is_specular;
-    double m_intensity;  //!< simulated intensity for detector cell
+    double m_intensity; //!< simulated intensity for detector cell
 };
 
 #endif // BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H

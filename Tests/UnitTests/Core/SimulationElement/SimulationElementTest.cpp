@@ -24,8 +24,8 @@ public:
 
     std::unique_ptr<SimulationElement> createElement() const
     {
-        return std::make_unique<SimulationElement>(
-            wavelength, alpha_i, phi_i, createPixel(), Eigen::Matrix2cd{}, Eigen::Matrix2cd{}, false);
+        return std::make_unique<SimulationElement>(wavelength, alpha_i, phi_i, createPixel(),
+                                                   Eigen::Matrix2cd{}, Eigen::Matrix2cd{}, false);
     }
 };
 

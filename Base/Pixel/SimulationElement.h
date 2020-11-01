@@ -39,7 +39,7 @@ public:
 
     SimulationElement(SimulationElement&& other) noexcept;
 
-    ~SimulationElement();
+    ~SimulationElement() noexcept;
 
     //! Returns copy of this SimulationElement with k_f given by in-pixel coordinate x,y.
     SimulationElement pointElement(double x, double y) const;

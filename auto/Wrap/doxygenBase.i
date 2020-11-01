@@ -903,7 +903,7 @@ C++ includes: SimulationElement.h
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
 ";
 
-%feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
+%feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement() noexcept
 ";
 
 %feature("docstring")  SimulationElement::pointElement "SimulationElement SimulationElement::pointElement(double x, double y) const

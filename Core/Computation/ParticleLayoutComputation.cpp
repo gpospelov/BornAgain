@@ -18,7 +18,6 @@
 #include "Core/Computation/ProcessedLayout.h"
 #include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Sample/Interference/DecouplingApproximationStrategy.h"
-#include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include "Sample/Interference/SSCApproximationStrategy.h"
 
 namespace

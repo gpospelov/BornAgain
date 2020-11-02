@@ -7481,56 +7481,6 @@ C++ includes: SpecularScalarTanhStrategy.h
 ";
 
 
-// File: classSpecularSimulationElement.xml
-%feature("docstring") SpecularSimulationElement "
-
-Data stucture containing both input and output of a single image pixel for specular simulation.
-
-C++ includes: SpecularSimulationElement.h
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double kz, bool computable, const Instrument &instrument)
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha, bool computable, const Instrument &instrument)
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement &other)
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement &&other) noexcept
-";
-
-%feature("docstring")  SpecularSimulationElement::~SpecularSimulationElement "SpecularSimulationElement::~SpecularSimulationElement()
-";
-
-%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler &handler)
-
-Assigns PolarizationHandler. 
-";
-
-%feature("docstring")  SpecularSimulationElement::polarizationHandler "const PolarizationHandler& SpecularSimulationElement::polarizationHandler() const
-
-Returns assigned PolarizationHandler. 
-";
-
-%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
-";
-
-%feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)
-";
-
-%feature("docstring")  SpecularSimulationElement::isCalculated "bool SpecularSimulationElement::isCalculated() const
-
-Returns calculation flag (if it's false, zero intensity is assigned to the element) 
-";
-
-%feature("docstring")  SpecularSimulationElement::produceKz "std::vector< complex_t > SpecularSimulationElement::produceKz(const std::vector< Slice > &slices)
-
-Returns kz values for Abeles computation of reflection/transition coefficients. 
-";
-
-
 // File: classSpheresWithLimitsDistributionBuilder.xml
 %feature("docstring") SpheresWithLimitsDistributionBuilder "
 
@@ -7873,6 +7823,9 @@ C++ includes: ZLimits.h
 // File: namespace_0d262.xml
 
 
+// File: namespace_0d272.xml
+
+
 // File: namespace_0d274.xml
 
 
@@ -7885,7 +7838,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d280.xml
 
 
-// File: namespace_0d282.xml
+// File: namespace_0d284.xml
 
 
 // File: namespace_0d286.xml
@@ -7894,25 +7847,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d288.xml
 
 
-// File: namespace_0d290.xml
+// File: namespace_0d300.xml
 
 
-// File: namespace_0d302.xml
-
-
-// File: namespace_0d308.xml
+// File: namespace_0d306.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d312.xml
+// File: namespace_0d310.xml
 
 
-// File: namespace_0d330.xml
+// File: namespace_0d328.xml
 
 
-// File: namespace_0d349.xml
+// File: namespace_0d347.xml
 
 
 // File: namespace_0d37.xml
@@ -9001,12 +8951,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SlicedFormFactorList_8h.xml
-
-
-// File: SpecularSimulationElement_8cpp.xml
-
-
-// File: SpecularSimulationElement_8h.xml
 
 
 // File: FormFactorGauss_8cpp.xml

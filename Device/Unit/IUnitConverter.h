@@ -35,13 +35,13 @@ public:
 };
 
 const std::map<Axes::Units, const char*> axisUnitName = {
-    {Axes::Units::NBINS, "Axes::Units::UNDEFINED"}, {Axes::Units::NBINS, "Axes::Units::NBINS"},
+    {Axes::Units::DEFAULT, "Axes::Units::UNDEFINED"}, {Axes::Units::NBINS, "Axes::Units::NBINS"},
     {Axes::Units::RADIANS, "Axes::Units::RADIANS"}, {Axes::Units::DEGREES, "Axes::Units::DEGREES"},
     {Axes::Units::MM, "Axes::Units::MM"},           {Axes::Units::QSPACE, "Axes::Units::QSPACE"},
     {Axes::Units::QXQY, "Axes::Units::QXQY"},       {Axes::Units::RQ4, "Axes::Units::RQ4"}};
 
 const std::map<Axes::Units, const char*> axisUnitLabel = {
-    {Axes::Units::NBINS, "undefined"}, {Axes::Units::NBINS, "bin"}, {Axes::Units::RADIANS, "rad"},
+    {Axes::Units::DEFAULT, "undefined"}, {Axes::Units::NBINS, "bin"}, {Axes::Units::RADIANS, "rad"},
     {Axes::Units::DEGREES, "deg"},     {Axes::Units::MM, "mm"},     {Axes::Units::QSPACE, "1/nm"},
     {Axes::Units::QXQY, "1/nm"},       {Axes::Units::RQ4, "nm^-4?"}};
 

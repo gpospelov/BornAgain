@@ -44,8 +44,7 @@ public:
 private:
     const ProcessedLayout* m_layout;
     std::unique_ptr<const IInterferenceFunctionStrategy> m_strategy;
-    double m_surface_density;
-    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
+    const std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_PARTICLELAYOUTCOMPUTATION_H

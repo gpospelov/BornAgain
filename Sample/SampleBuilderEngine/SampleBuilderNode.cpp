@@ -85,7 +85,7 @@ std::shared_ptr<ISampleBuilder> SampleBuilderNode::builder() const
 
 SampleBuilderNode::operator bool() const
 {
-    return m_sample_builder.get() != nullptr;
+    return (bool)m_sample_builder;
 }
 
 //! Fill local parameter pool with parameters from sample builder.

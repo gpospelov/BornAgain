@@ -1,5 +1,20 @@
 ---
+#
+# This is the BornAgain configuration for clang-tidy.
+#
+# To invoke clang-tidy, run
+#   cmake -DBORNAGAIN_TIDY=ON -DBORNAGAIN_PYTHON=OFF -DBORNAGAIN_GUI=OFF ..
+#   make
+#
+# Below, we select all checks ('*'), then deselect quite a number of them.
+#
+# As we are not aware of an official way to insert comments in a long string literal,
+# we do a dirty little trick: we write comments as if they were no-check specifiers.
+#
 Checks: '*,
+
+-SectionComment_We_disagree_with_the_following_checks__They_shall_remain_permanently_disabled,
+
 -*-braces-around-statements,
 -*-convert-member-functions-to-static,
 -*-implicit-bool-conversion,
@@ -28,6 +43,12 @@ Checks: '*,
 -misc-throw-by-value-catch-by-reference,
 -performance-unnecessary-value-param,
 
+-SectionComment_Resolving_the_following_checks_would_be_too_much_work_right_now,
+
+-cppcoreguidelines-owning-memory,
+
+-SectionComment_Temporarily_disabled_checks__We_need_to_investigate_them_one_by_one,
+
 -*-avoid-c-arrays,
 -*-avoid-goto,
 -*-container-size-empty,
@@ -43,8 +64,11 @@ Checks: '*,
 -*-statically-constructed-objects,
 -*-use-auto,
 -*-use-emplace,
+-*-use-override,
+-bugprone-argument-comment,
 -bugprone-copy-constructor-init,
 -bugprone-exception-escape,
+-bugprone-fold-init-type,
 -bugprone-misplaced-widening-cast,
 -bugprone-narrowing-conversions,
 -bugprone-unhandled-self-assignment,
@@ -67,6 +91,7 @@ Checks: '*,
 -google-readability-avoid-underscore-in-googletest-name,
 -google-readability-casting,
 -google-runtime-references,
+-hicpp-explicit-conversions,
 -hicpp-move-const-arg,
 -hicpp-multiway-paths-covered,
 -hicpp-no-array-decay,
@@ -85,6 +110,7 @@ Checks: '*,
 -modernize-raw-string-literal,
 -modernize-return-braced-init-list,
 -modernize-use-equals-default,
+-modernize-use-nodiscard,
 -modernize-use-nullptr,
 -modernize-use-using,
 -performance-for-range-copy,
@@ -100,8 +126,8 @@ Checks: '*,
 -readability-inconsistent-declaration-parameter-name,
 -readability-non-const-parameter,
 -readability-redundant-control-flow,
+-readability-redundant-declaration,
 -readability-redundant-string-cstr,
 -readability-uppercase-literal-suffix,
-
 -clang-analyzer-core.NonNullParamChecker,
 '

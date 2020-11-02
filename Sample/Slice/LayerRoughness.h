@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H
-#define BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H
+#ifndef BORNAGAIN_SAMPLE_SLICE_LAYERROUGHNESS_H
+#define BORNAGAIN_SAMPLE_SLICE_LAYERROUGHNESS_H
 
 #include "Sample/Scattering/ISample.h"
 
@@ -66,4 +66,4 @@ private:
     double m_lateralCorrLength; //!< lateral correlation length of the roughness
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_LAYERROUGHNESS_H
+#endif // BORNAGAIN_SAMPLE_SLICE_LAYERROUGHNESS_H

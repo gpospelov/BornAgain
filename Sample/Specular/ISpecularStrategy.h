@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_ISPECULARSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_ISPECULARSTRATEGY_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
@@ -45,4 +45,4 @@ public:
                              const std::vector<complex_t>& kz) const = 0;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_ISPECULARSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_ISPECULARSTRATEGY_H

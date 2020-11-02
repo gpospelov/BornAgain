@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORDOT_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORDOT_H
 
 #include "Sample/Scattering/IFormFactorBorn.h"
 
@@ -45,4 +45,4 @@ private:
     const double& m_radius;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORDOT_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORDOT_H

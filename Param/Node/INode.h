@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
+#ifndef BORNAGAIN_PARAM_NODE_INODE_H
+#define BORNAGAIN_PARAM_NODE_INODE_H
 
 #include "Param/Base/IParameterized.h"
 #include "Param/Node/INodeVisitor.h" // not forward declared because used by all children
@@ -131,4 +131,4 @@ inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
     return v_node;
 }
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_INODE_H
+#endif // BORNAGAIN_PARAM_NODE_INODE_H

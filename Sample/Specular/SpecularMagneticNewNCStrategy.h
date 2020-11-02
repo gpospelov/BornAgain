@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWNCSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWNCSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
 
 #include "Sample/Specular/SpecularMagneticNewStrategy.h"
 #include <memory>
@@ -39,4 +39,4 @@ private:
                                 const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWNCSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H

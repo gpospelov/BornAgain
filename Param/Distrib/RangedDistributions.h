@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H
+#ifndef BORNAGAIN_PARAM_DISTRIB_RANGEDDISTRIBUTIONS_H
+#define BORNAGAIN_PARAM_DISTRIB_RANGEDDISTRIBUTIONS_H
 
 #include "Base/Types/ICloneable.h"
 #include "Fit/Tools/RealLimits.h"
@@ -222,4 +222,4 @@ inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& dist
     return os << distribution.pyString();
 }
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_RANGEDDISTRIBUTIONS_H
+#endif // BORNAGAIN_PARAM_DISTRIB_RANGEDDISTRIBUTIONS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
+#ifndef BORNAGAIN_PARAM_DISTRIB_DISTRIBUTIONS_H
+#define BORNAGAIN_PARAM_DISTRIB_DISTRIBUTIONS_H
 
 #include "Base/Types/ICloneable.h"
 #include "Fit/Tools/RealLimits.h"
@@ -291,4 +291,4 @@ private:
     const double& m_right;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_DISTRIBUTIONS_H
+#endif // BORNAGAIN_PARAM_DISTRIB_DISTRIBUTIONS_H

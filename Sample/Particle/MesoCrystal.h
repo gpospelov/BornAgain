@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_MESOCRYSTAL_H
-#define BORNAGAIN_CORE_PARTICLE_MESOCRYSTAL_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_MESOCRYSTAL_H
+#define BORNAGAIN_SAMPLE_PARTICLE_MESOCRYSTAL_H
 
 #include "Sample/Particle/IParticle.h"
 
@@ -44,4 +44,4 @@ private:
     std::unique_ptr<IFormFactor> m_meso_form_factor;           //!< Outer shape of this mesocrystal
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_MESOCRYSTAL_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_MESOCRYSTAL_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MASK_LINE_H
-#define BORNAGAIN_CORE_MASK_LINE_H
+#ifndef BORNAGAIN_DEVICE_MASK_LINE_H
+#define BORNAGAIN_DEVICE_MASK_LINE_H
 
 #include "Device/Mask/IShape2D.h"
 
@@ -69,4 +69,4 @@ private:
     double m_y;
 };
 
-#endif // BORNAGAIN_CORE_MASK_LINE_H
+#endif // BORNAGAIN_DEVICE_MASK_LINE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORBAPOL_H
-#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBAPOL_H
+#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBAPOL_H
 
 #include "Sample/Scattering/IFormFactor.h"
 #include <memory>
@@ -56,4 +56,4 @@ private:
     std::unique_ptr<IFormFactor> m_form_factor;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORBAPOL_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBAPOL_H

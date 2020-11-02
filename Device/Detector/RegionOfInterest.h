@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_REGIONOFINTEREST_H
-#define BORNAGAIN_CORE_DETECTOR_REGIONOFINTEREST_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_REGIONOFINTEREST_H
+#define BORNAGAIN_DEVICE_DETECTOR_REGIONOFINTEREST_H
 
 #include "Base/Types/ICloneable.h"
 #include <memory>
@@ -87,4 +87,4 @@ inline size_t RegionOfInterest::ycoord(size_t index, const std::vector<size_t>& 
     return index % dims[1];
 }
 
-#endif // BORNAGAIN_CORE_DETECTOR_REGIONOFINTEREST_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_REGIONOFINTEREST_H

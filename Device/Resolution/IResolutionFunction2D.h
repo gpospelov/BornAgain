@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_IRESOLUTIONFUNCTION2D_H
-#define BORNAGAIN_CORE_DETECTOR_IRESOLUTIONFUNCTION2D_H
+#ifndef BORNAGAIN_DEVICE_RESOLUTION_IRESOLUTIONFUNCTION2D_H
+#define BORNAGAIN_DEVICE_RESOLUTION_IRESOLUTIONFUNCTION2D_H
 
 #include "Base/Types/ICloneable.h"
 #include "Param/Node/INode.h"
@@ -33,4 +33,4 @@ public:
     virtual IResolutionFunction2D* clone() const = 0;
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_IRESOLUTIONFUNCTION2D_H
+#endif // BORNAGAIN_DEVICE_RESOLUTION_IRESOLUTIONFUNCTION2D_H

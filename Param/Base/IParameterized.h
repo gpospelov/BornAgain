@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
+#ifndef BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
+#define BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
 
 #include "Base/Vector/Vectors3D.h"
 #include <memory>
@@ -73,4 +73,4 @@ private:
     std::unique_ptr<ParameterPool> m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETERIZED_H
+#endif // BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H

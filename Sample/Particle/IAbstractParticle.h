@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H
-#define BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H
+#define BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H
 
 #include "Sample/Scattering/ISample.h"
 
@@ -53,4 +53,4 @@ protected:
     double m_abundance{1.0}; // not a Parameter
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_IABSTRACTPARTICLE_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H

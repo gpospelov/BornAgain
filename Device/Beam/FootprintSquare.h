@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BEAM_FOOTPRINTSQUARE_H
-#define BORNAGAIN_CORE_BEAM_FOOTPRINTSQUARE_H
+#ifndef BORNAGAIN_DEVICE_BEAM_FOOTPRINTSQUARE_H
+#define BORNAGAIN_DEVICE_BEAM_FOOTPRINTSQUARE_H
 
 #include "Device/Beam/IFootprintFactor.h"
 
@@ -37,4 +37,4 @@ public:
     std::string print() const override;
 };
 
-#endif // BORNAGAIN_CORE_BEAM_FOOTPRINTSQUARE_H
+#endif // BORNAGAIN_DEVICE_BEAM_FOOTPRINTSQUARE_H

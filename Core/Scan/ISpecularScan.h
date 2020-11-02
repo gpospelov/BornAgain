@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_ISPECULARSCAN_H
-#define BORNAGAIN_CORE_INSTRUMENT_ISPECULARSCAN_H
+#ifndef BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
+#define BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
 
 #include "Base/Types/ICloneable.h"
 
@@ -64,4 +64,4 @@ inline std::ostream& operator<<(std::ostream& os, const ISpecularScan& scan)
 {
     return os << scan.print();
 }
-#endif // BORNAGAIN_CORE_INSTRUMENT_ISPECULARSCAN_H
+#endif // BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_NODEITERATOR_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_NODEITERATOR_H
+#ifndef BORNAGAIN_PARAM_NODE_NODEITERATOR_H
+#define BORNAGAIN_PARAM_NODE_NODEITERATOR_H
 
 #include "Param/Node/INode.h"
 #include <ostream>
@@ -134,4 +134,4 @@ template <class Strategy> inline int NodeIterator<Strategy>::depth() const
     return static_cast<int>(m_memento_itor.size());
 }
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_NODEITERATOR_H
+#endif // BORNAGAIN_PARAM_NODE_NODEITERATOR_H

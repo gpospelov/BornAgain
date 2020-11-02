@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
+#ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
+#define BORNAGAIN_SAMPLE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
 
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include <memory>
@@ -66,4 +66,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_PARACRYSTALBUILDER_H
+#endif // BORNAGAIN_SAMPLE_STANDARDSAMPLES_PARACRYSTALBUILDER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H
+#ifndef BORNAGAIN_PARAM_NODE_INODEVISITOR_H
+#define BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 
 class BasicLattice;
 class Beam;
@@ -289,4 +289,4 @@ private:
 void VisitNodesPreorder(const INode& node, INodeVisitor& visitor);
 void VisitNodesPostorder(const INode& node, INodeVisitor& visitor);
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_INODEVISITOR_H
+#endif // BORNAGAIN_PARAM_NODE_INODEVISITOR_H

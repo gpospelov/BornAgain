@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_LAYERFILLLIMITS_H
-#define BORNAGAIN_CORE_MULTILAYER_LAYERFILLLIMITS_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_LAYERFILLLIMITS_H
+#define BORNAGAIN_SAMPLE_SCATTERING_LAYERFILLLIMITS_H
 
 #include "Sample/Scattering/ZLimits.h"
 #include <cstddef>
@@ -46,4 +46,4 @@ private:
     std::vector<ZLimits> m_layer_fill_limits;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_LAYERFILLLIMITS_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_LAYERFILLLIMITS_H

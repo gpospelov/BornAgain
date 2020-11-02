@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_NODEUTILS_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_NODEUTILS_H
+#ifndef BORNAGAIN_PARAM_NODE_NODEUTILS_H
+#define BORNAGAIN_PARAM_NODE_NODEUTILS_H
 
 #include <string>
 
@@ -30,4 +30,4 @@ std::string nodePath(const INode& node, const INode* root = nullptr);
 
 } // namespace NodeUtils
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_NODEUTILS_H
+#endif // BORNAGAIN_PARAM_NODE_NODEUTILS_H

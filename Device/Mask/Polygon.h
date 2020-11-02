@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MASK_POLYGON_H
-#define BORNAGAIN_CORE_MASK_POLYGON_H
+#ifndef BORNAGAIN_DEVICE_MASK_POLYGON_H
+#define BORNAGAIN_DEVICE_MASK_POLYGON_H
 
 #include "Device/Mask/IShape2D.h"
 #include <vector>
@@ -52,4 +52,4 @@ private:
     PolygonPrivate* m_d;
 };
 
-#endif // BORNAGAIN_CORE_MASK_POLYGON_H
+#endif // BORNAGAIN_DEVICE_MASK_POLYGON_H

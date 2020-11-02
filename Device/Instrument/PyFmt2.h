@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PYIO_PYTHONFORMATTING_H
-#define BORNAGAIN_CORE_PYIO_PYTHONFORMATTING_H
+#ifndef BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
+#define BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
 
 #include <functional>
 #include <string>
@@ -42,4 +42,4 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
                                        const std::string& units = "");
 } // namespace pyfmt2
 
-#endif // BORNAGAIN_CORE_PYIO_PYTHONFORMATTING_H
+#endif // BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H

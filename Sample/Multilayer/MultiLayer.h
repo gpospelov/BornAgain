@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
-#define BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
+#ifndef BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYER_H
+#define BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYER_H
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Multilayer/RoughnessModels.h"
@@ -110,4 +110,4 @@ private:
     RoughnessModel m_roughness_model{RoughnessModel::DEFAULT};
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_MULTILAYER_H
+#endif // BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYER_H

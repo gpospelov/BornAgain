@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCYLINDER_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCYLINDER_H
 
 #include "Sample/Scattering/IFormFactorBorn.h"
 
@@ -50,4 +50,4 @@ private:
     const double& m_height;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCYLINDER_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCYLINDER_H

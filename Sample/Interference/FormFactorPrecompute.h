@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_INTERFERENCEFUNCTIONUTILS_H
-#define BORNAGAIN_CORE_MULTILAYER_INTERFERENCEFUNCTIONUTILS_H
+#ifndef BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H
+#define BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H
 
 #include "Base/Types/Complex.h"
 #include <Eigen/StdVector>
@@ -35,4 +35,4 @@ polarized(const SimulationElement& sim_element,
 
 } // namespace FormFactorPrecompute
 
-#endif // BORNAGAIN_CORE_MULTILAYER_INTERFERENCEFUNCTIONUTILS_H
+#endif // BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H

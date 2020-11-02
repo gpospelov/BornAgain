@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_SPHERICALDETECTOR_H
-#define BORNAGAIN_CORE_DETECTOR_SPHERICALDETECTOR_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_SPHERICALDETECTOR_H
+#define BORNAGAIN_DEVICE_DETECTOR_SPHERICALDETECTOR_H
 
 #include "Device/Detector/IDetector2D.h"
 
@@ -62,4 +62,4 @@ protected:
     size_t indexOfSpecular(const Beam& beam) const override;
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_SPHERICALDETECTOR_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_SPHERICALDETECTOR_H

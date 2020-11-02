@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARSTRATEGY_H
 
 #include "Sample/RT/ScalarRTCoefficients.h"
 #include "Sample/Specular/ISpecularStrategy.h"
@@ -55,4 +55,4 @@ private:
                               const std::vector<complex_t>& kz) const;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARSTRATEGY_H

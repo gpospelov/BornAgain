@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SCALARFRESNELMAP_H
-#define BORNAGAIN_CORE_MULTILAYER_SCALARFRESNELMAP_H
+#ifndef BORNAGAIN_SAMPLE_FRESNEL_SCALARFRESNELMAP_H
+#define BORNAGAIN_SAMPLE_FRESNEL_SCALARFRESNELMAP_H
 
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/RT/ScalarRTCoefficients.h"
@@ -56,4 +56,4 @@ private:
         m_cache;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SCALARFRESNELMAP_H
+#endif // BORNAGAIN_SAMPLE_FRESNEL_SCALARFRESNELMAP_H

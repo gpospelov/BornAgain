@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_CHISQUAREDMODULE_H
-#define BORNAGAIN_CORE_INSTRUMENT_CHISQUAREDMODULE_H
+#ifndef BORNAGAIN_DEVICE_INSTRUMENT_CHISQUAREDMODULE_H
+#define BORNAGAIN_DEVICE_INSTRUMENT_CHISQUAREDMODULE_H
 
 #include "Device/Instrument/IChiSquaredModule.h"
 
@@ -32,4 +32,4 @@ public:
     virtual double residual(double a, double b, double weight);
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_CHISQUAREDMODULE_H
+#endif // BORNAGAIN_DEVICE_INSTRUMENT_CHISQUAREDMODULE_H

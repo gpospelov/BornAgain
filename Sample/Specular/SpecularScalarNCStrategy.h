@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARNCSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARNCSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARNCSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARNCSTRATEGY_H
 
 #include "Sample/Specular/SpecularScalarStrategy.h"
 
@@ -38,4 +38,4 @@ private:
                                                        double sigma) const override;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSCALARNCSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARNCSTRATEGY_H

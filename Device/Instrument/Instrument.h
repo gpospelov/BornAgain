@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H
-#define BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H
+#ifndef BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
+#define BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
 
 #include "Device/Beam/Beam.h"
 #include <memory>
@@ -94,4 +94,4 @@ protected:
     Beam m_beam;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_INSTRUMENT_H
+#endif // BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H

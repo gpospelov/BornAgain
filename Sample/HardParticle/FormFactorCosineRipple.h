@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H
 
 #include "Sample/HardParticle/IProfileRipple.h"
 
@@ -59,4 +59,4 @@ private:
     complex_t factor_x(complex_t qx) const override final;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H

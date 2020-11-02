@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PYIO_PYIMPORT_H
-#define BORNAGAIN_CORE_PYIO_PYIMPORT_H
+#ifndef BORNAGAIN_SAMPLE_MULTILAYER_PYIMPORT_H
+#define BORNAGAIN_SAMPLE_MULTILAYER_PYIMPORT_H
 
 #ifdef BORNAGAIN_PYTHON
 
@@ -45,4 +45,4 @@ std::vector<std::string> listOfFunctions(const std::string& script, const std::s
 
 #endif // BORNAGAIN_PYTHON
 
-#endif // BORNAGAIN_CORE_PYIO_PYIMPORT_H
+#endif // BORNAGAIN_SAMPLE_MULTILAYER_PYIMPORT_H

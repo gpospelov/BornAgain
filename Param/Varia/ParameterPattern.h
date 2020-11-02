@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPATTERN_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPATTERN_H
+#ifndef BORNAGAIN_PARAM_VARIA_PARAMETERPATTERN_H
+#define BORNAGAIN_PARAM_VARIA_PARAMETERPATTERN_H
 
 #include <string>
 
@@ -35,4 +35,4 @@ private:
     std::string m_pattern;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPATTERN_H
+#endif // BORNAGAIN_PARAM_VARIA_PARAMETERPATTERN_H

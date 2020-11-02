@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONS_H
-#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONS_H
+#ifndef BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
+#define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
 
 #include "Sample/Aggregate/InterferenceFunction1DLattice.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
@@ -27,4 +27,4 @@
 #include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Sample/Aggregate/InterferenceFunctionTwin.h"
 
-#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONS_H
+#endif // BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H

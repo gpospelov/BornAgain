@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADFACTORY_H
-#define BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADFACTORY_H
+#ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADFACTORY_H
+#define BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADFACTORY_H
 
 #include "Device/InputOutput/OutputDataReader.h"
 
@@ -30,4 +30,4 @@ private:
     static IOutputDataReadStrategy* getReadStrategy(const std::string& file_name);
 };
 
-#endif // BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAREADFACTORY_H
+#endif // BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADFACTORY_H

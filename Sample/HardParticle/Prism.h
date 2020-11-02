@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_PRISM_H
-#define BORNAGAIN_CORE_HARDPARTICLE_PRISM_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_PRISM_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_PRISM_H
 
 #include "Sample/HardParticle/PolyhedralComponents.h"
 #include "Sample/HardParticle/PolyhedralTopology.h"
@@ -35,4 +35,4 @@ private:
     std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_PRISM_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_PRISM_H

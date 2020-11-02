@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_PARTICLE_H
-#define BORNAGAIN_CORE_PARTICLE_PARTICLE_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H
+#define BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H
 
 #include "Sample/Particle/IParticle.h"
 #include "Sample/Scattering/FormFactorDecoratorMaterial.h"
@@ -51,4 +51,4 @@ private:
     void initialize();
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_PARTICLE_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
-#define BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 
 #include "Sample/HardParticle/PolyhedralTopology.h"
 #include "Sample/Scattering/IFormFactorBorn.h"
@@ -52,4 +52,4 @@ private:
     std::unique_ptr<Polyhedron> pimpl;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H

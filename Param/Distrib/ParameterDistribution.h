@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
+#ifndef BORNAGAIN_PARAM_DISTRIB_PARAMETERDISTRIBUTION_H
+#define BORNAGAIN_PARAM_DISTRIB_PARAMETERDISTRIBUTION_H
 
 #include "Fit/Tools/RealLimits.h"
 #include "Param/Base/IParameterized.h"
@@ -77,4 +77,4 @@ private:
     double m_xmax;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERDISTRIBUTION_H
+#endif // BORNAGAIN_PARAM_DISTRIB_PARAMETERDISTRIBUTION_H

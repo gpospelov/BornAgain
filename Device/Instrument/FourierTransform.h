@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_FOURIERTRANSFORM_H
-#define BORNAGAIN_CORE_INSTRUMENT_FOURIERTRANSFORM_H
+#ifndef BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
+#define BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
 
 #include <fftw3.h>
 #include <vector>
@@ -91,4 +91,4 @@ private:
     Workspace ws;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_FOURIERTRANSFORM_H
+#endif // BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H

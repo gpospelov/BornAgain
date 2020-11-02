@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_SIMPLEUNITCONVERTERS_H
-#define BORNAGAIN_CORE_INTENSITY_SIMPLEUNITCONVERTERS_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H
+#define BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H
 
 #include "Base/Vector/Vectors3D.h"
 #include "Device/Unit/IUnitConverter.h"
@@ -165,4 +165,4 @@ private:
     void checkUnits(Axes::Units units_type) const;
 };
 
-#endif // BORNAGAIN_CORE_INTENSITY_SIMPLEUNITCONVERTERS_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H

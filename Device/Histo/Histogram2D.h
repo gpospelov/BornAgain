@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_HISTOGRAM2D_H
-#define BORNAGAIN_CORE_INTENSITY_HISTOGRAM2D_H
+#ifndef BORNAGAIN_DEVICE_HISTO_HISTOGRAM2D_H
+#define BORNAGAIN_DEVICE_HISTO_HISTOGRAM2D_H
 
 #include "Device/Histo/IHistogram.h"
 #include "Device/Intensity/ArrayUtils.h"
@@ -126,4 +126,4 @@ template <typename T> void Histogram2D::initFromShape(const T& data)
     m_data.addAxis(FixedBinAxis("y-axis", nrows, 0.0, static_cast<double>(nrows)));
 }
 
-#endif // BORNAGAIN_CORE_INTENSITY_HISTOGRAM2D_H
+#endif // BORNAGAIN_DEVICE_HISTO_HISTOGRAM2D_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SLICEDFORMFACTORLIST_H
-#define BORNAGAIN_CORE_MULTILAYER_SLICEDFORMFACTORLIST_H
+#ifndef BORNAGAIN_SAMPLE_SLICE_SLICEDFORMFACTORLIST_H
+#define BORNAGAIN_SAMPLE_SLICE_SLICEDFORMFACTORLIST_H
 
 #include "Sample/Particle/HomogeneousRegion.h"
 #include "Sample/Scattering/IFormFactor.h"
@@ -52,4 +52,4 @@ private:
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SLICEDFORMFACTORLIST_H
+#endif // BORNAGAIN_SAMPLE_SLICE_SLICEDFORMFACTORLIST_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_PARTICLECORESHELL_H
-#define BORNAGAIN_CORE_PARTICLE_PARTICLECORESHELL_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_PARTICLECORESHELL_H
+#define BORNAGAIN_SAMPLE_PARTICLE_PARTICLECORESHELL_H
 
 #include "Sample/Particle/IParticle.h"
 
@@ -60,4 +60,4 @@ inline const Particle* ParticleCoreShell::shellParticle() const
     return m_shell.get();
 }
 
-#endif // BORNAGAIN_CORE_PARTICLE_PARTICLECORESHELL_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_PARTICLECORESHELL_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H
-#define BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H
+#ifndef BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
+#define BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
 
 #include "Sample/Specular/ISpecularStrategy.h"
 #include <memory>
@@ -60,4 +60,4 @@ protected:
     std::unique_ptr<ISpecularStrategy> m_Strategy;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_IFRESNELMAP_H
+#endif // BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H

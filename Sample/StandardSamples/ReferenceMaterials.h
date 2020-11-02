@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H
+#ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_REFERENCEMATERIALS_H
+#define BORNAGAIN_SAMPLE_STANDARDSAMPLES_REFERENCEMATERIALS_H
 
 #include "Sample/Material/MaterialFactoryFuncs.h"
 
@@ -34,4 +34,4 @@ static const Material Substrate2 = HomogeneousMaterial("Substrate2", 3.212e-6, 3
 
 } // namespace refMat
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_REFERENCEMATERIALS_H
+#endif // BORNAGAIN_SAMPLE_STANDARDSAMPLES_REFERENCEMATERIALS_H

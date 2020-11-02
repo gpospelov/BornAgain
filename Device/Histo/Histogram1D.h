@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_HISTOGRAM1D_H
-#define BORNAGAIN_CORE_INTENSITY_HISTOGRAM1D_H
+#ifndef BORNAGAIN_DEVICE_HISTO_HISTOGRAM1D_H
+#define BORNAGAIN_DEVICE_HISTO_HISTOGRAM1D_H
 
 #include "Device/Histo/IHistogram.h"
 
@@ -69,4 +69,4 @@ public:
     Histogram1D* crop(double xmin, double xmax);
 };
 
-#endif // BORNAGAIN_CORE_INTENSITY_HISTOGRAM1D_H
+#endif // BORNAGAIN_DEVICE_HISTO_HISTOGRAM1D_H

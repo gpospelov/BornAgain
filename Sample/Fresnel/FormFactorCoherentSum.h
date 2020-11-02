@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H
-#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H
+#ifndef BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTSUM_H
+#define BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTSUM_H
 
 #include "Sample/Fresnel/FormFactorCoherentPart.h"
 #include <vector>
@@ -46,4 +46,4 @@ private:
     double m_abundance;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTSUM_H
+#endif // BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTSUM_H

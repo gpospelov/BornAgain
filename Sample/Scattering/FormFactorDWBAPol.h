@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H
-#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBAPOL_H
+#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBAPOL_H
 
 #include "Sample/Scattering/IFormFactor.h"
 #include <memory>
@@ -66,4 +66,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBAPOL_H

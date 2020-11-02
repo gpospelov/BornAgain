@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
-#define BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
+#ifndef BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H
+#define BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H
 
 #include "Base/Utils/PyObject.h"
 #include "Device/Unit/IUnitConverter.h"
@@ -87,4 +87,4 @@ private:
     std::unique_ptr<IUnitConverter> m_unit_converter;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
+#endif // BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H

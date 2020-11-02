@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
-#define BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTORBORN_H
+#define BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTORBORN_H
 
 #include "Sample/Scattering/IFormFactor.h"
 
@@ -109,4 +109,4 @@ public:
 };
 #endif
 
-#endif // BORNAGAIN_CORE_SCATTERING_IFORMFACTORBORN_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTORBORN_H

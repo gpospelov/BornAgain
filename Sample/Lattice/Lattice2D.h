@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_LATTICE_LATTICE2D_H
-#define BORNAGAIN_CORE_LATTICE_LATTICE2D_H
+#ifndef BORNAGAIN_SAMPLE_LATTICE_LATTICE2D_H
+#define BORNAGAIN_SAMPLE_LATTICE_LATTICE2D_H
 
 #include "Base/Types/ICloneable.h"
 #include "Param/Node/INode.h"
@@ -102,4 +102,4 @@ private:
     double m_length;
 };
 
-#endif // BORNAGAIN_CORE_LATTICE_LATTICE2D_H
+#endif // BORNAGAIN_SAMPLE_LATTICE_LATTICE2D_H

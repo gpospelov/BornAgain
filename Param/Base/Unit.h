@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H
+#ifndef BORNAGAIN_PARAM_BASE_UNIT_H
+#define BORNAGAIN_PARAM_BASE_UNIT_H
 
 #include <string>
 
@@ -30,4 +30,4 @@ private:
     std::string m_name;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_UNIT_H
+#endif // BORNAGAIN_PARAM_BASE_UNIT_H

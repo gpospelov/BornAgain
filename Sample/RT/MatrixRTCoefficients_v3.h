@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_V3_H
-#define BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_V3_H
+#ifndef BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V3_H
+#define BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V3_H
 
 #include "Base/Vector/Vectors3D.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
@@ -80,4 +80,4 @@ private:
     Eigen::Matrix2cd pMatrixHelper(double sign) const;
 };
 
-#endif // BORNAGAIN_CORE_RT_MATRIXRTCOEFFICIENTS_V3_H
+#endif // BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V3_H

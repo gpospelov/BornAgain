@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MASK_ISHAPE2D_H
-#define BORNAGAIN_CORE_MASK_ISHAPE2D_H
+#ifndef BORNAGAIN_DEVICE_MASK_ISHAPE2D_H
+#define BORNAGAIN_DEVICE_MASK_ISHAPE2D_H
 
 #include "Base/Types/ICloneable.h"
 #include <iostream>
@@ -49,4 +49,4 @@ private:
     const char* const m_name;
 };
 
-#endif // BORNAGAIN_CORE_MASK_ISHAPE2D_H
+#endif // BORNAGAIN_DEVICE_MASK_ISHAPE2D_H

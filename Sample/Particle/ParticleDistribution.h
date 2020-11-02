@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H
-#define BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_PARTICLEDISTRIBUTION_H
+#define BORNAGAIN_SAMPLE_PARTICLE_PARTICLEDISTRIBUTION_H
 
 #include "Base/Types/SafePointerVector.h"
 #include "Param/Distrib/ParameterDistribution.h"
@@ -55,4 +55,4 @@ private:
     ParameterDistribution m_par_distribution;
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_PARTICLEDISTRIBUTION_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_PARTICLEDISTRIBUTION_H

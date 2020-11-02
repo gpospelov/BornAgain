@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H
-#define BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H
+#ifndef BORNAGAIN_SAMPLE_MATERIAL_MATERIALUTILS_H
+#define BORNAGAIN_SAMPLE_MATERIAL_MATERIALUTILS_H
 
 #include "Sample/Material/Material.h"
 
@@ -48,4 +48,4 @@ MATERIAL_TYPES checkMaterialTypes(const std::vector<const Material*>& materials)
 
 } // namespace MaterialUtils
 
-#endif // BORNAGAIN_CORE_MATERIAL_MATERIALUTILS_H
+#endif // BORNAGAIN_SAMPLE_MATERIAL_MATERIALUTILS_H

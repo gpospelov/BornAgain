@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
-#define BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
+#ifndef BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H
+#define BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/EigenCore.h"
@@ -81,4 +81,4 @@ private:
     const std::string m_name;
 };
 
-#endif // BORNAGAIN_CORE_MATERIAL_BASEMATERIALIMPL_H
+#endif // BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H

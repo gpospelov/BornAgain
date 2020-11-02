@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MASK_RECTANGLE_H
-#define BORNAGAIN_CORE_MASK_RECTANGLE_H
+#ifndef BORNAGAIN_DEVICE_MASK_RECTANGLE_H
+#define BORNAGAIN_DEVICE_MASK_RECTANGLE_H
 
 #include "Device/Mask/IShape2D.h"
 
@@ -40,4 +40,4 @@ private:
     double m_xlow, m_ylow, m_xup, m_yup;
 };
 
-#endif // BORNAGAIN_CORE_MASK_RECTANGLE_H
+#endif // BORNAGAIN_DEVICE_MASK_RECTANGLE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SSCAHELPER_H
-#define BORNAGAIN_CORE_MULTILAYER_SSCAHELPER_H
+#ifndef BORNAGAIN_SAMPLE_INTERFERENCE_SSCAHELPER_H
+#define BORNAGAIN_SAMPLE_INTERFERENCE_SSCAHELPER_H
 
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include "Sample/Interference/FormFactorPrecompute.h"
@@ -49,4 +49,4 @@ private:
     double m_mean_radius;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SSCAHELPER_H
+#endif // BORNAGAIN_SAMPLE_INTERFERENCE_SSCAHELPER_H

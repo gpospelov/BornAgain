@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_HARDPARTICLES_H
-#define BORNAGAIN_CORE_HARDPARTICLE_HARDPARTICLES_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_HARDPARTICLES_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_HARDPARTICLES_H
 
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
@@ -42,4 +42,4 @@
 #include "Sample/HardParticle/FormFactorTruncatedSphere.h"
 #include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_HARDPARTICLES_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_HARDPARTICLES_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H
+#ifndef BORNAGAIN_PARAM_BASE_REALPARAMETER_H
+#define BORNAGAIN_PARAM_BASE_REALPARAMETER_H
 
 #include "Fit/Tools/Attributes.h"
 #include "Fit/Tools/RealLimits.h"
@@ -61,4 +61,4 @@ protected:
     Unit m_unit;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_REALPARAMETER_H
+#endif // BORNAGAIN_PARAM_BASE_REALPARAMETER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PYFMT_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_PYFMT_H
+#ifndef BORNAGAIN_BASE_UTILS_PYFMT_H
+#define BORNAGAIN_BASE_UTILS_PYFMT_H
 
 #include "Base/Vector/Vectors3D.h"
 #include <string>
@@ -48,4 +48,4 @@ std::string indent(size_t width = 4u);
 
 } // namespace pyfmt
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_PYFMT_H
+#endif // BORNAGAIN_BASE_UTILS_PYFMT_H

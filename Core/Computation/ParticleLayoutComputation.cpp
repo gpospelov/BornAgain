@@ -70,8 +70,7 @@ void ParticleLayoutComputation::compute(SimulationElement& elem) const
     if (n_layers > 1 && alpha_f < 0)
         return; // zero for transmission with multilayers (n>1) # TODO: support transmission GISAS
 
-    elem.addIntensity(m_interference_function_strategy->evaluate(elem)
-                      * m_layout.surfaceDensity());
+    elem.addIntensity(m_interference_function_strategy->evaluate(elem) * m_layout.surfaceDensity());
 }
 
 void ParticleLayoutComputation::mergeRegionMap(

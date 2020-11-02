@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_SAMPLE_INTERFERENCE_SSCAHELPER_H
 #define BORNAGAIN_SAMPLE_INTERFERENCE_SSCAHELPER_H
 
-#include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include "Sample/Interference/FormFactorPrecompute.h"
+#include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include <Eigen/StdVector>
 
 class FormFactorCoherentSum;

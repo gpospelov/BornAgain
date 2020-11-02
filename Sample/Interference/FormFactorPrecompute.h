@@ -26,12 +26,10 @@ namespace FormFactorPrecompute
 {
 using matrixFFVector_t = std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>;
 
-std::vector<complex_t>
-scalar(const SimulationElement& sim_element,
-                            const std::vector<FormFactorCoherentSum>& ff_wrappers);
-matrixFFVector_t
-polarized(const SimulationElement& sim_element,
-                               const std::vector<FormFactorCoherentSum>& ff_wrappers);
+std::vector<complex_t> scalar(const SimulationElement& sim_element,
+                              const std::vector<FormFactorCoherentSum>& ff_wrappers);
+matrixFFVector_t polarized(const SimulationElement& sim_element,
+                           const std::vector<FormFactorCoherentSum>& ff_wrappers);
 
 } // namespace FormFactorPrecompute
 

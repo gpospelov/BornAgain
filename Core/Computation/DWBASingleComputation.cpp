@@ -47,18 +47,17 @@ void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputation* 
 
 void DWBASingleComputation::compute(SimulationElement& elem) const
 {
-    for (auto& layout_comp : m_layout_comps) {
+    for (auto& layout_comp : m_layout_comps)
         layout_comp->compute(elem);
-    }
-    if (m_roughness_comp) { // also check absence of matrix RT coefficients
+
+    if (m_roughness_comp) // also check absence of matrix RT coefficients
         m_roughness_comp->compute(elem);
-    }
-    if (m_spec_comp) { // also check absence of matrix RT coefficients
+
+    if (m_spec_comp) // also check absence of matrix RT coefficients
         m_spec_comp->compute(elem);
-    }
-    if (m_progress_counter) {
+
+    if (m_progress_counter)
         m_progress_counter->stepProgress();
-    }
 }
 
 const std::map<size_t, std::vector<HomogeneousRegion>>& DWBASingleComputation::regionMap() const

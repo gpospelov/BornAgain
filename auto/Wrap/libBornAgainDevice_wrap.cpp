@@ -37201,20 +37201,6 @@ SWIGINTERN PyObject *Axes_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *arg
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN int Swig_var_axisUnitName_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable axisUnitName is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_axisUnitName_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_NewPointerObj(SWIG_as_voidptr(&axisUnitName), SWIGTYPE_p_std__mapT_Axes__Units_char_const_p_std__lessT_Axes__Units_t_std__allocatorT_std__pairT_Axes__Units_const_char_const_p_t_t_t,  0 );
-  return pyobj;
-}
-
-
 SWIGINTERN int Swig_var_axisUnitLabel_set(PyObject *) {
   SWIG_Error(SWIG_AttributeError,"Variable axisUnitLabel is read-only.");
   return 1;
@@ -50171,7 +50157,6 @@ SWIG_init(void) {
   }
   PyDict_SetItemString(md, "cvar", globals);
   Py_DECREF(globals);
-  SWIG_addvarlink(globals, "axisUnitName", Swig_var_axisUnitName_get, Swig_var_axisUnitName_set);
   SWIG_addvarlink(globals, "axisUnitLabel", Swig_var_axisUnitLabel_get, Swig_var_axisUnitLabel_set);
   SWIG_Python_SetConstant(d, "RectangularDetector_GENERIC",SWIG_From_int(static_cast< int >(RectangularDetector::GENERIC)));
   SWIG_Python_SetConstant(d, "RectangularDetector_PERPENDICULAR_TO_SAMPLE",SWIG_From_int(static_cast< int >(RectangularDetector::PERPENDICULAR_TO_SAMPLE)));

@@ -2,11 +2,11 @@
 #include "Base/Axis/PointwiseAxis.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Instrument/Instrument.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Core/Scan/SpecularSimulationElement.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test

@@ -16,9 +16,9 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Core/Scan/SpecularSimulationElement.h"
 
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
     : m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),

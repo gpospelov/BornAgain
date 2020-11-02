@@ -17,8 +17,8 @@
 #include "Device/Instrument/Instrument.h"
 #include "Sample/Slice/KzComputation.h"
 
-SpecularSimulationElement::SpecularSimulationElement(double kz,
-                                                     const Instrument& instrument, bool computable)
+SpecularSimulationElement::SpecularSimulationElement(double kz, const Instrument& instrument,
+                                                     bool computable)
     : m_polarization(instrument.getBeam().getPolarization(),
                      instrument.detector().detectionProperties().analyzerOperator()),
       m_intensity(0.0), m_computable(computable),

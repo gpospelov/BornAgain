@@ -160,5 +160,5 @@ int main()
 
     std::cout << report() << std::endl;
 
-    return 0;
+    return !success;
 }

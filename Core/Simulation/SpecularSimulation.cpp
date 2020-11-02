@@ -199,8 +199,6 @@ void SpecularSimulation::initialize()
 void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
 {
     const double beam_intensity = getBeamIntensity();
-    if (beam_intensity == 0.0)
-        return; // no normalization when beam intensity is zero
 
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented

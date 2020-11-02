@@ -3,9 +3,10 @@
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Device/Beam/FootprintGauss.h"
+#include "Device/Instrument/Instrument.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test
@@ -184,14 +185,17 @@ TEST_F(SpecularScanTest, QScanClone)
 TEST_F(SpecularScanTest, GenerateSimElements)
 {
     AngularSpecScan scan(0.1, std::vector<double>{0.0, 0.2, 0.3});
-    std::vector<SpecularSimulationElement> sim_elements = scan.generateSimulationElements();
+    const Instrument instrument;
+    std::vector<SpecularSimulationElement> sim_elements =
+        scan.generateSimulationElements(instrument);
     EXPECT_EQ(sim_elements.size(), scan.numberOfSimulationElements());
     EXPECT_EQ(scan.numberOfSimulationElements(), 3u);
     for (size_t i = 0; i < sim_elements.size(); ++i)
         EXPECT_TRUE(sim_elements[i].isCalculated());
 
     QSpecScan scan2(std::vector<double>{0.0, 0.2, 0.3});
-    std::vector<SpecularSimulationElement> sim_elements2 = scan.generateSimulationElements();
+    std::vector<SpecularSimulationElement> sim_elements2 =
+        scan.generateSimulationElements(instrument);
     EXPECT_EQ(sim_elements2.size(), scan2.numberOfSimulationElements());
     EXPECT_EQ(scan2.numberOfSimulationElements(), 3u);
     for (size_t i = 0; i < sim_elements2.size(); ++i)

@@ -26,7 +26,7 @@ Sets angle-defined specular scan. The first parameter is always a wavelength in 
 %feature("docstring")  AngularSpecScan::clone "AngularSpecScan * AngularSpecScan::clone() const override
 ";
 
-%feature("docstring")  AngularSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > AngularSpecScan::generateSimulationElements() const override
+%feature("docstring")  AngularSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > AngularSpecScan::generateSimulationElements(const Instrument &instrument) const override
 
 Generates simulation elements for specular simulations. 
 ";
@@ -915,7 +915,7 @@ C++ includes: ISpecularScan.h
 %feature("docstring")  ISpecularScan::clone "ISpecularScan* ISpecularScan::clone() const override=0
 ";
 
-%feature("docstring")  ISpecularScan::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularScan::generateSimulationElements() const =0
+%feature("docstring")  ISpecularScan::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularScan::generateSimulationElements(const Instrument &instrument) const =0
 
 Generates simulation elements for specular simulations. 
 ";
@@ -1578,7 +1578,7 @@ Sets q-defined specular scan. Accepts either numpy array of q-values sorted in a
 %feature("docstring")  QSpecScan::clone "QSpecScan * QSpecScan::clone() const override
 ";
 
-%feature("docstring")  QSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > QSpecScan::generateSimulationElements() const override
+%feature("docstring")  QSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > QSpecScan::generateSimulationElements(const Instrument &instrument) const override
 
 Generates simulation elements for specular simulations. 
 ";
@@ -2344,6 +2344,51 @@ Returns internal data handler.
 ";
 
 
+// File: classSpecularSimulationElement.xml
+%feature("docstring") SpecularSimulationElement "
+
+Data stucture containing both input and output of a single image pixel for specular simulation.
+
+C++ includes: SpecularSimulationElement.h
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double kz, const Instrument &instrument, bool computable)
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha, const Instrument &instrument, bool computable)
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement &other)
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement &&other) noexcept
+";
+
+%feature("docstring")  SpecularSimulationElement::~SpecularSimulationElement "SpecularSimulationElement::~SpecularSimulationElement()
+";
+
+%feature("docstring")  SpecularSimulationElement::polarizationHandler "const PolarizationHandler& SpecularSimulationElement::polarizationHandler() const
+
+Returns assigned PolarizationHandler. 
+";
+
+%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
+";
+
+%feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)
+";
+
+%feature("docstring")  SpecularSimulationElement::isCalculated "bool SpecularSimulationElement::isCalculated() const
+
+Returns calculation flag (if it's false, zero intensity is assigned to the element) 
+";
+
+%feature("docstring")  SpecularSimulationElement::produceKz "std::vector< complex_t > SpecularSimulationElement::produceKz(const std::vector< Slice > &slices)
+
+Returns kz values for Abeles computation of reflection/transition coefficients. 
+";
+
+
 // File: classSpecularStrategyBuilder.xml
 %feature("docstring") SpecularStrategyBuilder "";
 
@@ -2459,6 +2504,9 @@ Returns default units to convert to.
 ";
 
 
+// File: namespace_0d100.xml
+
+
 // File: namespace_0d29.xml
 
 
@@ -2495,16 +2543,13 @@ Returns default units to convert to.
 // File: namespace_0d75.xml
 
 
-// File: namespace_0d80.xml
-
-
 // File: namespace_0d82.xml
 
 
-// File: namespace_0d90.xml
+// File: namespace_0d84.xml
 
 
-// File: namespace_0d96.xml
+// File: namespace_0d92.xml
 
 
 // File: namespace_0d98.xml
@@ -3046,6 +3091,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: QSpecScan_8h.xml
+
+
+// File: SpecularSimulationElement_8cpp.xml
+
+
+// File: SpecularSimulationElement_8h.xml
 
 
 // File: UnitConverter1D_8cpp.xml

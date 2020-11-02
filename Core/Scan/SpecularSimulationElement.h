@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Slice/SpecularSimulationElement.h
+//! @file      Core/Scan/SpecularSimulationElement.h
 //! @brief     Declares the class SpecularSimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,6 +21,7 @@
 #include <memory>
 #include <vector>
 
+class Instrument;
 class Slice;
 
 //! Data stucture containing both input and output of a single image pixel for specular simulation.
@@ -29,18 +30,16 @@ class Slice;
 class SpecularSimulationElement
 {
 public:
-    SpecularSimulationElement(double kz, bool computable);
-    SpecularSimulationElement(double wavelength, double alpha, bool computable);
+    SpecularSimulationElement(double kz, const Instrument& instrument, bool computable);
+    SpecularSimulationElement(double wavelength, double alpha, const Instrument& instrument,
+                              bool computable);
 
     SpecularSimulationElement(const SpecularSimulationElement& other);
     SpecularSimulationElement(SpecularSimulationElement&& other) noexcept;
 
     ~SpecularSimulationElement();
 
-    SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
-
-    //! Assigns PolarizationHandler.
-    void setPolarizationHandler(const PolarizationHandler& handler);
+    SpecularSimulationElement& operator=(const SpecularSimulationElement& other) = delete;
 
     //! Returns assigned PolarizationHandler.
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }
@@ -55,12 +54,10 @@ public:
     std::vector<complex_t> produceKz(const std::vector<Slice>& slices);
 
 private:
-    void swapContent(SpecularSimulationElement& other);
-
-    PolarizationHandler m_polarization;
+    const PolarizationHandler m_polarization;
     double m_intensity; //!< simulated intensity for detector cell
     const bool m_computable;
-    std::function<std::vector<complex_t>(const std::vector<Slice>&)> m_kz_computation;
+    const std::function<std::vector<complex_t>(const std::vector<Slice>&)> m_kz_computation;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSIMULATIONELEMENT_H

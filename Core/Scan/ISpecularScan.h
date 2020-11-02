@@ -23,6 +23,7 @@
 
 class IAxis;
 class IFootprintFactor;
+class Instrument;
 class SpecularSimulationElement;
 
 //! Pure virtual base class for all types of specular scans.
@@ -34,7 +35,8 @@ public:
 
 #ifndef SWIG
     //! Generates simulation elements for specular simulations
-    virtual std::vector<SpecularSimulationElement> generateSimulationElements() const = 0;
+    virtual std::vector<SpecularSimulationElement>
+    generateSimulationElements(const Instrument& instrument) const = 0;
 
     //! Returns coordinate axis assigned to the data holder
     virtual const IAxis* coordinateAxis() const = 0;

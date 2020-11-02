@@ -40,7 +40,8 @@ public:
 
 #ifndef SWIG
     //! Generates simulation elements for specular simulations
-    std::vector<SpecularSimulationElement> generateSimulationElements() const override;
+    std::vector<SpecularSimulationElement>
+    generateSimulationElements(const Instrument& instrument) const override;
 
     //! Returns coordinate axis assigned to the data holder
     virtual const IAxis* coordinateAxis() const override { return m_inc_angle.get(); }

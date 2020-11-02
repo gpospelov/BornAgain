@@ -15,7 +15,7 @@
 #include "Core/Computation/SpecularComputationTerm.h"
 #include "Core/Computation/DelayedProgressCounter.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 
 // ************************************************************************** //
 // class SpecularComputationTerm

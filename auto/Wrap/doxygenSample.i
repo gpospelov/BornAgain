@@ -7489,10 +7489,10 @@ Data stucture containing both input and output of a single image pixel for specu
 C++ includes: SpecularSimulationElement.h
 ";
 
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double kz, bool computable)
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double kz, bool computable, const Instrument &instrument)
 ";
 
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha, bool computable)
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha, bool computable, const Instrument &instrument)
 ";
 
 %feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement &other)

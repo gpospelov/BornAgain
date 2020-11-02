@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Interference/InterferenceFunctionUtils.cpp
+//! @file      Sample/Interference/FormFactorPrecompute.cpp
 //! @brief     Implements helper functions for InterferenceFunctions and Strategies.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,13 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Interference/InterferenceFunctionUtils.h"
+#include "Sample/Interference/FormFactorPrecompute.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 
-namespace InterferenceFunctionUtils
-{
 std::vector<complex_t>
-PrecomputeScalarFormFactors(const SimulationElement& sim_element,
+FormFactorPrecompute::scalar(const SimulationElement& sim_element,
                             const std::vector<FormFactorCoherentSum>& ff_wrappers)
 {
     std::vector<complex_t> result;
@@ -28,14 +26,13 @@ PrecomputeScalarFormFactors(const SimulationElement& sim_element,
     return result;
 }
 
-matrixFFVector_t
-PrecomputePolarizedFormFactors(const SimulationElement& sim_element,
+FormFactorPrecompute::matrixFFVector_t
+FormFactorPrecompute::polarized(const SimulationElement& sim_element,
                                const std::vector<FormFactorCoherentSum>& ff_wrappers)
 {
-    matrixFFVector_t result;
+    FormFactorPrecompute::matrixFFVector_t result;
     for (auto& ffw : ff_wrappers) {
         result.push_back(ffw.evaluatePol(sim_element));
     }
     return result;
 }
-} // namespace InterferenceFunctionUtils

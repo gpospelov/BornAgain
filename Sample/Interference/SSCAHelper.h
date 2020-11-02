@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_MULTILAYER_SSCAHELPER_H
 
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
-#include "Sample/Interference/InterferenceFunctionUtils.h"
+#include "Sample/Interference/FormFactorPrecompute.h"
 #include <Eigen/StdVector>
 
 class FormFactorCoherentSum;
@@ -41,7 +41,7 @@ public:
     complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff,
                                     const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
     void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
-                            const InterferenceFunctionUtils::matrixFFVector_t& precomputed_ff,
+                            const FormFactorPrecompute::matrixFFVector_t& precomputed_ff,
                             const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
 
 private:

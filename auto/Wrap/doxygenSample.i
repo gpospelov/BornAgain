@@ -7557,7 +7557,7 @@ C++ includes: SSCAHelper.h
 %feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
 ";
 
-%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const InterferenceFunctionUtils::matrixFFVector_t &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
+%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const FormFactorPrecompute::matrixFFVector_t &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
 ";
 
 
@@ -7869,11 +7869,11 @@ C++ includes: ZLimits.h
 // File: namespace_0d41.xml
 
 
-// File: namespaceInterferenceFunctionUtils.xml
-%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
+// File: namespaceFormFactorPrecompute.xml
+%feature("docstring")  FormFactorPrecompute::scalar "std::vector< complex_t > FormFactorPrecompute::scalar(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
-%feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  FormFactorPrecompute::polarized "FormFactorPrecompute::matrixFFVector_t FormFactorPrecompute::polarized(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
 
@@ -8405,16 +8405,16 @@ Used by the hard sphere and by several soft sphere classes.
 // File: DecouplingApproximationStrategy_8h.xml
 
 
+// File: FormFactorPrecompute_8cpp.xml
+
+
+// File: FormFactorPrecompute_8h.xml
+
+
 // File: IInterferenceFunctionStrategy_8cpp.xml
 
 
 // File: IInterferenceFunctionStrategy_8h.xml
-
-
-// File: InterferenceFunctionUtils_8cpp.xml
-
-
-// File: InterferenceFunctionUtils_8h.xml
 
 
 // File: SSCAHelper_8cpp.xml

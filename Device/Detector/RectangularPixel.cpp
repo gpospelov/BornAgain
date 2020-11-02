@@ -14,16 +14,13 @@
 
 #include "Device/Detector/RectangularPixel.h"
 #include "Base/Const/MathConstants.h"
-#include "Base/Const/Units.h"
-#include "Base/Pixel/SimulationElement.h"
-#include "Device/Beam/Beam.h"
-#include "Device/Detector/RegionOfInterest.h"
-#include "Device/Resolution/IDetectorResolution.h"
 
-RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-    : m_corner_pos(std::move(corner_pos)), m_width(std::move(width)), m_height(std::move(height))
+RectangularPixel::RectangularPixel(const kvector_t& corner_pos, const kvector_t& width,
+                                   const kvector_t& height)
+    : m_corner_pos(std::move(corner_pos)), m_width(std::move(width)), m_height(std::move(height)),
+      m_normal(width.cross(height))
 {
-    m_normal = m_width.cross(m_height);
+    // TODO URGENT: why allow solid angle <=0 ??
     auto solid_angle_value = calculateSolidAngle();
     m_solid_angle = solid_angle_value <= 0.0 ? 1.0 : solid_angle_value;
 }

@@ -28,8 +28,8 @@ IDetector::IDetector(const IDetector& other)
     : ICloneable(), INode(), m_axes(other.m_axes),
       m_detection_properties(other.m_detection_properties)
 {
-    if (other.mP_detector_resolution)
-        setDetectorResolution(*other.mP_detector_resolution);
+    if (other.m_detector_resolution)
+        setDetectorResolution(*other.m_detector_resolution);
     setName(other.getName());
     registerChild(&m_detection_properties);
 }
@@ -103,8 +103,8 @@ void IDetector::setAnalyzerProperties(const kvector_t direction, double efficien
 
 void IDetector::setDetectorResolution(const IDetectorResolution& p_detector_resolution)
 {
-    mP_detector_resolution.reset(p_detector_resolution.clone());
-    registerChild(mP_detector_resolution.get());
+    m_detector_resolution.reset(p_detector_resolution.clone());
+    registerChild(m_detector_resolution.get());
 }
 
 // TODO: pass dimension-independent argument to this function
@@ -119,8 +119,8 @@ void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) con
     if (!p_intensity_map)
         throw std::runtime_error("IDetector::applyDetectorResolution() -> "
                                  "Error! Null pointer to intensity map");
-    if (mP_detector_resolution) {
-        mP_detector_resolution->applyDetectorResolution(p_intensity_map);
+    if (m_detector_resolution) {
+        m_detector_resolution->applyDetectorResolution(p_intensity_map);
         if (detectorMask() && detectorMask()->hasMasks()) {
             // sets amplitude in masked areas to zero
             std::unique_ptr<OutputData<double>> buff(new OutputData<double>());
@@ -136,12 +136,12 @@ void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) con
 
 void IDetector::removeDetectorResolution()
 {
-    mP_detector_resolution.reset();
+    m_detector_resolution.reset();
 }
 
 const IDetectorResolution* IDetector::detectorResolution() const
 {
-    return mP_detector_resolution.get();
+    return m_detector_resolution.get();
 }
 
 OutputData<double>*
@@ -153,7 +153,7 @@ IDetector::createDetectorIntensity(const std::vector<SimulationElement>& element
                                                 "can't create detector map.");
 
     setDataToDetectorMap(*detectorMap, elements);
-    if (mP_detector_resolution)
+    if (m_detector_resolution)
         applyDetectorResolution(detectorMap.get());
 
     return detectorMap.release();
@@ -195,7 +195,7 @@ size_t IDetector::numberOfSimulationElements() const
 
 std::vector<const INode*> IDetector::getChildren() const
 {
-    return std::vector<const INode*>() << &m_detection_properties << mP_detector_resolution;
+    return std::vector<const INode*>() << &m_detection_properties << m_detector_resolution;
 }
 
 void IDetector::iterate(std::function<void(IDetector::const_iterator)> func, bool visit_masks) const

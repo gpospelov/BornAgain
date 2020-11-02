@@ -19,7 +19,7 @@
 #include "Device/Beam/IFootprintFactor.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 
 namespace
 {
@@ -44,8 +44,7 @@ extractValues(std::vector<std::vector<ParameterSample>> samples,
 } // namespace
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
-    : m_wl(wl),
-      m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle))),
+    : m_wl(wl), m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle))),
       m_wl_resolution(ScanResolution::scanEmptyResolution()),
       m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
@@ -80,7 +79,8 @@ AngularSpecScan* AngularSpecScan::clone() const
 
 AngularSpecScan::~AngularSpecScan() = default;
 
-std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElements() const
+std::vector<SpecularSimulationElement>
+AngularSpecScan::generateSimulationElements(const Instrument& instrument) const
 {
     const auto wls = extractValues(applyWlResolution(),
                                    [](const ParameterSample& sample) { return sample.value; });
@@ -94,8 +94,8 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
             const double inc = incs[i][k];
             for (size_t j = 0, size_wls = wls[i].size(); j < size_wls; ++j) {
                 const double wl = wls[i][j];
-                result.emplace_back(
-                    SpecularSimulationElement(wl, -inc, wl >= 0 && inc >= 0 && inc <= M_PI_2));
+                result.emplace_back(SpecularSimulationElement(
+                    wl, -inc, instrument, wl >= 0 && inc >= 0 && inc <= M_PI_2));
             }
         }
     }

@@ -42,7 +42,8 @@ public:
 
 #ifndef SWIG
     //! Generates simulation elements for specular simulations
-    std::vector<SpecularSimulationElement> generateSimulationElements() const override;
+    std::vector<SpecularSimulationElement>
+    generateSimulationElements(const Instrument& instrument) const override;
 
     //! Returns coordinate axis assigned to the data holder
     virtual const IAxis* coordinateAxis() const override { return m_qs.get(); }
@@ -88,7 +89,7 @@ private:
     std::vector<double> generateQzVector() const;
     std::vector<std::vector<ParameterSample>> applyQResolution() const;
 
-    std::unique_ptr<IAxis> m_qs;
+    const std::unique_ptr<IAxis> m_qs;
     std::unique_ptr<ScanResolution> m_resolution;
     mutable std::vector<std::vector<ParameterSample>> m_q_res_cache;
 };

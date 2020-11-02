@@ -26,7 +26,7 @@
 //! @ingroup intern
 
 struct SlicedParticle {
-    std::unique_ptr<IFormFactor> mP_slicedff;
+    std::unique_ptr<IFormFactor> m_slicedff;
     std::vector<HomogeneousRegion> m_regions;
 };
 

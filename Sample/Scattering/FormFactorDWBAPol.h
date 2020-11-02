@@ -36,7 +36,7 @@ public:
 
     void setAmbientMaterial(const Material& material) override
     {
-        mP_form_factor->setAmbientMaterial(material);
+        m_form_factor->setAmbientMaterial(material);
     }
 
     //! Throws not-implemented exception
@@ -45,9 +45,9 @@ public:
     //! Calculates and returns a polarized form factor calculation in DWBA
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
-    double volume() const override { return mP_form_factor->volume(); }
+    double volume() const override { return m_form_factor->volume(); }
 
-    double radialExtension() const override { return mP_form_factor->radialExtension(); }
+    double radialExtension() const override { return m_form_factor->radialExtension(); }
 
     double bottomZ(const IRotation& rotation) const override;
 
@@ -60,10 +60,10 @@ public:
 
 private:
     //! The form factor for BA
-    std::unique_ptr<IFormFactor> mP_form_factor;
+    std::unique_ptr<IFormFactor> m_form_factor;
 
-    std::unique_ptr<const ILayerRTCoefficients> mp_in_coeffs;
-    std::unique_ptr<const ILayerRTCoefficients> mp_out_coeffs;
+    std::unique_ptr<const ILayerRTCoefficients> m_in_coeffs;
+    std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORDWBAPOL_H

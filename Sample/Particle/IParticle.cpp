@@ -22,7 +22,7 @@ IParticle::~IParticle() = default;
 
 IFormFactor* IParticle::createFormFactor() const
 {
-    return createSlicedParticle(ZLimits{}).mP_slicedff.release();
+    return createSlicedParticle(ZLimits{}).m_slicedff.release();
 }
 
 SlicedParticle IParticle::createSlicedParticle(ZLimits) const
@@ -38,29 +38,29 @@ void IParticle::translate(kvector_t translation)
 
 const IRotation* IParticle::rotation() const
 {
-    return mP_rotation.get();
+    return m_rotation.get();
 }
 
 void IParticle::setRotation(const IRotation& rotation)
 {
-    mP_rotation.reset(rotation.clone());
-    registerChild(mP_rotation.get());
+    m_rotation.reset(rotation.clone());
+    registerChild(m_rotation.get());
 }
 
 void IParticle::rotate(const IRotation& rotation)
 {
-    if (mP_rotation) {
-        mP_rotation.reset(createProduct(rotation, *mP_rotation));
+    if (m_rotation) {
+        m_rotation.reset(createProduct(rotation, *m_rotation));
     } else {
-        mP_rotation.reset(rotation.clone());
+        m_rotation.reset(rotation.clone());
     }
     m_position = rotation.transformed(m_position);
-    registerChild(mP_rotation.get());
+    registerChild(m_rotation.get());
 }
 
 std::vector<const INode*> IParticle::getChildren() const
 {
-    return std::vector<const INode*>() << mP_rotation;
+    return std::vector<const INode*>() << m_rotation;
 }
 
 void IParticle::registerAbundance(bool make_registered)
@@ -101,13 +101,13 @@ ParticleLimits IParticle::bottomTopZ() const
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {
-        if (mP_rotation)
-            return createProduct(*p_rotation, *mP_rotation);
+        if (m_rotation)
+            return createProduct(*p_rotation, *m_rotation);
         else
             return p_rotation->clone();
     } else {
-        if (mP_rotation)
-            return mP_rotation->clone();
+        if (m_rotation)
+            return m_rotation->clone();
         else
             return nullptr;
     }

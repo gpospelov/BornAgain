@@ -28,7 +28,7 @@ FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() = default;
 
 FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {
-    auto* result = new FormFactorDecoratorMaterial(*mp_form_factor);
+    auto* result = new FormFactorDecoratorMaterial(*m_form_factor);
     result->setMaterial(m_material);
     result->setAmbientMaterial(m_ambient_material);
     return result;
@@ -46,7 +46,7 @@ void FormFactorDecoratorMaterial::setAmbientMaterial(const Material& material)
 
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return getRefractiveIndexFactor(wavevectors) * mp_form_factor->evaluate(wavevectors);
+    return getRefractiveIndexFactor(wavevectors) * m_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -60,7 +60,7 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
     Eigen::Matrix2cd V_eff = time_reverse_conj
                              * (m_material.polarizedSubtrSLD(wavevectors)
                                 - m_ambient_material.polarizedSubtrSLD(wavevectors));
-    return mp_form_factor->evaluate(wavevectors) * V_eff;
+    return m_form_factor->evaluate(wavevectors) * V_eff;
 }
 
 complex_t

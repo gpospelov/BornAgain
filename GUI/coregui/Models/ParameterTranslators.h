@@ -92,7 +92,7 @@ public:
 private:
     int getLayerIndex(QString layerName) const;
     int numberOfLayers() const;
-    const SessionItem* mp_parent;
+    const SessionItem* m_parent;
 };
 
 class VectorParameterTranslator : public IPathTranslator

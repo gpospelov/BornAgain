@@ -28,8 +28,8 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other) : ICloneabl
     if (other.m_variance_function)
         m_variance_function.reset(other.m_variance_function->clone());
 
-    if (other.mp_intensity_function)
-        mp_intensity_function.reset(other.mp_intensity_function->clone());
+    if (other.m_intensity_function)
+        m_intensity_function.reset(other.m_intensity_function->clone());
 }
 
 IChiSquaredModule::~IChiSquaredModule() = default;
@@ -41,10 +41,10 @@ void IChiSquaredModule::setVarianceFunction(const IVarianceFunction& variance_fu
 
 const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const
 {
-    return mp_intensity_function.get();
+    return m_intensity_function.get();
 }
 
 void IChiSquaredModule::setIntensityFunction(const IIntensityFunction& intensity_function)
 {
-    mp_intensity_function.reset(intensity_function.clone());
+    m_intensity_function.reset(intensity_function.clone());
 }

@@ -36,8 +36,8 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
 {
     m_dimension = other.m_dimension;
     m_res_function_1d = other.m_res_function_1d;
-    if (other.mp_res_function_2d)
-        setResolutionFunction(*other.mp_res_function_2d);
+    if (other.m_res_function_2d)
+        setResolutionFunction(*other.m_res_function_2d);
     setName(other.getName());
 }
 
@@ -48,7 +48,7 @@ ConvolutionDetectorResolution* ConvolutionDetectorResolution::clone() const
 
 std::vector<const INode*> ConvolutionDetectorResolution::getChildren() const
 {
-    return std::vector<const INode*>() << mp_res_function_2d;
+    return std::vector<const INode*>() << m_res_function_2d;
 }
 
 void ConvolutionDetectorResolution::applyDetectorResolution(
@@ -75,8 +75,8 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
 
 void ConvolutionDetectorResolution::setResolutionFunction(const IResolutionFunction2D& resFunc)
 {
-    mp_res_function_2d.reset(resFunc.clone());
-    registerChild(mp_res_function_2d.get());
+    m_res_function_2d.reset(resFunc.clone());
+    registerChild(m_res_function_2d.get());
 }
 
 void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_intensity_map) const
@@ -117,7 +117,7 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
 
 void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_intensity_map) const
 {
-    if (mp_res_function_2d == 0)
+    if (m_res_function_2d == 0)
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
             "No 2d resolution function present for convolution of 2d data.");
@@ -198,7 +198,7 @@ double ConvolutionDetectorResolution::getIntegratedPDF2d(double x, double step_x
     double ymin = y - halfstepy;
     double ymax = y + halfstepy;
     double result =
-        mp_res_function_2d->evaluateCDF(xmax, ymax) - mp_res_function_2d->evaluateCDF(xmax, ymin)
-        - mp_res_function_2d->evaluateCDF(xmin, ymax) + mp_res_function_2d->evaluateCDF(xmin, ymin);
+        m_res_function_2d->evaluateCDF(xmax, ymax) - m_res_function_2d->evaluateCDF(xmax, ymin)
+        - m_res_function_2d->evaluateCDF(xmin, ymax) + m_res_function_2d->evaluateCDF(xmin, ymin);
     return result;
 }

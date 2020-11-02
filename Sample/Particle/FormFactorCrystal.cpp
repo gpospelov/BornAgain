@@ -19,8 +19,8 @@
 
 FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
                                      const IFormFactor& meso_form_factor, double position_variance)
-    : m_lattice(lattice), mp_basis_form_factor(basis_form_factor.clone()),
-      mp_meso_form_factor(meso_form_factor.clone()), m_position_variance(position_variance)
+    : m_lattice(lattice), m_basis_form_factor(basis_form_factor.clone()),
+      m_meso_form_factor(meso_form_factor.clone()), m_position_variance(position_variance)
 {
     setName("FormFactorCrystal");
     calculateLargestReciprocalDistance();
@@ -28,18 +28,18 @@ FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& 
 
 FormFactorCrystal::~FormFactorCrystal()
 {
-    delete mp_basis_form_factor;
-    delete mp_meso_form_factor;
+    delete m_basis_form_factor;
+    delete m_meso_form_factor;
 }
 
 double FormFactorCrystal::bottomZ(const IRotation& rotation) const
 {
-    return mp_meso_form_factor->bottomZ(rotation);
+    return m_meso_form_factor->bottomZ(rotation);
 }
 
 double FormFactorCrystal::topZ(const IRotation& rotation) const
 {
-    return mp_meso_form_factor->topZ(rotation);
+    return m_meso_form_factor->topZ(rotation);
 }
 
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
@@ -55,10 +55,10 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
     for (const auto& rec : rec_vectors) {
         auto dw_factor = debyeWallerFactor(rec);
         WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.getWavelength());
-        complex_t basis_factor = mp_basis_form_factor->evaluate(basis_wavevectors);
+        complex_t basis_factor = m_basis_form_factor->evaluate(basis_wavevectors);
         WavevectorInfo meso_wavevectors(cvector_t(), rec.complex() - q,
                                         wavevectors.getWavelength());
-        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
+        complex_t meso_factor = m_meso_form_factor->evaluate(meso_wavevectors);
         result += dw_factor * basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
@@ -80,10 +80,10 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     for (const auto& rec : rec_vectors) {
         auto dw_factor = debyeWallerFactor(rec);
         WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.getWavelength());
-        Eigen::Matrix2cd basis_factor = mp_basis_form_factor->evaluatePol(basis_wavevectors);
+        Eigen::Matrix2cd basis_factor = m_basis_form_factor->evaluatePol(basis_wavevectors);
         WavevectorInfo meso_wavevectors(cvector_t(), rec.complex() - q,
                                         wavevectors.getWavelength());
-        complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
+        complex_t meso_factor = m_meso_form_factor->evaluate(meso_wavevectors);
         result += dw_factor * basis_factor * meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3

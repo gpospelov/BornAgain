@@ -46,18 +46,18 @@ protected:
     void addAndRegisterShell(const Particle& shell);
     ParticleCoreShell();
 
-    std::unique_ptr<Particle> mp_shell;
-    std::unique_ptr<Particle> mp_core;
+    std::unique_ptr<Particle> m_shell;
+    std::unique_ptr<Particle> m_core;
 };
 
 inline const Particle* ParticleCoreShell::coreParticle() const
 {
-    return mp_core.get();
+    return m_core.get();
 }
 
 inline const Particle* ParticleCoreShell::shellParticle() const
 {
-    return mp_shell.get();
+    return m_shell.get();
 }
 
 #endif // BORNAGAIN_CORE_PARTICLE_PARTICLECORESHELL_H

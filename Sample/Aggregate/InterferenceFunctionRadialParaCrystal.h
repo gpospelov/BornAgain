@@ -47,7 +47,7 @@ public:
 
     std::vector<const INode*> getChildren() const override final;
 
-    double randomSample() const { return mP_pdf->createSampler()->randomSample(); }
+    double randomSample() const { return m_pdf->createSampler()->randomSample(); }
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
@@ -56,7 +56,7 @@ private:
     double m_peak_distance;  //!< the distance to the first neighbor peak
     double m_damping_length; //!< damping length of paracrystal
     //! Fourier transformed probability distribution of the nearest particle
-    std::unique_ptr<IFTDistribution1D> mP_pdf;
+    std::unique_ptr<IFTDistribution1D> m_pdf;
     bool m_use_damping_length;
     double m_kappa;       //!< Size-spacing coupling parameter
     double m_domain_size; //!< Size of coherence domain

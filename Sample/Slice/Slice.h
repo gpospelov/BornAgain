@@ -61,7 +61,7 @@ private:
     double m_thickness;
     Material m_material;
     kvector_t m_B_field; //!< cached value of magnetic induction
-    std::unique_ptr<LayerRoughness> mP_top_roughness;
+    std::unique_ptr<LayerRoughness> m_top_roughness;
 };
 
 #endif // BORNAGAIN_CORE_MULTILAYER_SLICE_H

@@ -53,12 +53,12 @@ private:
     FormFactorCoherentSum ProcessParticle(const IParticle& particle,
                                           const std::vector<Slice>& slices, double z_ref);
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
-    const IFresnelMap* mp_fresnel_map;
+    const IFresnelMap* m_fresnel_map;
     bool m_polarized;
     size_t m_n_slices;
     double m_surface_density;
     std::vector<FormFactorCoherentSum> m_formfactors;
-    std::unique_ptr<IInterferenceFunction> mP_iff;
+    std::unique_ptr<IInterferenceFunction> m_iff;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 

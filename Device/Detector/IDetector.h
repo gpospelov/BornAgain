@@ -125,7 +125,7 @@ private:
 
     CloneableVector<IAxis> m_axes;
     DetectionProperties m_detection_properties;
-    std::unique_ptr<IDetectorResolution> mP_detector_resolution;
+    std::unique_ptr<IDetectorResolution> m_detector_resolution;
 };
 
 #endif // BORNAGAIN_CORE_DETECTOR_IDETECTOR_H

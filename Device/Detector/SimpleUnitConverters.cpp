@@ -206,7 +206,7 @@ RectangularConverter::RectangularConverter(const RectangularDetector& detector, 
                                  + std::to_string(static_cast<int>(detector.dimension())));
     addDetectorAxis(detector, 0);
     addDetectorAxis(detector, 1);
-    mP_detector_pixel.reset(detector.regionOfInterestPixel());
+    m_detector_pixel.reset(detector.regionOfInterestPixel());
 }
 
 RectangularConverter::~RectangularConverter() = default;
@@ -230,7 +230,7 @@ Axes::Units RectangularConverter::defaultUnits() const
 }
 
 RectangularConverter::RectangularConverter(const RectangularConverter& other)
-    : UnitConverterSimple(other), mP_detector_pixel(other.mP_detector_pixel->clone())
+    : UnitConverterSimple(other), m_detector_pixel(other.m_detector_pixel->clone())
 {
 }
 
@@ -239,9 +239,9 @@ double RectangularConverter::calculateValue(size_t i_axis, Axes::Units units_typ
 {
     if (units_type == Axes::Units::MM)
         return value;
-    const auto k00 = mP_detector_pixel->getPosition(0.0, 0.0);
-    const auto k01 = mP_detector_pixel->getPosition(0.0, 1.0);
-    const auto k10 = mP_detector_pixel->getPosition(1.0, 0.0);
+    const auto k00 = m_detector_pixel->getPosition(0.0, 0.0);
+    const auto k01 = m_detector_pixel->getPosition(0.0, 1.0);
+    const auto k10 = m_detector_pixel->getPosition(1.0, 0.0);
     const auto& max_pos = i_axis == 0 ? k10 : k01; // position of max along given axis
     const double shift = value - m_axis_data_table[i_axis].min;
     const auto k_f = normalizeToWavelength(k00 + shift * (max_pos - k00).unit());

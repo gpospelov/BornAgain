@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Slice/SpecularSimulationElement.cpp
+//! @file      Core/Scan/SpecularSimulationElement.cpp
 //! @brief     Implements the class SpecularSimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,11 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
+#include "Device/Detector/IDetector.h"
+#include "Device/Instrument/Instrument.h"
 #include "Sample/Slice/KzComputation.h"
 
-SpecularSimulationElement::SpecularSimulationElement(double kz, bool computable)
-    : m_intensity(0.0), m_computable(computable),
+SpecularSimulationElement::SpecularSimulationElement(double kz,
+                                                     const Instrument& instrument, bool computable)
+    : m_polarization(instrument.getBeam().getPolarization(),
+                     instrument.detector().detectionProperties().analyzerOperator()),
+      m_intensity(0.0), m_computable(computable),
       m_kz_computation([kz](const std::vector<Slice>& slices) {
           return KzComputation::computeKzFromSLDs(slices, kz);
       })
@@ -24,8 +29,10 @@ SpecularSimulationElement::SpecularSimulationElement(double kz, bool computable)
 }
 
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha,
-                                                     bool computable)
-    : m_intensity(0.0), m_computable(computable),
+                                                     const Instrument& instrument, bool computable)
+    : m_polarization(instrument.getBeam().getPolarization(),
+                     instrument.detector().detectionProperties().analyzerOperator()),
+      m_intensity(0.0), m_computable(computable),
       m_kz_computation(
           [k = vecOfLambdaAlphaPhi(wavelength, alpha, 0.0)](const std::vector<Slice>& slices) {
               return KzComputation::computeKzFromRefIndices(slices, k);
@@ -47,29 +54,7 @@ SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&&
 
 SpecularSimulationElement::~SpecularSimulationElement() = default;
 
-SpecularSimulationElement&
-SpecularSimulationElement::operator=(const SpecularSimulationElement& other)
-{
-    if (this != &other) {
-        SpecularSimulationElement tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
-}
-
-void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler& handler)
-{
-    m_polarization = handler;
-}
-
 std::vector<complex_t> SpecularSimulationElement::produceKz(const std::vector<Slice>& slices)
 {
     return m_kz_computation(slices);
-}
-
-void SpecularSimulationElement::swapContent(SpecularSimulationElement& other)
-{
-    m_polarization.swapContent(other.m_polarization);
-    std::swap(m_intensity, other.m_intensity);
-    m_kz_computation.swap(other.m_kz_computation);
 }

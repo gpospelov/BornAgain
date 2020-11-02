@@ -73,7 +73,7 @@ private:
     size_t numberOfSimulationElements() const final;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
-    //! alpha_i = mp_alpha_i_axis->getBin(index)
+    //! alpha_i = m_alpha_i_axis->getBin(index)
     void transferDetectorImage(size_t index);
 
     //! Check correct number of axes
@@ -81,7 +81,7 @@ private:
 
     void initialize();
 
-    std::unique_ptr<IAxis> mP_alpha_i_axis;
+    std::unique_ptr<IAxis> m_alpha_i_axis;
     OutputData<double> m_intensity_map;
 };
 

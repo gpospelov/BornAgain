@@ -13,50 +13,40 @@
 // ************************************************************************** //
 
 #include "Base/Pixel/SimulationElement.h"
+#include "Base/Pixel/IPixel.h"
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     std::unique_ptr<IPixel> pixel)
-    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i),
-      m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i)),
-      m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength)), m_intensity(0.0), mP_pixel(std::move(pixel)),
-      m_is_specular(false)
+                                     std::unique_ptr<IPixel> pixel,
+                                     const Eigen::Matrix2cd& beam_polarization,
+                                     const Eigen::Matrix2cd& analyzer, bool isSpecular_)
+    : m_polarization(beam_polarization, analyzer), m_wavelength(wavelength), m_alpha_i(alpha_i),
+      m_phi_i(phi_i), m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i)),
+      m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength)), m_pixel(std::move(pixel)),
+      m_is_specular(isSpecular_), m_intensity(0.0)
 {
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other)
     : m_polarization(other.m_polarization), m_wavelength(other.m_wavelength),
       m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(other.m_k_i),
-      m_mean_kf(other.m_mean_kf), m_intensity(other.m_intensity), m_is_specular(other.isSpecular())
-{
-    mP_pixel.reset(other.mP_pixel->clone());
-}
-
-SimulationElement::SimulationElement(const SimulationElement& other, double x, double y)
-    : m_polarization(other.m_polarization), m_wavelength(other.m_wavelength),
-      m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(other.m_k_i),
-      m_mean_kf(other.m_mean_kf), m_intensity(other.m_intensity), m_is_specular(other.isSpecular())
-{
-    mP_pixel.reset(other.mP_pixel->createZeroSizePixel(x, y));
-    m_mean_kf = mP_pixel->getK(0.5, 0.5, m_wavelength);
-}
-
-SimulationElement::SimulationElement(SimulationElement&& other) noexcept
-    : m_polarization(std::move(other.m_polarization)), m_wavelength(other.m_wavelength),
-      m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(std::move(other.m_k_i)),
-      m_mean_kf(other.m_mean_kf), m_intensity(other.m_intensity),
-      mP_pixel(std::move(other.mP_pixel)), m_is_specular(other.isSpecular())
+      m_mean_kf(other.m_mean_kf), m_pixel(std::move(other.m_pixel->clone())),
+      m_is_specular(other.m_is_specular), m_intensity(other.m_intensity)
 {
 }
 
-SimulationElement::~SimulationElement() = default; // here because of forward declared members
+SimulationElement::SimulationElement(SimulationElement&&) = default;
 
-SimulationElement& SimulationElement::operator=(const SimulationElement& other)
+SimulationElement::~SimulationElement() = default;
+
+SimulationElement SimulationElement::pointElement(double x, double y) const
 {
-    if (this != &other) {
-        SimulationElement tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
+    return {m_wavelength,
+            m_alpha_i,
+            m_phi_i,
+            std::unique_ptr<IPixel>(m_pixel->createZeroSizePixel(x, y)), // TODO simplify
+            m_polarization.getPolarization(),
+            m_polarization.getAnalyzerOperator(),
+            m_is_specular};
 }
 
 kvector_t SimulationElement::getKi() const
@@ -73,7 +63,7 @@ kvector_t SimulationElement::getMeanKf() const
 //! In-pixel coordinates take values from 0 to 1.
 kvector_t SimulationElement::getKf(double x, double y) const
 {
-    return mP_pixel->getK(x, y, m_wavelength);
+    return m_pixel->getK(x, y, m_wavelength);
 }
 
 kvector_t SimulationElement::getMeanQ() const
@@ -85,20 +75,7 @@ kvector_t SimulationElement::getMeanQ() const
 //! In-pixel coordinates take values from 0 to 1.
 kvector_t SimulationElement::getQ(double x, double y) const
 {
-    return getKi() - mP_pixel->getK(x, y, m_wavelength);
-}
-
-void SimulationElement::swapContent(SimulationElement& other)
-{
-    m_polarization.swapContent(other.m_polarization);
-    std::swap(m_wavelength, other.m_wavelength);
-    std::swap(m_alpha_i, other.m_alpha_i);
-    std::swap(m_phi_i, other.m_phi_i);
-    std::swap(m_k_i, other.m_k_i);
-    std::swap(m_mean_kf, other.m_mean_kf);
-    std::swap(m_intensity, other.m_intensity);
-    std::swap(mP_pixel, other.mP_pixel);
-    std::swap(m_is_specular, other.m_is_specular);
+    return getKi() - m_pixel->getK(x, y, m_wavelength);
 }
 
 double SimulationElement::getAlpha(double x, double y) const
@@ -113,10 +90,10 @@ double SimulationElement::getPhi(double x, double y) const
 
 double SimulationElement::getIntegrationFactor(double x, double y) const
 {
-    return mP_pixel->getIntegrationFactor(x, y);
+    return m_pixel->getIntegrationFactor(x, y);
 }
 
 double SimulationElement::getSolidAngle() const
 {
-    return mP_pixel->getSolidAngle();
+    return m_pixel->getSolidAngle();
 }

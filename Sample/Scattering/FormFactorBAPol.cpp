@@ -17,7 +17,7 @@
 #include <stdexcept>
 
 FormFactorBAPol::FormFactorBAPol(const IFormFactor& form_factor)
-    : mP_form_factor(form_factor.clone())
+    : m_form_factor(form_factor.clone())
 {
     setName("FormFactorBAPol");
 }
@@ -26,7 +26,7 @@ FormFactorBAPol::~FormFactorBAPol() = default;
 
 FormFactorBAPol* FormFactorBAPol::clone() const
 {
-    return new FormFactorBAPol(*mP_form_factor);
+    return new FormFactorBAPol(*m_form_factor);
 }
 
 complex_t FormFactorBAPol::evaluate(const WavevectorInfo&) const
@@ -37,7 +37,7 @@ complex_t FormFactorBAPol::evaluate(const WavevectorInfo&) const
 
 Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    Eigen::Matrix2cd ff_BA = mP_form_factor->evaluatePol(wavevectors);
+    Eigen::Matrix2cd ff_BA = m_form_factor->evaluatePol(wavevectors);
     Eigen::Matrix2cd result;
     result(0, 0) = -ff_BA(1, 0);
     result(0, 1) = ff_BA(0, 0);
@@ -48,10 +48,10 @@ Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors)
 
 double FormFactorBAPol::bottomZ(const IRotation& rotation) const
 {
-    return mP_form_factor->bottomZ(rotation);
+    return m_form_factor->bottomZ(rotation);
 }
 
 double FormFactorBAPol::topZ(const IRotation& rotation) const
 {
-    return mP_form_factor->topZ(rotation);
+    return m_form_factor->topZ(rotation);
 }

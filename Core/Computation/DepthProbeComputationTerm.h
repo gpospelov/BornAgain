@@ -33,8 +33,8 @@ public:
     void compute(DepthProbeElement& elem) const;
 
 private:
-    const ProcessedSample* mp_sample;
-    std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
+    const ProcessedSample* m_sample;
+    std::unique_ptr<DelayedProgressCounter> m_progress_counter;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATIONTERM_H

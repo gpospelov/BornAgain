@@ -33,9 +33,11 @@ public:
     double getSolidAngle() const override;
 
 private:
-    double m_alpha, m_phi;
-    double m_dalpha, m_dphi;
-    double m_solid_angle;
+    const double m_alpha;
+    const double m_phi;
+    const double m_dalpha;
+    const double m_dphi;
+    mutable double m_solid_angle;
 };
 
 #endif // BORNAGAIN_CORE_DETECTOR_SPHERICALPIXEL_H

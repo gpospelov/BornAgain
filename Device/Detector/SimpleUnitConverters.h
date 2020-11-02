@@ -116,7 +116,7 @@ private:
     std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
     kvector_t normalizeToWavelength(kvector_t vector) const;
     double axisAngle(size_t i_axis, kvector_t k_f) const;
-    std::unique_ptr<RectangularPixel> mP_detector_pixel;
+    std::unique_ptr<RectangularPixel> m_detector_pixel;
 };
 
 //! IUnitConverter class that handles the unit translations for off-specular simulations

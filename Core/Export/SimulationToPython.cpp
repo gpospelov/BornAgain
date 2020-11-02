@@ -19,6 +19,7 @@
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleToPython.h"
+#include "Core/Scan/ISpecularScan.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
@@ -30,7 +31,6 @@
 #include "Device/Instrument/PyFmt2.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
-#include "Core/Scan/ISpecularScan.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>

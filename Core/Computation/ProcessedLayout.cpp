@@ -30,22 +30,22 @@ void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map
 
 ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>& slices,
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
-    : mp_fresnel_map(p_fresnel_map), m_polarized(polarized)
+    : m_fresnel_map(p_fresnel_map), m_polarized(polarized)
 {
     m_n_slices = slices.size();
     collectFormFactors(layout, slices, z_ref);
     if (auto p_iff = layout.interferenceFunction())
-        mP_iff.reset(p_iff->clone());
+        m_iff.reset(p_iff->clone());
 }
 
 ProcessedLayout::ProcessedLayout(ProcessedLayout&& other)
 {
-    mp_fresnel_map = other.mp_fresnel_map;
+    m_fresnel_map = other.m_fresnel_map;
     m_polarized = other.m_polarized;
     m_n_slices = other.m_n_slices;
     m_surface_density = other.m_surface_density;
     m_formfactors = std::move(other.m_formfactors);
-    mP_iff = std::move(other.mP_iff);
+    m_iff = std::move(other.m_iff);
     m_region_map = std::move(other.m_region_map);
 }
 
@@ -66,7 +66,7 @@ const std::vector<FormFactorCoherentSum>& ProcessedLayout::formFactorList() cons
 
 const IInterferenceFunction* ProcessedLayout::interferenceFunction() const
 {
-    return mP_iff.get();
+    return m_iff.get();
 }
 
 std::map<size_t, std::vector<HomogeneousRegion>> ProcessedLayout::regionMap() const
@@ -121,7 +121,7 @@ FormFactorCoherentSum ProcessedLayout::ProcessParticle(const IParticle& particle
         P_ff_framework->setAmbientMaterial(slice_material);
 
         auto part = FormFactorCoherentPart(P_ff_framework.release());
-        part.setSpecularInfo(mp_fresnel_map, slice_index);
+        part.setSpecularInfo(m_fresnel_map, slice_index);
 
         result.addCoherentPart(part);
     }

@@ -27,7 +27,7 @@ public:
 
     FormFactorDecoratorPositionFactor* clone() const override final
     {
-        return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
+        return new FormFactorDecoratorPositionFactor(*m_form_factor, m_position);
     }
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }

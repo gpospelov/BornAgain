@@ -17,7 +17,7 @@
 #include "Core/Computation/ProgressHandler.h"
 #include "Core/Computation/SpecularComputationTerm.h"
 #include "Core/Computation/SpecularStrategyBuilder.h"
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");
@@ -30,8 +30,8 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
                                          SpecularElementIter end_it)
     : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it)
 {
-    if (mP_processed_sample->containsMagneticMaterial()
-        || mP_processed_sample->externalField() != kvector_t{})
+    if (m_processed_sample->containsMagneticMaterial()
+        || m_processed_sample->externalField() != kvector_t{})
         m_computation_term.reset(
             new SpecularMatrixTerm(SpecularStrategyBuilder::build(multilayer, true)));
     else
@@ -43,11 +43,11 @@ SpecularComputation::~SpecularComputation() = default;
 
 void SpecularComputation::runProtected()
 {
-    if (!mp_progress->alive())
+    if (!m_progress->alive())
         return;
 
-    m_computation_term->setProgressHandler(mp_progress);
-    auto& slices = mP_processed_sample->averageSlices();
+    m_computation_term->setProgressHandler(m_progress);
+    auto& slices = m_processed_sample->averageSlices();
     for (auto it = m_begin_it; it != m_end_it; ++it)
         m_computation_term->computeIntensity(*it, slices);
 }

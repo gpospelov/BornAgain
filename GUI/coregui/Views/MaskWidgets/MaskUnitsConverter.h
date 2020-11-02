@@ -46,7 +46,7 @@ private:
 
     double convert(double value, int axis_index);
 
-    const OutputData<double>* mp_data;
+    const OutputData<double>* m_data;
     EConvertionDirection m_direction;
 };
 

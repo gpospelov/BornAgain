@@ -26,9 +26,9 @@ ParticleDistribution::ParticleDistribution(const IParticle& prototype,
     : m_par_distribution(par_distr)
 {
     setName("ParticleDistribution");
-    mP_particle.reset(prototype.clone());
-    registerChild(mP_particle.get());
-    mP_particle->registerAbundance(false);
+    m_particle.reset(prototype.clone());
+    registerChild(m_particle.get());
+    m_particle->registerAbundance(false);
     if (auto dist = m_par_distribution.getDistribution())
         registerChild(dist);
     registerParameter("Abundance", &m_abundance);
@@ -36,26 +36,26 @@ ParticleDistribution::ParticleDistribution(const IParticle& prototype,
 
 ParticleDistribution* ParticleDistribution::clone() const
 {
-    ParticleDistribution* p_result = new ParticleDistribution(*mP_particle, m_par_distribution);
+    ParticleDistribution* p_result = new ParticleDistribution(*m_particle, m_par_distribution);
     p_result->setAbundance(m_abundance);
     return p_result;
 }
 
 void ParticleDistribution::translate(kvector_t translation)
 {
-    mP_particle->translate(translation);
+    m_particle->translate(translation);
 }
 
 void ParticleDistribution::rotate(const IRotation& rotation)
 {
-    mP_particle->rotate(rotation);
+    m_particle->rotate(rotation);
 }
 
 //! Returns particle clones with parameter values drawn from distribution.
 
 SafePointerVector<IParticle> ParticleDistribution::generateParticles() const
 {
-    std::unique_ptr<ParameterPool> P_pool{mP_particle->createParameterTree()};
+    std::unique_ptr<ParameterPool> P_pool{m_particle->createParameterTree()};
     std::string main_par_name = m_par_distribution.getMainParameterName();
     double main_par_value = P_pool->getUniqueMatch(main_par_name)->value();
 
@@ -69,7 +69,7 @@ SafePointerVector<IParticle> ParticleDistribution::generateParticles() const
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
     SafePointerVector<IParticle> result;
     for (const ParameterSample& main_sample : main_par_samples) {
-        IParticle* p_particle_clone = mP_particle->clone();
+        IParticle* p_particle_clone = m_particle->clone();
         std::unique_ptr<ParameterPool> P_new_pool{p_particle_clone->createParameterTree()};
         P_new_pool->setUniqueMatchValue(main_par_name, main_sample.value);
         for (auto it = linked_ratios.begin(); it != linked_ratios.end(); ++it)
@@ -82,7 +82,7 @@ SafePointerVector<IParticle> ParticleDistribution::generateParticles() const
 
 std::vector<const INode*> ParticleDistribution::getChildren() const
 {
-    std::vector<const INode*> result = std::vector<const INode*>() << mP_particle;
+    std::vector<const INode*> result = std::vector<const INode*>() << m_particle;
     if (auto dist = m_par_distribution.getDistribution())
         result.push_back(dist);
     return result;

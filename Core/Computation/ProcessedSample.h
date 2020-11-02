@@ -67,7 +67,7 @@ private:
     void initBFields();
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
     void initFresnelMap(const SimulationOptions& sim_options);
-    std::unique_ptr<IFresnelMap> mP_fresnel_map;
+    std::unique_ptr<IFresnelMap> m_fresnel_map;
     std::vector<Slice> m_slices;
     double m_top_z;
     bool m_polarized;

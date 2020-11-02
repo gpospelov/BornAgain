@@ -33,36 +33,36 @@ InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() = de
 
 InterferenceFunctionFinite3DLattice* InterferenceFunctionFinite3DLattice::clone() const
 {
-    auto* ret = new InterferenceFunctionFinite3DLattice(*mP_lattice, m_N_1, m_N_2, m_N_3);
+    auto* ret = new InterferenceFunctionFinite3DLattice(*m_lattice, m_N_1, m_N_2, m_N_3);
     ret->setPositionVariance(m_position_var);
     return ret;
 }
 
 const Lattice& InterferenceFunctionFinite3DLattice::lattice() const
 {
-    if (!mP_lattice)
+    if (!m_lattice)
         throw std::runtime_error("InterferenceFunctionFinite3DLattice::lattice() -> Error. "
                                  "No lattice defined.");
-    return *mP_lattice;
+    return *m_lattice;
 }
 
 std::vector<const INode*> InterferenceFunctionFinite3DLattice::getChildren() const
 {
-    return std::vector<const INode*>() << mP_lattice;
+    return std::vector<const INode*>() << m_lattice;
 }
 
 double InterferenceFunctionFinite3DLattice::iff_without_dw(const kvector_t q) const
 {
     using MathFunctions::Laue;
-    const double qadiv2 = q.dot(mP_lattice->getBasisVectorA()) / 2.0;
-    const double qbdiv2 = q.dot(mP_lattice->getBasisVectorB()) / 2.0;
-    const double qcdiv2 = q.dot(mP_lattice->getBasisVectorC()) / 2.0;
+    const double qadiv2 = q.dot(m_lattice->getBasisVectorA()) / 2.0;
+    const double qbdiv2 = q.dot(m_lattice->getBasisVectorB()) / 2.0;
+    const double qcdiv2 = q.dot(m_lattice->getBasisVectorC()) / 2.0;
     const double ampl = Laue(qadiv2, m_N_1) * Laue(qbdiv2, m_N_2) * Laue(qcdiv2, m_N_3);
     return ampl * ampl / (m_N_1 * m_N_2 * m_N_3);
 }
 
 void InterferenceFunctionFinite3DLattice::setLattice(const Lattice& lattice)
 {
-    mP_lattice = std::make_unique<Lattice>(lattice);
-    registerChild(mP_lattice.get());
+    m_lattice = std::make_unique<Lattice>(lattice);
+    registerChild(m_lattice.get());
 }

@@ -54,7 +54,7 @@ void SlicedFormFactorList::addParticle(IParticle& particle, const std::vector<Sl
         // if particle is contained in this layer, set limits to infinite:
         ZLimits limits = single_layer ? ZLimits() : SlicesZLimits(slices, i);
         auto sliced_particle = particle.createSlicedParticle(limits);
-        m_ff_list.emplace_back(std::move(sliced_particle.mP_slicedff), i);
+        m_ff_list.emplace_back(std::move(sliced_particle.m_slicedff), i);
         double thickness = slices[i].thickness();
         if (thickness > 0.0)
             ScaleRegions(sliced_particle.m_regions, 1 / thickness);

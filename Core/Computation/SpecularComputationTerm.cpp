@@ -15,7 +15,7 @@
 #include "Core/Computation/SpecularComputationTerm.h"
 #include "Core/Computation/DelayedProgressCounter.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 
 // ************************************************************************** //
 // class SpecularComputationTerm
@@ -33,7 +33,7 @@ SpecularComputationTerm::~SpecularComputationTerm() = default;
 
 void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
+    m_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
 void SpecularComputationTerm::computeIntensity(SpecularSimulationElement& elem,
@@ -44,8 +44,8 @@ void SpecularComputationTerm::computeIntensity(SpecularSimulationElement& elem,
 
     eval(elem, slices);
 
-    if (mP_progress_counter)
-        mP_progress_counter->stepProgress();
+    if (m_progress_counter)
+        m_progress_counter->stepProgress();
 }
 
 // ************************************************************************** //

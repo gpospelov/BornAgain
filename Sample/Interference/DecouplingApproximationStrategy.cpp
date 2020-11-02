@@ -49,7 +49,7 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
         intensity += fraction * std::norm(ff);
     }
     double amplitude_norm = std::norm(amplitude);
-    double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
+    double itf_function = m_iff->evaluate(sim_element.getMeanQ());
     return intensity + amplitude_norm * (itf_function - 1.0);
 }
 
@@ -78,6 +78,6 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd intensity_matrix = polarization_handler.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
-    double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
+    double itf_function = m_iff->evaluate(sim_element.getMeanQ());
     return intensity_trace + amplitude_trace * (itf_function - 1.0);
 }

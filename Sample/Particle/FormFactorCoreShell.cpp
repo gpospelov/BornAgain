@@ -15,7 +15,7 @@
 #include "Sample/Particle/FormFactorCoreShell.h"
 
 FormFactorCoreShell::FormFactorCoreShell(IFormFactor* core, IFormFactor* shell)
-    : mP_core(core), mP_shell(shell)
+    : m_core(core), m_shell(shell)
 {
     setName("FormFactorCoreShell");
 }
@@ -24,35 +24,35 @@ FormFactorCoreShell::~FormFactorCoreShell() = default;
 
 FormFactorCoreShell* FormFactorCoreShell::clone() const
 {
-    return new FormFactorCoreShell(mP_core->clone(), mP_shell->clone());
+    return new FormFactorCoreShell(m_core->clone(), m_shell->clone());
 }
 
 double FormFactorCoreShell::radialExtension() const
 {
-    return mP_shell->radialExtension();
+    return m_shell->radialExtension();
 }
 
 double FormFactorCoreShell::bottomZ(const IRotation& rotation) const
 {
-    return mP_shell->bottomZ(rotation);
+    return m_shell->bottomZ(rotation);
 }
 
 double FormFactorCoreShell::topZ(const IRotation& rotation) const
 {
-    return mP_shell->topZ(rotation);
+    return m_shell->topZ(rotation);
 }
 
 void FormFactorCoreShell::setAmbientMaterial(const Material& material)
 {
-    mP_shell->setAmbientMaterial(material);
+    m_shell->setAmbientMaterial(material);
 }
 
 complex_t FormFactorCoreShell::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return mP_shell->evaluate(wavevectors) + mP_core->evaluate(wavevectors);
+    return m_shell->evaluate(wavevectors) + m_core->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorCoreShell::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    return mP_shell->evaluatePol(wavevectors) + mP_core->evaluatePol(wavevectors);
+    return m_shell->evaluatePol(wavevectors) + m_core->evaluatePol(wavevectors);
 }

@@ -51,7 +51,7 @@ protected:
     IChiSquaredModule(const IChiSquaredModule& other);
 
     std::unique_ptr<IVarianceFunction> m_variance_function;
-    std::unique_ptr<IIntensityFunction> mp_intensity_function;
+    std::unique_ptr<IIntensityFunction> m_intensity_function;
 };
 
 #endif // BORNAGAIN_CORE_INSTRUMENT_ICHISQUAREDMODULE_H

@@ -22,9 +22,9 @@ Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_position_variance(0.0)
 {
     setName("Crystal");
-    mp_lattice_basis.reset(lattice_basis.clone());
-    mp_lattice_basis->registerAbundance(false);
-    registerChild(mp_lattice_basis.get());
+    m_lattice_basis.reset(lattice_basis.clone());
+    m_lattice_basis->registerAbundance(false);
+    registerChild(m_lattice_basis.get());
     registerChild(&m_lattice);
 }
 
@@ -32,7 +32,7 @@ Crystal::~Crystal() = default;
 
 Crystal* Crystal::clone() const
 {
-    Crystal* p_new = new Crystal(*mp_lattice_basis, m_lattice);
+    Crystal* p_new = new Crystal(*m_lattice_basis, m_lattice);
     p_new->setPositionVariance(m_position_variance);
     return p_new;
 }
@@ -42,7 +42,7 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
                                             const kvector_t& translation) const
 {
     Lattice transformed_lattice = transformedLattice(p_rotation);
-    std::unique_ptr<IParticle> P_basis_clone{mp_lattice_basis->clone()};
+    std::unique_ptr<IParticle> P_basis_clone{m_lattice_basis->clone()};
     if (p_rotation)
         P_basis_clone->rotate(*p_rotation);
     P_basis_clone->translate(translation);
@@ -57,7 +57,7 @@ std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
     double unit_cell_volume = m_lattice.volume();
     if (unit_cell_volume <= 0)
         return {};
-    auto particles = mp_lattice_basis->decompose();
+    auto particles = m_lattice_basis->decompose();
     ZLimits limits;
     for (auto p_particle : particles) {
         auto sliced_particle = p_particle->createSlicedParticle(limits);
@@ -79,14 +79,14 @@ Lattice Crystal::transformedLattice(const IRotation* p_rotation) const
 
 std::vector<const INode*> Crystal::getChildren() const
 {
-    return std::vector<const INode*>() << mp_lattice_basis << &m_lattice;
+    return std::vector<const INode*>() << m_lattice_basis << &m_lattice;
 }
 
 Crystal::Crystal(IParticle* p_lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_position_variance(0.0)
 {
     setName("Crystal");
-    mp_lattice_basis.reset(p_lattice_basis);
-    registerChild(mp_lattice_basis.get());
+    m_lattice_basis.reset(p_lattice_basis);
+    registerChild(m_lattice_basis.get());
     registerChild(&m_lattice);
 }

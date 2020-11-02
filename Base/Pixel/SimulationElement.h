@@ -15,9 +15,9 @@
 #ifndef BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H
 #define BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H
 
-#include "Base/Pixel/IPixel.h"
 #include "Base/Pixel/PolarizationHandler.h"
 #include "Base/Types/Complex.h"
+#include "Base/Vector/Vectors3D.h"
 #include <memory>
 
 class IPixel;
@@ -28,30 +28,17 @@ class IPixel;
 class SimulationElement
 {
 public:
+    SimulationElement() = delete;
     SimulationElement(double wavelength, double alpha_i, double phi_i,
-                      std::unique_ptr<IPixel> pixel);
+                      std::unique_ptr<IPixel> pixel, const Eigen::Matrix2cd& beam_polarization,
+                      const Eigen::Matrix2cd& analyzer, bool isSpecular_);
     SimulationElement(const SimulationElement& other);
-    SimulationElement& operator=(const SimulationElement& other);
-
-    //! Construct SimulationElement from other element and restrict k_f to specific value in
-    //! the original detector pixel
-    SimulationElement(const SimulationElement& other, double x, double y);
-
-    SimulationElement(SimulationElement&& other) noexcept;
-
+    SimulationElement(SimulationElement&& other);
+    SimulationElement& operator=(const SimulationElement&) = delete;
     ~SimulationElement();
 
-    //! Sets the polarization density matrix (in spin basis along z-axis)
-    void setPolarization(const Eigen::Matrix2cd& polarization)
-    {
-        m_polarization.setPolarization(polarization);
-    }
-
-    //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator)
-    {
-        m_polarization.setAnalyzerOperator(polarization_operator);
-    }
+    //! Returns copy of this SimulationElement with k_f given by in-pixel coordinate x,y.
+    SimulationElement pointElement(double x, double y) const;
 
     //! Returns assigned PolarizationHandler
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }
@@ -76,24 +63,21 @@ public:
     double getAlpha(double x, double y) const;
     double getPhi(double x, double y) const;
 
-    //! Set specularity indication on/off.
-    void setSpecular(bool is_specular) { m_is_specular = is_specular; }
-
     //! Tells if simulation element corresponds to a specular peak
     bool isSpecular() const { return m_is_specular; }
 
 private:
-    void swapContent(SimulationElement& other);
-
     kvector_t getKf(double x, double y) const;
 
-    PolarizationHandler m_polarization;
-    double m_wavelength, m_alpha_i, m_phi_i; //!< wavelength and angles of beam
-    kvector_t m_k_i;                         //!< cached value of k_i
-    kvector_t m_mean_kf;                     //!< cached value of mean_kf
-    double m_intensity;                      //!< simulated intensity for detector cell
-    std::unique_ptr<IPixel> mP_pixel;
-    bool m_is_specular;
+    const PolarizationHandler m_polarization;
+    const double m_wavelength; //!< wavelength of beam
+    const double m_alpha_i;    //!< incident grazing angle
+    const double m_phi_i;      //!< incident angle in xy plane
+    const kvector_t m_k_i;     //!< cached value of k_i
+    const kvector_t m_mean_kf; //!< cached value of mean_kf
+    mutable std::unique_ptr<IPixel> m_pixel;
+    const bool m_is_specular;
+    double m_intensity; //!< simulated intensity for detector cell
 };
 
 #endif // BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H

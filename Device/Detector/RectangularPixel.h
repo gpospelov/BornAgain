@@ -22,7 +22,7 @@
 class RectangularPixel : public IPixel
 {
 public:
-    RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);
+    RectangularPixel(const kvector_t& corner_pos, const kvector_t& width, const kvector_t& height);
 
     RectangularPixel* clone() const override;
     RectangularPixel* createZeroSizePixel(double x, double y) const override;
@@ -34,11 +34,12 @@ public:
 private:
     kvector_t normalizeLength(const kvector_t direction, double length) const;
     double calculateSolidAngle() const;
-    kvector_t m_corner_pos;
-    kvector_t m_width;
-    kvector_t m_height;
-    double m_solid_angle;
-    kvector_t m_normal;
+
+    const kvector_t m_corner_pos;
+    const kvector_t m_width;
+    const kvector_t m_height;
+    const kvector_t m_normal;
+    mutable double m_solid_angle;
 };
 
 #endif // BORNAGAIN_CORE_DETECTOR_RECTANGULARPIXEL_H

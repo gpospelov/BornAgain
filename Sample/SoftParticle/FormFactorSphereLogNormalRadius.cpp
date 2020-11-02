@@ -60,5 +60,5 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const
 
 void FormFactorSphereLogNormalRadius::onChange()
 {
-    mP_shape = std::make_unique<TruncatedEllipsoid>(m_mean, m_mean, m_mean, 2.0 * m_mean, 0.0);
+    m_shape = std::make_unique<TruncatedEllipsoid>(m_mean, m_mean, m_mean, 2.0 * m_mean, 0.0);
 }

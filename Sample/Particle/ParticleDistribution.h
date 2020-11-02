@@ -41,7 +41,7 @@ public:
     SafePointerVector<IParticle> generateParticles() const;
 
     //! Returns the prototype particle, used for generating multiple ones
-    const IParticle& prototype() const { return *mP_particle.get(); }
+    const IParticle& prototype() const { return *m_particle.get(); }
 
     //! Returns the distributed parameter data
     ParameterDistribution parameterDistribution() const { return m_par_distribution; }
@@ -51,7 +51,7 @@ public:
     std::string mainUnits() const;
 
 private:
-    std::unique_ptr<IParticle> mP_particle;
+    std::unique_ptr<IParticle> m_particle;
     ParameterDistribution m_par_distribution;
 };
 

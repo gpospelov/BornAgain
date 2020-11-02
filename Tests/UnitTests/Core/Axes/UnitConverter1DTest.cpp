@@ -3,9 +3,9 @@
 #include "Base/Axis/VariableBinAxis.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Data/OutputData.h"
-#include "Core/Scan/QSpecScan.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test

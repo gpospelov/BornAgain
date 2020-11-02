@@ -92,7 +92,7 @@ protected:
     void registerParticleProperties();
 
     kvector_t m_position;
-    std::unique_ptr<IRotation> mP_rotation;
+    std::unique_ptr<IRotation> m_rotation;
 };
 
 #endif // BORNAGAIN_CORE_PARTICLE_IPARTICLE_H

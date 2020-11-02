@@ -21,7 +21,7 @@
 #include "Sample/RT/ILayerRTCoefficients.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)
-    : mp_sample{p_sample}
+    : m_sample{p_sample}
 {
 }
 
@@ -29,7 +29,7 @@ DepthProbeComputationTerm::~DepthProbeComputationTerm() = default;
 
 void DepthProbeComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
-    mP_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
+    m_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
 void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
@@ -37,18 +37,18 @@ void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
     if (elem.isCalculated()) {
         const IAxis& z_positions = *elem.getZPositions();
         const size_t n_z = z_positions.size();
-        const size_t n_layers = mp_sample->numberOfSlices();
+        const size_t n_layers = m_sample->numberOfSlices();
         size_t start_z_ind = n_z;
         std::valarray<double> intensities(0.0, n_z);
 
         double z_layer_bottom(0.0);
         double z_layer_top(0.0);
         for (size_t i_layer = 0; i_layer < n_layers && start_z_ind != 0; ++i_layer) {
-            z_layer_bottom = mp_sample->sliceBottomZ(i_layer);
-            z_layer_top = mp_sample->sliceTopZ(i_layer);
+            z_layer_bottom = m_sample->sliceBottomZ(i_layer);
+            z_layer_top = m_sample->sliceTopZ(i_layer);
 
             // get R & T coefficients for current layer
-            const auto p_coefficients = mp_sample->fresnelMap()->getInCoefficients(elem, i_layer);
+            const auto p_coefficients = m_sample->fresnelMap()->getInCoefficients(elem, i_layer);
             const complex_t R = p_coefficients->getScalarR();
             const complex_t T = p_coefficients->getScalarT();
             const complex_t kz_out = p_coefficients->getScalarKz();
@@ -68,7 +68,7 @@ void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
         }
         elem.setIntensities(std::move(intensities));
     }
-    if (mP_progress_counter) {
-        mP_progress_counter->stepProgress();
+    if (m_progress_counter) {
+        m_progress_counter->stepProgress();
     }
 }

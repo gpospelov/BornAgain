@@ -18,7 +18,7 @@
 #include "Base/Utils/PyFmt.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
     : m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),
@@ -28,8 +28,7 @@ QSpecScan::QSpecScan(std::vector<double> qs_nm)
 }
 
 QSpecScan::QSpecScan(const IAxis& qs_nm)
-    : m_qs(qs_nm.clone()),
-      m_resolution(ScanResolution::scanEmptyResolution())
+    : m_qs(qs_nm.clone()), m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -51,14 +50,15 @@ QSpecScan* QSpecScan::clone() const
 }
 
 //! Generates simulation elements for specular simulations
-std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() const
+std::vector<SpecularSimulationElement>
+QSpecScan::generateSimulationElements(const Instrument& instrument) const
 {
     const std::vector<double> qz = generateQzVector();
 
     std::vector<SpecularSimulationElement> result;
     result.reserve(qz.size());
     for (size_t i = 0, size = qz.size(); i < size; ++i)
-        result.emplace_back(SpecularSimulationElement(-qz[i] / 2.0, qz[i] >= 0));
+        result.emplace_back(SpecularSimulationElement(-qz[i] / 2.0, instrument, qz[i] >= 0));
     return result;
 }
 

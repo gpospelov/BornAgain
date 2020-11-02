@@ -39,8 +39,8 @@ InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::cl
 {
     auto* ret = new InterferenceFunctionRadialParaCrystal(m_peak_distance, m_damping_length);
     ret->setPositionVariance(m_position_var);
-    if (mP_pdf)
-        ret->setProbabilityDistribution(*mP_pdf);
+    if (m_pdf)
+        ret->setProbabilityDistribution(*m_pdf);
     ret->setKappa(m_kappa);
     ret->setDomainSize(m_domain_size);
     return ret;
@@ -68,7 +68,7 @@ void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
 complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 {
     complex_t phase = exp_I(qpar * m_peak_distance);
-    double amplitude = mP_pdf->evaluate(qpar);
+    double amplitude = m_pdf->evaluate(qpar);
     complex_t result = phase * amplitude;
     if (m_use_damping_length)
         result *= std::exp(-m_peak_distance / m_damping_length);
@@ -80,18 +80,18 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 
 void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D& pdf)
 {
-    mP_pdf.reset(pdf.clone());
-    registerChild(mP_pdf.get());
+    m_pdf.reset(pdf.clone());
+    registerChild(m_pdf.get());
 }
 
 std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
 {
-    return std::vector<const INode*>() << mP_pdf;
+    return std::vector<const INode*>() << m_pdf;
 }
 
 double InterferenceFunctionRadialParaCrystal::iff_without_dw(const kvector_t q) const
 {
-    if (!mP_pdf)
+    if (!m_pdf)
         throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
                                                "evaluate() -> Error! Probability distribution for "
                                                "interference function not properly initialized");
@@ -104,7 +104,7 @@ double InterferenceFunctionRadialParaCrystal::iff_without_dw(const kvector_t q) 
     complex_t fp = FTPDF(qpar);
     if (n < 1) {
         if (std::abs(1.0 - fp) < 10. * std::numeric_limits<double>::epsilon()) {
-            result = mP_pdf->qSecondDerivative() / m_peak_distance / m_peak_distance;
+            result = m_pdf->qSecondDerivative() / m_peak_distance / m_peak_distance;
         } else {
             result = ((1.0 + fp) / (1.0 - fp)).real();
         }

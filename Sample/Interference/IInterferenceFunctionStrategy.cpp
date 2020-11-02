@@ -21,8 +21,8 @@
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)
-    : mP_iff(nullptr), m_options(sim_params), m_polarized(polarized),
-      mP_integrator(
+    : m_iff(nullptr), m_options(sim_params), m_polarized(polarized),
+      m_integrator(
           make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
 {
 }
@@ -38,9 +38,9 @@ void IInterferenceFunctionStrategy::init(
             "IInterferenceFunctionStrategy::init: strategy gets no form factors.");
     m_formfactor_wrappers = weighted_formfactors;
     if (p_iff)
-        mP_iff.reset(p_iff->clone());
+        m_iff.reset(p_iff->clone());
     else
-        mP_iff.reset(new InterferenceFunctionNone());
+        m_iff.reset(new InterferenceFunctionNone());
 
     strategy_specific_post_init();
 }
@@ -67,8 +67,8 @@ IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim
 {
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
-    return mP_integrator->integrate(min_array, max_array, (void*)&sim_element,
-                                    m_options.getMcPoints());
+    return m_integrator->integrate(min_array, max_array, (void*)&sim_element,
+                                   m_options.getMcPoints());
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fractions, size_t,
@@ -79,7 +79,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fraction
 
     SimulationElement* pars = static_cast<SimulationElement*>(params);
 
-    SimulationElement sim_element(*pars, par0, par1);
+    SimulationElement sim_element = pars->pointElement(par0, par1);
     return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }
 

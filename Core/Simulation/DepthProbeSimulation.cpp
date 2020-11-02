@@ -147,8 +147,7 @@ void DepthProbeSimulation::setBeamParameters(double lambda, const IAxis& alpha_a
 
 void DepthProbeSimulation::initSimulationElementVector()
 {
-    const auto& beam = instrument().getBeam();
-    m_sim_elements = generateSimulationElements(beam);
+    m_sim_elements = generateSimulationElements(instrument().getBeam());
 
     if (!m_cache.empty())
         return;

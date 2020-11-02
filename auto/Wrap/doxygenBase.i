@@ -639,7 +639,7 @@ perform the actual integration over the ranges [min_array, max_array]
 // File: classIPixel.xml
 %feature("docstring") IPixel "
 
-Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
+Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel. Pure virtual base class for SphericalPixel and RectangularPixel.
 
 C++ includes: IPixel.h
 ";
@@ -891,31 +891,24 @@ Data stucture containing both input and output of a single detector cell.
 C++ includes: SimulationElement.h
 ";
 
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixel > pixel)
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement()=delete
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixel > pixel, const Eigen::Matrix2cd &beam_polarization, const Eigen::Matrix2cd &analyzer, bool isSpecular_)
 ";
 
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
 ";
 
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
-
-Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
-";
-
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other)
 ";
 
 %feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
 ";
 
-%feature("docstring")  SimulationElement::setPolarization "void SimulationElement::setPolarization(const Eigen::Matrix2cd &polarization)
+%feature("docstring")  SimulationElement::pointElement "SimulationElement SimulationElement::pointElement(double x, double y) const
 
-Sets the polarization density matrix (in spin basis along z-axis) 
-";
-
-%feature("docstring")  SimulationElement::setAnalyzerOperator "void SimulationElement::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
-
-Sets the polarization analyzer operator (in spin basis along z-axis) 
+Returns copy of this  SimulationElement with k_f given by in-pixel coordinate x,y. 
 ";
 
 %feature("docstring")  SimulationElement::polarizationHandler "const PolarizationHandler& SimulationElement::polarizationHandler() const
@@ -971,11 +964,6 @@ Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y. I
 ";
 
 %feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
-";
-
-%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool is_specular)
-
-Set specularity indication on/off. 
 ";
 
 %feature("docstring")  SimulationElement::isSpecular "bool SimulationElement::isSpecular() const

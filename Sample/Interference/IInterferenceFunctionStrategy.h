@@ -53,7 +53,7 @@ public:
 
 protected:
     std::vector<FormFactorCoherentSum> m_formfactor_wrappers;
-    std::unique_ptr<IInterferenceFunction> mP_iff;
+    std::unique_ptr<IInterferenceFunction> m_iff;
     SimulationOptions m_options;
 
 private:
@@ -69,7 +69,7 @@ private:
     bool m_polarized;
 
 #ifndef SWIG
-    std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
+    std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> m_integrator;
 #endif
 };
 

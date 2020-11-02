@@ -54,5 +54,5 @@ IFormFactor* FormFactorLongBoxGauss::sliceFormFactor(ZLimits limits, const IRota
 
 void FormFactorLongBoxGauss::onChange()
 {
-    mP_shape = std::make_unique<Box>(m_length, m_width, m_height);
+    m_shape = std::make_unique<Box>(m_length, m_width, m_height);
 }

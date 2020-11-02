@@ -16,15 +16,15 @@
 #include "Base/Axis/PointwiseAxis.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/UnitConverter1D.h"
 #include "Device/Beam/IFootprintFactor.h"
 #include "Device/Detector/SpecularDetector1D.h"
 #include "Device/Histo/Histogram1D.h"
-#include "Core/Scan/AngularSpecScan.h"
-#include "Core/Scan/UnitConverter1D.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
-#include "Sample/Slice/SpecularSimulationElement.h"
+#include "Core/Scan/SpecularSimulationElement.h"
 
 namespace
 {
@@ -47,22 +47,11 @@ std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const 
 std::vector<SpecularSimulationElement> generateSimulationElements(const Instrument& instrument,
                                                                   const ISpecularScan& scan)
 {
-    std::vector<SpecularSimulationElement> result;
-
-    // TODO: remove if-else statement when pointwise resolution is implemented
+    // TODO: remove if statement when pointwise resolution is implemented
     if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
-        result = mangledScan(*aScan, instrument.getBeam())->generateSimulationElements();
-    else
-        result = scan.generateSimulationElements();
+        return mangledScan(*aScan, instrument.getBeam())->generateSimulationElements(instrument);
 
-    // add polarization and analyzer operators
-    const auto& polarization = instrument.getBeam().getPolarization();
-    const auto& analyzer = instrument.detector().detectionProperties().analyzerOperator();
-
-    for (auto& elem : result)
-        elem.setPolarizationHandler({polarization, analyzer});
-
-    return result;
+    return scan.generateSimulationElements(instrument);
 }
 
 } // namespace

@@ -44,7 +44,7 @@ private:
 
     double m_length;
     double m_xi;
-    std::unique_ptr<IFTDecayFunction1D> mP_decay;
+    std::unique_ptr<IFTDecayFunction1D> m_decay;
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
 

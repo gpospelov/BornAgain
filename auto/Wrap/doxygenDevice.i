@@ -2619,7 +2619,7 @@ A pixel in a  RectangularDetector.
 C++ includes: RectangularPixel.h
 ";
 
-%feature("docstring")  RectangularPixel::RectangularPixel "RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
+%feature("docstring")  RectangularPixel::RectangularPixel "RectangularPixel::RectangularPixel(const kvector_t &corner_pos, const kvector_t &width, const kvector_t &height)
 ";
 
 %feature("docstring")  RectangularPixel::clone "RectangularPixel * RectangularPixel::clone() const override

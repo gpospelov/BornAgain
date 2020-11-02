@@ -14,9 +14,9 @@
 
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "Base/Const/Units.h"
+#include "Core/Scan/AngularSpecScan.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Device/Resolution/ScanResolution.h"
-#include "Core/Scan/AngularSpecScan.h"
 #include "GUI/coregui/Models/BeamAngleItems.h"
 #include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"

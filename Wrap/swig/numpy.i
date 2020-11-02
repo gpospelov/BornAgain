@@ -1028,7 +1028,7 @@
   (DATA_TYPE** array=NULL, PyArrayObject** object_array=NULL, int* is_new_object_array=NULL)
 {
   npy_intp size[2] = { -1, -1 };
-  PyArrayObject* temp_array;
+  PyArrayObject* tem_array;
   Py_ssize_t i;
   int is_new_object;
 
@@ -1047,24 +1047,24 @@
 
   for (i=0; i<$2; i++)
   {
-    temp_array = obj_to_array_contiguous_allow_conversion(PySequence_GetItem($input,i), DATA_TYPECODE, &is_new_object);
+    tem_array = obj_to_array_contiguous_allow_conversion(PySequence_GetItem($input,i), DATA_TYPECODE, &is_new_object);
 
     /* the new array must be stored so that it can be destroyed in freearg */
-    object_array[i] = temp_array;
+    object_array[i] = tem_array;
     is_new_object_array[i] = is_new_object;
 
-    if (!temp_array || !require_dimensions(temp_array, 2)) SWIG_fail;
+    if (!tem_array || !require_dimensions(tem_array, 2)) SWIG_fail;
 
     /* store the size of the first array in the list, then use that for comparison. */
     if (i == 0)
     {
-      size[0] = array_size(temp_array,0);
-      size[1] = array_size(temp_array,1);
+      size[0] = array_size(tem_array,0);
+      size[1] = array_size(tem_array,1);
     }
 
-    if (!require_size(temp_array, size, 2)) SWIG_fail;
+    if (!require_size(tem_array, size, 2)) SWIG_fail;
 
-    array[i] = (DATA_TYPE*) array_data(temp_array);
+    array[i] = (DATA_TYPE*) array_data(tem_array);
   }
 
   $1 = (DATA_TYPE**) array;
@@ -1263,7 +1263,7 @@
   (DATA_TYPE** array=NULL, PyArrayObject** object_array=NULL, int* is_new_object_array=NULL)
 {
   npy_intp size[3] = { -1, -1, -1 };
-  PyArrayObject* temp_array;
+  PyArrayObject* tem_array;
   Py_ssize_t i;
   int is_new_object;
 
@@ -1282,25 +1282,25 @@
 
   for (i=0; i<$2; i++)
   {
-    temp_array = obj_to_array_contiguous_allow_conversion(PySequence_GetItem($input,i), DATA_TYPECODE, &is_new_object);
+    tem_array = obj_to_array_contiguous_allow_conversion(PySequence_GetItem($input,i), DATA_TYPECODE, &is_new_object);
 
     /* the new array must be stored so that it can be destroyed in freearg */
-    object_array[i] = temp_array;
+    object_array[i] = tem_array;
     is_new_object_array[i] = is_new_object;
 
-    if (!temp_array || !require_dimensions(temp_array, 3)) SWIG_fail;
+    if (!tem_array || !require_dimensions(tem_array, 3)) SWIG_fail;
 
     /* store the size of the first array in the list, then use that for comparison. */
     if (i == 0)
     {
-      size[0] = array_size(temp_array,0);
-      size[1] = array_size(temp_array,1);
-      size[2] = array_size(temp_array,2);
+      size[0] = array_size(tem_array,0);
+      size[1] = array_size(tem_array,1);
+      size[2] = array_size(tem_array,2);
     }
 
-    if (!require_size(temp_array, size, 3)) SWIG_fail;
+    if (!require_size(tem_array, size, 3)) SWIG_fail;
 
-    array[i] = (DATA_TYPE*) array_data(temp_array);
+    array[i] = (DATA_TYPE*) array_data(tem_array);
   }
 
   $1 = (DATA_TYPE**) array;
@@ -1665,7 +1665,7 @@
   (DATA_TYPE** array=NULL, PyArrayObject** object_array=NULL)
 {
   npy_intp size[2] = { -1, -1 };
-  PyArrayObject* temp_array;
+  PyArrayObject* tem_array;
   Py_ssize_t i;
 
   /* length of the list */
@@ -1682,27 +1682,27 @@
 
   for (i=0; i<$2; i++)
   {
-    temp_array = obj_to_array_no_conversion(PySequence_GetItem($input,i), DATA_TYPECODE);
+    tem_array = obj_to_array_no_conversion(PySequence_GetItem($input,i), DATA_TYPECODE);
 
     /* the new array must be stored so that it can be destroyed in freearg */
-    object_array[i] = temp_array;
+    object_array[i] = tem_array;
 
-    if ( !temp_array || !require_dimensions(temp_array, 2) ||
-      !require_contiguous(temp_array) ||
-      !require_native(temp_array) ||
-      !PyArray_EquivTypenums(array_type(temp_array), DATA_TYPECODE)
+    if ( !tem_array || !require_dimensions(tem_array, 2) ||
+      !require_contiguous(tem_array) ||
+      !require_native(tem_array) ||
+      !PyArray_EquivTypenums(array_type(tem_array), DATA_TYPECODE)
     ) SWIG_fail;
 
     /* store the size of the first array in the list, then use that for comparison. */
     if (i == 0)
     {
-      size[0] = array_size(temp_array,0);
-      size[1] = array_size(temp_array,1);
+      size[0] = array_size(tem_array,0);
+      size[1] = array_size(tem_array,1);
     }
 
-    if (!require_size(temp_array, size, 2)) SWIG_fail;
+    if (!require_size(tem_array, size, 2)) SWIG_fail;
 
-    array[i] = (DATA_TYPE*) array_data(temp_array);
+    array[i] = (DATA_TYPE*) array_data(tem_array);
   }
 
   $1 = (DATA_TYPE**) array;
@@ -1849,7 +1849,7 @@
   (DATA_TYPE** array=NULL, PyArrayObject** object_array=NULL)
 {
   npy_intp size[3] = { -1, -1, -1 };
-  PyArrayObject* temp_array;
+  PyArrayObject* tem_array;
   Py_ssize_t i;
 
   /* length of the list */
@@ -1866,28 +1866,28 @@
 
   for (i=0; i<$2; i++)
   {
-    temp_array = obj_to_array_no_conversion(PySequence_GetItem($input,i), DATA_TYPECODE);
+    tem_array = obj_to_array_no_conversion(PySequence_GetItem($input,i), DATA_TYPECODE);
 
     /* the new array must be stored so that it can be destroyed in freearg */
-    object_array[i] = temp_array;
+    object_array[i] = tem_array;
 
-    if ( !temp_array || !require_dimensions(temp_array, 3) ||
-      !require_contiguous(temp_array) ||
-      !require_native(temp_array) ||
-      !PyArray_EquivTypenums(array_type(temp_array), DATA_TYPECODE)
+    if ( !tem_array || !require_dimensions(tem_array, 3) ||
+      !require_contiguous(tem_array) ||
+      !require_native(tem_array) ||
+      !PyArray_EquivTypenums(array_type(tem_array), DATA_TYPECODE)
     ) SWIG_fail;
 
     /* store the size of the first array in the list, then use that for comparison. */
     if (i == 0)
     {
-      size[0] = array_size(temp_array,0);
-      size[1] = array_size(temp_array,1);
-      size[2] = array_size(temp_array,2);
+      size[0] = array_size(tem_array,0);
+      size[1] = array_size(tem_array,1);
+      size[2] = array_size(tem_array,2);
     }
 
-    if (!require_size(temp_array, size, 3)) SWIG_fail;
+    if (!require_size(tem_array, size, 3)) SWIG_fail;
 
-    array[i] = (DATA_TYPE*) array_data(temp_array);
+    array[i] = (DATA_TYPE*) array_data(tem_array);
   }
 
   $1 = (DATA_TYPE**) array;

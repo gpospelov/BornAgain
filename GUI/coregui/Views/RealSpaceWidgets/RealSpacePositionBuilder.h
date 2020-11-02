@@ -39,7 +39,7 @@ public:
                                                        double density = 0.0) const;
 
 private:
-    std::unique_ptr<IPositionBuilder> mP_pos_builder;
+    std::unique_ptr<IPositionBuilder> m_pos_builder;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEPOSITIONBUILDER_H

@@ -26,31 +26,31 @@ FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& form
 
 FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
 {
-    return new FormFactorDecoratorRotation(*mp_form_factor, m_transform);
+    return new FormFactorDecoratorRotation(*m_form_factor, m_transform);
 }
 
 double FormFactorDecoratorRotation::bottomZ(const IRotation& rotation) const
 {
     Transform3D transform = rotation.getTransform3D();
     std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform * m_transform));
-    return mp_form_factor->bottomZ(*P_total_rotation);
+    return m_form_factor->bottomZ(*P_total_rotation);
 }
 
 double FormFactorDecoratorRotation::topZ(const IRotation& rotation) const
 {
     Transform3D transform = rotation.getTransform3D();
     std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform * m_transform));
-    return mp_form_factor->topZ(*P_total_rotation);
+    return m_form_factor->topZ(*P_total_rotation);
 }
 
 complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return mp_form_factor->evaluate(wavevectors.transformed(m_transform.getInverse()));
+    return m_form_factor->evaluate(wavevectors.transformed(m_transform.getInverse()));
 }
 
 Eigen::Matrix2cd FormFactorDecoratorRotation::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    return mp_form_factor->evaluatePol(wavevectors.transformed(m_transform.getInverse()));
+    return m_form_factor->evaluatePol(wavevectors.transformed(m_transform.getInverse()));
 }
 
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& form_factor,

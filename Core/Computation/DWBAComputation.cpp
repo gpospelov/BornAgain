@@ -38,7 +38,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     bool polarized = m_processed_sample->containsMagneticMaterial();
     for (const ProcessedLayout& layout : m_processed_sample->layouts()) {
         m_single_computation.addLayoutComputation(
-            new ParticleLayoutComputation(&layout, m_sim_options, polarized));
+            new ParticleLayoutComputation(layout, m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
     if (m_processed_sample->hasRoughness())

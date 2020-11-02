@@ -36,8 +36,8 @@ public:
 
 const std::map<Axes::Units, const char*> axisUnitLabel = {
     {Axes::Units::DEFAULT, "undefined"}, {Axes::Units::NBINS, "bin"}, {Axes::Units::RADIANS, "rad"},
-    {Axes::Units::DEGREES, "deg"},     {Axes::Units::MM, "mm"},     {Axes::Units::QSPACE, "1/nm"},
-    {Axes::Units::QXQY, "1/nm"},       {Axes::Units::RQ4, "nm^-4?"}};
+    {Axes::Units::DEGREES, "deg"},       {Axes::Units::MM, "mm"},     {Axes::Units::QSPACE, "1/nm"},
+    {Axes::Units::QXQY, "1/nm"},         {Axes::Units::RQ4, "nm^-4?"}};
 
 //! Interface to provide axis translations to different units for simulation output
 //! @ingroup simulation_internal

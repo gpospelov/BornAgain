@@ -19,19 +19,12 @@
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
-                                                             bool polarized)
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
+    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+    const IInterferenceFunction* p_iff, const SimulationOptions& sim_params, bool polarized)
     : m_iff(nullptr), m_options(sim_params), m_polarized(polarized),
       m_integrator(
           make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
-{
-}
-
-IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() = default;
-
-void IInterferenceFunctionStrategy::init(
-    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-    const IInterferenceFunction* p_iff)
 {
     if (weighted_formfactors.empty())
         throw Exceptions::ClassInitializationException(
@@ -41,9 +34,9 @@ void IInterferenceFunctionStrategy::init(
         m_iff.reset(p_iff->clone());
     else
         m_iff.reset(new InterferenceFunctionNone());
-
-    strategy_specific_post_init();
 }
+
+IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() = default;
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
@@ -82,5 +75,3 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fraction
     SimulationElement sim_element = pars->pointElement(par0, par1);
     return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }
-
-void IInterferenceFunctionStrategy::strategy_specific_post_init() {}

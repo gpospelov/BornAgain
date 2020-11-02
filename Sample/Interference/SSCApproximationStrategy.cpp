@@ -20,13 +20,11 @@
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
 using InterferenceFunctionUtils::PrecomputeScalarFormFactors;
 
-SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa,
-                                                   bool polarized)
-    : IInterferenceFunctionStrategy(sim_params, polarized), m_helper(kappa)
-{
-}
-
-void SSCApproximationStrategy::strategy_specific_post_init()
+SSCApproximationStrategy::SSCApproximationStrategy(
+    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+    const IInterferenceFunction* p_iff, SimulationOptions sim_params, bool polarized, double kappa)
+    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized),
+      m_helper(kappa)
 {
     m_helper.init(m_formfactor_wrappers);
 }

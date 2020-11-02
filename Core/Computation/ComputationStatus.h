@@ -30,7 +30,11 @@ public:
 
     void setRunning() { m_status = RUNNING; }
     void setCompleted() { m_status = COMPLETED; }
-    void setFailed(const std::string& message) { m_error_message = message; m_status = FAILED; }
+    void setFailed(const std::string& message)
+    {
+        m_error_message = message;
+        m_status = FAILED;
+    }
 
 private:
     enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };

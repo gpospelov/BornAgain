@@ -24,9 +24,10 @@
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
 using InterferenceFunctionUtils::PrecomputeScalarFormFactors;
 
-DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params,
-                                                                 bool polarized)
-    : IInterferenceFunctionStrategy(sim_params, polarized)
+DecouplingApproximationStrategy::DecouplingApproximationStrategy(
+    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+    const IInterferenceFunction* p_iff, SimulationOptions sim_params, bool polarized)
+    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized)
 {
 }
 

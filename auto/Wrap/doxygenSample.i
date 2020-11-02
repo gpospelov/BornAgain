@@ -437,7 +437,7 @@ Strategy class to compute the total scattering from a particle layout in the dec
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized)
+%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, SimulationOptions sim_params, bool polarized)
 ";
 
 
@@ -3627,15 +3627,10 @@ Instantiation of child classes takes place in LayoutStrategyBuilder::createStrat
 C++ includes: IInterferenceFunctionStrategy.h
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions &sim_params, bool polarized)
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, const SimulationOptions &sim_params, bool polarized)
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
-";
-
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff)
-
-Initializes the object with form factors and an interference function. 
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
@@ -7574,7 +7569,7 @@ Strategy class to compute the total scattering from a particle layout in the siz
 C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa, bool polarized)
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, SimulationOptions sim_params, bool polarized, double kappa)
 ";
 
 

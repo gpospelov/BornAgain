@@ -26,7 +26,9 @@ class SimulationElement;
 class DecouplingApproximationStrategy final : public IInterferenceFunctionStrategy
 {
 public:
-    DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized);
+    DecouplingApproximationStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+                                    const IInterferenceFunction* p_iff,
+                                    SimulationOptions sim_params, bool polarized);
 
 private:
     double scalarCalculation(const SimulationElement& sim_element) const override;

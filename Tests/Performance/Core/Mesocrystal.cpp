@@ -70,7 +70,6 @@ class MesoCrystalPerformanceBuilder : public ISampleBuilder
 {
 public:
     MesoCrystalPerformanceBuilder();
-    ~MesoCrystalPerformanceBuilder();
 
 protected:
     MultiLayer* buildSample() const override;
@@ -105,8 +104,6 @@ MesoCrystalPerformanceBuilder::MesoCrystalPerformanceBuilder()
       m_tilt_stop(1.0 * deg), m_tilt_steps(1)
 {
 }
-
-MesoCrystalPerformanceBuilder::~MesoCrystalPerformanceBuilder() = default;
 
 MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const
 {

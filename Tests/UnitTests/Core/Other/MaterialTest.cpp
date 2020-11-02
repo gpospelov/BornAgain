@@ -227,6 +227,4 @@ TEST_F(MaterialTest, MaterialMove)
     Material moved_material(std::move(material));
     EXPECT_EQ(material_data, moved_material.materialData());
     EXPECT_EQ(magnetism, moved_material.magnetization());
-    EXPECT_TRUE(material.isEmpty());
-    EXPECT_THROW(Material material2 = material, Exceptions::NullPointerException);
 }

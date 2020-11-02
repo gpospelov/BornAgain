@@ -14,18 +14,48 @@
 
 #include "Core/Computation/ParticleLayoutComputation.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Core/Computation/LayoutStrategyBuilder.h"
+#include "Base/Types/Exceptions.h"
 #include "Core/Computation/ProcessedLayout.h"
+#include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
+#include "Sample/Interference/DecouplingApproximationStrategy.h"
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
+#include "Sample/Interference/SSCApproximationStrategy.h"
 
-ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_layout,
+namespace {
+
+std::unique_ptr<IInterferenceFunctionStrategy> processedInterferenceFunction(
+    const ProcessedLayout* layout, const SimulationOptions& sim_params, bool polarized)
+{
+    const IInterferenceFunction* p_iff = layout->interferenceFunction();
+    if (p_iff && layout->numberOfSlices() > 1 && !p_iff->supportsMultilayer())
+        throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
+                                 "interference function does not support multiple layers");
+
+    auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
+
+    std::unique_ptr<IInterferenceFunctionStrategy> result;
+
+    if (p_radial_para && p_radial_para->kappa() > 0.0) {
+        double kappa = p_radial_para->kappa();
+        result = std::make_unique<SSCApproximationStrategy>(sim_params, kappa, polarized);
+    } else {
+        result = std::make_unique<DecouplingApproximationStrategy>(sim_params, polarized);
+    }
+    if (!result)
+        throw Exceptions::ClassInitializationException("Could not create appropriate result");
+    result->init(layout->formFactorList(), p_iff);
+    return result;
+}
+
+} // namespace
+
+ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* layout,
                                                      const SimulationOptions& options,
                                                      bool polarized)
-    : m_layout(p_layout)
-    , m_region_map(p_layout->regionMap())
+    : m_layout(layout)
+    , m_region_map(layout->regionMap())
+    , m_interference_function_strategy(processedInterferenceFunction(layout, options, polarized))
 {
-    LayoutStrategyBuilder builder(p_layout, options, polarized);
-    m_strategy.reset(builder.releaseStrategy());
 }
 
 ParticleLayoutComputation::~ParticleLayoutComputation() = default;
@@ -36,7 +66,9 @@ void ParticleLayoutComputation::compute(SimulationElement& elem) const
     const size_t n_layers = m_layout->numberOfSlices();
     if (n_layers > 1 && alpha_f < 0)
         return; // zero for transmission with multilayers (n>1) # TODO: support transmission GISAS
-    elem.addIntensity(m_strategy->evaluate(elem) * m_layout->surfaceDensity());
+
+    elem.addIntensity(m_interference_function_strategy->evaluate(elem) *
+                      m_layout->surfaceDensity());
 }
 
 void ParticleLayoutComputation::mergeRegionMap(

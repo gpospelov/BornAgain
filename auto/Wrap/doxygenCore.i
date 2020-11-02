@@ -983,24 +983,6 @@ Returns map of fit parameter names and its current values.
 %feature("docstring") LabelMap "";
 
 
-// File: classLayoutStrategyBuilder.xml
-%feature("docstring") LayoutStrategyBuilder "
-
-Methods to generate a simulation strategy for a  ParticleLayoutComputation.
-
-C++ includes: LayoutStrategyBuilder.h
-";
-
-%feature("docstring")  LayoutStrategyBuilder::LayoutStrategyBuilder "LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout *p_layout, const SimulationOptions &sim_params, bool polarized)
-";
-
-%feature("docstring")  LayoutStrategyBuilder::~LayoutStrategyBuilder "LayoutStrategyBuilder::~LayoutStrategyBuilder()
-";
-
-%feature("docstring")  LayoutStrategyBuilder::releaseStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::releaseStrategy()
-";
-
-
 // File: classLogMetric.xml
 %feature("docstring") LogMetric "
 
@@ -2886,9 +2868,15 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: LayoutStrategyBuilder_8cpp.xml
+%feature("docstring")  processedIInterferenceFunctionStrategy "IInterferenceFunctionStrategy* processedIInterferenceFunctionStrategy(const ProcessedLayout *layout, const SimulationOptions &sim_params, bool polarized)
+";
 
 
 // File: LayoutStrategyBuilder_8h.xml
+%feature("docstring")  processedInterferenceFunction "IInterferenceFunctionStrategy* processedInterferenceFunction(const ProcessedLayout *layout, const SimulationOptions &sim_params, bool polarized)
+
+Provides a IInterferenceFunctionStrategy for a  ParticleLayoutComputation. 
+";
 
 
 // File: MultiLayerFuncs_8cpp.xml

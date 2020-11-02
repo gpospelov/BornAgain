@@ -43,8 +43,8 @@ public:
 
 private:
     const ProcessedLayout* m_layout;
-    std::unique_ptr<const IInterferenceFunctionStrategy> m_strategy;
     const std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
+    std::unique_ptr<const IInterferenceFunctionStrategy> m_interference_function_strategy;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_PARTICLELAYOUTCOMPUTATION_H

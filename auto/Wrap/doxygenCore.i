@@ -206,10 +206,7 @@ C++ includes: ComputationStatus.h
 %feature("docstring")  ComputationStatus::setCompleted "void ComputationStatus::setCompleted()
 ";
 
-%feature("docstring")  ComputationStatus::setFailed "void ComputationStatus::setFailed()
-";
-
-%feature("docstring")  ComputationStatus::setErrorMessage "void ComputationStatus::setErrorMessage(const std::string &message)
+%feature("docstring")  ComputationStatus::setFailed "void ComputationStatus::setFailed(const std::string &message)
 ";
 
 

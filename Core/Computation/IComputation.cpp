@@ -34,7 +34,6 @@ void IComputation::run()
         runProtected();
         m_status.setCompleted();
     } catch (const std::exception& ex) {
-        m_status.setErrorMessage(std::string(ex.what()));
-        m_status.setFailed();
+        m_status.setFailed(ex.what());
     }
 }

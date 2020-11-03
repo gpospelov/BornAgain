@@ -15,6 +15,8 @@
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Base/Types/Exceptions.h"
+#include "Base/Types/Exceptions.h"
+#include "Base/Utils/Assert.h"
 #include "Base/Utils/IntegratorMCMiser.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
@@ -22,18 +24,13 @@
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff, const SimulationOptions& sim_params, bool polarized)
-    : m_iff(nullptr), m_options(sim_params), m_polarized(polarized),
+    : m_formfactor_wrappers(weighted_formfactors),
+      m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone()),
+      m_options(sim_params), m_polarized(polarized),
       m_integrator(
           make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
 {
-    if (weighted_formfactors.empty())
-        throw Exceptions::ClassInitializationException(
-            "IInterferenceFunctionStrategy::init: strategy gets no form factors.");
-    m_formfactor_wrappers = weighted_formfactors;
-    if (p_iff)
-        m_iff.reset(p_iff->clone());
-    else
-        m_iff.reset(new InterferenceFunctionNone());
+    ASSERT(!m_formfactor_wrappers.empty());
 }
 
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() = default;

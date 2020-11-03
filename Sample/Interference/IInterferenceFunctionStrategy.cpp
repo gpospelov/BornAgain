@@ -15,7 +15,6 @@
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Base/Types/Exceptions.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/IntegratorMCMiser.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
@@ -25,8 +24,8 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff, const SimulationOptions& sim_params, bool polarized)
     : m_formfactor_wrappers(weighted_formfactors),
-      m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone()),
-      m_options(sim_params), m_polarized(polarized),
+      m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone()), m_options(sim_params),
+      m_polarized(polarized),
       m_integrator(
           make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
 {

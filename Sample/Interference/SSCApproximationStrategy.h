@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SSCAPPROXIMATIONSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_SSCAPPROXIMATIONSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_INTERFERENCE_SSCAPPROXIMATIONSTRATEGY_H
+#define BORNAGAIN_SAMPLE_INTERFERENCE_SSCAPPROXIMATIONSTRATEGY_H
 
 #include "Sample/Interference/SSCAHelper.h"
 
@@ -26,13 +26,14 @@ class SimulationElement;
 class SSCApproximationStrategy final : public IInterferenceFunctionStrategy
 {
 public:
-    SSCApproximationStrategy(SimulationOptions sim_params, double kappa, bool polarized);
+    SSCApproximationStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+                             const IInterferenceFunction* p_iff, SimulationOptions sim_params,
+                             bool polarized, double kappa);
 
 private:
-    void strategy_specific_post_init() override;
     double scalarCalculation(const SimulationElement& sim_element) const override;
     double polarizedCalculation(const SimulationElement& sim_element) const override;
     SSCAHelper m_helper;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SSCAPPROXIMATIONSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_INTERFERENCE_SSCAPPROXIMATIONSTRATEGY_H

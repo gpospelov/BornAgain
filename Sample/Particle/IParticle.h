@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
-#define BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_IPARTICLE_H
+#define BORNAGAIN_SAMPLE_PARTICLE_IPARTICLE_H
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Particle/IAbstractParticle.h"
@@ -95,4 +95,4 @@ protected:
     std::unique_ptr<IRotation> m_rotation;
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_IPARTICLE_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_IPARTICLE_H

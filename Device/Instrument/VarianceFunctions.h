@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
-#define BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
+#ifndef BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H
+#define BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H
 
 //! Variance function interface.
 //! @ingroup fitting_internal
@@ -54,4 +54,4 @@ private:
     double m_epsilon;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_VARIANCEFUNCTIONS_H
+#endif // BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H

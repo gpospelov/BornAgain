@@ -32,7 +32,7 @@ class SimulationOptions;
 class ParticleLayoutComputation final
 {
 public:
-    ParticleLayoutComputation(const ProcessedLayout* p_layout, const SimulationOptions& options,
+    ParticleLayoutComputation(const ProcessedLayout& layout, const SimulationOptions& options,
                               bool polarized);
     ~ParticleLayoutComputation();
 
@@ -42,10 +42,9 @@ public:
     void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
 
 private:
-    const ProcessedLayout* m_layout;
-    std::unique_ptr<const IInterferenceFunctionStrategy> m_strategy;
-    double m_surface_density;
-    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
+    const ProcessedLayout& m_layout;
+    const std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
+    std::unique_ptr<const IInterferenceFunctionStrategy> m_interference_function_strategy;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_PARTICLELAYOUTCOMPUTATION_H

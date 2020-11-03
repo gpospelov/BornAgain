@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H
-#define BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H
+#ifndef BORNAGAIN_DEVICE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H
+#define BORNAGAIN_DEVICE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H
 
 #include "Device/Data/OutputData.h"
 #include <memory>
@@ -84,4 +84,4 @@ std::unique_ptr<OutputData<double>> createFFT(const OutputData<double>& data);
 
 }; // namespace IntensityDataFunctions
 
-#endif // BORNAGAIN_CORE_INTENSITY_INTENSITYDATAFUNCTIONS_H
+#endif // BORNAGAIN_DEVICE_INSTRUMENT_INTENSITYDATAFUNCTIONS_H

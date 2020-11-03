@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PYIO_PYEMBEDDEDUTILS_H
-#define BORNAGAIN_CORE_PYIO_PYEMBEDDEDUTILS_H
+#ifndef BORNAGAIN_BASE_UTILS_PYEMBEDDEDUTILS_H
+#define BORNAGAIN_BASE_UTILS_PYEMBEDDEDUTILS_H
 
 #ifdef BORNAGAIN_PYTHON
 
@@ -49,4 +49,4 @@ std::string pythonStackTrace();
 
 #endif // BORNAGAIN_PYTHON
 
-#endif // BORNAGAIN_CORE_PYIO_PYEMBEDDEDUTILS_H
+#endif // BORNAGAIN_BASE_UTILS_PYEMBEDDEDUTILS_H

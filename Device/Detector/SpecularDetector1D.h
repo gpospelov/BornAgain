@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_SPECULARDETECTOR1D_H
-#define BORNAGAIN_CORE_DETECTOR_SPECULARDETECTOR1D_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_SPECULARDETECTOR1D_H
+#define BORNAGAIN_DEVICE_DETECTOR_SPECULARDETECTOR1D_H
 
 #include "Device/Detector/IDetector.h"
 
@@ -52,4 +52,4 @@ protected:
     void initialize();
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_SPECULARDETECTOR1D_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_SPECULARDETECTOR1D_H

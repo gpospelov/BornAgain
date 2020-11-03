@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
-#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
+#ifndef BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
+#define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
 
 #include "Sample/Aggregate/IInterferenceFunction.h"
 
@@ -33,4 +33,4 @@ private:
     double iff_without_dw(const kvector_t q) const override final;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H
+#endif // BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H

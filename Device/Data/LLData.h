@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_LLDATA_H
-#define BORNAGAIN_CORE_INTENSITY_LLDATA_H
+#ifndef BORNAGAIN_DEVICE_DATA_LLDATA_H
+#define BORNAGAIN_DEVICE_DATA_LLDATA_H
 
 #include "Base/Types/Exceptions.h"
 #include "Base/Vector/EigenCore.h"
@@ -306,4 +306,4 @@ template <class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T
     return true;
 }
 
-#endif // BORNAGAIN_CORE_INTENSITY_LLDATA_H
+#endif // BORNAGAIN_DEVICE_DATA_LLDATA_H

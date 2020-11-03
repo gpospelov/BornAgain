@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_FORMFACTORCORESHELL_H
-#define BORNAGAIN_CORE_PARTICLE_FORMFACTORCORESHELL_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCORESHELL_H
+#define BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCORESHELL_H
 
 #include "Sample/Scattering/IFormFactor.h"
 
@@ -55,4 +55,4 @@ protected:
     std::unique_ptr<IFormFactor> m_shell;
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_FORMFACTORCORESHELL_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCORESHELL_H

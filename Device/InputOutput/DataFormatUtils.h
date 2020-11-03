@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INPUTOUTPUT_DATAFORMATUTILS_H
-#define BORNAGAIN_CORE_INPUTOUTPUT_DATAFORMATUTILS_H
+#ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_DATAFORMATUTILS_H
+#define BORNAGAIN_DEVICE_INPUTOUTPUT_DATAFORMATUTILS_H
 
 #include <memory>
 #include <string>
@@ -53,4 +53,4 @@ std::vector<double> parse_doubles(const std::string& str);
 void readLineOfDoubles(std::vector<double>& buffer, std::istringstream& iss);
 } // namespace DataFormatUtils
 
-#endif // BORNAGAIN_CORE_INPUTOUTPUT_DATAFORMATUTILS_H
+#endif // BORNAGAIN_DEVICE_INPUTOUTPUT_DATAFORMATUTILS_H

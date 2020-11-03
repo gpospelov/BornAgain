@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITEFACTORY_H
-#define BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITEFACTORY_H
+#ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAWRITEFACTORY_H
+#define BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAWRITEFACTORY_H
 
 #include "Device/InputOutput/OutputDataWriter.h"
 
@@ -29,4 +29,4 @@ private:
     static IOutputDataWriteStrategy* getWriteStrategy(const std::string& file_name);
 };
 
-#endif // BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITEFACTORY_H
+#endif // BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAWRITEFACTORY_H

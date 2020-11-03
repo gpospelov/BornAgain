@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H
-#define BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H
+#ifndef BORNAGAIN_BASE_PIXEL_SIMULATIONELEMENT_H
+#define BORNAGAIN_BASE_PIXEL_SIMULATIONELEMENT_H
 
 #include "Base/Pixel/PolarizationHandler.h"
 #include "Base/Types/Complex.h"
@@ -80,4 +80,4 @@ private:
     double m_intensity; //!< simulated intensity for detector cell
 };
 
-#endif // BORNAGAIN_CORE_PIXEL_SIMULATIONELEMENT_H
+#endif // BORNAGAIN_BASE_PIXEL_SIMULATIONELEMENT_H

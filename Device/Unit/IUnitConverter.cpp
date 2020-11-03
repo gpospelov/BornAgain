@@ -58,7 +58,7 @@ void IUnitConverter::throwUnitsError(std::string method, std::vector<Axes::Units
        << ": unknown or unsupported unit type. Available units "
           "are:\n";
     for (auto unit : available)
-        ss << axisUnitName.at(unit) << "\n";
+        ss << axisUnitLabel.at(unit) << "\n";
     throw std::runtime_error(ss.str());
 }
 

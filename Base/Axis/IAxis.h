@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AXIS_IAXIS_H
-#define BORNAGAIN_CORE_AXIS_IAXIS_H
+#ifndef BORNAGAIN_BASE_AXIS_IAXIS_H
+#define BORNAGAIN_BASE_AXIS_IAXIS_H
 
 #include "Base/Axis/Bin.h"
 #include <vector>
@@ -98,4 +98,4 @@ inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right)
     return left == right;
 }
 
-#endif // BORNAGAIN_CORE_AXIS_IAXIS_H
+#endif // BORNAGAIN_BASE_AXIS_IAXIS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPRISM_H
-#define BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPRISM_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPRISM_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPRISM_H
 
 #include "Sample/Scattering/IFormFactorBorn.h"
 #include <memory>
@@ -44,4 +44,4 @@ private:
     std::unique_ptr<Prism> pimpl;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_IFORMFACTORPRISM_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPRISM_H

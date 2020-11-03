@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_IINTERFERENCEFUNCTIONSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_IINTERFERENCEFUNCTIONSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_INTERFERENCE_IINTERFERENCEFUNCTIONSTRATEGY_H
+#define BORNAGAIN_SAMPLE_INTERFERENCE_IINTERFERENCEFUNCTIONSTRATEGY_H
 
 #include "Base/Types/Complex.h"
 #include "Sample/RT/SimulationOptions.h"
@@ -41,12 +41,10 @@ class SimulationElement;
 class IInterferenceFunctionStrategy
 {
 public:
-    IInterferenceFunctionStrategy(const SimulationOptions& sim_params, bool polarized);
+    IInterferenceFunctionStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+                                  const IInterferenceFunction* p_iff,
+                                  const SimulationOptions& sim_params, bool polarized);
     virtual ~IInterferenceFunctionStrategy();
-
-    //! Initializes the object with form factors and an interference function
-    void init(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-              const IInterferenceFunction* p_iff);
 
     //! Calculates the intensity for scalar particles/interactions
     double evaluate(const SimulationElement& sim_element) const;
@@ -54,13 +52,12 @@ public:
 protected:
     std::vector<FormFactorCoherentSum> m_formfactor_wrappers;
     std::unique_ptr<IInterferenceFunction> m_iff;
-    SimulationOptions m_options;
+    const SimulationOptions m_options;
 
 private:
     double evaluateSinglePoint(const SimulationElement& sim_element) const;
     double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
     double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const;
-    virtual void strategy_specific_post_init();
     //! Evaluates the intensity in the scalar case
     virtual double scalarCalculation(const SimulationElement& sim_element) const = 0;
     //! Evaluates the intensity in the polarized case
@@ -73,4 +70,4 @@ private:
 #endif
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_IINTERFERENCEFUNCTIONSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_INTERFERENCE_IINTERFERENCEFUNCTIONSTRATEGY_H

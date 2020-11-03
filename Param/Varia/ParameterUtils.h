@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERUTILS_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERUTILS_H
+#ifndef BORNAGAIN_PARAM_VARIA_PARAMETERUTILS_H
+#define BORNAGAIN_PARAM_VARIA_PARAMETERUTILS_H
 
 #include <string>
 
@@ -30,4 +30,4 @@ std::string poolParameterUnits(const IParameterized& node, const std::string& pa
 
 } // namespace ParameterUtils
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERUTILS_H
+#endif // BORNAGAIN_PARAM_VARIA_PARAMETERUTILS_H

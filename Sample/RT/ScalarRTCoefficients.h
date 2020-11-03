@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_RT_SCALARRTCOEFFICIENTS_H
-#define BORNAGAIN_CORE_RT_SCALARRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H
+#define BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H
 
 #include "Sample/RT/ILayerRTCoefficients.h"
 
@@ -137,4 +137,4 @@ inline complex_t ScalarRTCoefficients::getScalarT() const
     return t_r(0);
 }
 
-#endif // BORNAGAIN_CORE_RT_SCALARRTCOEFFICIENTS_H
+#endif // BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H

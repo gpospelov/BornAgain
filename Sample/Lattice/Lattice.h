@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_LATTICE_LATTICE_H
-#define BORNAGAIN_CORE_LATTICE_LATTICE_H
+#ifndef BORNAGAIN_SAMPLE_LATTICE_LATTICE_H
+#define BORNAGAIN_SAMPLE_LATTICE_LATTICE_H
 
 #include "Param/Node/INode.h"
 #include <vector>
@@ -116,4 +116,4 @@ private:
     mutable bool m_cache_ok;
 };
 
-#endif // BORNAGAIN_CORE_LATTICE_LATTICE_H
+#endif // BORNAGAIN_SAMPLE_LATTICE_LATTICE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_RECTANGULARDETECTOR_H
-#define BORNAGAIN_CORE_DETECTOR_RECTANGULARDETECTOR_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_RECTANGULARDETECTOR_H
+#define BORNAGAIN_DEVICE_DETECTOR_RECTANGULARDETECTOR_H
 
 #include "Device/Detector/IDetector2D.h"
 
@@ -108,4 +108,4 @@ private:
     kvector_t m_v_unit;
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_RECTANGULARDETECTOR_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_RECTANGULARDETECTOR_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INPUTOUTPUT_INTENSITYDATAIOFACTORY_H
-#define BORNAGAIN_CORE_INPUTOUTPUT_INTENSITYDATAIOFACTORY_H
+#ifndef BORNAGAIN_DEVICE_HISTO_INTENSITYDATAIOFACTORY_H
+#define BORNAGAIN_DEVICE_HISTO_INTENSITYDATAIOFACTORY_H
 
 #include <string>
 
@@ -63,4 +63,4 @@ public:
     static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);
 };
 
-#endif // BORNAGAIN_CORE_INPUTOUTPUT_INTENSITYDATAIOFACTORY_H
+#endif // BORNAGAIN_DEVICE_HISTO_INTENSITYDATAIOFACTORY_H

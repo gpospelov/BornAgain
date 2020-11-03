@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_QSPECSCAN_H
-#define BORNAGAIN_CORE_INSTRUMENT_QSPECSCAN_H
+#ifndef BORNAGAIN_CORE_SCAN_QSPECSCAN_H
+#define BORNAGAIN_CORE_SCAN_QSPECSCAN_H
 
 #include "Core/Scan/ISpecularScan.h"
 #include <memory>
@@ -94,4 +94,4 @@ private:
     mutable std::vector<std::vector<ParameterSample>> m_q_res_cache;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_QSPECSCAN_H
+#endif // BORNAGAIN_CORE_SCAN_QSPECSCAN_H

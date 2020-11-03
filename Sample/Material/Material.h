@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MATERIAL_MATERIAL_H
-#define BORNAGAIN_CORE_MATERIAL_MATERIAL_H
+#ifndef BORNAGAIN_SAMPLE_MATERIAL_MATERIAL_H
+#define BORNAGAIN_SAMPLE_MATERIAL_MATERIAL_H
 
 #include "Sample/Material/BaseMaterialImpl.h"
 #include <memory>
@@ -103,4 +103,4 @@ bool operator==(const Material& left, const Material& right);
 //! Comparison operator for material wrapper (inequality check)
 bool operator!=(const Material& left, const Material& right);
 
-#endif // BORNAGAIN_CORE_MATERIAL_MATERIAL_H
+#endif // BORNAGAIN_SAMPLE_MATERIAL_MATERIAL_H

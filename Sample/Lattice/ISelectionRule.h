@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_LATTICE_ISELECTIONRULE_H
-#define BORNAGAIN_CORE_LATTICE_ISELECTIONRULE_H
+#ifndef BORNAGAIN_SAMPLE_LATTICE_ISELECTIONRULE_H
+#define BORNAGAIN_SAMPLE_LATTICE_ISELECTIONRULE_H
 
 #include "Base/Vector/Vectors3D.h"
 
@@ -63,4 +63,4 @@ inline bool SimpleSelectionRule::coordinateSelected(const ivector_t& coordinate)
     return (m_a * coordinate[0] + m_b * coordinate[1] + m_c * coordinate[2]) % m_mod == 0;
 }
 
-#endif // BORNAGAIN_CORE_LATTICE_ISELECTIONRULE_H
+#endif // BORNAGAIN_SAMPLE_LATTICE_ISELECTIONRULE_H

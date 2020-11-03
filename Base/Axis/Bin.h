@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AXIS_BIN_H
-#define BORNAGAIN_CORE_AXIS_BIN_H
+#ifndef BORNAGAIN_BASE_AXIS_BIN_H
+#define BORNAGAIN_BASE_AXIS_BIN_H
 
 #include "Base/Vector/Vectors3D.h"
 
@@ -61,4 +61,4 @@ public:
     cvector_t m_q_upper; //!< upper bound of the bin
 };
 
-#endif // BORNAGAIN_CORE_AXIS_BIN_H
+#endif // BORNAGAIN_BASE_AXIS_BIN_H

@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SOFTPARTICLE_SOFTPARTICLES_H
-#define BORNAGAIN_CORE_SOFTPARTICLE_SOFTPARTICLES_H
+#ifndef BORNAGAIN_SAMPLE_SOFTPARTICLE_SOFTPARTICLES_H
+#define BORNAGAIN_SAMPLE_SOFTPARTICLE_SOFTPARTICLES_H
 
 #include "Sample/SoftParticle/FormFactorGauss.h"
 #include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
 
-#endif // BORNAGAIN_CORE_SOFTPARTICLE_SOFTPARTICLES_H
+#endif // BORNAGAIN_SAMPLE_SOFTPARTICLE_SOFTPARTICLES_H

@@ -68,7 +68,7 @@ size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_e
     return std::min(handler_size, n_elements - start_index);
 }
 
-void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
+void runComputations(std::vector<std::unique_ptr<IComputation>>& computations)
 {
     ASSERT(!computations.empty());
 
@@ -303,7 +303,7 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
             break;
         computations.push_back(generateSingleThreadedComputation(thread_start, thread_size));
     }
-    runComputations(std::move(computations));
+    runComputations(computations);
 
     normalize(batch_start, batch_size);
     addBackgroundIntensity(batch_start, batch_size);

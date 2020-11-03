@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
-#define BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_ROTATIONS_H
+#define BORNAGAIN_SAMPLE_SCATTERING_ROTATIONS_H
 
 #include "Base/Types/ICloneable.h"
 #include "Param/Node/INode.h"
@@ -152,4 +152,4 @@ protected:
     double m_alpha, m_beta, m_gamma;
 };
 
-#endif // BORNAGAIN_CORE_SCATTERING_ROTATIONS_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_ROTATIONS_H

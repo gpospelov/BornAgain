@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_SIMULATIONAREAITERATOR_H
-#define BORNAGAIN_CORE_DETECTOR_SIMULATIONAREAITERATOR_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_SIMULATIONAREAITERATOR_H
+#define BORNAGAIN_DEVICE_DETECTOR_SIMULATIONAREAITERATOR_H
 
 #include <cstdlib>
 class SimulationArea;
@@ -57,4 +57,4 @@ inline bool SimulationAreaIterator::operator!=(const SimulationAreaIterator& rig
     return !(*this == right);
 }
 
-#endif // BORNAGAIN_CORE_DETECTOR_SIMULATIONAREAITERATOR_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_SIMULATIONAREAITERATOR_H

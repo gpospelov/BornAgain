@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_CRYSTAL_H
-#define BORNAGAIN_CORE_PARTICLE_CRYSTAL_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
+#define BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 
 #include "Sample/Lattice/Lattice.h"
 #include "Sample/Particle/IClusteredParticles.h"
@@ -52,4 +52,4 @@ private:
     double m_position_variance;
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_CRYSTAL_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H

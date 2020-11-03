@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITER_H
-#define BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITER_H
+#ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAWRITER_H
+#define BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAWRITER_H
 
 #include "Device/InputOutput/OutputDataWriteStrategy.h"
 #include <memory>
@@ -39,4 +39,4 @@ private:
     std::unique_ptr<IOutputDataWriteStrategy> m_write_strategy;
 };
 
-#endif // BORNAGAIN_CORE_INPUTOUTPUT_OUTPUTDATAWRITER_H
+#endif // BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAWRITER_H

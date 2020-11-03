@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_THREADINFO_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_THREADINFO_H
+#ifndef BORNAGAIN_BASE_UTILS_THREADINFO_H
+#define BORNAGAIN_BASE_UTILS_THREADINFO_H
 
 //! Information to run simulation with dedicated number of threads.
 //! @ingroup simulation
@@ -27,4 +27,4 @@ struct ThreadInfo {
 
 inline ThreadInfo::ThreadInfo() : n_threads(0), n_batches(1), current_batch(0) {}
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_THREADINFO_H
+#endif // BORNAGAIN_BASE_UTILS_THREADINFO_H

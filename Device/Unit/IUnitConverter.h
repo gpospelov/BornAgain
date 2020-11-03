@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_IUNITCONVERTER_H
-#define BORNAGAIN_CORE_INTENSITY_IUNITCONVERTER_H
+#ifndef BORNAGAIN_DEVICE_UNIT_IUNITCONVERTER_H
+#define BORNAGAIN_DEVICE_UNIT_IUNITCONVERTER_H
 
 #include "Base/Types/ICloneable.h"
 #include <map>
@@ -34,16 +34,10 @@ public:
     enum Units { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY, RQ4 };
 };
 
-const std::map<Axes::Units, const char*> axisUnitName = {
-    {Axes::Units::NBINS, "Axes::Units::UNDEFINED"}, {Axes::Units::NBINS, "Axes::Units::NBINS"},
-    {Axes::Units::RADIANS, "Axes::Units::RADIANS"}, {Axes::Units::DEGREES, "Axes::Units::DEGREES"},
-    {Axes::Units::MM, "Axes::Units::MM"},           {Axes::Units::QSPACE, "Axes::Units::QSPACE"},
-    {Axes::Units::QXQY, "Axes::Units::QXQY"},       {Axes::Units::RQ4, "Axes::Units::RQ4"}};
-
 const std::map<Axes::Units, const char*> axisUnitLabel = {
-    {Axes::Units::NBINS, "undefined"}, {Axes::Units::NBINS, "bin"}, {Axes::Units::RADIANS, "rad"},
-    {Axes::Units::DEGREES, "deg"},     {Axes::Units::MM, "mm"},     {Axes::Units::QSPACE, "1/nm"},
-    {Axes::Units::QXQY, "1/nm"},       {Axes::Units::RQ4, "nm^-4?"}};
+    {Axes::Units::DEFAULT, "undefined"}, {Axes::Units::NBINS, "bin"}, {Axes::Units::RADIANS, "rad"},
+    {Axes::Units::DEGREES, "deg"},       {Axes::Units::MM, "mm"},     {Axes::Units::QSPACE, "1/nm"},
+    {Axes::Units::QXQY, "1/nm"},         {Axes::Units::RQ4, "nm^-4?"}};
 
 //! Interface to provide axis translations to different units for simulation output
 //! @ingroup simulation_internal
@@ -85,4 +79,4 @@ private:
     virtual std::vector<std::map<Axes::Units, std::string>> createNameMaps() const = 0;
 };
 
-#endif // BORNAGAIN_CORE_INTENSITY_IUNITCONVERTER_H
+#endif // BORNAGAIN_DEVICE_UNIT_IUNITCONVERTER_H

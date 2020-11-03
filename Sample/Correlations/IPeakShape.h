@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H
-#define BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H
+#ifndef BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H
+#define BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H
 
 #include "Sample/Scattering/ISample.h"
 
@@ -193,4 +193,4 @@ private:
     mutable kvector_t m_ux, m_uy, m_p;
 };
 
-#endif // BORNAGAIN_CORE_CORRELATIONS_IPEAKSHAPE_H
+#endif // BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AXIS_CONSTKBINAXIS_H
-#define BORNAGAIN_CORE_AXIS_CONSTKBINAXIS_H
+#ifndef BORNAGAIN_BASE_AXIS_CONSTKBINAXIS_H
+#define BORNAGAIN_BASE_AXIS_CONSTKBINAXIS_H
 
 #include "Base/Axis/VariableBinAxis.h"
 
@@ -45,4 +45,4 @@ protected:
     double m_end;
 };
 
-#endif // BORNAGAIN_CORE_AXIS_CONSTKBINAXIS_H
+#endif // BORNAGAIN_BASE_AXIS_CONSTKBINAXIS_H

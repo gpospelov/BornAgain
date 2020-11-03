@@ -106,8 +106,8 @@ GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
     GISASSimulation* result = MiniGISAS();
 
     DistributionLogNormal wavelength_distr(1.0 * Units::angstrom, 0.1);
-    DistributionGaussian alpha_distr(0.2 * Units::degree, 0.1 * Units::degree);
-    DistributionGate phi_distr(-0.1 * Units::degree, 0.1 * Units::degree);
+    DistributionGaussian alpha_distr(0.2 * Units::degree, 0.02 * Units::degree);
+    DistributionGate phi_distr(-0.1 * Units::degree, 0.02 * Units::degree);
 
     ParameterPattern pattern1;
     pattern1.beginsWith("*").add("Beam").add("Wavelength");

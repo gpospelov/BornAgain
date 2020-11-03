@@ -68,10 +68,9 @@ SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector<complex_t>& preco
     return ff_orig * ff_conj;
 }
 
-void SSCAHelper::getMeanFormfactors(
-    double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
-    const InterferenceFunctionUtils::matrixFFVector_t& precomputed_ff,
-    const std::vector<FormFactorCoherentSum>& ff_wrappers) const
+void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
+                                    const FormFactorPrecompute::matrixFFVector_t& precomputed_ff,
+                                    const std::vector<FormFactorCoherentSum>& ff_wrappers) const
 {
     ff_orig = Eigen::Matrix2cd::Zero();
     ff_conj = Eigen::Matrix2cd::Zero();

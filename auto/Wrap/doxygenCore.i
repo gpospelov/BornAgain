@@ -206,10 +206,7 @@ C++ includes: ComputationStatus.h
 %feature("docstring")  ComputationStatus::setCompleted "void ComputationStatus::setCompleted()
 ";
 
-%feature("docstring")  ComputationStatus::setFailed "void ComputationStatus::setFailed()
-";
-
-%feature("docstring")  ComputationStatus::setErrorMessage "void ComputationStatus::setErrorMessage(const std::string &message)
+%feature("docstring")  ComputationStatus::setFailed "void ComputationStatus::setFailed(const std::string &message)
 ";
 
 
@@ -986,24 +983,6 @@ Returns map of fit parameter names and its current values.
 %feature("docstring") LabelMap "";
 
 
-// File: classLayoutStrategyBuilder.xml
-%feature("docstring") LayoutStrategyBuilder "
-
-Methods to generate a simulation strategy for a  ParticleLayoutComputation.
-
-C++ includes: LayoutStrategyBuilder.h
-";
-
-%feature("docstring")  LayoutStrategyBuilder::LayoutStrategyBuilder "LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout *p_layout, const SimulationOptions &sim_params, bool polarized)
-";
-
-%feature("docstring")  LayoutStrategyBuilder::~LayoutStrategyBuilder "LayoutStrategyBuilder::~LayoutStrategyBuilder()
-";
-
-%feature("docstring")  LayoutStrategyBuilder::releaseStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::releaseStrategy()
-";
-
-
 // File: classLogMetric.xml
 %feature("docstring") LogMetric "
 
@@ -1262,7 +1241,7 @@ Computes the scattering contribution from one particle layout. Used by  DWBAComp
 C++ includes: ParticleLayoutComputation.h
 ";
 
-%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout *p_layout, const SimulationOptions &options, bool polarized)
+%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout &layout, const SimulationOptions &options, bool polarized)
 ";
 
 %feature("docstring")  ParticleLayoutComputation::~ParticleLayoutComputation "ParticleLayoutComputation::~ParticleLayoutComputation()
@@ -2504,7 +2483,10 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0d100.xml
+// File: namespace_0d23.xml
+
+
+// File: namespace_0d27.xml
 
 
 // File: namespace_0d29.xml
@@ -2513,43 +2495,43 @@ Returns default units to convert to.
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d33.xml
+// File: namespace_0d35.xml
 
 
-// File: namespace_0d37.xml
+// File: namespace_0d39.xml
 
 
-// File: namespace_0d41.xml
+// File: namespace_0d43.xml
 
 
-// File: namespace_0d45.xml
+// File: namespace_0d51.xml
 
 
-// File: namespace_0d53.xml
+// File: namespace_0d56.xml
 
 
-// File: namespace_0d58.xml
+// File: namespace_0d65.xml
 
 
 // File: namespace_0d67.xml
 
 
-// File: namespace_0d69.xml
+// File: namespace_0d71.xml
 
 
 // File: namespace_0d73.xml
 
 
-// File: namespace_0d75.xml
+// File: namespace_0d80.xml
 
 
 // File: namespace_0d82.xml
 
 
-// File: namespace_0d84.xml
+// File: namespace_0d90.xml
 
 
-// File: namespace_0d92.xml
+// File: namespace_0d96.xml
 
 
 // File: namespace_0d98.xml
@@ -2886,12 +2868,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: IComputation_8h.xml
-
-
-// File: LayoutStrategyBuilder_8cpp.xml
-
-
-// File: LayoutStrategyBuilder_8h.xml
 
 
 // File: MultiLayerFuncs_8cpp.xml

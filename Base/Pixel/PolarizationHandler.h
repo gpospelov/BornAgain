@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PIXEL_POLARIZATIONHANDLER_H
-#define BORNAGAIN_CORE_PIXEL_POLARIZATIONHANDLER_H
+#ifndef BORNAGAIN_BASE_PIXEL_POLARIZATIONHANDLER_H
+#define BORNAGAIN_BASE_PIXEL_POLARIZATIONHANDLER_H
 
 #include "Base/Vector/EigenCore.h"
 
@@ -45,4 +45,4 @@ private:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 };
 
-#endif // BORNAGAIN_CORE_PIXEL_POLARIZATIONHANDLER_H
+#endif // BORNAGAIN_BASE_PIXEL_POLARIZATIONHANDLER_H

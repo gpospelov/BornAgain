@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_RT_ILAYERRTCOEFFICIENTS_H
-#define BORNAGAIN_CORE_RT_ILAYERRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_SAMPLE_RT_ILAYERRTCOEFFICIENTS_H
+#define BORNAGAIN_SAMPLE_RT_ILAYERRTCOEFFICIENTS_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Types/Exceptions.h"
@@ -67,4 +67,4 @@ public:
     }
 };
 
-#endif // BORNAGAIN_CORE_RT_ILAYERRTCOEFFICIENTS_H
+#endif // BORNAGAIN_SAMPLE_RT_ILAYERRTCOEFFICIENTS_H

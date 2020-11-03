@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H
+#ifndef BORNAGAIN_PARAM_NODE_ITERATIONSTRATEGY_H
+#define BORNAGAIN_PARAM_NODE_ITERATIONSTRATEGY_H
 
 class INode;
 class IteratorMemento;
@@ -58,4 +58,4 @@ public:
     virtual bool isDone(IteratorMemento& iterator_stack) const;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_ITERATIONSTRATEGY_H
+#endif // BORNAGAIN_PARAM_NODE_ITERATIONSTRATEGY_H

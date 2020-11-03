@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MATERIAL_MAGNETICMATERIALIMPL_H
-#define BORNAGAIN_CORE_MATERIAL_MAGNETICMATERIALIMPL_H
+#ifndef BORNAGAIN_SAMPLE_MATERIAL_MAGNETICMATERIALIMPL_H
+#define BORNAGAIN_SAMPLE_MATERIAL_MAGNETICMATERIALIMPL_H
 
 #include "Sample/Material/BaseMaterialImpl.h"
 
@@ -59,4 +59,4 @@ private:
     kvector_t m_magnetization; //!< magnetization
 };
 
-#endif // BORNAGAIN_CORE_MATERIAL_MAGNETICMATERIALIMPL_H
+#endif // BORNAGAIN_SAMPLE_MATERIAL_MAGNETICMATERIALIMPL_H

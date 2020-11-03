@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPYRAMID_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPYRAMID_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORPYRAMID_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORPYRAMID_H
 
 #include "Sample/HardParticle/IFormFactorPolyhedron.h"
 
@@ -50,4 +50,4 @@ private:
     const double& m_alpha;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPYRAMID_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORPYRAMID_H

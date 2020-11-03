@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H
-#define BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H
+#ifndef BORNAGAIN_DEVICE_INSTRUMENT_PYARRAYIMPORTUTILS_H
+#define BORNAGAIN_DEVICE_INSTRUMENT_PYARRAYIMPORTUTILS_H
 
 #include <vector>
 
@@ -32,4 +32,4 @@ OutputData<double>* importArrayToOutputData(const std::vector<std::vector<double
 
 } // namespace PyArrayImport
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_PYARRAYIMPORTUTILS_H
+#endif // BORNAGAIN_DEVICE_INSTRUMENT_PYARRAYIMPORTUTILS_H

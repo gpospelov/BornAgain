@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPOOL_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPOOL_H
+#ifndef BORNAGAIN_PARAM_BASE_PARAMETERPOOL_H
+#define BORNAGAIN_PARAM_BASE_PARAMETERPOOL_H
 
 #include "Base/Types/ICloneable.h"
 #include <ostream>
@@ -84,4 +84,4 @@ private:
     std::vector<RealParameter*> m_params;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERPOOL_H
+#endif // BORNAGAIN_PARAM_BASE_PARAMETERPOOL_H

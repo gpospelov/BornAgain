@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_MULTILAYERUTILS_H
-#define BORNAGAIN_CORE_MULTILAYER_MULTILAYERUTILS_H
+#ifndef BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYERUTILS_H
+#define BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYERUTILS_H
 
 #include <cstddef>
 #include <vector>
@@ -50,4 +50,4 @@ std::vector<ZLimits> ParticleRegions(const MultiLayer& multilayer, bool use_slic
 bool hasRoughness(const MultiLayer& sample);
 } // namespace MultiLayerUtils
 
-#endif // BORNAGAIN_CORE_MULTILAYER_MULTILAYERUTILS_H
+#endif // BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYERUTILS_H

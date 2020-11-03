@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AXIS_POINTWISEAXIS_H
-#define BORNAGAIN_CORE_AXIS_POINTWISEAXIS_H
+#ifndef BORNAGAIN_BASE_AXIS_POINTWISEAXIS_H
+#define BORNAGAIN_BASE_AXIS_POINTWISEAXIS_H
 
 #include "Base/Axis/IAxis.h"
 
@@ -87,4 +87,4 @@ private:
     std::vector<double> m_coordinates;
 };
 
-#endif // BORNAGAIN_CORE_AXIS_POINTWISEAXIS_H
+#endif // BORNAGAIN_BASE_AXIS_POINTWISEAXIS_H

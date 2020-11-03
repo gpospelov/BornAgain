@@ -17,16 +17,11 @@
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 
-using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
-using InterferenceFunctionUtils::PrecomputeScalarFormFactors;
-
-SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa,
-                                                   bool polarized)
-    : IInterferenceFunctionStrategy(sim_params, polarized), m_helper(kappa)
-{
-}
-
-void SSCApproximationStrategy::strategy_specific_post_init()
+SSCApproximationStrategy::SSCApproximationStrategy(
+    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+    const IInterferenceFunction* p_iff, SimulationOptions sim_params, bool polarized, double kappa)
+    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized),
+      m_helper(kappa)
 {
     m_helper.init(m_formfactor_wrappers);
 }
@@ -38,7 +33,7 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 {
     double qp = sim_element.getMeanQ().magxy();
     double diffuse_intensity = 0.0;
-    auto precomputed_ff = PrecomputeScalarFormFactors(sim_element, m_formfactor_wrappers);
+    auto precomputed_ff = FormFactorPrecompute::scalar(sim_element, m_formfactor_wrappers);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         complex_t ff = precomputed_ff[i];
         double fraction = m_formfactor_wrappers[i].relativeAbundance();
@@ -58,7 +53,7 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
 {
     double qp = sim_element.getMeanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
-    auto precomputed_ff = PrecomputePolarizedFormFactors(sim_element, m_formfactor_wrappers);
+    auto precomputed_ff = FormFactorPrecompute::polarized(sim_element, m_formfactor_wrappers);
     const auto& polarization_handler = sim_element.polarizationHandler();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = precomputed_ff[i];

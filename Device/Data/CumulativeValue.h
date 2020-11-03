@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_CUMULATIVEVALUE_H
-#define BORNAGAIN_CORE_INTENSITY_CUMULATIVEVALUE_H
+#ifndef BORNAGAIN_DEVICE_DATA_CUMULATIVEVALUE_H
+#define BORNAGAIN_DEVICE_DATA_CUMULATIVEVALUE_H
 
 //! The cumulative value with average and rms on-the-flight calculations.
 //! @ingroup tools
@@ -43,4 +43,4 @@ private:
 bool operator<(const CumulativeValue& lhs, const CumulativeValue& rhs);
 bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs);
 
-#endif // BORNAGAIN_CORE_INTENSITY_CUMULATIVEVALUE_H
+#endif // BORNAGAIN_DEVICE_DATA_CUMULATIVEVALUE_H

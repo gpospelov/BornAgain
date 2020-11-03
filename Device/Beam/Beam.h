@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_BEAM_BEAM_H
-#define BORNAGAIN_CORE_BEAM_BEAM_H
+#ifndef BORNAGAIN_DEVICE_BEAM_BEAM_H
+#define BORNAGAIN_DEVICE_BEAM_BEAM_H
 
 #include "Base/Vector/EigenCore.h"
 #include "Param/Node/INode.h"
@@ -82,4 +82,4 @@ private:
     kvector_t m_bloch_vector; //!< Bloch vector encoding the beam's polarization
 };
 
-#endif // BORNAGAIN_CORE_BEAM_BEAM_H
+#endif // BORNAGAIN_DEVICE_BEAM_BEAM_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MATERIAL_REFRACTIVEMATERIALIMPL_H
-#define BORNAGAIN_CORE_MATERIAL_REFRACTIVEMATERIALIMPL_H
+#ifndef BORNAGAIN_SAMPLE_MATERIAL_REFRACTIVEMATERIALIMPL_H
+#define BORNAGAIN_SAMPLE_MATERIAL_REFRACTIVEMATERIALIMPL_H
 
 #include "Sample/Material/MagneticMaterialImpl.h"
 #include "Sample/Material/Material.h"
@@ -65,4 +65,4 @@ private:
     double m_beta; //!< \f$\beta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
 };
 
-#endif // BORNAGAIN_CORE_MATERIAL_REFRACTIVEMATERIALIMPL_H
+#endif // BORNAGAIN_SAMPLE_MATERIAL_REFRACTIVEMATERIALIMPL_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MATERIAL_MATERIALBYSLDIMPL_H
-#define BORNAGAIN_CORE_MATERIAL_MATERIALBYSLDIMPL_H
+#ifndef BORNAGAIN_SAMPLE_MATERIAL_MATERIALBYSLDIMPL_H
+#define BORNAGAIN_SAMPLE_MATERIAL_MATERIALBYSLDIMPL_H
 
 #include "Sample/Material/MagneticMaterialImpl.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
@@ -63,4 +63,4 @@ private:
     double m_sld_imag; //!< imaginary part of scattering length density (negative by default)
 };
 
-#endif // BORNAGAIN_CORE_MATERIAL_MATERIALBYSLDIMPL_H
+#endif // BORNAGAIN_SAMPLE_MATERIAL_MATERIALBYSLDIMPL_H

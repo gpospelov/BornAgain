@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARSIMULATIONELEMENT_H
-#define BORNAGAIN_CORE_MULTILAYER_SPECULARSIMULATIONELEMENT_H
+#ifndef BORNAGAIN_CORE_SCAN_SPECULARSIMULATIONELEMENT_H
+#define BORNAGAIN_CORE_SCAN_SPECULARSIMULATIONELEMENT_H
 
 #include "Base/Pixel/PolarizationHandler.h"
 #include "Base/Types/Complex.h"
@@ -60,4 +60,4 @@ private:
     const std::function<std::vector<complex_t>(const std::vector<Slice>&)> m_kz_computation;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARSIMULATIONELEMENT_H
+#endif // BORNAGAIN_CORE_SCAN_SPECULARSIMULATIONELEMENT_H

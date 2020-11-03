@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
-#define BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
+#ifndef BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H
+#define BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H
 
 #include "Base/Utils/PyObject.h"
 #include "Device/Unit/IUnitConverter.h"
@@ -49,9 +49,7 @@ public:
 #endif
 
     SimulationResult& operator=(const SimulationResult& other);
-#ifndef SWIG
     SimulationResult& operator=(SimulationResult&& other);
-#endif
 
 #ifndef SWIG
     std::unique_ptr<OutputData<double>> data(Axes::Units units = Axes::Units::DEFAULT) const;
@@ -84,8 +82,9 @@ public:
 
 private:
     void checkDimensions() const;
+
     std::unique_ptr<OutputData<double>> m_data;
     std::unique_ptr<IUnitConverter> m_unit_converter;
 };
 
-#endif // BORNAGAIN_CORE_INSTRUMENT_SIMULATIONRESULT_H
+#endif // BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H

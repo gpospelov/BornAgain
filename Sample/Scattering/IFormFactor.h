@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
-#define BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H
+#define BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H
 
 #include "Base/Types/Complex.h"
 #include "Sample/Scattering/ISample.h"
@@ -91,4 +91,4 @@ protected:
 IFormFactor* createTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
                                          kvector_t translation);
 
-#endif // BORNAGAIN_CORE_SCATTERING_IFORMFACTOR_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H

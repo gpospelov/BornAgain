@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_ROUGHNESSMODELS_H
-#define BORNAGAIN_CORE_MULTILAYER_ROUGHNESSMODELS_H
+#ifndef BORNAGAIN_SAMPLE_MULTILAYER_ROUGHNESSMODELS_H
+#define BORNAGAIN_SAMPLE_MULTILAYER_ROUGHNESSMODELS_H
 
 #include <string>
 
@@ -28,4 +28,4 @@ struct RoughnessModelWrap {
 };
 typedef RoughnessModelWrap::RoughnessModel RoughnessModel;
 
-#endif // BORNAGAIN_CORE_MULTILAYER_ROUGHNESSMODELS_H
+#endif // BORNAGAIN_SAMPLE_MULTILAYER_ROUGHNESSMODELS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H
-#define BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H
+#ifndef BORNAGAIN_SAMPLE_MATERIAL_MATERIALFACTORYFUNCS_H
+#define BORNAGAIN_SAMPLE_MATERIAL_MATERIALFACTORYFUNCS_H
 
 #include "Sample/Material/Material.h"
 
@@ -62,4 +62,4 @@ Material MaterialBySLD();
 Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
                        kvector_t magnetization = {});
 
-#endif // BORNAGAIN_CORE_MATERIAL_MATERIALFACTORYFUNCS_H
+#endif // BORNAGAIN_SAMPLE_MATERIAL_MATERIALFACTORYFUNCS_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_LAYER_H
-#define BORNAGAIN_CORE_MULTILAYER_LAYER_H
+#ifndef BORNAGAIN_SAMPLE_MULTILAYER_LAYER_H
+#define BORNAGAIN_SAMPLE_MULTILAYER_LAYER_H
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Material/Material.h"
@@ -60,4 +60,4 @@ private:
     unsigned int m_n_slices = 1;          //!< number of slices to create for graded layer approach
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_LAYER_H
+#endif // BORNAGAIN_SAMPLE_MULTILAYER_LAYER_H

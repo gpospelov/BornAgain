@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTPART_H
-#define BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTPART_H
+#ifndef BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTPART_H
+#define BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTPART_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/EigenCore.h"
@@ -50,4 +50,4 @@ private:
     size_t m_layer_index;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_FORMFACTORCOHERENTPART_H
+#endif // BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTPART_H

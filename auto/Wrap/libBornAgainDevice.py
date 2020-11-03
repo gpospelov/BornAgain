@@ -4422,7 +4422,6 @@ class IUnitConverter(libBornAgainBase.ICloneable):
 # Register IUnitConverter in _libBornAgainDevice:
 _libBornAgainDevice.IUnitConverter_swigregister(IUnitConverter)
 cvar = _libBornAgainDevice.cvar
-axisUnitName = cvar.axisUnitName
 axisUnitLabel = cvar.axisUnitLabel
 
 class DetectorMask(object):

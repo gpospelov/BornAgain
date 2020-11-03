@@ -437,7 +437,7 @@ Strategy class to compute the total scattering from a particle layout in the dec
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized)
+%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, SimulationOptions sim_params, bool polarized)
 ";
 
 
@@ -3627,15 +3627,10 @@ Instantiation of child classes takes place in LayoutStrategyBuilder::createStrat
 C++ includes: IInterferenceFunctionStrategy.h
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions &sim_params, bool polarized)
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, const SimulationOptions &sim_params, bool polarized)
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
-";
-
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff)
-
-Initializes the object with form factors and an interference function. 
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
@@ -7481,56 +7476,6 @@ C++ includes: SpecularScalarTanhStrategy.h
 ";
 
 
-// File: classSpecularSimulationElement.xml
-%feature("docstring") SpecularSimulationElement "
-
-Data stucture containing both input and output of a single image pixel for specular simulation.
-
-C++ includes: SpecularSimulationElement.h
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double kz, bool computable, const Instrument &instrument)
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha, bool computable, const Instrument &instrument)
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement &other)
-";
-
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement &&other) noexcept
-";
-
-%feature("docstring")  SpecularSimulationElement::~SpecularSimulationElement "SpecularSimulationElement::~SpecularSimulationElement()
-";
-
-%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler &handler)
-
-Assigns PolarizationHandler. 
-";
-
-%feature("docstring")  SpecularSimulationElement::polarizationHandler "const PolarizationHandler& SpecularSimulationElement::polarizationHandler() const
-
-Returns assigned PolarizationHandler. 
-";
-
-%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
-";
-
-%feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)
-";
-
-%feature("docstring")  SpecularSimulationElement::isCalculated "bool SpecularSimulationElement::isCalculated() const
-
-Returns calculation flag (if it's false, zero intensity is assigned to the element) 
-";
-
-%feature("docstring")  SpecularSimulationElement::produceKz "std::vector< complex_t > SpecularSimulationElement::produceKz(const std::vector< Slice > &slices)
-
-Returns kz values for Abeles computation of reflection/transition coefficients. 
-";
-
-
 // File: classSpheresWithLimitsDistributionBuilder.xml
 %feature("docstring") SpheresWithLimitsDistributionBuilder "
 
@@ -7612,7 +7557,7 @@ C++ includes: SSCAHelper.h
 %feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
 ";
 
-%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const InterferenceFunctionUtils::matrixFFVector_t &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
+%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const FormFactorPrecompute::matrixFFVector_t &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
 ";
 
 
@@ -7624,7 +7569,7 @@ Strategy class to compute the total scattering from a particle layout in the siz
 C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa, bool polarized)
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, SimulationOptions sim_params, bool polarized, double kappa)
 ";
 
 
@@ -7873,6 +7818,9 @@ C++ includes: ZLimits.h
 // File: namespace_0d262.xml
 
 
+// File: namespace_0d272.xml
+
+
 // File: namespace_0d274.xml
 
 
@@ -7885,7 +7833,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d280.xml
 
 
-// File: namespace_0d282.xml
+// File: namespace_0d284.xml
 
 
 // File: namespace_0d286.xml
@@ -7894,25 +7842,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d288.xml
 
 
-// File: namespace_0d290.xml
+// File: namespace_0d300.xml
 
 
-// File: namespace_0d302.xml
-
-
-// File: namespace_0d308.xml
+// File: namespace_0d306.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d312.xml
+// File: namespace_0d310.xml
 
 
-// File: namespace_0d330.xml
+// File: namespace_0d328.xml
 
 
-// File: namespace_0d349.xml
+// File: namespace_0d347.xml
 
 
 // File: namespace_0d37.xml
@@ -7924,11 +7869,11 @@ C++ includes: ZLimits.h
 // File: namespace_0d41.xml
 
 
-// File: namespaceInterferenceFunctionUtils.xml
-%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
+// File: namespaceFormFactorPrecompute.xml
+%feature("docstring")  FormFactorPrecompute::scalar "std::vector< complex_t > FormFactorPrecompute::scalar(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
-%feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  FormFactorPrecompute::polarized "FormFactorPrecompute::matrixFFVector_t FormFactorPrecompute::polarized(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
 
@@ -8460,16 +8405,16 @@ Used by the hard sphere and by several soft sphere classes.
 // File: DecouplingApproximationStrategy_8h.xml
 
 
+// File: FormFactorPrecompute_8cpp.xml
+
+
+// File: FormFactorPrecompute_8h.xml
+
+
 // File: IInterferenceFunctionStrategy_8cpp.xml
 
 
 // File: IInterferenceFunctionStrategy_8h.xml
-
-
-// File: InterferenceFunctionUtils_8cpp.xml
-
-
-// File: InterferenceFunctionUtils_8h.xml
 
 
 // File: SSCAHelper_8cpp.xml
@@ -9001,12 +8946,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SlicedFormFactorList_8h.xml
-
-
-// File: SpecularSimulationElement_8cpp.xml
-
-
-// File: SpecularSimulationElement_8h.xml
 
 
 // File: FormFactorGauss_8cpp.xml

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H
-#define BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORPRISM6_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORPRISM6_H
 
 #include "Sample/HardParticle/IFormFactorPrism.h"
 
@@ -46,4 +46,4 @@ private:
     const double& m_height;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_FORMFACTORPRISM6_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORPRISM6_H

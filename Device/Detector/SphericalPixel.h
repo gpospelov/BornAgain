@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_SPHERICALPIXEL_H
-#define BORNAGAIN_CORE_DETECTOR_SPHERICALPIXEL_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_SPHERICALPIXEL_H
+#define BORNAGAIN_DEVICE_DETECTOR_SPHERICALPIXEL_H
 
 #include "Base/Pixel/IPixel.h"
 
@@ -40,4 +40,4 @@ private:
     mutable double m_solid_angle;
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_SPHERICALPIXEL_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_SPHERICALPIXEL_H

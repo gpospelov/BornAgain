@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_LATTICE_LATTICEUTILS_H
-#define BORNAGAIN_CORE_LATTICE_LATTICEUTILS_H
+#ifndef BORNAGAIN_SAMPLE_LATTICE_LATTICEUTILS_H
+#define BORNAGAIN_SAMPLE_LATTICE_LATTICEUTILS_H
 
 #include "Sample/Lattice/Lattice.h"
 
@@ -26,4 +26,4 @@ Lattice createHCPLattice(double a, double c, const ILatticeOrientation& orientat
 Lattice createBCTLattice(double a, double c, const ILatticeOrientation& orientation);
 } // namespace LatticeUtils
 
-#endif // BORNAGAIN_CORE_LATTICE_LATTICEUTILS_H
+#endif // BORNAGAIN_SAMPLE_LATTICE_LATTICEUTILS_H

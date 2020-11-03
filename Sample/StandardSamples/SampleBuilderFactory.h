@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
+#ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
+#define BORNAGAIN_SAMPLE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
 
 #include "Fit/TestEngine/IFactory.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
@@ -30,4 +30,4 @@ public:
     MultiLayer* createSampleByName(const std::string& name);
 };
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H
+#endif // BORNAGAIN_SAMPLE_STANDARDSAMPLES_SAMPLEBUILDERFACTORY_H

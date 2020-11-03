@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_LATTICE_ILATTICEORIENTATION_H
-#define BORNAGAIN_CORE_LATTICE_ILATTICEORIENTATION_H
+#ifndef BORNAGAIN_SAMPLE_LATTICE_ILATTICEORIENTATION_H
+#define BORNAGAIN_SAMPLE_LATTICE_ILATTICEORIENTATION_H
 
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Lattice/Lattice.h"
@@ -63,4 +63,4 @@ private:
     MillerIndex m_ind1, m_ind2;
 };
 
-#endif // BORNAGAIN_CORE_LATTICE_ILATTICEORIENTATION_H
+#endif // BORNAGAIN_SAMPLE_LATTICE_ILATTICEORIENTATION_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SCATTERING_FORMFACTORDECORATORROTATION_H
-#define BORNAGAIN_CORE_SCATTERING_FORMFACTORDECORATORROTATION_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORROTATION_H
+#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORROTATION_H
 
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Scattering/IFormFactorDecorator.h"
@@ -47,4 +47,4 @@ private:
     FormFactorDecoratorRotation(const IFormFactor& form_factor, const Transform3D& transform);
 };
 
-#endif // BORNAGAIN_CORE_SCATTERING_FORMFACTORDECORATORROTATION_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORROTATION_H

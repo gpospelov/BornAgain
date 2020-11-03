@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
-#define BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_IDETECTOR_H
+#define BORNAGAIN_DEVICE_DETECTOR_IDETECTOR_H
 
 #include "Base/Types/CloneableVector.h"
 #include "Device/Detector/DetectionProperties.h"
@@ -128,4 +128,4 @@ private:
     std::unique_ptr<IDetectorResolution> m_detector_resolution;
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_IDETECTOR_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_IDETECTOR_H

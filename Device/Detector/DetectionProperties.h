@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_DETECTIONPROPERTIES_H
-#define BORNAGAIN_CORE_DETECTOR_DETECTIONPROPERTIES_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_DETECTIONPROPERTIES_H
+#define BORNAGAIN_DEVICE_DETECTOR_DETECTIONPROPERTIES_H
 
 #include "Base/Vector/EigenCore.h"
 #include "Param/Node/INode.h"
@@ -54,4 +54,4 @@ private:
     double m_total_transmission; //!< total transmission of polarization analysis
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_DETECTIONPROPERTIES_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_DETECTIONPROPERTIES_H

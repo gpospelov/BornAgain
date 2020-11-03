@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_CORRELATIONS_FTDECAY1D_H
-#define BORNAGAIN_CORE_CORRELATIONS_FTDECAY1D_H
+#ifndef BORNAGAIN_SAMPLE_CORRELATIONS_FTDECAY1D_H
+#define BORNAGAIN_SAMPLE_CORRELATIONS_FTDECAY1D_H
 
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/ICloneable.h"
@@ -97,4 +97,4 @@ private:
     const double& m_eta;
 };
 
-#endif // BORNAGAIN_CORE_CORRELATIONS_FTDECAY1D_H
+#endif // BORNAGAIN_SAMPLE_CORRELATIONS_FTDECAY1D_H

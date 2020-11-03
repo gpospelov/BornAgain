@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SHAPES_BOX_H
-#define BORNAGAIN_CORE_SHAPES_BOX_H
+#ifndef BORNAGAIN_SAMPLE_SHAPES_BOX_H
+#define BORNAGAIN_SAMPLE_SHAPES_BOX_H
 
 #include "Sample/Shapes/IShape.h"
 
@@ -24,4 +24,4 @@ public:
     ~Box();
 };
 
-#endif // BORNAGAIN_CORE_SHAPES_BOX_H
+#endif // BORNAGAIN_SAMPLE_SHAPES_BOX_H

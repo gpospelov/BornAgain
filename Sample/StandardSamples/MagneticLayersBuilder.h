@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
+#ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
+#define BORNAGAIN_SAMPLE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
 
 #include "Sample/Multilayer/RoughnessModels.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
@@ -66,4 +66,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H
+#endif // BORNAGAIN_SAMPLE_STANDARDSAMPLES_MAGNETICLAYERSBUILDER_H

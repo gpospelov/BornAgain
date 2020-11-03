@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_DECOUPLINGAPPROXIMATIONSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_DECOUPLINGAPPROXIMATIONSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_INTERFERENCE_DECOUPLINGAPPROXIMATIONSTRATEGY_H
+#define BORNAGAIN_SAMPLE_INTERFERENCE_DECOUPLINGAPPROXIMATIONSTRATEGY_H
 
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
 
@@ -26,11 +26,13 @@ class SimulationElement;
 class DecouplingApproximationStrategy final : public IInterferenceFunctionStrategy
 {
 public:
-    DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized);
+    DecouplingApproximationStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+                                    const IInterferenceFunction* p_iff,
+                                    SimulationOptions sim_params, bool polarized);
 
 private:
     double scalarCalculation(const SimulationElement& sim_element) const override;
     double polarizedCalculation(const SimulationElement& sim_element) const override;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_DECOUPLINGAPPROXIMATIONSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_INTERFERENCE_DECOUPLINGAPPROXIMATIONSTRATEGY_H

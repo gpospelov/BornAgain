@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H
+#ifndef BORNAGAIN_PARAM_BASE_IPARAMETER_H
+#define BORNAGAIN_PARAM_BASE_IPARAMETER_H
 
 #include <functional>
 #include <stdexcept>
@@ -74,4 +74,4 @@ template <class T> bool IParameter<T>::hasSameData(const IParameter<T>& other)
     return &getData() == &other.getData();
 }
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_IPARAMETER_H
+#endif // BORNAGAIN_PARAM_BASE_IPARAMETER_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
-#define BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
+#ifndef BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
+#define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
 
 #include "Sample/Aggregate/IInterferenceFunction.h"
 
@@ -48,4 +48,4 @@ private:
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H
+#endif // BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTION1DLATTICE_H

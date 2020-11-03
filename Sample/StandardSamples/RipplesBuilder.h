@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H
-#define BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H
+#ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_RIPPLESBUILDER_H
+#define BORNAGAIN_SAMPLE_STANDARDSAMPLES_RIPPLESBUILDER_H
 
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
@@ -45,4 +45,4 @@ public:
     MultiLayer* buildSample() const;
 };
 
-#endif // BORNAGAIN_CORE_STANDARDSAMPLES_RIPPLESBUILDER_H
+#endif // BORNAGAIN_SAMPLE_STANDARDSAMPLES_RIPPLESBUILDER_H

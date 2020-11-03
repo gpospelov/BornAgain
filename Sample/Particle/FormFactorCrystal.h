@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_FORMFACTORCRYSTAL_H
-#define BORNAGAIN_CORE_PARTICLE_FORMFACTORCRYSTAL_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCRYSTAL_H
+#define BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCRYSTAL_H
 
 #include "Sample/Lattice/Lattice.h"
 #include "Sample/Scattering/IFormFactorBorn.h"
@@ -64,4 +64,4 @@ private:
     double m_max_rec_length;
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_FORMFACTORCRYSTAL_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCRYSTAL_H

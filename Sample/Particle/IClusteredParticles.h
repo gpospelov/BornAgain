@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
-#define BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_ICLUSTEREDPARTICLES_H
+#define BORNAGAIN_SAMPLE_PARTICLE_ICLUSTEREDPARTICLES_H
 
 #include "Sample/Particle/HomogeneousRegion.h"
 #include "Sample/Scattering/ISample.h"
@@ -39,4 +39,4 @@ public:
     virtual std::vector<HomogeneousRegion> homogeneousRegions() const = 0;
 };
 
-#endif // BORNAGAIN_CORE_PARTICLE_ICLUSTEREDPARTICLES_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_ICLUSTEREDPARTICLES_H

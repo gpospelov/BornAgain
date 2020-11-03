@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_CONVOLVE_H
-#define BORNAGAIN_CORE_DETECTOR_CONVOLVE_H
+#ifndef BORNAGAIN_DEVICE_RESOLUTION_CONVOLVE_H
+#define BORNAGAIN_DEVICE_RESOLUTION_CONVOLVE_H
 
 #include <fftw3.h>
 #include <vector>
@@ -119,4 +119,4 @@ private:
     std::vector<size_t> m_implemented_factors; // favorite factorization terms of fftw3
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_CONVOLVE_H
+#endif // BORNAGAIN_DEVICE_RESOLUTION_CONVOLVE_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_IHISTOGRAM_H
-#define BORNAGAIN_CORE_INTENSITY_IHISTOGRAM_H
+#ifndef BORNAGAIN_DEVICE_HISTO_IHISTOGRAM_H
+#define BORNAGAIN_DEVICE_HISTO_IHISTOGRAM_H
 
 #include "Device/Data/CumulativeValue.h"
 #include "Device/Data/OutputData.h"
@@ -193,4 +193,4 @@ protected:
     OutputData<CumulativeValue> m_data;
 };
 
-#endif // BORNAGAIN_CORE_INTENSITY_IHISTOGRAM_H
+#endif // BORNAGAIN_DEVICE_HISTO_IHISTOGRAM_H

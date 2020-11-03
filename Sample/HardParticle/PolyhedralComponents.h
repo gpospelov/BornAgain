@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
-#define BORNAGAIN_CORE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
@@ -80,4 +80,4 @@ private:
                         double abslevel) const;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H

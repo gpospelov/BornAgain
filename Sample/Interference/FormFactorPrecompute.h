@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Interference/InterferenceFunctionUtils.h
+//! @file      Sample/Interference/FormFactorPrecompute.h
 //! @brief     Defines helper functions for InterferenceFunctions and Strategies.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_INTERFERENCEFUNCTIONUTILS_H
-#define BORNAGAIN_CORE_MULTILAYER_INTERFERENCEFUNCTIONUTILS_H
+#ifndef BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H
+#define BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H
 
 #include "Base/Types/Complex.h"
 #include <Eigen/StdVector>
@@ -22,17 +22,15 @@
 class FormFactorCoherentSum;
 class SimulationElement;
 
-namespace InterferenceFunctionUtils
+namespace FormFactorPrecompute
 {
 using matrixFFVector_t = std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>;
 
-std::vector<complex_t>
-PrecomputeScalarFormFactors(const SimulationElement& sim_element,
-                            const std::vector<FormFactorCoherentSum>& ff_wrappers);
-matrixFFVector_t
-PrecomputePolarizedFormFactors(const SimulationElement& sim_element,
-                               const std::vector<FormFactorCoherentSum>& ff_wrappers);
+std::vector<complex_t> scalar(const SimulationElement& sim_element,
+                              const std::vector<FormFactorCoherentSum>& ff_wrappers);
+matrixFFVector_t polarized(const SimulationElement& sim_element,
+                           const std::vector<FormFactorCoherentSum>& ff_wrappers);
 
-} // namespace InterferenceFunctionUtils
+} // namespace FormFactorPrecompute
 
-#endif // BORNAGAIN_CORE_MULTILAYER_INTERFERENCEFUNCTIONUTILS_H
+#endif // BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H

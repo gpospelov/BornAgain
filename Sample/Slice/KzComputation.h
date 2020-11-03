@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H
-#define BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H
+#ifndef BORNAGAIN_SAMPLE_SLICE_KZCOMPUTATION_H
+#define BORNAGAIN_SAMPLE_SLICE_KZCOMPUTATION_H
 
 #include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
@@ -48,4 +48,4 @@ std::vector<complex_t> computeKzFromSLDs(const std::vector<Slice>& slices, doubl
 std::vector<complex_t> computeKzFromRefIndices(const std::vector<Slice>& slices, kvector_t k);
 } // namespace KzComputation
 
-#endif // BORNAGAIN_CORE_MULTILAYER_KZCOMPUTATION_H
+#endif // BORNAGAIN_SAMPLE_SLICE_KZCOMPUTATION_H

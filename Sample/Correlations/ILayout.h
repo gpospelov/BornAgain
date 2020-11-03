@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_CORRELATIONS_ILAYOUT_H
-#define BORNAGAIN_CORE_CORRELATIONS_ILAYOUT_H
+#ifndef BORNAGAIN_SAMPLE_CORRELATIONS_ILAYOUT_H
+#define BORNAGAIN_SAMPLE_CORRELATIONS_ILAYOUT_H
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Scattering/ISample.h"
@@ -63,4 +63,4 @@ protected:
     double m_weight;
 };
 
-#endif // BORNAGAIN_CORE_CORRELATIONS_ILAYOUT_H
+#endif // BORNAGAIN_SAMPLE_CORRELATIONS_ILAYOUT_H

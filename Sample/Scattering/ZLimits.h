@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SCATTERING_ZLIMITS_H
-#define BORNAGAIN_CORE_SCATTERING_ZLIMITS_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_ZLIMITS_H
+#define BORNAGAIN_SAMPLE_SCATTERING_ZLIMITS_H
 
 #include <iostream>
 
@@ -67,4 +67,4 @@ bool operator!=(const ZLimits& left, const ZLimits& right);
 
 std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits);
 
-#endif // BORNAGAIN_CORE_SCATTERING_ZLIMITS_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_ZLIMITS_H

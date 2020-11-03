@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_IDETECTORRESOLUTION_H
-#define BORNAGAIN_CORE_DETECTOR_IDETECTORRESOLUTION_H
+#ifndef BORNAGAIN_DEVICE_RESOLUTION_IDETECTORRESOLUTION_H
+#define BORNAGAIN_DEVICE_RESOLUTION_IDETECTORRESOLUTION_H
 
 #include "Base/Types/ICloneable.h"
 #include "Device/Data/OutputData.h"
@@ -35,4 +35,4 @@ public:
     virtual IDetectorResolution* clone() const = 0;
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_IDETECTORRESOLUTION_H
+#endif // BORNAGAIN_DEVICE_RESOLUTION_IDETECTORRESOLUTION_H

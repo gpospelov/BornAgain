@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
-#define BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
+#ifndef BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
+#define BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
 
 #include "Sample/Material/Material.h"
 
@@ -40,4 +40,4 @@ Material createAveragedMaterial(const Material& layer_mat,
 
 #endif // SWIG
 
-#endif // BORNAGAIN_CORE_PARTICLE_HOMOGENEOUSREGION_H
+#endif // BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H

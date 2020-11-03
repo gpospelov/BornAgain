@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_DETECTORCONTEXT_H
-#define BORNAGAIN_CORE_DETECTOR_DETECTORCONTEXT_H
+#ifndef BORNAGAIN_DEVICE_DETECTOR_DETECTORCONTEXT_H
+#define BORNAGAIN_DEVICE_DETECTOR_DETECTORCONTEXT_H
 
 #include "Base/Pixel/IPixel.h"
 #include "Base/Vector/EigenCore.h"
@@ -47,4 +47,4 @@ private:
     std::vector<size_t> active_indices; //! The sequence of detector bin indices (unmasked, in ROI)
 };
 
-#endif // BORNAGAIN_CORE_DETECTOR_DETECTORCONTEXT_H
+#endif // BORNAGAIN_DEVICE_DETECTOR_DETECTORCONTEXT_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_HARDPARTICLE_IPROFILERIPPLE_H
-#define BORNAGAIN_CORE_HARDPARTICLE_IPROFILERIPPLE_H
+#ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H
+#define BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H
 
 #include "Sample/Scattering/IFormFactorBorn.h"
 
@@ -83,4 +83,4 @@ private:
     complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 
-#endif // BORNAGAIN_CORE_HARDPARTICLE_IPROFILERIPPLE_H
+#endif // BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H

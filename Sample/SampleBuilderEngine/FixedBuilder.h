@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SAMPLEBUILDERENGINE_FIXEDBUILDER_H
-#define BORNAGAIN_CORE_SAMPLEBUILDERENGINE_FIXEDBUILDER_H
+#ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FIXEDBUILDER_H
+#define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FIXEDBUILDER_H
 
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include <memory>
@@ -33,4 +33,4 @@ private:
     std::unique_ptr<const MultiLayer> m_sample;
 };
 
-#endif // BORNAGAIN_CORE_SAMPLEBUILDERENGINE_FIXEDBUILDER_H
+#endif // BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FIXEDBUILDER_H

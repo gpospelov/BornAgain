@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_DETECTOR_CONVOLUTIONDETECTORRESOLUTION_H
-#define BORNAGAIN_CORE_DETECTOR_CONVOLUTIONDETECTORRESOLUTION_H
+#ifndef BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H
+#define BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H
 
 #include "Device/Resolution/IDetectorResolution.h"
 #include "Device/Resolution/IResolutionFunction2D.h"
@@ -67,4 +67,4 @@ inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolution
     return m_res_function_2d.get();
 }
 
-#endif // BORNAGAIN_CORE_DETECTOR_CONVOLUTIONDETECTORRESOLUTION_H
+#endif // BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MASK_ELLIPSE_H
-#define BORNAGAIN_CORE_MASK_ELLIPSE_H
+#ifndef BORNAGAIN_DEVICE_MASK_ELLIPSE_H
+#define BORNAGAIN_DEVICE_MASK_ELLIPSE_H
 
 #include "Device/Mask/IShape2D.h"
 
@@ -39,4 +39,4 @@ private:
     double m_xc, m_yc, m_xr, m_yr, m_theta;
 };
 
-#endif // BORNAGAIN_CORE_MASK_ELLIPSE_H
+#endif // BORNAGAIN_DEVICE_MASK_ELLIPSE_H

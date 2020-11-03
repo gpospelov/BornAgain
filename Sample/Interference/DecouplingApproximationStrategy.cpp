@@ -19,14 +19,12 @@
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
-#include "Sample/Interference/InterferenceFunctionUtils.h"
+#include "Sample/Interference/FormFactorPrecompute.h"
 
-using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
-using InterferenceFunctionUtils::PrecomputeScalarFormFactors;
-
-DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params,
-                                                                 bool polarized)
-    : IInterferenceFunctionStrategy(sim_params, polarized)
+DecouplingApproximationStrategy::DecouplingApproximationStrategy(
+    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
+    const IInterferenceFunction* p_iff, SimulationOptions sim_params, bool polarized)
+    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized)
 {
 }
 
@@ -38,7 +36,7 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
-    auto precomputed_ff = PrecomputeScalarFormFactors(sim_element, m_formfactor_wrappers);
+    auto precomputed_ff = FormFactorPrecompute::scalar(sim_element, m_formfactor_wrappers);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         complex_t ff = precomputed_ff[i];
         if (std::isnan(ff.real()))
@@ -49,8 +47,8 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
         intensity += fraction * std::norm(ff);
     }
     double amplitude_norm = std::norm(amplitude);
-    double itf_function = m_iff->evaluate(sim_element.getMeanQ());
-    return intensity + amplitude_norm * (itf_function - 1.0);
+    double coherence_factor = m_iff->evaluate(sim_element.getMeanQ());
+    return intensity + amplitude_norm * (coherence_factor - 1.0);
 }
 
 //! This is the polarized version
@@ -60,7 +58,7 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
-    auto precomputed_ff = PrecomputePolarizedFormFactors(sim_element, m_formfactor_wrappers);
+    auto precomputed_ff = FormFactorPrecompute::polarized(sim_element, m_formfactor_wrappers);
     const auto& polarization_handler = sim_element.polarizationHandler();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = precomputed_ff[i];
@@ -78,6 +76,6 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd intensity_matrix = polarization_handler.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
-    double itf_function = m_iff->evaluate(sim_element.getMeanQ());
-    return intensity_trace + amplitude_trace * (itf_function - 1.0);
+    double coherence_factor = m_iff->evaluate(sim_element.getMeanQ());
+    return intensity_trace + amplitude_trace * (coherence_factor - 1.0);
 }

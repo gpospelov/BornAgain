@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWSTRATEGY_H
-#define BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWSTRATEGY_H
 
 #include "Sample/RT/MatrixRTCoefficients_v3.h"
 #include "Sample/Specular/ISpecularStrategy.h"
@@ -54,4 +54,4 @@ private:
                           const std::vector<Slice>& slices) const;
 };
 
-#endif // BORNAGAIN_CORE_MULTILAYER_SPECULARMAGNETICNEWSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWSTRATEGY_H

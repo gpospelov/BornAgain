@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_MULTILAYER_LAYERINTERFACE_H
-#define BORNAGAIN_CORE_MULTILAYER_LAYERINTERFACE_H
+#ifndef BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H
+#define BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H
 
 #include "Sample/Scattering/ISample.h"
 #include <memory>
@@ -75,4 +75,4 @@ inline const Layer* LayerInterface::bottomLayer() const
     return m_bottomLayer;
 }
 
-#endif // BORNAGAIN_CORE_MULTILAYER_LAYERINTERFACE_H
+#endif // BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H

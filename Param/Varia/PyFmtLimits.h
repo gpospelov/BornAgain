@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PYFMTLIMITS_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_PYFMTLIMITS_H
+#ifndef BORNAGAIN_PARAM_VARIA_PYFMTLIMITS_H
+#define BORNAGAIN_PARAM_VARIA_PYFMTLIMITS_H
 
 #include <string>
 
@@ -27,4 +27,4 @@ std::string printRealLimits(const RealLimits& limits, const std::string& units =
 std::string printRealLimitsArg(const RealLimits& limits, const std::string& units = "");
 } // namespace pyfmt
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_PYFMTLIMITS_H
+#endif // BORNAGAIN_PARAM_VARIA_PYFMTLIMITS_H

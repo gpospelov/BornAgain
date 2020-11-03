@@ -33,6 +33,10 @@ double getQ(double wavelength, double angle)
 }
 } // namespace
 
+// ************************************************************************** //
+// class UnitConverterSimple
+// ************************************************************************** //
+
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
     : m_wavelength(beam.getWavelength()), m_alpha_i(-beam.getAlpha()), m_phi_i(beam.getPhi())
 {
@@ -55,9 +59,8 @@ double UnitConverterSimple::calculateMin(size_t i_axis, Axes::Units units_type) 
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
     const auto& axis_data = m_axis_data_table[i_axis];
-    if (units_type == Axes::Units::NBINS) {
+    if (units_type == Axes::Units::NBINS)
         return 0.0;
-    }
     return calculateValue(i_axis, units_type, axis_data.min);
 }
 
@@ -66,9 +69,8 @@ double UnitConverterSimple::calculateMax(size_t i_axis, Axes::Units units_type) 
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
     const auto& axis_data = m_axis_data_table[i_axis];
-    if (units_type == Axes::Units::NBINS) {
+    if (units_type == Axes::Units::NBINS)
         return static_cast<double>(axis_data.nbins);
-    }
     return calculateValue(i_axis, units_type, axis_data.max);
 }
 
@@ -104,16 +106,18 @@ void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_ax
     const auto& axis = detector.getAxis(i_axis);
     const auto* p_roi = detector.regionOfInterest();
     const auto& axis_name = axisName(i_axis);
-    if (p_roi) {
-        auto P_roi_axis = p_roi->clipAxisToRoi(i_axis, axis);
-        addAxisData(axis_name, P_roi_axis->getMin(), P_roi_axis->getMax(), defaultUnits(),
-                    P_roi_axis->size());
-    } else {
+    if (!p_roi) {
         addAxisData(axis_name, axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
+        return;
     }
+    auto P_roi_axis = p_roi->clipAxisToRoi(i_axis, axis);
+    addAxisData(axis_name, P_roi_axis->getMin(), P_roi_axis->getMax(), defaultUnits(),
+                P_roi_axis->size());
 }
 
-/* SphericalConverter **********************************************/
+// ************************************************************************** //
+// class SphericalConverter
+// ************************************************************************** //
 
 SphericalConverter::SphericalConverter(const SphericalDetector& detector, const Beam& beam)
     : UnitConverterSimple(beam)
@@ -195,7 +199,9 @@ std::vector<std::map<Axes::Units, std::string>> SphericalConverter::createNameMa
     return result;
 }
 
-/* RectangularConverter **********************************************/
+// ************************************************************************** //
+// class RectangularConverter
+// ************************************************************************** //
 
 RectangularConverter::RectangularConverter(const RectangularDetector& detector, const Beam& beam)
     : UnitConverterSimple(beam)
@@ -252,22 +258,20 @@ double RectangularConverter::calculateValue(size_t i_axis, Axes::Units units_typ
         return Units::rad2deg(axisAngle(i_axis, k_f));
     case Axes::Units::QSPACE: {
         const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-        if (i_axis == 0) {
+        if (i_axis == 0)
             return (k_i - k_f).y();
-        } else if (i_axis == 1) {
+        if (i_axis == 1)
             return (k_f - k_i).z();
-        }
         throw std::runtime_error("Error in RectangularConverter::calculateValue: "
                                  "incorrect axis index: "
                                  + std::to_string(static_cast<int>(i_axis)));
     }
     case Axes::Units::QXQY: {
         const auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
-        if (i_axis == 0) {
+        if (i_axis == 0)
             return (k_i - k_f).y();
-        } else if (i_axis == 1) {
+        if (i_axis == 1)
             return (k_f - k_i).x();
-        }
         throw std::runtime_error("Error in RectangularConverter::calculateValue: "
                                  "incorrect axis index: "
                                  + std::to_string(static_cast<int>(i_axis)));
@@ -296,17 +300,18 @@ kvector_t RectangularConverter::normalizeToWavelength(kvector_t vector) const
 
 double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
 {
-    if (i_axis == 0) {
+    if (i_axis == 0)
         return k_f.phi();
-    } else if (i_axis == 1) {
+    if (i_axis == 1)
         return M_PI_2 - k_f.theta();
-    }
     throw std::runtime_error("Error in RectangularConverter::axisAngle: "
                              "incorrect axis index: "
                              + std::to_string(static_cast<int>(i_axis)));
 }
 
-/* OffSpecularConverter **********************************************/
+// ************************************************************************** //
+// class OffSpecularConverter
+// ************************************************************************** //
 
 OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Beam& beam,
                                            const IAxis& alpha_axis)
@@ -389,7 +394,9 @@ void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
     }
 }
 
-/* DepthProbeConverter **********************************************/
+// ************************************************************************** //
+// class DepthProbeConverter
+// ************************************************************************** //
 
 const std::string z_axis_name = "Position [nm]";
 

@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_INTENSITY_AXISNAMES_H
-#define BORNAGAIN_CORE_INTENSITY_AXISNAMES_H
+#ifndef BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
+#define BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
 
 #include "Device/Unit/IUnitConverter.h"
 #include <map>
@@ -35,4 +35,4 @@ std::map<Axes::Units, std::string> InitSpecAxisQ();
 std::map<Axes::Units, std::string> InitSampleDepthAxis();
 } // namespace AxisNames
 
-#endif // BORNAGAIN_CORE_INTENSITY_AXISNAMES_H
+#endif // BORNAGAIN_DEVICE_UNIT_AXISNAMES_H

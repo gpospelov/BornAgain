@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERSAMPLE_H
-#define BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERSAMPLE_H
+#ifndef BORNAGAIN_PARAM_VARIA_PARAMETERSAMPLE_H
+#define BORNAGAIN_PARAM_VARIA_PARAMETERSAMPLE_H
 
 //! A parameter value with a weight, as obtained when sampling from a distribution.
 //! @ingroup algorithms_internal
@@ -26,4 +26,4 @@ public:
     double weight;
 };
 
-#endif // BORNAGAIN_CORE_PARAMETRIZATION_PARAMETERSAMPLE_H
+#endif // BORNAGAIN_PARAM_VARIA_PARAMETERSAMPLE_H

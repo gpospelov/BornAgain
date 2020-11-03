@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H
-#define BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H
+#ifndef BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H
+#define BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H
 
 #include "Sample/Scattering/ISample.h"
 
@@ -58,4 +58,4 @@ protected:
     virtual double iff_without_dw(const kvector_t q) const = 0;
 };
 
-#endif // BORNAGAIN_CORE_AGGREGATE_IINTERFERENCEFUNCTION_H
+#endif // BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H

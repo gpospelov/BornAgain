@@ -50,8 +50,7 @@ IInterferenceFunctionStrategy::evaluateSinglePoint(const SimulationElement& sim_
 {
     if (!m_polarized)
         return scalarCalculation(sim_element);
-    else
-        return polarizedCalculation(sim_element);
+    return polarizedCalculation(sim_element);
 }
 
 //! Performs a Monte Carlo integration over the bin for the evaluation of the intensity.

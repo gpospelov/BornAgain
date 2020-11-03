@@ -59,8 +59,8 @@ private:
     //! Returns the scattering length density
     complex_t sld() const;
 
-    double m_sld_real; //!< complex-valued scattering length density
-    double m_sld_imag; //!< imaginary part of scattering length density (negative by default)
+    const double m_sld_real; //!< complex-valued scattering length density
+    const double m_sld_imag; //!< imaginary part of scattering length density (negative by default)
 };
 
 #endif // BORNAGAIN_SAMPLE_MATERIAL_MATERIALBYSLDIMPL_H

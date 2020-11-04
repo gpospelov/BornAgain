@@ -44,9 +44,7 @@ public:
     SimulationResult(const OutputData<double>& data, const IUnitConverter& unit_converter);
 
     SimulationResult(const SimulationResult& other);
-#ifndef SWIG
     SimulationResult(SimulationResult&& other);
-#endif
 
     SimulationResult& operator=(const SimulationResult& other);
     SimulationResult& operator=(SimulationResult&& other);

@@ -6082,6 +6082,7 @@ class SimulationResult(object):
         __init__(SimulationResult self) -> SimulationResult
         __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
         __init__(SimulationResult self, SimulationResult other) -> SimulationResult
+        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
         SimulationResult::SimulationResult(SimulationResult &&other)
 
         """

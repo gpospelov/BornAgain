@@ -89,31 +89,35 @@ std::vector<AxisInfo> SimulationResult::axisInfo(Axes::Units units) const
 
 const IUnitConverter& SimulationResult::converter() const
 {
-    if (!m_unit_converter)
-        throw std::runtime_error(
-            "Error in SimulationResult::converter: unit converter was not initialized");
+    ASSERT(m_unit_converter);
     return *m_unit_converter;
 }
 
 double& SimulationResult::operator[](size_t i)
 {
-    if (m_data)
-        return (*m_data)[i];
-    throw std::runtime_error("Error in SimulationResult::operator[]: "
-                             "no data initialized");
+    ASSERT(m_data);
+    return (*m_data)[i];
 }
 
 const double& SimulationResult::operator[](size_t i) const
 {
-    if (m_data)
-        return (*m_data)[i];
-    throw std::runtime_error("Error in SimulationResult::operator[]: "
-                             "no data initialized");
+    ASSERT(m_data);
+    return (*m_data)[i];
 }
 
 size_t SimulationResult::size() const
 {
     return m_data ? m_data->getAllocatedSize() : 0;
+}
+
+double SimulationResult::max() const
+{
+    ASSERT(m_data);
+    double result = 0;
+    for (size_t i=0; i<size(); ++i)
+        if ((*m_data)[i]>result)
+            result = (*m_data)[i];
+    return result;
 }
 
 #ifdef BORNAGAIN_PYTHON

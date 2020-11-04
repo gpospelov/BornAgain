@@ -65,6 +65,7 @@ public:
     double& operator[](size_t i);
     const double& operator[](size_t i) const;
     size_t size() const;
+    double max() const;
     bool empty() const { return size() == 0; }
 
     //! returns intensity data as Python numpy array

@@ -45213,6 +45213,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_SimulationResult_max(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SimulationResult *arg1 = (SimulationResult *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SimulationResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SimulationResult_max" "', argument " "1"" of type '" "SimulationResult const *""'"); 
+  }
+  arg1 = reinterpret_cast< SimulationResult * >(argp1);
+  result = (double)((SimulationResult const *)arg1)->max();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_SimulationResult_empty(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SimulationResult *arg1 = (SimulationResult *) 0 ;
@@ -48686,6 +48709,11 @@ static PyMethodDef SwigMethods[] = {
 	 { "SimulationResult_size", _wrap_SimulationResult_size, METH_O, "\n"
 		"SimulationResult_size(SimulationResult self) -> size_t\n"
 		"size_t SimulationResult::size() const\n"
+		"\n"
+		""},
+	 { "SimulationResult_max", _wrap_SimulationResult_max, METH_O, "\n"
+		"SimulationResult_max(SimulationResult self) -> double\n"
+		"double & SimulationResult::max() const\n"
 		"\n"
 		""},
 	 { "SimulationResult_empty", _wrap_SimulationResult_empty, METH_O, "\n"

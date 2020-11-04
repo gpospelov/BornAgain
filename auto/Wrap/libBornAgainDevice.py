@@ -6124,6 +6124,14 @@ class SimulationResult(object):
         """
         return _libBornAgainDevice.SimulationResult_size(self)
 
+    def max(self):
+        r"""
+        max(SimulationResult self) -> double
+        double & SimulationResult::max() const
+
+        """
+        return _libBornAgainDevice.SimulationResult_max(self)
+
     def empty(self):
         r"""
         empty(SimulationResult self) -> bool

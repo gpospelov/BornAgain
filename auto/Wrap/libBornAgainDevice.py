@@ -6082,6 +6082,7 @@ class SimulationResult(object):
         __init__(SimulationResult self) -> SimulationResult
         __init__(SimulationResult self, IntensityData data, IUnitConverter unit_converter) -> SimulationResult
         __init__(SimulationResult self, SimulationResult other) -> SimulationResult
+        __init__(SimulationResult self, SimulationResult other) -> SimulationResult
         SimulationResult::SimulationResult(SimulationResult &&other)
 
         """
@@ -6122,6 +6123,14 @@ class SimulationResult(object):
 
         """
         return _libBornAgainDevice.SimulationResult_size(self)
+
+    def max(self):
+        r"""
+        max(SimulationResult self) -> double
+        double & SimulationResult::max() const
+
+        """
+        return _libBornAgainDevice.SimulationResult_max(self)
 
     def empty(self):
         r"""

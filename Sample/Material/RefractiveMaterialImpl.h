@@ -60,9 +60,10 @@ private:
     RefractiveMaterialImpl(const std::string& name, double delta, double beta,
                            kvector_t magnetization);
 
-    double
-        m_delta;   //!< \f$\delta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
-    double m_beta; //!< \f$\beta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
+    const double
+        m_delta; //!< \f$\delta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
+    const double
+        m_beta; //!< \f$\beta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
 };
 
 #endif // BORNAGAIN_SAMPLE_MATERIAL_REFRACTIVEMATERIALIMPL_H

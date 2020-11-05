@@ -44907,6 +44907,30 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_new_SimulationResult__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  SimulationResult *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  SimulationResult *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_SimulationResult,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_SimulationResult" "', argument " "1"" of type '" "SimulationResult &&""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_SimulationResult" "', argument " "1"" of type '" "SimulationResult &&""'"); 
+  }
+  arg1 = reinterpret_cast< SimulationResult * >(argp1);
+  result = (SimulationResult *)new SimulationResult((SimulationResult &&)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SimulationResult, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_new_SimulationResult(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
@@ -44924,6 +44948,15 @@ SWIGINTERN PyObject *_wrap_new_SimulationResult(PyObject *self, PyObject *args) 
     _v = SWIG_CheckState(res);
     if (_v) {
       return _wrap_new_SimulationResult__SWIG_2(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_SimulationResult, SWIG_POINTER_NO_NULL);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_SimulationResult__SWIG_3(self, argc, argv);
     }
   }
   if (argc == 2) {
@@ -44944,7 +44977,8 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    SimulationResult::SimulationResult()\n"
     "    SimulationResult::SimulationResult(OutputData< double > const &,IUnitConverter const &)\n"
-    "    SimulationResult::SimulationResult(SimulationResult const &)\n");
+    "    SimulationResult::SimulationResult(SimulationResult const &)\n"
+    "    SimulationResult::SimulationResult(SimulationResult &&)\n");
   return 0;
 }
 
@@ -45173,6 +45207,29 @@ SWIGINTERN PyObject *_wrap_SimulationResult_size(PyObject *SWIGUNUSEDPARM(self),
   arg1 = reinterpret_cast< SimulationResult * >(argp1);
   result = ((SimulationResult const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SimulationResult_max(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SimulationResult *arg1 = (SimulationResult *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SimulationResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SimulationResult_max" "', argument " "1"" of type '" "SimulationResult const *""'"); 
+  }
+  arg1 = reinterpret_cast< SimulationResult * >(argp1);
+  result = (double)((SimulationResult const *)arg1)->max();
+  resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
   return NULL;
@@ -48625,6 +48682,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "new_SimulationResult", _wrap_new_SimulationResult, METH_VARARGS, "\n"
 		"SimulationResult()\n"
 		"SimulationResult(IntensityData data, IUnitConverter unit_converter)\n"
+		"SimulationResult(SimulationResult other)\n"
 		"new_SimulationResult(SimulationResult other) -> SimulationResult\n"
 		"SimulationResult::SimulationResult(SimulationResult &&other)\n"
 		"\n"
@@ -48651,6 +48709,11 @@ static PyMethodDef SwigMethods[] = {
 	 { "SimulationResult_size", _wrap_SimulationResult_size, METH_O, "\n"
 		"SimulationResult_size(SimulationResult self) -> size_t\n"
 		"size_t SimulationResult::size() const\n"
+		"\n"
+		""},
+	 { "SimulationResult_max", _wrap_SimulationResult_max, METH_O, "\n"
+		"SimulationResult_max(SimulationResult self) -> double\n"
+		"double & SimulationResult::max() const\n"
 		"\n"
 		""},
 	 { "SimulationResult_empty", _wrap_SimulationResult_empty, METH_O, "\n"

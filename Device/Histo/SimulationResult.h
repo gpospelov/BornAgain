@@ -44,9 +44,7 @@ public:
     SimulationResult(const OutputData<double>& data, const IUnitConverter& unit_converter);
 
     SimulationResult(const SimulationResult& other);
-#ifndef SWIG
     SimulationResult(SimulationResult&& other);
-#endif
 
     SimulationResult& operator=(const SimulationResult& other);
     SimulationResult& operator=(SimulationResult&& other);
@@ -67,6 +65,7 @@ public:
     double& operator[](size_t i);
     const double& operator[](size_t i) const;
     size_t size() const;
+    double max() const;
     bool empty() const { return size() == 0; }
 
     //! returns intensity data as Python numpy array

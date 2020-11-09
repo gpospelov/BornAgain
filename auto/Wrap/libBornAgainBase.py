@@ -1789,16 +1789,6 @@ def cot(x):
     """
     return _libBornAgainBase.cot(x)
 
-def Si(x):
-    r"""
-    Si(double x) -> double
-    double MathFunctions::Si(double x)
-
-    Sine integral function:  $Si(x)\\equiv\\int_0^x du \\sin(u)/u$. 
-
-    """
-    return _libBornAgainBase.Si(x)
-
 def sinc(*args):
     r"""
     sinc(double x) -> double

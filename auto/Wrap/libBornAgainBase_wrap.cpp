@@ -24457,29 +24457,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Si(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Si" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::Si(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_sinc__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -33799,13 +33776,6 @@ static PyMethodDef SwigMethods[] = {
 		"double MathFunctions::cot(double x)\n"
 		"\n"
 		"cotangent function:  $cot(x)\\\\equiv1/tan(x)$\n"
-		"\n"
-		""},
-	 { "Si", _wrap_Si, METH_O, "\n"
-		"Si(double x) -> double\n"
-		"double MathFunctions::Si(double x)\n"
-		"\n"
-		"Sine integral function:  $Si(x)\\\\equiv\\\\int_0^x du \\\\sin(u)/u$. \n"
 		"\n"
 		""},
 	 { "sinc", _wrap_sinc, METH_VARARGS, "\n"

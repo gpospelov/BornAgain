@@ -51,11 +51,6 @@ double MathFunctions::cot(double x)
     return tan(M_PI_2 - x);
 }
 
-double MathFunctions::Si(double x) // int_0^x du Sin(u)/u
-{
-    return gsl_sf_Si(x);
-}
-
 double MathFunctions::sinc(double x) // Sin(x)/x
 {
     return gsl_sf_sinc(x / M_PI);

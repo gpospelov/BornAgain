@@ -34,9 +34,6 @@ double IntegratedGaussian(double x, double average, double std_dev);
 //! cotangent function: \f$cot(x)\equiv1/tan(x)\f$
 double cot(double x);
 
-//! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
-double Si(double x);
-
 //! sinc function: \f$sinc(x)\equiv\sin(x)/x\f$
 double sinc(double x);
 

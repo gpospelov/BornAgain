@@ -1275,11 +1275,6 @@ Forked from same source as for Bessel_J0_PowSer
 cotangent function:  $cot(x)\\\\equiv1/tan(x)$
 ";
 
-%feature("docstring")  MathFunctions::Si "double MathFunctions::Si(double x)
-
-Sine integral function:  $Si(x)\\\\equiv\\\\int_0^x du \\\\sin(u)/u$. 
-";
-
 %feature("docstring")  MathFunctions::sinc "double MathFunctions::sinc(double x)
 
 sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$

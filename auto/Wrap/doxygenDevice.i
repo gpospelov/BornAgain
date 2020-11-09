@@ -2870,7 +2870,7 @@ Returns underlying unit converter.
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const
 ";
 
-%feature("docstring")  SimulationResult::max "double & SimulationResult::max() const
+%feature("docstring")  SimulationResult::max "double SimulationResult::max() const
 ";
 
 %feature("docstring")  SimulationResult::empty "bool SimulationResult::empty() const

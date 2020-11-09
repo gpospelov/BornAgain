@@ -48713,7 +48713,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "SimulationResult_max", _wrap_SimulationResult_max, METH_O, "\n"
 		"SimulationResult_max(SimulationResult self) -> double\n"
-		"double & SimulationResult::max() const\n"
+		"double SimulationResult::max() const\n"
 		"\n"
 		""},
 	 { "SimulationResult_empty", _wrap_SimulationResult_empty, METH_O, "\n"

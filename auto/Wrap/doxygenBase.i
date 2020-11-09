@@ -1335,21 +1335,6 @@ Complex Bessel function of the first kind and order 1.
 Complex Bessel function Bessel_J1(x)/x. 
 ";
 
-%feature("docstring")  MathFunctions::FastFourierTransform "std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< complex_t > &data, EFFTDirection tcase)
-
-simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3) 
-";
-
-%feature("docstring")  MathFunctions::FastFourierTransform "std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
-
-simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
-";
-
-%feature("docstring")  MathFunctions::ConvolveFFT "std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
-
-convolution of two real vectors of equal size 
-";
-
 %feature("docstring")  MathFunctions::GenerateUniformRandom "double MathFunctions::GenerateUniformRandom()
 ";
 

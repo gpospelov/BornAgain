@@ -75,22 +75,6 @@ complex_t Bessel_J1(const complex_t z);
 complex_t Bessel_J1c(const complex_t z);
 
 // ************************************************************************** //
-//  Fourier transform and convolution
-// ************************************************************************** //
-
-// TODO move elsewhere, and rm #include <vector>
-
-enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
-
-// TODO: name these two functions differently (SWIG warning 509)
-std::vector<complex_t> FastFourierTransform(const std::vector<complex_t>& data,
-                                            EFFTDirection tcase);
-std::vector<complex_t> FastFourierTransform(const std::vector<double>& data, EFFTDirection tcase);
-
-std::vector<complex_t> ConvolveFFT(const std::vector<double>& signal,
-                                   const std::vector<double>& resfunc);
-
-// ************************************************************************** //
 //  Random number generators
 // ************************************************************************** //
 

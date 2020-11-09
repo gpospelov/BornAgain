@@ -24876,168 +24876,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FastFourierTransform__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< complex_t,std::allocator< complex_t > > *arg1 = 0 ;
-  MathFunctions::EFFTDirection arg2 ;
-  int res1 = SWIG_OLDOBJ ;
-  int val2 ;
-  int ecode2 = 0 ;
-  std::vector< complex_t,std::allocator< complex_t > > result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  {
-    std::vector< std::complex< double >,std::allocator< std::complex< double > > > *ptr = (std::vector< std::complex< double >,std::allocator< std::complex< double > > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< complex_t,std::allocator< complex_t > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< complex_t,std::allocator< complex_t > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FastFourierTransform" "', argument " "2"" of type '" "MathFunctions::EFFTDirection""'");
-  } 
-  arg2 = static_cast< MathFunctions::EFFTDirection >(val2);
-  result = MathFunctions::FastFourierTransform((std::vector< std::complex< double >,std::allocator< std::complex< double > > > const &)*arg1,arg2);
-  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FastFourierTransform__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< double,std::allocator< double > > *arg1 = 0 ;
-  MathFunctions::EFFTDirection arg2 ;
-  int res1 = SWIG_OLDOBJ ;
-  int val2 ;
-  int ecode2 = 0 ;
-  std::vector< complex_t,std::allocator< complex_t > > result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FastFourierTransform" "', argument " "2"" of type '" "MathFunctions::EFFTDirection""'");
-  } 
-  arg2 = static_cast< MathFunctions::EFFTDirection >(val2);
-  result = MathFunctions::FastFourierTransform((std::vector< double,std::allocator< double > > const &)*arg1,arg2);
-  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FastFourierTransform(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FastFourierTransform", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< std::complex< double >,std::allocator< std::complex< double > > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_int(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_FastFourierTransform__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_int(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_FastFourierTransform__SWIG_1(self, argc, argv);
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FastFourierTransform'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    MathFunctions::FastFourierTransform(std::vector< complex_t,std::allocator< complex_t > > const &,MathFunctions::EFFTDirection)\n"
-    "    MathFunctions::FastFourierTransform(std::vector< double,std::allocator< double > > const &,MathFunctions::EFFTDirection)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_ConvolveFFT(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::vector< double,std::allocator< double > > *arg1 = 0 ;
-  std::vector< double,std::allocator< double > > *arg2 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  std::vector< complex_t,std::allocator< complex_t > > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ConvolveFFT", 2, 2, swig_obj)) SWIG_fail;
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConvolveFFT" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ConvolveFFT" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res2 = swig::asptr(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ConvolveFFT" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ConvolveFFT" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  result = MathFunctions::ConvolveFFT((std::vector< double,std::allocator< double > > const &)*arg1,(std::vector< double,std::allocator< double > > const &)*arg2);
-  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_GenerateUniformRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   double result;
@@ -33838,21 +33676,6 @@ static PyMethodDef SwigMethods[] = {
 		"Complex Bessel function Bessel_J1(x)/x. \n"
 		"\n"
 		""},
-	 { "FastFourierTransform", _wrap_FastFourierTransform, METH_VARARGS, "\n"
-		"FastFourierTransform(vector_complex_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t\n"
-		"FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t\n"
-		"std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)\n"
-		"\n"
-		"simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex \n"
-		"\n"
-		""},
-	 { "ConvolveFFT", _wrap_ConvolveFFT, METH_VARARGS, "\n"
-		"ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> vector_complex_t\n"
-		"std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)\n"
-		"\n"
-		"convolution of two real vectors of equal size \n"
-		"\n"
-		""},
 	 { "GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_NOARGS, "\n"
 		"GenerateUniformRandom() -> double\n"
 		"double MathFunctions::GenerateUniformRandom()\n"
@@ -35826,8 +35649,6 @@ SWIG_init(void) {
   SWIG_addvarlink(globals, "deg", Swig_var_deg_get, Swig_var_deg_set);
   SWIG_addvarlink(globals, "tesla", Swig_var_tesla_get, Swig_var_tesla_set);
   SWIG_addvarlink(globals, "gauss", Swig_var_gauss_get, Swig_var_gauss_set);
-  SWIG_Python_SetConstant(d, "FORWARD_FFT",SWIG_From_int(static_cast< int >(MathFunctions::FORWARD_FFT)));
-  SWIG_Python_SetConstant(d, "BACKWARD_FFT",SWIG_From_int(static_cast< int >(MathFunctions::BACKWARD_FFT)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

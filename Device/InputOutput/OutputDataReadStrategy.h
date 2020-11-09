@@ -25,7 +25,7 @@ template <class T> class OutputData;
 class IOutputDataReadStrategy
 {
 public:
-    virtual ~IOutputDataReadStrategy() {}
+    virtual ~IOutputDataReadStrategy() = default;
     virtual OutputData<double>* readOutputData(std::istream& input_stream) = 0;
 };
 

@@ -42,7 +42,7 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
 {
     if (!m_core || !m_shell)
         return {};
-    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
+    std::unique_ptr<IRotation> P_rotation(new IdentityRotation);
     if (m_rotation)
         P_rotation.reset(m_rotation->clone());
 

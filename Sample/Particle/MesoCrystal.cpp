@@ -47,7 +47,7 @@ SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
 {
     if (!m_particle_structure || !m_meso_form_factor)
         return {};
-    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
+    std::unique_ptr<IRotation> P_rotation(new IdentityRotation);
     if (m_rotation)
         P_rotation.reset(m_rotation->clone());
     std::unique_ptr<IFormFactor> P_tem_ff(

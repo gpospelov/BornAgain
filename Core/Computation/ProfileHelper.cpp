@@ -19,8 +19,16 @@
 namespace
 {
 const double prefactor = std::sqrt(2.0 / M_PI);
-double Transition(double x, double sigma);
-double TransitionTanh(double x);
+double TransitionTanh(double x)
+{
+    return (1.0 - std::tanh(prefactor * x)) / 2.0;
+}
+double Transition(double x, double sigma)
+{
+    if (sigma <= 0.0)
+        return x < 0.0 ? 1.0 : 0.0;
+    return TransitionTanh(x / sigma);
+}
 } // namespace
 
 ProfileHelper::ProfileHelper(const ProcessedSample& sample)
@@ -44,6 +52,8 @@ ProfileHelper::ProfileHelper(const ProcessedSample& sample)
         }
     }
 }
+
+ProfileHelper::~ProfileHelper() = default;
 
 // Note: for refractive index materials, the material interpolation actually happens at the level
 // of n^2. To first order in delta and beta, this implies the same smooth interpolation of delta
@@ -75,19 +85,3 @@ std::pair<double, double> ProfileHelper::defaultLimits() const
     double z_max = m_zlimits.front() + top_margin;
     return {z_min, z_max};
 }
-
-ProfileHelper::~ProfileHelper() = default;
-
-namespace
-{
-double Transition(double x, double sigma)
-{
-    if (sigma <= 0.0)
-        return x < 0.0 ? 1.0 : 0.0;
-    return TransitionTanh(x / sigma);
-}
-double TransitionTanh(double x)
-{
-    return (1.0 - std::tanh(prefactor * x)) / 2.0;
-}
-} // namespace

@@ -26,11 +26,6 @@ Transform3D::Transform3D(const Eigen::Matrix3d& matrix) : m_matrix(matrix)
     m_inverse_matrix = m_matrix.inverse();
 }
 
-Transform3D Transform3D::createIdentity()
-{
-    return Transform3D();
-}
-
 Transform3D Transform3D::createRotateX(double phi)
 {
     double cosine = std::cos(phi);

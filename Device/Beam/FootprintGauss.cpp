@@ -39,7 +39,7 @@ double FootprintGauss::calculate(double alpha) const
     if (widthRatio() == 0.0)
         return 1.0;
     const double arg = std::sin(alpha) * M_SQRT1_2 / widthRatio();
-    return MathFunctions::erf(arg);
+    return Math::erf(arg);
 }
 
 std::string FootprintGauss::print() const

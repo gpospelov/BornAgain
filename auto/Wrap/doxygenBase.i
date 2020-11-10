@@ -1245,91 +1245,93 @@ Returns true if file with given name exists on disk.
 ";
 
 
-// File: namespaceMathFunctions.xml
-%feature("docstring")  MathFunctions::Bessel_J0 "double MathFunctions::Bessel_J0(double x)
-
-Bessel function of the first kind and order 0. 
+// File: namespaceMath.xml
+%feature("docstring")  Math::Bessel::StandardNormal "double Math::StandardNormal(double x)
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1 "double MathFunctions::Bessel_J1(double x)
-
-Bessel function of the first kind and order 1. 
+%feature("docstring")  Math::Bessel::Gaussian "double Math::Gaussian(double x, double average, double std_dev)
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1c "double MathFunctions::Bessel_J1c(double x)
-
-Bessel function Bessel_J1(x)/x. 
+%feature("docstring")  Math::Bessel::IntegratedGaussian "double Math::IntegratedGaussian(double x, double average, double std_dev)
 ";
 
-%feature("docstring")  MathFunctions::Bessel_I0 "double MathFunctions::Bessel_I0(double x)
-
-Modified Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J0 "complex_t MathFunctions::Bessel_J0(const complex_t z)
-
-Complex Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1 "complex_t MathFunctions::Bessel_J1(const complex_t z)
-
-Complex Bessel function of the first kind and order 1. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1c "complex_t MathFunctions::Bessel_J1c(const complex_t z)
-
-Complex Bessel function Bessel_J1(x)/x. 
-";
-
-%feature("docstring")  MathFunctions::StandardNormal "double MathFunctions::StandardNormal(double x)
-";
-
-%feature("docstring")  MathFunctions::Gaussian "double MathFunctions::Gaussian(double x, double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::IntegratedGaussian "double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::cot "double MathFunctions::cot(double x)
+%feature("docstring")  Math::Bessel::cot "double Math::cot(double x)
 
 cotangent function:  $cot(x)\\\\equiv1/tan(x)$
 ";
 
-%feature("docstring")  MathFunctions::sinc "double MathFunctions::sinc(double x)
+%feature("docstring")  Math::Bessel::sinc "double Math::sinc(double x)
 
 sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$
 ";
 
-%feature("docstring")  MathFunctions::sinc "complex_t MathFunctions::sinc(const complex_t z)
+%feature("docstring")  Math::Bessel::sinc "complex_t Math::sinc(const complex_t z)
 
 Complex sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$. 
 ";
 
-%feature("docstring")  MathFunctions::tanhc "complex_t MathFunctions::tanhc(const complex_t z)
+%feature("docstring")  Math::Bessel::tanhc "complex_t Math::tanhc(const complex_t z)
 
 Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$. 
 ";
 
-%feature("docstring")  MathFunctions::Laue "double MathFunctions::Laue(const double x, size_t N)
+%feature("docstring")  Math::Bessel::Laue "double Math::Laue(const double x, size_t N)
 
 Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$. 
 ";
 
-%feature("docstring")  MathFunctions::erf "double MathFunctions::erf(double arg)
+%feature("docstring")  Math::Bessel::erf "double Math::erf(double arg)
 
 Error function of real-valued argument. 
 ";
 
-%feature("docstring")  MathFunctions::GenerateUniformRandom "double MathFunctions::GenerateUniformRandom()
+%feature("docstring")  Math::Bessel::GenerateUniformRandom "double Math::GenerateUniformRandom()
 ";
 
-%feature("docstring")  MathFunctions::GenerateStandardNormalRandom "double MathFunctions::GenerateStandardNormalRandom()
+%feature("docstring")  Math::Bessel::GenerateStandardNormalRandom "double Math::GenerateStandardNormalRandom()
 ";
 
-%feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+%feature("docstring")  Math::Bessel::GenerateNormalRandom "double Math::GenerateNormalRandom(double average, double std_dev)
 ";
 
-%feature("docstring")  MathFunctions::GeneratePoissonRandom "double MathFunctions::GeneratePoissonRandom(double average)
+%feature("docstring")  Math::Bessel::GeneratePoissonRandom "double Math::GeneratePoissonRandom(double average)
+";
+
+
+// File: namespaceMath_1_1Bessel.xml
+%feature("docstring")  Math::Bessel::J0 "double Math::Bessel::J0(double x)
+
+Bessel function of the first kind and order 0. 
+";
+
+%feature("docstring")  Math::Bessel::J1 "double Math::Bessel::J1(double x)
+
+Bessel function of the first kind and order 1. 
+";
+
+%feature("docstring")  Math::Bessel::J1c "double Math::Bessel::J1c(double x)
+
+Bessel function J1(x)/x. 
+";
+
+%feature("docstring")  Math::Bessel::I0 "double Math::Bessel::I0(double x)
+
+Modified Bessel function of the first kind and order 0. 
+";
+
+%feature("docstring")  Math::Bessel::J0 "complex_t Math::Bessel::J0(const complex_t z)
+
+Complex Bessel function of the first kind and order 0. 
+";
+
+%feature("docstring")  Math::Bessel::J1 "complex_t Math::Bessel::J1(const complex_t z)
+
+Complex Bessel function of the first kind and order 1. 
+";
+
+%feature("docstring")  Math::Bessel::J1c "complex_t Math::Bessel::J1c(const complex_t z)
+
+Complex Bessel function J1(x)/x. 
 ";
 
 

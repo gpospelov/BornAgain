@@ -24350,7 +24350,7 @@ SWIGINTERN PyObject *_wrap_StandardNormal(PyObject *SWIGUNUSEDPARM(self), PyObje
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "StandardNormal" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::StandardNormal(arg1);
+  result = (double)Math::StandardNormal(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24388,7 +24388,7 @@ SWIGINTERN PyObject *_wrap_Gaussian(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Gaussian" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)MathFunctions::Gaussian(arg1,arg2,arg3);
+  result = (double)Math::Gaussian(arg1,arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24426,7 +24426,7 @@ SWIGINTERN PyObject *_wrap_IntegratedGaussian(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IntegratedGaussian" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)MathFunctions::IntegratedGaussian(arg1,arg2,arg3);
+  result = (double)Math::IntegratedGaussian(arg1,arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24449,7 +24449,7 @@ SWIGINTERN PyObject *_wrap_cot(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "cot" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::cot(arg1);
+  result = (double)Math::cot(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24470,7 +24470,7 @@ SWIGINTERN PyObject *_wrap_sinc__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "sinc" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::sinc(arg1);
+  result = (double)Math::sinc(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24491,7 +24491,7 @@ SWIGINTERN PyObject *_wrap_sinc__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "sinc" "', argument " "1"" of type '" "complex_t""'");
   } 
   arg1 = static_cast< complex_t >(val1);
-  result = MathFunctions::sinc(arg1);
+  result = Math::sinc(arg1);
   resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
   return resultobj;
 fail:
@@ -24531,8 +24531,8 @@ SWIGINTERN PyObject *_wrap_sinc(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'sinc'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    MathFunctions::sinc(double)\n"
-    "    MathFunctions::sinc(complex_t const)\n");
+    "    Math::sinc(double)\n"
+    "    Math::sinc(complex_t const)\n");
   return 0;
 }
 
@@ -24552,7 +24552,7 @@ SWIGINTERN PyObject *_wrap_tanhc(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "tanhc" "', argument " "1"" of type '" "complex_t""'");
   } 
   arg1 = static_cast< complex_t >(val1);
-  result = MathFunctions::tanhc(arg1);
+  result = Math::tanhc(arg1);
   resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
   return resultobj;
 fail:
@@ -24582,7 +24582,7 @@ SWIGINTERN PyObject *_wrap_Laue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Laue" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)MathFunctions::Laue(arg1,arg2);
+  result = (double)Math::Laue(arg1,arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24605,7 +24605,7 @@ SWIGINTERN PyObject *_wrap_erf(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "erf" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::erf(arg1);
+  result = (double)Math::erf(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24618,7 +24618,7 @@ SWIGINTERN PyObject *_wrap_GenerateUniformRandom(PyObject *SWIGUNUSEDPARM(self),
   double result;
   
   if (!SWIG_Python_UnpackTuple(args, "GenerateUniformRandom", 0, 0, 0)) SWIG_fail;
-  result = (double)MathFunctions::GenerateUniformRandom();
+  result = (double)Math::GenerateUniformRandom();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24631,7 +24631,7 @@ SWIGINTERN PyObject *_wrap_GenerateStandardNormalRandom(PyObject *SWIGUNUSEDPARM
   double result;
   
   if (!SWIG_Python_UnpackTuple(args, "GenerateStandardNormalRandom", 0, 0, 0)) SWIG_fail;
-  result = (double)MathFunctions::GenerateStandardNormalRandom();
+  result = (double)Math::GenerateStandardNormalRandom();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24661,7 +24661,7 @@ SWIGINTERN PyObject *_wrap_GenerateNormalRandom(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "GenerateNormalRandom" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (double)MathFunctions::GenerateNormalRandom(arg1,arg2);
+  result = (double)Math::GenerateNormalRandom(arg1,arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24684,7 +24684,7 @@ SWIGINTERN PyObject *_wrap_GeneratePoissonRandom(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "GeneratePoissonRandom" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::GeneratePoissonRandom(arg1);
+  result = (double)Math::GeneratePoissonRandom(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -33331,77 +33331,21 @@ static PyMethodDef SwigMethods[] = {
 		"double Units::deg2rad(double angle)\n"
 		"\n"
 		""},
-	 { "StandardNormal", _wrap_StandardNormal, METH_O, "\n"
-		"StandardNormal(double x) -> double\n"
-		"double MathFunctions::StandardNormal(double x)\n"
-		"\n"
-		""},
-	 { "Gaussian", _wrap_Gaussian, METH_VARARGS, "\n"
-		"Gaussian(double x, double average, double std_dev) -> double\n"
-		"double MathFunctions::Gaussian(double x, double average, double std_dev)\n"
-		"\n"
-		""},
-	 { "IntegratedGaussian", _wrap_IntegratedGaussian, METH_VARARGS, "\n"
-		"IntegratedGaussian(double x, double average, double std_dev) -> double\n"
-		"double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)\n"
-		"\n"
-		""},
-	 { "cot", _wrap_cot, METH_O, "\n"
-		"cot(double x) -> double\n"
-		"double MathFunctions::cot(double x)\n"
-		"\n"
-		"cotangent function:  $cot(x)\\\\equiv1/tan(x)$\n"
-		"\n"
-		""},
+	 { "StandardNormal", _wrap_StandardNormal, METH_O, "StandardNormal(double x) -> double"},
+	 { "Gaussian", _wrap_Gaussian, METH_VARARGS, "Gaussian(double x, double average, double std_dev) -> double"},
+	 { "IntegratedGaussian", _wrap_IntegratedGaussian, METH_VARARGS, "IntegratedGaussian(double x, double average, double std_dev) -> double"},
+	 { "cot", _wrap_cot, METH_O, "cot(double x) -> double"},
 	 { "sinc", _wrap_sinc, METH_VARARGS, "\n"
 		"sinc(double x) -> double\n"
 		"sinc(complex_t const z) -> complex_t\n"
-		"complex_t MathFunctions::sinc(const complex_t z)\n"
-		"\n"
-		"Complex sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$. \n"
-		"\n"
 		""},
-	 { "tanhc", _wrap_tanhc, METH_O, "\n"
-		"tanhc(complex_t const z) -> complex_t\n"
-		"complex_t MathFunctions::tanhc(const complex_t z)\n"
-		"\n"
-		"Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$. \n"
-		"\n"
-		""},
-	 { "Laue", _wrap_Laue, METH_VARARGS, "\n"
-		"Laue(double const x, size_t N) -> double\n"
-		"double MathFunctions::Laue(const double x, size_t N)\n"
-		"\n"
-		"Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$. \n"
-		"\n"
-		""},
-	 { "erf", _wrap_erf, METH_O, "\n"
-		"erf(double arg) -> double\n"
-		"double MathFunctions::erf(double arg)\n"
-		"\n"
-		"Error function of real-valued argument. \n"
-		"\n"
-		""},
-	 { "GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_NOARGS, "\n"
-		"GenerateUniformRandom() -> double\n"
-		"double MathFunctions::GenerateUniformRandom()\n"
-		"\n"
-		""},
-	 { "GenerateStandardNormalRandom", _wrap_GenerateStandardNormalRandom, METH_NOARGS, "\n"
-		"GenerateStandardNormalRandom() -> double\n"
-		"double MathFunctions::GenerateStandardNormalRandom()\n"
-		"\n"
-		""},
-	 { "GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, "\n"
-		"GenerateNormalRandom(double average, double std_dev) -> double\n"
-		"double MathFunctions::GenerateNormalRandom(double average, double std_dev)\n"
-		"\n"
-		""},
-	 { "GeneratePoissonRandom", _wrap_GeneratePoissonRandom, METH_O, "\n"
-		"GeneratePoissonRandom(double average) -> double\n"
-		"double MathFunctions::GeneratePoissonRandom(double average)\n"
-		"\n"
-		""},
+	 { "tanhc", _wrap_tanhc, METH_O, "tanhc(complex_t const z) -> complex_t"},
+	 { "Laue", _wrap_Laue, METH_VARARGS, "Laue(double const x, size_t N) -> double"},
+	 { "erf", _wrap_erf, METH_O, "erf(double arg) -> double"},
+	 { "GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_NOARGS, "GenerateUniformRandom() -> double"},
+	 { "GenerateStandardNormalRandom", _wrap_GenerateStandardNormalRandom, METH_NOARGS, "GenerateStandardNormalRandom() -> double"},
+	 { "GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, "GenerateNormalRandom(double average, double std_dev) -> double"},
+	 { "GeneratePoissonRandom", _wrap_GeneratePoissonRandom, METH_O, "GeneratePoissonRandom(double average) -> double"},
 	 { "new_ThreadInfo", _wrap_new_ThreadInfo, METH_NOARGS, "\n"
 		"new_ThreadInfo() -> ThreadInfo\n"
 		"ThreadInfo::ThreadInfo()\n"

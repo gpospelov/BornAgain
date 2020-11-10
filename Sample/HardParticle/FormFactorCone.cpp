@@ -15,8 +15,8 @@
 #include "Sample/HardParticle/FormFactorCone.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
-#include "Base/Utils/Integrator.h"
 #include "Base/Utils/Bessel.h"
+#include "Base/Utils/Integrator.h"
 #include "Base/Utils/MathFunctions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 #include <limits>
@@ -30,7 +30,7 @@ FormFactorCone::FormFactorCone(const std::vector<double> P)
                       P),
       m_radius(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
 {
-    m_cot_alpha = MathFunctions::cot(m_alpha);
+    m_cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(m_cot_alpha) || m_cot_alpha < 0)
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
     if (m_cot_alpha * m_height > m_radius) {
@@ -55,7 +55,7 @@ complex_t FormFactorCone::Integrand(double Z) const
 {
     double Rz = m_radius - Z * m_cot_alpha;
     complex_t q_p = std::sqrt(m_q.x() * m_q.x() + m_q.y() * m_q.y()); // sqrt(x*x + y*y)
-    return Rz * Rz * MathFunctions::Bessel_J1c(q_p * Rz) * exp_I(m_q.z() * Z);
+    return Rz * Rz * Math::Bessel::J1c(q_p * Rz) * exp_I(m_q.z() * Z);
 }
 
 complex_t FormFactorCone::evaluate_for_q(cvector_t q) const
@@ -88,7 +88,7 @@ IFormFactor* FormFactorCone::sliceFormFactor(ZLimits limits, const IRotation& ro
 
 void FormFactorCone::onChange()
 {
-    m_cot_alpha = MathFunctions::cot(m_alpha);
+    m_cot_alpha = Math::cot(m_alpha);
     double radius2 = m_radius - m_height * m_cot_alpha;
     m_shape = std::make_unique<DoubleEllipse>(m_radius, m_radius, m_height, radius2, radius2);
 }

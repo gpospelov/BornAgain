@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Base/Utils/Bessel.cpp
-//! @brief     Implements Bessel functions in namespace MathFunctions.
+//! @brief     Implements Bessel functions in namespace Math.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,8 @@
 #include "Base/Const/MathConstants.h"
 #include <gsl/gsl_sf_bessel.h>
 
-namespace {
+namespace
+{
 
 //! Computes the complex Bessel function J0(z), using power series and asymptotic expansion.
 //!
@@ -159,41 +160,41 @@ complex_t J1_PowSer(const complex_t z)
 //  Bessel functions
 // ************************************************************************** //
 
-double MathFunctions::Bessel_J0(double x)
+double Math::Bessel::J0(double x)
 {
     return gsl_sf_bessel_J0(x);
 }
 
-double MathFunctions::Bessel_J1(double x)
+double Math::Bessel::J1(double x)
 {
     return gsl_sf_bessel_J1(x);
 }
 
-double MathFunctions::Bessel_J1c(double x)
+double Math::Bessel::J1c(double x)
 {
     return x == 0 ? 0.5 : gsl_sf_bessel_J1(x) / x;
 }
 
-double MathFunctions::Bessel_I0(double x)
+double Math::Bessel::I0(double x)
 {
     return gsl_sf_bessel_I0(x);
 }
 
-complex_t MathFunctions::Bessel_J0(const complex_t z)
+complex_t Math::Bessel::J0(const complex_t z)
 {
     if (std::imag(z) == 0)
         return gsl_sf_bessel_J0(std::real(z));
     return J0_PowSer(z);
 }
 
-complex_t MathFunctions::Bessel_J1(const complex_t z)
+complex_t Math::Bessel::J1(const complex_t z)
 {
     if (std::imag(z) == 0)
         return gsl_sf_bessel_J1(std::real(z));
     return J1_PowSer(z);
 }
 
-complex_t MathFunctions::Bessel_J1c(const complex_t z)
+complex_t Math::Bessel::J1c(const complex_t z)
 {
     if (std::imag(z) == 0) {
         double xv = std::real(z);

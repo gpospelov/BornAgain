@@ -26,6 +26,6 @@ ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, doubl
 
 double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
 {
-    return MathFunctions::IntegratedGaussian(x, 0.0, m_sigma_x)
-           * MathFunctions::IntegratedGaussian(y, 0.0, m_sigma_y);
+    return Math::IntegratedGaussian(x, 0.0, m_sigma_x)
+           * Math::IntegratedGaussian(y, 0.0, m_sigma_y);
 }

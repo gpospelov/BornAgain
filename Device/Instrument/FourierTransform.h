@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/Instrument/FourierTransform.h
-//! @brief     Defines class MathFunctions::FourierTransform.
+//! @brief     Defines class Math::FourierTransform.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

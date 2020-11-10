@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Base/Utils/MathFunctions.h
-//! @brief     Defines functions in namespace MathFunctions.
+//! @brief     Defines functions in namespace Math.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,7 @@
 
 //! Various mathematical functions.
 
-namespace MathFunctions
+namespace Math
 {
 
 // ************************************************************************** //
@@ -58,6 +58,6 @@ double GenerateStandardNormalRandom();
 double GenerateNormalRandom(double average, double std_dev);
 double GeneratePoissonRandom(double average);
 
-} // Namespace MathFunctions
+} // Namespace Math
 
 #endif // BORNAGAIN_BASE_UTILS_MATHFUNCTIONS_H

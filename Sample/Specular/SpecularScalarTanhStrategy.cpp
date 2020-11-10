@@ -28,8 +28,7 @@ SpecularScalarTanhStrategy::transition(complex_t kzi, complex_t kzi1, double sig
     complex_t roughness = 1;
     if (sigma > 0.0) {
         const double sigeff = pi2_15 * sigma;
-        roughness =
-            std::sqrt(MathFunctions::tanhc(sigeff * kzi1) / MathFunctions::tanhc(sigeff * kzi));
+        roughness = std::sqrt(Math::tanhc(sigeff * kzi1) / Math::tanhc(sigeff * kzi));
     }
     const complex_t inv_roughness = 1.0 / roughness;
     const complex_t kz_ratio = kzi1 / kzi * roughness;

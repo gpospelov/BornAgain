@@ -420,9 +420,6 @@ C++ includes: DWBASingleComputation.h
 %feature("docstring")  DWBASingleComputation::~DWBASingleComputation "DWBASingleComputation::~DWBASingleComputation()
 ";
 
-%feature("docstring")  DWBASingleComputation::DWBASingleComputation "DWBASingleComputation::DWBASingleComputation(DWBASingleComputation &&other)
-";
-
 %feature("docstring")  DWBASingleComputation::setProgressHandler "void DWBASingleComputation::setProgressHandler(ProgressHandler *p_progress)
 ";
 
@@ -436,11 +433,6 @@ C++ includes: DWBASingleComputation.h
 ";
 
 %feature("docstring")  DWBASingleComputation::compute "void DWBASingleComputation::compute(SimulationElement &elem) const
-";
-
-%feature("docstring")  DWBASingleComputation::regionMap "const std::map< size_t, std::vector< HomogeneousRegion > > & DWBASingleComputation::regionMap() const
-
-Retrieves a map of regions for the calculation of averaged layers. 
 ";
 
 

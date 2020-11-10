@@ -22,8 +22,6 @@ DWBASingleComputation::DWBASingleComputation() = default;
 
 DWBASingleComputation::~DWBASingleComputation() = default;
 
-DWBASingleComputation::DWBASingleComputation(DWBASingleComputation&&) = default;
-
 void DWBASingleComputation::setProgressHandler(ProgressHandler* p_progress)
 {
     m_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
@@ -58,9 +56,4 @@ void DWBASingleComputation::compute(SimulationElement& elem) const
 
     if (m_progress_counter)
         m_progress_counter->stepProgress();
-}
-
-const std::map<size_t, std::vector<HomogeneousRegion>>& DWBASingleComputation::regionMap() const
-{
-    return m_region_map;
 }

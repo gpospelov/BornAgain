@@ -5430,7 +5430,7 @@ class IHistogram(object):
         r"""
         getData(IHistogram self) -> OutputData< CumulativeValue > const
         getData(IHistogram self) -> OutputData< CumulativeValue > &
-        OutputData<CumulativeValue>& IHistogram::getData()
+        OutputData< CumulativeValue > & IHistogram::getData()
 
         """
         return _libBornAgainDevice.IHistogram_getData(self, *args)

@@ -1184,7 +1184,7 @@ C++ includes: IHistogram.h
 %feature("docstring")  IHistogram::IHistogram "IHistogram::IHistogram(const IHistogram &other)
 ";
 
-%feature("docstring")  IHistogram::~IHistogram "virtual IHistogram::~IHistogram()
+%feature("docstring")  IHistogram::~IHistogram "virtual IHistogram::~IHistogram()=default
 ";
 
 %feature("docstring")  IHistogram::IHistogram "IHistogram::IHistogram(const IAxis &axis_x)
@@ -1276,15 +1276,15 @@ Returns the center of bin i of the x axis.
 Returns the center of bin i of the y axis. 
 ";
 
+%feature("docstring")  IHistogram::getData "const OutputData< CumulativeValue > & IHistogram::getData() const
+";
+
+%feature("docstring")  IHistogram::getData "OutputData< CumulativeValue > & IHistogram::getData()
+";
+
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t i) const
 
 Returns content (accumulated value) of bin i. 
-";
-
-%feature("docstring")  IHistogram::getData "const OutputData<CumulativeValue>& IHistogram::getData() const
-";
-
-%feature("docstring")  IHistogram::getData "OutputData<CumulativeValue>& IHistogram::getData()
 ";
 
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const

@@ -24613,62 +24613,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_GenerateUniformRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GenerateUniformRandom", 0, 0, 0)) SWIG_fail;
-  result = (double)Math::GenerateUniformRandom();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GenerateStandardNormalRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GenerateStandardNormalRandom", 0, 0, 0)) SWIG_fail;
-  result = (double)Math::GenerateStandardNormalRandom();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GenerateNormalRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GenerateNormalRandom", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "GenerateNormalRandom" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "GenerateNormalRandom" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (double)Math::GenerateNormalRandom(arg1,arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_GeneratePoissonRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -33342,9 +33286,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "tanhc", _wrap_tanhc, METH_O, "tanhc(complex_t const z) -> complex_t"},
 	 { "Laue", _wrap_Laue, METH_VARARGS, "Laue(double const x, size_t N) -> double"},
 	 { "erf", _wrap_erf, METH_O, "erf(double arg) -> double"},
-	 { "GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_NOARGS, "GenerateUniformRandom() -> double"},
-	 { "GenerateStandardNormalRandom", _wrap_GenerateStandardNormalRandom, METH_NOARGS, "GenerateStandardNormalRandom() -> double"},
-	 { "GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, "GenerateNormalRandom(double average, double std_dev) -> double"},
 	 { "GeneratePoissonRandom", _wrap_GeneratePoissonRandom, METH_O, "GeneratePoissonRandom(double average) -> double"},
 	 { "new_ThreadInfo", _wrap_new_ThreadInfo, METH_NOARGS, "\n"
 		"new_ThreadInfo() -> ThreadInfo\n"

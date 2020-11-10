@@ -1790,18 +1790,6 @@ def erf(arg):
     r"""erf(double arg) -> double"""
     return _libBornAgainBase.erf(arg)
 
-def GenerateUniformRandom():
-    r"""GenerateUniformRandom() -> double"""
-    return _libBornAgainBase.GenerateUniformRandom()
-
-def GenerateStandardNormalRandom():
-    r"""GenerateStandardNormalRandom() -> double"""
-    return _libBornAgainBase.GenerateStandardNormalRandom()
-
-def GenerateNormalRandom(average, std_dev):
-    r"""GenerateNormalRandom(double average, double std_dev) -> double"""
-    return _libBornAgainBase.GenerateNormalRandom(average, std_dev)
-
 def GeneratePoissonRandom(average):
     r"""GeneratePoissonRandom(double average) -> double"""
     return _libBornAgainBase.GeneratePoissonRandom(average)

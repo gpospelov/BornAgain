@@ -97,6 +97,8 @@ double Math::erf(double arg)
 //  Random number generators
 // ************************************************************************** //
 
+/* currently unused
+
 double Math::GenerateUniformRandom()
 {
     int random_int = std::rand();
@@ -116,6 +118,7 @@ double Math::GenerateNormalRandom(double average, double std_dev)
 {
     return GenerateStandardNormalRandom() * std_dev + average;
 }
+*/
 
 double Math::GeneratePoissonRandom(double average) // using c++11 standard library
 {

@@ -1285,15 +1285,6 @@ Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$.
 Error function of real-valued argument. 
 ";
 
-%feature("docstring")  Math::Bessel::GenerateUniformRandom "double Math::GenerateUniformRandom()
-";
-
-%feature("docstring")  Math::Bessel::GenerateStandardNormalRandom "double Math::GenerateStandardNormalRandom()
-";
-
-%feature("docstring")  Math::Bessel::GenerateNormalRandom "double Math::GenerateNormalRandom(double average, double std_dev)
-";
-
 %feature("docstring")  Math::Bessel::GeneratePoissonRandom "double Math::GeneratePoissonRandom(double average)
 ";
 

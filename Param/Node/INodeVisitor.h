@@ -287,6 +287,5 @@ private:
 };
 
 void VisitNodesPreorder(const INode& node, INodeVisitor& visitor);
-void VisitNodesPostorder(const INode& node, INodeVisitor& visitor);
 
 #endif // BORNAGAIN_PARAM_NODE_INODEVISITOR_H

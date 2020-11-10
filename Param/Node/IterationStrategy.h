@@ -45,17 +45,4 @@ public:
     virtual bool isDone(IteratorMemento& iterator_stack) const;
 };
 
-//! Traverse tree; visit children before their parents.
-class PostorderStrategy : public IterationStrategy
-{
-public:
-    PostorderStrategy();
-
-    virtual PostorderStrategy* clone() const;
-
-    virtual IteratorMemento first(const INode* p_root);
-    virtual void next(IteratorMemento& iterator_stack) const;
-    virtual bool isDone(IteratorMemento& iterator_stack) const;
-};
-
 #endif // BORNAGAIN_PARAM_NODE_ITERATIONSTRATEGY_H

@@ -42336,41 +42336,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_VisitNodesPostorder(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  INode *arg1 = 0 ;
-  INodeVisitor *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "VisitNodesPostorder", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_INode,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VisitNodesPostorder" "', argument " "1"" of type '" "INode const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "VisitNodesPostorder" "', argument " "1"" of type '" "INode const &""'"); 
-  }
-  arg1 = reinterpret_cast< INode * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_INodeVisitor,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "VisitNodesPostorder" "', argument " "2"" of type '" "INodeVisitor &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "VisitNodesPostorder" "', argument " "2"" of type '" "INodeVisitor &""'"); 
-  }
-  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  VisitNodesPostorder((INode const &)*arg1,*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IDistribution1D_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDistribution1D *arg1 = (IDistribution1D *) 0 ;
@@ -51372,11 +51337,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "VisitNodesPreorder", _wrap_VisitNodesPreorder, METH_VARARGS, "\n"
 		"VisitNodesPreorder(INode node, INodeVisitor visitor)\n"
 		"void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)\n"
-		"\n"
-		""},
-	 { "VisitNodesPostorder", _wrap_VisitNodesPostorder, METH_VARARGS, "\n"
-		"VisitNodesPostorder(INode node, INodeVisitor visitor)\n"
-		"void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)\n"
 		"\n"
 		""},
 	 { "IDistribution1D_clone", _wrap_IDistribution1D_clone, METH_O, "\n"

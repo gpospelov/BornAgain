@@ -16,7 +16,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Utils/Bessel.h"
 #include "Fit/Tools/RealLimits.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>

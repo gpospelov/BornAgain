@@ -14,6 +14,7 @@
 
 #include "Sample/HardParticle/FormFactorEllipsoidalCylinder.h"
 #include "Base/Const/MathConstants.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/MathFunctions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 

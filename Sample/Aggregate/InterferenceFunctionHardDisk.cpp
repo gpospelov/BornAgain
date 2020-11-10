@@ -14,7 +14,7 @@
 
 #include "Sample/Aggregate/InterferenceFunctionHardDisk.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Utils/Bessel.h"
 #include "Param/Base/RealParameter.h"
 #include <cmath>
 

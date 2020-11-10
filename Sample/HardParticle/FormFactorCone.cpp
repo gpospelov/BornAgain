@@ -16,6 +16,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Integrator.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/MathFunctions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 #include <limits>

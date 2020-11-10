@@ -1153,6 +1153,9 @@ Creates a new clipped axis.
 ";
 
 
+// File: namespace_0d30.xml
+
+
 // File: namespacealgo.xml
 %feature("docstring")  algo::almostEqual "bool algo::almostEqual(double a, double b)
 
@@ -1243,22 +1246,39 @@ Returns true if file with given name exists on disk.
 
 
 // File: namespaceMathFunctions.xml
-%feature("docstring")  MathFunctions::Bessel_J0_PowSer "complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
+%feature("docstring")  MathFunctions::Bessel_J0 "double MathFunctions::Bessel_J0(double x)
 
-Computes complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Computes the complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Forked from unoptimized code at http://www.crbond.com/math.htm, who refers to \"Computation of Special Functions\", Zhang and Jin, John Wiley and Sons, 1996. 
+Bessel function of the first kind and order 0. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1_PowSer "complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
+%feature("docstring")  MathFunctions::Bessel_J1 "double MathFunctions::Bessel_J1(double x)
 
-Computes complex Bessel function J0(z), using power series and asymptotic expansion.
+Bessel function of the first kind and order 1. 
+";
 
-Computes the complex Bessel function J1(z), using power series and asymptotic expansion.
+%feature("docstring")  MathFunctions::Bessel_J1c "double MathFunctions::Bessel_J1c(double x)
 
-Forked from same source as for Bessel_J0_PowSer 
+Bessel function Bessel_J1(x)/x. 
+";
+
+%feature("docstring")  MathFunctions::Bessel_I0 "double MathFunctions::Bessel_I0(double x)
+
+Modified Bessel function of the first kind and order 0. 
+";
+
+%feature("docstring")  MathFunctions::Bessel_J0 "complex_t MathFunctions::Bessel_J0(const complex_t z)
+
+Complex Bessel function of the first kind and order 0. 
+";
+
+%feature("docstring")  MathFunctions::Bessel_J1 "complex_t MathFunctions::Bessel_J1(const complex_t z)
+
+Complex Bessel function of the first kind and order 1. 
+";
+
+%feature("docstring")  MathFunctions::Bessel_J1c "complex_t MathFunctions::Bessel_J1c(const complex_t z)
+
+Complex Bessel function Bessel_J1(x)/x. 
 ";
 
 %feature("docstring")  MathFunctions::StandardNormal "double MathFunctions::StandardNormal(double x)
@@ -1298,41 +1318,6 @@ Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$.
 %feature("docstring")  MathFunctions::erf "double MathFunctions::erf(double arg)
 
 Error function of real-valued argument. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J0 "double MathFunctions::Bessel_J0(double x)
-
-Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1 "double MathFunctions::Bessel_J1(double x)
-
-Bessel function of the first kind and order 1. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1c "double MathFunctions::Bessel_J1c(double x)
-
-Bessel function Bessel_J1(x)/x. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_I0 "double MathFunctions::Bessel_I0(double x)
-
-Modified Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J0 "complex_t MathFunctions::Bessel_J0(const complex_t z)
-
-Complex Bessel function of the first kind and order 0. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1 "complex_t MathFunctions::Bessel_J1(const complex_t z)
-
-Complex Bessel function of the first kind and order 1. 
-";
-
-%feature("docstring")  MathFunctions::Bessel_J1c "complex_t MathFunctions::Bessel_J1c(const complex_t z)
-
-Complex Bessel function Bessel_J1(x)/x. 
 ";
 
 %feature("docstring")  MathFunctions::GenerateUniformRandom "double MathFunctions::GenerateUniformRandom()
@@ -1582,6 +1567,12 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: Assert_8h.xml
+
+
+// File: Bessel_8cpp.xml
+
+
+// File: Bessel_8h.xml
 
 
 // File: FileSystemUtils_8cpp.xml

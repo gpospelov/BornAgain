@@ -1830,49 +1830,6 @@ def erf(arg):
     """
     return _libBornAgainBase.erf(arg)
 
-def Bessel_I0(x):
-    r"""
-    Bessel_I0(double x) -> double
-    double MathFunctions::Bessel_I0(double x)
-
-    Modified Bessel function of the first kind and order 0. 
-
-    """
-    return _libBornAgainBase.Bessel_I0(x)
-
-def Bessel_J0(*args):
-    r"""
-    Bessel_J0(double x) -> double
-    Bessel_J0(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J0(const complex_t z)
-
-    Complex Bessel function of the first kind and order 0. 
-
-    """
-    return _libBornAgainBase.Bessel_J0(*args)
-
-def Bessel_J1(*args):
-    r"""
-    Bessel_J1(double x) -> double
-    Bessel_J1(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J1(const complex_t z)
-
-    Complex Bessel function of the first kind and order 1. 
-
-    """
-    return _libBornAgainBase.Bessel_J1(*args)
-
-def Bessel_J1c(*args):
-    r"""
-    Bessel_J1c(double x) -> double
-    Bessel_J1c(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J1c(const complex_t z)
-
-    Complex Bessel function Bessel_J1(x)/x. 
-
-    """
-    return _libBornAgainBase.Bessel_J1c(*args)
-
 def GenerateUniformRandom():
     r"""
     GenerateUniformRandom() -> double

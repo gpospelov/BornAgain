@@ -54,18 +54,6 @@ public:
     ClassInitializationException(const std::string& message);
 };
 
-class UnknownClassRegistrationException : public std::runtime_error
-{
-public:
-    UnknownClassRegistrationException(const std::string& message);
-};
-
-class ExistingClassRegistrationException : public std::runtime_error
-{
-public:
-    ExistingClassRegistrationException(const std::string& message);
-};
-
 class LogicErrorException : public std::logic_error
 {
 public:
@@ -76,12 +64,6 @@ class RuntimeErrorException : public std::runtime_error
 {
 public:
     RuntimeErrorException(const std::string& message);
-};
-
-class DivisionByZeroException : public std::runtime_error
-{
-public:
-    DivisionByZeroException(const std::string& message);
 };
 
 class DomainErrorException : public std::domain_error

@@ -376,24 +376,10 @@ Creates a new clipped axis.
 ";
 
 
-// File: classExceptions_1_1DivisionByZeroException.xml
-%feature("docstring") Exceptions::DivisionByZeroException "";
-
-%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
-";
-
-
 // File: classExceptions_1_1DomainErrorException.xml
 %feature("docstring") Exceptions::DomainErrorException "";
 
 %feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1ExistingClassRegistrationException.xml
-%feature("docstring") Exceptions::ExistingClassRegistrationException "";
-
-%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
 ";
 
 
@@ -1067,13 +1053,6 @@ Determine if the transformation is trivial (identity)
 ";
 
 %feature("docstring")  Transform3D::isZRotation "bool Transform3D::isZRotation() const
-";
-
-
-// File: classExceptions_1_1UnknownClassRegistrationException.xml
-%feature("docstring") Exceptions::UnknownClassRegistrationException "";
-
-%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
 ";
 
 

@@ -3602,11 +3602,6 @@ class IRotation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         r"""createRotation(Transform3D const & transform) -> IRotation"""
         return _libBornAgainSample.IRotation_createRotation(transform)
 
-    @staticmethod
-    def createIdentity():
-        r"""createIdentity() -> IRotation"""
-        return _libBornAgainSample.IRotation_createIdentity()
-
     def clone(self):
         r"""
         clone(IRotation self) -> IRotation
@@ -3668,10 +3663,6 @@ _libBornAgainSample.IRotation_swigregister(IRotation)
 def IRotation_createRotation(transform):
     r"""IRotation_createRotation(Transform3D const & transform) -> IRotation"""
     return _libBornAgainSample.IRotation_createRotation(transform)
-
-def IRotation_createIdentity():
-    r"""IRotation_createIdentity() -> IRotation"""
-    return _libBornAgainSample.IRotation_createIdentity()
 
 
 def createProduct(left, right):

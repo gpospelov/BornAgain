@@ -14,7 +14,7 @@
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Const/MathConstants.h"
-#include "Base/Types/Exceptions.h"
+#include <stdexcept>
 
 typedef std::complex<double> complex_t;
 
@@ -90,7 +90,7 @@ template <> BasicVector3D<double> BasicVector3D<double>::unit() const
 {
     double len = mag();
     if (len == 0.0)
-        throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
+        throw std::runtime_error("Cannot normalize zero vector");
     return BasicVector3D<double>(x() / len, y() / len, z() / len);
 }
 
@@ -98,7 +98,7 @@ template <> BasicVector3D<complex_t> BasicVector3D<complex_t>::unit() const
 {
     double len = mag();
     if (len == 0.0)
-        throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
+        throw std::runtime_error("Cannot normalize zero vector");
     return BasicVector3D<complex_t>(x() / len, y() / len, z() / len);
 }
 

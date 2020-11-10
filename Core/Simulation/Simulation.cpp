@@ -158,11 +158,6 @@ void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& reso
     instrument().setDetectorResolutionFunction(resolution_function);
 }
 
-void Simulation::removeDetectorResolutionFunction()
-{
-    instrument().removeDetectorResolution();
-}
-
 //! Sets the polarization analyzer characteristics of the detector
 void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                        double total_transmission)

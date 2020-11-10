@@ -61,7 +61,6 @@ public:
     void setBeamPolarization(const kvector_t bloch_vector);
 
     void setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function);
-    void removeDetectorResolutionFunction();
 
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);

@@ -2013,9 +2013,6 @@ Sets the beam polarization according to the given Bloch vector.
 %feature("docstring")  Simulation::setDetectorResolutionFunction "void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
 ";
 
-%feature("docstring")  Simulation::removeDetectorResolutionFunction "void Simulation::removeDetectorResolutionFunction()
-";
-
 %feature("docstring")  Simulation::setAnalyzerProperties "void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
 Sets the polarization analyzer characteristics of the detector. 

@@ -58,7 +58,8 @@ void JobWorker::start()
         } catch (const std::exception& ex) {
             m_job_status = "Failed";
             m_percentage_done = 100;
-            m_failure_message = "JobRunner::start() -> ISimulation failed with exception throw:\n\n";
+            m_failure_message =
+                "JobRunner::start() -> ISimulation failed with exception throw:\n\n";
 
             m_failure_message.append(QString(ex.what()));
         }

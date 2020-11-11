@@ -62,7 +62,7 @@ size_t ISimulation2D::numberOfSimulationElements() const
 }
 
 void ISimulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
-                                         double y_min, double y_max)
+                                          double y_min, double y_max)
 {
     instrument().detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
@@ -75,7 +75,7 @@ void ISimulation2D::setDetector(const IDetector2D& detector)
 }
 
 std::unique_ptr<IComputation> ISimulation2D::generateSingleThreadedComputation(size_t start,
-                                                                              size_t n_elements)
+                                                                               size_t n_elements)
 {
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);

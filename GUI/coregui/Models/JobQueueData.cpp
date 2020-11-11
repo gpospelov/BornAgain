@@ -43,7 +43,8 @@ void JobQueueData::runJob(JobItem* jobItem)
         return;
 
     if (getSimulation(identifier))
-        throw GUIHelpers::Error("JobQueueData::runJob() -> Error. ISimulation is already existing.");
+        throw GUIHelpers::Error(
+            "JobQueueData::runJob() -> Error. ISimulation is already existing.");
 
     try {
         auto simulation = DomainSimulationBuilder::createSimulation(

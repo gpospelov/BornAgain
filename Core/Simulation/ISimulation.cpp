@@ -160,7 +160,7 @@ void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D& res
 
 //! Sets the polarization analyzer characteristics of the detector
 void ISimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                       double total_transmission)
+                                        double total_transmission)
 {
     instrument().setAnalyzerProperties(direction, efficiency, total_transmission);
 }
@@ -266,8 +266,8 @@ std::vector<const INode*> ISimulation::getChildren() const
 }
 
 void ISimulation::addParameterDistribution(const std::string& param_name,
-                                          const IDistribution1D& distribution, size_t nbr_samples,
-                                          double sigma_factor, const RealLimits& limits)
+                                           const IDistribution1D& distribution, size_t nbr_samples,
+                                           double sigma_factor, const RealLimits& limits)
 {
     ParameterDistribution par_distr(param_name, distribution, nbr_samples, sigma_factor, limits);
     addParameterDistribution(par_distr);
@@ -310,7 +310,7 @@ void ISimulation::runSingleSimulation(size_t batch_start, size_t batch_size, dou
 //! corresponding to the masked areas of the detector will be set to zero.
 
 SimulationResult ISimulation::convertData(const OutputData<double>& data,
-                                         bool put_masked_areas_to_zero)
+                                          bool put_masked_areas_to_zero)
 {
     auto converter = UnitConverterUtils::createConverter(*this);
     auto roi_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());

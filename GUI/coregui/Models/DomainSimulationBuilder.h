@@ -30,8 +30,8 @@ namespace DomainSimulationBuilder
 //! Creates domain simulation from sample and instrument items.
 
 std::unique_ptr<ISimulation> createSimulation(const MultiLayerItem* sampleItem,
-                                             const InstrumentItem* instrumentItem,
-                                             const SimulationOptionsItem* optionsItem = nullptr);
+                                              const InstrumentItem* instrumentItem,
+                                              const SimulationOptionsItem* optionsItem = nullptr);
 }; // namespace DomainSimulationBuilder
 
 #endif // BORNAGAIN_GUI_COREGUI_MODELS_DOMAINSIMULATIONBUILDER_H

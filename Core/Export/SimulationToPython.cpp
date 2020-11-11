@@ -217,7 +217,8 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
     return result.str();
 }
 
-std::string SimulationToPython::defineDetectorResolutionFunction(const ISimulation* simulation) const
+std::string
+SimulationToPython::defineDetectorResolutionFunction(const ISimulation* simulation) const
 {
     std::ostringstream result;
     const IDetector* detector = simulation->instrument().getDetector();

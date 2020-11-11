@@ -61,8 +61,8 @@ private:
     JobWorker* getWorker(const QString& identifier);
     ISimulation* getSimulation(const QString& identifier);
 
-    QMap<QString, QThread*> m_threads;        //! job identifier to the thread
-    QMap<QString, JobWorker*> m_workers;      //! job identifier to jobWorker
+    QMap<QString, QThread*> m_threads;         //! job identifier to the thread
+    QMap<QString, JobWorker*> m_workers;       //! job identifier to jobWorker
     QMap<QString, ISimulation*> m_simulations; //! job identifier to simulation
 
     JobModel* m_jobModel;

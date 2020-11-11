@@ -23,7 +23,7 @@ class SimulationElement;
 
 //! Performs a single-threaded DWBA computation with given sample and simulation parameters.
 //!
-//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//! Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 //!
 //! @ingroup algorithms_internal
 

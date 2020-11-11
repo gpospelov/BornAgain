@@ -56,7 +56,7 @@ public:
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
 
-    //! Initializes the vector of Simulation elements
+    //! Initializes the vector of ISimulation elements
     void initSimulationElementVector() override;
 
     //! Checks the distribution validity for simulation.

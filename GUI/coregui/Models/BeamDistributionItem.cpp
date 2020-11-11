@@ -32,7 +32,7 @@ BeamDistributionItem::BeamDistributionItem(const QString& name, bool show_mean) 
     });
 }
 
-//! returns parameter distribution to add into the Simulation
+//! returns parameter distribution to add into the ISimulation
 std::unique_ptr<ParameterDistribution>
 BeamDistributionItem::getParameterDistributionForName(const std::string& parameter_name) const
 {

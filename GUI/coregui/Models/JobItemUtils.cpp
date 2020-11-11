@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUI/coregui/Models/JobItemUtils.h"
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
@@ -113,7 +113,7 @@ void JobItemUtils::createDefaultDetectorMap(DataItem* intensityItem,
     updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
 }
 
-void JobItemUtils::setResults(DataItem* intensityItem, const Simulation* simulation)
+void JobItemUtils::setResults(DataItem* intensityItem, const ISimulation* simulation)
 {
     const auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {

@@ -17,7 +17,7 @@
 #include "Core/Fitting/ObjectiveMetric.h"
 #include "Core/Fitting/ObjectiveMetricUtils.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Device/Instrument/ChiSquaredModule.h"
 #include <stdexcept>
 
@@ -53,7 +53,7 @@ simulation_builder_t FitObjective::simulationBuilder(PyBuilderCallback& callback
 {
     return [&callback](const Fit::Parameters& params) {
         auto simulation = callback.build_simulation(params);
-        std::unique_ptr<Simulation> clone(simulation->clone());
+        std::unique_ptr<ISimulation> clone(simulation->clone());
         delete simulation; // deleting Python object
         return clone;
     };

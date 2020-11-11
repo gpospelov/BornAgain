@@ -63,7 +63,7 @@ class SwigDirector_PyBuilderCallback : public PyBuilderCallback, public Swig::Di
 public:
     SwigDirector_PyBuilderCallback(PyObject *self);
     virtual ~SwigDirector_PyBuilderCallback();
-    virtual Simulation *build_simulation(Fit::Parameters arg0);
+    virtual ISimulation *build_simulation(Fit::Parameters arg0);
 
 /* Internal director utilities */
 public:

@@ -472,7 +472,7 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
 }
 
 void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
-                                           const Simulation& simulation)
+                                           const ISimulation& simulation)
 {
     const IDetector* detector = simulation.instrument().getDetector();
     if ((detector->detectorMask() && detector->detectorMask()->numberOfMasks())
@@ -591,7 +591,7 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
 }
 
 void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
-                                        const Simulation& simulation)
+                                        const ISimulation& simulation)
 {
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {

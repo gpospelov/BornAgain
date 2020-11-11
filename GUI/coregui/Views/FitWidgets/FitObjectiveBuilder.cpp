@@ -15,7 +15,7 @@
 #include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/ObjectiveMetric.h"
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Fit/Kernel/Minimizer.h"
 #include "Fit/Minimizer/IMinimizer.h"
 #include "GUI/coregui/Models/DataItem.h"
@@ -99,7 +99,7 @@ void FitObjectiveBuilder::interruptFitting()
     m_fit_objective->interruptFitting();
 }
 
-std::unique_ptr<Simulation>
+std::unique_ptr<ISimulation>
 FitObjectiveBuilder::buildSimulation(const Fit::Parameters& params) const
 {
     static std::mutex build_simulation_mutex;

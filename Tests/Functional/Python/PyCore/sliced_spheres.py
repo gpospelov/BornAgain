@@ -47,8 +47,8 @@ class SlicedSpheresTest(unittest.TestCase):
     def testSphericalCupOnTopOfSubstrate(self):
         """
         Compares two simulation intended to  provide identical results.
-        Simulation #1: truncated sphere on top of substrate.
-        Simulation #2: spherical particle crossing the interface.
+        ISimulation #1: truncated sphere on top of substrate.
+        ISimulation #2: spherical particle crossing the interface.
         Both particles are made of same material as substrate. From scattering point of view,
         both cases should look like a truncated sphere on top of substrate.
         """
@@ -95,8 +95,8 @@ class SlicedSpheresTest(unittest.TestCase):
     def testSpheresCrossingInterface(self):
         """
         Compares two simulation intended to  provide identical results.
-        Simulation #1: full sphere inserted in vacuum layer to cross interface
-        Simulation #2: full sphere inserted in substrate layer to cross interface
+        ISimulation #1: full sphere inserted in vacuum layer to cross interface
+        ISimulation #2: full sphere inserted in substrate layer to cross interface
         Both spheres are made of same material.
         """
         mParticle = ba.HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)

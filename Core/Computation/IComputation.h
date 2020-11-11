@@ -27,7 +27,7 @@ class ProgressHandler;
 //! Interface for a single-threaded computation with given range of SimulationElements
 //! and ProgressHandler.
 //!
-//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//! Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 //!
 //! @ingroup algorithms_internal
 

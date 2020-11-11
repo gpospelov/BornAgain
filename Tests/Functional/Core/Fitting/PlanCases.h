@@ -53,7 +53,7 @@ public:
     ~RectDetPlan();
 
 protected:
-    std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&) const;
+    std::unique_ptr<ISimulation> createSimulation(const Fit::Parameters&) const;
 };
 
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer

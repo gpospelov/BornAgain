@@ -25,7 +25,7 @@ class BatchSimulation : public ::testing::Test
 TEST_F(BatchSimulation, BatchSimulation)
 {
     SimulationFactory sim_registry;
-    const std::unique_ptr<Simulation> simulation = sim_registry.createItemPtr("MiniGISAS");
+    const std::unique_ptr<ISimulation> simulation = sim_registry.createItemPtr("MiniGISAS");
 
     SampleBuilderFactory sampleFactory;
     std::shared_ptr<class ISampleBuilder> builder(
@@ -40,7 +40,7 @@ TEST_F(BatchSimulation, BatchSimulation)
     const unsigned n_batches = 9;
     const double threshold = 2e-10;
     for (unsigned i_batch = 0; i_batch < n_batches; ++i_batch) {
-        const std::unique_ptr<Simulation> batch(simulation->clone());
+        const std::unique_ptr<ISimulation> batch(simulation->clone());
         ThreadInfo threadInfo;
         threadInfo.n_threads = 1;
         threadInfo.n_batches = n_batches;

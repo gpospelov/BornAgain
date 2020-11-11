@@ -60,13 +60,13 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 // class SpecularSimulation
 // ************************************************************************** //
 
-SpecularSimulation::SpecularSimulation() : Simulation()
+SpecularSimulation::SpecularSimulation() : ISimulation()
 {
     initialize();
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : Simulation(other), m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
+    : ISimulation(other), m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
       m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
     initialize();
@@ -85,7 +85,7 @@ void SpecularSimulation::prepareSimulation()
         throw std::runtime_error("Error in SpecularSimulation::prepareSimulation: the detector was "
                                  "not properly configured.");
     instrument().initDetector();
-    Simulation::prepareSimulation();
+    ISimulation::prepareSimulation();
 }
 
 size_t SpecularSimulation::numberOfSimulationElements() const

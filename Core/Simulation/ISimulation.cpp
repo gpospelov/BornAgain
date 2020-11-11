@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/Simulation.cpp
-//! @brief     Implements class Simulation.
+//! @file      Core/Simulation/ISimulation.cpp
+//! @brief     Implements class ISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/IComputation.h"
 #include "Core/Simulation/MPISimulation.h"
@@ -78,7 +78,7 @@ void runComputations(std::vector<std::unique_ptr<IComputation>>& computations)
         if (computation->isCompleted())
             return;
         std::string message = computation->errorMessage();
-        throw Exceptions::RuntimeErrorException("Error in runComputations: Simulation has "
+        throw Exceptions::RuntimeErrorException("Error in runComputations: ISimulation has "
                                                 "terminated unexpectedly with following error: "
                                                 "message.\n"
                                                 + message);
@@ -115,15 +115,15 @@ void runComputations(std::vector<std::unique_ptr<IComputation>>& computations)
 } // namespace
 
 // ************************************************************************** //
-// class Simulation
+// class ISimulation
 // ************************************************************************** //
 
-Simulation::Simulation()
+ISimulation::ISimulation()
 {
     initialize();
 }
 
-Simulation::Simulation(const Simulation& other)
+ISimulation::ISimulation(const ISimulation& other)
     : ICloneable(), INode(), m_options(other.m_options), m_progress(other.m_progress),
       m_sample_provider(other.m_sample_provider),
       m_distribution_handler(other.m_distribution_handler), m_instrument(other.instrument())
@@ -133,16 +133,16 @@ Simulation::Simulation(const Simulation& other)
     initialize();
 }
 
-Simulation::~Simulation() = default;
+ISimulation::~ISimulation() = default;
 
-void Simulation::initialize()
+void ISimulation::initialize()
 {
     registerChild(&m_instrument);
     registerChild(&m_sample_provider);
 }
 
 //! Initializes a progress monitor that prints to stdout.
-void Simulation::setTerminalProgressMonitor()
+void ISimulation::setTerminalProgressMonitor()
 {
     m_progress.subscribe([](size_t percentage_done) -> bool {
         if (percentage_done < 100)
@@ -153,46 +153,46 @@ void Simulation::setTerminalProgressMonitor()
     });
 }
 
-void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
+void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
 {
     instrument().setDetectorResolutionFunction(resolution_function);
 }
 
 //! Sets the polarization analyzer characteristics of the detector
-void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
+void ISimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                        double total_transmission)
 {
     instrument().setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-void Simulation::setBeamIntensity(double intensity)
+void ISimulation::setBeamIntensity(double intensity)
 {
     instrument().setBeamIntensity(intensity);
 }
 
-double Simulation::getBeamIntensity() const
+double ISimulation::getBeamIntensity() const
 {
     return instrument().getBeamIntensity();
 }
 
 //! Sets the beam polarization according to the given Bloch vector
-void Simulation::setBeamPolarization(const kvector_t bloch_vector)
+void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
 {
     instrument().setBeamPolarization(bloch_vector);
 }
 
-void Simulation::prepareSimulation()
+void ISimulation::prepareSimulation()
 {
     m_sample_provider.updateSample();
     if (!MultiLayerUtils::ContainsCompatibleMaterials(*m_sample_provider.sample()))
         throw std::runtime_error(
-            "Error in Simulation::prepareSimulation(): non-default materials of"
+            "Error in ISimulation::prepareSimulation(): non-default materials of"
             " several different types are used in the sample provided");
     gsl_set_error_handler_off();
 }
 
 //! Run simulation with possible averaging over parameter distributions
-void Simulation::runSimulation()
+void ISimulation::runSimulation()
 {
     prepareSimulation();
 
@@ -221,41 +221,41 @@ void Simulation::runSimulation()
     transferResultsToIntensityMap();
 }
 
-void Simulation::runMPISimulation()
+void ISimulation::runMPISimulation()
 {
     MPISimulation ompi;
     ompi.runSimulation(this);
 }
 
-void Simulation::setInstrument(const Instrument& instrument_)
+void ISimulation::setInstrument(const Instrument& instrument_)
 {
     m_instrument = instrument_;
     updateIntensityMap();
 }
 
-//! The MultiLayer object will not be owned by the Simulation object
-void Simulation::setSample(const MultiLayer& sample)
+//! The MultiLayer object will not be owned by the ISimulation object
+void ISimulation::setSample(const MultiLayer& sample)
 {
     m_sample_provider.setSample(sample);
 }
 
-const MultiLayer* Simulation::sample() const
+const MultiLayer* ISimulation::sample() const
 {
     return m_sample_provider.sample();
 }
 
-void Simulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder>& sample_builder)
+void ISimulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder>& sample_builder)
 {
     m_sample_provider.setBuilder(sample_builder);
 }
 
-void Simulation::setBackground(const IBackground& bg)
+void ISimulation::setBackground(const IBackground& bg)
 {
     m_background.reset(bg.clone());
     registerChild(m_background.get());
 }
 
-std::vector<const INode*> Simulation::getChildren() const
+std::vector<const INode*> ISimulation::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&instrument());
@@ -265,7 +265,7 @@ std::vector<const INode*> Simulation::getChildren() const
     return result;
 }
 
-void Simulation::addParameterDistribution(const std::string& param_name,
+void ISimulation::addParameterDistribution(const std::string& param_name,
                                           const IDistribution1D& distribution, size_t nbr_samples,
                                           double sigma_factor, const RealLimits& limits)
 {
@@ -273,7 +273,7 @@ void Simulation::addParameterDistribution(const std::string& param_name,
     addParameterDistribution(par_distr);
 }
 
-void Simulation::addParameterDistribution(const ParameterDistribution& par_distr)
+void ISimulation::addParameterDistribution(const ParameterDistribution& par_distr)
 {
     validateParametrization(par_distr);
     m_distribution_handler.addParameterDistribution(par_distr);
@@ -281,7 +281,7 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
-void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, double weight)
+void ISimulation::runSingleSimulation(size_t batch_start, size_t batch_size, double weight)
 {
     initSimulationElementVector();
 
@@ -309,7 +309,7 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
 //! User data will be cropped to the ROI defined in the simulation, amplitudes in areas
 //! corresponding to the masked areas of the detector will be set to zero.
 
-SimulationResult Simulation::convertData(const OutputData<double>& data,
+SimulationResult ISimulation::convertData(const OutputData<double>& data,
                                          bool put_masked_areas_to_zero)
 {
     auto converter = UnitConverterUtils::createConverter(*this);

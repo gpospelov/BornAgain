@@ -32,7 +32,7 @@ class GISASSimulation;
 class Material;
 class MaterialItemContainer;
 class SessionItem;
-class Simulation;
+class ISimulation;
 
 namespace TransformToDomain
 {
@@ -49,9 +49,9 @@ void addDistributionParametersToSimulation(const SessionItem& beam_item,
 void addBeamDivergencesToScan(const SessionItem& beam_item, AngularSpecScan& simulation);
 
 void setBeamDistribution(const std::string& parameter_name, const BeamDistributionItem& item,
-                         Simulation& simulation);
+                         ISimulation& simulation);
 
-void setSimulationOptions(Simulation* simulation, const SessionItem& item);
+void setSimulationOptions(ISimulation* simulation, const SessionItem& item);
 void setTransformationInfo(IParticle* result, const SessionItem& item);
 void setPositionInfo(IParticle* result, const SessionItem& item);
 void setRotationInfo(IParticle* result, const SessionItem& item);

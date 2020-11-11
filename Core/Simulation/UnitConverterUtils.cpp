@@ -45,7 +45,7 @@ UnitConverterUtils::createConverterForGISAS(const Instrument& instrument)
     throw std::runtime_error("Error in createConverterForGISAS: wrong or absent detector type");
 }
 
-std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simulation& simulation)
+std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const ISimulation& simulation)
 {
     if (auto gisas = dynamic_cast<const GISASSimulation*>(&simulation)) {
         return createConverterForGISAS(gisas->instrument());

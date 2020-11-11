@@ -43,7 +43,7 @@ void JobQueueData::runJob(JobItem* jobItem)
         return;
 
     if (getSimulation(identifier))
-        throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
+        throw GUIHelpers::Error("JobQueueData::runJob() -> Error. ISimulation is already existing.");
 
     try {
         auto simulation = DomainSimulationBuilder::createSimulation(
@@ -261,7 +261,7 @@ JobWorker* JobQueueData::getWorker(const QString& identifier)
 
 //! Returns the simulation (if exists) for given identifier.
 
-Simulation* JobQueueData::getSimulation(const QString& identifier)
+ISimulation* JobQueueData::getSimulation(const QString& identifier)
 {
     auto it = m_simulations.find(identifier);
     return it != m_simulations.end() ? it.value() : nullptr;

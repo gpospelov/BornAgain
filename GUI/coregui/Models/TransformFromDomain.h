@@ -19,7 +19,7 @@
 
 class BeamDistributionItem;
 class BeamItem;
-class Simulation;
+class ISimulation;
 class GISASSimulation;
 class IFootprintFactor;
 class InterferenceFunction1DLattice;
@@ -92,14 +92,14 @@ void setSphericalDetector(SphericalDetectorItem* detector_item, const SphericalD
 void setRectangularDetector(RectangularDetectorItem* detector_item,
                             const RectangularDetector& detector);
 
-void setDetectorMasks(DetectorItem* detector_item, const Simulation& simulation);
+void setDetectorMasks(DetectorItem* detector_item, const ISimulation& simulation);
 
 void setMaskContainer(MaskContainerItem* container_item, const IDetector& detector, double scale);
 
 void setItemFromSample(BeamDistributionItem* beam_distribution_item,
                        const ParameterDistribution& parameter_distribution);
 
-void setBackground(InstrumentItem* instrument_item, const Simulation& simulation);
+void setBackground(InstrumentItem* instrument_item, const ISimulation& simulation);
 
 void setFootprintFactor(const IFootprintFactor* footprint, SpecularBeamItem* beam_item);
 

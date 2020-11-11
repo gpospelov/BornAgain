@@ -6934,7 +6934,7 @@ Returns current sample builder.
 // File: classSampleProvider.xml
 %feature("docstring") SampleProvider "
 
-Holds either a Sample, or a  SampleBuilderNode (which holds an  ISampleBuilder). Used in Simulation, which holds a  SampleProvider member.
+Holds either a Sample, or a  SampleBuilderNode (which holds an  ISampleBuilder). Used in ISimulation, which holds a  SampleProvider member.
 
 C++ includes: SampleProvider.h
 ";

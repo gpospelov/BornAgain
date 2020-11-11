@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
@@ -23,7 +23,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
-                                               const Simulation& direct_simulation)
+                                               const ISimulation& direct_simulation)
 {
     // initializing necessary GUI
     DocumentModel documentModel;
@@ -36,7 +36,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
     GUIObjectBuilder::populateInstrumentModel(&instrumentModel, direct_simulation);
     GUIObjectBuilder::populateDocumentModel(&documentModel, direct_simulation);
 
-    std::unique_ptr<Simulation> domain_simulation = DomainSimulationBuilder::createSimulation(
+    std::unique_ptr<ISimulation> domain_simulation = DomainSimulationBuilder::createSimulation(
         sampleModel.multiLayerItem(), instrumentModel.instrumentItem(),
         documentModel.simulationOptionsItem());
 
@@ -44,7 +44,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
     return std::unique_ptr<OutputData<double>>(domain_simulation->result().data());
 }
 
-bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
+bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
                      const double limit)
 {
     const std::unique_ptr<OutputData<double>> domain_data = domainData(name, direct_simulation);

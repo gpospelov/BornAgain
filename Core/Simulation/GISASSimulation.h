@@ -50,7 +50,7 @@ public:
 private:
     GISASSimulation(const GISASSimulation& other);
 
-    //! Initializes the vector of Simulation elements
+    //! Initializes the vector of ISimulation elements
     void initSimulationElementVector() override;
 
     void initialize();

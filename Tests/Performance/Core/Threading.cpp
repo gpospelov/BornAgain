@@ -92,7 +92,7 @@ const std::map<std::string, std::string> sim_description = {
     {sim_wavelength, "Trivial sample, tiny detector, huge wavelength distribution"},
     {sim_mc, "Complex sample, small detector, monte-carlo integration"}};
 
-using builder_t = std::function<std::unique_ptr<Simulation>()>;
+using builder_t = std::function<std::unique_ptr<ISimulation>()>;
 std::map<std::string, builder_t> builders{
     {sim_simple, CreateSimpleGISAS},           {sim_realistic, CreateRealisticGISAS},
     {sim_heavy, CreateRealisticAndHeavyGISAS}, {sim_large, CreateGiganticGISAS},

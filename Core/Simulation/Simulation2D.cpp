@@ -25,7 +25,7 @@ Simulation2D::~Simulation2D() = default;
 
 void Simulation2D::prepareSimulation()
 {
-    Simulation::prepareSimulation();
+    ISimulation::prepareSimulation();
     m_detector_context = instrument().detector2D().createContext();
 }
 
@@ -50,7 +50,7 @@ void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, dou
 }
 
 Simulation2D::Simulation2D(const Simulation2D& other)
-    : Simulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
+    : ISimulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
 }
 

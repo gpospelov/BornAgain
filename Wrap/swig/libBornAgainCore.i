@@ -28,7 +28,7 @@
 
 %rename(MaterialProfile_cpp) MaterialProfile;
 
-%rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
+%rename(setSampleBuilderCpp) ISimulation::setSampleBuilder;
 %rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
 %rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;
 %rename(evaluate_residuals_cpp) FitObjective::evaluate_residuals;
@@ -71,7 +71,7 @@
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/Simulation2D.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
@@ -95,7 +95,7 @@
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
 
 %include "Fit/TestEngine/IFactory.h"
-%template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
+%template(SimulationFactoryTemp) IFactory<std::string, ISimulation>;
 
 %include "Core/Fitting/FitObjective.h"
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
@@ -113,7 +113,7 @@
 %include "Core/Scan/AngularSpecScan.h"
 %include "Core/Scan/QSpecScan.h"
 
-%include "Core/Simulation/Simulation.h"
+%include "Core/Simulation/ISimulation.h"
 %include "Core/Simulation/Simulation2D.h"
 %include "Core/Simulation/GISASSimulation.h"
 %include "Core/Simulation/DepthProbeSimulation.h"
@@ -139,7 +139,7 @@
 };
 
 // needed to prevent ownership problems with passed ISampleBuilder
-%extend Simulation {
+%extend ISimulation {
     %pythoncode %{
          def setSampleBuilder(self, ptr):
              self.samplebuilder = ptr
@@ -199,7 +199,7 @@ class ObserverCallbackWrapper(PyObserverCallback):
 
         Arguments:
 
-        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        callback -- user-defined function returning fully-defined bornagain.ISimulation object.
         The function must use fit parameter dictionary as its input.
 
         data -- numpy array with experimental data.

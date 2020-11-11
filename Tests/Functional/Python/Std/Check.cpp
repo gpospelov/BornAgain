@@ -16,14 +16,14 @@
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Export/ExportToPython.h"
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include <fstream>
 #include <iostream>
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
-                                               const Simulation& direct_simulation)
+                                               const ISimulation& direct_simulation)
 {
     const std::string output_name =
         FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name);
@@ -60,7 +60,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     return std::unique_ptr<OutputData<double>>(IntensityDataIOFactory::readOutputData(output_path));
 }
 
-bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
+bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
                      const double limit)
 {
     const std::unique_ptr<OutputData<double>> domain_data = domainData(name, direct_simulation);

@@ -82,11 +82,11 @@ private:
     void initResultArrays();
     void validate() const;
 
-    //! Simulation builder from the user to construct simulation for given set of parameters.
+    //! ISimulation builder from the user to construct simulation for given set of parameters.
     simulation_builder_t m_simulation_builder;
 
     //! Current simulation for given set of parameters.
-    std::unique_ptr<Simulation> m_simulation;
+    std::unique_ptr<ISimulation> m_simulation;
 
     //! Current simulation results. Masked areas are nullified.
     SimulationResult m_sim_data;

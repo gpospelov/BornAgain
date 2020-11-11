@@ -80,7 +80,7 @@ std::unique_ptr<FitObjective> Plan::createFitObjective() const
 
 //! Build simulation (sample included) for given set of fit parameters.
 
-std::unique_ptr<Simulation> Plan::buildSimulation(const Fit::Parameters& params) const
+std::unique_ptr<ISimulation> Plan::buildSimulation(const Fit::Parameters& params) const
 {
     auto simulation = createSimulation(params);
     auto sample = createMultiLayer(params);
@@ -90,7 +90,7 @@ std::unique_ptr<Simulation> Plan::buildSimulation(const Fit::Parameters& params)
 
 //! Creates simulation for given set of fit parameters. No sample yets.
 
-std::unique_ptr<Simulation> Plan::createSimulation(const Fit::Parameters&) const
+std::unique_ptr<ISimulation> Plan::createSimulation(const Fit::Parameters&) const
 {
     return SimulationFactory().createItemPtr(m_simulation_name);
 }

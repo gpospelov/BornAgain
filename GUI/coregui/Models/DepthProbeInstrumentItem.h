@@ -35,8 +35,8 @@ public:
     std::vector<int> shape() const override;
     void updateToRealData(const RealDataItem* item) override;
 
-    // FIXME switch to base Simulation class after InstrumentItem refactoring and
-    // after Simulation gets createUnitConverter method
+    // FIXME switch to base ISimulation class after InstrumentItem refactoring and
+    // after ISimulation gets createUnitConverter method
     std::unique_ptr<DepthProbeSimulation> createSimulation() const;
 
     std::unique_ptr<IUnitConverter> createUnitConverter() const;

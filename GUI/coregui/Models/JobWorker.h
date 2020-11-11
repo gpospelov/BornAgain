@@ -17,7 +17,7 @@
 
 #include <QObject>
 
-class Simulation;
+class ISimulation;
 
 //! The JobWorker class provides running the domain simulation in a thread.
 
@@ -25,7 +25,7 @@ class JobWorker : public QObject
 {
     Q_OBJECT
 public:
-    JobWorker(const QString& identifier, Simulation* simulation);
+    JobWorker(const QString& identifier, ISimulation* simulation);
 
     QString identifier() const;
 
@@ -50,7 +50,7 @@ private:
     bool updateProgress(int percentage_done);
 
     QString m_identifier;
-    Simulation* m_simulation;
+    ISimulation* m_simulation;
     int m_percentage_done;
     QString m_job_status;
     bool m_terminate_request_flag;

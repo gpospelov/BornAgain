@@ -34,7 +34,7 @@ const double zero_phi_i = 0.0;
 const double zero_alpha_i = 0.0;
 } // namespace
 
-DepthProbeSimulation::DepthProbeSimulation() : Simulation()
+DepthProbeSimulation::DepthProbeSimulation() : ISimulation()
 {
     initialize();
 }
@@ -103,7 +103,7 @@ std::unique_ptr<IUnitConverter> DepthProbeSimulation::createUnitConverter() cons
 }
 
 DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
-    : Simulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
+    : ISimulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
     if (other.m_alpha_axis)
         m_alpha_axis.reset(other.m_alpha_axis->clone());

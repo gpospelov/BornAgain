@@ -23,7 +23,7 @@ class SpecularSimulationElement;
 
 //! Performs a single-threaded specular computation with given sample.
 //!
-//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//! Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 //!
 //! @ingroup algorithms_internal
 

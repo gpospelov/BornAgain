@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 #define BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 
 class DetectorContext;
 
@@ -23,7 +23,7 @@ class DetectorContext;
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
 
-class Simulation2D : public Simulation
+class Simulation2D : public ISimulation
 {
 public:
     Simulation2D();

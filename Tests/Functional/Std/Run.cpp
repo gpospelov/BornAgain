@@ -18,7 +18,7 @@
 #include <iostream>
 
 //! This function, called from run, has different implementations in Core/Py/Gui tests:
-bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
+bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
                      const double limit);
 
 //! This function is called through EXPECT_TRUE macros in StandardTests.h.
@@ -30,7 +30,7 @@ int run(const std::string& test_name, const std::string& sim_name,
 {
     std::cout << "run std test " << test_name << std::endl;
     std::cout << "- create sim " << sim_name << std::endl;
-    std::unique_ptr<Simulation> simulation{SimulationFactory().createItem(sim_name)};
+    std::unique_ptr<ISimulation> simulation{SimulationFactory().createItem(sim_name)};
     ASSERT(simulation);
 
     std::cout << "- sample builder " << sample_builder_name << std::endl;

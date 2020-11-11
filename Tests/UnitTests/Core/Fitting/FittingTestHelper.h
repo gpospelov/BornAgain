@@ -25,7 +25,7 @@ public:
 
     size_t m_builder_calls;
 
-    std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&)
+    std::unique_ptr<ISimulation> createSimulation(const Fit::Parameters&)
     {
         MultiLayer multilayer;
         auto material = HomogeneousMaterial("Shell", 0.0, 0.0);
@@ -37,7 +37,7 @@ public:
         result->setDetectorParameters(m_nx, m_xmin, m_xmax, m_ny, m_ymin, m_ymax);
 
         m_builder_calls++;
-        return std::unique_ptr<Simulation>(result.release());
+        return std::unique_ptr<ISimulation>(result.release());
     }
 
     std::unique_ptr<OutputData<double>> createData(double value)

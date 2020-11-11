@@ -17,23 +17,23 @@
 
 #include <memory>
 
-class Simulation;
+class ISimulation;
 
 //! Collection of simulations for MultiThreadPerformanceTest.
 namespace TestComponents
 {
 
-std::unique_ptr<Simulation> CreateSimpleGISAS();
+std::unique_ptr<ISimulation> CreateSimpleGISAS();
 
-std::unique_ptr<Simulation> CreateRealisticGISAS();
+std::unique_ptr<ISimulation> CreateRealisticGISAS();
 
-std::unique_ptr<Simulation> CreateRealisticAndHeavyGISAS();
+std::unique_ptr<ISimulation> CreateRealisticAndHeavyGISAS();
 
-std::unique_ptr<Simulation> CreateGiganticGISAS();
+std::unique_ptr<ISimulation> CreateGiganticGISAS();
 
-std::unique_ptr<Simulation> CreateWavelengthGISAS();
+std::unique_ptr<ISimulation> CreateWavelengthGISAS();
 
-std::unique_ptr<Simulation> CreateMCGISAS();
+std::unique_ptr<ISimulation> CreateMCGISAS();
 
 } // namespace TestComponents
 

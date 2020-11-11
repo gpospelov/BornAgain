@@ -18,14 +18,14 @@
 #include <functional>
 #include <memory>
 
-class Simulation;
+class ISimulation;
 namespace Fit
 {
 class Parameters;
 }
 class FitObjective;
 
-using simulation_builder_t = std::function<std::unique_ptr<Simulation>(const Fit::Parameters&)>;
+using simulation_builder_t = std::function<std::unique_ptr<ISimulation>(const Fit::Parameters&)>;
 
 using fit_observer_t = std::function<void(const FitObjective&)>;
 

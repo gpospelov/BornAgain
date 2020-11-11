@@ -19,7 +19,7 @@ namespace
 {
 const QString layer_nslices_tooltip = "Number of horizontal slices.\n"
                                       "Used for Average Layer Material calculations \n"
-                                      "when corresponding Simulation option set.";
+                                      "when corresponding ISimulation option set.";
 }
 
 const QString LayerItem::P_THICKNESS = QString::fromStdString("Thickness");

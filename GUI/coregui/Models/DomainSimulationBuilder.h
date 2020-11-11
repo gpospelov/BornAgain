@@ -17,7 +17,7 @@
 
 #include <memory>
 
-class Simulation;
+class ISimulation;
 class MultiLayerItem;
 class InstrumentItem;
 class SimulationOptionsItem;
@@ -29,7 +29,7 @@ namespace DomainSimulationBuilder
 
 //! Creates domain simulation from sample and instrument items.
 
-std::unique_ptr<Simulation> createSimulation(const MultiLayerItem* sampleItem,
+std::unique_ptr<ISimulation> createSimulation(const MultiLayerItem* sampleItem,
                                              const InstrumentItem* instrumentItem,
                                              const SimulationOptionsItem* optionsItem = nullptr);
 }; // namespace DomainSimulationBuilder

@@ -18,7 +18,7 @@
 #include "Device/Unit/IUnitConverter.h"
 
 class Instrument;
-class Simulation;
+class ISimulation;
 template <class T> class OutputData;
 
 //! Namespace enclosing a number of utilities/helpers for unit converters
@@ -34,7 +34,7 @@ std::unique_ptr<OutputData<double>> createOutputData(const IUnitConverter& conve
 //! returns either RectangularConverter or SphericalConverter.
 std::unique_ptr<IUnitConverter> createConverterForGISAS(const Instrument& instrument);
 
-std::unique_ptr<IUnitConverter> createConverter(const Simulation& simulation);
+std::unique_ptr<IUnitConverter> createConverter(const ISimulation& simulation);
 } // namespace UnitConverterUtils
 
 #endif // BORNAGAIN_CORE_SIMULATION_UNITCONVERTERUTILS_H

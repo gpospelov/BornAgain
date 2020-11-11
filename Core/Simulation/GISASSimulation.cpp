@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/GISASSimulation.cpp
-//! @brief     Implements class Simulation.
+//! @brief     Implements class ISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -47,7 +47,7 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
 {
     if (wavelength <= 0.0)
         throw Exceptions::ClassInitializationException(
-            "Simulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
+            "ISimulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
     instrument().setBeamParameters(wavelength, alpha_i, phi_i);
 }
 

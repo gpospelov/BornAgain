@@ -16,12 +16,12 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_MPISIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_MPISIMULATION_H
 
-class Simulation;
+class ISimulation;
 
 class MPISimulation
 {
 public:
-    void runSimulation(Simulation* simulation);
+    void runSimulation(ISimulation* simulation);
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_MPISIMULATION_H
